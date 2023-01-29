@@ -74,8 +74,8 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	public function test__construct_whenUnknownQuery_doesStoreParameters() {
 		$query = array('get' => 'q');
 		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertNull($user_query->getGetName());
-		$this->assertNull($user_query->getGetType());
+		$this->assertEmpty($user_query->getGetName());
+		$this->assertEmpty($user_query->getGetType());
 	}
 
 	public function test__construct_whenName_storesName() {
@@ -93,7 +93,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function test__construct_whenState_storesState() {
-		$state = 'some state';
+		$state = FreshRSS_Entry::STATE_ALL;
 		$query = array('state' => $state);
 		$user_query = new FreshRSS_UserQuery($query);
 		$this->assertEquals($state, $user_query->getState());
@@ -118,7 +118,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 			'name' => 'some name',
 			'order' => 'some order',
 			'search' => 'some search',
-			'state' => 'some state',
+			'state' => FreshRSS_Entry::STATE_ALL,
 			'url' => 'some url',
 		);
 		$user_query = new FreshRSS_UserQuery($query);
