@@ -1320,6 +1320,14 @@ a.website:hover .favicon {
 	padding: 0 3rem;
 }
 
+.content header {
+	padding-top: calc(2 * var(--frss-padding-top-bottom));
+}
+
+.content footer {
+	padding-bottom: calc(2 * var(--frss-padding-top-bottom));
+}
+
 .content.large {
 	max-width: 1100px;
 }

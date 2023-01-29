@@ -1302,19 +1302,30 @@ a.website:hover .favicon {
 .content {
 	min-height: 20rem;
 	margin: auto;
-	padding: 2rem 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
 }
 
 .content .text {
-	overflow: auto;
+	overflow-x: auto;
+}
+
+.content .text div {
+	overflow-x: auto;
 }
 
 .content header,
 .content .text,
 .content footer {
 	padding: 0 3rem;
+}
+
+.content header {
+	padding-top: calc(2 * var(--frss-padding-top-bottom));
+}
+
+.content footer {
+	padding-bottom: calc(2 * var(--frss-padding-top-bottom));
 }
 
 .content.large {
@@ -2104,7 +2115,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
-		margin-top: 0;
+		margin-top: 10px;
 	}
 
 	.configure .dropdown .dropdown-menu {
@@ -2198,7 +2209,7 @@ input:checked + .slide-container .properties {
 	.content header,
 	.content .text,
 	.content footer {
-		padding: 0 1rem;
+		padding: 1rem;
 	}
 
 	table {
