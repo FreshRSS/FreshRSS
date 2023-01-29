@@ -22,7 +22,15 @@ if (!function_exists('openlog')) {
 	}
 }
 if (!function_exists('syslog')) {
+	// @phpstan-ignore-next-line
+	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
+		define('STDERR', fopen('php://stderr', 'w'));
+	}
 	function syslog(int $priority, string $message): bool {
+		// @phpstan-ignore-next-line
+		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && STDERR) {
+			fwrite(STDERR, $message . "\n");
+		}
 		return false;
 	}
 }
