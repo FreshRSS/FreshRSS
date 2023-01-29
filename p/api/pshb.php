@@ -7,9 +7,13 @@ const MAX_PAYLOAD = 3145728;
 header('Content-Type: text/plain; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 
-$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, MAX_PAYLOAD);
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, MAX_PAYLOAD) ?: '';
 
 FreshRSS_Context::initSystem();
+if (FreshRSS_Context::$system_conf == null) {
+	header('HTTP/1.1 500 Internal Server Error');
+	die('Invalid system init!');
+}
 FreshRSS_Context::$system_conf->auth_type = 'none';	// avoid necessity to be logged in (not saved!)
 
 //Minz_Log::debug(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true), PSHB_LOG);
@@ -41,7 +45,7 @@ if ($hubFile === false) {
 	die('Feed info not found!');
 }
 $hubJson = json_decode($hubFile, true);
-if (!$hubJson || empty($hubJson['key']) || $hubJson['key'] !== $key) {
+if (!is_array($hubJson) || empty($hubJson['key']) || $hubJson['key'] !== $key) {
 	header('HTTP/1.1 500 Internal Server Error');
 	Minz_Log::error('Error: Invalid key cross-check!: ' . $key, PSHB_LOG);
 	die('Invalid key cross-check!');
@@ -120,15 +124,12 @@ foreach ($users as $userFilename) {
 
 	try {
 		FreshRSS_Context::initUser($username);
-		if (FreshRSS_Context::$user_conf != null) {
-			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
-			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
-		}
-
-		if (!FreshRSS_Context::$user_conf->enabled) {
+		if (FreshRSS_Context::$user_conf == null || !FreshRSS_Context::$user_conf->enabled) {
 			Minz_Log::warning('FreshRSS skip disabled user ' . $username);
 			continue;
 		}
+		Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+		Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
 
 		list($updated_feeds, $feed, $nb_new_articles) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
 		if ($updated_feeds > 0 || $feed != false) {
