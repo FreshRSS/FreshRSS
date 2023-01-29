@@ -1165,10 +1165,12 @@ SQL;
 		}
 	}
 
-	public function listByIds($ids, $order = 'DESC') {
+	/** @param array<string> $ids */
+	public function listByIds(array $ids, string $order = 'DESC') {
 		if (count($ids) < 1) {
-			yield false;
-		} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			return;
+		}
+		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
 			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
@@ -1195,15 +1197,16 @@ SQL;
 
 	/**
 	 * For API
+	 * @return array<string>
 	 */
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
-			$order = 'DESC', $limit = 1, $firstId = '', $filters = null) {
+			$order = 'DESC', $limit = 1, $firstId = '', $filters = null): array {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 
-		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: [];
 	}
 
 	public function listHashForFeedGuids($id_feed, $guids) {
