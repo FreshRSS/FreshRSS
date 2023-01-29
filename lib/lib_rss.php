@@ -16,6 +16,17 @@ if (!function_exists('str_starts_with')) {
 	}
 }
 
+if (!function_exists('openlog')) {
+	function openlog(string $prefix, int $flags, int $facility): bool {
+		return false;
+	}
+}
+if (!function_exists('syslog')) {
+	function syslog(int $priority, string $message): bool {
+		return false;
+	}
+}
+
 // @phpstan-ignore-next-line
 if (COPY_SYSLOG_TO_STDERR) {
 	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
