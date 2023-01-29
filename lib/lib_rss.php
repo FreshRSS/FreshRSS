@@ -29,7 +29,7 @@ if (!function_exists('syslog')) {
 	function syslog(int $priority, string $message): bool {
 		// @phpstan-ignore-next-line
 		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && STDERR) {
-			fwrite(STDERR, $message . "\n");
+			return fwrite(STDERR, $message . "\n") != false;
 		}
 		return false;
 	}
