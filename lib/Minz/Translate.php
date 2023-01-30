@@ -87,10 +87,10 @@ class Minz_Translate {
 	 * preferred languages then returns the default language
 	 * @param string|null $user the connected user language (nullable)
 	 * @param array<string> $preferred an array of the preferred languages
-	 * @param string $default the preferred language to use
+	 * @param string|null $default the preferred language to use
 	 * @return string containing the language to use
 	 */
-	public static function getLanguage($user, $preferred, $default) {
+	public static function getLanguage(?string $user, array $preferred, ?string $default): string {
 		if (null !== $user) {
 			return $user;
 		}
