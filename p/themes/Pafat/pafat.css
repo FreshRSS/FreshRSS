@@ -1093,21 +1093,6 @@ a.signin {
 		margin: 5px 0;
 	}
 
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
-	.nav_menu .search input {
-		max-width: 97%;
-		width: 90px;
-		line-height: 2;
-	}
-
-	.nav_menu .search input:focus {
-		width: 400px;
-	}
-
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		border-top: 1px solid var(--border-color-grey-dark);
 		border-left: 1px solid var(--border-color-grey-dark);

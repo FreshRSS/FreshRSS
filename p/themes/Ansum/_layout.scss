@@ -207,7 +207,7 @@ main.prompt {
 			}
 		}
 
-		.dropdown {
+		.dropdown:not(#dropdown-search-wrapper) {
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -215,6 +215,12 @@ main.prompt {
 				.icon {
 					display: none;
 				}
+			}
+		}
+
+		#dropdown-search-wrapper.dropdown {
+			a.dropdown-toggle {
+				border-left-width: 0;
 			}
 		}
 	}

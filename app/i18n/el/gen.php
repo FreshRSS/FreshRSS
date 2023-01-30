@@ -174,6 +174,7 @@ return array(
 		'queries' => 'User queries',	// TODO
 		'reading' => 'Reading',	// TODO
 		'search' => 'Search words or #tags',	// TODO
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Sharing',	// TODO
 		'shortcuts' => 'Shortcuts',	// TODO
 		'stats' => 'Statistics',	// TODO

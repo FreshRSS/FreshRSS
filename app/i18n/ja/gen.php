@@ -174,6 +174,7 @@ return array(
 		'queries' => 'ユーザークエリ',
 		'reading' => 'リーディング',
 		'search' => '単語で検索するかハッシュタグで検索する',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => '共有',
 		'shortcuts' => 'ショートカット',
 		'stats' => '統計',

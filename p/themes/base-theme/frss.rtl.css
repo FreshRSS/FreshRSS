@@ -115,6 +115,10 @@ h3 {
 	display: none;
 }
 
+.only-mobile {
+	display: none !important;
+}
+
 /*=== Paragraphs */
 p {
 	margin: 1rem 0 0.5rem;
@@ -443,7 +447,7 @@ td.numeric {
 	flex-shrink: 0;
 }
 
-.stick form {
+#nav_menu_read_all form {
 	display: inline-flex;
 }
 
@@ -1933,7 +1937,6 @@ input:checked + .slide-container .properties {
 }
 
 .nav-login,
-.nav_menu .search,
 .aside .toggle_aside,
 #slider .toggle_aside,
 .nav_menu .toggle_aside,
@@ -2008,6 +2011,10 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
+	.only-mobile {
+		display: unset !important;
+	}
+
 	.header > .item {
 		padding: 5px;
 	}
@@ -2076,6 +2083,23 @@ input:checked + .slide-container .properties {
 		margin: 2px 0;
 	}
 
+	.dropdown .dropdown-menu .item .stick .btn {
+		margin: 0;
+	}
+
+	.dropdown .dropdown-menu .item form {
+		display: block;
+		text-align: center;
+	}
+
+	.dropdown .dropdown-menu .item .stick.search {
+		width: calc(100% - 20px);
+	}
+
+	.dropdown .dropdown-menu .item .stick.search input {
+		width: 95%;
+	}
+
 	.dropdown .dropdown-menu .item button.as-link,
 	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
 		width: 100%;
@@ -2138,7 +2162,6 @@ input:checked + .slide-container .properties {
 	}
 
 	.nav_menu .toggle_aside,
-	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
 	}
