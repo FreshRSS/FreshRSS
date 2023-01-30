@@ -16,11 +16,27 @@ if (!function_exists('str_starts_with')) {
 	}
 }
 
-// @phpstan-ignore-next-line
-if (COPY_SYSLOG_TO_STDERR) {
-	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
-} else {
-	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
+if (!function_exists('syslog')) {
+	// @phpstan-ignore-next-line
+	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
+		define('STDERR', fopen('php://stderr', 'w'));
+	}
+	function syslog(int $priority, string $message): bool {
+		// @phpstan-ignore-next-line
+		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && STDERR) {
+			return fwrite(STDERR, $message . "\n") != false;
+		}
+		return false;
+	}
+}
+
+if (function_exists('openlog')) {
+	// @phpstan-ignore-next-line
+	if (COPY_SYSLOG_TO_STDERR) {
+		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
+	} else {
+		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
+	}
 }
 
 /**
