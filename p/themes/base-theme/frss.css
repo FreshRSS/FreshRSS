@@ -1212,8 +1212,12 @@ a.website:hover .favicon {
 
 .flux .item.thumbnail {
 	line-height: 0;
-	padding: 0.75rem;
+	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
 	height: 80px;
+}
+
+.flux .item.thumbnail .item-element{
+	padding: 0;
 }
 
 .flux .item.thumbnail.small {
