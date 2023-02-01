@@ -1,46 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_fever_Util {
-	const FEVER_PATH = DATA_PATH . '/fever';
+	private const FEVER_PATH = DATA_PATH . '/fever';
 
 	/**
 	 * Make sure the fever path exists and is writable.
 	 *
-	 * @return boolean true if the path is writable, else false.
+	 * @return bool true if the path is writable, else false.
 	 */
-	public static function checkFeverPath() {
+	public static function checkFeverPath(): bool {
 		if (!file_exists(self::FEVER_PATH)) {
 			@mkdir(self::FEVER_PATH, 0770, true);
 		}
 
-		$ok = touch(self::FEVER_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
-		if (!$ok) {
+		$isOk = touch(self::FEVER_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+		if (false === $isOk) {
 			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
 		}
-		return $ok;
+		return $isOk;
 	}
 
 	/**
 	 * Return the corresponding path for a fever key.
-	 *
-	 * @param string $feverKey
-	 * @return string
 	 */
-	public static function getKeyPath($feverKey) {
+	public static function getKeyPath(string $feverKey): string {
 		$salt = sha1(FreshRSS_Context::$system_conf->salt);
 		return self::FEVER_PATH . '/.key-' . $salt . '-' . $feverKey . '.txt';
 	}
 
 	/**
 	 * Update the fever key of a user.
-	 *
-	 * @param string $username
-	 * @param string $passwordPlain
 	 * @return string|false the Fever key, or false if the update failed
 	 */
-	public static function updateKey($username, $passwordPlain) {
-		$ok = self::checkFeverPath();
-		if (!$ok) {
+	public static function updateKey(string $username, string $passwordPlain) {
+		if (self::checkFeverPath() === false) {
 			return false;
 		}
 
@@ -48,22 +43,20 @@ class FreshRSS_fever_Util {
 
 		$feverKey = strtolower(md5("{$username}:{$passwordPlain}"));
 		$feverKeyPath = self::getKeyPath($feverKey);
-		$res = file_put_contents($feverKeyPath, $username);
-		if ($res !== false) {
+		$result = file_put_contents($feverKeyPath, $username);
+		if (is_int($result) === true) {
 			return $feverKey;
-		} else {
-			Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
-			return false;
 		}
+		Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
+		return false;
 	}
 
 	/**
 	 * Delete the Fever key of a user.
 	 *
-	 * @param string $username
-	 * @return boolean true if the deletion succeeded, else false.
+	 * @return bool true if the deletion succeeded, else false.
 	 */
-	public static function deleteKey($username) {
+	public static function deleteKey(string $username) {
 		$userConfig = get_user_configuration($username);
 		if ($userConfig === null) {
 			return false;
