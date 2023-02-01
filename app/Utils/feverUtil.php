@@ -14,7 +14,7 @@ class FreshRSS_fever_Util {
 		}
 
 		$ok = touch(self::FEVER_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
-		if ($ok) {
+		if (!$ok) {
 			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
 		}
 		return $ok;
