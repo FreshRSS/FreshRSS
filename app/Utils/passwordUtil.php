@@ -10,7 +10,7 @@ class FreshRSS_password_Util {
 	/**
 	 * Return a hash of a plain password, using BCRYPT
 	 */
-	public static function hash(string $passwordPlain): string  {
+	public static function hash(string $passwordPlain): string {
 		$passwordHash = password_hash(
 			$passwordPlain,
 			PASSWORD_BCRYPT,
