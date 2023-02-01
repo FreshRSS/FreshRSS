@@ -6,7 +6,7 @@ class FreshRSS_fever_Util {
 	/**
 	 * Make sure the fever path exists and is writable.
 	 *
-	 * @return bool true if the path is writable, else false.
+	 * @return bool true if the path is writable, false otherwise.
 	 */
 	public static function checkFeverPath(): bool {
 		if (!file_exists(self::FEVER_PATH)) {
