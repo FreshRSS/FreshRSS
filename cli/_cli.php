@@ -44,7 +44,7 @@ function cliInitUser($username) {
 
 function accessRights() {
 	echo 'ℹ️ Remember to re-apply the appropriate access rights, such as:',
-		"\t", 'sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/', "\n";
+		"\t", 'sudo ./cli/access-permissions.sh', "\n";
 }
 
 function done($ok = true) {
