@@ -35,7 +35,9 @@
         "ext-xmlreader": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "ext-pdo": "*",
+        "ext-libxml": "*"
     },
     "suggest": {
         "ext-iconv": "*",

@@ -9,12 +9,12 @@ class FreshRSS_Context {
 	/**
 	 * @var FreshRSS_UserConfiguration|null
 	 */
-	public static $user_conf = null;
+	public static $user_conf;
 
 	/**
 	 * @var FreshRSS_SystemConfiguration|null
 	 */
-	public static $system_conf = null;
+	public static $system_conf;
 
 	public static $categories = array();
 	public static $tags = array();
@@ -55,22 +55,23 @@ class FreshRSS_Context {
 	/**
 	 * Initialize the context for the global system.
 	 */
-	public static function initSystem($reload = false) {
-		if ($reload || FreshRSS_Context::$system_conf == null) {
+	public static function initSystem($reload = false): ?\FreshRSS_SystemConfiguration {
+		if ($reload || self::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
-			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+			self::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 			// Register the configuration setter for the system configuration
 			$configurationSetter = new FreshRSS_ConfigurationSetter();
-			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
+			self::$system_conf->_configurationSetter($configurationSetter);
 		}
-		return FreshRSS_Context::$system_conf;
+		return self::$system_conf;
 	}
 
 	/**
 	 * Initialize the context for the current user.
+	 * @throws Minz_ConfigurationParamException
 	 */
 	public static function initUser($username = '', $userMustExist = true) {
-		FreshRSS_Context::$user_conf = null;
+		self::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
@@ -83,17 +84,17 @@ class FreshRSS_Context {
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
-				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
+				self::$user_conf = FreshRSS_UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
 					FRESHRSS_PATH . '/config-user.default.php',
-					FreshRSS_Context::$system_conf->configurationSetter());
+					self::$system_conf->configurationSetter());
 
 				Minz_Session::_param('currentUser', $username);
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
 		}
-		if (FreshRSS_Context::$user_conf == null) {
+		if (self::$user_conf == null) {
 			Minz_Session::_params([
 				'loginOk' => false,
 				'currentUser' => false,
@@ -101,17 +102,17 @@ class FreshRSS_Context {
 		}
 		Minz_Session::unlock();
 
-		if (FreshRSS_Context::$user_conf == null) {
+		if (self::$user_conf == null) {
 			return false;
 		}
 
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
+		self::$search = new FreshRSS_BooleanSearch('');
 
 		//Legacy
-		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
-		$keepMin = (int)FreshRSS_Context::$user_conf->param('keep_history_default', -5);
+		$oldEntries = (int)self::$user_conf->param('old_entries', 0);
+		$keepMin = (int)self::$user_conf->param('keep_history_default', -5);
 		if ($oldEntries > 0 || $keepMin > -5) {	//Freshrss < 1.15
-			$archiving = FreshRSS_Context::$user_conf->archiving;
+			$archiving = self::$user_conf->archiving;
 			$archiving['keep_max'] = false;
 			if ($oldEntries > 0) {
 				$archiving['keep_period'] = 'P' . $oldEntries . 'M';
@@ -122,15 +123,15 @@ class FreshRSS_Context {
 				$archiving['keep_period'] = false;
 				$archiving['keep_min'] = false;
 			}
-			FreshRSS_Context::$user_conf->archiving = $archiving;
+			self::$user_conf->archiving = $archiving;
 		}
 
 		//Legacy < 1.16.1
-		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
-			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
+		if (!in_array(self::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
+			self::$user_conf->display_categories = self::$user_conf->display_categories === true ? 'all' : 'active';
 		}
 
-		return FreshRSS_Context::$user_conf;
+		return self::$user_conf;
 	}
 
 	/**
@@ -143,8 +144,9 @@ class FreshRSS_Context {
 	 *   - nb (default: conf->posts_per_page)
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
+	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function updateUsingRequest() {
+	public static function updateUsingRequest(): void {
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			self::$categories = $catDAO->listSortedCategories();
@@ -162,7 +164,7 @@ class FreshRSS_Context {
 		self::$state = Minz_Request::param(
 			'state', self::$user_conf->default_state
 		);
-		$state_forced_by_user = Minz_Request::param('state', false) !== false;
+		$state_forced_by_user = Minz_Request::param('state') !== false;
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
@@ -177,14 +179,14 @@ class FreshRSS_Context {
 		self::$order = Minz_Request::param(
 			'order', self::$user_conf->sort_order
 		);
-		self::$number = intval(Minz_Request::param('nb', self::$user_conf->posts_per_page));
+		self::$number = (int)Minz_Request::param('nb', self::$user_conf->posts_per_page);
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
 				self::$user_conf->max_posts_per_rss,
 				self::$user_conf->posts_per_page);
 		}
 		self::$first_id = Minz_Request::param('next', '');
-		self::$sinceHours = intval(Minz_Request::param('hours', 0));
+		self::$sinceHours = (int)Minz_Request::param('hours', 0);
 	}
 
 	/**
@@ -202,9 +204,8 @@ class FreshRSS_Context {
 	public static function getRevertState($state) {
 		if (self::$state & $state) {
 			return self::$state & ~$state;
-		} else {
-			return self::$state | $state;
 		}
+		return self::$state | $state;
 	}
 
 	/**
@@ -216,27 +217,29 @@ class FreshRSS_Context {
 	public static function currentGet($array = false) {
 		if (self::$current_get['all']) {
 			return 'a';
-		} elseif (self::$current_get['starred']) {
+		}
+		if (self::$current_get['starred']) {
 			return 's';
-		} elseif (self::$current_get['feed']) {
+		}
+		if (self::$current_get['feed']) {
 			if ($array) {
 				return array('f', self::$current_get['feed']);
-			} else {
-				return 'f_' . self::$current_get['feed'];
 			}
-		} elseif (self::$current_get['category']) {
+			return 'f_' . self::$current_get['feed'];
+		}
+		if (self::$current_get['category']) {
 			if ($array) {
 				return array('c', self::$current_get['category']);
-			} else {
-				return 'c_' . self::$current_get['category'];
 			}
-		} elseif (self::$current_get['tag']) {
+			return 'c_' . self::$current_get['category'];
+		}
+		if (self::$current_get['tag']) {
 			if ($array) {
 				return array('t', self::$current_get['tag']);
-			} else {
-				return 't_' . self::$current_get['tag'];
 			}
-		} elseif (self::$current_get['tags']) {
+			return 't_' . self::$current_get['tag'];
+		}
+		if (self::$current_get['tags']) {
 			return 'T';
 		}
 	}
@@ -306,10 +309,14 @@ class FreshRSS_Context {
 	 *
 	 * $name and $get_unread attributes are also updated as $next_get
 	 * Raise an exception if id or $get is invalid.
+	 * @throws FreshRSS_Context_Exception
+	 * @throws FreshRSS_Context_Exception
+	 * @throws FreshRSS_Context_Exception
+	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function _get($get) {
+	public static function _get($get): void {
 		$type = $get[0];
-		$id = intval(substr($get, 2));
+		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -334,7 +341,7 @@ class FreshRSS_Context {
 			break;
 		case 'f':
 			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
-			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			$feed = self::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
@@ -394,7 +401,7 @@ class FreshRSS_Context {
 	/**
 	 * Set the value of $next_get attribute.
 	 */
-	private static function _nextGet() {
+	private static function _nextGet(): void {
 		$get = self::currentGet();
 		// By default, $next_get == $get
 		self::$next_get = $get;
@@ -466,10 +473,8 @@ class FreshRSS_Context {
 	 *   - it is activated in the configuration
 	 *   - the "read" state is not enable
 	 *   - the "unread" state is enable
-	 *
-	 * @return boolean
 	 */
-	public static function isAutoRemoveAvailable() {
+	public static function isAutoRemoveAvailable(): bool {
 		if (!self::$user_conf->auto_remove_article) {
 			return false;
 		}
@@ -487,10 +492,8 @@ class FreshRSS_Context {
 	 * by the user when it is selected in the configuration page or by the
 	 * application when the context allows to auto-remove articles when they
 	 * are read.
-	 *
-	 * @return boolean
 	 */
-	public static function isStickyPostEnabled() {
+	public static function isStickyPostEnabled(): bool {
 		if (self::$user_conf->sticky_post) {
 			return true;
 		}
