@@ -310,9 +310,6 @@ class FreshRSS_Context {
 	 * $name and $get_unread attributes are also updated as $next_get
 	 * Raise an exception if id or $get is invalid.
 	 * @throws FreshRSS_Context_Exception
-	 * @throws FreshRSS_Context_Exception
-	 * @throws FreshRSS_Context_Exception
-	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function _get($get): void {
 		$type = $get[0];
