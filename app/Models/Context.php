@@ -56,14 +56,14 @@ class FreshRSS_Context {
 	 * Initialize the context for the global system.
 	 */
 	public static function initSystem($reload = false): ?\FreshRSS_SystemConfiguration {
-		if ($reload || self::$system_conf == null) {
+		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
-			self::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 			// Register the configuration setter for the system configuration
 			$configurationSetter = new FreshRSS_ConfigurationSetter();
-			self::$system_conf->_configurationSetter($configurationSetter);
+			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
 		}
-		return self::$system_conf;
+		return FreshRSS_Context::$system_conf;
 	}
 
 	/**
@@ -71,7 +71,7 @@ class FreshRSS_Context {
 	 * @throws Minz_ConfigurationParamException
 	 */
 	public static function initUser($username = '', $userMustExist = true) {
-		self::$user_conf = null;
+		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
@@ -84,17 +84,17 @@ class FreshRSS_Context {
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
-				self::$user_conf = FreshRSS_UserConfiguration::init(
+				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
 					FRESHRSS_PATH . '/config-user.default.php',
-					self::$system_conf->configurationSetter());
+					FreshRSS_Context::$system_conf->configurationSetter());
 
 				Minz_Session::_param('currentUser', $username);
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
 		}
-		if (self::$user_conf == null) {
+		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Session::_params([
 				'loginOk' => false,
 				'currentUser' => false,
@@ -102,17 +102,17 @@ class FreshRSS_Context {
 		}
 		Minz_Session::unlock();
 
-		if (self::$user_conf == null) {
+		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
 
-		self::$search = new FreshRSS_BooleanSearch('');
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
 
 		//Legacy
-		$oldEntries = (int)self::$user_conf->param('old_entries', 0);
-		$keepMin = (int)self::$user_conf->param('keep_history_default', -5);
+		$oldEntries = (int)FreshRSS_Context::$user_conf->param('old_entries', 0);
+		$keepMin = (int)FreshRSS_Context::$user_conf->param('keep_history_default', -5);
 		if ($oldEntries > 0 || $keepMin > -5) {	//Freshrss < 1.15
-			$archiving = self::$user_conf->archiving;
+			$archiving = FreshRSS_Context::$user_conf->archiving;
 			$archiving['keep_max'] = false;
 			if ($oldEntries > 0) {
 				$archiving['keep_period'] = 'P' . $oldEntries . 'M';
@@ -123,15 +123,15 @@ class FreshRSS_Context {
 				$archiving['keep_period'] = false;
 				$archiving['keep_min'] = false;
 			}
-			self::$user_conf->archiving = $archiving;
+			FreshRSS_Context::$user_conf->archiving = $archiving;
 		}
 
 		//Legacy < 1.16.1
-		if (!in_array(self::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
-			self::$user_conf->display_categories = self::$user_conf->display_categories === true ? 'all' : 'active';
+		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
+			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
 
-		return self::$user_conf;
+		return FreshRSS_Context::$user_conf;
 	}
 
 	/**
@@ -338,7 +338,7 @@ class FreshRSS_Context {
 			break;
 		case 'f':
 			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
-			$feed = self::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
