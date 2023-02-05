@@ -1,54 +1,53 @@
 <?php
-	/** @var FreshRSS_View $this */
-	$enclosures = $this->entry->content_enclosures();
+/** @var FreshRSS_View $this */
+$enclosures = $this->entry->content_enclosures();
 
-	$i = 0;
+$i = 0;
 
-	if (isset($enclosures[0]['main-thumbnail']['src'])) { ?>
-		<figure class="enclosure">
-			<p class="enclosure-content">
-				<img class="enclosure-thumbnail" src="<?= $enclosures[0]['main-thumbnail']['src'] ?>" alt="" />
-			</p>
-		</figure>
-		<?php
-		$i++;
-	}
-	for ($i; $i < count($enclosures); $i++) {
-		echo '<figure class="enclosure">';
+if (isset($enclosures[0]['main-thumbnail']['src'])) { ?>
+	<figure class="enclosure">
+		<p class="enclosure-content">
+			<img class="enclosure-thumbnail" src="<?= $enclosures[0]['main-thumbnail']['src'] ?>" alt="" />
+		</p>
+	</figure>
+	<?php
+	$i++;
+}
+for ($i; $i < count($enclosures); $i++) {
+	echo '<figure class="enclosure">';
 
-		if ($enclosures[$i]) {
-			foreach ($enclosures[$i]['thumbnails'] as $thumbnail) {
-				echo '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $enclosures[$i]['title'] . '" /></p>';
-			}
+	if ($enclosures[$i]) {
+		foreach ($enclosures[$i]['thumbnails'] as $thumbnail) {
+			echo '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $enclosures[$i]['title'] . '" /></p>';
 		}
-
-		switch ($enclosures[$i]['type']) {
-			case 'image':
-				echo '<p class="enclosure-content"><img src="' . $enclosures[$i]['link'] . '" alt="" title="' . $enclosures[$i]['title'] . '" /></p>';
-				break;
-			case 'audio':
-				echo '<p class="enclosure-content"><audio preload="none" src="' . $enclosures[$i]['link']
-				. ($enclosures[$i]['data-length'] != '' ? '" data-length="' . $enclosures[$i]['data-length'] . '"' : '')
-				. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
-				. '" controls="controls" title="' . $enclosures[$i]['title'] . '"></audio> <a download="" href="' . $enclosures[$i]['link'] . '">💾</a></p>';
-				break;
-			case 'video':
-				echo '<p class="enclosure-content"><video preload="none" src="' . $enclosures[$i]['link']
-				. ($enclosures[$i]['data-length'] != '' ? '" data-length="' . $enclosures[$i]['data-length'] . '"' : '')
-				. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
-				. '" controls="controls" title="' . $enclosures[$i]['title'] . '"></video> <a download="" href="' . $enclosures[$i]['link'] . '">💾</a></p>';
-				break;
-			case 'unknown':
-			default:
-				echo '<p class="enclosure-content"><a download="" href="' . $enclosures[$i]['link']
-				. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
-				. ($enclosures[$i]['data-medium'] != '' ? '" data-medium="' . $enclosures[$i]['data-medium'] . '"' : '')
-				. '" title="' . $enclosures[$i]['title'] . '">💾</a></p>';
-		}
-
-		echo $enclosures[$i]['credit'] != '' ? '<p class="enclosure-credits">© ' . $enclosures[$i]['credit'] . '</p>' : '';
-		echo $enclosures[$i]['description'] != '' ? '<figcaption class="enclosure-description">' . $enclosures[$i]['description'] . '</figcaption>' : '';
-
-		echo '</figure>';
 	}
 
+	switch ($enclosures[$i]['type']) {
+		case 'image':
+			echo '<p class="enclosure-content"><img src="' . $enclosures[$i]['link'] . '" alt="" title="' . $enclosures[$i]['title'] . '" /></p>';
+			break;
+		case 'audio':
+			echo '<p class="enclosure-content"><audio preload="none" src="' . $enclosures[$i]['link']
+			. ($enclosures[$i]['data-length'] != '' ? '" data-length="' . $enclosures[$i]['data-length'] . '"' : '')
+			. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
+			. '" controls="controls" title="' . $enclosures[$i]['title'] . '"></audio> <a download="" href="' . $enclosures[$i]['link'] . '">💾</a></p>';
+			break;
+		case 'video':
+			echo '<p class="enclosure-content"><video preload="none" src="' . $enclosures[$i]['link']
+			. ($enclosures[$i]['data-length'] != '' ? '" data-length="' . $enclosures[$i]['data-length'] . '"' : '')
+			. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
+			. '" controls="controls" title="' . $enclosures[$i]['title'] . '"></video> <a download="" href="' . $enclosures[$i]['link'] . '">💾</a></p>';
+			break;
+		case 'unknown':
+		default:
+			echo '<p class="enclosure-content"><a download="" href="' . $enclosures[$i]['link']
+			. ($enclosures[$i]['data-type'] != '' ? '" data-type="' . $enclosures[$i]['data-type'] . '"' : '')
+			. ($enclosures[$i]['data-medium'] != '' ? '" data-medium="' . $enclosures[$i]['data-medium'] . '"' : '')
+			. '" title="' . $enclosures[$i]['title'] . '">💾</a></p>';
+	}
+
+	echo $enclosures[$i]['credit'] != '' ? '<p class="enclosure-credits">© ' . $enclosures[$i]['credit'] . '</p>' : '';
+	echo $enclosures[$i]['description'] != '' ? '<figcaption class="enclosure-description">' . $enclosures[$i]['description'] . '</figcaption>' : '';
+
+	echo '</figure>';
+}
