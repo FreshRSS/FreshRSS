@@ -410,7 +410,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 }
 
 /**
- * @param string $type {html,opml}
+ * @param string $type {html,json,opml,xml}
  * @param array<string,mixed> $attributes
  */
 function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
@@ -439,8 +439,14 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	$accept = '*/*;q=0.8';
 	switch ($type) {
+		case 'json':
+			$accept = 'application/json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
+			break;
 		case 'opml':
 			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
+			break;
+		case 'xml':
+			$accept = 'application/xml,application/xhtml+xml,text/xml;q=0.9,*/*;q=0.8';
 			break;
 		case 'html':
 		default:

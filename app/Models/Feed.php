@@ -620,7 +620,8 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
-		$html = httpGet($feedSourceUrl, $cachePath, 'html', $this->attributes());
+		$html = httpGet($feedSourceUrl, $cachePath,
+			$this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html', $this->attributes());
 		if (strlen($html) <= 0) {
 			return null;
 		}
