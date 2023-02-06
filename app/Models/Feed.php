@@ -997,14 +997,14 @@ class FreshRSS_Feed extends Minz_Model {
 					$key = $hubJson['key'];	//To renew our lease
 				}
 			} else {
-				@mkdir($path, 0777, true);
+				@mkdir($path, 0770, true);
 				$key = sha1($path . FreshRSS_Context::$system_conf->salt);
 				$hubJson = array(
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				);
 				file_put_contents($hubFilename, json_encode($hubJson));
-				@mkdir(PSHB_PATH . '/keys/');
+				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
 				$text = 'WebSub prepared for ' . $this->url;
 				Minz_Log::debug($text);
