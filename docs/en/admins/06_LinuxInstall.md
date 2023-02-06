@@ -81,14 +81,7 @@ Change to the new FreshRSS directory, and set the permissions so that your Web s
 
 ```sh
 cd FreshRSS
-chown -R :www-data .
-sudo chmod -R g+r .
-```
-
-We’ll also need to allow the data folder to be written to, like so:
-
-```sh
-chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 ```
 
 Optional: If you would like to allow updates from the Web interface, set write permissions
