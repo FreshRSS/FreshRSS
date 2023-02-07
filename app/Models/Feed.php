@@ -660,7 +660,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$doc->loadXML($text, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 					break;
 				case FreshRSS_Feed::KIND_JSON_XPATH:
-					$xml = FreshRSS_Json_Service::json_to_xml($text) ?: '';
+					$xml = FreshRSS_Json_Service::json_to_xml($text);
 					if ($xml == '') {
 						return null;
 					}

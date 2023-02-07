@@ -398,7 +398,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_XPATH) {
 					$simplePie = $feed->loadHtmlXpath();
-					if ($simplePie == null) {
+					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('JSON+XPath parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
