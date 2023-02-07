@@ -17,13 +17,16 @@ FreshRSS uses the XML namespace <https://freshrss.org/opml> to export/import ext
 
 The list of the custom FreshRSS attributes can be seen in [the source code](https://github.com/FreshRSS/FreshRSS/blob/edge/app/views/helpers/export/opml.phtml), and here is an overview:
 
-### HTML+XPath or XML+XPath
+### HTML+XPath
 
 * `<outline type="HTML+XPath" ...`: Additional type of source, which is not RSS/Atom, but HTML Web Scraping using [XPath](https://www.w3.org/TR/xpath-10/) 1.0.
 
 > ℹ️ [XPath 1.0](https://en.wikipedia.org/wiki/XPath) is a standard query language, which FreshRSS supports to enable [Web scraping](https://en.wikipedia.org/wiki/Web_scraping).
 
 * `<outline type="XML+XPath" ...`: Same than `HTML+XPath` but using an XML parser.
+
+* `<outline type="XML+XPath" ...`: Same than `XML+XPath` but using a JSON to XML conversion first.
+	* See [examples of JSON to XML conversions](https://github.com/FreshRSS/FreshRSS/tree/edge/tests/app/Services/JsonServiceTest.php).
 
 The following attributes are using similar naming conventions than [RSS-Bridge](https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html).
 
