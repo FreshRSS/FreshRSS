@@ -50,7 +50,7 @@ JSON;
     <true/>
   </value>
   <value key="d">
-    <string>test</string>
+    <string><![CDATA[test]]></string>
   </value>
   <value key="e">
     <object>
@@ -72,7 +72,7 @@ XML;
 [
 	{
 		"title": "Item1",
-		"body": "Hello"
+		"body": "<b>Hello</b>"
 	},
 	{
 		"title": "Item2",
@@ -86,18 +86,18 @@ JSON;
 <array>
   <object>
     <value key="title">
-      <string>Item1</string>
+      <string><![CDATA[Item1]]></string>
     </value>
     <value key="body">
-      <string>Hello</string>
+      <string><![CDATA[<b>Hello</b>]]></string>
     </value>
   </object>
   <object>
     <value key="title">
-      <string>Item2</string>
+      <string><![CDATA[Item2]]></string>
     </value>
     <value key="body">
-      <string>World</string>
+      <string><![CDATA[World]]></string>
     </value>
   </object>
 </array>

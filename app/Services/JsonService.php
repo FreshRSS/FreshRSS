@@ -13,7 +13,8 @@ if (!function_exists('array_is_list')) {
 
 final class FreshRSS_Json_Service {
 
-	private static function element_to_xml(DOMNode $parent, mixed $element): bool {
+	/** @param array|mixed $element */
+	private static function element_to_xml(DOMNode $parent, $element): bool {
 		$ownerDocument = $parent instanceof DOMDocument ? $parent : $parent->ownerDocument;
 		if ($ownerDocument === null) {
 			return false;
@@ -26,7 +27,10 @@ final class FreshRSS_Json_Service {
 		} elseif ($element === null) {
 			$parent->appendChild($ownerDocument->createElement('null'));
 		} elseif (is_string($element)) {
-			$parent->appendChild($ownerDocument->createElement('string', $element));
+			$child = $ownerDocument->createElement('string');
+			$cdata = $ownerDocument->createCDATASection($element);
+			$child->appendChild($cdata);
+			$parent->appendChild($child);
 		} elseif (is_int($element) || is_float($element)) {
 			$parent->appendChild($ownerDocument->createElement('number', json_encode($element) ?: ''));
 		} elseif (is_array($element)) {
