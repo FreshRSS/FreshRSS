@@ -206,7 +206,10 @@ class FreshRSS_Entry extends Minz_Model {
 		return $content;
 	}
 
-	public function content_enclosures() {
+	/**
+	 * @return array<string,string>|null
+	 */
+	public function content_enclosures(): array {
 		return $this->content_enclosures;
 	}
 
