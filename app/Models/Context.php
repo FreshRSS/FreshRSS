@@ -55,7 +55,7 @@ class FreshRSS_Context {
 	/**
 	 * Initialize the context for the global system.
 	 */
-	public static function initSystem($reload = false): ?\FreshRSS_SystemConfiguration {
+	public static function initSystem($reload = false): ?FreshRSS_SystemConfiguration {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
