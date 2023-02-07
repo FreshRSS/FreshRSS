@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath (относительно элемента) для:',
 				'xpath' => 'XPath для:',
 			),
-			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
+			'json_xpath' => 'JSON + XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (по умолчанию)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

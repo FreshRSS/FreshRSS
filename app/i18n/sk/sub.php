@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath (relatívne k položke) pre:',
 				'xpath' => 'XPath pre:',
 			),
-			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
+			'json_xpath' => 'JSON + XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (prednastavené)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

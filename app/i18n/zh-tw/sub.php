@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath（文章）：',
 				'xpath' => 'XPath 定位：',
 			),
-			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
+			'json_xpath' => 'JSON + XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (默認)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

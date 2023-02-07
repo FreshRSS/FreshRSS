@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath (nesneye ait):',
 				'xpath' => 'XPath:',
 			),
-			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
+			'json_xpath' => 'JSON + XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (varsayılan)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

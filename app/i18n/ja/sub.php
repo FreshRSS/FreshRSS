@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath (関連する項目):',
 				'xpath' => 'XPathは:',
 			),
-			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
+			'json_xpath' => 'JSON + XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (標準)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
