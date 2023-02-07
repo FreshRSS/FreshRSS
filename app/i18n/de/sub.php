@@ -121,6 +121,7 @@ return array(
 				'relative' => 'XPath (relativ zum Artikel) für:',
 				'xpath' => 'XPath für:',
 			),
+			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

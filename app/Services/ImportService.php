@@ -164,6 +164,9 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
 					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_JSON_XPATH):
+					$feed->_kind(FreshRSS_Feed::KIND_JSON_XPATH);
+					break;
 				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;

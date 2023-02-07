@@ -394,6 +394,7 @@
 					<option value="<?= FreshRSS_Feed::KIND_RSS ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
 					<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
 					<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
+					<option value="<?= FreshRSS_Feed::KIND_JSON_XPATH ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_JSON_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.json_xpath') ?></option>
 				</select>
 			</div>
 		</div>

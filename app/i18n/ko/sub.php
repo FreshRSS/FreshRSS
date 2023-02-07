@@ -121,6 +121,7 @@ return array(
 				'relative' => '다음의 (기사와 관련된) XPath:',
 				'xpath' => '다음의 XPath:',
 			),
+			'json_xpath' => 'JSON+XPath (experimental)',	// TODO
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

@@ -620,9 +620,24 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
-		$html = httpGet($feedSourceUrl, $cachePath,
-			$this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html', $this->attributes());
-		if (strlen($html) <= 0) {
+
+		switch ($this->kind()) {
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				$type = 'html';
+				break;
+			case FreshRSS_Feed::KIND_JSON_XPATH:
+				$type = 'json';
+				break;
+			case FreshRSS_Feed::KIND_XML_XPATH:
+				$type = 'xml';
+				break;
+			default:
+				$type = 'html';
+				break;
+		}
+
+		$text = httpGet($feedSourceUrl, $cachePath, $type, $this->attributes());
+		if (strlen($text) <= 0) {
 			return null;
 		}
 
@@ -639,10 +654,17 @@ class FreshRSS_Feed extends Minz_Model {
 
 			switch ($this->kind()) {
 				case FreshRSS_Feed::KIND_HTML_XPATH:
-					$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					$doc->loadHTML($text, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 					break;
 				case FreshRSS_Feed::KIND_XML_XPATH:
-					$doc->loadXML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					$doc->loadXML($text, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					break;
+				case FreshRSS_Feed::KIND_JSON_XPATH:
+					$xml = FreshRSS_Json_Service::json_to_xml($text) ?: '';
+					if ($xml == '') {
+						return null;
+					}
+					$doc->loadXML($xml, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 					break;
 				default:
 					return null;
@@ -795,6 +817,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$filename = $simplePie->get_cache_filename($url);
 		if ($kind === FreshRSS_Feed::KIND_HTML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.html';
+		} elseif ($kind === FreshRSS_Feed::KIND_JSON_XPATH) {
+			return CACHE_PATH . '/' . $filename . '.json';
 		} elseif ($kind === FreshRSS_Feed::KIND_XML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.xml';
 		} else {

@@ -21,6 +21,7 @@ class FreshRSS_Export_Service {
 
 	const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	const TYPE_HTML_XPATH = 'HTML+XPath';
+	const TYPE_JSON_XPATH = 'JSON+XPath';
 	const TYPE_XML_XPATH = 'XML+XPath';
 	const TYPE_RSS_ATOM = 'rss';
 
