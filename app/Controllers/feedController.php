@@ -387,12 +387,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$simplePie = $simplePiePush;	//Used by WebSub
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
 					$simplePie = $feed->loadHtmlXpath();
-					if ($simplePie == null) {
+					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('HTML+XPath Web scraping failed for [' . $feed->url(false) . ']');
 					}
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 					$simplePie = $feed->loadHtmlXpath();
-					if ($simplePie == null) {
+					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
