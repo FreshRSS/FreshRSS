@@ -365,7 +365,10 @@ function sanitizeHTML($data, string $base = '', ?int $maxLength = null): string 
 
 function cleanCache(int $hours = 720): void {
 	// N.B.: GLOB_BRACE is not available on all platforms
-	$files = array_merge(glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [], glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: []);
+	$files = array_merge(
+		glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [],
+		glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: [],
+		glob(CACHE_PATH . '/*.xml', GLOB_NOSORT) ?: []);
 	foreach ($files as $file) {
 		if (substr($file, -10) === 'index.html') {
 			continue;
