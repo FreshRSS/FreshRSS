@@ -5,9 +5,21 @@ class FreshRSS_Tag extends Minz_Model {
 	 * @var int
 	 */
 	private $id = 0;
+	/**
+	 * @var string
+	 */
 	private $name;
+	/**
+	 * @var array<int, string>
+	 */
 	private $attributes = [];
+	/**
+	 * @var int
+	 */
 	private $nbEntries = -1;
+	/**
+	 * @var int
+	 */
 	private $nbUnread = -1;
 
 	public function __construct(string $name = '') {
@@ -18,6 +30,9 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->id;
 	}
 
+	/**
+	 * @param int|string $value
+	 */
 	public function _id($value): void {
 		$this->id = (int)$value;
 	}
@@ -31,9 +46,9 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @return array|mixed|null
+	 * @return string|string[]|null
 	 */
-	public function attributes($key = '') {
+	public function attributes(?string $key = '') {
 		if ($key == '') {
 			return $this->attributes;
 		} else {
@@ -41,7 +56,10 @@ class FreshRSS_Tag extends Minz_Model {
 		}
 	}
 
-	public function _attributes($key, $value): void {
+	/**
+	 * @param string|array|null $value
+	 */
+	public function _attributes(?string $key, $value): void {
 		if ($key == '') {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
@@ -56,7 +74,7 @@ class FreshRSS_Tag extends Minz_Model {
 		}
 	}
 
-	public function nbEntries() {
+	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$this->nbEntries = $tagDAO->countEntries($this->id());
@@ -64,12 +82,15 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->nbEntries;
 	}
 
+	/**
+	 * @param string|int $value
+	 */
 	public function _nbEntries($value): void {
 		$this->nbEntries = (int)$value;
 	}
 
 	/**
-	 * @return mixed
+	 * @return int|mixed
 	 */
 	public function nbUnread() {
 		if ($this->nbUnread < 0) {
