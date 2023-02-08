@@ -256,7 +256,7 @@ class SimplePie_Locator
 				{
 					$this->checked_feeds++;
 					$headers = array(
-						'Accept' => SimplePie_File::DEFAULT_HTTP_ACCEPT,
+						'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 					);
 					$feed = $this->registry->create('File', array($href, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed, true))
@@ -386,7 +386,7 @@ class SimplePie_Locator
 				$this->checked_feeds++;
 
 				$headers = array(
-					'Accept' => SimplePie_File::DEFAULT_HTTP_ACCEPT,
+					'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 				);
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
@@ -414,7 +414,7 @@ class SimplePie_Locator
 			{
 				$this->checked_feeds++;
 				$headers = array(
-					'Accept' => SimplePie_File::DEFAULT_HTTP_ACCEPT,
+					'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 				);
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
