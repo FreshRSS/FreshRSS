@@ -49,7 +49,8 @@
         "ext-xmlwriter": "*",
         "phpstan/phpstan": "~1.9.7",
         "phpunit/phpunit": "^9",
-        "squizlabs/php_codesniffer": "^3.7"
+        "squizlabs/php_codesniffer": "^3.7",
+        "symfony/var-dumper": "^6.2"
     },
     "scripts": {
         "php-lint": "find . -type d -name 'vendor' -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",
