@@ -57,7 +57,7 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @param string|array $value
+	 * @param string|string[] $value
 	 */
 	public function _attributes(?string $key, $value = null): void {
 		if ($key == '') {
@@ -100,6 +100,9 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->nbUnread;
 	}
 
+	/**
+	 * @param string|int$value
+	 */
 	public function _nbUnread($value): void {
 		$this->nbUnread = (int)$value;
 	}
