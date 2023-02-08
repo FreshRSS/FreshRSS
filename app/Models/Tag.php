@@ -10,7 +10,7 @@ class FreshRSS_Tag extends Minz_Model {
 	 */
 	private $name;
 	/**
-	 * @var array<int, string>|null
+	 * @var string[]|null
 	 */
 	private $attributes = [];
 	/**
@@ -57,9 +57,9 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @param string|array|null $value
+	 * @param string|array $value
 	 */
-	public function _attributes(?string $key, $value): void {
+	public function _attributes(?string $key, $value = null): void {
 		if ($key == '') {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
