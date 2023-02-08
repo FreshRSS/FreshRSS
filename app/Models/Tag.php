@@ -10,7 +10,7 @@ class FreshRSS_Tag extends Minz_Model {
 	 */
 	private $name;
 	/**
-	 * @var array<int, string>
+	 * @var array<int, string>|null
 	 */
 	private $attributes = [];
 	/**
@@ -46,7 +46,7 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @return string|string[]|null
+	 * @return mixed|string|string[]|null
 	 */
 	public function attributes(?string $key = '') {
 		if ($key == '') {
