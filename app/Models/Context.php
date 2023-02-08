@@ -67,10 +67,13 @@ class FreshRSS_Context {
 	}
 
 	/**
-	 * Initialize the context for the current user.
+	 * Initialize the context for the current user
+	 *
+	 * @return false|FreshRSS_UserConfiguration|null
+	 *
 	 * @throws Minz_ConfigurationParamException
 	 */
-	public static function initUser($username = '', $userMustExist = true) {
+	public static function initUser(?string $username = '', $userMustExist = true) {
 		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
@@ -191,17 +194,15 @@ class FreshRSS_Context {
 
 	/**
 	 * Returns if the current state includes $state parameter.
-	 * @param int $state
 	 */
-	public static function isStateEnabled($state) {
+	public static function isStateEnabled(int $state): int {
 		return self::$state & $state;
 	}
 
 	/**
 	 * Returns the current state with or without $state parameter.
-	 * @param int $state
 	 */
-	public static function getRevertState($state) {
+	public static function getRevertState(int $state): int {
 		if (self::$state & $state) {
 			return self::$state & ~$state;
 		}
@@ -213,8 +214,9 @@ class FreshRSS_Context {
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' and
 	 * the second is the id.
+	 * @return array|string|void
 	 */
-	public static function currentGet($array = false) {
+	public static function currentGet(?bool $array = false) {
 		if (self::$current_get['all']) {
 			return 'a';
 		} elseif (self::$current_get['starred']) {
@@ -243,35 +245,35 @@ class FreshRSS_Context {
 	}
 
 	/**
-	 * @return bool true if the current request targets all feeds (main view), false otherwise.
+	 * true if the current request targets all feeds (main view), false otherwise.
 	 */
 	public static function isAll(): bool {
 		return self::$current_get['all'] != false;
 	}
 
 	/**
-	 * @return bool true if the current request targets a category, false otherwise.
+	 * true if the current request targets a category, false otherwise.
 	 */
 	public static function isCategory(): bool {
 		return self::$current_get['category'] != false;
 	}
 
 	/**
-	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 * true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
 	public static function isFeed(): bool {
 		return self::$current_get['feed'] != false;
 	}
 
 	/**
-	 * @return bool true if the current request targets a tag (though not all tags), false otherwise.
+	 * true if the current request targets a tag (though not all tags), false otherwise.
 	 */
 	public static function isTag(): bool {
 		return self::$current_get['tag'] != false;
 	}
 
 	/**
-	 * @return bool true if $get parameter correspond to the $current_get attribute.
+	 * if $get parameter correspond to the $current_get attribute.
 	 */
 	public static function isCurrentGet($get): bool {
 		$type = $get[0];
