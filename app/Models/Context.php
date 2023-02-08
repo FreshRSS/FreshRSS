@@ -162,7 +162,7 @@ class FreshRSS_Context {
 			self::$categories, 1
 		);
 
-		self::_get(Minz_Request::param('get', 'a'));
+		self::_get(Minz_Request::param('get', 'a', false));
 
 		self::$state = Minz_Request::param(
 			'state', self::$user_conf->default_state
