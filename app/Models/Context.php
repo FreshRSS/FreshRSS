@@ -217,29 +217,27 @@ class FreshRSS_Context {
 	public static function currentGet($array = false) {
 		if (self::$current_get['all']) {
 			return 'a';
-		}
-		if (self::$current_get['starred']) {
+		} elseif (self::$current_get['starred']) {
 			return 's';
-		}
-		if (self::$current_get['feed']) {
+		} elseif (self::$current_get['feed']) {
 			if ($array) {
 				return array('f', self::$current_get['feed']);
+			} else {
+				return 'f_' . self::$current_get['feed'];
 			}
-			return 'f_' . self::$current_get['feed'];
-		}
-		if (self::$current_get['category']) {
+		} elseif (self::$current_get['category']) {
 			if ($array) {
 				return array('c', self::$current_get['category']);
+			} else {
+				return 'c_' . self::$current_get['category'];
 			}
-			return 'c_' . self::$current_get['category'];
-		}
-		if (self::$current_get['tag']) {
+		} elseif (self::$current_get['tag']) {
 			if ($array) {
 				return array('t', self::$current_get['tag']);
+			} else {
+				return 't_' . self::$current_get['tag'];
 			}
-			return 't_' . self::$current_get['tag'];
-		}
-		if (self::$current_get['tags']) {
+		} elseif (self::$current_get['tags']) {
 			return 'T';
 		}
 	}
