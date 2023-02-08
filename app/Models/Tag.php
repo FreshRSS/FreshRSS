@@ -77,7 +77,7 @@ class FreshRSS_Tag extends Minz_Model {
 	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$this->nbEntries = $tagDAO->countEntries($this->id());
+			$this->nbEntries = $tagDAO->countEntries($this->id()) ?: 0;
 		}
 		return $this->nbEntries;
 	}
@@ -89,13 +89,10 @@ class FreshRSS_Tag extends Minz_Model {
 		$this->nbEntries = (int)$value;
 	}
 
-	/**
-	 * @return int|mixed
-	 */
-	public function nbUnread() {
+	public function nbUnread(): int {
 		if ($this->nbUnread < 0) {
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$this->nbUnread = $tagDAO->countNotRead($this->id());
+			$this->nbUnread = $tagDAO->countNotRead($this->id()) ?: 0;
 		}
 		return $this->nbUnread;
 	}
