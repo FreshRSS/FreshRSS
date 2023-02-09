@@ -123,7 +123,7 @@ return array(
 			),
 			'json_xpath' => 'JSON + XPath (experimenteel)',
 			'rss' => 'RSS / Atom (standaard)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
