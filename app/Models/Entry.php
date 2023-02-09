@@ -210,7 +210,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * @return array<int,string>|null
 	 */
-	public function content_enclosures(): array {
+	public function content_enclosures(): ?array {
 		return $this->content_enclosures;
 	}
 
