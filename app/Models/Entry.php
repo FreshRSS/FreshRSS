@@ -22,7 +22,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $authors;
 	/** @var string */
 	private $content;
-	private $content_enclosures = [];
+        /** @var string[]|null */
+	private $content_enclosures;
 	/** @var string */
 	private $link;
 	/** @var int */
