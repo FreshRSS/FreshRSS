@@ -31,7 +31,7 @@ class FreshRSS_LogDAO {
 		}
 	}
 
-	public static function getCurrentUser(): string {
+	private static function getCurrentUser(): string {
 		$sessionCurrentUser = '';
 		if (is_string(Minz_Session::param('currentUser', '_'))) {
 			$sessionCurrentUser = Minz_Session::param('currentUser', '_');
