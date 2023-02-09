@@ -19,5 +19,10 @@ class LogDAOTest extends TestCase {
 		$this->assertEquals('notice', $line->level());
 		$this->assertEquals("Migration 2019_12_22_FooBar: OK", $line->info());
 	}
-
+	
+	
+	protected function tearDown(): void {
+		$this->logDAO::truncate();
+		unlink(ADMIN_LOG);
+	}
 }
