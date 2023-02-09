@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 class LogDAOTest extends TestCase {
 
 	private $logDAO;
-	protected function setUp(): void
-	{
+	protected function setUp(): void {
 		$this->logDAO = new FreshRSS_LogDAO();
 	}
 
