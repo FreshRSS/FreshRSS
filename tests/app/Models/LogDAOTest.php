@@ -13,5 +13,6 @@ class LogDAOTest extends TestCase {
 
 	public function test_lines_is_array(): void {
 		$this->assertIsArray($this->logDAO::lines());
+		$this->assertInstanceOf(FreshRSS_Log::class, $this->logDAO::lines()[0]);
 	}
 }
