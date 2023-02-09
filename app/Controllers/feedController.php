@@ -174,7 +174,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
 			$opts = [];
-			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
 			}

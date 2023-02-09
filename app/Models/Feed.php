@@ -815,14 +815,15 @@ class FreshRSS_Feed extends Minz_Model {
 	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
 		$simplePie = customSimplePie($attributes);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($kind === FreshRSS_Feed::KIND_HTML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.html';
-		} elseif ($kind === FreshRSS_Feed::KIND_JSON_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.json';
-		} elseif ($kind === FreshRSS_Feed::KIND_XML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.xml';
-		} else {
-			return CACHE_PATH . '/' . $filename . '.spc';
+		switch ($kind) {
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.html';
+			case FreshRSS_Feed::KIND_JSON_XPATH:
+				return CACHE_PATH . '/' . $filename . '.json';
+			case $kind === FreshRSS_Feed::KIND_XML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.xml';
+			default:
+				return CACHE_PATH . '/' . $filename . '.spc';
 		}
 	}
 
