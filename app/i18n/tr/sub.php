@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath:',
 			),
 			'rss' => 'RSS / Atom (varsayılan)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Önbelleği temizle',
