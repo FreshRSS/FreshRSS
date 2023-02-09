@@ -13,8 +13,6 @@ class LogDAOTest extends TestCase {
 	}
 
 	public function test_lines_is_array(): void {
-
-		dump($this->logDAO::lines());
 		$this->assertIsArray($this->logDAO::lines());
 	}
 }
