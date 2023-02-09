@@ -1,9 +1,9 @@
 <?php
 
 class FreshRSS_Log extends Minz_Model {
-	/**  @var string*/
+	/** @var string */
 	private $date;
-	/**  @var string */
+	/** @var string */
 	private $level;
 	/** @var string */
 	private $information;
