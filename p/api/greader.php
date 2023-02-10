@@ -747,7 +747,7 @@ final class GReaderAPI {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
-		if (is_bool($ids)) {
+		if ($ids === false) {
 			self::internalServerError();
 		}
 
