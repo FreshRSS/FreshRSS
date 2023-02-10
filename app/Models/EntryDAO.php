@@ -1197,10 +1197,15 @@ SQL;
 
 	/**
 	 * For API
-	 * @return array<string>
+	 * @return array<string>|false
 	 */
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
-			$order = 'DESC', $limit = 1, $firstId = '', $filters = null): array {
+	public function listIdsWhere($type = 'a',
+								 $id = '',
+								 $state = FreshRSS_Entry::STATE_ALL,
+								 $order = 'DESC',
+								 $limit = 1,
+								 $firstId = '',
+								 $filters = null) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->pdo->prepare($sql);
