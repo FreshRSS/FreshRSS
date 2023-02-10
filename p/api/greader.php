@@ -40,7 +40,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+const JSON_OPTIONS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -232,7 +232,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param('currentUser', '_');
+		$user = Minz_Session::param(CURRENT_USER, '_');
 		//Minz_Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
 		$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 		echo $token, "\n";
@@ -244,7 +244,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param('currentUser', '_');
+		$user = Minz_Session::param(CURRENT_USER, '_');
 		if ($user !== '_' && (	//TODO: Check security consequences
 			$token == '' || //FeedMe
 			$token === 'x')) { //Reeder
@@ -263,7 +263,7 @@ final class GReaderAPI {
 		if (FreshRSS_Context::$user_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param('currentUser', '_');
+		$user = Minz_Session::param(CURRENT_USER, '_');
 		exit(json_encode(array(
 				'userId' => $user,
 				'userName' => $user,
@@ -308,9 +308,9 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionExport() {
-		$user = '' . Minz_Session::param('currentUser', '_');
+		$user = '' . Minz_Session::param(CURRENT_USER, '_');
 		$export_service = new FreshRSS_Export_Service($user);
-		list($filename, $content) = $export_service->generateOpml();
+		[$filename, $content] = $export_service->generateOpml();
 		header('Content-Type: application/xml; charset=UTF-8');
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 		echo $content;
@@ -319,7 +319,7 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionImport(string $opml) {
-		$user = '' . Minz_Session::param('currentUser', '_');
+		$user = '' . Minz_Session::param(CURRENT_USER, '_');
 		$importService = new FreshRSS_Import_Service($user);
 		$importService->importOpml($opml);
 		if ($importService->lastStatus()) {
@@ -392,7 +392,7 @@ final class GReaderAPI {
 			if (strpos($add, 'user/-/label/') === 0) {
 				$c_name = substr($add, 13);
 			} else {
-				$user = Minz_Session::param('currentUser', '_');
+				$user = Minz_Session::param(CURRENT_USER, '_');
 				$prefix = 'user/' . $user . '/label/';
 				if (strpos($add, $prefix) === 0) {
 					$c_name = substr($add, strlen($prefix));
@@ -685,7 +685,7 @@ final class GReaderAPI {
 				break;
 		}
 
-		list($type, $include_target, $state, $searches) =
+		[$type, $include_target, $state, $searches] =
 			self::streamContentsFilters($type, $include_target, $filter_target, $exclude_target, $start_time, $stop_time);
 
 		if ($continuation != '') {
@@ -739,7 +739,7 @@ final class GReaderAPI {
 			$streamId = substr($streamId, 13);
 		}
 
-		list($type, $id, $state, $searches) = self::streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time);
+		[$type, $id, $state, $searches] = self::streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time);
 
 		if ($continuation != '') {
 			$count++;	//Shift by one element
@@ -842,7 +842,7 @@ final class GReaderAPI {
 				if (strpos($a, 'user/-/label/') === 0) {
 					$tagName = substr($a, 13);
 				} else {
-					$user = Minz_Session::param('currentUser', '_');
+					$user = Minz_Session::param(CURRENT_USER, '_');
 					$prefix = 'user/' . $user . '/label/';
 					if (strpos($a, $prefix) === 0) {
 						$tagName = substr($a, strlen($prefix));
@@ -1025,7 +1025,7 @@ final class GReaderAPI {
 				self::clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 			}
 		} elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-			if (Minz_Session::param('currentUser', '') == '') {
+			if (Minz_Session::param(CURRENT_USER, '') == '') {
 				self::unauthorized();
 			}
 			$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.

@@ -21,7 +21,7 @@ class FreshRSS_Auth {
 		}
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
-		$current_user = Minz_Session::param('currentUser', '');
+		$current_user = Minz_Session::param(CURRENT_USER, '');
 		if ($current_user == '') {
 			$current_user = FreshRSS_Context::$system_conf->default_user;
 			Minz_Session::_params([
@@ -112,7 +112,7 @@ class FreshRSS_Auth {
 			self::$login_ok = Minz_Session::param('passwordHash') === FreshRSS_Context::$user_conf->passwordHash;
 			break;
 		case 'http_auth':
-			$current_user = Minz_Session::param('currentUser');
+			$current_user = Minz_Session::param(CURRENT_USER);
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
 			break;
 		case 'none':
@@ -140,7 +140,7 @@ class FreshRSS_Auth {
 		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
-		$currentUser = Minz_Session::param('currentUser');
+		$currentUser = Minz_Session::param(CURRENT_USER);
 		$isAdmin = FreshRSS_Context::$user_conf->is_admin;
 		$default_user = FreshRSS_Context::$system_conf->default_user;
 		$ok = self::$login_ok;
@@ -181,7 +181,7 @@ class FreshRSS_Auth {
 		if ($username == '') {
 			$username = FreshRSS_Context::$system_conf->default_user;
 		}
-		Minz_Session::_param('currentUser', $username);
+		Minz_Session::_param(CURRENT_USER, $username);
 
 		switch (FreshRSS_Context::$system_conf->auth_type) {
 		case 'form':

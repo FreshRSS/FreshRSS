@@ -77,7 +77,7 @@ class FreshRSS_Context {
 
 		Minz_Session::lock();
 		if ($username == '') {
-			$username = Minz_Session::param('currentUser', '');
+			$username = Minz_Session::param(CURRENT_USER, '');
 		}
 		if (($username === '_' || FreshRSS_user_Controller::checkUsername($username)) &&
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
@@ -88,7 +88,7 @@ class FreshRSS_Context {
 					FRESHRSS_PATH . '/config-user.default.php',
 					FreshRSS_Context::$system_conf->configurationSetter());
 
-				Minz_Session::_param('currentUser', $username);
+				Minz_Session::_param(CURRENT_USER, $username);
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}

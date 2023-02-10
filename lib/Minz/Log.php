@@ -31,7 +31,7 @@ class Minz_Log {
 		}
 
 		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
-			$username = Minz_Session::param('currentUser', '');
+			$username = Minz_Session::param(CURRENT_USER, '');
 			if ($username == '') {
 				$username = '_';
 			}

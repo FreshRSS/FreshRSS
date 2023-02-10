@@ -575,7 +575,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			);
 		}
 
-		$username = Minz_Session::param('currentUser');
+		$username = Minz_Session::param(CURRENT_USER);
 		$export_service = new FreshRSS_Export_Service($username);
 
 		$export_opml = Minz_Request::param('export_opml', false);

@@ -2,24 +2,26 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-define('FRESHRSS_MIN_PHP_VERSION', '7.2.0');
-define('FRESHRSS_VERSION', '1.21.0-dev');
-define('FRESHRSS_WEBSITE', 'https://freshrss.org');
-define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
+const FRESHRSS_MIN_PHP_VERSION = '7.2.0';
+const FRESHRSS_VERSION = '1.21.0-dev';
+const FRESHRSS_WEBSITE = 'https://freshrss.org';
+const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 
-define('APP_NAME', 'FreshRSS');
+const APP_NAME = 'FreshRSS';
 
-define('FRESHRSS_PATH', __DIR__);
-define('PUBLIC_PATH', FRESHRSS_PATH . '/p');
-define('PUBLIC_TO_INDEX_PATH', '/i');
-define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
-define('PUBLIC_RELATIVE', '..');
-define('LIB_PATH', FRESHRSS_PATH . '/lib');
-define('APP_PATH', FRESHRSS_PATH . '/app');
-define('I18N_PATH', APP_PATH . '/i18n');
-define('CORE_EXTENSIONS_PATH', LIB_PATH . '/core-extensions');
-define('TESTS_PATH', FRESHRSS_PATH . '/tests');
+const FRESHRSS_PATH = __DIR__;
+const PUBLIC_PATH = FRESHRSS_PATH . '/p';
+const PUBLIC_TO_INDEX_PATH = '/i';
+const INDEX_PATH = PUBLIC_PATH . PUBLIC_TO_INDEX_PATH;
+const PUBLIC_RELATIVE = '..';
+const LIB_PATH = FRESHRSS_PATH . '/lib';
+const APP_PATH = FRESHRSS_PATH . '/app';
+const I18N_PATH = APP_PATH . '/i18n';
+const CORE_EXTENSIONS_PATH = LIB_PATH . '/core-extensions';
+const TESTS_PATH = FRESHRSS_PATH . '/tests';
+const CURRENT_USER = 'currentUser';
 //</Not customisable>
+
 
 if (file_exists(__DIR__ . '/constants.local.php')) {
 	//Include custom / local settings:
