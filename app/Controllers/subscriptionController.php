@@ -147,7 +147,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
 			$opts = [];
-			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
 			}
@@ -203,7 +203,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
 
 			$feed->_kind(intval(Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS)));
-			if ($feed->kind() == FreshRSS_Feed::KIND_HTML_XPATH) {
+			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 				$xPathSettings = [];
 				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
 				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
