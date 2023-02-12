@@ -219,6 +219,10 @@ input, select, textarea {
 	box-sizing: border-box;
 }
 
+select {
+	min-width: 6em;
+}
+
 input.w50,
 select.w50,
 textarea.w50 {
