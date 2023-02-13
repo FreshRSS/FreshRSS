@@ -19,6 +19,7 @@ class Minz_View {
 	private static $title = '';
 	private static $styles = array ();
 	private static $scripts = array ();
+	private static $themeColors = array ();
 
 	private static $params = array ();
 
@@ -236,6 +237,39 @@ class Minz_View {
 			'media' => $media,
 		);
 	}
+
+	/**
+	 * @param array $themeColors
+	 * @return void
+	 */
+	public static function appendThemeColors($themeColors): void {
+		self::$themeColors = $themeColors;
+	}
+
+	/**
+	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+	 * 
+	 * @return String
+	 */
+	public static function metaThemeColor(): String {
+		$meta = '';
+
+		if (!empty(self::$themeColors['light'])) {
+			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: light)" content="' . self::$themeColors['light'] . '" />';
+		}
+		if (!empty(self::$themeColors['dark'])) {
+			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="' . self::$themeColors['dark'] . '" />';
+		}
+		if (!empty(self::$themeColors['default'])) {
+			$meta .= '<meta name="theme-color" content="' . self::$themeColors['default'] . '" />';
+		}
+		if (empty(self::$themeColors['default']) && !empty(self::$themeColors)) {
+			$meta .= '<meta name="theme-color" content="' . self::$themeColors . '" />';
+		}
+
+		return $meta;
+	}
+
 
 	/**
 	 * Gestion des scripts JS
