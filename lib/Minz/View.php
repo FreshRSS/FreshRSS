@@ -263,7 +263,7 @@ class Minz_View {
 		if (!empty(self::$themeColors['default'])) {
 			$meta .= '<meta name="theme-color" content="' . self::$themeColors['default'] . '" />';
 		}
-		if (empty(self::$themeColors['default']) && !empty(self::$themeColors)) {
+		if (empty(self::$themeColors['default']) && !empty(self::$themeColors && empty(self::$themeColors['light']) && empty(self::$themeColors['dark']))) {
 			$meta .= '<meta name="theme-color" content="' . self::$themeColors . '" />';
 		}
 
