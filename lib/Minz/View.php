@@ -270,7 +270,6 @@ class Minz_View {
 		return $meta;
 	}
 
-
 	/**
 	 * Gestion des scripts JS
 	 */
