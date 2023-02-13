@@ -13,10 +13,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -42,7 +42,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - idMax (default: 0)
 	 *   - is_read (default: true)
 	 */
-	public function readAction() {
+	public function readAction(): void {
 		$id = Minz_Request::param('id');
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
@@ -133,7 +133,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - is_favorite (default: true)
 	 * If id is false, nothing happened.
 	 */
-	public function bookmarkAction() {
+	public function bookmarkAction(): void {
 		$id = Minz_Request::param('id');
 		$is_favourite = (bool)Minz_Request::param('is_favorite', true);
 		if ($id !== false) {
@@ -157,7 +157,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo move this action in configure controller.
 	 * @todo call this action through web-cron when available
 	 */
-	public function optimizeAction() {
+	public function optimizeAction(): void {
 		$url_redirect = array(
 			'c' => 'configure',
 			'a' => 'archiving',
@@ -185,7 +185,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
-	public function purgeAction() {
+	public function purgeAction(): void {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

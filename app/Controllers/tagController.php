@@ -13,10 +13,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -31,7 +31,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action adds (checked=true) or removes (checked=false) a tag to an entry.
 	 */
-	public function tagEntryAction() {
+	public function tagEntryAction(): void {
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::param('id_tag');
 			$name_tag = trim(Minz_Request::param('name_tag'));
@@ -63,7 +63,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function deleteAction() {
+	public function deleteAction(): void {
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::param('id_tag');
 			if ($id_tag != false) {
@@ -81,7 +81,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function getTagsForEntryAction() {
+	public function getTagsForEntryAction(): void {
 		$this->view->_layout(false);
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
@@ -90,7 +90,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		$this->view->tags = $tagDAO->getTagsForEntry($id_entry);
 	}
 
-	public function addAction() {
+	public function addAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
 		}
@@ -105,6 +105,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index']);
 	}
 
+	/**
+	 * @return void|null
+	 */
 	public function renameAction() {
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
@@ -119,9 +122,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$sourceTag = $tagDAO->searchById($sourceId);
-		$sourceName = $sourceTag == null ? null : $sourceTag->name();
+		$sourceName = $sourceTag === null ? null : $sourceTag->name();
 		$targetTag = $tagDAO->searchByName($targetName);
-		if ($targetTag == null) {
+		if ($targetTag === null) {
 			// There is no existing tag with the same target name
 			$tagDAO->updateTag($sourceId, ['name' => $targetName]);
 		} else {
@@ -133,7 +136,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index']);
 	}
 
-	public function indexAction() {
+	public function indexAction(): void {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags();
 	}
