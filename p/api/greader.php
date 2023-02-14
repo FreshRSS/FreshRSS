@@ -259,7 +259,6 @@ final class GReaderAPI {
 		}
 		Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
 		self::unauthorized();
-		return false;
 	}
 
 	/** @return never */
