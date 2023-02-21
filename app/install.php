@@ -364,9 +364,8 @@ function printStep0() {
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" tabindex="2" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="3" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
