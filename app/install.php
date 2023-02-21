@@ -432,20 +432,32 @@ function printStep1() {
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
 	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.check.already_installed') ?></p>
 
-	<form action="index.php?step=1" method="post">
-		<input type="hidden" name="freshrss-keep-install" value="1" />
-		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
-		<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
-			href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
-	</form>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<form action="index.php?step=1" method="post">
+				<input type="hidden" name="freshrss-keep-install" value="1" />
+				<button type="submit" class="btn btn-important next-step" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
+				<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
+					href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
+			</form>
+		</div>
+	</div>
 
 	<?php } elseif ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
+		</div>
+	</div>
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
-	<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
-		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
-	</a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
+				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+			</a>
+		</div>
+	</div>
 	<?php } ?>
 <?php
 }
@@ -716,7 +728,7 @@ if (_t('gen.dir') === 'rtl') {
 				<span><?= _t('install.this_is_the_end') ?></span>
 				<?php } ?>
 			</li>
-		</ol>
+		</ul>
 	</nav>
 
 	<main class="post">
