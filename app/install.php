@@ -550,7 +550,7 @@ function printStep2() {
 				<button type="submit" class="btn btn-important" tabindex="8" ><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -615,7 +615,7 @@ function printStep3() {
 				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=4" tabindex="9" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
