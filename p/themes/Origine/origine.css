@@ -381,6 +381,7 @@ a:hover .icon {
 }
 
 .nav-list .item > a,
+.nav-list .item > span,
 .nav-list .item > div {
 	padding: 0 1rem;
 }
