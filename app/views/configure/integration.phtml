@@ -15,7 +15,7 @@
 		<template id="simple-share">
 			<formgroup class="group-share dragbox">
 				<legend draggable="true">##label##</legend>
-				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
 				<div class="form-group" id="group-share-##key##">
 					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
 					<div class="group-controls">
@@ -32,7 +32,7 @@
 		<template id="advanced-share">
 			<formgroup class="group-share dragbox">
 				<legend draggable="true">##label##</legend>
-				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
 				<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
 				<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
 				<div class="form-group" id="group-share-##key##">
