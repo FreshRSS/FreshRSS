@@ -406,7 +406,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 250px;
+	min-width: 200px;
 	margin: 0 0 0 220px;
 	overflow-x: auto;
 }
