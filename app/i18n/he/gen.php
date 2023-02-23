@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
