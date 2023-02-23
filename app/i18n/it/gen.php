@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Appunti',
