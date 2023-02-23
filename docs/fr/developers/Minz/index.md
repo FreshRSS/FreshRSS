@@ -240,7 +240,7 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Gestion de la traduction
 
-This part [is explained here](/docs/fr/internationalization.md).
+Cette partie est [expliquée dans la page dédiée](/docs/fr/internationalization.md).
 
 ## Migration
 
