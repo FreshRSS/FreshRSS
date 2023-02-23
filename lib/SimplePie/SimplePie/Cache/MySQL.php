@@ -278,7 +278,7 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 					$query->bindValue(':data', serialize($data));
 					$query->bindValue(':time', time());
 					$query->bindValue(':feed', $this->id);
-					if ($this->execute())
+					if ($query->execute())
 					{
 						return true;
 					}
