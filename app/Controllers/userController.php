@@ -242,7 +242,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 		if ($ok) {
 			if (!is_dir($homeDir)) {
-				mkdir($homeDir);
+				mkdir($homeDir, 0770, true);
 			}
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 		}

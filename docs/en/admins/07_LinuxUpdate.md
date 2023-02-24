@@ -64,7 +64,7 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 
 6. Re-set correct permissions so that your web server can access the files
 	```sh
-	chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
+	cli/access-permissions.sh
 	```
 
 ## Using the Zip archive
@@ -91,7 +91,7 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 
 5. Re-set permissions
 	```sh
-	chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
+	cli/access-permissions.sh
 	```
 
 6. Clean up the FreshRSS directory by deleting the downloaded zip and the temporary directory
