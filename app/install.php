@@ -692,10 +692,14 @@ if (_t('gen.dir') === 'rtl') {
 			</a>
 		</div>
 	</div>
+	<div class="item configure">
+		<a class="btn only-mobile" href="#aside"><?= _i('view-normal') ?></a>
+	</div>
 </header>
 
 <div id="global">
-	<nav class="nav nav-list aside">
+	<nav class="nav nav-list aside" id="aside">
+		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
 		<ul>
 			<li class="item nav-section">
 				<div class="nav-header"><?= _t('install.steps') ?></div>
@@ -735,6 +739,7 @@ if (_t('gen.dir') === 'rtl') {
 			</li>
 		</ul>
 	</nav>
+	<a class="close-aside" href="#close">❌</a>
 
 	<main class="post">
 		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
