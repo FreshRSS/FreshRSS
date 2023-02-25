@@ -692,6 +692,7 @@ if (_t('gen.dir') === 'rtl') {
 			</a>
 		</div>
 	</div>
+	<div class="item"></div>
 	<div class="item configure">
 		<a class="btn only-mobile" href="#aside"><?= _i('view-normal') ?></a>
 	</div>
