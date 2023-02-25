@@ -627,7 +627,11 @@ function printStep3() {
 function printStep4() {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
-	<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+		</div>
+	</div>
 <?php
 }
 
