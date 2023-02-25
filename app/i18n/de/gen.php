@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Zwischenablage',
