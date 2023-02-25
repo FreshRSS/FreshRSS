@@ -580,6 +580,7 @@ function printStep3() {
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
 					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
+				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
 
