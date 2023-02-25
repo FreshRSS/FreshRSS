@@ -190,7 +190,12 @@ form th {
 
 .form-group .group-controls {
 	min-height: 25px;
-	padding: 10px 0;
+	padding: 0.5rem 0;
+}
+
+.form-group .group-controls .btn {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
 }
 
 .form-group .group-controls label {

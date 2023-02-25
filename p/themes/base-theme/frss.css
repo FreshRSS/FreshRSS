@@ -738,6 +738,12 @@ input[type="checkbox"]:focus-visible {
 	width: 100%
 }
 
+.group-controls .next-step {
+	display: inline-block;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
 .alert-head {
 	margin: 0;
 	font-weight: bold;
