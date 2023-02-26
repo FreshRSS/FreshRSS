@@ -404,6 +404,7 @@ function printStep1() {
 	$res = checkRequirements();
 	$processUsername = getProcessUsername();
 ?>
+	<h2><?= _t('admin.check_install.php') ?></h2>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
 	<?php
@@ -422,6 +423,9 @@ function printStep1() {
 	printStep1Template('xml', $res['xml']);
 	printStep1Template('mbstring', $res['mbstring']);
 	printStep1Template('fileinfo', $res['fileinfo']);
+	?>
+	<h2><?= _t('admin.check_install.files') ?></h2>
+	<?php
 	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
 	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
 	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
