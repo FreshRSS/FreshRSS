@@ -684,6 +684,12 @@ if (_t('gen.dir') === 'rtl') {
 		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/frss.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/frss.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="../favicon.ico" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="../themes/icons/favicon-256.png" />
+		<link rel="apple-touch-icon" href="../themes/icons/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="FreshRSS">
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
