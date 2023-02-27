@@ -53,6 +53,13 @@ class FreshRSS_Context {
 	public static $isCli = false;
 
 	/**
+	 * @return mixed|false the value of the session variable, false if it doesn't exist
+	 */
+	public static function currentUser() {
+		return Minz_Session::param(CURRENT_USER);
+	}
+
+	/**
 	 * Initialize the context for the global system.
 	 */
 	public static function initSystem($reload = false) {

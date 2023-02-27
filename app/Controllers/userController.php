@@ -124,7 +124,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 
 			$ok = self::updateUser(
-				Minz_Session::param(CURRENT_USER),
+				FreshRSS_Context::currentUser(),
 				$email,
 				$passwordPlain,
 				array(

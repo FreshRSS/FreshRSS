@@ -10,7 +10,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * Return an error message, or `false` if no error.
 	 */
 	public static function updatePassword($apiPasswordPlain) {
-		$username = Minz_Session::param(CURRENT_USER);
+		$username = FreshRSS_Context::currentUser();
 		$userConfig = FreshRSS_Context::$user_conf;
 
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
