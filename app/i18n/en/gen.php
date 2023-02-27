@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',
