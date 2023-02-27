@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => '剪贴板',

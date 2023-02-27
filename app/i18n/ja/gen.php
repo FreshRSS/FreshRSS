@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'クリップボード',
