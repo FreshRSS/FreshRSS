@@ -440,9 +440,9 @@ function printStep1() {
 		<div class="group-controls">
 			<form action="index.php?step=1" method="post">
 				<input type="hidden" name="freshrss-keep-install" value="1" />
-				<button type="submit" class="btn btn-important" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="1"><?= _t('install.action.keep_install') ?></button>
 				<a class="btn btn-attention confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
-					href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
+					href="?step=2" tabindex="2"><?= _t('install.action.reinstall') ?></a>
 			</form>
 		</div>
 	</div>
@@ -450,14 +450,14 @@ function printStep1() {
 	<?php } elseif ($res['all'] == 'ok') { ?>
 	<div class="form-group form-actions">
 		<div class="group-controls">
-			<a class="btn btn-important" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
+			<a class="btn btn-important" href="?step=2" tabindex="1"><?= _t('install.action.next_step') ?></a>
 		</div>
 	</div>
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
 	<div class="form-group form-actions">
 		<div class="group-controls">
-			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
+			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
 				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
 			</a>
 		</div>
@@ -583,7 +583,7 @@ function printStep3() {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
-					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
+					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -591,7 +591,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" tabindex="4">
+				<select id="auth_type" name="auth_type" required="required" tabindex="2">
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
@@ -607,8 +607,8 @@ function printStep3() {
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
-						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
-					<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></button>
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
+					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
@@ -617,10 +617,10 @@ function printStep3() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="5" ><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn" tabindex="6" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="next-step" href="?step=4" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=4" tabindex="7" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
