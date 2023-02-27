@@ -193,7 +193,7 @@ form th {
 	padding: 0.5rem 0;
 }
 
-.form-group .group-controls .btn {
+.form-group.form-actions .group-controls .btn {
 	margin-top: 0.25rem;
 	margin-bottom: 0.25rem;
 }
