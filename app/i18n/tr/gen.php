@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Kopyala',
