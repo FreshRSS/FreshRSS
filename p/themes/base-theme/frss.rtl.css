@@ -219,6 +219,10 @@ input, select, textarea {
 	box-sizing: border-box;
 }
 
+select {
+	min-width: 6em;
+}
+
 input.w50,
 select.w50,
 textarea.w50 {
@@ -402,7 +406,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 250px;
+	min-width: 200px;
 	margin: 0 220px 0 0;
 	overflow-x: auto;
 }

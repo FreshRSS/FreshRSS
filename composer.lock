@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "40a86bf3abb8fa778b42b482764826fa",
+
     "packages": [],
     "packages-dev": [
         {
@@ -305,16 +306,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.9",
+            "version": "1.9.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f68d7cc3d0638a01bc6321cb826e4cae7fa6884d"
+                "reference": "204e459e7822f2c586463029f5ecec31bb45a1f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f68d7cc3d0638a01bc6321cb826e4cae7fa6884d",
-                "reference": "f68d7cc3d0638a01bc6321cb826e4cae7fa6884d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/204e459e7822f2c586463029f5ecec31bb45a1f2",
+                "reference": "204e459e7822f2c586463029f5ecec31bb45a1f2",
                 "shasum": ""
             },
             "require": {
@@ -344,7 +345,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.9"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.17"
             },
             "funding": [
                 {
@@ -360,7 +361,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-11T14:39:22+00:00"
+            "time": "2023-02-08T12:25:00+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

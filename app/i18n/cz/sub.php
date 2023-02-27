@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath pro:',
 			),
 			'rss' => 'RSS / Atom (výchozí)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazat mezipaměť',

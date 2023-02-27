@@ -26,6 +26,13 @@
  */
 
 return array(
+	'archiveORG' => array(
+		'url' => 'https://web.archive.org/save/~LINK~',
+		'transform' => array(),
+		'help' => 'https://web.archive.org',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'archivePH' => array(
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => array(),
