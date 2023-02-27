@@ -216,7 +216,8 @@ form th {
 }
 
 .stick .btn:first-child,
-.stick input:first-child {
+.stick input:first-child,
+.stick select:first-child {
 	border-radius: 3px 0 0 3px;
 }
 
@@ -233,6 +234,7 @@ form th {
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
 .stick input + .btn,
+.stick select + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,

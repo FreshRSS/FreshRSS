@@ -18,8 +18,15 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
 		];
 
-		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
-			$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
+			switch ($feed->kind()) {
+				case FreshRSS_Feed::KIND_HTML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+					break;
+				case FreshRSS_Feed::KIND_XML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
+					break;
+			}
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributes('xpath');
 			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;

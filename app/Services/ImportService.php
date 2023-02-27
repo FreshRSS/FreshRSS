@@ -160,9 +160,12 @@ class FreshRSS_Import_Service {
 			$feed->_website($website);
 			$feed->_description($description);
 
-			switch ($feed_elt['type'] ?? '') {
+			switch (strtolower($feed_elt['type'] ?? '')) {
 				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
+					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
+					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;
 				case strtolower(FreshRSS_Export_Service::TYPE_RSS_ATOM):
 				default:
