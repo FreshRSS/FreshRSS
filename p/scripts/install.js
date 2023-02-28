@@ -3,14 +3,12 @@
 
 let timeoutHide;
 
-function showPW_this(ev) {
+function showPW_this() {
 	const id_passwordField = this.getAttribute('data-toggle');
 	if (this.classList.contains('active')) {
 		hidePW(id_passwordField);
 	} else {
-		if (ev.type === 'click' || ev.buttons || ev.key === ' ' || ev.key.toUpperCase() === 'ENTER') {
-			showPW(id_passwordField);
-		}
+		showPW(id_passwordField);
 	}
 	return false;
 }
