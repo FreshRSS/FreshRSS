@@ -13,7 +13,8 @@ if (empty($enclosures[0]['main-thumbnail']['src'])) { ?>
 	<?php
 	$i++;
 }
-for ($i; $i < count($enclosures); $i++) {
+$countedEnclosures = count($enclosures)
+for ($i; $i < $countedEnclosures; $i++) {
 	echo '<figure class="enclosure">';
 
 	if ($enclosures[$i]) {
