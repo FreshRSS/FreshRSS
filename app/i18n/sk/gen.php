@@ -192,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Schránka',
