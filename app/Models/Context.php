@@ -54,7 +54,7 @@ class FreshRSS_Context {
 	public static $isCli = false;
 
 	/**
-	 * @param string|null $default
+	 * @param string|bool|null $default
 	 * @return mixed|false the value of the session variable, false if it doesn't exist
 	 */
 	public static function currentUser($default = false) {

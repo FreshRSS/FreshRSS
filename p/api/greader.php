@@ -308,7 +308,7 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionExport() {
-		$user = '' . Minz_Session::param(CURRENT_USER, '_');
+		$user = '' . FreshRSS_Context::currentUser('_');
 		$export_service = new FreshRSS_Export_Service($user);
 		[$filename, $content] = $export_service->generateOpml();
 		header('Content-Type: application/xml; charset=UTF-8');
@@ -319,7 +319,7 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionImport(string $opml) {
-		$user = '' . Minz_Session::param(CURRENT_USER, '_');
+		$user = '' . FreshRSS_Context::currentUser( '_');
 		$importService = new FreshRSS_Import_Service($user);
 		$importService->importOpml($opml);
 		if ($importService->lastStatus()) {
