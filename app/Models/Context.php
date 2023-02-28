@@ -58,7 +58,7 @@ class FreshRSS_Context {
 	 * @return mixed|false the value of the session variable, false if it doesn't exist
 	 */
 	public static function currentUser($default = false) {
-		return Minz_Session::param(CURRENT_USER, $default);
+		return Minz_Session::param(self::CURRENT_USER, $default);
 	}
 
 	/**
