@@ -141,6 +141,10 @@ class FreshRSS extends Minz_FrontController {
 						FreshRSS_View::prependStyle(Minz_Url::display(FreshRSS::getThemeFileUrl($theme_id, $filename)));
 				}
 			}
+
+			if (!empty($theme['theme-color'])) {
+				FreshRSS_View::appendThemeColors($theme['theme-color']);
+			}
 		}
 		//Use prepend to insert before extensions. Added in reverse order.
 		if (Minz_Request::controllerName() !== 'index') {

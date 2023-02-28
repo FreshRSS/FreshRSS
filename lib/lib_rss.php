@@ -434,7 +434,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	}
 
 	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
-		cleanCache();
+		cleanCache(CLEANCACHE_HOURS);
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
