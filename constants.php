@@ -19,7 +19,6 @@ const APP_PATH = FRESHRSS_PATH . '/app';
 const I18N_PATH = APP_PATH . '/i18n';
 const CORE_EXTENSIONS_PATH = LIB_PATH . '/core-extensions';
 const TESTS_PATH = FRESHRSS_PATH . '/tests';
-const CURRENT_USER = 'currentUser';
 //</Not customisable>
 
 

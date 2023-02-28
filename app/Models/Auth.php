@@ -21,7 +21,7 @@ class FreshRSS_Auth {
 		}
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
-		$current_user = Minz_Session::param(CURRENT_USER, '');
+		$current_user = FreshRSS_Context::currentUser( '');
 		if ($current_user == '') {
 			$current_user = FreshRSS_Context::$system_conf->default_user;
 			Minz_Session::_params([
@@ -181,7 +181,7 @@ class FreshRSS_Auth {
 		if ($username == '') {
 			$username = FreshRSS_Context::$system_conf->default_user;
 		}
-		Minz_Session::_param(CURRENT_USER, $username);
+		FreshRSS_Context::currentUser($username);
 
 		switch (FreshRSS_Context::$system_conf->auth_type) {
 		case 'form':

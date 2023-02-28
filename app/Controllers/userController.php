@@ -68,7 +68,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			));
 
 			if ($ok) {
-				$isSelfUpdate = Minz_Session::param(CURRENT_USER, '_') === $username;
+				$isSelfUpdate = FreshRSS_Context::currentUser( '_') === $username;
 				if ($passwordPlain == '' || !$isSelfUpdate) {
 					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
 				} else {
@@ -487,7 +487,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$username = Minz_Session::param(CURRENT_USER, '_');
+		$username = FreshRSS_Context::currentUser( '_');
 		$user_config = FreshRSS_Context::$user_conf;
 
 		if ($user_config->email_validation_token === '') {
@@ -524,7 +524,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function deleteAction() {
 		$username = Minz_Request::param('username');
-		$self_deletion = Minz_Session::param(CURRENT_USER, '_') === $username;
+		$self_deletion = FreshRSS_Context::currentUser( '_') === $username;
 
 		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
 			Minz_Error::error(403);

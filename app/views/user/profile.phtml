@@ -17,7 +17,7 @@
 		<div class="form-group">
 			<label class="group-name" for="current_user"><?= _t('conf.user.current') ?></label>
 			<div class="group-controls">
-				<input id="current_user" type="text" disabled="disabled" value="<?= Minz_Session::param(CURRENT_USER, '_') ?>" />
+				<input id="current_user" type="text" disabled="disabled" value="<?= FreshRSS_Context::currentUser( '_') ?>" />
 			</div>
 		</div>
 
@@ -127,7 +127,7 @@
 					));
 				?>
 				<input type="hidden" name="r" value="<?= $redirect_url ?>" />
-				<input type="hidden" name="username" id="username" value="<?= Minz_Session::param(CURRENT_USER, '_') ?>" />
+				<input type="hidden" name="username" id="username" value="<?= FreshRSS_Context::currentUser( '_') ?>" />
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>

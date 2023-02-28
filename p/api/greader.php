@@ -232,7 +232,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param(CURRENT_USER, '_');
+		$user = FreshRSS_Context::currentUser('_');
 		//Minz_Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
 		$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 		echo $token, "\n";
@@ -244,7 +244,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param(CURRENT_USER, '_');
+		$user = FreshRSS_Context::currentUser( '_');
 		if ($user !== '_' && (	//TODO: Check security consequences
 			$token == '' || //FeedMe
 			$token === 'x')) { //Reeder
@@ -263,7 +263,7 @@ final class GReaderAPI {
 		if (FreshRSS_Context::$user_conf == null) {
 			self::unauthorized();
 		}
-		$user = Minz_Session::param(CURRENT_USER, '_');
+		$user = FreshRSS_Context::currentUser( '_');
 		exit(json_encode(array(
 				'userId' => $user,
 				'userName' => $user,
@@ -392,7 +392,7 @@ final class GReaderAPI {
 			if (strpos($add, 'user/-/label/') === 0) {
 				$c_name = substr($add, 13);
 			} else {
-				$user = Minz_Session::param(CURRENT_USER, '_');
+				$user = FreshRSS_Context::currentUser( '_');
 				$prefix = 'user/' . $user . '/label/';
 				if (strpos($add, $prefix) === 0) {
 					$c_name = substr($add, strlen($prefix));
@@ -842,7 +842,7 @@ final class GReaderAPI {
 				if (strpos($a, 'user/-/label/') === 0) {
 					$tagName = substr($a, 13);
 				} else {
-					$user = Minz_Session::param(CURRENT_USER, '_');
+					$user = FreshRSS_Context::currentUser( '_');
 					$prefix = 'user/' . $user . '/label/';
 					if (strpos($a, $prefix) === 0) {
 						$tagName = substr($a, strlen($prefix));
@@ -1025,7 +1025,7 @@ final class GReaderAPI {
 				self::clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 			}
 		} elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-			if (Minz_Session::param(CURRENT_USER, '') == '') {
+			if (FreshRSS_Context::currentUser('') == '') {
 				self::unauthorized();
 			}
 			$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.

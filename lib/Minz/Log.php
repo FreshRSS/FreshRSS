@@ -31,7 +31,7 @@ class Minz_Log {
 		}
 
 		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
-			$username = Minz_Session::param(CURRENT_USER, '');
+			$username = FreshRSS_Context::currentUser( '');
 			if ($username == '') {
 				$username = '_';
 			}
