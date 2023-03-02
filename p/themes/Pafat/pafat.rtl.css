@@ -140,10 +140,6 @@ input:invalid, select:invalid {
 	box-shadow: 0 0 2px 2px var(--invalid-box-shadow-color) inset;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -294,11 +290,14 @@ a.btn {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5;
+.nav-list {
 	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
 .nav-list .item a:hover {
@@ -317,7 +316,7 @@ a.btn {
 }
 
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 }
 
 .nav-list a:hover {
@@ -325,7 +324,7 @@ a.btn {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	border-bottom: 1px solid var(--border-color-grey-light);
@@ -380,7 +379,7 @@ a.btn {
 }
 
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:hover,
+.dropdown-menu .item > button:hover:not([disabled]),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--background-color-grey-hover);
 	color: var(--font-color-grey);
@@ -608,7 +607,7 @@ a.signin {
 	height: 29px;
 }
 
-.header .item.search input:focus {
+.header .item.search input {
 	width: 350px;
 }
 
@@ -1092,21 +1091,6 @@ a.signin {
 
 	.nav_menu .stick .btn {
 		margin: 5px 0;
-	}
-
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
-	.nav_menu .search input {
-		max-width: 97%;
-		width: 90px;
-		line-height: 2;
-	}
-
-	.nav_menu .search input:focus {
-		width: 400px;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

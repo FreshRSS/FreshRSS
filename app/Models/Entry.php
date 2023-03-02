@@ -17,10 +17,14 @@ class FreshRSS_Entry extends Minz_Model {
 	 */
 	private $guid;
 
+	/** @var string */
 	private $title;
 	private $authors;
+	/** @var string */
 	private $content;
+	/** @var string */
 	private $link;
+	/** @var int */
 	private $date;
 	private $date_added = 0; //In microseconds
 	/**
@@ -298,6 +302,7 @@ HTML;
 	public function link(): string {
 		return $this->link;
 	}
+	/** @return string|int */
 	public function date(bool $raw = false) {
 		if ($raw) {
 			return $this->date;

@@ -151,10 +151,6 @@ input:disabled, select:disabled {
 	background-color: var(--background-color-light-shadowed);
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -220,7 +216,8 @@ form th {
 }
 
 .stick .btn:first-child,
-.stick input:first-child {
+.stick input:first-child,
+.stick select:first-child {
 	border-radius: 0 3px 3px 0;
 }
 
@@ -237,6 +234,7 @@ form th {
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
 .stick input + .btn,
+.stick select + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
@@ -293,6 +291,10 @@ a:hover .icon {
 #toggle-starred:hover .icon,
 .bookmark:hover .icon {
 	filter: brightness(1.1);
+}
+
+#toggle-search.active > .icon {
+	filter: invert(8%) sepia(99%) saturate(7064%) hue-rotate(248deg) brightness(99%) contrast(142%);
 }
 
 .btn.active,
@@ -353,21 +355,22 @@ a:hover .icon {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5;
+.nav-list {
 	font-size: 0.9rem;
 }
 
-.nav-list .item:hover {
-	background-color: var(--background-color-hover);
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
-.nav-list .item:hover a {
+.nav-list .nav-section .item:hover a {
+	background-color: var(--background-color-hover);
 	color: var(--font-color-link-hover);
 }
 
+.nav-list .nav-section .item.active:hover a,
 .nav-list .item.active {
 	background-color: var(--contrast-background-color-active);
 	color: var(--font-color-light);
@@ -378,8 +381,8 @@ a:hover .icon {
 }
 
 .nav-list .item > a,
-.nav-list .item > span {
-	padding: 0 10px;
+.nav-list .item > div {
+	padding: 0 1rem;
 }
 
 .nav-list .item > span {
@@ -392,7 +395,6 @@ a:hover .icon {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
 	border-bottom: 1px solid var(--border-color);
@@ -447,7 +449,7 @@ a:hover .icon {
 }
 
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:hover,
+.dropdown-menu .item > button:hover:not([disabled]),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--contrast-background-color-active);
 	color: var(--font-color-light);
@@ -656,10 +658,6 @@ a:hover .icon {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 
@@ -1144,22 +1142,6 @@ a:hover .icon {
 
 	.nav_menu .stick .btn {
 		margin: 5px 0;
-	}
-
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
-	.nav_menu .search input {
-		padding: 3px 5px;
-		max-width: 97%;
-		width: 90px;
-		line-height: 2;
-	}
-
-	.nav_menu .search input:focus {
-		width: 400px;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

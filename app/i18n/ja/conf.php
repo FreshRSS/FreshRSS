@@ -49,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 の通知タイムアウト時間',
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
-		'theme' => 'テーマ',
+		'theme' => array(
+			'_' => 'テーマ',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s”テーマはご利用いただけません。他のテーマをお選びください。',
 		'thumbnail' => array(
 			'label' => 'サムネイル',

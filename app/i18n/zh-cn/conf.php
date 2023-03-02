@@ -49,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 通知超时时间',
 		),
 		'show_nav_buttons' => '显示导航按钮',
-		'theme' => '主题',
+		'theme' => array(
+			'_' => '主题',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
 			'label' => '缩略图',

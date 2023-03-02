@@ -174,6 +174,7 @@ return array(
 		'queries' => 'User queries',
 		'reading' => 'Reading',
 		'search' => 'Search words or #tags',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Sharing',
 		'shortcuts' => 'Shortcuts',
 		'stats' => 'Statistics',
@@ -191,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
 		'clipboard' => 'Clipboard',

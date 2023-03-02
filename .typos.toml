@@ -36,6 +36,7 @@ extend-exclude = [
 	"composer.lock",
 	"data/",
 	"docs/fr/",
+	"lib/marienfressinaud/",
 	"lib/phpgt/",
 	"lib/phpmailer/",
 	"lib/SimplePie/",

@@ -5,6 +5,7 @@
 	<arg name="tab-width" value="4"/>
 	<exclude-pattern>./.git/</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./lib/marienfressinaud/</exclude-pattern>
 	<exclude-pattern>./lib/phpgt/</exclude-pattern>
 	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>

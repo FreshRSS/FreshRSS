@@ -49,11 +49,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$values = array(
-			substr($valuesTmp['url'], 0, 511),
+			$valuesTmp['url'],
 			$valuesTmp['kind'] ?? FreshRSS_Feed::KIND_RSS,
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
-			substr($valuesTmp['website'], 0, 255),
+			$valuesTmp['website'],
 			sanitizeHTML($valuesTmp['description'], '', 1023),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,

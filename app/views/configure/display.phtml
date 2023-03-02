@@ -37,7 +37,7 @@
 				?>
 				<?php foreach ($timezones as $timezone): ?>
 				<option value="<?= $timezone ?>"<?= FreshRSS_Context::$user_conf->timezone === $timezone ? ' selected="selected"' : '' ?>>
-					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . ini_get('date.timezone') . ')' : $timezone ?>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . FreshRSS_Context::defaultTimeZone() . ')' : $timezone ?>
 				</option>
 				<?php endforeach; ?>
 				</select>
@@ -71,8 +71,18 @@
 								<?php } ?>
 							</div>
 							<div class="properties">
-								<div><?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?></div>
-								<div><?= $theme['description'] ?></div>
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated error"><?= _t('conf.display.theme.deprecated') ?>:</span>
+									<?php } ?>
+									<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?>
+								</div>
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated"><?= _t('conf.display.theme.deprecated.description') ?></span><br />
+									<?php } ?>
+									<?= $theme['description'] ?>
+								</div>
 								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>

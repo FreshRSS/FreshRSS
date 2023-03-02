@@ -49,7 +49,13 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
-		'theme' => 'Erscheinungsbild',
+		'theme' => array(
+			'_' => 'Layout',
+			'deprecated' => array(
+				'_' => 'Veraltet',
+				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
+			),
+		),
 		'theme_not_available' => 'Das Erscheinungsbild „%s“ ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
 		'thumbnail' => array(
 			'label' => 'Vorschaubild',

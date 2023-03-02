@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath для:',
 			),
 			'rss' => 'RSS / Atom (по умолчанию)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',

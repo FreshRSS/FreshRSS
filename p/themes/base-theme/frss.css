@@ -115,6 +115,10 @@ h3 {
 	display: none;
 }
 
+.only-mobile {
+	display: none !important;
+}
+
 /*=== Paragraphs */
 p {
 	margin: 1rem 0 0.5rem;
@@ -194,7 +198,8 @@ label {
 }
 
 input {
-	width: 180px;
+	max-width: 90%;
+	width: 300px;
 }
 
 input[type=number] {
@@ -203,8 +208,7 @@ input[type=number] {
 
 textarea,
 input[type="file"],
-input.long,
-input.extend:focus {
+input.long {
 	width: 300px;
 }
 
@@ -212,6 +216,11 @@ input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
 	font-size: 0.8rem;
+	box-sizing: border-box;
+}
+
+select {
+	min-width: 6em;
 }
 
 input.w50,
@@ -397,7 +406,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 250px;
+	min-width: 200px;
 	margin: 0 0 0 220px;
 	overflow-x: auto;
 }
@@ -442,7 +451,7 @@ td.numeric {
 	flex-shrink: 0;
 }
 
-.stick form {
+#nav_menu_read_all form {
 	display: inline-flex;
 }
 
@@ -559,6 +568,10 @@ input[type="checkbox"]:focus-visible {
 }
 
 /*=== Navigation */
+.nav-list {
+	padding-bottom: 3rem;
+}
+
 .nav-list .nav-header,
 .nav-list .item {
 	display: block;
@@ -1227,8 +1240,12 @@ a.website:hover .favicon {
 
 .flux .item.thumbnail {
 	line-height: 0;
-	padding: 0.75rem;
+	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
 	height: 80px;
+}
+
+.flux .item.thumbnail .item-element {
+	padding: 0;
 }
 
 .flux .item.thumbnail.small {
@@ -1317,22 +1334,42 @@ a.website:hover .favicon {
 .content {
 	min-height: 20rem;
 	margin: auto;
-	padding: 0.75rem;
 	line-height: 1.5;
 	word-wrap: break-word;
-	overflow: auto;
+}
+
+.content .text {
+	overflow-x: auto;
+}
+
+.content .text div {
+	overflow-x: auto;
+}
+
+.content header,
+.content .text,
+.content footer {
+	padding: 0 3rem;
+}
+
+.content header {
+	padding-top: calc(2 * var(--frss-padding-top-bottom));
+}
+
+.content footer {
+	padding-bottom: calc(2 * var(--frss-padding-top-bottom));
 }
 
 .content.large {
-	max-width: 1000px;
+	max-width: 1100px;
 }
 
 .content.medium {
-	max-width: 800px;
+	max-width: 900px;
 }
 
 .content.thin {
-	max-width: 550px;
+	max-width: 650px;
 }
 
 .content .article-header-topline {
@@ -1346,14 +1383,13 @@ a.website:hover .favicon {
 }
 
 .content > footer {
-	margin: 2rem 0 2rem;
 	padding-top: 1rem;
-	border-top: 2px solid var(--frss-border-color);
 	clear: both;
 }
 
 .content > footer .subtitle {
-	padding-bottom: 1rem;
+	padding: 2rem 0 1rem;
+	border-top: 2px solid var(--frss-border-color);
 }
 
 .content > header .tags,
@@ -1829,9 +1865,14 @@ input:checked + .slide-container .properties {
 
 .item.share.error a::after,
 .category .title.error::before,
-.item.feed.error .item-title::before {
+.item.feed.error .item-title::before,
+.properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
+}
+
+.deprecated {
+	font-weight: bold;
 }
 
 .feed.item.error.active .item-title::before {
@@ -1939,7 +1980,6 @@ input:checked + .slide-container .properties {
 }
 
 .nav-login,
-.nav_menu .search,
 .aside .toggle_aside,
 #slider .toggle_aside,
 .nav_menu .toggle_aside,
@@ -1990,7 +2030,7 @@ input:checked + .slide-container .properties {
 }
 
 .reader .flux .content {
-	padding: 3rem;
+	padding: 3rem 0;
 	background-color: var(--frss-background-color);
 	border: 1px solid var(--frss-border-color);
 }
@@ -2012,6 +2052,10 @@ input:checked + .slide-container .properties {
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
+	}
+
+	.only-mobile {
+		display: unset !important;
 	}
 
 	.header > .item {
@@ -2082,6 +2126,23 @@ input:checked + .slide-container .properties {
 		margin: 2px 0;
 	}
 
+	.dropdown .dropdown-menu .item .stick .btn {
+		margin: 0;
+	}
+
+	.dropdown .dropdown-menu .item form {
+		display: block;
+		text-align: center;
+	}
+
+	.dropdown .dropdown-menu .item .stick.search {
+		width: calc(100% - 20px);
+	}
+
+	.dropdown .dropdown-menu .item .stick.search input {
+		width: 95%;
+	}
+
 	.dropdown .dropdown-menu .item button.as-link,
 	.dropdown .dropdown-menu .item button.as-link:hover, button.as-link:active {
 		width: 100%;
@@ -2106,7 +2167,7 @@ input:checked + .slide-container .properties {
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
-		margin-top: 0;
+		margin-top: 10px;
 	}
 
 	.configure .dropdown .dropdown-menu {
@@ -2144,7 +2205,6 @@ input:checked + .slide-container .properties {
 	}
 
 	.nav_menu .toggle_aside,
-	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
 	}
@@ -2197,7 +2257,9 @@ input:checked + .slide-container .properties {
 		top: 0;
 	}
 
-	.reader .flux .content {
+	.content header,
+	.content .text,
+	.content footer {
 		padding: 1rem;
 	}
 

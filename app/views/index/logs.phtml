@@ -6,7 +6,7 @@
 	</div>
 
 	<h1><?= _t('index.log') ?></h1>
-	
+
 
 	<?php
 		/** @var array<FreshRSS_Log> $items */
@@ -29,8 +29,8 @@
 				<?= _i($log->level()) ?>
 			</td>
 			<td class="log-date">
-				<time datetime="<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>">
-					<?= @date('Y-m-d H:i:s', @strtotime($log->date())) ?>
+				<time datetime="<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>">
+					<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>
 				</time>
 			</td>
 			<td class="log-message">
@@ -42,7 +42,7 @@
 		</table>
 	</div>
 	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-	
+
 
 
 	<form method="post" action="<?= _url('index', 'logs') ?>">
@@ -58,5 +58,5 @@
 	<?php } else { ?>
 	<p class="alert alert-warn"><?= _t('index.log.empty') ?></p>
 	<?php } ?>
-	
+
 </main>

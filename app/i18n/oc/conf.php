@@ -49,7 +49,13 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
-		'theme' => 'Tèma',
+		'theme' => array(
+			'_' => 'Tèma',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Lo tèma « %s » es pas pus disponible. Causissètz un autre tèma.',
 		'thumbnail' => array(
 			'label' => 'Vinheta',

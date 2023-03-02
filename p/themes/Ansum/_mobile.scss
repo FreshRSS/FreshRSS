@@ -35,35 +35,9 @@
 	}
 
 	.header {
-		display: block;
-		height: 8rem;
-
 		.item {
 			&.search {
-				display: block;
-
-				form {
-					display: inherit;
-				}
-
-				.stick {
-					display: flex;
-				}
-
-				input {
-					width: 90%;
-					height: 3.5rem;
-
-					&:focus {
-						width: 100%;
-
-					}
-				}
-
-				.btn {
-					min-height: 49px;
-					padding: 0.5rem 2rem;
-				}
+				display: none;
 			}
 
 			&.configure {
@@ -103,11 +77,7 @@
 		}
 
 		.search {
-			display: none;
-			max-width: 97%;
-
 			.input {
-
 				max-width: 97%;
 				width: 90px;
 

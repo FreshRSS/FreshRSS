@@ -21,6 +21,7 @@ class FreshRSS_Export_Service {
 
 	const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	const TYPE_HTML_XPATH = 'HTML+XPath';
+	const TYPE_XML_XPATH = 'XML+XPath';
 	const TYPE_RSS_ATOM = 'rss';
 
 	/**
@@ -43,8 +44,6 @@ class FreshRSS_Export_Service {
 	 * @return array First item is the filename, second item is the content
 	 */
 	public function generateOpml() {
-		require_once(LIB_PATH . '/lib_opml.php');
-
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
 		$view->categories = $this->category_dao->listCategories(true, true);
