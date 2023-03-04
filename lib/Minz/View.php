@@ -247,9 +247,8 @@ class Minz_View {
 
 	/**
 	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
-	 *
 	 */
-	public static function metaThemeColor(): String {
+	public static function metaThemeColor(): string {
 		$meta = '';
 
 		if (!empty(self::$themeColors['light'])) {
