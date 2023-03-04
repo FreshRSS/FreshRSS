@@ -17,10 +17,14 @@ class FreshRSS_Entry extends Minz_Model {
 	 */
 	private $guid;
 
+	/** @var string */
 	private $title;
 	private $authors;
+	/** @var string */
 	private $content;
+	/** @var string */
 	private $link;
+	/** @var int */
 	private $date;
 	private $date_added = 0; //In microseconds
 	/**
@@ -67,14 +71,16 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['content'] = '';
 		}
 		if (!empty($dao['thumbnail'])) {
-			$dao['content'] .= '<p class="enclosure-content"><img src="' . $dao['thumbnail'] . '" alt="" /></p>';
+			$dao['attributes']['thumbnail'] = [
+				'url' => $dao['thumbnail'],
+			];
 		}
 		$entry = new FreshRSS_Entry(
 			$dao['id_feed'] ?? 0,
 			$dao['guid'] ?? '',
 			$dao['title'] ?? '',
 			$dao['author'] ?? '',
-			$dao['content'] ?? '',
+			$dao['content'],
 			$dao['link'] ?? '',
 			$dao['date'] ?? 0,
 			$dao['is_read'] ?? false,
@@ -116,15 +122,117 @@ class FreshRSS_Entry extends Minz_Model {
 			return $this->authors;
 		}
 	}
-	public function content(): string {
-		return $this->content;
+
+	/**
+	 * Basic test without ambition to catch all cases such as unquoted addresses, variants of entities, HTML comments, etc.
+	 */
+	private static function containsLink(string $html, string $link): bool {
+		return preg_match('/(?P<delim>[\'"])' . preg_quote($link, '/') . '(?P=delim)/', $html) == 1;
 	}
 
-	/** @return array<array<string,string>> */
-	public function enclosures(bool $searchBodyImages = false): array {
-		$results = [];
+	private static function enclosureIsImage(array $enclosure): bool {
+		$elink = $enclosure['url'] ?? '';
+		$length = $enclosure['length'] ?? 0;
+		$medium = $enclosure['medium'] ?? '';
+		$mime = $enclosure['type'] ?? '';
+
+		return $elink != '' && $medium === 'image' || strpos($mime, 'image') === 0 ||
+			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+	}
+
+	/**
+	 * @param bool $withEnclosures Set to true to include the enclosures in the returned HTML, false otherwise.
+	 * @param bool $allowDuplicateEnclosures Set to false to remove obvious enclosure duplicates (based on simple string comparison), true otherwise.
+	 * @return string HTML content
+	 */
+	public function content(bool $withEnclosures = true, bool $allowDuplicateEnclosures = false): string {
+		if (!$withEnclosures) {
+			return $this->content;
+		}
+
+		$content = $this->content;
+
+		$thumbnail = $this->attributes('thumbnail');
+		if (!empty($thumbnail['url'])) {
+			$elink = $thumbnail['url'];
+			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
+			$content .= <<<HTML
+<figure class="enclosure">
+	<p class="enclosure-content">
+		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
+	</p>
+</figure>
+HTML;
+			}
+		}
+
+		$attributeEnclosures = $this->attributes('enclosures');
+		if (empty($attributeEnclosures)) {
+			return $content;
+		}
+
+		foreach ($attributeEnclosures as $enclosure) {
+			$elink = $enclosure['url'] ?? '';
+			if ($elink == '') {
+				continue;
+			}
+			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
+				continue;
+			}
+			$credit = $enclosure['credit'] ?? '';
+			$description = $enclosure['description'] ?? '';
+			$length = $enclosure['length'] ?? 0;
+			$medium = $enclosure['medium'] ?? '';
+			$mime = $enclosure['type'] ?? '';
+			$thumbnails = $enclosure['thumbnails'] ?? [];
+			$etitle = $enclosure['title'] ?? '';
+
+			$content .= '<figure class="enclosure">';
+
+			foreach ($thumbnails as $thumbnail) {
+				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+			}
+
+			if (self::enclosureIsImage($enclosure)) {
+				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
+			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
+				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
+				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
+			} else {	//e.g. application, text, unknown
+				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
+					. '" title="' . $etitle . '">💾</a></p>';
+			}
+
+			if ($credit != '') {
+				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+			}
+			if ($description != '') {
+				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
+			}
+			$content .= "</figure>\n";
+		}
+
+		return $content;
+	}
+
+	/** @return iterable<array<string,string>> */
+	public function enclosures(bool $searchBodyImages = false) {
+		$attributeEnclosures = $this->attributes('enclosures');
+		if (is_array($attributeEnclosures)) {
+			// FreshRSS 1.20.1+: The enclosures are saved as attributes
+			yield from $attributeEnclosures;
+		}
 		try {
-			$searchEnclosures = strpos($this->content, '<p class="enclosure-content') !== false;
+			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
@@ -133,6 +241,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$xpath = new DOMXpath($dom);
 			}
 			if ($searchEnclosures) {
+				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				foreach ($enclosures as $enclosure) {
 					$result = [
@@ -148,7 +257,7 @@ class FreshRSS_Entry extends Minz_Model {
 							case 'audio': $result['medium'] = 'audio'; break;
 						}
 					}
-					$results[] = $result;
+					yield Minz_Helper::htmlspecialchars_utf8($result);
 				}
 			}
 			if ($searchBodyImages) {
@@ -159,26 +268,31 @@ class FreshRSS_Entry extends Minz_Model {
 						$src = $img->getAttribute('data-src');
 					}
 					if ($src != null) {
-						$results[] = [
+						$result = [
 							'url' => $src,
-							'alt' => $img->getAttribute('alt'),
 						];
+						yield Minz_Helper::htmlspecialchars_utf8($result);
 					}
 				}
 			}
-			return $results;
 		} catch (Exception $ex) {
-			return $results;
+			Minz_Log::debug(__METHOD__ . ' ' . $ex->getMessage());
 		}
 	}
 
 	/**
 	 * @return array<string,string>|null
 	 */
-	public function thumbnail() {
-		foreach ($this->enclosures(true) as $enclosure) {
-			if (!empty($enclosure['url']) && empty($enclosure['type'])) {
-				return $enclosure;
+	public function thumbnail(bool $searchEnclosures = true) {
+		$thumbnail = $this->attributes('thumbnail');
+		if (!empty($thumbnail['url'])) {
+			return $thumbnail;
+		}
+		if ($searchEnclosures) {
+			foreach ($this->enclosures(true) as $enclosure) {
+				if (self::enclosureIsImage($enclosure)) {
+					return $enclosure;
+				}
 			}
 		}
 		return null;
@@ -188,6 +302,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public function link(): string {
 		return $this->link;
 	}
+	/** @return string|int */
 	public function date(bool $raw = false) {
 		if ($raw) {
 			return $this->date;
@@ -587,7 +702,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 			if ($entry) {
 				// l’article existe déjà en BDD, en se contente de recharger ce contenu
-				$this->content = $entry->content();
+				$this->content = $entry->content(false);
 			} else {
 				try {
 					// The article is not yet in the database, so let’s fetch it
@@ -629,7 +744,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'guid' => $this->guid(),
 			'title' => $this->title(),
 			'author' => $this->authors(true),
-			'content' => $this->content(),
+			'content' => $this->content(false),
 			'link' => $this->link(),
 			'date' => $this->date(true),
 			'hash' => $this->hash(),
@@ -677,7 +792,6 @@ class FreshRSS_Entry extends Minz_Model {
 			'published' => $this->date(true),
 			// 'updated' => $this->date(true),
 			'title' => $this->title(),
-			'summary' => ['content' => $this->content()],
 			'canonical' => [
 				['href' => htmlspecialchars_decode($this->link(), ENT_QUOTES)],
 			],
@@ -697,13 +811,16 @@ class FreshRSS_Entry extends Minz_Model {
 		if ($mode === 'compat') {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
-			if (mb_strlen($this->content(), 'UTF-8') > self::API_MAX_COMPAT_CONTENT_LENGTH) {
-				$item['summary']['content'] = mb_strcut($this->content(), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8');
-			}
-		} elseif ($mode === 'freshrss') {
+			$item['summary'] = [
+				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+			];
+		} else {
+			$item['content'] = [
+				'content' => $this->content(false),
+			];
+		}
+		if ($mode === 'freshrss') {
 			$item['guid'] = $this->guid();
-			unset($item['summary']);
-			$item['content'] = ['content' => $this->content()];
 		}
 		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
@@ -718,10 +835,11 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		}
 		foreach ($this->enclosures() as $enclosure) {
-			if (!empty($enclosure['url']) && !empty($enclosure['type'])) {
+			if (!empty($enclosure['url'])) {
 				$media = [
 						'href' => $enclosure['url'],
-						'type' => $enclosure['type'],
+						'type' => $enclosure['type'] ?? $enclosure['medium'] ??
+							(self::enclosureIsImage($enclosure) ? 'image' : ''),
 					];
 				if (!empty($enclosure['length'])) {
 					$media['length'] = intval($enclosure['length']);

@@ -34,7 +34,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 			->method('name')
 			->withAnyParameters()
 			->willReturn($category_name);
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
+		$cat_dao = $this->createMock('FreshRSS_CategoryDAO');
 		$cat_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()
@@ -60,7 +60,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 			->method('name')
 			->withAnyParameters()
 			->willReturn($feed_name);
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
+		$feed_dao = $this->createMock('FreshRSS_FeedDAO');
 		$feed_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()
@@ -74,8 +74,8 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	public function test__construct_whenUnknownQuery_doesStoreParameters() {
 		$query = array('get' => 'q');
 		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertNull($user_query->getGetName());
-		$this->assertNull($user_query->getGetType());
+		$this->assertEmpty($user_query->getGetName());
+		$this->assertEmpty($user_query->getGetType());
 	}
 
 	public function test__construct_whenName_storesName() {
@@ -93,7 +93,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function test__construct_whenState_storesState() {
-		$state = 'some state';
+		$state = FreshRSS_Entry::STATE_ALL;
 		$query = array('state' => $state);
 		$user_query = new FreshRSS_UserQuery($query);
 		$this->assertEquals($state, $user_query->getState());
@@ -118,7 +118,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 			'name' => 'some name',
 			'order' => 'some order',
 			'search' => 'some search',
-			'state' => 'some state',
+			'state' => FreshRSS_Entry::STATE_ALL,
 			'url' => 'some url',
 		);
 		$user_query = new FreshRSS_UserQuery($query);
@@ -160,7 +160,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 
 	public function testIsDeprecated_whenCategoryExists_returnFalse() {
 		$cat = $this->createMock('FreshRSS_Category');
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
+		$cat_dao = $this->createMock('FreshRSS_CategoryDAO');
 		$cat_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()
@@ -171,7 +171,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testIsDeprecated_whenCategoryDoesNotExist_returnTrue() {
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
+		$cat_dao = $this->createMock('FreshRSS_CategoryDAO');
 		$cat_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()
@@ -183,7 +183,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 
 	public function testIsDeprecated_whenFeedExists_returnFalse() {
 		$feed = $this->createMock('FreshRSS_Feed', array(), array('', false));
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
+		$feed_dao = $this->createMock('FreshRSS_FeedDAO');
 		$feed_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()
@@ -194,7 +194,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testIsDeprecated_whenFeedDoesNotExist_returnTrue() {
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
+		$feed_dao = $this->createMock('FreshRSS_FeedDAO');
 		$feed_dao->expects($this->atLeastOnce())
 			->method('searchById')
 			->withAnyParameters()

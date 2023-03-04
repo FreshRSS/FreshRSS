@@ -103,9 +103,7 @@ class FreshRSS_Category extends Minz_Model {
 				$this->hasFeedsWithError |= $feed->inError();
 			}
 
-			usort($this->feeds, function ($a, $b) {
-				return strnatcasecmp($a->name(), $b->name());
-			});
+			$this->sortFeeds();
 		}
 
 		return $this->feeds;
@@ -144,6 +142,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 
 		$this->feeds = $values;
+		$this->sortFeeds();
 	}
 
 	/**
@@ -155,6 +154,8 @@ class FreshRSS_Category extends Minz_Model {
 			$this->feeds = [];
 		}
 		$this->feeds[] = $feed;
+
+		$this->sortFeeds();
 	}
 
 	public function _attributes($key, $value) {
@@ -194,7 +195,7 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$dryRunCategory = new FreshRSS_Category();
 			$importService = new FreshRSS_Import_Service();
-			$importService->importOpml($opml, $dryRunCategory, true, true);
+			$importService->importOpml($opml, $dryRunCategory, true);
 			if ($importService->lastStatus()) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 
@@ -244,5 +245,11 @@ class FreshRSS_Category extends Minz_Model {
 		$catDAO->updateLastUpdate($this->id(), !$ok);
 
 		return $ok;
+	}
+
+	private function sortFeeds() {
+		usort($this->feeds, static function ($a, $b) {
+			return strnatcasecmp($a->name(), $b->name());
+		});
 	}
 }

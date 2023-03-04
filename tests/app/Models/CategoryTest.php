@@ -30,4 +30,54 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		);
 	}
 
+	public function test_feedOrdering() {
+		$feed_1 = $this->getMockBuilder(FreshRSS_Feed::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$feed_1->expects($this->any())
+			->method('name')
+			->willReturn('AAA');
+
+		$feed_2 = $this->getMockBuilder(FreshRSS_Feed::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$feed_2->expects($this->any())
+			->method('name')
+			->willReturn('ZZZ');
+
+		$feed_3 = $this->getMockBuilder(FreshRSS_Feed::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$feed_3->expects($this->any())
+			->method('name')
+			->willReturn('lll');
+
+		$category = new FreshRSS_Category('test', [
+			$feed_1,
+			$feed_2,
+			$feed_3,
+		]);
+		$feeds = $category->feeds();
+
+		$this->assertCount(3, $feeds);
+		$this->assertEquals('AAA', $feeds[0]->name());
+		$this->assertEquals('lll', $feeds[1]->name());
+		$this->assertEquals('ZZZ', $feeds[2]->name());
+
+		$feed_4 = $this->getMockBuilder(FreshRSS_Feed::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$feed_4->expects($this->any())
+			->method('name')
+			->willReturn('BBB');
+
+		$category->addFeed($feed_4);
+		$feeds = $category->feeds();
+
+		$this->assertCount(4, $feeds);
+		$this->assertEquals('AAA', $feeds[0]->name());
+		$this->assertEquals('BBB', $feeds[1]->name());
+		$this->assertEquals('lll', $feeds[2]->name());
+		$this->assertEquals('ZZZ', $feeds[3]->name());
+	}
 }

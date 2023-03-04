@@ -17,17 +17,19 @@ FreshRSS uses the XML namespace <https://freshrss.org/opml> to export/import ext
 
 The list of the custom FreshRSS attributes can be seen in [the source code](https://github.com/FreshRSS/FreshRSS/blob/edge/app/views/helpers/export/opml.phtml), and here is an overview:
 
-### HTML+XPath
+### HTML+XPath or XML+XPath
 
 * `<outline type="HTML+XPath" ...`: Additional type of source, which is not RSS/Atom, but HTML Web Scraping using [XPath](https://www.w3.org/TR/xpath-10/) 1.0.
 
 > ℹ️ [XPath 1.0](https://en.wikipedia.org/wiki/XPath) is a standard query language, which FreshRSS supports to enable [Web scraping](https://en.wikipedia.org/wiki/Web_scraping).
 
+* `<outline type="XML+XPath" ...`: Same than `HTML+XPath` but using an XML parser.
+
 The following attributes are using similar naming conventions than [RSS-Bridge](https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html).
 
 * `frss:xPathItem`: XPath expression for extracting the feed items from the source page.
 	* Example: `//div[@class="news-item"]`
-* `frss:xPathItemTitle`: XPath expression for extracting the feed title from the source page.
+* `frss:xPathItemTitle`: XPath expression for extracting the item’s title from the item context.
 	* Example: `descendant::h2`
 * `frss:xPathItemContent`: XPath expression for extracting an item’s content from the item context.
 	* Example: `.`

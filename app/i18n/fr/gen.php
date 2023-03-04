@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Filtres utilisateurs',
 		'reading' => 'Lecture',
 		'search' => 'Rechercher des mots ou des #tags',
+		'search_help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">la documentation pour la syntaxe des recherches avancées</a>',
 		'sharing' => 'Partage',
 		'shortcuts' => 'Raccourcis',
 		'stats' => 'Statistiques',
@@ -191,11 +192,13 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basés sur Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Presse-papier',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
+		'email-webmail-firefox-fix' => 'Courriel (pour Webmail avec Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

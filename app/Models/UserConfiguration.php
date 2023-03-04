@@ -28,6 +28,7 @@
  * @property-read string $is_admin
  * @property int|null $keep_history_default
  * @property string $language
+ * @property string $timezone
  * @property bool $lazyload
  * @property string $mail_login
  * @property bool $mark_updated_article_unread
@@ -52,6 +53,7 @@
  * @property bool $sides_close_article
  * @property bool $sticky_post
  * @property string $theme
+ * @property string $darkMode
  * @property string $token
  * @property bool $topline_date
  * @property bool $topline_display_authors
@@ -66,6 +68,10 @@
  * @property string $view_mode
  * @property array<string,mixed> $volatile
  */
-class FreshRSS_UserConfiguration extends Minz_Configuration {
+final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
+	public static function init($config_filename, $default_filename = null, $configuration_setter = null): FreshRSS_UserConfiguration {
+		parent::register('user', $config_filename, $default_filename, $configuration_setter);
+		return parent::get('user');
+	}
 }

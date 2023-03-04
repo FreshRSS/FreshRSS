@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',
 		'search' => 'Искать слова или #теги',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Обмен',
 		'shortcuts' => 'Горячие клавиши',
 		'stats' => 'Статистика',
@@ -191,11 +192,13 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

@@ -237,8 +237,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				return;
 		}
 
-		require_once(LIB_PATH . '/lib_opml.php');
-
 		// No layout for OPML output.
 		$this->view->_layout(false);
 		header('Content-Type: application/xml; charset=utf-8');

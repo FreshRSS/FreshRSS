@@ -5,7 +5,7 @@
 
 # FreshRSS
 
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](https://github.com/LeedRSS/Leed) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS est un agrégateur de flux RSS à auto-héberger.
 
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
@@ -19,20 +19,28 @@ FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé
 
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
-Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
-Nous sommes une communauté amicale.
-
 * Site officiel : <https://freshrss.org>
 * Démo : <http://demo.freshrss.org/>
 * Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
 
 ![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
 
-# Avertissements
+## Contributions
 
-FreshRSS n’est fourni avec aucune garantie.
+Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Nous sommes une communauté amicale.
+
+Pour faciliter les contributions, l’option suivante est disponible :
+
+[![Ouvrir dans GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=edge&repo=6322699)
+
+## Capture d’écran
 
 ![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
+
+## Avertissements
+
+FreshRSS n’est fourni avec aucune garantie.
 
 # [Documentation](https://freshrss.github.io/FreshRSS/fr/)
 
@@ -41,27 +49,23 @@ FreshRSS n’est fourni avec aucune garantie.
 * La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.html) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
 * Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.html) pour nous aider à développer FreshRSS.
 
-# Prérequis
+## Prérequis
 
 * Un navigateur Web récent tel que Firefox / IceCat, Edge, Chromium / Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile (sauf certaines fonctionnalités)
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 7.0+
+* PHP 7.2+
 	* Requis : [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), et [PDO_MySQL](https://www.php.net/pdo-mysql) ou [PDO_SQLite](https://www.php.net/pdo-sqlite) ou [PDO_PGSQL](https://www.php.net/pdo-pgsql)
 	* Recommandés : [GMP](https://www.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://www.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://www.php.net/mbstring) (pour le texte Unicode), [iconv](https://www.php.net/iconv) (pour conversion d’encodages), [ZIP](https://www.php.net/zip) (pour import/export), [zlib](https://www.php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ ou équivalent MariaDB, ou SQLite 3.7.4+, ou PostgreSQL 9.5+
 
-
-# Téléchargement
+# [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
 
 Si vous préférez que votre FreshRSS soit stable, vous devriez télécharger la dernière version. De nouvelles versions sont publiées tous les 2 ou 3 mois. Voir la [liste des versions](https://github.com/FreshRSS/FreshRSS/releases).
 
 Si vous voulez une publication continue (rolling release) avec les dernières nouveautés, ou bien aider à tester ou développer la future version stable, vous pouvez utiliser [la branche edge](https://github.com/FreshRSS/FreshRSS/tree/edge/).
-
-
-# [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
 
 ## Installation automatisée
 
@@ -83,7 +87,7 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 
 Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html).
 
-### Exemple d’installation complète sur Linux Debian/Ubuntu
+## Exemple d’installation complète sur Linux Debian/Ubuntu
 
 ```sh
 # Si vous utilisez le serveur Web Apache (sinon il faut un autre serveur Web)
@@ -105,11 +109,12 @@ sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 cd FreshRSS
 
-# Si vous souhaitez utiliser la dernière version stable de FreshRSS
-sudo git checkout $(git describe --tags --abbrev=0)
+# La branche par défault “edge” est la celle de la publication continue,
+# mais vous pouvez changer de branche pour “latest” si vous préférez les versions stables de FreshRSS
+sudo git checkout latest
 
 # Mettre les droits d’accès pour le serveur Web
-sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 # Si vous souhaitez permettre les mises à jour par l’interface Web
 sudo chmod -R g+w .
 
@@ -122,7 +127,7 @@ sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Mettre à jour FreshRSS vers une nouvelle version par git
 cd /usr/share/FreshRSS
 sudo git pull
-sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 ```
 
 Voir la [documentation de la ligne de commande](cli/README.md) pour plus de détails.
@@ -155,7 +160,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 7,37 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-## Conseils
+# Conseils
 
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
@@ -175,19 +180,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
 * Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](cli/README.md)
 
-Pour sauvegarder les articles eux-mêmes :
-
-## Dans le cas où vous utilisez MySQL
-
-Vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
-
-```sh
-mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
-```
-
-## Pour toutes les bases supportées
-
-Vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre base de données vers une base de données au format SQLite :
+Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser la [ligne de commande](cli/README.md) pour exporter votre base de données vers une base de données au format SQLite :
 
 ```sh
 ./cli/export-sqlite-for-user.php --user <username> --filename </path/to/db.sqlite>
@@ -250,7 +243,7 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://framagit.org/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [lib_opml](https://github.com/marienfressinaud/lib_opml)
+* [lib_opml](https://framagit.org/marienfressinaud/lib_opml)
 * [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 * [Chart.js](https://www.chartjs.org)

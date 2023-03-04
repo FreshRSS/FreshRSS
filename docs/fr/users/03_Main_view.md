@@ -275,3 +275,5 @@ Enfin, les parenthèses peuvent être utilisées pour des expressions plus compl
 * `!((author:Alice intitle:bonjour) OR (author:Bob intitle:monde))`
 * `(author:Alice intitle:bonjour) !(author:Bob intitle:monde)`
 * `!(S:1 OR S:2)`
+
+> ℹ️ Si vous devez chercher une parenthèse, elle doit être *échappée* comme suit : `\(` ou `\)`

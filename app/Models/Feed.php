@@ -18,6 +18,11 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	const KIND_HTML_XPATH = 10;
 	/**
+	 * Normal XML with XPath scraping
+	 * @var int
+	 */
+	const KIND_XML_XPATH = 15;
+	/**
 	 * Normal JSON with XPath scraping
 	 * @var int
 	 */
@@ -259,13 +264,14 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _url(string $value, bool $validate = true) {
 		$this->hash = '';
+		$url = $value;
 		if ($validate) {
-			$value = checkUrl($value);
+			$url = checkUrl($url);
 		}
-		if ($value == '') {
+		if ($url == '') {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
-		$this->url = $value;
+		$this->url = $url;
 	}
 	public function _kind(int $value) {
 		$this->kind = $value;
@@ -502,61 +508,46 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$content = html_only_entity_decode($item->get_content());
 
-			if ($item->get_enclosures() != null) {
-				$elinks = array();
+			$attributeThumbnail = $item->get_thumbnail() ?? [];
+			if (empty($attributeThumbnail['url'])) {
+				$attributeThumbnail['url'] = '';
+			}
+
+			$attributeEnclosures = [];
+			if (!empty($item->get_enclosures())) {
 				foreach ($item->get_enclosures() as $enclosure) {
 					$elink = $enclosure->get_link();
-					if ($elink != '' && empty($elinks[$elink])) {
-						$content .= '<div class="enclosure">';
-
-						if ($enclosure->get_title() != '') {
-							$content .= '<p class="enclosure-title">' . $enclosure->get_title() . '</p>';
-						}
-
-						$enclosureContent = '';
-						$elinks[$elink] = true;
+					if ($elink != '') {
+						$etitle = $enclosure->get_title() ?? '';
+						$credit = $enclosure->get_credit() ?? null;
+						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
 						$height = $enclosure->get_height();
 						$width = $enclosure->get_width();
 						$length = $enclosure->get_length();
-						if ($medium === 'image' || strpos($mime, 'image') === 0 ||
-							($mime == '' && $length == null && ($width != 0 || $height != 0 || preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink)))) {
-							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
-						} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
-							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-								. ($length == null ? '' : '" data-length="' . intval($length))
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-						} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
-							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-								. ($length == null ? '' : '" data-length="' . intval($length))
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-						} else {	//e.g. application, text, unknown
-							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink
-								. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-								. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-								. '">💾</a></p>';
-						}
 
-						$thumbnailContent = '';
-						if ($enclosure->get_thumbnails() != null) {
+						$attributeEnclosure = [
+							'url' => $elink,
+						];
+						if ($etitle != '') $attributeEnclosure['title'] = $etitle;
+						if ($credit != null) $attributeEnclosure['credit'] = $credit->get_name();
+						if ($description != '') $attributeEnclosure['description'] = $description;
+						if ($mime != '') $attributeEnclosure['type'] = $mime;
+						if ($medium != '') $attributeEnclosure['medium'] = $medium;
+						if ($length != '') $attributeEnclosure['length'] = intval($length);
+						if ($height != '') $attributeEnclosure['height'] = intval($height);
+						if ($width != '') $attributeEnclosure['width'] = intval($width);
+
+						if (!empty($enclosure->get_thumbnails())) {
 							foreach ($enclosure->get_thumbnails() as $thumbnail) {
-								if (empty($elinks[$thumbnail])) {
-									$elinks[$thumbnail] = true;
-									$thumbnailContent .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+								if ($thumbnail !== $attributeThumbnail['url']) {
+									$attributeEnclosure['thumbnails'][] = $thumbnail;
 								}
 							}
 						}
 
-						$content .= $thumbnailContent;
-						$content .= $enclosureContent;
-
-						if ($enclosure->get_description() != '') {
-							$content .= '<p class="enclosure-description">' . $enclosure->get_description() . '</p>';
-						}
-						$content .= "</div>\n";
+						$attributeEnclosures[] = $attributeEnclosure;
 					}
 				}
 			}
@@ -586,6 +577,10 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 			$entry->_tags($tags);
 			$entry->_feed($this);
+			if (!empty($attributeThumbnail['url'])) {
+				$entry->_attributes('thumbnail', $attributeThumbnail);
+			}
+			$entry->_attributes('enclosures', $attributeEnclosures);
 			$entry->hash();	//Must be computed before loading full content
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
@@ -596,7 +591,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return SimplePie|null
 	 */
-	public function loadHtmlXpath(bool $loadDetails = false, bool $noCache = false) {
+	public function loadHtmlXpath() {
 		if ($this->url == '') {
 			return null;
 		}
@@ -624,8 +619,9 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), FreshRSS_Feed::KIND_HTML_XPATH);
-		$html = httpGet($feedSourceUrl, $cachePath, 'html', $this->attributes());
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
+		$html = httpGet($feedSourceUrl, $cachePath,
+			$this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html', $this->attributes());
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -640,7 +636,18 @@ class FreshRSS_Feed extends Minz_Model {
 			$doc = new DOMDocument();
 			$doc->recover = true;
 			$doc->strictErrorChecking = false;
-			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+
+			switch ($this->kind()) {
+				case FreshRSS_Feed::KIND_HTML_XPATH:
+					$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					break;
+				case FreshRSS_Feed::KIND_XML_XPATH:
+					$doc->loadXML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					break;
+				default:
+					return null;
+			}
+
 			$xpath = new DOMXPath($doc);
 			$view->rss_title = $xPathFeedTitle == '' ? $this->name() :
 				htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
@@ -653,7 +660,23 @@ class FreshRSS_Feed extends Minz_Model {
 			foreach ($nodes as $node) {
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
-				$item['content'] = $xPathItemContent == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemContent . ')', $node);
+
+				$item['content'] = '';
+				if ($xPathItemContent != '') {
+					$result = @$xpath->evaluate($xPathItemContent, $node);
+					if ($result instanceof DOMNodeList) {
+						// List of nodes, save as HTML
+						$content = '';
+						foreach ($result as $child) {
+							$content .= $doc->saveHTML($child) . "\n";
+						}
+						$item['content'] = $content;
+					} else {
+						// Typed expression, save as-is
+						$item['content'] = strval($result);
+					}
+				}
+
 				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
 				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
@@ -679,8 +702,15 @@ class FreshRSS_Feed extends Minz_Model {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
 				}
 
-				if ($item['title'] . $item['content'] . $item['link'] != '') {
-					$item = Minz_Helper::htmlspecialchars_utf8($item);
+				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
+					// HTML-encoding/escaping of the relevant fields (all except 'content')
+					foreach (['author', 'categories', 'guid', 'link', 'thumbnail', 'timestamp', 'title'] as $key) {
+						if (!empty($item[$key])) {
+							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
+						}
+					}
+					// CDATA protection
+					$item['content'] = str_replace(']]>', ']]&gt;', $item['content']);
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}
@@ -763,8 +793,10 @@ class FreshRSS_Feed extends Minz_Model {
 	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
 		$simplePie = customSimplePie($attributes);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+		if ($kind === FreshRSS_Feed::KIND_HTML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.html';
+		} elseif ($kind === FreshRSS_Feed::KIND_XML_XPATH) {
+			return CACHE_PATH . '/' . $filename . '.xml';
 		} else {
 			return CACHE_PATH . '/' . $filename . '.spc';
 		}
@@ -966,14 +998,14 @@ class FreshRSS_Feed extends Minz_Model {
 					$key = $hubJson['key'];	//To renew our lease
 				}
 			} else {
-				@mkdir($path, 0777, true);
+				@mkdir($path, 0770, true);
 				$key = sha1($path . FreshRSS_Context::$system_conf->salt);
 				$hubJson = array(
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				);
 				file_put_contents($hubFilename, json_encode($hubJson));
-				@mkdir(PSHB_PATH . '/keys/');
+				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
 				$text = 'WebSub prepared for ' . $this->url;
 				Minz_Log::debug($text);

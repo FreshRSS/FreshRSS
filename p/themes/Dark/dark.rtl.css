@@ -78,17 +78,12 @@ input:disabled, select:disabled {
 	border-color: #000;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 	border: 1px solid #333;
 }
 
@@ -117,7 +112,6 @@ form th {
 
 .form-group .group-name {
 	padding: 10px 0;
-	text-align: left;
 }
 
 .form-group .group-controls {
@@ -263,11 +257,14 @@ a.btn {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+.nav-list {
 	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
 .nav-list .item a:hover {
@@ -284,35 +281,15 @@ a.btn {
 }
 
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 }
 
 .nav-list a:hover {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-	color: #c95;
-}
-
-.nav-list .item:hover.empty a,
-.nav-list .item.active.empty a {
-	background: #c95;
-	color: #fff;
-}
-
-.nav-list .item.error a {
-	color: #a44;
-}
-
-.nav-list .item:hover.error a,
-.nav-list .item.active.error a {
-	background: #a44;
-	color: #fff;
-}
-
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	font-weight: bold;
 	background: #111;
 	border-bottom: 1px solid #333;
@@ -338,23 +315,35 @@ a.btn {
 	border-color: #888;
 }
 
-.dropdown-header {
-	padding: 0 5px 5px;
+.dropdown-header,
+.dropdown-section .dropdown-section-title {
+	padding: 0.25rem 1rem 0.25rem 0.5rem;
 	font-weight: bold;
 	text-align: right;
 	color: #888;
 }
 
-.dropdown-menu > .item > a,
-.dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
+.dropdown-menu .item > a,
+.dropdown-menu .item > span,
+.dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
-	font-size: 0.8rem;
+	font-size: inherit;
 }
 
-.dropdown-menu > .item > a:hover,
-.dropdown-menu > .item > button:hover {
+.dropdown-menu .dropdown-section .item > a,
+.dropdown-menu .dropdown-section .item > span,
+.dropdown-menu .dropdown-section .item > .as-link {
+	padding-right: 2rem;
+}
+
+.dropdown-menu .dropdown-section .item:last-child {
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item > label:hover:not(.noHover) {
 	background: #26303f;
 	color: #888;
 }
@@ -372,14 +361,13 @@ a.btn {
 }
 
 .item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
 .item.separator {
 	border-top-color: #333;
 }
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background: #111;
 	color: #aaa;
 	font-size: 0.9em;
@@ -497,8 +485,6 @@ a.btn {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 2.5rem;
 	font-size: 0.8rem;
 }
 
@@ -540,25 +526,20 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
 	border-bottom: 1px solid #333;
-}
-
-.header > .item.title {
-	width: 230px;
 }
 
 .header > .item.title .logo {
 	filter: grayscale(60%) brightness(1.1);
 }
 
-.header > .item.search input {
-	width: 230px;
+.header > .item.title a:hover .logo {
+	filter: grayscale(60%) brightness(1.5);
 }
 
-.header .item.search input:focus {
+.header > .item.search input {
 	width: 350px;
 }
 
@@ -717,7 +698,7 @@ a.btn {
 	border-right: 2px solid #2f2f2f;
 }
 
-.flux:hover {
+.flux .flux_header:hover {
 	background: #111;
 }
 
@@ -841,11 +822,6 @@ a.btn {
 	color: #a44;
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3em;
-}
-
 .notification a.close:hover {
 	background: #222;
 	border-radius: 3px 0 0 3px;
@@ -857,10 +833,6 @@ a.btn {
 
 .notification.bad a.close:hover {
 	background: #a44;
-}
-
-.notification#actualizeProgress {
-	line-height: 2em;
 }
 
 /*=== "Load more" part */
@@ -934,6 +906,11 @@ a.btn {
 	text-shadow: none;
 }
 
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	background-color: #171717;
+	margin-top: 1rem;
+}
+
 /*=== Panel */
 #panel {
 	background: #1c1c1c;
@@ -989,7 +966,6 @@ a.btn {
 @media (max-width: 840px) {
 	.form-group .group-name {
 		padding-bottom: 0;
-		text-align: right;
 	}
 
 	.aside {
@@ -1017,20 +993,6 @@ a.btn {
 
 	.nav_menu .stick .btn {
 		margin: 5px 0;
-	}
-
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
-	.nav_menu .search input {
-		max-width: 97%;
-		width: 90px;
-	}
-
-	.nav_menu .search input:focus {
-		width: 400px;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

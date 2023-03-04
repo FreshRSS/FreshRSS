@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 通知超時時間',
 		),
 		'show_nav_buttons' => '顯示導航按鈕',
-		'theme' => '主題',
+		'theme' => array(
+			'_' => '主題',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” 主題不再可用，請選擇其他主題。',
 		'thumbnail' => array(
 			'label' => '縮圖',
@@ -57,6 +64,7 @@ return array(
 			'portrait' => '肖像',
 			'square' => '方塊',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '顯示',
 		'width' => array(
 			'content' => '內容寬度',

@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Filtres utilizaire',
 		'reading' => 'Lectura',
 		'search' => 'Recercar de mots o d’#etiquetas',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Partatge',
 		'shortcuts' => 'Acorchis',
 		'stats' => 'Estatisticas',
@@ -191,11 +192,13 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basats sus Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Quicha-papiers.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

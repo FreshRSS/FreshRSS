@@ -26,6 +26,25 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="language"><?= _t('conf.display.timezone') ?></label>
+			<div class="group-controls">
+				<select name="timezone" id="timezone" data-leave-validation="<?= FreshRSS_Context::$user_conf->timezone ?>">
+				<?php
+					$timezones = array_merge([''], DateTimeZone::listIdentifiers());
+					if (!in_array(FreshRSS_Context::$user_conf->timezone, $timezones, true)) {
+						FreshRSS_Context::$user_conf->timezone = '';
+					}
+				?>
+				<?php foreach ($timezones as $timezone): ?>
+				<option value="<?= $timezone ?>"<?= FreshRSS_Context::$user_conf->timezone === $timezone ? ' selected="selected"' : '' ?>>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . FreshRSS_Context::defaultTimeZone() . ')' : $timezone ?>
+				</option>
+				<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
 				<ul class="slides">
@@ -41,7 +60,7 @@
 							data-leave-validation="<?= (FreshRSS_Context::$user_conf->theme === $theme['id']) ? 1 : 0 ?>" />
 						<li class="slide-container">
 							<div class="slide">
-								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" />
+								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
 							</div>
 							<div class="nav">
 								<?php if ($i !== 1) {?>
@@ -52,8 +71,18 @@
 								<?php } ?>
 							</div>
 							<div class="properties">
-								<div><?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?></div>
-								<div><?= $theme['description'] ?></div>
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated error"><?= _t('conf.display.theme.deprecated') ?>:</span>
+									<?php } ?>
+									<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?>
+								</div>
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated"><?= _t('conf.display.theme.deprecated.description') ?></span><br />
+									<?php } ?>
+									<?= $theme['description'] ?>
+								</div>
 								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>
@@ -73,6 +102,16 @@
 						</li>
 					<?php }?>
 				</ul>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="darkMode"><?= _t('conf.display.darkMode') ?></label>
+			<div class="group-controls">
+				<select name="darkMode" id="darkMode" data-leave-validation="<?= FreshRSS_Context::$user_conf->darkMode ?>">
+					<option value="no"<?= FreshRSS_Context::$user_conf->darkMode === 'no' ? ' selected' : '' ?>>No</option>
+					<option value="auto"<?= FreshRSS_Context::$user_conf->darkMode === 'auto' ? ' selected' : '' ?>>Auto</option>
+				</select>
 			</div>
 		</div>
 
@@ -126,7 +165,7 @@
 						<tr>
 							<th> </th>
 							<th title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i('read') ?></th>
-							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('bookmark') ?></th>
+							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('starred') ?></th>
 							<th><?= _t('conf.display.icon.related_tags') ?></th>
 							<th><?= _t('conf.display.icon.sharing') ?></th>
 							<th><?= _t('conf.display.icon.summary') ?></th>

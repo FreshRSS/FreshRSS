@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Queries de usuário',
 		'reading' => 'Leitura',
 		'search' => 'Procurar por palavras ou #tags',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Compartilhamento',
 		'shortcuts' => 'Atalhos',
 		'stats' => 'Estatísticas',
@@ -191,11 +192,13 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites no Known',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

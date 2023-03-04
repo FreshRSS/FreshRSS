@@ -1,8 +1,10 @@
-FROM alpine:3.5
+FROM alpine:3.8
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
 RUN apk add --no-cache \
+	tzdata \
 	apache2 php7-apache2 \
 	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
 	php7-ctype php7-dom php7-iconv php7-json php7-opcache php7-openssl php7-phar php7-session php7-xmlreader php7-xml php7-zlib \

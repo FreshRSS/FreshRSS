@@ -52,17 +52,12 @@ input:invalid, select:invalid {
 input:disabled, select:disabled {
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
+th, td {
 }
 
 th {
@@ -200,18 +195,6 @@ a.btn {
 	text-decoration: none;
 }
 
-.nav-list .item.empty a {
-}
-
-.nav-list .item.active.empty a {
-}
-
-.nav-list .item.error a {
-}
-
-.nav-list .item.active.error a {
-}
-
 .nav-list .nav-header {
 	padding: 0 10px;
 	font-weight: bold;
@@ -231,7 +214,6 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	content: "";
 	position: absolute;
 	top: -6px;
 	right: 13px;
@@ -277,8 +259,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	font-size: 0.9em;
 }
 
@@ -386,8 +366,6 @@ a.btn {
 }
 
 .tree-folder-items > .item {
-	padding: 0 10px;
-	line-height: 3.1;
 	font-size: 0.8rem;
 }
 
@@ -409,13 +387,8 @@ a.btn {
 }
 
 .header > .item {
-	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
-}
-
-.header > .item.title {
-	width: 230px;
 }
 
 .header > .item.title h1 {
@@ -427,10 +400,6 @@ a.btn {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 
@@ -658,13 +627,6 @@ a.btn {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 0.9em;
-	line-height: 3;
-	z-index: 10;
-	vertical-align: middle;
 }
 
 .notification.good {
@@ -673,19 +635,10 @@ a.btn {
 .notification.bad {
 }
 
-.notification a.close {
-	padding: 0 15px;
-	line-height: 3;
-}
-
 .notification.good a.close:hover {
 }
 
 .notification.bad a.close:hover {
-}
-
-.notification#actualizeProgress {
-	line-height: 2;
 }
 
 /*=== "Load more" part */

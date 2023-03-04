@@ -265,7 +265,7 @@ SQL;
 			return $categories;
 		}
 
-		uasort($categories, function ($a, $b) {
+		uasort($categories, static function ($a, $b) {
 			$aPosition = $a->attributes('position');
 			$bPosition = $b->attributes('position');
 			if ($aPosition === $bPosition) {
@@ -310,9 +310,9 @@ SQL;
 	}
 
 	/** @return array<FreshRSS_Category> */
-	public function listCategoriesOrderUpdate(int $defaultCacheDuration = 86400, int $limit = 0) {
+	public function listCategoriesOrderUpdate(int $defaultCacheDuration = 86400, int $limit = 0): array {
 		$sql = 'SELECT * FROM `_category` WHERE kind = :kind AND `lastUpdate` < :lu ORDER BY `lastUpdate`'
-			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+			. ($limit < 1 ? '' : ' LIMIT ' . $limit);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm &&
 			$stm->bindValue(':kind', FreshRSS_Category::KIND_DYNAMIC_OPML, PDO::PARAM_INT) &&
@@ -387,7 +387,7 @@ SQL;
 		return $res[0]['count'];
 	}
 
-	public function countFeed($id) {
+	public function countFeed(int $id) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_feed` WHERE category=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
@@ -396,7 +396,7 @@ SQL;
 		return $res[0]['count'];
 	}
 
-	public function countNotRead($id) {
+	public function countNotRead(int $id) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id WHERE category=:id AND e.is_read=0';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
@@ -409,7 +409,7 @@ SQL;
 	 * @param array<FreshRSS_Category> $categories
 	 * @param int $feed_id
 	 */
-	public static function findFeed($categories, $feed_id) {
+	public static function findFeed(array $categories, int $feed_id) {
 		foreach ($categories as $category) {
 			foreach ($category->feeds() as $feed) {
 				if ($feed->id() === $feed_id) {
@@ -422,9 +422,8 @@ SQL;
 
 	/**
 	 * @param array<FreshRSS_Category> $categories
-	 * @param int $minPriority
 	 */
-	public static function CountUnreads($categories, $minPriority = 0) {
+	public static function countUnread(array $categories, int $minPriority = 0): int {
 		$n = 0;
 		foreach ($categories as $category) {
 			foreach ($category->feeds() as $feed) {

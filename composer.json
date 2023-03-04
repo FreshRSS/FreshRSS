@@ -17,7 +17,7 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.2",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -47,7 +47,7 @@
         "ext-phar": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*",
-        "phpstan/phpstan": "~1.7.14",
+        "phpstan/phpstan": "~1.9.17",
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.7"
     },
