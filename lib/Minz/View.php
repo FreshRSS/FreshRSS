@@ -240,7 +240,6 @@ class Minz_View {
 
 	/**
 	 * @param array $themeColors
-	 * @return void
 	 */
 	public static function appendThemeColors($themeColors): void {
 		self::$themeColors = $themeColors;
