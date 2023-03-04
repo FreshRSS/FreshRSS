@@ -500,4 +500,8 @@ class FreshRSS_Context {
 		return false;
 	}
 
+	public static function defaultTimeZone(): string {
+		$timezone = ini_get('date.timezone');
+		return $timezone != '' ? $timezone : 'UTC';
+	}
 }

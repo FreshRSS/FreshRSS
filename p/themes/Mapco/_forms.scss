@@ -119,17 +119,11 @@ input:disabled, select:disabled {
 	background: variables.$grey-light;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
-
 .form-group {
 	padding: 5px;
 	border-radius: 3px;
 
 	&::after {
-		content: "";
 		display: block;
 		clear: both;
 	}

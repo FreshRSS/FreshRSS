@@ -52,10 +52,6 @@ input:invalid, select:invalid {
 input:disabled, select:disabled {
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -218,7 +214,6 @@ a.btn {
 }
 
 .dropdown-menu::after {
-	content: "";
 	position: absolute;
 	top: -6px;
 	left: 13px;
@@ -264,8 +259,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	font-size: 0.9em;
 }
 
@@ -407,10 +400,6 @@ a.btn {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 

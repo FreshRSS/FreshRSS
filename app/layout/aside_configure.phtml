@@ -2,71 +2,89 @@
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<ul>
-		<li class="nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></li>
-		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
-			<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
+		<li class="item nav-section">
+			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></div>
+			<ul>
+				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
+					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
+				</li>
+				<li class="item">
+					<a class="signout" href="<?= _url('auth', 'logout') ?>">
+						<?php
+						echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
+				</li>
+			</ul>
 		</li>
-		<li class="item">
-			<a class="signout" href="<?= _url('auth', 'logout') ?>">
-				<?php
-				echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
+
+		<li class="item nav-section">
+			<div class="item nav-header"><?= _t('gen.menu.configuration') ?></div>
+			<ul>
+				<li class="item<?= Minz_Request::actionName() === 'display' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'reading' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'archiving' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'archiving') ?>"><?= _t('gen.menu.archiving') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'integration' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'integration') ?>"><?= _t('gen.menu.sharing') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'shortcut' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
+					<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
+				</li>
+				<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
+				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+				</li>
+				<?php } ?>
+				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
+			</ul>
 		</li>
-		<li class="nav-header"><?= _t('gen.menu.configuration') ?></li>
-		<li class="item<?= Minz_Request::actionName() === 'display' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'reading' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'archiving' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'archiving') ?>"><?= _t('gen.menu.archiving') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'integration' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'integration') ?>"><?= _t('gen.menu.sharing') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'shortcut' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
-			<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
-		</li>
-		<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
-		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
-			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
-		</li>
-		<?php } ?>
-		<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
 
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-		<li class="nav-header"><?= _t('gen.menu.admin') ?></li>
-		<li class="item<?= Minz_Request::actionName() === 'system' ? ' active' : '' ?>">
-			<a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : '' ?>">
-			<a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::controllerName() === 'auth' ? ' active' : '' ?>">
-			<a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
-			<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
-		</li>
-		<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
-		<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
-			<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
-		</li>
-		<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
-			<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+		<li class="item nav-section">
+			<div class="item nav-header"><?= _t('gen.menu.admin') ?></div>
+			<ul>
+				<li class="item<?= Minz_Request::actionName() === 'system' ? ' active' : '' ?>">
+					<a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : '' ?>">
+					<a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'auth' ? ' active' : '' ?>">
+					<a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
+					<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
+				</li>
+				<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
+				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
+					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
+					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
+				</li>
+				<?php } ?>
+				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
+			</ul>
 		</li>
 		<?php } ?>
-		<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
-		<?php } ?>
-		<li class="nav-header"><!-- empty headline --></li>
-		<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
-			<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
+
+		<li class="item nav-section">
+			<div class="item nav-header"><!-- empty headline --></div>
+			<ul>
+				<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
+					<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </nav>

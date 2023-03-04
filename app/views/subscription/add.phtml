@@ -70,6 +70,7 @@
 					<select name="feed_kind" id="feed_kind" class="select-show">
 						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 					</select>
 				</div>
 			</div>
@@ -190,7 +191,7 @@
 			<div class="form-group">
 				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 				<div class="group-controls">
-					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="text" name="curl_params_cookie" id="curl_params_cookie" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
 					<label for="curl_params_cookiefile">
 						<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1" />
@@ -203,7 +204,7 @@
 			<div class="form-group">
 				<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
 				<div class="group-controls">
-					<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="extend" min="-1" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="number" name="curl_params_redirects" id="curl_params_redirects" min="-1" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 				</div>
 			</div>
@@ -212,7 +213,7 @@
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
 					<div class="stick">
-						<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+						<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
@@ -228,7 +229,7 @@
 					?>
 					</select>
 					<div class="stick">
-						<input type="text" name="curl_params" id="curl_params" class="extend" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+						<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
@@ -237,7 +238,7 @@
 			<div class="form-group">
 				<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 				<div class="group-controls">
-					<input type="number" name="timeout" id="timeout" min="3" max="120" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
+					<input type="number" name="timeout" id="timeout" min="3" max="900" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 				</div>
 			</div>
 

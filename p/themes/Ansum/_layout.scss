@@ -29,7 +29,7 @@
 
 		&.search {
 			input {
-				width: 230px;
+				width: 350px;
 				color: variables.$sid-font-color;
 				border: none;
 				border-radius: 2px 0 0 2px;
@@ -42,9 +42,7 @@
 				}
 
 				&:focus {
-					width: 350px;
 					color: variables.$grey-dark;
-
 					background-color: variables.$white;
 				}
 			}
@@ -209,7 +207,7 @@ main.prompt {
 			}
 		}
 
-		.dropdown {
+		.dropdown:not(#dropdown-search-wrapper) {
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -217,6 +215,12 @@ main.prompt {
 				.icon {
 					display: none;
 				}
+			}
+		}
+
+		#dropdown-search-wrapper.dropdown {
+			a.dropdown-toggle {
+				border-left-width: 0;
 			}
 		}
 	}
@@ -357,6 +361,10 @@ main.prompt {
 	&#actualizeProgress {
 		br {
 			display: none;
+		}
+
+		.title {
+			margin: 0 2rem;
 		}
 	}
 }

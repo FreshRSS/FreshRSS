@@ -10,7 +10,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -32,27 +32,6 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
-	private function convertToSeries($data) {
-		$series = array();
-
-		foreach ($data as $key => $value) {
-			$series[] = array($key, $value);
-		}
-
-		return $series;
-	}
-
-	private function convertToPieSeries($data) {
-		$series = array();
-
-		foreach ($data as $value) {
-			$value['data'] = array(array(0, (int) $value['data']));
-			$series[] = $value;
-		}
-
-		return $series;
-	}
-
 	/**
 	 * This action handles the statistic main page.
 	 *
@@ -64,7 +43,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - number of article by category (entryByCategory)
 	 *   - list of most prolific feed (topFeed)
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
@@ -94,7 +73,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$last30DaysLabels = [];
 		for ($i = 0; $i < 30; $i++) {
-			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days'));
+			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days') ?: null);
 		}
 
 		$this->view->last30DaysLabels = $last30DaysLabels;
@@ -106,9 +85,9 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * to use the subscription controller to save it,
 	 * but shows the stats idle page
 	 */
-	public function feedAction() {
-		$id = Minz_Request::param('id');
-		$ajax = Minz_Request::param('ajax');
+	public function feedAction(): void {
+		$id = '' . Minz_Request::param('id', '');
+		$ajax = '' . Minz_Request::param('ajax', '');
 		if ($ajax) {
 			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats', 'ajax' => $ajax));
 		} else {
@@ -131,7 +110,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - last month
 	 *   - last week
 	 */
-	public function idleAction() {
+	public function idleAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
@@ -216,7 +195,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * @todo verify that the metrics used here make some sense. Especially
 	 *       for the average.
 	 */
-	public function repartitionAction() {
+	public function repartitionAction(): void {
 		$statsDAO 		= FreshRSS_Factory::createStatsDAO();
 		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
 		$feedDAO 		= FreshRSS_Factory::createFeedDao();

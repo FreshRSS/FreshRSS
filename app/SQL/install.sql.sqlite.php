@@ -16,11 +16,11 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 CREATE TABLE IF NOT EXISTS `feed` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`url` VARCHAR(511) NOT NULL,
+	`url` VARCHAR(32768) NOT NULL,
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INTEGER DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(255) NOT NULL,
-	`website` VARCHAR(255),
+	`website` VARCHAR(32768),
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
@@ -31,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,
 	`cache_nbUnreads` INT DEFAULT 0,
-	FOREIGN KEY (`category`) REFERENCES `category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-	UNIQUE (`url`)
+	FOREIGN KEY (`category`) REFERENCES `category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 CREATE INDEX IF NOT EXISTS feed_name_index ON `feed`(`name`);
 CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);

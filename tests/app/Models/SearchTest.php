@@ -339,6 +339,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(author:Alice intitle:hello) !(author:Bob intitle:world)',
 				' ((e.author LIKE ? AND e.title LIKE ? )) AND NOT ((e.author LIKE ? AND e.title LIKE ? )) ',
 				['%Alice%', '%hello%', '%Bob%', '%world%'],
+			],
+			[
+				'intitle:"\\(test\\)"',
+				'(e.title LIKE ? )',
+				['%\\(test\\)%'],
 			]
 		];
 	}

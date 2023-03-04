@@ -3,5 +3,7 @@
   "author": "Marien Fressinaud",
   "description": "Thème plat pour FreshRSS",
   "version": 0.2,
-  "files": ["_frss.css", "flat.css"]
+  "files": ["_frss.css", "flat.css"],
+  "deprecated": true,
+	"theme-color": "#34495e"
 }

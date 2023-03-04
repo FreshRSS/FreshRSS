@@ -1,0 +1,8 @@
+/.* export-ignore
+
+/ci export-ignore
+/examples export-ignore
+/tests export-ignore
+
+/CHANGELOG.md export-ignore
+/Makefile export-ignore

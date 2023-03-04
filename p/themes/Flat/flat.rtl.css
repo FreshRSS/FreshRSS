@@ -70,10 +70,6 @@ input:disabled, select:disabled {
 	background: #eee;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
 /*=== Tables */
 table {
 	border-collapse: collapse;
@@ -103,7 +99,6 @@ form th {
 }
 
 .form-group::after {
-	content: "";
 	display: block;
 	clear: both;
 }
@@ -152,7 +147,7 @@ form th {
 
 .stick .btn:last-child,
 .stick input:last-child,
-.stick .btn + .dropdown > .btn {
+.stick .dropdown:last-child > .btn {
 	border-radius: 5px 0 0 5px;
 }
 
@@ -251,11 +246,14 @@ a.btn {
 }
 
 /*=== Navigation */
-.nav-list .nav-header,
-.nav-list .item {
-	height: 2.5em;
-	line-height: 2.5em;
+.nav-list {
 	font-size: 0.9rem;
+}
+
+.nav-list .item,
+.nav-list .item.nav-header {
+	min-height: 2.5em;
+	line-height: 2.5;
 }
 
 .nav-list .item a:hover,
@@ -269,7 +267,7 @@ a.btn {
 }
 
 .nav-list .item > a {
-	padding: 0 10px;
+	padding: 0 1rem;
 }
 
 .nav-list a:hover {
@@ -277,7 +275,7 @@ a.btn {
 }
 
 .nav-list .nav-header {
-	padding: 0 10px;
+	padding: 0 1rem;
 	font-weight: bold;
 	background: #34495e;
 	color: #fff;
@@ -322,7 +320,7 @@ a.btn {
 .dropdown-menu .item > .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
-	font-size: 0.8rem;
+	font-size: inherit;
 }
 
 .dropdown-menu .dropdown-section .item > a,
@@ -336,7 +334,7 @@ a.btn {
 }
 
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:hover,
+.dropdown-menu .item > button:hover:not([disabled]),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: #2980b9;
 	color: #fff;
@@ -367,8 +365,6 @@ a.btn {
 
 /*=== Alerts */
 .alert {
-	margin: 15px auto;
-	padding: 10px 15px;
 	background: #f4f4f4;
 	color: #aaa;
 	font-size: 0.9em;
@@ -447,7 +443,6 @@ a.btn {
 
 .box .box-content .item {
 	font-size: 0.9rem;
-	line-height: 2.5em;
 }
 
 .box .box-title .configure .icon,
@@ -548,10 +543,6 @@ a.btn {
 }
 
 .header > .item.search input {
-	width: 230px;
-}
-
-.header .item.search input:focus {
 	width: 350px;
 }
 

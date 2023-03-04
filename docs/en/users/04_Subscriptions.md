@@ -5,7 +5,7 @@
 3. Paste the URL in the “Feed URL” field.
 4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
 5. (optional): If the subscription requires credentials, you can enter them in the "HTTP username" and "HTTP password" fields.
-6. (optional): You can set a timeout for the feed request if the feed requires it.
+6. (optional): You can set a timeout for the feed request.
 7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server.
 
 ## Subscription management
@@ -89,7 +89,7 @@ Complementary tools can be used to retrieve full article content, such as:
 
 ### Filter
 
-Articles can be automatically marked as read based on some search terms. See [filtering](./03_Main_view.md#filtering-articles) for more information on how to create these filters.
+Articles can be automatically marked as read based on some search terms. See [filtering](./10_filter.md) for more information on how to create these filters.
 
 ## Import / export
 

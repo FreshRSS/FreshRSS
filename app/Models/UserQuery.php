@@ -8,26 +8,35 @@
  */
 class FreshRSS_UserQuery {
 
+	/** @var bool */
 	private $deprecated = false;
-	private $get;
-	private $get_name;
-	private $get_type;
-	private $name;
-	private $order;
+	/** @var string */
+	private $get = '';
+	/** @var string */
+	private $get_name = '';
+	/** @var string */
+	private $get_type = '';
+	/** @var string */
+	private $name = '';
+	/** @var string */
+	private $order = '';
 	/** @var FreshRSS_BooleanSearch */
 	private $search;
-	private $state;
-	private $url;
+	/** @var int */
+	private $state = 0;
+	/** @var string */
+	private $url = '';
+	/** @var FreshRSS_FeedDAO|null */
 	private $feed_dao;
+	/** @var FreshRSS_CategoryDAO|null */
 	private $category_dao;
+	/** @var FreshRSS_TagDAO|null */
 	private $tag_dao;
 
 	/**
 	 * @param array<string,string> $query
-	 * @param FreshRSS_Searchable $feed_dao
-	 * @param FreshRSS_Searchable $category_dao
 	 */
-	public function __construct($query, FreshRSS_Searchable $feed_dao = null, FreshRSS_Searchable $category_dao = null, FreshRSS_Searchable $tag_dao = null) {
+	public function __construct(array $query, FreshRSS_FeedDAO $feed_dao = null, FreshRSS_CategoryDAO $category_dao = null, FreshRSS_TagDAO $tag_dao = null) {
 		$this->category_dao = $category_dao;
 		$this->feed_dao = $feed_dao;
 		$this->tag_dao = $tag_dao;
@@ -53,17 +62,17 @@ class FreshRSS_UserQuery {
 		}
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search']);
-		if (isset($query['state'])) {
-			$this->state = $query['state'];
+		if (!empty($query['state'])) {
+			$this->state = intval($query['state']);
 		}
 	}
 
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array<string,string>
+	 * @return array<string,string|int>
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		return array_filter(array(
 			'get' => $this->get,
 			'name' => $this->name,
@@ -75,29 +84,27 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
-	 * Parse the get parameter in the query string to extract its name and
-	 * type
-	 *
-	 * @param string $get
+	 * Parse the get parameter in the query string to extract its name and type
 	 */
-	private function parseGet($get) {
+	private function parseGet(string $get): void {
 		$this->get = $get;
 		if (preg_match('/(?P<type>[acfst])(_(?P<id>\d+))?/', $get, $matches)) {
+			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
 					$this->parseAll();
 					break;
 				case 'c':
-					$this->parseCategory($matches['id']);
+					$this->parseCategory($id);
 					break;
 				case 'f':
-					$this->parseFeed($matches['id']);
+					$this->parseFeed($id);
 					break;
 				case 's':
 					$this->parseFavorite();
 					break;
 				case 't':
-					$this->parseTag($matches['id']);
+					$this->parseTag($id);
 					break;
 			}
 		}
@@ -106,7 +113,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * Parse the query string when it is an "all" query
 	 */
-	private function parseAll() {
+	private function parseAll(): void {
 		$this->get_name = 'all';
 		$this->get_type = 'all';
 	}
@@ -114,11 +121,10 @@ class FreshRSS_UserQuery {
 	/**
 	 * Parse the query string when it is a "category" query
 	 *
-	 * @param integer $id
 	 * @throws FreshRSS_DAO_Exception
 	 */
-	private function parseCategory($id) {
-		if (is_null($this->category_dao)) {
+	private function parseCategory(int $id): void {
+		if ($this->category_dao === null) {
 			throw new FreshRSS_DAO_Exception('Category DAO is not loaded in UserQuery');
 		}
 		$category = $this->category_dao->searchById($id);
@@ -133,11 +139,10 @@ class FreshRSS_UserQuery {
 	/**
 	 * Parse the query string when it is a "feed" query
 	 *
-	 * @param integer $id
 	 * @throws FreshRSS_DAO_Exception
 	 */
-	private function parseFeed($id) {
-		if (is_null($this->feed_dao)) {
+	private function parseFeed(int $id): void {
+		if ($this->feed_dao === null) {
 			throw new FreshRSS_DAO_Exception('Feed DAO is not loaded in UserQuery');
 		}
 		$feed = $this->feed_dao->searchById($id);
@@ -152,10 +157,9 @@ class FreshRSS_UserQuery {
 	/**
 	 * Parse the query string when it is a "tag" query
 	 *
-	 * @param integer $id
 	 * @throws FreshRSS_DAO_Exception
 	 */
-	private function parseTag($id) {
+	private function parseTag(int $id): void {
 		if ($this->tag_dao == null) {
 			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
 		}
@@ -171,7 +175,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * Parse the query string when it is a "favorite" query
 	 */
-	private function parseFavorite() {
+	private function parseFavorite(): void {
 		$this->get_name = 'favorite';
 		$this->get_type = 'favorite';
 	}
@@ -180,20 +184,16 @@ class FreshRSS_UserQuery {
 	 * Check if the current user query is deprecated.
 	 * It is deprecated if the category or the feed used in the query are
 	 * not existing.
-	 *
-	 * @return boolean
 	 */
-	public function isDeprecated() {
+	public function isDeprecated(): bool {
 		return $this->deprecated;
 	}
 
 	/**
 	 * Check if the user query has parameters.
 	 * If the type is 'all', it is considered equal to no parameters
-	 *
-	 * @return boolean
 	 */
-	public function hasParameters() {
+	public function hasParameters(): bool {
 		if ($this->get_type === 'all') {
 			return false;
 		}
@@ -214,42 +214,40 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Check if there is a search in the search object
-	 *
-	 * @return boolean
 	 */
-	public function hasSearch() {
-		return $this->search->getRawInput() != "";
+	public function hasSearch(): bool {
+		return $this->search->getRawInput() !== '';
 	}
 
-	public function getGet() {
+	public function getGet(): string {
 		return $this->get;
 	}
 
-	public function getGetName() {
+	public function getGetName(): string {
 		return $this->get_name;
 	}
 
-	public function getGetType() {
+	public function getGetType(): string {
 		return $this->get_type;
 	}
 
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
-	public function getOrder() {
+	public function getOrder(): string {
 		return $this->order;
 	}
 
-	public function getSearch() {
+	public function getSearch(): FreshRSS_BooleanSearch {
 		return $this->search;
 	}
 
-	public function getState() {
+	public function getState(): int {
 		return $this->state;
 	}
 
-	public function getUrl() {
+	public function getUrl(): string {
 		return $this->url;
 	}
 
