@@ -69,7 +69,7 @@ return array(
 		'website' => array(
 			'full' => 'Icône et nom',
 			'icon' => 'Icône seulement',
-			'label' => 'Site internet',
+			'label' => 'Site Web',
 			'name' => 'Nom seulement',
 			'none' => 'Aucun',
 		),
