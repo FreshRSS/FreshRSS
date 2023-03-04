@@ -32,7 +32,7 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 
 * `frss:xPathItem`: XPath expression for extracting the feed items from the source page.
 	* Example: `//div[@class="news-item"]`
-* `frss:xPathItemTitle`: XPath expression for extracting the feed title from the source page.
+* `frss:xPathItemTitle`: XPath expression for extracting the item’s title from the item context.
 	* Example: `descendant::h2`
 * `frss:xPathItemContent`: XPath expression for extracting an item’s content from the item context.
 	* Example: `.`
