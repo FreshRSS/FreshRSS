@@ -1199,6 +1199,26 @@ input[type="search"] {
 	width: 200px;
 }
 
+.flux:not(.current):hover .websitenone .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websiteicon .item.website {
+	width: calc(2 * var(--frss-padding-flux-items) + 16px);
+}
+
+.flux:not(.current):hover .websiteicon .item.title {
+	max-width: calc(100% - 4 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websitename .item.website {
+	width: 150px;
+}
+
+.flux:not(.current):hover .websitename .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px) - 150px);
+}
+
 .website a:hover .favicon,
 a.website:hover .favicon {
 	filter: grayscale(100%);
