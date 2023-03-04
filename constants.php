@@ -57,3 +57,6 @@ defined('EXTENSIONS_PATH') or define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extens
 
 //Directory used for feed mutex with *.freshrss.lock files. Must be writable.
 defined('TMP_PATH') or define('TMP_PATH', sys_get_temp_dir());
+
+//clean the chacke after x hours (720 hours = 30 days)
+defined('CLEANCACHE_HOURS') or define('CLEANCACHE_HOURS', 720);
