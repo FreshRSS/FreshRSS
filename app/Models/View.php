@@ -39,6 +39,7 @@ class FreshRSS_View extends Minz_View {
 	public $details;
 	public $disable_aside;
 	public $show_email_field;
+	/** @var string */
 	public $username;
 	public $users;
 

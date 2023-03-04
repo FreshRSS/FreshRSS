@@ -264,6 +264,7 @@ function send_mark_read_queue(queue, asRead, callback) {
 				incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
 			}
 		}
+		toggle_bigMarkAsRead_button();
 		onScroll();
 		if (callback) {
 			callback();
@@ -446,9 +447,7 @@ function toggleContent(new_active, old_active, skipping) {
 			// when skipping, this feels more natural if it’s not so near the top
 			new_pos -= document.body.clientHeight / 4;
 		}
-		if (relative_move) {
-			new_pos += box_to_move.scrollTop;
-		}
+
 		box_to_move.scrollTop = new_pos;
 	}
 
@@ -1012,11 +1011,13 @@ function init_shortcuts() {
 			}
 
 			const link_go_website = document.querySelector('.flux.current a.go_website');
-			const newWindow = window.open();
-			if (link_go_website && newWindow) {
-				newWindow.opener = null;
-				newWindow.location = link_go_website.href;
-				ev.preventDefault();
+			if (link_go_website) {
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = link_go_website.href;
+					ev.preventDefault();
+				}
 			}
 			return;
 		}
@@ -1568,7 +1569,7 @@ function notifs_html5_show(nb, nb_new) {
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
 		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_new_articles.replace('%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%d', nb),
+		body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
 		tag: 'freshRssNewArticles',
 	});
 
@@ -1661,6 +1662,23 @@ function refreshUnreads() {
 	req.send();
 }
 
+function toggle_bigMarkAsRead_button() {
+	const bigMarkAsRead_button = document.getElementById('bigMarkAsRead');
+	if (bigMarkAsRead_button) {
+		if (document.querySelector('.flux.not_read') != null) {
+			bigMarkAsRead_button.style = '';
+			bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+		} else {
+			if (bigMarkAsRead_button.querySelector('.jumpNext')) {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = 'hidden';
+			} else {
+				bigMarkAsRead_button.querySelector('.markAllRead').style.visibility = '';
+				bigMarkAsRead_button.style.visibility = 'hidden';
+			}
+		}
+	}
+}
+
 // <endless_mode>
 let url_load_more = '';
 let load_more = false;
@@ -1697,6 +1715,7 @@ function load_more_posts() {
 			} else {
 				bigMarkAsRead.formAction = readAll.formAction;
 			}
+			toggle_bigMarkAsRead_button();
 		}
 
 		document.querySelectorAll('[id^=day_]').forEach(function (div) {
@@ -1849,6 +1868,7 @@ function init_main_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_notifs_html5();
+		toggle_bigMarkAsRead_button();
 		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
 	}

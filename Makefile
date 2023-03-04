@@ -60,46 +60,46 @@ stop: ## Stop FreshRSS container if any
 ## Tests and linter ##
 ######################
 .PHONY: test
-test: bin/phpunit ## Run the test suite
-	$(PHP) ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+test: vendor/bin/phpunit ## Run the test suite
+	$(PHP) vendor/bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 .PHONY: lint
-lint: bin/phpcs ## Run the linter on the PHP files
-	$(PHP) ./bin/phpcs . -p -s
+lint: vendor/bin/phpcs ## Run the linter on the PHP files
+	$(PHP) vendor/bin/phpcs . -p -s
 
 .PHONY: lint-fix
-lint-fix: bin/phpcbf ## Fix the errors detected by the linter
-	$(PHP) ./bin/phpcbf . -p -s
+lint-fix: vendor/bin/phpcbf ## Fix the errors detected by the linter
+	$(PHP) vendor/bin/phpcbf . -p -s
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/b5dbe5ebdec95ce71b3128b359bd5a85cb0a722d/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
-bin/phpunit:
-	mkdir -p bin/
-	wget -O bin/phpunit 'https://phar.phpunit.de/phpunit-9.5.20.phar'
-	echo '6becad2da5c37f5ad101cc665ef05a2f1a6a45d2427c8edcc74f72c92fb1e05a bin/phpunit' | sha256sum -c - || rm bin/phpunit
+vendor/bin/phpunit: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpunit bin/phpunit
 
-bin/phpcs:
-	mkdir -p bin/
-	wget -O bin/phpcs 'https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.7.1/phpcs.phar'
-	echo '7a14323a14af9f58302d15442492ee1076a8cd72c018a816cb44965bf3a9b015 bin/phpcs' | sha256sum -c - || rm bin/phpcs
+vendor/bin/phpcs: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpcs bin/phpcs
 
-bin/phpcbf:
-	mkdir -p bin/
-	wget -O bin/phpcbf 'https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.7.1/phpcbf.phar'
-	echo 'c93c0e83cbda21c21f849ccf0f4b42979d20004a5a6172ed0ea270eca7ae6fa8 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
+vendor/bin/phpcbf: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpcbf bin/phpcbf
 
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.10.1/typos-v1.10.1-x86_64-unknown-linux-musl.tar.gz' && \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.13.6/typos-v1.13.6-x86_64-unknown-linux-musl.tar.gz' && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \
 	cd ..
 
 node_modules/.bin/eslint:
+	npm install
+
+node_modules/.bin/rtlcss:
 	npm install
 
 vendor/bin/phpstan: bin/composer
@@ -181,8 +181,8 @@ endif
 ## TOOLS ##
 ###########
 .PHONY: rtl
-rtl: ## Generate RTL CSS files
-	rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete
+rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
+	npm run-script rtlcss
 
 .PHONY: pot
 pot: ## Generate POT templates for docs

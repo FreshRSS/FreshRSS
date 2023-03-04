@@ -55,7 +55,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         # https://nodejs.org/en/about/releases/
-        node-version: '16'
+        node-version: '18'
         cache: 'npm'
 
     - run: npm ci
@@ -79,14 +79,14 @@ jobs:
       uses: actions/cache@v3
       with:
         path: bin
-        key: ${{ runner.os }}-bin-shfmt@v3.5.1-hadolint@v2.10.0-typos@v1.10.1
+        key: ${{ runner.os }}-bin-shfmt@v3.6.0-hadolint@v2.12.0-typos@v1.13.6
 
     - name: Add ./bin/ to $PATH
       run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
 
     - name: Install shfmt
       if: steps.shell-cache.outputs.cache-hit != 'true'
-      run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.5.1
+      run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.6.0
 
     - name: Check shell script syntax
       # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2204-Readme.md
@@ -94,7 +94,7 @@ jobs:
 
     - name: Install hadolint
       if: steps.shell-cache.outputs.cache-hit != 'true'
-      run: curl -sL -o ./bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ./bin/hadolint
+      run: curl -sL -o ./bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-$(uname -s)-$(uname -m)" && chmod 700 ./bin/hadolint
 
     - name: Check Dockerfile syntax
       run: find . -name 'Dockerfile*' -print0 | xargs -0 -n1 ./bin/hadolint --failure-threshold warning
@@ -103,7 +103,7 @@ jobs:
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: |
         cd bin ;
-        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.10.1/typos-v1.10.1-x86_64-unknown-linux-musl.tar.gz' &&
+        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.13.6/typos-v1.13.6-x86_64-unknown-linux-musl.tar.gz' &&
         tar -xvf *.tar.gz './typos' &&
         chmod +x typos &&
         rm *.tar.gz ;

@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Wyświetlanie',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
-		'theme' => 'Motyw',
+		'theme' => array(
+			'_' => 'Motyw',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Motyw “%s” nie jest już dostępny. Wybierz inny motyw.',
 		'thumbnail' => array(
 			'label' => 'Miniaturka',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Wyświetlanie',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Rozmiar treści',
 			'large' => 'Szeroka',

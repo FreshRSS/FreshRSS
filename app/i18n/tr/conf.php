@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Görünüm',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
-		'theme' => 'Tema',
+		'theme' => array(
+			'_' => 'Tema',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
 		'thumbnail' => array(
 			'label' => 'Önizleme',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Portre',
 			'square' => 'Kare',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Görünüm',
+		'website' => array(
+			'full' => 'simgesi and adı',
+			'icon' => 'Sadece simgesi',
+			'label' => 'Site',
+			'name' => 'Sadece adı',
+			'none' => 'Hiçbiri',
+		),
 		'width' => array(
 			'content' => 'İçerik genişliği',
 			'large' => 'Geniş',

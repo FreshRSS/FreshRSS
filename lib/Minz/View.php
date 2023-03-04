@@ -19,6 +19,7 @@ class Minz_View {
 	private static $title = '';
 	private static $styles = array ();
 	private static $scripts = array ();
+	private static $themeColors;
 
 	private static $params = array ();
 
@@ -202,37 +203,68 @@ class Minz_View {
 		$styles = '';
 
 		foreach(self::$styles as $style) {
-			$cond = $style['cond'];
-			if ($cond) {
-				$styles .= '<!--[if ' . $cond . ']>';
-			}
-
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
-
-			if ($cond) {
-				$styles .= '<![endif]-->';
-			}
 
 			$styles .= "\n";
 		}
 
 		return $styles;
 	}
-	public static function prependStyle ($url, $media = 'all', $cond = false) {
+	/**
+	 * Prepends a <link> element referencing stylesheet.
+	 *
+	 * @param string $url
+	 * @param string $media
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 */
+	public static function prependStyle($url, $media = 'all', $cond = false) {
 		array_unshift (self::$styles, array (
 			'url' => $url,
 			'media' => $media,
-			'cond' => $cond
 		));
 	}
-	public static function appendStyle ($url, $media = 'all', $cond = false) {
+	/**
+	 * Append a `<link>` element referencing stylesheet.
+	 * @param string $url
+	 * @param string $media
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 */
+	public static function appendStyle($url, $media = 'all', $cond = false) {
 		self::$styles[] = array (
 			'url' => $url,
 			'media' => $media,
-			'cond' => $cond
 		);
+	}
+
+	/**
+	 * @param array|string $themeColors
+	 */
+	public static function appendThemeColors($themeColors): void {
+		self::$themeColors = $themeColors;
+	}
+
+	/**
+	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+	 */
+	public static function metaThemeColor(): string {
+		$meta = '';
+
+		if (!empty(self::$themeColors['light'])) {
+			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: light)" content="' . htmlspecialchars(self::$themeColors['light']) . '" />';
+		}
+		if (!empty(self::$themeColors['dark'])) {
+			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="' . htmlspecialchars(self::$themeColors['dark']) . '" />';
+		}
+		if (!empty(self::$themeColors['default'])) {
+			$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors['default']) . '" />';
+		}
+		if (empty(self::$themeColors['default']) && !empty(self::$themeColors) && empty(self::$themeColors['light']) && empty(self::$themeColors['dark'])) {
+			$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors) . '" />';
+		}
+
+		return $meta;
 	}
 
 	/**
@@ -242,11 +274,6 @@ class Minz_View {
 		$scripts = '';
 
 		foreach (self::$scripts as $script) {
-			$cond = $script['cond'];
-			if ($cond) {
-				$scripts .= '<!--[if ' . $cond . ']>';
-			}
-
 			$scripts .= '<script src="' . $script['url'] . '"';
 			if (!empty($script['id'])) {
 				$scripts .= ' id="' . $script['id'] . '"';
@@ -258,29 +285,38 @@ class Minz_View {
 				$scripts .= ' async="async"';
 			}
 			$scripts .= '></script>';
-
-			if ($cond) {
-				$scripts .= '<![endif]-->';
-			}
-
 			$scripts .= "\n";
 		}
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
+	/**
+	 * Prepend a `<script>` element.
+	 * @param string $url
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 * @param bool $defer Use `defer` flag
+	 * @param bool $async Use `async` flag
+	 * @param string $id Add a script `id` attribute
+	 */
+	public static function prependScript($url, $cond = false, $defer = true, $async = true, $id = '') {
 		array_unshift(self::$scripts, array (
 			'url' => $url,
-			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
 		));
 	}
-	public static function appendScript ($url, $cond = false, $defer = true, $async = true, $id = '') {
+/**
+	 * Append a `<script>` element.
+	 * @param string $url
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored
+	 * @param bool $defer Use `defer` flag
+	 * @param bool $async Use `async` flag
+	 * @param string $id Add a script `id` attribute
+	 */
+	public static function appendScript($url, $cond = false, $defer = true, $async = true, $id = '') {
 		self::$scripts[] = array (
 			'url' => $url,
-			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,

@@ -6,36 +6,30 @@
 /*===============*/
 /*=== Header */
 .header {
-	padding: 0.5rem 1.35rem;
 	background: variables.$sid-bg;
-	display: block;
-	width: auto;
-	height: 3.5rem;
-	table-layout: none;
-
-	.logo {
-		margin: 11px 0 5px;
-		filter: grayscale(100%) brightness(100);
-	}
 
 	.item {
 		vertical-align: middle;
 
 		&.title {
-			width: 280px;
-
-			font-weight: 400;
-
 			a {
-				img {
-					margin-right: 0.5rem;
+				padding: 0.5rem 1rem;
+
+				.logo {
+					filter: grayscale(100%) brightness(3);
+				}
+
+				&:hover {
+					.logo {
+						filter: grayscale(100%) brightness(2.2);
+					}
 				}
 			}
 		}
 
 		&.search {
 			input {
-				width: 230px;
+				width: 350px;
 				color: variables.$sid-font-color;
 				border: none;
 				border-radius: 2px 0 0 2px;
@@ -48,9 +42,7 @@
 				}
 
 				&:focus {
-					width: 350px;
 					color: variables.$grey-dark;
-
 					background-color: variables.$white;
 				}
 			}
@@ -82,10 +74,6 @@
 		}
 
 		&.configure {
-			width: 3rem;
-			position: absolute;
-			right: 1rem;
-			top: 1rem;
 			text-align: center;
 
 			.btn .icon,
@@ -107,7 +95,7 @@
 
 /*=== Body */
 #global {
-	height: calc(100% - 3.5rem);
+	height: calc(100vh - (calc(3rem + 2 * var(--frss-padding-top-bottom))));
 }
 
 /*=== Prompt (centered) */
@@ -238,7 +226,7 @@ main.prompt {
 			}
 		}
 
-		.dropdown {
+		.dropdown:not(#dropdown-search-wrapper) {
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -246,6 +234,12 @@ main.prompt {
 				.icon {
 					display: none;
 				}
+			}
+		}
+
+		#dropdown-search-wrapper.dropdown {
+			a.dropdown-toggle {
+				border-left-width: 0;
 			}
 		}
 	}
@@ -380,6 +374,10 @@ main.prompt {
 	&#actualizeProgress {
 		br {
 			display: none;
+		}
+
+		.title {
+			margin: 0 2rem;
 		}
 	}
 }

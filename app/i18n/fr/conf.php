@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'darkMode' => 'Mode sombre automatique (bêta)',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
-		'theme' => 'Thème',
+		'theme' => array(
+			'_' => 'Thème',
+			'deprecated' => array(
+				'_' => 'Obsolète',
+				'description' => 'Ce thème est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/fr/users/05_Configuration.html#th%C3%A8me" target="_blank">future version de FreshRSS</a>',
+			),
+		),
 		'theme_not_available' => 'Le thème <em>%s</em> n’est plus disponible. Veuillez choisir un autre thème.',
 		'thumbnail' => array(
 			'label' => 'Miniature',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Carrée',
 		),
+		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site Web',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
 			'large' => 'Large',	// IGNORE

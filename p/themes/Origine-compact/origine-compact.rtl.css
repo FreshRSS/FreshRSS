@@ -6,12 +6,6 @@
 	--frss-padding-top-bottom: 0.125rem;
 }
 
-input, select, textarea {
-	padding: 3px 5px 2px 5px;
-	min-height: 25px;
-	line-height: 2;
-}
-
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
@@ -46,11 +40,6 @@ a.btn,
 }
 
 /*=== Dropdown */
-.item ~ .dropdown-header,
-.item.separator {
-	border-top-color: #ddd;
-}
-
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */
@@ -58,30 +47,33 @@ a.btn,
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header .item.configure .btn,
-.header .item.search .btn {
-	min-height: 18px;
-	padding: 4px 10px;
-	line-height: 1.4;
+.header {
+	/* search bar and config button height = 2.1rem */
+	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
+}
+
+.header > .item.title a {
+	padding: 0 1rem;
 }
 
 .header > .item.title .logo {
+	/* logo is smaller than needed */
 	height: 1.5rem;
-}
-
-.header > .item.search input {
-	padding: 1px 5px;
 }
 
 /*=== Body */
 #global {
-	height: calc(100vh - (calc(1.5rem + 2 * var(--frss-padding-top-bottom))))
+	height: calc(100vh - (calc(2.1rem + 2 * var(--frss-padding-top-bottom))))
 }
 
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
 	font-size: 0.8rem;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 0.125rem;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {

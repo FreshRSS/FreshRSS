@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPathは:',
 			),
 			'rss' => 'RSS / Atom (標準)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'キャッシュのクリア',

@@ -20,8 +20,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => '您的密码无法修改',
-			'updated' => '您的密码已修改',
+			'failed' => '你的密码无法修改',
+			'updated' => '你的密码已修改',
 		),
 	),
 	'auth' => array(
@@ -43,7 +43,7 @@ return array(
 		'already_enabled' => '%s 已启用',
 		'cannot_remove' => '无法删除 %s',
 		'disable' => array(
-			'ko' => '禁用 %s 失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
+			'ko' => '无法禁用 %s。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
 		'enable' => array(
@@ -56,15 +56,15 @@ return array(
 		'removed' => '%s 已删除',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
-		'feeds_imported' => '你的订阅已导入，即将刷新',
+		'export_no_zip_extension' => '服务器未启用 ZIP 扩展，请尝试逐个导出文件。',
+		'feeds_imported' => '你的订阅源已导入，即将刷新',
 		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误',
 		'file_cannot_be_uploaded' => '文件未能上传！',
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
 		'zip_error' => '导入 ZIP 文件时出错',
 	),
 	'profile' => array(
-		'error' => '你的帐户修改失败',
+		'error' => '你的帐户无法修改',
 		'updated' => '你的帐户已修改',
 	),
 	'sub' => array(
@@ -79,7 +79,7 @@ return array(
 			'emptied' => '已清空分类',
 			'error' => '更新分类失败',
 			'name_exists' => '分类名已存在',
-			'no_id' => '你必须明确分类编号',
+			'no_id' => '你必须指定分类 ID',
 			'no_name' => '分类名不能为空',
 			'not_delete_default' => '你不能删除默认分类！',
 			'not_exist' => '分类不存在！',
@@ -94,21 +94,21 @@ return array(
 			'cache_cleared' => '<em>%s</em> 缓存已清理',
 			'deleted' => '已删除订阅源',
 			'error' => '订阅源更新失败',
-			'internal_problem' => '订阅源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在地址链接后附加 <code>#force_feed</code> 从而尝试强制添加。',
-			'invalid_url' => '地址链接 <em>%s</em> 无效',
+			'internal_problem' => '订阅源添加失败，<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在 URL 后添加 <code>#force_feed</code> 尝试强制添加。',
+			'invalid_url' => 'URL <em>%s</em> 无效',
 			'n_actualized' => '已更新 %d 个订阅源',
 			'n_entries_deleted' => '已删除 %d 篇文章',
-			'no_refresh' => '没有可刷新的订阅源…',
+			'no_refresh' => '没有可刷新的订阅源',
 			'not_added' => '<em>%s</em> 添加失败',
 			'not_found' => '无法找到订阅',
 			'over_max' => '你已达到订阅源数上限（%d）',
-			'reloaded' => '<em>%s</em> 已重置',
+			'reloaded' => '<em>%s</em> 已重新加载',
 			'selector_preview' => array(
 				'http_error' => '无法加载网站内容。',
-				'no_entries' => '您的订阅中没有任何条目。您至少需要一个条目来创建一个预览。',
+				'no_entries' => '你的订阅中没有任何条目，你至少需要一个条目来创建一个预览。',
 				'no_feed' => '网络错误（订阅源不存在）',
-				'no_result' => '选择器没有匹配到任何东西。作为备用，原始的feed文本将被显示出来。',
-				'selector_empty' => '选择器是空的。你需要一个来创建预览。',
+				'no_result' => '选择器没有匹配到任何东西，回退显示原始的订阅源文本。',
+				'selector_empty' => '选择器是空的，你需要一个来创建预览。',
 			),
 			'updated' => '已更新订阅源',
 		),
@@ -122,10 +122,10 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',
 		'error' => '更新出错：%s',
-		'file_is_nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须有其写入权限。',
+		'file_is_nok' => '请检查 <em>%s</em> 目录权限。HTTP 服务器必须拥有写入权限。',
 		'finished' => '更新完成！',
 		'none' => '没有可用更新',
-		'server_not_found' => '找不到更新服务器 [%s]',
+		'server_not_found' => '找不到更新服务器。 [%s]',
 	),
 	'user' => array(
 		'created' => array(
