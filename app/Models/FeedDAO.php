@@ -434,7 +434,7 @@ SQL;
 			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
 			. ($id != 0 ? ' WHERE id=:id' : '');
 		$stm = $this->pdo->prepare($sql);
-		if ($id != 0) {
+		if ($stm && $id != 0) {
 			$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		}
 

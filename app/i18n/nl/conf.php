@@ -66,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Inhoud breedte',
 			'large' => 'Breed',

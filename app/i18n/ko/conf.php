@@ -66,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => '표시',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => '내용 표시 너비',
 			'large' => '넓게',

@@ -110,7 +110,10 @@ return array(
 		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 	),
 	'congratulations' => 'Tebrikler!',
-	'default_user' => 'Öntanımlı kullanıcı adı <small>(en fazla 16 alfanümerik karakter)</small>',
+	'default_user' => array(
+		'_' => 'Öntanımlı kullanıcı adı',
+		'max_char' => 'en fazla 16 alfanümerik karakter',
+	),
 	'fix_errors_before' => 'Lütfen sonraki adıma geçmek için hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS JavaScript ile daha işlevseldir',
 	'js' => array(
