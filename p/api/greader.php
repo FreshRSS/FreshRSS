@@ -30,9 +30,7 @@ $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '
 
 if (PHP_INT_SIZE < 8) {	//32-bit
 	function hex2dec(string $hex): string {
-		if (!ctype_xdigit($hex)) {
-			return '0';
-		}
+		if (!ctype_xdigit($hex)) return '0';
 		return gmp_strval(gmp_init($hex, 16), 10);
 	}
 } else {	//64-bit
@@ -471,7 +469,7 @@ final class GReaderAPI {
 	private static function quickadd(string $url) {
 		try {
 			$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
-			if (0 === strpos($url, 'feed/')) {
+			if (str_starts_with($url, 'feed/')) {
 				$url = substr($url, 5);
 			}
 			$feed = FreshRSS_feed_Controller::addFeed($url);
