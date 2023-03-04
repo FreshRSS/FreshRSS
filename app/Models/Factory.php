@@ -25,11 +25,10 @@ class FreshRSS_Factory {
 	}
 
 	/**
-	 * @return FreshRSS_FeedDAOSQLite|FreshRSS_FeedDAO
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function createFeedDao(?string $username = null) {
+	public static function createFeedDao(?string $username = null): FreshRSS_FeedDAO {
 		switch (FreshRSS_Context::$system_conf->db['type']) {
 			case 'sqlite':
 				return new FreshRSS_FeedDAOSQLite($username);
