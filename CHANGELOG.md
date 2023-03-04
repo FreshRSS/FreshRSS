@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2023-03-XX FreshRSS 1.21.0-dev
+## 2023-03-04 FreshRSS 1.21.0
 
 * Features
 	* New *XML+XPath* mode for fetching XML documents when there is no RSS/ATOM feed [#5076](https://github.com/FreshRSS/FreshRSS/pull/5076)
@@ -14,7 +14,7 @@
 	* Increase max HTTP timeout to 15 minutes [#5074](https://github.com/FreshRSS/FreshRSS/pull/5074)
 * Compatibility
 	* Require PHP 7.2+ (drop support for PHP 7.0 and 7.1) [#4848](https://github.com/FreshRSS/FreshRSS/pull/4848)
-	* Workaround disabled `openlog()` or `syslog ()` [#5054](https://github.com/FreshRSS/FreshRSS/pull/5054)
+	* Workaround disabled `openlog()` or `syslog()` [#5054](https://github.com/FreshRSS/FreshRSS/pull/5054)
 * Deployment
 	* Docker default image (Debian 11 Bullseye) updated to PHP 7.4.33
 	* Docker: alternative image updated to Alpine 3.17 with PHP 8.1.16 and Apache 2.4.55 [#4886](https://github.com/FreshRSS/FreshRSS/pull/4886)
