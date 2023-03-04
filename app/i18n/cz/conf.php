@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazení',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Časový limit HTML5 oznámení',
 		),
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
-		'theme' => 'Motiv',
+		'theme' => array(
+			'_' => 'Motiv',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Motiv „%s“ již není dostupný. Zvolte jiný motiv, prosím.',
 		'thumbnail' => array(
 			'label' => 'Náhled',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Na výšku',
 			'square' => 'Čtverec',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobrazení',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Šířka obsahu',
 			'large' => 'Široká',
@@ -68,9 +83,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Úroveň protokolování',
+			'message' => 'Záznam protokolu',
+			'timestamp' => 'Časová značka',
 		),
 		'pagination' => array(
 			'first' => 'První',
@@ -136,31 +151,31 @@ return array(
 	'reading' => array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po „označit vše jako přečtené“',
-		'always_show_favorites' => 'Vy výchozím nastavení zobrazit všechny články v oblíbených',
+		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autoři a datum',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádný',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Nad názvem/štítky',
+				'none' => 'Žádný',
+				'with_authors' => 'V řádku s autory a datem',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Název feedu',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Štítky',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádné',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Maximální počet zobrazených štítků',
+				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
 			),
 		),
 		'articles_per_page' => 'Počet článků na stránku',
@@ -170,12 +185,12 @@ return array(
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Články: Otevřít/zavřít',
+			'articles_header_footer' => 'Články: záhlaví/zápatí',
+			'categories' => 'Navigace vlevo: Kategorie',
+			'mark_as_read' => 'Označit článek jako přečtený',
+			'misc' => 'Různé',
+			'view' => 'Zobrazit',
 		),
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
@@ -187,7 +202,7 @@ return array(
 			'article_viewed' => 'když je článek zobrazen',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
 			'scroll' => 'během posouvání',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
 			'when_same_title' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích',
@@ -222,7 +237,7 @@ return array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

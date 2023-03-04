@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiwizacja',
 		'dynamic_opml' => array(
 			'_' => 'Dynamiczny OPML',
-			'help' => 'Podaj adres <a href=http://opml.org/ target=_blank>pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
+			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
 		),
 		'empty' => 'Pusta kategoria',
 		'information' => 'Informacje',
@@ -80,7 +80,7 @@ return array(
 					'_' => 'nazwy kanału',
 					'help' => 'Przykład: <code>//title</code>, lub statyczny ciąg: <code>"Mój własny kanał"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> jest standardowym językiem zapytań przeznaczonym dla zaawansowanych użytkowników. FreshRSS wykorzystuje ten język aby wydobywać (scrape\'ować) dane ze stron internetowych.',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> jest standardowym językiem zapytań przeznaczonym dla zaawansowanych użytkowników. FreshRSS wykorzystuje ten język aby wydobywać (scrape’ować) dane ze stron internetowych.',
 				'item' => array(
 					'_' => 'znajdowania <strong>poszczególnych</strong> wiadomości<br /><small>(najważniejsza opcja)</small>',
 					'help' => 'Przykład: <code>//div[@class="news-item"]</code>',
@@ -97,6 +97,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'miniaturki',
 					'help' => 'Przykład: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'daty',
@@ -118,6 +122,7 @@ return array(
 				'xpath' => 'XPath dla:',
 			),
 			'rss' => 'RSS / Atom (domyślne)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',

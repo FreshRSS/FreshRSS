@@ -72,21 +72,22 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
+		FreshRSS_Context::initUser('_', false);
 		switch ($auth_type) {
-		case 'form':
-			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
-			break;
-		case 'http_auth':
-			Minz_Error::error(403, array('error' => array(_t('feedback.access.denied'),
-					' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') . ']'
-				)), false);
-			break;
-		case 'none':
-			// It should not happen!
-			Minz_Error::error(404);
-		default:
-			// TODO load plugin instead
-			Minz_Error::error(404);
+			case 'form':
+				Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
+				break;
+			case 'http_auth':
+				Minz_Error::error(403, array('error' => array(_t('feedback.access.denied'),
+						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') . ']'
+					)), false);
+				break;
+			case 'none':
+				// It should not happen!
+				Minz_Error::error(404);
+			default:
+				// TODO load plugin instead
+				Minz_Error::error(404);
 		}
 	}
 
@@ -158,8 +159,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 
-				// All is good, go back to the index.
-				Minz_Request::good(_t('feedback.auth.login.success'), [ 'c' => 'index', 'a' => 'index' ]);
+				// All is good, go back to the original request or the index.
+				$url = Minz_Url::unserialize(Minz_Request::param('original_request'));
+				if ($url === null) {
+					$url = [ 'c' => 'index', 'a' => 'index' ];
+				}
+				Minz_Request::good(_t('feedback.auth.login.success'), $url);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 

@@ -3,5 +3,6 @@
   "author": "Kevin Papst",
   "description": "A theme that tries to use the screen size more efficiently, based on Origine",
   "version": 0.1,
-  "files": ["_template.css", "origine-compact.css"]
+  "files": ["_frss.css", "../Origine/origine.css", "origine-compact.css"],
+  "theme-color": {"dark": "#1f1f1f", "light": "#f0f0f0"}
 }

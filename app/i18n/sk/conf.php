@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazenie',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
 			'display_authors' => 'Autori',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
-		'theme' => 'Vzhľad',
+		'theme' => array(
+			'_' => 'Vzhľad',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Vzhľad “%s” už nie je dostupný. Prosím, vyberte si iný vzhľad.',
 		'thumbnail' => array(
 			'label' => 'Miniatúra',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Nastojato',
 			'square' => 'Štvorec',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobraziť',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Šírka obsahu',
 			'large' => 'Veľká',
@@ -106,15 +121,15 @@ return array(
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobraziť všetky články',
-		'get_category' => 'Zobraziť kategóriu "%s"',
+		'get_category' => 'Zobraziť kategóriu “%s”',
 		'get_favorite' => 'Zobraziť obľúbené články',
-		'get_feed' => 'Zobraziť kanál "%s"',
+		'get_feed' => 'Zobraziť kanál “%s”',
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
-		'search' => 'Vyhľadáva sa: "%s"',
+		'search' => 'Vyhľadáva sa: “%s”',
 		'state_0' => 'Zobraziť všetky články',
 		'state_1' => 'Zobraziť prečítané články',
 		'state_2' => 'Zobraziť neprečítané články',
@@ -178,7 +193,7 @@ return array(
 			'view' => 'Zobraziť',
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
-		'img_with_lazyload' => 'Pre načítanie obrázkov použiť "lazy load"',
+		'img_with_lazyload' => 'Pre načítanie obrázkov použiť <em>lazy load</em>',
 		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
 		'mark_updated_article_unread' => 'Označiť aktualizované články ako neprečítané',
 		'number_divided_when_reader' => 'V režime čítania predeliť na dve časti.',
@@ -255,7 +270,7 @@ return array(
 		'mark_read' => 'O(d)značí ako prečítané',
 		'navigation' => 'Navigácia',
 		'navigation_help' => 'Po stlačení skratky s klávesou <kbd>⇧ Shift</kbd>, sa skratky navigácie vzťahujú na kanály.<br/>Po stlačení skratky s klávesou <kbd>Alt ⎇</kbd>, sa skratky navigácie vzťahujú na kategórie.',
-		'navigation_no_mod_help' => 'Tieto skratky navigácie nepodporujú klávesy "Shift" a "Alt".',
+		'navigation_no_mod_help' => 'Tieto skratky navigácie nepodporujú klávesy “Shift” a “Alt”.',
 		'next_article' => 'Otvorí ďalší článok',
 		'next_unread_article' => 'Otvoriť ďalší neprečítaný článok',
 		'non_standard' => 'Niektoré klávesy (<kbd>%s</kbd>) nemusia fungovať ako klávesové skratky.',

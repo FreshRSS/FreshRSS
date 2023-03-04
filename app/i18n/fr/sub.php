@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
+		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir « Enregistrer ce lien ». Ensuite, cliquer sur le bouton « S’abonner » sur les pages auxquelles vous voulez vous abonner.',
 		'label' => 'S’abonner',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivage',
 		'dynamic_opml' => array(
 			'_' => 'OPML dynamique',
-			'help' => 'Fournir l’URL d’un <a href=http://opml.org/ target=_blank>fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
+			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
 		'information' => 'Informations',
@@ -98,6 +98,10 @@ return array(
 					'_' => 'miniature de l’article',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
 					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
@@ -118,6 +122,7 @@ return array(
 				'xpath' => 'XPath pour :',
 			),
 			'rss' => 'RSS / Atom (par défaut)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',

@@ -6,10 +6,6 @@
 /*===========*/
 
 @media (max-width: 840px) {
-	.form-group .group-name {
-		text-align: left;
-	}
-
 	.aside {
 
 		@include mixins.transition(all, 0.2s, ease-in-out);
@@ -25,14 +21,13 @@
 
 	.aside .toggle_aside,
 	#panel .close,
-	#close-slider.active,
-	.dropdown-menu .toggle_aside {
-		background: variables.$main-first-alt;
-		display: block;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		text-align: center;
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
+		background-color: variables.$main-first;
+
+		&:hover {
+			background-color: variables.$main-first-alt;
+		}
 
 		.icon {
 			filter: grayscale(100%) brightness(2.5);
@@ -40,30 +35,15 @@
 	}
 
 	.header {
-		padding: 0.5rem;
-		height: 8rem;
-
 		.item {
 			&.search {
-				display: block;
+				display: none;
+			}
 
-				form {
-					display: inherit;
-				}
-
-				.stick {
-					display: flex;
-				}
-
-				input {
-					width: 90%;
-					height: 3.5rem;
-
-					&:focus {
-						width: 100%;
-
-					}
-				}
+			&.configure {
+				position: absolute;
+				top: 0;
+				right: 0;
 			}
 
 		}
@@ -104,11 +84,7 @@
 		}
 
 		.search {
-			display: none;
-			max-width: 97%;
-
 			.input {
-
 				max-width: 97%;
 				width: 90px;
 

@@ -254,12 +254,10 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<div class="stick">
-					<input type="text" value="<?= _t('sub.feed.number_entries', $nbEntries) ?>" disabled="disabled" />
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
-						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
-					</a>
-				</div>
+				<?= _t('sub.feed.number_entries', $nbEntries) ?>
+				<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
+					<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
+				</a>
 			</div>
 		</div>
 		<?php
@@ -393,8 +391,9 @@
 			<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
 			<div class="group-controls">
 				<select name="feed_kind" id="feed_kind" class="select-show w100">
-					<option value="<?= FreshRSS_Feed::KIND_RSS ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
-					<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() == FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+					<option value="<?= FreshRSS_Feed::KIND_RSS ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
+					<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+					<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 				</select>
 			</div>
 		</div>
@@ -465,6 +464,15 @@
 					<textarea class="valid-xpath w100" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"
 						data-leave-validation="<?= $xpath['itemTimestamp'] ?? '' ?>"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="xPathItemTimeFormat">
+					<?= _t('sub.feed.kind.html_xpath.item_timeFormat') ?></label>
+				<div class="group-controls">
+					<textarea class="w100" name="xPathItemTimeFormat" id="xPathItemTimeFormat" rows="2" cols="64" spellcheck="false"
+						data-leave-validation="<?= $xpath['itemTimeFormat'] ?? '' ?>"><?= $xpath['itemTimeFormat'] ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timeFormat.help') ?></p>
 				</div>
 			</div>
 			<div class="form-group">
@@ -595,7 +603,7 @@
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 			<div class="group-controls">
-				<input type="number" name="timeout" id="timeout" class="w50" min="3" max="120" value="<?= $this->feed->attributes('timeout') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<input type="number" name="timeout" id="timeout" class="w50" min="3" max="900" value="<?= $this->feed->attributes('timeout') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
@@ -652,7 +660,7 @@
 
 <div id="popup">
 	<div id="popup-content">
-		<div id="popup-close" class="popup-row">×</div>
+		<div id="popup-close" class="popup-row"><?= _i('close') ?></div>
 		<div id="popup-iframe-container" class="popup-row">
 			<div id="popup-iframe-sub">
 				<iframe id="popup-iframe" frameborder="0"></iframe>

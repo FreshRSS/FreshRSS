@@ -3,5 +3,6 @@
   "author": "Ghost",
   "description": "Save my eyes!!!",
   "version": 0.1,
-  "files": ["_template.css", "adark.css"]
+  "files": ["_frss.css", "adark.css"],
+  "theme-color": "#171717"
 }

@@ -3,6 +3,9 @@
 class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function addColumn(string $name) {
+		if ($this->pdo->inTransaction()) {
+			$this->pdo->commit();
+		}
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
 			if ($name === 'kind') {	//v1.20.0
@@ -46,11 +49,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$values = array(
-			substr($valuesTmp['url'], 0, 511),
+			$valuesTmp['url'],
 			$valuesTmp['kind'] ?? FreshRSS_Feed::KIND_RSS,
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
-			substr($valuesTmp['website'], 0, 255),
+			$valuesTmp['website'],
 			sanitizeHTML($valuesTmp['description'], '', 1023),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
@@ -83,7 +86,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'url' => $feed->url(),
 				'kind' => $feed->kind(),
 				'category' => $feed->categoryId(),
-				'name' => $feed->name(),
+				'name' => $feed->name(true),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
@@ -108,12 +111,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			// Merge existing and import attributes
 			$existingAttributes = $feed_search->attributes();
 			$importAttributes = $feed->attributes();
-			$feed->_attributes('', array_merge_recursive($existingAttributes, $importAttributes));
+			$feed->_attributes('', array_replace_recursive($existingAttributes, $importAttributes));
 
 			// Update some values of the existing feed using the import
 			$values = [
 				'kind' => $feed->kind(),
-				'name' => $feed->name(),
+				'name' => $feed->name(true),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'pathEntries' => $feed->pathEntries(),
@@ -431,7 +434,7 @@ SQL;
 			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
 			. ($id != 0 ? ' WHERE id=:id' : '');
 		$stm = $this->pdo->prepare($sql);
-		if ($id != 0) {
+		if ($stm && $id != 0) {
 			$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		}
 

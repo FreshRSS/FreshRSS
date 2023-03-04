@@ -18,7 +18,7 @@
 		box-shadow: inset -1px -11px 8px #0003;
 
 		.tree-folder-title {
-			padding: 12px 16px;
+			padding: 1rem;
 			background: variables.$sid-bg;
 			position: relative;
 			font-size: 0.85rem;
@@ -85,9 +85,6 @@
 
 /*=== Buttons */
 .stick {
-	vertical-align: middle;
-	font-size: 0;
-
 	input, .btn {
 		border-radius: 0;
 	}
@@ -96,7 +93,7 @@
 		border-radius: 5px 0 0 5px;
 	}
 
-	.btn:last-child, input:last-child, .btn + .dropdown > .btn {
+	.btn:last-child, input:last-child, .dropdown:last-child > .btn {
 		border-radius: 0 5px 5px 0;
 	}
 
@@ -138,15 +135,23 @@
 
 /*=== Navigation */
 .nav-list {
-	.nav-header,
+	font-size: 1rem;
+
+	.item.nav-header,
 	.item {
-		height: 2.5em;
+		min-height: 2.5em;
 		line-height: 2.5em;
-		font-size: 1rem;
 	}
 
 	.item {
 		background: variables.$sid-bg;
+		min-height: 2.5em;
+		line-height: 2.5em;
+
+		&.nav-header {
+			min-height: 2.5em;
+			line-height: 2.5em;
+		}
 
 		a {
 			padding: 0 1rem;
@@ -155,50 +160,14 @@
 			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
-		.error {
-			a {
-				color: variables.$alert-bg;
-			}
-		}
-
-		&:hover {
-			.error {
-				a {
-					background: variables.$main-first;
-					color: variables.$sid-font-color;
-				}
-			}
-
-			.empty {
-				a {
-					background: variables.$warning-bg;
-					color: variables.$sid-font-color;
-				}
-			}
-
-			a {
-				background: variables.$sid-bg-dark;
-				text-decoration: none;
-			}
+		a:hover {
+			background: variables.$sid-bg-dark;
+			text-decoration: none;
 		}
 
 		&.active {
 			background: variables.$main-first;
 			color: variables.$white;
-
-			.error {
-				a {
-					background: variables.$main-first;
-					color: variables.$white;
-				}
-			}
-
-			.empty {
-				a {
-					background: variables.$warning-bg;
-					color: variables.$white;
-				}
-			}
 
 			a {
 				background: variables.$main-first;
@@ -208,20 +177,8 @@
 		}
 	}
 
-	&.empty {
-		a {
-			color: variables.$warning-bg;
-		}
-	}
-
-	.disable {
-		text-align: center;
-		background: variables.$grey-lighter;
-		color: variables.$grey-medium-dark;
-	}
-
 	.nav-header {
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
 		color: variables.$grey-dark;
 		text-transform: uppercase;
@@ -233,23 +190,6 @@
 		padding: 3px;
 		text-align: center;
 	}
-
-	.nav-head {
-		margin: 0;
-		text-align: right;
-		// background: #34495e;
-		color: variables.$white;
-
-		a {
-			color: variables.$white;
-		}
-
-		.item {
-			padding: 5px 10px;
-			font-size: 0.9rem;
-			line-height: 1.5rem;
-		}
-	}
 }
 
 /*=== Aside main page (categories) */
@@ -258,7 +198,7 @@
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1.5em 0 0 0;
+	margin: 1rem 0 0 0;
 	background-color: variables.$sid-pills;
 }
 

@@ -18,11 +18,11 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `_feed` (
 	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`url` VARCHAR(511) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INT DEFAULT 0,	-- 1.20.0
 	`name` VARCHAR(191) NOT NULL,
-	`website` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_bin,
+	`website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`cache_nbUnreads` INT DEFAULT 0,	-- v0.7
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`category`) REFERENCES `_category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-	UNIQUE KEY (`url`),	-- v0.7
 	INDEX (`name`),	-- v0.7
 	INDEX (`priority`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci

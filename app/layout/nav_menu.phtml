@@ -29,10 +29,53 @@
 			href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
+		<div class="dropdown only-mobile" id="dropdown-search-wrapper">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<div id="dropdown-search" class="dropdown-target"></div>
+
+			<a id="toggle-search" class="dropdown-toggle btn<?= (strlen(FreshRSS_Context::$search) > 0) ? ' active' : ''; ?>" title="<?= _t('gen.menu.search') ?>"
+				href="#dropdown-search"><?= _i('search') ?></a>
+			<ul class="dropdown-menu">
+				<li class="item">
+					<span>
+						<form action="<?= _url('index', 'index') ?>" method="get">
+							<?php $param_a = Minz_Request::actionName(); ?>
+							<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+							<input type="hidden" name="a" value="<?= $param_a ?>" />
+							<?php } ?>
+
+							<?php $get = Minz_Request::param('get', ''); ?>
+							<?php if ($get != '') { ?>
+							<input type="hidden" name="get" value="<?= $get ?>" />
+							<?php } ?>
+
+							<?php $order = Minz_Request::param('order', ''); ?>
+							<?php if ($order != '') { ?>
+							<input type="hidden" name="order" value="<?= $order ?>" />
+							<?php } ?>
+
+							<?php $state = Minz_Request::param('state', ''); ?>
+							<?php if ($state != '') { ?>
+							<input type="hidden" name="state" value="<?= $state ?>" />
+							<?php } ?>	
+
+							<div class="stick search">
+								<input type="search" name="search" 
+									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
+									placeholder="<?= _t('gen.menu.search') ?>" title="<?= _t('gen.menu.search') ?>" /><button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
+							</div>
+							<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
+						</form>
+					</span>
+				</li>
+			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
+		</div>
+
 		<div class="dropdown">
 			<div id="dropdown-query" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-query" title="<?= _t('index.menu.queries') ?>"><?= _i('bookmark-tag') ?></a>
+			<a id="toggle-userqueries" class="dropdown-toggle btn" href="#dropdown-query" title="<?= _t('index.menu.queries') ?>"><?= _i('bookmark-tag') ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-header">
 					<?= _t('index.menu.queries') ?>
@@ -50,16 +93,17 @@
 					</li>
 				<?php endforeach; ?>
 
-				<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
-				<li class="separator"></li>
-				<?php } ?>
-
 				<?php
-					$url_query = Minz_Request::currentRequest();;
+					$classSeparator = '';
+					if (count(FreshRSS_Context::$user_conf->queries) > 0) {
+						$classSeparator = ' separator';
+					}
+
+					$url_query = Minz_Request::currentRequest();
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -112,7 +156,6 @@
 						formaction="<?= Minz_Url::display($mark_read_url) ?>"
 						type="submit"><?= $string_mark ?></button>
 				</li>
-				<li class="separator"></li>
 <?php
 	$today = @strtotime('today');
 	$mark_before_today = $mark_read_url;
@@ -121,7 +164,7 @@
 	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
 	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ);
 ?>
-				<li class="item">
+				<li class="item separator">
 					<button class="as-link <?= $confirm ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_today) ?>"
@@ -133,8 +176,7 @@
 						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
 						type="submit"><?= _t('index.menu.before_one_week') ?></button>
 				</li>
-				<li class="separator"></li>
-				<li class="item">
+				<li class="item separator">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_unread_url) ?>"
@@ -185,28 +227,6 @@
 		<?= $nav_menu_hooks ?>
 	</div>
 	<?php } ?>
-
-	<div class="item search">
-		<form action="<?= _url('index', 'index') ?>" method="get">
-			<input type="search" name="search" class="extend" value="<?php
-				echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?= _t('index.menu.search_short') ?>" />
-
-			<?php $get = Minz_Request::param('get', ''); ?>
-			<?php if($get != '') { ?>
-			<input type="hidden" name="get" value="<?= $get ?>" />
-			<?php } ?>
-
-			<?php $order = Minz_Request::param('order', ''); ?>
-			<?php if($order != '') { ?>
-			<input type="hidden" name="order" value="<?= $order ?>" />
-			<?php } ?>
-
-			<?php $state = Minz_Request::param('state', ''); ?>
-			<?php if($state != '') { ?>
-			<input type="hidden" name="state" value="<?= $state ?>" />
-			<?php } ?>
-		</form>
-	</div>
 
 	<?php
 		if (FreshRSS_Context::$order === 'DESC') {

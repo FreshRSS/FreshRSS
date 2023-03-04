@@ -3,16 +3,9 @@
 require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
-
-	private $i18nPath;
-
-	public function __construct() {
-		$this->i18nPath = __DIR__ . '/../../app/i18n';
-	}
-
 	public function load() {
 		$i18n = array();
-		$dirs = new DirectoryIterator($this->i18nPath);
+		$dirs = new DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
 				continue;
@@ -32,9 +25,9 @@ class I18nFile {
 
 	public function dump(array $i18n) {
 		foreach ($i18n as $language => $file) {
-			$dir = $this->i18nPath . DIRECTORY_SEPARATOR . $language;
+			$dir = I18N_PATH . DIRECTORY_SEPARATOR . $language;
 			if (!file_exists($dir)) {
-				mkdir($dir);
+				mkdir($dir, 0770, true);
 			}
 			foreach ($file as $name => $content) {
 				$filename = $dir . DIRECTORY_SEPARATOR . $name;

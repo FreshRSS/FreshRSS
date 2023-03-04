@@ -13,16 +13,23 @@ Available languages are: cz, de, en, es, fr, he, it, ko, nl, oc, pt-br, ru, tr, 
 
 ## Theme
 
-There’s no accounting for tastes, which is why FreshRSS offers eight official themes:
+There’s no accounting for tastes, which is why FreshRSS offers 13 official themes:
 
-* *Blue Lagoon* by **Mister aiR**
-* *Dark* by **AD**
-* *Flat design* by **Marien Fressinaud**
-* *Origine* by **Marien Fressinaud**
-* *Origine-compact* by **Kevin Papst**
-* *Pafat* by **Plopoyop**
-* *Screwdriver* by **Mister aiR**
-* *Swage* by **Patrick Crandol**
+| Theme       | designed by                                   | Notes                                                         |
+|:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
+| Alternative Dark | Ghost | |
+| Ansum | Thomas Guesnon  | |
+| Blue Lagoon     |Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| Dark | AD | |
+| Dark pink | Miicat_47 | |
+| Flat design | Marien Fressinaud | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| Mapco | Thomas Guesnon  | |
+| Nord theme | joelchrono12 | |
+| Origine | Marien Fressinaud | (default theme) |
+| Origine-compact | Kevin Papst | |
+| Pafat | Plopoyop | |
+| Screwdriver | Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| Swage | Patrick Crandol | |
 
 If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
 
@@ -74,7 +81,7 @@ This setting defines the number of articles to display at once before needing to
 
 The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show.
 
-## Use "lazy load" mode to load images
+## Use “lazy load” mode to load images
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 

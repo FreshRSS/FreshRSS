@@ -11,12 +11,9 @@
 
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
 
 	.item {
-		vertical-align: middle;
-
 		&:first-child {
 			padding-left: 0.5rem;
 		}
@@ -25,6 +22,12 @@
 }
 
 /*=== Dropdown */
+.dropdown {
+	.dropdown-target:target + .btn {
+		background-color: variables.$grey-medium-light;
+	}
+}
+
 .dropdown-menu {
 	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
@@ -40,40 +43,68 @@
 		right: 17px;
 	}
 
-	.dropdown-header {
-		// padding: 0 5px 5px;
-		margin: 1rem 0.5rem 1rem 1rem;
+	.dropdown-header,
+	.dropdown-section .dropdown-section-title {
+		padding: 1rem 1.5rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-
-
 	}
 
 	.item {
 
 		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		a, span, .as-link {
+		> a,
+		> span,
+		> .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
-			font-size: 1rem;
+			font-size: inherit;
 			line-height: 2.5em;
+
+			span.icon {
+				padding: 0 0.25rem !important;
+			}
 		}
 
-		&:not(.addItem):hover {
-			background: variables.$main-first;
-			color: variables.$white;
-
-			a, button, label {
-				text-decoration: none;
+		> a,
+		> .as-link {
+			&:not(.addItem):hover {
+				background: variables.$main-first;
 				color: variables.$white;
+
+				.icon {
+					filter: grayscale(100%) brightness(2.5);
+				}
+			}
+		}
+
+		&.dropdown-section {
+			margin-top: 0.75rem;
+
+			~ .dropdown-section {
+				border-top-color: variables.$grey-light;
 			}
 
-			.icon {
-				filter: grayscale(100%) brightness(2.5);
+			.item {
+				a, .as-link {
+					padding-left: 2rem;
+				}
+			}
+		}
+
+		&:not(.addItem) {
+			> a:hover,
+			button:hover {
+				background: variables.$main-first;
+				color: variables.$white;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 
@@ -83,6 +114,17 @@
 				font-weight: bold;
 			}
 		}
+
+		~ .dropdown-header {
+			margin-top: 0.75rem;
+			padding-top: 1.75rem;
+			border-top-color: variables.$grey-light;
+		}
+
+		&.separator {
+			margin-top: 0.75rem;
+			border-top-color: variables.$grey-light;
+		}
 	}
 
 	.input {
@@ -91,12 +133,6 @@
 			padding: 2px 5px;
 			border-radius: 3px;
 		}
-	}
-
-	.separator {
-		margin: 0.75rem 0;
-		border-bottom: 1px solid variables.$grey-light;
-		// display: none;
 	}
 
 }
@@ -126,9 +162,6 @@
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	// width: 100%;
-	padding: 1rem;
 	background: variables.$grey-lighter;
 	color: variables.$grey-dark;
 	font-size: 1rem;

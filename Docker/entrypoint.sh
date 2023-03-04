@@ -1,6 +1,7 @@
 #!/bin/sh
 
-php -f ./cli/prepare.php >/dev/null
+ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
+echo "$TZ" >/etc/timezone
 
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
@@ -20,6 +21,10 @@ if [ -n "$CRON_MIN" ]; then
 	sed </etc/crontab.freshrss.default \
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi
+
+./cli/access-permissions.sh
+
+php -f ./cli/prepare.php >/dev/null
 
 if [ -n "$FRESHRSS_INSTALL" ]; then
 	# shellcheck disable=SC2046
@@ -54,7 +59,6 @@ if [ -n "$FRESHRSS_USER" ]; then
 	fi
 fi
 
-chown -R :www-data .
-chmod -R g+r . && chmod -R g+w ./data/
+./cli/access-permissions.sh
 
 exec "$@"

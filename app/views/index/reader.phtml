@@ -12,7 +12,7 @@ $content_width = FreshRSS_Context::$user_conf->content_width;
 $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 ?>
 <main id="stream" class="reader">
-
+	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
@@ -87,8 +87,8 @@ $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 								if (!empty($remainingTags)) { // more than 7 tags: show dropdown menu ?>
 									<li class="item tag">
 										<div class="dropdown">
-											<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-											<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+											<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
 											<ul class="dropdown-menu">
 												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 												<?php
@@ -136,7 +136,7 @@ $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 				</header>
 
 				<div class="text">
-					<?= $item->content() ?>
+					<?= $item->content(true) ?>
 				</div>
 				<?php
 				$display_authors_date = FreshRSS_Context::$user_conf->show_author_date === 'f' || FreshRSS_Context::$user_conf->show_author_date === 'b';

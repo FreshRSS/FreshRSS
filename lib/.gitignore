@@ -1,6 +1,14 @@
 autoload.php
 composer.lock
 composer/
+marienfressinaud/lib_opml/.git/
+marienfressinaud/lib_opml/.gitlab-ci.yml
+marienfressinaud/lib_opml/.gitlab/
+marienfressinaud/lib_opml/ci/
+marienfressinaud/lib_opml/examples/
+marienfressinaud/lib_opml/Makefile
+marienfressinaud/lib_opml/src/functions.php
+marienfressinaud/lib_opml/tests/
 phpgt/cssxpath/.*
 phpgt/cssxpath/composer.json
 phpgt/cssxpath/CONTRIBUTING.md

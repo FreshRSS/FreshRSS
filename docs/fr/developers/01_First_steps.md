@@ -57,7 +57,7 @@ Vous pouvez arrêter les conteneurs en tapant <kbd>Control</kbd> + <kbd>c</kbd> 
 make stop
 ```
 
-Si la configuration vous intéresse, les commandes `make' sont définies dans
+Si la configuration vous intéresse, les commandes `make` sont définies dans
 le fichier [`Makefile`](/Makefile).
 
 Si vous avez besoin d’utiliser une image Docker identifiée par un tag

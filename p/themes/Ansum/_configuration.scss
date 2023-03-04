@@ -7,11 +7,6 @@
 
 	form {
 		margin: 1rem 0;
-
-		// Extension management
-		.horizontal-list {
-			margin-bottom: 0.5rem;
-		}
 	}
 
 	&.content {
@@ -20,10 +15,14 @@
 
 	h1, h2 {
 		color: variables.$main-font-color;
-		font-size: 3rem;
+		font-size: 2rem;
 		margin-top: 1.75rem;
 		font-weight: 300;
 		line-height: 1.2em;
+	}
+
+	h2 {
+		font-size: 1.5rem;
 	}
 
 	a[href="./"] {

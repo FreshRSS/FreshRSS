@@ -3,5 +3,6 @@
   "author": "Marien Fressinaud",
   "description": "Le thème par défaut pour FreshRSS",
   "version": 0.2,
-  "files": ["_template.css", "origine.css"]
+  "files": ["_frss.css", "origine.css"],
+  "theme-color": {"dark": "#1f1f1f", "light": "#f0f0f0"}
 }

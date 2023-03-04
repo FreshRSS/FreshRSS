@@ -110,7 +110,10 @@ return array(
 		'ok' => '一般設定は保存されました。',
 	),
 	'congratulations' => 'おめでとうございます!',
-	'default_user' => 'デフォルトのユーザー名 <small>(最大16文字の英数字)</small>',
+	'default_user' => array(
+		'_' => 'デフォルトのユーザー名',
+		'max_char' => '最大16文字の英数字',
+	),
 	'fix_errors_before' => 'エラーを次のステップへ移る前に修正してください。',
 	'javascript_is_better' => 'FreshRSS はJavascriptが有効だとより快適にご利用いただけます。',
 	'js' => array(

@@ -20,8 +20,6 @@ AddDefaultCharset	UTF-8
 <IfModule mod_expires.c>
 	ExpiresActive	on
 	ExpiresDefault	"access plus 1 month"
-	ExpiresByType	application/font-woff	"access plus 1 month"
-	ExpiresByType	application/font-woff2	"access plus 1 month"
 	ExpiresByType	application/javascript	"access plus 1 month"
 	ExpiresByType	application/xhtml+xml	"access plus 1 month"
 	ExpiresByType	image/x-icon	"access plus 1 month"

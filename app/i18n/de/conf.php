@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Anzeige',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -48,8 +49,14 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
-		'theme' => 'Erscheinungsbild',
-		'theme_not_available' => 'Das Erscheinungsbild “%s” ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
+		'theme' => array(
+			'_' => 'Layout',
+			'deprecated' => array(
+				'_' => 'Veraltet',
+				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
+			),
+		),
+		'theme_not_available' => 'Das Erscheinungsbild „%s“ ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
 		'thumbnail' => array(
 			'label' => 'Vorschaubild',
 			'landscape' => 'Querformat',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Anzeige',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Inhaltsbreite',
 			'large' => 'Groß',
@@ -102,19 +117,19 @@ return array(
 			'order' => 'Nach Datum sortieren',
 			'search' => 'Suchbegriff',
 			'state' => 'Eigenschaft',
-			'tags' => 'Nach Tag filtern',
+			'tags' => 'Nach Labels filtern',
 			'type' => 'Filter-Typ',
 		),
 		'get_all' => 'Alle Artikel anzeigen',
-		'get_category' => 'Kategorie "%s" anzeigen',
+		'get_category' => 'Kategorie „%s“ anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
-		'get_feed' => 'Feed "%s" anzeigen',
+		'get_feed' => 'Feed „%s“ anzeigen',
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
-		'search' => 'Suche nach "%s"',
+		'search' => 'Suche nach „%s“',
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',
 		'state_2' => 'Ungelesene Artikel anzeigen',
@@ -178,7 +193,7 @@ return array(
 			'view' => 'Ansicht',
 		),
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
-		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
+		'img_with_lazyload' => 'Verwende die „träges Laden“-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',

@@ -2,8 +2,8 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-define('FRESHRSS_MIN_PHP_VERSION', '7.0.0');
-define('FRESHRSS_VERSION', '1.20.0-dev');
+define('FRESHRSS_MIN_PHP_VERSION', '7.2.0');
+define('FRESHRSS_VERSION', '1.21.1-dev');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 
@@ -16,6 +16,7 @@ define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 define('PUBLIC_RELATIVE', '..');
 define('LIB_PATH', FRESHRSS_PATH . '/lib');
 define('APP_PATH', FRESHRSS_PATH . '/app');
+define('I18N_PATH', APP_PATH . '/i18n');
 define('CORE_EXTENSIONS_PATH', LIB_PATH . '/core-extensions');
 define('TESTS_PATH', FRESHRSS_PATH . '/tests');
 //</Not customisable>
@@ -56,3 +57,6 @@ defined('EXTENSIONS_PATH') or define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extens
 
 //Directory used for feed mutex with *.freshrss.lock files. Must be writable.
 defined('TMP_PATH') or define('TMP_PATH', sys_get_temp_dir());
+
+//clean the chacke after x hours (720 hours = 30 days)
+defined('CLEANCACHE_HOURS') or define('CLEANCACHE_HOURS', 720);

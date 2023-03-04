@@ -3,5 +3,6 @@
   "author": "Patrick Crandol",
   "description": "A Fresh take on the interface, inspired by the Flat Theme.",
   "version": 1.0,
-  "files": ["_template.css", "swage.css"]
+  "files": ["_frss.css", "swage.css"],
+  "theme-color": "#22303d"
 }

@@ -15,11 +15,11 @@ CREATE TABLE IF NOT EXISTS `_category` (
 
 CREATE TABLE IF NOT EXISTS `_feed` (
 	"id" SERIAL PRIMARY KEY,
-	"url" VARCHAR(511) UNIQUE NOT NULL,
+	"url" VARCHAR(32768) NOT NULL,
 	"kind" SMALLINT DEFAULT 0, -- 1.20.0
 	"category" INT DEFAULT 0,	-- 1.20.0
 	"name" VARCHAR(255) NOT NULL,
-	"website" VARCHAR(255),
+	"website" VARCHAR(32768),
 	"description" TEXT,
 	"lastUpdate" INT DEFAULT 0,
 	"priority" SMALLINT NOT NULL DEFAULT 10,

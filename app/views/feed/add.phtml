@@ -59,10 +59,6 @@
 					</option>
 					<?php } ?>
 				</select>
-
-				<span aria-hidden="true">
-					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?= _t('sub.category.new') ?>" />
-				</span>
 			</div>
 		</div>
 
@@ -71,7 +67,7 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?= $auth['username'] ?>" autocomplete="off" />
+				<input type="text" name="http_user" id="http_user" value="<?= $auth['username'] ?>" autocomplete="off" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 

@@ -3,7 +3,7 @@ ot = "ot"
 Ths2 = "Ths2"
 
 [default.extend-words]
-ba = "ba"
+referer = "referer"
 
 [files]
 extend-exclude = [
@@ -13,11 +13,13 @@ extend-exclude = [
 	"*.po",
 	"*.pot",
 	"*.rtl.css",
+	".git/",
 	"app/i18n/cz/",
 	"app/i18n/de/",
 	"app/i18n/es/",
 	"app/i18n/fr/",
 	"app/i18n/he/",
+	"app/i18n/id/",
 	"app/i18n/it/",
 	"app/i18n/ja/",
 	"app/i18n/ko/",
@@ -31,8 +33,10 @@ extend-exclude = [
 	"app/i18n/zh-cn/",
 	"bin/",
 	"CHANGELOG-old.md",
+	"composer.lock",
 	"data/",
 	"docs/fr/",
+	"lib/marienfressinaud/",
 	"lib/phpgt/",
 	"lib/phpmailer/",
 	"lib/SimplePie/",

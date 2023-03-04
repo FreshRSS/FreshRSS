@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'darkMode' => 'Mode sombre automatique (bêta)',
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -48,8 +49,14 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
-		'theme' => 'Thème',
-		'theme_not_available' => 'Le thème “%s” n’est plus disponible. Veuillez choisir un autre thème.',
+		'theme' => array(
+			'_' => 'Thème',
+			'deprecated' => array(
+				'_' => 'Obsolète',
+				'description' => 'Ce thème est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/fr/users/05_Configuration.html#th%C3%A8me" target="_blank">future version de FreshRSS</a>',
+			),
+		),
+		'theme_not_available' => 'Le thème <em>%s</em> n’est plus disponible. Veuillez choisir un autre thème.',
 		'thumbnail' => array(
 			'label' => 'Miniature',
 			'landscape' => 'Paysage',
@@ -57,7 +64,15 @@ return array(
 			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Carrée',
 		),
+		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site Web',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
 			'large' => 'Large',	// IGNORE
@@ -106,15 +121,15 @@ return array(
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
-		'get_category' => 'Afficher la catégorie "%s"',
+		'get_category' => 'Afficher la catégorie <em>%s<em>',
 		'get_favorite' => 'Afficher les articles favoris',
-		'get_feed' => 'Afficher le flux "%s"',
+		'get_feed' => 'Afficher le flux <em>%s</em>',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
-		'search' => 'Recherche de "%s"',
+		'search' => 'Recherche de « %s »',
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',
@@ -135,7 +150,7 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Lecture',
-		'after_onread' => 'Après “marquer tout comme lu”,',
+		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'article' => array(
 			'authors_date' => array(
@@ -148,7 +163,7 @@ return array(
 			'feed_name' => array(
 				'above_title' => 'Au-dessus du titre',
 				'none' => 'Caché',
-				'with_authors' => 'Sur la ligne “Auteurs et date”',
+				'with_authors' => 'Sur la ligne « Auteurs et date »',
 			),
 			'feed_title' => 'Titre du flux',
 			'tags' => array(
@@ -166,7 +181,7 @@ return array(
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
-		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
+		'confirm_enabled' => 'Afficher une confirmation lors des actions « Marquer tout comme lu »',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
@@ -177,8 +192,8 @@ return array(
 			'misc' => 'Divers',
 			'view' => 'Vue',
 		),
-		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
-		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
+		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
+		'img_with_lazyload' => 'Utiliser le mode <em>chargement différé</em> pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
