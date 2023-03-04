@@ -110,7 +110,10 @@ return array(
 		'ok' => 'La configuración general se ha guardado.',
 	),
 	'congratulations' => '¡Enhorabuena!',
-	'default_user' => 'Nombre de usuario para el usuario por defecto <small>(máximo de 16 caracteres alfanuméricos)</small>',
+	'default_user' => array(
+		'_' => 'Nombre de usuario para el usuario por defecto',
+		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+	),
 	'fix_errors_before' => 'Por favor, soluciona los errores detectados antes de proceder con el siguiente paso.',
 	'javascript_is_better' => 'FreshRSS funciona mejor con JavaScript activado',
 	'js' => array(

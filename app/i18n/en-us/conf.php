@@ -66,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// IGNORE
 		'title' => 'Display',	// IGNORE
+		'website' => array(
+			'full' => 'Icon and name',	// IGNORE
+			'icon' => 'Icon only',	// IGNORE
+			'label' => 'Website',	// IGNORE
+			'name' => 'Name only',	// IGNORE
+			'none' => 'None',	// IGNORE
+		),
 		'width' => array(
 			'content' => 'Content width',	// IGNORE
 			'large' => 'Wide',	// IGNORE
