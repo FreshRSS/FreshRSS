@@ -34,11 +34,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @param $size_str
 	 * @return float|int
 	 */
-
-	private static function megabytes($size_str) {
+	private static function megabytes(string $size_str) {
 		switch (substr($size_str, -1)) {
 			case 'M': case 'm': return (int)$size_str;
 			case 'K': case 'k': return (int)$size_str / 1024;

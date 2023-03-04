@@ -103,11 +103,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - challenge (default: '')
 	 *   - keep_logged_in (default: false)
 	 *
-	 * @throws Exception
 	 * @todo move unsafe autologin in an extension.
 	 * @throws Exception
 	 */
-	public function formLoginAction() {
+	public function formLoginAction(): void {
 		invalidateHttpCache();
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
