@@ -110,7 +110,10 @@ return array(
 		'ok' => 'La configuracion generala es enregistrada.',
 	),
 	'congratulations' => 'Òsca !',
-	'default_user' => 'Nom d’utilizaire per defaut <small>16 caractèrs alfanumerics maximum)</small>',
+	'default_user' => array(
+		'_' => 'Nom d’utilizaire per defaut',
+		'max_char' => '16 caractèrs alfanumerics maximum',
+	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',
 	'js' => array(
