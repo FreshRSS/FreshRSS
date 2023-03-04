@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => '显示',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => '底栏',
 			'display_authors' => '作者',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'HTML5 通知超时时间',
 		),
 		'show_nav_buttons' => '显示导航按钮',
-		'theme' => '主题',
+		'theme' => array(
+			'_' => '主题',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
 		'thumbnail' => array(
 			'label' => '缩略图',
@@ -59,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => '显示',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => '内容宽度',
 			'large' => '宽',

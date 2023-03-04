@@ -174,6 +174,7 @@ return array(
 		'queries' => 'Benutzerabfragen',
 		'reading' => 'Lesen',
 		'search' => 'Suche Worte oder #Tags',
+		'search_help' => 'Siehe Dokumentation zu den <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Suchparametern</a>',
 		'sharing' => 'Teilen',
 		'shortcuts' => 'Tastaturkürzel',
 		'stats' => 'Statistiken',
@@ -191,6 +192,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
 		'clipboard' => 'Zwischenablage',

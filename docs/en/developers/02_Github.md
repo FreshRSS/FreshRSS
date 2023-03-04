@@ -53,7 +53,7 @@ Now you can create a PR based on your branch.
 
 ## How to write a commit message
 
-A commit message should succintly describe the changes on the first line. For example:
+A commit message should succinctly describe the changes on the first line. For example:
 
 > Fix broken icon
 

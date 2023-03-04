@@ -26,7 +26,7 @@ class Minz_ModelPdo {
 	private static $sharedCurrentUser;
 
 	/**
-	 * @var Minz_Pdo|null
+	 * @var Minz_Pdo
 	 */
 	protected $pdo;
 

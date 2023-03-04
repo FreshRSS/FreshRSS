@@ -93,7 +93,7 @@
 		border-radius: 5px 0 0 5px;
 	}
 
-	.btn:last-child, input:last-child, .btn + .dropdown > .btn {
+	.btn:last-child, input:last-child, .dropdown:last-child > .btn {
 		border-radius: 0 5px 5px 0;
 	}
 
@@ -133,16 +133,24 @@
 
 /*=== Navigation */
 .nav-list {
-	.nav-header,
+	font-size: 1rem;
+
+	.item.nav-header,
 	.item {
-		height: 2.5em;
+		min-height: 2.5em;
 		line-height: 2.5em;
-		font-size: 1rem;
 	}
 
 	.item {
 		background: variables.$sid-bg;
 		color: variables.$white;
+		min-height: 2.5em;
+		line-height: 2.5em;
+
+		&.nav-header {
+			min-height: 2.5em;
+			line-height: 2.5em;
+		}
 
 		a {
 			padding: 0 1rem;
@@ -151,11 +159,9 @@
 			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
-		&:hover {
-			a {
-				background: variables.$sid-bg-dark;
-				text-decoration: none;
-			}
+		a:hover {
+			background: variables.$sid-bg-dark;
+			text-decoration: none;
 		}
 
 		&.active {
@@ -171,7 +177,7 @@
 	}
 
 	.nav-header {
-		padding: 0 10px;
+		padding: 0 1rem;
 		font-weight: bold;
 		color: variables.$grey-dark;
 		text-transform: uppercase;

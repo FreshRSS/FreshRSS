@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazenie',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
 			'display_authors' => 'Autori',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
-		'theme' => 'Vzhľad',
+		'theme' => array(
+			'_' => 'Vzhľad',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Vzhľad “%s” už nie je dostupný. Prosím, vyberte si iný vzhľad.',
 		'thumbnail' => array(
 			'label' => 'Miniatúra',
@@ -59,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobraziť',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Šírka obsahu',
 			'large' => 'Veľká',

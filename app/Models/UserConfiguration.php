@@ -53,6 +53,7 @@
  * @property bool $sides_close_article
  * @property bool $sticky_post
  * @property string $theme
+ * @property string $darkMode
  * @property string $token
  * @property bool $topline_date
  * @property bool $topline_display_authors
@@ -60,6 +61,7 @@
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary
+ * @property string $topline_website
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property int $dynamic_opml_ttl_default

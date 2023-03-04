@@ -1,8 +1,13 @@
 # Apache/Nginx Configuration Files
 
+> ℹ️ For improved security, remove sensitive information in the Web server logs by using our [`sensitive-log.sh` script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/sensitive-log.sh),
+on the model of our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images
+(see [`CustomLog`](https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog)).
+
 ## Apache configuration
 
 This is an example Apache virtual hosts configuration file. It covers HTTP and HTTPS configuration.
+For more details, check our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images.
 
 ```apache
 <VirtualHost *:80>
@@ -24,6 +29,7 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+	# Consider piping the logs for cleaning passwords; cf. comment higher up.
 	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
 
 	AllowEncodedSlashes On

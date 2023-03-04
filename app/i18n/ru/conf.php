@@ -32,6 +32,7 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Отображение',
+		'darkMode' => 'Automatic dark mode (beta)',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',
@@ -48,7 +49,13 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
-		'theme' => 'Тема',
+		'theme' => array(
+			'_' => 'Тема',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
 		'thumbnail' => array(
 			'label' => 'Эскиз',
@@ -59,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Отображение',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Ширина содержимого',
 			'large' => 'Широкое',

@@ -195,7 +195,7 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$dryRunCategory = new FreshRSS_Category();
 			$importService = new FreshRSS_Import_Service();
-			$importService->importOpml($opml, $dryRunCategory, true, true);
+			$importService->importOpml($opml, $dryRunCategory, true);
 			if ($importService->lastStatus()) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 

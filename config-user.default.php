@@ -64,6 +64,7 @@ return array (
 		'site' => true,
 	),
 	'theme' => 'Origine',
+	'darkMode' => 'no',
 	'content_width' => 'thin',
 	'shortcuts' => array (
 		'actualize' => 'q',
@@ -99,6 +100,7 @@ return array (
 
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_website' => 'full',
 	'topline_thumbnail' => 'none',
 	'topline_summary' => false,
 	'topline_display_authors' => false,

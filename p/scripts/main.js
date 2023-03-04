@@ -447,9 +447,7 @@ function toggleContent(new_active, old_active, skipping) {
 			// when skipping, this feels more natural if it’s not so near the top
 			new_pos -= document.body.clientHeight / 4;
 		}
-		if (relative_move) {
-			new_pos += box_to_move.scrollTop;
-		}
+
 		box_to_move.scrollTop = new_pos;
 	}
 
@@ -1013,11 +1011,13 @@ function init_shortcuts() {
 			}
 
 			const link_go_website = document.querySelector('.flux.current a.go_website');
-			const newWindow = window.open();
-			if (link_go_website && newWindow) {
-				newWindow.opener = null;
-				newWindow.location = link_go_website.href;
-				ev.preventDefault();
+			if (link_go_website) {
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = link_go_website.href;
+					ev.preventDefault();
+				}
 			}
 			return;
 		}
@@ -1569,7 +1569,7 @@ function notifs_html5_show(nb, nb_new) {
 
 	const notification = new window.Notification(context.i18n.notif_title_articles, {
 		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_new_articles.replace('%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%d', nb),
+		body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
 		tag: 'freshRssNewArticles',
 	});
 

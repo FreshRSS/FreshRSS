@@ -364,9 +364,8 @@ function printStep0() {
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" tabindex="2" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="3" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -405,6 +404,7 @@ function printStep1() {
 	$res = checkRequirements();
 	$processUsername = getProcessUsername();
 ?>
+	<h2><?= _t('admin.check_install.php') ?></h2>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
 	<?php
@@ -423,6 +423,9 @@ function printStep1() {
 	printStep1Template('xml', $res['xml']);
 	printStep1Template('mbstring', $res['mbstring']);
 	printStep1Template('fileinfo', $res['fileinfo']);
+	?>
+	<h2><?= _t('admin.check_install.files') ?></h2>
+	<?php
 	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
 	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
 	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
@@ -433,20 +436,32 @@ function printStep1() {
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
 	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.check.already_installed') ?></p>
 
-	<form action="index.php?step=1" method="post">
-		<input type="hidden" name="freshrss-keep-install" value="1" />
-		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
-		<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
-			href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
-	</form>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<form action="index.php?step=1" method="post">
+				<input type="hidden" name="freshrss-keep-install" value="1" />
+				<button type="submit" class="btn btn-important" tabindex="1"><?= _t('install.action.keep_install') ?></button>
+				<a class="btn btn-attention confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
+					href="?step=2" tabindex="2"><?= _t('install.action.reinstall') ?></a>
+			</form>
+		</div>
+	</div>
 
 	<?php } elseif ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important" href="?step=2" tabindex="1"><?= _t('install.action.next_step') ?></a>
+		</div>
+	</div>
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
-	<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>">
-		<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" />
-	</a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
+				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+			</a>
+		</div>
+	</div>
 	<?php } ?>
 <?php
 }
@@ -539,7 +554,7 @@ function printStep2() {
 				<button type="submit" class="btn btn-important" tabindex="8" ><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -568,14 +583,15 @@ function printStep3() {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
-					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
+					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="1" />
+				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" tabindex="4">
+				<select id="auth_type" name="auth_type" required="required" tabindex="2">
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
@@ -591,8 +607,8 @@ function printStep3() {
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
-						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
-					<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></button>
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
+					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
@@ -601,10 +617,10 @@ function printStep3() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="5" ><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn" tabindex="6" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=4" tabindex="7" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -615,7 +631,11 @@ function printStep3() {
 function printStep4() {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
-	<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+		</div>
+	</div>
 <?php
 }
 
@@ -668,6 +688,12 @@ if (_t('gen.dir') === 'rtl') {
 		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/frss.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/frss.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="../favicon.ico" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="../themes/icons/favicon-256.png" />
+		<link rel="apple-touch-icon" href="../themes/icons/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="FreshRSS">
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
@@ -676,49 +702,59 @@ if (_t('gen.dir') === 'rtl') {
 	<div class="item title">
 		<div id="logo-wrapper">
 			<a href="./">
-				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="">
+				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="" loading="lazy">
 			</a>
 		</div>
+	</div>
+	<div class="item"></div>
+	<div class="item configure">
+		<a class="btn only-mobile" href="#aside"><?= _i('view-normal') ?></a>
 	</div>
 </header>
 
 <div id="global">
-	<nav class="nav nav-list aside">
-		<div class="nav-header"><?= _t('install.steps') ?></div>
-		<ol>
-			<li class="item<?= STEP == 0 ? ' active' : '' ?>">
-				<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
+	<nav class="nav nav-list aside" id="aside">
+		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<ul>
+			<li class="item nav-section">
+				<div class="nav-header"><?= _t('install.steps') ?></div>
+				<ol>
+					<li class="item<?= STEP == 0 ? ' active' : '' ?>">
+						<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
+					</li>
+					<li class="item<?= STEP == 1 ? ' active' : '' ?>">
+						<?php if (STEP > 0) {?>
+						<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.check') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 2 ? ' active' : '' ?>">
+						<?php if (STEP > 1) {?>
+						<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.bdd.conf') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 3 ? ' active' : '' ?>">
+						<?php if (STEP > 2) {?>
+						<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.conf') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 4 ? ' active' : '' ?>">
+						<?php if (STEP > 3) {?>
+						<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.this_is_the_end') ?></span>
+						<?php } ?>
+					</li>
+				</ol>
 			</li>
-			<li class="item<?= STEP == 1 ? ' active' : '' ?>">
-				<?php if (STEP > 0) {?>
-				<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
-				<?php } else { ?>
-				<span><?= _t('install.check') ?></span>
-				<?php } ?>
-			</li>
-			<li class="item<?= STEP == 2 ? ' active' : '' ?>">
-				<?php if (STEP > 1) {?>
-				<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
-				<?php } else { ?>
-				<span><?= _t('install.bdd.conf') ?></span>
-				<?php } ?>
-			</li>
-			<li class="item<?= STEP == 3 ? ' active' : '' ?>">
-				<?php if (STEP > 2) {?>
-				<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
-				<?php } else { ?>
-				<span><?= _t('install.conf') ?></span>
-				<?php } ?>
-			</li>
-			<li class="item<?= STEP == 4 ? ' active' : '' ?>">
-				<?php if (STEP > 3) {?>
-				<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
-				<?php } else { ?>
-				<span><?= _t('install.this_is_the_end') ?></span>
-				<?php } ?>
-			</li>
-		</ol>
+		</ul>
 	</nav>
+	<a class="close-aside" href="#close">❌</a>
 
 	<main class="post">
 		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>

@@ -7,8 +7,6 @@ find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
-php -f ./cli/prepare.php >/dev/null
-
 if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
 fi
@@ -23,6 +21,10 @@ if [ -n "$CRON_MIN" ]; then
 	sed </etc/crontab.freshrss.default \
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi
+
+./cli/access-permissions.sh
+
+php -f ./cli/prepare.php >/dev/null
 
 if [ -n "$FRESHRSS_INSTALL" ]; then
 	# shellcheck disable=SC2046
@@ -57,7 +59,6 @@ if [ -n "$FRESHRSS_USER" ]; then
 	fi
 fi
 
-chown -R :www-data .
-chmod -R g+r . && chmod -R g+w ./data/
+./cli/access-permissions.sh
 
 exec "$@"

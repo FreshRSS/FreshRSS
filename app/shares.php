@@ -26,6 +26,13 @@
  */
 
 return array(
+	'archiveORG' => array(
+		'url' => 'https://web.archive.org/save/~LINK~',
+		'transform' => array(),
+		'help' => 'https://web.archive.org',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'archivePH' => array(
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => array(),
@@ -94,7 +101,7 @@ return array(
 		'method' => 'GET',
 	),
 	'lemmy' => array(
-		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
+		'url' => '~URL~/create_post?url=~LINK~&title=~TITLE~',
 		'transform' => array('rawurlencode'),
 		'help' => 'https://join-lemmy.org/',
 		'form' => 'advanced',

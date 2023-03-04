@@ -122,6 +122,7 @@ return array(
 				'xpath' => '다음의 XPath:',
 			),
 			'rss' => 'RSS / Atom (기본값)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',

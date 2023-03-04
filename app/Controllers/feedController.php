@@ -81,6 +81,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
 				break;
 			case FreshRSS_Feed::KIND_HTML_XPATH:
+			case FreshRSS_Feed::KIND_XML_XPATH:
 				$feed->_website($url);
 				break;
 		}
@@ -172,7 +173,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$proxy_address = Minz_Request::param('curl_params', '');
 			$proxy_type = Minz_Request::param('proxy_type', '');
 			$opts = [];
-			if ($proxy_address !== '' && $proxy_type !== '' && in_array($proxy_type, [0, 2, 4, 5, 6, 7])) {
+			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
 				$opts[CURLOPT_PROXYTYPE] = intval($proxy_type);
 			}
@@ -201,8 +202,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$timeout = intval(Minz_Request::param('timeout', 0));
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
-			$feed_kind = Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
-			if ($feed_kind == FreshRSS_Feed::KIND_HTML_XPATH) {
+			$feed_kind = (int)Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS);
+			if ($feed_kind === FreshRSS_Feed::KIND_HTML_XPATH || $feed_kind === FreshRSS_Feed::KIND_XML_XPATH) {
 				$xPathSettings = [];
 				if (Minz_Request::param('xPathFeedTitle', '') != '') $xPathSettings['feedTitle'] = Minz_Request::param('xPathFeedTitle', '', true);
 				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
@@ -385,9 +386,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				if ($simplePiePush) {
 					$simplePie = $simplePiePush;	//Used by WebSub
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
-					$simplePie = $feed->loadHtmlXpath(false, $isNewFeed);
-					if ($simplePie == null) {
+					$simplePie = $feed->loadHtmlXpath();
+					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('HTML+XPath Web scraping failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
+					$simplePie = $feed->loadHtmlXpath();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
 					$simplePie = $feed->load(false, $isNewFeed);
@@ -949,7 +955,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$this->view->htmlContent = $fullContent;
 			} else {
 				$this->view->selectorSuccess = false;
-				$this->view->htmlContent = $entry->content();
+				$this->view->htmlContent = $entry->content(false);
 			}
 		} catch (Exception $e) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
