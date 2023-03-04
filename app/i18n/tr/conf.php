@@ -66,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Görünüm',
+		'website' => array(
+			'full' => 'simgesi and adı',
+			'icon' => 'Sadece simgesi',
+			'label' => 'Site',
+			'name' => 'Sadece adı',
+			'none' => 'Hiçbiri',
+		),
 		'width' => array(
 			'content' => 'İçerik genişliği',
 			'large' => 'Geniş',
