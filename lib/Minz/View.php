@@ -249,7 +249,6 @@ class Minz_View {
 	/**
 	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
 	 *
-	 * @return String
 	 */
 	public static function metaThemeColor(): String {
 		$meta = '';
