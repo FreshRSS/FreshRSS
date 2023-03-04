@@ -26,6 +26,7 @@ People are sorted by name so please keep this order.
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
 * [Artur Weigandt](https://github.com/Art4): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Art4), [Web](https://ruhr.social/@Art4)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)
+* [Axel Leroy](https://github.com/axeleroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:axeleroy), [Web](https://axel.leroy.sh/)
 * [azlux](https://github.com/azlux): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:azlux), [Web](https://azlux.fr/)
 * [Bartosz Taudul](https://github.com/wolfpld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wolfpld), [Web](https://wolf.nereid.pl/)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
@@ -205,3 +206,4 @@ People are sorted by name so please keep this order.
 * [xnaas](https://github.com/xnaas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xnaas), [Web](https://xnaas.info/)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
+* [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)

@@ -110,7 +110,10 @@ return array(
 		'ok' => 'La configuration générale a été enregistrée.',
 	),
 	'congratulations' => 'Félicitations !',
-	'default_user' => 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
+	'default_user' => array(
+		'_' => 'Nom de l’utilisateur par défaut',
+		'max_char' => '16 caractères alphanumériques maximum',
+	),
 	'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 	'javascript_is_better' => 'FreshRSS est plus agréable à utiliser avec JavaScript activé',
 	'js' => array(
