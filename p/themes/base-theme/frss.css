@@ -406,7 +406,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 250px;
+	min-width: 200px;
 	margin: 0 0 0 220px;
 	overflow-x: auto;
 }
@@ -736,6 +736,12 @@ input[type="checkbox"]:focus-visible {
 
 .group-controls .alert {
 	width: 100%
+}
+
+.group-controls .next-step {
+	display: inline-block;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 .alert-head {
@@ -1191,6 +1197,26 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+}
+
+.flux:not(.current):hover .websitenone .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websiteicon .item.website {
+	width: calc(2 * var(--frss-padding-flux-items) + 16px);
+}
+
+.flux:not(.current):hover .websiteicon .item.title {
+	max-width: calc(100% - 4 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websitename .item.website {
+	width: 150px;
+}
+
+.flux:not(.current):hover .websitename .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px) - 150px);
 }
 
 .website a:hover .favicon,

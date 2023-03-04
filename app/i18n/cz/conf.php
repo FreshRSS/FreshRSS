@@ -66,6 +66,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobrazení',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Šířka obsahu',
 			'large' => 'Široká',

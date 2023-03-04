@@ -110,7 +110,10 @@ return array(
 		'ok' => '常规配置已保存',
 	),
 	'congratulations' => '恭喜！',
-	'default_user' => '默认用户名 <small>(最多 16 个数字或字母)</small>',
+	'default_user' => array(
+		'_' => '默认用户名',
+		'max_char' => '最多 16 个数字或字母',
+	),
 	'fix_errors_before' => '请在继续下一步前修复错误',
 	'javascript_is_better' => '启用 JavaScript 会使 FreshRSS 工作得更好',
 	'js' => array(
