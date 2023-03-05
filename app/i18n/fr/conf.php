@@ -34,8 +34,8 @@ return array(
 		'_' => 'Affichage',
 		'darkMode' => array(
 			'_' => 'Mode sombre automatique (bêta)',
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Non',
 		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
