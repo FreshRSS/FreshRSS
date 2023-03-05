@@ -64,14 +64,14 @@ return array(
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Zeitzone',
 		'title' => 'Anzeige',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icon und Name',
+			'icon' => 'Nur Icon',
+			'label' => 'Webseite',
+			'name' => 'Nur Name',
+			'none' => 'Keine',
 		),
 		'width' => array(
 			'content' => 'Inhaltsbreite',
