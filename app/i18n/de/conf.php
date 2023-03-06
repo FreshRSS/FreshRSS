@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Anzeige',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatischer Dunkel-Modus (Beta)',
+			'auto' => 'Automatisch',
+			'no' => 'Nein',
+		),
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
