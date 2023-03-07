@@ -263,7 +263,7 @@ final class GReaderAPI {
 		if (FreshRSS_Context::$user_conf == null) {
 			self::unauthorized();
 		}
-		$user = FreshRSS_Context::currentUser( '_');
+		$user = FreshRSS_Context::currentUser('_');
 		exit(json_encode(array(
 				'userId' => $user,
 				'userName' => $user,
