@@ -383,7 +383,7 @@ docker-compose down --remove-orphans --volumes
 
 ### Docker Compose and ARM64
 
-If you're working or want to host on an ARM64 system (such as Apple Silicon (M1/M2)) you'll need to use the `arm` tag in your `docker-compose.yml` file:
+If you’re working or want to host on an ARM64 system (such as Apple Silicon (M1/M2)) you’ll need to use the `arm` tag in your `docker-compose.yml` file:
 ```yaml
 image: freshrss/freshrss:arm
 ```
