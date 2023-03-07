@@ -738,6 +738,12 @@ input[type="checkbox"]:focus-visible {
 	width: 100%
 }
 
+.group-controls .next-step {
+	display: inline-block;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
 .alert-head {
 	margin: 0;
 	font-weight: bold;
@@ -1191,6 +1197,26 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+}
+
+.flux:not(.current):hover .websitenone .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websiteicon .item.website {
+	width: calc(2 * var(--frss-padding-flux-items) + 16px);
+}
+
+.flux:not(.current):hover .websiteicon .item.title {
+	max-width: calc(100% - 4 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websitename .item.website {
+	width: 150px;
+}
+
+.flux:not(.current):hover .websitename .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px) - 150px);
 }
 
 .website a:hover .favicon,

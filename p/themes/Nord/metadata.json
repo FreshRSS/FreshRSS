@@ -3,5 +3,6 @@
   "author": "joelchrono12",
   "description": "A simple theme based on Nord's color scheme",
   "version": 0.1,
-  "files": ["_frss.css","nord.css"]
+  "files": ["_frss.css","nord.css"],
+  "theme-color": "#2e3440"
 }
