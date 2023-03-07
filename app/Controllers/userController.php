@@ -487,7 +487,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$username = FreshRSS_Context::currentUser( '_');
+		$username = FreshRSS_Context::currentUser('_');
 		$user_config = FreshRSS_Context::$user_conf;
 
 		if ($user_config->email_validation_token === '') {
