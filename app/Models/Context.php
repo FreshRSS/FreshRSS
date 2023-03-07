@@ -86,7 +86,7 @@ class FreshRSS_Context {
 
 		Minz_Session::lock();
 		if ($username == '') {
-			$username = FreshRSS_Context::currentUser( '');
+			$username = FreshRSS_Context::currentUser('');
 		}
 		if (($username === '_' || FreshRSS_user_Controller::checkUsername($username)) &&
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
