@@ -20,7 +20,7 @@ class FreshRSS_LogDAO {
 	}
 
 	public static function truncate() {
-		file_put_contents(join_path(DATA_PATH, 'users', FreshRSS_Context::currentUser( '_'), LOG_FILENAME), '');
+		file_put_contents(join_path(DATA_PATH, 'users', FreshRSS_Context::currentUser('_'), LOG_FILENAME), '');
 		if (FreshRSS_Auth::hasAccess('admin')) {
 			file_put_contents(ADMIN_LOG, '');
 			file_put_contents(API_LOG, '');
