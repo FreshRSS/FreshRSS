@@ -68,7 +68,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			));
 
 			if ($ok) {
-				$isSelfUpdate = FreshRSS_Context::currentUser( '_') === $username;
+				$isSelfUpdate = FreshRSS_Context::currentUser('_') === $username;
 				if ($passwordPlain == '' || !$isSelfUpdate) {
 					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
 				} else {
