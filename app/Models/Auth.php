@@ -21,7 +21,7 @@ class FreshRSS_Auth {
 		}
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
-		$current_user = FreshRSS_Context::currentUser( '');
+		$current_user = FreshRSS_Context::currentUser('');
 		if ($current_user == '') {
 			$current_user = FreshRSS_Context::$system_conf->default_user;
 			Minz_Session::_params([
