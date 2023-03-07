@@ -51,7 +51,13 @@ class Minz_ModelPdo {
 
 		switch ($db['type']) {
 			case 'mysql':
-				$dsn = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';charset=utf8mb4';
+				$dsn = 'mysql:';
+				if (empty($dbServer['host'])) {
+					$dsn .= 'unix_socket=' . $db['host'];
+				} else {
+					$dsn .= 'host=' . $dbServer['host'];
+				}
+				$dsn .= ';charset=utf8mb4';
 				if (!empty($db['base'])) {
 					$dsn .= ';dbname=' . $db['base'];
 				}
