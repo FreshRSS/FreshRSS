@@ -447,9 +447,7 @@ function toggleContent(new_active, old_active, skipping) {
 			// when skipping, this feels more natural if it’s not so near the top
 			new_pos -= document.body.clientHeight / 4;
 		}
-		if (relative_move) {
-			new_pos += box_to_move.scrollTop;
-		}
+
 		box_to_move.scrollTop = new_pos;
 	}
 
