@@ -392,7 +392,7 @@ final class GReaderAPI {
 			if (strpos($add, 'user/-/label/') === 0) {
 				$c_name = substr($add, 13);
 			} else {
-				$user = FreshRSS_Context::currentUser( '_');
+				$user = FreshRSS_Context::currentUser('_');
 				$prefix = 'user/' . $user . '/label/';
 				if (strpos($add, $prefix) === 0) {
 					$c_name = substr($add, strlen($prefix));
