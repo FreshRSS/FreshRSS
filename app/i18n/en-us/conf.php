@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// IGNORE
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'No',	// IGNORE
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
