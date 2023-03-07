@@ -389,10 +389,11 @@ image: freshrss/freshrss:arm
 ```
 
 If you then get this error message when running `docker compose up`:
-```
-The requested image's platform (linux/arm/v7) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-```
-... you will also need to specify the platform in the `service` part:
+
+> The requested image's platform (linux/arm/v7) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+
+… you will also need to specify the platform in the `service` part:
+
 ```yaml
 services:
   freshrss:
