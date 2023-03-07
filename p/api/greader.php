@@ -244,7 +244,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = FreshRSS_Context::currentUser( '_');
+		$user = FreshRSS_Context::currentUser('_');
 		if ($user !== '_' && (	//TODO: Check security consequences
 			$token == '' || //FeedMe
 			$token === 'x')) { //Reeder
