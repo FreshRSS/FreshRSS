@@ -87,6 +87,7 @@ and with newer packages in general (Apache, PHP).
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
 * `LISTEN`: (default is `0.0.0.0:80`) Modifies the internal Apache listening port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN6`: (default is `[::]:80`) Modifies the internal Apache listening port for IPv6 connections
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -323,6 +324,7 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+      LISTEN6: "[::]:80"
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
       # So if changes are made (or in .env file), first delete the service and volumes.
