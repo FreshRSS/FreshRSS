@@ -8,7 +8,11 @@ find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*
 find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
 if [ -n "$LISTEN" ]; then
-	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
+	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^Listen\ [0-9]/s/^.*/Listen $LISTEN/" {} \;
+fi
+
+if [ -n "$LISTEN6" ]; then
+	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^Listen\ \[/s/^.*/Listen $LISTEN6/" {} \;
 fi
 
 if [ -n "$CRON_MIN" ]; then
