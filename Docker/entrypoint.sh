@@ -9,13 +9,10 @@ find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize
 
 if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf > files.tmp
-	cat files.tmp
 	while IFS= read -r file
 	do
-		echo "$file"
 		awk '{ split(ENVIRON["LISTEN"], list, ","); if ($1 ~ "Listen") for (i in list) print "Listen " list[i]; else print $0 }' "$file" > "$file".tmp
 		mv "$file".tmp "$file"
-		cat "$file"
 	done < files.tmp
 	rm files.tmp
 fi
