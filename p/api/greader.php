@@ -679,6 +679,7 @@ final class GReaderAPI {
 			case 'label':
 				$type = 'c';
 				break;
+			case 'reading-list':
 			default:
 				$type = 'A';
 				break;
