@@ -75,7 +75,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				$entryDAO->markReadEntries($id_max, false, 0, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
-				$get = substr($get, 2);
+				$get = (int)substr($get, 2);
 				switch($type_get) {
 				case 'c':
 					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
@@ -93,7 +93,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 'T':
-					$entryDAO->markReadTag('', $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				}
 
