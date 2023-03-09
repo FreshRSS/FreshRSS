@@ -141,6 +141,7 @@ People are sorted by name so please keep this order.
 * [No Name Pro](https://github.com/NoNamePro0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NoNamePro0)
 * [OctopusET](https://github.com/OctopusET): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:OctopusET)
 * [Offerel](https://github.com/Offerel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Offerel)
+* [Olivier Brencklé](https://github.com/obrenckle): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:obrenckle)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:blankoworld), [Web](https://olivier.dossmann.net)
 * [ORelio](https://github.com/ORelio): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ORelio), [Web](https://microzoom.fr/)
 * [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
