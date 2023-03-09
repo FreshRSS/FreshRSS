@@ -28,6 +28,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 */
 	public function createAction() {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$tagDAO = FreshRSS_Factory::createTagDao();
+
 		$url_redirect = array('c' => 'subscription', 'a' => 'add');
 
 		$limits = FreshRSS_Context::$system_conf->limits;
@@ -49,6 +51,10 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if ($catDAO->searchByName($cat->name()) != null) {
 				Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
+			}
+
+			if ($tagDAO->searchByName($cat->name()) != null) {
+				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
 			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
