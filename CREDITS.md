@@ -169,6 +169,7 @@ People are sorted by name so please keep this order.
 * [Raineer](https://github.com/Raineer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Raineer)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [rdmitr](https://github.com/rdmitr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rdmitr)
+* [Rebecca Scott](https://github.com/becdetat): [contirbutions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:becdetat), [Web](https://becdetat.com)
 * [Rezad](https://github.com/rezad1393): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rezad1393)
 * [Robert Kaussow](https://github.com/xoxys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xoxys), [Web](https://geeklabor.de/)
 * [rocka](https://github.com/rocka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rocka)
