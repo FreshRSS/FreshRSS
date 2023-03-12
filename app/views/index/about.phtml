@@ -34,7 +34,7 @@
 
 		<?php
 		$env = FreshRSS_Context::$system_conf->environment;
-		if ($env != 'production' && FreshRSS_Context::$user_conf->is_admin) { ?>
+		if ($env !== 'production' && FreshRSS_Context::$user_conf->is_admin) { ?>
 			<h2>data/config.php</h2>
 			<code>'environment' => '<?= $env; ?>'</code><br />
 			<?php
