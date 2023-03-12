@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
-		'darkMode' => 'Mode sombre automatique (bêta)',
+		'darkMode' => array(
+			'_' => 'Mode sombre automatique (bêta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Non',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
