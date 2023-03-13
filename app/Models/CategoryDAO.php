@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	const DEFAULTCATEGORYID = 1;
 
@@ -224,8 +224,7 @@ SQL;
 		}
 	}
 
-	/** @return FreshRSS_Category|null */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		if ($stm &&

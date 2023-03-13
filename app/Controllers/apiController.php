@@ -8,8 +8,9 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	/**
 	 * Update the user API password.
 	 * Return an error message, or `false` if no error.
+	 * @return false|string
 	 */
-	public static function updatePassword($apiPasswordPlain) {
+	public static function updatePassword(string $apiPasswordPlain) {
 		$username = FreshRSS_Context::currentUser();
 		$userConfig = FreshRSS_Context::$user_conf;
 
@@ -35,12 +36,12 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * - apiPasswordPlain: the new user password
 	 */
-	public function updatePasswordAction() {
+	public function updatePasswordAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
-		$return_url = array('c' => 'user', 'a' => 'profile');
+		$return_url = ['c' => 'user', 'a' => 'profile'];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($return_url, true);

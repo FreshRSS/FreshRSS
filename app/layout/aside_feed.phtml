@@ -85,7 +85,7 @@
 						|| FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
+			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
@@ -116,7 +116,7 @@
 		}
 		$mute_class = $feed->mute() ? ' mute' : '';
 ?>
-<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>" 
+<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>"
 		data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::$user_conf->simplify_over_n_feeds):
 	?><div class="dropdown no-mobile">

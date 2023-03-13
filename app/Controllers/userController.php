@@ -318,7 +318,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
+			$tos_enabled = file_exists(TOS_FILENAME);
 			$accept_tos = Minz_Request::param('accept_tos', false);
 
 			if ($system_conf->force_email_validation && empty($email)) {

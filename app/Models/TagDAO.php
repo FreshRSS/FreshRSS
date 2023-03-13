@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_TagDAO extends Minz_ModelPdo {
 
 	public function sqlIgnore(): string {
 		return 'IGNORE';
@@ -197,10 +197,7 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Tag|null
-	 */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Tag {
 		$sql = 'SELECT * FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
