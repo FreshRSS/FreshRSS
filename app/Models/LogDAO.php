@@ -33,7 +33,7 @@ class FreshRSS_LogDAO {
 
 	private static function currentUserLogPath(?string $logFileName = null): string {
 
-		if (is_null($logFileName)) {
+		if ($logFileName === null || $logFileName === '') {
 			$logFileName = LOG_FILENAME;
 		}
 		return USERS_PATH . '/' . Minz_Session::param('currentUser', '_') . '/' . $logFileName;
