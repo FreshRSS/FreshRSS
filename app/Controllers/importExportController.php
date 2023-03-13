@@ -266,7 +266,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * true if articles from the file must be starred.
 	 * @return boolean false if an error occurred, true otherwise.
 	 */
-	private function importJson(string $article_file, ?bool $starred = false): bool {
+	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
 		if ($article_object == null) {
 			if (FreshRSS_Context::$isCli) {
@@ -509,7 +509,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * This method import a JSON-based feed (Google Reader format).
 	 *
 	 * @param array<string,string> $origin represents a feed.
-	 * return if feed is in database at the end of the process, else null.
+	 * @return FreshRSS_Feed|null if feed is in database at the end of the process, else null.
 	 */
 	private function addFeedJson(array $origin): ?FreshRSS_Feed {
 		$return = null;

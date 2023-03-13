@@ -105,9 +105,6 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index']);
 	}
 
-	/**
-	 * @return void|null
-	 */
 	public function renameAction() {
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
