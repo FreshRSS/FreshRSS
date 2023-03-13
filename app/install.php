@@ -164,9 +164,9 @@ function saveStep2() {
 
 		$ok = false;
 		try {
-			FreshRSS_Context::currentUser($config_array['default_user']);
+			Minz_Session::_param('currentUser', $config_array['default_user']);
 			$error = initDb();
-			FreshRSS_Context::currentUser();
+			Minz_Session::_param('currentUser');
 			if ($error != '') {
 				Minz_Session::_param('bd_error', $error);
 			} else {

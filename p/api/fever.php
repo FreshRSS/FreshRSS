@@ -153,7 +153,7 @@ final class FeverAPI
 			throw new FreshRSS_Context_Exception('System configuration not initialised!');
 		}
 		FreshRSS_Context::$user_conf = null;
-		FreshRSS_Context::currentUser();
+		Minz_Session::_param('currentUser');
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
@@ -171,7 +171,7 @@ final class FeverAPI
 				}
 				Minz_Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
 				Minz_Log::error('Fever API: Please reset your API password!');
-				FreshRSS_Context::currentUser();
+				Minz_Session::_param('currentUser');
 			}
 			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
 		}
