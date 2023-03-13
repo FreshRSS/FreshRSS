@@ -71,6 +71,7 @@ return array(
 			'help' => 'Voer één zoekfilter per lijn in.',
 		),
 		'information' => 'Informatie',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
 			'_' => 'Feedbron-type',

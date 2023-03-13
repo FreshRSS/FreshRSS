@@ -279,6 +279,9 @@ function customSimplePie($attributes = array()): SimplePie {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
+	if (isset($attributes['ipresolve'])) {
+		$curl_options[CURLOPT_IPRESOLVE] = $attributes['ipresolve'] ? "CURL_IPRESOLVE_V6" : "CURL_IPRESOLVE_V4";
+	}
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 		foreach ($attributes['curl_params'] as $co => $v) {
 			$curl_options[$co] = $v;

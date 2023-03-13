@@ -71,6 +71,7 @@ return array(
 			'help' => 'Her satıra tek arama filtresi yaz.',
 		),
 		'information' => 'Bilgi',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'En az tutulacak makale sayısı',
 		'kind' => array(
 			'_' => 'Akış kaynağının tipi',

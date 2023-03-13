@@ -71,6 +71,7 @@ return array(
 			'help' => 'Jedno zapytanie na linię.',
 		),
 		'information' => 'Informacja',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Minimalna liczba wiadomości do do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',

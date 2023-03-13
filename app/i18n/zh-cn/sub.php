@@ -71,6 +71,7 @@ return array(
 			'help' => '每行写一条过滤搜索',
 		),
 		'information' => '信息',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',

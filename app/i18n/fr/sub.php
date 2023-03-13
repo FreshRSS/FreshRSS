@@ -71,6 +71,7 @@ return array(
 			'help' => 'Écrivez une recherche par ligne.',
 		),
 		'information' => 'Informations',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
 			'_' => 'Type de source de flux',

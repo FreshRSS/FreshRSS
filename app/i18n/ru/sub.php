@@ -71,6 +71,7 @@ return array(
 			'help' => 'Введите по одному поисковому фильтру в строке.',
 		),
 		'information' => 'Информация',
+		'ipresolve' => 'Internet protocol',	// TODO
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
