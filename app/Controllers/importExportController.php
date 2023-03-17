@@ -45,6 +45,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return $size_str;
 	}
 
+	/**
+	 * @param string|int $mb
+	 */
 	private static function minimumMemory($mb): void {
 		$mb = (int)$mb;
 		$ini = self::megabytes(ini_get('memory_limit'));
@@ -53,7 +56,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function importFile($name, $path, $username = null): bool {
+	public function importFile(string $name, string $path, ?string $username = null): bool {
 		self::minimumMemory(256);
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
