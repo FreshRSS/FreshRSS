@@ -15,21 +15,41 @@ class FreshRSS_Context {
 	 * @var FreshRSS_SystemConfiguration|null
 	 */
 	public static $system_conf;
-
+	/**
+	 * @var array<string>
+	 */
 	public static $categories = array();
+	/**
+	 * @var array<string>
+	 */
 	public static $tags = array();
-
+	/**
+	 * @var string
+	 */
 	public static $name = '';
+	/**
+	 * @var string
+	 */
 	public static $description = '';
-
+	/**
+	 * @var int
+	 */
 	public static $total_unread = 0;
+	/**
+	 * @var array<string, int>
+	 */
 	public static $total_starred = array(
 		'all' => 0,
 		'read' => 0,
 		'unread' => 0,
 	);
-
+	/**
+	 * @var int
+	 */
 	public static $get_unread = 0;
+	/**
+	 * @var array<string, bool>
+	 */
 	public static $current_get = array(
 		'all' => false,
 		'starred' => false,
@@ -38,24 +58,49 @@ class FreshRSS_Context {
 		'tag' => false,
 		'tags' => false,
 	);
+	/**
+	 * @var string
+	 */
 	public static $next_get = 'a';
-
+	/**
+	 * @var int
+	 */
 	public static $state = 0;
+	/**
+	 * @var string
+	 */
 	public static $order = 'DESC';
+	/**
+	 * @var int
+	 */
 	public static $number = 0;
 	/** @var FreshRSS_BooleanSearch */
 	public static $search;
+	/**
+	 * @var string
+	 */
 	public static $first_id = '';
+	/**
+	 * @var string
+	 */
 	public static $next_id = '';
+	/**
+	 * @var string
+	 */
 	public static $id_max = '';
+	/**
+	 * @var int
+	 */
 	public static $sinceHours = 0;
-
+	/**
+	 * @var bool
+	 */
 	public static $isCli = false;
 
 	/**
 	 * Initialize the context for the global system.
 	 */
-	public static function initSystem($reload = false): ?FreshRSS_SystemConfiguration {
+	public static function initSystem(bool $reload = false): ?FreshRSS_SystemConfiguration {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
@@ -73,7 +118,7 @@ class FreshRSS_Context {
 	 *
 	 * @throws Minz_ConfigurationParamException
 	 */
-	public static function initUser(?string $username = '', $userMustExist = true) {
+	public static function initUser(?string $username = '', bool $userMustExist = true) {
 		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
@@ -148,6 +193,8 @@ class FreshRSS_Context {
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
 	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
 	public static function updateUsingRequest(): void {
 		if (empty(self::$categories)) {
@@ -214,27 +261,27 @@ class FreshRSS_Context {
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' and
 	 * the second is the id.
-	 * @return array|string|void
+	 * @return array<string>|string|void
 	 */
-	public static function currentGet(?bool $array = false) {
+	public static function currentGet(?bool $bool = false) {
 		if (self::$current_get['all']) {
 			return 'a';
 		} elseif (self::$current_get['starred']) {
 			return 's';
 		} elseif (self::$current_get['feed']) {
-			if ($array) {
+			if ($bool) {
 				return array('f', self::$current_get['feed']);
 			} else {
 				return 'f_' . self::$current_get['feed'];
 			}
 		} elseif (self::$current_get['category']) {
-			if ($array) {
+			if ($bool) {
 				return array('c', self::$current_get['category']);
 			} else {
 				return 'c_' . self::$current_get['category'];
 			}
 		} elseif (self::$current_get['tag']) {
-			if ($array) {
+			if ($bool) {
 				return array('t', self::$current_get['tag']);
 			} else {
 				return 't_' . self::$current_get['tag'];
@@ -275,7 +322,7 @@ class FreshRSS_Context {
 	/**
 	 * if $get parameter correspond to the $current_get attribute.
 	 */
-	public static function isCurrentGet($get): bool {
+	public static function isCurrentGet(string $get): bool {
 		$type = $get[0];
 		$id = substr($get, 2);
 
@@ -310,8 +357,10 @@ class FreshRSS_Context {
 	 * $name and $get_unread attributes are also updated as $next_get
 	 * Raise an exception if id or $get is invalid.
 	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get($get): void {
+	public static function _get(string $get): void {
 		$type = $get[0];
 		$id = (int)substr($get, 2);
 
