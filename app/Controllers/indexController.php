@@ -218,7 +218,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				break;
 			case 'f':
 				// We most likely already have the feed object in cache
-				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
+				$feed = FreshRSS_CategoryDAO::findFeed($categories, (int)$id);
 				if ($feed == null) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);

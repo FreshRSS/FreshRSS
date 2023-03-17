@@ -16,7 +16,7 @@ class FreshRSS_Context {
 	 */
 	public static $system_conf;
 	/**
-	 * @var array<string>
+	 * @var array<FreshRSS_Category>
 	 */
 	public static $categories = array();
 	/**
