@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	protected function addColumn(string $name) {
 		if ($this->pdo->inTransaction()) {
@@ -284,10 +284,7 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Feed|null
-	 */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Feed {
 		$sql = 'SELECT * FROM `_feed` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
