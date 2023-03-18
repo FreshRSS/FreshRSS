@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	public static function isCompressed(): bool {
 		return true;
@@ -731,8 +731,7 @@ SQL;
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
-	/** @return FreshRSS_Entry|null */
-	public function searchById($id) {
+	public function searchById(string $id): ?FreshRSS_Entry {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
