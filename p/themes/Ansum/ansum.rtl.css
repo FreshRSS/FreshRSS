@@ -980,6 +980,9 @@ main.prompt {
 	background: #fff;
 	border-right-color: #ca7227;
 }
+.flux.current:not(.active) {
+	background: #fcfaf8;
+}
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
