@@ -385,10 +385,6 @@ final class GReaderAPI {
 			self::badRequest();
 		}
 		$addCatId = 0;
-		$categoryDAO = null;
-		if ($add != '' || $remove != '') {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		}
 		$c_name = '';
 		if ($add != '' && strpos($add, 'user/') === 0) {	//user/-/label/Example ; user/username/label/Example
 			if (strpos($add, 'user/-/label/') === 0) {
@@ -403,6 +399,7 @@ final class GReaderAPI {
 				}
 			}
 			$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$cat = $categoryDAO->searchByName($c_name);
 			$addCatId = $cat == null ? 0 : $cat->id();
 		} elseif ($remove != '' && strpos($remove, 'user/-/label/') === 0) {
