@@ -42,6 +42,8 @@
 	--notification-bad-background-color: #fdd;
 	--notification-bad-font-color: #912621;
 	--notification-bad-border-color: #ecc;
+
+	--frss-box-shadow-color-transparent: #bbb3;
 }
 
 html, body {
@@ -752,6 +754,10 @@ kbd {
 }
 
 .flux:not(.current):hover .item.title {
+	background: var(--background-color-hover);
+}
+
+.flux.current:not(.active) {
 	background: var(--background-color-hover);
 }
 
