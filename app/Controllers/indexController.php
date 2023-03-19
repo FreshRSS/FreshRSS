@@ -282,10 +282,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * This action displays the EULA page of FreshRSS.
+	 * This action displays the EULA/TOS (Terms of Service) page of FreshRSS.
 	 * This page is enabled only if admin created a data/tos.html file.
 	 * The content of the page is the content of data/tos.html.
-	 * It returns 404 if there is no EULA.
+	 * It returns 404 if there is no EULA/TOS.
 	 */
 	public function tosAction() {
 		$terms_of_service = file_get_contents(TOS_FILENAME);
