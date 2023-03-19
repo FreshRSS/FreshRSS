@@ -37,9 +37,9 @@ if ($hasAccess) { ?>
 			formaction="<?= Minz_Url::display($url_mark_read) ?>"
 			type="submit">
 			<span class="bigTick">✓</span><br />
-			<span class="markAllRead"><?= _t('gen.stream.mark_all_read') ?></span>
+			<span class="markAllRead"><?= _t('gen.stream.mark_all_read') ?></span><br />
 			<?php if (FreshRSS_Context::$user_conf->onread_jump_next) { ?>
-				<div class="jumpNext"><?= _t('conf.reading.jump_next') ?></div>
+				<span class="jumpNext"><?= _t('conf.reading.jump_next') ?></span>
 			<?php } ?>
 		</button>
 	<?php } else { ?>
