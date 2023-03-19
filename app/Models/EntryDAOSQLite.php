@@ -10,7 +10,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
-	protected static function sqlConcat($s1, $s2) {
+	protected static function sqlConcat(string $s1, string $s2): string {
 		return $s1 . '||' . $s2;
 	}
 
@@ -22,7 +22,8 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
 			foreach (['attributes'] as $column) {
@@ -47,7 +48,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
-	public function commitNewEntries() {
+	public function commitNewEntries(): bool {
 		$sql = '
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
