@@ -1102,14 +1102,7 @@ main.prompt {
 
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
-}
-.post form {
-	margin: 1rem 0;
-}
-.post.content {
-	max-width: 550px;
 }
 .post h1, .post h2 {
 	color: #363330;

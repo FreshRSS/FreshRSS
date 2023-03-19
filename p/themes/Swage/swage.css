@@ -673,18 +673,11 @@ form th {
 }
 
 .post {
-	padding: 10px 50px;
 	font-size: 0.9em;
 }
 .post input.long {
 	height: 33px;
 	margin-top: 0px;
-}
-.post form {
-	margin: 10px 0;
-}
-.post.content {
-	max-width: 550px;
 }
 
 .prompt input {
@@ -1174,11 +1167,9 @@ button.as-link {
 	left: 0;
 	right: auto;
 }
-
 #nav_menu_actions ul.dropdown-menu::after {
 	display: none;
 }
-
 #nav_menu_actions .dropdown.only-mobile {
 	display: initial !important;
 }
@@ -1194,5 +1185,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */
