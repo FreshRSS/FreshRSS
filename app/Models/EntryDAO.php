@@ -511,8 +511,7 @@ SQL;
 	 * @param string $idMax fail safe article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null,
-		int $state = 0, bool $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
@@ -550,8 +549,7 @@ SQL;
 	 * @param string $idMax fail safe article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null,
-		int $state = 0, bool $is_read = true) {
+	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
