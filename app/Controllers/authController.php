@@ -239,7 +239,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$this->view->show_tos_checkbox = file_exists(join_path(DATA_PATH, 'tos.html'));
+		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');

@@ -46,6 +46,7 @@ defined('USERS_PATH') or define('USERS_PATH', DATA_PATH . '/users');
 defined('LOG_FILENAME') or define('LOG_FILENAME', 'log.txt');
 defined('ADMIN_LOG') or define('ADMIN_LOG', USERS_PATH . '/_/' . LOG_FILENAME);
 defined('API_LOG') or define('API_LOG', USERS_PATH . '/_/log_api.txt');
+defined('TOS_FILENAME') or define('TOS_FILENAME', DATA_PATH . '/tos.html');
 defined('CACHE_PATH') or define('CACHE_PATH', DATA_PATH . '/cache');
 defined('PSHB_LOG') or define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');
 defined('PSHB_PATH') or define('PSHB_PATH', DATA_PATH . '/PubSubHubbub');

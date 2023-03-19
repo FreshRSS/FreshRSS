@@ -288,7 +288,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * It returns 404 if there is no EULA.
 	 */
 	public function tosAction() {
-		$terms_of_service = file_get_contents(join_path(DATA_PATH, 'tos.html'));
+		$terms_of_service = file_get_contents(TOS_FILENAME);
 		if (!$terms_of_service) {
 			Minz_Error::error(404);
 		}
