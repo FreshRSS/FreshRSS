@@ -183,6 +183,11 @@ return array(
 			),
 			'title' => 'User registration form',	// IGNORE
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// IGNORE
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// IGNORE
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_target">enable the Terms of Service</a>',	// IGNORE
+		),
 	),
 	'update' => array(
 		'_' => 'Update system',	// IGNORE

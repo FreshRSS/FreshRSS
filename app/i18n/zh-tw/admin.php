@@ -183,6 +183,11 @@ return array(
 			),
 			'title' => '使用者註冊表單',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_target">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => '更新系統',
