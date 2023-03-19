@@ -187,6 +187,7 @@ HTML;
 			$thumbnails = $enclosure['thumbnails'] ?? [];
 			$etitle = $enclosure['title'] ?? '';
 
+			$content .= "\n";
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
