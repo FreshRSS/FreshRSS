@@ -7,7 +7,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
-	 * @var bool
+	 * @var bool|mixed
 	 */
 	private $ajax = false;
 
@@ -34,7 +34,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	public function tagEntryAction(): void {
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::param('id_tag');
-			$name_tag = trim(Minz_Request::param('name_tag'));
+			$name_tag = Minz_Request::param('name_tag');
+			if (is_string($name_tag)) {
+				$name_tag = trim($name_tag);
+			}
 			$id_entry = Minz_Request::param('id_entry');
 			$checked = Minz_Request::paramTernary('checked');
 			if ($id_entry != false) {
@@ -96,8 +99,12 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 
 		$name = Minz_Request::param('name');
+		$lengthOfName = 0;
+		if (is_string($name)) {
+			$lengthOfName = strlen($name);
+		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		if (strlen($name) > 0 && null === $tagDAO->searchByName($name)) {
+		if ($lengthOfName > 0 && null === $tagDAO->searchByName($name)) {
 			$tagDAO->addTag(['name' => $name]);
 			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index']);
 		}
