@@ -810,7 +810,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article);
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+.flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
 
@@ -827,7 +828,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article-unread);
 }
 
-.flux .item.title a, .flux.not_read:not(.current):hover .item.title {
+.flux .item.title a,
+.flux.not_read:not(.current):hover .item.title {
 	color: var(--font-color-link-title);
 }
 
@@ -839,7 +841,8 @@ a.signin {
 	background-color: var(--background-color-favorite);
 }
 
-.flux.favorite:not(.current) .flux_header:hover {
+.flux.favorite:not(.current) .flux_header:hover,
+.flux.favorite.current .flux_header {
 	background-color: var(--background-color-favorite-hover);
 }
 
