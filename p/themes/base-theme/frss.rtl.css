@@ -1759,6 +1759,20 @@ html.slider-active {
 	background-position: center;
 }
 
+/*=== Configuration pages */
+.post {
+	padding: 1rem 2rem;
+	font-size: 0.9em;
+}
+
+.post form {
+	margin: 1rem 0;
+}
+
+.post.content.centered {
+	max-width: 550px;
+}
+
 /*=== SLIDESHOW */
 /*==============*/
 .slides {

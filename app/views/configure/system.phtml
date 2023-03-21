@@ -84,6 +84,19 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name"><?= _t('index.tos.title') ?></label>
+			<div class="group-controls">
+				<?php if (file_exists(TOS_FILENAME)) { ?>
+					<?= _t('admin.system.tos.enabled') ?>
+					<?php
+				} else { ?>
+					<?= _t('admin.system.tos.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.tos.help') ?></p>
+				<?php } ?>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="force-email-validation">
 					<input
