@@ -599,7 +599,7 @@ final class GReaderAPI {
 				break;
 			case 'c':	//category or label
 				$categoryDAO = FreshRSS_Factory::createCategoryDao();
-				$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
+				$streamId = htmlspecialchars((string)$streamId, ENT_COMPAT, 'UTF-8');
 				$cat = $categoryDAO->searchByName($streamId);
 				if ($cat != null) {
 					$type = 'c';
