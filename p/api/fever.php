@@ -474,7 +474,7 @@ final class FeverAPI
 				$group_ids = explode(',', $_REQUEST['group_ids']);
 				$feeds = [];
 				foreach ($group_ids as $id) {
-					$category = $categoryDAO->searchById($id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
+					$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 					if ($category == null) {
 						continue;
 					}
