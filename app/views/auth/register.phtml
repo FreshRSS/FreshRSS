@@ -77,6 +77,11 @@
 			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.cancel') ?></a>
 		</div>
 	</form>
-
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
 </main>
+
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>
