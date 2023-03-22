@@ -86,7 +86,7 @@ final class FeverDAO extends Minz_ModelPdo
 
 		$sql = 'SELECT id, guid, title, author, '
 			. ($entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed '
+			. ', link, date, is_read, is_favorite, id_feed, attributes '
 			. 'FROM `_entry` WHERE';
 
 		if (!empty($entry_ids)) {

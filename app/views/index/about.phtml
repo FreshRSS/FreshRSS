@@ -5,7 +5,7 @@
 	}
 ?>
 
-<main class="post content">
+<main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
