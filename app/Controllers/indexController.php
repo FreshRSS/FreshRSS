@@ -251,10 +251,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$get = FreshRSS_Context::currentGet(true);
 		if (is_array($get)) {
 			$type = $get[0];
-			$id = $get[1];
+			$id = (int)($get[1]);
 		} else {
 			$type = $get;
-			$id = '';
+			$id = 0;
 		}
 
 		$limit = FreshRSS_Context::$number;

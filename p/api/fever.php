@@ -227,8 +227,8 @@ final class FeverAPI
 		}
 
 		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && ctype_digit($_REQUEST['id'])) {
-			$id = intval($_REQUEST['id']);
-			$before = intval($_REQUEST['before'] ?? '0');
+			$id = (string)$_REQUEST['id'];
+			$before = (int)($_REQUEST['before'] ?? '0');
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
@@ -249,14 +249,14 @@ final class FeverAPI
 				case 'feed':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setFeedAsRead($id, $before);
+							$this->setFeedAsRead((int)$id, $before);
 							break;
 					}
 					break;
 				case 'group':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setGroupAsRead($id, $before);
+							$this->setGroupAsRead((int)$id, $before);
 							break;
 					}
 					break;
@@ -420,40 +420,40 @@ final class FeverAPI
 	}
 
 	private function getUnreadItemIds(): string {
-		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0) ?: [];
+		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0) ?: [];
 		return $this->entriesToIdList($entries);
 	}
 
 	private function getSavedItemIds(): string {
-		$entries = $this->entryDAO->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0) ?: [];
+		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0) ?: [];
 		return $this->entriesToIdList($entries);
 	}
 
 	/**
 	 * @return integer|false
 	 */
-	private function setItemAsRead(int $id) {
+	private function setItemAsRead(string $id) {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
 	 * @return integer|false
 	 */
-	private function setItemAsUnread(int $id) {
+	private function setItemAsUnread(string $id) {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
 	 * @return integer|false
 	 */
-	private function setItemAsSaved(int $id) {
+	private function setItemAsSaved(string $id) {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
 	 * @return integer|false
 	 */
-	private function setItemAsUnsaved(int $id) {
+	private function setItemAsUnsaved(string $id) {
 		return $this->entryDAO->markFavorite($id, false);
 	}
 

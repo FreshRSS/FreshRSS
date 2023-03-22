@@ -385,10 +385,6 @@ final class GReaderAPI {
 			self::badRequest();
 		}
 		$addCatId = 0;
-		$categoryDAO = null;
-		if ($add != '' || $remove != '') {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		}
 		$c_name = '';
 		if ($add != '' && strpos($add, 'user/') === 0) {	//user/-/label/Example ; user/username/label/Example
 			if (strpos($add, 'user/-/label/') === 0) {
@@ -403,6 +399,7 @@ final class GReaderAPI {
 				}
 			}
 			$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$cat = $categoryDAO->searchByName($c_name);
 			$addCatId = $cat == null ? 0 : $cat->id();
 		} elseif ($remove != '' && strpos($remove, 'user/-/label/') === 0) {
@@ -586,13 +583,14 @@ final class GReaderAPI {
 	}
 
 	/**
-	 * @return array<string|int|FreshRSS_BooleanSearch>
+	 * @param string|int $streamId
+	 * @return array{string,int,int,FreshRSS_BooleanSearch}
 	 */
-	private static function streamContentsFilters(string $type, string $streamId,
+	private static function streamContentsFilters(string $type, $streamId,
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {
 		switch ($type) {
 			case 'f':	//feed
-				if ($streamId != '' && !ctype_digit($streamId)) {
+				if ($streamId != '' && is_string($streamId) && !ctype_digit($streamId)) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
 					$feed = $feedDAO->searchByUrl($streamId);
@@ -601,7 +599,7 @@ final class GReaderAPI {
 				break;
 			case 'c':	//category or label
 				$categoryDAO = FreshRSS_Factory::createCategoryDao();
-				$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
+				$streamId = htmlspecialchars((string)$streamId, ENT_COMPAT, 'UTF-8');
 				$cat = $categoryDAO->searchByName($streamId);
 				if ($cat != null) {
 					$type = 'c';
@@ -619,6 +617,7 @@ final class GReaderAPI {
 				}
 				break;
 		}
+		$streamId = (int)$streamId;
 
 		switch ($filter_target) {
 			case 'user/-/state/com.google/read':

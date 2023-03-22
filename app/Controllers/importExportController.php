@@ -357,7 +357,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// For each feed, check existing GUIDs already in database.
 		$existingHashForGuids = array();
 		foreach ($newFeedGuids as $feedId => $newGuids) {
-			$existingHashForGuids[$feedId] = $this->entryDAO->listHashForFeedGuids(substr($feedId, 2), $newGuids);
+			$existingHashForGuids[$feedId] = $this->entryDAO->listHashForFeedGuids((int)substr($feedId, 2), $newGuids);
 		}
 		unset($newFeedGuids);
 
