@@ -583,13 +583,14 @@ final class GReaderAPI {
 	}
 
 	/**
-	 * @return array<string|int|FreshRSS_BooleanSearch>
+	 * @param string|int $streamId
+	 * @return array{string,int,int,FreshRSS_BooleanSearch}
 	 */
-	private static function streamContentsFilters(string $type, string $streamId,
+	private static function streamContentsFilters(string $type, $streamId,
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {
 		switch ($type) {
 			case 'f':	//feed
-				if ($streamId != '' && !ctype_digit($streamId)) {
+				if ($streamId != '' && is_string($streamId) && !ctype_digit($streamId)) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
 					$feed = $feedDAO->searchByUrl($streamId);
@@ -616,6 +617,7 @@ final class GReaderAPI {
 				}
 				break;
 		}
+		$streamId = (int)$streamId;
 
 		switch ($filter_target) {
 			case 'user/-/state/com.google/read':
