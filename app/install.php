@@ -77,7 +77,7 @@ function saveStep1() {
 		Minz_Session::_params([
 				'title' => FreshRSS_Context::$system_conf->title,
 				'auth_type' => FreshRSS_Context::$system_conf->auth_type,
-				'default_user' => FreshRSS_Context::currentUser(),
+				'default_user' => FreshRSS_Context::getCurrentUser(),
 				'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
 				'bd_type' => FreshRSS_Context::$system_conf->db['type'],
 				'bd_host' => FreshRSS_Context::$system_conf->db['host'],
@@ -164,9 +164,9 @@ function saveStep2() {
 
 		$ok = false;
 		try {
-			Minz_Session::_param('currentUser', $config_array['default_user']);
+			FreshRSS_Context::setCurrentUser($config_array['default_user']);
 			$error = initDb();
-			Minz_Session::_param('currentUser');
+			FreshRSS_Context::setCurrentUser();
 			if ($error != '') {
 				Minz_Session::_param('bd_error', $error);
 			} else {

@@ -234,7 +234,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = FreshRSS_Context::currentUser('_');
+		$user = FreshRSS_Context::getCurrentUser('_');
 		//Minz_Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
 		$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 		echo $token, "\n";
@@ -246,7 +246,7 @@ final class GReaderAPI {
 		if ($conf == null || FreshRSS_Context::$system_conf == null) {
 			self::unauthorized();
 		}
-		$user = FreshRSS_Context::currentUser('_');
+		$user = FreshRSS_Context::getCurrentUser('_');
 		if ($user !== '_' && (	//TODO: Check security consequences
 			$token === '' || //FeedMe
 			$token === 'x')) { //Reeder
@@ -265,7 +265,7 @@ final class GReaderAPI {
 		if (FreshRSS_Context::$user_conf == null) {
 			self::unauthorized();
 		}
-		$user = FreshRSS_Context::currentUser('_');
+		$user = FreshRSS_Context::getCurrentUser('_');
 		exit(json_encode(array(
 				'userId' => $user,
 				'userName' => $user,
@@ -310,7 +310,7 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionExport() {
-		$user = '' . FreshRSS_Context::currentUser('_');
+		$user = '' . FreshRSS_Context::getCurrentUser('_');
 		$export_service = new FreshRSS_Export_Service($user);
 		[$filename, $content] = $export_service->generateOpml();
 		header('Content-Type: application/xml; charset=UTF-8');
@@ -321,7 +321,7 @@ final class GReaderAPI {
 
 	/** @return never */
 	private static function subscriptionImport(string $opml) {
-		$user = '' . FreshRSS_Context::currentUser( '_');
+		$user = '' . FreshRSS_Context::getCurrentUser( '_');
 		$importService = new FreshRSS_Import_Service($user);
 		$importService->importOpml($opml);
 		if ($importService->lastStatus()) {
@@ -390,7 +390,7 @@ final class GReaderAPI {
 			if (strpos($add, 'user/-/label/') === 0) {
 				$c_name = substr($add, 13);
 			} else {
-				$user = FreshRSS_Context::currentUser('_');
+				$user = FreshRSS_Context::getCurrentUser('_');
 				$prefix = 'user/' . $user . '/label/';
 				if (strpos($add, $prefix) === 0) {
 					$c_name = substr($add, strlen($prefix));
@@ -840,7 +840,7 @@ final class GReaderAPI {
 				if (strpos($a, 'user/-/label/') === 0) {
 					$tagName = substr($a, 13);
 				} else {
-					$user = FreshRSS_Context::currentUser('_');
+					$user = FreshRSS_Context::getCurrentUser('_');
 					$prefix = 'user/' . $user . '/label/';
 					if (strpos($a, $prefix) === 0) {
 						$tagName = substr($a, strlen($prefix));
@@ -1023,7 +1023,7 @@ final class GReaderAPI {
 				self::clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 			}
 		} elseif (isset($pathInfos[3], $pathInfos[4]) && $pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && $pathInfos[3] === '0') {
-			if (FreshRSS_Context::currentUser('') == '') {
+			if (FreshRSS_Context::getCurrentUser('') == '') {
 				self::unauthorized();
 			}
 			$timestamp = isset($_GET['ck']) ? (int)$_GET['ck'] : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.

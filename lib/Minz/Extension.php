@@ -155,7 +155,7 @@ abstract class Minz_Extension {
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
 			$mtime = @filemtime("{$this->path}/static/{$filename}");
 		} else {
-			$username = FreshRSS_Context::currentUser();
+			$username = FreshRSS_Context::getCurrentUser();
 			$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
 			$file_name_url = urlencode("{$username}/{$this->config_key}/{$this->getName()}/{$filename}");
 			$mtime = @filemtime($path);
@@ -343,7 +343,7 @@ abstract class Minz_Extension {
 	}
 
 	public function saveFile(string $filename, string $content) {
-		$username = FreshRSS_Context::currentUser();
+		$username = FreshRSS_Context::getCurrentUser();
 		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}";
 
 		if (!file_exists($path)) {
@@ -354,7 +354,7 @@ abstract class Minz_Extension {
 	}
 
 	public function removeFile(string $filename) {
-		$username = FreshRSS_Context::currentUser();
+		$username = FreshRSS_Context::getCurrentUser();
 		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
 
 		if (file_exists($path)) {

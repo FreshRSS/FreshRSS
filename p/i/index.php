@@ -33,7 +33,7 @@ if (!file_exists($applied_migrations_path)) {
 
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 		require(LIB_PATH . '/http-conditional.php');
-		$currentUser = FreshRSS_Context::currentUser('');
+		$currentUser = FreshRSS_Context::getCurrentUser('');
 		$dateLastModification = $currentUser === '' ? time() : max(
 			@filemtime(USERS_PATH . '/' . $currentUser . '/' . LOG_FILENAME),
 			@filemtime(DATA_PATH . '/config.php')

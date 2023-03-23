@@ -57,8 +57,15 @@ class FreshRSS_Context {
 	 * @param string|bool|null $default
 	 * @return mixed|false the value of the session variable, false if it doesn't exist
 	 */
-	public static function currentUser($default = false) {
+	public static function getCurrentUser($default = false) {
 		return Minz_Session::param(self::CURRENT_USER, $default);
+	}
+
+	/**
+	 * @param mixed|false $value The value to set for the session variable, false to remove it
+	 */
+	public static function setCurrentUser($value = false): void {
+		Minz_Session::_param(self::CURRENT_USER, $value);
 	}
 
 	/**
@@ -86,7 +93,7 @@ class FreshRSS_Context {
 
 		Minz_Session::lock();
 		if ($username == '') {
-			$username = FreshRSS_Context::currentUser('');
+			$username = FreshRSS_Context::getCurrentUser('');
 		}
 		if (($username === '_' || FreshRSS_user_Controller::checkUsername($username)) &&
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
@@ -97,7 +104,7 @@ class FreshRSS_Context {
 					FRESHRSS_PATH . '/config-user.default.php',
 					FreshRSS_Context::$system_conf->configurationSetter());
 
-				Minz_Session::_param('currentUser', $username);
+				FreshRSS_Context::setCurrentUser($username);
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
