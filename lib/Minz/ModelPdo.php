@@ -103,7 +103,7 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
-			$currentUser = FreshRSS_Context::getCurrentUser();
+			$currentUser = Minz_User::name();
 		}
 		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;

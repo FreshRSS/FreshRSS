@@ -1,9 +1,15 @@
 <?php
 
 class FreshRSS_LogDAO {
-	public static function lines() {
+
+	private static function logPath(): string {
+		return USERS_PATH . '/' . (Minz_User::name() ?? Minz_User::INTERNAL_USER) . '/' . LOG_FILENAME;
+	}
+
+	/** @return array<FreshRSS_Log> */
+	public static function lines(): array {
 		$logs = array();
-		$handle = @fopen(join_path(DATA_PATH, 'users', FreshRSS_Context::getCurrentUser('_'), LOG_FILENAME), 'r');
+		$handle = @fopen(self::logPath(), 'r');
 		if ($handle) {
 			while (($line = fgets($handle)) !== false) {
 				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
@@ -19,8 +25,8 @@ class FreshRSS_LogDAO {
 		return array_reverse($logs);
 	}
 
-	public static function truncate() {
-		file_put_contents(join_path(DATA_PATH, 'users', FreshRSS_Context::getCurrentUser('_'), LOG_FILENAME), '');
+	public static function truncate(): void {
+		file_put_contents(self::logPath(), '');
 		if (FreshRSS_Auth::hasAccess('admin')) {
 			file_put_contents(ADMIN_LOG, '');
 			file_put_contents(API_LOG, '');

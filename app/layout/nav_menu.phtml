@@ -209,7 +209,7 @@
 		<?php
 			$url_output['a'] = 'rss';
 			if (FreshRSS_Context::$user_conf->token) {
-				$url_output['params']['user'] = FreshRSS_Context::getCurrentUser();
+				$url_output['params']['user'] = Minz_User::name();
 				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
 			}
 			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {

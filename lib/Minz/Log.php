@@ -31,14 +31,9 @@ class Minz_Log {
 		}
 
 		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
-			$username = FreshRSS_Context::getCurrentUser('');
-			if ($username == '') {
-				$username = '_';
-			}
+			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
-			} else {
-				$username = '_';
 			}
 
 			switch ($level) {

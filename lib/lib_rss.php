@@ -547,7 +547,7 @@ function uTimeString(): string {
 function invalidateHttpCache(string $username = ''): bool {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
 	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
 	//if (!$ok) {
@@ -564,7 +564,7 @@ function listUsers(): array {
 	$base_path = join_path(DATA_PATH, 'users');
 	$dir_list = array_values(array_diff(
 		scandir($base_path) ?: [],
-		['..', '.', '_']
+		['..', '.', Minz_User::INTERNAL_USER]
 	));
 	foreach ($dir_list as $file) {
 		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {

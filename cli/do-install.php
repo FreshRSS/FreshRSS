@@ -95,8 +95,7 @@ if (function_exists('opcache_reset')) {
 }
 
 FreshRSS_Context::initSystem(true);
-
-FreshRSS_Context::setCurrentUser( '_');	//Default user
+Minz_User::change(Minz_User::INTERNAL_USER);
 
 $ok = false;
 try {

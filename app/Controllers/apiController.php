@@ -11,7 +11,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * @return false|string
 	 */
 	public static function updatePassword(string $apiPasswordPlain) {
-		$username = FreshRSS_Context::getCurrentUser();
+		$username = Minz_User::name();
 		$userConfig = FreshRSS_Context::$user_conf;
 
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);

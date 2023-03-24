@@ -4,9 +4,8 @@
  * The context object handles the current configuration file and different
  * useful functions associated to the current view state.
  */
-class FreshRSS_Context {
+final class FreshRSS_Context {
 
-	public const CURRENT_USER = 'currentUser';
 	/**
 	 * @var FreshRSS_UserConfiguration|null
 	 */
@@ -54,24 +53,9 @@ class FreshRSS_Context {
 	public static $isCli = false;
 
 	/**
-	 * @param string|bool|null $default
-	 * @return mixed|false the value of the session variable, false if it doesn't exist
-	 */
-	public static function getCurrentUser($default = false) {
-		return Minz_Session::param(self::CURRENT_USER, $default);
-	}
-
-	/**
-	 * @param mixed|false $value The value to set for the session variable, false to remove it
-	 */
-	public static function setCurrentUser($value = false): void {
-		Minz_Session::_param(self::CURRENT_USER, $value);
-	}
-
-	/**
 	 * Initialize the context for the global system.
 	 */
-	public static function initSystem($reload = false) {
+	public static function initSystem(bool $reload = false): FreshRSS_SystemConfiguration {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
@@ -84,8 +68,9 @@ class FreshRSS_Context {
 
 	/**
 	 * Initialize the context for the current user.
+	 * @return FreshRSS_UserConfiguration|false
 	 */
-	public static function initUser($username = '', $userMustExist = true) {
+	public static function initUser(string $username = '', bool $userMustExist = true) {
 		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
@@ -93,9 +78,9 @@ class FreshRSS_Context {
 
 		Minz_Session::lock();
 		if ($username == '') {
-			$username = FreshRSS_Context::getCurrentUser('');
+			$username = Minz_User::name() ?? '';
 		}
-		if (($username === '_' || FreshRSS_user_Controller::checkUsername($username)) &&
+		if (($username === Minz_User::INTERNAL_USER || FreshRSS_user_Controller::checkUsername($username)) &&
 			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
@@ -104,7 +89,7 @@ class FreshRSS_Context {
 					FRESHRSS_PATH . '/config-user.default.php',
 					FreshRSS_Context::$system_conf->configurationSetter());
 
-				FreshRSS_Context::setCurrentUser($username);
+				Minz_User::change($username);
 			} catch (Exception $ex) {
 				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
@@ -112,7 +97,7 @@ class FreshRSS_Context {
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Session::_params([
 				'loginOk' => false,
-				'currentUser' => false,
+				Minz_User::CURRENT_USER => false,
 			]);
 		}
 		Minz_Session::unlock();
@@ -228,6 +213,7 @@ class FreshRSS_Context {
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' and
 	 * the second is the id.
+	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet($array = false) {
 		if (self::$current_get['all']) {
@@ -255,6 +241,7 @@ class FreshRSS_Context {
 		} elseif (self::$current_get['tags']) {
 			return 'T';
 		}
+		return '';
 	}
 
 	/**
@@ -288,8 +275,8 @@ class FreshRSS_Context {
 	/**
 	 * @return bool true if $get parameter correspond to the $current_get attribute.
 	 */
-	public static function isCurrentGet($get): bool {
-		$type = $get[0];
+	public static function isCurrentGet(string $get): bool {
+		$type = substr($get, 0, 1);
 		$id = substr($get, 2);
 
 		switch($type) {
