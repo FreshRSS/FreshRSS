@@ -13,7 +13,7 @@ final class Minz_User {
 	 * @return string the name of the current user, or null if there is none
 	 */
 	public static function name(): ?string {
-		$currentUser = trim(Minz_Session::param(self::CURRENT_USER, ''));
+		$currentUser = trim(Minz_Session::param(Minz_User::CURRENT_USER, ''));
 		return $currentUser === '' ? null : $currentUser;
 	}
 
@@ -22,6 +22,6 @@ final class Minz_User {
 	 */
 	public static function change(string $name = ''): void {
 		$name = trim($name);
-		Minz_Session::_param(self::CURRENT_USER, $name === '' ? false : $name);
+		Minz_Session::_param(Minz_User::CURRENT_USER, $name === '' ? false : $name);
 	}
 }
