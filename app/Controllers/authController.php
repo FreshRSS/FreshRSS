@@ -17,7 +17,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo move unsafe_autologin in an extension.
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -66,7 +66,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * It forwards to the correct login page (form) or main page if
 	 * the user is already connected.
 	 */
-	public function loginAction() {
+	public function loginAction(): void {
 		if (FreshRSS_Auth::hasAccess() && Minz_Request::param('u', '') == '') {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
@@ -104,8 +104,9 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - keep_logged_in (default: false)
 	 *
 	 * @todo move unsafe autologin in an extension.
+	 * @throws Exception
 	 */
-	public function formLoginAction() {
+	public function formLoginAction(): void {
 		invalidateHttpCache();
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
@@ -122,7 +123,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 
-			usleep(rand(100, 10000));	//Primitive mitigation of timing attacks, in μs
+			usleep(random_int(100, 10000));	//Primitive mitigation of timing attacks, in μs
 
 			FreshRSS_Context::initUser($username);
 			if (FreshRSS_Context::$user_conf == null) {
@@ -133,7 +134,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			}
 
 			if (!FreshRSS_Context::$user_conf->enabled || FreshRSS_Context::$user_conf->passwordHash == '') {
-				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
+				usleep(random_int(100, 5000));	//Primitive mitigation of timing attacks, in μs
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}
@@ -172,7 +173,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
-				return;
 			}
 		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
@@ -217,7 +217,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action removes all accesses of the current user.
 	 */
-	public function logoutAction() {
+	public function logoutAction(): void {
 		invalidateHttpCache();
 		FreshRSS_Auth::removeAccess();
 		Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
@@ -230,7 +230,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *
 	 * A 403 is sent if max number of registrations is reached.
 	 */
-	public function registerAction() {
+	public function registerAction(): void {
 		if (FreshRSS_Auth::hasAccess()) {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
@@ -239,7 +239,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$this->view->show_tos_checkbox = file_exists(join_path(DATA_PATH, 'tos.html'));
+		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');

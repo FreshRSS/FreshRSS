@@ -1,5 +1,11 @@
 # Changelog of lib\_opml
 
+## 2023-03-10 - v0.5.1
+
+- fix: Handle case where OPML is loaded but empty
+- misc: Fix installation of Composer on the CI
+- misc: Force timezone to UTC in tests
+
 ## 2022-07-25 - v0.5.0
 
 - BREAKING CHANGE: Reverse parameters in `libopml_render()`

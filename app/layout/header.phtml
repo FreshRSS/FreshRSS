@@ -103,6 +103,11 @@
 					<ul>
 						<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 						<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+						<?php if (file_exists(TOS_FILENAME)) { ?>
+							<li class="item">
+								<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+							</li>
+						<?php } ?>
 						<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
 					</ul>
 				</li>
