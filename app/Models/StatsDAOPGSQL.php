@@ -6,40 +6,34 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per hour of the day per feed
 	 *
 	 * @param integer $feed id
-	 * @return array
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
+	public function calculateEntryRepartitionPerFeedPerHour(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('hour', $feed);
 	}
 
 	/**
 	 * Calculates the number of article per day of week per feed
-	 *
-	 * @param integer $feed id
-	 * @return array
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerDayOfWeek($feed = null) {
+	public function calculateEntryRepartitionPerFeedPerDayOfWeek(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('day', $feed);
 	}
 
 	/**
 	 * Calculates the number of article per month per feed
-	 *
-	 * @param integer $feed
-	 * @return array
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
+	public function calculateEntryRepartitionPerFeedPerMonth(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('month', $feed);
 	}
 
 	/**
 	 * Calculates the number of article per period per feed
-	 *
 	 * @param string $period format string to use for grouping
-	 * @param integer $feed id
 	 * @return array<int,int>
 	 */
-	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+	protected function calculateEntryRepartitionPerFeedPerPeriod(string $period, ?int $feed = null): array {
 		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
