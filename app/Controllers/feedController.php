@@ -906,7 +906,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		]);
 
 		//Get parameters.
-		$feed_id = Minz_Request::param('id');
+		$feed_id = (int)(Minz_Request::param('id', 0));
 		$content_selector = trim(Minz_Request::param('selector'));
 
 		if (!$content_selector) {

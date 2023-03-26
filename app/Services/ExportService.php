@@ -76,12 +76,12 @@ class FreshRSS_Export_Service {
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
 		$entriesId = $this->entry_dao->listIdsWhere(
-			$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1
+			$type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1
 		);
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1
+			$type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1
 		);
 
 		return [

@@ -1188,7 +1188,7 @@ function init_stream(stream) {
 				checkboxTag.disabled = true;
 
 				const req = new XMLHttpRequest();
-				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.open('POST', './?c=tag&a=tagEntry&ajax=1', true);
 				req.responseType = 'json';
 				req.onerror = function (e) {
 					checkboxTag.checked = !isChecked;

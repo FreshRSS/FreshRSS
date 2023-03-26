@@ -42,6 +42,8 @@
 	--notification-bad-background-color: #fdd;
 	--notification-bad-font-color: #912621;
 	--notification-bad-border-color: #ecc;
+
+	--frss-box-shadow-color-transparent: #bbb3;
 }
 
 html, body {
@@ -619,20 +621,6 @@ kbd {
 	right: 2px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 .slides {
 	border-color: var(--border-color-middle);
 }
@@ -752,6 +740,10 @@ kbd {
 }
 
 .flux:not(.current):hover .item.title {
+	background: var(--background-color-hover);
+}
+
+.flux.current:not(.active) {
 	background: var(--background-color-hover);
 }
 
