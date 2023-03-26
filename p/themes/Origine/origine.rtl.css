@@ -1265,6 +1265,14 @@ a.btn-attention:hover {
 		--form-element-invalid-box-shadow-color-inset: none;
 	}
 
+	:root .darkMode_auto .btn {
+		color: #777;
+	}
+
+	:root .darkMode_auto .btn:hover {
+		color: var(--font-color-grey);
+	}
+
 	:root .darkMode_auto .btn.active,
 	:root .darkMode_auto .btn:active,
 	:root .darkMode_auto .dropdown-target:target ~ .btn.dropdown-toggle {
