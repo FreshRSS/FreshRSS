@@ -183,6 +183,11 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'tos' => array(
+			'disabled' => 'sind nicht aktiviert',
+			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
+			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'System aktualisieren',

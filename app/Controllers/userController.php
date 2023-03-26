@@ -68,7 +68,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			));
 
 			if ($ok) {
-				$isSelfUpdate = Minz_Session::param('currentUser', '_') === $username;
+				$isSelfUpdate = Minz_User::name() === $username;
 				if ($passwordPlain == '' || !$isSelfUpdate) {
 					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
 				} else {
@@ -124,7 +124,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 
 			$ok = self::updateUser(
-				Minz_Session::param('currentUser'),
+				Minz_User::name(),
 				$email,
 				$passwordPlain,
 				array(
@@ -318,7 +318,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
+			$tos_enabled = file_exists(TOS_FILENAME);
 			$accept_tos = Minz_Request::param('accept_tos', false);
 
 			if ($system_conf->force_email_validation && empty($email)) {
@@ -359,7 +359,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = get_user_configuration($new_user_name);
 				Minz_Session::_params([
-					'currentUser' => $new_user_name,
+					Minz_User::CURRENT_USER => $new_user_name,
 					'passwordHash' => $user_conf->passwordHash,
 					'csrf' => false,
 				]);
@@ -487,7 +487,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz_User::name();
 		$user_config = FreshRSS_Context::$user_conf;
 
 		if ($user_config->email_validation_token === '') {
@@ -524,7 +524,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function deleteAction() {
 		$username = Minz_Request::param('username');
-		$self_deletion = Minz_Session::param('currentUser', '_') === $username;
+		$self_deletion = Minz_User::name() === $username;
 
 		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
 			Minz_Error::error(403);

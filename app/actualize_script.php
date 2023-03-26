@@ -25,7 +25,7 @@ define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_sys
  * Writes to FreshRSS admin log, and if it is not already done by default,
  * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
  */
-function notice($message) {
+function notice(string $message): void {
 	Minz_Log::notice($message, ADMIN_LOG);
 	// @phpstan-ignore-next-line
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {

@@ -1,12 +1,17 @@
 <?php
 
 class FreshRSS_LogDAO {
-	/**
-	 * @return array<FreshRSS_Log>
-	 */
-	public static function lines(?string $logFileName = null): array {
+	private static function logPath(?string $logFileName = null): string {
+		if ($logFileName === null || $logFileName === '') {
+			$logFileName = LOG_FILENAME;
+		}
+		return USERS_PATH . '/' . (Minz_User::name() ?? Minz_User::INTERNAL_USER) . '/' . $logFileName;
+	}
+
+	/** @return array<FreshRSS_Log> */
+	public static function lines(): array {
 		$logs = [];
-		$handle = @fopen(self::currentUserLogPath($logFileName), 'rb');
+		$handle = @fopen(self::logPath($logFileName), 'rb');
 		if ($handle) {
 			while (($line = fgets($handle)) !== false) {
 				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
@@ -22,20 +27,12 @@ class FreshRSS_LogDAO {
 		return array_reverse($logs);
 	}
 
-	public static function truncate(?string $logFileName = null) : void {
-		file_put_contents(self::currentUserLogPath($logFileName), '');
+	public static function truncate(?string $logFileName = null): void {
+		file_put_contents(self::logPath($logFileName), '');
 		if (FreshRSS_Auth::hasAccess('admin')) {
 			file_put_contents(ADMIN_LOG, '');
 			file_put_contents(API_LOG, '');
 			file_put_contents(PSHB_LOG, '');
 		}
-	}
-
-	private static function currentUserLogPath(?string $logFileName = null): string {
-
-		if ($logFileName === null || $logFileName === '') {
-			$logFileName = LOG_FILENAME;
-		}
-		return USERS_PATH . '/' . Minz_Session::param('currentUser', '_') . '/' . $logFileName;
 	}
 }
