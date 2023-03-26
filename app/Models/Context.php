@@ -35,29 +35,29 @@ final class FreshRSS_Context {
 	 * @var int
 	 */
 	public static $total_unread = 0;
-	/**
-	 * @var array<string, int>
-	 */
-	public static $total_starred = array(
+
+	/** @var array{'all':int,'read':int,'unread':int} */
+	public static $total_starred = [
 		'all' => 0,
 		'read' => 0,
 		'unread' => 0,
-	);
+	];
+
 	/**
 	 * @var int
 	 */
 	public static $get_unread = 0;
-	/**
-	 * @var array<string, bool>
-	 */
-	public static $current_get = array(
+
+	/** @var array{'all':bool,'starred':bool,'feed':int|false,'category':int|false,'tag':int|false,'tags':bool} */
+	public static $current_get = [
 		'all' => false,
 		'starred' => false,
 		'feed' => false,
 		'category' => false,
 		'tag' => false,
 		'tags' => false,
-	);
+	];
+
 	/**
 	 * @var string
 	 */
