@@ -31,7 +31,6 @@
 ./app/Models/FeedDAOSQLite.php
 ./app/Models/FilterAction.php
 ./app/Models/FormAuth.php
-./app/Models/Log.php
 ./app/Models/ReadingMode.php
 ./app/Models/Search.php
 ./app/Models/Share.php
