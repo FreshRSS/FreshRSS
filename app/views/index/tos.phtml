@@ -27,3 +27,9 @@
 	<h1><?= _t('index.tos.title')?></h1>
 	<?= $this->terms_of_service ?>
 </main>
+
+<?php if (!FreshRSS_Auth::hasAccess()) { ?>
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+</footer>
+<?php } ?>
