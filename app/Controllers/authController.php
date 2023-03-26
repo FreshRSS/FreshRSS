@@ -72,7 +72,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
-		FreshRSS_Context::initUser('_', false);
+		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
 		switch ($auth_type) {
 			case 'form':
 				Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
@@ -145,7 +145,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			if ($ok) {
 				// Set session parameter to give access to the user.
 				Minz_Session::_params([
-					'currentUser' => $username,
+					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
 					'csrf' => false,
 				]);
@@ -195,7 +195,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			unset($password);
 			if ($ok) {
 				Minz_Session::_params([
-					'currentUser' => $username,
+					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => $s,
 					'csrf' => false,
 				]);
