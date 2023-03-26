@@ -202,10 +202,13 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
-		$id = Minz_Request::param('id', null);
+		$id = (int)(Minz_Request::param('id'));
+		if ($id === 0) {
+			$id = null;
+		}
 
 		$this->view->categories 	= $categoryDAO->listCategories();
-		$this->view->feed 			= $feedDAO->searchById($id);
+		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();
 

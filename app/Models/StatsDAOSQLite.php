@@ -2,11 +2,14 @@
 
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
-	protected function sqlFloor($s) {
+	protected function sqlFloor(string $s): string {
 		return "CAST(($s) AS INT)";
 	}
 
-	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+	/**
+	 * @return array<int,int>
+	 */
+	protected function calculateEntryRepartitionPerFeedPerPeriod(string $period, ?int $feed = null): array {
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
 		} else {
