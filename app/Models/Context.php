@@ -261,25 +261,25 @@ final class FreshRSS_Context {
 	 * the second is the id.
 	 * @return string|array{string,bool|int}
 	 */
-	public static function currentGet(?bool $bool = false) {
+	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
 			return 'a';
 		} elseif (self::$current_get['starred']) {
 			return 's';
 		} elseif (self::$current_get['feed']) {
-			if ($bool) {
+			if ($asArray) {
 				return array('f', self::$current_get['feed']);
 			} else {
 				return 'f_' . self::$current_get['feed'];
 			}
 		} elseif (self::$current_get['category']) {
-			if ($bool) {
+			if ($asArray) {
 				return array('c', self::$current_get['category']);
 			} else {
 				return 'c_' . self::$current_get['category'];
 			}
 		} elseif (self::$current_get['tag']) {
-			if ($bool) {
+			if ($asArray) {
 				return array('t', self::$current_get['tag']);
 			} else {
 				return 't_' . self::$current_get['tag'];
@@ -291,35 +291,35 @@ final class FreshRSS_Context {
 	}
 
 	/**
-	 * true if the current request targets all feeds (main view), false otherwise.
+	 * @return bool true if the current request targets all feeds (main view), false otherwise.
 	 */
 	public static function isAll(): bool {
 		return self::$current_get['all'] != false;
 	}
 
 	/**
-	 * true if the current request targets a category, false otherwise.
+	 * @return bool true if the current request targets a category, false otherwise.
 	 */
 	public static function isCategory(): bool {
 		return self::$current_get['category'] != false;
 	}
 
 	/**
-	 * true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 * @return bool true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
 	public static function isFeed(): bool {
 		return self::$current_get['feed'] != false;
 	}
 
 	/**
-	 * true if the current request targets a tag (though not all tags), false otherwise.
+	 * @return bool true if the current request targets a tag (though not all tags), false otherwise.
 	 */
 	public static function isTag(): bool {
 		return self::$current_get['tag'] != false;
 	}
 
 	/**
-	 * if $get parameter correspond to the $current_get attribute.
+	 * @return bool whether $get parameter corresponds to the $current_get attribute.
 	 */
 	public static function isCurrentGet(string $get): bool {
 		$type = substr($get, 0, 1);
