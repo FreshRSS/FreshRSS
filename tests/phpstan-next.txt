@@ -21,7 +21,6 @@
 ./app/Models/CategoryDAO.php
 ./app/Models/CategoryDAOSQLite.php
 ./app/Models/ConfigurationSetter.php
-./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
 ./app/Models/DatabaseDAOPGSQL.php
 ./app/Models/DatabaseDAOSQLite.php
