@@ -9,47 +9,92 @@ final class FreshRSS_Context {
 	/**
 	 * @var FreshRSS_UserConfiguration|null
 	 */
-	public static $user_conf = null;
+	public static $user_conf;
 
 	/**
 	 * @var FreshRSS_SystemConfiguration|null
 	 */
-	public static $system_conf = null;
-
+	public static $system_conf;
+	/**
+	 * @var array<FreshRSS_Category>
+	 */
 	public static $categories = array();
+	/**
+	 * @var array<string>
+	 */
 	public static $tags = array();
-
+	/**
+	 * @var string
+	 */
 	public static $name = '';
+	/**
+	 * @var string
+	 */
 	public static $description = '';
-
+	/**
+	 * @var int
+	 */
 	public static $total_unread = 0;
-	public static $total_starred = array(
+
+	/** @var array{'all':int,'read':int,'unread':int} */
+	public static $total_starred = [
 		'all' => 0,
 		'read' => 0,
 		'unread' => 0,
-	);
+	];
 
+	/**
+	 * @var int
+	 */
 	public static $get_unread = 0;
-	public static $current_get = array(
+
+	/** @var array{'all':bool,'starred':bool,'feed':int|false,'category':int|false,'tag':int|false,'tags':bool} */
+	public static $current_get = [
 		'all' => false,
 		'starred' => false,
 		'feed' => false,
 		'category' => false,
 		'tag' => false,
 		'tags' => false,
-	);
-	public static $next_get = 'a';
+	];
 
+	/**
+	 * @var string
+	 */
+	public static $next_get = 'a';
+	/**
+	 * @var int
+	 */
 	public static $state = 0;
+	/**
+	 * @var string
+	 */
 	public static $order = 'DESC';
+	/**
+	 * @var int
+	 */
 	public static $number = 0;
 	/** @var FreshRSS_BooleanSearch */
 	public static $search;
+	/**
+	 * @var string
+	 */
 	public static $first_id = '';
+	/**
+	 * @var string
+	 */
 	public static $next_id = '';
+	/**
+	 * @var string
+	 */
 	public static $id_max = '';
+	/**
+	 * @var int
+	 */
 	public static $sinceHours = 0;
-
+	/**
+	 * @var bool
+	 */
 	public static $isCli = false;
 
 	/**
@@ -69,6 +114,7 @@ final class FreshRSS_Context {
 	/**
 	 * Initialize the context for the current user.
 	 * @return FreshRSS_UserConfiguration|false
+	 * @throws Minz_ConfigurationParamException
 	 */
 	public static function initUser(string $username = '', bool $userMustExist = true) {
 		FreshRSS_Context::$user_conf = null;
@@ -144,8 +190,11 @@ final class FreshRSS_Context {
 	 *   - nb (default: conf->posts_per_page)
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
-	public static function updateUsingRequest() {
+	public static function updateUsingRequest(): void {
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			self::$categories = $catDAO->listSortedCategories();
@@ -158,12 +207,12 @@ final class FreshRSS_Context {
 			self::$categories, 1
 		);
 
-		self::_get(Minz_Request::param('get', 'a'));
+		self::_get(Minz_Request::param('get', 'a', false));
 
 		self::$state = Minz_Request::param(
 			'state', self::$user_conf->default_state
 		);
-		$state_forced_by_user = Minz_Request::param('state', false) !== false;
+		$state_forced_by_user = Minz_Request::param('state') !== false;
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
@@ -178,34 +227,31 @@ final class FreshRSS_Context {
 		self::$order = Minz_Request::param(
 			'order', self::$user_conf->sort_order
 		);
-		self::$number = intval(Minz_Request::param('nb', self::$user_conf->posts_per_page));
+		self::$number = (int)Minz_Request::param('nb', self::$user_conf->posts_per_page);
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
 				self::$user_conf->max_posts_per_rss,
 				self::$user_conf->posts_per_page);
 		}
 		self::$first_id = Minz_Request::param('next', '');
-		self::$sinceHours = intval(Minz_Request::param('hours', 0));
+		self::$sinceHours = (int)Minz_Request::param('hours', 0);
 	}
 
 	/**
 	 * Returns if the current state includes $state parameter.
-	 * @param int $state
 	 */
-	public static function isStateEnabled($state) {
+	public static function isStateEnabled(int $state): int {
 		return self::$state & $state;
 	}
 
 	/**
 	 * Returns the current state with or without $state parameter.
-	 * @param int $state
 	 */
-	public static function getRevertState($state) {
+	public static function getRevertState(int $state): int {
 		if (self::$state & $state) {
 			return self::$state & ~$state;
-		} else {
-			return self::$state | $state;
 		}
+		return self::$state | $state;
 	}
 
 	/**
@@ -215,25 +261,25 @@ final class FreshRSS_Context {
 	 * the second is the id.
 	 * @return string|array{string,bool|int}
 	 */
-	public static function currentGet($array = false) {
+	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
 			return 'a';
 		} elseif (self::$current_get['starred']) {
 			return 's';
 		} elseif (self::$current_get['feed']) {
-			if ($array) {
+			if ($asArray) {
 				return array('f', self::$current_get['feed']);
 			} else {
 				return 'f_' . self::$current_get['feed'];
 			}
 		} elseif (self::$current_get['category']) {
-			if ($array) {
+			if ($asArray) {
 				return array('c', self::$current_get['category']);
 			} else {
 				return 'c_' . self::$current_get['category'];
 			}
 		} elseif (self::$current_get['tag']) {
-			if ($array) {
+			if ($asArray) {
 				return array('t', self::$current_get['tag']);
 			} else {
 				return 't_' . self::$current_get['tag'];
@@ -273,7 +319,7 @@ final class FreshRSS_Context {
 	}
 
 	/**
-	 * @return bool true if $get parameter correspond to the $current_get attribute.
+	 * @return bool whether $get parameter corresponds to the $current_get attribute.
 	 */
 	public static function isCurrentGet(string $get): bool {
 		$type = substr($get, 0, 1);
@@ -309,10 +355,13 @@ final class FreshRSS_Context {
 	 *
 	 * $name and $get_unread attributes are also updated as $next_get
 	 * Raise an exception if id or $get is invalid.
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get($get) {
+	public static function _get(string $get): void {
 		$type = $get[0];
-		$id = intval(substr($get, 2));
+		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -397,7 +446,7 @@ final class FreshRSS_Context {
 	/**
 	 * Set the value of $next_get attribute.
 	 */
-	private static function _nextGet() {
+	private static function _nextGet(): void {
 		$get = self::currentGet();
 		// By default, $next_get == $get
 		self::$next_get = $get;
@@ -469,10 +518,8 @@ final class FreshRSS_Context {
 	 *   - it is activated in the configuration
 	 *   - the "read" state is not enable
 	 *   - the "unread" state is enable
-	 *
-	 * @return boolean
 	 */
-	public static function isAutoRemoveAvailable() {
+	public static function isAutoRemoveAvailable(): bool {
 		if (!self::$user_conf->auto_remove_article) {
 			return false;
 		}
@@ -490,10 +537,8 @@ final class FreshRSS_Context {
 	 * by the user when it is selected in the configuration page or by the
 	 * application when the context allows to auto-remove articles when they
 	 * are read.
-	 *
-	 * @return boolean
 	 */
-	public static function isStickyPostEnabled() {
+	public static function isStickyPostEnabled(): bool {
 		if (self::$user_conf->sticky_post) {
 			return true;
 		}

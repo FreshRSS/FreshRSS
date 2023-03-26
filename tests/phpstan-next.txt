@@ -6,7 +6,6 @@
 
 ./app/Controllers/extensionController.php
 ./app/Controllers/feedController.php
-./app/Controllers/indexController.php
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
 ./app/Exceptions/AlreadySubscribedException.php
@@ -21,7 +20,6 @@
 ./app/Models/CategoryDAO.php
 ./app/Models/CategoryDAOSQLite.php
 ./app/Models/ConfigurationSetter.php
-./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
 ./app/Models/DatabaseDAOPGSQL.php
 ./app/Models/DatabaseDAOSQLite.php

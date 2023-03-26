@@ -8,7 +8,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action only redirect on the default view mode (normal or global)
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
 		Minz_Request::forward(array(
 			'c' => 'index',
@@ -19,7 +19,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the normal view of FreshRSS.
 	 */
-	public function normalAction() {
+	public function normalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
@@ -98,14 +98,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo: change this view into specific CSS rules?
 	 */
-	public function readerAction() {
+	public function readerAction(): void {
 		$this->normalAction();
 	}
 
 	/**
 	 * This action displays the global view of FreshRSS.
 	 */
-	public function globalAction() {
+	public function globalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
@@ -141,7 +141,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the RSS feed of FreshRSS.
 	 */
-	public function rssAction() {
+	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
 		$token_param = Minz_Request::param('token', '');
@@ -174,7 +174,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	public function opmlAction() {
+	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
 		$token_param = Minz_Request::param('token', '');
@@ -197,7 +197,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$id = $get[1];
 		} else {
 			$type = $get;
-			$id = '';
+			$id = 0;
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -244,6 +244,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This method returns a list of entries based on the Context object.
+	 * @return iterable<FreshRSS_Entry>
 	 */
 	public static function listEntriesByContext() {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -277,7 +278,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the about page of FreshRSS.
 	 */
-	public function aboutAction() {
+	public function aboutAction(): void {
 		FreshRSS_View::prependTitle(_t('index.about.title') . ' · ');
 	}
 
@@ -287,7 +288,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * The content of the page is the content of data/tos.html.
 	 * It returns 404 if there is no EULA/TOS.
 	 */
-	public function tosAction() {
+	public function tosAction(): void {
 		$terms_of_service = file_get_contents(TOS_FILENAME);
 		if (!$terms_of_service) {
 			Minz_Error::error(404);
@@ -301,7 +302,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays logs of FreshRSS for the current user.
 	 */
-	public function logsAction() {
+	public function logsAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
