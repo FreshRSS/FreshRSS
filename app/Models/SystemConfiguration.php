@@ -27,7 +27,7 @@
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
-	public static function init($config_filename, $default_filename = null): FreshRSS_SystemConfiguration {
+	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		return parent::get('system');
 	}
