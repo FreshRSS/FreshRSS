@@ -176,42 +176,30 @@ SQL;
 
 	/**
 	 * Calculates the average number of article per hour per feed
-	 *
-	 * @param int|null $feed id
-	 * @return float
 	 */
-	public function calculateEntryAveragePerFeedPerHour($feed = null) {
+	public function calculateEntryAveragePerFeedPerHour(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(1 / 24, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per day of week per feed
-	 *
-	 * @param int|null $feed id
-	 * @return float
 	 */
-	public function calculateEntryAveragePerFeedPerDayOfWeek($feed = null) {
+	public function calculateEntryAveragePerFeedPerDayOfWeek(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(7, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per month per feed
-	 *
-	 * @param int|null $feed id
-	 * @return float
 	 */
-	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
+	public function calculateEntryAveragePerFeedPerMonth(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(30, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per feed
-	 *
 	 * @param float $period number used to divide the number of day in the period
-	 * @param int|null $feed id
-	 * @return float
 	 */
-	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
+	protected function calculateEntryAveragePerFeedPerPeriod(float $period, ?int $feed = null): float {
 		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
@@ -242,12 +230,8 @@ SQL;
 
 	/**
 	 * Initialize an array for statistics depending on a range
-	 *
-	 * @param integer $min
-	 * @param integer $max
-	 * @return array
 	 */
-	protected function initStatsArray($min, $max) {
+	protected function initStatsArray(int $min, int $max): array {
 		return array_map(function () {
 			return 0;
 		}, array_flip(range($min, $max)));
@@ -255,9 +239,8 @@ SQL;
 
 	/**
 	 * Calculates feed count per category.
-	 * @return array
 	 */
-	public function calculateFeedByCategory() {
+	public function calculateFeedByCategory(): array {
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(f.id) AS data
@@ -274,9 +257,8 @@ SQL;
 
 	/**
 	 * Calculates entry count per category.
-	 * @return array
 	 */
-	public function calculateEntryByCategory() {
+	public function calculateEntryByCategory(): array {
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(e.id) AS data
@@ -294,10 +276,8 @@ SQL;
 
 	/**
 	 * Calculates the 10 top feeds based on their number of entries
-	 *
-	 * @return array
 	 */
-	public function calculateTopFeed() {
+	public function calculateTopFeed(): array {
 		$sql = <<<SQL
 SELECT f.id AS id
 , MAX(f.name) AS name
@@ -316,10 +296,8 @@ SQL;
 
 	/**
 	 * Calculates the last publication date for each feed
-	 *
-	 * @return array
 	 */
-	public function calculateFeedLastDate() {
+	public function calculateFeedLastDate(): array {
 		$sql = <<<SQL
 SELECT MAX(f.id) as id
 , MAX(f.name) AS name
@@ -336,10 +314,9 @@ SQL;
 
 	/**
 	 * Gets days ready for graphs
-	 *
 	 * @return array<string>
 	 */
-	public function getDays() {
+	public function getDays(): array {
 		return $this->convertToTranslatedJson(array(
 			'sun',
 			'mon',
@@ -353,10 +330,9 @@ SQL;
 
 	/**
 	 * Gets months ready for graphs
-	 *
 	 * @return array<string>
 	 */
-	public function getMonths() {
+	public function getMonths(): array {
 		return $this->convertToTranslatedJson(array(
 			'jan',
 			'feb',
@@ -375,11 +351,10 @@ SQL;
 
 	/**
 	 * Translates array content
-	 *
 	 * @param array $data
 	 * @return array<string>
 	 */
-	private function convertToTranslatedJson($data = array()) {
+	private function convertToTranslatedJson(array $data = array()) {
 		$translated = array_map(function($a) {
 			return _t('gen.date.' . $a);
 		}, $data);
