@@ -177,7 +177,7 @@ SQL;
 	/**
 	 * Calculates the average number of article per hour per feed
 	 *
-	 * @param integer $feed id
+	 * @param int|null $feed id
 	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerHour($feed = null) {
@@ -187,7 +187,7 @@ SQL;
 	/**
 	 * Calculates the average number of article per day of week per feed
 	 *
-	 * @param integer $feed id
+	 * @param int|null $feed id
 	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerDayOfWeek($feed = null) {
@@ -197,7 +197,7 @@ SQL;
 	/**
 	 * Calculates the average number of article per month per feed
 	 *
-	 * @param integer $feed id
+	 * @param int|null $feed id
 	 * @return float
 	 */
 	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
@@ -208,7 +208,7 @@ SQL;
 	 * Calculates the average number of article per feed
 	 *
 	 * @param float $period number used to divide the number of day in the period
-	 * @param integer $feed id
+	 * @param int|null $feed id
 	 * @return float
 	 */
 	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
