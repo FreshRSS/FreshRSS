@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Основной поток',
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
-		'percent_of_total' => '%% от всего',
+		'percent_of_total' => '% от всего',
 		'repartition' => 'Распределение статей',
 		'status_favorites' => 'В избранном',
 		'status_read' => 'Прочитано',
