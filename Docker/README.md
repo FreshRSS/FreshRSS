@@ -111,7 +111,7 @@ which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-Pick `#latest` (stable release) or `#edge` (running release) or a specific release number such as `#1.21.0` like:
+Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
 
 ```sh
 docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
@@ -300,7 +300,7 @@ services:
     image: freshrss/freshrss:edge
     # Optional build section if you want to build the image locally:
     build:
-      # Pick #latest (stable release) or #edge (running release) or a specific release like #1.21.0
+      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
       context: https://github.com/FreshRSS/FreshRSS.git#edge
       dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
