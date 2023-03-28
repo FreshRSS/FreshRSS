@@ -195,7 +195,7 @@ abstract class Minz_Extension {
 	 * @param callable-string|array<string> $hook_function the function name to call (must be callable).
 	 */
 	public function registerHook($hook_name, $hook_function) {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);
+		Minz_ExtensionManager::addHook($hook_name, $hook_function);
 	}
 
 	/**
