@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '首頁',
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
-		'percent_of_total' => '%%',
+		'percent_of_total' => '%',
 		'repartition' => '文章分布',
 		'status_favorites' => '收藏',
 		'status_read' => '已讀',

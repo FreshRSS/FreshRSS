@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Stream principal',
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'percent_of_total' => '%% do total',
+		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Lido',
