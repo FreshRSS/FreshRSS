@@ -6,7 +6,8 @@
  */
 
 class Minz_PdoMysql extends Minz_Pdo {
-	public function __construct(string $dsn, $username = null, $passwd = null, $options = null) {
+	/** @param array<int,int|string>|null $options */
+	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 	}
@@ -15,9 +16,9 @@ class Minz_PdoMysql extends Minz_Pdo {
 		return 'mysql';
 	}
 
-	// PHP8+: PDO::lastInsertId(?string $name = null): string|false
+	/** @return string|false */
 	#[\ReturnTypeWillChange]
-	public function lastInsertId($name = null) {
+	public function lastInsertId(?string $name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }
