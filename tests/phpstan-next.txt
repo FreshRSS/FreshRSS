@@ -47,10 +47,7 @@
 ./cli/manipulate.translation.php
 ./lib/core-extensions/Google-Groups/extension.php
 ./lib/core-extensions/Tumblr-GDPR/extension.php
-./lib/favicons.php
 ./lib/http-conditional.php
-./lib/lib_date.php
-./lib/lib_install.php
 ./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
