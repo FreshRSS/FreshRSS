@@ -16,9 +16,12 @@ class Minz_PdoMysql extends Minz_Pdo {
 		return 'mysql';
 	}
 
-	/** @return string|false */
+	/**
+	 * @param string|null $name
+	 * @return string|false
+	 */
 	#[\ReturnTypeWillChange]
-	public function lastInsertId(?string $name = null) {
+	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }

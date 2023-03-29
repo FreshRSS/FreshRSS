@@ -431,11 +431,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		} elseif (FreshRSS_Auth::hasAccess()) {
 			$user_config = FreshRSS_Context::$user_conf;
 		} else {
-			return Minz_Error::error(403);
+			Minz_Error::error(403);
+			return;
 		}
 
 		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
-			return Minz_Error::error(404);
+			Minz_Error::error(404);
+			return;
 		}
 
 		if ($user_config->email_validation_token === '') {

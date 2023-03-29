@@ -34,25 +34,36 @@ abstract class Minz_Pdo extends PDO {
 		return $this->autoPrefix($statement);
 	}
 
-	/** @return string|false */
+	// PHP8+: PDO::lastInsertId(?string $name = null): string|false
+	/**
+	 * @param string|null $name
+	 * @return string|false
+	 */
 	#[\ReturnTypeWillChange]
-	public function lastInsertId(?string $name = null) {
+	public function lastInsertId($name = null) {
 		if ($name != null) {
 			$name = $this->preSql($name);
 		}
 		return parent::lastInsertId($name);
 	}
 
+	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	/**
+	 * @param string $statement
 	 * @param array<int,string>|null $driver_options
 	 * @return PDOStatement|false
 	 */
 	#[\ReturnTypeWillChange]
-	public function prepare(string $statement, $driver_options = []) {
+	public function prepare($statement, $driver_options = []) {
 		$statement = $this->preSql($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
+	// PHP8+: PDO::exec(string $statement): int|false
+	/**
+	 * @param string $statement
+	 * @return int|false
+	 */
 	#[\ReturnTypeWillChange]
 	public function exec($statement) {
 		$statement = $this->preSql($statement);

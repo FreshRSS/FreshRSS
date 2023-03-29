@@ -32,8 +32,11 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
+	/** @var string */
 	private $mailer;
+	/** @var array<string|int|bool> */
 	private $smtp_config;
+	/** @var int */
 	private $debug_level;
 
 	/**

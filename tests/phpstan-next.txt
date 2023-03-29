@@ -9,9 +9,7 @@
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
 ./app/install.php
-./app/Mailers/UserMailer.php
 ./app/Models/Auth.php
-./app/Models/BooleanSearch.php
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
 ./app/Models/CategoryDAOSQLite.php
@@ -25,7 +23,6 @@
 ./app/Models/FeedDAOSQLite.php
 ./app/Models/FilterAction.php
 ./app/Models/FormAuth.php
-./app/Models/ReadingMode.php
 ./app/Models/Search.php
 ./app/Models/Share.php
 ./app/Models/TagDAO.php
@@ -51,13 +48,10 @@
 ./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
-./lib/Minz/Error.php
 ./lib/Minz/Extension.php
 ./lib/Minz/ExtensionManager.php
 ./lib/Minz/FrontController.php
-./lib/Minz/Helper.php
 ./lib/Minz/Log.php
-./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
 ./lib/Minz/ModelArray.php
 ./lib/Minz/Paginator.php
