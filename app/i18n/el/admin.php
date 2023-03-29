@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Κύρια ροή',
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
-		'percent_of_total' => '%% εκ του συνόλου',
+		'percent_of_total' => '% εκ του συνόλου',
 		'repartition' => 'Articles repartition',	// TODO
 		'status_favorites' => 'Αγαπημένα',
 		'status_read' => 'Ανάγνωση',

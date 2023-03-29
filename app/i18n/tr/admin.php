@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Ana akış',
 		'no_idle' => 'Boşta akış yok!',
 		'number_entries' => '%d makale',
-		'percent_of_total' => '%% toplamın yüzdesi',
+		'percent_of_total' => '% toplamın yüzdesi',
 		'repartition' => 'Makale dağılımı',
 		'status_favorites' => 'Favoriler',
 		'status_read' => 'Okunmuş',

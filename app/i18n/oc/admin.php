@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Flux màger',
 		'no_idle' => 'I a pas cap d’article inactiu !',
 		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% del total',
+		'percent_of_total' => '% del total',
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
