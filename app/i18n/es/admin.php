@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Salida principal',
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
-		'percent_of_total' => '%% del total',
+		'percent_of_total' => '% del total',
 		'repartition' => 'Reprto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',

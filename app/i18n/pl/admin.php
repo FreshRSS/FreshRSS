@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Kanał główny',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
-		'percent_of_total' => '%% wszystkich',
+		'percent_of_total' => '% wszystkich',
 		'repartition' => 'Podział wiadomości',
 		'status_favorites' => 'Ulubione',
 		'status_read' => 'Przeczytane',

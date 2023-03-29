@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'הזנה ראשית',
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
-		'percent_of_total' => '%% מסך הכל',
+		'percent_of_total' => '% מסך הכל',
 		'repartition' => 'חלוקת המאמרים',
 		'status_favorites' => 'מועדפים',
 		'status_read' => 'נקרא',
