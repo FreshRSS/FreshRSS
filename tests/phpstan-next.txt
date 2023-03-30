@@ -28,11 +28,8 @@
 ./cli/_cli.php
 ./cli/_update-or-create-user.php
 ./cli/check.translation.php
-./cli/i18n/I18nCompletionValidator.php
 ./cli/i18n/I18nData.php
 ./cli/i18n/I18nFile.php
-./cli/i18n/I18nUsageValidator.php
-./cli/i18n/I18nValidatorInterface.php
 ./cli/i18n/I18nValue.php
 ./cli/manipulate.translation.php
 ./lib/core-extensions/Google-Groups/extension.php
