@@ -55,8 +55,9 @@ register_shutdown_function(function () use ($mutexFile) {
 	unlink($mutexFile);
 });
 
-Minz_ExtensionManager::addHook('feed_before_actualize', function () use ($mutexFile) {
+Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
 	touch($mutexFile);
+	return $feed;
 });
 // </Mutex>
 
