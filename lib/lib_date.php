@@ -42,13 +42,13 @@ function example($dateInterval) {
 }
 */
 
-function _dateFloor($isoDate) {
+function _dateFloor(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
 	$t = isset($x[1]) ? str_pad($x[1], 6, '0') : '000000';
 	return str_pad($x[0], 8, '01') . 'T' . $t;
 }
 
-function _dateCeiling($isoDate) {
+function _dateCeiling(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
 	$t = isset($x[1]) && strlen($x[1]) > 1 ? str_pad($x[1], 6, '59') : '235959';
 	switch (strlen($x[0])) {
@@ -62,11 +62,11 @@ function _dateCeiling($isoDate) {
 	}
 }
 
-function _noDelimit($isoDate) {
+function _noDelimit(?string $isoDate): ?string {
 	return $isoDate === null || $isoDate === '' ? null : str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
 }
 
-function _dateRelative($d1, $d2) {
+function _dateRelative(?string $d1, ?string $d2): ?string {
 	if ($d2 === null) {
 		return $d1 !== null && $d1[0] !== 'P' ? $d1 : null;
 	} elseif ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
@@ -81,10 +81,10 @@ function _dateRelative($d1, $d2) {
 
 /**
  * Parameter $dateInterval is a string containing an ISO 8601 time interval.
- * Returns an array with the minimum and maximum Unix timestamp of this interval,
+ * @return array{int|null|false,int|null|false} an array with the minimum and maximum Unix timestamp of this interval,
  *  or null if open interval, or false if error.
  */
-function parseDateInterval($dateInterval) {
+function parseDateInterval(string $dateInterval) {
 	$dateInterval = trim($dateInterval);
 	$dateInterval = str_replace('--', '/', $dateInterval);
 	$dateInterval = strtoupper($dateInterval);

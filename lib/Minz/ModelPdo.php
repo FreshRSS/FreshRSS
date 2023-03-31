@@ -12,6 +12,7 @@ class Minz_ModelPdo {
 
 	/**
 	 * Shares the connection to the database between all instances.
+	 * @var bool
 	 */
 	public static $usesSharedPdo = true;
 

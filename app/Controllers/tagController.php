@@ -126,7 +126,8 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		$sourceId = Minz_Request::param('id_tag');
 
 		if ($targetName == '' || $sourceId == '') {
-			return Minz_Error::error(400);
+			Minz_Error::error(400);
+			return;
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();

@@ -63,13 +63,15 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
+	/** @return array<array<string,string|bool>> */
 	public function getSchema(string $table): array {
 		$sql = 'DESC `_' . $table . '`';
 		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function checkTable(string $table, $schema): bool {
+	/** @param array<string> $schema */
+	public function checkTable(string $table, array $schema): bool {
 		$columns = $this->getSchema($table);
 
 		$ok = (count($columns) == count($schema));
@@ -120,6 +122,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		));
 	}
 
+	/**
+	 * @param array<string,string> $dao
+	 * @return array<string,string|bool>
+	 */
 	public function daoToSchema(array $dao): array {
 		return array(
 			'name' => $dao['Field'],
@@ -129,7 +135,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		);
 	}
 
-	public function listDaoToSchema($listDAO): array {
+	/**
+	 * @param array<array<string,string>> $listDAO
+	 * @return array<array<string,string|bool>>
+	 */
+	public function listDaoToSchema(array $listDAO): array {
 		$list = array();
 
 		foreach ($listDAO as $dao) {
@@ -185,14 +195,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $ok;
 	}
 
-	public function minorDbMaintenance() {
+	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
 		$this->ensureCaseInsensitiveGuids();
 	}
 
-	private static function stdError($error): bool {
+	private static function stdError(string $error): bool {
 		if (defined('STDERR')) {
 			fwrite(STDERR, $error . "\n");
 		}
