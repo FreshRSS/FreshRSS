@@ -83,8 +83,9 @@ abstract class Minz_Extension {
 	/**
 	 * Call at the initialization of the extension (i.e. when the extension is
 	 * enabled by the extension manager).
+	 * @return void
 	 */
-	abstract public function init(): void;
+	abstract public function init();
 
 	/**
 	 * Set the current extension to enable.
