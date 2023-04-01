@@ -4,22 +4,34 @@
  * The extension base class.
  */
 abstract class Minz_Extension {
+	/** @var string */
 	private $name;
+	/** @var string */
 	private $entrypoint;
+	/** @var string */
 	private $path;
+	/** @var string */
 	private $author;
+	/** @var string */
 	private $description;
+	/** @var string */
 	private $version;
+	/** @var string */
 	private $type;
+	/** @var string */
 	private $config_key = 'extensions';
+	/** @var array<string,mixed>|null */
 	private $user_configuration;
+	/** @var array<string,mixed>|null */
 	private $system_configuration;
 
+	/** @var array{0:'system',1:'user'} */
 	public static $authorized_types = array(
 		'system',
 		'user',
 	);
 
+	/** @var bool */
 	private $is_enabled;
 
 	/**
@@ -34,7 +46,8 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param array<string> $meta_info contains information about the extension.
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:string} $meta_info
+	 * contains information about the extension.
 	 */
 	final public function __construct($meta_info) {
 		$this->name = $meta_info['name'];
@@ -71,21 +84,21 @@ abstract class Minz_Extension {
 	 * Call at the initialization of the extension (i.e. when the extension is
 	 * enabled by the extension manager).
 	 */
-	abstract public function init();
+	abstract public function init(): void;
 
 	/**
 	 * Set the current extension to enable.
 	 */
-	public function enable() {
+	public function enable(): void {
 		$this->is_enabled = true;
 	}
 
 	/**
 	 * Return if the extension is currently enabled.
 	 *
-	 * @return string|true true if extension is enabled, false otherwise.
+	 * @return bool true if extension is enabled, false otherwise.
 	 */
-	public function isEnabled() {
+	public function isEnabled(): bool {
 		return $this->is_enabled;
 	}
 
@@ -107,35 +120,38 @@ abstract class Minz_Extension {
 
 	/**
 	 * Handle the configure action.
+	 * @return void
 	 */
 	public function handleConfigureAction() {}
 
 	/**
 	 * Getters and setters.
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
-	public function getEntrypoint() {
+	public function getEntrypoint(): string {
 		return $this->entrypoint;
 	}
-	public function getPath() {
+	public function getPath(): string {
 		return $this->path;
 	}
-	public function getAuthor() {
+	public function getAuthor(): string {
 		return $this->author;
 	}
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->description;
 	}
-	public function getVersion() {
+	public function getVersion(): string {
 		return $this->version;
 	}
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
-	private function setType($type) {
-		if (!in_array($type, self::$authorized_types)) {
+
+	/** @param 'user'|'system' $type */
+	private function setType(string $type): void {
+		if (!in_array($type, ['user', 'system'])) {
 			throw new Minz_ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;
@@ -149,7 +165,7 @@ abstract class Minz_Extension {
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
-	public function getFileUrl($filename, $type, $isStatic = true) {
+	public function getFileUrl(string $filename, string $type, bool $isStatic = true): string {
 		if ($isStatic) {
 			$dir = basename($this->path);
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
@@ -169,21 +185,21 @@ abstract class Minz_Extension {
 	 *
 	 * @param string $base_name the base name of the controller. Final name will be FreshExtension_<base_name>_Controller.
 	 */
-	public function registerController($base_name) {
+	public function registerController(string $base_name): void {
 		Minz_Dispatcher::registerController($base_name, $this->path);
 	}
 
 	/**
 	 * Register the views in order to be accessible by the application.
 	 */
-	public function registerViews() {
+	public function registerViews(): void {
 		Minz_View::addBasePathname($this->path);
 	}
 
 	/**
 	 * Register i18n files from ext_dir/i18n/
 	 */
-	public function registerTranslates() {
+	public function registerTranslates(): void {
 		$i18n_dir = $this->path . '/i18n';
 		Minz_Translate::registerPath($i18n_dir);
 	}
@@ -194,44 +210,45 @@ abstract class Minz_Extension {
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable-string|array<string> $hook_function the function name to call (must be callable).
 	 */
-	public function registerHook($hook_name, $hook_function) {
+	public function registerHook(string $hook_name, $hook_function): void {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function);
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function isConfigurationEnabled(string $type) {
+	/** @param 'system'|'user' $type */
+	private function isConfigurationEnabled(string $type): bool {
 		if (!class_exists('FreshRSS_Context', false)) {
 			return false;
 		}
 
-		$conf = "{$type}_conf";
-		if (null === FreshRSS_Context::$$conf) {
-			return false;
+		switch ($type) {
+			case 'system': return FreshRSS_Context::$system_conf !== null;
+			case 'user': return FreshRSS_Context::$user_conf !== null;
 		}
-
-		return true;
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function isExtensionConfigured(string $type) {
-		$conf = "{$type}_conf";
+	/** @param 'system'|'user' $type */
+	private function isExtensionConfigured(string $type): bool {
+		switch ($type) {
+			case 'system':
+				$conf = FreshRSS_Context::$user_conf;
+				break;
+			case 'user':
+				$conf = FreshRSS_Context::$system_conf;
+				break;
+		}
 
-		if (!FreshRSS_Context::$$conf->hasParam($this->config_key)) {
+		if (!$conf->hasParam($this->config_key)) {
 			return false;
 		}
 
-		$extensions = FreshRSS_Context::$$conf->{$this->config_key};
+		$extensions = $conf->{$this->config_key};
 		return array_key_exists($this->getName(), $extensions);
 	}
 
 	/**
-	 * @return array
+	 * @return array<string,mixed>
 	 */
-	private function getConfiguration(string $type) {
+	private function getConfiguration(string $type): array {
 		if (!$this->isConfigurationEnabled($type)) {
 			return [];
 		}
@@ -245,16 +262,16 @@ abstract class Minz_Extension {
 	}
 
 	/**
-	 * @return array
+	 * @return array<string,mixed>
 	 */
-	public function getSystemConfiguration() {
+	public function getSystemConfiguration(): array {
 		return $this->getConfiguration('system');
 	}
 
 	/**
-	 * @return array
+	 * @return array<string,mixed>
 	 */
-	public function getUserConfiguration() {
+	public function getUserConfiguration(): array {
 		return $this->getConfiguration('user');
 	}
 
@@ -288,7 +305,8 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
-	private function setConfiguration(string $type, array $configuration) {
+	/** @param array<string,mixed> $configuration */
+	private function setConfiguration(string $type, array $configuration): void {
 		$conf = "{$type}_conf";
 
 		if (FreshRSS_Context::$$conf->hasParam($this->config_key)) {
@@ -302,17 +320,20 @@ abstract class Minz_Extension {
 		FreshRSS_Context::$$conf->save();
 	}
 
-	public function setSystemConfiguration(array $configuration) {
+	/** @param array<string,mixed> $configuration */
+	public function setSystemConfiguration(array $configuration): void {
 		$this->setConfiguration('system', $configuration);
 		$this->system_configuration = $configuration;
 	}
 
-	public function setUserConfiguration(array $configuration) {
+	/** @param array<string,mixed> $configuration */
+	public function setUserConfiguration(array $configuration): void {
 		$this->setConfiguration('user', $configuration);
 		$this->user_configuration = $configuration;
 	}
 
-	private function removeConfiguration(string $type) {
+	/** @param 'system'|'user' $type */
+	private function removeConfiguration(string $type): void {
 		if (!$this->isConfigurationEnabled($type)) {
 			return;
 		}
@@ -332,17 +353,17 @@ abstract class Minz_Extension {
 		FreshRSS_Context::$$conf->save();
 	}
 
-	public function removeSystemConfiguration() {
+	public function removeSystemConfiguration(): void {
 		$this->removeConfiguration('system');
 		$this->system_configuration = null;
 	}
 
-	public function removeUserConfiguration() {
+	public function removeUserConfiguration(): void {
 		$this->removeConfiguration('user');
 		$this->user_configuration = null;
 	}
 
-	public function saveFile(string $filename, string $content) {
+	public function saveFile(string $filename, string $content): void {
 		$username = Minz_User::name();
 		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}";
 
@@ -353,7 +374,7 @@ abstract class Minz_Extension {
 		file_put_contents("{$path}/{$filename}", $content);
 	}
 
-	public function removeFile(string $filename) {
+	public function removeFile(string $filename): void {
 		$username = Minz_User::name();
 		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
 

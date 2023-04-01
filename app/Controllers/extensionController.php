@@ -9,7 +9,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -18,7 +18,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action lists all the extensions available to the current user.
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		FreshRSS_View::prependTitle(_t('admin.extensions.title') . ' · ');
 		$this->view->extension_list = array(
 			'system' => array(),
@@ -39,8 +39,9 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * fetch extension list from GitHub
+	 * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':string,'url':string,'method':string,'directory':string}>
 	 */
-	protected function getAvailableExtensionList() {
+	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
 		$json = @file_get_contents($extensionListUrl);
 
@@ -78,7 +79,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * - additional parameters which should be handle by the extension
 	 *   handleConfigureAction() method (POST request).
 	 */
-	public function configureAction() {
+	public function configureAction(): void {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_layout(false);
 		} else {
@@ -109,7 +110,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
 	 */
-	public function enableAction() {
+	public function enableAction(): void {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
@@ -160,7 +161,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
 	 */
-	public function disableAction() {
+	public function disableAction(): void {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
@@ -188,10 +189,6 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$legacyKey = array_search($ext_name, $ext_list, true);
-				if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-					unset($ext_list[$legacyKey]);
-				}
 				$ext_list[$ext_name] = false;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
@@ -215,7 +212,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * -e: extension name (urlencoded)
 	 */
-	public function removeAction() {
+	public function removeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}

@@ -56,6 +56,7 @@ register_shutdown_function(function () use ($mutexFile) {
 });
 
 Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+	fwrite(STDOUT, 'actualize_script feed_before_actualize' . "\n");
 	touch($mutexFile);
 	return $feed;
 });
