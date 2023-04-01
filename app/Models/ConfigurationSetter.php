@@ -142,6 +142,22 @@ class FreshRSS_ConfigurationSetter {
 		$data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
 
+	private function _wrapTitle_desktop(&$data, $value) {
+		$value = intval($value);
+		if (!in_array($value, array(1,2,3,4))) {
+			$value = 1;
+		}
+		$data['wrapTitle_desktop'] = $value;
+	}
+
+	private function _wrapTitle_mobile(&$data, $value) {
+		$value = intval($value);
+		if (!in_array($value, array(1,2,3,4))) {
+			$value = 1;
+		}
+		$data['wrapTitle_mobile'] = $value;
+	}
+
 	private function _ttl_default(&$data, $value) {
 		$value = intval($value);
 		$data['ttl_default'] = $value > FreshRSS_Feed::TTL_DEFAULT ? $value : 3600;
