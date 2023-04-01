@@ -114,7 +114,7 @@ class FreshRSS_View extends Minz_View {
 	public $selectorSuccess;
 
 	// Extensions
-	/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':string,'url':string,'method':string,'directory':string}> */
+	/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
 	public $available_extensions;
 	/** @var ?Minz_Extension */
 	public $ext_details;
