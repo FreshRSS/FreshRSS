@@ -3,7 +3,8 @@
 Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
 Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
-function checkRequirements($dbType = '') {
+/** @return array<string,string> */
+function checkRequirements(string $dbType = ''): array {
 	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -74,11 +75,11 @@ function checkRequirements($dbType = '') {
 	);
 }
 
-function generateSalt() {
+function generateSalt(): string {
 	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__)));
 }
 
-function initDb() {
+function initDb(): string {
 	$conf = FreshRSS_Context::$system_conf;
 	$db = $conf->db;
 	if (empty($db['pdo_options'])) {
@@ -115,7 +116,7 @@ function initDb() {
 	return $databaseDAO->testConnection();
 }
 
-function setupMigrations() {
+function setupMigrations(): bool {
 	$migrations_path = APP_PATH . '/migrations';
 	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
 

@@ -37,6 +37,30 @@ function notice(string $message): void {
 	}
 }
 
+// <Mutex>
+// Avoid having multiple actualization processes at the same time
+$mutexFile = TMP_PATH . '/actualize.freshrss.lock';
+$mutexTtl = 900; // seconds (refreshed before each new feed)
+if (file_exists($mutexFile) && ((time() - @filemtime($mutexFile)) > $mutexTtl)) {
+	unlink($mutexFile);
+}
+
+if (($handle = @fopen($mutexFile, 'x')) === false) {
+	notice('FreshRSS feeds actualization was already running, so aborting new run at ' . $begin_date->format('c'));
+	die();
+}
+fclose($handle);
+
+register_shutdown_function(function () use ($mutexFile) {
+	unlink($mutexFile);
+});
+
+Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+	touch($mutexFile);
+	return $feed;
+});
+// </Mutex>
+
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
