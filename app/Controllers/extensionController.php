@@ -33,8 +33,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
 
-		$availableExtensions = $this->getAvailableExtensionList();
-		$this->view->available_extensions = $availableExtensions;
+		$this->view->available_extensions = $this->getAvailableExtensionList();
 	}
 
 	/**
@@ -90,11 +89,13 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$ext_name = urldecode(Minz_Request::param('e'));
 		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
-		if (is_null($ext)) {
+		if ($ext === null) {
 			Minz_Error::error(404);
+			return;
 		}
 		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
+			return;
 		}
 
 		$this->view->extension = $ext;
@@ -125,26 +126,36 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name), $url_redirect);
 			}
 
-			$conf = null;
-			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
-				$conf = FreshRSS_Context::$system_conf;
-			} elseif ($ext->getType() === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
-			} else {
+			$type = $ext->getType();
+			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
 				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				return;
+			}
+
+			$conf = null;
+			if ($type === 'system') {
+				$conf = FreshRSS_Context::$system_conf;
+			} elseif ($type === 'user') {
+				$conf = FreshRSS_Context::$user_conf;
 			}
 
 			$res = $ext->install();
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
+				$ext_list = array_filter($ext_list, function($key) use($type) {
+					// Remove from list the extensions that have disappeared or changed type
+					$extension = Minz_ExtensionManager::findExtension($key);
+					return $extension !== null && $extension->getType() === $type;
+				}, ARRAY_FILTER_USE_KEY);
+
 				$ext_list[$ext_name] = true;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
 				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name), $url_redirect);
 			} else {
-				Minz_Log::warning('Can not enable extension ' . $ext_name . ': ' . $res);
+				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
 			}
 		}
@@ -176,26 +187,36 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name), $url_redirect);
 			}
 
-			$conf = null;
-			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
-				$conf = FreshRSS_Context::$system_conf;
-			} elseif ($ext->getType() === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
-			} else {
+			$type = $ext->getType();
+			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
 				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				return;
+			}
+
+			$conf = null;
+			if ($type === 'system') {
+				$conf = FreshRSS_Context::$system_conf;
+			} elseif ($type === 'user') {
+				$conf = FreshRSS_Context::$user_conf;
 			}
 
 			$res = $ext->uninstall();
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
+				$ext_list = array_filter($ext_list, function($key) use($type) {
+					// Remove from list the extensions that have disappeared or changed type
+					$extension = Minz_ExtensionManager::findExtension($key);
+					return $extension !== null && $extension->getType() === $type;
+				}, ARRAY_FILTER_USE_KEY);
+
 				$ext_list[$ext_name] = false;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
 				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name), $url_redirect);
 			} else {
-				Minz_Log::warning('Can not unable extension ' . $ext_name . ': ' . $res);
+				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
 			}
 		}

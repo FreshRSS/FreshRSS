@@ -16,7 +16,7 @@ abstract class Minz_Extension {
 	private $description;
 	/** @var string */
 	private $version;
-	/** @var string */
+	/** @var 'system'|'user' */
 	private $type;
 	/** @var string */
 	private $config_key = 'extensions';
@@ -46,7 +46,7 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:string} $meta_info
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta_info
 	 * contains information about the extension.
 	 */
 	final public function __construct($meta_info) {
@@ -145,6 +145,7 @@ abstract class Minz_Extension {
 	public function getVersion(): string {
 		return $this->version;
 	}
+	/** @return 'system'|'user' */
 	public function getType(): string {
 		return $this->type;
 	}

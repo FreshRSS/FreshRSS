@@ -54,12 +54,6 @@ fclose($handle);
 register_shutdown_function(function () use ($mutexFile) {
 	unlink($mutexFile);
 });
-
-Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
-	fwrite(STDOUT, 'actualize_script feed_before_actualize' . "\n");
-	touch($mutexFile);
-	return $feed;
-});
 // </Mutex>
 
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
@@ -100,7 +94,14 @@ foreach ($users as $user) {
 
 	FreshRSS_Auth::giveAccess();
 
+	// NB: Extensions and hooks are reinitialised there
 	$app->init();
+
+	Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+		touch($mutexFile);
+		return $feed;
+	});
+
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	Minz_ExtensionManager::callHook('freshrss_user_maintenance');

@@ -5,7 +5,7 @@
  *
  * @todo see coding style for methods!!
  */
-class Minz_ExtensionManager {
+final class Minz_ExtensionManager {
 	/** @var string */
 	private static $ext_metaname = 'metadata.json';
 	/** @var string */
@@ -84,6 +84,22 @@ class Minz_ExtensionManager {
 		),
 	);
 
+	/** Remove extensions and hooks from a previous initialisation */
+	private static function reset(): void {
+		$hadAny = !empty(self::$ext_list_enabled);
+		self::$ext_list = [];
+		self::$ext_list_enabled = [];
+		self::$ext_auto_enabled = [];
+		foreach (self::$hook_list as $hook_type => $hook_data) {
+			$hadAny |= !empty($hook_data['list']);
+			$hook_data['list'] = [];
+			self::$hook_list[$hook_type] = $hook_data;
+		}
+		if ($hadAny) {
+			gc_collect_cycles();
+		}
+	}
+
 	/**
 	 * Initialize the extension manager by loading extensions in EXTENSIONS_PATH.
 	 *
@@ -96,6 +112,8 @@ class Minz_ExtensionManager {
 	 * inherit from Minz_Extension class.
 	 */
 	public static function init(): void {
+		self::reset();
+
 		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH), [ '..', '.' ]);
 		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH), [ '..', '.' ], $list_core_extensions);
 		array_walk($list_core_extensions, function (&$s) { $s = CORE_EXTENSIONS_PATH . '/' . $s; });
@@ -145,11 +163,11 @@ class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:string} $meta
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta
 	 * is an array of values.
 	 * @return bool true if the array is valid, false else.
 	 */
-	public static function isValidMetadata(array $meta): bool {
+	private static function isValidMetadata(array $meta): bool {
 		$valid_chars = array('_');
 		return !(empty($meta['name']) || empty($meta['entrypoint']) || !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
@@ -157,11 +175,11 @@ class Minz_ExtensionManager {
 	/**
 	 * Load the extension source code based on info metadata.
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:string} $info
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $info
 	 * an array containing information about extension.
 	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
 	 */
-	public static function load(array $info): ?Minz_Extension {
+	private static function load(array $info): ?Minz_Extension {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
 		$ext_class_name = $info['entrypoint'] . 'Extension';
 
@@ -200,12 +218,12 @@ class Minz_ExtensionManager {
 	 *
 	 * @param Minz_Extension $ext a valid extension.
 	 */
-	public static function register(Minz_Extension $ext): void {
+	private static function register(Minz_Extension $ext): void {
 		$name = $ext->getName();
 		self::$ext_list[$name] = $ext;
 
 		if ($ext->getType() === 'system' && !empty(self::$ext_auto_enabled[$name])) {
-			self::enable($ext->getName());
+			self::enable($ext->getName(), 'system');
 		}
 	}
 
@@ -215,10 +233,17 @@ class Minz_ExtensionManager {
 	 * The extension init() method will be called.
 	 *
 	 * @param string $ext_name is the name of a valid extension present in $ext_list.
+	 * @param 'system'|'user'|null $onlyOfType only enable if the extension matches that type. Set to null to load all.
 	 */
-	public static function enable(string $ext_name): void {
+	private static function enable(string $ext_name, ?string $onlyOfType = null): void {
 		if (isset(self::$ext_list[$ext_name])) {
 			$ext = self::$ext_list[$ext_name];
+
+			if ($onlyOfType !== null && $ext->getType() !== $onlyOfType) {
+				// Do not enable an extension of the wrong type
+				return;
+			}
+
 			self::$ext_list_enabled[$ext_name] = $ext;
 
 			if (method_exists($ext, 'autoload')) {
@@ -232,15 +257,16 @@ class Minz_ExtensionManager {
 	/**
 	 * Enable a list of extensions.
 	 *
-	 * @param array<string|int,bool> $ext_list the names of extensions we want to load.
+	 * @param array<string,bool> $ext_list the names of extensions we want to load.
+	 * @param 'system'|'user'|null $onlyOfType limit the extensions to load to those of those type. Set to null string to load all.
 	 */
-	public static function enableByList(array $ext_list): void {
-		if (!is_array($ext_list)) {
+	public static function enableByList(?array $ext_list, ?string $onlyOfType = null): void {
+		if (empty($ext_list)) {
 			return;
 		}
 		foreach ($ext_list as $ext_name => $ext_status) {
 			if ($ext_status) {
-				self::enable($ext_name);
+				self::enable($ext_name, $onlyOfType);
 			}
 		}
 	}

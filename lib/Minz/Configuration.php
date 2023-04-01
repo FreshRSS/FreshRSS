@@ -92,24 +92,6 @@ class Minz_Configuration {
 	private $configuration_setter = null;
 
 	/**
-	 * List of enabled extensions.
-	 */
-	private $extensions_enabled = [];
-
-	public function removeExtension($ext_name) {
-		unset($this->extensions_enabled[$ext_name]);
-		$legacyKey = array_search($ext_name, $this->extensions_enabled, true);
-		if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-			unset($this->extensions_enabled[$legacyKey]);
-		}
-	}
-	public function addExtension($ext_name) {
-		if (!isset($this->extensions_enabled[$ext_name])) {
-			$this->extensions_enabled[$ext_name] = true;
-		}
-	}
-
-	/**
 	 * Create a new Minz_Configuration object.
 	 *
 	 * @param string $namespace the name of the current configuration.
