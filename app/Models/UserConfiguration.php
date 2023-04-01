@@ -61,6 +61,7 @@
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary
+ * @property string $topline_website
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property int $dynamic_opml_ttl_default
@@ -70,7 +71,8 @@
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
-	public static function init($config_filename, $default_filename = null, $configuration_setter = null): FreshRSS_UserConfiguration {
+	public static function init(string $config_filename, ?string $default_filename = null,
+		?FreshRSS_ConfigurationSetter $configuration_setter = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename, $configuration_setter);
 		return parent::get('user');
 	}

@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Flusso principale',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
-		'percent_of_total' => '%% del totale',
+		'percent_of_total' => '% del totale',
 		'repartition' => 'Ripartizione articoli',
 		'status_favorites' => 'Preferiti',
 		'status_read' => 'Letti',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Form abilitato',
 			),
 			'title' => 'Form di registrazione utente',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

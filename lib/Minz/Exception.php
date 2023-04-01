@@ -4,7 +4,7 @@ class Minz_Exception extends Exception {
 	const WARNING = 10;
 	const NOTICE = 20;
 
-	public function __construct ($message, $code = self::ERROR) {
+	public function __construct(string $message, int $code = self::ERROR) {
 		if ($code != Minz_Exception::ERROR
 		 && $code != Minz_Exception::WARNING
 		 && $code != Minz_Exception::NOTICE) {

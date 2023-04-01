@@ -25,6 +25,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
+	/** @return array<array<string,string|bool>> */
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
@@ -45,6 +46,10 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		));
 	}
 
+	/**
+	 * @param array<string,string> $dao
+	 * @return array<string,string|bool>
+	 */
 	public function daoToSchema(array $dao): array {
 		return [
 			'name'    => $dao['name'],

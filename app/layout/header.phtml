@@ -55,14 +55,14 @@
 
 				<li class="item dropdown-section">
 					<div class="dropdown-section-title">
-						<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>
+						<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>
 					</div>
 					<ul>
 						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 						<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
 						<?php else: ?>
-						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
+						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
 						<?php endif; ?>
 					</ul>
 				</li>
@@ -103,6 +103,11 @@
 					<ul>
 						<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 						<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+						<?php if (file_exists(TOS_FILENAME)) { ?>
+							<li class="item">
+								<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+							</li>
+						<?php } ?>
 						<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
 					</ul>
 				</li>

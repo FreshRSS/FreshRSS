@@ -980,6 +980,9 @@ main.prompt {
 	background: #fff;
 	border-right-color: #ca7227;
 }
+.flux.current:not(.active) {
+	background: #fcfaf8;
+}
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
@@ -1099,14 +1102,7 @@ main.prompt {
 
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
-}
-.post form {
-	margin: 1rem 0;
-}
-.post.content {
-	max-width: 550px;
 }
 .post h1, .post h2 {
 	color: #363330;

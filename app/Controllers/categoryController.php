@@ -11,7 +11,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * underlying framework.
 	 *
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -26,8 +26,10 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * Request parameter is:
 	 *   - new-category
 	 */
-	public function createAction() {
+	public function createAction() :void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$tagDAO = FreshRSS_Factory::createTagDao();
+
 		$url_redirect = array('c' => 'subscription', 'a' => 'add');
 
 		$limits = FreshRSS_Context::$system_conf->limits;
@@ -49,6 +51,10 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if ($catDAO->searchByName($cat->name()) != null) {
 				Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
+			}
+
+			if ($tagDAO->searchByName($cat->name()) != null) {
+				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
 			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
@@ -78,7 +84,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 *   - id
 	 *   - name
 	 */
-	public function updateAction() {
+	public function updateAction(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
@@ -118,7 +124,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * Request parameter is:
 	 *   - id (of a category)
 	 */
-	public function deleteAction() {
+	public function deleteAction(): void {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
@@ -162,7 +168,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 *   - id (of a category)
 	 *   - muted (truthy to remove only muted feeds, or falsy otherwise)
 	 */
-	public function emptyAction() {
+	public function emptyAction(): void {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
@@ -176,7 +182,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			$muted = Minz_Request::param('muted', null);
 			if ($muted !== null) {
-				$muted = boolval($muted);
+				$muted = (bool)$muted;
 			}
 
 			// List feeds to remove then related user queries.
@@ -205,7 +211,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * Request parameter is:
 	 * - id (of a category)
 	 */
-	public function refreshOpmlAction() {
+	public function refreshOpmlAction(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
@@ -218,7 +224,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			$category = $catDAO->searchById($id);
-			if ($category == null) {
+			if ($category === null) {
 				Minz_Request::bad(_t('feedback.sub.category.not_exist'), $url_redirect);
 			}
 
@@ -241,7 +247,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @return array<string,int> */
-	public static function refreshDynamicOpmls() {
+	public static function refreshDynamicOpmls(): array {
 		$successes = 0;
 		$errors = 0;
 		$catDAO = FreshRSS_Factory::createCategoryDao();

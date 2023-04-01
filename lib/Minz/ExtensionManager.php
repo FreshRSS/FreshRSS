@@ -76,8 +76,6 @@ class Minz_ExtensionManager {
 			'signature' => 'PassArguments',
 		),
 	);
-	// @phpstan-ignore-next-line
-	private static $ext_to_hooks = array();
 
 	/**
 	 * Initialize the extension manager by loading extensions in EXTENSIONS_PATH.
@@ -202,8 +200,6 @@ class Minz_ExtensionManager {
 				in_array($name, self::$ext_auto_enabled, true))) {	//Legacy format < FreshRSS 1.11.1
 			self::enable($ext->getName());
 		}
-
-		self::$ext_to_hooks[$name] = array();
 	}
 
 	/**
@@ -280,12 +276,10 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
-	 * @param Minz_Extension $ext the extension which register the hook.
 	 */
-	public static function addHook($hook_name, $hook_function, $ext) {
+	public static function addHook($hook_name, $hook_function) {
 		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
 			self::$hook_list[$hook_name]['list'][] = $hook_function;
-			self::$ext_to_hooks[$ext->getName()][] = $hook_name;
 		}
 	}
 

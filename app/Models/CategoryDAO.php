@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	const DEFAULTCATEGORYID = 1;
 
@@ -75,7 +75,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		return false;
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
@@ -224,8 +225,7 @@ SQL;
 		}
 	}
 
-	/** @return FreshRSS_Category|null */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		if ($stm &&

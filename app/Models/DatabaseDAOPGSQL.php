@@ -33,6 +33,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
+	/** @return array<array<string,string|bool>> */
 	public function getSchema(string $table): array {
 		$sql = 'select column_name as field, data_type as type, column_default as default, is_nullable as null from INFORMATION_SCHEMA.COLUMNS where table_name = ?';
 		$stm = $this->pdo->prepare($sql);
@@ -40,6 +41,10 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
+	/**
+	 * @param array<string,string> $dao
+	 * @return array<string,string|bool>
+	 */
 	public function daoToSchema(array $dao): array {
 		return array(
 			'name' => $dao['field'],

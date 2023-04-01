@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Kanał główny',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
-		'percent_of_total' => '%% wszystkich',
+		'percent_of_total' => '% wszystkich',
 		'repartition' => 'Podział wiadomości',
 		'status_favorites' => 'Ulubione',
 		'status_read' => 'Przeczytane',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Formularz włączony',
 			),
 			'title' => 'Formularz rejestracji użytkowników',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

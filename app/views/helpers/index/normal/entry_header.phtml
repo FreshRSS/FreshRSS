@@ -2,13 +2,14 @@
 	/** @var FreshRSS_View $this */
 	$topline_read = FreshRSS_Context::$user_conf->topline_read;
 	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_website = FreshRSS_Context::$user_conf->topline_website;
 	$topline_thumbnail = FreshRSS_Context::$user_conf->topline_thumbnail;
 	$topline_summary = FreshRSS_Context::$user_conf->topline_summary;
 	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
-?><ul class="horizontal-list flux_header"><?php
+?><ul class="horizontal-list flux_header website<?= $topline_website ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
@@ -31,11 +32,14 @@
 			?></li><?php
 		}
 	}
-	?><li class="item website">
+
+	if ($topline_website !== 'none'):
+	?><li class="item website <?= $topline_website ?>">
 		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
-			<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><span><?= $this->feed->name() ?></span>
+			<?php if (FreshRSS_Context::$user_conf->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
 		</a>
-	</li>
+		</li><?php
+	endif; ?>
 
 	<?php
 	if ($topline_thumbnail !== 'none'):

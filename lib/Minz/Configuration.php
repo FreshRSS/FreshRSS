@@ -8,7 +8,7 @@
  * @property-read string $environment
  * @property-read array<string> $extensions_enabled
  * @property-read string $mailer
- * @property-read string $smtp
+ * @property-read array<string|int|bool> $smtp
  * @property string $title
  */
 class Minz_Configuration {

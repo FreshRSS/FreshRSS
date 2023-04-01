@@ -47,10 +47,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$url = trim($url);
 
 		/** @var string|null $url */
-		$url = Minz_ExtensionManager::callHook('check_url_before_add', $url);
-		if (null === $url) {
+		$urlHooked = Minz_ExtensionManager::callHook('check_url_before_add', $url);
+		if ($urlHooked === $url) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
+		$url = $urlHooked;
 
 		$cat = null;
 		if ($cat_id > 0) {
@@ -912,7 +913,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		]);
 
 		//Get parameters.
-		$feed_id = Minz_Request::param('id');
+		$feed_id = (int)(Minz_Request::param('id', 0));
 		$content_selector = trim(Minz_Request::param('selector'));
 
 		if (!$content_selector) {

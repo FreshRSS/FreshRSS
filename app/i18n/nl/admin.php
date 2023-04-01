@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Overzicht',
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
-		'percent_of_total' => '%% van totaal',
+		'percent_of_total' => '% van totaal',
 		'repartition' => 'Artikelverdeling',
 		'status_favorites' => 'Favorieten',
 		'status_read' => 'Gelezen',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Form ingeschakeld',
 			),
 			'title' => 'Gebruikersregistratieformulier',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(
