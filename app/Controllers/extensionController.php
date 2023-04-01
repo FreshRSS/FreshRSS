@@ -51,18 +51,17 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		}
 
 		// fetch the list as an array
+		/** @var array<string,mixed> */
 		$list = json_decode($json, true);
 		if (empty($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
 			return array();
 		}
 
-		// we could use that for comparing and caching later
-		$version = $list['version'];
-
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
+		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
 		$extensions = $list['extensions'];
 
 		return $extensions;
@@ -79,14 +78,14 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 *   handleConfigureAction() method (POST request).
 	 */
 	public function configureAction(): void {
-		if (Minz_Request::param('ajax')) {
+		if (Minz_Request::paramBoolean('ajax')) {
 			$this->view->_layout(false);
 		} else {
 			$this->indexAction();
 			$this->view->_path('extension/index.phtml');
 		}
 
-		$ext_name = urldecode(Minz_Request::param('e'));
+		$ext_name = urldecode(Minz_Request::paramString('e'));
 		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 		if ($ext === null) {
@@ -115,11 +114,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			if ($ext->isEnabled()) {
@@ -141,7 +141,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$res = $ext->install();
 
-			if ($res === true) {
+			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
 				$ext_list = array_filter($ext_list, function($key) use($type) {
 					// Remove from list the extensions that have disappeared or changed type
@@ -176,11 +176,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			if (!$ext->isEnabled()) {
@@ -202,7 +203,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$res = $ext->uninstall();
 
-			if ($res === true) {
+			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
 				$ext_list = array_filter($ext_list, function($key) use($type) {
 					// Remove from list the extensions that have disappeared or changed type
@@ -241,11 +242,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			$res = recursive_unlink($ext->getPath());

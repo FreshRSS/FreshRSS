@@ -114,11 +114,12 @@ final class Minz_ExtensionManager {
 	public static function init(): void {
 		self::reset();
 
-		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH), [ '..', '.' ]);
-		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH), [ '..', '.' ], $list_core_extensions);
+		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH) ?: [], [ '..', '.' ]);
+		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH) ?: [], [ '..', '.' ], $list_core_extensions);
 		array_walk($list_core_extensions, function (&$s) { $s = CORE_EXTENSIONS_PATH . '/' . $s; });
 		array_walk($list_thirdparty_extensions, function (&$s) { $s = THIRDPARTY_EXTENSIONS_PATH . '/' . $s; });
 
+		/** @var array<string> */
 		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
 		$system_conf = Minz_Configuration::get('system');
@@ -135,7 +136,8 @@ final class Minz_ExtensionManager {
 				// No metadata file? Invalid!
 				continue;
 			}
-			$meta_raw_content = file_get_contents($metadata_filename);
+			$meta_raw_content = file_get_contents($metadata_filename) ?: '';
+			/** @var array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'}|null */
 			$meta_json = json_decode($meta_raw_content, true);
 			if (!$meta_json || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!

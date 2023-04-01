@@ -18,6 +18,9 @@ $_SERVER['HTTP_HOST'] = '';
 $app = new FreshRSS();
 
 FreshRSS_Context::initSystem();
+if (FreshRSS_Context::$system_conf === null) {
+	throw new FreshRSS_Context_Exception('System configuration not initialised!');
+}
 FreshRSS_Context::$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 

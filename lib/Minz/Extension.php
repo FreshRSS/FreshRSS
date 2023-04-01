@@ -147,7 +147,7 @@ abstract class Minz_Extension {
 		return $this->version;
 	}
 	/** @return 'system'|'user' */
-	public function getType(): string {
+	public function getType() {
 		return $this->type;
 	}
 
@@ -163,7 +163,7 @@ abstract class Minz_Extension {
 	 * Return the url for a given file.
 	 *
 	 * @param string $filename name of the file to serve.
-	 * @param string $type the type (js or css) of the file to serve.
+	 * @param 'css'|'js' $type the type (js or css) of the file to serve.
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
@@ -210,14 +210,14 @@ abstract class Minz_Extension {
 	 * Register a new hook.
 	 *
 	 * @param string $hook_name the hook name (must exist).
-	 * @param callable-string|array<string> $hook_function the function name to call (must be callable).
+	 * @param callable $hook_function the function name to call (must be callable).
 	 */
 	public function registerHook(string $hook_name, $hook_function): void {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function);
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isConfigurationEnabled(string $type): bool {
+	private function isConfigurationEnabled($type): bool {
 		if (!class_exists('FreshRSS_Context', false)) {
 			return false;
 		}
@@ -229,7 +229,7 @@ abstract class Minz_Extension {
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isExtensionConfigured(string $type): bool {
+	private function isExtensionConfigured($type): bool {
 		switch ($type) {
 			case 'system':
 				$conf = FreshRSS_Context::$user_conf;
@@ -239,7 +239,7 @@ abstract class Minz_Extension {
 				break;
 		}
 
-		if (!$conf->hasParam($this->config_key)) {
+		if ($conf === null || !$conf->hasParam($this->config_key)) {
 			return false;
 		}
 
@@ -248,6 +248,7 @@ abstract class Minz_Extension {
 	}
 
 	/**
+	 * @param 'system'|'user' $type
 	 * @return array<string,mixed>
 	 */
 	private function getConfiguration(string $type): array {
@@ -307,7 +308,10 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
-	/** @param array<string,mixed> $configuration */
+	/**
+	 * @param 'system'|'user' $type
+	 * @param array<string,mixed> $configuration
+	 */
 	private function setConfiguration(string $type, array $configuration): void {
 		$conf = "{$type}_conf";
 
