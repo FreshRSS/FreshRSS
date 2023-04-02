@@ -71,9 +71,8 @@
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
-	public static function init(string $config_filename, ?string $default_filename = null,
-		?FreshRSS_ConfigurationSetter $configuration_setter = null): FreshRSS_UserConfiguration {
-		parent::register('user', $config_filename, $default_filename, $configuration_setter);
+	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
+		parent::register('user', $config_filename, $default_filename);
 		return parent::get('user');
 	}
 }

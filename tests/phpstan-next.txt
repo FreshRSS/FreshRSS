@@ -12,7 +12,6 @@
 ./app/Models/Auth.php
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
-./app/Models/ConfigurationSetter.php
 ./app/Models/Entry.php
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
@@ -36,7 +35,6 @@
 ./lib/core-extensions/Tumblr-GDPR/extension.php
 ./lib/http-conditional.php
 ./lib/Minz/ActionController.php
-./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
 ./lib/Minz/Extension.php
 ./lib/Minz/ExtensionManager.php
