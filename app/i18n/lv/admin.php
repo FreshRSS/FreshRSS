@@ -139,7 +139,7 @@ return array(
 		'entry_per_day_of_week' => 'Katrā nedēļas dienā (vidēji: %.2f ziņojumu)',
 		'entry_per_hour' => 'Katrā stundā (vidēji: %.2f ziņojumu)',
 		'entry_per_month' => 'Katrā mēnesī (vidēji: %.2f ziņojumu)',
-		'entry_repartition' => 'Entries repartition',
+		'entry_repartition' => 'Entries repartition',	// TODO
 		'feed' => 'Barotne',
 		'feed_per_category' => 'Barotnes pa kategorijām',
 		'idle' => 'Neaktīvās barotnes',
@@ -184,9 +184,9 @@ return array(
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
 		'tos' => array(
-			'disabled' => 'nav dots',	// TODO
-			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',	// TODO
-			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',	// TODO
+			'disabled' => 'nav dots',
+			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
+			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
 		),
 	),
 	'update' => array(

@@ -87,7 +87,6 @@ return array(
 			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP instalācija',
 			'nok' => 'Jūsu PHP versija ir %s, bet FreshRSS nepieciešama vismaz %s versija.',
 			'ok' => 'Jūsu PHP versija (%s) ir saderīga ar FreshRSS.',
 		),
@@ -96,7 +95,7 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar pagaidu mapes atļaujām viss ir kārtībā.',
 		),
-		'unknown_process_username' => 'unknown',
+		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',

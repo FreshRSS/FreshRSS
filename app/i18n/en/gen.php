@@ -150,6 +150,7 @@ return array(
 		'it' => 'Italiano',
 		'ja' => '日本語',
 		'ko' => '한국어',
+		'lv' => 'Latviešu',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',

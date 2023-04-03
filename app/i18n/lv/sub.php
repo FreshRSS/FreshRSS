@@ -13,7 +13,7 @@
 return array(
 	'api' => array(
 		'documentation' => 'Lai to izmantotu ārējā rīkā, nokopējiet šo URL adresi.',
-		'title' => 'API',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
 		'documentation' => 'Velciet šo pogu uz grāmatzīmju rīkjoslu vai noklikšķiniet uz tās ar peles labo pogu un izvēlieties "Atzīmēt šo saiti". Pēc tam noklikšķiniet uz pogas "Abonēt" jebkurā lapā, kuru vēlaties abonēt.',
@@ -30,7 +30,7 @@ return array(
 		),
 		'empty' => 'Tukša kategorija',
 		'information' => 'Informācija',
-		'opml_url' => 'OPML URL',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Displeja pozīcija',
 		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
 		'title' => 'Tituls',
@@ -89,14 +89,14 @@ return array(
 					'_' => 'raksta autors',
 					'help' => 'Var arī būt teksts. Piemērs: <code>"Anonīms"</code>',
 				),
-				'item_categories' => 'item tags',
+				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'raksta saturs',
 					'help' => 'Piemērs, lai ņemtu pilnu rakstu: <code>.</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => 'raksta sīktēls',
-					'help' => 'Example: <code>descendant::img/@src</code>',
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pielāgotais datuma/laika formāts',

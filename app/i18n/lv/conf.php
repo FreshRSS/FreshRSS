@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Ekrāns',
 		'darkMode' => array(
-			'_' => 'Automātiskais tumšais režīms (beta versija)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'Nē',	// TODO
+			'_' => 'Automātiskais tumšais režīms (beta versija)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Nē',
 		),
 		'icon' => array(
 			'bottom_line' => 'Apakšējā līnija',
@@ -130,7 +130,7 @@ return array(
 		'get_feed' => 'Rādīt barotni “%s”',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
-		'number' => 'Pieprasījums n°%d', // DIRTY: What does n° mean?
+		'number' => 'Pieprasījums n°%d',	// DIRTY
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
@@ -240,21 +240,21 @@ return array(
 	'sharing' => array(
 		'_' => 'Dalīšanās',
 		'add' => 'Pievienojat dalīšanās metodi',
-		'blogotext' => 'Blogotext',
+		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Šis pakalpojums ir novecojis un tiks noņemts no FreshRSS kādā <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Atvērt dokumentāciju, lai iegūtu vairāk informācijas" target="_blank">nākamajā versijā</a>.',
-		'diaspora' => 'Diaspora*',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-pasts',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Vairāk informācija',
 		'print' => 'Drukāt',
-		'raindrop' => 'Raindrop.io',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Noņemt dalīšanās metodi',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Rādāmā dalīšanās nosaukums',
 		'share_url' => 'Dalīšanās URL, ko izmantot',
 		'title' => 'Dalīšanās',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Saīsnes',
