@@ -130,7 +130,7 @@ return array(
 		'get_feed' => 'Rādīt barotni “%s”',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
-		'number' => 'Pieprasījums nr. %d',	// DIRTY
+		'number' => 'Pieprasījums nr. %d',
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
