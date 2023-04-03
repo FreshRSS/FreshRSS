@@ -119,7 +119,7 @@ return array(
 		'wed' => 'T',
 		'yesterday' => 'Vakar',
 	),
-	'dir' => 'ltr',	// TODO
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'Par FreshRSS',
