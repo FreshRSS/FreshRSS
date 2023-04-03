@@ -23,6 +23,7 @@ extend-exclude = [
 	"app/i18n/it/",
 	"app/i18n/ja/",
 	"app/i18n/ko/",
+	"app/i18n/lv/",
 	"app/i18n/nl/",
 	"app/i18n/oc/",
 	"app/i18n/pl/",
