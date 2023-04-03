@@ -125,7 +125,7 @@ return array(
 		'about' => 'Par FreshRSS',
 	),
 	'js' => array(
-		'category_empty' => 'Iztukšot kategoriju',	// DIRTY
+		'category_empty' => 'Tukša kategorija',	// DIRTY
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
 		'feedback' => array(
