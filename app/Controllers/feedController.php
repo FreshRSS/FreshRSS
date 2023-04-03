@@ -48,7 +48,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		/** @var string|null $url */
 		$urlHooked = Minz_ExtensionManager::callHook('check_url_before_add', $url);
-		if ($urlHooked === $url) {
+		if ($urlHooked === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
 		$url = $urlHooked;
