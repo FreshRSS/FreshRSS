@@ -89,7 +89,7 @@ function getLongOptions(array $options, string $regex): array {
  * @param array<string> $input
  * @param array<string> $params
  */
-function validateOptions(array $input, $params): bool {
+function validateOptions(array $input, array $params): bool {
 	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
 	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
 	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
