@@ -6,7 +6,7 @@
  * @property array<string|array<int,string>> $db
  * @property-read string $disable_update
  * @property-read string $environment
- * @property-read array<string> $extensions_enabled
+ * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
  * @property-read array<string|int|bool> $smtp
  * @property string $title

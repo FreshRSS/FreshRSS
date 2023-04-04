@@ -9,7 +9,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			// Token is useful in the case that anonymous refresh is forbidden
 			// and CRON task cannot be used with php command so the user can

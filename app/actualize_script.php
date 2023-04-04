@@ -18,6 +18,9 @@ $_SERVER['HTTP_HOST'] = '';
 $app = new FreshRSS();
 
 FreshRSS_Context::initSystem();
+if (FreshRSS_Context::$system_conf === null) {
+	throw new FreshRSS_Context_Exception('System configuration not initialised!');
+}
 FreshRSS_Context::$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 
@@ -53,11 +56,6 @@ fclose($handle);
 
 register_shutdown_function(function () use ($mutexFile) {
 	unlink($mutexFile);
-});
-
-Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
-	touch($mutexFile);
-	return $feed;
 });
 // </Mutex>
 
@@ -99,11 +97,17 @@ foreach ($users as $user) {
 
 	FreshRSS_Auth::giveAccess();
 
-	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
-
+	// NB: Extensions and hooks are reinitialised there
 	$app->init();
+
+	Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+		touch($mutexFile);
+		return $feed;
+	});
+
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
+	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
 	$app->run();
 
 	if (!invalidateHttpCache()) {

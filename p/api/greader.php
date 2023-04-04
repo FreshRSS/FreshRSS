@@ -1013,7 +1013,7 @@ final class GReaderAPI {
 		if (FreshRSS_Context::$user_conf != null) {
 			Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 			Minz_ExtensionManager::init();
-			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled);
+			Minz_ExtensionManager::enableByList(FreshRSS_Context::$user_conf->extensions_enabled, 'user');
 		} else {
 			Minz_Translate::init();
 		}

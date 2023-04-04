@@ -36,7 +36,7 @@ class Minz_Request {
 	 * @param bool $specialchars special characters
 	 * @return mixed value of the parameter
 	 */
-	public static function param($key, $default = false, $specialchars = false) {
+	public static function param(string $key, $default = false, bool $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_object($p) || $specialchars) {
@@ -48,12 +48,13 @@ class Minz_Request {
 			return $default;
 		}
 	}
-	public static function paramTernary($key) {
+
+	/** @return bool|null */
+	public static function paramTernary(string $key) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
-			$tp = trim($p);
-			// @phpstan-ignore-next-line
-			if ($p === null || $tp === '' || $tp === 'null') {
+			$tp = is_string($p) ? trim($p) : true;
+			if ($tp === '' || $tp === 'null') {
 				return null;
 			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
 				return false;
@@ -62,12 +63,27 @@ class Minz_Request {
 		}
 		return null;
 	}
-	public static function paramBoolean($key) {
+
+	public static function paramBoolean(string $key): bool {
 		if (null === $value = self::paramTernary($key)) {
 			return false;
 		}
 		return $value;
 	}
+
+	public static function paramString(string $key): string {
+		if (isset(self::$params[$key])) {
+			$s = self::$params[$key];
+			if (is_string($s)) {
+				return trim($s);
+			}
+			if (is_int($s) || is_bool($s)) {
+				return (string)$s;
+			}
+		}
+		return '';
+	}
+
 	/**
 	 * Extract text lines to array.
 	 *

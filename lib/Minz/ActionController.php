@@ -90,7 +90,7 @@ class Minz_ActionController {
 	 * firstAction est la première méthode exécutée par le Dispatcher
 	 * lastAction est la dernière
 	 */
-	public function init () { }
-	public function firstAction () { }
-	public function lastAction () { }
+	public function init(): void { }
+	public function firstAction(): void { }
+	public function lastAction(): void { }
 }
