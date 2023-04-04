@@ -6,7 +6,7 @@
  * @property array<string|array<int,string>> $db
  * @property-read string $disable_update
  * @property-read string $environment
- * @property-read array<string> $extensions_enabled
+ * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
  * @property-read array<string|int|bool> $smtp
  * @property string $title
@@ -90,24 +90,6 @@ class Minz_Configuration {
 	 * An object which help to set good values in configuration.
 	 */
 	private $configuration_setter = null;
-
-	/**
-	 * List of enabled extensions.
-	 */
-	private $extensions_enabled = [];
-
-	public function removeExtension($ext_name) {
-		unset($this->extensions_enabled[$ext_name]);
-		$legacyKey = array_search($ext_name, $this->extensions_enabled, true);
-		if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-			unset($this->extensions_enabled[$legacyKey]);
-		}
-	}
-	public function addExtension($ext_name) {
-		if (!isset($this->extensions_enabled[$ext_name])) {
-			$this->extensions_enabled[$ext_name] = true;
-		}
-	}
 
 	/**
 	 * Create a new Minz_Configuration object.

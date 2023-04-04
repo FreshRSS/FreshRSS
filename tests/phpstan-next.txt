@@ -4,7 +4,6 @@
 # Can be regenerated with something like:
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/Controllers/extensionController.php
 ./app/Controllers/feedController.php
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
@@ -32,14 +31,10 @@
 ./cli/i18n/I18nFile.php
 ./cli/i18n/I18nValue.php
 ./cli/manipulate.translation.php
-./lib/core-extensions/Google-Groups/extension.php
-./lib/core-extensions/Tumblr-GDPR/extension.php
 ./lib/http-conditional.php
 ./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
-./lib/Minz/Extension.php
-./lib/Minz/ExtensionManager.php
 ./lib/Minz/FrontController.php
 ./lib/Minz/Log.php
 ./lib/Minz/Migrator.php
