@@ -24,13 +24,9 @@
 ./app/Models/View.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
-./cli/_cli.php
-./cli/_update-or-create-user.php
-./cli/check.translation.php
 ./cli/i18n/I18nData.php
 ./cli/i18n/I18nFile.php
 ./cli/i18n/I18nValue.php
-./cli/manipulate.translation.php
 ./lib/http-conditional.php
 ./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
