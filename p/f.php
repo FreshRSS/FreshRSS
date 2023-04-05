@@ -32,6 +32,10 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 
 	// no ico file or we should download a new one.
 	$url = file_get_contents($txt);
+	if ($url === false) {
+		show_default_favicon(1800);
+		exit();
+	}
 	if (!download_favicon($url, $ico)) {
 		// Download failed
 		if ($ico_mtime == false) {
