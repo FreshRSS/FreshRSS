@@ -24,6 +24,8 @@
  * It is generally invoqued by an index.php file at the root.
  */
 class Minz_FrontController {
+
+	/** @var Minz_Dispatcher */
 	protected $dispatcher;
 
 	/**
@@ -53,7 +55,7 @@ class Minz_FrontController {
 	/**
 	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
 	 */
-	public function run() {
+	public function run(): void {
 		try {
 			$this->dispatcher->run();
 		} catch (Minz_Exception $e) {
@@ -80,8 +82,9 @@ class Minz_FrontController {
 
 	/**
 	 * Kills the programme
+	 * @return never
 	 */
-	public static function killApp($txt = '') {
+	public static function killApp(string $txt = '') {
 		header('HTTP 1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function
@@ -90,7 +93,7 @@ class Minz_FrontController {
 		die('### Application problem ###<br />' . "\n" . $txt);
 	}
 
-	private function setReporting() {
+	private function setReporting(): void {
 		$envType = getenv('FRESHRSS_ENV');
 		if ($envType == '') {
 			$conf = Minz_Configuration::get('system');

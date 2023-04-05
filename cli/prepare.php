@@ -39,4 +39,4 @@ file_put_contents(DATA_PATH . '/.htaccess',
 
 accessRights();
 
-done($ok);
+done((bool)$ok);

@@ -9,7 +9,7 @@ require_once __DIR__ . '/../constants.php';
 $options = getopt("a:hk:l:o:rv:");
 
 if (array_key_exists('h', $options)) {
-	help();
+	manipulateHelp();
 }
 
 if (!array_key_exists('a', $options)) {
@@ -76,7 +76,7 @@ switch ($options['a']) {
 		}
 		break;
 	default :
-		help();
+		manipulateHelp();
 		exit;
 }
 
@@ -85,19 +85,19 @@ $data->dump($i18nData->getData());
 /**
  * Output error message.
  */
-function error($message) {
+function error(string $message): void {
 	$error = <<<ERROR
 WARNING
 	%s\n\n
 ERROR;
 	echo sprintf($error, $message);
-	help();
+	manipulateHelp();
 }
 
 /**
  * Output help message.
  */
-function help() {
+function manipulateHelp(): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 	echo <<<HELP
 NAME

@@ -12,8 +12,11 @@ function isImgMime(string $content): bool {
 	}
 	$isImage = true;
 	try {
+		/** @var finfo $fInfo */
 		$fInfo = finfo_open(FILEINFO_MIME_TYPE);
-		$isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
+		/** @var string $content */
+		$content = finfo_buffer($fInfo, $content);
+		$isImage = strpos($content, 'image') !== false;
 		finfo_close($fInfo);
 	} catch (Exception $e) {
 		echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -28,6 +31,7 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 	if (!$url) {
 		return '';
 	}
+	/** @var CurlHandle $ch */
 	$ch = curl_init($url);
 	curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
@@ -38,6 +42,7 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
 	curl_setopt_array($ch, $curlOptions);
+	/** @var string $response */
 	$response = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	curl_close($ch);
