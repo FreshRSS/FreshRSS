@@ -162,7 +162,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				// All is good, go back to the original request or the index.
 				$url = Minz_Url::unserialize(Minz_Request::param('original_request'));
-				if ($url === null) {
+				if (empty($url)) {
 					$url = [ 'c' => 'index', 'a' => 'index' ];
 				}
 				Minz_Request::good(_t('feedback.auth.login.success'), $url);
