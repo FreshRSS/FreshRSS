@@ -15,7 +15,7 @@ class Minz_Url {
 	 * @param bool|string $absolute
 	 * @return string Formatted URL
 	 */
-	public static function display ($url = array (), $encoding = 'html', $absolute = false) {
+	public static function display($url = [], string $encoding = 'html', $absolute = false): string {
 		$isArray = is_array($url);
 
 		if ($isArray) {
@@ -60,7 +60,7 @@ class Minz_Url {
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri($url, $encodage) {
+	private static function printUri($url, string $encodage): string {
 		$uri = '';
 		$separator = '?';
 		$anchor = '';
@@ -129,7 +129,8 @@ class Minz_Url {
 		return $url_checked;
 	}
 
-	public static function serialize($url = []) {
+	/** @param array<string,string|array<string,string>> $url */
+	public static function serialize(array $url = []): string {
 		try {
 			return base64_encode(json_encode($url, JSON_THROW_ON_ERROR));
 		} catch (\Throwable $exception) {
@@ -137,19 +138,20 @@ class Minz_Url {
 		}
 	}
 
-	public static function unserialize($url = '') {
+	/** @return array<string,string|array<string,string>> */
+	public static function unserialize(string $url = ''): array {
 		try {
-			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR);
+			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR) ?? [];
 		} catch (\Throwable $exception) {
-			return '';
+			return [];
 		}
 	}
 
 	/**
 	 * Returns an array representing the URL as passed in the address bar
-	 * @return array URL representation
+	 * @return array<string,string|array<string,string>> URL representation
 	 */
-	public static function build () {
+	public static function build(): array {
 		$url = [
 			'c' => $_GET['c'] ?? Minz_Request::defaultControllerName(),
 			'a' => $_GET['a'] ?? Minz_Request::defaultActionName(),
@@ -170,7 +172,7 @@ class Minz_Url {
  * @param string|int ...$args
  * @return string|false
  */
-function _url ($controller, $action, ...$args) {
+function _url(string $controller, string $action, ...$args) {
 	$nb_args = count($args);
 
 	if ($nb_args % 2 !== 0) {
