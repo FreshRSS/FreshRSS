@@ -324,7 +324,7 @@ class Minz_View {
 	 * @param bool $async Use `async` flag
 	 * @param string $id Add a script `id` attribute
 	 */
-	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true,string $id = ''): void {
+	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
 		self::$scripts[] = array (
 			'url' => $url,
 			'defer' => $defer,
