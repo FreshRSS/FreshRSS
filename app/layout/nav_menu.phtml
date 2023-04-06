@@ -44,18 +44,18 @@
 							<input type="hidden" name="a" value="<?= $param_a ?>" />
 							<?php } ?>
 
-							<?php $get = Minz_Request::param('get', ''); ?>
-							<?php if ($get != '') { ?>
+							<?php $get = Minz_Request::paramString('get'); ?>
+							<?php if ($get !== '') { ?>
 							<input type="hidden" name="get" value="<?= $get ?>" />
 							<?php } ?>
 
-							<?php $order = Minz_Request::param('order', ''); ?>
-							<?php if ($order != '') { ?>
+							<?php $order = Minz_Request::paramString('order'); ?>
+							<?php if ($order !== '') { ?>
 							<input type="hidden" name="order" value="<?= $order ?>" />
 							<?php } ?>
 
-							<?php $state = Minz_Request::param('state', ''); ?>
-							<?php if ($state != '') { ?>
+							<?php $state = Minz_Request::paramString('state'); ?>
+							<?php if ($state !== '') { ?>
 							<input type="hidden" name="state" value="<?= $state ?>" />
 							<?php } ?>
 

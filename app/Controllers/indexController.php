@@ -26,10 +26,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
-		$id = Minz_Request::param('id');
-		if ($id) {
-			$view = Minz_Request::param('a');
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => $view));
+		$id = Minz_Request::paramInt('id');
+		if ($id !== 0) {
+			$view = Minz_Request::paramString('a');
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => $view));
 			Minz_Request::forward($url_redirect, true);
 			return;
 		}
@@ -144,7 +144,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
@@ -177,7 +177,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
@@ -316,7 +316,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
-		$page = intval(Minz_Request::param('page', 1));
+		$page = Minz_Request::paramInt('page') ?: 1;
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);

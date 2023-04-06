@@ -324,7 +324,7 @@ SQL;
 		}
 	}
 
-	public function tagEntry($id_tag, $id_entry, $checked = true) {
+	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true) {
 		if ($checked) {
 			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
 		} else {
@@ -342,7 +342,7 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntry($id_entry) {
+	public function getTagsForEntry(int $id_entry) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '

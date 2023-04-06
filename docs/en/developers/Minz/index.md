@@ -67,7 +67,7 @@ Code example:
 <?php
 
 $default_value = 'foo';
-$param = Minz_Request::param('bar', $default_value);
+$param = Minz_Request::paramString('bar') ?: $default_value;
 
 // Display the value of the parameter `bar` (passed via GET or POST)
 // or "foo" if the parameter does not exist.
@@ -78,7 +78,7 @@ Minz_Request::_param('bar', 'baz');
 
 // Will necessarily display "baz" since we have just forced its value.
 // Note that the second parameter (default) is optional.
-echo Minz_Request::param('bar');
+echo Minz_Request::paramString('bar');
 
 ?>
 ```

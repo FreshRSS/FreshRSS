@@ -30,7 +30,6 @@
 ./lib/Minz/Log.php
 ./lib/Minz/Migrator.php
 ./lib/Minz/Paginator.php
-./lib/Minz/Request.php
 ./lib/Minz/Session.php
 ./lib/Minz/Translate.php
 ./lib/Minz/View.php

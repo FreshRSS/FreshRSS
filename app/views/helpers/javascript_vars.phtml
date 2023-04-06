@@ -8,7 +8,7 @@ echo htmlspecialchars(json_encode(array(
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
 		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
 		'hide_posts' => !(FreshRSS_Context::$user_conf->display_posts || Minz_Request::actionName() === 'reader'),
-		'display_order' => Minz_Request::param('order', FreshRSS_Context::$user_conf->sort_order),
+		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::$user_conf->sort_order,
 		'display_categories' => FreshRSS_Context::$user_conf->display_categories,
 		'auto_mark_article' => !!$mark['article'],
 		'auto_mark_site' => !!$mark['site'],

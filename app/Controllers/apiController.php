@@ -47,8 +47,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward($return_url, true);
 		}
 
-		$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
-		$apiPasswordPlain = trim($apiPasswordPlain);
+		$apiPasswordPlain = Minz_Request::paramString('apiPasswordPlain', true);
 		if ($apiPasswordPlain == '') {
 			Minz_Request::forward($return_url, true);
 		}
