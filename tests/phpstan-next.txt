@@ -5,10 +5,8 @@
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
 ./app/Controllers/feedController.php
-./app/Controllers/updateController.php
 ./app/Controllers/userController.php
 ./app/install.php
-./app/Models/Auth.php
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
 ./app/Models/ConfigurationSetter.php
@@ -16,7 +14,6 @@
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
 ./app/Models/FilterAction.php
-./app/Models/FormAuth.php
 ./app/Models/Search.php
 ./app/Models/Share.php
 ./app/Models/TagDAO.php
@@ -28,16 +25,12 @@
 ./cli/i18n/I18nFile.php
 ./cli/i18n/I18nValue.php
 ./lib/http-conditional.php
-./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
-./lib/Minz/FrontController.php
 ./lib/Minz/Log.php
 ./lib/Minz/Migrator.php
-./lib/Minz/ModelArray.php
 ./lib/Minz/Paginator.php
 ./lib/Minz/Request.php
 ./lib/Minz/Session.php
 ./lib/Minz/Translate.php
-./lib/Minz/Url.php
 ./lib/Minz/View.php
