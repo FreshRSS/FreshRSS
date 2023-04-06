@@ -339,7 +339,10 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntry(int $id_entry) {
+	/**
+	 * @return array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}>|false
+	 */
+	public function getTagsForEntry(string $id_entry) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
