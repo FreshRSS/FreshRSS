@@ -49,7 +49,8 @@
 			<div class="group-controls">
 				<ul class="slides">
 					<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
-					<?php foreach($this->themes as $theme) { ?>
+					<?php  /** @var array{'id':string, 'deprecated':bool, 'author':string, 'name':string, 'description':string} $theme */
+						foreach($this->themes as $theme) { ?>
 						<?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {
 							$checked = 'checked="checked"';
 							$themeAvailable = true;

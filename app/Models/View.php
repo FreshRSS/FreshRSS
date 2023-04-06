@@ -77,11 +77,11 @@ class FreshRSS_View extends Minz_View {
 	public $size_user;
 
 	// Display
-	/** @var array */
+	/** @var array<string> */
 	public $themes;
 
 	// Shortcuts
-	/** @var array<string> */
+	/** @var array<int, string> */
 	public $list_keys;
 
 	// User queries
