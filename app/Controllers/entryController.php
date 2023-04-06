@@ -59,8 +59,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$state = 0;
 		}
 
-		$params = array();
-		$this->view->tags = array();
+		$params = [];
+		$this->view->tagsForEntries = [];
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
@@ -112,7 +112,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
 			}
-			$this->view->tags = $tags;
+			$this->view->tagsForEntries = $tags;
 		}
 
 		if (!$this->ajax) {

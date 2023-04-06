@@ -25,8 +25,12 @@ class FreshRSS_View extends Minz_View {
 	public $feeds;
 	/** @var int */
 	public $nbUnreadTags;
-	/** @var array<string, array<int, mixed>>|array<FreshRSS_Tag> */
+	/** @var array<FreshRSS_Tag> */
 	public $tags;
+	/** @var array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}> */
+	public $tagsForEntry;
+	/** @var array<string,array<string>> */
+	public $tagsForEntries;
 	/** @var array<string,string> */
 	public $notification;
 	/** @var bool */
@@ -35,17 +39,17 @@ class FreshRSS_View extends Minz_View {
 	// Substriptions
 	/** @var FreshRSS_Category|null */
 	public $default_category;
-	/** @var string|bool */
+	/** @var bool */
 	public $displaySlider;
 	/** @var bool */
 	public $load_ok;
-	/** @var bool|null */
+	/** @var bool */
 	public $onlyFeedsWithError;
 	/** @var bool */
 	public $signalError;
 
 	// Manage users
-	/** @var array<string|float|int> */
+	/** @var array<string,string|int|bool> */
 	public $details;
 	/** @var bool */
 	public $disable_aside;
@@ -93,7 +97,7 @@ class FreshRSS_View extends Minz_View {
 	// Export / Import
 	/** @var string */
 	public $content;
-	/** @var array<string> */
+	/** @var array<string,array<string>> */
 	public $entryIdsTagNames;
 	/** @var string */
 	public $list_title;
@@ -103,7 +107,7 @@ class FreshRSS_View extends Minz_View {
 	public $type;
 
 	// Form login
-	/** @var float */
+	/** @var int */
 	public $cookie_days;
 	/** @var string */
 	public $nonce;
@@ -181,15 +185,15 @@ class FreshRSS_View extends Minz_View {
 	public $averageMonth;
 	/** @var array<string> */
 	public $days;
-	/** @var array<string, array<int, int|string>> */
+	/** @var array<string,array<int,int|string>> */
 	public $entryByCategory;
 	/** @var array<int,int> */
 	public $entryCount;
-	/** @var array<string, array<int, int|string>> */
+	/** @var array<string,array<int,int|string>> */
 	public $feedByCategory;
 	/** @var array<int, string> */
 	public $hours24Labels;
-	/** @var array<string, array<int, array<string, int|string>>> */
+	/** @var array<string,array<int,array<string,int|string>>> */
 	public $idleFeeds;
 	/** @var array<int,string> */
 	public $last30DaysLabel;
@@ -197,15 +201,15 @@ class FreshRSS_View extends Minz_View {
 	public $last30DaysLabels;
 	/** @var array<string,string> */
 	public $months;
-	/** @var array<string, array<string, int>>|array<string, int> */
+	/** @var array<string,array<string,int>>|array<string,int> */
 	public $repartition;
 	/** @var array<int,int> */
 	public $repartitionDayOfWeek;
-	/** @var array<string, int>|array<int, int> */
+	/** @var array<string,int>|array<int,int> */
 	public $repartitionHour;
 	/** @var array<int,int> */
 	public $repartitionMonth;
-	/** @var array<array<string, int|string>> */
+	/** @var array<array<string,int|string>> */
 	public $topFeed;
 
 }

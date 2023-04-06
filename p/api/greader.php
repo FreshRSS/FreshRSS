@@ -558,9 +558,6 @@ final class GReaderAPI {
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
-		if ($entryIdsTagNames == false) {
-			$entryIdsTagNames = array();
-		}
 
 		$items = array();
 		foreach ($entries as $item) {
