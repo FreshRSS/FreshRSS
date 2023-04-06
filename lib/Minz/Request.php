@@ -352,8 +352,8 @@ class Minz_Request {
 		self::setNotification('bad', $content);
 	}
 
-	/** @return array<string,string> */
-	public static function getNotification(): array {
+	/** @return array<string,string>|null */
+	public static function getNotification(): ?array {
 		$notif = null;
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
