@@ -12,7 +12,7 @@
  * @property bool $bottomline_sharing
  * @property bool $bottomline_tags
  * @property string $content_width
- * @property-read string $default_state
+ * @property-read int $default_state
  * @property string $default_view
  * @property string|bool $display_categories
  * @property string $show_tags
@@ -47,7 +47,7 @@
  * @property bool $icons_as_emojis
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
- * @property string $sort_order
+ * @property 'ASC'|'DESC' $sort_order
  * @property array<string,array<string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article

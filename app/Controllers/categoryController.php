@@ -42,8 +42,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$cat_name = trim(Minz_Request::param('new-category', ''));
-			if ($cat_name == '') {
+			$cat_name = Minz_Request::paramString('new-category');
+			if ($cat_name === '') {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
 
@@ -57,7 +57,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
-			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
+			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attributes('opml_url', $opml_url);
@@ -91,8 +91,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$id = Minz_Request::param('id');
-			$name = Minz_Request::param('name', '');
+			$id = Minz_Request::paramInt('id');
+			$name = Minz_Request::paramString('name');
 			if (strlen($name) <= 0) {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
@@ -132,8 +132,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$id = Minz_Request::param('id');
-			if (!$id) {
+			$id = Minz_Request::paramInt('id');
+			if ($id === 0) {
 				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
 			}
 
@@ -175,15 +175,12 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$id = Minz_Request::param('id');
-			if (!$id) {
+			$id = Minz_Request::paramInt('id');
+			if ($id === 0) {
 				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
 			}
 
-			$muted = Minz_Request::param('muted', null);
-			if ($muted !== null) {
-				$muted = (bool)$muted;
-			}
+			$muted = Minz_Request::paramTernary('muted');
 
 			// List feeds to remove then related user queries.
 			$feeds = $feedDAO->listByCategory($id, $muted);
@@ -218,8 +215,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 
-			$id = Minz_Request::param('id');
-			if (!$id) {
+			$id = Minz_Request::paramInt('id');
+			if ($id === 0) {
 				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
 			}
 
@@ -232,7 +229,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			$ok = $category->refreshDynamicOpml();
 
-			if (Minz_Request::param('ajax')) {
+			if (Minz_Request::paramBoolean('ajax')) {
 				Minz_Request::setGoodNotification(_t('feedback.sub.category.updated'));
 				$this->view->_layout(false);
 			} else {

@@ -169,9 +169,9 @@ class FreshRSS_Auth {
 		]);
 
 		$username = '';
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		if ($token_param != '') {
-			$username = trim(Minz_Request::param('user', ''));
+			$username = Minz_Request::paramString('user');
 			if ($username != '') {
 				$conf = get_user_configuration($username);
 				if ($conf == null) {

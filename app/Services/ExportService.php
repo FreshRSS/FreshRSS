@@ -97,7 +97,7 @@ class FreshRSS_Export_Service {
 	 * @return array|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
-	public function generateFeedEntries($feed_id, $max_number_entries) {
+	public function generateFeedEntries(int $feed_id, int $max_number_entries) {
 		$feed = $this->feed_dao->searchById($feed_id);
 		if (!$feed) {
 			return null;
