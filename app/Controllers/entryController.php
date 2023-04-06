@@ -135,7 +135,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 */
 	public function bookmarkAction(): void {
 		$id = Minz_Request::paramString('id');
-		$is_favourite = Minz_Request::paramTernary('is_favorite') ?: null;
+		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
 		if ($id != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite($id, $is_favourite);
