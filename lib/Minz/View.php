@@ -11,6 +11,7 @@ class Minz_View {
 	private const VIEWS_PATH_NAME = '/views';
 	private const LAYOUT_PATH_NAME = '/layout/';
 	private const LAYOUT_DEFAULT = 'layout';
+
 	/** @var string */
 	private $view_filename = '';
 	/** @var string */
@@ -19,14 +20,14 @@ class Minz_View {
 	private static $base_pathnames = array(APP_PATH);
 	/** @var string */
 	private static $title = '';
-	/** @var array<array<string, string>|string> */
-	private static $styles = array();
-	/** @var array<array<string, bool|string>|string> */
-	private static $scripts = array();
-	/** @var string|array<string> */
+	/** @var array<array{'media':string,'url':string}> */
+	private static $styles = [];
+	/** @var array<array{'url':string,'id':string,'defer':string,'async':string}> */
+	private static $scripts = [];
+	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
 	private static $themeColors;
-	/** @var array<string> */
-	private static $params = array();
+	/** @var array<string,mixed> */
+	private static $params = [];
 
 	/**
 	 * Determines if a layout is used or not
@@ -117,13 +118,10 @@ class Minz_View {
 		}
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function renderToString() {
+	public function renderToString(): string {
 		ob_start();
 		$this->render();
-		return ob_get_clean();
+		return ob_get_clean() ?: '';
 	}
 
 	/**
@@ -151,12 +149,11 @@ class Minz_View {
 	/**
 	 * Returns renderHelper() in a string
 	 * @param string $helper the element to be treated
-	 * @return false|string
 	 */
-	public function helperToString(string $helper) {
+	public function helperToString(string $helper): string {
 		ob_start();
 		$this->renderHelper($helper);
-		return ob_get_clean();
+		return ob_get_clean() ?: '';
 	}
 
 	/**
@@ -209,12 +206,10 @@ class Minz_View {
 	 */
 	public static function headStyle(): string {
 		$styles = '';
-		/** @var array{'media':string,'url':string} $style */
 		foreach(self::$styles as $style) {
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
-
 			$styles .= "\n";
 		}
 
@@ -246,7 +241,7 @@ class Minz_View {
 	}
 
 	/**
-	 * @param array<string>|string $themeColors
+	 * @param string|array{'dark'?:string,'light'?:string,'default'?:string} $themeColors
 	 */
 	public static function appendThemeColors($themeColors): void {
 		self::$themeColors = $themeColors;
@@ -257,22 +252,19 @@ class Minz_View {
 	 */
 	public static function metaThemeColor(): string {
 		$meta = '';
-
-		if (!empty(self::$themeColors['light'])) {
-			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: light)" content="' . htmlspecialchars(self::$themeColors['light']) . '" />';
-		}
-		if (!empty(self::$themeColors['dark'])) {
-			$meta .= '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="' . htmlspecialchars(self::$themeColors['dark']) . '" />';
-		}
-		if (!empty(self::$themeColors['default'])) {
-			$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors['default']) . '" />';
-		}
-		if (empty(self::$themeColors['default']) && !empty(self::$themeColors) && empty(self::$themeColors['light']) && empty(self::$themeColors['dark'])) {
-			if (is_string(self::$themeColors)) {
-				$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors) . '" />';
+		if (is_array(self::$themeColors)) {
+			if (!empty(self::$themeColors['light'])) {
+				$meta .= '<meta name="theme-color" media="(prefers-color-scheme: light)" content="' . htmlspecialchars(self::$themeColors['light']) . '" />';
 			}
+			if (!empty(self::$themeColors['dark'])) {
+				$meta .= '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="' . htmlspecialchars(self::$themeColors['dark']) . '" />';
+			}
+			if (!empty(self::$themeColors['default'])) {
+				$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors['default']) . '" />';
+			}
+		} elseif (is_string(self::$themeColors)) {
+			$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors) . '" />';
 		}
-
 		return $meta;
 	}
 
@@ -281,7 +273,6 @@ class Minz_View {
 	 */
 	public static function headScript(): string {
 		$scripts = '';
-		/** @var array{'url':string,'id':string, 'defer':string, 'async':string} $script */
 		foreach (self::$scripts as $script) {
 			$scripts .= '<script src="' . $script['url'] . '"';
 			if (!empty($script['id'])) {
