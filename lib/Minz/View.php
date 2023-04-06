@@ -8,9 +8,9 @@
  * The Minz_View represents a view in the MVC paradigm
  */
 class Minz_View {
-	public const VIEWS_PATH_NAME = '/views';
-	public const LAYOUT_PATH_NAME = '/layout/';
-	public const LAYOUT_DEFAULT = 'layout';
+	private const VIEWS_PATH_NAME = '/views';
+	private const LAYOUT_PATH_NAME = '/layout/';
+	private const LAYOUT_DEFAULT = 'layout';
 	/** @var string */
 	private $view_filename = '';
 	/** @var string */
