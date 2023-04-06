@@ -130,7 +130,7 @@ class Minz_View {
 	 * Adds a layout element
 	 * @param string $part the partial element to be added
 	 */
-	public function partial (string $part): void {
+	public function partial(string $part): void {
 		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
 		if (!$this->includeFile($fic_partial)) {
 			Minz_Log::warning('File not found: `' . $fic_partial . '`');
@@ -141,7 +141,7 @@ class Minz_View {
 	 * Displays a graphic element located in APP./views/helpers/
 	 * @param string $helper the element to be displayed
 	 */
-	public function renderHelper (string $helper): void {
+	public function renderHelper(string $helper): void {
 		$fic_helper = '/views/helpers/' . $helper . '.phtml';
 		if (!$this->includeFile($fic_helper)) {
 			Minz_Log::warning('File not found: `' . $fic_helper . '`');
