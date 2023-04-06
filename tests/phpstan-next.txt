@@ -33,4 +33,3 @@
 ./lib/Minz/Request.php
 ./lib/Minz/Session.php
 ./lib/Minz/Translate.php
-./lib/Minz/View.php
