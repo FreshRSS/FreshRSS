@@ -11,7 +11,7 @@ class Minz_View {
 	public const VIEWS_PATH_NAME = '/views';
 	public const LAYOUT_PATH_NAME = '/layout/';
 	public const LAYOUT_DEFAULT = 'layout';
-    /** @var string */
+	/** @var string */
 	private $view_filename = '';
 	/** @var string */
 	private $layout_filename = '';
