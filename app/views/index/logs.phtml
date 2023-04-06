@@ -14,7 +14,7 @@
 	?>
 
 	<?php if (!empty($items)) { ?>
-	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+	<?php $this->logsPaginator->render('logs_pagination.phtml', 0); ?>
 	<div id="loglist-wrapper" class="table-wrapper">
 		<table id="loglist">
 			<thead>
@@ -41,7 +41,7 @@
 		</tbody>
 		</table>
 	</div>
-	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+	<?php $this->logsPaginator->render('logs_pagination.phtml', 0); ?>
 
 
 

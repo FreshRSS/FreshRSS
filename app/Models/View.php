@@ -5,7 +5,7 @@ class FreshRSS_View extends Minz_View {
 	// Main views
 	/** @var callable */
 	public $callbackBeforeEntries;
-	/** @var callable */
+	/** @var callable|null */
 	public $callbackBeforeFeeds;
 	/** @var callable */
 	public $callbackBeforePagination;
@@ -25,7 +25,7 @@ class FreshRSS_View extends Minz_View {
 	public $feeds;
 	/** @var int */
 	public $nbUnreadTags;
-	/** @var array<string, array<int, mixed>> */
+	/** @var array<string, array<int, mixed>>|array<FreshRSS_Tag> */
 	public $tags;
 	/** @var array<string,string> */
 	public $notification;
@@ -45,7 +45,7 @@ class FreshRSS_View extends Minz_View {
 	public $signalError;
 
 	// Manage users
-	/** @var array<string> */
+	/** @var array<string|float|int> */
 	public $details;
 	/** @var bool */
 	public $disable_aside;
@@ -53,7 +53,7 @@ class FreshRSS_View extends Minz_View {
 	public $show_email_field;
 	/** @var string */
 	public $username;
-	/** @var array<string> */
+	/** @var array<array{'last_user_activity':int, 'language':string,'enabled':bool,'is_admin':bool, 'enabled':bool, 'article_count':int, 'database_size':int, 'last_user_activity', 'mail_login':string, 'feed_count':int, 'is_default':bool}>  */
 	public $users;
 
 	// Updates
@@ -77,7 +77,7 @@ class FreshRSS_View extends Minz_View {
 	public $size_user;
 
 	// Display
-	/** @var string */
+	/** @var array */
 	public $themes;
 
 	// Shortcuts
@@ -91,7 +91,7 @@ class FreshRSS_View extends Minz_View {
 	public $query;
 
 	// Export / Import
-	/** @var array<string,array<string,string>> */
+	/** @var string */
 	public $content;
 	/** @var array<string> */
 	public $entryIdsTagNames;
@@ -197,11 +197,11 @@ class FreshRSS_View extends Minz_View {
 	public $last30DaysLabels;
 	/** @var array<string,string> */
 	public $months;
-	/** @var array<string, array<string, int>> */
+	/** @var array<string, array<string, int>>|array<string, int> */
 	public $repartition;
 	/** @var array<int,int> */
 	public $repartitionDayOfWeek;
-	/** @var array<string, int> */
+	/** @var array<string, int>|array<int, int> */
 	public $repartitionHour;
 	/** @var array<int,int> */
 	public $repartitionMonth;
