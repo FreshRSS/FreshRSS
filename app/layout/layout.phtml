@@ -55,7 +55,7 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body class="<?= Minz_Request::actionName() ?><?= (FreshRSS_Context::$user_conf->darkMode === 'no') ? '' : ' darkMode_' . FreshRSS_Context::$user_conf->darkMode ?>">
 <?php
-	if (!Minz_Request::param('ajax')) {
+	if (!Minz_Request::paramBoolean('ajax')) {
 		flush();
 		$this->partial('header');
 	}
