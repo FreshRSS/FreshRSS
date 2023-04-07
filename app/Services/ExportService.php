@@ -75,9 +75,7 @@ class FreshRSS_Export_Service {
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere(
-			$type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1
-		);
+		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1) ?: [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
@@ -99,7 +97,7 @@ class FreshRSS_Export_Service {
 	 * @return array|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
-	public function generateFeedEntries($feed_id, $max_number_entries) {
+	public function generateFeedEntries(int $feed_id, int $max_number_entries) {
 		$feed = $this->feed_dao->searchById($feed_id);
 		if (!$feed) {
 			return null;
@@ -115,7 +113,7 @@ class FreshRSS_Export_Service {
 		$view->type = 'feed/' . $feed->id();
 		$entriesId = $this->entry_dao->listIdsWhere(
 			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $max_number_entries
-		);
+		) ?: [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(

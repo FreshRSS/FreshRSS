@@ -1214,9 +1214,8 @@ SQL;
 	}
 
 	/**
-	 * For API
 	 * @param int $id category/feed/tag ID
-	 * @return array<string>|false
+	 * @return array<numeric-string>|false
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null) {
@@ -1225,7 +1224,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 
-		return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: [];
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
 	/**

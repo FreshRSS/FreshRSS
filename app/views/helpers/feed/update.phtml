@@ -17,12 +17,12 @@
 	<?php } ?>
 
 	<?php
-	$from = Minz_Request::param('from');
-	if ($from === false) {
+	$from = Minz_Request::paramString('from');
+	if ($from === '') {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
 	} else {
-		$get = Minz_Request::param('get');
-		if (!$get) {
+		$get = Minz_Request::paramString('get');
+		if ($get === '') {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
 		} else {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
@@ -132,7 +132,7 @@
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				<?php
-				if ($from === false) {
+				if ($from === '') {
 					$url = _url('feed', 'delete', 'id', $this->feed->id());
 				} else {
 					$url = _url('feed', 'delete', 'id', $this->feed->id(), 'from', $from);

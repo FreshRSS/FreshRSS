@@ -203,12 +203,10 @@ final class FreshRSS_Context {
 			self::$categories, 1
 		);
 
-		self::_get(Minz_Request::param('get', 'a', false));
+		self::_get(Minz_Request::paramString('get') ?: 'a');
 
-		self::$state = Minz_Request::param(
-			'state', self::$user_conf->default_state
-		);
-		$state_forced_by_user = Minz_Request::param('state') !== false;
+		self::$state = Minz_Request::paramInt('state') ?: self::$user_conf->default_state;
+		$state_forced_by_user = Minz_Request::paramString('state') !== '';
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
@@ -219,18 +217,16 @@ final class FreshRSS_Context {
 			}
 		}
 
-		self::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
-		self::$order = Minz_Request::param(
-			'order', self::$user_conf->sort_order
-		);
-		self::$number = (int)Minz_Request::param('nb', self::$user_conf->posts_per_page);
+		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		self::$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		self::$number = Minz_Request::paramInt('nb') ?: self::$user_conf->posts_per_page;
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
 				self::$user_conf->max_posts_per_rss,
 				self::$user_conf->posts_per_page);
 		}
-		self::$first_id = Minz_Request::param('next', '');
-		self::$sinceHours = (int)Minz_Request::param('hours', 0);
+		self::$first_id = Minz_Request::paramString('next');
+		self::$sinceHours = Minz_Request::paramInt('hours');
 	}
 
 	/**
