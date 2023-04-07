@@ -374,12 +374,12 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url l'url vers laquelle est relancée la requête
+	 * @param string|array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
-	public static function forward(array $url = [], bool $redirect = false): void {
-		if (empty(Minz_Request::originalRequest()) && strpos('auth', json_encode($url)) !== false) {
+	public static function forward($url = [], bool $redirect = false): void {
+		if (empty(Minz_Request::originalRequest())) {
 			self::$originalRequest = $url;
 		}
 

@@ -800,7 +800,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 			default:
 				$redirect_url = Minz_Request::paramString('r', true);
-				if ($redirect_url !== '') {
+				if ($redirect_url == '') {
 					$redirect_url = array('c' => 'subscription', 'a' => 'index');
 				}
 				if (!Minz_Request::isPost()) {
