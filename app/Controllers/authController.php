@@ -111,7 +111,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$limits = FreshRSS_Context::$system_conf->limits;
-		$this->view->cookie_days = round($limits['cookie_duration'] / 86400, 1);
+		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
 
 		$isPOST = Minz_Request::isPost() && !Minz_Session::param('POST_to_GET');
 		Minz_Session::_param('POST_to_GET');

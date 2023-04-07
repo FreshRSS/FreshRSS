@@ -18,7 +18,6 @@
 ./app/Models/Share.php
 ./app/Models/TagDAO.php
 ./app/Models/Themes.php
-./app/Models/View.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
 ./cli/i18n/I18nData.php
@@ -32,4 +31,3 @@
 ./lib/Minz/Paginator.php
 ./lib/Minz/Session.php
 ./lib/Minz/Translate.php
-./lib/Minz/View.php

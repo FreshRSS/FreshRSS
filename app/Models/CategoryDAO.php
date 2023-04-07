@@ -281,7 +281,8 @@ SQL;
 		return $categories;
 	}
 
-	public function listCategories($prePopulateFeeds = true, $details = false) {
+	/** @return array<FreshRSS_Category>|false */
+	public function listCategories(bool $prePopulateFeeds = true, bool $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes, '
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
@@ -435,13 +436,12 @@ SQL;
 		return $n;
 	}
 
-	public static function daoToCategoryPrepopulated($listDAO) {
+	/**
+	 * @param array<string,mixed> $listDAO
+	 * @return array<int,FreshRSS_Category>
+	 */
+	private static function daoToCategoryPrepopulated(array $listDAO) {
 		$list = array();
-
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
 		$previousLine = null;
 		$feedsDao = array();
 		$feedDao = FreshRSS_Factory::createFeedDAO();
@@ -481,7 +481,7 @@ SQL;
 		return $list;
 	}
 
-	public static function daoToCategory($listDAO) {
+	private static function daoToCategory($listDAO) {
 		$list = array();
 
 		if (!is_array($listDAO)) {

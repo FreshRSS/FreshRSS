@@ -21,11 +21,11 @@
  * @property string $show_feed_name
  * @property bool $display_posts
  * @property string $email_validation_token
- * @property-read string $enabled
+ * @property-read bool $enabled
  * @property string $feverKey
  * @property bool $hide_read_feeds
  * @property int $html5_notif_timeout
- * @property-read string $is_admin
+ * @property-read bool $is_admin
  * @property int|null $keep_history_default
  * @property string $language
  * @property string $timezone

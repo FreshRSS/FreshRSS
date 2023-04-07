@@ -629,7 +629,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
 
-	private function retrieveUserDetails($username) {
+	/** @return array<string,int|string|bool> */
+	private function retrieveUserDetails($username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
