@@ -104,9 +104,6 @@ final class FreshRSS_Context {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-			// Register the configuration setter for the system configuration
-			$configurationSetter = new FreshRSS_ConfigurationSetter();
-			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
 		}
 		return FreshRSS_Context::$system_conf;
 	}
@@ -132,8 +129,7 @@ final class FreshRSS_Context {
 				//TODO: Keep in session what we need instead of always reloading from disk
 				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
-					FRESHRSS_PATH . '/config-user.default.php',
-					FreshRSS_Context::$system_conf->configurationSetter());
+					FRESHRSS_PATH . '/config-user.default.php');
 
 				Minz_User::change($username);
 			} catch (Exception $ex) {
