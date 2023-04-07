@@ -38,8 +38,7 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate OPML file content.
-	 *
-	 * @return array<string> First item is the filename, second item is the content
+	 * @return array{0:string,1:string} First item is the filename, second item is the content
 	 */
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
@@ -59,12 +58,12 @@ class FreshRSS_Export_Service {
 	 * Both starred and labelled entries are put into a "starred" file, that’s
 	 * why there is only one method for both.
 	 *
+	 * @phpstan-param 'S'|'T'|'ST' $type
 	 * @param string $type must be one of:
 	 *     'S' (starred/favourite),
 	 *     'T' (taggued/labelled),
 	 *     'ST' (starred or labelled)
-	 *
-	 * @return array<string> First item is the filename, second item is the content
+	 * @return array{0:string,1:string} First item is the filename, second item is the content
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new FreshRSS_View();
@@ -88,11 +87,9 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for the given feed.
-	 *
 	 * @param integer $feed_id
 	 * @param integer $max_number_entries
-	 *
-	 * @return array<string>|null First item is the filename, second item is the content.
+	 * @return array{0:string,1:string}|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
@@ -126,10 +123,8 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for all the feeds.
-	 *
 	 * @param int $max_number_entries
-	 *
-	 * @return array<string, string> Keys are filenames and values are contents.
+	 * @return array<string,string> Keys are filenames and values are contents.
 	 */
 	public function generateAllFeedEntries(int $max_number_entries): array {
 		$feed_ids = $this->feed_dao->listFeedsIds();
@@ -150,10 +145,8 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Compress several files in a Zip file.
-	 *
-	 * @param array<string> $files where first item is the filename, second item is the content
-	 *
-	 * @return array<string|bool> First item is the zip filename, second item is the zip content
+	 * @param array<string,string> $files where the key is the filename, the value is the content
+	 * @return array{0:string,1:string|false} First item is the zip filename, second item is the zip content
 	 */
 	public function zip(array $files): array {
 		$day = date('Y-m-d');

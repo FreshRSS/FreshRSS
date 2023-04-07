@@ -1072,6 +1072,7 @@ SQL;
 	}
 
 	/**
+	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
 	 * @return array{0:array<int|string>,1:string}
 	 */
@@ -1135,6 +1136,7 @@ SQL;
 	}
 
 	/**
+	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
 	 * @return PDOStatement|false
 	 */
@@ -1214,6 +1216,7 @@ SQL;
 	}
 
 	/**
+	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
 	 * @return array<numeric-string>|false
 	 */
