@@ -49,7 +49,8 @@
 			<div class="group-controls">
 				<ul class="slides">
 					<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
-					<?php foreach($this->themes as $theme) { ?>
+					<?php  /** @var array{'id':string, 'deprecated':bool, 'author':string, 'name':string, 'description':string} $theme */
+						foreach($this->themes as $theme) { ?>
 						<?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {
 							$checked = 'checked="checked"';
 							$themeAvailable = true;
@@ -109,8 +110,8 @@
 			<label class="group-name" for="darkMode"><?= _t('conf.display.darkMode') ?></label>
 			<div class="group-controls">
 				<select name="darkMode" id="darkMode" data-leave-validation="<?= FreshRSS_Context::$user_conf->darkMode ?>">
-					<option value="no"<?= FreshRSS_Context::$user_conf->darkMode === 'no' ? ' selected' : '' ?>>No</option>
-					<option value="auto"<?= FreshRSS_Context::$user_conf->darkMode === 'auto' ? ' selected' : '' ?>>Auto</option>
+					<option value="no"<?= FreshRSS_Context::$user_conf->darkMode === 'no' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.no') ?></option>
+					<option value="auto"<?= FreshRSS_Context::$user_conf->darkMode === 'auto' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.auto') ?></option>
 				</select>
 			</div>
 		</div>
@@ -131,6 +132,27 @@
 					</option>
 					<option value="no_limit" <?= $width === 'no_limit' ? 'selected="selected"' : '' ?>>
 						<?= _t('conf.display.width.no_limit') ?>
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<?php $topline_website = FreshRSS_Context::$user_conf->topline_website; ?>
+		<div class="form-group">
+			<label class="group-name" for="topline_website"><?= _t('conf.display.website.label') ?></label>
+			<div class="group-controls">
+				<select name="topline_website" id="topline_website" required="" data-leave-validation="<?= $topline_website ?>">
+					<option value="none" <?= $topline_website === 'none' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.none') ?>
+					</option>
+					<option value="icon" <?= $topline_website === 'icon' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.icon') ?>
+					</option>
+					<option value="name" <?= $topline_website === 'name' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.name') ?>
+					</option>
+					<option value="full" <?= $topline_website === 'full' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.website.full') ?>
 					</option>
 				</select>
 			</div>

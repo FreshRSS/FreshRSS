@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Flux màger',
 		'no_idle' => 'I a pas cap d’article inactiu !',
 		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% del total',
+		'percent_of_total' => '% del total',
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Formulari activat',
 			),
 			'title' => 'Formulari d’inscripcion utilizaire',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

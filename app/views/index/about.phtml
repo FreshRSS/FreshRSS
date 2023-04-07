@@ -5,7 +5,7 @@
 	}
 ?>
 
-<main class="post content">
+<main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -16,7 +16,10 @@
 	<p><?= _t('index.about.freshrss_description') ?></p>
 
 	<h2><?= _t('index.about.project_website') ?></h2>
-	<a href="<?= FRESHRSS_WEBSITE ?>"><?= FRESHRSS_WEBSITE ?></a>
+	<a href="<?= FRESHRSS_WEBSITE ?>" target="_blank"><?= FRESHRSS_WEBSITE ?></a>
+
+	<h2><?= _t('index.about.documentation') ?></h2>
+	<a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= FRESHRSS_WIKI ?></a>
 
 	<h2><?= _t('index.about.bugs_reports') ?></h2>
 	<?= _t('index.about.github') ?>
@@ -24,11 +27,29 @@
 	<h2><?= _t('index.about.license') ?></h2>
 	<?= _t('index.about.agpl3') ?>
 
-	<?php if (FreshRSS_Auth::hasAccess()): ?>
-	<h2><?= _t('index.about.version') ?></h2>
-	<?= FRESHRSS_VERSION ?>
-	<?php endif; ?>
+	<?php
+	if (FreshRSS_Auth::hasAccess()) { ?>
+		<h2><?= _t('index.about.version') ?></h2>
+		<?= FRESHRSS_VERSION ?>
+
+		<?php
+		$env = FreshRSS_Context::$system_conf->environment;
+		if ($env !== 'production' && FreshRSS_Context::$user_conf->is_admin) { ?>
+			<h2>data/config.php</h2>
+			<code>'environment' => '<?= $env; ?>'</code><br />
+			<?php
+		}
+	}
+	?>
 
 	<h2><?= _t('index.about.credits') ?></h2>
 	<p><?= _t('index.about.credits_content') ?></p>
 </main>
+
+<?php if (!FreshRSS_Auth::hasAccess()) { ?>
+<footer class="main-footer">
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>
+<?php } ?>

@@ -86,7 +86,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `0.0.0.0:80`) Modifies the internal Apache listening port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -109,14 +109,15 @@ docker rm freshrss_old
 Building your own Docker image is especially relevant for platforms not available on our Docker Hub,
 which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
 
-```sh
-# First time only
-git clone https://github.com/FreshRSS/FreshRSS.git
+> ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-cd FreshRSS/
-git pull --ff-only --prune
-docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile .
+Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
+
+```sh
+docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
+
+> ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
 
 ## Development mode
 
@@ -256,7 +257,7 @@ sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 
 ## Docker Compose
 
-First, put variables such as passwords in your `.env` file (see [`example.env`](./freshrss/example.env)):
+First, put variables such as passwords in your `.env` file, which can live where your `docker-compose.yml` should be. See [`example.env`](./freshrss/example.env).
 
 ```ini
 ADMIN_EMAIL=admin@example.net
@@ -297,6 +298,11 @@ volumes:
 services:
   freshrss:
     image: freshrss/freshrss:edge
+    # Optional build section if you want to build the image locally:
+    build:
+      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      context: https://github.com/FreshRSS/FreshRSS.git#edge
+      dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
     restart: unless-stopped
     logging:
@@ -380,6 +386,27 @@ docker-compose down --remove-orphans --volumes
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
+
+### Docker Compose and ARM64
+
+If you’re working or want to host on an ARM64 system (such as Apple Silicon (M1/M2)) you’ll need to use the `arm` tag in your `docker-compose.yml` file:
+```yaml
+image: freshrss/freshrss:arm
+```
+
+If you then get this error message when running `docker compose up`:
+
+> The requested image's platform (linux/arm/v7) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+
+… you will also need to specify the platform in the `service` part:
+
+```yaml
+services:
+  freshrss:
+    image: freshrss/freshrss:arm
+    platform: linux/arm/v7
+    container_name: freshrss
+ ```
 
 ## Run in production
 
@@ -467,7 +494,7 @@ server {
 	}
 
 	location /freshrss/ {
-		proxy_pass http://freshrss;
+		proxy_pass http://freshrss/;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;

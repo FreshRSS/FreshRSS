@@ -2,8 +2,9 @@
 
 /**
  * @param array<FreshRSS_Feed> $feeds
+ * @return array<array<string,string|null>>
  */
-function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
+function feedsToOutlines($feeds, bool $excludeMutedFeeds = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
 		if ($feed->mute() && $excludeMutedFeeds) {
@@ -18,8 +19,15 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
 		];
 
-		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
-			$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
+			switch ($feed->kind()) {
+				case FreshRSS_Feed::KIND_HTML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+					break;
+				case FreshRSS_Feed::KIND_XML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
+					break;
+			}
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributes('xpath');
 			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;
@@ -71,7 +79,7 @@ $opml_array = [
 ];
 
 if (!empty($this->categories)) {
-	foreach ($this->categories as $key => $cat) {
+	foreach ($this->categories as $cat) {
 		$outline = [
 			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
@@ -81,12 +89,12 @@ if (!empty($this->categories)) {
 			$outline['frss:opmlUrl'] = $cat->attributes('opml_url');
 		}
 
-		$opml_array['body'][$key] = $outline;
+		$opml_array['body'][] = $outline;
 	}
 }
 
 if (!empty($this->feeds)) {
-	$opml_array['body'][] = feedsToOutlines($this->feeds, $this->excludeMutedFeeds);
+	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
 }
 
 $libopml = new \marienfressinaud\LibOpml\LibOpml(true);

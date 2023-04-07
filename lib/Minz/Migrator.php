@@ -55,7 +55,7 @@ class Minz_Migrator
 		}
 
 		$lock_path = $applied_migrations_path . '.lock';
-		if (!@mkdir($lock_path)) {
+		if (!@mkdir($lock_path, 0770, true)) {
 			// Someone is probably already executing the migrations (the folder
 			// already exists).
 			// We should probably return something else, but we don't want the

@@ -25,9 +25,11 @@
         "ext-gmp": "*",
         "ext-intl": "*",
         "ext-json": "*",
+        "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-pcre": "*",
+        "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "ext-session": "*",
         "ext-simplexml": "*",
@@ -47,7 +49,7 @@
         "ext-phar": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*",
-        "phpstan/phpstan": "~1.9.7",
+        "phpstan/phpstan": "~1.9.17",
         "phpunit/phpunit": "^9",
         "squizlabs/php_codesniffer": "^3.7"
     },
@@ -57,6 +59,7 @@
         "phpcs": "phpcs . -s",
         "phpcbf": "phpcbf . -p -s",
         "phpstan": "phpstan analyse --memory-limit 512M .",
+        "phpstan-next": "phpstan analyse --level 6 --memory-limit 512M $(find . -type d -name 'vendor' -prune -o -name '*.php' -o -name '*.phtml' | grep -Fxvf ./tests/phpstan-next.txt | sort | paste -s)",
         "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests",
         "translations": "cli/manipulate.translation.php -a format",
         "test": [
@@ -64,7 +67,8 @@
             "@phtml-lint",
             "@phpunit",
             "@phpcs",
-            "@phpstan"
+            "@phpstan",
+            "@phpstan-next"
         ],
         "fix": [
             "@translations",

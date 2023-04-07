@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath pre:',
 			),
 			'rss' => 'RSS / Atom (prednastavené)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',

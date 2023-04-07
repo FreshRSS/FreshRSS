@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazenie',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
 			'display_authors' => 'Autori',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobraziť',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Šírka obsahu',
 			'large' => 'Veľká',

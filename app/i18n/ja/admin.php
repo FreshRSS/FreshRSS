@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '主なストリーム',
 		'no_idle' => '未使用のフィードはありません!',
 		'number_entries' => '%d 記事',
-		'percent_of_total' => '%% 総計',
+		'percent_of_total' => '% 総計',
 		'repartition' => '記事の仕切り',
 		'status_favorites' => 'お気に入り',
 		'status_read' => '既読',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'フォームは有効です',
 			),
 			'title' => 'ユーザー登録',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

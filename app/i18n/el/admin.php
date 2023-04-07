@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Κύρια ροή',
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
-		'percent_of_total' => '%% εκ του συνόλου',
+		'percent_of_total' => '% εκ του συνόλου',
 		'repartition' => 'Articles repartition',	// TODO
 		'status_favorites' => 'Αγαπημένα',
 		'status_read' => 'Ανάγνωση',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Η φόρμα είναι ενεργοποιημένη',
 			),
 			'title' => 'Φόρμα εγγραφής χρήστη',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

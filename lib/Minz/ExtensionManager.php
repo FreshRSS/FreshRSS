@@ -5,15 +5,22 @@
  *
  * @todo see coding style for methods!!
  */
-class Minz_ExtensionManager {
+final class Minz_ExtensionManager {
+	/** @var string */
 	private static $ext_metaname = 'metadata.json';
+	/** @var string */
 	private static $ext_entry_point = 'extension.php';
+	/** @var array<string,Minz_Extension> */
 	private static $ext_list = array();
+	/** @var array<string,Minz_Extension> */
 	private static $ext_list_enabled = array();
-
+	/** @var array<string,bool> */
 	private static $ext_auto_enabled = array();
 
-	// List of available hooks. Please keep this list sorted.
+	/**
+	 * List of available hooks. Please keep this list sorted.
+	 * @var array<string,array{'list':array<callable>,'signature':'NoneToNone'|'NoneToString'|'OneToOne'|'PassArguments'}>
+	 */
 	private static $hook_list = array(
 		'check_url_before_add' => array(	// function($url) -> Url | null
 			'list' => array(),
@@ -76,8 +83,22 @@ class Minz_ExtensionManager {
 			'signature' => 'PassArguments',
 		),
 	);
-	// @phpstan-ignore-next-line
-	private static $ext_to_hooks = array();
+
+	/** Remove extensions and hooks from a previous initialisation */
+	private static function reset(): void {
+		$hadAny = !empty(self::$ext_list_enabled);
+		self::$ext_list = [];
+		self::$ext_list_enabled = [];
+		self::$ext_auto_enabled = [];
+		foreach (self::$hook_list as $hook_type => $hook_data) {
+			$hadAny |= !empty($hook_data['list']);
+			$hook_data['list'] = [];
+			self::$hook_list[$hook_type] = $hook_data;
+		}
+		if ($hadAny) {
+			gc_collect_cycles();
+		}
+	}
 
 	/**
 	 * Initialize the extension manager by loading extensions in EXTENSIONS_PATH.
@@ -90,12 +111,15 @@ class Minz_ExtensionManager {
 	 * <name> must match with the entry point in metadata.json. This class must
 	 * inherit from Minz_Extension class.
 	 */
-	public static function init() {
-		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH), [ '..', '.' ]);
-		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH), [ '..', '.' ], $list_core_extensions);
+	public static function init(): void {
+		self::reset();
+
+		$list_core_extensions = array_diff(scandir(CORE_EXTENSIONS_PATH) ?: [], [ '..', '.' ]);
+		$list_thirdparty_extensions = array_diff(scandir(THIRDPARTY_EXTENSIONS_PATH) ?: [], [ '..', '.' ], $list_core_extensions);
 		array_walk($list_core_extensions, function (&$s) { $s = CORE_EXTENSIONS_PATH . '/' . $s; });
 		array_walk($list_thirdparty_extensions, function (&$s) { $s = THIRDPARTY_EXTENSIONS_PATH . '/' . $s; });
 
+		/** @var array<string> */
 		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
 		$system_conf = Minz_Configuration::get('system');
@@ -112,7 +136,8 @@ class Minz_ExtensionManager {
 				// No metadata file? Invalid!
 				continue;
 			}
-			$meta_raw_content = file_get_contents($metadata_filename);
+			$meta_raw_content = file_get_contents($metadata_filename) ?: '';
+			/** @var array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'}|null */
 			$meta_json = json_decode($meta_raw_content, true);
 			if (!$meta_json || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
@@ -140,10 +165,11 @@ class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param array<string> $meta is an array of values.
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta
+	 * is an array of values.
 	 * @return bool true if the array is valid, false else.
 	 */
-	public static function isValidMetadata($meta): bool {
+	private static function isValidMetadata(array $meta): bool {
 		$valid_chars = array('_');
 		return !(empty($meta['name']) || empty($meta['entrypoint']) || !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
@@ -151,10 +177,11 @@ class Minz_ExtensionManager {
 	/**
 	 * Load the extension source code based on info metadata.
 	 *
-	 * @param array $info an array containing information about extension.
+	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $info
+	 * an array containing information about extension.
 	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
 	 */
-	public static function load($info) {
+	private static function load(array $info): ?Minz_Extension {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
 		$ext_class_name = $info['entrypoint'] . 'Extension';
 
@@ -193,17 +220,13 @@ class Minz_ExtensionManager {
 	 *
 	 * @param Minz_Extension $ext a valid extension.
 	 */
-	public static function register($ext) {
+	private static function register(Minz_Extension $ext): void {
 		$name = $ext->getName();
 		self::$ext_list[$name] = $ext;
 
-		if ($ext->getType() === 'system' &&
-				(!empty(self::$ext_auto_enabled[$name]) ||
-				in_array($name, self::$ext_auto_enabled, true))) {	//Legacy format < FreshRSS 1.11.1
-			self::enable($ext->getName());
+		if ($ext->getType() === 'system' && !empty(self::$ext_auto_enabled[$name])) {
+			self::enable($ext->getName(), 'system');
 		}
-
-		self::$ext_to_hooks[$name] = array();
 	}
 
 	/**
@@ -212,10 +235,17 @@ class Minz_ExtensionManager {
 	 * The extension init() method will be called.
 	 *
 	 * @param string $ext_name is the name of a valid extension present in $ext_list.
+	 * @param 'system'|'user'|null $onlyOfType only enable if the extension matches that type. Set to null to load all.
 	 */
-	public static function enable($ext_name) {
+	private static function enable(string $ext_name, ?string $onlyOfType = null): void {
 		if (isset(self::$ext_list[$ext_name])) {
 			$ext = self::$ext_list[$ext_name];
+
+			if ($onlyOfType !== null && $ext->getType() !== $onlyOfType) {
+				// Do not enable an extension of the wrong type
+				return;
+			}
+
 			self::$ext_list_enabled[$ext_name] = $ext;
 
 			if (method_exists($ext, 'autoload')) {
@@ -229,17 +259,16 @@ class Minz_ExtensionManager {
 	/**
 	 * Enable a list of extensions.
 	 *
-	 * @param string[] $ext_list the names of extensions we want to load.
+	 * @param array<string,bool> $ext_list the names of extensions we want to load.
+	 * @param 'system'|'user'|null $onlyOfType limit the extensions to load to those of those type. Set to null string to load all.
 	 */
-	public static function enableByList($ext_list) {
-		if (!is_array($ext_list)) {
+	public static function enableByList(?array $ext_list, ?string $onlyOfType = null): void {
+		if (empty($ext_list)) {
 			return;
 		}
 		foreach ($ext_list as $ext_name => $ext_status) {
-			if (is_int($ext_name)) {	//Legacy format int=>name
-				self::enable($ext_status);
-			} elseif ($ext_status) {	//New format name=>Boolean
-				self::enable($ext_name);
+			if ($ext_status) {
+				self::enable($ext_name, $onlyOfType);
 			}
 		}
 	}
@@ -250,7 +279,7 @@ class Minz_ExtensionManager {
 	 * @param bool $only_enabled if true returns only the enabled extensions (false by default).
 	 * @return Minz_Extension[] an array of extensions.
 	 */
-	public static function listExtensions($only_enabled = false) {
+	public static function listExtensions(bool $only_enabled = false): array {
 		if ($only_enabled) {
 			return self::$ext_list_enabled;
 		} else {
@@ -264,7 +293,7 @@ class Minz_ExtensionManager {
 	 * @param string $ext_name the name of the extension.
 	 * @return Minz_Extension|null the corresponding extension or null if it doesn't exist.
 	 */
-	public static function findExtension($ext_name) {
+	public static function findExtension(string $ext_name): ?Minz_Extension {
 		if (!isset(self::$ext_list[$ext_name])) {
 			return null;
 		}
@@ -280,12 +309,10 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
-	 * @param Minz_Extension $ext the extension which register the hook.
 	 */
-	public static function addHook($hook_name, $hook_function, $ext) {
+	public static function addHook(string $hook_name, $hook_function): void {
 		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
 			self::$hook_list[$hook_name]['list'][] = $hook_function;
-			self::$ext_to_hooks[$ext->getName()][] = $hook_name;
 		}
 	}
 
@@ -299,7 +326,7 @@ class Minz_ExtensionManager {
 	 * @param mixed ...$args additional parameters (for signature, please see self::$hook_list).
 	 * @return mixed|null final result of the called hook.
 	 */
-	public static function callHook($hook_name, ...$args) {
+	public static function callHook(string $hook_name, ...$args) {
 		if (!isset(self::$hook_list[$hook_name])) {
 			return;
 		}
@@ -314,7 +341,7 @@ class Minz_ExtensionManager {
 		} elseif ($signature === 'NoneToString') {
 			return self::callNoneToString($hook_name);
 		} elseif ($signature === 'NoneToNone') {
-			return self::callNoneToNone($hook_name);
+			self::callNoneToNone($hook_name);
 		}
 	}
 
@@ -332,7 +359,7 @@ class Minz_ExtensionManager {
 	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
-	private static function callOneToOne($hook_name, $arg) {
+	private static function callOneToOne(string $hook_name, $arg) {
 		$result = $arg;
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			$result = call_user_func($function, $arg);
@@ -355,7 +382,7 @@ class Minz_ExtensionManager {
 	 * @param string $hook_name is the hook to call.
 	 * @return string concatenated result of the call to all the hooks.
 	 */
-	private static function callNoneToString($hook_name) {
+	private static function callNoneToString(string $hook_name): string {
 		$result = '';
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			$result = $result . call_user_func($function);
@@ -371,7 +398,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name is the hook to call.
 	 */
-	private static function callNoneToNone($hook_name) {
+	private static function callNoneToNone(string $hook_name): void {
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			call_user_func($function);
 		}

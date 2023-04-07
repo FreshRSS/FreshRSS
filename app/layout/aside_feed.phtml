@@ -8,8 +8,8 @@
 		$class = ' state_unread';
 	}
 
-	$state_filter_manual = Minz_Request::param('state', '');
-	if ($state_filter_manual != '') {
+	$state_filter_manual = Minz_Request::paramString('state');
+	if ($state_filter_manual !== '') {
 		$state_filter_manual = '&state=' . $state_filter_manual;
 	}
 ?>
@@ -85,7 +85,7 @@
 						|| FreshRSS_Context::$user_conf->display_categories === 'all';
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : "data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
+			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
 				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
@@ -116,7 +116,7 @@
 		}
 		$mute_class = $feed->mute() ? ' mute' : '';
 ?>
-<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>" 
+<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>"
 		data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::$user_conf->simplify_over_n_feeds):
 	?><div class="dropdown no-mobile">
@@ -164,8 +164,8 @@
 		<?php } ?>
 		<li class="item link website"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) {
-		$get = Minz_Request::param('get');
-		if (!$get) {
+		$get = Minz_Request::paramString('get');
+		if ($get === '') {
 			$url = _url('subscription', 'feed', 'id', '------', 'from', $actual_view);
 		} else {
 			$url = _url('subscription', 'feed', 'id', '------', 'get', $get, 'from', $actual_view);

@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
 			'display_authors' => 'Authors',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Time zone',
 		'title' => 'Display',
+		'website' => array(
+			'full' => 'Icon and name',
+			'icon' => 'Icon only',
+			'label' => 'Website',
+			'name' => 'Name only',
+			'none' => 'None',
+		),
 		'width' => array(
 			'content' => 'Content width',
 			'large' => 'Wide',

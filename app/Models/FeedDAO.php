@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	protected function addColumn(string $name) {
 		if ($this->pdo->inTransaction()) {
@@ -19,7 +19,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
@@ -284,10 +285,7 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Feed|null
-	 */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Feed {
 		$sql = 'SELECT * FROM `_feed` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
@@ -434,7 +432,7 @@ SQL;
 			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
 			. ($id != 0 ? ' WHERE id=:id' : '');
 		$stm = $this->pdo->prepare($sql);
-		if ($id != 0) {
+		if ($stm && $id != 0) {
 			$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		}
 

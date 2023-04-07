@@ -9,23 +9,24 @@ class FreshRSS_Auth {
 	 */
 	const DEFAULT_COOKIE_DURATION = 7776000;
 
+	/** @var bool */
 	private static $login_ok = false;
 
 	/**
 	 * This method initializes authentication system.
 	 */
-	public static function init() {
+	public static function init(): bool {
 		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
 		}
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
-		$current_user = Minz_Session::param('currentUser', '');
-		if ($current_user == '') {
+		$current_user = Minz_User::name();
+		if ($current_user === null) {
 			$current_user = FreshRSS_Context::$system_conf->default_user;
 			Minz_Session::_params([
-				'currentUser' => $current_user,
+				Minz_User::CURRENT_USER => $current_user,
 				'csrf' => false,
 			]);
 		}
@@ -47,9 +48,9 @@ class FreshRSS_Auth {
 	 * Required session parameters are also set in this method (such as
 	 * currentUser).
 	 *
-	 * @return boolean true if user can be connected, false else.
+	 * @return bool true if user can be connected, false otherwise.
 	 */
-	private static function accessControl() {
+	private static function accessControl(): bool {
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
@@ -58,7 +59,7 @@ class FreshRSS_Auth {
 			if (isset($credentials[1])) {
 				$current_user = trim($credentials[0]);
 				Minz_Session::_params([
-					'currentUser' => $current_user,
+					Minz_User::CURRENT_USER => $current_user,
 					'passwordHash' => trim($credentials[1]),
 					'csrf' => false,
 				]);
@@ -84,7 +85,7 @@ class FreshRSS_Auth {
 			}
 			if ($login_ok) {
 				Minz_Session::_params([
-					'currentUser' => $current_user,
+					Minz_User::CURRENT_USER => $current_user,
 					'csrf' => false,
 				]);
 			}
@@ -100,7 +101,7 @@ class FreshRSS_Auth {
 	/**
 	 * Gives access to the current user.
 	 */
-	public static function giveAccess() {
+	public static function giveAccess(): bool {
 		FreshRSS_Context::initUser();
 		if (FreshRSS_Context::$user_conf == null) {
 			self::$login_ok = false;
@@ -112,7 +113,7 @@ class FreshRSS_Auth {
 			self::$login_ok = Minz_Session::param('passwordHash') === FreshRSS_Context::$user_conf->passwordHash;
 			break;
 		case 'http_auth':
-			$current_user = Minz_Session::param('currentUser');
+			$current_user = Minz_User::name();
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
 			break;
 		case 'none':
@@ -136,11 +137,11 @@ class FreshRSS_Auth {
 	 * @param string $scope general (default) or admin
 	 * @return boolean true if user has corresponding access, false else.
 	 */
-	public static function hasAccess($scope = 'general') {
+	public static function hasAccess($scope = 'general'): bool {
 		if (FreshRSS_Context::$user_conf == null) {
 			return false;
 		}
-		$currentUser = Minz_Session::param('currentUser');
+		$currentUser = Minz_User::name();
 		$isAdmin = FreshRSS_Context::$user_conf->is_admin;
 		$default_user = FreshRSS_Context::$system_conf->default_user;
 		$ok = self::$login_ok;
@@ -159,7 +160,7 @@ class FreshRSS_Auth {
 	/**
 	 * Removes all accesses for the current user.
 	 */
-	public static function removeAccess() {
+	public static function removeAccess(): void {
 		self::$login_ok = false;
 		Minz_Session::_params([
 			'loginOk' => false,
@@ -168,9 +169,9 @@ class FreshRSS_Auth {
 		]);
 
 		$username = '';
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		if ($token_param != '') {
-			$username = trim(Minz_Request::param('user', ''));
+			$username = Minz_Request::paramString('user');
 			if ($username != '') {
 				$conf = get_user_configuration($username);
 				if ($conf == null) {
@@ -181,7 +182,7 @@ class FreshRSS_Auth {
 		if ($username == '') {
 			$username = FreshRSS_Context::$system_conf->default_user;
 		}
-		Minz_Session::_param('currentUser', $username);
+		Minz_User::change($username);
 
 		switch (FreshRSS_Context::$system_conf->auth_type) {
 		case 'form':
@@ -200,18 +201,18 @@ class FreshRSS_Auth {
 	/**
 	 * Return if authentication is enabled on this instance of FRSS.
 	 */
-	public static function accessNeedsLogin() {
+	public static function accessNeedsLogin(): bool {
 		return FreshRSS_Context::$system_conf->auth_type !== 'none';
 	}
 
 	/**
 	 * Return if authentication requires a PHP action.
 	 */
-	public static function accessNeedsAction() {
+	public static function accessNeedsAction(): bool {
 		return FreshRSS_Context::$system_conf->auth_type === 'form';
 	}
 
-	public static function csrfToken() {
+	public static function csrfToken(): string {
 		$csrf = Minz_Session::param('csrf');
 		if ($csrf == '') {
 			$salt = FreshRSS_Context::$system_conf->salt;
@@ -220,7 +221,8 @@ class FreshRSS_Auth {
 		}
 		return $csrf;
 	}
-	public static function isCsrfOk($token = null) {
+
+	public static function isCsrfOk(?string $token = null): bool {
 		$csrf = Minz_Session::param('csrf');
 		if ($token === null) {
 			$token = $_POST['_csrf'] ?? '';

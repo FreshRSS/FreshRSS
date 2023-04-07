@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_TagDAO extends Minz_ModelPdo {
 
 	public function sqlIgnore(): string {
 		return 'IGNORE';
@@ -30,7 +30,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
@@ -197,10 +198,7 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Tag|null
-	 */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Tag {
 		$sql = 'SELECT * FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
@@ -210,10 +208,7 @@ SQL;
 		return isset($tag[0]) ? $tag[0] : null;
 	}
 
-	/**
-	 * @return FreshRSS_Tag|null
-	 */
-	public function searchByName($name) {
+	public function searchByName(string $name): ?FreshRSS_Tag {
 		$sql = 'SELECT * FROM `_tag` WHERE name=?';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($name);
@@ -267,12 +262,13 @@ SQL;
 		return $newestItemUsec;
 	}
 
+	/** @return int|false */
 	public function count() {
 		$sql = 'SELECT COUNT(*) AS count FROM `_tag`';
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-			return $res[0]['count'];
+			return (int)$res[0]['count'];
 		} else {
 			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -283,16 +279,27 @@ SQL;
 		}
 	}
 
-	public function countEntries($id) {
+	/**
+	 * @return int|false
+	 */
+	public function countEntries(int $id) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=?';
-		$stm = $this->pdo->prepare($sql);
 		$values = array($id);
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return $res[0]['count'];
+		if (($stm = $this->pdo->prepare($sql)) !== false &&
+			$stm->execute($values) &&
+			($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+			return (int)$res[0]['count'];
+		} else {
+			$info = is_object($stm) ? $stm->errorInfo() : $this->pdo->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return false;
+		}
 	}
 
-	public function countNotRead($id = null) {
+	/**
+	 * @return int|false
+	 */
+	public function countNotRead(?int $id = null) {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` et '
 			 . 'INNER JOIN `_entry` e ON et.id_entry=e.id '
 			 . 'WHERE e.is_read=0';
@@ -303,14 +310,18 @@ SQL;
 			$values = [$id];
 		}
 
-		$stm = $this->pdo->prepare($sql);
-
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return $res[0]['count'];
+		if (($stm = $this->pdo->prepare($sql)) !== false &&
+			$stm->execute($values) &&
+			($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+			return (int)$res[0]['count'];
+		} else {
+			$info = is_object($stm) ? $stm->errorInfo() : $this->pdo->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return false;
+		}
 	}
 
-	public function tagEntry($id_tag, $id_entry, $checked = true) {
+	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true) {
 		if ($checked) {
 			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
 		} else {
@@ -328,7 +339,10 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntry($id_entry) {
+	/**
+	 * @return array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}>|false
+	 */
+	public function getTagsForEntry(string $id_entry) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
@@ -354,7 +368,11 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntries($entries) {
+	/**
+	 * @param array<FreshRSS_Entry|numeric-string|array<string,string>> $entries
+	 * @return array<array{'id_entry':string,'id_tag':int,'name':string}>|false
+	 */
+	public function getTagsForEntries(array $entries) {
 		$sql = 'SELECT et.id_entry, et.id_tag, t.name '
 			 . 'FROM `_tag` t '
 			 . 'INNER JOIN `_entrytag` et ON et.id_tag = t.id';
@@ -398,8 +416,12 @@ SQL;
 		}
 	}
 
-	//For API
-	public function getEntryIdsTagNames($entries) {
+	/**
+	 * For API
+	 * @param array<FreshRSS_Entry|numeric-string> $entries
+	 * @return array<string,array<string>>
+	 */
+	public function getEntryIdsTagNames(array $entries): array {
 		$result = array();
 		foreach ($this->getTagsForEntries($entries) as $line) {
 			$entryId = 'e_' . $line['id_entry'];
@@ -412,7 +434,8 @@ SQL;
 		return $result;
 	}
 
-	public static function daoToTag($listDAO) {
+	/** @return array<FreshRSS_Tag> */
+	private static function daoToTag($listDAO) {
 		$list = array();
 		if (!is_array($listDAO)) {
 			$listDAO = array($listDAO);

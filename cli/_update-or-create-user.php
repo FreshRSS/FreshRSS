@@ -34,12 +34,12 @@ if (!validateOptions($argv, $params) || empty($options['user'])) {
 		" --since_hours_posts_per_rss 168 --max_posts_per_rss 400 )");
 }
 
-function strParam($name) {
+function strParam(string $name): ?string {
 	global $options;
 	return isset($options[$name]) ? strval($options[$name]) : null;
 }
 
-function intParam($name) {
+function intParam(string $name): ?int {
 	global $options;
 	return isset($options[$name]) && ctype_digit($options[$name]) ? intval($options[$name]) : null;
 }

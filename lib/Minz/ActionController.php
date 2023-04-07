@@ -17,9 +17,13 @@ class Minz_ActionController {
 	/** @var array<string,string> */
 	private $csp_policies;
 
+	/** @var Minz_View */
 	protected $view;
 
-	// Gives the possibility to override the default View type.
+	/**
+	 * Gives the possibility to override the default View type.
+	 * @var class-string
+	 */
 	public static $viewType = 'Minz_View';
 
 	public function __construct () {
@@ -37,7 +41,7 @@ class Minz_ActionController {
 	/**
 	 * Getteur
 	 */
-	public function view () {
+	public function view(): Minz_View {
 		return $this->view;
 	}
 
@@ -45,7 +49,7 @@ class Minz_ActionController {
 	 * Set default CSP policies.
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
-	public static function _defaultCsp($policies) {
+	public static function _defaultCsp(array $policies): void {
 		if (!isset($policies['default-src'])) {
 			Minz_Log::warning('Default CSP policy is not declared', ADMIN_LOG);
 		}
@@ -61,9 +65,9 @@ class Minz_ActionController {
 	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
 	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
 	 *
-	 * @param array $policies An array where keys are directives and values are sources.
+	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
-	protected function _csp($policies) {
+	protected function _csp(array $policies): void {
 		if (!isset($policies['default-src'])) {
 			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
 			Minz_Log::warning(
@@ -77,7 +81,7 @@ class Minz_ActionController {
 	/**
 	 * Send HTTP Content-Security-Policy header based on declared policies.
 	 */
-	public function declareCspHeader() {
+	public function declareCspHeader(): void {
 		$policies = [];
 		foreach ($this->csp_policies as $directive => $sources) {
 			$policies[] = $directive . ' ' . $sources;
@@ -90,7 +94,7 @@ class Minz_ActionController {
 	 * firstAction est la première méthode exécutée par le Dispatcher
 	 * lastAction est la dernière
 	 */
-	public function init () { }
-	public function firstAction () { }
-	public function lastAction () { }
+	public function init(): void { }
+	public function firstAction(): void { }
+	public function lastAction(): void { }
 }

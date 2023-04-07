@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '首頁',
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
-		'percent_of_total' => '%%',
+		'percent_of_total' => '%',
 		'repartition' => '文章分布',
 		'status_favorites' => '收藏',
 		'status_read' => '已讀',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => '註冊表單啟用',
 			),
 			'title' => '使用者註冊表單',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

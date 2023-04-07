@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '메인 스트림',
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
-		'percent_of_total' => '전체에서의 비율 (%%)',
+		'percent_of_total' => '전체에서의 비율 (%)',
 		'repartition' => '글 분류',
 		'status_favorites' => '즐겨찾기',
 		'status_read' => '읽음',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => '양식 활성화됨',
 			),
 			'title' => '사용자 회원가입 양식',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

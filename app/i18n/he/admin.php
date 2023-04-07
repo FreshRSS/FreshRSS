@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'הזנה ראשית',
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
-		'percent_of_total' => '%% מסך הכל',
+		'percent_of_total' => '% מסך הכל',
 		'repartition' => 'חלוקת המאמרים',
 		'status_favorites' => 'מועדפים',
 		'status_read' => 'נקרא',
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Form enabled',	// TODO
 			),
 			'title' => 'User registration form',	// TODO
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

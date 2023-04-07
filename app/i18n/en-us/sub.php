@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath for:',	// IGNORE
 			),
 			'rss' => 'RSS / Atom (default)',	// IGNORE
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// IGNORE

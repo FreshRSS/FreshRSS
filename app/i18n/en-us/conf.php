@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// IGNORE
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'No',	// IGNORE
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// IGNORE
 		'title' => 'Display',	// IGNORE
+		'website' => array(
+			'full' => 'Icon and name',	// IGNORE
+			'icon' => 'Icon only',	// IGNORE
+			'label' => 'Website',	// IGNORE
+			'name' => 'Name only',	// IGNORE
+			'none' => 'None',	// IGNORE
+		),
 		'width' => array(
 			'content' => 'Content width',	// IGNORE
 			'large' => 'Wide',	// IGNORE

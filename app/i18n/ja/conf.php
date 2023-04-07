@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '表示',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'ディスプレイ',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'コンテンツ幅',
 			'large' => '広い',
