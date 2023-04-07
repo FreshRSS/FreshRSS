@@ -127,8 +127,11 @@ class Minz_Url {
 		return $url_checked;
 	}
 
-	/** @param array<string,string|array<string,string>> $url */
-	public static function serialize(array $url = []): string {
+	/** @param array<string,string|array<string,string>>|null $url */
+	public static function serialize(?array $url = []): string {
+		if (empty($url)) {
+			return '';
+		}
 		try {
 			return base64_encode(json_encode($url, JSON_THROW_ON_ERROR));
 		} catch (\Throwable $exception) {
