@@ -27,18 +27,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @param string $url
-	 * @param string $title
-	 * @param int $cat_id
-	 * @param string $new_cat_name
-	 * @param string $http_auth
-	 * @return FreshRSS_Feed
+	 * @param array<string,mixed> $attributes
 	 * @throws FreshRSS_AlreadySubscribed_Exception
 	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws FreshRSS_Feed_Exception
 	 * @throws Minz_FileNotExistException
 	 */
-	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '', $attributes = array(), $kind = FreshRSS_Feed::KIND_RSS) {
+	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
+		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
@@ -131,7 +127,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 * If url_rss is false, nothing happened.
 	 */
-	public function addAction() {
+	public function addAction(): void {
 		$url = Minz_Request::paramString('url_rss');
 
 		if ($url == '') {
@@ -294,7 +290,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 *   - id (default: false)
 	 */
-	public function truncateAction() {
+	public function truncateAction(): void {
 		$id = Minz_Request::paramInt('id');
 		$url_redirect = array(
 			'c' => 'subscription',
@@ -318,14 +314,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @param int $feed_id
-	 * @param string $feed_url
-	 * @param bool $force
-	 * @param SimplePie|null $simplePiePush
-	 * @param bool $noCommit
-	 * @param int $maxFeeds
+	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
 	 */
-	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $noCommit = false, $maxFeeds = 10) {
+	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null, bool $noCommit = false, int $maxFeeds = 10) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -644,7 +635,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * If id and url are not specified, all the feeds are actualized. But if force is
 	 * false, process stops at 10 feeds to avoid time execution problem.
 	 */
-	public function actualizeAction() {
+	public function actualizeAction(): int {
 		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::paramInt('id');
 		$url = Minz_Request::paramString('url');
@@ -691,16 +682,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		return $updated_feeds;
 	}
 
-	public static function renameFeed(int $feed_id, string $feed_name) {
+	public static function renameFeed(int $feed_id, string $feed_name): bool {
 		if ($feed_id <= 0 || $feed_name == '') {
 			return false;
 		}
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name));
+		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name)) === 1;
 	}
 
-	public static function moveFeed(int $feed_id, int $cat_id, string $new_cat_name = '') {
+	public static function moveFeed(int $feed_id, int $cat_id, string $new_cat_name = ''): bool {
 		if ($feed_id <= 0 || ($cat_id <= 0 && $new_cat_name == '')) {
 			return false;
 		}
@@ -720,7 +711,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, array('category' => $cat_id));
+		return $feedDAO->updateFeed($feed_id, array('category' => $cat_id)) === 1;
 	}
 
 	/**
@@ -735,7 +726,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo should handle order of the feed inside the category.
 	 */
-	public function moveAction() {
+	public function moveAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'subscription'), true);
 		}
@@ -753,7 +744,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public static function deleteFeed($feed_id) {
+	public static function deleteFeed(int $feed_id): bool {
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->deleteFeed($feed_id)) {
@@ -782,7 +773,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo handle "r" redirection in Minz_Request::forward()?
 	 */
-	public function deleteAction() {
+	public function deleteAction(): void {
 		$from = Minz_Request::paramString('from');
 		$id = Minz_Request::paramInt('id');
 
@@ -822,7 +813,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (mandatory - no default): Feed ID
 	 *
 	 */
-	public function clearCacheAction() {
+	public function clearCacheAction(): void {
 		//Get Feed.
 		$id = Minz_Request::paramInt('id');
 
@@ -848,7 +839,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (mandatory - no default): Feed ID
 	 *
 	 */
-	public function reloadAction() {
+	public function reloadAction(): void {
 		@set_time_limit(300);
 
 		//Get Feed ID.
@@ -905,7 +896,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - selector (mandatory - no default): Selector to preview
 	 *
 	 */
-	public function contentSelectorPreviewAction() {
+	public function contentSelectorPreviewAction(): void {
 
 		//Configure.
 		$this->view->fatalError = '';
