@@ -19,7 +19,6 @@
 ./cli/i18n/I18nData.php
 ./cli/i18n/I18nFile.php
 ./cli/i18n/I18nValue.php
-./lib/http-conditional.php
 ./lib/Minz/Dispatcher.php
 ./lib/Minz/Migrator.php
 ./lib/Minz/Paginator.php
