@@ -239,7 +239,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'url' => checkUrl(Minz_Request::paramString('url')),
 				'category' => Minz_Request::paramInt('category'),
 				'pathEntries' => Minz_Request::paramString('path_entries'),
-				'priority' => Minz_Request::paramInt('priority') ?: FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+				'priority' => Minz_Request::paramTernary('priority') === null ? FreshRSS_Feed::PRIORITY_MAIN_STREAM : Minz_Request::paramInt('priority'),
 				'httpAuth' => $httpAuth,
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
