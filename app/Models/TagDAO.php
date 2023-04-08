@@ -208,10 +208,7 @@ SQL;
 		return isset($tag[0]) ? $tag[0] : null;
 	}
 
-	/**
-	 * @return FreshRSS_Tag|null
-	 */
-	public function searchByName($name) {
+	public function searchByName(string $name): ?FreshRSS_Tag {
 		$sql = 'SELECT * FROM `_tag` WHERE name=?';
 		$stm = $this->pdo->prepare($sql);
 		$values = array($name);
@@ -324,7 +321,7 @@ SQL;
 		}
 	}
 
-	public function tagEntry($id_tag, $id_entry, $checked = true) {
+	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true) {
 		if ($checked) {
 			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
 		} else {
@@ -342,7 +339,10 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntry($id_entry) {
+	/**
+	 * @return array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}>|false
+	 */
+	public function getTagsForEntry(string $id_entry) {
 		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
@@ -368,7 +368,11 @@ SQL;
 		}
 	}
 
-	public function getTagsForEntries($entries) {
+	/**
+	 * @param array<FreshRSS_Entry|numeric-string|array<string,string>> $entries
+	 * @return array<array{'id_entry':string,'id_tag':int,'name':string}>|false
+	 */
+	public function getTagsForEntries(array $entries) {
 		$sql = 'SELECT et.id_entry, et.id_tag, t.name '
 			 . 'FROM `_tag` t '
 			 . 'INNER JOIN `_entrytag` et ON et.id_tag = t.id';
@@ -412,8 +416,12 @@ SQL;
 		}
 	}
 
-	//For API
-	public function getEntryIdsTagNames($entries) {
+	/**
+	 * For API
+	 * @param array<FreshRSS_Entry|numeric-string> $entries
+	 * @return array<string,array<string>>
+	 */
+	public function getEntryIdsTagNames(array $entries): array {
 		$result = array();
 		foreach ($this->getTagsForEntries($entries) as $line) {
 			$entryId = 'e_' . $line['id_entry'];
@@ -426,7 +434,8 @@ SQL;
 		return $result;
 	}
 
-	public static function daoToTag($listDAO) {
+	/** @return array<FreshRSS_Tag> */
+	private static function daoToTag($listDAO) {
 		$list = array();
 		if (!is_array($listDAO)) {
 			$listDAO = array($listDAO);

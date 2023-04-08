@@ -8,25 +8,32 @@
  * Request représente la requête http
  */
 class Minz_Request {
+	/** @var string */
 	private static $controller_name = '';
+	/** @var string */
 	private static $action_name = '';
+	/** @var array<string,mixed> */
 	private static $params = array();
 
+	/** @var string */
 	private static $default_controller_name = 'index';
+	/** @var string */
 	private static $default_action_name = 'index';
 
-	private static $originalRequest;
+	/** @var array{'c':string,'a':string,'params':array<string,mixed>}|null */
+	private static $originalRequest = null;
 
 	/**
 	 * Getteurs
 	 */
-	public static function controllerName() {
+	public static function controllerName(): string {
 		return self::$controller_name;
 	}
-	public static function actionName() {
+	public static function actionName(): string {
 		return self::$action_name;
 	}
-	public static function params() {
+	/** @return array<string,mixed> */
+	public static function params(): array {
 		return self::$params;
 	}
 	/**
@@ -35,6 +42,7 @@ class Minz_Request {
 	 * @param mixed $default default value, if no parameter is given
 	 * @param bool $specialchars special characters
 	 * @return mixed value of the parameter
+	 * @deprecated use typed versions instead
 	 */
 	public static function param(string $key, $default = false, bool $specialchars = false) {
 		if (isset(self::$params[$key])) {
@@ -47,6 +55,15 @@ class Minz_Request {
 		} else {
 			return $default;
 		}
+	}
+
+	/** @return array<string|int,string|array<string,string>> */
+	public static function paramArray(string $key, bool $specialchars = false): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+
+		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
 	}
 
 	/** @return bool|null */
@@ -71,11 +88,19 @@ class Minz_Request {
 		return $value;
 	}
 
-	public static function paramString(string $key): string {
+	public static function paramInt(string $key): int {
+		if (!empty(self::$params[$key])) {
+			return intval(self::$params[$key]);
+		}
+		return 0;
+	}
+
+	public static function paramString(string $key, bool $specialchars = false): string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
-				return trim($s);
+				$s = trim($s);
+				return $specialchars ? $s : htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 			}
 			if (is_int($s) || is_bool($s)) {
 				return (string)$s;
@@ -90,30 +115,41 @@ class Minz_Request {
 	 * It will return an array where each cell contains one line of a text. The new line
 	 * character is used to break the text into lines. This method is well suited to use
 	 * to split textarea content.
+	 * @param array<string> $default
+	 * @return array<string>
 	 */
-	public static function paramTextToArray($key, $default = []) {
+	public static function paramTextToArray(string $key, array $default = []): array {
 		if (isset(self::$params[$key])) {
 			return preg_split('/\R/', self::$params[$key]);
 		}
 		return $default;
 	}
-	public static function defaultControllerName() {
+
+	public static function defaultControllerName(): string {
 		return self::$default_controller_name;
 	}
-	public static function defaultActionName() {
+	public static function defaultActionName(): string {
 		return self::$default_action_name;
 	}
-	public static function currentRequest() {
-		return array(
+	/** @return array{'c':string,'a':string,'params':array<string,mixed>} */
+	public static function currentRequest(): array {
+		return [
 			'c' => self::$controller_name,
 			'a' => self::$action_name,
 			'params' => self::$params,
-		);
+		];
 	}
-	public static function originalRequest() {
+
+	/** @return array{'c':string,'a':string,'params':array<string,mixed>}|null */
+	public static function originalRequest(): ?array {
 		return self::$originalRequest;
 	}
-	public static function modifiedCurrentRequest(array $extraParams = null) {
+
+	/**
+	 * @param array<string,mixed>|null $extraParams
+	 * @return array{'c':string,'a':string,'params':array<string,mixed>}
+	 */
+	public static function modifiedCurrentRequest(?array $extraParams = null): array {
 		unset(self::$params['ajax']);
 		$currentRequest = self::currentRequest();
 		if (null !== $extraParams) {
@@ -125,20 +161,21 @@ class Minz_Request {
 	/**
 	 * Setteurs
 	 */
-	public static function _controllerName($controller_name) {
+	public static function _controllerName(string $controller_name): void {
 		self::$controller_name = $controller_name;
 	}
-	public static function _actionName($action_name) {
+
+	public static function _actionName(string $action_name): void {
 		self::$action_name = $action_name;
 	}
-	public static function _params($params) {
-		if (!is_array($params)) {
-			$params = array($params);
-		}
 
+	/** @param array<string,string> $params */
+	public static function _params(array $params): void {
 		self::$params = $params;
 	}
-	public static function _param($key, $value = false) {
+
+	/** @param array|mixed $value */
+	public static function _param(string $key, $value = false): void {
 		if ($value === false) {
 			unset(self::$params[$key]);
 		} else {
@@ -149,15 +186,13 @@ class Minz_Request {
 	/**
 	 * Initialise la Request
 	 */
-	public static function init() {
+	public static function init(): void {
 		self::initJSON();
 	}
 
-	public static function is($controller_name, $action_name) {
-		return (
-			self::$controller_name === $controller_name &&
-			self::$action_name === $action_name
-		);
+	public static function is(string $controller_name, string $action_name): bool {
+		return self::$controller_name === $controller_name &&
+			self::$action_name === $action_name;
 	}
 
 	/**
@@ -193,10 +228,7 @@ class Minz_Request {
 		return 'http';
 	}
 
-	/**
-	 * @return string
-	 */
-	private static function extractHost() {
+	private static function extractHost(): string {
 		if ('' != $host = ($_SERVER['HTTP_X_FORWARDED_HOST'] ?? '')) {
 			return parse_url("http://{$host}", PHP_URL_HOST);
 		}
@@ -210,10 +242,7 @@ class Minz_Request {
 		return 'localhost';
 	}
 
-	/**
-	 * @return integer
-	 */
-	private static function extractPort() {
+	private static function extractPort(): int {
 		if ('' != $port = ($_SERVER['HTTP_X_FORWARDED_PORT'] ?? '')) {
 			return intval($port);
 		}
@@ -271,7 +300,7 @@ class Minz_Request {
 	 * @return boolean true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
-	public static function serverIsPublic($address) {
+	public static function serverIsPublic(string $address): bool {
 		if (strlen($address) < strlen('http://a.bc')) {
 			return false;
 		}
@@ -297,14 +326,14 @@ class Minz_Request {
 		return (bool)$is_public;
 	}
 
-	private static function requestId() {
+	private static function requestId(): string {
 		if (empty($_GET['rid']) || !ctype_xdigit($_GET['rid'])) {
 			$_GET['rid'] = uniqid();
 		}
 		return $_GET['rid'];
 	}
 
-	private static function setNotification($type, $content) {
+	private static function setNotification(string $type, string $content): void {
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests', []);
 		$requests[self::requestId()] = [
@@ -315,15 +344,16 @@ class Minz_Request {
 		Minz_Session::unlock();
 	}
 
-	public static function setGoodNotification($content) {
+	public static function setGoodNotification(string $content): void {
 		self::setNotification('good', $content);
 	}
 
-	public static function setBadNotification($content) {
+	public static function setBadNotification(string $content): void {
 		self::setNotification('bad', $content);
 	}
 
-	public static function getNotification() {
+	/** @return array<string,string>|null */
+	public static function getNotification(): ?array {
 		$notif = null;
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
@@ -344,12 +374,12 @@ class Minz_Request {
 
 	/**
 	 * Relance une requête
-	 * @param array<string,string|array<string,string>> $url l'url vers laquelle est relancée la requête
+	 * @param string|array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url l'url vers laquelle est relancée la requête
 	 * @param bool $redirect si vrai, force la redirection http
 	 *                > sinon, le dispatcher recharge en interne
 	 */
-	public static function forward($url = array(), $redirect = false) {
-		if (Minz_Request::originalRequest() === null && strpos('auth', json_encode($url)) !== false) {
+	public static function forward($url = [], bool $redirect = false): void {
+		if (empty(Minz_Request::originalRequest())) {
 			self::$originalRequest = $url;
 		}
 
@@ -358,7 +388,7 @@ class Minz_Request {
 			exit();
 		}
 
-		$url = Minz_Url::checkUrl($url);
+		$url = Minz_Url::checkControllerUrl($url);
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
@@ -375,13 +405,12 @@ class Minz_Request {
 		}
 	}
 
-
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string|array<string,string>> $url url array to where we should be forwarded
+	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function good($msg, $url = array()) {
+	public static function good(string $msg, array $url = []): void {
 		Minz_Request::setGoodNotification($msg);
 		Minz_Request::forward($url, true);
 	}
@@ -389,9 +418,9 @@ class Minz_Request {
 	/**
 	 * Wrappers bad notifications + redirection
 	 * @param string $msg notification content
-	 * @param array<string,string|array<string,mixed>> $url url array to where we should be forwarded
+	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function bad($msg, $url = array()) {
+	public static function bad(string $msg, array $url = []): void {
 		Minz_Request::setBadNotification($msg);
 		Minz_Request::forward($url, true);
 	}
@@ -399,7 +428,7 @@ class Minz_Request {
 	/**
 	 * Allows receiving POST data as application/json
 	 */
-	private static function initJSON() {
+	private static function initJSON(): void {
 		if ('application/json' !== self::extractContentType()) {
 			return;
 		}

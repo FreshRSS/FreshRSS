@@ -19,7 +19,7 @@ class Minz_Url {
 		$isArray = is_array($url);
 
 		if ($isArray) {
-			$url = self::checkUrl($url);
+			$url = self::checkControllerUrl($url);
 		}
 
 		$url_string = '';
@@ -107,30 +107,31 @@ class Minz_Url {
 	}
 
 	/**
-	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array<string,array<string,string>> $url sous forme de tableau
-	 * @return array<string,array<string,string>> url vérifié
+	 * Check that all array elements representing the controller URL are OK
+	 * @param array<string,array<string,string>> $url controller URL as array
+	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
 	 */
-	public static function checkUrl ($url) {
+	public static function checkControllerUrl(array $url) {
 		$url_checked = $url;
 
-		if (is_array ($url)) {
-			if (!isset ($url['c'])) {
-				$url_checked['c'] = Minz_Request::defaultControllerName ();
-			}
-			if (!isset ($url['a'])) {
-				$url_checked['a'] = Minz_Request::defaultActionName ();
-			}
-			if (!isset ($url['params'])) {
-				$url_checked['params'] = array ();
-			}
+		if (empty($url['c'])) {
+			$url_checked['c'] = Minz_Request::defaultControllerName();
+		}
+		if (empty($url['a'])) {
+			$url_checked['a'] = Minz_Request::defaultActionName();
+		}
+		if (empty($url['params'])) {
+			$url_checked['params'] = [];
 		}
 
 		return $url_checked;
 	}
 
-	/** @param array<string,string|array<string,string>> $url */
-	public static function serialize(array $url = []): string {
+	/** @param array<string,string|array<string,string>>|null $url */
+	public static function serialize(?array $url = []): string {
+		if (empty($url)) {
+			return '';
+		}
 		try {
 			return base64_encode(json_encode($url, JSON_THROW_ON_ERROR));
 		} catch (\Throwable $exception) {
