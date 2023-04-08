@@ -19,7 +19,7 @@ class Minz_Log {
 	 * @param string $file_name fichier de log
 	 * @throws Minz_PermissionDeniedException
 	 */
-	public static function record ($information, $level, $file_name = null) {
+	public static function record(string $information, int $level, ?string $file_name = null): void {
 		$env = getenv('FRESHRSS_ENV');
 		if ($env == '') {
 			try {
@@ -78,7 +78,7 @@ class Minz_Log {
 	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
-	protected static function ensureMaxLogSize($file_name) {
+	protected static function ensureMaxLogSize(string $file_name): void {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
 		// @phpstan-ignore-next-line
 		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
@@ -106,16 +106,16 @@ class Minz_Log {
 	 * Some helpers to Minz_Log::record() method
 	 * Parameters are the same of those of the record() method.
 	 */
-	public static function debug($msg, $file_name = null) {
+	public static function debug(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_DEBUG, $file_name);
 	}
-	public static function notice($msg, $file_name = null) {
+	public static function notice(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_NOTICE, $file_name);
 	}
-	public static function warning($msg, $file_name = null) {
+	public static function warning(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_WARNING, $file_name);
 	}
-	public static function error($msg, $file_name = null) {
+	public static function error(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_ERR, $file_name);
 	}
 }
