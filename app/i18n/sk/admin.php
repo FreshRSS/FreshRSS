@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Všetky kanály',
 		'no_idle' => 'Žiadne neaktívne kanály!',
 		'number_entries' => 'Počet článkov: %d',
-		'percent_of_total' => 'Z celkového počtu: %%',
+		'percent_of_total' => 'Z celkového počtu: %',
 		'repartition' => 'Rozdelenie článkov',
 		'status_favorites' => 'Obľúbené',
 		'status_read' => 'Prečítané',

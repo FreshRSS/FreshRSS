@@ -48,12 +48,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title') . ' · ');
 
-		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
+		$this->view->onlyFeedsWithError = Minz_Request::paramBoolean('error');
 
-		$id = Minz_Request::param('id');
+		$id = Minz_Request::paramInt('id');
 		$this->view->displaySlider = false;
-		if (false !== $id) {
-			$type = Minz_Request::param('type');
+		if ($id !== 0) {
+			$type = Minz_Request::paramString('type');
 			$this->view->displaySlider = true;
 			switch ($type) {
 				case 'category':
@@ -89,7 +89,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 * Default values are empty strings unless specified.
 	 */
 	public function feedAction(): void {
-		if (Minz_Request::param('ajax')) {
+		if (Minz_Request::paramBoolean('ajax')) {
 			$this->view->_layout(false);
 		} else {
 			FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
@@ -98,8 +98,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeeds();
 
-		$id = Minz_Request::param('id');
-		if ($id === false || !isset($this->view->feeds[$id])) {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0 || !isset($this->view->feeds[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
@@ -110,26 +110,26 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $feed->name() . ' · ');
 
 		if (Minz_Request::isPost()) {
-			$user = trim(Minz_Request::param('http_user_feed' . $id, ''));
-			$pass = trim(Minz_Request::param('http_pass_feed' . $id, ''));
+			$user = Minz_Request::paramString('http_user_feed' . $id);
+			$pass = Minz_Request::paramString('http_pass_feed' . $id);
 
 			$httpAuth = '';
 			if ($user !== '' && $pass !== '') {	//TODO: Sanitize
 				$httpAuth = $user . ':' . $pass;
 			}
 
-			$feed->_ttl((int)Minz_Request::param('ttl', FreshRSS_Feed::TTL_DEFAULT));
-			$feed->_mute((bool)Minz_Request::param('mute', false));
+			$feed->_ttl(Minz_Request::paramInt('ttl') ?: FreshRSS_Feed::TTL_DEFAULT);
+			$feed->_mute(Minz_Request::paramBoolean('mute'));
 
 			$feed->_attributes('read_upon_gone', Minz_Request::paramTernary('read_upon_gone'));
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
-			$keep_max_n_unread = (int)Minz_Request::param('keep_max_n_unread', 0);
+			$keep_max_n_unread = Minz_Request::paramInt('keep_max_n_unread');
 			$feed->_attributes('keep_max_n_unread', $keep_max_n_unread > 0 ? $keep_max_n_unread : null);
 
-			$read_when_same_title_in_feed = Minz_Request::param('read_when_same_title_in_feed', '');
+			$read_when_same_title_in_feed = Minz_Request::paramString('read_when_same_title_in_feed');
 			if ($read_when_same_title_in_feed === '') {
 				$read_when_same_title_in_feed = null;
 			} else {
@@ -140,12 +140,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			$feed->_attributes('read_when_same_title_in_feed', $read_when_same_title_in_feed);
 
-			$cookie = Minz_Request::param('curl_params_cookie', '');
+			$cookie = Minz_Request::paramString('curl_params_cookie');
 			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
-			$max_redirs = (int)Minz_Request::param('curl_params_redirects', 0);
-			$useragent = Minz_Request::param('curl_params_useragent', '');
-			$proxy_address = Minz_Request::param('curl_params', '');
-			$proxy_type = Minz_Request::param('proxy_type', '');
+			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
+			$useragent = Minz_Request::paramString('curl_params_useragent');
+			$proxy_address = Minz_Request::paramString('curl_params');
+			$proxy_type = Minz_Request::paramString('proxy_type');
 			$opts = [];
 			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
@@ -168,24 +168,24 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
 
-			$feed->_attributes('content_action', Minz_Request::param('content_action', 'replace', true));
+			$feed->_attributes('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
 
 			$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
-			$timeout = (int)Minz_Request::param('timeout', 0);
+			$timeout = Minz_Request::paramInt('timeout');
 			$feed->_attributes('timeout', $timeout > 0 ? $timeout : null);
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$feed->_attributes('archiving', null);
 			} else {
-				if (!Minz_Request::paramBoolean('enable_keep_max')) {
+				if (Minz_Request::paramBoolean('enable_keep_max')) {
+					$keepMax = Minz_Request::paramInt('keep_max') ?: FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+				} else {
 					$keepMax = false;
-				} elseif (!$keepMax = Minz_Request::param('keep_max')) {
-					$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 				}
-				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
+				if (Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
-					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+					if (is_numeric(Minz_Request::paramString('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::paramString('keep_period_unit'))) {
+						$keepPeriod = str_replace('1', Minz_Request::paramString('keep_period_count'), Minz_Request::paramString('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -193,44 +193,53 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->_attributes('archiving', [
 					'keep_period' => $keepPeriod,
 					'keep_max' => $keepMax,
-					'keep_min' => (int)Minz_Request::param('keep_min', 0),
+					'keep_min' => Minz_Request::paramInt('keep_min'),
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
 				]);
 			}
 
-			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
+			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::paramString('filteractions_read')));
 
-			$feed->_kind((int)Minz_Request::param('feed_kind', FreshRSS_Feed::KIND_RSS));
+			$feed->_kind(Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS);
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 				$xPathSettings = [];
-				if (Minz_Request::param('xPathItem', '') != '') $xPathSettings['item'] = Minz_Request::param('xPathItem', '', true);
-				if (Minz_Request::param('xPathItemTitle', '') != '') $xPathSettings['itemTitle'] = Minz_Request::param('xPathItemTitle', '', true);
-				if (Minz_Request::param('xPathItemContent', '') != '') $xPathSettings['itemContent'] = Minz_Request::param('xPathItemContent', '', true);
-				if (Minz_Request::param('xPathItemUri', '') != '') $xPathSettings['itemUri'] = Minz_Request::param('xPathItemUri', '', true);
-				if (Minz_Request::param('xPathItemAuthor', '') != '') $xPathSettings['itemAuthor'] = Minz_Request::param('xPathItemAuthor', '', true);
-				if (Minz_Request::param('xPathItemTimestamp', '') != '') $xPathSettings['itemTimestamp'] = Minz_Request::param('xPathItemTimestamp', '', true);
-				if (Minz_Request::param('xPathItemTimeFormat', '') != '') $xPathSettings['itemTimeFormat'] = Minz_Request::param('xPathItemTimeFormat', '', true);
-				if (Minz_Request::param('xPathItemThumbnail', '') != '') $xPathSettings['itemThumbnail'] = Minz_Request::param('xPathItemThumbnail', '', true);
-				if (Minz_Request::param('xPathItemCategories', '') != '') $xPathSettings['itemCategories'] = Minz_Request::param('xPathItemCategories', '', true);
-				if (Minz_Request::param('xPathItemUid', '') != '') $xPathSettings['itemUid'] = Minz_Request::param('xPathItemUid', '', true);
-				if (!empty($xPathSettings)) {
+				if (Minz_Request::paramString('xPathItem') != '')
+					$xPathSettings['item'] = Minz_Request::paramString('xPathItem', true);
+				if (Minz_Request::paramString('xPathItemTitle') != '')
+					$xPathSettings['itemTitle'] = Minz_Request::paramString('xPathItemTitle', true);
+				if (Minz_Request::paramString('xPathItemContent') != '')
+					$xPathSettings['itemContent'] = Minz_Request::paramString('xPathItemContent', true);
+				if (Minz_Request::paramString('xPathItemUri') != '')
+					$xPathSettings['itemUri'] = Minz_Request::paramString('xPathItemUri', true);
+				if (Minz_Request::paramString('xPathItemAuthor') != '')
+					$xPathSettings['itemAuthor'] = Minz_Request::paramString('xPathItemAuthor', true);
+				if (Minz_Request::paramString('xPathItemTimestamp') != '')
+					$xPathSettings['itemTimestamp'] = Minz_Request::paramString('xPathItemTimestamp', true);
+				if (Minz_Request::paramString('xPathItemTimeFormat') != '')
+					$xPathSettings['itemTimeFormat'] = Minz_Request::paramString('xPathItemTimeFormat', true);
+				if (Minz_Request::paramString('xPathItemThumbnail') != '')
+					$xPathSettings['itemThumbnail'] = Minz_Request::paramString('xPathItemThumbnail', true);
+				if (Minz_Request::paramString('xPathItemCategories') != '')
+					$xPathSettings['itemCategories'] = Minz_Request::paramString('xPathItemCategories', true);
+				if (Minz_Request::paramString('xPathItemUid') != '')
+					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
+				if (!empty($xPathSettings))
 					$feed->_attributes('xpath', $xPathSettings);
-				}
 			}
 
-			$feed->_attributes('path_entries_filter', Minz_Request::param('path_entries_filter', '', true));
+			$feed->_attributes('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
 
 			$values = array(
-				'name' => Minz_Request::param('name', ''),
+				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
-				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
-				'website' => checkUrl(Minz_Request::param('website', '')),
-				'url' => checkUrl(Minz_Request::param('url', '')),
-				'category' => (int)Minz_Request::param('category', 0),
-				'pathEntries' => Minz_Request::param('path_entries', ''),
-				'priority' => (int)Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM),
+				'description' => sanitizeHTML(Minz_Request::paramString('description', true)),
+				'website' => checkUrl(Minz_Request::paramString('website')),
+				'url' => checkUrl(Minz_Request::paramString('url')),
+				'category' => Minz_Request::paramInt('category'),
+				'pathEntries' => Minz_Request::paramString('path_entries'),
+				'priority' => Minz_Request::paramTernary('priority') === null ? FreshRSS_Feed::PRIORITY_MAIN_STREAM : Minz_Request::paramInt('priority'),
 				'httpAuth' => $httpAuth,
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
@@ -238,14 +247,14 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$from = Minz_Request::param('from');
+			$from = Minz_Request::paramString('from');
 			switch ($from) {
 				case 'stats':
 					$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
 					break;
 				case 'normal':
 				case 'reader':
-					$get = Minz_Request::param('get');
+					$get = Minz_Request::paramString('get');
 					if ($get) {
 						$url_redirect = array('c' => 'index', 'a' => $from, 'params' => array('get' => $get));
 					} else {
@@ -278,9 +287,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 
-		$id = Minz_Request::param('id');
+		$id = Minz_Request::paramInt('id');
 		$category = $categoryDAO->searchById($id);
-		if ($id === false || null === $category) {
+		if ($id === 0 || null === $category) {
 			Minz_Error::error(404);
 			return;
 		}
@@ -292,13 +301,13 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			} else {
 				if (!Minz_Request::paramBoolean('enable_keep_max')) {
 					$keepMax = false;
-				} elseif (!$keepMax = Minz_Request::param('keep_max')) {
+				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) !== 0) {
 					$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 				}
-				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {
+				if (Minz_Request::paramBoolean('enable_keep_period')) {
 					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
-					if (is_numeric(Minz_Request::param('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('keep_period_unit'))) {
-						$keepPeriod = str_replace('1', Minz_Request::param('keep_period_count'), Minz_Request::param('keep_period_unit'));
+					if (is_numeric(Minz_Request::paramString('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::paramString('keep_period_unit'))) {
+						$keepPeriod = str_replace('1', Minz_Request::paramString('keep_period_count'), Minz_Request::paramString('keep_period_unit'));
 					}
 				} else {
 					$keepPeriod = false;
@@ -306,17 +315,17 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$category->_attributes('archiving', [
 					'keep_period' => $keepPeriod,
 					'keep_max' => $keepMax,
-					'keep_min' => (int)Minz_Request::param('keep_min', 0),
+					'keep_min' => Minz_Request::paramInt('keep_min'),
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
 				]);
 			}
 
-			$position = Minz_Request::param('position');
-			$category->_attributes('position', '' === $position ? null : (int) $position);
+			$position = Minz_Request::paramInt('position') ?: null;
+			$category->_attributes('position', $position);
 
-			$opml_url = checkUrl(Minz_Request::param('opml_url', ''));
+			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attributes('opml_url', $opml_url);
@@ -327,7 +336,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$values = [
 				'kind' => $category->kind(),
-				'name' => Minz_Request::param('name', ''),
+				'name' => Minz_Request::paramString('name'),
 				'attributes' => $category->attributes(),
 			];
 

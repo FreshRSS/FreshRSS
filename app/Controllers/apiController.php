@@ -11,7 +11,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * @return false|string
 	 */
 	public static function updatePassword(string $apiPasswordPlain) {
-		$username = Minz_Session::param('currentUser');
+		$username = Minz_User::name();
 		$userConfig = FreshRSS_Context::$user_conf;
 
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
@@ -47,8 +47,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward($return_url, true);
 		}
 
-		$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
-		$apiPasswordPlain = trim($apiPasswordPlain);
+		$apiPasswordPlain = Minz_Request::paramString('apiPasswordPlain', true);
 		if ($apiPasswordPlain == '') {
 			Minz_Request::forward($return_url, true);
 		}

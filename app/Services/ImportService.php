@@ -36,6 +36,7 @@ class FreshRSS_Import_Service {
 	 * @param boolean $dry_run true to not create categories and feeds in database.
 	 */
 	public function importOpml(string $opml_file, $forced_category = null, $dry_run = false) {
+		@set_time_limit(300);
 		$this->lastStatus = true;
 		$opml_array = array();
 		try {

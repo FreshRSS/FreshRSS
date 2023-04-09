@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Main stream',	// IGNORE
 		'no_idle' => 'There are no idle feeds!',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% of total',	// IGNORE
+		'percent_of_total' => '% of total',	// IGNORE
 		'repartition' => 'Articles repartition',	// IGNORE
 		'status_favorites' => 'Favorites',
 		'status_read' => 'Read',	// IGNORE

@@ -12,6 +12,7 @@ class Minz_ModelPdo {
 
 	/**
 	 * Shares the connection to the database between all instances.
+	 * @var bool
 	 */
 	public static $usesSharedPdo = true;
 
@@ -103,7 +104,7 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser');
+			$currentUser = Minz_User::name();
 		}
 		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;

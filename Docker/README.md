@@ -86,7 +86,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `0.0.0.0:80`) Modifies the internal Apache listening port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -109,14 +109,15 @@ docker rm freshrss_old
 Building your own Docker image is especially relevant for platforms not available on our Docker Hub,
 which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
 
-```sh
-# First time only
-git clone https://github.com/FreshRSS/FreshRSS.git
+> ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-cd FreshRSS/
-git pull --ff-only --prune
-docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile .
+Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
+
+```sh
+docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
+
+> ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
 
 ## Development mode
 
@@ -297,6 +298,11 @@ volumes:
 services:
   freshrss:
     image: freshrss/freshrss:edge
+    # Optional build section if you want to build the image locally:
+    build:
+      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      context: https://github.com/FreshRSS/FreshRSS.git#edge
+      dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
     restart: unless-stopped
     logging:

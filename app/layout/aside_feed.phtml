@@ -8,8 +8,8 @@
 		$class = ' state_unread';
 	}
 
-	$state_filter_manual = Minz_Request::param('state', '');
-	if ($state_filter_manual != '') {
+	$state_filter_manual = Minz_Request::paramString('state');
+	if ($state_filter_manual !== '') {
 		$state_filter_manual = '&state=' . $state_filter_manual;
 	}
 ?>
@@ -164,8 +164,8 @@
 		<?php } ?>
 		<li class="item link website"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) {
-		$get = Minz_Request::param('get');
-		if (!$get) {
+		$get = Minz_Request::paramString('get');
+		if ($get === '') {
 			$url = _url('subscription', 'feed', 'id', '------', 'from', $actual_view);
 		} else {
 			$url = _url('subscription', 'feed', 'id', '------', 'get', $get, 'from', $actual_view);
