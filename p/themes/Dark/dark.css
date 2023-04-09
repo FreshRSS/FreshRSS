@@ -4,11 +4,6 @@
 	--frss-background-color: #1c1c1c;
 	--frss-background-color-transparent: #111a;
 	--frss-font-color-light: #aaa;
-	
-	--frss-scrollbar-handle: #ffffff0d;
-	--frss-scrollbar-track: #000000;
-	--frss-scrollbar-handle-hover: #ffffff4C;
-	--frss-scrollbar-track-hover: #000000;
 
 
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
@@ -19,7 +14,7 @@
 	/** Origine **/
 	--background-color-light: #1c1c1c;
 	--background-color-light-shadowed: inherit;
-	--background-color-grey:  #1c1c1c;
+	--background-color-grey: #1c1c1c;
 	--background-color-hover: #26303f;
 	--background-color-flux-hover: #111;
 
@@ -104,7 +99,7 @@
 	--dark-notification-bad-close-background-color-hover: #a44;
 
 	--dark-form-element-box-shadow-inset: #1d1d1d;
-	
+
 }
 
 /*=== Images */
@@ -138,12 +133,12 @@ input:disabled, select:disabled {
 	border-color: var(--dark-border-color0);
 }
 
-input:focus, 
-select:focus, 
-textarea:focus, 
-input[type="password"]:focus + .toggle-password{
-	box-shadow: 0 2px 2px var(--dark-form-element-box-shadow-inset) inset;
+input:focus,
+select:focus,
+textarea:focus,
+input[type="password"]:focus + .toggle-password {
 	border: 1px solid var(--form-element-border-color-focus);
+	box-shadow: 0 2px 2px var(--dark-form-element-box-shadow-inset) inset;
 }
 
 /*=== Tables */
@@ -261,13 +256,12 @@ button.as-link[disabled] {
 
 .nav-list .nav-section .item.active:hover a,
 .nav-list .item.active {
-	/* color: var(--dark-font-color8); */
-	color:   var(--font-color-link-hover);
+	color: var(--font-color-link-hover);
 	background-color: var(--background-color-hover);
 }
 
 .nav-list .item.active a {
-	color:   var(--font-color-link-hover);
+	color: var(--font-color-link-hover);
 }
 
 .nav-list .nav-header {
@@ -512,7 +506,7 @@ button.as-link[disabled] {
 }
 
 .notification.bad {
-	background-color: var(--dark-background-color1);;
+	background-color: var(--dark-background-color1);
 }
 
 .notification a.close:hover {
