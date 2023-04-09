@@ -47,7 +47,7 @@
 	--alert-error-boder-color: #a44;
 	--alert-error-background-color: inherit;
 
-	--box-shadow-color: #1116;
+	--box-shadow-color: #000a;
 
 	--border-color: #000;
 
@@ -87,6 +87,9 @@
 	--dark-background-color2: #222;
 	--dark-background-color3: #333;
 	--dark-favicon-background-color: #fff;
+
+	--dark-backgrond-color-button-hover-gradient1: #4a5d7a;
+	--dark-backgrond-color-button-hover-gradient2: #26303f;
 
 	--dark-font-color4: #444;
 	--dark-font-color6: #666;
@@ -185,7 +188,7 @@ button.as-link[disabled] {
 }
 
 .btn:hover {
-	background: linear-gradient(to top, #4a5d7a 0%, #26303f 100%);
+	background: linear-gradient(to top, var(--dark-backgrond-color-button-hover-gradient1) 0%, var(--dark-backgrond-color-button-hover-gradient2) 100%);
 }
 
 .btn:hover .icon {
@@ -213,7 +216,7 @@ button.as-link[disabled] {
 }
 
 .btn-important:hover {
-	background: linear-gradient(to top, #4a5d7a 0%, #26303f 100%);
+	background: linear-gradient(to top, var(--dark-backgrond-color-button-hover-gradient1) 0%, var(--dark-backgrond-color-button-hover-gradient2) 100%);
 	color: inherit;
 }
 
@@ -502,7 +505,6 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color1);
 	color: var(--dark-notification-font-color);
 	border: 1px solid var(--dark-notification-border-color);
-	box-shadow: 0 0 5px #666;
 }
 
 .notification.good {
@@ -529,7 +531,7 @@ button.as-link[disabled] {
 #bigMarkAsRead:hover {
 	background-color: var(--dark-background-color1);
 	color: var(--dark-font-colorA);
-	background-image: linear-gradient(to top, #4a5d7a 0%, #26303f 5%);
+	background-image: linear-gradient(to top, var(--dark-backgrond-color-button-hover-gradient1) 0%, var(--dark-backgrond-color-button-hover-gradient2) 5%);
 	box-shadow: none;
 }
 
