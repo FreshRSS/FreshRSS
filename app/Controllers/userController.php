@@ -10,15 +10,16 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	const USERNAME_PATTERN = '([0-9a-zA-Z_][0-9a-zA-Z_.@-]{1,38}|[0-9a-zA-Z])';
 
-	public static function checkUsername($username) {
+	public static function checkUsername(string $username): bool {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
-	public static function userExists($username) {
+	public static function userExists(string $username): bool {
 		return @file_exists(USERS_PATH . '/' . $username . '/config.php');
 	}
 
-	public static function updateUser($user, $email, $passwordPlain, $userConfigUpdated = array()) {
+	/** @param array<string,mixed> $userConfigUpdated */
+	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {
 			return false;
@@ -52,7 +53,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return $ok;
 	}
 
-	public function updateAction() {
+	public function updateAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -83,7 +84,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the user profile page.
 	 */
-	public function profileAction() {
+	public function profileAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -148,7 +149,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function purgeAction() {
+	public function purgeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -168,7 +169,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the user management page.
 	 */
-	public function manageAction() {
+	public function manageAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -210,7 +211,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public static function createUser($new_user_name, $email, $passwordPlain, $userConfigOverride = [], $insertDefaultFeeds = true) {
+	/** @param array<string,mixed> $userConfigOverride */
+	public static function createUser(string $new_user_name, string $email, string $passwordPlain,
+		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 
 		$customUserConfigPath = join_path(DATA_PATH, 'config-user.custom.php');
@@ -265,7 +268,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			$ok &= self::updateUser($new_user_name, $email, $passwordPlain);
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/**
@@ -281,7 +284,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
 	 * @todo handle r redirection in Minz_Request::forward directly?
 	 */
-	public function createAction() {
+	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
@@ -380,7 +383,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		Minz_Request::forward($redirect_url, true);
 	}
 
-	public static function deleteUser($username) {
+	public static function deleteUser(string $username): bool {
 		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;
@@ -395,7 +398,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok &= recursive_unlink($user_data);
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/**
@@ -415,7 +418,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *
 	 * It returns 403 if user isn’t logged in and `username` param isn’t passed.
 	 */
-	public function validateEmailAction() {
+	public function validateEmailAction(): void {
 		if (!FreshRSS_Context::$system_conf->force_email_validation) {
 			Minz_Error::error(404);
 		}
@@ -480,7 +483,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * not POST. Else it redirects silently to the index if user has already
 	 * validated its email, or to the user#validateEmail route.
 	 */
-	public function sendValidationEmailAction() {
+	public function sendValidationEmailAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -524,7 +527,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo clean up this method. Idea: create a User->clean() method.
 	 */
-	public function deleteAction() {
+	public function deleteAction(): void {
 		$username = Minz_Request::paramString('username');
 		$self_deletion = Minz_User::name() === $username;
 
@@ -568,23 +571,23 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		Minz_Request::forward($redirect_url, true);
 	}
 
-	public function promoteAction() {
+	public function promoteAction(): void {
 		$this->toggleAction('is_admin', true);
 	}
 
-	public function demoteAction() {
+	public function demoteAction(): void {
 		$this->toggleAction('is_admin', false);
 	}
 
-	public function enableAction() {
+	public function enableAction(): void {
 		$this->toggleAction('enabled', true);
 	}
 
-	public function disableAction() {
+	public function disableAction(): void {
 		$this->toggleAction('enabled', false);
 	}
 
-	private function toggleAction($field, $value) {
+	private function toggleAction(string $field, bool $value): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -615,7 +618,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function detailsAction() {
+	public function detailsAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -629,8 +632,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
 
-	/** @return array<string,int|string|bool> */
-	private function retrieveUserDetails($username): array {
+	/** @return array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	private function retrieveUserDetails(string $username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);

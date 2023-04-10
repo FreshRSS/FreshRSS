@@ -4,8 +4,6 @@
 # Can be regenerated with something like:
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/Controllers/feedController.php
-./app/Controllers/userController.php
 ./app/install.php
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
