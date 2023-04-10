@@ -21,7 +21,7 @@ class Minz_Migrator
 	 * @param string $migrations_path
 	 * @param string $applied_migrations_path
 	 *
-	 * @return boolean|string Returns true if execute succeeds to apply
+	 * @return true|string Returns true if execute succeeds to apply
 	 *                        migrations, or a string if it fails.
 	 *@throws DomainException if there is no migrations corresponding to the
 	 *                         given version (can happen if version file has
