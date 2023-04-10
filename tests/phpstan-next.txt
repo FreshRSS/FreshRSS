@@ -20,4 +20,3 @@
 ./lib/Minz/Dispatcher.php
 ./lib/Minz/Migrator.php
 ./lib/Minz/Paginator.php
-./lib/Minz/Session.php

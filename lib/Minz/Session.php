@@ -4,14 +4,18 @@
  * The Minz_Session class handles user’s session
  */
 class Minz_Session {
+	/**
+	 * @var bool
+	 */
 	private static $volatile = false;
 
 	/**
 	 * For mutual exclusion.
+	 * @var bool
 	 */
 	private static $locked = false;
 
-	public static function lock() {
+	public static function lock(): bool {
 		if (!self::$volatile && !self::$locked) {
 			session_start();
 			self::$locked = true;
@@ -19,7 +23,7 @@ class Minz_Session {
 		return self::$locked;
 	}
 
-	public static function unlock() {
+	public static function unlock(): bool {
 		if (!self::$volatile) {
 			session_write_close();
 			self::$locked = false;
@@ -28,13 +32,13 @@ class Minz_Session {
 	}
 
 	/**
-	 * Initialise la session, avec un nom
-	 * Le nom de session est utilisé comme nom pour les cookies et les URLs(i.e. PHPSESSID).
-	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
+	 * Initialize the session, with a name
+	 * The session name is used as the name for cookies and URLs (i.e. PHPSESSID).
+	 * It should contain only alphanumeric characters; it should be short and descriptive
 	 * If the volatile parameter is true, then no cookie and not session storage are used.
 	 * Volatile is especially useful for API calls without cookie / Web session.
 	 */
-	public static function init($name, $volatile = false) {
+	public static function init(string $name, bool $volatile = false): void {
 		self::$volatile = $volatile;
 		if (self::$volatile) {
 			$_SESSION = [];
@@ -44,7 +48,7 @@ class Minz_Session {
 		$cookie = session_get_cookie_params();
 		self::keepCookie($cookie['lifetime']);
 
-		// démarre la session
+		// start session
 		session_name($name);
 		//When using cookies (default value), session_stars() sends HTTP headers
 		session_start();
@@ -55,9 +59,10 @@ class Minz_Session {
 
 
 	/**
-	 * Permet de récupérer une variable de session
-	 * @param string $p le paramètre à récupérer
-	 * @return mixed|false la valeur de la variable de session, false si n'existe pas
+	 * Allows you to retrieve a session variable
+	 * @param string $p the parameter to retrieve
+	 * @param mixed|false $default the default value if the parameter doesn't exist
+	 * @return mixed|false the value of the session variable, false if doesn't exist
 	 */
 	public static function param(string $p, $default = false) {
 		return $_SESSION[$p] ?? $default;
@@ -65,33 +70,36 @@ class Minz_Session {
 
 
 	/**
-	 * Permet de créer ou mettre à jour une variable de session
-	 * @param string $p le paramètre à créer ou modifier
-	 * @param mixed|false $v la valeur à attribuer, false pour supprimer
+	 * Allows you to create or update a session variable
+	 * @param string $parameter the parameter to create or modify
+	 * @param mixed|false $value the value to assign, false to delete
 	 */
-	public static function _param($p, $v = false) {
+	public static function _param(string $parameter, $value = false): void {
 		if (!self::$volatile && !self::$locked) {
 			session_start();
 		}
-		if ($v === false) {
-			unset($_SESSION[$p]);
+		if ($value === false) {
+			unset($_SESSION[$parameter]);
 		} else {
-			$_SESSION[$p] = $v;
+			$_SESSION[$parameter] = $value;
 		}
 		if (!self::$volatile && !self::$locked) {
 			session_write_close();
 		}
 	}
 
-	public static function _params($keyValues) {
+	/**
+	 * @param array<string,string|bool|int|array<string>> $keyValues
+	 */
+	public static function _params(array $keyValues): void {
 		if (!self::$volatile && !self::$locked) {
 			session_start();
 		}
-		foreach ($keyValues as $k => $v) {
-			if ($v === false) {
-				unset($_SESSION[$k]);
+		foreach ($keyValues as $key => $value) {
+			if ($value === false) {
+				unset($_SESSION[$key]);
 			} else {
-				$_SESSION[$k] = $v;
+				$_SESSION[$key] = $value;
 			}
 		}
 		if (!self::$volatile && !self::$locked) {
@@ -100,10 +108,10 @@ class Minz_Session {
 	}
 
 	/**
-	 * Permet d'effacer une session
-	 * @param bool $force si à false, n'efface pas le paramètre de langue
+	 * Allows to delete a session
+	 * @param bool $force if false, does not clear the language parameter
 	 */
-	public static function unset_session($force = false) {
+	public static function unset_session(bool $force = false): void {
 		$language = self::param('language');
 
 		if (!self::$volatile) {
@@ -117,7 +125,7 @@ class Minz_Session {
 		}
 	}
 
-	public static function getCookieDir() {
+	public static function getCookieDir(): string {
 		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
 		$cookie_dir = '';
 		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
@@ -131,31 +139,31 @@ class Minz_Session {
 	}
 
 	/**
-	 * Spécifie la durée de vie des cookies
-	 * @param int $l la durée de vie
+	 * Specifies the lifetime of the cookies
+	 * @param int $l the lifetime
 	 */
-	public static function keepCookie($l) {
+	public static function keepCookie(int $l): void {
 		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 	/**
-	 * Régénère un id de session.
-	 * Utile pour appeler session_set_cookie_params après session_start()
+	 * Regenerate a session id.
+	 * Useful to call session_set_cookie_params after session_start()
 	 */
-	public static function regenerateID() {
+	public static function regenerateID(): void {
 		session_regenerate_id(true);
 	}
 
-	public static function deleteLongTermCookie($name) {
+	public static function deleteLongTermCookie(string $name): void {
 		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
 	}
 
-	public static function setLongTermCookie(string $name, string $value, $expire) {
+	public static function setLongTermCookie(string $name, string $value, int $expire): void {
 		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
 	}
 
 	public static function getLongTermCookie(string $name): string {
-		return isset($_COOKIE[$name]) ? $_COOKIE[$name] : '';
+		return $_COOKIE[$name] ?? '';
 	}
 
 }
