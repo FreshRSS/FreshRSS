@@ -89,7 +89,7 @@ class Minz_Session {
 	}
 
 	/**
-	 * @param array<string, string|bool>|array<string, array<string>|int> $keyValues
+	 * @param array<string,string|bool|int|array<string>> $keyValues
 	 */
 	public static function _params(array $keyValues): void {
 		if (!self::$volatile && !self::$locked) {
