@@ -159,13 +159,13 @@ class Minz_Migrator
 	 *
 	 * @param string $version The version of the migration (be careful, migrations
 	 *                        are sorted with the `strnatcmp` function)
-	 * @param callable $callback The migration function to execute, it should
+	 * @param ?callable $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
 	 * @throws BadFunctionCallException if the callback isn't callable.
 	 */
-	public function addMigration(string $version, callable $callback): void {
+	public function addMigration(string $version, ?callable $callback): void {
 		if (!is_callable($callback)) {
 			throw new BadFunctionCallException("{$version} migration cannot be called.");
 		}
