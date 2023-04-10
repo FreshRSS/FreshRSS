@@ -23,7 +23,7 @@ class Minz_Migrator
 	 *
 	 * @return true|string Returns true if execute succeeds to apply
 	 *                        migrations, or a string if it fails.
-	 *@throws DomainException if there is no migrations corresponding to the
+	 * @throws DomainException if there is no migrations corresponding to the
 	 *                         given version (can happen if version file has
 	 *                         been modified, or migrations path cannot be
 	 *                         read).
