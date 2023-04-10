@@ -2346,6 +2346,10 @@ input:checked + .slide-container .properties {
 	.stat.half {
 		grid-column: 1 / span 2;
 	}
+
+	.slide + .nav label {
+		opacity: 0.5;
+	}
 }
 
 /*=== PRINTER */
