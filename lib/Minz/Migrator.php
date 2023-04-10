@@ -178,7 +178,7 @@ class Minz_Migrator
 	 *
 	 * @see https://www.php.net/manual/en/function.strnatcmp.php
 	 *
-	 * @return array<string, callable>
+	 * @return array<string,callable>
 	 */
 	public function migrations(): array {
 		$migrations = $this->migrations;
