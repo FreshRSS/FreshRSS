@@ -10,7 +10,7 @@
  *   - 'deprecated' (optional) is a boolean. Default: 'false'.
  *     'true', if the sharing service is planned to remove in the future.
  *     Add more information into the documentation center.
- *   - 'HTMLtag' (optional). If it is 'button' then an HTML <button> is used, 
+ *   - 'HTMLtag' (optional). If it is 'button' then an HTML <button> is used,
  * 	   else an <a href=""> is used. Add a click event in main.js additionally.
  *   - 'url' is a mandatory option. It is a string representing the share URL. It
  *     supports 4 different placeholders for custom data. The ~URL~ placeholder
