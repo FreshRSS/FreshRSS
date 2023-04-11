@@ -12,7 +12,7 @@ class Minz_Migrator
 	/** @var string[] */
 	private $applied_versions;
 
-	/** @var array */
+	/** @var array<string> */
 	private $migrations = [];
 
 	/**
@@ -21,16 +21,16 @@ class Minz_Migrator
 	 * @param string $migrations_path
 	 * @param string $applied_migrations_path
 	 *
-	 * @throws BadFunctionCallException if a callback isn't callable.
+	 * @return true|string Returns true if execute succeeds to apply
+	 *                        migrations, or a string if it fails.
 	 * @throws DomainException if there is no migrations corresponding to the
 	 *                         given version (can happen if version file has
 	 *                         been modified, or migrations path cannot be
 	 *                         read).
 	 *
-	 * @return boolean|string Returns true if execute succeeds to apply
-	 *                        migrations, or a string if it fails.
+	 * @throws BadFunctionCallException if a callback isn't callable.
 	 */
-	public static function execute($migrations_path, $applied_migrations_path) {
+	public static function execute(string $migrations_path, string $applied_migrations_path) {
 		$applied_migrations = @file_get_contents($applied_migrations_path);
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";
@@ -122,12 +122,10 @@ class Minz_Migrator
 	 *
 	 * The files starting with a dot are ignored.
 	 *
-	 * @param string|null $directory
-	 *
 	 * @throws BadFunctionCallException if a callback isn't callable (i.e.
 	 *                                  cannot call a migrate method).
 	 */
-	public function __construct($directory = null) {
+	public function __construct(?string $directory = null) {
 		$this->applied_versions = [];
 
 		if ($directory == null || !is_dir($directory)) {
@@ -161,13 +159,13 @@ class Minz_Migrator
 	 *
 	 * @param string $version The version of the migration (be careful, migrations
 	 *                        are sorted with the `strnatcmp` function)
-	 * @param callable $callback The migration function to execute, it should
+	 * @param ?callable $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
 	 * @throws BadFunctionCallException if the callback isn't callable.
 	 */
-	public function addMigration($version, $callback) {
+	public function addMigration(string $version, ?callable $callback): void {
 		if (!is_callable($callback)) {
 			throw new BadFunctionCallException("{$version} migration cannot be called.");
 		}
@@ -180,9 +178,9 @@ class Minz_Migrator
 	 *
 	 * @see https://www.php.net/manual/en/function.strnatcmp.php
 	 *
-	 * @return array
+	 * @return array<string,callable>
 	 */
-	public function migrations() {
+	public function migrations(): array {
 		$migrations = $this->migrations;
 		uksort($migrations, 'strnatcmp');
 		return $migrations;
@@ -195,7 +193,7 @@ class Minz_Migrator
 	 *
 	 * @throws DomainException if there is no migrations corresponding to a version
 	 */
-	public function setAppliedVersions($versions) {
+	public function setAppliedVersions(array $versions): void {
 		foreach ($versions as $version) {
 			$version = trim($version);
 			if (!isset($this->migrations[$version])) {
@@ -208,7 +206,7 @@ class Minz_Migrator
 	/**
 	 * @return string[]
 	 */
-	public function appliedVersions() {
+	public function appliedVersions(): array {
 		$versions = $this->applied_versions;
 		usort($versions, 'strnatcmp');
 		return $versions;
@@ -221,7 +219,7 @@ class Minz_Migrator
 	 *
 	 * @return string[]
 	 */
-	public function versions() {
+	public function versions(): array {
 		$migrations = $this->migrations();
 		return array_keys($migrations);
 	}
@@ -231,7 +229,7 @@ class Minz_Migrator
 	 *                 otherwise. If no migrations are registered, it always
 	 *                 returns true.
 	 */
-	public function upToDate() {
+	public function upToDate(): bool {
 		// Counting versions is enough since we cannot apply a version which
 		// doesn't exist (see setAppliedVersions method).
 		return count($this->versions()) === count($this->applied_versions);
@@ -247,11 +245,11 @@ class Minz_Migrator
 	 * considered as successful. It is considered as good practice to return
 	 * true on success though.
 	 *
-	 * @return array Return the results of each executed migration. If an
+	 * @return array<string|bool> Return the results of each executed migration. If an
 	 *               exception was raised in a migration, its result is set to
 	 *               the exception message.
 	 */
-	public function migrate() {
+	public function migrate(): array {
 		$result = [];
 		foreach ($this->migrations() as $version => $callback) {
 			if (in_array($version, $this->applied_versions)) {
