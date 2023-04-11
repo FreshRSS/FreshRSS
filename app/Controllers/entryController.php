@@ -13,16 +13,16 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
 		// If ajax request, we do not print layout
-		$this->ajax = Minz_Request::param('ajax');
+		$this->ajax = Minz_Request::paramBoolean('ajax');
 		if ($this->ajax) {
 			$this->view->_layout(false);
 			Minz_Request::_param('ajax');
@@ -42,15 +42,15 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - idMax (default: 0)
 	 *   - is_read (default: true)
 	 */
-	public function readAction() {
+	public function readAction(): void {
 		$id = Minz_Request::param('id');
-		$get = Minz_Request::param('get');
-		$next_get = Minz_Request::param('nextGet', $get);
-		$id_max = Minz_Request::param('idMax', 0);
-		$is_read = (bool)(Minz_Request::param('is_read', true));
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
+		$get = Minz_Request::paramString('get');
+		$next_get = Minz_Request::paramString('nextGet') ?: $get;
+		$id_max = Minz_Request::paramString('idMax') ?: '0';
+		$is_read = Minz_Request::paramTernary('is_read') ?? true;
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
 
-		FreshRSS_Context::$state = Minz_Request::param('state', 0);
+		FreshRSS_Context::$state = Minz_Request::paramInt('state');
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
 			FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
 		} elseif (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
@@ -59,11 +59,11 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$state = 0;
 		}
 
-		$params = array();
-		$this->view->tags = array();
+		$params = [];
+		$this->view->tagsForEntries = [];
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		if ($id === false) {
+		if ($id == false) {
 			// id is false? It MUST be a POST request!
 			if (!Minz_Request::isPost()) {
 				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
@@ -75,7 +75,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				$entryDAO->markReadEntries($id_max, false, 0, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
-				$get = substr($get, 2);
+				$get = (int)substr($get, 2);
 				switch($type_get) {
 				case 'c':
 					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
@@ -93,7 +93,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 'T':
-					$entryDAO->markReadTag('', $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				}
 
@@ -112,7 +112,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
 			}
-			$this->view->tags = $tags;
+			$this->view->tagsForEntries = $tags;
 		}
 
 		if (!$this->ajax) {
@@ -133,10 +133,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - is_favorite (default: true)
 	 * If id is false, nothing happened.
 	 */
-	public function bookmarkAction() {
-		$id = Minz_Request::param('id');
-		$is_favourite = (bool)Minz_Request::param('is_favorite', true);
-		if ($id !== false) {
+	public function bookmarkAction(): void {
+		$id = Minz_Request::paramString('id');
+		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
+		if ($id != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite($id, $is_favourite);
 		}
@@ -157,7 +157,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo move this action in configure controller.
 	 * @todo call this action through web-cron when available
 	 */
-	public function optimizeAction() {
+	public function optimizeAction(): void {
 		$url_redirect = array(
 			'c' => 'configure',
 			'a' => 'archiving',
@@ -185,7 +185,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
-	public function purgeAction() {
+	public function purgeAction(): void {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

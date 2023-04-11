@@ -10,7 +10,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
-	protected static function sqlConcat($s1, $s2) {
+	protected static function sqlConcat(string $s1, string $s2): string {
 		return $s1 . '||' . $s2;
 	}
 
@@ -22,7 +22,8 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
 			foreach (['attributes'] as $column) {
@@ -47,7 +48,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
-	public function commitNewEntries() {
+	public function commitNewEntries(): bool {
 		$sql = '
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
@@ -115,7 +116,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @todo remove code duplication. It seems the code is basically the
 	 * same if it is an array or not.
 	 *
-	 * @param integer|array $ids
+	 * @param string|array<string> $ids
 	 * @param boolean $is_read
 	 * @return integer|false affected rows
 	 */
@@ -177,10 +178,10 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param string $idMax fail safe article ID
 	 * @param boolean $onlyFavorites
 	 * @param integer $priorityMin
-	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0, $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
+		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
@@ -219,10 +220,9 @@ DROP TABLE IF EXISTS `tmp`;
 	 *
 	 * @param integer $id category ID
 	 * @param string $idMax fail safe article ID
-	 * @param FreshRSS_BooleanSearch|null $filters
 	 * @return integer|false affected rows
 	 */
-	public function markReadCat(int $id, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
@@ -256,7 +256,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param string $idMax max article ID
 	 * @return integer|false affected rows
 	 */
-	public function markReadTag($id = 0, string $idMax = '0', $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';

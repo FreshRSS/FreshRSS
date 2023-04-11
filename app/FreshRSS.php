@@ -61,7 +61,7 @@ class FreshRSS extends Minz_FrontController {
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
-			Minz_ExtensionManager::enableByList($ext_list);
+			Minz_ExtensionManager::enableByList($ext_list, 'user');
 		}
 
 		if (FreshRSS_Context::$system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
@@ -155,7 +155,7 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function loadNotifications(): void {
 		$notif = Minz_Request::getNotification();
-		if ($notif) {
+		if (!empty($notif)) {
 			FreshRSS_View::_param('notification', $notif);
 		}
 	}

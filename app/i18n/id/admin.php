@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Aliran utama',
 		'no_idle' => 'Tidak ada idle feed!',
 		'number_entries' => '%d artikel',
-		'percent_of_total' => '%% dari total',
+		'percent_of_total' => '% dari total',
 		'repartition' => 'Mengembalikan artikel',
 		'status_favorites' => 'Favorites',
 		'status_read' => 'Read',	// TODO
@@ -182,6 +182,11 @@ return array(
 				'enabled' => 'Form enabled',	// TODO
 			),
 			'title' => 'Formulir Pendaftaran Pengguna',
+		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
 	),
 	'update' => array(

@@ -48,7 +48,8 @@ class FreshRSS_Entry extends Minz_Model {
 	 */
 	private $feed;
 
-	private $tags;
+	/** @var array<string> */
+	private $tags = [];
 	private $attributes = [];
 
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
@@ -187,6 +188,7 @@ HTML;
 			$thumbnails = $enclosure['thumbnails'] ?? [];
 			$etitle = $enclosure['title'] ?? '';
 
+			$content .= "\n";
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
@@ -346,7 +348,8 @@ HTML;
 		return $this->feedId;
 	}
 
-	public function tags($asString = false) {
+	/** @return string|array<string> */
+	public function tags(bool $asString = false) {
 		if ($asString) {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
 		} else {

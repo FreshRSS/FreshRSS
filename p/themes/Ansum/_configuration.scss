@@ -2,16 +2,7 @@
 
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
-
-	form {
-		margin: 1rem 0;
-	}
-
-	&.content {
-		max-width: 550px;
-	}
 
 	h1, h2 {
 		color: variables.$main-font-color;

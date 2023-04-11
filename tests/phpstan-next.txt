@@ -1,0 +1,21 @@
+# List of files, which are not yet passing PHPStan level 6 https://phpstan.org/user-guide/rule-levels
+# https://github.com/FreshRSS/FreshRSS/issues/4112
+# Used for automated tests to avoid regressions in files already passing that level.
+# Can be regenerated with something like:
+# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
+
+./app/install.php
+./app/Models/Category.php
+./app/Models/CategoryDAO.php
+./app/Models/Entry.php
+./app/Models/Feed.php
+./app/Models/FeedDAO.php
+./app/Models/Search.php
+./app/Models/Share.php
+./app/Models/TagDAO.php
+./app/Services/ImportService.php
+./cli/i18n/I18nData.php
+./cli/i18n/I18nFile.php
+./cli/i18n/I18nValue.php
+./lib/Minz/Dispatcher.php
+./lib/Minz/Paginator.php

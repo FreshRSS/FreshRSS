@@ -13,10 +13,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -28,12 +28,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the main page for import / export system.
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$this->view->feeds = $this->feedDAO->listFeeds();
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
-	private static function megabytes($size_str) {
+	/**
+	 * @return float|int|string
+	 */
+	private static function megabytes(string $size_str) {
 		switch (substr($size_str, -1)) {
 			case 'M': case 'm': return (int)$size_str;
 			case 'K': case 'k': return (int)$size_str / 1024;
@@ -42,7 +45,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return $size_str;
 	}
 
-	private static function minimumMemory($mb) {
+	/**
+	 * @param string|int $mb
+	 */
+	private static function minimumMemory($mb): void {
 		$mb = (int)$mb;
 		$ini = self::megabytes(ini_get('memory_limit'));
 		if ($ini < $mb) {
@@ -50,7 +56,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function importFile($name, $path, $username = null) {
+	public function importFile(string $name, string $path, ?string $username = null): bool {
 		self::minimumMemory(256);
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
@@ -151,7 +157,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *   - file (default: nothing!)
 	 * Available file types are: zip, json or xml.
 	 */
-	public function importAction() {
+	public function importAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
@@ -190,7 +196,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * It is a *very* basic guess file type function. Only based on filename.
 	 * That could be improved but should be enough for what we have to do.
 	 */
-	private static function guessFileType($filename) {
+	private static function guessFileType(string $filename): string {
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
 		} elseif (stripos($filename, 'opml') !== false) {
@@ -211,6 +217,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return 'unknown';
 	}
 
+	/**
+	 * @return false|string
+	 */
 	private function ttrssXmlToJson(string $xml) {
 		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = isset($table['article']) ? $table['article'] : array();
@@ -256,11 +265,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	/**
 	 * This method import a JSON-based file (Google Reader format).
 	 *
-	 * @param string $article_file the JSON file content.
-	 * @param boolean $starred true if articles from the file must be starred.
+	 * $article_file the JSON file content.
+	 * true if articles from the file must be starred.
 	 * @return boolean false if an error occurred, true otherwise.
 	 */
-	private function importJson($article_file, $starred = false) {
+	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
 		if ($article_object == null) {
 			if (FreshRSS_Context::$isCli) {
@@ -348,7 +357,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// For each feed, check existing GUIDs already in database.
 		$existingHashForGuids = array();
 		foreach ($newFeedGuids as $feedId => $newGuids) {
-			$existingHashForGuids[$feedId] = $this->entryDAO->listHashForFeedGuids(substr($feedId, 2), $newGuids);
+			$existingHashForGuids[$feedId] = $this->entryDAO->listHashForFeedGuids((int)substr($feedId, 2), $newGuids);
 		}
 		unset($newFeedGuids);
 
@@ -505,7 +514,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * @param array<string,string> $origin represents a feed.
 	 * @return FreshRSS_Feed|null if feed is in database at the end of the process, else null.
 	 */
-	private function addFeedJson($origin) {
+	private function addFeedJson(array $origin): ?FreshRSS_Feed {
 		$return = null;
 		if (!empty($origin['feedUrl'])) {
 			$url = $origin['feedUrl'];
@@ -566,62 +575,61 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *   - export_starred (default: false)
 	 *   - export_labelled (default: false)
 	 *   - export_feeds (default: array()) a list of feed ids
+	 *
+	 * @return void|null
 	 */
 	public function exportAction() {
 		if (!Minz_Request::isPost()) {
-			return Minz_Request::forward(
-				array('c' => 'importExport', 'a' => 'index'),
-				true
-			);
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+			return;
 		}
 
-		$username = Minz_Session::param('currentUser');
+		$username = Minz_User::name();
 		$export_service = new FreshRSS_Export_Service($username);
 
-		$export_opml = Minz_Request::param('export_opml', false);
-		$export_starred = Minz_Request::param('export_starred', false);
-		$export_labelled = Minz_Request::param('export_labelled', false);
-		$export_feeds = Minz_Request::param('export_feeds', array());
+		$export_opml = Minz_Request::paramBoolean('export_opml');
+		$export_starred = Minz_Request::paramBoolean('export_starred');
+		$export_labelled = Minz_Request::paramBoolean('export_labelled');
+		/** @var array<numeric-string> */
+		$export_feeds = Minz_Request::paramArray('export_feeds');
 		$max_number_entries = 50;
 
 		$exported_files = [];
 
 		if ($export_opml) {
-			list($filename, $content) = $export_service->generateOpml();
+			[$filename, $content] = $export_service->generateOpml();
 			$exported_files[$filename] = $content;
 		}
 
 		// Starred and labelled entries are merged in the same `starred` file
 		// to avoid duplication of content.
 		if ($export_starred && $export_labelled) {
-			list($filename, $content) = $export_service->generateStarredEntries('ST');
+			[$filename, $content] = $export_service->generateStarredEntries('ST');
 			$exported_files[$filename] = $content;
 		} elseif ($export_starred) {
-			list($filename, $content) = $export_service->generateStarredEntries('S');
+			[$filename, $content] = $export_service->generateStarredEntries('S');
 			$exported_files[$filename] = $content;
 		} elseif ($export_labelled) {
-			list($filename, $content) = $export_service->generateStarredEntries('T');
+			[$filename, $content] = $export_service->generateStarredEntries('T');
 			$exported_files[$filename] = $content;
 		}
 
 		foreach ($export_feeds as $feed_id) {
-			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
+			$result = $export_service->generateFeedEntries((int)$feed_id, $max_number_entries);
 			if (!$result) {
 				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}
 
-			list($filename, $content) = $result;
+			[$filename, $content] = $result;
 			$exported_files[$filename] = $content;
 		}
 
 		$nb_files = count($exported_files);
 		if ($nb_files <= 0) {
 			// There’s nothing to do, there’re no files to export
-			return Minz_Request::forward(
-				array('c' => 'importExport', 'a' => 'index'),
-				true
-			);
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+			return;
 		}
 
 		if ($nb_files === 1) {
@@ -632,13 +640,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
 				// Oops, there is no ZIP extension!
-				return Minz_Request::bad(
+				Minz_Request::bad(
 					_t('feedback.import_export.export_no_zip_extension'),
-					array('c' => 'importExport', 'a' => 'index')
+					['c' => 'importExport', 'a' => 'index']
 				);
+				return;
 			}
 
-			list($filename, $content) = $export_service->zip($exported_files);
+			[$filename, $content] = $export_service->zip($exported_files);
 		}
 
 		$content_type = self::filenameToContentType($filename);
@@ -654,12 +663,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *
 	 * If the type of the filename is not supported, it returns
 	 * `application/octet-stream` by default.
-	 *
-	 * @param string $filename
-	 *
-	 * @return string
 	 */
-	private static function filenameToContentType($filename) {
+	private static function filenameToContentType(string $filename): string {
 		$filetype = self::guessFileType($filename);
 		switch ($filetype) {
 		case 'zip':

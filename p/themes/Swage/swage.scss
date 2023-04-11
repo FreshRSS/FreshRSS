@@ -872,7 +872,6 @@ form {
 }
 
 .post {
-	padding: 10px 50px;
 	font-size: 0.9em;
 
 	input {
@@ -880,14 +879,6 @@ form {
 			height: 33px;
 			margin-top: 0px;
 		}
-	}
-
-	form {
-		margin: 10px 0;
-	}
-
-	&.content {
-		max-width: 550px;
 	}
 }
 
