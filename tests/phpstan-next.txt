@@ -19,4 +19,3 @@
 ./cli/i18n/I18nValue.php
 ./lib/Minz/Dispatcher.php
 ./lib/Minz/Paginator.php
-./lib/Minz/Session.php
