@@ -245,7 +245,7 @@ class Minz_Migrator
 	 * considered as successful. It is considered as good practice to return
 	 * true on success though.
 	 *
-	 * @return array<string|true> Return the results of each executed migration. If an
+	 * @return array<string|bool> Return the results of each executed migration. If an
 	 *               exception was raised in a migration, its result is set to
 	 *               the exception message.
 	 */
