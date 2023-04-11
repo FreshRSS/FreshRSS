@@ -50,6 +50,13 @@ return array(
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
+	'buffer' => array(
+		'url' => 'https://publish.buffer.com/compose?url=~LINK~&text=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://support.buffer.com/hc/en-us/articles/360035587394-Scheduling-posts',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 	'clipboard' => array(
 		'HTMLtag' => 'button',
 		'url' => '~LINK~',
