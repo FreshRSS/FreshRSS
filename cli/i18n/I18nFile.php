@@ -4,7 +4,7 @@ require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
 	/**
-	 * @return array<string, array<string, array<string, I18nValue>>>|array<string, array<string, I18nValue>>
+	 * @return array<string,array<string,string|array<string,I18nValue>>>
 	 */
 	public function load(): array {
 		$i18n = array();
@@ -44,7 +44,7 @@ class I18nFile {
 
 	/**
 	 * Process the content of an i18n file
-	 * @return array<string, array<string, I18nValue>>
+	 * @return array<string,array<string,I18nValue>>
 	 */
 	private function process(string $filename): array {
 		$fileContent = file_get_contents($filename);
@@ -81,9 +81,9 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array<string, array<string, I18nValue>>| array<string, I18nValue> $translation
+	 * @param array<string,I18nValue|array<string,I18nValue>> $translation
 	 * @param string $prefix
-	 * @return array<string, I18nValue>
+	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {
 		$a = array();
@@ -110,7 +110,7 @@ class I18nFile {
 	 * no use of it.
 	 *
 	 * @param array<string> $translation
-	 * @return array<string, array<string, I18nValue>>
+	 * @return array<string,array<string,I18nValue>>
 	 */
 	private function unflatten(array $translation): array {
 		$a = array();
