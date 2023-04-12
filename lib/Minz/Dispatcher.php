@@ -5,20 +5,21 @@
 */
 
 /**
- * Le Dispatcher s'occupe d'initialiser le Controller et d'executer l'action
- * déterminée dans la Request
- * C'est un singleton
+ * The Dispatcher is in charge of initialising the Controller and exectue the action as specified in the Request object.
+ * It is a singleton.
  */
 class Minz_Dispatcher {
 
-	/* singleton */
-	/** @var Minz_Dispatcher|null */
+	/**
+	 * Singleton
+	 * @var Minz_Dispatcher|null
+	 */
 	private static $instance;
 	/** @var bool */
 	private static $needsReset;
-	/** @var array<string, string> */
+	/** @var array<string,string> */
 	private static $registrations = [];
-	/** @var Minz_ActionController  */
+	/** @var Minz_ActionController */
 	private $controller;
 
 	/**
@@ -102,7 +103,7 @@ class Minz_Dispatcher {
 	}
 
 	/**
-	 * Launch the action on the dispatcher's controller
+	 * Launch the action on the dispatcher’s controller
 	 * @param string $action_name the name of the action
 	 * @throws Minz_ActionException if the action cannot be executed on the controller
 	 */
