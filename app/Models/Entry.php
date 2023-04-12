@@ -505,13 +505,13 @@ HTML;
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
 				$ok = true;
-				if ($ok && $filter->getEntryIds()) {
+				if ($filter->getEntryIds()) {
 					$ok &= in_array($this->id, $filter->getEntryIds());
 				}
 				if ($ok && $filter->getNotEntryIds()) {
 					$ok &= !in_array($this->id, $filter->getNotEntryIds());
 				}
-				if ($filter->getMinDate()) {
+				if ($ok && $filter->getMinDate()) {
 					$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
 				}
 				if ($ok && $filter->getNotMinDate()) {
