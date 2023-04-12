@@ -49,8 +49,10 @@ class Minz_Request {
 			$p = self::$params[$key];
 			if (is_object($p) || $specialchars) {
 				return $p;
-			} else {
+			} elseif (is_string($p) || is_array($p)) {
 				return Minz_Helper::htmlspecialchars_utf8($p);
+			} else {
+				return $p;
 			}
 		} else {
 			return $default;
