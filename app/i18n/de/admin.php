@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Haupt-Feeds',
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
-		'percent_of_total' => '%% Gesamt',
+		'percent_of_total' => '% Gesamt',
 		'repartition' => 'Artikel-Verteilung',
 		'status_favorites' => 'Favoriten',
 		'status_read' => 'Gelesen',
@@ -183,6 +183,11 @@ return array(
 				'enabled' => 'Formular aktiviert',
 			),
 			'title' => 'Benutzer-Registrierungsformular',
+		),
+		'tos' => array(
+			'disabled' => 'sind nicht aktiviert',
+			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
+			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
 		),
 	),
 	'update' => array(

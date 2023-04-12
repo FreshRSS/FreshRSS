@@ -12,6 +12,7 @@ class Minz_ModelPdo {
 
 	/**
 	 * Shares the connection to the database between all instances.
+	 * @var bool
 	 */
 	public static $usesSharedPdo = true;
 
@@ -51,7 +52,13 @@ class Minz_ModelPdo {
 
 		switch ($db['type']) {
 			case 'mysql':
-				$dsn = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';charset=utf8mb4';
+				$dsn = 'mysql:';
+				if (empty($dbServer['host'])) {
+					$dsn .= 'unix_socket=' . $db['host'];
+				} else {
+					$dsn .= 'host=' . $dbServer['host'];
+				}
+				$dsn .= ';charset=utf8mb4';
 				if (!empty($db['base'])) {
 					$dsn .= ';dbname=' . $db['base'];
 				}
@@ -97,7 +104,7 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null, $currentPdo = null) {
 		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser');
+			$currentUser = Minz_User::name();
 		}
 		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;

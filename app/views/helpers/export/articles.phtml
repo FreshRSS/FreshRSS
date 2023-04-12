@@ -1,6 +1,6 @@
 <?php
 /** @var FreshRSS_View $this */
-$username = Minz_Session::param('currentUser', '_');
+$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 
 $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 

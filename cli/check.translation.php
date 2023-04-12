@@ -12,7 +12,7 @@ $i18nData = new I18nData($i18nFile->load());
 $options = getopt("dhl:r");
 
 if (array_key_exists('h', $options)) {
-	help();
+	checkHelp();
 }
 if (array_key_exists('l', $options)) {
 	$languages = array($options['l']);
@@ -63,9 +63,9 @@ if (!$isValidated) {
  * Iterates through all php and phtml files in the whole project and extracts all
  * translation keys used.
  *
- * @return array
+ * @return array<string>
  */
-function findUsedTranslations() {
+function findUsedTranslations(): array {
 	$directory = new RecursiveDirectoryIterator(__DIR__ . '/..');
 	$iterator = new RecursiveIteratorIterator($directory);
 	$regex = new RegexIterator($iterator, '/^.+\.(php|phtml)$/i', RecursiveRegexIterator::GET_MATCH);
@@ -80,8 +80,9 @@ function findUsedTranslations() {
 
 /**
  * Output help message.
+ * @return never
  */
-function help() {
+function checkHelp() {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP

@@ -1,14 +1,35 @@
-<?php /** @var FreshRSS_View $this */ ?>
-<main class="post content">
-	<?php if ($this->can_register) { ?>
-		<a href="<?= _url('auth', 'register') ?>">
-			<?= _t('gen.action.back') ?>
-		</a>
+<?php
+	/** @var FreshRSS_View $this */
+	if (FreshRSS_Auth::hasAccess()) {
+		$this->partial('aside_configure');
+	}
+?>
+
+<main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
+	<?php if (FreshRSS_Auth::hasAccess()) {?>
+		<div class="link-back-wrapper">
+			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+		</div>
+	<?php } elseif ($this->can_register) { ?>
+		<div class="link-back-wrapper">
+			<a href="<?= _url('auth', 'register') ?>">
+				<?= _t('gen.action.back') ?>
+			</a>
+		</div>
 	<?php } else { ?>
-		<a href="<?= _url('index', 'index') ?>">
-			<?= _t('gen.action.back') ?>
-		</a>
+		<div class="link-back-wrapper">
+			<a href="<?= _url('index', 'index') ?>">
+				<?= _t('gen.action.back') ?>
+			</a>
+		</div>
 	<?php } ?>
 
+	<h1><?= _t('index.tos.title')?></h1>
 	<?= $this->terms_of_service ?>
 </main>
+
+<?php if (!FreshRSS_Auth::hasAccess()) { ?>
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+</footer>
+<?php } ?>

@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
-		'darkMode' => 'Mode sombre automatique (bêta)',
+		'darkMode' => array(
+			'_' => 'Mode sombre automatique (bêta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Non',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site Web',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
 			'large' => 'Large',	// IGNORE

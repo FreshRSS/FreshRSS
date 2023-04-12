@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	const DEFAULTCATEGORYID = 1;
 
@@ -75,7 +75,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		return false;
 	}
 
-	protected function autoUpdateDb(array $errorInfo) {
+	/** @param array<string> $errorInfo */
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
@@ -224,8 +225,7 @@ SQL;
 		}
 	}
 
-	/** @return FreshRSS_Category|null */
-	public function searchById($id) {
+	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		if ($stm &&
@@ -281,7 +281,8 @@ SQL;
 		return $categories;
 	}
 
-	public function listCategories($prePopulateFeeds = true, $details = false) {
+	/** @return array<FreshRSS_Category>|false */
+	public function listCategories(bool $prePopulateFeeds = true, bool $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes, '
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
@@ -435,13 +436,12 @@ SQL;
 		return $n;
 	}
 
-	public static function daoToCategoryPrepopulated($listDAO) {
+	/**
+	 * @param array<string,mixed> $listDAO
+	 * @return array<int,FreshRSS_Category>
+	 */
+	private static function daoToCategoryPrepopulated(array $listDAO) {
 		$list = array();
-
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
 		$previousLine = null;
 		$feedsDao = array();
 		$feedDao = FreshRSS_Factory::createFeedDAO();
@@ -481,7 +481,7 @@ SQL;
 		return $list;
 	}
 
-	public static function daoToCategory($listDAO) {
+	private static function daoToCategory($listDAO) {
 		$list = array();
 
 		if (!is_array($listDAO)) {

@@ -7,7 +7,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	public function firstAction(): void {
@@ -86,12 +86,12 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * but shows the stats idle page
 	 */
 	public function feedAction(): void {
-		$id = '' . Minz_Request::param('id', '');
-		$ajax = '' . Minz_Request::param('ajax', '');
+		$id = Minz_Request::paramInt('id');
+		$ajax = Minz_Request::paramBoolean('ajax');
 		if ($ajax) {
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats', 'ajax' => $ajax));
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => 'stats', 'ajax' => (string)$ajax));
 		} else {
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => 'stats'));
+			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => 'stats'));
 		}
 		Minz_Request::forward($url_redirect, true);
 	}
@@ -174,9 +174,9 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->idleFeeds = $idleFeeds;
 		$this->view->feeds = $feed_dao->listFeeds();
 
-		$id = Minz_Request::param('id');
+		$id = Minz_Request::paramInt('id');
 		$this->view->displaySlider = false;
-		if (false !== $id) {
+		if ($id !== 0) {
 			$this->view->displaySlider = true;
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->view->feed = $feedDAO->searchById($id);
@@ -202,10 +202,13 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
-		$id = Minz_Request::param('id', null);
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			$id = null;
+		}
 
 		$this->view->categories 	= $categoryDAO->listCategories();
-		$this->view->feed 			= $feedDAO->searchById($id);
+		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();
 

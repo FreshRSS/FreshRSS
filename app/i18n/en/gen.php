@@ -150,6 +150,7 @@ return array(
 		'it' => 'Italiano',
 		'ja' => '日本語',
 		'ko' => '한국어',
+		'lv' => 'Latviešu',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -193,8 +194,10 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',

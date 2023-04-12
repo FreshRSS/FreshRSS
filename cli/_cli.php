@@ -18,12 +18,13 @@ Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
 
-function fail($message, $exitCode = 1) {
+/** @return never */
+function fail(string $message, int $exitCode = 1) {
 	fwrite(STDERR, $message . "\n");
 	die($exitCode);
 }
 
-function cliInitUser($username) {
+function cliInitUser(string $username): string {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		fail('FreshRSS error: invalid username: ' . $username . "\n");
 	}
@@ -37,24 +38,25 @@ function cliInitUser($username) {
 	}
 
 	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
-	Minz_ExtensionManager::enableByList($ext_list);
+	Minz_ExtensionManager::enableByList($ext_list, 'user');
 
 	return $username;
 }
 
-function accessRights() {
+function accessRights(): void {
 	echo 'ℹ️ Remember to re-apply the appropriate access rights, such as:',
-		"\t", 'sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/', "\n";
+		"\t", 'sudo cli/access-permissions.sh', "\n";
 }
 
-function done($ok = true) {
+/** @return never */
+function done(bool $ok = true) {
 	if (!$ok) {
 		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename($_SERVER['argv'][0])) . ' failed!' . "\n");
 	}
 	exit($ok ? 0 : 1);
 }
 
-function performRequirementCheck($databaseType) {
+function performRequirementCheck(string $databaseType): void {
 	$requirements = checkRequirements($databaseType);
 	if ($requirements['all'] !== 'ok') {
 		$message = 'FreshRSS failed requirements:' . "\n";
@@ -70,7 +72,11 @@ function performRequirementCheck($databaseType) {
 	}
 }
 
-function getLongOptions($options, $regex) {
+/**
+ * @param array<string> $options
+ * @return array<string>
+ */
+function getLongOptions(array $options, string $regex): array {
 	$longOptions = array_filter($options, function($a) use ($regex) {
 		return preg_match($regex, $a);
 	});
@@ -79,7 +85,11 @@ function getLongOptions($options, $regex) {
 	}, $longOptions);
 }
 
-function validateOptions($input, $params) {
+/**
+ * @param array<string> $input
+ * @param array<string> $params
+ */
+function validateOptions(array $input, array $params): bool {
 	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
 	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
 	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);

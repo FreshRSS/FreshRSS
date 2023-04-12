@@ -103,7 +103,7 @@ return array(
 		'cache_duration' => 800,
 
 		# SimplePie HTTP request timeout in seconds.
-		'timeout' => 15,
+		'timeout' => 20,
 
 		# If a user has not used FreshRSS for more than x seconds,
 		#	then its feeds are not refreshed anymore.

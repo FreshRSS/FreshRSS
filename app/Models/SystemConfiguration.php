@@ -22,12 +22,12 @@
  * @property-read bool $pubsubhubbub_enabled
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
- * @property string $unsafe_autologin_enabled
+ * @property bool $unsafe_autologin_enabled
  * @property-read array<string> $trusted_sources
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
-	public static function init($config_filename, $default_filename = null): FreshRSS_SystemConfiguration {
+	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		return parent::get('system');
 	}

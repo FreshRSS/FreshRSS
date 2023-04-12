@@ -19,7 +19,7 @@ class Minz_Error {
 	*      > $logs['notice']
 	* @param bool $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
-	public static function error ($code = 404, $logs = array (), $redirect = true) {
+	public static function error(int $code = 404, array $logs = [], bool $redirect = true): void {
 		$logs = self::processLogs ($logs);
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
@@ -52,7 +52,7 @@ class Minz_Error {
 	 * @param array<string,string>|string $logs logs sorted by category (error, warning, notice)
 	 * @return array<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
-	private static function processLogs ($logs) {
+	private static function processLogs($logs) {
 		$conf = Minz_Configuration::get('system');
 		$env = $conf->environment;
 		$logs_ok = array ();

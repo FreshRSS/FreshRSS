@@ -51,7 +51,7 @@
 							continue;
 						}
 				?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() === (Minz_Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
@@ -70,6 +70,7 @@
 					<select name="feed_kind" id="feed_kind" class="select-show">
 						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 					</select>
 				</div>
 			</div>
@@ -237,7 +238,7 @@
 			<div class="form-group">
 				<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 				<div class="group-controls">
-					<input type="number" name="timeout" id="timeout" min="3" max="120" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
+					<input type="number" name="timeout" id="timeout" min="3" max="900" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 				</div>
 			</div>
 

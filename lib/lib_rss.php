@@ -365,7 +365,11 @@ function sanitizeHTML($data, string $base = '', ?int $maxLength = null): string 
 
 function cleanCache(int $hours = 720): void {
 	// N.B.: GLOB_BRACE is not available on all platforms
-	$files = array_merge(glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [], glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: []);
+	$files = array_merge(
+		glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [],
+		glob(CACHE_PATH . '/*.json', GLOB_NOSORT) ?: [],
+		glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: [],
+		glob(CACHE_PATH . '/*.xml', GLOB_NOSORT) ?: []);
 	foreach ($files as $file) {
 		if (substr($file, -10) === 'index.html') {
 			continue;
@@ -410,7 +414,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 }
 
 /**
- * @param string $type {html,opml}
+ * @param string $type {html,json,opml,xml}
  * @param array<string,mixed> $attributes
  */
 function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
@@ -430,7 +434,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	}
 
 	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
-		cleanCache();
+		cleanCache(CLEANCACHE_HOURS);
 	}
 
 	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
@@ -439,8 +443,14 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	$accept = '*/*;q=0.8';
 	switch ($type) {
+		case 'json':
+			$accept = 'application/json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
+			break;
 		case 'opml':
 			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
+			break;
+		case 'xml':
+			$accept = 'application/xml,application/xhtml+xml,text/xml;q=0.9,*/*;q=0.8';
 			break;
 		case 'html':
 		default:
@@ -537,7 +547,7 @@ function uTimeString(): string {
 function invalidateHttpCache(string $username = ''): bool {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
 	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
 	//if (!$ok) {
@@ -554,7 +564,7 @@ function listUsers(): array {
 	$base_path = join_path(DATA_PATH, 'users');
 	$dir_list = array_values(array_diff(
 		scandir($base_path) ?: [],
-		['..', '.', '_']
+		['..', '.', Minz_User::INTERNAL_USER]
 	));
 	foreach ($dir_list as $file) {
 		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {

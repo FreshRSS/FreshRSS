@@ -3,7 +3,7 @@
 
 	<ul>
 		<li class="item nav-section">
-			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></div>
+			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8')?></div>
 			<ul>
 				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
 					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
@@ -87,6 +87,11 @@
 				<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
 				</li>
+				<?php if (file_exists(TOS_FILENAME)) { ?>
+					<li class="item">
+						<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+					</li>
+				<?php } ?>
 			</ul>
 		</li>
 	</ul>

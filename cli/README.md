@@ -18,9 +18,7 @@ In any case, when you are done with a series of commands, you should re-apply th
 
 ```sh
 cd /usr/share/FreshRSS
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 ```
 
 

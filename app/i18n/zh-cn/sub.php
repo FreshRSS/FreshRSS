@@ -122,6 +122,7 @@ return array(
 				'xpath' => 'XPath 定位：',
 			),
 			'rss' => 'RSS / Atom (默认)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',

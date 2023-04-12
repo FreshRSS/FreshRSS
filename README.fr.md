@@ -109,11 +109,12 @@ sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 cd FreshRSS
 
-# Si vous souhaitez utiliser la dernière version stable de FreshRSS
-sudo git checkout $(git describe --tags --abbrev=0)
+# La branche par défault “edge” est la celle de la publication continue,
+# mais vous pouvez changer de branche pour “latest” si vous préférez les versions stables de FreshRSS
+sudo git checkout latest
 
 # Mettre les droits d’accès pour le serveur Web
-sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 # Si vous souhaitez permettre les mises à jour par l’interface Web
 sudo chmod -R g+w .
 
@@ -126,7 +127,7 @@ sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Mettre à jour FreshRSS vers une nouvelle version par git
 cd /usr/share/FreshRSS
 sudo git pull
-sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+sudo cli/access-permissions.sh
 ```
 
 Voir la [documentation de la ligne de commande](cli/README.md) pour plus de détails.

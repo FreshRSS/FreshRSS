@@ -63,11 +63,22 @@ html, body {
 }
 
 main.prompt {
-	margin: 3rem auto;
+	margin: 3rem auto 0;
 	padding: 2rem;
 	max-width: 400px;
 	min-width: 300px;
 	width: 33%;
+	text-align: center;
+}
+
+main.prompt .link-registration {
+	padding: 1rem 0 0;
+	margin-bottom: 3rem;
+}
+
+footer.main-footer {
+	margin: 0 2rem 2rem;
+	padding: 1rem;
 	text-align: center;
 }
 
@@ -219,6 +230,10 @@ input, select, textarea {
 	box-sizing: border-box;
 }
 
+select {
+	min-width: 6em;
+}
+
 input.w50,
 select.w50,
 textarea.w50 {
@@ -363,7 +378,6 @@ td.numeric {
 
 .prompt form {
 	margin-top: 2rem;
-	margin-bottom: 3rem;
 	text-align: right;
 }
 
@@ -402,7 +416,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 250px;
+	min-width: 200px;
 	margin: 0 220px 0 0;
 	overflow-x: auto;
 }
@@ -732,6 +746,12 @@ input[type="checkbox"]:focus-visible {
 
 .group-controls .alert {
 	width: 100%
+}
+
+.group-controls .next-step {
+	display: inline-block;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 .alert-head {
@@ -1187,6 +1207,26 @@ input[type="search"] {
 
 .flux .item.website {
 	width: 200px;
+}
+
+.flux:not(.current):hover .websitenone .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websiteicon .item.website {
+	width: calc(2 * var(--frss-padding-flux-items) + 16px);
+}
+
+.flux:not(.current):hover .websiteicon .item.title {
+	max-width: calc(100% - 4 * (2 * var(--frss-padding-flux-items) + 16px));
+}
+
+.flux .websitename .item.website {
+	width: 150px;
+}
+
+.flux:not(.current):hover .websitename .item.title {
+	max-width: calc(100% - 3 * (2 * var(--frss-padding-flux-items) + 16px) - 150px);
 }
 
 .website a:hover .favicon,
@@ -1727,6 +1767,20 @@ html.slider-active {
 	background-image: url('loader.gif');
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+/*=== Configuration pages */
+.post {
+	padding: 1rem 2rem;
+	font-size: 0.9em;
+}
+
+.post form {
+	margin: 1rem 0;
+}
+
+.post.content.centered {
+	max-width: 550px;
 }
 
 /*=== SLIDESHOW */
@@ -2291,6 +2345,10 @@ input:checked + .slide-container .properties {
 
 	.stat.half {
 		grid-column: 1 / span 2;
+	}
+
+	.slide + .nav label {
+		opacity: 0.5;
 	}
 }
 

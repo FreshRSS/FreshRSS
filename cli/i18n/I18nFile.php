@@ -27,7 +27,7 @@ class I18nFile {
 		foreach ($i18n as $language => $file) {
 			$dir = I18N_PATH . DIRECTORY_SEPARATOR . $language;
 			if (!file_exists($dir)) {
-				mkdir($dir);
+				mkdir($dir, 0770, true);
 			}
 			foreach ($file as $name => $content) {
 				$filename = $dir . DIRECTORY_SEPARATOR . $name;

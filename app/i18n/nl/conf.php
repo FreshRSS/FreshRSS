@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Opmaak',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Inhoud breedte',
 			'large' => 'Breed',
