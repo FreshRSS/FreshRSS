@@ -18,7 +18,7 @@ class Minz_Dispatcher {
 	private static $needsReset;
 	/** @var array<string, string> */
 	private static $registrations = [];
-    /** @var Minz_ActionController  */
+	/** @var Minz_ActionController  */
 	private $controller;
 
 	/**
