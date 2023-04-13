@@ -11,13 +11,9 @@
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
 ./app/Models/Search.php
-./app/Models/Share.php
 ./app/Models/TagDAO.php
 ./app/Services/ImportService.php
 ./cli/i18n/I18nData.php
 ./cli/i18n/I18nFile.php
 ./cli/i18n/I18nValue.php
-./lib/Minz/Dispatcher.php
-./lib/Minz/Migrator.php
 ./lib/Minz/Paginator.php
-./lib/Minz/Session.php

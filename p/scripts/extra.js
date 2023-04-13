@@ -291,6 +291,9 @@ function init_extra_afterDOM() {
 
 		const slider = document.getElementById('slider');
 		if (slider) {
+			slider.addEventListener('freshrss:slider-load', function (e) {
+				init_password_observers(slider);
+			});
 			init_slider(slider);
 			init_archiving(slider);
 			init_url_observers(slider);
