@@ -1148,7 +1148,6 @@ input[type="search"] {
 }
 
 .aside .toggle_aside:hover,
-#panel .close:hover,
 #slider .toggle_aside:hover,
 .dropdown-menu .toggle_aside:hover {
 	background-color: var(--frss-darken-background-hover-transparent);
@@ -2107,7 +2106,6 @@ input:checked + .slide-container .properties {
 	}
 
 	.aside .toggle_aside,
-	#panel .close, /* is it somewhere still used? */
 	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
@@ -2229,14 +2227,12 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
-	.aside .toggle_aside,
 	.configure .dropdown-header-close,
 	.nav-login {
 		display: block;
 	}
 
-	.nav_menu .toggle_aside,
-	#panel .close img {
+	.nav_menu .toggle_aside {
 		display: inline-block;
 	}
 
@@ -2318,14 +2314,6 @@ input:checked + .slide-container .properties {
 		right: 0; left: 0;
 		position: relative;
 		height: 100vh;
-	}
-
-	#panel .close {
-		top: 0; left: 0;
-		right: auto; bottom: auto;
-		display: inline-block;
-		width: 30px;
-		height: 30px;
 	}
 
 	#slider.active:target {
