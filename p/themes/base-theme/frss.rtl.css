@@ -1149,6 +1149,7 @@ input[type="search"] {
 
 .aside .toggle_aside:hover,
 #slider .toggle_aside:hover,
+#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover {
 	background-color: var(--frss-darken-background-hover-transparent);
 }
