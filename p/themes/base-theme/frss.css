@@ -2229,7 +2229,6 @@ input:checked + .slide-container .properties {
 		display: none;
 	}
 
-	.aside .toggle_aside,
 	.configure .dropdown-header-close,
 	.nav-login {
 		display: block;
