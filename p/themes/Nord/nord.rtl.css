@@ -1029,19 +1029,6 @@ option {
 		width: 100%;
 	}
 
-	#panel {
-		top: 25px; bottom: 30px;
-		right: 0; left: 0;
-	}
-
-	#overlay .close {
-		top: 0; left: 0;
-		right: auto; bottom: auto;
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-	}
-
 	#slider.active {
 		right: 0;
 		top: 50px;
