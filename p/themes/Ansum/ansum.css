@@ -1216,6 +1216,12 @@ main.prompt {
 	#global {
 		height: calc(100% - 8rem);
 	}
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
 	.post {
 		padding-left: 1rem;
 		padding-right: 1rem;

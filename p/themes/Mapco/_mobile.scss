@@ -53,6 +53,13 @@
 		height: calc(100% - 8rem);
 	}
 
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
 	main.prompt {
 		max-width: 100%;
 		min-width: auto;
