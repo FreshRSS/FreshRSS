@@ -1090,7 +1090,7 @@ function init_stream(stream) {
 		if (el && navigator.clipboard) {	// Clipboard
 			navigator.clipboard.writeText(el.dataset.url);
 			el.classList.remove('ok');
-			void el.offsetWidth; // it does nothwing, but it is needed. See hack: https://css-tricks.com/restart-css-animation/
+			el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
 			el.classList.add('ok');
 			return false;
 		}
