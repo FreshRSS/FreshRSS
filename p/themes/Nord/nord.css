@@ -1034,7 +1034,7 @@ option {
 		left: 0; right: 0;
 	}
 
-	#panel .close {
+	#overlay .close {
 		top: 0; right: 0;
 		left: auto; bottom: auto;
 		display: inline-block;

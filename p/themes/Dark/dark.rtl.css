@@ -609,7 +609,7 @@ kbd {
 
 @media (max-width: 840px) {
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--dark-background-color1);
 		border-bottom: 1px solid var(--dark-border-color3);

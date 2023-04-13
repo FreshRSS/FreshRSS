@@ -1202,19 +1202,19 @@ main.prompt {
 		padding: 0.5rem 1rem;
 	}
 	.aside .toggle_aside,
-#panel .close,
+#overlay .close,
 .dropdown-menu .toggle_aside,
 #slider .toggle_aside {
 		background-color: #36c;
 	}
 	.aside .toggle_aside:hover,
-#panel .close:hover,
+#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover,
 #slider .toggle_aside:hover {
 		background-color: #25c;
 	}
 	.aside .toggle_aside .icon,
-#panel .close .icon,
+#overlay .close .icon,
 .dropdown-menu .toggle_aside .icon,
 #slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
