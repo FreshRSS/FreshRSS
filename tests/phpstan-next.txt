@@ -7,10 +7,8 @@
 ./app/install.php
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
-./app/Models/Entry.php
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
-./app/Models/Search.php
 ./app/Models/TagDAO.php
 ./app/Services/ImportService.php
 ./lib/Minz/Paginator.php
