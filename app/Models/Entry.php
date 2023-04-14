@@ -363,17 +363,17 @@ HTML;
 
 	/**
 	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed
+	 * @return array<string,mixed>|mixed|null
 	 */
 	public function attributes(string $key = '') {
-		if ($key == '') {
+		if ($key === '') {
 			return $this->attributes;
 		} else {
-			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+			return $this->attributes[$key] ?? null;
 		}
 	}
 
-	/** @param string|array<mixed>|bool|int|null $value */
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value): void {
 		if ($key == '') {
 			if (is_string($value)) {

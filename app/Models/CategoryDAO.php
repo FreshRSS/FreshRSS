@@ -258,14 +258,14 @@ SQL;
 		}
 	}
 
-	public function listSortedCategories($prePopulateFeeds = true, $details = false) {
+	public function listSortedCategories(bool $prePopulateFeeds = true, bool $details = false) {
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
 		if (!is_array($categories)) {
 			return $categories;
 		}
 
-		uasort($categories, static function ($a, $b) {
+		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
 			$aPosition = $a->attributes('position');
 			$bPosition = $b->attributes('position');
 			if ($aPosition === $bPosition) {
@@ -495,7 +495,7 @@ SQL;
 			$cat->_id($dao['id']);
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
-			$cat->_error($dao['error'] ?? false);
+			$cat->_error($dao['error'] ?? 0);
 			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
 			$list[$key] = $cat;
 		}

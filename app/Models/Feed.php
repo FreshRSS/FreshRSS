@@ -199,12 +199,15 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
-	/** @return mixed attribute (if $key is not blank) or array of attributes, not HTML-encoded */
-	public function attributes($key = '') {
-		if ($key == '') {
+	/**
+	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @return array<string,mixed>|mixed|null
+	 */
+	public function attributes(string $key = '') {
+		if ($key === '') {
 			return $this->attributes;
 		} else {
-			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+			return $this->attributes[$key] ?? null;
 		}
 	}
 
@@ -330,7 +333,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
 
-	/** @param mixed $value Value, not HTML-encoded */
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value) {
 		if ($key == '') {
 			if (is_string($value)) {
