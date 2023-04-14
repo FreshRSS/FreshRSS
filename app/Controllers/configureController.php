@@ -189,7 +189,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$shortcuts = Minz_Request::paramArray('shortcuts');
-			if (!Minz_Request::paramBoolean('load_default_shortcuts')) {
+			if (Minz_Request::paramBoolean('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
 			}
