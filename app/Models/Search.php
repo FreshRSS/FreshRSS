@@ -146,7 +146,7 @@ class FreshRSS_Search {
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
-	public function getLabelNames(): ? array {
+	public function getLabelNames(): ?array {
 		return $this->label_names;
 	}
 	/** @return array<string>|null */
