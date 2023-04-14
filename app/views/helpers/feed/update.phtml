@@ -400,7 +400,7 @@
 
 		<fieldset id="html_xpath">
 			<?php
-				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('xpath'));
+				$xpath = Minz_Helper::htmlspecialchars_utf8((array)($this->feed->attributes('xpath')));
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 			<div class="form-group">
@@ -515,7 +515,7 @@
 
 		<div class="form-group">
 			<?php
-				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('path_entries_filter'));
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8((string)($this->feed->attributes('path_entries_filter')));
 			?>
 			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 			<div class="group-controls">
