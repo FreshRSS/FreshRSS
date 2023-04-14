@@ -16,8 +16,8 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 	private $result = '';
 
 	/**
-	 * @param array<string,array<string,I18nValue>> $reference
-	 * @param array<string,array<string,I18nValue>> $language
+	 * @param array<string,array<string,I18nValue>>|array<array<array<string>|string>|string> $reference
+	 * @param array<string,array<string,I18nValue>>|array<array<array<string>|string>|string> $language
 	 */
 	public function __construct(array $reference, array $language) {
 		$this->reference = $reference;
