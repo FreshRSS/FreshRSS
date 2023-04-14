@@ -1019,6 +1019,10 @@ option {
 		position: relative;
 	}
 
+	#overlay {
+		background-color: var(--accent-bg);
+	}
+
 	.notification {
 		top: 0;
 		left: 0;

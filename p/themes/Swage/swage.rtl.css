@@ -865,6 +865,9 @@ form th {
 #overlay {
 	z-index: 100;
 }
+#overlay .close .icon {
+	filter: brightness(3);
+}
 
 #panel {
 	z-index: 100;

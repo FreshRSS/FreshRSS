@@ -1150,6 +1150,10 @@ a.btn-attention:hover {
 		margin-bottom: 3rem;
 	}
 
+	#overlay {
+		background-color: var(--background-color-light);
+	}
+
 	.form-group.form-actions {
 		margin-right: -15px;
 		margin-left: -15px;

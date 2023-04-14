@@ -1110,4 +1110,8 @@ a.signin {
 		padding-right: 15px;
 		padding-left: 15px;
 	}
+
+	#overlay {
+		background-color: var(--background-color-grey);
+	}
 }

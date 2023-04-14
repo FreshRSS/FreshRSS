@@ -1111,6 +1111,10 @@ form {
 
 #overlay {
 	z-index: 100;
+
+	.close .icon {
+		filter: brightness(3);
+	}
 }
 
 #panel {
