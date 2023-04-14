@@ -395,7 +395,7 @@ SQL;
 
 		$feeds = self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 
-		usort($feeds, function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
+		usort($feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
 			return strnatcasecmp($a->name(), $b->name());
 		});
 

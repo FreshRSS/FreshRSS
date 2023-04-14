@@ -135,7 +135,8 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _id(int $id): void {
-		if ($id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+		$this->id = $id;
+		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
 			$this->_name(_t('gen.short.default_category'));
 		}
 	}
