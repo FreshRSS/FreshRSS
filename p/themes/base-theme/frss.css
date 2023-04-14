@@ -2314,7 +2314,7 @@ input:checked + .slide-container .properties {
 		top: 0; bottom: 0;
 		left: 0; right: 0;
 		position: relative;
-		height: calc(100vh - 3.5rem);;
+		height: calc(100vh - 3.5rem);
 	}
 
 	#slider.active:target {
