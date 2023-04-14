@@ -3,7 +3,10 @@
 require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
-	public function load() {
+	/**
+	 * @return array<string,array<string,string|array<string,I18nValue>>>
+	 */
+	public function load(): array {
 		$i18n = array();
 		$dirs = new DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
@@ -23,7 +26,10 @@ class I18nFile {
 		return $i18n;
 	}
 
-	public function dump(array $i18n) {
+	/**
+	 * @param array<string,array<array<string>>> $i18n
+	 */
+	public function dump(array $i18n): void {
 		foreach ($i18n as $language => $file) {
 			$dir = I18N_PATH . DIRECTORY_SEPARATOR . $language;
 			if (!file_exists($dir)) {
@@ -38,13 +44,11 @@ class I18nFile {
 
 	/**
 	 * Process the content of an i18n file
-	 *
-	 * @param string $filename
-	 * @return array
+	 * @return array<string,array<string,I18nValue>>
 	 */
-	private function process(string $filename) {
-		$content = file_get_contents($filename);
-		$content = str_replace('<?php', '', $content);
+	private function process(string $filename): array {
+		$fileContent = file_get_contents($filename) ?: [];
+		$content = str_replace('<?php', '', $fileContent);
 
 		$content = preg_replace([
 			"#',\s*//\s*TODO.*#i",
@@ -76,11 +80,11 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array $translation
+	 * @param array<string,I18nValue|array<string,I18nValue>> $translation
 	 * @param string $prefix
-	 * @return array
+	 * @return array<string,I18nValue>
 	 */
-	private function flatten(array $translation, string $prefix = '') {
+	private function flatten(array $translation, string $prefix = ''): array {
 		$a = array();
 
 		if ('' !== $prefix) {
@@ -104,10 +108,10 @@ class I18nFile {
 	 * The first key is dropped since it represents the filename and we have
 	 * no use of it.
 	 *
-	 * @param array $translation
-	 * @return array
+	 * @param array<string> $translation
+	 * @return array<string,array<string,I18nValue>>
 	 */
-	private function unflatten(array $translation) {
+	private function unflatten(array $translation): array {
 		$a = array();
 
 		ksort($translation, SORT_NATURAL);
@@ -127,10 +131,9 @@ class I18nFile {
 	 * translation file. The array is first converted to a string then some
 	 * formatting regexes are applied to match the original content.
 	 *
-	 * @param array $translation
-	 * @return string
+	 * @param array<string> $translation
 	 */
-	private function format(array $translation) {
+	private function format(array $translation): string {
 		$translation = var_export($this->unflatten($translation), true);
 		$patterns = array(
 			'/ -> todo\',/',

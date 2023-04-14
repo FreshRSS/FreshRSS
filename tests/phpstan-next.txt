@@ -10,7 +10,4 @@
 ./app/Models/FeedDAO.php
 ./app/Models/TagDAO.php
 ./app/Services/ImportService.php
-./cli/i18n/I18nData.php
-./cli/i18n/I18nFile.php
-./cli/i18n/I18nValue.php
 ./lib/Minz/Paginator.php
