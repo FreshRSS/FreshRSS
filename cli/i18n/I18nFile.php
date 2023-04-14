@@ -47,8 +47,7 @@ class I18nFile {
 	 * @return array<string,array<string,I18nValue>>
 	 */
 	private function process(string $filename): array {
-		$fileContent = file_get_contents($filename);
-		/** @var array<string> $fileContent */
+		$fileContent = file_get_contents($filename) ?: [];
 		$content = str_replace('<?php', '', $fileContent);
 
 		$content = preg_replace([

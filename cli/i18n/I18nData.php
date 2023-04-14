@@ -3,9 +3,11 @@
 class I18nData {
 
 	public const REFERENCE_LANGUAGE = 'en';
-	/** @var array<string|array<string>|array<array<string>>>  */
+
+	/** @var array<string,array<string,array<string,I18nValue>>> */
 	private $data;
-	/** @param array<string|array<string>|array<array<string>>> $data */
+
+	/** @param array<string,array<string,array<string,I18nValue>>> $data */
 	public function __construct(array $data) {
 		$this->data = $data;
 
@@ -15,7 +17,7 @@ class I18nData {
 	}
 
 	/**
-	 * @return array<string|array<string>|array<array<string>>>
+	 * @return array<string,array<string,array<string,I18nValue>>>
 	 */
 	public function getData(): array {
 		return $this->data;
@@ -31,7 +33,6 @@ class I18nData {
 					if (!array_key_exists($file, $this->data[$language]) || !array_key_exists($key, $this->data[$language][$file])) {
 						$this->data[$language][$file][$key] = clone $refValue;
 					}
-					/** @var I18nValue $value */
 					$value = $this->data[$language][$file][$key];
 					if ($refValue->equal($value) && !$value->isIgnore()) {
 						$value->markAsTodo();
@@ -45,7 +46,6 @@ class I18nData {
 		$reference = $this->getReferenceLanguage();
 		foreach ($this->getNonReferenceLanguages() as $language) {
 			foreach ($this->getLanguage($language) as $file => $values) {
-				/** @var array<string,I18nValue> $values */
 				foreach ($values as $key => $value) {
 					if (!array_key_exists($key, $reference[$file])) {
 						unset($this->data[$language][$file][$key]);
@@ -60,10 +60,8 @@ class I18nData {
 		$languages = $this->getNonReferenceLanguages();
 
 		foreach ($reference as $file => $refValues) {
-			/** @var I18nValue $refValue */
 			foreach ($refValues as $key => $refValue) {
 				foreach ($languages as $language) {
-					/** @var I18nValue $value */
 					$value = $this->data[$language][$file][$key];
 					if ($refValue->equal($value) && !$value->isIgnore()) {
 						$value->markAsTodo();
@@ -248,10 +246,8 @@ class I18nData {
 
 		$value = new I18nValue($value);
 		if (static::REFERENCE_LANGUAGE === $language) {
-			/** @var I18nValue $previousValue */
 			$previousValue = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
 			foreach ($this->getAvailableLanguages() as $lang) {
-				/** @var I18nValue $currentValue */
 				$currentValue = $this->data[$lang][$this->getFilenamePrefix($key)][$key];
 				if ($currentValue->equal($previousValue)) {
 					$this->data[$lang][$this->getFilenamePrefix($key)][$key] = $value;
@@ -294,7 +290,6 @@ class I18nData {
 	 * Ignore a key from a language, or reverse it.
 	 */
 	public function ignore(string $key, string $language, bool $reverse = false): void {
-		/** @var I18nValue $value */
 		$value = $this->data[$language][$this->getFilenamePrefix($key)][$key];
 		if ($reverse) {
 			$value->markAsIgnore();
@@ -320,14 +315,14 @@ class I18nData {
 	}
 
 	/**
-	 * @return array<string|array<string>>
+	 * @return array<string,array<string,I18nValue>>
 	 */
 	public function getLanguage(string $language): array {
 		return $this->data[$language];
 	}
 
 	/**
-	 * @return array<string|I18nData|array<string>|array<array<string>>>
+	 * @return array<string,array<string,I18nValue>>
 	 */
 	public function getReferenceLanguage(): array {
 		return $this->getLanguage(static::REFERENCE_LANGUAGE);

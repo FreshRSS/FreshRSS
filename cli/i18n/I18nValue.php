@@ -9,6 +9,7 @@ class I18nValue {
 		self::STATE_IGNORE,
 		self::STATE_TODO,
 	];
+
 	/** @var string */
 	private $value;
 	/**	@var string|null */
