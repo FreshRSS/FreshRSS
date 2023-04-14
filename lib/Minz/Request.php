@@ -49,8 +49,10 @@ class Minz_Request {
 			$p = self::$params[$key];
 			if (is_object($p) || $specialchars) {
 				return $p;
-			} else {
+			} elseif (is_string($p) || is_array($p)) {
 				return Minz_Helper::htmlspecialchars_utf8($p);
+			} else {
+				return $p;
 			}
 		} else {
 			return $default;
@@ -66,8 +68,7 @@ class Minz_Request {
 		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
 	}
 
-	/** @return bool|null */
-	public static function paramTernary(string $key) {
+	public static function paramTernary(string $key): ?bool {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			$tp = is_string($p) ? trim($p) : true;
@@ -457,7 +458,7 @@ class Minz_Request {
 	/**
 	 * @return array<string>
 	 */
-	public static function getPreferredLanguages() {
+	public static function getPreferredLanguages(): array {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {
 			return $matches['lang'];
 		}
