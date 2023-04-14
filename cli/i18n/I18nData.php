@@ -327,7 +327,7 @@ class I18nData {
 	}
 
 	/**
-	 * @return array<string|array<string>|array<array<string>>>|array<array<array<string>>>
+	 * @return array<string|I18nData|array<string>|array<array<string>>>
 	 */
 	public function getReferenceLanguage(): array {
 		return $this->getLanguage(static::REFERENCE_LANGUAGE);
