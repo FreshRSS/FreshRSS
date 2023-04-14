@@ -258,14 +258,14 @@ SQL;
 		}
 	}
 
-	public function listSortedCategories($prePopulateFeeds = true, $details = false) {
+	public function listSortedCategories(bool $prePopulateFeeds = true, bool $details = false) {
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
 		if (!is_array($categories)) {
 			return $categories;
 		}
 
-		uasort($categories, static function ($a, $b) {
+		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
 			$aPosition = $a->attributes('position');
 			$bPosition = $b->attributes('position');
 			if ($aPosition === $bPosition) {

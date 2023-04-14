@@ -12,7 +12,7 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	public const KIND_DYNAMIC_OPML = 2;
 
-	/**  @var int */
+	/** @var int */
 	private $id = 0;
 	/** @var int */
 	private $kind = 0;
@@ -24,9 +24,9 @@ class FreshRSS_Category extends Minz_Model {
 	private $nbNotRead = -1;
 	/** @var array<FreshRSS_Feed>|null */
 	private $feeds;
-	/** @var bool */
+	/** @var bool|int */
 	private $hasFeedsWithError = false;
-	/** @var array<string> */
+	/** @var array<string,mixed> */
 	private $attributes = [];
 	/** @var int */
 	private $lastUpdate = 0;
@@ -45,7 +45,7 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($feeds as $feed) {
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError = $feed->inError();
+				$this->hasFeedsWithError |= $feed->inError();
 			}
 		}
 	}
@@ -70,9 +70,7 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->error;
 	}
 
-	/**
-	 * @param bool|string $value
-	 */
+	/** @param bool|int|string $value */
 	public function _error($value): void {
 		$this->error = (bool)$value;
 	}
@@ -111,7 +109,7 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($this->feeds as $feed) {
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError = $feed->inError();
+				$this->hasFeedsWithError |= $feed->inError();
 			}
 
 			$this->sortFeeds();
@@ -121,12 +119,12 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function hasFeedsWithError(): bool {
-		return $this->hasFeedsWithError;
+		return (bool)($this->hasFeedsWithError);
 	}
 
 	/**
-	 * @param string $key
-	 * @return string|array<string>|null
+	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @return array<string,mixed>|mixed|null
 	 */
 	public function attributes(string $key = '') {
 		if ($key === '') {
@@ -135,6 +133,7 @@ class FreshRSS_Category extends Minz_Model {
 			return $this->attributes[$key] ?? null;
 		}
 	}
+
 	/** @param int|string $id */
 	public function _id($id): void {
 		$this->id = (int)$id;
@@ -150,6 +149,7 @@ class FreshRSS_Category extends Minz_Model {
 	public function _name(string $value): void {
 		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
 	}
+
 	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
 	public function _feeds($values): void {
 		if (!is_array($values)) {
@@ -172,9 +172,7 @@ class FreshRSS_Category extends Minz_Model {
 		$this->sortFeeds();
 	}
 
-	/**
-	 * @param string|array<string>|null|int<min, -1>|int<1, max> $value
-	 */
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value): void {
 		if ('' === $key) {
 			if (is_string($value)) {
@@ -269,7 +267,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	private function sortFeeds(): void {
-		usort($this->feeds, static function ($a, $b) {
+		usort($this->feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
 			return strnatcasecmp($a->name(), $b->name());
 		});
 	}
