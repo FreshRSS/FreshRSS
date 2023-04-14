@@ -198,38 +198,38 @@ class FreshRSS_Search {
 	}
 
 	/** @return array<string>|null */
-	public function getInurl() {
+	public function getInurl(): ?array {
 		return $this->inurl;
 	}
 	/** @return array<string>|null */
-	public function getNotInurl() {
+	public function getNotInurl(): ?array {
 		return $this->not_inurl;
 	}
 
 	/** @return array<string>|null */
-	public function getAuthor() {
+	public function getAuthor(): ?array {
 		return $this->author;
 	}
 	/** @return array<string>|null */
-	public function getNotAuthor() {
+	public function getNotAuthor(): ?array {
 		return $this->not_author;
 	}
 
 	/** @return array<string>|null */
-	public function getTags() {
+	public function getTags(): ?array {
 		return $this->tags;
 	}
 	/** @return array<string>|null */
-	public function getNotTags() {
+	public function getNotTags(): ?array {
 		return $this->not_tags;
 	}
 
 	/** @return array<string>|null */
-	public function getSearch() {
+	public function getSearch(): ?array {
 		return $this->search;
 	}
 	/** @return array<string>|null */
-	public function getNotSearch() {
+	public function getNotSearch(): ?array {
 		return $this->not_search;
 	}
 
