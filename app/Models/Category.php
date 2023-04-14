@@ -70,7 +70,7 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->error;
 	}
 
-	/** @param bool|int|string $value */
+	/** @param bool|int $value */
 	public function _error($value): void {
 		$this->error = (bool)$value;
 	}
@@ -134,9 +134,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 
-	/** @param int|string $id */
-	public function _id($id): void {
-		$this->id = (int)$id;
+	public function _id(int $id): void {
 		if ($id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
 			$this->_name(_t('gen.short.default_category'));
 		}

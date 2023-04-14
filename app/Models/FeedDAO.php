@@ -585,7 +585,7 @@ SQL;
 			$myFeed->_priority($dao['priority'] ?? 10);
 			$myFeed->_pathEntries($dao['pathEntries'] ?? '');
 			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? ''));
-			$myFeed->_error($dao['error'] ?? false);
+			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
 			$myFeed->_attributes('', $dao['attributes'] ?? '');
 			$myFeed->_nbNotRead($dao['cache_nbUnreads'] ?? 0);

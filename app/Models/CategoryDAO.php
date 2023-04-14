@@ -495,7 +495,7 @@ SQL;
 			$cat->_id($dao['id']);
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
-			$cat->_error($dao['error'] ?? false);
+			$cat->_error($dao['error'] ?? 0);
 			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
 			$list[$key] = $cat;
 		}
