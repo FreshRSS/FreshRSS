@@ -26,7 +26,6 @@ class I18nData {
 		$languages = $this->getNonReferenceLanguages();
 
 		foreach ($reference as $file => $refValues) {
-			/** @var I18nValue $refValue */
 			foreach ($refValues as $key => $refValue) {
 				foreach ($languages as $language) {
 					if (!array_key_exists($file, $this->data[$language]) || !array_key_exists($key, $this->data[$language][$file])) {
