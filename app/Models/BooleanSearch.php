@@ -10,7 +10,10 @@ class FreshRSS_BooleanSearch {
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private $searches = array();
 
-	/** @var 'AND'|'OR'|'AND NOT' */
+	/**
+	 * @phpstan-var 'AND'|'OR'|'AND NOT'
+	 * @var string
+	 */
 	private $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
@@ -255,7 +258,7 @@ class FreshRSS_BooleanSearch {
 	 * or a series of FreshRSS_Search combined by explicit OR
 	 * @return array<FreshRSS_BooleanSearch|FreshRSS_Search>
 	 */
-	public function searches() {
+	public function searches(): array {
 		return $this->searches;
 	}
 

@@ -10,36 +10,65 @@ require_once(LIB_PATH . '/lib_date.php');
  */
 class FreshRSS_Search {
 
-	// This contains the user input string
+	/**
+	 * This contains the user input string
+	 * @var string
+	 */
 	private $raw_input = '';
 
 	// The following properties are extracted from the raw input
+	/** @var array<string>|null */
 	private $entry_ids;
+	/** @var array<int>|null */
 	private $feed_ids;
+	/** @var array<int>|'*'|null */
 	private $label_ids;
+	/** @var array<string>|null */
 	private $label_names;
+	/** @var array<string>|null */
 	private $intitle;
+	/** @var int|false|null */
 	private $min_date;
+	/** @var int|false|null */
 	private $max_date;
+	/** @var int|false|null */
 	private $min_pubdate;
+	/** @var int|false|null */
 	private $max_pubdate;
+	/** @var array<string>|null */
 	private $inurl;
+	/** @var array<string>|null */
 	private $author;
+	/** @var array<string>|null */
 	private $tags;
+	/** @var array<string>|null */
 	private $search;
 
+	/** @var array<string>|null */
 	private $not_entry_ids;
+	/** @var array<int>|null */
 	private $not_feed_ids;
+	/** @var array<int>|'*'|null */
 	private $not_label_ids;
+	/** @var array<string>|null */
 	private $not_label_names;
+	/** @var array<string>|null */
 	private $not_intitle;
+	/** @var int|false|null */
 	private $not_min_date;
+	/** @var int|false|null */
 	private $not_max_date;
+	/** @var int|false|null */
 	private $not_min_pubdate;
+	/** @var int|false|null */
 	private $not_max_pubdate;
+	/** @var array<string>|null */
 	private $not_inurl;
+	/** @var array<string>|null */
 	private $not_author;
+	/** @var array<string>|null */
 	private $not_tags;
+	/** @var array<string>|null */
 	private $not_search;
 
 	/**
@@ -82,114 +111,140 @@ class FreshRSS_Search {
 		$this->parseSearch($input);
 	}
 
-	public function __toString() {
+	public function __toString(): string {
 		return $this->getRawInput();
 	}
 
-	public function getRawInput() {
+	public function getRawInput(): string {
 		return $this->raw_input;
 	}
 
-	public function getEntryIds() {
+	/** @return array<string>|null */
+	public function getEntryIds(): ?array {
 		return $this->entry_ids;
 	}
-	public function getNotEntryIds() {
+	/** @return array<string>|null */
+	public function getNotEntryIds(): ?array {
 		return $this->not_entry_ids;
 	}
 
-	public function getFeedIds() {
+	/** @return array<int>|null */
+	public function getFeedIds(): ?array {
 		return $this->feed_ids;
 	}
-	public function getNotFeedIds() {
+	/** @return array<int>|null */
+	public function getNotFeedIds(): ?array {
 		return $this->not_feed_ids;
 	}
 
+	/** @return array<int>|'*'|null */
 	public function getLabelIds() {
 		return $this->label_ids;
 	}
+	/** @return array<int>|'*'|null */
 	public function getNotlabelIds() {
 		return $this->not_label_ids;
 	}
-	public function getLabelNames() {
+	/** @return array<string>|null */
+	public function getLabelNames(): ?array {
 		return $this->label_names;
 	}
-	public function getNotlabelNames() {
+	/** @return array<string>|null */
+	public function getNotlabelNames(): ?array {
 		return $this->not_label_names;
 	}
 
-	public function getIntitle() {
+	/** @return array<string>|null */
+	public function getIntitle(): ?array {
 		return $this->intitle;
 	}
-	public function getNotIntitle() {
+	/** @return array<string>|null */
+	public function getNotIntitle(): ?array {
 		return $this->not_intitle;
 	}
 
-	public function getMinDate() {
+	public function getMinDate(): ?int {
 		return $this->min_date;
 	}
-	public function getNotMinDate() {
+	public function getNotMinDate(): ?int {
 		return $this->not_min_date;
 	}
-	public function setMinDate($value) {
-		return $this->min_date = $value;
+	public function setMinDate(int $value): void {
+		$this->min_date = $value;
 	}
 
-	public function getMaxDate() {
+	public function getMaxDate(): ?int {
 		return $this->max_date;
 	}
-	public function getNotMaxDate() {
+	public function getNotMaxDate(): ?int {
 		return $this->not_max_date;
 	}
-	public function setMaxDate($value) {
-		return $this->max_date = $value;
+	public function setMaxDate(int $value): void {
+		$this->max_date = $value;
 	}
 
-	public function getMinPubdate() {
+	public function getMinPubdate(): ?int {
 		return $this->min_pubdate;
 	}
-	public function getNotMinPubdate() {
+	public function getNotMinPubdate(): ?int {
 		return $this->not_min_pubdate;
 	}
 
-	public function getMaxPubdate() {
+	public function getMaxPubdate(): ?int {
 		return $this->max_pubdate;
 	}
-	public function getNotMaxPubdate() {
+	public function getNotMaxPubdate(): ?int {
 		return $this->not_max_pubdate;
 	}
 
-	public function getInurl() {
+	/** @return array<string>|null */
+	public function getInurl(): ?array {
 		return $this->inurl;
 	}
-	public function getNotInurl() {
+	/** @return array<string>|null */
+	public function getNotInurl(): ?array {
 		return $this->not_inurl;
 	}
 
-	public function getAuthor() {
+	/** @return array<string>|null */
+	public function getAuthor(): ?array {
 		return $this->author;
 	}
-	public function getNotAuthor() {
+	/** @return array<string>|null */
+	public function getNotAuthor(): ?array {
 		return $this->not_author;
 	}
 
-	public function getTags() {
+	/** @return array<string>|null */
+	public function getTags(): ?array {
 		return $this->tags;
 	}
-	public function getNotTags() {
+	/** @return array<string>|null */
+	public function getNotTags(): ?array {
 		return $this->not_tags;
 	}
 
-	public function getSearch() {
+	/** @return array<string>|null */
+	public function getSearch(): ?array {
 		return $this->search;
 	}
-	public function getNotSearch() {
+	/** @return array<string>|null */
+	public function getNotSearch(): ?array {
 		return $this->not_search;
 	}
 
-	private static function removeEmptyValues($anArray) {
-		return is_array($anArray) ? array_filter($anArray, function($value) { return $value !== ''; }) : array();
+	/**
+	 * @param array<string> $anArray
+	 * @return array<string>
+	 */
+	private static function removeEmptyValues($anArray): array {
+		return empty($anArray) ? [] : array_filter($anArray, function($value) { return $value !== ''; });
 	}
 
+	/**
+	 * @param array<string>|string $value
+	 * @return ($value is array ? array<string> : string)
+	 */
 	private static function decodeSpaces($value) {
 		if (is_array($value)) {
 			for ($i = count($value) - 1; $i >= 0; $i--) {
@@ -213,7 +268,7 @@ class FreshRSS_Search {
 				$entry_ids = explode(',', $ids_list);
 				$entry_ids = self::removeEmptyValues($entry_ids);
 				if (!empty($entry_ids)) {
-					$this->entry_ids[] = $entry_ids;
+					$this->entry_ids = array_merge($this->entry_ids, $entry_ids);
 				}
 			}
 		}
@@ -229,7 +284,7 @@ class FreshRSS_Search {
 				$entry_ids = explode(',', $ids_list);
 				$entry_ids = self::removeEmptyValues($entry_ids);
 				if (!empty($entry_ids)) {
-					$this->not_entry_ids[] = $entry_ids;
+					$this->not_entry_ids = array_merge($this->not_entry_ids, $entry_ids);
 				}
 			}
 		}
@@ -244,8 +299,10 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
+				/** @var array<int> */
+				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
-					$this->feed_ids[] = $feed_ids;
+					$this->feed_ids = array_merge($this->feed_ids, $feed_ids);
 				}
 			}
 		}
@@ -260,8 +317,10 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
+				/** @var array<int> */
+				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
-					$this->not_feed_ids[] = $feed_ids;
+					$this->not_feed_ids = array_merge($this->not_feed_ids, $feed_ids);
 				}
 			}
 		}
@@ -278,13 +337,15 @@ class FreshRSS_Search {
 			$this->label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->label_ids[] = '*';
+					$this->label_ids = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
+				/** @var array<int> */
+				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->label_ids[] = $label_ids;
+					$this->label_ids = array_merge($this->label_ids, $label_ids);
 				}
 			}
 		}
@@ -298,13 +359,15 @@ class FreshRSS_Search {
 			$this->not_label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->not_label_ids[] = '*';
+					$this->not_label_ids = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
+				/** @var array<int> */
+				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->not_label_ids[] = $label_ids;
+					$this->not_label_ids = array_merge($this->not_label_ids, $label_ids);
 				}
 			}
 		}
@@ -330,7 +393,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->label_names[] = $names_array;
+					$this->label_names = array_merge($this->label_names, $names_array);
 				}
 			}
 		}
@@ -356,7 +419,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->not_label_names[] = $names_array;
+					$this->not_label_names = array_merge($this->not_label_names, $names_array);
 				}
 			}
 		}
