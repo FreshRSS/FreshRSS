@@ -1783,9 +1783,10 @@ html.slider-active {
 	max-width: 550px;
 }
 
-/*=== SLIDESHOW */
+/*=== SLIDESHOW Theme Preview */
 /*==============*/
-.slides {
+
+.theme-preview-list {
 	padding: 0;
 	display: block;
 	max-width: 640px;
@@ -1796,15 +1797,15 @@ html.slider-active {
 	margin-bottom: 30px;
 }
 
-.slides input {
+.theme-preview-list input {
 	display: none;
 }
 
-.slide-container {
+.theme-preview-list .preview-container {
 	display: block;
 }
 
-.slide {
+.theme-preview-list .preview {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -1815,12 +1816,12 @@ html.slider-active {
 	transition: all .7s ease-in-out;
 }
 
-.slide img {
+.theme-preview-list .preview img {
 	width: 100%;
 	height: 100%;
 }
 
-.nav label {
+.theme-preview-list .nav label {
 	padding: 0;
 	display: none;
 	width: 65px;
@@ -1839,7 +1840,7 @@ html.slider-active {
 	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
 
-.properties {
+.theme-preview-list .properties {
 	padding: 5px;
 	background-color: var(--frss-background-color-transparent);
 	display: none;
@@ -1851,35 +1852,35 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.properties .page-number {
+.theme-preview-list .properties .page-number {
 	left: 5px;
 	top: 0;
 	position: absolute;
 }
 
-.slide:hover + .nav label {
+.theme-preview-list .preview:hover + .nav label {
 	opacity: 0.5;
 }
 
-.nav label:hover {
+.theme-preview-list .nav label:hover {
 	opacity: 1;
 }
 
-.nav .next {
+.theme-preview-list .nav .next {
 	left: 0;
 }
 
-input:checked + .slide-container .slide {
+.theme-preview-list input:checked + .preview-container .preview {
 	opacity: 1;
 	transform: scale(1);
 	transition: opacity 1s ease-in-out;
 }
 
-input:checked + .slide-container .nav label {
+.theme-preview-list input:checked + .preview-container .nav label {
 	display: block;
 }
 
-input:checked + .slide-container .properties {
+.theme-preview-list input:checked + .preview-container .properties {
 	display: block;
 }
 
@@ -1896,7 +1897,7 @@ input:checked + .slide-container .properties {
 .item.share.error a::after,
 .category .title.error::before,
 .item.feed.error .item-title::before,
-.properties .error::before {
+.theme-preview-list .properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
 }
@@ -2347,7 +2348,7 @@ input:checked + .slide-container .properties {
 		grid-column: 1 / span 2;
 	}
 
-	.slide + .nav label {
+	.theme-preview-list .preview + .nav label {
 		opacity: 0.5;
 	}
 }

@@ -621,11 +621,11 @@ kbd {
 	right: 2px;
 }
 
-.slides {
+.theme-preview-list {
 	border-color: var(--border-color-middle);
 }
 
-.properties {
+.theme-preview-list .properties {
 	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
 	border-color: var(--border-color-middle);
