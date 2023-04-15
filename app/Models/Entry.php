@@ -55,7 +55,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array<string,mixed> $dao */
+	/** @param array<string,string|int> $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
