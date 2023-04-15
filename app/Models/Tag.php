@@ -46,19 +46,18 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @return mixed|string|array<string,mixed>|null
+	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @return array<string,mixed>|mixed|null
 	 */
 	public function attributes(string $key = '') {
-		if ($key == '') {
+		if ($key === '') {
 			return $this->attributes;
 		} else {
 			return $this->attributes[$key] ?? null;
 		}
 	}
 
-	/**
-	 * @param mixed|string|array<string,mixed>|null $value
-	 */
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
 	public function _attributes(string $key, $value = null): void {
 		if ($key == '') {
 			if (is_string($value)) {

@@ -865,6 +865,9 @@ form th {
 #overlay {
 	z-index: 100;
 }
+#overlay .close .icon {
+	filter: brightness(3);
+}
 
 #panel {
 	z-index: 100;
@@ -1014,7 +1017,7 @@ a.signin {
 	.nav_menu .item.search input {
 		width: 100%;
 	}
-	#panel .close,
+	#overlay .close,
 .dropdown-menu .toggle_aside {
 		background-color: var(--color-background-aside);
 		display: block;
@@ -1023,7 +1026,7 @@ a.signin {
 		text-align: center;
 		padding-left: 10px;
 	}
-	#panel .close:hover,
+	#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover {
 		background-color: var(--color-background-nav);
 	}

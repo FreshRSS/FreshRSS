@@ -33,6 +33,7 @@ function load_panel(link) {
 
 		document.getElementById('overlay').classList.add('visible');
 		panel.classList.add('visible');
+		document.documentElement.classList.add('slider-active');
 
 		// Force the initial scroll to the top.
 		// Without it, if one scrolls down in a category (for instance)
@@ -70,6 +71,7 @@ function init_close_panel() {
 		panel.innerHTML = '';
 		panel.classList.remove('visible');
 		document.getElementById('overlay').classList.remove('visible');
+		document.documentElement.classList.remove('slider-active');
 		return false;
 	};
 	document.addEventListener('keydown', ev => {

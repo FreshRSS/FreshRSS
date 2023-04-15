@@ -2,10 +2,12 @@
 
 class I18nData {
 
-	const REFERENCE_LANGUAGE = 'en';
+	public const REFERENCE_LANGUAGE = 'en';
 
-	private $data = [];
+	/** @var array<string,array<string,array<string,I18nValue>>> */
+	private $data;
 
+	/** @param array<string,array<string,array<string,I18nValue>>> $data */
 	public function __construct(array $data) {
 		$this->data = $data;
 
@@ -14,11 +16,14 @@ class I18nData {
 		$this->processValueStates();
 	}
 
-	public function getData() {
+	/**
+	 * @return array<string,array<string,array<string,I18nValue>>>
+	 */
+	public function getData(): array {
 		return $this->data;
 	}
 
-	private function addMissingKeysFromReference() {
+	private function addMissingKeysFromReference(): void {
 		$reference = $this->getReferenceLanguage();
 		$languages = $this->getNonReferenceLanguages();
 
@@ -37,7 +42,7 @@ class I18nData {
 		}
 	}
 
-	private function removeExtraKeysFromOtherLanguages() {
+	private function removeExtraKeysFromOtherLanguages(): void {
 		$reference = $this->getReferenceLanguage();
 		foreach ($this->getNonReferenceLanguages() as $language) {
 			foreach ($this->getLanguage($language) as $file => $values) {
@@ -50,7 +55,7 @@ class I18nData {
 		}
 	}
 
-	private function processValueStates() {
+	private function processValueStates(): void {
 		$reference = $this->getReferenceLanguage();
 		$languages = $this->getNonReferenceLanguages();
 
@@ -73,10 +78,9 @@ class I18nData {
 
 	/**
 	 * Return the available languages
-	 *
-	 * @return array
+	 * @return array<string>
 	 */
-	public function getAvailableLanguages() {
+	public function getAvailableLanguages(): array {
 		$languages = array_keys($this->data);
 		sort($languages);
 
@@ -85,23 +89,19 @@ class I18nData {
 
 	/**
 	 * Return all available languages without the reference language
-	 *
-	 * @return array
+	 * @return array<string>
 	 */
-	private function getNonReferenceLanguages() {
-		return array_filter(array_keys($this->data), function ($value) {
+	private function getNonReferenceLanguages(): array {
+		return array_filter(array_keys($this->data), static function (string $value) {
 			return static::REFERENCE_LANGUAGE !== $value;
 		});
 	}
 
 	/**
 	 * Add a new language. It’s a copy of the reference language.
-	 *
-	 * @param string $language
-	 * @param string $reference
 	 * @throws Exception
 	 */
-	public function addLanguage($language, $reference = null) {
+	public function addLanguage(string $language, string $reference = null): void {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}
@@ -113,11 +113,8 @@ class I18nData {
 
 	/**
 	 * Check if the key is known.
-	 *
-	 * @param string $key
-	 * @return bool
 	 */
-	public function isKnown($key) {
+	public function isKnown(string $key): bool {
 		return array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
 			array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 	}
@@ -128,18 +125,18 @@ class I18nData {
 	 * is separated into sections. The parent of a section is the concatenation of
 	 * all sections before the selected key. For instance, if the key is 'a.b.c.d.e',
 	 * the parent key is 'a.b.c.d'.
-	 *
-	 * @return string
 	 */
-	private function getParentKey($key) {
+	private function getParentKey(string $key): string {
 		return substr($key, 0, strrpos($key, '.'));
 	}
 
 	/**
 	 * Return the siblings for a specified key.
 	 * To get the siblings, we need to find all matches with the parent.
+	 *
+	 * @return array<string>
 	 */
-	private function getSiblings($key) {
+	private function getSiblings(string $key): array {
 		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE])) {
 			return [];
 		}
@@ -147,7 +144,7 @@ class I18nData {
 		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 		$parent = $this->getParentKey($key);
 
-		return array_values(array_filter($keys, function ($element) use ($parent) {
+		return array_values(array_filter($keys, static function (string $element) use ($parent) {
 			return false !== strpos($element, $parent);
 		}));
 	}
@@ -156,10 +153,8 @@ class I18nData {
 	 * Check if the key is an only child.
 	 * To be an only child, there must be only one sibling and that sibling must
 	 * be the empty sibling. The empty sibling is the parent.
-	 *
-	 * @return bool
 	 */
-	private function isOnlyChild($key) {
+	private function isOnlyChild(string $key): bool {
 		$siblings = $this->getSiblings($key);
 
 		if (1 !== count($siblings)) {
@@ -173,7 +168,7 @@ class I18nData {
 	 * When a key has children, it cannot have its value directly. The value
 	 * needs to be attached to an empty sibling represented by "_".
 	 */
-	private function getEmptySibling($key) {
+	private function getEmptySibling(string $key): string {
 		return "{$key}._";
 	}
 
@@ -182,7 +177,7 @@ class I18nData {
 	 * To be a parent key, there must be at least one key starting with the key
 	 * under test. Of course, it cannot be itself.
 	 */
-	private function isParent($key) {
+	private function isParent(string $key): bool {
 		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE])) {
 			return false;
 		}
@@ -200,12 +195,9 @@ class I18nData {
 
 	/**
 	 * Add a new key to all languages.
-	 *
-	 * @param string $key
-	 * @param string $value
 	 * @throws Exception
 	 */
-	public function addKey($key, $value) {
+	public function addKey(string $key, string $value): void {
 		if ($this->isParent($key)) {
 			$key = $this->getEmptySibling($key);
 		}
@@ -241,12 +233,9 @@ class I18nData {
 	/**
 	 * Add a value for a key for the selected language.
 	 *
-	 * @param string $key
-	 * @param string $value
-	 * @param string $language
 	 * @throws Exception
 	 */
-	public function addValue($key, $value, $language) {
+	public function addValue(string $key, string $value, string $language): void {
 		if (!in_array($language, $this->getAvailableLanguages())) {
 			throw new Exception('The selected language does not exist.');
 		}
@@ -271,11 +260,8 @@ class I18nData {
 
 	/**
 	 * Remove a key in all languages
-	 *
-	 * @param string $key
-	 * @throws Exception
 	 */
-	public function removeKey($key) {
+	public function removeKey(string $key): void {
 		if (!$this->isKnown($key) && !$this->isKnown($this->getEmptySibling($key))) {
 			throw new Exception('The selected key does not exist.');
 		}
@@ -302,12 +288,8 @@ class I18nData {
 
 	/**
 	 * Ignore a key from a language, or reverse it.
-	 *
-	 * @param string $key
-	 * @param string $language
-	 * @param boolean $reverse
 	 */
-	public function ignore($key, $language, $reverse = false) {
+	public function ignore(string $key, string $language, bool $reverse = false): void {
 		$value = $this->data[$language][$this->getFilenamePrefix($key)][$key];
 		if ($reverse) {
 			$value->markAsIgnore();
@@ -318,16 +300,13 @@ class I18nData {
 
 	/**
 	 * Ignore all unmodified keys from a language, or reverse it.
-	 *
-	 * @param string $language
-	 * @param boolean $reverse
 	 */
-	public function ignore_unmodified($language, $reverse = false) {
+	public function ignore_unmodified(string $language, bool $reverse = false): void {
 		$my_language = $this->getLanguage($language);
 		foreach ($this->getReferenceLanguage() as $file => $ref_language) {
 			foreach ($ref_language as $key => $ref_value) {
 				if (array_key_exists($key, $my_language[$file])) {
-					if($ref_value->equal($my_language[$file][$key])) {
+					if ($ref_value->equal($my_language[$file][$key])) {
 						$this->ignore($key, $language, $reverse);
 					}
 				}
@@ -335,19 +314,21 @@ class I18nData {
 		}
 	}
 
-	public function getLanguage($language) {
+	/**
+	 * @return array<string,array<string,I18nValue>>
+	 */
+	public function getLanguage(string $language): array {
 		return $this->data[$language];
 	}
 
-	public function getReferenceLanguage() {
+	/**
+	 * @return array<string,array<string,I18nValue>>
+	 */
+	public function getReferenceLanguage(): array {
 		return $this->getLanguage(static::REFERENCE_LANGUAGE);
 	}
 
-	/**
-	 * @param string $key
-	 * @return string
-	 */
-	private function getFilenamePrefix($key) {
+	private function getFilenamePrefix(string $key): string {
 		return preg_replace('/\..*/', '.php', $key);
 	}
 
