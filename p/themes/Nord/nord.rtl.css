@@ -1019,6 +1019,10 @@ option {
 		position: relative;
 	}
 
+	#overlay {
+		background-color: var(--accent-bg);
+	}
+
 	.notification {
 		top: 0;
 		right: 0;
@@ -1027,19 +1031,6 @@ option {
 
 	#nav_entries {
 		width: 100%;
-	}
-
-	#panel {
-		top: 25px; bottom: 30px;
-		right: 0; left: 0;
-	}
-
-	#panel .close {
-		top: 0; left: 0;
-		right: auto; bottom: auto;
-		display: inline-block;
-		width: 30px;
-		height: 30px;
 	}
 
 	#slider.active {
