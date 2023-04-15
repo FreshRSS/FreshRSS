@@ -3,7 +3,7 @@
 class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 	public function firstAction(): void {
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 	}
 
 	public function actualizeAction(): void {

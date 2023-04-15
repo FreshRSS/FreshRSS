@@ -1,10 +1,89 @@
-# List of files, which are not yet passing PHPStan level 6 https://phpstan.org/user-guide/rule-levels
-# https://github.com/FreshRSS/FreshRSS/issues/4112
+# List of files, which are not yet passing PHPStan level 7 https://phpstan.org/user-guide/rule-levels
 # Used for automated tests to avoid regressions in files already passing that level.
 # Can be regenerated with something like:
-# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
+# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 7 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
+./app/actualize_script.php
+./app/Controllers/authController.php
+./app/Controllers/categoryController.php
+./app/Controllers/configureController.php
+./app/Controllers/entryController.php
+./app/Controllers/feedController.php
+./app/Controllers/importExportController.php
+./app/Controllers/indexController.php
+./app/Controllers/javascriptController.php
+./app/Controllers/statsController.php
+./app/Controllers/subscriptionController.php
+./app/Controllers/tagController.php
+./app/Controllers/updateController.php
+./app/Controllers/userController.php
 ./app/install.php
+./app/Models/Auth.php
+./app/Models/BooleanSearch.php
+./app/Models/Category.php
+./app/Models/CategoryDAO.php
+./app/Models/Context.php
+./app/Models/DatabaseDAO.php
+./app/Models/DatabaseDAOPGSQL.php
+./app/Models/DatabaseDAOSQLite.php
+./app/Models/Entry.php
+./app/Models/EntryDAO.php
+./app/Models/EntryDAOSQLite.php
 ./app/Models/Feed.php
+./app/Models/FeedDAO.php
+./app/Models/ReadingMode.php
+./app/Models/Search.php
+./app/Models/Share.php
+./app/Models/StatsDAO.php
+./app/Models/StatsDAOPGSQL.php
+./app/Models/StatsDAOSQLite.php
+./app/Models/TagDAO.php
+./app/Models/TagDAOSQLite.php
+./app/Models/Themes.php
+./app/Services/ExportService.php
 ./app/Services/ImportService.php
-./lib/Minz/Paginator.php
+./app/views/configure/archiving.phtml
+./app/views/helpers/export/articles.phtml
+./app/views/helpers/export/opml.phtml
+./app/views/helpers/index/normal/entry_bottom.phtml
+./app/views/helpers/javascript_vars.phtml
+./app/views/helpers/logs_pagination.phtml
+./app/views/index/normal.phtml
+./app/views/index/reader.phtml
+./app/views/stats/idle.phtml
+./app/views/stats/index.phtml
+./app/views/stats/repartition.phtml
+./app/views/user/details.phtml
+./cli/_update-or-create-user.php
+./cli/actualize-user.php
+./cli/check.translation.php
+./cli/db-optimize.php
+./cli/delete-user.php
+./cli/do-install.php
+./cli/export-opml-for-user.php
+./cli/export-sqlite-for-user.php
+./cli/export-zip-for-user.php
+./cli/i18n/I18nData.php
+./cli/import-for-user.php
+./cli/import-sqlite-for-user.php
+./cli/manipulate.translation.php
+./cli/user-info.php
+./lib/lib_date.php
+./lib/lib_install.php
+./lib/Minz/ActionController.php
+./lib/Minz/Configuration.php
+./lib/Minz/Dispatcher.php
+./lib/Minz/Error.php
+./lib/Minz/FrontController.php
+./lib/Minz/Mailer.php
+./lib/Minz/Migrator.php
+./lib/Minz/ModelPdo.php
+./lib/Minz/Request.php
+./lib/Minz/Translate.php
+./lib/Minz/Url.php
+./lib/Minz/View.php
+./lib/phpgt/cssxpath/src/Translator.php
+./p/api/fever.php
+./p/api/greader.php
+./p/f.php
+./p/i/index.php

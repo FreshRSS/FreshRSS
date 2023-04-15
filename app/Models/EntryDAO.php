@@ -349,11 +349,10 @@ SQL;
 	 *
 	 * @todo It can use the query builder refactoring to build that query
 	 *
-	 * @param false|integer $catId category ID
-	 * @param false|integer $feedId feed ID
-	 * @return boolean
+	 * @param false|int $catId category ID
+	 * @param false|int $feedId feed ID
 	 */
-	protected function updateCacheUnreads($catId = false, $feedId = false) {
+	protected function updateCacheUnreads($catId = false, $feedId = false): bool {
 		$sql = 'UPDATE `_feed` f '
 			. 'LEFT OUTER JOIN ('
 			.	'SELECT e.id_feed, '
@@ -397,8 +396,8 @@ SQL;
 	 * same if it is an array or not.
 	 *
 	 * @param string|array<string> $ids
-	 * @param boolean $is_read
-	 * @return integer|false affected rows
+	 * @param bool $is_read
+	 * @return int|false affected rows
 	 */
 	public function markRead($ids, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();

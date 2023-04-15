@@ -120,11 +120,8 @@ SQL;
 		}
 	}
 
-	/**
-	 * @param mixed $value
-	 * @return int|false
-	 */
-	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, $value) {
+	/** @return int|false */
+	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, mixed $value) {
 		$tag->_attributes($key, $value);
 		return $this->updateTag(
 				$tag->id(),

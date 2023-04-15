@@ -231,7 +231,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if (Minz_Request::paramBoolean('ajax')) {
 				Minz_Request::setGoodNotification(_t('feedback.sub.category.updated'));
-				$this->view->_layout(false);
+				$this->view->_layout(null);
 			} else {
 				if ($ok) {
 					Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);

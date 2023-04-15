@@ -349,7 +349,7 @@ SQL;
 	 * @return array<string>
 	 */
 	private function convertToTranslatedJson(array $data = array()) {
-		$translated = array_map(function($a) {
+		$translated = array_map(static function (string $a) {
 			return _t('gen.date.' . $a);
 		}, $data);
 

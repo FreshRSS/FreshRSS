@@ -78,7 +78,11 @@ DROP TABLE IF EXISTS `tmp`;
 		return $result;
 	}
 
-	protected function updateCacheUnreads($catId = false, $feedId = false) {
+	/**
+	 * @param false|int $catId category ID
+	 * @param false|int $feedId feed ID
+	 */
+	protected function updateCacheUnreads($catId = false, $feedId = false): bool {
 		$sql = 'UPDATE `_feed` '
 		 . 'SET `cache_nbUnreads`=('
 		 .	'SELECT COUNT(*) AS nbUnreads FROM `_entry` e '

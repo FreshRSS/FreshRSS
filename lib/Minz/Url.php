@@ -60,7 +60,7 @@ class Minz_Url {
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri($url, string $encodage): string {
+	private static function printUri(array $url, string $encodage): string {
 		$uri = '';
 		$separator = '?';
 		$anchor = '';

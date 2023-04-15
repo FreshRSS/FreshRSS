@@ -132,11 +132,7 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	}
 }
 
-/**
- * @param string $text
- * @return string
- */
-function safe_ascii($text) {
+function safe_ascii(string $text): string {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '';
 }
 
@@ -154,12 +150,7 @@ if (function_exists('mb_convert_encoding')) {
 	}
 }
 
-/**
- * @param string $text
- * @param bool $extended
- * @return string
- */
-function escapeToUnicodeAlternative($text, $extended = true) {
+function escapeToUnicodeAlternative(string $text, bool $extended = true): string {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
 	//Problematic characters
@@ -255,7 +246,7 @@ function sensitive_log($log) {
 /**
  * @param array<string,mixed> $attributes
  */
-function customSimplePie($attributes = array()): SimplePie {
+function customSimplePie(array $attributes = array()): SimplePie {
 	if (FreshRSS_Context::$system_conf === null) {
 		throw new FreshRSS_Context_Exception('System configuration not initialised!');
 	}
@@ -339,10 +330,8 @@ function customSimplePie($attributes = array()): SimplePie {
 	return $simplePie;
 }
 
-/**
- * @param string $data
- */
-function sanitizeHTML($data, string $base = '', ?int $maxLength = null): string {
+/** @param string $data */
+function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
 	if (!is_string($data) || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
 	}
@@ -840,7 +829,7 @@ const SHORTCUT_KEYS = [
 function getNonStandardShortcuts(array $shortcuts): array {
 	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
-	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
+	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
 		return $shortcut !== '' & stripos($standard, $shortcut) === false;
 	});

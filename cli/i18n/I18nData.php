@@ -183,7 +183,7 @@ class I18nData {
 		}
 
 		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
-		$children = array_values(array_filter($keys, function ($element) use ($key) {
+		$children = array_values(array_filter($keys, static function (string $element) use ($key) {
 			if ($element === $key) {
 				return false;
 			}

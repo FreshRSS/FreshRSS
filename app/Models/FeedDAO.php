@@ -187,7 +187,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	 * @param string|array<mixed>|bool|int|null $value
 	 * @return int|false
 	 */
-	public function updateFeedAttribute(FreshRSS_Feed $feed, string $key, $value) {
+	public function updateFeedAttribute(FreshRSS_Feed $feed, string $key, mixed $value) {
 		$feed->_attributes($key, $value);
 		return $this->updateFeed(
 				$feed->id(),
@@ -268,7 +268,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	 * @param bool|null $muted to include only muted feeds
 	 * @return int|false
 	 */
-	public function deleteFeedByCategory(int $id, $muted = null) {
+	public function deleteFeedByCategory(int $id, ?bool $muted = null) {
 		$sql = 'DELETE FROM `_feed` WHERE category=?';
 		if ($muted) {
 			$sql .= ' AND ttl < 0';
@@ -398,7 +398,7 @@ SQL;
 	 * @param bool|null $muted to include only muted feeds
 	 * @return array<FreshRSS_Feed>
 	 */
-	public function listByCategory(int $cat, $muted = null): array {
+	public function listByCategory(int $cat, ?bool $muted = null): array {
 		$sql = 'SELECT * FROM `_feed` WHERE category=?';
 		if ($muted) {
 			$sql .= ' AND ttl < 0';

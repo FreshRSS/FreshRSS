@@ -49,7 +49,7 @@ class FreshRSS_Share {
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, function ($a, $b) {
+		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
 			return strcasecmp($a->name(), $b->name());
 		});
 	}
@@ -303,7 +303,7 @@ class FreshRSS_Share {
 	 * @param array<string> $transform an array containing a list of functions to apply.
 	 * @return string the transformed data.
 	 */
-	private static function transform(string $data, $transform): string {
+	private static function transform(string $data, array $transform): string {
 		if (!is_array($transform) || empty($transform)) {
 			return $data;
 		}

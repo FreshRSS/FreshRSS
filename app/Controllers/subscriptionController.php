@@ -90,7 +90,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 */
 	public function feedAction(): void {
 		if (Minz_Request::paramBoolean('ajax')) {
-			$this->view->_layout(false);
+			$this->view->_layout(null);
 		} else {
 			FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		}
@@ -283,7 +283,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	}
 
 	public function categoryAction(): void {
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 

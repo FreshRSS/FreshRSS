@@ -52,7 +52,7 @@ class Minz_Error {
 	 * @param array<string,string>|string $logs logs sorted by category (error, warning, notice)
 	 * @return array<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
-	private static function processLogs($logs) {
+	private static function processLogs($logs): array {
 		$conf = Minz_Configuration::get('system');
 		$env = $conf->environment;
 		$logs_ok = array ();

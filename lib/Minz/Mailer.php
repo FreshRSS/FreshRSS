@@ -44,7 +44,7 @@ class Minz_Mailer {
 	 */
 	public function __construct () {
 		$this->view = new Minz_View();
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		$this->view->attributeParams();
 
 		$conf = Minz_Configuration::get('system');
@@ -66,10 +66,9 @@ class Minz_Mailer {
 	 *
 	 * @param string $to The recipient of the email
 	 * @param string $subject The subject of the email
-	 *
 	 * @return bool true on success, false if a SMTP error happens
 	 */
-	public function mail($to, $subject) {
+	public function mail(string $to, string $subject): bool {
 		ob_start();
 		$this->view->render();
 		$body = ob_get_contents();

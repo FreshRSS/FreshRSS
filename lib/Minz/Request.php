@@ -360,7 +360,7 @@ class Minz_Request {
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
 			//Delete abandoned notifications
-			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
+			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {

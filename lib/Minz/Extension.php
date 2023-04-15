@@ -217,7 +217,7 @@ abstract class Minz_Extension {
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isConfigurationEnabled($type): bool {
+	private function isConfigurationEnabled(string $type): bool {
 		if (!class_exists('FreshRSS_Context', false)) {
 			return false;
 		}
@@ -229,7 +229,7 @@ abstract class Minz_Extension {
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isExtensionConfigured($type): bool {
+	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
 			case 'system':
 				$conf = FreshRSS_Context::$user_conf;
@@ -248,7 +248,7 @@ abstract class Minz_Extension {
 	}
 
 	/**
-	 * @param 'system'|'user' $type
+	 * @phpstan-param 'system'|'user' $type
 	 * @return array<string,mixed>
 	 */
 	private function getConfiguration(string $type): array {
@@ -278,11 +278,7 @@ abstract class Minz_Extension {
 		return $this->getConfiguration('user');
 	}
 
-	/**
-	 * @param mixed $default
-	 * @return mixed
-	 */
-	public final function getSystemConfigurationValue(string $key, $default = null) {
+	public final function getSystemConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->system_configuration)) {
 			$this->system_configuration = $this->getSystemConfiguration();
 		}
@@ -293,11 +289,7 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
-	/**
-	 * @param mixed $default
-	 * @return mixed
-	 */
-	public final function getUserConfigurationValue(string $key, $default = null) {
+	public final function getUserConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->user_configuration)) {
 			$this->user_configuration = $this->getUserConfiguration();
 		}
@@ -338,7 +330,7 @@ abstract class Minz_Extension {
 		$this->user_configuration = $configuration;
 	}
 
-	/** @param 'system'|'user' $type */
+	/** @phpstan-param 'system'|'user' $type */
 	private function removeConfiguration(string $type): void {
 		if (!$this->isConfigurationEnabled($type)) {
 			return;

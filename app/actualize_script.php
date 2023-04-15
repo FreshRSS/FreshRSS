@@ -100,7 +100,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook('feed_before_actualize', function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

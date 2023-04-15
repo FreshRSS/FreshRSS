@@ -654,7 +654,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-Type: ' . $content_type);
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		$this->view->content = $content;
 	}
 

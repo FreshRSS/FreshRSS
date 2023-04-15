@@ -58,7 +58,7 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value = null): void {
+	public function _attributes(string $key, mixed $value = null): void {
 		if ($key == '') {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
@@ -97,7 +97,7 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @param string|int$value
+	 * @param string|int $value
 	 */
 	public function _nbUnread($value): void {
 		$this->nbUnread = (int)$value;

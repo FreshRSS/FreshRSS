@@ -477,7 +477,7 @@ SQL;
 			$cat->_id($previousLine['c_id']);
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
-			$cat->_error($previousLine['c_error'] ?? false);
+			$cat->_error($previousLine['c_error'] ?? 0);
 			$cat->_attributes('', $previousLine['c_attributes']);
 			$list[$previousLine['c_id']] = $cat;
 		}

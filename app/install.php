@@ -18,7 +18,8 @@ if (STEP === 2 && isset($_POST['type'])) {
 	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
-function param($key, $default = false) {
+/** @param mixed $default */
+function param(string $key, $default = false): mixed {
 	if (isset($_POST[$key])) {
 		return $_POST[$key];
 	} else {
@@ -27,7 +28,7 @@ function param($key, $default = false) {
 }
 
 // gestion internationalisation
-function initTranslate() {
+function initTranslate(): void {
 	Minz_Translate::init();
 	$available_languages = Minz_Translate::availableLanguages();
 
@@ -42,14 +43,14 @@ function initTranslate() {
 	Minz_Translate::reset(Minz_Session::param('language'));
 }
 
-function get_best_language() {
+function get_best_language(): string {
 	$accept = empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? '' : $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 	return strtolower(substr($accept, 0, 2));
 }
 
 
 /*** SAUVEGARDES ***/
-function saveLanguage() {
+function saveLanguage(): bool {
 	if (!empty($_POST)) {
 		if (!isset($_POST['language'])) {
 			return false;
@@ -60,9 +61,10 @@ function saveLanguage() {
 
 		header('Location: index.php?step=1');
 	}
+	return true;
 }
 
-function saveStep1() {
+function saveStep1(): void {
 	if (isset($_POST['freshrss-keep-install']) &&
 			$_POST['freshrss-keep-install'] === '1') {
 		// We want to keep our previous installation of FreshRSS
@@ -92,7 +94,7 @@ function saveStep1() {
 	}
 }
 
-function saveStep2() {
+function saveStep2(): void {
 	if (!empty($_POST)) {
 		if (Minz_Session::param('bd_type') === 'sqlite') {
 			Minz_Session::_params([
@@ -190,7 +192,7 @@ function saveStep2() {
 	invalidateHttpCache();
 }
 
-function saveStep3() {
+function saveStep3(): bool {
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
 		Minz_Session::_params([
@@ -242,10 +244,11 @@ function saveStep3() {
 
 		header('Location: index.php?step=4');
 	}
+	return true;
 }
 
 /*** VÉRIFICATIONS ***/
-function checkStep() {
+function checkStep(): void {
 	$s0 = checkStep0();
 	$s1 = checkRequirements();
 	$s2 = checkStep2();
@@ -262,7 +265,8 @@ function checkStep() {
 	Minz_Session::_param('actualize_feeds', true);
 }
 
-function checkStep0() {
+/** @return array<string,string> */
+function checkStep0(): array {
 	$languages = Minz_Translate::availableLanguages();
 	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
 	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
@@ -274,7 +278,7 @@ function checkStep0() {
 	);
 }
 
-function freshrss_already_installed() {
+function freshrss_already_installed(): bool {
 	$conf_path = join_path(DATA_PATH, 'config.php');
 	if (!file_exists($conf_path)) {
 		return false;
@@ -300,7 +304,8 @@ function freshrss_already_installed() {
 	return true;
 }
 
-function checkStep2() {
+/** @return array<string,string> */
+function checkStep2(): array {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
 	$bd = Minz_Session::param('bd_type') != '';
@@ -314,7 +319,8 @@ function checkStep2() {
 	];
 }
 
-function checkStep3() {
+/** @return array<string,string> */
+function checkStep3(): array {
 	$conf = Minz_Session::param('default_user') != '';
 
 	$form = Minz_Session::param('auth_type') != '';
@@ -335,7 +341,7 @@ function checkStep3() {
 
 
 /*** AFFICHAGE ***/
-function printStep0() {
+function printStep0(): void {
 	$actual = Minz_Translate::language();
 	$languages = Minz_Translate::availableLanguages();
 	$s0 = checkStep0();
@@ -373,7 +379,8 @@ function printStep0() {
 <?php
 }
 
-function printStep1Template($key, $value, $messageParams = []) {
+/** @param array<string> $messageParams */
+function printStep1Template(string $key, string $value, array $messageParams = []): void {
 	if ('ok' === $value) {
 		$message = _t("install.check.{$key}.ok", ...$messageParams);
 		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
@@ -383,7 +390,7 @@ function printStep1Template($key, $value, $messageParams = []) {
 	}
 }
 
-function getProcessUsername() {
+function getProcessUsername(): string {
 	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
 		$processUser = posix_getpwuid(posix_geteuid());
 		return $processUser['name'];
@@ -400,7 +407,7 @@ function getProcessUsername() {
 }
 
 // @todo refactor this view with the check_install action
-function printStep1() {
+function printStep1(): void {
 	$res = checkRequirements();
 	$processUsername = getProcessUsername();
 ?>
@@ -466,7 +473,7 @@ function printStep1() {
 <?php
 }
 
-function printStep2() {
+function printStep2(): void {
 	$system_default_config = Minz_Configuration::get('default_system');
 	$s2 = checkStep2();
 	if ($s2['all'] == 'ok') { ?>
@@ -562,11 +569,11 @@ function printStep2() {
 <?php
 }
 
-function no_auth($auth_type) {
+function no_auth(string $auth_type): bool {
 	return !in_array($auth_type, array('form', 'http_auth', 'none'));
 }
 
-function printStep3() {
+function printStep3(): void {
 	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 	$s3 = checkStep3();
 	if ($s3['all'] == 'ok') { ?>
@@ -628,7 +635,7 @@ function printStep3() {
 <?php
 }
 
-function printStep4() {
+function printStep4(): void {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
 	<div class="form-group form-actions">
@@ -639,7 +646,7 @@ function printStep4() {
 <?php
 }
 
-function printStep5() {
+function printStep5(): void {
 ?>
 	<p class="alert alert-error">
 		<span class="alert-head"><?= _t('gen.short.damn') ?></span>
@@ -676,7 +683,7 @@ case 5:
 }
 ?>
 <!DOCTYPE html>
-<html<?php
+<html <?php
 if (_t('gen.dir') === 'rtl') {
 	echo ' dir="rtl" class="rtl"';
 }

@@ -158,9 +158,9 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param string|false $layout the layout name to use, false to use no layouts.
+	 * @param string|null $layout the layout name to use, false to use no layouts.
 	 */
-	public function _layout($layout): void {
+	public function _layout(?string $layout): void {
 		if ($layout) {
 			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
 		} else {
@@ -178,7 +178,7 @@ class Minz_View {
 		if ($use) {
 			$this->_layout(self::LAYOUT_DEFAULT);
 		} else {
-			$this->_layout(false);
+			$this->_layout(null);
 		}
 	}
 
@@ -326,10 +326,8 @@ class Minz_View {
 
 	/**
 	 * Management of parameters added to the view
-	 * @param string $key
-	 * @param mixed $value
 	 */
-	public static function _param(string $key, $value): void {
+	public static function _param(string $key, mixed $value): void {
 		self::$params[$key] = $value;
 	}
 

@@ -34,7 +34,7 @@ example('PT6M/');
 example('PT7S/');
 example('P1DT1H/');
 
-function example($dateInterval) {
+function example(string $dateInterval) {
 	$dateIntervalArray = parseDateInterval($dateInterval);
 	echo $dateInterval, "\t=>\t",
 		$dateIntervalArray[0] == null ? 'null' : @date('c', $dateIntervalArray[0]), '/',
