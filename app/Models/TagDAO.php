@@ -6,7 +6,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return 'IGNORE';
 	}
 
-	public function createTagTable() {
+	public function createTagTable(): bool {
 		$ok = false;
 		$hadTransaction = $this->pdo->inTransaction();
 		if ($hadTransaction) {
@@ -42,7 +42,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return false;
 	}
 
-	public function addTag($valuesTmp) {
+	/**
+	 * @param array<string,string|array<string,mixed>> $valuesTmp
+	 * @return int|false
+	 */
+	public function addTag(array $valuesTmp) {
 		// TRIM() gives a text type hint to PostgreSQL
 		// No category of the same name
 		$sql = <<<'SQL'
@@ -63,7 +67,7 @@ SQL;
 		);
 
 		if ($stm && $stm->execute($values) && $stm->rowCount() > 0) {
-			return $this->pdo->lastInsertId('`_tag_id_seq`');
+			return (int)($this->pdo->lastInsertId('`_tag_id_seq`'));
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error addTag: ' . $info[2]);
@@ -71,10 +75,7 @@ SQL;
 		}
 	}
 
-	/**
-	 * @param FreshRSS_Tag $tag
-	 */
-	public function addTagObject($tag) {
+	public function addTagObject(FreshRSS_Tag $tag): int {
 		$tag0 = $this->searchByName($tag->name());
 		if (!$tag0) {
 			$values = array(
@@ -87,9 +88,10 @@ SQL;
 	}
 
 	/**
-	 * @return integer|false
+	 * @param array<string,string|int|array<string,mixed>> $valuesTmp
+	 * @return int|false
 	 */
-	public function updateTag($id, $valuesTmp) {
+	public function updateTag(int $id, array $valuesTmp) {
 		// No category of the same name
 		$sql = <<<'SQL'
 UPDATE `_tag` SET name=?, attributes=? WHERE id=?
@@ -119,23 +121,21 @@ SQL;
 	}
 
 	/**
-	 * @return integer|false
+	 * @param mixed $value
+	 * @return int|false
 	 */
-	public function updateTagAttribute($tag, $key, $value) {
-		if ($tag instanceof FreshRSS_Tag) {
-			$tag->_attributes($key, $value);
-			return $this->updateTag(
-					$tag->id(),
-					[ 'attributes' => $tag->attributes() ]
-				);
-		}
-		return false;
+	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, $value) {
+		$tag->_attributes($key, $value);
+		return $this->updateTag(
+				$tag->id(),
+				[ 'attributes' => $tag->attributes() ]
+			);
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
-	public function deleteTag($id) {
+	public function deleteTag(int $id) {
 		if ($id <= 0) {
 			return false;
 		}
@@ -171,10 +171,8 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return integer|false
-	 */
-	public function updateEntryTag($oldTagId, $newTagId) {
+	/** @return int|false */
+	public function updateEntryTag(int $oldTagId, int $newTagId) {
 		$sql = <<<'SQL'
 DELETE FROM `_entrytag` WHERE EXISTS (
 	SELECT 1 FROM `_entrytag` AS e
@@ -220,7 +218,8 @@ SQL;
 		return isset($tag[0]) ? $tag[0] : null;
 	}
 
-	public function listTags($precounts = false) {
+	/** @return array<FreshRSS_Tag>|false */
+	public function listTags(bool $precounts = false) {
 		if ($precounts) {
 			$sql = 'SELECT t.id, t.name, count(e.id) AS unreads '
 				 . 'FROM `_tag` t '
@@ -245,7 +244,8 @@ SQL;
 		}
 	}
 
-	public function listTagsNewestItemUsec($id_tag = null) {
+	/** @return array<string,string> */
+	public function listTagsNewestItemUsec(?int $id_tag = null) {
 		$sql = 'SELECT t.id AS id_tag, MAX(e.id) AS newest_item_us '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id '
@@ -323,7 +323,7 @@ SQL;
 		}
 	}
 
-	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true) {
+	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true): bool {
 		if ($checked) {
 			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
 		} else {
