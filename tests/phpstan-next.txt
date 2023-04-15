@@ -6,7 +6,6 @@
 
 ./app/install.php
 ./app/Models/Feed.php
-./app/Models/FeedDAO.php
 ./app/Models/TagDAO.php
 ./app/Services/ImportService.php
 ./lib/Minz/Paginator.php

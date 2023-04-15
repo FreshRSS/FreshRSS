@@ -214,7 +214,7 @@ SQL;
 		}
 	}
 
-	/** @return iterator<array<string,mixed>> */
+	/** @return iterator<array<string,string|int>> */
 	public function selectAll() {
 		$sql = 'SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
@@ -440,12 +440,13 @@ SQL;
 	}
 
 	/**
-	 * @param array<string,mixed> $listDAO
+	 * @param array<string,array<string,string|int>> $listDAO
 	 * @return array<int,FreshRSS_Category>
 	 */
 	private static function daoToCategoryPrepopulated(array $listDAO) {
 		$list = array();
 		$previousLine = null;
+		/** @var array<string,string|int> */
 		$feedsDao = array();
 		$feedDao = FreshRSS_Factory::createFeedDAO();
 		foreach ($listDAO as $line) {
@@ -485,7 +486,7 @@ SQL;
 	}
 
 	/**
-	 * @param array<array<string,mixed>>|array<string,mixed> $listDAO
+	 * @param array<array<string,string|int>>|array<string,string|int> $listDAO
 	 * @return array<FreshRSS_Category>
 	 */
 	private static function daoToCategory($listDAO): array {

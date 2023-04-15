@@ -153,6 +153,7 @@ SQL;
 		}
 	}
 
+	/** @return iterator<array{'id':int,'name':string,'attributes':string}> */
 	public function selectAll() {
 		$sql = 'SELECT id, name, attributes FROM `_tag`';
 		$stm = $this->pdo->query($sql);
@@ -161,6 +162,7 @@ SQL;
 		}
 	}
 
+	/** @return iterator<array{'id_tag':int,'id_entry':string}> */
 	public function selectEntryTag() {
 		$sql = 'SELECT id_tag, id_entry FROM `_entrytag`';
 		$stm = $this->pdo->query($sql);
@@ -434,13 +436,16 @@ SQL;
 		return $result;
 	}
 
-	/** @return array<FreshRSS_Tag> */
-	private static function daoToTag($listDAO) {
+	/**
+	 * @param array<array<string,string|int>>|array<string,string|int> $listDAO
+	 * @return array<FreshRSS_Tag>
+	 */
+	private static function daoToTag(array $listDAO) {
 		$list = array();
 		if (!is_array($listDAO)) {
 			$listDAO = array($listDAO);
 		}
-		foreach ($listDAO as $key => $dao) {
+		foreach ($listDAO as $dao) {
 			$tag = new FreshRSS_Tag(
 				$dao['name']
 			);
@@ -451,7 +456,7 @@ SQL;
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);
 			}
-			$list[$key] = $tag;
+			$list[] = $tag;
 		}
 		return $list;
 	}

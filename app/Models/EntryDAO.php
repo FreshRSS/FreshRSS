@@ -700,7 +700,7 @@ SQL;
 		}
 	}
 
-	/** @return iterator<array<string,mixed>> */
+	/** @return iterator<array<string,string|int>> */
 	public function selectAll() {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
