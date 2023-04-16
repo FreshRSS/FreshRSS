@@ -28,7 +28,6 @@
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
 ./app/views/helpers/logs_pagination.phtml
-./app/views/index/normal.phtml
 ./app/views/index/reader.phtml
 ./app/views/stats/index.phtml
 ./app/views/stats/repartition.phtml
@@ -43,15 +42,12 @@
 ./cli/user-info.php
 ./lib/lib_date.php
 ./lib/Minz/ActionController.php
-./lib/Minz/Dispatcher.php
 ./lib/Minz/Error.php
-./lib/Minz/FrontController.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
 ./lib/Minz/ModelPdo.php
 ./lib/Minz/Request.php
 ./lib/Minz/View.php
-./lib/phpgt/cssxpath/src/Translator.php
 ./p/api/greader.php
 ./tests/cli/i18n/I18nFileTest.php
 ./tests/lib/Minz/MigratorTest.php

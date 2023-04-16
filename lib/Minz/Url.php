@@ -145,7 +145,7 @@ class Minz_Url {
 
 	/**
 	 * Returns an array representing the URL as passed in the address bar
-	 * @return array<string,string|array<string,string>> URL representation
+	 * @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} URL representation
 	 */
 	public static function build(): array {
 		$url = [
