@@ -18,8 +18,11 @@ if (STEP === 2 && isset($_POST['type'])) {
 	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
-/** @param mixed $default */
-function param(string $key, $default = false): mixed {
+/**
+ * @param mixed $default
+ * @return mixed
+ */
+function param(string $key, $default = false) {
 	if (isset($_POST[$key])) {
 		return $_POST[$key];
 	} else {
