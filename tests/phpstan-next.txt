@@ -13,7 +13,6 @@
 ./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
 ./app/Models/DatabaseDAOPGSQL.php
-./app/Models/DatabaseDAOSQLite.php
 ./app/Models/Entry.php
 ./app/Models/EntryDAO.php
 ./app/Models/Feed.php
@@ -35,9 +34,6 @@
 ./cli/check.translation.php
 ./cli/delete-user.php
 ./cli/do-install.php
-./cli/export-sqlite-for-user.php
-./cli/import-for-user.php
-./cli/import-sqlite-for-user.php
 ./cli/manipulate.translation.php
 ./cli/user-info.php
 ./lib/lib_date.php
@@ -47,7 +43,6 @@
 ./lib/Minz/Migrator.php
 ./lib/Minz/ModelPdo.php
 ./lib/Minz/Request.php
-./lib/Minz/View.php
 ./p/api/greader.php
 ./tests/cli/i18n/I18nFileTest.php
 ./tests/lib/Minz/MigratorTest.php

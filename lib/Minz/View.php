@@ -22,7 +22,7 @@ class Minz_View {
 	private static $title = '';
 	/** @var array<array{'media':string,'url':string}> */
 	private static $styles = [];
-	/** @var array<array{'url':string,'id':string,'defer':string,'async':string}> */
+	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
 	private static $scripts = [];
 	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
 	private static $themeColors;
