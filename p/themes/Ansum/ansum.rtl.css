@@ -1141,13 +1141,13 @@ main.prompt {
 	box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.35);
 }
 
-.slide-container .properties {
+.theme-preview-list .preview-container .properties {
 	padding: 1rem;
 	background: rgba(0, 0, 0, 0.75);
 	color: white;
 	border: 0;
 }
-.slide-container .properties .page-number {
+.theme-preview-list .preview-container .properties .page-number {
 	left: 1rem;
 	top: 1rem;
 }

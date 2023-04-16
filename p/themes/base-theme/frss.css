@@ -941,38 +941,32 @@ li.drag-hover {
 /*=== Scrollbar */
 
 @supports (scrollbar-width: thin) {
-	#sidebar,
 	.scrollbar-thin {
 		scrollbar-color: var(--frss-scrollbar-handle) var(--frss-scrollbar-track);
 		scrollbar-width: thin;
 	}
 
-	#sidebar:hover,
 	.scrollbar-thin:hover {
 		scrollbar-color: var(--frss-scrollbar-handle-hover) var(--frss-scrollbar-track-hover);
 	}
 }
 
 @supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar,
 	.scrollbar-thin::-webkit-scrollbar {
 		background-color: var(--frss-scrollbar-track);
 		width: 8px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar,
 	.scrollbar-thin:hover::-webkit-scrollbar {
 		background-color: var(--frss-scrollbar-track-hover);
 	}
 
-	#sidebar::-webkit-scrollbar-thumb,
 	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background-color: var(--frss-scrollbar-handle);
 		display: unset;
 		border-radius: 5px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar-thumb,
 	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background-color: var(--frss-scrollbar-handle-hover);
 	}
@@ -1779,9 +1773,9 @@ html.slider-active {
 	max-width: 550px;
 }
 
-/*=== SLIDESHOW */
+/*=== SLIDESHOW Theme Preview */
 /*==============*/
-.slides {
+.theme-preview-list {
 	padding: 0;
 	display: block;
 	max-width: 640px;
@@ -1792,15 +1786,15 @@ html.slider-active {
 	margin-bottom: 30px;
 }
 
-.slides input {
+.theme-preview-list input {
 	display: none;
 }
 
-.slide-container {
+.theme-preview-list .preview-container {
 	display: block;
 }
 
-.slide {
+.theme-preview-list .preview {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -1811,12 +1805,12 @@ html.slider-active {
 	transition: all .7s ease-in-out;
 }
 
-.slide img {
+.theme-preview-list .preview img {
 	width: 100%;
 	height: 100%;
 }
 
-.nav label {
+.theme-preview-list .nav label {
 	padding: 0;
 	display: none;
 	width: 65px;
@@ -1835,7 +1829,7 @@ html.slider-active {
 	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
 
-.properties {
+.theme-preview-list .properties {
 	padding: 5px;
 	background-color: var(--frss-background-color-transparent);
 	display: none;
@@ -1847,35 +1841,35 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.properties .page-number {
+.theme-preview-list .properties .page-number {
 	right: 5px;
 	top: 0;
 	position: absolute;
 }
 
-.slide:hover + .nav label {
+.theme-preview-list .preview:hover + .nav label {
 	opacity: 0.5;
 }
 
-.nav label:hover {
+.theme-preview-list .nav label:hover {
 	opacity: 1;
 }
 
-.nav .next {
+.theme-preview-list .nav .next {
 	right: 0;
 }
 
-input:checked + .slide-container .slide {
+.theme-preview-list input:checked + .preview-container .preview {
 	opacity: 1;
 	transform: scale(1);
 	transition: opacity 1s ease-in-out;
 }
 
-input:checked + .slide-container .nav label {
+.theme-preview-list input:checked + .preview-container .nav label {
 	display: block;
 }
 
-input:checked + .slide-container .properties {
+.theme-preview-list input:checked + .preview-container .properties {
 	display: block;
 }
 
@@ -1892,9 +1886,49 @@ input:checked + .slide-container .properties {
 .item.share.error a::after,
 .category .title.error::before,
 .item.feed.error .item-title::before,
-.properties .error::before {
+.theme-preview-list .properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
+}
+
+.item.share button {
+	position: relative;
+}
+
+.item.share button::after {
+	content: "";
+	background: var(--frss-background-color-transparent);
+	display: inline-block;
+	position: absolute;
+	padding-top: 1rem;
+	opacity: 0;
+	transition: all 0.6s;
+	left: 0px;
+	width: 100%;
+	height: 1rem;
+}
+
+.item.share button:active::after {
+	opacity: 1;
+	width: 0;
+	transition: 0s
+}
+
+.item.share button.ok::before {
+	content: "✓";
+	position: absolute;
+	left: 0.5rem;
+	animation-duration: 10s;
+	animation-fill-mode: both;
+	animation-name: easeOut;
+}
+
+@keyframes easeOut {
+	0% {opacity: 1;}
+
+	80% {opacity: 1;}
+
+	100% {opacity: 0;}
 }
 
 .deprecated {
@@ -2339,7 +2373,7 @@ input:checked + .slide-container .properties {
 		grid-column: 1 / span 2;
 	}
 
-	.slide + .nav label {
+	.theme-preview-list .preview + .nav label {
 		opacity: 0.5;
 	}
 }
