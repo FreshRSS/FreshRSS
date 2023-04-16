@@ -1089,6 +1089,9 @@ function init_stream(stream) {
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
 		if (el && navigator.clipboard) {	// Clipboard
 			navigator.clipboard.writeText(el.dataset.url);
+			el.classList.remove('ok');
+			el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
+			el.classList.add('ok');
 			return false;
 		}
 

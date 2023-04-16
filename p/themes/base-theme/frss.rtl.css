@@ -1891,6 +1891,46 @@ input:checked + .slide-container .properties {
 	color: var(--frss-font-color-error);
 }
 
+.item.share button {
+	position: relative;
+}
+
+.item.share button::after {
+	content: "";
+	background: var(--frss-background-color-transparent);
+	display: inline-block;
+	position: absolute;
+	padding-top: 1rem;
+	opacity: 0;
+	transition: all 0.6s;
+	right: 0px;
+	width: 100%;
+	height: 1rem;
+}
+
+.item.share button:active::after {
+	opacity: 1;
+	width: 0;
+	transition: 0s
+}
+
+.item.share button.ok::before {
+	content: "✓";
+	position: absolute;
+	right: 0.5rem;
+	animation-duration: 10s;
+	animation-fill-mode: both;
+	animation-name: easeOut;
+}
+
+@keyframes easeOut {
+	0% {opacity: 1;}
+
+	80% {opacity: 1;}
+
+	100% {opacity: 0;}
+}
+
 .deprecated {
 	font-weight: bold;
 }
