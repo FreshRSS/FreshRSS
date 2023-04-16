@@ -197,7 +197,7 @@ function saveStep2(): void {
 
 function saveStep3(): bool {
 	if (!empty($_POST)) {
-		$system_default_config = Minz_Configuration::get('default_system');
+		$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
 		Minz_Session::_params([
 				'title' => $system_default_config->title,
 				'auth_type' => param('auth_type', 'form'),
@@ -477,7 +477,7 @@ function printStep1(): void {
 }
 
 function printStep2(): void {
-	$system_default_config = Minz_Configuration::get('default_system');
+	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
 	$s2 = checkStep2();
 	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>

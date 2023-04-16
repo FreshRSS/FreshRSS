@@ -607,10 +607,7 @@ function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 		return null;
 	}
 
-	/**
-	 * @var FreshRSS_UserConfiguration $user_conf
-	 */
-	$user_conf = Minz_Configuration::get($namespace);
+	$user_conf = FreshRSS_UserConfiguration::get($namespace);
 	return $user_conf;
 }
 
