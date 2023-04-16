@@ -154,7 +154,7 @@ class FreshRSS_Auth {
 		default:
 			$ok = false;
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/**

@@ -3,11 +3,9 @@
 # Can be regenerated with something like:
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 7 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/actualize_script.php
 ./app/Controllers/authController.php
 ./app/Controllers/categoryController.php
 ./app/Controllers/configureController.php
-./app/Controllers/entryController.php
 ./app/Controllers/feedController.php
 ./app/Controllers/importExportController.php
 ./app/Controllers/indexController.php
@@ -18,9 +16,7 @@
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
 ./app/install.php
-./app/Models/Auth.php
 ./app/Models/BooleanSearch.php
-./app/Models/Category.php
 ./app/Models/CategoryDAO.php
 ./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
@@ -43,15 +39,9 @@
 ./app/Models/UserQuery.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
-./app/views/configure/archiving.phtml
-./app/views/helpers/export/articles.phtml
-./app/views/helpers/export/opml.phtml
-./app/views/helpers/index/normal/entry_bottom.phtml
-./app/views/helpers/javascript_vars.phtml
 ./app/views/helpers/logs_pagination.phtml
 ./app/views/index/normal.phtml
 ./app/views/index/reader.phtml
-./app/views/stats/idle.phtml
 ./app/views/stats/index.phtml
 ./app/views/stats/repartition.phtml
 ./app/views/user/details.phtml
@@ -64,7 +54,6 @@
 ./cli/export-opml-for-user.php
 ./cli/export-sqlite-for-user.php
 ./cli/export-zip-for-user.php
-./cli/i18n/I18nData.php
 ./cli/import-for-user.php
 ./cli/import-sqlite-for-user.php
 ./cli/manipulate.translation.php
@@ -80,15 +69,12 @@
 ./lib/Minz/Migrator.php
 ./lib/Minz/ModelPdo.php
 ./lib/Minz/Request.php
-./lib/Minz/Translate.php
 ./lib/Minz/Url.php
 ./lib/Minz/View.php
 ./lib/phpgt/cssxpath/src/Translator.php
 ./p/api/fever.php
 ./p/api/greader.php
 ./p/f.php
-./p/i/index.php
-./tests/app/Models/LogDAOTest.php
 ./tests/app/Models/SearchTest.php
 ./tests/cli/i18n/I18nFileTest.php
 ./tests/lib/Minz/MigratorTest.php

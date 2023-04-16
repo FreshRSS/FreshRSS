@@ -73,7 +73,7 @@ class FreshRSS_View extends Minz_View {
 	public $status_database;
 
 	// Archiving
-	/** @var int|false */
+	/** @var int */
 	public $nb_total;
 	/** @var int */
 	public $size_total;

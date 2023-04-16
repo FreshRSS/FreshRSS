@@ -98,4 +98,6 @@ if (!empty($this->feeds)) {
 }
 
 $libopml = new \marienfressinaud\LibOpml\LibOpml(true);
-echo $libopml->render($opml_array);
+$opml = $libopml->render($opml_array);
+/** @var string $opml */
+echo $opml;

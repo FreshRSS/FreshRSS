@@ -127,7 +127,7 @@ class I18nData {
 	 * the parent key is 'a.b.c.d'.
 	 */
 	private function getParentKey(string $key): string {
-		return substr($key, 0, strrpos($key, '.'));
+		return substr($key, 0, strrpos($key, '.') ?: null);
 	}
 
 	/**

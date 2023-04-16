@@ -167,7 +167,8 @@ function escapeToUnicodeAlternative(string $text, bool $extended = true): string
 	return trim(str_replace($problem, $replace, $text));
 }
 
-function format_number(float $n, int $precision = 0): string {
+/** @param int|float $n */
+function format_number($n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',	// Thin non-breaking space
 		number_format($n, $precision, '.', ' ')

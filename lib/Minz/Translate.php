@@ -133,8 +133,8 @@ class Minz_Translate {
 		}
 
 		$list_i18n_files = array_values(array_diff(
-			scandir($lang_path),
-			array('..', '.')
+			scandir($lang_path) ?: [],
+			['..', '.']
 		));
 
 		// Each file basename correspond to a top-level i18n key. For each of

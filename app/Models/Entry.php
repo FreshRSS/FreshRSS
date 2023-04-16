@@ -352,7 +352,10 @@ HTML;
 		return $this->feedId;
 	}
 
-	/** @return string|array<string> */
+	/**
+	 * @phpstan-return ($asString is true ? string : array<string>)
+	 * @return string|array<string>
+	 */
 	public function tags(bool $asString = false) {
 		if ($asString) {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
@@ -609,7 +612,7 @@ HTML;
 				}
 			}
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/** @param array<string,int> $titlesAsRead  */

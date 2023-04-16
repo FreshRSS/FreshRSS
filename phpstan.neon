@@ -1,6 +1,7 @@
 parameters:
 	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
 	level: 6
+	treatPhpDocTypesAsCertain: false
 	fileExtensions:
 		- php
 		- phtml

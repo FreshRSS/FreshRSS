@@ -3,7 +3,8 @@
 /**
  * Manage configuration for the application.
  * @property-read string $base_url
- * @property array<string|array<int,string>> $db
+ * @property array{'type'?:string,'host'?:string,'user'?:string,'password'?:string,'base'?:string,'prefix'?:string,
+ *  'connection_uri_params'?:string,'pdo_options'?:array<string|int,string|int|bool>} $db
  * @property-read string $disable_update
  * @property-read string $environment
  * @property array<string,bool> $extensions_enabled

@@ -264,7 +264,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::$user_conf->volatile = $volatile;
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$this->view->nb_total = $entryDAO->count();
+		$this->view->nb_total = $entryDAO->count() ?: 0;
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$this->view->size_user = $databaseDAO->size();
