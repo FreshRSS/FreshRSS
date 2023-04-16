@@ -262,7 +262,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$this->view->categories = $catDAO->listCategories(false);
+			$this->view->categories = $catDAO->listCategories(false) ?: [];
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
 				// We try to get more information about the feed.

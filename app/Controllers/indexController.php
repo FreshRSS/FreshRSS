@@ -61,7 +61,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->view->callbackBeforeFeeds = function (FreshRSS_View $view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				$view->tags = $tagDAO->listTags(true);
+				$view->tags = $tagDAO->listTags(true) ?: [];
 				$view->nbUnreadTags = 0;
 				foreach ($view->tags as $tag) {
 					$view->nbUnreadTags += $tag->nbUnread();

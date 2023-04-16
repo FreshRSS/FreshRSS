@@ -191,7 +191,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return array<array<string>>
+	 * @return array<array<string|array<string>|null>>
 	 */
 	public function provideTagsSearch(): array {
 		return array(

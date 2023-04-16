@@ -10,6 +10,7 @@ parameters:
 	excludePaths:
 		analyse:
 			- lib/marienfressinaud/*
+			- lib/phpgt/*
 			- lib/phpmailer/*
 			- lib/SimplePie/*
 			- vendor/*

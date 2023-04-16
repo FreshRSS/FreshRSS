@@ -25,7 +25,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	/** @param array<string> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
-			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
+			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
 			foreach (['attributes'] as $column) {
 				if (!in_array($column, $columns)) {
 					return $this->addColumn($column);
@@ -34,14 +34,14 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
-			if (stripos($showCreate, 'tag') === false) {
+			if (is_string($showCreate) && stripos($showCreate, 'tag') === false) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				return $tagDAO->createTagTable();	//v1.12.0
 			}
 		}
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
 			$showCreate = $tableInfo->fetchColumn();
-			if (stripos($showCreate, 'entrytmp') === false) {
+			if (is_string($showCreate) && stripos($showCreate, 'entrytmp') === false) {
 				return $this->createEntryTempTable();	//v1.7.0
 			}
 		}

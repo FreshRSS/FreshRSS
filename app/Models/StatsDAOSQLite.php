@@ -25,6 +25,9 @@ ORDER BY period ASC
 SQL;
 
 		$stm = $this->pdo->query($sql);
+		if ($stm === false) {
+			return [];
+		}
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
 		switch ($period) {

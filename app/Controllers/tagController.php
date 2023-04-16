@@ -39,7 +39,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			$checked = Minz_Request::paramTernary('checked');
 			if ($id_entry != '') {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				if ($id_tag === 0 && $name_tag !== '' && $checked) {
+				if ($id_tag == 0 && $name_tag !== '' && $checked) {
 					if ($existing_tag = $tagDAO->searchByName($name_tag)) {
 						// Use existing tag
 						$tagDAO->tagEntry($existing_tag->id(), $id_entry, $checked);
@@ -48,7 +48,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 						$id_tag = $tagDAO->addTag(array('name' => $name_tag));
 					}
 				}
-				if ($id_tag !== 0) {
+				if ($id_tag != false) {
 					$tagDAO->tagEntry($id_tag, $id_entry, $checked);
 				}
 			}
@@ -87,7 +87,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		$id_entry = Minz_Request::paramString('id_entry');
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
+		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry) ?: [];
 	}
 
 	public function addAction(): void {
@@ -144,6 +144,6 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	public function indexAction(): void {
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags();
+		$this->view->tags = $tagDAO->listTags() ?: [];
 	}
 }

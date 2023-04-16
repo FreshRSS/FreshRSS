@@ -230,7 +230,7 @@ class FreshRSS_BooleanSearch {
 		if ($input == '') {
 			return;
 		}
-		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
 
 		$segment = '';
 		$ns = count($splits);

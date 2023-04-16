@@ -108,23 +108,15 @@ class Minz_Url {
 
 	/**
 	 * Check that all array elements representing the controller URL are OK
-	 * @param array<string,array<string,string>> $url controller URL as array
+	 * @param array<string,string|array<string,mixed>> $url controller URL as array
 	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
 	 */
 	public static function checkControllerUrl(array $url): array {
-		$url_checked = $url;
-
-		if (empty($url['c'])) {
-			$url_checked['c'] = Minz_Request::defaultControllerName();
-		}
-		if (empty($url['a'])) {
-			$url_checked['a'] = Minz_Request::defaultActionName();
-		}
-		if (empty($url['params'])) {
-			$url_checked['params'] = [];
-		}
-
-		return $url_checked;
+		return [
+			'c' => empty($url['c']) || !is_string($url['c']) ? Minz_Request::defaultControllerName() : $url['c'],
+			'a' => empty($url['a']) || !is_string($url['a']) ? Minz_Request::defaultActionName() : $url['a'],
+			'params' => empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
+		];
 	}
 
 	/** @param array<string,string|array<string,string>>|null $url */
@@ -139,7 +131,10 @@ class Minz_Url {
 		}
 	}
 
-	/** @return array<string,string|array<string,string>> */
+	/**
+	 * @phpstan-return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>}
+	 * @return array<string,string|array<string,string>>
+	 */
 	public static function unserialize(string $url = ''): array {
 		try {
 			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR) ?? [];

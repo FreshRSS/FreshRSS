@@ -25,9 +25,10 @@ class Minz_Configuration {
 	 * @param string $namespace the name of the current configuration
 	 * @param string $config_filename the filename of the configuration
 	 * @param string $default_filename a filename containing default values for the configuration
-	 * @param object $configuration_setter an optional helper to set values in configuration
+	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
 	 */
-	public static function register(string $namespace, string $config_filename, string $default_filename = null, object $configuration_setter = null): void {
+	public static function register(string $namespace, string $config_filename, string $default_filename = null,
+		Minz_ConfigurationSetterInterface $configuration_setter = null): void {
 		self::$config_list[$namespace] = new static(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
@@ -93,9 +94,9 @@ class Minz_Configuration {
 
 	/**
 	 * An object which help to set good values in configuration.
-	 * @var object|null
+	 * @var Minz_ConfigurationSetterInterface|null
 	 */
-	private $configuration_setter = null;
+	private $configuration_setter;
 
 	/**
 	 * Create a new Minz_Configuration object.
@@ -103,9 +104,10 @@ class Minz_Configuration {
 	 * @param string $namespace the name of the current configuration.
 	 * @param string $config_filename the file containing configuration values.
 	 * @param string $default_filename the file containing default values, null by default.
-	 * @param object $configuration_setter an optional helper to set values in configuration
+	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
 	 */
-	private final function __construct(string $namespace, string $config_filename, string $default_filename = null, object $configuration_setter = null) {
+	private final function __construct(string $namespace, string $config_filename, string $default_filename = null,
+		Minz_ConfigurationSetterInterface $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;
@@ -128,16 +130,15 @@ class Minz_Configuration {
 
 	/**
 	 * Set a configuration setter for the current configuration.
-	 * @param object|null $configuration_setter the setter to call when modifying data. It
-	 *        must implement an handle($key, $value) method.
+	 * @param Minz_ConfigurationSetterInterface|null $configuration_setter the setter to call when modifying data.
 	 */
-	public function _configurationSetter(?object $configuration_setter): void {
+	public function _configurationSetter(?Minz_ConfigurationSetterInterface $configuration_setter): void {
 		if (is_callable(array($configuration_setter, 'handle'))) {
 			$this->configuration_setter = $configuration_setter;
 		}
 	}
 
-	public function configurationSetter(): object {
+	public function configurationSetter(): ?Minz_ConfigurationSetterInterface {
 		return $this->configuration_setter;
 	}
 
@@ -182,11 +183,11 @@ class Minz_Configuration {
 	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
 	 */
 	public function _param(string $key, $value = null): void {
-		if (!is_null($this->configuration_setter) && $this->configuration_setter->support($key)) {
+		if ($this->configuration_setter !== null && $this->configuration_setter->support($key)) {
 			$this->configuration_setter->handle($this->data, $key, $value);
 		} elseif (isset($this->data[$key]) && is_null($value)) {
 			unset($this->data[$key]);
-		} elseif (!is_null($value)) {
+		} elseif ($value !== null) {
 			$this->data[$key] = $value;
 		}
 	}

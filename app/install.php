@@ -84,12 +84,12 @@ function saveStep1(): void {
 				'auth_type' => FreshRSS_Context::$system_conf->auth_type,
 				'default_user' => Minz_User::name(),
 				'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
-				'bd_type' => FreshRSS_Context::$system_conf->db['type'],
-				'bd_host' => FreshRSS_Context::$system_conf->db['host'],
-				'bd_user' => FreshRSS_Context::$system_conf->db['user'],
-				'bd_password' => FreshRSS_Context::$system_conf->db['password'],
-				'bd_base' => FreshRSS_Context::$system_conf->db['base'],
-				'bd_prefix' => FreshRSS_Context::$system_conf->db['prefix'],
+				'bd_type' => FreshRSS_Context::$system_conf->db['type'] ?? '',
+				'bd_host' => FreshRSS_Context::$system_conf->db['host'] ?? '',
+				'bd_user' => FreshRSS_Context::$system_conf->db['user'] ?? '',
+				'bd_password' => FreshRSS_Context::$system_conf->db['password'] ?? '',
+				'bd_base' => FreshRSS_Context::$system_conf->db['base'] ?? '',
+				'bd_prefix' => FreshRSS_Context::$system_conf->db['prefix'] ?? '',
 				'bd_error' => false,
 			]);
 
@@ -395,8 +395,10 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 
 function getProcessUsername(): string {
 	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
-		$processUser = posix_getpwuid(posix_geteuid());
-		return $processUser['name'];
+		$processUser = posix_getpwuid(posix_geteuid()) ?: [];
+		if (!empty($processUser['name'])) {
+			return $processUser['name'];
+		}
 	}
 
 	if (function_exists('exec')) {
@@ -418,14 +420,10 @@ function printStep1(): void {
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
 	<?php
-	if (function_exists('curl_version')) {
-		$version = curl_version();
-	} else {
-		$version['version'] = '';
-	}
+	$version = function_exists('curl_version') ? curl_version() : [];
 	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
 	printStep1Template('pdo', $res['pdo']);
-	printStep1Template('curl', $res['curl'], [$version['version']]);
+	printStep1Template('curl', $res['curl'], [$version['version'] ?? '']);
 	printStep1Template('json', $res['json']);
 	printStep1Template('pcre', $res['pcre']);
 	printStep1Template('ctype', $res['ctype']);
@@ -519,7 +517,7 @@ function printStep2(): void {
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
 				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?=
-					isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host'] ?>" tabindex="2" />
+					isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : ($system_default_config->db['host'] ?? '') ?>" tabindex="2" />
 			</div>
 		</div>
 
@@ -554,7 +552,7 @@ function printStep2(): void {
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
-					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="7" />
+					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : ($system_default_config->db['prefix'] ?? '') ?>" tabindex="7" />
 			</div>
 		</div>
 		</div>

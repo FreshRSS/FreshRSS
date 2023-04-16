@@ -20,9 +20,9 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	public function nbUnreadsPerFeedAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$this->view->categories = $catDAO->listCategories(true, false);
+		$this->view->categories = $catDAO->listCategories(true, false) ?: [];
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags(true);
+		$this->view->tags = $tagDAO->listTags(true) ?: [];
 	}
 
 	//For Web-form login
