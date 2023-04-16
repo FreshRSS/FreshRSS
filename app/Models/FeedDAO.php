@@ -187,7 +187,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	 * @param string|array<mixed>|bool|int|null $value
 	 * @return int|false
 	 */
-	public function updateFeedAttribute(FreshRSS_Feed $feed, string $key, mixed $value) {
+	public function updateFeedAttribute(FreshRSS_Feed $feed, string $key, $value) {
 		$feed->_attributes($key, $value);
 		return $this->updateFeed(
 				$feed->id(),

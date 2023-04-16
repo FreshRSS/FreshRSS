@@ -155,7 +155,7 @@ class Minz_Configuration {
 	 * @return array|mixed value corresponding to the key.
 	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
-	public function param(string $key, mixed $default = null) {
+	public function param(string $key, $default = null) {
 		if (isset($this->data[$key])) {
 			return $this->data[$key];
 		} elseif (!is_null($default)) {
@@ -180,7 +180,7 @@ class Minz_Configuration {
 	 * @param string $key the param name to set.
 	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
 	 */
-	public function _param(string $key, mixed $value = null): void {
+	public function _param(string $key, $value = null): void {
 		if (!is_null($this->configuration_setter) && $this->configuration_setter->support($key)) {
 			$this->configuration_setter->handle($this->data, $key, $value);
 		} elseif (isset($this->data[$key]) && is_null($value)) {
@@ -192,8 +192,9 @@ class Minz_Configuration {
 
 	/**
 	 * A wrapper for _param().
+	 * @param mixed $value
 	 */
-	public function __set(string $key, mixed $value): void {
+	public function __set(string $key, $value): void {
 		$this->_param($key, $value);
 	}
 

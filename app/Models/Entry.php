@@ -374,7 +374,7 @@ HTML;
 	}
 
 	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, mixed $value): void {
+	public function _attributes(string $key, $value): void {
 		if ($key == '') {
 			if (is_string($value)) {
 				$value = json_decode($value, true);

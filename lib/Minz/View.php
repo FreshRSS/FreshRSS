@@ -326,8 +326,9 @@ class Minz_View {
 
 	/**
 	 * Management of parameters added to the view
+	 * @param mixed $value
 	 */
-	public static function _param(string $key, mixed $value): void {
+	public static function _param(string $key, $value): void {
 		self::$params[$key] = $value;
 	}
 
