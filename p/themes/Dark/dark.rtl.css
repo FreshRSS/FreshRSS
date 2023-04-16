@@ -582,11 +582,11 @@ button.as-link[disabled] {
 	border-right: 1px solid var(--dark-border-color6);
 }
 
-.slides {
+.theme-preview-list {
 	border-color: var(--dark-border-color0);
 }
 
-.properties {
+.theme-preview-list .properties {
 	border-color: var(--dark-border-color0);
 	color: var(--dark-font-colorA);
 }
