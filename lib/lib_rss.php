@@ -596,7 +596,7 @@ function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	}
 	$namespace = 'user_' . $username;
 	try {
-		Minz_Configuration::register($namespace,
+		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {

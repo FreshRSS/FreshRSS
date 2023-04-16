@@ -1,7 +1,7 @@
 <?php
 
-Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
+FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 /** @return array<string,string> */
 function checkRequirements(string $dbType = ''): array {
