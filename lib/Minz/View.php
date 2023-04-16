@@ -83,7 +83,7 @@ class Minz_View {
 	 * The file is searched inside list of $base_pathnames.
 	 *
 	 * @param string $filename the name of the file to include.
-	 * @return boolean true if the file has been included, false else.
+	 * @return bool true if the file has been included, false else.
 	 */
 	private function includeFile(string $filename): bool {
 		// We search the filename in the list of base pathnames. Only the first view

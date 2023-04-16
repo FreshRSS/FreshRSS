@@ -285,7 +285,7 @@ HTML;
 	/**
 	 * @return array<string,string>|null
 	 */
-	public function thumbnail(bool $searchEnclosures = true) {
+	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributes('thumbnail');
 		if (!empty($thumbnail['url'])) {
 			return $thumbnail;

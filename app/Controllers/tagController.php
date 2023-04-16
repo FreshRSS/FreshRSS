@@ -110,11 +110,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return void|null
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public function renameAction() {
+	public function renameAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
 		}

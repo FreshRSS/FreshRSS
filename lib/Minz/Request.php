@@ -298,7 +298,7 @@ class Minz_Request {
 	 * localhost address.
 	 *
 	 * @param string $address the address to test, can be an IP or a URL.
-	 * @return boolean true if server is accessible, false otherwise.
+	 * @return bool true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
 	public static function serverIsPublic(string $address): bool {

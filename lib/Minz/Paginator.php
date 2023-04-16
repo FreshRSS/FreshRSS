@@ -59,14 +59,14 @@ class Minz_Paginator {
 	/**
 	 * Permet de retrouver la page d'un élément donné
 	 * @param Minz_Model $item l'élément à retrouver
-	 * @return float|false la page à laquelle se trouve l’élément, false si non trouvé
+	 * @return int|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
 	public function pageByItem($item) {
 		$i = 0;
 
 		do {
 			if ($item == $this->items[$i]) {
-				return ceil(($i + 1) / $this->nbItemsPerPage);
+				return (int)(ceil(($i + 1) / $this->nbItemsPerPage));
 			}
 			$i++;
 		} while ($i < $this->nbItems());

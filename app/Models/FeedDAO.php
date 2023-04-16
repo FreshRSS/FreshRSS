@@ -338,7 +338,7 @@ SQL;
 	}
 
 	/** @return array<string,string> */
-	public function listFeedsNewestItemUsec(?int $id_feed = null) {
+	public function listFeedsNewestItemUsec(?int $id_feed = null): array {
 		$sql = 'SELECT id_feed, MAX(id) as newest_item_us FROM `_entry` ';
 		if ($id_feed === null) {
 			$sql .= 'GROUP BY id_feed';
@@ -358,7 +358,7 @@ SQL;
 	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
 	 * @return array<FreshRSS_Feed>
 	 */
-	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0) {
+	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
 		$this->updateTTL();
 		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
 			. 'FROM `_feed` '

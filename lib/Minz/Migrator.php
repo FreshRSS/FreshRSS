@@ -225,9 +225,8 @@ class Minz_Migrator
 	}
 
 	/**
-	 * @return boolean Return true if the application is up-to-date, false
-	 *                 otherwise. If no migrations are registered, it always
-	 *                 returns true.
+	 * @return bool Return true if the application is up-to-date, false otherwise.
+	 * If no migrations are registered, it always returns true.
 	 */
 	public function upToDate(): bool {
 		// Counting versions is enough since we cannot apply a version which

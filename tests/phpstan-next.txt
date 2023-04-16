@@ -40,6 +40,7 @@
 ./app/Models/TagDAO.php
 ./app/Models/TagDAOSQLite.php
 ./app/Models/Themes.php
+./app/Models/UserQuery.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
 ./app/views/configure/archiving.phtml
@@ -87,3 +88,7 @@
 ./p/api/greader.php
 ./p/f.php
 ./p/i/index.php
+./tests/app/Models/LogDAOTest.php
+./tests/app/Models/SearchTest.php
+./tests/cli/i18n/I18nFileTest.php
+./tests/lib/Minz/MigratorTest.php

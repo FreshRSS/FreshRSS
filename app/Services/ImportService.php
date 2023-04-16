@@ -137,7 +137,7 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array<string,string> $feed_elt An OPML element (must be a feed element).
 	 * @param FreshRSS_Category $category The category to associate to the feed.
-	 * @param boolean $dry_run true to not create the feed in database.
+	 * @param bool $dry_run true to not create the feed in database.
 	 * @return FreshRSS_Feed|null The created feed, or null if it failed.
 	 */
 	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run): ?FreshRSS_Feed {
@@ -252,7 +252,7 @@ class FreshRSS_Import_Service {
 	 * Create and return a category.
 	 *
 	 * @param array<string,string> $category_element An OPML element (must be a category element).
-	 * @param boolean $dry_run true to not create the category in database.
+	 * @param bool $dry_run true to not create the category in database.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
 	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {

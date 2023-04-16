@@ -54,7 +54,7 @@ if (($handle = @fopen($mutexFile, 'x')) === false) {
 }
 fclose($handle);
 
-register_shutdown_function(function () use ($mutexFile) {
+register_shutdown_function(static function () use ($mutexFile) {
 	unlink($mutexFile);
 });
 // </Mutex>
@@ -100,7 +100,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', function (FreshRSS_Feed $feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

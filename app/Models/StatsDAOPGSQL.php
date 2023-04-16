@@ -5,7 +5,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	/**
 	 * Calculates the number of article per hour of the day per feed
 	 *
-	 * @param integer $feed id
+	 * @param int $feed id
 	 * @return array<int,int>
 	 */
 	public function calculateEntryRepartitionPerFeedPerHour(?int $feed = null): array {

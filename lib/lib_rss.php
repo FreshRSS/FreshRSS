@@ -568,7 +568,7 @@ function listUsers(): array {
  * Return if the maximum number of registrations has been reached.
  * Note a max_registrations of 0 means there is no limit.
  *
- * @return boolean true if number of users >= max registrations, false else.
+ * @return bool true if number of users >= max registrations, false else.
  */
 function max_registrations_reached(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -590,7 +590,7 @@ function max_registrations_reached(): bool {
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
-function get_user_configuration(string $username) {
+function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		return null;
 	}
@@ -633,7 +633,7 @@ function ipToBits(string $ip): string {
  *
  * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
  * @param string $range the range to check against (ex: 192.168.16.0/24)
- * @return boolean true if the IP is in the range, otherwise false
+ * @return bool true if the IP is in the range, otherwise false
  */
 function checkCIDR(string $ip, string $range): bool {
 	$binary_ip = ipToBits($ip);
@@ -652,7 +652,7 @@ function checkCIDR(string $ip, string $range): bool {
  * This uses the REMOTE_ADDR header to determine the sender's IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {

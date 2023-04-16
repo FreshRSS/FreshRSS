@@ -111,7 +111,7 @@ class Minz_Url {
 	 * @param array<string,array<string,string>> $url controller URL as array
 	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
 	 */
-	public static function checkControllerUrl(array $url) {
+	public static function checkControllerUrl(array $url): array {
 		$url_checked = $url;
 
 		if (empty($url['c'])) {

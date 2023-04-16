@@ -135,7 +135,7 @@ class FreshRSS_Auth {
 	 * Returns if current user has access to the given scope.
 	 *
 	 * @param string $scope general (default) or admin
-	 * @return boolean true if user has corresponding access, false else.
+	 * @return bool true if user has corresponding access, false else.
 	 */
 	public static function hasAccess(string $scope = 'general'): bool {
 		if (FreshRSS_Context::$user_conf == null) {

@@ -242,7 +242,7 @@ SQL;
 	}
 
 	/** @return array<string,string> */
-	public function listTagsNewestItemUsec(?int $id_tag = null) {
+	public function listTagsNewestItemUsec(?int $id_tag = null): array {
 		$sql = 'SELECT t.id AS id_tag, MAX(e.id) AS newest_item_us '
 			 . 'FROM `_tag` t '
 			 . 'LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id '
@@ -437,7 +437,7 @@ SQL;
 	 * @param array<array<string,string|int>>|array<string,string|int> $listDAO
 	 * @return array<FreshRSS_Tag>
 	 */
-	private static function daoToTag(array $listDAO) {
+	private static function daoToTag(array $listDAO): array {
 		$list = array();
 		if (!is_array($listDAO)) {
 			$listDAO = array($listDAO);

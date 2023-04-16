@@ -308,7 +308,7 @@ SQL;
 	 * there is an other way to do that.
 	 *
 	 * @param string|array<string> $ids
-	 * @return false|integer
+	 * @return int|false
 	 */
 	public function markFavorite($ids, bool $is_favorite = true) {
 		if (!is_array($ids)) {
@@ -348,11 +348,8 @@ SQL;
 	 * feeds from one category or on all feeds.
 	 *
 	 * @todo It can use the query builder refactoring to build that query
-	 *
-	 * @param false|int $catId category ID
-	 * @param false|int $feedId feed ID
 	 */
-	protected function updateCacheUnreads($catId = false, $feedId = false): bool {
+	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
 		$sql = 'UPDATE `_feed` f '
 			. 'LEFT OUTER JOIN ('
 			.	'SELECT e.id_feed, '
@@ -364,13 +361,13 @@ SQL;
 			. 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0)';
 		$hasWhere = false;
 		$values = array();
-		if ($feedId !== false) {
+		if ($feedId != null) {
 			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' f.id=?';
 			$values[] = $feedId;
 		}
-		if ($catId !== false) {
+		if ($catId != null) {
 			$sql .= $hasWhere ? ' AND' : ' WHERE';
 			$hasWhere = true;
 			$sql .= ' f.category=?';
@@ -430,7 +427,7 @@ SQL;
 				return false;
 			}
 			$affected = $stm->rowCount();
-			if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+			if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 				return false;
 			}
 			return $affected;
@@ -468,7 +465,7 @@ SQL;
 	 * separated.
 	 *
 	 * @param string $idMax fail safe article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
@@ -497,7 +494,7 @@ SQL;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 			return false;
 		}
 		return $affected;
@@ -510,9 +507,9 @@ SQL;
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @param integer $id category ID
+	 * @param int $id category ID
 	 * @param string $idMax fail safe article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -535,7 +532,7 @@ SQL;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads($id, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads($id, null))) {
 			return false;
 		}
 		return $affected;
@@ -548,9 +545,9 @@ SQL;
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @param integer $id_feed feed ID
+	 * @param int $id_feed feed ID
 	 * @param string $idMax fail safe article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -596,9 +593,9 @@ SQL;
 
 	/**
 	 * Mark all the articles in a tag as read.
-	 * @param integer $id tag ID, or empty for targeting any tag
+	 * @param int $id tag ID, or empty for targeting any tag
 	 * @param string $idMax max article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadTag(int $id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null,
 		int $state = 0, bool $is_read = true) {
@@ -629,7 +626,7 @@ SQL;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 			return false;
 		}
 		return $affected;
@@ -757,7 +754,7 @@ SQL;
 	}
 
 	/** @return array{0:array<int|string>,1:string} */
-	public static function sqlBooleanSearch(string $alias, FreshRSS_BooleanSearch $filters, int $level = 0) {
+	public static function sqlBooleanSearch(string $alias, FreshRSS_BooleanSearch $filters, int $level = 0): array {
 		$search = '';
 		$values = [];
 

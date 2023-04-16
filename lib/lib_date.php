@@ -84,7 +84,7 @@ function _dateRelative(?string $d1, ?string $d2): ?string {
  * @return array{int|null|false,int|null|false} an array with the minimum and maximum Unix timestamp of this interval,
  *  or null if open interval, or false if error.
  */
-function parseDateInterval(string $dateInterval) {
+function parseDateInterval(string $dateInterval): array {
 	$dateInterval = trim($dateInterval);
 	$dateInterval = str_replace('--', '/', $dateInterval);
 	$dateInterval = strtoupper($dateInterval);

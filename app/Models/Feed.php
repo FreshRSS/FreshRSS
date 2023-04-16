@@ -94,10 +94,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Feed
-	 */
-	public static function example() {
+	public static function example(): FreshRSS_Feed {
 		$f = new FreshRSS_Feed('http://example.net/', false);
 		$f->faviconPrepare();
 		return $f;
@@ -859,9 +856,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<FreshRSS_FilterAction> $filterActions
+	 * @param array<FreshRSS_FilterAction>|null $filterActions
 	 */
-	private function _filterActions(array $filterActions): void {
+	private function _filterActions(?array $filterActions): void {
 		$this->filterActions = $filterActions;
 		if (is_array($this->filterActions) && !empty($this->filterActions)) {
 			$this->_attributes('filters', array_map(static function (?FreshRSS_FilterAction $af) {

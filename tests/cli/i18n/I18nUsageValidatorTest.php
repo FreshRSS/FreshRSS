@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nUsageValidator.php';
 
 class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
+	/** @var I18nValue */
 	private $value;
 
 	public function setUp(): void {
@@ -12,7 +13,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 			->getMock();
 	}
 
-	public function testDisplayReport() {
+	public function testDisplayReport(): void {
 		$validator = new I18nUsageValidator([], []);
 
 		$this->assertEquals("There is no data.\n", $validator->displayReport());
@@ -40,13 +41,13 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$validator->displayReport();
 	}
 
-	public function testValidateWhenNoData() {
+	public function testValidateWhenNoData(): void {
 		$validator = new I18nUsageValidator([], []);
 		$this->assertTrue($validator->validate());
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenParentKeyExistsWithoutTransformation() {
+	public function testValidateWhenParentKeyExistsWithoutTransformation(): void {
 		$validator = new I18nUsageValidator([
 			'file1' => [
 				'file1.l1.l2._' => $this->value,
@@ -62,7 +63,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenParentKeyExistsWithTransformation() {
+	public function testValidateWhenParentKeyExistsWithTransformation(): void {
 		$validator = new I18nUsageValidator([
 			'file1' => [
 				'file1.l1.l2._' => $this->value,
@@ -78,7 +79,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenParentKeyDoesNotExist() {
+	public function testValidateWhenParentKeyDoesNotExist(): void {
 		$validator = new I18nUsageValidator([
 			'file1' => [
 				'file1.l1.l2._' => $this->value,
@@ -91,7 +92,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals("Unused key file1.l1.l2._ - \nUnused key file2.l1.l2._ - \n", $validator->displayResult());
 	}
 
-	public function testValidateWhenChildKeyExists() {
+	public function testValidateWhenChildKeyExists(): void {
 		$validator = new I18nUsageValidator([
 			'file1' => [
 				'file1.l1.l2.k1' => $this->value,
@@ -107,7 +108,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenChildKeyDoesNotExist() {
+	public function testValidateWhenChildKeyDoesNotExist(): void {
 		$validator = new I18nUsageValidator([
 			'file1' => [
 				'file1.l1.l2.k1' => $this->value,

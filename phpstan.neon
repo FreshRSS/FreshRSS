@@ -11,12 +11,13 @@ parameters:
 			- lib/marienfressinaud/*
 			- lib/phpmailer/*
 			- lib/SimplePie/*
+			- vendor/*
 		analyseAndScan:
 			- .git/*
 			- node_modules/*
-			# TODO: include tests
-			- tests/*
-			- vendor/*
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon

@@ -23,9 +23,9 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * Return an array of values for the search object.
 	 * Here is the description of the values
-	 * @return array
+	 * @return array{array{''},array{null}}
 	 */
-	public function provideEmptyInput() {
+	public function provideEmptyInput(): array {
 		return array(
 			array(''),
 			array(null),
@@ -37,7 +37,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array<string>|null $intitle_value
 	 * @param array<string>|null $search_value
 	 */
-	public function test__construct_whenInputContainsIntitle_setsIntitleProperty(string $input, array $intitle_value, ?array $search_value): void {
+	public function test__construct_whenInputContainsIntitle_setsIntitleProperty(string $input, ?array $intitle_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($intitle_value, $search->getIntitle());
 		$this->assertEquals($search_value, $search->getSearch());
@@ -74,7 +74,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array<string>|null $author_value
 	 * @param array<string>|null $search_value
 	 */
-	public function test__construct_whenInputContainsAuthor_setsAuthorValue(string $input, ?array $author_value, ?array $search_value) {
+	public function test__construct_whenInputContainsAuthor_setsAuthorValue(string $input, ?array $author_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($author_value, $search->getAuthor());
 		$this->assertEquals($search_value, $search->getSearch());
@@ -184,7 +184,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array<string>|null $tags_value
 	 * @param array<string>|null $search_value
 	 */
-	public function test__construct_whenInputContainsTags_setsTagsValue(string $input, ?array $tags_value, ?array $search_value) {
+	public function test__construct_whenInputContainsTags_setsTagsValue(string $input, ?array $tags_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
 		$this->assertEquals($tags_value, $search->getTags());
 		$this->assertEquals($search_value, $search->getSearch());

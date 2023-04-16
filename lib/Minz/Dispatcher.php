@@ -140,9 +140,9 @@ class Minz_Dispatcher {
 	 * Return if a controller is registered.
 	 *
 	 * @param string $base_name the base name of the controller.
-	 * @return boolean true if the controller has been registered, false else.
+	 * @return bool true if the controller has been registered, false else.
 	 */
-	public static function isRegistered(string $base_name) {
+	public static function isRegistered(string $base_name): bool {
 		return isset(self::$registrations[$base_name]);
 	}
 

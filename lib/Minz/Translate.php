@@ -199,8 +199,7 @@ class Minz_Translate {
 
 		// If $translates[$top_level] is null it means we have to load the
 		// corresponding files.
-		if (!isset(self::$translates[$top_level]) ||
-				is_null(self::$translates[$top_level])) {
+		if (empty(self::$translates[$top_level])) {
 			$res = self::loadKey($top_level);
 			if (!$res) {
 				return $key;

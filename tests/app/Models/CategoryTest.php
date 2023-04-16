@@ -11,11 +11,12 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideValidNames
 	 */
-	public function test_name_whenValidValue_storesModifiedValue(string $input, string $expected) {
+	public function test_name_whenValidValue_storesModifiedValue(string $input, string $expected): void {
 		$category = new FreshRSS_Category($input);
 		$this->assertEquals($expected, $category->name());
 	}
 
+	/** @return array<array{string,string}> */
 	public function provideValidNames(): array {
 		return array(
 			array('', ''),
@@ -28,7 +29,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_feedOrdering() {
+	public function test_feedOrdering(): void {
 		$feed_1 = $this->getMockBuilder(FreshRSS_Feed::class)
 			->disableOriginalConstructor()
 			->getMock();

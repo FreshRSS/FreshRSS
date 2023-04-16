@@ -316,7 +316,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
 	 */
-	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null, bool $noCommit = false, int $maxFeeds = 10) {
+	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
+		bool $noCommit = false, int $maxFeeds = 10): array {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
