@@ -1,7 +1,7 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 
 $params = array(
 		'user:',

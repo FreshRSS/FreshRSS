@@ -76,7 +76,7 @@ function checkRequirements(string $dbType = ''): array {
 }
 
 function generateSalt(): string {
-	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__)));
+	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
 }
 
 function initDb(): string {
@@ -88,10 +88,14 @@ function initDb(): string {
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
+	if (empty($db['type'])) {
+		$db['type'] = 'sqlite';
+	}
+
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
 		Minz_ModelPdo::$usesSharedPdo = false;
-		$dbBase = isset($db['base']) ? $db['base'] : '';
+		$dbBase = $db['base'] ?? '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;

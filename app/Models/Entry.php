@@ -106,7 +106,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->authors(true);
 	}
 	/**
-	 * @phpstan return ($asString ? string : array<string>)
+	 * @phpstan-return ($asString is true ? string : array<string>)
 	 * @return string|array<string>
 	 */
 	public function authors(bool $asString = false) {

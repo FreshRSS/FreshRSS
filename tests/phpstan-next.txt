@@ -45,7 +45,6 @@
 ./app/views/stats/index.phtml
 ./app/views/stats/repartition.phtml
 ./app/views/user/details.phtml
-./cli/_update-or-create-user.php
 ./cli/actualize-user.php
 ./cli/check.translation.php
 ./cli/db-optimize.php
@@ -59,7 +58,6 @@
 ./cli/manipulate.translation.php
 ./cli/user-info.php
 ./lib/lib_date.php
-./lib/lib_install.php
 ./lib/Minz/ActionController.php
 ./lib/Minz/Configuration.php
 ./lib/Minz/Dispatcher.php
@@ -72,9 +70,7 @@
 ./lib/Minz/Url.php
 ./lib/Minz/View.php
 ./lib/phpgt/cssxpath/src/Translator.php
-./p/api/fever.php
 ./p/api/greader.php
-./p/f.php
 ./tests/app/Models/SearchTest.php
 ./tests/cli/i18n/I18nFileTest.php
 ./tests/lib/Minz/MigratorTest.php

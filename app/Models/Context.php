@@ -110,10 +110,9 @@ final class FreshRSS_Context {
 
 	/**
 	 * Initialize the context for the current user.
-	 * @return FreshRSS_UserConfiguration|false
 	 * @throws Minz_ConfigurationParamException
 	 */
-	public static function initUser(string $username = '', bool $userMustExist = true) {
+	public static function initUser(string $username = '', bool $userMustExist = true): ?FreshRSS_UserConfiguration {
 		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
@@ -145,7 +144,7 @@ final class FreshRSS_Context {
 		Minz_Session::unlock();
 
 		if (FreshRSS_Context::$user_conf == null) {
-			return false;
+			return null;
 		}
 
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
@@ -249,8 +248,8 @@ final class FreshRSS_Context {
 	/**
 	 * Return the current get as a string or an array.
 	 *
-	 * If $array is true, the first item of the returned value is 'f' or 'c' and
-	 * the second is the id.
+	 * If $array is true, the first item of the returned value is 'f' or 'c' or 't' and the second is the id.
+	 * @phpstan-return ($asArray is true ? array{'c'|'f'|'t',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet(bool $asArray = false) {
