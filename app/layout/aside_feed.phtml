@@ -27,7 +27,7 @@
 
 	<form id="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<ul id="sidebar" class="tree">
+	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
 				<?= _i('all') ?> <a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=

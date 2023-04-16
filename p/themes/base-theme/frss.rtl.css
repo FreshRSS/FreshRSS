@@ -941,38 +941,32 @@ li.drag-hover {
 /*=== Scrollbar */
 
 @supports (scrollbar-width: thin) {
-	#sidebar,
 	.scrollbar-thin {
 		scrollbar-color: var(--frss-scrollbar-handle) var(--frss-scrollbar-track);
 		scrollbar-width: thin;
 	}
 
-	#sidebar:hover,
 	.scrollbar-thin:hover {
 		scrollbar-color: var(--frss-scrollbar-handle-hover) var(--frss-scrollbar-track-hover);
 	}
 }
 
 @supports not (scrollbar-width: thin) {
-	#sidebar::-webkit-scrollbar,
 	.scrollbar-thin::-webkit-scrollbar {
 		background-color: var(--frss-scrollbar-track);
 		width: 8px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar,
 	.scrollbar-thin:hover::-webkit-scrollbar {
 		background-color: var(--frss-scrollbar-track-hover);
 	}
 
-	#sidebar::-webkit-scrollbar-thumb,
 	.scrollbar-thin::-webkit-scrollbar-thumb {
 		background-color: var(--frss-scrollbar-handle);
 		display: unset;
 		border-radius: 5px;
 	}
 
-	#sidebar:hover::-webkit-scrollbar-thumb,
 	.scrollbar-thin:hover::-webkit-scrollbar-thumb {
 		background-color: var(--frss-scrollbar-handle-hover);
 	}
