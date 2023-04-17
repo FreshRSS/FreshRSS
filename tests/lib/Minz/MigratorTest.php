@@ -262,7 +262,7 @@ class MigratorTest extends TestCase
 	public function testExecute(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-
+		$this->assertIsString($applied_migrations_path);
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
 		$this->assertTrue($result);
@@ -274,6 +274,7 @@ class MigratorTest extends TestCase
 	public function testExecuteWithAlreadyAppliedMigration(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
+		$this->assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, '2019_12_22_FooBar');
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
@@ -287,6 +288,7 @@ class MigratorTest extends TestCase
 	public function testExecuteWithAppliedMigrationInDifferentOrder(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
+		$this->assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, "2019_12_23_Baz\n2019_12_22_FooBar");
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
@@ -303,8 +305,8 @@ class MigratorTest extends TestCase
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		$expected_result = "Cannot open the {$applied_migrations_path} file";
+		$this->assertIsString($applied_migrations_path);
 		unlink($applied_migrations_path);
-
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
 		$this->assertSame($expected_result, $result);
@@ -315,9 +317,10 @@ class MigratorTest extends TestCase
 		$migrations_path = TESTS_PATH . '/fixtures/migrations_with_failing/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		$expected_result = 'A migration failed to be applied, please see previous logs.';
-
+		$this->assertIsString($applied_migrations_path);
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
-		list($result, ) = explode("\n", $result, 2);
+		$this->assertIsString($result);
+		[$result,] = explode("\n", $result, 2);
 
 		$this->assertSame($expected_result, $result);
 		$versions = file_get_contents($applied_migrations_path);
