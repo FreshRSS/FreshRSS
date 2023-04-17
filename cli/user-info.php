@@ -74,7 +74,7 @@ foreach ($users as $username) {
 
 	if ($nbEntries === false) {
 		$nbEntries = [
-			'read'=> 0,
+			'read' => 0,
 			'unread' => 0,
 		];
 	}
