@@ -234,11 +234,11 @@ class FreshRSS_Search {
 	}
 
 	/**
-	 * @param array<string> $anArray
+	 * @param array<string>|null $anArray
 	 * @return array<string>
 	 */
-	private static function removeEmptyValues($anArray): array {
-		return empty($anArray) ? [] : array_filter($anArray, function($value) { return $value !== ''; });
+	private static function removeEmptyValues(?array $anArray): array {
+		return empty($anArray) ? [] : array_filter($anArray, static function(string $value) { return $value !== ''; });
 	}
 
 	/**

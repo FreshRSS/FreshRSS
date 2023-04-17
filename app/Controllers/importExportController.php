@@ -226,7 +226,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, function ($v) {
+			$item = array_filter($item, static function ($v) {
 					// Filter out empty properties, potentially reported as empty objects
 					return (is_string($v) && trim($v) !== '') || !empty($v);
 				});
@@ -267,7 +267,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *
 	 * $article_file the JSON file content.
 	 * true if articles from the file must be starred.
-	 * @return boolean false if an error occurred, true otherwise.
+	 * @return bool false if an error occurred, true otherwise.
 	 */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
@@ -575,10 +575,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *   - export_starred (default: false)
 	 *   - export_labelled (default: false)
 	 *   - export_feeds (default: array()) a list of feed ids
-	 *
-	 * @return void|null
 	 */
-	public function exportAction() {
+	public function exportAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
 			return;
@@ -654,7 +652,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-Type: ' . $content_type);
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		$this->view->content = $content;
 	}
 

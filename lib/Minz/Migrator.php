@@ -38,11 +38,11 @@ class Minz_Migrator
 		$applied_migrations = array_filter(explode("\n", $applied_migrations));
 
 		$migration_files = scandir($migrations_path);
-		$migration_files = array_filter($migration_files, function ($filename) {
+		$migration_files = array_filter($migration_files, static function (string $filename) {
 			$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 			return $file_extension === 'php';
 		});
-		$migration_versions = array_map(function ($filename) {
+		$migration_versions = array_map(static function (string $filename) {
 			return basename($filename, '.php');
 		}, $migration_files);
 
@@ -225,9 +225,8 @@ class Minz_Migrator
 	}
 
 	/**
-	 * @return boolean Return true if the application is up-to-date, false
-	 *                 otherwise. If no migrations are registered, it always
-	 *                 returns true.
+	 * @return bool Return true if the application is up-to-date, false otherwise.
+	 * If no migrations are registered, it always returns true.
 	 */
 	public function upToDate(): bool {
 		// Counting versions is enough since we cannot apply a version which

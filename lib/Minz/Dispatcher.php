@@ -87,19 +87,21 @@ class Minz_Dispatcher {
 			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
 		}
 
-		if (!class_exists ($controller_name)) {
+		if (!class_exists($controller_name)) {
 			throw new Minz_ControllerNotExistException (
 				Minz_Exception::ERROR
 			);
 		}
-		$this->controller = new $controller_name ();
+		$controller = new $controller_name();
 
-		if (! ($this->controller instanceof Minz_ActionController)) {
+		if (!($controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException (
 				$controller_name,
 				Minz_Exception::ERROR
 			);
 		}
+
+		$this->controller = $controller;
 	}
 
 	/**
@@ -108,20 +110,15 @@ class Minz_Dispatcher {
 	 * @throws Minz_ActionException if the action cannot be executed on the controller
 	 */
 	private function launchAction(string $action_name): void {
-		if (!is_callable (array (
-			$this->controller,
-			$action_name
-		))) {
+		$call = [$this->controller, $action_name];
+		if (!is_callable($call)) {
 			throw new Minz_ActionException (
-				get_class ($this->controller),
+				get_class($this->controller),
 				$action_name,
 				Minz_Exception::ERROR
 			);
 		}
-		call_user_func (array (
-			$this->controller,
-			$action_name
-		));
+		call_user_func($call);
 	}
 
 	/**
@@ -140,9 +137,9 @@ class Minz_Dispatcher {
 	 * Return if a controller is registered.
 	 *
 	 * @param string $base_name the base name of the controller.
-	 * @return boolean true if the controller has been registered, false else.
+	 * @return bool true if the controller has been registered, false else.
 	 */
-	public static function isRegistered(string $base_name) {
+	public static function isRegistered(string $base_name): bool {
 		return isset(self::$registrations[$base_name]);
 	}
 

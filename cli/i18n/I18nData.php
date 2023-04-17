@@ -127,7 +127,7 @@ class I18nData {
 	 * the parent key is 'a.b.c.d'.
 	 */
 	private function getParentKey(string $key): string {
-		return substr($key, 0, strrpos($key, '.'));
+		return substr($key, 0, strrpos($key, '.') ?: null);
 	}
 
 	/**
@@ -183,7 +183,7 @@ class I18nData {
 		}
 
 		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
-		$children = array_values(array_filter($keys, function ($element) use ($key) {
+		$children = array_values(array_filter($keys, static function (string $element) use ($key) {
 			if ($element === $key) {
 				return false;
 			}

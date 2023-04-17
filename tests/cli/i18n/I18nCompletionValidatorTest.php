@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../cli/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
+	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
 	public function setUp(): void {
@@ -12,7 +13,7 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 			->getMock();
 	}
 
-	public function testDisplayReport() {
+	public function testDisplayReport(): void {
 		$validator = new I18nCompletionValidator([], []);
 
 		$this->assertEquals("There is no data.\n", $validator->displayReport());
@@ -40,13 +41,13 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		$validator->displayReport();
 	}
 
-	public function testValidateWhenNoData() {
+	public function testValidateWhenNoData(): void {
 		$validator = new I18nCompletionValidator([], []);
 		$this->assertTrue($validator->validate());
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenKeyIsMissing() {
+	public function testValidateWhenKeyIsMissing(): void {
 		$validator = new I18nCompletionValidator([
 			'file1.php' => [
 				'file1.l1.l2.k1' => $this->value,
@@ -60,7 +61,7 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals("Missing key file1.l1.l2.k1\nMissing key file2.l1.l2.k1\n", $validator->displayResult());
 	}
 
-	public function testValidateWhenKeyIsIgnored() {
+	public function testValidateWhenKeyIsIgnored(): void {
 		$this->value->expects($this->exactly(2))
 			->method('isIgnore')
 			->willReturn(true);
@@ -85,7 +86,7 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenValueIsEqual() {
+	public function testValidateWhenValueIsEqual(): void {
 		$this->value->expects($this->exactly(2))
 			->method('isIgnore')
 			->willReturn(false);
@@ -113,7 +114,7 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals("Untranslated key file1.l1.l2.k1 - \nUntranslated key file2.l1.l2.k1 - \n", $validator->displayResult());
 	}
 
-	public function testValidateWhenValueIsDifferent() {
+	public function testValidateWhenValueIsDifferent(): void {
 		$this->value->expects($this->exactly(2))
 			->method('isIgnore')
 			->willReturn(false);

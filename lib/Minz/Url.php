@@ -60,7 +60,7 @@ class Minz_Url {
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri($url, string $encodage): string {
+	private static function printUri(array $url, string $encodage): string {
 		$uri = '';
 		$separator = '?';
 		$anchor = '';
@@ -108,23 +108,15 @@ class Minz_Url {
 
 	/**
 	 * Check that all array elements representing the controller URL are OK
-	 * @param array<string,array<string,string>> $url controller URL as array
+	 * @param array<string,string|array<string,mixed>> $url controller URL as array
 	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
 	 */
-	public static function checkControllerUrl(array $url) {
-		$url_checked = $url;
-
-		if (empty($url['c'])) {
-			$url_checked['c'] = Minz_Request::defaultControllerName();
-		}
-		if (empty($url['a'])) {
-			$url_checked['a'] = Minz_Request::defaultActionName();
-		}
-		if (empty($url['params'])) {
-			$url_checked['params'] = [];
-		}
-
-		return $url_checked;
+	public static function checkControllerUrl(array $url): array {
+		return [
+			'c' => empty($url['c']) || !is_string($url['c']) ? Minz_Request::defaultControllerName() : $url['c'],
+			'a' => empty($url['a']) || !is_string($url['a']) ? Minz_Request::defaultActionName() : $url['a'],
+			'params' => empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
+		];
 	}
 
 	/** @param array<string,string|array<string,string>>|null $url */
@@ -139,7 +131,10 @@ class Minz_Url {
 		}
 	}
 
-	/** @return array<string,string|array<string,string>> */
+	/**
+	 * @phpstan-return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>}
+	 * @return array<string,string|array<string,string>>
+	 */
 	public static function unserialize(string $url = ''): array {
 		try {
 			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR) ?? [];
@@ -150,7 +145,7 @@ class Minz_Url {
 
 	/**
 	 * Returns an array representing the URL as passed in the address bar
-	 * @return array<string,string|array<string,string>> URL representation
+	 * @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} URL representation
 	 */
 	public static function build(): array {
 		$url = [

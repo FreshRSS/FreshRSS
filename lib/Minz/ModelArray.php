@@ -19,7 +19,7 @@ class Minz_ModelArray {
 	 * @param string $filename le nom du fichier à ouvrir contenant un tableau
 	 * Remarque : $array sera obligatoirement un tableau
 	 */
-	public function __construct ($filename) {
+	public function __construct(string $filename) {
 		$this->filename = $filename;
 	}
 

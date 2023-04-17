@@ -97,7 +97,7 @@ class FreshRSS_Tag extends Minz_Model {
 	}
 
 	/**
-	 * @param string|int$value
+	 * @param string|int $value
 	 */
 	public function _nbUnread($value): void {
 		$this->nbUnread = (int)$value;

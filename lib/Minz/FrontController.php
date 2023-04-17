@@ -39,11 +39,11 @@ class Minz_FrontController {
 			Minz_Request::init();
 
 			$url = Minz_Url::build();
-			$url['params'] = array_merge (
-				$url['params'],
+			$url['params'] = array_merge(
+				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
 				$_POST
 			);
-			Minz_Request::forward ($url);
+			Minz_Request::forward($url);
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());

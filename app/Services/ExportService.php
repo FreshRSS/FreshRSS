@@ -87,8 +87,8 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for the given feed.
-	 * @param integer $feed_id
-	 * @param integer $max_number_entries
+	 * @param int $feed_id
+	 * @param int $max_number_entries
 	 * @return array{0:string,1:string}|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */

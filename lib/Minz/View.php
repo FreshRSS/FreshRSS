@@ -22,7 +22,7 @@ class Minz_View {
 	private static $title = '';
 	/** @var array<array{'media':string,'url':string}> */
 	private static $styles = [];
-	/** @var array<array{'url':string,'id':string,'defer':string,'async':string}> */
+	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
 	private static $scripts = [];
 	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
 	private static $themeColors;
@@ -83,7 +83,7 @@ class Minz_View {
 	 * The file is searched inside list of $base_pathnames.
 	 *
 	 * @param string $filename the name of the file to include.
-	 * @return boolean true if the file has been included, false else.
+	 * @return bool true if the file has been included, false else.
 	 */
 	private function includeFile(string $filename): bool {
 		// We search the filename in the list of base pathnames. Only the first view
@@ -158,9 +158,9 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param string|false $layout the layout name to use, false to use no layouts.
+	 * @param string|null $layout the layout name to use, false to use no layouts.
 	 */
-	public function _layout($layout): void {
+	public function _layout(?string $layout): void {
 		if ($layout) {
 			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
 		} else {
@@ -178,7 +178,7 @@ class Minz_View {
 		if ($use) {
 			$this->_layout(self::LAYOUT_DEFAULT);
 		} else {
-			$this->_layout(false);
+			$this->_layout(null);
 		}
 	}
 
@@ -326,7 +326,6 @@ class Minz_View {
 
 	/**
 	 * Management of parameters added to the view
-	 * @param string $key
 	 * @param mixed $value
 	 */
 	public static function _param(string $key, $value): void {

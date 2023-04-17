@@ -77,10 +77,10 @@ function performRequirementCheck(string $databaseType): void {
  * @return array<string>
  */
 function getLongOptions(array $options, string $regex): array {
-	$longOptions = array_filter($options, function($a) use ($regex) {
+	$longOptions = array_filter($options, static function (string $a) use ($regex) {
 		return preg_match($regex, $a);
 	});
-	return array_map(function($a) use ($regex) {
+	return array_map(static function (string $a) use ($regex) {
 		return preg_replace($regex, '', $a);
 	}, $longOptions);
 }

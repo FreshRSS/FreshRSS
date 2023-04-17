@@ -298,7 +298,7 @@ class Minz_Request {
 	 * localhost address.
 	 *
 	 * @param string $address the address to test, can be an IP or a URL.
-	 * @return boolean true if server is accessible, false otherwise.
+	 * @return bool true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
 	public static function serverIsPublic(string $address): bool {
@@ -360,7 +360,7 @@ class Minz_Request {
 		$requests = Minz_Session::param('requests');
 		if ($requests) {
 			//Delete abandoned notifications
-			$requests = array_filter($requests, function ($r) { return isset($r['time']) && $r['time'] > time() - 3600; });
+			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {

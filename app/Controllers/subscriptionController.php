@@ -19,7 +19,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$catDAO->checkDefault();
 		$feedDAO->updateTTL();
-		$this->view->categories = $catDAO->listSortedCategories(false, true);
+		$this->view->categories = $catDAO->listSortedCategories(false, true) ?: [];
 		$this->view->default_category = $catDAO->getDefault();
 
 		$signalError = false;
@@ -90,7 +90,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 */
 	public function feedAction(): void {
 		if (Minz_Request::paramBoolean('ajax')) {
-			$this->view->_layout(false);
+			$this->view->_layout(null);
 		} else {
 			FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		}
@@ -200,7 +200,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				]);
 			}
 
-			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::paramString('filteractions_read')));
+			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::paramString('filteractions_read')) ?: []);
 
 			$feed->_kind(Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS);
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
@@ -235,8 +235,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
 				'description' => sanitizeHTML(Minz_Request::paramString('description', true)),
-				'website' => checkUrl(Minz_Request::paramString('website')),
-				'url' => checkUrl(Minz_Request::paramString('url')),
+				'website' => checkUrl(Minz_Request::paramString('website')) ?: '',
+				'url' => checkUrl(Minz_Request::paramString('url')) ?: '',
 				'category' => Minz_Request::paramInt('category'),
 				'pathEntries' => Minz_Request::paramString('path_entries'),
 				'priority' => Minz_Request::paramTernary('priority') === null ? FreshRSS_Feed::PRIORITY_MAIN_STREAM : Minz_Request::paramInt('priority'),
@@ -283,7 +283,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	}
 
 	public function categoryAction(): void {
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 

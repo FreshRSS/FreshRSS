@@ -264,7 +264,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::$user_conf->volatile = $volatile;
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$this->view->nb_total = $entryDAO->count();
+		$this->view->nb_total = $entryDAO->count() ?: 0;
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$this->view->size_user = $databaseDAO->size();
@@ -338,7 +338,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * applied to the selected query.
 	 */
 	public function queryAction(): void {
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 
 		$id = Minz_Request::paramInt('id');
 		if ($id !== 0 || !isset(FreshRSS_Context::$user_conf->queries[$id])) {

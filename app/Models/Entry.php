@@ -106,7 +106,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->authors(true);
 	}
 	/**
-	 * @phpstan return ($asString ? string : array<string>)
+	 * @phpstan-return ($asString is true ? string : array<string>)
 	 * @return string|array<string>
 	 */
 	public function authors(bool $asString = false) {
@@ -285,7 +285,7 @@ HTML;
 	/**
 	 * @return array<string,string>|null
 	 */
-	public function thumbnail(bool $searchEnclosures = true) {
+	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributes('thumbnail');
 		if (!empty($thumbnail['url'])) {
 			return $thumbnail;
@@ -352,7 +352,10 @@ HTML;
 		return $this->feedId;
 	}
 
-	/** @return string|array<string> */
+	/**
+	 * @phpstan-return ($asString is true ? string : array<string>)
+	 * @return string|array<string>
+	 */
 	public function tags(bool $asString = false) {
 		if ($asString) {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
@@ -609,7 +612,7 @@ HTML;
 				}
 			}
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/** @param array<string,int> $titlesAsRead  */

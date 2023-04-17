@@ -262,7 +262,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$this->view->categories = $catDAO->listCategories(false);
+			$this->view->categories = $catDAO->listCategories(false) ?: [];
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
 				// We try to get more information about the feed.
@@ -316,7 +316,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
 	 */
-	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null, bool $noCommit = false, int $maxFeeds = 10) {
+	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
+		bool $noCommit = false, int $maxFeeds = 10): array {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -666,7 +667,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// are several updated feeds.
 			Minz_Request::setGoodNotification(_t('feedback.sub.feed.actualizeds'));
 			// No layout in ajax request.
-			$this->view->_layout(false);
+			$this->view->_layout(null);
 		} else {
 			// Redirect to the main page with correct notification.
 			if ($updated_feeds === 1) {
@@ -903,7 +904,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$this->view->selectorSuccess = false;
 		$this->view->htmlContent = '';
 
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 
 		$this->_csp([
 			'default-src' => "'self'",

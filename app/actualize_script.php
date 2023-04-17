@@ -54,7 +54,7 @@ if (($handle = @fopen($mutexFile, 'x')) === false) {
 }
 fclose($handle);
 
-register_shutdown_function(function () use ($mutexFile) {
+register_shutdown_function(static function () use ($mutexFile) {
 	unlink($mutexFile);
 });
 // </Mutex>
@@ -63,7 +63,7 @@ notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 echo 'Failed requirements!', "\n";
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 ob_clean();
 
 echo 'Results: ', "\n";	//Buffered
@@ -100,7 +100,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', function ($feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

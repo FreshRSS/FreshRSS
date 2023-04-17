@@ -5,7 +5,7 @@ require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
 function show_default_favicon(int $cacheSeconds = 3600): void {
-	$default_mtime = @filemtime(DEFAULT_FAVICON);
+	$default_mtime = @filemtime(DEFAULT_FAVICON) ?: 0;
 	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
 		header('Content-Type: image/x-icon');
 		header('Content-Disposition: inline; filename="default_favicon.ico"');
@@ -21,8 +21,8 @@ if (!ctype_xdigit($id)) {
 $txt = FAVICONS_DIR . $id . '.txt';
 $ico = FAVICONS_DIR . $id . '.ico';
 
-$ico_mtime = @filemtime($ico);
-$txt_mtime = @filemtime($txt);
+$ico_mtime = @filemtime($ico) ?: 0;
+$txt_mtime = @filemtime($txt) ?: 0;
 
 if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) {
 	if ($txt_mtime == false) {

@@ -24,7 +24,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::paramBoolean('ajax');
 		if ($this->ajax) {
-			$this->view->_layout(false);
+			$this->view->_layout(null);
 			Minz_Request::_param('ajax');
 		}
 	}
@@ -107,7 +107,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			$ids = is_array($id) ? $id : array($id);
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$tagsForEntries = $tagDAO->getTagsForEntries($ids);
+			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?: [];
 			$tags = array();
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
