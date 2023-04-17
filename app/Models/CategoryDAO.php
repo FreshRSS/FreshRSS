@@ -214,8 +214,8 @@ SQL;
 		}
 	}
 
-	/** @return iterator<array<string,string|int>> */
-	public function selectAll() {
+	/** @return iterable<array<string,string|int>> */
+	public function selectAll(): iterable {
 		$sql = 'SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {

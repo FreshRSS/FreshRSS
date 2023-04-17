@@ -696,8 +696,8 @@ SQL;
 		}
 	}
 
-	/** @return iterator<array<string,string|int>> */
-	public function selectAll() {
+	/** @return iterable<array<string,string|int>> */
+	public function selectAll(): iterable {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags, attributes '
@@ -1153,7 +1153,7 @@ SQL;
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 			string $order = 'DESC', int $limit = 1, string $firstId = '',
-			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0) {
+			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0): iterable {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -1166,7 +1166,7 @@ SQL;
 	 * @param array<string> $ids
 	 * @return iterable<FreshRSS_Entry>
 	 */
-	public function listByIds(array $ids, string $order = 'DESC') {
+	public function listByIds(array $ids, string $order = 'DESC'): iterable {
 		if (count($ids) < 1) {
 			return;
 		}
