@@ -132,8 +132,8 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	}
 }
 
-function safe_ascii(string $text): string {
-	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '';
+function safe_ascii(?string $text): string {
+	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
