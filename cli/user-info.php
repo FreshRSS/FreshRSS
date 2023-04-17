@@ -64,6 +64,21 @@ foreach ($users as $username) {
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 
+	if ($nbFavorites === false) {
+		$nbFavorites = [
+			'all' => 0,
+		];
+	}
+
+	$feedList = $feedDAO->listFeedsIds();
+
+	if ($nbEntries === false) {
+		$nbEntries = [
+			'read' => 0,
+			'unread' => 0,
+		];
+	}
+
 	$data = array(
 		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
 		'user' => $username,
@@ -72,7 +87,7 @@ foreach ($users as $username) {
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
 		'categories' => $catDAO->count(),
-		'feeds' => count($feedDAO->listFeedsIds()),
+		'feeds' => count($feedList === false ? [] : $feedList),
 		'reads' => (int)$nbEntries['read'],
 		'unreads' => (int)$nbEntries['unread'],
 		'favourites' => (int)$nbFavorites['all'],
@@ -84,11 +99,12 @@ foreach ($users as $username) {
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}
+
 	if ($formatJson) {
 		$data['default'] = !empty($data['default']);
 		$data['admin'] = !empty($data['admin']);
 		$data['enabled'] = !empty($data['enabled']);
-		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', $data['last_user_activity']);
+		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', (int)$data['last_user_activity']);
 		$jsonOutput[] = $data;
 	} else {
 		vprintf(DATA_FORMAT, $data);

@@ -1295,8 +1295,8 @@ SQL;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
-		$all = empty($res[0]) ? 0 : intval($res[0]);
-		$unread = empty($res[1]) ? 0 : intval($res[1]);
+		$all = empty($res[0]) ? 0 : (int)$res[0];
+		$unread = empty($res[1]) ? 0 : (int)$res[1];
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
