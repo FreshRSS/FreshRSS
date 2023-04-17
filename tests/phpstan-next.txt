@@ -45,4 +45,3 @@
 ./lib/Minz/Request.php
 ./p/api/greader.php
 ./tests/cli/i18n/I18nFileTest.php
-./tests/lib/Minz/MigratorTest.php
