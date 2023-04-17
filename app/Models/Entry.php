@@ -221,7 +221,7 @@ HTML;
 	}
 
 	/** @return iterable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
-	public function enclosures(bool $searchBodyImages = false) {
+	public function enclosures(bool $searchBodyImages = false): iterable {
 		$attributeEnclosures = $this->attributes('enclosures');
 		if (is_array($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes

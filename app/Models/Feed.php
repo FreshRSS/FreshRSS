@@ -478,10 +478,8 @@ class FreshRSS_Feed extends Minz_Model {
 		return $guids;
 	}
 
-	/**
-	 * @return iterable<FreshRSS_Entry>
-	 */
-	public function loadEntries(SimplePie $simplePie) {
+	/** @return iterable<FreshRSS_Entry> */
+	public function loadEntries(SimplePie $simplePie): iterable {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		$items = $simplePie->get_items();
