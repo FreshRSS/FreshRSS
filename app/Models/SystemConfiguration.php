@@ -22,7 +22,7 @@
  * @property-read bool $pubsubhubbub_enabled
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
- * @property string $unsafe_autologin_enabled
+ * @property bool $unsafe_autologin_enabled
  * @property-read array<string> $trusted_sources
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {

@@ -1111,6 +1111,10 @@ form {
 
 #overlay {
 	z-index: 100;
+
+	.close .icon {
+		filter: brightness(3);
+	}
 }
 
 #panel {
@@ -1304,7 +1308,7 @@ a.signin {
 		}
 	}
 
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--color-background-aside);
 		display: block;

@@ -71,6 +71,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $error = false;
 	/** @var int */
 	private $ttl = self::TTL_DEFAULT;
+	/** @var array<string,mixed> */
 	private $attributes = [];
 	/** @var bool */
 	private $mute = false;
@@ -93,10 +94,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	/**
-	 * @return FreshRSS_Feed
-	 */
-	public static function example() {
+	public static function example(): FreshRSS_Feed {
 		$f = new FreshRSS_Feed('http://example.net/', false);
 		$f->faviconPrepare();
 		return $f;
@@ -142,12 +140,16 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->categoryId;
 	}
 
-	public function entries() {
+	/**
+	 * @return array<FreshRSS_Entry>|null
+	 * @deprecated
+	 */
+	public function entries(): ?array {
 		Minz_Log::warning(__method__ . ' is deprecated since FreshRSS 1.16.1!');
 		$simplePie = $this->load(false, true);
 		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
-	public function name($raw = false): string {
+	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
 	}
 	/** @return string HTML-encoded URL of the Web site of the feed */
@@ -167,7 +169,11 @@ class FreshRSS_Feed extends Minz_Model {
 	public function pathEntries(): string {
 		return $this->pathEntries;
 	}
-	public function httpAuth($raw = true) {
+	/**
+	 * @phpstan-return ($raw is true ? string : array{'username':string,'password':string})
+	 * @return array{'username':string,'password':string}|string
+	 */
+	public function httpAuth(bool $raw = true) {
 		if ($raw) {
 			return $this->httpAuth;
 		} else {
@@ -199,12 +205,15 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
-	/** @return mixed attribute (if $key is not blank) or array of attributes, not HTML-encoded */
-	public function attributes($key = '') {
-		if ($key == '') {
+	/**
+	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @return array<string,mixed>|mixed|null
+	 */
+	public function attributes(string $key = '') {
+		if ($key === '') {
 			return $this->attributes;
 		} else {
-			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+			return $this->attributes[$key] ?? null;
 		}
 	}
 
@@ -220,7 +229,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		return $this->nbEntries;
 	}
-	public function nbNotRead($includePending = false): int {
+	public function nbNotRead(bool $includePending = false): int {
 		if ($this->nbNotRead < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
@@ -228,7 +237,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		return $this->nbNotRead + ($includePending ? $this->nbPendingNotRead : 0);
 	}
-	public function faviconPrepare() {
+	public function faviconPrepare(): void {
 		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
@@ -250,7 +259,7 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 		}
 	}
-	public static function faviconDelete($hash) {
+	public static function faviconDelete(string $hash): void {
 		$path = DATA_PATH . '/favicons/' . $hash;
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
@@ -259,10 +268,11 @@ class FreshRSS_Feed extends Minz_Model {
 		return Minz_Url::display('/f.php?' . $this->hash());
 	}
 
-	public function _id($value) {
-		$this->id = intval($value);
+	public function _id(int $value): void {
+		$this->id = $value;
 	}
-	public function _url(string $value, bool $validate = true) {
+
+	public function _url(string $value, bool $validate = true): void {
 		$this->hash = '';
 		$url = $value;
 		if ($validate) {
@@ -273,26 +283,26 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->url = $url;
 	}
-	public function _kind(int $value) {
+
+	public function _kind(int $value): void {
 		$this->kind = $value;
 	}
 
-	/** @param FreshRSS_Category|null $cat */
-	public function _category($cat) {
+	public function _category(?FreshRSS_Category $cat): void {
 		$this->category = $cat;
 		$this->categoryId = $this->category == null ? 0 : $this->category->id();
 	}
 
 	/** @param int|string $id */
-	public function _categoryId($id) {
+	public function _categoryId($id): void {
 		$this->category = null;
 		$this->categoryId = intval($id);
 	}
 
-	public function _name(string $value) {
+	public function _name(string $value): void {
 		$this->name = $value == '' ? '' : trim($value);
 	}
-	public function _website(string $value, bool $validate = true) {
+	public function _website(string $value, bool $validate = true): void {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
@@ -301,37 +311,37 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$this->website = $value;
 	}
-	public function _description(string $value) {
+	public function _description(string $value): void {
 		$this->description = $value == '' ? '' : $value;
 	}
-	public function _lastUpdate($value) {
-		$this->lastUpdate = intval($value);
+	public function _lastUpdate(int $value): void {
+		$this->lastUpdate = $value;
 	}
-	public function _priority($value) {
-		$this->priority = intval($value);
+	public function _priority(int $value): void {
+		$this->priority = $value;
 	}
 	/** @param string $value HTML-encoded CSS selector */
-	public function _pathEntries(string $value) {
+	public function _pathEntries(string $value): void {
 		$this->pathEntries = $value;
 	}
-	public function _httpAuth(string $value) {
+	public function _httpAuth(string $value): void {
 		$this->httpAuth = $value;
 	}
-	public function _error($value) {
+	/** @param bool|int $value */
+	public function _error($value): void {
 		$this->error = (bool)$value;
 	}
-	public function _mute(bool $value) {
+	public function _mute(bool $value): void {
 		$this->mute = $value;
 	}
-	public function _ttl($value) {
-		$value = intval($value);
+	public function _ttl(int $value): void {
 		$value = min($value, 100000000);
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
 
-	/** @param mixed $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value) {
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
+	public function _attributes(string $key, $value): void {
 		if ($key == '') {
 			if (is_string($value)) {
 				$value = json_decode($value, true);
@@ -346,17 +356,14 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public function _nbNotRead($value) {
-		$this->nbNotRead = intval($value);
+	public function _nbNotRead(int $value): void {
+		$this->nbNotRead = $value;
 	}
-	public function _nbEntries($value) {
-		$this->nbEntries = intval($value);
+	public function _nbEntries(int $value): void {
+		$this->nbEntries = $value;
 	}
 
-	/**
-	 * @return SimplePie|null
-	 */
-	public function load(bool $loadDetails = false, bool $noCache = false) {
+	public function load(bool $loadDetails = false, bool $noCache = false): ?SimplePie {
 		if ($this->url != '') {
 			// @phpstan-ignore-next-line
 			if (CACHE_PATH === false) {
@@ -437,7 +444,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return array<string>
 	 */
-	public function loadGuids(SimplePie $simplePie) {
+	public function loadGuids(SimplePie $simplePie): array {
 		$hasUniqueGuids = true;
 		$testGuids = [];
 		$guids = [];
@@ -471,7 +478,8 @@ class FreshRSS_Feed extends Minz_Model {
 		return $guids;
 	}
 
-	public function loadEntries(SimplePie $simplePie) {
+	/** @return iterable<FreshRSS_Entry> */
+	public function loadEntries(SimplePie $simplePie): iterable {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		$items = $simplePie->get_items();
@@ -588,10 +596,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	/**
-	 * @return SimplePie|null
-	 */
-	public function loadHtmlXpath() {
+	public function loadHtmlXpath(): ?SimplePie {
 		if ($this->url == '') {
 			return null;
 		}
@@ -705,7 +710,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
 					// HTML-encoding/escaping of the relevant fields (all except 'content')
 					foreach (['author', 'categories', 'guid', 'link', 'thumbnail', 'timestamp', 'title'] as $key) {
-						if (!empty($item[$key])) {
+						if (!empty($item[$key]) && is_string($item[$key])) {
 							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
 						}
 					}
@@ -728,7 +733,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * To keep track of some new potentially unread articles since last commit+fetch from database
 	 */
-	public function incPendingUnread(int $n = 1) {
+	public function incPendingUnread(int $n = 1): void {
 		$this->nbPendingNotRead += $n;
 	}
 
@@ -767,6 +772,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	 * @return int|false
 	 */
 	public function cleanOldEntries() {
 		$archiving = $this->attributes('archiving');
@@ -782,7 +788,6 @@ class FreshRSS_Feed extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$nb = $entryDAO->cleanOldEntries($this->id(), $archiving);
 			if ($nb > 0) {
-				$needFeedCacheRefresh = true;
 				Minz_Log::debug($nb . ' entries cleaned in feed [' . $this->url(false) . '] with: ' . json_encode($archiving));
 			}
 			return $nb;
@@ -790,6 +795,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
+	/** @param array<string,mixed> $attributes */
 	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
 		$simplePie = customSimplePie($attributes);
 		$filename = $simplePie->get_cache_filename($url);
@@ -848,12 +854,12 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<FreshRSS_FilterAction> $filterActions
+	 * @param array<FreshRSS_FilterAction>|null $filterActions
 	 */
-	private function _filterActions($filterActions) {
+	private function _filterActions(?array $filterActions): void {
 		$this->filterActions = $filterActions;
 		if (is_array($this->filterActions) && !empty($this->filterActions)) {
-			$this->_attributes('filters', array_map(function ($af) {
+			$this->_attributes('filters', array_map(static function (?FreshRSS_FilterAction $af) {
 					return $af == null ? null : $af->toJSON();
 				}, $this->filterActions));
 		} else {
@@ -882,10 +888,10 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @param array<string> $filters
 	 */
-	public function _filtersAction(string $action, $filters) {
+	public function _filtersAction(string $action, array $filters): void {
 		$action = trim($action);
 		if ($action == '' || !is_array($filters)) {
-			return false;
+			return;
 		}
 		$filters = array_unique(array_map('trim', $filters));
 		$filterActions = $this->filterActions();

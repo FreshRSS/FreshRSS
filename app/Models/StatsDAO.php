@@ -13,7 +13,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 *
 	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int},'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}}
 	 */
-	public function calculateEntryRepartition() {
+	public function calculateEntryRepartition(): array {
 		return array(
 			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
 			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
@@ -57,7 +57,7 @@ SQL;
 	 * Calculates entry count per day on a 30 days period.
 	 * @return array<int,int>
 	 */
-	public function calculateEntryCount() {
+	public function calculateEntryCount(): array {
 		$count = $this->initEntryCountArray();
 		$midnight = mktime(0, 0, 0);
 		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
@@ -87,7 +87,7 @@ SQL;
 	 * Initialize an array for the entry count.
 	 * @return array<int,int>
 	 */
-	protected function initEntryCountArray() {
+	protected function initEntryCountArray(): array {
 		return $this->initStatsArray(-self::ENTRY_COUNT_PERIOD, -1);
 	}
 
@@ -348,8 +348,8 @@ SQL;
 	 * @param array<string> $data
 	 * @return array<string>
 	 */
-	private function convertToTranslatedJson(array $data = array()) {
-		$translated = array_map(function($a) {
+	private function convertToTranslatedJson(array $data = array()): array {
+		$translated = array_map(static function (string $a) {
 			return _t('gen.date.' . $a);
 		}, $data);
 

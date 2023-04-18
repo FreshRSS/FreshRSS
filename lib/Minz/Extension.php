@@ -217,7 +217,7 @@ abstract class Minz_Extension {
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isConfigurationEnabled($type): bool {
+	private function isConfigurationEnabled(string $type): bool {
 		if (!class_exists('FreshRSS_Context', false)) {
 			return false;
 		}
@@ -229,7 +229,7 @@ abstract class Minz_Extension {
 	}
 
 	/** @param 'system'|'user' $type */
-	private function isExtensionConfigured($type): bool {
+	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
 			case 'system':
 				$conf = FreshRSS_Context::$user_conf;
@@ -248,7 +248,7 @@ abstract class Minz_Extension {
 	}
 
 	/**
-	 * @param 'system'|'user' $type
+	 * @phpstan-param 'system'|'user' $type
 	 * @return array<string,mixed>
 	 */
 	private function getConfiguration(string $type): array {
@@ -338,7 +338,7 @@ abstract class Minz_Extension {
 		$this->user_configuration = $configuration;
 	}
 
-	/** @param 'system'|'user' $type */
+	/** @phpstan-param 'system'|'user' $type */
 	private function removeConfiguration(string $type): void {
 		if (!$this->isConfigurationEnabled($type)) {
 			return;

@@ -8,7 +8,7 @@ $url = array(
 	'params' => $_GET,
 );
 
-$url['params']['is_favorite'] = Minz_Request::param('is_favorite', true) ? '0' : '1';
+$url['params']['is_favorite'] = (Minz_Request::paramTernary('is_favorite') ?? true) ? '0' : '1';
 
 FreshRSS::loadStylesAndScripts();
 echo json_encode(array(

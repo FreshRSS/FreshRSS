@@ -1059,7 +1059,7 @@ a.signin {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--background-color-grey);
 		border-bottom: 1px solid var(--border-color-grey-light);
@@ -1109,5 +1109,9 @@ a.signin {
 	.post {
 		padding-left: 15px;
 		padding-right: 15px;
+	}
+
+	#overlay {
+		background-color: var(--background-color-grey);
 	}
 }

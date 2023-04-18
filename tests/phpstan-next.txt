@@ -1,47 +1,46 @@
-# List of files, which are not yet passing PHPStan level 6 https://phpstan.org/user-guide/rule-levels
-# https://github.com/FreshRSS/FreshRSS/issues/4112
+# List of files, which are not yet passing PHPStan level 7 https://phpstan.org/user-guide/rule-levels
 # Used for automated tests to avoid regressions in files already passing that level.
 # Can be regenerated with something like:
-# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 6 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
+# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 7 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
+./app/Controllers/configureController.php
 ./app/Controllers/feedController.php
+./app/Controllers/importExportController.php
+./app/Controllers/indexController.php
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
-./app/install.php
-./app/Models/Auth.php
-./app/Models/Category.php
 ./app/Models/CategoryDAO.php
-./app/Models/ConfigurationSetter.php
+./app/Models/Context.php
+./app/Models/DatabaseDAO.php
+./app/Models/DatabaseDAOPGSQL.php
 ./app/Models/Entry.php
+./app/Models/EntryDAO.php
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
-./app/Models/FilterAction.php
-./app/Models/FormAuth.php
+./app/Models/ReadingMode.php
 ./app/Models/Search.php
 ./app/Models/Share.php
+./app/Models/StatsDAO.php
 ./app/Models/TagDAO.php
 ./app/Models/Themes.php
-./app/Models/View.php
+./app/Models/UserQuery.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
-./cli/_cli.php
-./cli/_update-or-create-user.php
+./app/views/helpers/logs_pagination.phtml
+./app/views/index/reader.phtml
+./app/views/stats/index.phtml
+./app/views/stats/repartition.phtml
+./app/views/user/details.phtml
 ./cli/check.translation.php
-./cli/i18n/I18nData.php
-./cli/i18n/I18nFile.php
-./cli/i18n/I18nValue.php
+./cli/delete-user.php
+./cli/do-install.php
 ./cli/manipulate.translation.php
-./lib/http-conditional.php
+./lib/lib_date.php
 ./lib/Minz/ActionController.php
-./lib/Minz/Configuration.php
-./lib/Minz/Dispatcher.php
-./lib/Minz/FrontController.php
-./lib/Minz/Log.php
+./lib/Minz/Error.php
+./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
-./lib/Minz/ModelArray.php
-./lib/Minz/Paginator.php
+./lib/Minz/ModelPdo.php
 ./lib/Minz/Request.php
-./lib/Minz/Session.php
-./lib/Minz/Translate.php
-./lib/Minz/Url.php
-./lib/Minz/View.php
+./p/api/greader.php
+./tests/cli/i18n/I18nFileTest.php

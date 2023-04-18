@@ -34,7 +34,7 @@ class FreshRSS_UserQuery {
 	private $tag_dao;
 
 	/**
-	 * @param array<string,string> $query
+	 * @param array<string,string|int> $query
 	 */
 	public function __construct(array $query, FreshRSS_FeedDAO $feed_dao = null, FreshRSS_CategoryDAO $category_dao = null, FreshRSS_TagDAO $tag_dao = null) {
 		$this->category_dao = $category_dao;

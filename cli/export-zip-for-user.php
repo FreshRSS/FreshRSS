@@ -2,7 +2,7 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 
 $params = array(
 	'user:',
@@ -11,7 +11,7 @@ $params = array(
 
 $options = getopt('', $params);
 
-if (!validateOptions($argv, $params) || empty($options['user'])) {
+if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username ( --max-feed-entries 100 ) > /path/to/file.zip");
 }
 

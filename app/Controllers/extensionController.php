@@ -79,7 +79,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	public function configureAction(): void {
 		if (Minz_Request::paramBoolean('ajax')) {
-			$this->view->_layout(false);
+			$this->view->_layout(null);
 		} else {
 			$this->indexAction();
 			$this->view->_path('extension/index.phtml');
@@ -143,7 +143,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, function($key) use($type) {
+				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;
@@ -205,7 +205,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, function($key) use($type) {
+				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;

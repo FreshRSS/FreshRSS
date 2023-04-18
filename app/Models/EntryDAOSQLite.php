@@ -25,7 +25,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	/** @param array<string> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
-			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
+			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
 			foreach (['attributes'] as $column) {
 				if (!in_array($column, $columns)) {
 					return $this->addColumn($column);
@@ -34,14 +34,14 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
-			if (stripos($showCreate, 'tag') === false) {
+			if (is_string($showCreate) && stripos($showCreate, 'tag') === false) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				return $tagDAO->createTagTable();	//v1.12.0
 			}
 		}
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
 			$showCreate = $tableInfo->fetchColumn();
-			if (stripos($showCreate, 'entrytmp') === false) {
+			if (is_string($showCreate) && stripos($showCreate, 'entrytmp') === false) {
 				return $this->createEntryTempTable();	//v1.7.0
 			}
 		}
@@ -78,20 +78,20 @@ DROP TABLE IF EXISTS `tmp`;
 		return $result;
 	}
 
-	protected function updateCacheUnreads($catId = false, $feedId = false) {
+	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
 		$sql = 'UPDATE `_feed` '
 		 . 'SET `cache_nbUnreads`=('
 		 .	'SELECT COUNT(*) AS nbUnreads FROM `_entry` e '
 		 .	'WHERE e.id_feed=`_feed`.id AND e.is_read=0)';
 		$hasWhere = false;
 		$values = array();
-		if ($feedId !== false) {
+		if ($feedId != null) {
 			$sql .= ' WHERE';
 			$hasWhere = true;
 			$sql .= ' id=?';
 			$values[] = $feedId;
 		}
-		if ($catId !== false) {
+		if ($catId != null) {
 			$sql .= $hasWhere ? ' AND' : ' WHERE';
 			$hasWhere = true;
 			$sql .= ' category=?';
@@ -117,8 +117,8 @@ DROP TABLE IF EXISTS `tmp`;
 	 * same if it is an array or not.
 	 *
 	 * @param string|array<string> $ids
-	 * @param boolean $is_read
-	 * @return integer|false affected rows
+	 * @param bool $is_read
+	 * @return int|false affected rows
 	 */
 	public function markRead($ids, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -176,9 +176,9 @@ DROP TABLE IF EXISTS `tmp`;
 	 * separated.
 	 *
 	 * @param string $idMax fail safe article ID
-	 * @param boolean $onlyFavorites
-	 * @param integer $priorityMin
-	 * @return integer|false affected rows
+	 * @param bool $onlyFavorites
+	 * @param int $priorityMin
+	 * @return int|false affected rows
 	 */
 	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `tmp`;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 			return false;
 		}
 		return $affected;
@@ -218,9 +218,9 @@ DROP TABLE IF EXISTS `tmp`;
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @param integer $id category ID
+	 * @param int $id category ID
 	 * @param string $idMax fail safe article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -244,7 +244,7 @@ DROP TABLE IF EXISTS `tmp`;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads($id, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads($id, null))) {
 			return false;
 		}
 		return $affected;
@@ -252,9 +252,9 @@ DROP TABLE IF EXISTS `tmp`;
 
 	/**
 	 * Mark all the articles in a tag as read.
-	 * @param integer $id tag ID, or empty for targeting any tag
+	 * @param int $id tag ID, or empty for targeting any tag
 	 * @param string $idMax max article ID
-	 * @return integer|false affected rows
+	 * @return int|false affected rows
 	 */
 	public function markReadTag($id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
@@ -283,7 +283,7 @@ DROP TABLE IF EXISTS `tmp`;
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+		if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 			return false;
 		}
 		return $affected;

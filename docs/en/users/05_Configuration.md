@@ -99,7 +99,7 @@ This allows for purging/optimizing the current user’s articles in the database
 
 To make your life easier, you can share articles straight from FreshRSS.
 
-At the moment, FreshRSS supports 18 sharing methods, ranging from self-hosted services (Shaarli, etc.) to proprietary services (Facebook, etc.).
+At the moment, FreshRSS supports [20+ sharing services](08_sharing_services.md), ranging from self-hosted services (Shaarli, etc.) to proprietary services (Facebook, etc.).
 
 By default, the sharing list is empty.
 ![Sharing configuration](../img/users/configuration.sharing.png)

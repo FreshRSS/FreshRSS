@@ -364,7 +364,7 @@ final class Minz_ExtensionManager {
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			$result = call_user_func($function, $arg);
 
-			if (is_null($result)) {
+			if ($result === null) {
 				break;
 			}
 

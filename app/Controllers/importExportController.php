@@ -226,7 +226,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, function ($v) {
+			$item = array_filter($item, static function ($v) {
 					// Filter out empty properties, potentially reported as empty objects
 					return (is_string($v) && trim($v) !== '') || !empty($v);
 				});
@@ -267,7 +267,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *
 	 * $article_file the JSON file content.
 	 * true if articles from the file must be starred.
-	 * @return boolean false if an error occurred, true otherwise.
+	 * @return bool false if an error occurred, true otherwise.
 	 */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
@@ -575,24 +575,21 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *   - export_starred (default: false)
 	 *   - export_labelled (default: false)
 	 *   - export_feeds (default: array()) a list of feed ids
-	 *
-	 * @return void|null
 	 */
-	public function exportAction() {
+	public function exportAction(): void {
 		if (!Minz_Request::isPost()) {
-			return Minz_Request::forward(
-				array('c' => 'importExport', 'a' => 'index'),
-				true
-			);
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+			return;
 		}
 
 		$username = Minz_User::name();
 		$export_service = new FreshRSS_Export_Service($username);
 
-		$export_opml = Minz_Request::param('export_opml', false);
-		$export_starred = Minz_Request::param('export_starred', false);
-		$export_labelled = Minz_Request::param('export_labelled', false);
-		$export_feeds = Minz_Request::param('export_feeds', array());
+		$export_opml = Minz_Request::paramBoolean('export_opml');
+		$export_starred = Minz_Request::paramBoolean('export_starred');
+		$export_labelled = Minz_Request::paramBoolean('export_labelled');
+		/** @var array<numeric-string> */
+		$export_feeds = Minz_Request::paramArray('export_feeds');
 		$max_number_entries = 50;
 
 		$exported_files = [];
@@ -616,7 +613,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		foreach ($export_feeds as $feed_id) {
-			$result = $export_service->generateFeedEntries($feed_id, $max_number_entries);
+			$result = $export_service->generateFeedEntries((int)$feed_id, $max_number_entries);
 			if (!$result) {
 				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
@@ -629,10 +626,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$nb_files = count($exported_files);
 		if ($nb_files <= 0) {
 			// There’s nothing to do, there’re no files to export
-			return Minz_Request::forward(
-				array('c' => 'importExport', 'a' => 'index'),
-				true
-			);
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+			return;
 		}
 
 		if ($nb_files === 1) {
@@ -643,10 +638,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
 				// Oops, there is no ZIP extension!
-				return Minz_Request::bad(
+				Minz_Request::bad(
 					_t('feedback.import_export.export_no_zip_extension'),
-					array('c' => 'importExport', 'a' => 'index')
+					['c' => 'importExport', 'a' => 'index']
 				);
+				return;
 			}
 
 			[$filename, $content] = $export_service->zip($exported_files);
@@ -656,7 +652,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-Type: ' . $content_type);
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		$this->view->content = $content;
 	}
 

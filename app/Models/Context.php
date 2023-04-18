@@ -104,19 +104,15 @@ final class FreshRSS_Context {
 		if ($reload || FreshRSS_Context::$system_conf == null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
 			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-			// Register the configuration setter for the system configuration
-			$configurationSetter = new FreshRSS_ConfigurationSetter();
-			FreshRSS_Context::$system_conf->_configurationSetter($configurationSetter);
 		}
 		return FreshRSS_Context::$system_conf;
 	}
 
 	/**
 	 * Initialize the context for the current user.
-	 * @return FreshRSS_UserConfiguration|false
 	 * @throws Minz_ConfigurationParamException
 	 */
-	public static function initUser(string $username = '', bool $userMustExist = true) {
+	public static function initUser(string $username = '', bool $userMustExist = true): ?FreshRSS_UserConfiguration {
 		FreshRSS_Context::$user_conf = null;
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
@@ -132,8 +128,7 @@ final class FreshRSS_Context {
 				//TODO: Keep in session what we need instead of always reloading from disk
 				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
-					FRESHRSS_PATH . '/config-user.default.php',
-					FreshRSS_Context::$system_conf->configurationSetter());
+					FRESHRSS_PATH . '/config-user.default.php');
 
 				Minz_User::change($username);
 			} catch (Exception $ex) {
@@ -149,7 +144,7 @@ final class FreshRSS_Context {
 		Minz_Session::unlock();
 
 		if (FreshRSS_Context::$user_conf == null) {
-			return false;
+			return null;
 		}
 
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
@@ -207,12 +202,10 @@ final class FreshRSS_Context {
 			self::$categories, 1
 		);
 
-		self::_get(Minz_Request::param('get', 'a', false));
+		self::_get(Minz_Request::paramString('get') ?: 'a');
 
-		self::$state = Minz_Request::param(
-			'state', self::$user_conf->default_state
-		);
-		$state_forced_by_user = Minz_Request::param('state') !== false;
+		self::$state = Minz_Request::paramInt('state') ?: self::$user_conf->default_state;
+		$state_forced_by_user = Minz_Request::paramString('state') !== '';
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
@@ -223,18 +216,16 @@ final class FreshRSS_Context {
 			}
 		}
 
-		self::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
-		self::$order = Minz_Request::param(
-			'order', self::$user_conf->sort_order
-		);
-		self::$number = (int)Minz_Request::param('nb', self::$user_conf->posts_per_page);
+		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		self::$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		self::$number = Minz_Request::paramInt('nb') ?: self::$user_conf->posts_per_page;
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
 				self::$user_conf->max_posts_per_rss,
 				self::$user_conf->posts_per_page);
 		}
-		self::$first_id = Minz_Request::param('next', '');
-		self::$sinceHours = (int)Minz_Request::param('hours', 0);
+		self::$first_id = Minz_Request::paramString('next');
+		self::$sinceHours = Minz_Request::paramInt('hours');
 	}
 
 	/**
@@ -257,8 +248,8 @@ final class FreshRSS_Context {
 	/**
 	 * Return the current get as a string or an array.
 	 *
-	 * If $array is true, the first item of the returned value is 'f' or 'c' and
-	 * the second is the id.
+	 * If $array is true, the first item of the returned value is 'f' or 'c' or 't' and the second is the id.
+	 * @phpstan-return ($asArray is true ? array{'c'|'f'|'t',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet(bool $asArray = false) {

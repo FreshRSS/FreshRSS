@@ -11,7 +11,7 @@ $articles = array(
 	'items' => array(),
 );
 
-echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
+echo rtrim(json_encode($articles, $options) ?: '', " ]}\n\r\t"), "\n";
 $first = true;
 
 if (empty($this->entryIdsTagNames)) {

@@ -196,6 +196,7 @@ return array(
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',

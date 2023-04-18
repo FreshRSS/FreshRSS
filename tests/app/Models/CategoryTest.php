@@ -2,23 +2,22 @@
 
 class CategoryTest extends PHPUnit\Framework\TestCase {
 
-	public function test__construct_whenNoParameters_createsObjectWithDefaultValues() {
+	public function test__construct_whenNoParameters_createsObjectWithDefaultValues(): void {
 		$category = new FreshRSS_Category();
 		$this->assertEquals(0, $category->id());
 		$this->assertEquals('', $category->name());
 	}
 
 	/**
-	 * @param string $input
-	 * @param string $expected
 	 * @dataProvider provideValidNames
 	 */
-	public function test_name_whenValidValue_storesModifiedValue($input, $expected) {
+	public function test_name_whenValidValue_storesModifiedValue(string $input, string $expected): void {
 		$category = new FreshRSS_Category($input);
 		$this->assertEquals($expected, $category->name());
 	}
 
-	public function provideValidNames() {
+	/** @return array<array{string,string}> */
+	public function provideValidNames(): array {
 		return array(
 			array('', ''),
 			array('this string does not need trimming', 'this string does not need trimming'),
@@ -30,7 +29,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_feedOrdering() {
+	public function test_feedOrdering(): void {
 		$feed_1 = $this->getMockBuilder(FreshRSS_Feed::class)
 			->disableOriginalConstructor()
 			->getMock();
