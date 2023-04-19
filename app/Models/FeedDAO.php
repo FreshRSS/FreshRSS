@@ -496,20 +496,18 @@ SQL;
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
-WHERE id_feed=:id_feed1 AND is_read=0 AND (
-	`lastSeen` < (SELECT e3.maxlastseen FROM (
-		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
-	) e3)
-	OR `lastSeen` < (SELECT f3.lastcorrectupdate FROM (
-		SELECT `lastUpdate` - (ttl * 2) AS lastcorrectupdate FROM `_feed` WHERE id = :id_feed3 AND error = 0
-	) f3)
+WHERE id_feed=:id_feed AND is_read=0 AND (
+	`lastSeen` < (SELECT s1.maxlastseen FROM (
+		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = id_feed
+	) s1)
+	OR `lastSeen` < (SELECT s2.lastcorrectupdate FROM (
+		SELECT f2.`lastUpdate` - (f2.ttl * 2) AS lastcorrectupdate FROM `_feed` f2 WHERE f2.id = id_feed AND f2.error = 0
+	) s2)
 )
 SQL;
 
 		if (($stm = $this->pdo->prepare($sql)) &&
-			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed3', $id, PDO::PARAM_INT) &&
+			$stm->bindParam(':id_feed', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
