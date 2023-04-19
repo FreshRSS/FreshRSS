@@ -28,11 +28,14 @@ class Minz_ActionController {
 
 	public function __construct () {
 		$this->csp_policies = self::$csp_default;
+		$view = null;
 		if (class_exists(self::$viewType)) {
-			$this->view = new self::$viewType();
-		} else {
-			$this->view = new Minz_View();
+			$view = new self::$viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
 		}
+		$this->view = $view ?? new Minz_View();
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
 		$this->view->attributeParams ();

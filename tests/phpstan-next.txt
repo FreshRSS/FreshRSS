@@ -35,8 +35,6 @@
 ./cli/delete-user.php
 ./cli/do-install.php
 ./cli/manipulate.translation.php
-./lib/lib_date.php
-./lib/Minz/ActionController.php
 ./lib/Minz/Error.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
