@@ -22,7 +22,6 @@
 ./app/Models/StatsDAO.php
 ./app/Models/TagDAO.php
 ./app/Models/Themes.php
-./app/Models/UserQuery.php
 ./app/Services/ExportService.php
 ./app/Services/ImportService.php
 ./app/views/helpers/logs_pagination.phtml
