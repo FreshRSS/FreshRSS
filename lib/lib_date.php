@@ -56,10 +56,11 @@ function _dateCeiling(string $isoDate): string {
 			return $x[0] . '1231T' . $t;
 		case 6:
 			$d = @strtotime($x[0] . '01');
-			return $x[0] . date('t', $d) . 'T' . $t;
-		default:
-			return $x[0] . 'T' . $t;
+			if ($d != false) {
+				return $x[0] . date('t', $d) . 'T' . $t;
+			}
 	}
+	return $x[0] . 'T' . $t;
 }
 
 function _noDelimit(?string $isoDate): ?string {
@@ -101,10 +102,14 @@ function parseDateInterval(string $dateInterval): array {
 			try {
 				$di2 = new DateInterval($d2);
 				$dt1 = @date_create();	//new DateTime() would create an Exception if the default time zone is not defined
-				if ($min !== null && $min !== false) {
-					$dt1->setTimestamp($min);
+				if ($dt1 === false) {
+					$max = false;
+				} else {
+					if ($min !== null && $min !== false) {
+						$dt1->setTimestamp($min);
+					}
+					$max = $dt1->add($di2)->getTimestamp() - 1;
 				}
-				$max = $dt1->add($di2)->getTimestamp() - 1;
 			} catch (Exception $e) {
 				$max = false;
 			}
@@ -118,12 +123,16 @@ function parseDateInterval(string $dateInterval): array {
 		try {
 			$di1 = new DateInterval($d1);
 			$dt2 = @date_create();
-			if ($max !== null && $max !== false) {
-				$dt2->setTimestamp($max);
-			}
-			$min = $dt2->sub($di1)->getTimestamp() + 1;
-		} catch (Exception $e) {
+			if ($dt2 === false) {
 				$min = false;
+			} else {
+				if ($max !== null && $max !== false) {
+					$dt2->setTimestamp($max);
+				}
+				$min = $dt2->sub($di1)->getTimestamp() + 1;
+			}
+		} catch (Exception $e) {
+			$min = false;
 		}
 	}
 	return array($min, $max);
