@@ -793,8 +793,8 @@ function recursive_unlink(string $dir): bool {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<int,array<string,string>> $queries an array of queries.
- * @return array<int,array<string,string>> without queries where $get is appearing.
+ * @param array<int,array<string,string|int>> $queries an array of queries.
+ * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
 	$final_queries = array();
