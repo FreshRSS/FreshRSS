@@ -294,17 +294,19 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$tag_dao = FreshRSS_Factory::createTagDao();
 
 		if (Minz_Request::isPost()) {
+			/** @var array<int,array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
 			$queries = [];
 			foreach ($params as $key => $query) {
-				if (!$query['name']) {
+				$key = (int)$key;
+				if (empty($query['name'])) {
 					$query['name'] = _t('conf.query.number', $key + 1);
 				}
-				if ($query['search']) {
+				if (!empty($query['search'])) {
 					$query['search'] = urldecode($query['search']);
 				}
-				$queries[intval($key)] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+				$queries[$key] = (new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao))->toArray();
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -317,9 +319,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$this->view->categories = $category_dao->listCategories(false);
+		$this->view->categories = $category_dao->listCategories(false) ?: [];
 		$this->view->feeds = $feed_dao->listFeeds();
-		$this->view->tags = $tag_dao->listTags();
+		$this->view->tags = $tag_dao->listTags() ?: [];
 
 		$id = Minz_Request::paramInt('id');
 		$this->view->displaySlider = false;
@@ -341,7 +343,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->_layout(null);
 
 		$id = Minz_Request::paramInt('id');
-		if ($id !== 0 || !isset(FreshRSS_Context::$user_conf->queries[$id])) {
+		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::$user_conf->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
@@ -353,27 +355,29 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$query = new FreshRSS_UserQuery(FreshRSS_Context::$user_conf->queries[$id], $feed_dao, $category_dao, $tag_dao);
 		$this->view->query = $query;
 		$this->view->queryId = $id;
-		$this->view->categories = $category_dao->listCategories(false);
+		$this->view->categories = $category_dao->listCategories(false) ?: [];
 		$this->view->feeds = $feed_dao->listFeeds();
-		$this->view->tags = $tag_dao->listTags();
+		$this->view->tags = $tag_dao->listTags() ?: [];
 
 		if (Minz_Request::isPost()) {
+			/** @var array<string,string|array<string,string>> $params */
 			$params = array_filter(Minz_Request::paramArray('query'));
-			if (!empty($params['search'])) {
-				$params['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
+			$queryParams = [];
+			if (!empty($params['search']) && is_string($params['search'])) {
+				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
-			if (!empty($params['state'])) {
-				$params['state'] = array_sum($params['state']);
+			if (!empty($params['state']) && is_array($params['state'])) {
+				$queryParams['state'] = (int)(array_sum($params['state']));
 			}
-			$params['url'] = Minz_Url::display(['params' => $params]);
+			$queryParams['url'] = Minz_Url::display(['params' => $params]);
 			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
 			if ('' === $name) {
 				$name = _t('conf.query.number', $id + 1);
 			}
-			$params['name'] = $name;
+			$queryParams['name'] = $name;
 
 			$queries = FreshRSS_Context::$user_conf->queries;
-			$queries[$id] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao, $tag_dao);
+			$queries[$id] = (new FreshRSS_UserQuery($queryParams, $feed_dao, $category_dao, $tag_dao))->toArray();
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
 
@@ -388,7 +392,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function deleteQueryAction(): void {
 		$id = Minz_Request::paramInt('id');
-		if ($id === 0 || empty(FreshRSS_Context::$user_conf->queries[$id])) {
+		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::$user_conf->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
@@ -414,13 +418,13 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$tag_dao = FreshRSS_Factory::createTagDao();
 		$queries = array();
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+			$queries[$key] = (new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao))->toArray();
 		}
 		$params = $_GET;
 		unset($params['rid']);
 		$params['url'] = Minz_Url::display(array('params' => $params));
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
-		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao, $tag_dao);
+		$queries[] = (new FreshRSS_UserQuery($params, $feed_dao, $category_dao, $tag_dao))->toArray();
 
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();

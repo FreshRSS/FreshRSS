@@ -22,7 +22,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Blue Lagoon     |Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
-| Flat design | Marien Fressinaud | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| Flat design | Marien Fressinaud | |
 | Mapco | Thomas Guesnon  | |
 | Nord theme | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |

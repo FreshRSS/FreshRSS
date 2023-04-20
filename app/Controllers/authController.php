@@ -14,8 +14,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - auth_type (default: none)
 	 *   - unsafe_autologin (default: false)
 	 *   - api_enabled (default: false)
-	 *
-	 * @todo move unsafe_autologin in an extension.
 	 */
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -77,7 +75,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				break;
 			case 'http_auth':
 				Minz_Error::error(403, array('error' => array(_t('feedback.access.denied'),
-						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') . ']'
+						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') .
+						' ; Remote IP address=' . ($_SERVER['REMOTE_ADDR'] ?? '') . ']'
 					)), false);
 				break;
 			case 'none':
