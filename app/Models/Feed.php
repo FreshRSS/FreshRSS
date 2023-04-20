@@ -641,16 +641,19 @@ class FreshRSS_Feed extends Minz_Model {
 			$doc = new DOMDocument();
 			$doc->recover = true;
 			$doc->strictErrorChecking = false;
+			$ok = false;
 
 			switch ($this->kind()) {
 				case FreshRSS_Feed::KIND_HTML_XPATH:
-					$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					$ok = $doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING) !== false;
 					break;
 				case FreshRSS_Feed::KIND_XML_XPATH:
-					$doc->loadXML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+					$ok = $doc->loadXML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING) !== false;
 					break;
-				default:
-					return null;
+			}
+
+			if (!$ok) {
+				return null;
 			}
 
 			$xpath = new DOMXPath($doc);
@@ -658,7 +661,7 @@ class FreshRSS_Feed extends Minz_Model {
 				htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
 			$view->rss_base = htmlspecialchars(trim($xpath->evaluate('normalize-space(//base/@href)')), ENT_COMPAT, 'UTF-8');
 			$nodes = $xpath->query($xPathItem);
-			if (empty($nodes)) {
+			if ($nodes === false || $nodes->length === 0) {
 				return null;
 			}
 

@@ -485,8 +485,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		$body = '';
 		// TODO: Implement HTTP 410 Gone
-	}
-	if (!is_string($body)) {
+	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
 		$body = enforceHttpEncoding($body, $c_content_type);
@@ -793,8 +792,8 @@ function recursive_unlink(string $dir): bool {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<int,array<string,string>> $queries an array of queries.
- * @return array<int,array<string,string>> without queries where $get is appearing.
+ * @param array<int,array<string,string|int>> $queries an array of queries.
+ * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
 	$final_queries = array();
