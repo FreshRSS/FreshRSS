@@ -14,8 +14,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - auth_type (default: none)
 	 *   - unsafe_autologin (default: false)
 	 *   - api_enabled (default: false)
-	 *
-	 * @todo move unsafe_autologin in an extension.
 	 */
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -71,6 +69,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		syslog(LOG_DEBUG, __METHOD__ . ' ' . $auth_type);
 		switch ($auth_type) {
 			case 'form':
 				Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
