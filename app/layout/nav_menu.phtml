@@ -85,7 +85,7 @@
 				<?php foreach (FreshRSS_Context::$user_conf->queries as $raw_query): ?>
 					<li class="item query">
 						<?php if (!empty($raw_query['url'])): ?>
-							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?></a>
+							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
 						<?php else: ?>
 						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
 							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
