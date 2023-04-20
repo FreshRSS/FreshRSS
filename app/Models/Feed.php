@@ -278,7 +278,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($validate) {
 			$url = checkUrl($url);
 		}
-		if ($url == '') {
+		if ($url == false) {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
 		$this->url = $url;
@@ -306,7 +306,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
-		if ($value == '') {
+		if ($value == false) {
 			$value = '';
 		}
 		$this->website = $value;
@@ -448,7 +448,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$hasUniqueGuids = true;
 		$testGuids = [];
 		$guids = [];
-		$hasBadGuids = $this->attributes('hasBadGuids');
+		$links = [];
+		$hadBadGuids = $this->attributes('hasBadGuids');
 
 		$items = $simplePie->get_items();
 		if (empty($items)) {
@@ -463,19 +464,20 @@ class FreshRSS_Feed extends Minz_Model {
 			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
 			$testGuids['_' . $guid] = true;
 			$guids[] = $guid;
+			$links[] = $item->get_permalink();
 		}
 
-		if ($hasBadGuids != !$hasUniqueGuids) {
-			$hasBadGuids = !$hasUniqueGuids;
-			if ($hasBadGuids) {
+		if ($hadBadGuids != !$hasUniqueGuids) {
+			if ($hadBadGuids) {
 				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
 			} else {
 				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
 			}
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
+			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', !$hasUniqueGuids);
 		}
-		return $guids;
+
+		return $hasUniqueGuids ? $guids : $links;
 	}
 
 	/** @return iterable<FreshRSS_Entry> */

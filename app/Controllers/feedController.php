@@ -531,7 +531,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
-			$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
+			if (!$simplePiePush) {
+				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
+				$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
+			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
 			}

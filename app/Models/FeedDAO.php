@@ -69,7 +69,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->pdo->lastInsertId('`_feed_id_seq`');
+			return (int)($this->pdo->lastInsertId('`_feed_id_seq`'));
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -355,7 +355,7 @@ SQL;
 	}
 
 	/**
-	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
+	 * @param int $defaultCacheDuration Use -1 to return all feeds, without filtering them by TTL.
 	 * @return array<FreshRSS_Feed>
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
@@ -497,11 +497,11 @@ SQL;
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
 WHERE id_feed=:id_feed1 AND is_read=0 AND (
-	`lastSeen` < (SELECT s1.maxlastseen FROM (
+	`lastSeen` + 60 < (SELECT s1.maxlastseen FROM (
 		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
 	) s1)
-	OR `lastSeen` < (SELECT s2.lastcorrectupdate FROM (
-		SELECT f2.`lastUpdate` - (f2.ttl * 2) AS lastcorrectupdate FROM `_feed` f2 WHERE f2.id = :id_feed3 AND f2.error = 0
+	OR `lastSeen` + 60 < (SELECT s2.lastcorrectupdate FROM (
+		SELECT f2.`lastUpdate` AS lastcorrectupdate FROM `_feed` f2 WHERE f2.id = :id_feed3 AND f2.error = 0
 	) s2)
 )
 SQL;
