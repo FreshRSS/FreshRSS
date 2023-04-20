@@ -69,7 +69,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->pdo->lastInsertId('`_feed_id_seq`');
+			return (int)($this->pdo->lastInsertId('`_feed_id_seq`'));
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -355,7 +355,7 @@ SQL;
 	}
 
 	/**
-	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
+	 * @param int $defaultCacheDuration Use -1 to return all feeds, without filtering them by TTL.
 	 * @return array<FreshRSS_Feed>
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
@@ -496,13 +496,20 @@ SQL;
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
-WHERE id_feed=:id_feed1 AND is_read=0 AND `lastSeen` < (SELECT e3.maxlastseen FROM (
-	SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2) e3)
+WHERE id_feed=:id_feed1 AND is_read=0 AND (
+	`lastSeen` + 60 < (SELECT s1.maxlastseen FROM (
+		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
+	) s1)
+	OR `lastSeen` + 60 < (SELECT s2.lastcorrectupdate FROM (
+		SELECT f2.`lastUpdate` AS lastcorrectupdate FROM `_feed` f2 WHERE f2.id = :id_feed3 AND f2.error = 0
+	) s2)
+)
 SQL;
 
 		if (($stm = $this->pdo->prepare($sql)) &&
 			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
 			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
+			$stm->bindParam(':id_feed3', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
