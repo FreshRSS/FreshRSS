@@ -1022,7 +1022,18 @@ class SimplePie_Item
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
 			{
-				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+				if (!empty($links[0]['data']))
+				{
+					$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+				}
+				else
+				{
+					if (isset($links[0]['attribs']['']['href']))
+					{
+						$link_rel = (isset($links[0]['attribs']['']['rel'])) ? $links[0]['attribs']['']['rel'] : 'alternate';
+						$this->data['links'][$link_rel][] = $this->sanitize($links[0]['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+					}
+				}
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid'))
 			{
