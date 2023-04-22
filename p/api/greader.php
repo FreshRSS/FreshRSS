@@ -418,7 +418,7 @@ final class GReaderAPI {
 					if ($action === 'subscribe') {
 						continue;
 					}
-					$feedId = (int)($streamUrl);
+					$feedId = (int)$streamUrl;
 				} else {
 					$streamUrl = htmlspecialchars($streamUrl, ENT_COMPAT, 'UTF-8');
 					$feed = $feedDAO->searchByUrl($streamUrl);
