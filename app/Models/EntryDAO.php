@@ -696,8 +696,8 @@ SQL;
 		}
 	}
 
-	/** @return iterable<array<string,string|int>> */
-	public function selectAll(): iterable {
+	/** @return Traversable<array<string,string|int>> */
+	public function selectAll(): Traversable {
 		$sql = 'SELECT id, guid, title, author, '
 			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, `lastSeen`, ' . static::sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags, attributes '
@@ -1149,11 +1149,11 @@ SQL;
 
 	/**
 	 * @param int $id category/feed/tag ID
-	 * @return iterable<FreshRSS_Entry>
+	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 			string $order = 'DESC', int $limit = 1, string $firstId = '',
-			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0): iterable {
+			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0): Traversable {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -1164,9 +1164,9 @@ SQL;
 
 	/**
 	 * @param array<string> $ids
-	 * @return iterable<FreshRSS_Entry>
+	 * @return Traversable<FreshRSS_Entry>
 	 */
-	public function listByIds(array $ids, string $order = 'DESC'): iterable {
+	public function listByIds(array $ids, string $order = 'DESC'): Traversable {
 		if (count($ids) < 1) {
 			return;
 		}

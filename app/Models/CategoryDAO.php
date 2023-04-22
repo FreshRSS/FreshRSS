@@ -214,8 +214,8 @@ SQL;
 		}
 	}
 
-	/** @return iterable<array<string,string|int>> */
-	public function selectAll(): iterable {
+	/** @return Traversable<array<string,string|int>> */
+	public function selectAll(): Traversable {
 		$sql = 'SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {

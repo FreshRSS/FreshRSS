@@ -153,8 +153,8 @@ SQL;
 		}
 	}
 
-	/** @return iterable<array{'id':int,'name':string,'attributes':string}> */
-	public function selectAll(): iterable {
+	/** @return Traversable<array{'id':int,'name':string,'attributes':string}> */
+	public function selectAll(): Traversable {
 		$sql = 'SELECT id, name, attributes FROM `_tag`';
 		$stm = $this->pdo->query($sql);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -162,8 +162,8 @@ SQL;
 		}
 	}
 
-	/** @return iterable<array{'id_tag':int,'id_entry':string}> */
-	public function selectEntryTag(): iterable {
+	/** @return Traversable<array{'id_tag':int,'id_entry':string}> */
+	public function selectEntryTag(): Traversable {
 		$sql = 'SELECT id_tag, id_entry FROM `_entrytag`';
 		$stm = $this->pdo->query($sql);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {

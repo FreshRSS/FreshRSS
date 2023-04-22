@@ -31,7 +31,7 @@ $dBparams = array(
 
 $options = getopt('', array_merge($params, $dBparams));
 
-if (!validateOptions($argv, array_merge($params, $dBparams)) || empty($options['default_user'])) {
+if (!validateOptions($argv, array_merge($params, $dBparams)) || empty($options['default_user']) || !is_string($options['default_user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
 		" --environment production --base_url https://rss.example.net --allow_robots" .
 		" --language en --title FreshRSS --allow_anonymous --allow_anonymous_refresh --api_enabled" .
@@ -81,8 +81,7 @@ if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 }
 
 if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }): '
-		. $options['auth_type']);
+	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none })');
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
