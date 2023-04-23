@@ -56,7 +56,7 @@ class FreshRSS_Import_Service {
 
 		// Get the categories by names so we can use this array to retrieve
 		// existing categories later.
-		$categories = $this->catDAO->listCategories(false);
+		$categories = $this->catDAO->listCategories(false) ?: [];
 		$categories_by_names = [];
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
@@ -180,7 +180,7 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead'])
+					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 

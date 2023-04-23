@@ -480,8 +480,8 @@ class FreshRSS_Feed extends Minz_Model {
 		return $hasUniqueGuids ? $guids : $links;
 	}
 
-	/** @return iterable<FreshRSS_Entry> */
-	public function loadEntries(SimplePie $simplePie): iterable {
+	/** @return Traversable<FreshRSS_Entry> */
+	public function loadEntries(SimplePie $simplePie): Traversable {
 		$hasBadGuids = $this->attributes('hasBadGuids');
 
 		$items = $simplePie->get_items();

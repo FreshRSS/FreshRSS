@@ -286,8 +286,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
-	/** @return iterable<array<string,string|int>> */
-	public function selectAll(): iterable {
+	/** @return Traversable<array<string,string|int>> */
+	public function selectAll(): Traversable {
 		$sql = <<<'SQL'
 SELECT id, url, kind, category, name, website, description, `lastUpdate`,
 	priority, `pathEntries`, `httpAuth`, error, ttl, attributes
@@ -321,7 +321,7 @@ SQL;
 		return $feed == false ? null : $feed;
 	}
 
-	/** @return array<string>|false */
+	/** @return array<int>|false */
 	public function listFeedsIds() {
 		$sql = 'SELECT id FROM `_feed`';
 		$stm = $this->pdo->query($sql);

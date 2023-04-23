@@ -15,7 +15,7 @@ class I18nFileTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals($before, $after);
 	}
 
-	/** @return array<string,string> */
+	/** @return array<string,string|false> */
 	private function computeFilesHash(): array {
 		$hashes = [];
 
