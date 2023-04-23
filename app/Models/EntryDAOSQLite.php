@@ -49,7 +49,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	public function commitNewEntries(): bool {
-		$sql = '
+		$sql = <<<'SQL'
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
 	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
@@ -63,14 +63,14 @@ INSERT OR IGNORE INTO `_entry`
 	ORDER BY date, id;
 DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
 DROP TABLE IF EXISTS `tmp`;
-';
+SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
 		}
 		$result = $this->pdo->exec($sql) !== false;
 		if (!$result) {
-			Minz_Log::error('SQL error commitNewEntries: ' . json_encode($this->pdo->errorInfo()));
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
 		}
 		if (!$hadTransaction) {
 			$this->pdo->commit();
@@ -79,10 +79,12 @@ DROP TABLE IF EXISTS `tmp`;
 	}
 
 	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
-		$sql = 'UPDATE `_feed` '
-		 . 'SET `cache_nbUnreads`=('
-		 .	'SELECT COUNT(*) AS nbUnreads FROM `_entry` e '
-		 .	'WHERE e.id_feed=`_feed`.id AND e.is_read=0)';
+		$sql = <<<'SQL'
+UPDATE `_feed`
+SET `cache_nbUnreads`=(
+	SELECT COUNT(*) AS nbUnreads FROM `_entry` e
+	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
+SQL;
 		$hasWhere = false;
 		$values = array();
 		if ($feedId != null) {
@@ -98,11 +100,11 @@ DROP TABLE IF EXISTS `tmp`;
 			$values[] = $catId;
 		}
 		$stm = $this->pdo->prepare($sql);
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return true;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -137,7 +139,7 @@ DROP TABLE IF EXISTS `tmp`;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
+				Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 				$this->pdo->rollBack();
 				return false;
 			}
@@ -149,7 +151,7 @@ DROP TABLE IF EXISTS `tmp`;
 				$stm = $this->pdo->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
 					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
+					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					$this->pdo->rollBack();
 					return false;
 				}
@@ -201,7 +203,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -240,7 +242,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -279,7 +281,7 @@ DROP TABLE IF EXISTS `tmp`;
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();

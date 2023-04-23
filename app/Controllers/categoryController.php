@@ -97,14 +97,16 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
 			}
 
-			if ($catDAO->searchById($id) == null) {
+			$cat = $catDAO->searchById($id);
+			if ($cat === null) {
 				Minz_Request::bad(_t('feedback.sub.category.not_exist'), $url_redirect);
 			}
 
-			$cat = new FreshRSS_Category($name);
-			$values = array(
+			$values = [
 				'name' => $cat->name(),
-			);
+				'kind' => $cat->kind(),
+				'attributes' => $cat->attributes(),
+			];
 
 			if ($catDAO->updateCategory($id, $values)) {
 				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);

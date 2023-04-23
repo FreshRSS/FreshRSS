@@ -46,10 +46,10 @@
 				<th><?= _t('admin.stats.status_favorites') ?></th>
 			</tr>
 			<tr>
-				<td class="numeric"><?= $this->repartition['total'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_reads'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_unreads'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_favorites'] ?></td>
+				<td class="numeric"><?= $this->repartition['total'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_reads'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_unreads'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_favorites'] ?? -1 ?></td>
 			</tr>
 			</table>
 		</div>

@@ -113,7 +113,7 @@ final class FeverDAO extends Minz_ModelPdo
 		$sql .= ' LIMIT 50';
 
 		$stm = $this->pdo->prepare($sql);
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			$result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 			$entries = array();

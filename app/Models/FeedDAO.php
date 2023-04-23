@@ -68,14 +68,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
 		);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return (int)($this->pdo->lastInsertId('`_feed_id_seq`'));
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->addFeed($valuesTmp);
 			}
-			Minz_Log::error('SQL error addFeed: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -171,14 +171,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 		$values[] = $id;
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateFeed($id, $valuesTmp);
 			}
-			Minz_Log::error('SQL error updateFeed: ' . $info[2] . ' for feed ' . $id);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' for feed ' . $id);
 			return false;
 		}
 	}
@@ -208,7 +208,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		);
 		$stm = $this->pdo->prepare($sql);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -239,11 +239,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$idOldCat
 		);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error changeCategory: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -255,11 +255,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		$values = array($id);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error deleteFeed: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -277,11 +277,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		$values = array($id);
 
-		if ($stm && $stm->execute($values)) {
+		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error deleteFeedByCategory: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -375,7 +375,7 @@ SQL;
 			if ($this->autoUpdateDb($info)) {
 				return $this->listFeedsOrderUpdate($defaultCacheDuration, $limit);
 			}
-			Minz_Log::error('SQL error listFeedsOrderUpdate: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return array();
 		}
 	}
@@ -388,7 +388,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
 
-		if ($stm && $stm->execute()) {
+		if ($stm !== false && $stm->execute()) {
 			return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		}
 		return false;
@@ -446,15 +446,15 @@ SQL;
 			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
 			. ($id != 0 ? ' WHERE id=:id' : '');
 		$stm = $this->pdo->prepare($sql);
-		if ($stm && $id != 0) {
+		if ($stm !== false && $id != 0) {
 			$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		}
 
-		if ($stm && $stm->execute()) {
+		if ($stm !== false && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error updateCachedValue: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -483,7 +483,7 @@ SQL;
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error keepMaxUnread: ' . json_encode($info));
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -514,7 +514,7 @@ SQL;
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error markAsReadUponGone: ' . json_encode($info));
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -529,7 +529,7 @@ SQL;
 		$this->pdo->beginTransaction();
 		if (!($stm && $stm->execute())) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -541,7 +541,7 @@ SQL;
 		$stm->bindParam(':id', $id, PDO::PARAM_INT);
 		if (!($stm && $stm->execute())) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -556,7 +556,7 @@ SQL;
 		$this->pdo->beginTransaction();
 		if (!($stm && $stm->execute())) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -565,7 +565,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		if (!($stm && $stm->execute())) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error truncate: ' . $info[2]);
+			Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -626,13 +626,13 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 		if (!($stm && $stm->execute(array(':new_value' => FreshRSS_Feed::TTL_DEFAULT, ':old_value' => -2)))) {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL warning updateTTL 1: ' . $info[2] . ' ' . $sql);
+			Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 
 			$sql2 = 'ALTER TABLE `_feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;	//v0.7.3
 			$stm = $this->pdo->query($sql2);
 			if ($stm === false) {
 				$info = $this->pdo->errorInfo();
-				Minz_Log::error('SQL error updateTTL 2: ' . $info[2] . ' ' . $sql2);
+				Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 			}
 		} else {
 			$stm->execute(array(':new_value' => -3600, ':old_value' => -1));
