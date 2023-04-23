@@ -58,10 +58,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_Context::$id_max = time() . '000000';
 
-		$this->view->callbackBeforeFeeds = function ($view) {
+		$this->view->callbackBeforeFeeds = function (FreshRSS_View $view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				$view->tags = $tagDAO->listTags(true);
+				$view->tags = $tagDAO->listTags(true) ?: [];
 				$view->nbUnreadTags = 0;
 				foreach ($view->tags as $tag) {
 					$view->nbUnreadTags += $tag->nbUnread();
@@ -71,7 +71,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforeEntries = function ($view) {
+		$this->view->callbackBeforeEntries = function (FreshRSS_View $view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for articles' page
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
@@ -83,7 +83,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
+		$this->view->callbackBeforePagination = function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
@@ -170,7 +170,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// No layout for RSS output.
 		$this->view->rss_url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
@@ -238,15 +238,15 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		// No layout for OPML output.
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		header('Content-Type: application/xml; charset=utf-8');
 	}
 
 	/**
 	 * This method returns a list of entries based on the Context object.
-	 * @return iterable<FreshRSS_Entry>
+	 * @return Traversable<FreshRSS_Entry>
 	 */
-	public static function listEntriesByContext() {
+	public static function listEntriesByContext(): Traversable {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);

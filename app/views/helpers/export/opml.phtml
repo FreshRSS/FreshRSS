@@ -4,7 +4,7 @@
  * @param array<FreshRSS_Feed> $feeds
  * @return array<array<string,string|null>>
  */
-function feedsToOutlines($feeds, bool $excludeMutedFeeds = false): array {
+function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
 		if ($feed->mute() && $excludeMutedFeeds) {
@@ -98,4 +98,6 @@ if (!empty($this->feeds)) {
 }
 
 $libopml = new \marienfressinaud\LibOpml\LibOpml(true);
-echo $libopml->render($opml_array);
+$opml = $libopml->render($opml_array);
+/** @var string $opml */
+echo $opml;

@@ -34,7 +34,7 @@ class FreshRSS_UserQuery {
 	private $tag_dao;
 
 	/**
-	 * @param array<string,string> $query
+	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string} $query
 	 */
 	public function __construct(array $query, FreshRSS_FeedDAO $feed_dao = null, FreshRSS_CategoryDAO $category_dao = null, FreshRSS_TagDAO $tag_dao = null) {
 		$this->category_dao = $category_dao;
@@ -70,7 +70,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array<string,string|int>
+	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}
 	 */
 	public function toArray(): array {
 		return array_filter(array(

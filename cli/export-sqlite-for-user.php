@@ -2,7 +2,7 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 
 $params = [
 	'user:',
@@ -11,7 +11,7 @@ $params = [
 
 $options = getopt('', $params);
 
-if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename'])) {
+if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename']) || !is_string($options['user']) || !is_string($options['filename'])) {
 	fail('Usage: ' . basename(__FILE__) . ' --user username --filename /path/to/db.sqlite');
 }
 

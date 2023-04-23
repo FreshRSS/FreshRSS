@@ -36,7 +36,7 @@ class LogDAOTest extends TestCase {
 
 		$this->logDAO::truncate(self::LOG_FILE_TEST);
 
-		$this->assertStringContainsString('', file_get_contents($this->logPath));
+		$this->assertStringContainsString('', file_get_contents($this->logPath) ?: '');
 	}
 
 	protected function tearDown(): void {

@@ -102,7 +102,7 @@ class Minz_ModelPdo {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public function __construct($currentUser = null, $currentPdo = null) {
+	public function __construct(?string $currentUser = null, ?Minz_Pdo $currentPdo = null) {
 		if ($currentUser === null) {
 			$currentUser = Minz_User::name();
 		}

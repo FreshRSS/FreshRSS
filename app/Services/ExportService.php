@@ -43,7 +43,7 @@ class FreshRSS_Export_Service {
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listCategories(true, true);
+		$view->categories = $this->category_dao->listCategories(true, true) ?: [];
 		$view->excludeMutedFeeds = false;
 
 		return [
@@ -67,7 +67,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true);
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
@@ -87,8 +87,8 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for the given feed.
-	 * @param integer $feed_id
-	 * @param integer $max_number_entries
+	 * @param int $feed_id
+	 * @param int $max_number_entries
 	 * @return array{0:string,1:string}|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
@@ -99,7 +99,7 @@ class FreshRSS_Export_Service {
 		}
 
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true);
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$view->feed = $feed;
 		$day = date('Y-m-d');
 		$filename = "feed_{$day}_" . $feed->categoryId() . '_' . $feed->id() . '.json';
@@ -127,7 +127,7 @@ class FreshRSS_Export_Service {
 	 * @return array<string,string> Keys are filenames and values are contents.
 	 */
 	public function generateAllFeedEntries(int $max_number_entries): array {
-		$feed_ids = $this->feed_dao->listFeedsIds();
+		$feed_ids = $this->feed_dao->listFeedsIds() ?: [];
 
 		$exported_files = [];
 		foreach ($feed_ids as $feed_id) {
@@ -154,6 +154,9 @@ class FreshRSS_Export_Service {
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
 		$zip_file = tempnam('/tmp', 'zip');
+		if ($zip_file == false) {
+			return [$zip_filename, false];
+		}
 		$zip_archive = new ZipArchive();
 		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
 

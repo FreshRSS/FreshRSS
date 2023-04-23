@@ -15,10 +15,8 @@ class FreshRSS_Import_Service {
 
 	/**
 	 * Initialize the service for the given user.
-	 *
-	 * @param string $username
 	 */
-	public function __construct($username = null) {
+	public function __construct(?string $username = null) {
 		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 	}
@@ -33,9 +31,9 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param string $opml_file the OPML file content.
 	 * @param FreshRSS_Category|null $forced_category force the feeds to be associated to this category.
-	 * @param boolean $dry_run true to not create categories and feeds in database.
+	 * @param bool $dry_run true to not create categories and feeds in database.
 	 */
-	public function importOpml(string $opml_file, $forced_category = null, $dry_run = false) {
+	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false): void {
 		@set_time_limit(300);
 		$this->lastStatus = true;
 		$opml_array = array();
@@ -58,7 +56,7 @@ class FreshRSS_Import_Service {
 
 		// Get the categories by names so we can use this array to retrieve
 		// existing categories later.
-		$categories = $this->catDAO->listCategories(false);
+		$categories = $this->catDAO->listCategories(false) ?: [];
 		$categories_by_names = [];
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
@@ -132,20 +130,17 @@ class FreshRSS_Import_Service {
 				}
 			}
 		}
-
-		return;
 	}
 
 	/**
 	 * Create a feed from a feed element (i.e. OPML outline).
 	 *
-	 * @param array<string, string> $feed_elt An OPML element (must be a feed element).
+	 * @param array<string,string> $feed_elt An OPML element (must be a feed element).
 	 * @param FreshRSS_Category $category The category to associate to the feed.
-	 * @param boolean $dry_run true to not create the feed in database.
-	 *
+	 * @param bool $dry_run true to not create the feed in database.
 	 * @return FreshRSS_Feed|null The created feed, or null if it failed.
 	 */
-	private function createFeed($feed_elt, $category, $dry_run) {
+	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run): ?FreshRSS_Feed {
 		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
 		$name = $feed_elt['text'] ?? $feed_elt['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
@@ -185,7 +180,7 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead'])
+					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 
@@ -256,12 +251,11 @@ class FreshRSS_Import_Service {
 	/**
 	 * Create and return a category.
 	 *
-	 * @param array<string, string> $category_element An OPML element (must be a category element).
-	 * @param boolean $dry_run true to not create the category in database.
-	 *
+	 * @param array<string,string> $category_element An OPML element (must be a category element).
+	 * @param bool $dry_run true to not create the category in database.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createCategory($category_element, $dry_run) {
+	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
 		$category = new FreshRSS_Category($name);
@@ -295,14 +289,13 @@ class FreshRSS_Import_Service {
 	 * This method is applied to a list of outlines. It merges the different
 	 * list of feeds from several outlines into one array.
 	 *
-	 * @param array $outlines
+	 * @param array<mixed> $outlines
 	 *     The outlines from which to extract the outlines.
 	 * @param string $parent_category_name
 	 *     The name of the parent category of the current outlines.
-	 *
-	 * @return array[]
+	 * @return array{0:array<mixed>,1:array<mixed>}
 	 */
-	private function loadFromOutlines($outlines, $parent_category_name) {
+	private function loadFromOutlines(array $outlines, string $parent_category_name): array {
 		$categories_elements = [];
 		$categories_to_feeds = [];
 
@@ -342,14 +335,14 @@ class FreshRSS_Import_Service {
 	 * exists), it will add the outline to an array accessible by its category
 	 * name.
 	 *
-	 * @param array $outline
+	 * @param array<mixed> $outline
 	 *     The outline from which to extract the categories and feeds outlines.
 	 * @param string $parent_category_name
 	 *     The name of the parent category of the current outline.
 	 *
-	 * @return array[]
+	 * @return array{0:array<string,mixed>,1:array<string,mixed>}
 	 */
-	private function loadFromOutline($outline, $parent_category_name) {
+	private function loadFromOutline($outline, $parent_category_name): array {
 		$categories_elements = [];
 		$categories_to_feeds = [];
 
@@ -396,7 +389,7 @@ class FreshRSS_Import_Service {
 		return [$categories_elements, $categories_to_feeds];
 	}
 
-	private static function log($message) {
+	private static function log(string $message): void {
 		if (FreshRSS_Context::$isCli) {
 			fwrite(STDERR, "FreshRSS error during OPML import: {$message}\n");
 		} else {

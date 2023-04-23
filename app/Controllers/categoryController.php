@@ -33,7 +33,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		$url_redirect = array('c' => 'subscription', 'a' => 'add');
 
 		$limits = FreshRSS_Context::$system_conf->limits;
-		$this->view->categories = $catDAO->listCategories(false);
+		$this->view->categories = $catDAO->listCategories(false) ?: [];
 
 		if (count($this->view->categories) >= $limits['max_categories']) {
 			Minz_Request::bad(_t('feedback.sub.category.over_max', $limits['max_categories']), $url_redirect);
@@ -231,7 +231,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if (Minz_Request::paramBoolean('ajax')) {
 				Minz_Request::setGoodNotification(_t('feedback.sub.category.updated'));
-				$this->view->_layout(false);
+				$this->view->_layout(null);
 			} else {
 				if ($ok) {
 					Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);

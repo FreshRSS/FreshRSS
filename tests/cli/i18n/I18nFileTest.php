@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../../cli/i18n/I18nFile.php';
 
 class I18nFileTest extends PHPUnit\Framework\TestCase {
-	public function test() {
+	public function test(): void {
 		$before = $this->computeFilesHash();
 
 		$file = new I18nFile();
@@ -15,7 +15,8 @@ class I18nFileTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals($before, $after);
 	}
 
-	private function computeFilesHash() {
+	/** @return array<string,string|false> */
+	private function computeFilesHash(): array {
 		$hashes = [];
 
 		$dirs = new DirectoryIterator(I18N_PATH);

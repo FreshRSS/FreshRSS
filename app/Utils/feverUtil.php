@@ -57,7 +57,7 @@ class FreshRSS_fever_Util {
 	 *
 	 * @return bool true if the deletion succeeded, else false.
 	 */
-	public static function deleteKey(string $username) {
+	public static function deleteKey(string $username): bool {
 		$userConfig = get_user_configuration($username);
 		if ($userConfig === null) {
 			return false;

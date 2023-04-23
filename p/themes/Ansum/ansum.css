@@ -1141,13 +1141,13 @@ main.prompt {
 	box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.35);
 }
 
-.slide-container .properties {
+.theme-preview-list .preview-container .properties {
 	padding: 1rem;
 	background: rgba(0, 0, 0, 0.75);
 	color: white;
 	border: 0;
 }
-.slide-container .properties .page-number {
+.theme-preview-list .preview-container .properties .page-number {
 	right: 1rem;
 	top: 1rem;
 }
@@ -1188,19 +1188,19 @@ main.prompt {
 		padding: 0.5rem 1rem;
 	}
 	.aside .toggle_aside,
-#panel .close,
+#overlay .close,
 .dropdown-menu .toggle_aside,
 #slider .toggle_aside {
 		background-color: #ca7227;
 	}
 	.aside .toggle_aside:hover,
-#panel .close:hover,
+#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover,
 #slider .toggle_aside:hover {
 		background-color: #b7641d;
 	}
 	.aside .toggle_aside .icon,
-#panel .close .icon,
+#overlay .close .icon,
 .dropdown-menu .toggle_aside .icon,
 #slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
@@ -1215,6 +1215,12 @@ main.prompt {
 	}
 	#global {
 		height: calc(100% - 8rem);
+	}
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
 	}
 	.post {
 		padding-left: 1rem;

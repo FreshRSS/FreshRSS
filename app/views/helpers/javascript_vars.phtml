@@ -72,4 +72,4 @@ echo htmlspecialchars(json_encode(array(
 		'unread' => rawurlencode(_i('unread')),
 	),
 	'extensions' => $extData,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
+), JSON_UNESCAPED_UNICODE) ?: '', ENT_NOQUOTES, 'UTF-8');

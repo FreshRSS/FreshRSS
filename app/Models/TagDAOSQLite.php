@@ -10,7 +10,7 @@ class FreshRSS_TagDAOSQLite extends FreshRSS_TagDAO {
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
 			$showCreate = $tableInfo->fetchColumn();
-			if (stripos($showCreate, 'tag') === false) {
+			if (is_string($showCreate) && stripos($showCreate, 'tag') === false) {
 				return $this->createTagTable();	//v1.12.0
 			}
 		}

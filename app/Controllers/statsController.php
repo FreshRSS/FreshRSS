@@ -26,7 +26,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$catDAO->checkDefault();
 		$feedDAO->updateTTL();
-		$this->view->categories = $catDAO->listSortedCategories(false);
+		$this->view->categories = $catDAO->listSortedCategories(false) ?: [];
 		$this->view->default_category = $catDAO->getDefault();
 
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
@@ -207,7 +207,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			$id = null;
 		}
 
-		$this->view->categories 	= $categoryDAO->listCategories();
+		$this->view->categories 	= $categoryDAO->listCategories() ?: [];
 		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();

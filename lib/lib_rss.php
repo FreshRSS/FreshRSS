@@ -132,12 +132,8 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	}
 }
 
-/**
- * @param string $text
- * @return string
- */
-function safe_ascii($text) {
-	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '';
+function safe_ascii(?string $text): string {
+	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
@@ -154,12 +150,7 @@ if (function_exists('mb_convert_encoding')) {
 	}
 }
 
-/**
- * @param string $text
- * @param bool $extended
- * @return string
- */
-function escapeToUnicodeAlternative($text, $extended = true) {
+function escapeToUnicodeAlternative(string $text, bool $extended = true): string {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
 	//Problematic characters
@@ -176,7 +167,8 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 	return trim(str_replace($problem, $replace, $text));
 }
 
-function format_number(float $n, int $precision = 0): string {
+/** @param int|float $n */
+function format_number($n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',	// Thin non-breaking space
 		number_format($n, $precision, '.', ' ')
@@ -255,7 +247,7 @@ function sensitive_log($log) {
 /**
  * @param array<string,mixed> $attributes
  */
-function customSimplePie($attributes = array()): SimplePie {
+function customSimplePie(array $attributes = array()): SimplePie {
 	if (FreshRSS_Context::$system_conf === null) {
 		throw new FreshRSS_Context_Exception('System configuration not initialised!');
 	}
@@ -339,10 +331,8 @@ function customSimplePie($attributes = array()): SimplePie {
 	return $simplePie;
 }
 
-/**
- * @param string $data
- */
-function sanitizeHTML($data, string $base = '', ?int $maxLength = null): string {
+/** @param string $data */
+function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
 	if (!is_string($data) || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
 	}
@@ -495,8 +485,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		$body = '';
 		// TODO: Implement HTTP 410 Gone
-	}
-	if (!is_string($body)) {
+	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
 		$body = enforceHttpEncoding($body, $c_content_type);
@@ -579,7 +568,7 @@ function listUsers(): array {
  * Return if the maximum number of registrations has been reached.
  * Note a max_registrations of 0 means there is no limit.
  *
- * @return boolean true if number of users >= max registrations, false else.
+ * @return bool true if number of users >= max registrations, false else.
  */
 function max_registrations_reached(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -601,13 +590,13 @@ function max_registrations_reached(): bool {
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
-function get_user_configuration(string $username) {
+function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		return null;
 	}
 	$namespace = 'user_' . $username;
 	try {
-		Minz_Configuration::register($namespace,
+		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
@@ -618,10 +607,7 @@ function get_user_configuration(string $username) {
 		return null;
 	}
 
-	/**
-	 * @var FreshRSS_UserConfiguration $user_conf
-	 */
-	$user_conf = Minz_Configuration::get($namespace);
+	$user_conf = FreshRSS_UserConfiguration::get($namespace);
 	return $user_conf;
 }
 
@@ -644,7 +630,7 @@ function ipToBits(string $ip): string {
  *
  * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
  * @param string $range the range to check against (ex: 192.168.16.0/24)
- * @return boolean true if the IP is in the range, otherwise false
+ * @return bool true if the IP is in the range, otherwise false
  */
 function checkCIDR(string $ip, string $range): bool {
 	$binary_ip = ipToBits($ip);
@@ -663,7 +649,7 @@ function checkCIDR(string $ip, string $range): bool {
  * This uses the REMOTE_ADDR header to determine the sender's IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -806,8 +792,8 @@ function recursive_unlink(string $dir): bool {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<int,array<string,string>> $queries an array of queries.
- * @return array<int,array<string,string>> without queries where $get is appearing.
+ * @param array<int,array<string,string|int>> $queries an array of queries.
+ * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
 	$final_queries = array();
@@ -840,7 +826,7 @@ const SHORTCUT_KEYS = [
 function getNonStandardShortcuts(array $shortcuts): array {
 	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
-	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
+	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
 		return $shortcut !== '' & stripos($standard, $shortcut) === false;
 	});

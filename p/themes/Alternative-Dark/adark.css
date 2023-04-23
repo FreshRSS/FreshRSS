@@ -621,11 +621,11 @@ kbd {
 	left: 2px;
 }
 
-.slides {
+.theme-preview-list {
 	border-color: var(--border-color-middle);
 }
 
-.properties {
+.theme-preview-list .properties {
 	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
 	border-color: var(--border-color-middle);
@@ -1050,7 +1050,7 @@ kbd {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background: var(--background-color-light);
@@ -1058,14 +1058,14 @@ kbd {
 	}
 
 	.aside .toggle_aside:hover,
-	#panel .close:hover,
+	#overlay .close:hover,
 	.dropdown-menu .toggle_aside:hover,
 	#slider .toggle_aside:hover {
 		background-color: var(--background-color-hover);
 	}
 
 	.aside .toggle_aside:hover .icon,
-	#panel .close:hover .icon,
+	#overlay .close:hover .icon,
 	.dropdown-menu .toggle_aside:hover .icon {
 		filter: brightness(2);
 	}

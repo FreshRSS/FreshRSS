@@ -336,9 +336,8 @@ final class FeverAPI
 		$groups = array();
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		$categories = $categoryDAO->listCategories(false, false);
+		$categories = $categoryDAO->listCategories(false, false) ?: [];
 
-		/** @var FreshRSS_Category $category */
 		foreach ($categories as $category) {
 			$groups[] = array(
 				'id' => $category->id(),
@@ -430,28 +429,28 @@ final class FeverAPI
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setItemAsRead(string $id) {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setItemAsUnread(string $id) {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setItemAsSaved(string $id) {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setItemAsUnsaved(string $id) {
 		return $this->entryDAO->markFavorite($id, false);
@@ -540,7 +539,7 @@ final class FeverAPI
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setFeedAsRead(int $id, int $before) {
 		$before = $this->convertBeforeToId($before);
@@ -548,7 +547,7 @@ final class FeverAPI
 	}
 
 	/**
-	 * @return integer|false
+	 * @return int|false
 	 */
 	private function setGroupAsRead(int $id, int $before) {
 		$before = $this->convertBeforeToId($before);

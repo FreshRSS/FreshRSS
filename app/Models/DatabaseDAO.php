@@ -79,7 +79,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$ok &= in_array($c['name'], $schema);
 		}
 
-		return $ok;
+		return (bool)$ok;
 	}
 
 	public function categoryIsCorrect(): bool {
