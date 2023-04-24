@@ -260,7 +260,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 	public static function faviconDelete(string $hash): void {
-		$path = DATA_PATH . '/favicons/' . $hash;
+		$path = FAVICONS_PATH . $hash;
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
 	}

@@ -360,7 +360,7 @@ final class FeverAPI
 		foreach ($myFeeds as $feed) {
 
 			$id = hash('crc32b', $salt . $feed->url());
-			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
+			$filename = FAVICONS_PATH . $id . '.ico';
 			if (!file_exists($filename)) {
 				continue;
 			}

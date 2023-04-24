@@ -726,7 +726,7 @@ function check_install_files(): array {
 		'cache' => CACHE_PATH && touch(CACHE_PATH . '/index.html'),
 		// @phpstan-ignore-next-line
 		'users' => USERS_PATH && touch(USERS_PATH . '/index.html'),
-		'favicons' => touch(DATA_PATH . '/favicons/index.html'),
+		'favicons' => touch(FAVICONS_PATH . '/index.html'),
 		'tokens' => touch(DATA_PATH . '/tokens/index.html'),
 	);
 }

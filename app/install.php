@@ -429,7 +429,7 @@ function printStep1(): void {
 	printCheckDirectoryAccess('cache', $res['cache'], CACHE_PATH, $processUsername);
 	printCheckDirectoryAccess('tmp', $res['tmp'], TMP_PATH, $processUsername);
 	printCheckDirectoryAccess('users', $res['users'], USERS_PATH, $processUsername);
-	printCheckDirectoryAccess('favicons', $res['favicons'], DATA_PATH . '/favicons', $processUsername);
+	printCheckDirectoryAccess('favicons', $res['favicons'], FAVICONS_PATH, $processUsername);
 	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
