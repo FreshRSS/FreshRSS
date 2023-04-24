@@ -113,6 +113,9 @@ function getOwnerOfFile(String $file): Array {
 	return $owner;
 }
 
+/* File permissions (read, write, executable)
+   Source: https://www.php.net/manual/en/function.fileperms.php
+*/
 function file_permissions(String $path): String {
 	$perms = fileperms($path);
 
