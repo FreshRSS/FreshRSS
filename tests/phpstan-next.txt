@@ -10,7 +10,6 @@
 ./app/Controllers/userController.php
 ./app/Models/CategoryDAO.php
 ./app/Models/Context.php
-./app/Models/Entry.php
 ./app/Models/EntryDAO.php
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php

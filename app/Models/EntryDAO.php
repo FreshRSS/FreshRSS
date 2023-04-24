@@ -718,22 +718,26 @@ SQL;
 	}
 
 	public function searchByGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
+		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes,
-	{static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content'}
+SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes, {$content}
 FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
+		/** @var array<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchById(string $id): ?FreshRSS_Entry {
+		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes,
-	{static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content'}
+SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes, {$content}
 FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
+		/** @var array<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -1147,6 +1151,8 @@ SQL;
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+				 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
 				yield FreshRSS_Entry::fromArray($row);
 			}
 		}
@@ -1170,17 +1176,24 @@ SQL;
 			}
 			return;
 		}
+		if ($order !== 'DESC' && $order !== 'ASC') {
+			$order = 'DESC';
+		}
 
-		$sql = 'SELECT id, guid, title, author, '
-			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
-			. 'FROM `_entry` '
-			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
-			. 'ORDER BY id ' . $order;
+		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$repeats = str_repeat('?,', count($ids) - 1) . '?';
+		$sql = <<<SQL
+SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes, {$content}
+FROM `_entry`
+WHERE id IN ({$repeats})
+ORDER BY id {$order}
+SQL;
 
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($ids);
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+			 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
 			yield FreshRSS_Entry::fromArray($row);
 		}
 	}
