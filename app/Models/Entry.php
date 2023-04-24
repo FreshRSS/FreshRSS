@@ -40,8 +40,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * @param int|string $pubdate
-	 * @param bool|int $is_read
-	 * @param bool|int $is_favorite
+	 * @param bool|int|null $is_read
+	 * @param bool|int|null $is_favorite
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
 			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, string $tags = '') {
