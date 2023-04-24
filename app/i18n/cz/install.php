@@ -43,7 +43,7 @@ return array(
 		'_' => 'Kontrola',
 		'already_installed' => 'Zjistili jsme, že FreshRSS je již nainstalováno!',
 		'cache' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Server HTTP (User name: %s) musí mít oprávnění pro zápis.',	// DIRTY
 			'ok' => 'Oprávnění adresáře cache jsou v pořádku.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Máte knihovnu cURL.',
 		),
 		'data' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br /> Server HTTP (User name: %s) musí mít oprávnění pro zápis.',	// DIRTY
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br /> Server HTTP (User name: %s) musí mít oprávnění pro zápis.',	// DIRTY
 			'ok' => 'Oprávnění adresáře favicons jsou v pořádku.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Znovu zkontrolujte',
 		'tmp' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br /> Server HTTP (User name: %s) musí mít oprávnění pro zápis.',	// DIRTY
 			'ok' => 'Oprávnění adresáře temp jsou v pořádku.',
 		),
 		'unknown_process_username' => 'neznámý',
 		'users' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br /> Server HTTP (User name: %s) musí mít oprávnění pro zápis.',	// DIRTY
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
 		),
 		'xml' => array(

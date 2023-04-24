@@ -43,7 +43,7 @@ return array(
 		'_' => 'Controles',
 		'already_installed' => 'We hebben geconstateerd dat FreshRSS al is geïnstallerd!',
 		'cache' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer permissies van de <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) moet rechten hebben om er in te kunnen schrijven.',	// DIRTY
 			'ok' => 'Permissies van de cache map zijn goed.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer permissies van de <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) moet rechten hebben om er in te kunnen schrijven.',	// DIRTY
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer permissies van de <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) moet rechten hebben om er in te kunnen schrijven.',	// DIRTY
 			'ok' => 'Permissies van de favicons map zijn goed.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Controleer nog eens',
 		'tmp' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer permissies van de <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) moet rechten hebben om er in te kunnen schrijven.',	// DIRTY
 			'ok' => 'Permissies van de temp-map zijn goed.',
 		),
 		'unknown_process_username' => 'onbekend',
 		'users' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer permissies van de <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) moet rechten hebben om er in te kunnen schrijven.',	// DIRTY
 			'ok' => 'Permissies van de users map zijn goed.',
 		),
 		'xml' => array(

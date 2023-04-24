@@ -393,22 +393,13 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 	}
 }
 
-function getProcessUsername(): string {
-	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
-		$processUser = posix_getpwuid(posix_geteuid()) ?: [];
-		if (!empty($processUser['name'])) {
-			return $processUser['name'];
-		}
+function printCheckDirectoryAccess(string $key, string $status, string $path, string $processUsername) {
+	if ($status === 'ok') {
+		printStep1Template($key, $status, [$path]);
+		} else {
+		$owner = getOwnerOfFile($path);
+		printStep1Template($key, $status, [$path, $owner['fileowner'], $owner['filegroup'], file_permissions(DATA_PATH), $processUsername]);
 	}
-
-	if (function_exists('exec')) {
-		exec('whoami', $output);
-		if (!empty($output[0])) {
-			return $output[0];
-		}
-	}
-
-	return _t('install.check.unknown_process_username');
 }
 
 // @todo refactor this view with the check_install action
@@ -434,11 +425,11 @@ function printStep1(): void {
 	?>
 	<h2><?= _t('admin.check_install.files') ?></h2>
 	<?php
-	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
-	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
-	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
-	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
-	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
+	printCheckDirectoryAccess('data', $res['data'], DATA_PATH, $processUsername);
+	printCheckDirectoryAccess('cache', $res['cache'], CACHE_PATH, $processUsername);
+	printCheckDirectoryAccess('tmp', $res['tmp'], TMP_PATH, $processUsername);
+	printCheckDirectoryAccess('users', $res['users'], USERS_PATH, $processUsername);
+	printCheckDirectoryAccess('favicons', $res['favicons'], DATA_PATH . '/favicons', $processUsername);
 	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>

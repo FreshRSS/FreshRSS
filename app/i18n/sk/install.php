@@ -43,7 +43,7 @@ return array(
 		'_' => 'Kontrola',
 		'already_installed' => 'Zistilo sa, že FreshRSS je už nainštalovaný!',
 		'cache' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) musí mať právo doň zapisovať.',	// DIRTY
 			'ok' => 'Oprávnenia prístupu do priečinku vyrovnávacej pamäte sú OK.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Našla sa knižnica cURL.',
 		),
 		'data' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) musí mať právo doň zapisovať.',	// DIRTY
 			'ok' => 'Oprávnenia prístupu do priečinku údajov sú OK.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Našla sa požadovaná knižnica na prehliadanie DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) musí mať právo doň zapisovať.',	// DIRTY
 			'ok' => 'Oprávnenia prístupu do priečinku ikôn obľúbených sú OK.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) musí mať právo doň zapisovať.',	// DIRTY
 			'ok' => 'Oprávnenia pre dočasný priečinok sú OK.',
 		),
 		'unknown_process_username' => 'neznámy',
 		'users' => array(
-			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP server (User name: %s) musí mať právo doň zapisovať.',	// DIRTY
 			'ok' => 'Oprávnenia prístupu do priečinku používateľov sú OK.',
 		),
 		'xml' => array(

@@ -43,7 +43,7 @@ return array(
 		'_' => 'Verificações',
 		'already_installed' => 'Verificamos que o FreshRSS já está instalado!',
 		'cache' => array(
-			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />O servidor HTTP (User name: %s) deve ter direitos para escrever dentro desta pasta.',	// DIRTY
 			'ok' => 'Permissões no diretório cache estão corretos.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Você tem a biblioteca cURL.',
 		),
 		'data' => array(
-			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />O servidor HTTP (User name: %s) deve ter direitos para escrever dentro desta pasta.',	// DIRTY
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifique as permissões no diretório <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />O servidor HTTP (User name: %s) deve ter direitos para escrever dentro desta pasta.',	// DIRTY
 			'ok' => 'Permissões no diretório favicons estão corretos.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Verifique novamente',
 		'tmp' => array(
-			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifiquei as permissões no diretório <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />O servidor HTTP (User name: %s) deve ter direitos para escrever dentro desta pasta.',	// DIRTY
 			'ok' => 'As permissões para o diretório temporário estão certas.',
 		),
 		'unknown_process_username' => 'Desconhecido',
 		'users' => array(
-			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'nok' => 'Verifiquei as permissões no diretório <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />O servidor HTTP (User name: %s) deve ter direitos para escrever dentro desta pasta.',	// DIRTY
 			'ok' => 'Permissões no diretório users estão corretos.',
 		),
 		'xml' => array(

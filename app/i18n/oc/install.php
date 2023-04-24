@@ -43,7 +43,7 @@ return array(
 		'_' => 'Verificacions',
 		'already_installed' => 'Sembla que FreshRSS es ja installat !',
 		'cache' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Lo servidor HTTP (User name: %s) deu poder escriure dedins.',	// DIRTY
 			'ok' => 'Los dreches sul cache son bons.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Avètz la bibliotèca cURL.',
 		),
 		'data' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Lo servidor HTTP (User name: %s) deu poder escriure dedins.',	// DIRTY
 			'ok' => 'Los dreches sul repertòri data son bons.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Lo servidor HTTP (User name: %s) deu poder escriure dedins.',	// DIRTY
 			'ok' => 'Los dreches sul repertòri dels favicons son bons.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Revérifier',
 		'tmp' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Lo servidor HTTP (User name: %s) deu poder escriure dedins.',	// DIRTY
 			'ok' => 'Las permissions sul repertòri temporari son bonas.',
 		),
 		'unknown_process_username' => 'desconegut',
 		'users' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Lo servidor HTTP (User name: %s) deu poder escriure dedins.',	// DIRTY
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
 		),
 		'xml' => array(

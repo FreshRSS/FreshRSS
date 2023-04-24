@@ -43,7 +43,7 @@ return array(
 		'_' => 'Vérifications',
 		'already_installed' => 'FreshRSS semble avoir déjà été installé !',
 		'cache' => array(
-			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em> (Owner: %s, Group: %s, Rights: %s).<br />Le serveur HTTP (User name: %s) doit être capable d’écrire dedans.',	// DIRTY
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Vous disposez de cURL.',
 		),
 		'data' => array(
-			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em> (Owner: %s, Group: %s, Rights: %s).<br />Le serveur HTTP (User name: %s) doit être capable d’écrire dedans.',	// DIRTY
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em> (Owner: %s, Group: %s, Rights: %s).<br />Le serveur HTTP (User name: %s) doit être capable d’écrire dedans.',	// DIRTY
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Revérifier',
 		'tmp' => array(
-			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em> (Owner: %s, Group: %s, Rights: %s).<br />Le serveur HTTP (User name: %s) doit être capable d’écrire dedans.',	// DIRTY
 			'ok' => 'Les droits sur le répertoire temporaire sont bons.',
 		),
 		'unknown_process_username' => 'inconnu',
 		'users' => array(
-			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em> (Owner: %s, Group: %s, Rights: %s).<br />Le serveur HTTP (User name: %s) doit être capable d’écrire dedans.',	// DIRTY
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
 		),
 		'xml' => array(

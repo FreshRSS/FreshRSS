@@ -43,7 +43,7 @@ return array(
 		'_' => '環境確認',
 		'already_installed' => 'FreshRSS が、すでにインストールされています!',
 		'cache' => array(
-			'nok' => ' <em>%1$s</em> ディレクトリ <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーを書き込むには権限が必要です。',
+			'nok' => ' <em>%1$s</em> ディレクトリ <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s) ユーザーのアクセス権限を確認してください。HTTPサーバーを書き込むには権限が必要です。 (User name: %s)',	// DIRTY
 			'ok' => 'キャッシュディレクトリの権限は正しく設定されています。',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'cURLライブラリが見つかりました。',
 		),
 		'data' => array(
-			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s) ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。 (User name: %s)',	// DIRTY
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'DOMを検索するライブラリが見つかりました。',
 		),
 		'favicons' => array(
-			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s) ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。 (User name: %s)',	// DIRTY
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => '再度確かめる',
 		'tmp' => array(
-			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s) ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。 (User name: %s)',	// DIRTY
 			'ok' => 'tempディレクトリの権限は正しく設定されています。',
 		),
 		'unknown_process_username' => '不明',
 		'users' => array(
-			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。 HTTPサーバーは編集権限を必要としています。',
+			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s) ユーザーのアクセス権限を確認してください。 HTTPサーバーは編集権限を必要としています。 (User name: %s)',	// DIRTY
 			'ok' => 'usersディレクトリの権限は正しく設定されています。',
 		),
 		'xml' => array(
