@@ -79,6 +79,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action updates the given category.
+	 * @todo Check whether this function is used at all
+	 * @see FreshRSS_subscription_Controller::categoryAction() (consider merging)
 	 *
 	 * Request parameters are:
 	 *   - id

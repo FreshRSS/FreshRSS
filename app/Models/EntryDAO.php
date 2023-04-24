@@ -718,39 +718,29 @@ SQL;
 	}
 
 	public function searchByGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
-		// un guid est unique pour un flux donné
-		$sql = 'SELECT id, guid, title, author, '
-			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
-			. 'FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
-		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
-		$stm->bindParam(':guid', $guid);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$sql = <<<SQL
+SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes,
+	{static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content'}
+FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
+SQL;
+		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchById(string $id): ?FreshRSS_Entry {
-		$sql = 'SELECT id, guid, title, author, '
-			. (static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags, attributes '
-			. 'FROM `_entry` WHERE id=:id';
-		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id', $id, PDO::PARAM_INT);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$sql = <<<SQL
+SELECT id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags, attributes,
+	{static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content'}
+FROM `_entry` WHERE id=:id
+SQL;
+		$res = $this->fetchAssoc($sql, [':id' => $id]);
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchIdByGuid(int $id_feed, string $guid): ?string {
 		$sql = 'SELECT id FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
-		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
-		$stm->bindParam(':guid', $guid);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? $res[0] : null;
+		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id_feed, ':guid' => $guid]);
+		return empty($res[0]) ? null : (string)($res[0]);
 	}
 
 	/** @return array{0:array<int|string>,1:string} */
@@ -1198,16 +1188,12 @@ SQL;
 	/**
 	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
-	 * @return array<numeric-string>|false
+	 * @return array<numeric-string>
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null) {
+		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
-
-		$stm = $this->pdo->prepare($sql);
-		$stm->execute($values);
-
-		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return $this->fetchColumn($sql, 0, $values);
 	}
 
 	/**
@@ -1306,19 +1292,14 @@ SQL;
 		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
 	}
 
-	/** @return int|false */
-	public function count(?int $minPriority = null) {
+	public function count(?int $minPriority = null): int {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `_entry` e';
 		if ($minPriority !== null) {
 			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
-			$sql .= ' WHERE f.priority > ' . $minPriority;
+			$sql .= ' WHERE f.priority > :priority';
 		}
-		$stm = $this->pdo->query($sql);
-		if ($stm == false) {
-			return false;
-		}
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? intval($res[0]) : 0;
+		$res = $this->fetchColumn($sql, 0, [':priority' => $minPriority]);
+		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
 	public function countNotRead(?int $minPriority = null): int {
@@ -1328,11 +1309,10 @@ SQL;
 		}
 		$sql .= ' WHERE e.is_read=0';
 		if ($minPriority !== null) {
-			$sql .= ' AND f.priority > ' . $minPriority;
+			$sql .= ' AND f.priority > :priority';
 		}
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return isset($res[0]) ? intval($res[0]) : 0;
+		$res = $this->fetchColumn($sql, 0, [':priority' => $minPriority]);
+		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
 	/** @return array<string,int>|false */

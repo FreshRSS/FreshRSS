@@ -301,10 +301,10 @@ SQL;
 
 	public function searchById(int $id): ?FreshRSS_Feed {
 		$sql = 'SELECT * FROM `_feed` WHERE id=:id';
-		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id', $id, PDO::PARAM_INT);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc($sql, [':id' => $id]);
+		if ($res == null) {
+			return null;
+		}
 		$feed = self::daoToFeed($res);
 		return $feed[$id] ?? null;
 	}
@@ -575,7 +575,7 @@ SQL;
 
 	/**
 	 * @param array<int,array<string,string|int>>|array<string,string|int> $listDAO
-	 * @return array<FreshRSS_Feed>
+	 * @return array<int,FreshRSS_Feed>
 	 */
 	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
 		$list = array();
