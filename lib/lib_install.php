@@ -95,15 +95,15 @@ function getProcessUsername(): string {
 
 function getOwnerOfFile(String $file): Array {
 	clearstatcache();
- 	$stat_file = @stat($file);
+	$stat_file = @stat($file);
 	$owner = [];
- 	if(!$stat_file) {
+	if(!$stat_file) {
 		//Couldnt stat file
 		$owner['fileowner'] = 'unknown';
 		$owner['filegroup'] = 'unknown';
 		return $owner;
 	}
- 	if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
+	if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
 		$owner['fileowner'] = @posix_getpwuid($stat_file['uid'])['name'];
 		$owner['filegroup'] = @posix_getgrgid($stat_file['gid'])['name'];
 		return $owner;
@@ -144,21 +144,21 @@ function file_permissions(String $path): String {
 		default: // unknown
 			$info = 'u';
 	}
-	
+
 	// Owner
 	$info .= (($perms & 0x0100) ? 'r' : '-');
 	$info .= (($perms & 0x0080) ? 'w' : '-');
 	$info .= (($perms & 0x0040) ?
 		(($perms & 0x0800) ? 's' : 'x' ) :
 		(($perms & 0x0800) ? 'S' : '-'));
-	
+
 	// Group
 	$info .= (($perms & 0x0020) ? 'r' : '-');
 	$info .= (($perms & 0x0010) ? 'w' : '-');
 	$info .= (($perms & 0x0008) ?
 		(($perms & 0x0400) ? 's' : 'x' ) :
 		(($perms & 0x0400) ? 'S' : '-'));
-	
+
 	// World
 	$info .= (($perms & 0x0004) ? 'r' : '-');
 	$info .= (($perms & 0x0002) ? 'w' : '-');
