@@ -93,8 +93,8 @@ function getProcessUsername(): string {
 	return _t('install.check.unknown_process_username');
 }
 
-/* array<string> */
-function getOwnerOfFile(String $file): Array {
+/** @return array<string> */
+function getOwnerOfFile(String $file): array {
 	clearstatcache();
 	$stat_file = @stat($file);
 	$owner = [];
