@@ -105,7 +105,8 @@ function getOwnerOfFile(String $file): array {
 		return $owner;
 	}
 	if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
-		$owner['fileowner'] = @posix_getpwuid($stat_file['uid'])['name'];
+		$getpwuid = @posix_getpwuid($stat_file['uid']);
+		$owner['fileowner'] = $getpwuid['name'];
 		$owner['filegroup'] = @posix_getgrgid($stat_file['gid'])['name'];
 		return $owner;
 	};
