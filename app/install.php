@@ -393,7 +393,7 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 	}
 }
 
-function printCheckDirectoryAccess(string $key, string $status, string $path, string $processUsername) {
+function printCheckDirectoryAccess(string $key, string $status, string $path, string $processUsername): void {
 	if ($status === 'ok') {
 		printStep1Template($key, $status, [$path]);
 		} else {
