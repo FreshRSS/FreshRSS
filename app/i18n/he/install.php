@@ -43,7 +43,7 @@ return array(
 		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%5$s</em> user (Owner: %2$s, Group: %3$s, Rights: %4$s).<br />The HTTP server (User name: %5$s) must have write permissions.',	// TODO
+			'nok' => 'Check permissions on the <em>%s</em> directory (Owner: %s, Group: %s, Rights: %s).<br />The HTTP server (User name: %s) must have write permissions.',	// TODO
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%5$s</em> user (Owner: %2$s, Group: %3$s, Rights: %4$s).<br />The HTTP server (User name: %5$s) must have write permissions.',	// TODO
+			'nok' => 'Check permissions on the <em>%s</em> directory (Owner: %s, Group: %s, Rights: %s).<br />The HTTP server (User name: %s) must have write permissions.',	// TODO
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%5$s</em> user (Owner: %2$s, Group: %3$s, Rights: %4$s).<br />The HTTP server (User name: %5$s) must have write permissions.',	// TODO
+			'nok' => 'Check permissions on the <em>%s</em> directory (Owner: %s, Group: %s, Rights: %s).<br />The HTTP server (User name: %s) must have write permissions.',	// TODO
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'בדוק שוב',
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%5$s</em> user (Owner: %2$s, Group: %3$s, Rights: %4$s).<br />The HTTP server (User name: %5$s) must have write permissions.',	// TODO
+			'nok' => 'Check permissions on the <em>%s</em> directory (Owner: %s, Group: %s, Rights: %s).<br />The HTTP server (User name: %s) must have write permissions.',	// TODO
 			'ok' => 'Permissions on the temp directory are good.',	// TODO
 		),
 		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%5$s</em> user (Owner: %2$s, Group: %3$s, Rights: %4$s).<br />The HTTP server (User name: %5$s) must have write permissions.',	// TODO
+			'nok' => 'Check permissions on the <em>%s</em> directory (Owner: %s, Group: %s, Rights: %s).<br />The HTTP server (User name: %s) must have write permissions.',	// TODO
 			'ok' => 'Permissions on the users directory are good.',	// TODO
 		),
 		'xml' => array(
