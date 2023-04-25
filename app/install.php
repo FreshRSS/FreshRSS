@@ -398,7 +398,7 @@ function printCheckDirectoryAccess(string $key, string $status, string $path, st
 		printStep1Template($key, $status, [$path]);
 		} else {
 		$owner = getOwnerOfFile($path);
-		printStep1Template($key, $status, [$path, $owner['fileowner'], $owner['filegroup'], file_permissions(DATA_PATH), $processUsername]);
+		printStep1Template($key, $status, [$path, $owner['fileowner'], $owner['filegroup'], file_permissions($path), $processUsername]);
 	}
 }
 
