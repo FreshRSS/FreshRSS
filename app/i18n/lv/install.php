@@ -43,7 +43,7 @@ return array(
 		'_' => 'Pārbaudes',
 		'already_installed' => 'Mēs esam konstatējuši, ka FreshRSS jau ir instalēts!',
 		'cache' => array(
-			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
+			'nok' => 'Pārbaudiet atļaujas <em>%s</em> mapē (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
 			'ok' => 'Kešatmiņas mapes atļaujas ir pareizas.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Jums ir cURL bibliotēka.',
 		),
 		'data' => array(
-			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
+			'nok' => 'Pārbaudiet atļaujas <em>%s</em> mapē (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
+			'nok' => 'Pārbaudiet atļaujas <em>%s</em> mapē (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
 			'ok' => 'Ar favikonu mapes atļaujām viss ir kārtībā.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Pārbaudiet atkal',
 		'tmp' => array(
-			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
+			'nok' => 'Pārbaudiet atļaujas <em>%s</em> mapē (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
 			'ok' => 'Ar pagaidu mapes atļaujām viss ir kārtībā.',
 		),
 		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
-			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em> (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
+			'nok' => 'Pārbaudiet atļaujas <em>%s</em> mapē (Owner: %s, Group: %s, Rights: %s).<br />HTTP serverim (User name: %s) jābūt piešķirtām rakstīšanas atļaujām.',	// DIRTY
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',
 		),
 		'xml' => array(
