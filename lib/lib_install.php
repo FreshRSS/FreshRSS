@@ -105,10 +105,10 @@ function getOwnerOfFile(String $file): array {
 		return $owner;
 	}
 	if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
-		$uid_name = @posix_getpwuid($stat_file['uid'])['name'];
-		$gid_name = @posix_getgrgid($stat_file['gid'])['name'];
-		$owner['fileowner'] = isset($uid_name) ? $uid_name : _t('install.check.unknown_process_username');
-		$owner['filegroup'] = isset($gid_name) ? $gid_name : _t('install.check.unknown_process_username');
+		$uid_name = @posix_getpwuid($stat_file['uid']);
+		$gid_name = @posix_getgrgid($stat_file['gid']);
+		$owner['fileowner'] = is_array($uid_name) ? $uid_name['name'] : _t('install.check.unknown_process_username');
+		$owner['filegroup'] = is_array($gid_name) ? $gid_name['name'] : _t('install.check.unknown_process_username');
 		return $owner;
 	};
 	$owner['fileowner'] = 'UID: ' . $stat_file['uid'];;
