@@ -355,6 +355,34 @@ function printStep0(): void {
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
 
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about') ?></label>
+		<div class="group-controls">
+			<?= _t('index.about.freshrss_description') ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.project_website') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WEBSITE ?>" target="_blank"><?= FRESHRSS_WEBSITE ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.documentation') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= FRESHRSS_WIKI ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.version') ?></label>
+		<div class="group-controls">
+			<?= FRESHRSS_VERSION ?>
+		</div>
+	</div>
+	
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">
