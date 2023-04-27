@@ -111,8 +111,8 @@ function getOwnerOfFile(String $file): array {
 		$owner['filegroup'] = is_array($gid_name) ? $gid_name['name'] : _t('install.check.unknown_process_username');
 		return $owner;
 	};
-	$owner['fileowner'] = 'UID: ' . $stat_file['uid'];;
-	$owner['filegroup'] = 'GID: ' . $stat_file['gid'];;
+	$owner['fileowner'] = 'UID: ' . $stat_file['uid'];
+	$owner['filegroup'] = 'GID: ' . $stat_file['gid'];
 	return $owner;
 }
 
