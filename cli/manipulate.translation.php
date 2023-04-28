@@ -5,7 +5,7 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-
+/** @var array<string,string> $options */
 $options = getopt("a:hk:l:o:rv:");
 
 if (array_key_exists('h', $options)) {
