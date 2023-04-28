@@ -48,7 +48,7 @@ function checkRequirements(string $dbType = ''): array {
 	$tmp = TMP_PATH && is_writable(TMP_PATH);
 	// @phpstan-ignore-next-line
 	$users = USERS_PATH && touch(USERS_PATH . '/index.html');
-	$favicons = touch(DATA_PATH . '/favicons/index.html');
+	$favicons = touch(FAVICONS_PATH . '/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
