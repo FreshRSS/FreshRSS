@@ -41,14 +41,14 @@ function checkRequirements(string $dbType = ''): array {
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
 	// @phpstan-ignore-next-line
-	$data = DATA_PATH && file_exists(DATA_PATH . '/index.html') && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+	$data = DATA_PATH && @touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
 	// @phpstan-ignore-next-line
-	$cache = CACHE_PATH && file_exists(CACHE_PATH . '/index.html') && touch(CACHE_PATH . '/index.html');
+	$cache = CACHE_PATH && @touch(CACHE_PATH . '/index.html');
 	// @phpstan-ignore-next-line
 	$tmp = TMP_PATH && is_writable(TMP_PATH);
 	// @phpstan-ignore-next-line
-	$users = USERS_PATH && file_exists(USERS_PATH . '/index.html') && touch(USERS_PATH . '/index.html');
-	$favicons = file_exists(FAVICONS_PATH . '/index.html') && touch(FAVICONS_PATH . '/index.html');
+	$users = USERS_PATH && @touch(USERS_PATH . '/index.html');
+	$favicons = @touch(FAVICONS_PATH . '/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
