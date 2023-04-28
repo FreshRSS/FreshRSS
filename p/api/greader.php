@@ -284,7 +284,7 @@ final class GReaderAPI {
 		);
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		$categories = $categoryDAO->listCategories(true, false);
+		$categories = $categoryDAO->listCategories(true, false) ?: [];
 		foreach ($categories as $cat) {
 			$tags[] = array(
 				'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
@@ -294,7 +294,7 @@ final class GReaderAPI {
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$labels = $tagDAO->listTags(true);
+		$labels = $tagDAO->listTags(true) ?: [];
 		foreach ($labels as $label) {
 			$tags[] = array(
 				'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
@@ -345,7 +345,7 @@ final class GReaderAPI {
 		$subscriptions = array();
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		foreach ($categoryDAO->listCategories(true, true) as $cat) {
+		foreach ($categoryDAO->listCategories(true, true) ?: [] as $cat) {
 			foreach ($cat->feeds() as $feed) {
 				$subscriptions[] = [
 					'id' => 'feed/' . $feed->id(),
@@ -418,7 +418,7 @@ final class GReaderAPI {
 					if ($action === 'subscribe') {
 						continue;
 					}
-					$feedId = $streamUrl;
+					$feedId = (int)$streamUrl;
 				} else {
 					$streamUrl = htmlspecialchars($streamUrl, ENT_COMPAT, 'UTF-8');
 					$feed = $feedDAO->searchByUrl($streamUrl);
@@ -497,7 +497,7 @@ final class GReaderAPI {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feedsNewestItemUsec = $feedDAO->listFeedsNewestItemUsec();
 
-		foreach ($categoryDAO->listCategories(true, true) as $cat) {
+		foreach ($categoryDAO->listCategories(true, true) ?: [] as $cat) {
 			$catLastUpdate = 0;
 			foreach ($cat->feeds() as $feed) {
 				$lastUpdate = $feedsNewestItemUsec['f_' . $feed->id()] ?? 0;
@@ -523,7 +523,7 @@ final class GReaderAPI {
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$tagsNewestItemUsec = $tagDAO->listTagsNewestItemUsec();
-		foreach ($tagDAO->listTags(true) as $label) {
+		foreach ($tagDAO->listTags(true) ?: [] as $label) {
 			$lastUpdate = $tagsNewestItemUsec['t_' . $label->id()] ?? 0;
 			$unreadcounts[] = array(
 				'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
@@ -554,7 +554,7 @@ final class GReaderAPI {
 			return array();
 		}
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$categories = $catDAO->listCategories(true);
+		$categories = $catDAO->listCategories(true) ?: [];
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
@@ -568,6 +568,9 @@ final class GReaderAPI {
 			}
 
 			$feed = FreshRSS_CategoryDAO::findFeed($categories, $entry->feedId());
+			if ($feed === null) {
+				continue;
+			}
 			$entry->_feed($feed);
 
 			if (isset($entryIdsTagNames['e_' . $entry->id()])) {
@@ -580,8 +583,9 @@ final class GReaderAPI {
 	}
 
 	/**
+	 * @param 'A'|'c'|'f'|'s' $type
 	 * @param string|int $streamId
-	 * @return array{string,int,int,FreshRSS_BooleanSearch}
+	 * @return array{'A'|'c'|'f'|'s'|'t',int,int,FreshRSS_BooleanSearch}
 	 */
 	private static function streamContentsFilters(string $type, $streamId,
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {

@@ -15,7 +15,7 @@ class FreshRSS_View extends Minz_View {
 	public $category;
 	/** @var string */
 	public $current_user;
-	/** @var array<FreshRSS_Entry> */
+	/** @var iterable<FreshRSS_Entry> */
 	public $entries;
 	/** @var FreshRSS_Entry */
 	public $entry;
@@ -49,7 +49,7 @@ class FreshRSS_View extends Minz_View {
 	public $signalError;
 
 	// Manage users
-	/** @var array<string,string|int|bool> */
+	/** @var array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
 	public $details;
 	/** @var bool */
 	public $disable_aside;
