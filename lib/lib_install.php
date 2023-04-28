@@ -119,7 +119,7 @@ function getOwnerOfFile(String $file): array {
 /* File permissions (read, write, executable)
    Source: https://www.php.net/manual/en/function.fileperms.php
 */
-function file_permissions(String $path): String {
+function file_permissions(string $path): string {
 	$perms = fileperms($path);
 
 	switch ($perms & 0xF000) {
