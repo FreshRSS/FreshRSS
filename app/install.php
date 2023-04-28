@@ -242,6 +242,7 @@ function saveStep3(): bool {
 			return false;
 		}
 
+		FreshRSS_Context::$system_conf->auth_type = Minz_Session::param('auth_type');
 		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
 		FreshRSS_Context::$system_conf->save();
 
