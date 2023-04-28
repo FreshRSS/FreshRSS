@@ -94,7 +94,7 @@ function getProcessUsername(): string {
 }
 
 /** @return array<string> */
-function getOwnerOfFile(String $file): array {
+function getOwnerOfFile(string $file): array {
 	clearstatcache();
 	$stat_file = @stat($file);
 	$owner = [];
