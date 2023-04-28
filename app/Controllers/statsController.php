@@ -47,25 +47,34 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
 
-		$this->view->repartition = $statsDAO->calculateEntryRepartition();
+		$this->view->repartitions = $statsDAO->calculateEntryRepartition();
 
 		$entryCount = $statsDAO->calculateEntryCount();
-		$this->view->entryCount = $entryCount;
-		$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
+		if (is_array($entryCount) && count($entryCount) > 0) {
+			$this->view->entryCount = $entryCount;
+			$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
+		} else {
+			$this->view->entryCount = [];
+			$this->view->average = -1.0;
+		}
 
-		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
 		$feedByCategory = [];
-		for ($i = 0; $i < count($feedByCategory_calculated); $i++) {
-			$feedByCategory['label'][$i] 	= $feedByCategory_calculated[$i]['label'];
-			$feedByCategory['data'][$i] 	= $feedByCategory_calculated[$i]['data'];
+		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
+		if (is_array($feedByCategory_calculated)) {
+			for ($i = 0; $i < count($feedByCategory_calculated); $i++) {
+				$feedByCategory['label'][$i] = $feedByCategory_calculated[$i]['label'];
+				$feedByCategory['data'][$i] = $feedByCategory_calculated[$i]['data'];
+			}
 		}
 		$this->view->feedByCategory = $feedByCategory;
 
-		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
 		$entryByCategory = [];
-		for ($i = 0; $i < count($entryByCategory_calculated); $i++) {
-			$entryByCategory['label'][$i] 	= $entryByCategory_calculated[$i]['label'];
-			$entryByCategory['data'][$i] 	= $entryByCategory_calculated[$i]['data'];
+		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
+		if (is_array($entryByCategory_calculated)) {
+			for ($i = 0; $i < count($entryByCategory_calculated); $i++) {
+				$entryByCategory['label'][$i] = $entryByCategory_calculated[$i]['label'];
+				$entryByCategory['data'][$i] = $entryByCategory_calculated[$i]['data'];
+			}
 		}
 		$this->view->entryByCategory = $entryByCategory;
 
@@ -114,7 +123,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		$feeds = $statsDAO->calculateFeedLastDate();
+		$feeds = $statsDAO->calculateFeedLastDate() ?: [];
 		$idleFeeds = array(
 			'last_5_year' => array(),
 			'last_3_year' => array(),

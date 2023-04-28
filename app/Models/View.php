@@ -201,15 +201,17 @@ class FreshRSS_View extends Minz_View {
 	public $last30DaysLabels;
 	/** @var array<string,string> */
 	public $months;
-	/** @var array<string,array<string,int>>|array<string,int> */
+	/** @var array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false */
 	public $repartition;
+	/** @var array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false} */
+	public $repartitions;
 	/** @var array<int,int> */
 	public $repartitionDayOfWeek;
 	/** @var array<string,int>|array<int,int> */
 	public $repartitionHour;
 	/** @var array<int,int> */
 	public $repartitionMonth;
-	/** @var array<array<string,int|string>> */
+	/** @var array<array{'id':int,'name':string,'category':string,'count':int}> */
 	public $topFeed;
 
 }

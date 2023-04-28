@@ -40,9 +40,11 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * @param int|string $pubdate
+	 * @param bool|int|null $is_read
+	 * @param bool|int|null $is_favorite
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
-			string $link = '', $pubdate = 0, ?bool $is_read = false, ?bool $is_favorite = false, string $tags = '') {
+			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, string $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -55,11 +57,18 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array<string,string|int> $dao */
+	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,
+	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string,'categories'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
 		}
+
+		$dao['attributes'] = empty($dao['attributes']) ? [] : json_decode($dao['attributes'], true);
+		if (!is_array($dao['attributes'])) {
+			$dao['attributes'] = [];
+		}
+
 		if (!empty($dao['thumbnail'])) {
 			$dao['attributes']['thumbnail'] = [
 				'url' => $dao['thumbnail'],
@@ -81,7 +90,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entry->_id($dao['id']);
 		}
 		if (!empty($dao['timestamp'])) {
-			$entry->_date(strtotime($dao['timestamp']));
+			$entry->_date(strtotime($dao['timestamp']) ?: 0);
 		}
 		if (!empty($dao['categories'])) {
 			$entry->_tags($dao['categories']);
@@ -283,7 +292,7 @@ HTML;
 	}
 
 	/**
-	 * @return array<string,string>|null
+	 * @return array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}|null
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributes('thumbnail');
@@ -317,7 +326,11 @@ HTML;
 	public function machineReadableDate(): string {
 		return @date (DATE_ATOM, $this->date);
 	}
-	/** @return int|string */
+
+	/**
+	 * @phpstan-return ($raw is false ? string : ($microsecond is true ? string : int))
+	 * @return int|string
+	 */
 	public function dateAdded(bool $raw = false, bool $microsecond = false) {
 		if ($raw) {
 			if ($microsecond) {
@@ -437,10 +450,10 @@ HTML;
 		if (!is_array($value)) {
 			if (strpos($value, ';') !== false) {
 				$value = htmlspecialchars_decode($value, ENT_QUOTES);
-				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: '';
+				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
 				$value = Minz_Helper::htmlspecialchars_utf8($value);
 			} else {
-				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
 			}
 		}
 		$this->authors = $value;
@@ -462,15 +475,17 @@ HTML;
 	/** @param int|string $value */
 	public function _dateAdded($value, bool $microsecond = false): void {
 		if ($microsecond) {
-			$this->date_added = $value;
+			$this->date_added = (string)($value);
 		} else {
 			$this->date_added = $value . '000000';
 		}
 	}
-	public function _isRead(?bool $value): void {
+	/** @param bool|int|null $value */
+	public function _isRead($value): void {
 		$this->is_read = $value === null ? null : (bool)$value;
 	}
-	public function _isFavorite(?bool $value): void {
+	/** @param bool|int|null $value */
+	public function _isFavorite($value): void {
 		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
 
@@ -702,7 +717,7 @@ HTML;
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
 					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node);
+						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							$filterednode->parentNode->removeChild($filterednode);
 						}
@@ -790,7 +805,7 @@ HTML;
 	private static function dec2hex($dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?
 			str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT) :
-			str_pad(dechex($dec), 16, '0', STR_PAD_LEFT);
+			str_pad(dechex((int)($dec)), 16, '0', STR_PAD_LEFT);
 	}
 
 	/**

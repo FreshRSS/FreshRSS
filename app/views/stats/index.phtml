@@ -24,29 +24,29 @@
 				<tbody>
 					<tr>
 						<th><?= _t('admin.stats.status_total') ?></th>
-						<td class="numeric"><?= format_number($this->repartition['main_stream']['total']) ?></td>
-						<td class="numeric"><?= format_number($this->repartition['all_feeds']['total']) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['main_stream']['total'] ?? -1) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['all_feeds']['total'] ?? -1) ?></td>
 					</tr>
 					<tr>
 						<th><?= _t('admin.stats.status_read') ?></th>
-						<td class="numeric"><?= format_number($this->repartition['main_stream']['count_reads']) ?></td>
-						<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_reads']) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['main_stream']['count_reads'] ?? -1) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['all_feeds']['count_reads'] ?? -1) ?></td>
 					</tr>
 					<tr>
 						<th><?= _t('admin.stats.status_unread') ?></th>
-						<td class="numeric"><?= format_number($this->repartition['main_stream']['count_unreads']) ?></td>
-						<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_unreads']) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['main_stream']['count_unreads'] ?? -1) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['all_feeds']['count_unreads'] ?? -1) ?></td>
 					</tr>
 					<tr>
 						<th><?= _t('admin.stats.status_favorites') ?></th>
-						<td class="numeric"><?= format_number($this->repartition['main_stream']['count_favorites']) ?></td>
-						<td class="numeric"><?= format_number($this->repartition['all_feeds']['count_favorites']) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['main_stream']['count_favorites'] ?? -1) ?></td>
+						<td class="numeric"><?= format_number($this->repartitions['all_feeds']['count_favorites'] ?? -1) ?></td>
 					</tr>
 				</tbody>
 			</table>
-		</div><!--
+		</div>
 
-		--><div class="stat half">
+		<div class="stat half">
 			<h2><?= _t('admin.stats.top_feed') ?></h2>
 			<table>
 				<thead>
@@ -58,14 +58,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($this->topFeed as $feed) { ?>
+					<?php foreach ($this->topFeed as $feed): ?>
 						<tr>
 							<td><a href="<?= _url('stats', 'repartition', 'id', $feed['id']) ?>"><?= $feed['name'] ?></a></td>
 							<td><?= $feed['category'] ?></td>
 							<td class="numeric"><?= format_number($feed['count']) ?></td>
-							<td class="numeric"><?= format_number($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1) ?></td>
+							<td class="numeric"><?php
+								if (!empty($this->repartitions['all_feeds']['total'])) {
+									echo format_number($feed['count'] / $this->repartitions['all_feeds']['total'] * 100, 1);
+								}
+							?></td>
 						</tr>
-					<?php } ?>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>

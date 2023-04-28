@@ -746,7 +746,7 @@ final class GReaderAPI {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
-		if ($ids === false) {
+		if ($ids == null) {
 			self::internalServerError();
 		}
 
@@ -898,13 +898,15 @@ final class GReaderAPI {
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$cat = $categoryDAO->searchByName($s);
 			if ($cat != null) {
-				$categoryDAO->updateCategory($cat->id(), array('name' => $dest));
+				$categoryDAO->updateCategory($cat->id(), [
+					'name' => $dest, 'kind' => $cat->kind(), 'attributes' => $cat->attributes()
+				]);
 				exit('OK');
 			} else {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$tag = $tagDAO->searchByName($s);
 				if ($tag != null) {
-					$tagDAO->updateTag($tag->id(), array('name' => $dest));
+					$tagDAO->updateTagName($tag->id(), $dest);
 					exit('OK');
 				}
 			}

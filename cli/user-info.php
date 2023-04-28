@@ -66,7 +66,7 @@ foreach ($users as $username) {
 
 	if ($nbFavorites === false) {
 		$nbFavorites = [
-			'all' => 0,
+			'all' => -1,
 		];
 	}
 
@@ -74,8 +74,8 @@ foreach ($users as $username) {
 
 	if ($nbEntries === false) {
 		$nbEntries = [
-			'read' => 0,
-			'unread' => 0,
+			'read' => -1,
+			'unread' => -1,
 		];
 	}
 
