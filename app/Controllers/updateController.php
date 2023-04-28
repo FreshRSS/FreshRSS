@@ -136,7 +136,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	/* 	Check installation if there is a newer version. 
+		via Git, if available. 
+		Else via system configuration  auto_update_url
+	*/
 	public function checkAction(): void {
+		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
