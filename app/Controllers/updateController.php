@@ -162,7 +162,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			} else {
 				$this->view->message = array(
 					'status' => 'latest',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
@@ -187,7 +186,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 				$this->view->message = array(
 					'status' => 'bad',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.server_not_found', $auto_update_url)
 				);
 				return;
@@ -198,7 +196,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (strpos($status, 'UPDATE') !== 0) {
 				$this->view->message = array(
 					'status' => 'latest',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
@@ -216,7 +213,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
 				'body' => _t('feedback.update.error', 'Cannot save the update script')
 			);
 		}
