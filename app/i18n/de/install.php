@@ -43,7 +43,7 @@ return array(
 		'_' => 'Überprüfungen',
 		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
 		'cache' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server Benutzername: %s) muss Schreibrechte besitzen.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server (Benutzername: %s) muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server Benutzername: %s) muss Schreibrechte besitzen.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server (Benutzername: %s) muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
 		),
 		'favicons' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server Benutzername: %s) muss Schreibrechte besitzen.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server (Benutzername: %s) muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Nochmal prüfen',
 		'tmp' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server Benutzername: %s) muss Schreibrechte besitzen.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server (Benutzername: %s) muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
 		),
 		'unknown_process_username' => 'unbekannt',
 		'users' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server Benutzername: %s) muss Schreibrechte besitzen.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em> (Besitzer: %s, Gruppe: %s, Rechte: %s).<br />Der HTTP-Server (Benutzername: %s) muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
 		),
 		'xml' => array(
