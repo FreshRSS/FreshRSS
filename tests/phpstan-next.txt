@@ -24,7 +24,6 @@
 ./app/views/stats/index.phtml
 ./app/views/stats/repartition.phtml
 ./cli/check.translation.php
-./cli/manipulate.translation.php
 ./lib/Minz/Error.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
