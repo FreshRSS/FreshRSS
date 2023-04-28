@@ -71,6 +71,8 @@ class FreshRSS_View extends Minz_View {
 	public $update_to_apply;
 	/** @var array<string,bool> */
 	public $status_database;
+	/** @var bool */
+	public $is_release_channel_stable;
 
 	// Archiving
 	/** @var int */

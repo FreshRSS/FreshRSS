@@ -102,6 +102,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		invalidateHttpCache();
 
+		$this->view->is_release_channel_stable = $this->is_release_channel_stable(FRESHRSS_VERSION);
+
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
 		$timestamp = @filemtime(join_path(DATA_PATH, self::LASTUPDATEFILE));
@@ -133,6 +135,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
 				);
 			}
+		}
+	}
+
+	private function is_release_channel_stable(string $currentVersion): bool {
+		if (strpos($currentVersion, 'dev') > 0) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
