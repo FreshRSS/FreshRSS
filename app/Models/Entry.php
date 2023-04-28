@@ -778,7 +778,10 @@ HTML;
 		return false;
 	}
 
-	/** @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>} */
+	/**
+	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
+	 */
 	public function toArray(): array {
 		return array(
 			'id' => $this->id(),

@@ -29,10 +29,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
-				$stm = $this->pdo->query('SELECT * FROM `_feed`');
-				$feeds = $stm->fetchAll(PDO::FETCH_ASSOC);
+				/** @var array<array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
+				 * 	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'ttl':int,'attributes':string}> $feeds */
+				$feeds = $this->fetchAssoc('SELECT * FROM `_feed`') ?? [];
 
 				$stm = $this->pdo->prepare('UPDATE `_feed` SET attributes = :attributes WHERE id = :id');
+				if ($stm === false) {
+					Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+					return false;
+				}
 				foreach ($feeds as $feed) {
 					if (empty($feed['keep_history']) || empty($feed['id'])) {
 						continue;
@@ -54,9 +59,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 					} else {
 						continue;
 					}
-					$stm->bindValue(':id', $feed['id'], PDO::PARAM_INT);
-					$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES));
-					$stm->execute();
+					if (!($stm->bindValue(':id', $feed['id'], PDO::PARAM_INT) &&
+						$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES)) &&
+						$stm->execute())) {
+						Minz_Log::error('SQL error ' . __METHOD__ . json_encode($stm->errorInfo()));
+					}
 				}
 
 				if ($this->pdo->dbType() !== 'sqlite') {	//SQLite does not support DROP COLUMN
@@ -116,7 +123,8 @@ SQL;
 		);
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
-			return $this->pdo->lastInsertId('`_category_id_seq`');
+			$catId = $this->pdo->lastInsertId('`_category_id_seq`');
+			return $catId === false ? false : (int)($catId);
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -204,8 +212,7 @@ SQL;
 		}
 		$sql = 'DELETE FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
-		$stm->bindParam(':id', $id, PDO::PARAM_INT);
-		if ($stm !== false && $stm->execute()) {
+		if ($stm !== false && $stm->bindParam(':id', $id, PDO::PARAM_INT) && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();

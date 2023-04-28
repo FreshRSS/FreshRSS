@@ -87,7 +87,7 @@ foreach ($users as $username) {
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
 		'categories' => $catDAO->count(),
-		'feeds' => count($feedList === false ? [] : $feedList),
+		'feeds' => count($feedList),
 		'reads' => (int)$nbEntries['read'],
 		'unreads' => (int)$nbEntries['unread'],
 		'favourites' => (int)$nbFavorites['all'],
