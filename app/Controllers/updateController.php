@@ -220,7 +220,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
 			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
-			Minz_Log::notice(_t('feedback.update.copiedFromURL', $auto_update_url));
+			Minz_Log::notice(_t('admin.update.copiedFromURL', $auto_update_url));
 			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
