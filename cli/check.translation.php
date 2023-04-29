@@ -9,11 +9,13 @@ require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-$options = getopt("dhl:r");
+/** @var array<string,string>|false $options */
+$options = getopt('dhl:r');
 
-if (array_key_exists('h', $options)) {
+if (!is_array($options) || array_key_exists('h', $options)) {
 	checkHelp();
 }
+
 if (array_key_exists('l', $options)) {
 	$languages = array($options['l']);
 } else {
@@ -26,7 +28,6 @@ $isValidated = true;
 $result = [];
 $report = [];
 
-/** @var string $language */
 foreach ($languages as $language) {
 	if ($language === $i18nData::REFERENCE_LANGUAGE) {
 		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
