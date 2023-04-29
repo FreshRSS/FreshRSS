@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Обновление системы',
 		'apply' => 'Применить',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Проверить обновления',
 		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
 		'last' => 'Последняя проверка: %s',
 		'none' => 'Нет обновлений',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Обновить систему',
 	),
 	'user' => array(

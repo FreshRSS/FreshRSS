@@ -190,13 +190,19 @@ return array(
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',
-		'apply' => 'Apply',
+		'_' => 'Update FreshRSS',
+		'apply' => 'Start update',
+		'changelog' => 'Changelog',
 		'check' => 'Check for new updates',
-		'current_version' => 'Your current version of FreshRSS is %s.',
-		'last' => 'Last verification: %s',
-		'none' => 'No update to apply',
-		'title' => 'Update system',
+		'current_version' => 'Current installed version',
+		'last' => 'Last check',
+		'none' => 'No update available',
+		'releaseChannel' => array(
+			'_' => 'Release channel',
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
+		'title' => 'Update FreshRSS',
 	),
 	'user' => array(
 		'admin' => 'Administrator',

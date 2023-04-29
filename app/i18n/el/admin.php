@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Ενημέρωση συστήματος',
 		'apply' => 'Εφαρμογή',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
 		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
 		'last' => 'Τελευταία επαλήθευση: %s',
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Ενημέρωση συστήματος',
 	),
 	'user' => array(

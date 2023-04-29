@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => '업데이트',
 		'apply' => '업데이트 적용하기',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '새 업데이트 확인하기',
 		'current_version' => '현재 FreshRSS 버전은 %s 입니다.',
 		'last' => '마지막 확인: %s',
 		'none' => '적용 가능한 업데이트가 없습니다',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => '업데이트',
 	),
 	'user' => array(

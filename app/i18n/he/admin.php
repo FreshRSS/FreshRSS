@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'מערכת העדכון',
 		'apply' => 'החלת העדכון',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'בדיקת עדכונים חדשים',
 		'current_version' => 'Your current version of FreshRSS is the %s.',
 		'last' => 'תאריך בדיקה אחרון: %s',
 		'none' => 'אין עדכון להחלה',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'מערכת העדכון',
 	),
 	'user' => array(

@@ -190,12 +190,18 @@ return array(
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO
+		'_' => 'Update system',	// DIRTY
 		'apply' => 'Apply',	// TODO
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
 		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
 		'last' => 'Verifikasi terakhir: %s',
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Perbarui Sistem',
 	),
 	'user' => array(

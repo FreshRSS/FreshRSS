@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => '更新系統',
 		'apply' => '應用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '檢查更新',
 		'current_version' => '當前 FreshRSS 版本為 %s。',
 		'last' => '上次檢查：%s',
 		'none' => '沒有可用更新',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => '系統更新',
 	),
 	'user' => array(

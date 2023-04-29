@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'システムアップデート',
 		'apply' => '適用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'アップデートを確認する',
 		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
 		'last' => '最近の検証: %s',
 		'none' => '更新を適用できません',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'アップデートシステム',
 	),
 	'user' => array(

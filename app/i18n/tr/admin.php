@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Güncelleme kontrolü',
 		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
 		'last' => 'Son kontrol: %s',
 		'none' => 'Yeni güncelleme yok',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Sistem güncelleme',
 	),
 	'user' => array(

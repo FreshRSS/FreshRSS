@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Versie controle',
 		'apply' => 'Toepassen',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controleer op nieuwe versies',
 		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
 		'last' => 'Laatste controle: %s',
 		'none' => 'Geen nieuwe versie om toe te passen',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Vernieuw systeem',
 	),
 	'user' => array(

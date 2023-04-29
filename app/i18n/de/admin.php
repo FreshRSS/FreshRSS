@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Auf neue Aktualisierungen prüfen',
 		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
 		'last' => 'Letzte Überprüfung: %s',
 		'none' => 'Keine ausstehende Aktualisierung',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'System aktualisieren',
 	),
 	'user' => array(

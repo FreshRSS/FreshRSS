@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Update system',	// IGNORE
 		'apply' => 'Apply',	// IGNORE
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Check for new updates',	// IGNORE
 		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
 		'last' => 'Last verification: %s',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Update system',	// IGNORE
 	),
 	'user' => array(

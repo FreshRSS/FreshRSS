@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Atjaunināt sistēmu',
 		'apply' => 'Pieteikties',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Jaunu atjauninājumu pārbaude',
 		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
 		'last' => 'Pēdējā verifikācija: %s',
 		'none' => 'Nav jāpiemēro atjauninājums',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Atjaunināt sistēmu',
 	),
 	'user' => array(

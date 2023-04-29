@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
 		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
 		'last' => 'Poslední kontrola: %s',
 		'none' => 'Žádné nové aktualizace',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Aktualizovat systém',
 	),
 	'user' => array(

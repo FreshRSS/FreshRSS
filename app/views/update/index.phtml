@@ -33,17 +33,19 @@
 	<div class="form-group">
 		<label class="group-name"><?= _t('admin.update.current_version') ?></label>
 		<div class="group-controls">
-			<?= FRESHRSS_VERSION ?> (<a href="https://github.com/FreshRSS/FreshRSS/releases" target="_blank">Changelog</a>)
+			<?= FRESHRSS_VERSION ?> (<a href="https://github.com/FreshRSS/FreshRSS/releases" target="_blank"><?= _t('admin.update.changelog') ?></a>)
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="group-name">Release channel</label>
+		<label class="group-name"><?= _t('admin.update.releaseChannel') ?></label>
 		<div class="group-controls">
 			<?php if($this->is_release_channel_stable) { ?>
-				Stable
+				<?= _t('admin.update.releaseChannel.stable') ?>
 			<?php } else { ?>
-				developement
+				<a href="https://github.com/FreshRSS/FreshRSS/tree/edge" target="_blank">
+					<?= _t('admin.update.releaseChannel.dev') ?>
+				</a>
 			<?php } ?>
 		</div>
 	</div>

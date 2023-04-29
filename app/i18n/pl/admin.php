@@ -192,10 +192,16 @@ return array(
 	'update' => array(
 		'_' => 'Aktualizacja',
 		'apply' => 'Zastosuj',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Szukaj uaktualnień',
 		'current_version' => 'Używana wersja FreshRSS to %s.',
 		'last' => 'Ostatnie sprawdzenie: %s',
 		'none' => 'Brak nowych aktualizacji',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'dev' => 'Development/Nightly',	// TODO
+			'stable' => 'Stable',	// TODO
+		),
 		'title' => 'Aktualizacja',
 	),
 	'user' => array(
