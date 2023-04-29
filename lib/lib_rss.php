@@ -653,7 +653,7 @@ function checkCIDR(string $ip, string $range): bool {
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
+		return false;
 	}
 	if (!empty($_SERVER['REMOTE_ADDR'])) {
 		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
@@ -665,15 +665,20 @@ function checkTrustedIP(): bool {
 	return false;
 }
 
-function httpAuthUser(): string {
+function httpAuthUser(bool $onlyTrustedIp = true): string {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_REMOTE_USER'];
-	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
+	}
+	if (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_X_WEBAUTH_USER'];
+	}
+	if (!$onlyTrustedIp || checkTrustedIP()) {
+		if (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+			return $_SERVER['HTTP_REMOTE_USER'];
+		}
+		if (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+			return $_SERVER['HTTP_X_WEBAUTH_USER'];
+		}
 	}
 	return '';
 }
