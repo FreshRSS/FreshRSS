@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Aplicar',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Verificar las mesas a jorn',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
 		'last' => 'Darrièra verificacion : %s',
 		'none' => 'Cap d’actualizacion d’aplicar',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Sistèma de mesa a jorn',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Použiť',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Skontrolovať aktualizácie',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vaša aktuálna verzia FreshRSS: %s',
 		'last' => 'Posledná kontrola: %s',
 		'none' => 'Žiadna nová aktualizácia',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Aktualizácia systému',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrátor',

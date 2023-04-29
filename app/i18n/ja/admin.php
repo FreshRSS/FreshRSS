@@ -194,6 +194,7 @@ return array(
 		'apply' => '適用',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'アップデートを確認する',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
 		'last' => '最近の検証: %s',
 		'none' => '更新を適用できません',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'アップデートシステム',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理者',

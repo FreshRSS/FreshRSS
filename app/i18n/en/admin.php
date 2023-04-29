@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Start update',
 		'changelog' => 'Changelog',
 		'check' => 'Check for new updates',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Current installed version',
 		'last' => 'Last check',
 		'none' => 'No update available',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Update FreshRSS',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',

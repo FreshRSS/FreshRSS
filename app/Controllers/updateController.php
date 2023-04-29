@@ -45,6 +45,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public static function hasGitUpdate(): bool {
+		Minz_Log::notice(_t('feedback.update.viaGit'));
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = array();
@@ -219,6 +220,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
 			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
+			Minz_Log::notice(_t('feedback.update.copiedFromURL', $auto_update_url));
 			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
@@ -247,8 +249,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
+				Minz_Log::notice(_t('feedback.update.finished'));
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
+				Minz_Log::error(_t('feedback.update.error', $res));
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
@@ -276,12 +280,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($res === true) {
+				Minz_Log::notice(_t('feedback.update.finished'));
 				Minz_Request::forward(array(
 					'c' => 'update',
 					'a' => 'apply',
 					'params' => array('post_conf' => '1')
 				), true);
 			} else {
+				Minz_Log::error(_t('feedback.update.error', $res));
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}

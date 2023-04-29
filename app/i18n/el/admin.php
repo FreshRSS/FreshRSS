@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Εφαρμογή',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
 		'last' => 'Τελευταία επαλήθευση: %s',
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Ενημέρωση συστήματος',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Διαχειριστής',

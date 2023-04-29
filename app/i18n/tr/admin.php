@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Uygula',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Güncelleme kontrolü',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
 		'last' => 'Son kontrol: %s',
 		'none' => 'Yeni güncelleme yok',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Sistem güncelleme',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Yönetici',

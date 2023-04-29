@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Appliquer la mise à jour',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Vérifier les mises à jour',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
 		'last' => 'Dernière vérification : %s',
 		'none' => 'Aucune mise à jour à appliquer',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Système de mise à jour',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrateur',

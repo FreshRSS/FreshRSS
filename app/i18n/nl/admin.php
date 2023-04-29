@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Toepassen',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controleer op nieuwe versies',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
 		'last' => 'Laatste controle: %s',
 		'none' => 'Geen nieuwe versie om toe te passen',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Vernieuw systeem',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Beheerder',

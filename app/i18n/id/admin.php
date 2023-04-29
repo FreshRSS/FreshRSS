@@ -191,9 +191,10 @@ return array(
 	),
 	'update' => array(
 		'_' => 'Update system',	// DIRTY
-		'apply' => 'Apply',	// TODO
+		'apply' => 'Apply',	// DIRTY
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
 		'last' => 'Verifikasi terakhir: %s',
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Perbarui Sistem',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO

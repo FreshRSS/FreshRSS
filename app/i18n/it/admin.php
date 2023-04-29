@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Applica',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'FreshRSS versione %s.',
 		'last' => 'Ultima verifica: %s',
 		'none' => 'Nessun aggiornamento da applicare',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Aggiorna sistema',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Amministratore',

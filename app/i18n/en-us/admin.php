@@ -194,6 +194,7 @@ return array(
 		'apply' => 'Apply',	// IGNORE
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Check for new updates',	// IGNORE
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
 		'last' => 'Last verification: %s',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => 'Update system',	// IGNORE
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

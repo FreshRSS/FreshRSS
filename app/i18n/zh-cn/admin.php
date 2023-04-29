@@ -194,6 +194,7 @@ return array(
 		'apply' => '应用',
 		'changelog' => 'Changelog',	// TODO
 		'check' => '检查更新',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => '当前 FreshRSS 版本为 %s。',
 		'last' => '上次检查：%s',
 		'none' => '没有可用更新',
@@ -203,6 +204,7 @@ return array(
 			'stable' => 'Stable',	// TODO
 		),
 		'title' => '更新系统',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理员',
