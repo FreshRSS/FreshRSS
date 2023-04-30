@@ -1205,8 +1205,15 @@ SQL;
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
+
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
-		return $this->fetchColumn($sql, 0, $values);
+		$stm = $this->pdo->prepare($sql);
+		if ($stm->execute($values)) {
+			return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: [];
+		}
+		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		return [];
 	}
 
 	/**
