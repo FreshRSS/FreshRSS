@@ -94,7 +94,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
 		$feed = $this->feed_dao->searchById($feed_id);
-		if (!$feed) {
+		if ($feed === null) {
 			return null;
 		}
 

@@ -823,8 +823,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feed = $feedDAO->searchById($id);
-
-		if (!$feed) {
+		if ($feed === null) {
 			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
 			return;
 		}
@@ -854,8 +853,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$feed = $feedDAO->searchById($feed_id);
-
-		if (!$feed) {
+		if ($feed === null) {
 			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
 			return;
 		}

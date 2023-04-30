@@ -128,7 +128,7 @@ class FreshRSS_UserQuery {
 			throw new FreshRSS_DAO_Exception('Category DAO is not loaded in UserQuery');
 		}
 		$category = $this->category_dao->searchById($id);
-		if ($category) {
+		if ($category !== null) {
 			$this->get_name = $category->name();
 		} else {
 			$this->deprecated = true;
@@ -146,7 +146,7 @@ class FreshRSS_UserQuery {
 			throw new FreshRSS_DAO_Exception('Feed DAO is not loaded in UserQuery');
 		}
 		$feed = $this->feed_dao->searchById($id);
-		if ($feed) {
+		if ($feed !== null) {
 			$this->get_name = $feed->name();
 		} else {
 			$this->deprecated = true;
@@ -164,7 +164,7 @@ class FreshRSS_UserQuery {
 			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
 		}
 		$tag = $this->tag_dao->searchById($id);
-		if ($tag) {
+		if ($tag !== null) {
 			$this->get_name = $tag->name();
 		} else {
 			$this->deprecated = true;

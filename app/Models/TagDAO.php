@@ -67,7 +67,8 @@ SQL;
 		);
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
-			return (int)($this->pdo->lastInsertId('`_tag_id_seq`'));
+			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
+			return $tagId === false ? false : (int)$tagId;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));

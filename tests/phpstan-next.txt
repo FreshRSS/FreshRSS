@@ -8,7 +8,6 @@
 ./app/Controllers/indexController.php
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
-./app/Models/CategoryDAO.php
 ./app/Models/Context.php
 ./app/Models/Feed.php
 ./app/Models/Search.php

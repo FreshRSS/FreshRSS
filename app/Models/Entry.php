@@ -350,10 +350,7 @@ HTML;
 		return $this->is_favorite;
 	}
 
-	/**
-	 * @return FreshRSS_Feed|null|false
-	 */
-	public function feed() {
+	public function feed(): ?FreshRSS_Feed {
 		if ($this->feed === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->feed = $feedDAO->searchById($this->feedId);

@@ -381,7 +381,7 @@ final class FreshRSS_Context {
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
-				if (!$feed) {
+				if ($feed === null) {
 					throw new FreshRSS_Context_Exception('Invalid feed: ' . $id);
 				}
 			}
@@ -397,7 +397,7 @@ final class FreshRSS_Context {
 			if (!isset(self::$categories[$id])) {
 				$catDAO = FreshRSS_Factory::createCategoryDao();
 				$cat = $catDAO->searchById($id);
-				if (!$cat) {
+				if ($cat === null) {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
 			} else {
@@ -412,7 +412,7 @@ final class FreshRSS_Context {
 			if (!isset(self::$tags[$id])) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$tag = $tagDAO->searchById($id);
-				if (!$tag) {
+				if ($tag === null) {
 					throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
 				}
 			} else {

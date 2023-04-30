@@ -70,7 +70,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		);
 
 		if ($stm !== false && $stm->execute($values)) {
-			return (int)($this->pdo->lastInsertId('`_feed_id_seq`'));
+			$feedId = $this->pdo->lastInsertId('`_feed_id_seq`');
+			return $feedId === false ? false : (int)$feedId;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -231,7 +232,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	public function changeCategory(int $idOldCat, int $idNewCat) {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);
-		if (!$newCat) {
+		if ($newCat === null) {
 			$newCat = $catDAO->getDefault();
 		}
 
@@ -577,8 +578,8 @@ SQL;
 	}
 
 	/**
-	 * @param array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
-	 * 	'priority'?:int,'pathEntries'?:string,'httpAuth':string,'error':int,'ttl'?:int,'attributes'?:string}> $listDAO
+	 * @param array<int,array{'id'?:int,'url'?:string,'kind'?:int,'category'?:int,'name'?:string,'website'?:string,'description'?:string,'lastUpdate'?:int,'priority'?:int,
+	 * 	'pathEntries'?:string,'httpAuth'?:string,'error'?:int|bool,'ttl'?:int,'attributes'?:string,'cache_nbUnreads'?:int,'cache_nbEntries'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Feed>
 	 */
 	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
