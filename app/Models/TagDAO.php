@@ -273,8 +273,7 @@ SQL;
 		return $newestItemUsec;
 	}
 
-	/** @return int|false */
-	public function count() {
+	public function count(): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_tag`';
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
@@ -286,25 +285,19 @@ SQL;
 			return $this->count();
 		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-		return false;
+		return -1;
 	}
 
-	/**
-	 * @return int|false
-	 */
-	public function countEntries(int $id) {
+	public function countEntries(int $id): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=:id_tag';
 		$res = $this->fetchAssoc($sql, [':id_tag' => $id]);
 		if ($res == null || !isset($res[0]['count'])) {
-			return false;
+			return -1;
 		}
 		return (int)$res[0]['count'];
 	}
 
-	/**
-	 * @return int|false
-	 */
-	public function countNotRead(?int $id = null) {
+	public function countNotRead(?int $id = null): int {
 		$sql = <<<'SQL'
 SELECT COUNT(*) AS count FROM `_entrytag` et
 INNER JOIN `_entry` e ON et.id_entry=e.id
@@ -318,7 +311,7 @@ SQL;
 
 		$res = $this->fetchAssoc($sql, $values);
 		if ($res == null || !isset($res[0]['count'])) {
-			return false;
+			return -1;
 		}
 		return (int)$res[0]['count'];
 	}

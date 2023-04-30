@@ -63,21 +63,7 @@ foreach ($users as $username) {
 
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
-
-	if ($nbFavorites === false) {
-		$nbFavorites = [
-			'all' => -1,
-		];
-	}
-
 	$feedList = $feedDAO->listFeedsIds();
-
-	if ($nbEntries === false) {
-		$nbEntries = [
-			'read' => -1,
-			'unread' => -1,
-		];
-	}
 
 	$data = array(
 		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',

@@ -16,11 +16,11 @@ final class FreshRSS_Context {
 	 */
 	public static $system_conf;
 	/**
-	 * @var array<FreshRSS_Category>
+	 * @var array<int,FreshRSS_Category>
 	 */
 	public static $categories = array();
 	/**
-	 * @var array<string>
+	 * @var array<int,FreshRSS_Tag>
 	 */
 	public static $tags = array();
 	/**
@@ -67,6 +67,7 @@ final class FreshRSS_Context {
 	 */
 	public static $state = 0;
 	/**
+	 * @phpstan-var 'ASC'|'DESC'
 	 * @var string
 	 */
 	public static $order = 'DESC';
@@ -217,7 +218,8 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
-		self::$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		self::$number = Minz_Request::paramInt('nb') ?: self::$user_conf->posts_per_page;
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
@@ -400,6 +402,7 @@ final class FreshRSS_Context {
 				if ($cat === null) {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
+				//self::$categories[$id] = $cat;
 			} else {
 				$cat = self::$categories[$id];
 			}
@@ -415,6 +418,7 @@ final class FreshRSS_Context {
 				if ($tag === null) {
 					throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
 				}
+				//self::$tags[$id] = $tag;
 			} else {
 				$tag = self::$tags[$id];
 			}
@@ -541,6 +545,6 @@ final class FreshRSS_Context {
 
 	public static function defaultTimeZone(): string {
 		$timezone = ini_get('date.timezone');
-		return $timezone != '' ? $timezone : 'UTC';
+		return $timezone != false ? $timezone : 'UTC';
 	}
 }

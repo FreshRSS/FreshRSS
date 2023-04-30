@@ -1302,8 +1302,8 @@ SQL;
 		}
 	}
 
-	/** @return array<string,int>|false */
-	public function countUnreadRead() {
+	/** @return array<string,int> */
+	public function countUnreadRead(): array {
 		$sql = <<<'SQL'
 SELECT COUNT(e.id) AS count FROM `_entry` e
 	INNER JOIN `_feed` f ON e.id_feed=f.id
@@ -1314,8 +1314,8 @@ SELECT COUNT(e.id) AS count FROM `_entry` e
 	WHERE f.priority > 0 AND e.is_read=0
 SQL;
 		$res = $this->fetchColumn($sql, 0);
-		if ($res == null) {
-			return false;
+		if ($res === null) {
+			return ['all' => -1, 'unread' => -1, 'read' => -1];
 		}
 		rsort($res);
 		$all = (int)($res[0] ?? 0);
@@ -1348,8 +1348,8 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	/** @return array<string,int>|false */
-	public function countUnreadReadFavorites() {
+	/** @return array{'all':int,'read':int,'unread':int} */
+	public function countUnreadReadFavorites(): array {
 		$sql = <<<'SQL'
 SELECT c FROM (
 	SELECT COUNT(e1.id) AS c, 1 AS o
@@ -1371,8 +1371,8 @@ SQL;
 			':priority_normal1' => FreshRSS_Feed::PRIORITY_NORMAL,
 			':priority_normal2' => FreshRSS_Feed::PRIORITY_NORMAL,
 		]);
-		if ($res == null) {
-			return false;
+		if ($res === null) {
+			return ['all' => -1, 'unread' => -1, 'read' => -1];
 		}
 
 		rsort($res);
