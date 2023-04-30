@@ -45,7 +45,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public static function hasGitUpdate(): bool {
-		Minz_Log::notice(_t('feedback.update.viaGit'));
+		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = array();
