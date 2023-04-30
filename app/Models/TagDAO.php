@@ -213,11 +213,13 @@ SQL;
 
 	public function searchById(int $id): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE id=:id', [':id' => $id]);
+		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
 		return $res === null ? null : self::daoToTag($res)[0] ?? null;
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE name=:name', [':name' => $name]);
+		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
 		return $res === null ? null : self::daoToTag($res)[0] ?? null;
 	}
 
@@ -238,7 +240,8 @@ SQL;
 
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			return self::daoToTag($stm->fetchAll(PDO::FETCH_ASSOC));
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
+			return self::daoToTag($res);
 		} else {
 			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -434,13 +437,13 @@ SQL;
 	}
 
 	/**
-	 * @param iterable<array<string,int|string|null>> $listDAO
+	 * @param iterable<array{'id':int,'name':string,'attributes'?:string}> $listDAO
 	 * @return array<FreshRSS_Tag>
 	 */
 	private static function daoToTag(iterable $listDAO): array {
 		$list = [];
 		foreach ($listDAO as $dao) {
-			if (empty($dao['id']) || !is_int($dao['id']) || empty($dao['name']) || !is_string($dao['name'])) {
+			if (empty($dao['id']) || empty($dao['name'])) {
 				continue;
 			}
 			$tag = new FreshRSS_Tag($dao['name']);
