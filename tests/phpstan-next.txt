@@ -14,8 +14,6 @@
 ./app/Models/Search.php
 ./app/Models/Share.php
 ./app/views/helpers/logs_pagination.phtml
-./cli/check.translation.php
-./cli/manipulate.translation.php
 ./lib/Minz/Error.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
