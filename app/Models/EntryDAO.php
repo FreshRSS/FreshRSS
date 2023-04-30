@@ -1201,7 +1201,7 @@ SQL;
 	/**
 	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
-	 * @return array<numeric-string>
+	 * @return array<numeric-string>|null
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
@@ -1209,11 +1209,11 @@ SQL;
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm->execute($values)) {
-			return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: [];
+			return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: null;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-		return [];
+		return null;
 	}
 
 	/**
