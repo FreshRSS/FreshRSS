@@ -45,7 +45,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public static function hasGitUpdate(): bool {
-		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = array();
@@ -69,6 +68,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	/** @return string|true */
 	public static function gitPull() {
+		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = [];
@@ -216,11 +216,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$script = $res_array[1];
 			$version = explode(' ', $status, 2);
 			$version = $version[1];
+
+			Minz_Log::notice(_t('admin.update.copiedFromURL', $auto_update_url));
 		}
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
 			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
-			Minz_Log::notice(_t('admin.update.copiedFromURL', $auto_update_url));
 			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
