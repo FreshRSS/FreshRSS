@@ -643,7 +643,7 @@ function checkCIDR(string $ip, string $range): bool {
 	$binary_subnet = ipToBits($subnet);
 
 	$mask_bits = $split[1] ?? '';
-	$mask_bits = intval($mask_bits);
+	$mask_bits = (int)$mask_bits;
 	if ($mask_bits === 0) {
 		$mask_bits = null;
 	}
