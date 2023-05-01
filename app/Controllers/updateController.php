@@ -47,8 +47,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	public static function getCurrentGitBranch(): string {
 		$output = array();
 		exec('git branch --show-current', $output, $return);
-
-		return $return;
+		if ($return == 0) {
+			return 'git branch: ' . $output[0];
+		} else {
+			return 'git';
+		}
 	}
 
 	public static function hasGitUpdate(): bool {
