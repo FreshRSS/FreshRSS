@@ -365,8 +365,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		/** @var FreshRSS_Tag[] $labels */
-		$labels = $tagDAO->listTags();
+		$labels = $tagDAO->listTags() ?: [];
 		$knownLabels = array();
 		foreach ($labels as $label) {
 			$knownLabels[$label->name()]['id'] = $label->id();
