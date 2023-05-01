@@ -44,6 +44,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return true;
 	}
 
+	public static function getCurrentGitBranch(): string {
+		$output = array();
+		exec('git branch --show-current', $output, $return);
+
+		return $return;
+	}
+
 	public static function hasGitUpdate(): bool {
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
@@ -169,7 +176,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		if (self::isGit()) {
 			if (self::hasGitUpdate()) {
-				$version = 'git';
+				$version = self::getCurrentGitBranch();
 			} else {
 				$this->view->message = array(
 					'status' => 'latest',
