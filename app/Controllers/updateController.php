@@ -281,7 +281,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($res === true) {
-				Minz_Log::notice(_t('feedback.update.finished'));
 				Minz_Request::forward(array(
 					'c' => 'update',
 					'a' => 'apply',
