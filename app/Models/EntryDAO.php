@@ -1208,8 +1208,10 @@ SQL;
 
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 		$stm = $this->pdo->prepare($sql);
-		if ($stm->execute($values)) {
-			return $stm->fetchAll(PDO::FETCH_COLUMN, 0) ?: null;
+		if ($stm !== false && $stm->execute($values)) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			/** @var array<numeric-string>|false $res */
+			return $res === false ? [] : $res;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
