@@ -149,7 +149,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			if (is_string($article_file)) {
 				$json = $this->ttrssXmlToJson($article_file);
 				if ($json === false) {
-					continue;
+					fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
+					$ok = false;
 				}
 				if (!$this->importJson($json, true)) {
 					$ok = false;
