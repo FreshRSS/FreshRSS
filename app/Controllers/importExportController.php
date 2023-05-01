@@ -126,7 +126,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 		}
 		foreach ($list_files['json_starred'] as $article_file) {
-			if (is_string($article_file) && !$this->importJson($article_file, true)) {
+			if (!is_string($article_file) || !$this->importJson($article_file, true)) {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during JSON stars import' . "\n");
