@@ -378,19 +378,19 @@ SQL;
 	public function count(): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_category`';
 		$res = $this->fetchColumn($sql, 0);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
 	public function countFeed(int $id): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_feed` WHERE category=:id';
 		$res = $this->fetchColumn($sql, 0, [':id' => $id]);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
 	public function countNotRead(int $id): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id WHERE category=:id AND e.is_read=0';
 		$res = $this->fetchColumn($sql, 0, [':id' => $id]);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
 	/** @param array<FreshRSS_Category> $categories */

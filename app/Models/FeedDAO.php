@@ -594,7 +594,7 @@ SQL;
 				continue;
 			}
 			if (isset($dao['id'])) {
-				$key = (int)($dao['id']);
+				$key = (int)$dao['id'];
 			}
 			if ($catID === null) {
 				$category = $dao['category'] ?? 0;
