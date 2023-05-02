@@ -350,10 +350,7 @@ HTML;
 		return $this->is_favorite;
 	}
 
-	/**
-	 * @return FreshRSS_Feed|null|false
-	 */
-	public function feed() {
+	public function feed(): ?FreshRSS_Feed {
 		if ($this->feed === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->feed = $feedDAO->searchById($this->feedId);
@@ -778,7 +775,10 @@ HTML;
 		return false;
 	}
 
-	/** @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>} */
+	/**
+	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
+	 */
 	public function toArray(): array {
 		return array(
 			'id' => $this->id(),
