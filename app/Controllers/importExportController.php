@@ -151,13 +151,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				if ($json === false) {
 					fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
 					$ok = false;
-				}
-				if (!$this->importJson($json, true)) {
-					$ok = false;
-					if (FreshRSS_Context::$isCli) {
-						fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
-					} else {
-						Minz_Log::warning('Error during TT-RSS articles import');
+				} else {
+					if (!$this->importJson($json, true)) {
+						$ok = false;
+						if (FreshRSS_Context::$isCli) {
+							fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
+						} else {
+							Minz_Log::warning('Error during TT-RSS articles import');
+						}
 					}
 				}
 			}
