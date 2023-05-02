@@ -125,10 +125,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->hubUrl;
 	}
 
-	/**
-	 * @return FreshRSS_Category|null|false
-	 */
-	public function category() {
+	public function category(): ?FreshRSS_Category {
 		if ($this->category === null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->category = $catDAO->searchById($this->categoryId);
