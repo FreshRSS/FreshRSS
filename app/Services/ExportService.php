@@ -94,7 +94,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
 		$feed = $this->feed_dao->searchById($feed_id);
-		if (!$feed) {
+		if ($feed === null) {
 			return null;
 		}
 
@@ -127,7 +127,7 @@ class FreshRSS_Export_Service {
 	 * @return array<string,string> Keys are filenames and values are contents.
 	 */
 	public function generateAllFeedEntries(int $max_number_entries): array {
-		$feed_ids = $this->feed_dao->listFeedsIds() ?: [];
+		$feed_ids = $this->feed_dao->listFeedsIds();
 
 		$exported_files = [];
 		foreach ($feed_ids as $feed_id) {
