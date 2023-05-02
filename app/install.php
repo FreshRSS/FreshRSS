@@ -18,16 +18,8 @@ if (STEP === 2 && isset($_POST['type'])) {
 	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
-/**
- * @param mixed $default
- * @return mixed
- */
-function param(string $key, $default = false) {
-	if (isset($_POST[$key])) {
-		return $_POST[$key];
-	} else {
-		return $default;
-	}
+function param(string $key, string $default = ''): string {
+	return isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : $default;
 }
 
 // gestion internationalisation
@@ -146,9 +138,6 @@ function saveStep2(): void {
 		if (Minz_Session::param('title') != '') {
 			$config_array['title'] = Minz_Session::param('title');
 		}
-		if (Minz_Session::param('auth_type') != '') {
-			$config_array['auth_type'] = Minz_Session::param('auth_type');
-		}
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
@@ -196,27 +185,33 @@ function saveStep2(): void {
 }
 
 function saveStep3(): bool {
+	FreshRSS_Context::initSystem();
+	Minz_Translate::init(Minz_Session::param('language'));
+
 	if (!empty($_POST)) {
-		$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
-		Minz_Session::_params([
-				'title' => $system_default_config->title,
-				'auth_type' => param('auth_type', 'form'),
-			]);
+		if (param('auth_type', 'form') != '') {
+			FreshRSS_Context::$system_conf->auth_type = param('auth_type', 'form');
+			Minz_Session::_param('auth_type', FreshRSS_Context::$system_conf->auth_type);
+		} else {
+			return false;
+		}
+
+		$password_plain = param('passwordPlain', '');
+		if (FreshRSS_Context::$system_conf->auth_type === 'form' && $password_plain == '') {
+			return false;
+		}
+
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			Minz_Session::_param('default_user', param('default_user', ''));
-		}
-
-		if (Minz_Session::param('auth_type') == '' || Minz_Session::param('default_user') == '') {
+			FreshRSS_Context::$system_conf->default_user = param('default_user', '');
+			Minz_Session::_param('default_user', FreshRSS_Context::$system_conf->default_user);
+		} else {
 			return false;
 		}
 
-		$password_plain = param('passwordPlain', false);
-		if (Minz_Session::param('auth_type') === 'form' && $password_plain == '') {
-			return false;
+		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' && !empty($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])) {
+			// Trust by default the remote IP address (e.g. proxy) used during install to provide remote user name
+			FreshRSS_Context::$system_conf->trusted_sources = [ $_SERVER['REMOTE_ADDR'] ];
 		}
-
-		FreshRSS_Context::initSystem();
-		Minz_Translate::init(Minz_Session::param('language'));
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
@@ -242,7 +237,6 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
 		FreshRSS_Context::$system_conf->save();
 
 		header('Location: index.php?step=4');
@@ -591,7 +585,7 @@ function printStep3(): void {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
-					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="1" />
+					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -603,7 +597,8 @@ function printStep3(): void {
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
-						httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('install.auth.http') ?>(REMOTE_USER = '<?= httpAuthUser() ?>')</option>
+						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('install.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
 					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
 						?>><?= _t('install.auth.none') ?></option>
 				</select>
