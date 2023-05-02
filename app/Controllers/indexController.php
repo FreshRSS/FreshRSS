@@ -194,7 +194,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$get = FreshRSS_Context::currentGet(true);
 		if (is_array($get)) {
 			$type = $get[0];
-			$id = $get[1];
+			$id = (int)$get[1];
 		} else {
 			$type = $get;
 			$id = 0;
@@ -219,7 +219,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 'f':
 				// We most likely already have the feed object in cache
 				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
-				if ($feed == null) {
+				if ($feed === null) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);
 					if ($feed == null) {
@@ -290,8 +290,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function tosAction(): void {
 		$terms_of_service = file_get_contents(TOS_FILENAME);
-		if (!$terms_of_service) {
+		if ($terms_of_service === false) {
 			Minz_Error::error(404);
+			return;
 		}
 
 		$this->view->terms_of_service = $terms_of_service;

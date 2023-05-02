@@ -8,12 +8,7 @@
 ./app/Controllers/indexController.php
 ./app/Controllers/updateController.php
 ./app/Controllers/userController.php
-./app/Models/CategoryDAO.php
-./app/Models/Context.php
-./app/Models/EntryDAO.php
 ./app/Models/Feed.php
-./app/Models/FeedDAO.php
-./app/Models/Search.php
 ./app/Models/Share.php
 ./app/views/helpers/logs_pagination.phtml
 ./lib/Minz/Error.php

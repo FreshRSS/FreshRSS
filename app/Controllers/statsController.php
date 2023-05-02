@@ -155,7 +155,10 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		foreach ($feeds as $feed) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feed['favicon'] = $feedDAO->searchById($feed['id'])->favicon();
+			$feedObject = $feedDAO->searchById($feed['id']);
+			if ($feedObject !== null) {
+				$feed['favicon'] = $feedObject->favicon();
+			}
 
 			$feedDate->setTimestamp($feed['last_date']);
 			if ($feedDate >= $lastWeek) {
