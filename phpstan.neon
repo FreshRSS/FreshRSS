@@ -20,6 +20,17 @@ parameters:
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
+	dynamicConstantNames:
+		- CACHE_PATH
+		- COPY_LOG_TO_SYSLOG
+		- COPY_SYSLOG_TO_STDERR
+		- DATA_PATH
+		- MAX_LOG_SIZE
+		- SIMPLEPIE_SYSLOG_ENABLED
+		- STDERR
+		- STDOUT
+		- TMP_PATH
+		- USERS_PATH
 includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
