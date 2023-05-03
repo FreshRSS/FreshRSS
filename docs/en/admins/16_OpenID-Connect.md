@@ -1,4 +1,4 @@
-# OIDC
+# OpenID Connect (OIDC)
 
 ## Using docker
 
