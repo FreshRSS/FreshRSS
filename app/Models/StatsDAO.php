@@ -11,7 +11,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	/**
 	 * Calculates entry repartition for all feeds and for main stream.
 	 *
-	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int},'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}}
+	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false}
 	 */
 	public function calculateEntryRepartition(): array {
 		return array(
@@ -28,9 +28,9 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 *   - unread entries
 	 *   - favorite entries
 	 *
-	 * @return array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}
+	 * @return array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false
 	 */
-	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false): array {
+	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false) {
 		$filter = '';
 		if ($only_main) {
 			$filter .= 'AND f.priority = 10';
@@ -47,10 +47,9 @@ FROM `_entry` AS e, `_feed` AS f
 WHERE e.id_feed = f.id
 {$filter}
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res[0];
+		$res = $this->fetchAssoc($sql);
+		/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}>|null $res */
+		return $res[0] ?? false;
 	}
 
 	/**
@@ -72,14 +71,14 @@ WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
 SQL;
-		$stm = $this->pdo->query($sql);
-		/** @var array<array{'day':int,'count':int}> */
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($res as $value) {
-			$count[(int)($value['day'])] = (int) $value['count'];
+		$res = $this->fetchAssoc($sql);
+		if ($res == false) {
+			return [];
 		}
-
+		/** @var array<array{'day':int,'count':int}> $res */
+		foreach ($res as $value) {
+			$count[(int)($value['day'])] = (int)($value['count']);
+		}
 		return $count;
 	}
 
@@ -138,9 +137,10 @@ GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_NAMED);
-
+		$res = $this->fetchAssoc($sql);
+		if ($res == false) {
+			return [];
+		}
 		switch ($period) {
 			case '%H':
 				$periodMax = 24;
@@ -152,12 +152,12 @@ SQL;
 				$periodMax = 12;
 				break;
 			default:
-			$periodMax = 30;
+				$periodMax = 30;
 		}
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
-			$repartition[(int) $value['period']] = (int) $value['count'];
+			$repartition[(int)$value['period']] = (int)$value['count'];
 		}
 
 		return $repartition;
@@ -200,12 +200,14 @@ SELECT COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetch(PDO::FETCH_NAMED);
+		$res = $this->fetchAssoc($sql);
+		if ($res == null || empty($res[0])) {
+			return -1.0;
+		}
 		$date_min = new \DateTime();
-		$date_min->setTimestamp($res['date_min']);
+		$date_min->setTimestamp((int)($res[0]['date_min']));
 		$date_max = new \DateTime();
-		$date_max->setTimestamp($res['date_max']);
+		$date_max->setTimestamp((int)($res[0]['date_max']));
 		$interval = $date_max->diff($date_min, true);
 		$interval_in_days = (float)($interval->format('%a'));
 		if ($interval_in_days <= 0) {
@@ -214,7 +216,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return intval($res['count']) / ($interval_in_days / $period);
+		return intval($res[0]['count']) / ($interval_in_days / $period);
 	}
 
 	/**
@@ -240,10 +242,9 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res;
+		$res = $this->fetchAssoc($sql);
+		/** @var array<array{'label':string,'data':int}>|null @res */
+		return $res == null ? [] : $res;
 	}
 
 	/**
@@ -260,10 +261,9 @@ AND f.id = e.id_feed
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res;
+		$res = $this->fetchAssoc($sql);
+		/** @var array<array{'label':string,'data':int}>|null $res */
+		return $res == null ? [] : $res;
 	}
 
 	/**
@@ -283,8 +283,9 @@ GROUP BY f.id
 ORDER BY count DESC
 LIMIT 10
 SQL;
-		$stm = $this->pdo->query($sql);
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc($sql);
+		/** @var array<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
+		return $res == null ? [] : $res;
 	}
 
 	/**
@@ -302,8 +303,9 @@ WHERE f.id = e.id_feed
 GROUP BY f.id
 ORDER BY name
 SQL;
-		$stm = $this->pdo->query($sql);
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc($sql);
+		/** @var array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
+		return $res == null ? [] : $res;
 	}
 
 	/**

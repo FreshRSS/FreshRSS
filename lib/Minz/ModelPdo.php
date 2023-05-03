@@ -179,4 +179,64 @@ class Minz_ModelPdo {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
 	}
+
+	/**
+	 * @param array<string,int|string|null> $values
+	 * @phpstan-return ($mode is PDO::FETCH_ASSOC ? array<array<string,int|string|null>>|null : array<int|string|null>|null)
+	 * @return array<array<string,int|string|null>>|array<int|string|null>|null
+	 */
+	private function fetchAny(string $sql, array $values, int $mode, int $column = 0): ?array {
+		$stm = $this->pdo->prepare($sql);
+		$ok = $stm !== false;
+		if ($ok && !empty($values)) {
+			foreach ($values as $name => $value) {
+				if (is_int($value)) $type = PDO::PARAM_INT;
+				elseif (is_string($value)) $type = PDO::PARAM_STR;
+				elseif (is_null($value)) $type = PDO::PARAM_NULL;
+				else {
+					$ok = false;
+					break;
+				}
+				if (!$stm->bindValue($name, $value, $type)) {
+					$ok = false;
+					break;
+				}
+			}
+		}
+		if ($ok && $stm !== false && $stm->execute()) {
+			switch ($mode) {
+				case PDO::FETCH_COLUMN:
+					$res = $stm->fetchAll(PDO::FETCH_COLUMN, $column);
+					break;
+				case PDO::FETCH_ASSOC:
+				default:
+					$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+					break;
+			}
+			if ($res !== false) {
+				return $res;
+			}
+		}
+
+		$callingFunction = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3)[2]['function'] ?? '??';
+		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . $callingFunction . ' ' . json_encode($info));
+		return null;
+	}
+
+	/**
+	 * @param array<string,int|string|null> $values
+	 * @return array<array<string,int|string|null>>|null
+	 */
+	public function fetchAssoc(string $sql, array $values = []): ?array {
+		return $this->fetchAny($sql, $values, PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param array<string,int|string|null> $values
+	 * @return array<int|string|null>|null
+	 */
+	public function fetchColumn(string $sql, int $column, array $values = []): ?array {
+		return $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, $column);
+	}
 }

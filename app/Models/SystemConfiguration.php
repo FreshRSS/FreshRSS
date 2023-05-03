@@ -7,7 +7,7 @@
  * @property-read bool $allow_robots
  * @property bool $api_enabled
  * @property string $archiving
- * @property string $auth_type
+ * @property 'form'|'http_auth'|'none' $auth_type
  * @property string $auto_update_url
  * @property-read array<int,mixed> $curl_options
  * @property string $default_user
@@ -23,7 +23,7 @@
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
  * @property bool $unsafe_autologin_enabled
- * @property-read array<string> $trusted_sources
+ * @property array<string> $trusted_sources
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
