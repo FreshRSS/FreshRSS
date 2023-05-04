@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות',
 		'file_cannot_be_uploaded' => 'אין אפשרות להעלות את הקובץ!',
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
-		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',
+		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// TODO

@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas',
 		'file_cannot_be_uploaded' => 'Failu nevar augšupielādēt!',
 		'no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma.',
-		'zip_error' => 'ZIP importa laikā notika kļūda.',
+		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Jūsu profilu nevar mainīt',

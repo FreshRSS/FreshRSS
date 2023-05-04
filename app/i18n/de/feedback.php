@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf',
 		'file_cannot_be_uploaded' => 'Die Datei kann nicht hochgeladen werden!',
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
-		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
+		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',

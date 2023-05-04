@@ -146,20 +146,13 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 		}
 		foreach ($list_files['ttrss_starred'] as $article_file) {
-			if (is_string($article_file)) {
-				$json = $this->ttrssXmlToJson($article_file);
-				if ($json === false) {
+			$json = is_string($article_file) ? $this->ttrssXmlToJson($article_file) : false;
+			if ($json === false || !$this->importJson($json, true)) {
+				$ok = false;
+				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
-					$ok = false;
 				} else {
-					if (!$this->importJson($json, true)) {
-						$ok = false;
-						if (FreshRSS_Context::$isCli) {
-							fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
-						} else {
-							Minz_Log::warning('Error during TT-RSS articles import');
-						}
-					}
+					Minz_Log::warning('Error during TT-RSS articles import');
 				}
 			}
 		}
@@ -251,7 +244,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				});
 			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
-			$item['content'] = array('content' => $item['content'] ?? '');
+			$item['content'] = ['content' => $item['content'] ?? ''];
 			$item['categories'] = isset($item['tag_cache']) ? array($item['tag_cache']) : array();
 			if (!empty($item['marked'])) {
 				$item['categories'][] = 'user/-/state/com.google/starred';
@@ -270,10 +263,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 			}
 			$item['alternate'][0]['href'] = $item['link'] ?? '';
-			$item['origin'] = array(
-					'title' => $item['feed_title'] ?? '',
-					'feedUrl' => $item['feed_url'] ?? '',
-				);
+			$item['origin'] = [
+				'title' => $item['feed_title'] ?? '',
+				'feedUrl' => $item['feed_url'] ?? '',
+			];
 			$item['id'] = $item['guid'] ?? ($item['feed_url'] ?? $item['published']);
 			$item['guid'] = $item['id'];
 			$table['items'][$i] = $item;
@@ -473,7 +466,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$newGuids[$entry->guid()] = true;
 
 			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
-			if (($entry instanceof FreshRSS_Entry) === false) {
+			if (!($entry instanceof FreshRSS_Entry)) {
 				// An extension has returned a null value, there is nothing to insert.
 				continue;
 			}
@@ -667,14 +660,16 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			[$filename, $content] = $export_service->zip($exported_files);
 		}
 
+		if (!is_string($content)) {
+			Minz_Request::bad(_t('feedback.import_export.zip_error'), ['c' => 'importExport', 'a' => 'index']);
+			return;
+		}
+
 		$content_type = self::filenameToContentType($filename);
 		header('Content-Type: ' . $content_type);
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
 		$this->view->_layout(null);
-		if (is_string($content) === false) {
-			return;
-		}
 		$this->view->content = $content;
 	}
 

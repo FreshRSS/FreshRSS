@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
-		'zip_error' => 'Une erreur est survenue durant l’import du fichier ZIP.',
+		'zip_error' => 'Une erreur est survenue durant le traintement du fichier ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
