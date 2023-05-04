@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden',
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
-		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',
+		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',

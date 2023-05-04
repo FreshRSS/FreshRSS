@@ -363,7 +363,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function load(bool $loadDetails = false, bool $noCache = false): ?SimplePie {
 		if ($this->url != '') {
 			// @phpstan-ignore-next-line
-			if (CACHE_PATH === false) {
+			if (CACHE_PATH == '') {
 				throw new Minz_FileNotExistException(
 					'CACHE_PATH',
 					Minz_Exception::ERROR

@@ -169,7 +169,7 @@ SQL;
 				$valuesTmp['attributes'] = [];
 			}
 			$this->addEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
-				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 			if (static::hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
@@ -280,7 +280,7 @@ SQL;
 				$valuesTmp['attributes'] = [];
 			}
 			$this->updateEntryPrepared->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
-				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES));
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 			if (static::hasNativeHex()) {
 				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);

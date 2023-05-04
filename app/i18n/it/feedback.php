@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori',
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
-		'zip_error' => 'Si è verificato un errore importando il file ZIP',
+		'zip_error' => 'Si è verificato un errore importando il file ZIP',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',

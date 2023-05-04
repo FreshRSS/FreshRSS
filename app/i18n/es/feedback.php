@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Se importaron tus fuentes; pero hubo algunos errores',
 		'file_cannot_be_uploaded' => 'No es posible enviar el archivo',
 		'no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor.',
-		'zip_error' => 'Hubo un error durante la importación ZIP.',
+		'zip_error' => 'Hubo un error durante la importación ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Tu perfil no puede ser modificado',
