@@ -66,7 +66,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			base64_encode($valuesTmp['httpAuth']),
 			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
 			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 		);
 
 		if ($stm !== false && $stm->execute($values)) {
