@@ -17,7 +17,6 @@ if (!function_exists('str_starts_with')) {
 }
 
 if (!function_exists('syslog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
@@ -31,7 +30,6 @@ if (!function_exists('syslog')) {
 }
 
 if (function_exists('openlog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR) {
 		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 	} else {
