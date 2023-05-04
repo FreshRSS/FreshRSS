@@ -60,7 +60,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 						continue;
 					}
 					if (!($stm->bindValue(':id', $feed['id'], PDO::PARAM_INT) &&
-						$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES)) &&
+						$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) &&
 						$stm->execute())) {
 						Minz_Log::error('SQL error ' . __METHOD__ . json_encode($stm->errorInfo()));
 					}
@@ -118,7 +118,7 @@ SQL;
 		$values = array(
 			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			$valuesTmp['name'],
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
 		);
 
@@ -169,7 +169,7 @@ SQL;
 		$values = array(
 			$valuesTmp['name'],
 			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES),
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$id,
 			$valuesTmp['name'],
 		);
