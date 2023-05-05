@@ -1,5 +1,5 @@
 <?php
-function get_logout_url(): string|false {
+function get_logout_url(): ?string {
 	if ($_SERVER['AUTH_TYPE'] == 'openid-connect') {
 		$url_string = urlencode(Minz_Request::guessBaseUrl());
 		return '/oidc/?logout=' . $url_string . '/';
