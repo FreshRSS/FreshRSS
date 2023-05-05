@@ -61,4 +61,4 @@ EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
-	exec apache2 -D FOREGROUND
+	exec apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && echo -D OIDC_ENABLED)
