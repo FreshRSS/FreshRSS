@@ -375,6 +375,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
+			$mtime = 0;
 			if ($feed->mute()) {
 				continue;	//Feed refresh is disabled
 			}
@@ -383,7 +384,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				($feed->lastUpdate() + 10 >= time() - (
 					$ttl === FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
-				$mtime = (int)$feed->cacheModifiedTime();
+				$mtime = $feed->cacheModifiedTime() ?: 0;
 				if ($feed->lastUpdate() + 10 >= $mtime) {
 					continue;	//Nothing newer from other users
 				}
@@ -439,6 +440,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
 				}
 				if ($readWhenSameTitleInFeed > 0) {
+					/** @var array<string,bool> $titlesAsRead*/
 					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), (int)$readWhenSameTitleInFeed));
 				}
 
@@ -447,8 +449,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					) : FreshRSS_Context::$user_conf->mark_updated_article_unread;
 
 				// For this feed, check existing GUIDs already in database.
-				/** @var array<string,string> $existingHashForGuids */
-				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
+				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids) ?: [];
 				/** @var array<string,bool> $newGuids */
 				$newGuids = [];
 
@@ -469,9 +470,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							$entry->_isFavorite(null);	// Do not change favourite state
 
-							/** @var FreshRSS_Entry|null $entry*/
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
-							if ($entry === null) {
+							if (!($entry instanceof FreshRSS_Entry)) {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
 							}
@@ -492,15 +492,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					} else {
 						$id = uTimeString();
 						$entry->_id($id);
-						/** @var array<string,int> $titlesAsRead*/
 						$entry->applyFilterActions($titlesAsRead);
 						if ($readWhenSameTitleInFeed > 0) {
 							$titlesAsRead[$entry->title()] = true;
 						}
 
-						/** @var FreshRSS_Entry|null $entry */
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
-						if ($entry === null) {
+						if (!($entry instanceof FreshRSS_Entry)) {
 							// An extension has returned a null value, there is nothing to insert.
 							continue;
 						}
@@ -541,10 +539,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
-			$needFeedCacheRefresh |= ($feed->keepMaxUnread() !== false);
+			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
 			if (!$simplePiePush) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
-				$needFeedCacheRefresh |= ($feed->markAsReadUponGone() !== false);
+				$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
@@ -783,10 +781,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 * Parameters are:
 	 *   - id (default: false)
-	 *   - r (default: false)
-	 * r permits to redirect to a given page at the end of this action.
-	 *
-	 * @todo handle "r" redirection in Minz_Request::forward()?
 	 */
 	public function deleteAction(): void {
 		$from = Minz_Request::paramString('from');
@@ -805,13 +799,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				break;
 			default:
-				$redirect_url = Minz_Request::paramString('r', true);
-				if ($redirect_url === '') {
-					$redirect_url = ['c' => 'subscription', 'a' => 'index'];
-				}
-				if (!is_array($redirect_url)) {
-					$redirect_url = ['c' => 'subscription', 'a' => 'index'];
-				}
+				$redirect_url = ['c' => 'subscription', 'a' => 'index'];
 				if (!Minz_Request::isPost()) {
 					Minz_Request::forward($redirect_url, true);
 				}
