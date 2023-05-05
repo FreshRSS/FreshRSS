@@ -364,7 +364,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
-			$mtime = 0;
 			if ($feed->mute()) {
 				continue;	//Feed refresh is disabled
 			}
@@ -373,7 +372,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				($feed->lastUpdate() + 10 >= time() - (
 					$ttl == FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
-				$mtime = (int) $feed->cacheModifiedTime();
+				$mtime = (int)$feed->cacheModifiedTime();
 				if ($feed->lastUpdate() + 10 >= $mtime) {
 					continue;	//Nothing newer from other users
 				}
