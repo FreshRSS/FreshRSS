@@ -1,6 +1,6 @@
 # Contributing to internationalization (i18n)
 
-Thanks to our contributors, FreshRSS is translated into more than 15 languages. This section will explain the basics of internationalization in FreshRSS, from translating the application to your own language to making a specific change.
+Thanks to our contributors, FreshRSS is translated into [more than 20 languages](./users/05_Configuration.md#language). This section will explain the basics of internationalization in FreshRSS, from translating the application to your own language to making a specific change.
 
 ## Overview
 
