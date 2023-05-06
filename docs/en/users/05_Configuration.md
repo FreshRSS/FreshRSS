@@ -34,8 +34,7 @@ Available languages are:
 | Slovak                  | Slovenčina             | sk                                   |
 | Turkish                 | Türkçe                 | tr                                   |
 | Chinese (Simplified, People's Republic of China) | 简体中文      | zh-cn                 |
-| Chinese (Traditional, Taiwan) | 正體中文          | zh-tw                                | 
-
+| Chinese (Traditional, Taiwan) | 正體中文          | zh-tw                                |
 
 ## Theme
 
