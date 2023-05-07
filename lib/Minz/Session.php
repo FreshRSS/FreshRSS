@@ -61,8 +61,8 @@ class Minz_Session {
 	/**
 	 * Allows you to retrieve a session variable
 	 * @param string $p the parameter to retrieve
-	 * @param mixed|false $default the default value if the parameter doesn't exist
-	 * @return mixed|false the value of the session variable, false if doesn't exist
+	 * @param mixed|false $default the default value if the parameter doesn’t exist
+	 * @return mixed|false the value of the session variable, false if doesn’t exist
 	 */
 	public static function param(string $p, $default = false) {
 		return $_SESSION[$p] ?? $default;

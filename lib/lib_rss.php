@@ -653,10 +653,10 @@ function checkCIDR(string $ip, string $range): bool {
 
 /**
  * Check if the client is allowed to send unsafe headers
- * This uses the REMOTE_ADDR header to determine the sender's IP
+ * This uses the REMOTE_ADDR header to determine the sender’s IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
