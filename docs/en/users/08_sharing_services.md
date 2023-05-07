@@ -8,7 +8,7 @@ FreshRSS has the option to share links with a bunch of services.
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Clipboard     | Copy article link into the operation system clipboard | |
 | Email         | Open the email app to send the article link            | |
-| Print         | Open browser's print dialog to print out the article   | |
+| Print         | Open browser’s print dialog to print out the article   | |
 
 ## Available Services: Hosted Services
 

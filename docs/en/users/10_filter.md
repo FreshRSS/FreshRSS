@@ -103,7 +103,7 @@ Combining several search criteria implies a logical *and*, but the keyword ` OR 
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
-Additional reading: [De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+Additional reading: [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
 Finally, parentheses may be used to express more complex queries, with basic negation support:
 
