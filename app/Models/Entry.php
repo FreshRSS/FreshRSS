@@ -627,14 +627,14 @@ HTML;
 		return (bool)$ok;
 	}
 
-	/** @param array<string,int> $titlesAsRead  */
+	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
 				$this->_isRead(true);
 			}
-			if (isset($titlesAsRead[$this->title()])) {
+			if (!empty($titlesAsRead[$this->title()])) {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
 			}
