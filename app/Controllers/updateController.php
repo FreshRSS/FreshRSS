@@ -177,11 +177,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			if ($curlResource === false) {
 				Minz_Log::warning('curl_init() failed');
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'bad',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.server_not_found', $auto_update_url)
-				);
+				];
 				return;
 			}
 			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
