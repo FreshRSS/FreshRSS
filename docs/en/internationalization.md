@@ -23,7 +23,6 @@ The translation files are quite simple: it’s only a matter of returning a PHP 
 
 ```php
 <?php
-
 return array(
 	'action' => [
 		'actualize' => 'Actualiser',
@@ -37,7 +36,7 @@ return array(
 		'about' => 'À propos de FreshRSS',
 	),
 	// ...
-];
+);
 ```
 
 Each value can be referenced by a key: it consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation, while the following ones indicate array entries. Thus, the `gen.freshrss.about` key is referencing the `about` entry from the `freshrss` entry which is part of the main array returned by the `gen.php` file. This allows us to further organize our translation files.
