@@ -5,7 +5,6 @@
 
 ./app/Controllers/feedController.php
 ./app/Controllers/indexController.php
-./app/Controllers/updateController.php
 ./app/Controllers/userController.php
 ./app/Models/Feed.php
 ./app/Models/Share.php
