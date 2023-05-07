@@ -15,8 +15,32 @@ vocation à l’être. Pour le moment, les logs visibles dans l’application
 ainsi que celle générées par le script de mise à jour automatique en font
 partie.
 
-Les langues disponibles sont : cz, de, en, es, fr, he, it, ko, nl, oc,
-pt-br, ru, tr, zh-cn.
+Les langues disponibles sont:
+
+| Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
+|:------------------------|:-----------------------|:-------------------------------------|
+| Tchèque                 | Čeština                | cz                                   |
+| Allemand                | Deutsch                | de                                   |
+| Grec                    | Ελληνικά               | el                                   |
+| Anglais                 | English                | en                                   |
+| Anglais (États-Unis)    | English (United States) | en-us                               |
+| Espagnol                | Español                | es                                   |
+| Français                | Français               | fr                                   |
+| Hébreu                  | עברית                  | he                                   |
+| Indonésien              | Bahasa Indonesia       | id                                   |
+| Italien                 | Italiano               | it                                   |
+| Japonais                | 日本語                  | ja                                   |
+| Coréen                  | 한국어                  | ko                                   |
+| Letton                  | Latviešu               | lv                                   |
+| Néerlandais             | Nederlands             | nl                                   |
+| Occitan                 | Occitan                | oc                                   |
+| Polonais                | Polski                 | pl                                   |
+| Portugais brésilien     | Português (Brasil)     | pt-br                                |
+| Russe                   | Русский                | ru                                   |
+| Slovaque                | Slovenčina             | sk                                   |
+| Turc                    | Türkçe                 | tr                                   |
+| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-cn               |
+| Chinois (traditionnel, Taïwan) | 正體中文          | zh-tw                               |
 
 ## Thème
 

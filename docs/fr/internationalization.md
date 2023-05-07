@@ -1,5 +1,9 @@
 # Gestion de la traduction
 
+Grâce à nos contributeurs, FreshRSS est traduit dans [plus de 20 langues](./users/05_Configuration.md#language. Cette section expliquera les bases de l'internationalisation dans FreshRSS, de la traduction de l'application dans votre propre langue à la réalisation d'un changement spécifique.
+
+## Aperçu
+
 Il est fréquent (et c’est un euphémisme) de vouloir afficher des phrases à
 l’utilisateur. Dans l’exemple précédent par exemple, nous affichions un
 feedback à l’utilisateur en fonction du résultat d’une validation de
