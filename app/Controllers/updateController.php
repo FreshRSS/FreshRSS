@@ -2,7 +2,7 @@
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
-	const LASTUPDATEFILE = 'last_update.txt';
+	private const LASTUPDATEFILE = 'last_update.txt';
 
 	public static function isGit(): bool {
 		return is_dir(FRESHRSS_PATH . '/.git/');
