@@ -2,7 +2,7 @@
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
-	const LASTUPDATEFILE = 'last_update.txt';
+	private const LASTUPDATEFILE = 'last_update.txt';
 
 	public static function isGit(): bool {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -46,8 +46,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	public static function hasGitUpdate(): bool {
 		$cwd = getcwd();
+		if ($cwd === false) {
+			Minz_Log::warning('getcwd() failed');
+			return false;
+		}
 		chdir(FRESHRSS_PATH);
-		$output = array();
+		$output = [];
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
@@ -69,6 +73,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	/** @return string|true */
 	public static function gitPull() {
 		$cwd = getcwd();
+		if ($cwd === false) {
+			Minz_Log::warning('getcwd() failed');
+			return 'getcwd() failed';
+		}
 		chdir(FRESHRSS_PATH);
 		$output = [];
 		$return = 1;
@@ -149,7 +157,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 
 		$script = '';
-		$version = '';
 
 		if (self::isGit()) {
 			if (self::hasGitUpdate()) {
@@ -166,18 +173,28 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		} else {
 			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '/?v=' . FRESHRSS_VERSION;
 			Minz_Log::debug('HTTP GET ' . $auto_update_url);
-			$c = curl_init($auto_update_url);
-			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
-			$result = curl_exec($c);
-			$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-			$c_error = curl_error($c);
-			curl_close($c);
+			$curlResource = curl_init($auto_update_url);
 
-			if ($c_status !== 200) {
+			if ($curlResource === false) {
+				Minz_Log::warning('curl_init() failed');
+				$this->view->message = [
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.server_not_found', $auto_update_url)
+				];
+				return;
+			}
+			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curlResource, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($curlResource, CURLOPT_SSL_VERIFYHOST, 2);
+			$result = curl_exec($curlResource);
+			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
+			$curlError = curl_error($curlResource);
+			curl_close($curlResource);
+
+			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(
-					'Error during update (HTTP code ' . $c_status . '): ' . $c_error
+					'Error during update (HTTP code ' . $curlGetinfo . '): ' . $curlError
 				);
 
 				$this->view->message = array(
@@ -188,7 +205,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			$res_array = explode("\n", $result, 2);
+			$res_array = explode("\n", (string)$result, 2);
 			$status = $res_array[0];
 			if (strpos($status, 'UPDATE') !== 0) {
 				$this->view->message = array(

@@ -6,7 +6,7 @@
  */
 
 abstract class Minz_Pdo extends PDO {
-	/** @param array<int,int|string>|null $options */
+	/** @param array<int,int|string|bool>|null $options */
 	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);

@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów',
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
-		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',
+		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Nie można modyfikować profilu',

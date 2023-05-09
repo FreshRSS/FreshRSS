@@ -17,7 +17,6 @@ if (!function_exists('str_starts_with')) {
 }
 
 if (!function_exists('syslog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
@@ -31,7 +30,6 @@ if (!function_exists('syslog')) {
 }
 
 if (function_exists('openlog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR) {
 		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 	} else {
@@ -634,26 +632,35 @@ function ipToBits(string $ip): string {
  */
 function checkCIDR(string $ip, string $range): bool {
 	$binary_ip = ipToBits($ip);
-	list($subnet, $mask_bits) = explode('/', $range);
-	$mask_bits = intval($mask_bits);
+	$split = explode('/', $range);
+
+	$subnet = $split[0] ?? '';
+	if ($subnet == '') {
+		return false;
+	}
 	$binary_subnet = ipToBits($subnet);
+
+	$mask_bits = $split[1] ?? '';
+	$mask_bits = (int)$mask_bits;
+	if ($mask_bits === 0) {
+		$mask_bits = null;
+	}
 
 	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
-
 	return $ip_net_bits === $subnet_bits;
 }
 
 /**
  * Check if the client is allowed to send unsafe headers
- * This uses the REMOTE_ADDR header to determine the sender's IP
+ * This uses the REMOTE_ADDR header to determine the sender’s IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
+		return false;
 	}
 	if (!empty($_SERVER['REMOTE_ADDR'])) {
 		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
@@ -665,15 +672,20 @@ function checkTrustedIP(): bool {
 	return false;
 }
 
-function httpAuthUser(): string {
+function httpAuthUser(bool $onlyTrusted = true): string {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_REMOTE_USER'];
-	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
+	}
+	if (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_X_WEBAUTH_USER'];
+	}
+	if (!$onlyTrusted || checkTrustedIP()) {
+		if (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+			return $_SERVER['HTTP_REMOTE_USER'];
+		}
+		if (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+			return $_SERVER['HTTP_X_WEBAUTH_USER'];
+		}
 	}
 	return '';
 }
