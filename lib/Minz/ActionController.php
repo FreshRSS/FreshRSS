@@ -23,7 +23,7 @@ class Minz_ActionController {
 	/**
 	 * Gives the possibility to override the default view model type.
 	 * @var class-string
-	 * @deprecated Use contructor with view type instead
+	 * @deprecated Use constructor with view type instead
 	 */
 	public static $defaultViewType = Minz_View::class;
 
