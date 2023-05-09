@@ -151,3 +151,11 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+
+# Alternatives
+
+If FreshRSS does not suite you for one reason or another, here are alternative solutions to consider:
+
+* [Kriss Feed](https://tontof.net/kriss/feed/)
+* [Leed](https://github.com/LeedRSS/Leed)
+* [And more…](https://alternativeto.net/software/freshrss/) (but if you like FreshRSS, give us a vote!)
