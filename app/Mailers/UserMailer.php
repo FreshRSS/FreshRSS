@@ -7,6 +7,7 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 
 	/**
 	 * @var FreshRSS_View
+	 * @phpstan-ignore-next-line
 	 */
 	protected $view;
 

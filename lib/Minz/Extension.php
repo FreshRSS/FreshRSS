@@ -153,7 +153,7 @@ abstract class Minz_Extension {
 
 	/** @param 'user'|'system' $type */
 	private function setType(string $type): void {
-		if (!in_array($type, ['user', 'system'])) {
+		if (!in_array($type, ['user', 'system'], true)) {
 			throw new Minz_ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;

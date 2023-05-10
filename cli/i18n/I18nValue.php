@@ -24,7 +24,7 @@ class I18nValue {
 		}
 
 		$state = array_shift($data);
-		if (in_array($state, self::STATES)) {
+		if (in_array($state, self::STATES, true)) {
 			$this->state = $state;
 		}
 	}

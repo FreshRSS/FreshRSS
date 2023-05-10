@@ -504,7 +504,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$text = html_only_entity_decode($category->get_label());
 					//Some feeds use a single category with comma-separated tags
 					$labels = explode(',', $text);
-					if (is_array($labels)) {
+					if (!empty($labels)) {
 						foreach ($labels as $label) {
 							$tags[] = trim($label);
 						}
@@ -892,7 +892,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public function _filtersAction(string $action, array $filters): void {
 		$action = trim($action);
-		if ($action == '' || !is_array($filters)) {
+		if ($action == '') {
 			return;
 		}
 		$filters = array_unique(array_map('trim', $filters));
@@ -969,8 +969,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
 		$hubJson = $hubFile ? json_decode($hubFile, true) : array();
-		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
-			$hubJson['error'] = (bool)$error;
+		if (!isset($hubJson['error']) || $hubJson['error'] !== $error) {
+			$hubJson['error'] = $error;
 			file_put_contents($hubFilename, json_encode($hubJson));
 			Minz_Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
 		}
