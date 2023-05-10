@@ -1,13 +1,8 @@
 <?php
 	/** @var FreshRSS_View $this */
-	$sharing = array();
-	if (FreshRSS_Auth::hasAccess()) {
-		$sharing = FreshRSS_Context::$user_conf->sharing;
-	}
-
 	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
 	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
-	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count($sharing) > 0);
+	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count(FreshRSS_Context::$user_conf->sharing) > 0);
 	$bottomline_labels = true;	//TODO
 	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
 	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;

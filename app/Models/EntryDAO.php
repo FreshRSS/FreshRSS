@@ -1274,7 +1274,7 @@ SQL;
 
 	/**
 	 * @param array<string> $guids
-	 * @return int|false The number of affected feeds, or false if error
+	 * @return int|false The number of affected entries, or false if error
 	 */
 	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0) {
 		if (count($guids) < 1) {
@@ -1304,6 +1304,36 @@ SQL;
 			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
 				. ' while updating feed ' . $id_feed);
+			return false;
+		}
+	}
+
+	/**
+	 * Update (touch) the last seen attribute of the latest entries of a given feed.
+	 * Useful when a feed is unchanged / cached.
+	 * @return int|false The number of affected entries, or false in case of error
+	 */
+	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
+		$sql = <<<SQL
+UPDATE `_entry` SET `lastSeen` = :mtime
+WHERE id_feed = :id_feed1 AND `lastSeen` = (
+	SELECT max(e2.`lastSeen`) FROM `_entry` e2
+	WHERE e2.id_feed = :id_feed2
+)
+SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($mtime <= 0) {
+			$mtime = time();
+		}
+		if ($stm !== false &&
+			$stm->bindValue(':mtime', $mtime, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed1', $id_feed, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed2', $id_feed, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' while updating feed ' . $id_feed);
 			return false;
 		}
 	}
