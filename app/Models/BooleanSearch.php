@@ -33,8 +33,8 @@ class FreshRSS_BooleanSearch {
 			$input = $this->parseUserQueryIds($input);
 		}
 
-		// Either parse everything as a series of BooleanSearch's combined by implicit AND
-		// or parse everything as a series of Search's combined by explicit OR
+		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
+		// or parse everything as a series of Search’s combined by explicit OR
 		$this->parseParentheses($input, $level) || $this->parseOrSegments($input);
 	}
 

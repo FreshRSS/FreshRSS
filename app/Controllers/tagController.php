@@ -132,7 +132,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		$targetTag = $tagDAO->searchByName($targetName);
 		if ($targetTag === null) {
 			// There is no existing tag with the same target name
-			$tagDAO->updateTag($sourceId, ['name' => $targetName]);
+			$tagDAO->updateTagName($sourceId, $targetName);
 		} else {
 			// There is an existing tag with the same target name
 			$tagDAO->updateEntryTag($sourceId, $targetTag->id());

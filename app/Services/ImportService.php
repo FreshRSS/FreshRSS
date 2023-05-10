@@ -358,7 +358,7 @@ class FreshRSS_Import_Service {
 		}
 
 		if (isset($outline['@outlines'])) {
-			// The outline has children, it's probably a category
+			// The outline has children, it’s probably a category
 			if (!empty($outline['text'])) {
 				$category_name = $outline['text'];
 			} elseif (!empty($outline['title'])) {
@@ -376,8 +376,7 @@ class FreshRSS_Import_Service {
 			$categories_elements[$category_name] = $outline;
 		}
 
-		// The xmlUrl means it's a feed URL: add the outline to the array if it
-		// exists.
+		// The xmlUrl means it’s a feed URL: add the outline to the array if it exists.
 		if (isset($outline['xmlUrl'])) {
 			if (!isset($categories_to_feeds[$parent_category_name])) {
 				$categories_to_feeds[$parent_category_name] = [];

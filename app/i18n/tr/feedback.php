@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
+		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Profiliniz düzenlenemedi',
