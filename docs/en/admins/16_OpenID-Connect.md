@@ -9,6 +9,8 @@ Additional documentation can be found in that project.
 
 OIDC support in Docker is activated by the presence of a non-empty `OIDC_ENABLED` environment variable.
 
+> ℹ️ Only available in our Debian image.
+
 ## The config is done with these environment variables
 
 * `OIDC_ENABLED`: Activates OIDC support.
