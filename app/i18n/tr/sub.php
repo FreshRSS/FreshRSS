@@ -68,7 +68,7 @@ return array(
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
 		'filteractions' => array(
 			'_' => 'Eylemi filtrele',
-			'help' => 'Her satıra tek arama filtresi yaz.',
+			'help' => 'Her satıra tek arama filtresi yaz. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
