@@ -329,6 +329,8 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+	  # Optional parameter to enable OpenID Connect
+	  OIDC_ENABLED: true
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
       # So if changes are made (or in .env file), first delete the service and volumes.
