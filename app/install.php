@@ -31,7 +31,7 @@ function initTranslate(): void {
 		Minz_Session::_param('language', get_best_language());
 	}
 
-	if (!in_array(Minz_Session::param('language'), $available_languages)) {
+	if (!in_array(Minz_Session::param('language'), $available_languages, true)) {
 		Minz_Session::_param('language', 'en');
 	}
 
@@ -265,7 +265,7 @@ function checkStep(): void {
 /** @return array<string,string> */
 function checkStep0(): array {
 	$languages = Minz_Translate::availableLanguages();
-	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
+	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages, true);
 	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
 
 	return array(
@@ -598,7 +598,7 @@ function printStep2(): void {
 }
 
 function no_auth(string $auth_type): bool {
-	return !in_array($auth_type, array('form', 'http_auth', 'none'));
+	return !in_array($auth_type, ['form', 'http_auth', 'none'], true);
 }
 
 /* Create default user */

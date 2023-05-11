@@ -192,13 +192,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$get = FreshRSS_Context::currentGet(true);
-		if (is_array($get)) {
-			$type = $get[0];
-			$id = (int)$get[1];
-		} else {
-			$type = $get;
-			$id = 0;
-		}
+		$type = (string)$get[0];
+		$id = (int)$get[1];
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $catDAO->listCategories(true, true);

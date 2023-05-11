@@ -49,14 +49,15 @@ abstract class Minz_Pdo extends PDO {
 
 	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	/**
-	 * @param string $statement
-	 * @param array<int,string>|null $driver_options
+	 * @param string $query
+	 * @param array<int,string>|null $options
 	 * @return PDOStatement|false
+	 * @phpstan-ignore-next-line
 	 */
 	#[\ReturnTypeWillChange]
-	public function prepare($statement, $driver_options = []) {
-		$statement = $this->preSql($statement);
-		return parent::prepare($statement, $driver_options);
+	public function prepare($query, $options = []) {
+		$query = $this->preSql($query);
+		return parent::prepare($query, $options);
 	}
 
 	// PHP8+: PDO::exec(string $statement): int|false
@@ -74,6 +75,6 @@ abstract class Minz_Pdo extends PDO {
 	#[\ReturnTypeWillChange]
 	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args) {
 		$query = $this->preSql($query);
-		return $fetch_mode ? parent::query($query, $fetch_mode, ...$fetch_mode_args) : parent::query($query);
+		return $fetch_mode === null ? parent::query($query) : parent::query($query, $fetch_mode, ...$fetch_mode_args);
 	}
 }

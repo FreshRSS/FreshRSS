@@ -137,11 +137,11 @@ class FreshRSS_Share {
 		$this->isDeprecated = $isDeprecated;
 		$this->transforms = $transforms;
 
-		if (!in_array($form_type, array('simple', 'advanced'))) {
+		if (!in_array($form_type, ['simple', 'advanced'], true)) {
 			$form_type = 'simple';
 		}
 		$this->form_type = $form_type;
-		if (!in_array($method, array('GET', 'POST'))) {
+		if (!in_array($method, ['GET', 'POST'], true)) {
 			$method = 'GET';
 		}
 		$this->method = $method;
@@ -304,7 +304,7 @@ class FreshRSS_Share {
 	 * @return string the transformed data.
 	 */
 	private static function transform(string $data, array $transform): string {
-		if (!is_array($transform) || empty($transform)) {
+		if (empty($transform)) {
 			return $data;
 		}
 

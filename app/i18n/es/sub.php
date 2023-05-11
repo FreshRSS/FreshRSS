@@ -68,7 +68,7 @@ return array(
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
-			'help' => 'Escribir un filtro de búsqueda por línea.',
+			'help' => 'Escribir un filtro de búsqueda por línea. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',

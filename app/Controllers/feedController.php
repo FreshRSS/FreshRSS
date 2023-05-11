@@ -348,7 +348,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		// Set maxFeeds to a minimum of 10
-		if (!is_int($maxFeeds) || $maxFeeds < 10) {
+		if ($maxFeeds < 10) {
 			$maxFeeds = 10;
 		}
 
@@ -400,6 +400,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$isNewFeed = $feed->lastUpdate() <= 0;
+			$feedIsUnchanged = false;
 
 			try {
 				if ($simplePiePush) {
@@ -416,6 +417,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				} else {
 					$simplePie = $feed->load(false, $isNewFeed);
+					if ($simplePie === null) {
+						// Feed is cached and unchanged
+						$feedIsUnchanged = true;
+					}
 				}
 				$newGuids = $simplePie === null ? [] : $feed->loadGuids($simplePie);
 				$entries = $simplePie === null ? [] : $feed->loadEntries($simplePie);
@@ -525,6 +530,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				}
 				$entryDAO->updateLastSeen($feed->id(), array_keys($newGuids), $mtime);
+			} elseif ($feedIsUnchanged) {
+				// Feed cache was unchanged, so mark as seen the same entries as last time
+				if (!$entryDAO->inTransaction()) {
+					$entryDAO->beginTransaction();
+				}
+				$entryDAO->updateLastSeenUnchanged($feed->id(), $mtime);
 			}
 			unset($entries);
 

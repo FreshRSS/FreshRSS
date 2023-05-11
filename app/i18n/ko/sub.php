@@ -68,7 +68,7 @@ return array(
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'filteractions' => array(
 			'_' => '필터 동작',
-			'help' => '한 줄에 한 검색 필터를 작성해 주세요.',
+			'help' => '한 줄에 한 검색 필터를 작성해 주세요. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',

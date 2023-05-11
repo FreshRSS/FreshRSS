@@ -50,14 +50,14 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	/**
-	 * @param array<string,string> $dao
-	 * @return array<string,string|bool>
+	 * @param array<string,string|int|bool|null> $dao
+	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
 	public function daoToSchema(array $dao): array {
 		return [
-			'name'    => $dao['name'],
-			'type'    => strtolower($dao['type']),
-			'notnull' => $dao['notnull'] === '1' ? true : false,
+			'name'    => (string)$dao['name'],
+			'type'    => strtolower((string)$dao['type']),
+			'notnull' => $dao['notnull'] == '1' ? true : false,
 			'default' => $dao['dflt_value'],
 		];
 	}

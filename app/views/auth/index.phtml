@@ -16,7 +16,7 @@
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" data-leave-validation="<?= FreshRSS_Context::$system_conf->auth_type ?>">
-					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'http_auth', 'none'))) { ?>
+					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, ['form', 'http_auth', 'none'], true)) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
 					<option value="form"<?= FreshRSS_Context::$system_conf->auth_type === 'form' ? ' selected="selected"' : '',
