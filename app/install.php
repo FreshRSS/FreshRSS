@@ -337,7 +337,7 @@ function checkStep3(): array {
 }
 
 
-/*** AFFICHAGE ***/
+/* select language */
 function printStep0(): void {
 	$actual = Minz_Translate::language();
 	$languages = Minz_Translate::availableLanguages();
@@ -349,6 +349,34 @@ function printStep0(): void {
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
 
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about') ?></label>
+		<div class="group-controls">
+			<?= _t('index.about.freshrss_description') ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.project_website') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WEBSITE ?>" target="_blank"><?= FRESHRSS_WEBSITE ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.documentation') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= FRESHRSS_WIKI ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.version') ?></label>
+		<div class="group-controls">
+			<?= FRESHRSS_VERSION ?>
+		</div>
+	</div>
+	
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">
@@ -376,7 +404,10 @@ function printStep0(): void {
 <?php
 }
 
-/** @param array<string> $messageParams */
+/**
+ * Alert box template
+ * @param array<string> $messageParams
+ * */
 function printStep1Template(string $key, string $value, array $messageParams = []): void {
 	if ('ok' === $value) {
 		$message = _t("install.check.{$key}.ok", ...$messageParams);
@@ -406,6 +437,7 @@ function getProcessUsername(): string {
 }
 
 // @todo refactor this view with the check_install action
+/* check system environment */
 function printStep1(): void {
 	$res = checkRequirements();
 	$processUsername = getProcessUsername();
@@ -468,6 +500,7 @@ function printStep1(): void {
 <?php
 }
 
+/* Select database & configuration */
 function printStep2(): void {
 	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
 	$s2 = checkStep2();
@@ -568,6 +601,7 @@ function no_auth(string $auth_type): bool {
 	return !in_array($auth_type, ['form', 'http_auth', 'none'], true);
 }
 
+/* Create default user */
 function printStep3(): void {
 	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 	$s3 = checkStep3();
@@ -631,6 +665,7 @@ function printStep3(): void {
 <?php
 }
 
+/* congrats. Installation successful completed */
 function printStep4(): void {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
@@ -642,6 +677,7 @@ function printStep4(): void {
 <?php
 }
 
+/* failed */
 function printStep5(): void {
 ?>
 	<p class="alert alert-error">
