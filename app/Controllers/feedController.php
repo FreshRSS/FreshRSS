@@ -348,7 +348,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		// Set maxFeeds to a minimum of 10
-		if (!is_int($maxFeeds) || $maxFeeds < 10) {
+		if ($maxFeeds < 10) {
 			$maxFeeds = 10;
 		}
 

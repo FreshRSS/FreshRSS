@@ -77,7 +77,7 @@ foreach ($users as $username) {
 		'reads' => (int)$nbEntries['read'],
 		'unreads' => (int)$nbEntries['unread'],
 		'favourites' => (int)$nbFavorites['all'],
-		'tags' => (int)$tagDAO->count(),
+		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::$user_conf->language,
 		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
 	);

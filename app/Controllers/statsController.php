@@ -5,7 +5,10 @@
  */
 class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
-	/** @var FreshRSS_ViewStats */
+	/**
+	 * @var FreshRSS_ViewStats
+	 * @phpstan-ignore-next-line
+	 */
 	protected $view;
 
 	public function __construct() {
@@ -57,7 +60,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->repartitions = $statsDAO->calculateEntryRepartition();
 
 		$entryCount = $statsDAO->calculateEntryCount();
-		if (is_array($entryCount) && count($entryCount) > 0) {
+		if (count($entryCount) > 0) {
 			$this->view->entryCount = $entryCount;
 			$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
 		} else {
@@ -67,21 +70,17 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$feedByCategory = [];
 		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
-		if (is_array($feedByCategory_calculated)) {
-			for ($i = 0; $i < count($feedByCategory_calculated); $i++) {
-				$feedByCategory['label'][$i] = $feedByCategory_calculated[$i]['label'];
-				$feedByCategory['data'][$i] = $feedByCategory_calculated[$i]['data'];
-			}
+		for ($i = 0; $i < count($feedByCategory_calculated); $i++) {
+			$feedByCategory['label'][$i] = $feedByCategory_calculated[$i]['label'];
+			$feedByCategory['data'][$i] = $feedByCategory_calculated[$i]['data'];
 		}
 		$this->view->feedByCategory = $feedByCategory;
 
 		$entryByCategory = [];
 		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
-		if (is_array($entryByCategory_calculated)) {
-			for ($i = 0; $i < count($entryByCategory_calculated); $i++) {
-				$entryByCategory['label'][$i] = $entryByCategory_calculated[$i]['label'];
-				$entryByCategory['data'][$i] = $entryByCategory_calculated[$i]['data'];
-			}
+		for ($i = 0; $i < count($entryByCategory_calculated); $i++) {
+			$entryByCategory['label'][$i] = $entryByCategory_calculated[$i]['label'];
+			$entryByCategory['data'][$i] = $entryByCategory_calculated[$i]['data'];
 		}
 		$this->view->entryByCategory = $entryByCategory;
 

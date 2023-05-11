@@ -250,7 +250,7 @@ class Minz_Migrator
 	public function migrate(): array {
 		$result = [];
 		foreach ($this->migrations() as $version => $callback) {
-			if (in_array($version, $this->applied_versions)) {
+			if (in_array($version, $this->applied_versions, true)) {
 				// the version is already applied so we skip this migration
 				continue;
 			}

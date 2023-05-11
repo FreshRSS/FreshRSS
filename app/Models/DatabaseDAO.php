@@ -83,7 +83,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		$ok = count($columns) === count($schema);
 		foreach ($columns as $c) {
-			$ok &= in_array($c['name'], $schema);
+			$ok &= in_array($c['name'], $schema, true);
 		}
 
 		return (bool)$ok;
@@ -131,7 +131,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<string,string|int|bool|null> $dao
-	 * @return array<string,string|int|bool|null>
+	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
 	public function daoToSchema(array $dao): array {
 		return [

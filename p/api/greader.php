@@ -759,9 +759,9 @@ final class GReaderAPI {
 			$ids = [ 0 ];	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
 		}
 		$itemRefs = array();
-		foreach ($ids as $id) {
+		foreach ($ids as $entryId) {
 			$itemRefs[] = array(
-				'id' => '' . $id,	//64-bit decimal
+				'id' => '' . $entryId,	//64-bit decimal
 			);
 		}
 
@@ -769,9 +769,9 @@ final class GReaderAPI {
 			'itemRefs' => $itemRefs,
 		);
 		if (count($ids) >= $count) {
-			$id = end($ids);
-			if ($id != false) {
-				$response['continuation'] = '' . $id;
+			$entryId = end($ids);
+			if ($entryId != false) {
+				$response['continuation'] = '' . $entryId;
 			}
 		}
 
