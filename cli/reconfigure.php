@@ -59,7 +59,7 @@ if (!FreshRSS_user_Controller::checkUsername(FreshRSS_Context::$system_conf->def
 }
 
 if (isset(FreshRSS_Context::$system_conf->auth_type) &&
-	!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'http_auth', 'none'))) {
+	!in_array(FreshRSS_Context::$system_conf->auth_type, ['form', 'http_auth', 'none'], true)) {
 	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: '
 		. FreshRSS_Context::$system_conf->auth_type);
 }

@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby',
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
-		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',
+		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Váš profil nie je možné upraviť',

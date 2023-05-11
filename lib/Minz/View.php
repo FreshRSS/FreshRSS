@@ -161,7 +161,7 @@ class Minz_View {
 	 * @param string|null $layout the layout name to use, false to use no layouts.
 	 */
 	public function _layout(?string $layout): void {
-		if ($layout) {
+		if ($layout != null) {
 			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
 		} else {
 			$this->layout_filename = '';

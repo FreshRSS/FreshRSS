@@ -12,9 +12,9 @@ class MigratorTest extends TestCase
 		});
 
 		$migrations = $migrator->migrations();
-		$this->assertArrayHasKey('foo', $migrations);
+		self::assertArrayHasKey('foo', $migrations);
 		$result = $migrations['foo']();
-		$this->assertTrue($result);
+		self::assertTrue($result);
 	}
 
 	public function testAddMigrationFailsIfUncallableMigration(): void {
@@ -40,7 +40,7 @@ class MigratorTest extends TestCase
 
 		$migrations = $migrator->migrations();
 
-		$this->assertSame($expected_versions, array_keys($migrations));
+		self::assertSame($expected_versions, array_keys($migrations));
 	}
 
 	public function testSetAppliedVersions(): void {
@@ -51,7 +51,7 @@ class MigratorTest extends TestCase
 
 		$migrator->setAppliedVersions(['foo']);
 
-		$this->assertSame(['foo'], $migrator->appliedVersions());
+		self::assertSame(['foo'], $migrator->appliedVersions());
 	}
 
 	public function testSetAppliedVersionsTrimArgument(): void {
@@ -62,7 +62,7 @@ class MigratorTest extends TestCase
 
 		$migrator->setAppliedVersions(["foo\n"]);
 
-		$this->assertSame(['foo'], $migrator->appliedVersions());
+		self::assertSame(['foo'], $migrator->appliedVersions());
 	}
 
 	public function testSetAppliedVersionsFailsIfMigrationDoesNotExist(): void {
@@ -85,7 +85,7 @@ class MigratorTest extends TestCase
 
 		$versions = $migrator->versions();
 
-		$this->assertSame(['bar', 'foo'], $versions);
+		self::assertSame(['bar', 'foo'], $versions);
 	}
 
 	public function testMigrate(): void {
@@ -95,13 +95,13 @@ class MigratorTest extends TestCase
 			$spy = true;
 			return true;
 		});
-		$this->assertEmpty($migrator->appliedVersions());
+		self::assertEmpty($migrator->appliedVersions());
 
 		$result = $migrator->migrate();
 
-		$this->assertTrue($spy);
-		$this->assertSame(['foo'], $migrator->appliedVersions());
-		$this->assertSame([
+		self::assertTrue($spy);
+		self::assertSame(['foo'], $migrator->appliedVersions());
+		self::assertSame([
 			'foo' => true,
 		], $result);
 	}
@@ -119,8 +119,8 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertSame(['1_foo', '2_foo'], $migrator->appliedVersions());
-		$this->assertSame([
+		self::assertSame(['1_foo', '2_foo'], $migrator->appliedVersions());
+		self::assertSame([
 			'1_foo' => true,
 			'2_foo' => true,
 		], $result);
@@ -137,8 +137,8 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertFalse($spy);
-		$this->assertSame([], $result);
+		self::assertFalse($spy);
+		self::assertSame([], $result);
 	}
 
 	public function testMigrateCallNonAppliedBetweenTwoApplied(): void {
@@ -156,8 +156,8 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertSame(['1_foo', '2_foo', '3_foo'], $migrator->appliedVersions());
-		$this->assertSame([
+		self::assertSame(['1_foo', '2_foo', '3_foo'], $migrator->appliedVersions());
+		self::assertSame([
 			'2_foo' => true,
 		], $result);
 	}
@@ -173,8 +173,8 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertSame(['1_foo'], $migrator->appliedVersions());
-		$this->assertSame([
+		self::assertSame(['1_foo'], $migrator->appliedVersions());
+		self::assertSame([
 			'1_foo' => true,
 			'2_foo' => false,
 		], $result);
@@ -193,9 +193,9 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertEmpty($migrator->appliedVersions());
-		$this->assertFalse($spy);
-		$this->assertSame([
+		self::assertEmpty($migrator->appliedVersions());
+		self::assertFalse($spy);
+		self::assertSame([
 			'1_foo' => false,
 		], $result);
 	}
@@ -208,8 +208,8 @@ class MigratorTest extends TestCase
 
 		$result = $migrator->migrate();
 
-		$this->assertEmpty($migrator->appliedVersions());
-		$this->assertSame([
+		self::assertEmpty($migrator->appliedVersions());
+		self::assertSame([
 			'foo' => 'Oops, it failed.',
 		], $result);
 	}
@@ -223,7 +223,7 @@ class MigratorTest extends TestCase
 
 		$upToDate = $migrator->upToDate();
 
-		$this->assertTrue($upToDate);
+		self::assertTrue($upToDate);
 	}
 
 	public function testUpToDateIfRemainingMigration(): void {
@@ -238,7 +238,7 @@ class MigratorTest extends TestCase
 
 		$upToDate = $migrator->upToDate();
 
-		$this->assertFalse($upToDate);
+		self::assertFalse($upToDate);
 	}
 
 	public function testUpToDateIfNoMigrations(): void {
@@ -246,7 +246,7 @@ class MigratorTest extends TestCase
 
 		$upToDate = $migrator->upToDate();
 
-		$this->assertTrue($upToDate);
+		self::assertTrue($upToDate);
 	}
 
 	public function testConstructorLoadsDirectory(): void {
@@ -256,48 +256,47 @@ class MigratorTest extends TestCase
 
 		$migrations = $migrator->migrations();
 
-		$this->assertSame($expected_versions, array_keys($migrations));
+		self::assertSame($expected_versions, array_keys($migrations));
 	}
 
 	public function testExecute(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		$this->assertIsString($applied_migrations_path);
+		self::assertIsString($applied_migrations_path);
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
-		$this->assertTrue($result);
+		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
+		self::assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
 		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteWithAlreadyAppliedMigration(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		$this->assertIsString($applied_migrations_path);
+		self::assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, '2019_12_22_FooBar');
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
-		$this->assertTrue($result);
+		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
+		self::assertSame("2019_12_22_FooBar\n2019_12_23_Baz", $versions);
 		@unlink($applied_migrations_path);
 	}
 
 	public function testExecuteWithAppliedMigrationInDifferentOrder(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
-		$this->assertIsString($applied_migrations_path);
+		self::assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, "2019_12_23_Baz\n2019_12_22_FooBar");
 
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
-		$this->assertTrue($result);
+		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
-		// if the order changes, it probably means the first versions comparison
-		// test doesn't work anymore
-		$this->assertSame("2019_12_23_Baz\n2019_12_22_FooBar", $versions);
+		// if the order changes, it probably means the first versions comparison test doesn’t work anymore
+		self::assertSame("2019_12_23_Baz\n2019_12_22_FooBar", $versions);
 		@unlink($applied_migrations_path);
 	}
 
@@ -305,11 +304,11 @@ class MigratorTest extends TestCase
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		$expected_result = "Cannot open the {$applied_migrations_path} file";
-		$this->assertIsString($applied_migrations_path);
+		self::assertIsString($applied_migrations_path);
 		unlink($applied_migrations_path);
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
 
-		$this->assertSame($expected_result, $result);
+		self::assertSame($expected_result, $result);
 		@unlink($applied_migrations_path);
 	}
 
@@ -317,14 +316,14 @@ class MigratorTest extends TestCase
 		$migrations_path = TESTS_PATH . '/fixtures/migrations_with_failing/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		$expected_result = 'A migration failed to be applied, please see previous logs.';
-		$this->assertIsString($applied_migrations_path);
+		self::assertIsString($applied_migrations_path);
 		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
-		$this->assertIsString($result);
+		self::assertIsString($result);
 		[$result,] = explode("\n", $result, 2);
 
-		$this->assertSame($expected_result, $result);
+		self::assertSame($expected_result, $result);
 		$versions = file_get_contents($applied_migrations_path);
-		$this->assertSame('2020_01_11_FooBar', $versions);
+		self::assertSame('2020_01_11_FooBar', $versions);
 		@unlink($applied_migrations_path);
 	}
 }

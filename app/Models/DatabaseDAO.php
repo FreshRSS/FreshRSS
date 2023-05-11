@@ -36,8 +36,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		try {
 			$sql = 'SELECT 1';
 			$stm = $this->pdo->query($sql);
+			if ($stm === false) {
+				return 'Error during SQL connection test!';
+			}
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-			return $res == false ? 'Error during SQL connection test!' : '';
+			return $res == false ? 'Error during SQL connection fetch test!' : '';
 		} catch (Exception $e) {
 			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
 			return $e->getMessage();
@@ -45,8 +48,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function tablesAreCorrect(): bool {
-		$stm = $this->pdo->query('SHOW TABLES');
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc('SHOW TABLES');
+		if ($res == null) {
+			return false;
+		}
 
 		$tables = array(
 			$this->pdo->prefix() . 'category' => false,
@@ -60,23 +65,25 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$tables[array_pop($value)] = true;
 		}
 
-		return count(array_keys($tables, true, true)) == count($tables);
+		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array<string,string|bool>> */
+	/** @return array<array<string,string|int|bool|null>> */
 	public function getSchema(string $table): array {
-		$sql = 'DESC `_' . $table . '`';
-		$stm = $this->pdo->query($sql);
-		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
+		$res = $this->fetchAssoc('DESC `_' . $table . '`');
+		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
 
 	/** @param array<string> $schema */
 	public function checkTable(string $table, array $schema): bool {
 		$columns = $this->getSchema($table);
+		if (count($columns) === 0 || count($schema) === 0) {
+			return false;
+		}
 
-		$ok = (count($columns) == count($schema));
+		$ok = count($columns) === count($schema);
 		foreach ($columns as $c) {
-			$ok &= in_array($c['name'], $schema);
+			$ok &= in_array($c['name'], $schema, true);
 		}
 
 		return (bool)$ok;
@@ -123,21 +130,21 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	/**
-	 * @param array<string,string> $dao
-	 * @return array<string,string|bool>
+	 * @param array<string,string|int|bool|null> $dao
+	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
 	public function daoToSchema(array $dao): array {
-		return array(
-			'name' => $dao['Field'],
-			'type' => strtolower($dao['Type']),
+		return [
+			'name' => (string)($dao['Field']),
+			'type' => strtolower((string)($dao['Type'])),
 			'notnull' => (bool)$dao['Null'],
 			'default' => $dao['Default'],
-		);
+		];
 	}
 
 	/**
-	 * @param array<array<string,string>> $listDAO
-	 * @return array<array<string,string|bool>>
+	 * @param array<array<string,string|int|bool|null>> $listDAO
+	 * @return array<array<string,string|int|bool|null>>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
 		$list = array();
@@ -151,16 +158,18 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
-		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
-		$values = array($db['base']);
+		//MySQL:
+		$sql = <<<'SQL'
+SELECT SUM(data_length + index_length)
+FROM information_schema.TABLES WHERE table_schema=:table_schema
+SQL;
+		$values = [':table_schema' => $db['base']];
 		if (!$all) {
-			$sql .= ' AND table_name LIKE ?';
-			$values[] = $this->pdo->prefix() . '%';
+			$sql .= ' AND table_name LIKE :table_name';
+			$values[':table_name'] = $this->pdo->prefix() . '%';
 		}
-		$stm = $this->pdo->prepare($sql);
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return intval($res[0]);
+		$res = $this->fetchColumn($sql, 0, $values);
+		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
 	public function optimize(): bool {

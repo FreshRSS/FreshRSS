@@ -142,7 +142,7 @@ class FreshRSS_Search {
 		return $this->label_ids;
 	}
 	/** @return array<int>|'*'|null */
-	public function getNotlabelIds() {
+	public function getNotLabelIds() {
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
@@ -150,7 +150,7 @@ class FreshRSS_Search {
 		return $this->label_names;
 	}
 	/** @return array<string>|null */
-	public function getNotlabelNames(): ?array {
+	public function getNotLabelNames(): ?array {
 		return $this->not_label_names;
 	}
 
@@ -164,37 +164,37 @@ class FreshRSS_Search {
 	}
 
 	public function getMinDate(): ?int {
-		return $this->min_date;
+		return $this->min_date ?: null;
 	}
 	public function getNotMinDate(): ?int {
-		return $this->not_min_date;
+		return $this->not_min_date ?: null;
 	}
 	public function setMinDate(int $value): void {
 		$this->min_date = $value;
 	}
 
 	public function getMaxDate(): ?int {
-		return $this->max_date;
+		return $this->max_date ?: null;
 	}
 	public function getNotMaxDate(): ?int {
-		return $this->not_max_date;
+		return $this->not_max_date ?: null;
 	}
 	public function setMaxDate(int $value): void {
 		$this->max_date = $value;
 	}
 
 	public function getMinPubdate(): ?int {
-		return $this->min_pubdate;
+		return $this->min_pubdate ?: null;
 	}
 	public function getNotMinPubdate(): ?int {
-		return $this->not_min_pubdate;
+		return $this->not_min_pubdate ?: null;
 	}
 
 	public function getMaxPubdate(): ?int {
-		return $this->max_pubdate;
+		return $this->max_pubdate ?: null;
 	}
 	public function getNotMaxPubdate(): ?int {
-		return $this->not_max_pubdate;
+		return $this->not_max_pubdate ?: null;
 	}
 
 	/** @return array<string>|null */
@@ -518,7 +518,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
-				list($this->min_date, $this->max_date) = parseDateInterval($dates[0]);
+				[$this->min_date, $this->max_date] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;
@@ -529,7 +529,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
-				list($this->not_min_date, $this->not_max_date) = parseDateInterval($dates[0]);
+				[$this->not_min_date, $this->not_max_date] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;
@@ -545,7 +545,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
-				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
+				[$this->min_pubdate, $this->max_pubdate] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;
@@ -556,7 +556,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
-				list($this->not_min_pubdate, $this->not_max_pubdate) = parseDateInterval($dates[0]);
+				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

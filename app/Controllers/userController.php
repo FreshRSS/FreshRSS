@@ -41,11 +41,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$userConfig->passwordHash = $passwordHash;
 		}
 
-		if (is_array($userConfigUpdated)) {
-			foreach ($userConfigUpdated as $configName => $configValue) {
-				if ($configValue !== null) {
-					$userConfig->_param($configName, $configValue);
-				}
+		foreach ($userConfigUpdated as $configName => $configValue) {
+			if ($configValue !== null) {
+				$userConfig->_param($configName, $configValue);
 			}
 		}
 
@@ -212,7 +210,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @param array<string,mixed> $userConfigOverride */
-	public static function createUser(string $new_user_name, string $email, string $passwordPlain,
+	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 
@@ -224,9 +222,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		if (is_array($userConfigOverride)) {
-			$userConfig = array_merge($userConfig, $userConfigOverride);
-		}
+		$userConfig = array_merge($userConfig, $userConfigOverride);
 
 		$ok = self::checkUsername($new_user_name);
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
@@ -234,11 +230,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
-			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
+			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages, true)) {
 				$userConfig['language'] = 'en';
 			}
 
-			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
+			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()), true);	//Not an existing user, case-insensitive
 
 			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);

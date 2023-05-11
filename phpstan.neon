@@ -20,6 +20,33 @@ parameters:
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
+	dynamicConstantNames:
+		- CACHE_PATH
+		- COPY_LOG_TO_SYSLOG
+		- COPY_SYSLOG_TO_STDERR
+		- DATA_PATH
+		- MAX_LOG_SIZE
+		- PUBLIC_RELATIVE
+		- SIMPLEPIE_SYSLOG_ENABLED
+		- STDERR
+		- STDOUT
+		- TMP_PATH
+		- USERS_PATH
+	strictRules:
+		allRules: false
+		booleansInConditions: false	# TODO pass
+		closureUsesThis: true
+		disallowedConstructs: false
+		disallowedLooseComparison: false
+		matchingInheritedMethodNames: true
+		noVariableVariables: false	# TODO pass
+		numericOperandsInArithmeticOperators: true
+		overwriteVariablesWithLoop: true
+		requireParentConstructorCall: true
+		strictCalls: true
+		switchConditionsMatchingType: true
+		uselessCast: true
 includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon

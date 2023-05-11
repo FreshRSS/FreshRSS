@@ -40,7 +40,7 @@
 					<span>
 						<form action="<?= _url('index', 'index') ?>" method="get">
 							<?php $param_a = Minz_Request::actionName(); ?>
-							<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+							<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
 							<input type="hidden" name="a" value="<?= $param_a ?>" />
 							<?php } ?>
 
@@ -132,7 +132,7 @@
 		);
 
 		$mark_unread_url = $mark_read_url;
-		$mark_unread_url['params']['is_read'] = false;
+		$mark_unread_url['params']['is_read'] = '0';
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 

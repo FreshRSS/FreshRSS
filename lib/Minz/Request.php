@@ -310,14 +310,14 @@ class Minz_Request {
 			return false;
 		}
 
-		$is_public = !in_array($host, array(
+		$is_public = !in_array($host, [
 			'localhost',
 			'localhost.localdomain',
 			'[::1]',
 			'ip6-localhost',
 			'localhost6',
 			'localhost6.localdomain6',
-		));
+		], true);
 
 		if ($is_public) {
 			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);

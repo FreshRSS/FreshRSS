@@ -68,7 +68,7 @@ return array(
 		'error' => '此源遇到一些問題。請在確認是否能正常訪問後重試。',
 		'filteractions' => array(
 			'_' => '過濾動作',
-			'help' => '每行寫一條過濾搜尋',
+			'help' => '每行寫一條過濾搜尋 Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章數',

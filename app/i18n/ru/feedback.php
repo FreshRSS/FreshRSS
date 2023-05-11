@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки',
 		'file_cannot_be_uploaded' => 'Файл не может быть загружен!',
 		'no_zip_extension' => 'На вашем сервере нет расширения ZIP.',
-		'zip_error' => 'Ошибка возникла при импорте ZIP.',
+		'zip_error' => 'Ошибка возникла при импорте ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Ваш профиль не может быть изменён',

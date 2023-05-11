@@ -16,11 +16,11 @@ final class FreshRSS_Context {
 	 */
 	public static $system_conf;
 	/**
-	 * @var array<FreshRSS_Category>
+	 * @var array<int,FreshRSS_Category>
 	 */
 	public static $categories = array();
 	/**
-	 * @var array<string>
+	 * @var array<int,FreshRSS_Tag>
 	 */
 	public static $tags = array();
 	/**
@@ -67,6 +67,7 @@ final class FreshRSS_Context {
 	 */
 	public static $state = 0;
 	/**
+	 * @phpstan-var 'ASC'|'DESC'
 	 * @var string
 	 */
 	public static $order = 'DESC';
@@ -217,7 +218,8 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
-		self::$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		$order = Minz_Request::paramString('order') ?: self::$user_conf->sort_order;
+		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		self::$number = Minz_Request::paramInt('nb') ?: self::$user_conf->posts_per_page;
 		if (self::$number > self::$user_conf->max_posts_per_rss) {
 			self::$number = max(
@@ -249,14 +251,14 @@ final class FreshRSS_Context {
 	 * Return the current get as a string or an array.
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' or 't' and the second is the id.
-	 * @phpstan-return ($asArray is true ? array{'c'|'f'|'t',bool|int} : string)
+	 * @phpstan-return ($asArray is true ? array{'a'|'c'|'f'|'s'|'t'|'T',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
-			return 'a';
+			return $asArray ? ['a', true] : 'a';
 		} elseif (self::$current_get['starred']) {
-			return 's';
+			return $asArray ? ['s', true] : 's';
 		} elseif (self::$current_get['feed']) {
 			if ($asArray) {
 				return array('f', self::$current_get['feed']);
@@ -276,7 +278,7 @@ final class FreshRSS_Context {
 				return 't_' . self::$current_get['tag'];
 			}
 		} elseif (self::$current_get['tags']) {
-			return 'T';
+			return $asArray ? ['T', true] : 'T';
 		}
 		return '';
 	}
@@ -381,7 +383,7 @@ final class FreshRSS_Context {
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
-				if (!$feed) {
+				if ($feed === null) {
 					throw new FreshRSS_Context_Exception('Invalid feed: ' . $id);
 				}
 			}
@@ -397,9 +399,10 @@ final class FreshRSS_Context {
 			if (!isset(self::$categories[$id])) {
 				$catDAO = FreshRSS_Factory::createCategoryDao();
 				$cat = $catDAO->searchById($id);
-				if (!$cat) {
+				if ($cat === null) {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
+				//self::$categories[$id] = $cat;
 			} else {
 				$cat = self::$categories[$id];
 			}
@@ -412,9 +415,10 @@ final class FreshRSS_Context {
 			if (!isset(self::$tags[$id])) {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$tag = $tagDAO->searchById($id);
-				if (!$tag) {
+				if ($tag === null) {
 					throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
 				}
+				//self::$tags[$id] = $tag;
 			} else {
 				$tag = self::$tags[$id];
 			}
@@ -541,6 +545,6 @@ final class FreshRSS_Context {
 
 	public static function defaultTimeZone(): string {
 		$timezone = ini_get('date.timezone');
-		return $timezone != '' ? $timezone : 'UTC';
+		return $timezone != false ? $timezone : 'UTC';
 	}
 }
