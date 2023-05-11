@@ -18,5 +18,6 @@ phpmailer/phpmailer/COMMITMENT*
 phpmailer/phpmailer/composer.*
 phpmailer/phpmailer/language/
 phpmailer/phpmailer/SECURITY*
+phpmailer/phpmailer/src/DSNConfigurator.php
 phpmailer/phpmailer/src/OAuth*
 phpmailer/phpmailer/src/POP3.php
