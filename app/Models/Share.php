@@ -12,7 +12,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Register a new sharing option.
-	 * @param array{'type':string,'url':string,'transform'?:array<string>|array<string,string>,'field'?:string,'help'?:string,'form'?:'simple'|'advanced',
+	 * @param array{'type':string,'url':string,'transform'?:array<callable>|array<string,array<callable>>,'field'?:string,'help'?:string,'form'?:'simple'|'advanced',
 	 *	'method'?:'GET'|'POST','HTMLtag'?:'button','deprecated'?:bool} $share_options is an array defining the share option.
 	 */
 	private static function register(array $share_options): void {
@@ -81,7 +81,7 @@ class FreshRSS_Share {
 	private $name = '';
 	/** @var string */
 	private $url_transform = '';
-	/** @var array<string>|array<string,array<string>> */
+	/** @var array<callable>|array<string,array<callable>> */
 	private $transforms = [];
 	/**
 	 * @phpstan-var 'simple'|'advanced'
@@ -119,7 +119,7 @@ class FreshRSS_Share {
 	 * Create a FreshRSS_Share object.
 	 * @param string $type is a unique string defining the kind of share option.
 	 * @param string $url_transform defines the url format to use in order to share.
-	 * @param array<string>|array<string,array<string>> $transforms is an array of transformations to apply on link and title.
+	 * @param array<callable>|array<string,array<callable>> $transforms is an array of transformations to apply on link and title.
 	 * @param 'simple'|'advanced' $form_type defines which form we have to use to complete. "simple"
 	 *        is typically for a centralized service while "advanced" is for
 	 *        decentralized ones.
@@ -154,19 +154,29 @@ class FreshRSS_Share {
 	 *        in this list: name, url, id, title, link.
 	 */
 	public function update(array $options): void {
-		$available_options = array(
-			'name' => 'custom_name',
-			'url' => 'base_url',
-			'id' => 'id',
-			'title' => 'title',
-			'link' => 'link',
-			'method' => 'method',
-			'field' => 'field',
-		);
-
 		foreach ($options as $key => $value) {
-			if (isset($available_options[$key])) {
-				$this->{$available_options[$key]} = $value;
+			switch ($key) {
+				case 'name':
+					$this->custom_name = $value;
+					break;
+				case 'url':
+					$this->base_url = $value;
+					break;
+				case 'id':
+					$this->id = $value;
+					break;
+				case 'title':
+					$this->title = $value;
+					break;
+				case 'link':
+					$this->link = $value;
+					break;
+				case 'method':
+					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
+					break;
+				case 'field';
+					$this->field = $value;
+					break;
 			}
 		}
 	}
@@ -300,7 +310,7 @@ class FreshRSS_Share {
 	/**
 	 * Transform a data with the given functions.
 	 * @param string $data the data to transform.
-	 * @param array<string> $transform an array containing a list of functions to apply.
+	 * @param array<callable> $transform an array containing a list of functions to apply.
 	 * @return string the transformed data.
 	 */
 	private static function transform(string $data, array $transform): string {
@@ -309,9 +319,7 @@ class FreshRSS_Share {
 		}
 
 		foreach ($transform as $action) {
-			if (is_string($action) && $action != '') {
-				$data = call_user_func($action, $data);
-			}
+			$data = call_user_func($action, $data);
 		}
 
 		return $data;
@@ -320,13 +328,21 @@ class FreshRSS_Share {
 	/**
 	 * Get the list of transformations for the given attribute.
 	 * @param string $attr the attribute of which we want the transformations.
-	 * @return array<string> containing a list of transformations to apply.
+	 * @return array<callable> containing a list of transformations to apply.
 	 */
 	private function getTransform(string $attr): array {
 		if (array_key_exists($attr, $this->transforms)) {
-			return $this->transforms[$attr];
+			$candidates = is_array($this->transforms[$attr]) ? $this->transforms[$attr] : [];
+		} else {
+			$candidates = $this->transforms;
 		}
 
-		return $this->transforms;
+		$transforms = [];
+		foreach ($candidates as $transform) {
+			if (is_callable($transform)) {
+				$transforms[] = $transform;
+			}
+		}
+		return $transforms;
 	}
 }

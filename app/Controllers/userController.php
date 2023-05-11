@@ -392,7 +392,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
 			$ok &= $oldUserDAO->deleteUser();
 			$ok &= recursive_unlink($user_data);
-			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
+			$filenames = glob(PSHB_PATH . '/feeds/*/' . $username . '.txt');
+			if (!empty($filenames)) {
+				array_map('unlink', $filenames);
+			}
 		}
 		return (bool)$ok;
 	}
@@ -628,7 +631,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
 
-	/** @return array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
 	private function retrieveUserDetails(string $username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
@@ -636,7 +639,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		$userConfiguration = get_user_configuration($username);
 
-		return array(
+		return [
 			'feed_count' => $feedDAO->count(),
 			'article_count' => $entryDAO->count(),
 			'database_size' => $databaseDAO->size(),
@@ -644,8 +647,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			'mail_login' => $userConfiguration->mail_login,
 			'enabled' => $userConfiguration->enabled,
 			'is_admin' => $userConfiguration->is_admin,
-			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)),
+			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)) ?: '',
 			'is_default' => FreshRSS_Context::$system_conf->default_user === $username,
-		);
+		];
 	}
 }
