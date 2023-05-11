@@ -137,7 +137,7 @@ class Minz_Url {
 	 */
 	public static function unserialize(string $url = ''): array {
 		try {
-			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR) ?? [];
+			return json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
 		} catch (\Throwable $exception) {
 			return [];
 		}

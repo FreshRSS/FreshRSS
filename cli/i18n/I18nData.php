@@ -236,7 +236,7 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function addValue(string $key, string $value, string $language): void {
-		if (!in_array($language, $this->getAvailableLanguages())) {
+		if (!in_array($language, $this->getAvailableLanguages(), true)) {
 			throw new Exception('The selected language does not exist.');
 		}
 		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||

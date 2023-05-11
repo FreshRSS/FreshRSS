@@ -9,15 +9,15 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputIsEmpty_getsOnlyNullValues(?string $input): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals('', $search->getRawInput());
-		$this->assertNull($search->getIntitle());
-		$this->assertNull($search->getMinDate());
-		$this->assertNull($search->getMaxDate());
-		$this->assertNull($search->getMinPubdate());
-		$this->assertNull($search->getMaxPubdate());
-		$this->assertNull($search->getAuthor());
-		$this->assertNull($search->getTags());
-		$this->assertNull($search->getSearch());
+		self::assertEquals('', $search->getRawInput());
+		self::assertNull($search->getIntitle());
+		self::assertNull($search->getMinDate());
+		self::assertNull($search->getMaxDate());
+		self::assertNull($search->getMinPubdate());
+		self::assertNull($search->getMaxPubdate());
+		self::assertNull($search->getAuthor());
+		self::assertNull($search->getTags());
+		self::assertNull($search->getSearch());
 	}
 
 	/**
@@ -39,8 +39,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsIntitle_setsIntitleProperty(string $input, ?array $intitle_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($intitle_value, $search->getIntitle());
-		$this->assertEquals($search_value, $search->getSearch());
+		self::assertEquals($intitle_value, $search->getIntitle());
+		self::assertEquals($search_value, $search->getSearch());
 	}
 
 	/**
@@ -76,8 +76,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsAuthor_setsAuthorValue(string $input, ?array $author_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($author_value, $search->getAuthor());
-		$this->assertEquals($search_value, $search->getSearch());
+		self::assertEquals($author_value, $search->getAuthor());
+		self::assertEquals($search_value, $search->getSearch());
 	}
 
 	/**
@@ -113,8 +113,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsInurl_setsInurlValue(string $input, ?array $inurl_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($inurl_value, $search->getInurl());
-		$this->assertEquals($search_value, $search->getSearch());
+		self::assertEquals($inurl_value, $search->getInurl());
+		self::assertEquals($search_value, $search->getSearch());
 	}
 
 	/**
@@ -138,8 +138,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsDate_setsDateValues(string $input, ?int $min_date_value, ?int $max_date_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($min_date_value, $search->getMinDate());
-		$this->assertEquals($max_date_value, $search->getMaxDate());
+		self::assertEquals($min_date_value, $search->getMinDate());
+		self::assertEquals($max_date_value, $search->getMaxDate());
 	}
 
 	/**
@@ -161,8 +161,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsPubdate_setsPubdateValues(string $input, ?int $min_pubdate_value, ?int $max_pubdate_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($min_pubdate_value, $search->getMinPubdate());
-		$this->assertEquals($max_pubdate_value, $search->getMaxPubdate());
+		self::assertEquals($min_pubdate_value, $search->getMinPubdate());
+		self::assertEquals($max_pubdate_value, $search->getMaxPubdate());
 	}
 
 	/**
@@ -186,8 +186,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_whenInputContainsTags_setsTagsValue(string $input, ?array $tags_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($tags_value, $search->getTags());
-		$this->assertEquals($search_value, $search->getSearch());
+		self::assertEquals($tags_value, $search->getTags());
+		self::assertEquals($search_value, $search->getSearch());
 	}
 
 	/**
@@ -218,16 +218,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			?int $max_date_value, ?array $intitle_value, ?array $inurl_value, ?int $min_pubdate_value,
 			?int $max_pubdate_value, ?array $tags_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		$this->assertEquals($author_value, $search->getAuthor());
-		$this->assertEquals($min_date_value, $search->getMinDate());
-		$this->assertEquals($max_date_value, $search->getMaxDate());
-		$this->assertEquals($intitle_value, $search->getIntitle());
-		$this->assertEquals($inurl_value, $search->getInurl());
-		$this->assertEquals($min_pubdate_value, $search->getMinPubdate());
-		$this->assertEquals($max_pubdate_value, $search->getMaxPubdate());
-		$this->assertEquals($tags_value, $search->getTags());
-		$this->assertEquals($search_value, $search->getSearch());
-		$this->assertEquals($input, $search->getRawInput());
+		self::assertEquals($author_value, $search->getAuthor());
+		self::assertEquals($min_date_value, $search->getMinDate());
+		self::assertEquals($max_date_value, $search->getMaxDate());
+		self::assertEquals($intitle_value, $search->getIntitle());
+		self::assertEquals($inurl_value, $search->getInurl());
+		self::assertEquals($min_pubdate_value, $search->getMinPubdate());
+		self::assertEquals($max_pubdate_value, $search->getMaxPubdate());
+		self::assertEquals($tags_value, $search->getTags());
+		self::assertEquals($search_value, $search->getSearch());
+		self::assertEquals($input, $search->getRawInput());
 	}
 
 	/** @return array<array<mixed>> */
@@ -290,8 +290,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__construct_parentheses(string $input, string $sql, array $values): void {
 		list($filterValues, $filterSearch) = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		$this->assertEquals($sql, $filterSearch);
-		$this->assertEquals($values, $filterValues);
+		self::assertEquals($sql, $filterSearch);
+		self::assertEquals($values, $filterValues);
 	}
 
 	/** @return array<array<mixed>> */

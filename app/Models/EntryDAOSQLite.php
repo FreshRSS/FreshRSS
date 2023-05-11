@@ -27,7 +27,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
 			foreach (['attributes'] as $column) {
-				if (!in_array($column, $columns)) {
+				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}
 			}

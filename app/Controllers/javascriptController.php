@@ -2,6 +2,16 @@
 
 class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
+	/**
+	 * @var FreshRSS_ViewJavascript
+	 * @phpstan-ignore-next-line
+	 */
+	protected $view;
+
+	public function __construct() {
+		parent::__construct(FreshRSS_ViewJavascript::class);
+	}
+
 	public function firstAction(): void {
 		$this->view->_layout(null);
 	}

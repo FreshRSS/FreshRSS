@@ -585,10 +585,6 @@ SQL;
 	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
 		$list = array();
 
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
 		foreach ($listDAO as $key => $dao) {
 			if (!isset($dao['name'])) {
 				continue;
@@ -611,7 +607,7 @@ SQL;
 			$myFeed->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$myFeed->_priority($dao['priority'] ?? 10);
 			$myFeed->_pathEntries($dao['pathEntries'] ?? '');
-			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? ''));
+			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? '', true) ?: '');
 			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
 			$myFeed->_attributes('', $dao['attributes'] ?? '');

@@ -21,7 +21,7 @@ class FreshRSS_FormAuth {
 		}
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
-		$mtime = @filemtime($token_file);
+		$mtime = @filemtime($token_file) ?: 0;
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? FreshRSS_Auth::DEFAULT_COOKIE_DURATION : $limits['cookie_duration'];
 		if ($mtime + $cookie_duration < time()) {
