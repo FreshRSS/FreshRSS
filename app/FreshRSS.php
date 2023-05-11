@@ -23,7 +23,7 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		Minz_ActionController::$viewType = 'FreshRSS_View';
+		Minz_ActionController::$defaultViewType = FreshRSS_View::class;
 
 		FreshRSS_Context::initSystem();
 		if (FreshRSS_Context::$system_conf == null) {
