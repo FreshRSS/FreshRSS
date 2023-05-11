@@ -37,7 +37,7 @@ retourner un tableau PHP contenant les traductions. Extrait du fichier
 ```php
 <?php
 return array(
-	'action' => [
+	'action' => array(
 		'actualize' => 'Actualiser',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
