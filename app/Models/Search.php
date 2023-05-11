@@ -142,7 +142,7 @@ class FreshRSS_Search {
 		return $this->label_ids;
 	}
 	/** @return array<int>|'*'|null */
-	public function getNotlabelIds() {
+	public function getNotLabelIds() {
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
@@ -150,7 +150,7 @@ class FreshRSS_Search {
 		return $this->label_names;
 	}
 	/** @return array<string>|null */
-	public function getNotlabelNames(): ?array {
+	public function getNotLabelNames(): ?array {
 		return $this->not_label_names;
 	}
 

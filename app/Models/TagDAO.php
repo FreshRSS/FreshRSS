@@ -378,7 +378,7 @@ INNER JOIN `_entrytag` et ON et.id_tag = t.id
 SQL;
 
 		$values = array();
-		if (is_array($entries) && count($entries) > 0) {
+		if (count($entries) > 0) {
 			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
 				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);

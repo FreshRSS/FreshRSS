@@ -324,7 +324,7 @@ final class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name the hook to call.
 	 * @param mixed ...$args additional parameters (for signature, please see self::$hook_list).
-	 * @return mixed|null final result of the called hook.
+	 * @return mixed|void|null final result of the called hook.
 	 */
 	public static function callHook(string $hook_name, ...$args) {
 		if (!isset(self::$hook_list[$hook_name])) {
@@ -343,6 +343,7 @@ final class Minz_ExtensionManager {
 		} elseif ($signature === 'NoneToNone') {
 			self::callNoneToNone($hook_name);
 		}
+		return;
 	}
 
 	/**

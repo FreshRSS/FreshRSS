@@ -251,14 +251,14 @@ final class FreshRSS_Context {
 	 * Return the current get as a string or an array.
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' or 't' and the second is the id.
-	 * @phpstan-return ($asArray is true ? array{'c'|'f'|'t',bool|int} : string)
+	 * @phpstan-return ($asArray is true ? array{'a'|'c'|'f'|'s'|'t'|'T',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
-			return 'a';
+			return $asArray ? ['a', true] : 'a';
 		} elseif (self::$current_get['starred']) {
-			return 's';
+			return $asArray ? ['s', true] : 's';
 		} elseif (self::$current_get['feed']) {
 			if ($asArray) {
 				return array('f', self::$current_get['feed']);
@@ -278,7 +278,7 @@ final class FreshRSS_Context {
 				return 't_' . self::$current_get['tag'];
 			}
 		} elseif (self::$current_get['tags']) {
-			return 'T';
+			return $asArray ? ['T', true] : 'T';
 		}
 		return '';
 	}
