@@ -6,6 +6,16 @@
 class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
+	 * @var FreshRSS_ViewStats
+	 * @phpstan-ignore-next-line
+	 */
+	protected $view;
+
+	public function __construct() {
+		parent::__construct(FreshRSS_ViewStats::class);
+	}
+
+	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
