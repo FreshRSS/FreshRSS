@@ -330,6 +330,7 @@ services:
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
       # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
+	  # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
       OIDC_ENABLED: 0
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
