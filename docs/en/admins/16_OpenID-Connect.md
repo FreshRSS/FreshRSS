@@ -18,3 +18,10 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_CLIENT_ID`: The OIDC client id from your issuer.
 * `OIDC_CLIENT_SECRET`: The OIDC client secret issuer.
 * `OIDC_CLIENT_CRYPTO_KEY`: An opaque key used for internal encryption.
+
+## Setup
+
+After being properly configured, OIDC support can be activated in the FreshRSS UI.
+
+During install, admins should be able to select the 'HTTP' Authentication Method. After install this option can
+be changed in the 'Administation > Authentication' section.
