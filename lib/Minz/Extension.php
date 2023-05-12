@@ -231,10 +231,10 @@ abstract class Minz_Extension {
 	/** @param 'system'|'user' $type */
 	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
-			case 'system':
+			case 'user':
 				$conf = FreshRSS_Context::$user_conf;
 				break;
-			case 'user':
+			case 'system':
 				$conf = FreshRSS_Context::$system_conf;
 				break;
 		}
