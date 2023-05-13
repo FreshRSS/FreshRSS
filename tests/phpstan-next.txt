@@ -3,10 +3,7 @@
 # Can be regenerated with something like:
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 7 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/Controllers/userController.php
 ./app/Models/Feed.php
-./app/Models/Share.php
-./app/views/helpers/logs_pagination.phtml
 ./lib/Minz/Error.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
