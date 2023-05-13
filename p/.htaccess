@@ -27,6 +27,9 @@ AddDefaultCharset	UTF-8
 	<FilesMatch "\.php$">
 		ExpiresActive	Off
 	</FilesMatch>
+	<FilesMatch "oidc">
+		ExpiresActive	Off
+	</FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>
