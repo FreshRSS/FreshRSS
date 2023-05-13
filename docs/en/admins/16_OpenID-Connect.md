@@ -24,4 +24,4 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 After being properly configured, OIDC support can be activated in the FreshRSS UI.
 
 During install, admins should be able to select the 'HTTP' Authentication Method. After install this option can
-be changed in the 'Administation > Authentication' section.
+be changed in the 'Administration > Authentication' section.
