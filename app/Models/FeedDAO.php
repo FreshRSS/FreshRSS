@@ -640,14 +640,11 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return int|false
-	 */
-	public function count() {
+	public function count(): int {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `_feed` e';
 		$stm = $this->pdo->query($sql);
 		if ($stm == false) {
-			return false;
+			return -1;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return isset($res[0]) ? $res[0] : 0;
