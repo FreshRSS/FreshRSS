@@ -7,4 +7,3 @@
 ./lib/Minz/Error.php
 ./lib/Minz/Mailer.php
 ./lib/Minz/Migrator.php
-./lib/Minz/Request.php
