@@ -230,17 +230,12 @@ form th {
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
-	min-height: 29px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 1.7;
 }
 
 .read_all.btn {
