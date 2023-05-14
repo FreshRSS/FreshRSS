@@ -12,7 +12,7 @@
 	font-size: 1rem;
 	border: none;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
@@ -49,11 +49,6 @@
 	&:hover {
 		text-decoration: none;
 	}
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 /*=== Forms */

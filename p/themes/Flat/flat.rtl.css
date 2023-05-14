@@ -175,17 +175,12 @@ form th {
 	border-bottom: 3px solid #2980b9;
 	border-right-color: #2980b9;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
