@@ -465,8 +465,7 @@ td.numeric {
 	display: inline-flex;
 }
 
-.btn,
-a.btn {
+.btn {
 	display: inline-block;
 	cursor: pointer;
 	overflow: hidden;

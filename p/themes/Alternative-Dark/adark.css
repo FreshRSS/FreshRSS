@@ -203,16 +203,12 @@ form th {
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
 }
 
 .btn:hover {
