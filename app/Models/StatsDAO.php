@@ -58,7 +58,7 @@ SQL;
 	 */
 	public function calculateEntryCount(): array {
 		$count = $this->initEntryCountArray();
-		$midnight = mktime(0, 0, 0);
+		$midnight = mktime(0, 0, 0) ?: 0;
 		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
 
 		// Get stats per day for the last 30 days

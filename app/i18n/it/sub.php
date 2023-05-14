@@ -68,7 +68,7 @@ return array(
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
 		'filteractions' => array(
 			'_' => 'Azioni di filtro',
-			'help' => 'Scrivi un filtro di ricerca per riga.',
+			'help' => 'Scrivi un filtro di ricerca per riga. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',

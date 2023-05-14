@@ -585,10 +585,6 @@ SQL;
 	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
 		$list = array();
 
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
 		foreach ($listDAO as $key => $dao) {
 			if (!isset($dao['name'])) {
 				continue;
@@ -611,7 +607,7 @@ SQL;
 			$myFeed->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$myFeed->_priority($dao['priority'] ?? 10);
 			$myFeed->_pathEntries($dao['pathEntries'] ?? '');
-			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? ''));
+			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? '', true) ?: '');
 			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
 			$myFeed->_attributes('', $dao['attributes'] ?? '');
@@ -644,14 +640,11 @@ SQL;
 		}
 	}
 
-	/**
-	 * @return int|false
-	 */
-	public function count() {
+	public function count(): int {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `_feed` e';
 		$stm = $this->pdo->query($sql);
 		if ($stm == false) {
-			return false;
+			return -1;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return isset($res[0]) ? $res[0] : 0;

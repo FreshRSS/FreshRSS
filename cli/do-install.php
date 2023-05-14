@@ -80,7 +80,7 @@ if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
-if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
+if (isset($options['auth_type']) && !in_array($options['auth_type'], ['form', 'http_auth', 'none'], true)) {
 	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none })');
 }
 

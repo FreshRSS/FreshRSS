@@ -68,7 +68,7 @@ return array(
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
 		'filteractions' => array(
 			'_' => 'Filtre d’accion',
-			'help' => 'Escrivètz una recèrca per linha.',
+			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',

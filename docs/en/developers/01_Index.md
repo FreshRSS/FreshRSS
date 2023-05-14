@@ -19,7 +19,6 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 * [Making extensions for FreshRSS](03_Backend/05_Extensions.md)
 * [Database Schema](03_Backend/01_Database_schema.md)
 * [External libraries](03_Backend/03_External_libraries.md)
-* [Changing source code](03_Backend/04_Changing_source_code.md)
 
 ## Frontend Development
 

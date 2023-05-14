@@ -28,7 +28,7 @@ class Minz_Migrator
 	 *                         been modified, or migrations path cannot be
 	 *                         read).
 	 *
-	 * @throws BadFunctionCallException if a callback isn't callable.
+	 * @throws BadFunctionCallException if a callback isn’t callable.
 	 */
 	public static function execute(string $migrations_path, string $applied_migrations_path) {
 		$applied_migrations = @file_get_contents($applied_migrations_path);
@@ -58,8 +58,8 @@ class Minz_Migrator
 		if (!@mkdir($lock_path, 0770, true)) {
 			// Someone is probably already executing the migrations (the folder
 			// already exists).
-			// We should probably return something else, but we don't want the
-			// user to think there is an error (it's normal workflow), so let's
+			// We should probably return something else, but we don’t want the
+			// user to think there is an error (it’s normal workflow), so let’s
 			// stick to this solution for now.
 			// Another option would be to show him a maintenance page.
 			Minz_Log::warning(
@@ -93,7 +93,7 @@ class Minz_Migrator
 				'We weren’t able to unlink the migration executing folder, '
 				. 'you might want to delete yourself: ' . $lock_path
 			);
-			// we don't return early because the migrations could have been
+			// we don’t return early because the migrations could have been
 			// applied successfully. This file is not "critical" if not removed
 			// and more errors will eventually appear in the logs.
 		}
@@ -122,8 +122,7 @@ class Minz_Migrator
 	 *
 	 * The files starting with a dot are ignored.
 	 *
-	 * @throws BadFunctionCallException if a callback isn't callable (i.e.
-	 *                                  cannot call a migrate method).
+	 * @throws BadFunctionCallException if a callback isn’t callable (i.e. cannot call a migrate method).
 	 */
 	public function __construct(?string $directory = null) {
 		$this->applied_versions = [];
@@ -163,7 +162,7 @@ class Minz_Migrator
 	 *                           return true on success and must return false
 	 *                           on error
 	 *
-	 * @throws BadFunctionCallException if the callback isn't callable.
+	 * @throws BadFunctionCallException if the callback isn’t callable.
 	 */
 	public function addMigration(string $version, ?callable $callback): void {
 		if (!is_callable($callback)) {
@@ -230,7 +229,7 @@ class Minz_Migrator
 	 */
 	public function upToDate(): bool {
 		// Counting versions is enough since we cannot apply a version which
-		// doesn't exist (see setAppliedVersions method).
+		// doesn’t exist (see setAppliedVersions method).
 		return count($this->versions()) === count($this->applied_versions);
 	}
 
@@ -240,7 +239,7 @@ class Minz_Migrator
 	 * It only executes migrations AFTER the current version. If a migration
 	 * returns false or fails, it immediately stops the process.
 	 *
-	 * If the migration doesn't return false nor raise an exception, it is
+	 * If the migration doesn’t return false nor raise an exception, it is
 	 * considered as successful. It is considered as good practice to return
 	 * true on success though.
 	 *
@@ -251,7 +250,7 @@ class Minz_Migrator
 	public function migrate(): array {
 		$result = [];
 		foreach ($this->migrations() as $version => $callback) {
-			if (in_array($version, $this->applied_versions)) {
+			if (in_array($version, $this->applied_versions, true)) {
 				// the version is already applied so we skip this migration
 				continue;
 			}

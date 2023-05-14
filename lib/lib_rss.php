@@ -224,7 +224,7 @@ function html_only_entity_decode(?string $text): string {
 function sensitive_log($log) {
 	if (is_array($log)) {
 		foreach ($log as $k => $v) {
-			if (in_array($k, ['api_key', 'Passwd', 'T'])) {
+			if (in_array($k, ['api_key', 'Passwd', 'T'], true)) {
 				$log[$k] = '██';
 			} elseif (is_array($v) || is_string($v)) {
 				$log[$k] = sensitive_log($v);
@@ -331,7 +331,7 @@ function customSimplePie(array $attributes = array()): SimplePie {
 
 /** @param string $data */
 function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
-	if (!is_string($data) || ($maxLength !== null && $maxLength <= 0)) {
+	if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
 	}
 	if ($maxLength !== null) {
@@ -653,10 +653,10 @@ function checkCIDR(string $ip, string $range): bool {
 
 /**
  * Check if the client is allowed to send unsafe headers
- * This uses the REMOTE_ADDR header to determine the sender's IP
+ * This uses the REMOTE_ADDR header to determine the sender’s IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -851,8 +851,9 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 
 	$message = '';
 	$details = '';
-	// Prevent empty tags by checking if error isn not empty first
-	if ($error) {
+	$error = trim($error);
+	// Prevent empty tags by checking if error is not empty first
+	if ($error !== '') {
 		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8') . "\n";
 
 		// First line is the main message, other lines are the details

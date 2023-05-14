@@ -28,7 +28,7 @@ switch ($options['a']) {
 			$i18nData->addKey($options['k'], $options['v']);
 		} elseif (array_key_exists('l', $options)) {
 			$reference = null;
-			if (array_key_exists('o', $options) && is_string($options['o'])) {
+			if (array_key_exists('o', $options)) {
 				$reference = $options['o'];
 			}
 			$i18nData->addLanguage($options['l'], $reference);

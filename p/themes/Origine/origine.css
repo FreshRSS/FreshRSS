@@ -1173,7 +1173,7 @@ a:hover .icon {
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	:root .darkMode_auto {
+	:root.darkMode_auto {
 		--frss-background-color: #000;
 		--frss-background-color-middle: #222;
 		--frss-border-color: #444;

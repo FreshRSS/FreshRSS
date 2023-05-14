@@ -33,8 +33,8 @@ class FreshRSS_BooleanSearch {
 			$input = $this->parseUserQueryIds($input);
 		}
 
-		// Either parse everything as a series of BooleanSearch's combined by implicit AND
-		// or parse everything as a series of Search's combined by explicit OR
+		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
+		// or parse everything as a series of Search’s combined by explicit OR
 		$this->parseParentheses($input, $level) || $this->parseOrSegments($input);
 	}
 
@@ -43,12 +43,12 @@ class FreshRSS_BooleanSearch {
 	 */
 	private function parseUserQueryNames(string $input): string {
 		$all_matches = [];
-		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
-			$all_matches[] = $matches;
+		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
+			$all_matches[] = $matchesFound;
 
 		}
-		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$all_matches[] = $matches;
+		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matchesFound)) {
+			$all_matches[] = $matchesFound;
 		}
 
 		if (!empty($all_matches)) {
@@ -82,8 +82,8 @@ class FreshRSS_BooleanSearch {
 	private function parseUserQueryIds(string $input): string {
 		$all_matches = [];
 
-		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matches)) {
-			$all_matches[] = $matches;
+		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matchesFound)) {
+			$all_matches[] = $matchesFound;
 		}
 
 		if (!empty($all_matches)) {

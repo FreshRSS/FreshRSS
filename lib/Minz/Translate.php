@@ -76,9 +76,7 @@ class Minz_Translate {
 					$scan,
 					array('..', '.')
 				));
-				if (is_array($path_langs)) {
-					$list_langs = array_merge($list_langs, $path_langs);
-				}
+				$list_langs = array_merge($list_langs, $path_langs);
 			}
 		}
 
@@ -107,7 +105,7 @@ class Minz_Translate {
 			}
 		}
 
-		return $default ? $default : 'en';
+		return $default == null ? 'en' : $default;
 	}
 
 	/**
@@ -115,7 +113,7 @@ class Minz_Translate {
 	 * @param string $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath(string $path): void {
-		if (!in_array($path, self::$path_list) && is_dir($path)) {
+		if (!in_array($path, self::$path_list, true) && is_dir($path)) {
 			self::$path_list[] = $path;
 			self::loadLang($path);
 		}
