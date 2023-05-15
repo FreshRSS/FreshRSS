@@ -42,9 +42,10 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @param int|string $pubdate
 	 * @param bool|int|null $is_read
 	 * @param bool|int|null $is_favorite
+	 * @param string|array<string> $tags
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
-			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, string $tags = '') {
+			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -58,7 +59,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,
-	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string,'categories'?:string} $dao */
+	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
@@ -91,9 +92,6 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']) ?: 0);
-		}
-		if (!empty($dao['categories'])) {
-			$entry->_tags($dao['categories']);
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);

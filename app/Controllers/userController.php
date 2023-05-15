@@ -278,7 +278,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
-	 * @todo handle r redirection in Minz_Request::forward directly?
 	 */
 	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
@@ -372,10 +371,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 		Minz_Request::forward($redirect_url, true);
 	}
 
@@ -534,10 +530,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
