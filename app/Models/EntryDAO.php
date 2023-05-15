@@ -1311,14 +1311,15 @@ SQL;
 	/**
 	 * Update (touch) the last seen attribute of the latest entries of a given feed.
 	 * Useful when a feed is unchanged / cached.
+	 * To be performed just before {@see FreshRSS_FeedDAO::updateLastUpdate()}
 	 * @return int|false The number of affected entries, or false in case of error
 	 */
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 UPDATE `_entry` SET `lastSeen` = :mtime
-WHERE id_feed = :id_feed1 AND `lastSeen` = (
-	SELECT max(e2.`lastSeen`) FROM `_entry` e2
-	WHERE e2.id_feed = :id_feed2
+WHERE id_feed = :id_feed1 AND `lastSeen` >= (
+	SELECT `lastUpdate` FROM `_feed` f
+	WHERE f.id = :id_feed2
 )
 SQL;
 		$stm = $this->pdo->prepare($sql);
