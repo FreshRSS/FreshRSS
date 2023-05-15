@@ -49,7 +49,7 @@ class Minz_Paginator {
 	 * @param string $view nom du fichier de vue situé dans /app/views/helpers/
 	 * @param string $getteur variable de type $_GET[] permettant de retrouver la page
 	 */
-	public function render(string $view, string $getteur = '0'): void {
+	public function render(string $view, string $getteur = 'page'): void {
 		$view = APP_PATH . '/views/helpers/' . $view;
 
 		if (file_exists($view)) {
