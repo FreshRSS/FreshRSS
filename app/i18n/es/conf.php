@@ -33,7 +33,7 @@ return array(
 	'display' => array(
 		'_' => 'Visualización',
 		'darkMode' => array(
-			'_' => 'Modo oscuro automatico (beta)',	// TODO
+			'_' => 'Modo oscuro automatico (beta)',
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
 		),
@@ -57,7 +57,7 @@ return array(
 			'_' => 'Tema',
 			'deprecated' => array(
 				'_' => 'Deprecated',	// TODO
-				'description' => 'Este tema no tiene soporte y no volvera a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',	// TODO
+				'description' => 'Este tema no tiene soporte y no volvera a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'El tema “%s” ya no está disponible. Por favor, elija otro tema.',
