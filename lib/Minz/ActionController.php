@@ -21,18 +21,32 @@ class Minz_ActionController {
 	protected $view;
 
 	/**
-	 * Gives the possibility to override the default View type.
+	 * Gives the possibility to override the default view model type.
 	 * @var class-string
+	 * @deprecated Use constructor with view type instead
 	 */
-	public static $viewType = 'Minz_View';
+	public static $defaultViewType = Minz_View::class;
 
-	public function __construct () {
+	/**
+	 * @phpstan-param class-string|'' $viewType
+	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
+	 */
+	public function __construct(string $viewType = '') {
 		$this->csp_policies = self::$csp_default;
-		if (class_exists(self::$viewType)) {
-			$this->view = new self::$viewType();
-		} else {
-			$this->view = new Minz_View();
+		$view = null;
+		if ($viewType !== '' && class_exists($viewType)) {
+			$view = new $viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
 		}
+		if ($view === null && class_exists(self::$defaultViewType)) {
+			$view = new self::$defaultViewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
+		}
+		$this->view = $view ?? new Minz_View();
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
 		$this->view->attributeParams ();

@@ -43,7 +43,7 @@ class FreshRSS_Export_Service {
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listCategories(true, true);
+		$view->categories = $this->category_dao->listCategories(true, true) ?: [];
 		$view->excludeMutedFeeds = false;
 
 		return [
@@ -67,12 +67,12 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true);
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1) ?: [];
+		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, 'ASC', -1) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
@@ -94,12 +94,12 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
 		$feed = $this->feed_dao->searchById($feed_id);
-		if (!$feed) {
+		if ($feed === null) {
 			return null;
 		}
 
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true);
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$view->feed = $feed;
 		$day = date('Y-m-d');
 		$filename = "feed_{$day}_" . $feed->categoryId() . '_' . $feed->id() . '.json';
@@ -108,7 +108,7 @@ class FreshRSS_Export_Service {
 		$view->type = 'feed/' . $feed->id();
 		$entriesId = $this->entry_dao->listIdsWhere(
 			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $max_number_entries
-		) ?: [];
+		) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
@@ -154,6 +154,9 @@ class FreshRSS_Export_Service {
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
 		$zip_file = tempnam('/tmp', 'zip');
+		if ($zip_file == false) {
+			return [$zip_filename, false];
+		}
 		$zip_archive = new ZipArchive();
 		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
 

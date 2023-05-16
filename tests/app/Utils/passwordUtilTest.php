@@ -6,7 +6,7 @@ class passwordUtilTest extends PHPUnit\Framework\TestCase {
 
 		$ok = FreshRSS_password_Util::check($password);
 
-		$this->assertTrue($ok);
+		self::assertTrue($ok);
 	}
 
 	public function testCheckReturnsFalseIfEmpty(): void {
@@ -14,7 +14,7 @@ class passwordUtilTest extends PHPUnit\Framework\TestCase {
 
 		$ok = FreshRSS_password_Util::check($password);
 
-		$this->assertFalse($ok);
+		self::assertFalse($ok);
 	}
 
 	public function testCheckReturnsFalseIfLessThan7Characters(): void {
@@ -22,6 +22,6 @@ class passwordUtilTest extends PHPUnit\Framework\TestCase {
 
 		$ok = FreshRSS_password_Util::check($password);
 
-		$this->assertFalse($ok);
+		self::assertFalse($ok);
 	}
 }

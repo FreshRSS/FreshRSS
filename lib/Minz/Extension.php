@@ -153,7 +153,7 @@ abstract class Minz_Extension {
 
 	/** @param 'user'|'system' $type */
 	private function setType(string $type): void {
-		if (!in_array($type, ['user', 'system'])) {
+		if (!in_array($type, ['user', 'system'], true)) {
 			throw new Minz_ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;
@@ -231,10 +231,10 @@ abstract class Minz_Extension {
 	/** @param 'system'|'user' $type */
 	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
-			case 'system':
+			case 'user':
 				$conf = FreshRSS_Context::$user_conf;
 				break;
-			case 'user':
+			case 'system':
 				$conf = FreshRSS_Context::$system_conf;
 				break;
 		}

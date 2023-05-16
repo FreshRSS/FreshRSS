@@ -68,7 +68,7 @@ return array(
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
 		'filteractions' => array(
 			'_' => 'Filtrovať akcie',
-			'help' => 'Napíšte jeden výraz hľadania na riadok.',
+			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',

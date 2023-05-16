@@ -30,11 +30,9 @@ define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_sys
  */
 function notice(string $message): void {
 	Minz_Log::notice($message, ADMIN_LOG);
-	// @phpstan-ignore-next-line
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
-	// @phpstan-ignore-next-line
 	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
 		fwrite(STDOUT, $message . "\n");	//Unbuffered
 	}
@@ -44,7 +42,7 @@ function notice(string $message): void {
 // Avoid having multiple actualization processes at the same time
 $mutexFile = TMP_PATH . '/actualize.freshrss.lock';
 $mutexTtl = 900; // seconds (refreshed before each new feed)
-if (file_exists($mutexFile) && ((time() - @filemtime($mutexFile)) > $mutexTtl)) {
+if (file_exists($mutexFile) && ((time() - (@filemtime($mutexFile) ?: 0)) > $mutexTtl)) {
 	unlink($mutexFile);
 }
 

@@ -252,3 +252,12 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+
+# Alternatives
+
+Si FreshRSS ne vous convient pas pour une raison ou pour une autre, voici d’autres solutions à considérer :
+
+* [Kriss Feed](https://tontof.net/kriss/feed/)
+* [Leed](https://github.com/LeedRSS/Leed)
+* [Et plus…](https://framalibre.org/tags/lecteur-de-flux-rss)
+* [Et encore plus…](https://alternativeto.net/software/freshrss/) (mais si vous appréciez FreshRSS, mettez un “j’aime” !)

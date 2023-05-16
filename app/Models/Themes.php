@@ -11,7 +11,7 @@ class FreshRSS_Themes extends Minz_Model {
 	/** @return array<string> */
 	public static function getList(): array {
 		return array_values(array_diff(
-			scandir(PUBLIC_PATH . self::$themesUrl),
+			scandir(PUBLIC_PATH . self::$themesUrl) ?: [],
 			array('..', '.')
 		));
 	}
@@ -37,7 +37,7 @@ class FreshRSS_Themes extends Minz_Model {
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
 			if (file_exists($json_filename)) {
-				$content = file_get_contents($json_filename);
+				$content = file_get_contents($json_filename) ?: '';
 				$res = json_decode($content, true);
 				if ($res &&
 						!empty($res['name']) &&
@@ -75,7 +75,7 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 		self::$themeIconsUrl = self::$themesUrl . $theme_id . '/icons/';
 		self::$themeIcons = is_dir(PUBLIC_PATH . self::$themeIconsUrl) ? array_fill_keys(array_diff(
-			scandir(PUBLIC_PATH . self::$themeIconsUrl),
+			scandir(PUBLIC_PATH . self::$themeIconsUrl) ?: [],
 			array('..', '.')
 		), 1) : array();
 		return $infos;

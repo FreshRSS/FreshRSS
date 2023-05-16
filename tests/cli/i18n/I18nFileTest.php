@@ -12,10 +12,10 @@ class I18nFileTest extends PHPUnit\Framework\TestCase {
 
 		$after = $this->computeFilesHash();
 
-		$this->assertEquals($before, $after);
+		self::assertEquals($before, $after);
 	}
 
-	/** @return array<string,string> */
+	/** @return array<string,string|false> */
 	private function computeFilesHash(): array {
 		$hashes = [];
 
@@ -30,7 +30,7 @@ class I18nFileTest extends PHPUnit\Framework\TestCase {
 					continue;
 				}
 
-				$hashes[$file->getPathName()] = sha1_file($file->getPathName());
+				$hashes[$file->getPathname()] = sha1_file($file->getPathname());
 			}
 		}
 

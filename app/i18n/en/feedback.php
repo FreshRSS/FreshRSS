@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',
-		'zip_error' => 'An error occurred during ZIP import.',
+		'zip_error' => 'An error occurred during ZIP processing.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',

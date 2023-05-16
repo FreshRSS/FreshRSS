@@ -17,7 +17,6 @@ if (!function_exists('str_starts_with')) {
 }
 
 if (!function_exists('syslog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
@@ -31,7 +30,6 @@ if (!function_exists('syslog')) {
 }
 
 if (function_exists('openlog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR) {
 		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 	} else {
@@ -132,8 +130,8 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	}
 }
 
-function safe_ascii(string $text): string {
-	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '';
+function safe_ascii(?string $text): string {
+	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
@@ -226,7 +224,7 @@ function html_only_entity_decode(?string $text): string {
 function sensitive_log($log) {
 	if (is_array($log)) {
 		foreach ($log as $k => $v) {
-			if (in_array($k, ['api_key', 'Passwd', 'T'])) {
+			if (in_array($k, ['api_key', 'Passwd', 'T'], true)) {
 				$log[$k] = '██';
 			} elseif (is_array($v) || is_string($v)) {
 				$log[$k] = sensitive_log($v);
@@ -333,7 +331,7 @@ function customSimplePie(array $attributes = array()): SimplePie {
 
 /** @param string $data */
 function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
-	if (!is_string($data) || ($maxLength !== null && $maxLength <= 0)) {
+	if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
 	}
 	if ($maxLength !== null) {
@@ -485,8 +483,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		$body = '';
 		// TODO: Implement HTTP 410 Gone
-	}
-	if (!is_string($body)) {
+	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
 		$body = enforceHttpEncoding($body, $c_content_type);
@@ -635,26 +632,35 @@ function ipToBits(string $ip): string {
  */
 function checkCIDR(string $ip, string $range): bool {
 	$binary_ip = ipToBits($ip);
-	list($subnet, $mask_bits) = explode('/', $range);
-	$mask_bits = intval($mask_bits);
+	$split = explode('/', $range);
+
+	$subnet = $split[0] ?? '';
+	if ($subnet == '') {
+		return false;
+	}
 	$binary_subnet = ipToBits($subnet);
+
+	$mask_bits = $split[1] ?? '';
+	$mask_bits = (int)$mask_bits;
+	if ($mask_bits === 0) {
+		$mask_bits = null;
+	}
 
 	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
-
 	return $ip_net_bits === $subnet_bits;
 }
 
 /**
  * Check if the client is allowed to send unsafe headers
- * This uses the REMOTE_ADDR header to determine the sender's IP
+ * This uses the REMOTE_ADDR header to determine the sender’s IP
  * and the configuration option "trusted_sources" to get an array of the authorized ranges
  *
- * @return bool, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
+		return false;
 	}
 	if (!empty($_SERVER['REMOTE_ADDR'])) {
 		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
@@ -666,15 +672,20 @@ function checkTrustedIP(): bool {
 	return false;
 }
 
-function httpAuthUser(): string {
+function httpAuthUser(bool $onlyTrusted = true): string {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_REMOTE_USER'];
-	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
+	}
+	if (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_X_WEBAUTH_USER'];
+	}
+	if (!$onlyTrusted || checkTrustedIP()) {
+		if (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+			return $_SERVER['HTTP_REMOTE_USER'];
+		}
+		if (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+			return $_SERVER['HTTP_X_WEBAUTH_USER'];
+		}
 	}
 	return '';
 }
@@ -793,8 +804,8 @@ function recursive_unlink(string $dir): bool {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<int,array<string,string>> $queries an array of queries.
- * @return array<int,array<string,string>> without queries where $get is appearing.
+ * @param array<int,array<string,string|int>> $queries an array of queries.
+ * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
 	$final_queries = array();
@@ -840,8 +851,9 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 
 	$message = '';
 	$details = '';
-	// Prevent empty tags by checking if error isn not empty first
-	if ($error) {
+	$error = trim($error);
+	// Prevent empty tags by checking if error is not empty first
+	if ($error !== '') {
 		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8') . "\n";
 
 		// First line is the main message, other lines are the details

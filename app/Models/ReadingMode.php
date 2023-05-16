@@ -17,9 +17,7 @@ class FreshRSS_ReadingMode {
 	 * @var string
 	 */
 	protected $title;
-	/**
-	 * @var string[]
-	 */
+	/** @var array{'c':string,'a':string,'params':array<string,mixed>} */
 	protected $urlParams;
 	/**
 	 * @var bool
@@ -28,7 +26,7 @@ class FreshRSS_ReadingMode {
 
 	/**
 	 * ReadingMode constructor.
-	 * @param array<string> $urlParams
+	 * @param array{'c':string,'a':string,'params':array<string,mixed>} $urlParams
 	 */
 	public function __construct(string $id, string $title, array $urlParams, bool $active) {
 		$this->id = $id;
@@ -60,16 +58,12 @@ class FreshRSS_ReadingMode {
 		return $this;
 	}
 
-	/**
-	 * @return array<string>
-	 */
+	/** @return array{'c':string,'a':string,'params':array<string,mixed>} */
 	public function getUrlParams(): array {
 		return $this->urlParams;
 	}
 
-	/**
-	 * @param array<string> $urlParams
-	 */
+	/** @param array{'c':string,'a':string,'params':array<string,mixed>} $urlParams */
 	public function setUrlParams(array $urlParams): FreshRSS_ReadingMode {
 		$this->urlParams = $urlParams;
 		return $this;

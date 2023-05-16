@@ -18,16 +18,8 @@ if (STEP === 2 && isset($_POST['type'])) {
 	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
-/**
- * @param mixed $default
- * @return mixed
- */
-function param(string $key, $default = false) {
-	if (isset($_POST[$key])) {
-		return $_POST[$key];
-	} else {
-		return $default;
-	}
+function param(string $key, string $default = ''): string {
+	return isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : $default;
 }
 
 // gestion internationalisation
@@ -39,7 +31,7 @@ function initTranslate(): void {
 		Minz_Session::_param('language', get_best_language());
 	}
 
-	if (!in_array(Minz_Session::param('language'), $available_languages)) {
+	if (!in_array(Minz_Session::param('language'), $available_languages, true)) {
 		Minz_Session::_param('language', 'en');
 	}
 
@@ -146,9 +138,6 @@ function saveStep2(): void {
 		if (Minz_Session::param('title') != '') {
 			$config_array['title'] = Minz_Session::param('title');
 		}
-		if (Minz_Session::param('auth_type') != '') {
-			$config_array['auth_type'] = Minz_Session::param('auth_type');
-		}
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
@@ -196,27 +185,33 @@ function saveStep2(): void {
 }
 
 function saveStep3(): bool {
+	FreshRSS_Context::initSystem();
+	Minz_Translate::init(Minz_Session::param('language'));
+
 	if (!empty($_POST)) {
-		$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
-		Minz_Session::_params([
-				'title' => $system_default_config->title,
-				'auth_type' => param('auth_type', 'form'),
-			]);
+		if (param('auth_type', 'form') != '') {
+			FreshRSS_Context::$system_conf->auth_type = param('auth_type', 'form');
+			Minz_Session::_param('auth_type', FreshRSS_Context::$system_conf->auth_type);
+		} else {
+			return false;
+		}
+
+		$password_plain = param('passwordPlain', '');
+		if (FreshRSS_Context::$system_conf->auth_type === 'form' && $password_plain == '') {
+			return false;
+		}
+
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			Minz_Session::_param('default_user', param('default_user', ''));
-		}
-
-		if (Minz_Session::param('auth_type') == '' || Minz_Session::param('default_user') == '') {
+			FreshRSS_Context::$system_conf->default_user = param('default_user', '');
+			Minz_Session::_param('default_user', FreshRSS_Context::$system_conf->default_user);
+		} else {
 			return false;
 		}
 
-		$password_plain = param('passwordPlain', false);
-		if (Minz_Session::param('auth_type') === 'form' && $password_plain == '') {
-			return false;
+		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' && !empty($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])) {
+			// Trust by default the remote IP address (e.g. proxy) used during install to provide remote user name
+			FreshRSS_Context::$system_conf->trusted_sources = [ $_SERVER['REMOTE_ADDR'] ];
 		}
-
-		FreshRSS_Context::initSystem();
-		Minz_Translate::init(Minz_Session::param('language'));
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
@@ -242,7 +237,6 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		FreshRSS_Context::$system_conf->default_user = Minz_Session::param('default_user');
 		FreshRSS_Context::$system_conf->save();
 
 		header('Location: index.php?step=4');
@@ -271,7 +265,7 @@ function checkStep(): void {
 /** @return array<string,string> */
 function checkStep0(): array {
 	$languages = Minz_Translate::availableLanguages();
-	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages);
+	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages, true);
 	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
 
 	return array(
@@ -343,7 +337,7 @@ function checkStep3(): array {
 }
 
 
-/*** AFFICHAGE ***/
+/* select language */
 function printStep0(): void {
 	$actual = Minz_Translate::language();
 	$languages = Minz_Translate::availableLanguages();
@@ -355,6 +349,34 @@ function printStep0(): void {
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
 
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about') ?></label>
+		<div class="group-controls">
+			<?= _t('index.about.freshrss_description') ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.project_website') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WEBSITE ?>" target="_blank"><?= FRESHRSS_WEBSITE ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.documentation') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= FRESHRSS_WIKI ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.version') ?></label>
+		<div class="group-controls">
+			<?= FRESHRSS_VERSION ?>
+		</div>
+	</div>
+	
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">
@@ -382,7 +404,10 @@ function printStep0(): void {
 <?php
 }
 
-/** @param array<string> $messageParams */
+/**
+ * Alert box template
+ * @param array<string> $messageParams
+ * */
 function printStep1Template(string $key, string $value, array $messageParams = []): void {
 	if ('ok' === $value) {
 		$message = _t("install.check.{$key}.ok", ...$messageParams);
@@ -412,6 +437,7 @@ function getProcessUsername(): string {
 }
 
 // @todo refactor this view with the check_install action
+/* check system environment */
 function printStep1(): void {
 	$res = checkRequirements();
 	$processUsername = getProcessUsername();
@@ -474,6 +500,7 @@ function printStep1(): void {
 <?php
 }
 
+/* Select database & configuration */
 function printStep2(): void {
 	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
 	$s2 = checkStep2();
@@ -571,9 +598,10 @@ function printStep2(): void {
 }
 
 function no_auth(string $auth_type): bool {
-	return !in_array($auth_type, array('form', 'http_auth', 'none'));
+	return !in_array($auth_type, ['form', 'http_auth', 'none'], true);
 }
 
+/* Create default user */
 function printStep3(): void {
 	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 	$s3 = checkStep3();
@@ -591,7 +619,7 @@ function printStep3(): void {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
-					placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="1" />
+					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -603,7 +631,8 @@ function printStep3(): void {
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
-						httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('install.auth.http') ?>(REMOTE_USER = '<?= httpAuthUser() ?>')</option>
+						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('install.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
 					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
 						?>><?= _t('install.auth.none') ?></option>
 				</select>
@@ -636,6 +665,7 @@ function printStep3(): void {
 <?php
 }
 
+/* congrats. Installation successful completed */
 function printStep4(): void {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
@@ -647,6 +677,7 @@ function printStep4(): void {
 <?php
 }
 
+/* failed */
 function printStep5(): void {
 ?>
 	<p class="alert alert-error">

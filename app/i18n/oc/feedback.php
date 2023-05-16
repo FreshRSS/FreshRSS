@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors',
 		'file_cannot_be_uploaded' => 'Telecargament del fichièr impossible',
 		'no_zip_extension' => 'L’extension es pas presenta sul servidor.',
-		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',
+		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Impossible d’actualizar vòstre perfil',

@@ -24,11 +24,10 @@ GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->pdo->query($sql);
-		if ($stm === false) {
+		$res = $this->fetchAssoc($sql);
+		if ($res == null) {
 			return [];
 		}
-		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
 		switch ($period) {
 			case '%H':
@@ -46,7 +45,7 @@ SQL;
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
-			$repartition[(int) $value['period']] = (int) $value['count'];
+			$repartition[(int)$value['period']] = (int)$value['count'];
 		}
 
 		return $repartition;

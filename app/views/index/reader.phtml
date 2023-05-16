@@ -53,6 +53,7 @@ $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 					<?php
 						$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $item->feedId());	//We most likely already have the feed object in cache
 						if ($feed == null) $feed = $item->feed();
+						if ($feed == null) continue;
 						$favoriteUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $item->id()));
 						if ($item->isFavorite()) {
 							$favoriteUrl['params']['is_favorite'] = 0;

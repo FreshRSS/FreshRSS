@@ -56,7 +56,7 @@ class FreshRSS_Import_Service {
 
 		// Get the categories by names so we can use this array to retrieve
 		// existing categories later.
-		$categories = $this->catDAO->listCategories(false);
+		$categories = $this->catDAO->listCategories(false) ?: [];
 		$categories_by_names = [];
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
@@ -180,7 +180,7 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead'])
+					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 
@@ -358,7 +358,7 @@ class FreshRSS_Import_Service {
 		}
 
 		if (isset($outline['@outlines'])) {
-			// The outline has children, it's probably a category
+			// The outline has children, it’s probably a category
 			if (!empty($outline['text'])) {
 				$category_name = $outline['text'];
 			} elseif (!empty($outline['title'])) {
@@ -376,8 +376,7 @@ class FreshRSS_Import_Service {
 			$categories_elements[$category_name] = $outline;
 		}
 
-		// The xmlUrl means it's a feed URL: add the outline to the array if it
-		// exists.
+		// The xmlUrl means it’s a feed URL: add the outline to the array if it exists.
 		if (isset($outline['xmlUrl'])) {
 			if (!isset($categories_to_feeds[$parent_category_name])) {
 				$categories_to_feeds[$parent_category_name] = [];

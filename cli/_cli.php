@@ -61,7 +61,7 @@ function performRequirementCheck(string $databaseType): void {
 	if ($requirements['all'] !== 'ok') {
 		$message = 'FreshRSS failed requirements:' . "\n";
 		foreach ($requirements as $requirement => $check) {
-			if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
+			if ($check !== 'ok' && !in_array($requirement, ['all', 'pdo', 'message'], true)) {
 				$message .= '• ' . $requirement . "\n";
 			}
 		}

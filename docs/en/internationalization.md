@@ -1,6 +1,6 @@
 # Contributing to internationalization (i18n)
 
-Thanks to our contributors, FreshRSS is translated into more than 15 languages. This section will explain the basics of internationalization in FreshRSS, from translating the application to your own language to making a specific change.
+Thanks to our contributors, FreshRSS is translated into [more than 20 languages](./users/05_Configuration.md#language). This section will explain the basics of internationalization in FreshRSS, from translating the application to your own language to making a specific change.
 
 ## Overview
 
@@ -23,9 +23,8 @@ The translation files are quite simple: it’s only a matter of returning a PHP 
 
 ```php
 <?php
-
 return array(
-	'action' => [
+	'action' => array(
 		'actualize' => 'Actualiser',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
@@ -37,7 +36,7 @@ return array(
 		'about' => 'À propos de FreshRSS',
 	),
 	// ...
-];
+);
 ```
 
 Each value can be referenced by a key: it consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation, while the following ones indicate array entries. Thus, the `gen.freshrss.about` key is referencing the `about` entry from the `freshrss` entry which is part of the main array returned by the `gen.php` file. This allows us to further organize our translation files.

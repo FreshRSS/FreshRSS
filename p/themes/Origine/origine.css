@@ -269,18 +269,12 @@ form th {
 	border-right: 1px solid var(--border-color-shadow-side);
 	border-bottom: 1px solid var(--border-color-shadow-side);
 	border-radius: 3px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn,
-.stick .btn {
-	min-height: 25px;
-	line-height: 1.7;
 }
 
 .btn:hover {
@@ -365,9 +359,6 @@ a:hover .icon {
 
 .btn-attention:hover {
 	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1-hover), var(--attention-background-color-gradient2-hover));
-}
-
-a.btn-attention:hover {
 	color: var(--font-color-light);
 }
 
@@ -1194,7 +1185,7 @@ a.btn-attention:hover {
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	:root .darkMode_auto {
+	:root.darkMode_auto {
 		--frss-background-color: #000;
 		--frss-background-color-middle: #222;
 		--frss-border-color: #444;

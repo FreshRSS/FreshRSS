@@ -68,7 +68,7 @@ return array(
 		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
-			'help' => 'Введите по одному поисковому фильтру в строке.',
+			'help' => 'Введите по одному поисковому фильтру в строке. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',

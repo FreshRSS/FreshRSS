@@ -68,7 +68,7 @@ return array(
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
-			'help' => '1行に1つの検索フィルターを設定してください',
+			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',

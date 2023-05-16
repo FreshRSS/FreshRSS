@@ -4,7 +4,7 @@ require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
 	/**
-	 * @return array<string,array<string,string|array<string,I18nValue>>>
+	 * @return array<string,array<string,array<string,I18nValue>>>
 	 */
 	public function load(): array {
 		$i18n = array();

@@ -9,11 +9,13 @@ require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-$options = getopt("dhl:r");
+/** @var array<string,string>|false $options */
+$options = getopt('dhl:r');
 
-if (array_key_exists('h', $options)) {
+if (!is_array($options) || array_key_exists('h', $options)) {
 	checkHelp();
 }
+
 if (array_key_exists('l', $options)) {
 	$languages = array($options['l']);
 } else {
@@ -23,17 +25,16 @@ $displayResults = array_key_exists('d', $options);
 $displayReport = array_key_exists('r', $options);
 
 $isValidated = true;
-$result = array();
-$report = array();
+$result = [];
+$report = [];
 
 foreach ($languages as $language) {
 	if ($language === $i18nData::REFERENCE_LANGUAGE) {
 		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
-		$isValidated = $i18nValidator->validate() && $isValidated;
 	} else {
 		$i18nValidator = new I18nCompletionValidator($i18nData->getReferenceLanguage(), $i18nData->getLanguage($language));
-		$isValidated = $i18nValidator->validate() && $isValidated;
 	}
+	$isValidated = $i18nValidator->validate() && $isValidated;
 
 	$report[$language] = sprintf('%-5s - %s', $language, $i18nValidator->displayReport());
 	$result[$language] = $i18nValidator->displayResult();
@@ -69,9 +70,12 @@ function findUsedTranslations(): array {
 	$directory = new RecursiveDirectoryIterator(__DIR__ . '/..');
 	$iterator = new RecursiveIteratorIterator($directory);
 	$regex = new RegexIterator($iterator, '/^.+\.(php|phtml)$/i', RecursiveRegexIterator::GET_MATCH);
-	$usedI18n = array();
+	$usedI18n = [];
 	foreach (array_keys(iterator_to_array($regex)) as $file) {
 		$fileContent = file_get_contents($file);
+		if ($fileContent === false) {
+			continue;
+		}
 		preg_match_all('/_t\([\'"](?P<strings>[^\'"]+)[\'"]/', $fileContent, $matches);
 		$usedI18n = array_merge($usedI18n, $matches['strings']);
 	}
