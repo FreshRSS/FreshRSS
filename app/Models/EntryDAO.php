@@ -1276,7 +1276,6 @@ SQL;
 	 * @return int|false The number of affected entries, or false if error
 	 */
 	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0) {
-		syslog(LOG_DEBUG, __METHOD__ . ' ' . count($guids) . ' ' . $mtime);
 		if (count($guids) < 1) {
 			return 0;
 		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
