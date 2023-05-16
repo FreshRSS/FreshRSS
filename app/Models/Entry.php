@@ -21,6 +21,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $link;
 	/** @var int */
 	private $date;
+	/** @var int */
+	private $lastSeen = 0;
 	/** @var string In microseconds */
 	private $date_added = '0';
 	/** @var string */
@@ -58,7 +60,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,
+	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
 	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
@@ -92,6 +94,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']) ?: 0);
+		}
+		if (isset($dao['lastSeen'])) {
+			$entry->_lastSeen($dao['lastSeen']);
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);
@@ -325,6 +330,10 @@ HTML;
 		return @date (DATE_ATOM, $this->date);
 	}
 
+	public function lastSeen(): int {
+		return $this->lastSeen;
+	}
+
 	/**
 	 * @phpstan-return ($raw is false ? string : ($microsecond is true ? string : int))
 	 * @return int|string
@@ -467,6 +476,11 @@ HTML;
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
+
+	public function _lastSeen(int $value): void {
+		$this->lastSeen = $value > 0 ? $value : 0;
+	}
+
 	/** @param int|string $value */
 	public function _dateAdded($value, bool $microsecond = false): void {
 		if ($microsecond) {
@@ -774,7 +788,7 @@ HTML;
 	}
 
 	/**
-	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
 	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
 	 */
 	public function toArray(): array {
@@ -786,6 +800,7 @@ HTML;
 			'content' => $this->content(false),
 			'link' => $this->link(),
 			'date' => $this->date(true),
+			'lastSeen' => $this->lastSeen(),
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),
