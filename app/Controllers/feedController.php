@@ -465,6 +465,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						continue;	//Skip subsequent articles with same GUID
 					}
 					$newGuids[$entry->guid()] = true;
+					$entry->_lastSeen($mtime);
 
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
@@ -521,7 +522,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						if (!$entryDAO->inTransaction()) {
 							$entryDAO->beginTransaction();
 						}
-						$entryDAO->addEntry($entry->toArray());
+						$entryDAO->addEntry($entry->toArray(), true);
 
 						if (!$entry->isRead()) {
 							$feed->incPendingUnread();
@@ -529,6 +530,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$nb_new_articles++;
 					}
 				}
+				// N.B.: Applies to _entry table and not _entrytmp:
 				$entryDAO->updateLastSeen($feed->id(), array_keys($newGuids), $mtime);
 			} elseif ($feedIsUnchanged) {
 				// Feed cache was unchanged, so mark as seen the same entries as last time
