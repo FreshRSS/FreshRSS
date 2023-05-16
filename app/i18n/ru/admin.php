@@ -197,6 +197,7 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
 		'last' => 'Последняя проверка: %s',
+		'loading' => 'Updating...',	// TODO
 		'none' => 'Нет обновлений',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO

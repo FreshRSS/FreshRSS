@@ -197,6 +197,7 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
 		'last' => 'Τελευταία επαλήθευση: %s',
+		'loading' => 'Updating...',	// TODO
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO

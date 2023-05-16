@@ -197,6 +197,7 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
 		'last' => 'Darrièra verificacion : %s',
+		'loading' => 'Updating...',	// TODO
 		'none' => 'Cap d’actualizacion d’aplicar',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO

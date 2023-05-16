@@ -197,6 +197,7 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
 		'last' => 'Pēdējā verifikācija: %s',
+		'loading' => 'Updating...',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO

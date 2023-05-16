@@ -197,6 +197,7 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Current installed version',
 		'last' => 'Last check',
+		'loading' => 'Updating...',	// TODO
 		'none' => 'No update available',
 		'releaseChannel' => array(
 			'_' => 'Release channel',
