@@ -221,7 +221,7 @@ SQL;
 	/** @var PDOStatement|null */
 	private $updateEntryPrepared = null;
 
-	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'hash':string,
+	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
 	public function updateEntry(array $valuesTmp): bool {
 		if (!isset($valuesTmp['is_read'])) {
@@ -260,7 +260,6 @@ SQL;
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$valuesTmp['lastSeen'] = time();
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			if ($valuesTmp['is_read'] === null) {
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
@@ -1277,6 +1276,7 @@ SQL;
 	 * @return int|false The number of affected entries, or false if error
 	 */
 	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0) {
+		syslog(LOG_DEBUG, __METHOD__ . ' ' . count($guids) . ' ' . $mtime);
 		if (count($guids) < 1) {
 			return 0;
 		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
@@ -1311,14 +1311,16 @@ SQL;
 	/**
 	 * Update (touch) the last seen attribute of the latest entries of a given feed.
 	 * Useful when a feed is unchanged / cached.
+	 * To be performed just before {@see FreshRSS_FeedDAO::updateLastUpdate()}
 	 * @return int|false The number of affected entries, or false in case of error
 	 */
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
-		$sql = <<<SQL
+		syslog(LOG_DEBUG, __METHOD__ . ' ' . $mtime);
+		$sql = <<<'SQL'
 UPDATE `_entry` SET `lastSeen` = :mtime
 WHERE id_feed = :id_feed1 AND `lastSeen` = (
-	SELECT max(e2.`lastSeen`) FROM `_entry` e2
-	WHERE e2.id_feed = :id_feed2
+	SELECT `lastUpdate` FROM `_feed` f
+	WHERE f.id = :id_feed2
 )
 SQL;
 		$stm = $this->pdo->prepare($sql);
