@@ -433,9 +433,10 @@ HTML;
 	}
 	public function _guid(string $value): void {
 		if ($value == '') {
-			$value = $this->link;
-			if ($value == '') {
+			if ($this->link == '') {
 				$value = $this->hash();
+			} else {
+				$value = sha1($this->link . $this->title);
 			}
 		}
 		$this->guid = $value;
@@ -468,7 +469,7 @@ HTML;
 	}
 	public function _link(string $value): void {
 		$this->hash = '';
-		$this->link = $value;
+		$this->link = trim($value);
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
