@@ -292,7 +292,13 @@ form th {
 }
 
 .btn-state2.show {
-	display: inherit;
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-left: 2rem;
 }
 
 a:hover .icon {

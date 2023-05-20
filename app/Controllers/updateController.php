@@ -165,8 +165,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/* 	Check installation if there is a newer version. 
-		via Git, if available. 
+	/*  Check installation if there is a newer version.
+		via Git, if available.
 		Else via system configuration  auto_update_url
 	*/
 	public function checkAction(): void {
