@@ -34,7 +34,7 @@ class Minz_Mailer {
 
 	/** @var string */
 	private $mailer;
-	/** @var array<string|int|bool> */
+	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
 	private $smtp_config;
 	/** @var int */
 	private $debug_level;
@@ -71,7 +71,7 @@ class Minz_Mailer {
 	public function mail(string $to, string $subject): bool {
 		ob_start();
 		$this->view->render();
-		$body = ob_get_contents();
+		$body = ob_get_contents() ?: '';
 		ob_end_clean();
 
 		PHPMailer::$validator = 'html5';

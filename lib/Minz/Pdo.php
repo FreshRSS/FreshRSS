@@ -50,7 +50,7 @@ abstract class Minz_Pdo extends PDO {
 	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	/**
 	 * @param string $query
-	 * @param array<int,string>|null $options
+	 * @param array<int,string> $options
 	 * @return PDOStatement|false
 	 * @phpstan-ignore-next-line
 	 */
