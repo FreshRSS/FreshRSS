@@ -432,9 +432,10 @@ HTML;
 		}
 	}
 	public function _guid(string $value): void {
-		if ($value == '') {
+		$value = trim($value);
+		if (empty($value)) {
 			$value = $this->link;
-			if ($value == '') {
+			if (empty($value)) {
 				$value = $this->hash();
 			}
 		}
@@ -468,7 +469,7 @@ HTML;
 	}
 	public function _link(string $value): void {
 		$this->hash = '';
-		$this->link = $value;
+		$this->link = trim($value);
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
