@@ -12,7 +12,7 @@ class Minz_Migrator
 	/** @var string[] */
 	private $applied_versions;
 
-	/** @var array<string> */
+	/** @var array<callable> */
 	private $migrations = [];
 
 	/**
@@ -37,7 +37,7 @@ class Minz_Migrator
 		}
 		$applied_migrations = array_filter(explode("\n", $applied_migrations));
 
-		$migration_files = scandir($migrations_path);
+		$migration_files = scandir($migrations_path) ?: [];
 		$migration_files = array_filter($migration_files, static function (string $filename) {
 			$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 			return $file_extension === 'php';
@@ -131,7 +131,7 @@ class Minz_Migrator
 			return;
 		}
 
-		foreach (scandir($directory) as $filename) {
+		foreach (scandir($directory) ?: [] as $filename) {
 			$file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 			if ($file_extension !== 'php') {
 				continue;
@@ -149,6 +149,10 @@ class Minz_Migrator
 					ADMIN_LOG
 				);
 			}
+
+			if (!is_callable($migration_callback)) {
+				throw new BadFunctionCallException("{$migration_version} migration cannot be called.");
+			}
 			$this->addMigration($migration_version, $migration_callback);
 		}
 	}
@@ -158,17 +162,11 @@ class Minz_Migrator
 	 *
 	 * @param string $version The version of the migration (be careful, migrations
 	 *                        are sorted with the `strnatcmp` function)
-	 * @param ?callable $callback The migration function to execute, it should
+	 * @param callable $callback The migration function to execute, it should
 	 *                           return true on success and must return false
 	 *                           on error
-	 *
-	 * @throws BadFunctionCallException if the callback isn’t callable.
 	 */
-	public function addMigration(string $version, ?callable $callback): void {
-		if (!is_callable($callback)) {
-			throw new BadFunctionCallException("{$version} migration cannot be called.");
-		}
-
+	public function addMigration(string $version, callable $callback): void {
 		$this->migrations[$version] = $callback;
 	}
 
