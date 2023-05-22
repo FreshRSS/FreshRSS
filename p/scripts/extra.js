@@ -262,10 +262,10 @@ function data_leave_validation(parent, excludeForm = null) {
 }
 
 function init_2stateButton() {
-	let btns = document.getElementsByClassName('btn-state1');
-	Array.prototype.forEach.call(btns, function(el) {
-		el.addEventListener('click', function() {
-			let btnState2 = document.getElementById(el.dataset.state2Id);
+	const btns = document.getElementsByClassName('btn-state1');
+	Array.prototype.forEach.call(btns, function (el) {
+		el.addEventListener('click', function () {
+			const btnState2 = document.getElementById(el.dataset.state2Id);
 			btnState2.classList.add('show');
 			this.classList.add('hide');
 		});
