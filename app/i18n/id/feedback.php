@@ -120,11 +120,11 @@ return array(
 		'renamed' => 'Label “%s”has been renamed to “%s”.',	// DIRTY
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// DIRTY
+		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// TODO
 		'error' => 'The update process has encountered an error: %s',	// TODO
 		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// DIRTY
 		'finished' => 'Update complete!',	// TODO
-		'none' => 'No update to apply',	// DIRTY
+		'none' => 'No update to apply',	// TODO
 		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO
 	),
 	'user' => array(
