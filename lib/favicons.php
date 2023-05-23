@@ -33,6 +33,11 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 	}
 	/** @var CurlHandle $ch */
 	$ch = curl_init($url);
+	FreshRSS_Context::initSystem();
+	$system_conf = FreshRSS_Context::$system_conf;
+	if (isset($system_conf)) {
+		curl_setopt_array($ch, $system_conf->curl_options);
+	}
 	curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 15,
