@@ -30,7 +30,7 @@ Finally, it supports [extensions](#extensions) for further tuning.
 Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
-To facilitate contributions, the following option is available:
+To facilitate contributions, the [following option](.devcontainer/README.md) is available:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=edge&repo=6322699)
 

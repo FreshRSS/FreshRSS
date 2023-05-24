@@ -8,6 +8,11 @@
 		"DATA_PATH": "/home/developer/freshrss-data"
 	},
 	"customizations": {
+		"codespaces": {
+			"openFiles": [
+				".devcontainer/README.md"
+			]
+		},
 		"vscode": {
 			"extensions": [
 				"bmewburn.vscode-intelephense-client",
