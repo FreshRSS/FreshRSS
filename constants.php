@@ -21,7 +21,6 @@ const CORE_EXTENSIONS_PATH = LIB_PATH . '/core-extensions';
 const TESTS_PATH = FRESHRSS_PATH . '/tests';
 //</Not customisable>
 
-
 if (file_exists(__DIR__ . '/constants.local.php')) {
 	//Include custom / local settings:
 	include(__DIR__ . '/constants.local.php');
