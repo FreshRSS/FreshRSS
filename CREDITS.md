@@ -80,6 +80,7 @@ People are sorted by name so please keep this order.
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [ibiruai](https://github.com/ibiruai): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ibiruai)
 * [id-konstantin-stepanov](https://github.com/id-konstantin-stepanov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:id-konstantin-stepanov)
+* [Ilias Vrachnis](https://github.com/vrachnis): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:vrachnis)
 * [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
 * [Jamie Slome](https://github.com/JamieSlome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:JamieSlome), [Web](https://418sec.com/)
 * [Jan Lukas Gernert](https://github.com/jangernert): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jangernert)
