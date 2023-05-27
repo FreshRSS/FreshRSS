@@ -126,8 +126,13 @@ class Minz_Translate {
 	private static function loadLang(string $path): void {
 		$lang_path = $path . '/' . self::$lang_name;
 		if (!file_exists($lang_path) || self::$lang_name == '') {
-			// The lang path does not exist, nothing more to do.
-			return;
+			// The lang path does not exist, fallback to English ('en')
+			self::$lang_name = 'en';
+			$lang_path = $path . '/' . self::$lang_name;
+			if (!file_exists($lang_path)) {
+				// English ('en') i18n files not given. Stop here. The keys will shown.
+				return;
+			}
 		}
 
 		$list_i18n_files = array_values(array_diff(
