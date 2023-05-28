@@ -37,12 +37,11 @@ class Minz_ModelPdo {
 	protected $current_user;
 
 	/**
-	 * @return void
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 * @throws PDOException
 	 */
-	private function dbConnect() {
+	private function dbConnect(): void {
 		$db = Minz_Configuration::get('system')->db;
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
 		$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_SILENT;
@@ -147,10 +146,7 @@ class Minz_ModelPdo {
 			);
 	}
 
-	/**
-	 * @return void
-	 */
-	public function beginTransaction() {
+	public function beginTransaction(): void {
 		$this->pdo->beginTransaction();
 	}
 
@@ -158,24 +154,15 @@ class Minz_ModelPdo {
 		return $this->pdo->inTransaction();
 	}
 
-	/**
-	 * @return void
-	 */
-	public function commit() {
+	public function commit(): void {
 		$this->pdo->commit();
 	}
 
-	/**
-	 * @return void
-	 */
-	public function rollBack() {
+	public function rollBack(): void {
 		$this->pdo->rollBack();
 	}
 
-	/**
-	 * @return void
-	 */
-	public static function clean() {
+	public static function clean(): void {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
 	}
@@ -190,10 +177,13 @@ class Minz_ModelPdo {
 		$ok = $stm !== false;
 		if ($ok && !empty($values)) {
 			foreach ($values as $name => $value) {
-				if (is_int($value)) $type = PDO::PARAM_INT;
-				elseif (is_string($value)) $type = PDO::PARAM_STR;
-				elseif (is_null($value)) $type = PDO::PARAM_NULL;
-				else {
+				if (is_int($value)) {
+					$type = PDO::PARAM_INT;
+				} elseif (is_string($value)) {
+					$type = PDO::PARAM_STR;
+				} elseif (is_null($value)) {
+					$type = PDO::PARAM_NULL;
+				} else {
 					$ok = false;
 					break;
 				}
