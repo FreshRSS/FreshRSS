@@ -37,7 +37,7 @@ class Minz_Translate {
 	 * Init the translation object.
 	 * @param string $lang_name the lang to show.
 	 */
-	public static function init(?string $lang_name = null): void {
+	public static function init(string $lang_name = ''): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
@@ -125,12 +125,12 @@ class Minz_Translate {
 	 */
 	private static function loadLang(string $path): void {
 		$lang_path = $path . '/' . self::$lang_name;
-		if (!file_exists($lang_path) || self::$lang_name == '') {
+		if (self::$lang_name === '' || !is_dir($lang_path)) {
 			// The lang path does not exist, fallback to English ('en')
 			self::$lang_name = 'en';
 			$lang_path = $path . '/' . self::$lang_name;
-			if (!file_exists($lang_path)) {
-				// English ('en') i18n files not given. Stop here. The keys will shown.
+			if (!is_dir($lang_path)) {
+				// English ('en') i18n files not provided. Stop here. The keys will be shown.
 				return;
 			}
 		}
