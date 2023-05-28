@@ -111,7 +111,7 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Autor/Autora',
+		'author' => 'Autor',
 		'community' => 'Extensiones de comunidad disponibles',
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
@@ -148,7 +148,7 @@ return array(
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'percent_of_total' => '% del total',
-		'repartition' => 'Reprto de artículos',
+		'repartition' => 'Reparto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
 		'status_total' => 'Total',	// IGNORE
@@ -199,7 +199,7 @@ return array(
 		'title' => 'Actualizar sistema',
 	),
 	'user' => array(
-		'admin' => 'Administrador/Administradora',
+		'admin' => 'Administrador',
 		'article_count' => 'Artículos',
 		'back_to_manage' => '← Volver a la lista de usuarios',
 		'create' => 'Crear nuevo usuario',
