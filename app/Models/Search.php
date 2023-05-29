@@ -14,7 +14,7 @@ class FreshRSS_Search {
 	 * This contains the user input string
 	 * @var string
 	 */
-	private $raw_input;
+	private $raw_input = '';
 
 	// The following properties are extracted from the raw input
 	/** @var array<string>|null */
@@ -72,9 +72,10 @@ class FreshRSS_Search {
 	private $not_search;
 
 	/**
-	 * @param string $input
+	 * @param string|null $input
 	 */
-	public function __construct(string $input) {
+	public function __construct(?string $input) {
+		$input = (string)$input;
 		if ($input === '') {
 			return;
 		}
@@ -142,7 +143,7 @@ class FreshRSS_Search {
 		return $this->label_ids;
 	}
 	/** @return array<int>|'*'|null */
-	public function getNotLabelIds(){
+	public function getNotLabelIds() {
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
