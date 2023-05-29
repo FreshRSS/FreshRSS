@@ -32,8 +32,6 @@
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
 ./app/Models/FormAuth.php
-./app/Models/Search.php
-./app/Models/Share.php
 ./app/Models/StatsDAO.php
 ./app/Services/ImportService.php
 ./app/views/auth/index.phtml

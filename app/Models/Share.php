@@ -41,7 +41,7 @@ class FreshRSS_Share {
 	public static function load(string $filename): void {
 		$shares_from_file = @include($filename);
 		if (!is_array($shares_from_file)) {
-			$shares_from_file = array();
+			$shares_from_file = [];
 		}
 
 		foreach ($shares_from_file as $share_type => $share_options) {
@@ -50,6 +50,9 @@ class FreshRSS_Share {
 		}
 
 		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
+			if ($a->name() === null || $b->name() === null) {
+				return 0;
+			}
 			return strcasecmp($a->name(), $b->name());
 		});
 	}
@@ -67,29 +70,25 @@ class FreshRSS_Share {
 	 * @return FreshRSS_Share|null object related to the given type.
 	 */
 	public static function get(string $type): ?FreshRSS_Share {
-		if (!isset(self::$list_sharing[$type])) {
-			return null;
-		}
-
-		return self::$list_sharing[$type];
+		return self::$list_sharing[$type] ?? null;
 	}
 
 
 	/** @var string */
-	private $type = '';
+	private $type;
 	/** @var string */
-	private $name = '';
+	private $name;
 	/** @var string */
-	private $url_transform = '';
+	private $url_transform;
 	/** @var array<callable>|array<string,array<callable>> */
-	private $transforms = [];
+	private $transforms;
 	/**
 	 * @phpstan-var 'simple'|'advanced'
 	 * @var string
 	 */
-	private $form_type = 'simple';
+	private $form_type;
 	/** @var string */
-	private $help_url = '';
+	private $help_url;
 	/** @var string|null */
 	private $custom_name = null;
 	/** @var string|null */
@@ -101,12 +100,12 @@ class FreshRSS_Share {
 	/** @var string|null */
 	private $link = null;
 	/** @var bool */
-	private $isDeprecated = false;
+	private $isDeprecated;
 	/**
 	 * @phpstan-var 'GET'|'POST'
 	 * @var string
 	 */
-	private $method = 'GET';
+	private $method;
 	/** @var string|null */
 	private $field;
 	/**
@@ -125,7 +124,9 @@ class FreshRSS_Share {
 	 *        decentralized ones.
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
+	 * @param string|null $field
 	 * @param 'button'|null $HTMLtag
+	 * @param bool $isDeprecated
 	 */
 	private function __construct(string $type, string $url_transform, array $transforms, string $form_type,
 		string $help_url, string $method, ?string $field, ?string $HTMLtag, bool $isDeprecated = false) {
@@ -231,7 +232,7 @@ class FreshRSS_Share {
 	 * Return the current name of the share option.
 	 */
 	public function name(bool $real = false): ?string {
-		if ($real || is_null($this->custom_name) || empty($this->custom_name)) {
+		if ($real || empty($this->custom_name)) {
 			return $this->name;
 		} else {
 			return $this->custom_name;
@@ -242,7 +243,7 @@ class FreshRSS_Share {
 	 * Return the current base url of the share option.
 	 */
 	public function baseUrl(): string {
-		return $this->base_url;
+		return $this->base_url ?? '';
 	}
 
 	/**
@@ -280,6 +281,9 @@ class FreshRSS_Share {
 			return $this->id;
 		}
 
+		if ($this->id === null) {
+			return null;
+		}
 		return self::transform($this->id, $this->getTransform('id'));
 	}
 
@@ -289,9 +293,12 @@ class FreshRSS_Share {
 	 */
 	public function title(bool $raw = false): string {
 		if ($raw) {
-			return $this->title;
+			return $this->title ?? '';
 		}
 
+		if ($this->title === null) {
+			return '';
+		}
 		return self::transform($this->title, $this->getTransform('title'));
 	}
 
@@ -301,7 +308,10 @@ class FreshRSS_Share {
 	 */
 	public function link(bool $raw = false): string {
 		if ($raw) {
-			return $this->link;
+			return $this->link ?? '';
+		}
+		if ($this->link === null) {
+			return '';
 		}
 
 		return self::transform($this->link, $this->getTransform('link'));
@@ -319,7 +329,7 @@ class FreshRSS_Share {
 		}
 
 		foreach ($transform as $action) {
-			$data = call_user_func($action, $data);
+			$data = $action($data);
 		}
 
 		return $data;

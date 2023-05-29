@@ -14,7 +14,7 @@ class FreshRSS_Search {
 	 * This contains the user input string
 	 * @var string
 	 */
-	private $raw_input = '';
+	private $raw_input;
 
 	// The following properties are extracted from the raw input
 	/** @var array<string>|null */
@@ -72,10 +72,10 @@ class FreshRSS_Search {
 	private $not_search;
 
 	/**
-	 * @param string|null $input
+	 * @param string $input
 	 */
-	public function __construct($input) {
-		if ($input == '') {
+	public function __construct(string $input) {
+		if ($input === '') {
 			return;
 		}
 		$this->raw_input = $input;
@@ -142,7 +142,7 @@ class FreshRSS_Search {
 		return $this->label_ids;
 	}
 	/** @return array<int>|'*'|null */
-	public function getNotLabelIds() {
+	public function getNotLabelIds(){
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
@@ -238,7 +238,9 @@ class FreshRSS_Search {
 	 * @return array<string>
 	 */
 	private static function removeEmptyValues(?array $anArray): array {
-		return empty($anArray) ? [] : array_filter($anArray, static function(string $value) { return $value !== ''; });
+		return empty($anArray) ? [] : array_filter($anArray, static function(string $value) {
+			return $value !== '';
+		});
 	}
 
 	/**
@@ -299,7 +301,7 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
-				/** @var array<int> */
+				/** @var array<int> $feed_ids */
 				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
 					$this->feed_ids = array_merge($this->feed_ids, $feed_ids);
@@ -317,7 +319,7 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
-				/** @var array<int> */
+				/** @var array<int> $feed_ids */
 				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
 					$this->not_feed_ids = array_merge($this->not_feed_ids, $feed_ids);
@@ -342,7 +344,7 @@ class FreshRSS_Search {
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
-				/** @var array<int> */
+				/** @var array<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
 					$this->label_ids = array_merge($this->label_ids, $label_ids);
@@ -364,7 +366,7 @@ class FreshRSS_Search {
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
-				/** @var array<int> */
+				/** @var array<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
 					$this->not_label_ids = array_merge($this->not_label_ids, $label_ids);
@@ -436,7 +438,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\bintitle:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->intitle = array_merge($this->intitle ? $this->intitle : array(), $matches['search']);
+			$this->intitle = array_merge($this->intitle ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
@@ -449,7 +451,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->not_intitle = array_merge($this->not_intitle ? $this->not_intitle : array(), $matches['search']);
+			$this->not_intitle = array_merge($this->not_intitle ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
@@ -467,7 +469,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\bauthor:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->author = array_merge($this->author ? $this->author : array(), $matches['search']);
+			$this->author = array_merge($this->author ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
@@ -480,7 +482,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\s|^)[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->not_author = array_merge($this->not_author ? $this->not_author : array(), $matches['search']);
+			$this->not_author = array_merge($this->not_author ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
@@ -594,7 +596,7 @@ class FreshRSS_Search {
 	 */
 	private function parseQuotedSearch(string $input): string {
 		$input = self::cleanSearch($input);
-		if ($input == '') {
+		if ($input === '') {
 			return '';
 		}
 		if (preg_match_all('/(?<![!-])(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -611,7 +613,7 @@ class FreshRSS_Search {
 	 */
 	private function parseSearch(string $input): string {
 		$input = self::cleanSearch($input);
-		if ($input == '') {
+		if ($input === '') {
 			return '';
 		}
 		if (is_array($this->search)) {
@@ -624,7 +626,7 @@ class FreshRSS_Search {
 
 	private function parseNotSearch(string $input): string {
 		$input = self::cleanSearch($input);
-		if ($input == '') {
+		if ($input === '') {
 			return '';
 		}
 		if (preg_match_all('/(?<=\s|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -632,7 +634,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$input = self::cleanSearch($input);
-		if ($input == '') {
+		if ($input === '') {
 			return '';
 		}
 		if (preg_match_all('/(?<=\s|^)[!-](?P<search>[^\s]+)/', $input, $matches)) {
@@ -648,6 +650,9 @@ class FreshRSS_Search {
 	 */
 	private static function cleanSearch(string $input): string {
 		$input = preg_replace('/\s+/', ' ', $input);
+		if ($input === null) {
+			$input = '';
+		}
 		return trim($input);
 	}
 }
