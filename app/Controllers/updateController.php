@@ -45,9 +45,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public static function getCurrentGitBranch(): string {
-		$output = array();
+		$output = [];
 		exec('git branch --show-current', $output, $return);
-		if ($return == 0) {
+		if ($return === 0) {
 			return 'git branch: ' . $output[0];
 		} else {
 			return 'git';
@@ -158,10 +158,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	private function is_release_channel_stable(string $currentVersion): bool {
-		if (strpos($currentVersion, 'dev') > 0) {
-			return false;
-		} else {
-			return true;
+		return (strpos($currentVersion, 'dev') > 0) ? false : true;
 		}
 	}
 
