@@ -1314,7 +1314,6 @@ SQL;
 	 * @return int|false The number of affected entries, or false in case of error
 	 */
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
-		syslog(LOG_DEBUG, __METHOD__ . ' ' . $mtime);
 		$sql = <<<'SQL'
 UPDATE `_entry` SET `lastSeen` = :mtime
 WHERE id_feed = :id_feed1 AND `lastSeen` = (
