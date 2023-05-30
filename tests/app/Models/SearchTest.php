@@ -7,7 +7,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider provideEmptyInput
 	 */
-	public function test__construct_whenInputIsEmpty_getsOnlyNullValues(?string $input): void {
+	public function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
 		self::assertEquals('', $search->getRawInput());
 		self::assertNull($search->getIntitle());
@@ -23,13 +23,13 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * Return an array of values for the search object.
 	 * Here is the description of the values
-	 * @return array{array{''},array{null}}
+	 * @return array{array{''},array{' '}}
 	 */
 	public function provideEmptyInput(): array {
-		return array(
-			array(''),
-			array(null),
-		);
+		return [
+			[''],
+			[' '],
+		];
 	}
 
 	/**
@@ -58,7 +58,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('word1 intitle:"word2 word3"', array('word2 word3'), array('word1')),
 			array("word1 intitle:'word2 word3'", array('word2 word3'), array('word1')),
 			array('intitle:word1 intitle:word2', array('word1', 'word2'), null),
-			array('intitle: word1 word2', array(), array('word1', 'word2')),
+			array('intitle: word1 word2', null, array('word1', 'word2')),
 			array('intitle:123', array('123'), null),
 			array('intitle:"word1 word2" word3"', array('word1 word2'), array('word3"')),
 			array("intitle:'word1 word2' word3'", array('word1 word2'), array("word3'")),
@@ -95,7 +95,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			array('word1 author:"word2 word3"', array('word2 word3'), array('word1')),
 			array("word1 author:'word2 word3'", array('word2 word3'), array('word1')),
 			array('author:word1 author:word2', array('word1', 'word2'), null),
-			array('author: word1 word2', array(), array('word1', 'word2')),
+			array('author: word1 word2', null, array('word1', 'word2')),
 			array('author:123', array('123'), null),
 			array('author:"word1 word2" word3"', array('word1 word2'), array('word3"')),
 			array("author:'word1 word2' word3'", array('word1 word2'), array("word3'")),
@@ -196,7 +196,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideTagsSearch(): array {
 		return array(
 			array('#word1', array('word1'), null),
-			array('# word1', array(), array('#', 'word1')),
+			array('# word1', null, array('#', 'word1')),
 			array('#123', array('123'), null),
 			array('#word1 word2', array('word1'), array('word2')),
 			array('#"word1 word2"', array('"word1'), array('word2"')),

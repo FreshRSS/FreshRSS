@@ -50,10 +50,7 @@ class FreshRSS_Share {
 		}
 
 		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
-			if ($a->name() === null || $b->name() === null) {
-				return 0;
-			}
-			return strcasecmp($a->name(), $b->name());
+			return strcasecmp($a->name() ?? '', $b->name() ?? '');
 		});
 	}
 
@@ -329,7 +326,7 @@ class FreshRSS_Share {
 		}
 
 		foreach ($transform as $action) {
-			$data = $action($data);
+			$data = call_user_func($action, $data);
 		}
 
 		return $data;

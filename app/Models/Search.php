@@ -71,14 +71,8 @@ class FreshRSS_Search {
 	/** @var array<string>|null */
 	private $not_search;
 
-	/**
-	 * @param string|null $input
-	 */
-	public function __construct(?string $input) {
-		$input = (string)$input;
-		if ($input === '') {
-			return;
-		}
+	public function __construct(string $input) {
+		$input = self::cleanSearch($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
@@ -443,6 +437,9 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
+		if (empty($this->intitle)) {
+			$this->intitle = null;
+		}
 		return $input;
 	}
 
@@ -456,6 +453,9 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
+		if (empty($this->not_intitle)) {
+			$this->not_intitle = null;
+		}
 		return $input;
 	}
 
@@ -474,6 +474,9 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
+		if (empty($this->author)) {
+			$this->author = null;
+		}
 		return $input;
 	}
 
@@ -487,6 +490,9 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
+		if (empty($this->not_author)) {
+			$this->not_author = null;
+		}
 		return $input;
 	}
 
@@ -498,8 +504,8 @@ class FreshRSS_Search {
 		if (preg_match_all('/\binurl:(?P<search>[^\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
+			$this->inurl = self::removeEmptyValues($this->inurl);
 		}
-		$this->inurl = self::removeEmptyValues($this->inurl);
 		return $input;
 	}
 
@@ -507,8 +513,8 @@ class FreshRSS_Search {
 		if (preg_match_all('/(?<=\s|^)[!-]inurl:(?P<search>[^\s]*)/', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
+			$this->not_inurl = self::removeEmptyValues($this->not_inurl);
 		}
-		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
 		return $input;
 	}
 
@@ -574,9 +580,9 @@ class FreshRSS_Search {
 		if (preg_match_all('/#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
+			$this->tags = self::removeEmptyValues($this->tags);
+			$this->tags = self::decodeSpaces($this->tags);
 		}
-		$this->tags = self::removeEmptyValues($this->tags);
-		$this->tags = self::decodeSpaces($this->tags);
 		return $input;
 	}
 
@@ -584,9 +590,9 @@ class FreshRSS_Search {
 		if (preg_match_all('/(?<=\s|^)[!-]#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
+			$this->not_tags = self::removeEmptyValues($this->not_tags);
+			$this->not_tags = self::decodeSpaces($this->not_tags);
 		}
-		$this->not_tags = self::removeEmptyValues($this->not_tags);
-		$this->not_tags = self::decodeSpaces($this->not_tags);
 		return $input;
 	}
 
@@ -651,8 +657,8 @@ class FreshRSS_Search {
 	 */
 	private static function cleanSearch(string $input): string {
 		$input = preg_replace('/\s+/', ' ', $input);
-		if ($input === null) {
-			$input = '';
+		if (!is_string($input)) {
+			return '';
 		}
 		return trim($input);
 	}
