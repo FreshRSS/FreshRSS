@@ -22,7 +22,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $nbFeeds = -1;
 	/** @var int */
 	private $nbNotRead = -1;
-	/** @var array<FreshRSS_Feed>|null */
+	/** @var array<FreshRSS_Feed> */
 	private $feeds;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
@@ -99,7 +99,12 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->nbNotRead;
 	}
 
-	/** @return array<FreshRSS_Feed> */
+	/**
+	 * @return array<FreshRSS_Feed>
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+
 	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
