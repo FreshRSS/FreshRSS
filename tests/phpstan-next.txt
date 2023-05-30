@@ -72,4 +72,3 @@
 ./cli/user-info.php
 ./lib/lib_install.php
 ./lib/Minz/ModelPdo.php
-./lib/Minz/Translate.php
