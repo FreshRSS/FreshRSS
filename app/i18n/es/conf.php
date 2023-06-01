@@ -34,8 +34,8 @@ return array(
 		'_' => 'Visualización',
 		'darkMode' => array(
 			'_' => 'Modo oscuro automatico (beta)',
-			'auto' => 'Automatico',	
-			'no' => 'No',
+			'auto' => 'Automatico',
+			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
