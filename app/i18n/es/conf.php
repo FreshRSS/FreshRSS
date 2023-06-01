@@ -34,8 +34,8 @@ return array(
 		'_' => 'Visualización',
 		'darkMode' => array(
 			'_' => 'Modo oscuro automatico (beta)',
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'auto' => 'Automatico',	
+			'no' => 'No',
 		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Retrato',
 			'square' => 'Cuadrado',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Zona Horaria',
 		'title' => 'Visualización',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icono y nombre',
+			'icon' => 'Solo icono',
+			'label' => 'Sitio web',
+			'name' => 'Solo nombre',
+			'none' => 'Ninguno',
 		),
 		'width' => array(
 			'content' => 'Ancho de contenido',
