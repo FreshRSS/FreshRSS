@@ -1190,13 +1190,13 @@ a:hover .icon {
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
 		--background-color-grey: #1f1f1f;
-		--background-color-hover: #222;
+		--background-color-hover: #212227;
 
-		--unread-article-background-color: #201f1e;
-		--unread-article-background-color-hover: #1a1918;
+		--unread-article-background-color: #1b1817;
+		--unread-article-background-color-hover: #292422;
 		--unread-article-border-color: #ff5300;
 		--favorite-article-background-color: #24221d;
-		--favorite-article-background-color-hover: #1d1b17;
+		--favorite-article-background-color-hover: #302d26;
 		--favorite-article-border-color: #ffc300;
 
 		--contrast-background-color: #0084cc;
