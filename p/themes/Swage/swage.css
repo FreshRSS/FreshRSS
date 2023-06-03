@@ -88,14 +88,6 @@ a {
 	color: var(--color-text-nav);
 	outline: none;
 }
-a.btn {
-	min-height: 25px;
-	line-height: 1.5;
-	text-decoration: none;
-}
-a.btn .icon {
-	filter: brightness(3);
-}
 a#btn-subscription {
 	width: 76%;
 }
@@ -218,11 +210,13 @@ form th {
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
-	min-height: 35px;
+	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
+	line-height: 1.5;
+	text-decoration: none;
 }
 .btn.active, .btn:active, .btn:hover {
 	background-color: var(--color-background-nav-darker);

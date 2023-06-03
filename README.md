@@ -30,7 +30,7 @@ Finally, it supports [extensions](#extensions) for further tuning.
 Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
-To facilitate contributions, the following option is available:
+To facilitate contributions, the [following option](.devcontainer/README.md) is available:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=edge&repo=6322699)
 
@@ -151,3 +151,11 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+
+# Alternatives
+
+If FreshRSS does not suite you for one reason or another, here are alternative solutions to consider:
+
+* [Kriss Feed](https://tontof.net/kriss/feed/)
+* [Leed](https://github.com/LeedRSS/Leed)
+* [And more…](https://alternativeto.net/software/freshrss/) (but if you like FreshRSS, give us a vote!)

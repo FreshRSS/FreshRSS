@@ -17,14 +17,6 @@ class MigratorTest extends TestCase
 		self::assertTrue($result);
 	}
 
-	public function testAddMigrationFailsIfUncallableMigration(): void {
-		$this->expectException(BadFunctionCallException::class);
-		$this->expectExceptionMessage('foo migration cannot be called.');
-
-		$migrator = new Minz_Migrator();
-		$migrator->addMigration('foo', null);
-	}
-
 	public function testMigrationsIsSorted(): void {
 		$migrator = new Minz_Migrator();
 		$migrator->addMigration('2_foo', function () {

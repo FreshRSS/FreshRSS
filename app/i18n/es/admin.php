@@ -111,7 +111,7 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Autor/Autora',
+		'author' => 'Autor',
 		'community' => 'Extensiones de comunidad disponibles',
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
@@ -148,7 +148,7 @@ return array(
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'percent_of_total' => '% del total',
-		'repartition' => 'Reprto de artículos',
+		'repartition' => 'Reparto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
 		'status_total' => 'Total',	// IGNORE
@@ -184,9 +184,9 @@ return array(
 			'title' => 'Formulario de registro del usuario',
 		),
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'no se proporciona',
+			'enabled' => '<a href="./?a=tos">está activado</a>',
+			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
 		),
 	),
 	'update' => array(
@@ -199,7 +199,7 @@ return array(
 		'title' => 'Actualizar sistema',
 	),
 	'user' => array(
-		'admin' => 'Administrador/Administradora',
+		'admin' => 'Administrador',
 		'article_count' => 'Artículos',
 		'back_to_manage' => '← Volver a la lista de usuarios',
 		'create' => 'Crear nuevo usuario',

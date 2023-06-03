@@ -471,11 +471,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			$values = $entry->toArray();
 			if (isset($existingHashForGuids['f_' . $feed_id][$entry->guid()])) {
-				$ok = $this->entryDAO->updateEntry($values);
+				$ok = $this->entryDAO->updateEntry($entry->toArray());
 			} else {
-				$ok = $this->entryDAO->addEntry($values);
+				$entry->_lastSeen(time());
+				$ok = $this->entryDAO->addEntry($entry->toArray());
 			}
 
 			foreach ($labels as $labelName) {

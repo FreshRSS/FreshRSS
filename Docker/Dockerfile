@@ -53,6 +53,7 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
 ENV OIDC_ENABLED ''

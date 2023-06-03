@@ -162,17 +162,13 @@ button.as-link[disabled] {
 	font-size: 0.9rem;
 	border: solid 1px #ccc;
 	border-radius: 4px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
+	line-height: 25px;
 	text-shadow: 0px -1px rgba(255,255,255,0.08);
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
