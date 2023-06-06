@@ -22,7 +22,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $nbFeeds = -1;
 	/** @var int */
 	private $nbNotRead = -1;
-	/** @var array<FreshRSS_Feed> */
+	/** @var array<FreshRSS_Feed>|null */
 	private $feeds;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
@@ -36,7 +36,7 @@ class FreshRSS_Category extends Minz_Model {
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
 	 */
-	public function __construct(string $name = '', array $feeds = null) {
+	public function __construct(string $name = '', ?array $feeds = null) {
 		$this->_name($name);
 		if ($feeds !== null) {
 			$this->_feeds($feeds);
@@ -104,7 +104,6 @@ class FreshRSS_Category extends Minz_Model {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-
 	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -120,7 +119,7 @@ class FreshRSS_Category extends Minz_Model {
 			$this->sortFeeds();
 		}
 
-		return $this->feeds;
+		return $this->feeds ?? [];
 	}
 
 	public function hasFeedsWithError(): bool {
@@ -271,6 +270,9 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	private function sortFeeds(): void {
+		if ($this->feeds === null) {
+			return;
+		}
 		usort($this->feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
 			return strnatcasecmp($a->name(), $b->name());
 		});
