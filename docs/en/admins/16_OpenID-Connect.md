@@ -19,9 +19,16 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_CLIENT_SECRET`: The OIDC client secret issuer.
 * `OIDC_CLIENT_CRYPTO_KEY`: An opaque key used for internal encryption.
 
+You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
+
+## Using own Apache installation
+
+See our reference [Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) for more information.
+
 ## Setup
 
-After being properly configured, OIDC support can be activated in the FreshRSS UI.
+After being properly configured, OIDC support can be activated in FreshRSS.
 
-During install, admins should be able to select the 'HTTP' Authentication Method. After install this option can
-be changed in the 'Administration > Authentication' section.
+During a new FreshRSS install, the **HTTP Authentication Method** must be picked.
+
+After install, the method can be changed in *Administration > Authentication*.
