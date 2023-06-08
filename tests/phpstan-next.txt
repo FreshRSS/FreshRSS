@@ -24,7 +24,6 @@
 ./app/Mailers/UserMailer.php
 ./app/Models/Auth.php
 ./app/Models/BooleanSearch.php
-./app/Models/Category.php
 ./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
 ./app/Models/DatabaseDAOPGSQL.php
