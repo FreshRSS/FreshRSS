@@ -197,12 +197,12 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
 		'last' => '最近の検証: %s',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Updating…',	// TODO
 		'none' => '更新を適用できません',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'アップデートシステム',
 		'viaGit' => 'Update via git and Github.com started',	// TODO

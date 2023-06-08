@@ -192,20 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Journal des modifications',
 		'check' => 'Vérifier les mises à jour',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php copié depuis %s vers ./data',
 		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
 		'last' => 'Dernière vérification : %s',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'_' => 'Canal de publication',
+			'edge' => 'Publication continue (“edge”)',
+			'latest' => 'Publication stable (“latest”)',
 		),
 		'title' => 'Système de mise à jour',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Mise à jour via git et Github.com démarrée',
 	),
 	'user' => array(
 		'admin' => 'Administrateur',

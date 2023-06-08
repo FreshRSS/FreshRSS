@@ -197,12 +197,12 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
 		'last' => 'Letzte Überprüfung: %s',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Keine ausstehende Aktualisierung',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'System aktualisieren',
 		'viaGit' => 'Update via git and Github.com started',	// TODO

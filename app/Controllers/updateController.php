@@ -158,7 +158,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	private function is_release_channel_stable(string $currentVersion): bool {
-		return (strpos($currentVersion, 'dev') > 0) ? false : true;
+		return strpos($currentVersion, 'dev') === false &&
+			strpos($currentVersion, 'edge') === false;
 	}
 
 	/*  Check installation if there is a newer version.

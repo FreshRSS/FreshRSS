@@ -208,7 +208,7 @@ return array(
 			'scroll' => 'ritināšanas laikā',
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
-			'when' => 'Atzīmēt rakstu kā izlasītu...',
+			'when' => 'Atzīmēt rakstu kā izlasītu…',
 			'when_same_title' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos',
 		),
 		'show' => array(

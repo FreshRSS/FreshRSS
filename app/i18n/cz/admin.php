@@ -197,12 +197,12 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
 		'last' => 'Poslední kontrola: %s',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Žádné nové aktualizace',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'Aktualizovat systém',
 		'viaGit' => 'Update via git and Github.com started',	// TODO

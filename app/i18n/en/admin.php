@@ -184,9 +184,9 @@ return array(
 			'title' => 'User registration form',
 		),
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'is not given',
+			'enabled' => '<a href="./?a=tos">is enabled</a>',
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',
 		),
 	),
 	'update' => array(
@@ -194,18 +194,18 @@ return array(
 		'apply' => 'Start update',
 		'changelog' => 'Changelog',
 		'check' => 'Check for new updates',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php copied from %s to ./data',
 		'current_version' => 'Current installed version',
 		'last' => 'Last check',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Updating…',
 		'none' => 'No update available',
 		'releaseChannel' => array(
 			'_' => 'Release channel',
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'edge' => 'Rolling release (“edge”)',
+			'latest' => 'Stable release (“latest”)',
 		),
 		'title' => 'Update FreshRSS',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Update via git and Github.com started',
 	),
 	'user' => array(
 		'admin' => 'Administrator',

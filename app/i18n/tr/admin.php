@@ -197,12 +197,12 @@ return array(
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
 		'last' => 'Son kontrol: %s',
-		'loading' => 'Updating...',	// TODO
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Yeni güncelleme yok',
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
-			'dev' => 'Development/Nightly',	// TODO
-			'stable' => 'Stable',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'Sistem güncelleme',
 		'viaGit' => 'Update via git and Github.com started',	// TODO

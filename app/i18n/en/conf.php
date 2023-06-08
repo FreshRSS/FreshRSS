@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Display',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Automatic dark mode (beta)',
+			'auto' => 'Auto',
+			'no' => 'No',
 		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',

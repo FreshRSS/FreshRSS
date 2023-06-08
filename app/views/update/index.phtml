@@ -41,10 +41,12 @@
 		<label class="group-name"><?= _t('admin.update.releaseChannel') ?></label>
 		<div class="group-controls">
 			<?php if($this->is_release_channel_stable) { ?>
-				<?= _t('admin.update.releaseChannel.stable') ?>
+				<a href="https://github.com/FreshRSS/FreshRSS/releases/latest" target="_blank">
+					<?= _t('admin.update.releaseChannel.latest') ?>
+				</a>
 			<?php } else { ?>
 				<a href="https://github.com/FreshRSS/FreshRSS/tree/edge" target="_blank">
-					<?= _t('admin.update.releaseChannel.dev') ?>
+					<?= _t('admin.update.releaseChannel.edge') ?>
 				</a>
 			<?php } ?>
 		</div>
