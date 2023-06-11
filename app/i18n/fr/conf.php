@@ -133,7 +133,7 @@ return array(
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
-		'search' => 'Recherche de « %s »',
+		'search' => 'Recherche de « %s »',
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',
@@ -154,7 +154,7 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Lecture',
-		'after_onread' => 'Après « Marquer tout comme lu »,',
+		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'article' => array(
 			'authors_date' => array(
@@ -167,7 +167,7 @@ return array(
 			'feed_name' => array(
 				'above_title' => 'Au-dessus du titre',
 				'none' => 'Caché',
-				'with_authors' => 'Sur la ligne « Auteurs et date »',
+				'with_authors' => 'Sur la ligne « Auteurs et date »',
 			),
 			'feed_title' => 'Titre du flux',
 			'tags' => array(
@@ -185,7 +185,7 @@ return array(
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
-		'confirm_enabled' => 'Afficher une confirmation lors des actions « Marquer tout comme lu »',
+		'confirm_enabled' => 'Afficher une confirmation lors des actions « Marquer tout comme lu »',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
@@ -196,7 +196,7 @@ return array(
 			'misc' => 'Divers',
 			'view' => 'Vue',
 		),
-		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
+		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
 		'img_with_lazyload' => 'Utiliser le mode <em>chargement différé</em> pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
