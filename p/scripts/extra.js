@@ -164,6 +164,9 @@ function open_slider_listener(ev) {
 				slider.classList.add('active');
 				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
+				slider_content.querySelectorAll('form').forEach(function (f) {
+					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
+				});
 				context.ajax_loading = false;
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
