@@ -17,7 +17,7 @@ return array(
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_favourites' => 'Favorieten nooit verwijderen',
 		'keep_labels' => 'Labels nooit verwijderen',
-		'keep_max' => 'Maximaal aantal artikelen om te behouden',
+		'keep_max' => 'Maximaal aantal artikelen om te behouden in de feed',
 		'keep_min_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
 		'keep_period' => 'Maximumleeftijd artikelen om te behouden',
 		'keep_unreads' => 'Ongelezen artikels nooit verwijderen',

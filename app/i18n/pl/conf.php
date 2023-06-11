@@ -17,7 +17,7 @@ return array(
 		'help' => 'Więcej opcji dostępne jest w ustawieniach konkretnych kanałów',
 		'keep_favourites' => 'Nigdy nie usuwaj ulubionych',
 		'keep_labels' => 'Nigdy nie usuwaj oznaczonych etykietą',
-		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania',
+		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_min_by_feed' => 'Minimalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_period' => 'Maksymalny wiek wiadomości do przechowywania',
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',

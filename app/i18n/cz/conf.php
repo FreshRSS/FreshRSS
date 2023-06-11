@@ -17,7 +17,7 @@ return array(
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Nikdy neodstraňovat oblíbené',
 		'keep_labels' => 'Nikdy neodstraňovat popisky',
-		'keep_max' => 'Maximální počet článků k ponechání',
+		'keep_max' => 'Maximální počet článků k ponechání na kanál',
 		'keep_min_by_feed' => 'Minimální počet článků k ponechání na kanál',
 		'keep_period' => 'Maximální stáří článků k ponechání',
 		'keep_unreads' => 'Nikdy neodstraňovat nepřečtené články',
