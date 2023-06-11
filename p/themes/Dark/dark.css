@@ -110,7 +110,8 @@ img.favicon {
 
 body img,
 body video,
-p.help .icon {
+p.help .icon,
+.icon {
 	filter: brightness(.6) contrast(1.2);
 }
 
