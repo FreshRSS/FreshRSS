@@ -40,7 +40,12 @@ defined('COPY_SYSLOG_TO_STDERR') or define('COPY_SYSLOG_TO_STDERR', filter_var(g
 defined('MAX_LOG_SIZE') or define('MAX_LOG_SIZE', 1048576);
 
 //This directory must be writable
-defined('DATA_PATH') or define('DATA_PATH', FRESHRSS_PATH . '/data');
+$dataPath = getenv('DATA_PATH');
+if (is_string($dataPath) && $dataPath !== '') {
+	define('DATA_PATH', $dataPath);
+} else {
+	defined('DATA_PATH') or define('DATA_PATH', FRESHRSS_PATH . '/data');
+}
 
 defined('UPDATE_FILENAME') or define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 defined('USERS_PATH') or define('USERS_PATH', DATA_PATH . '/users');

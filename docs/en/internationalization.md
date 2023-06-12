@@ -24,7 +24,7 @@ The translation files are quite simple: it’s only a matter of returning a PHP 
 ```php
 <?php
 return array(
-	'action' => [
+	'action' => array(
 		'actualize' => 'Actualiser',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',

@@ -9,7 +9,7 @@
  * @property-read string $environment
  * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
- * @property-read array<string|int|bool> $smtp
+ * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} $smtp
  * @property string $title
  */
 class Minz_Configuration {

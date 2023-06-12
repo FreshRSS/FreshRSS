@@ -28,7 +28,7 @@ function isImgMime(string $content): bool {
 function downloadHttp(string &$url, array $curlOptions = []): string {
 	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
 	$url = checkUrl($url);
-	if (!$url) {
+	if ($url == false) {
 		return '';
 	}
 	/** @var CurlHandle $ch */
@@ -41,9 +41,19 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
 		]);
+
+	FreshRSS_Context::initSystem();
+	$system_conf = FreshRSS_Context::$system_conf;
+	if (isset($system_conf)) {
+		curl_setopt_array($ch, $system_conf->curl_options);
+	}
+
 	curl_setopt_array($ch, $curlOptions);
-	/** @var string $response */
+
 	$response = curl_exec($ch);
+	if (!is_string($response)) {
+		$response = '';
+	}
 	$info = curl_getinfo($ch);
 	curl_close($ch);
 	if (!empty($info['url'])) {

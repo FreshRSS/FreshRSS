@@ -8,6 +8,7 @@ RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
 	ca-certificates cron \
 	apache2 libapache2-mod-php \
+	libapache2-mod-auth-openidc \
 	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
 	rm -rf /var/lib/apt/lists/*
@@ -52,8 +53,10 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
+ENV OIDC_ENABLED ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
@@ -61,4 +64,4 @@ EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
-	exec apache2 -D FOREGROUND
+	exec apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')

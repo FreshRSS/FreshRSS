@@ -66,7 +66,7 @@
 	font-size: 1rem;
 	border: none;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
@@ -93,11 +93,6 @@
 }
 .btn:hover {
 	text-decoration: none;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 /*=== Forms */
@@ -762,7 +757,7 @@ main.prompt {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: calc(0.75rem + var(--frss-padding-top-bottom)) 1rem;
 	font-weight: bold;
 	color: #fff;
 }

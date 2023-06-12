@@ -127,17 +127,13 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	display: inline-block;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	font-size: 0.9rem;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
 }
 
 .btn:hover {

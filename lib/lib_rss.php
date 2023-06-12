@@ -724,25 +724,19 @@ function check_install_php(): array {
 	);
 }
 
-
 /**
  * Check different data files and directories exist.
- *
  * @return array<string,bool> of tested values.
  */
 function check_install_files(): array {
-	return array(
-		// @phpstan-ignore-next-line
-		'data' => DATA_PATH && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
-		// @phpstan-ignore-next-line
-		'cache' => CACHE_PATH && touch(CACHE_PATH . '/index.html'),
-		// @phpstan-ignore-next-line
-		'users' => USERS_PATH && touch(USERS_PATH . '/index.html'),
-		'favicons' => touch(FAVICONS_PATH . '/index.html'),
-		'tokens' => touch(DATA_PATH . '/tokens/index.html'),
-	);
+	return [
+		'data' => is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
+		'cache' => is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html'),
+		'users' => is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html'),
+		'favicons' => is_dir(FAVICONS_PATH) && touch(FAVICONS_PATH . '/favicons/index.html'),
+		'tokens' => is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html'),
+	];
 }
-
 
 /**
  * Check database is well-installed.
