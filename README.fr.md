@@ -17,7 +17,9 @@ FreshRSS est capable de recevoir des notifications push instantanées depuis les
 
 FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
 
-Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
+Plusieurs [méthodes de connexion](https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html) sont supportées : formulaire Web (avec un mode anonyme), Authentification HTTP (compatible avec proxy), OpenID Connect.
+
+Enfin, FreshRSS permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : <https://freshrss.org>
 * Démo : <http://demo.freshrss.org/>

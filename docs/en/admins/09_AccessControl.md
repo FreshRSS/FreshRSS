@@ -37,6 +37,10 @@ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
 It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
 
+## OpenID Connect
+
+* See [dedicated section](16_OpenID-Connect.md).
+
 ## Hints
 
 You can switch your authentication method at any time by editing the `./data/config.php` file, on the line that begins `'auth_type'`.
