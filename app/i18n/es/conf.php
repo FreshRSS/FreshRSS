@@ -17,7 +17,7 @@ return array(
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
 		'keep_favourites' => 'Nunca elimines favoritos',
 		'keep_labels' => 'Nunca elimine etiquetas',
-		'keep_max' => 'Número máximo de artículos a conservar',
+		'keep_max' => 'Número máximo de artículos a conservar por fuente',
 		'keep_min_by_feed' => 'Número mínimo de artículos a conservar por fuente',
 		'keep_period' => 'Edad máxima de los artículos a conservar',
 		'keep_unreads' => 'Nunca elimine artículos no leídos',
@@ -34,8 +34,8 @@ return array(
 		'_' => 'Visualización',
 		'darkMode' => array(
 			'_' => 'Modo oscuro automatico (beta)',
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'auto' => 'Automatico',
+			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Retrato',
 			'square' => 'Cuadrado',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Zona Horaria',
 		'title' => 'Visualización',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icono y nombre',
+			'icon' => 'Solo icono',
+			'label' => 'Sitio web',
+			'name' => 'Solo nombre',
+			'none' => 'Ninguno',
 		),
 		'width' => array(
 			'content' => 'Ancho de contenido',

@@ -184,9 +184,9 @@ return array(
 			'title' => 'Formulario de registro del usuario',
 		),
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'no se proporciona',
+			'enabled' => '<a href="./?a=tos">está activado</a>',
+			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
 		),
 	),
 	'update' => array(

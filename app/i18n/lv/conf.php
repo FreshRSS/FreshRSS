@@ -17,7 +17,7 @@ return array(
 		'help' => 'Vairākas opcijas ir pieejamas atsevišķas barotnes iestatījumos.',
 		'keep_favourites' => 'Nekad neizdzēst mīļākos',
 		'keep_labels' => 'Nekad neizdzēst birkas',
-		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',
+		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY
 		'keep_min_by_feed' => 'Minimālais rakstu skaits, kas jāsaglabā vienā barotnē',
 		'keep_period' => 'Maksimālais saglabājamo rakstu vecums',
 		'keep_unreads' => 'Nekad neizdzēst nelasītos rakstus',

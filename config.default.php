@@ -189,8 +189,6 @@ return array(
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
-		'Google-Groups' => true,
-		'Tumblr-GDPR' => true,
 	],
 
 	# Disable self-update,

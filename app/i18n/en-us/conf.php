@@ -17,7 +17,7 @@ return array(
 		'help' => 'More options are available in the individual feed’s settings',	// IGNORE
 		'keep_favourites' => 'Never delete favorites',
 		'keep_labels' => 'Never delete labels',	// IGNORE
-		'keep_max' => 'Maximum number of articles to keep',	// IGNORE
+		'keep_max' => 'Maximum number of articles to keep per feed',	// IGNORE
 		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// IGNORE
 		'keep_period' => 'Maximum age of articles to keep',	// IGNORE
 		'keep_unreads' => 'Never delete unread articles',	// IGNORE
