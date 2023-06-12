@@ -17,7 +17,7 @@ return array(
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
 		'keep_favourites' => '즐겨찾기 삭제 안 함',
 		'keep_labels' => '라벨 삭제 안 함',
-		'keep_max' => '보관할 글 최대 개수',
+		'keep_max' => '보관할 글 최대 개수',	// DIRTY
 		'keep_min_by_feed' => '피드별 보관할 글 최소 개수',
 		'keep_period' => '보관할 글 최대 기간',
 		'keep_unreads' => '읽지 않은 글 삭제 안 함',
