@@ -17,7 +17,7 @@ return array(
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
 		'keep_favourites' => 'Nunca elimines favoritos',
 		'keep_labels' => 'Nunca elimine etiquetas',
-		'keep_max' => 'Número máximo de artículos a conservar',
+		'keep_max' => 'Número máximo de artículos a conservar por fuente',
 		'keep_min_by_feed' => 'Número mínimo de artículos a conservar por fuente',
 		'keep_period' => 'Edad máxima de los artículos a conservar',
 		'keep_unreads' => 'Nunca elimine artículos no leídos',

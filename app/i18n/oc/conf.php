@@ -17,7 +17,7 @@ return array(
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_favourites' => 'Jamai suprimir los favorits',
 		'keep_labels' => 'Jamai suprimir las etiquetas',
-		'keep_max' => 'Nombre maximum d’articles de gardar',
+		'keep_max' => 'Nombre maximum d’articles de gardar per flux',
 		'keep_min_by_feed' => 'Nombre minimum d’articles de servar per flux',
 		'keep_period' => 'Atge maximum dels articles de gardar',
 		'keep_unreads' => 'Jamai suprimir los pas legits',

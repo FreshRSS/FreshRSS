@@ -17,7 +17,7 @@ return array(
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
 		'keep_favourites' => 'Non eliminare mai i preferiti',
 		'keep_labels' => 'Non eliminare mai le etichette',
-		'keep_max' => 'Numero massimo di articoli da mantenere',
+		'keep_max' => 'Numero massimo di articoli da mantenere per feed',
 		'keep_min_by_feed' => 'Numero minimo di articoli da mantenere per feed',
 		'keep_period' => 'Massima durata degli articoli da mantenere',
 		'keep_unreads' => 'Non eliminare mai gli articoli non letti',
