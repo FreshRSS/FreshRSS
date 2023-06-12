@@ -376,7 +376,7 @@ function printStep0(): void {
 			<?= FRESHRSS_VERSION ?>
 		</div>
 	</div>
-	
+
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">

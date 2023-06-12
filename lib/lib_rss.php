@@ -733,7 +733,7 @@ function check_install_files(): array {
 		'data' => is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
 		'cache' => is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html'),
 		'users' => is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html'),
-		'favicons' => is_dir(FAVICONS_PATH) && touch(FAVICONS_PATH . '/favicons/index.html'),
+		'favicons' => is_dir(FAVICONS_PATH) && touch(FAVICONS_PATH . '/index.html'),
 		'tokens' => is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html'),
 	];
 }
