@@ -89,13 +89,13 @@ function getProcessUsername(): string {
 	return _t('install.check.unknown_process_username');
 }
 
-/** @return array<string> */
+/** @return array{'fileowner':string,'filegroup':string} */
 function getOwnerOfFile(string $file): array {
 	clearstatcache();
 	$stat_file = @stat($file);
 	$owner = [];
 	if(!$stat_file) {
-		//Couldnt stat file
+		//Could’nt stat file
 		$owner['fileowner'] = _t('install.check.unknown_process_username');
 		$owner['filegroup'] = _t('install.check.unknown_process_username');
 		return $owner;
@@ -112,9 +112,10 @@ function getOwnerOfFile(string $file): array {
 	return $owner;
 }
 
-/* File permissions (read, write, executable)
-   Source: https://www.php.net/manual/en/function.fileperms.php
-*/
+/**
+ * File permissions (read, write, executable)
+ * Source: https://php.net/function.fileperms
+ */
 function file_permissions(string $path): string {
 	$perms = fileperms($path);
 

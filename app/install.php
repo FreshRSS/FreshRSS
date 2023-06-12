@@ -421,7 +421,7 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 function printCheckDirectoryAccess(string $key, string $status, string $path, string $processUsername): void {
 	if ($status === 'ok') {
 		printStep1Template($key, $status, [$path]);
-		} else {
+	} else {
 		$owner = getOwnerOfFile($path);
 		printStep1Template($key, $status, [$path, $owner['fileowner'], $owner['filegroup'], file_permissions($path), $processUsername]);
 	}
