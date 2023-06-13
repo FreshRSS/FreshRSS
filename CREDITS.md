@@ -38,6 +38,7 @@ People are sorted by name so please keep this order.
 * [Cem KOÇ](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hckweb)
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chemical1979)
 * [Chris Francy](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)
+* [Christian König](https://github.com/yubiuser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yubiuser)
 * [Çılga İşcan Tercanlı](https://github.com/CilgaIscan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:CilgaIscan)
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](http://cn-tools.eu/)
 * [Corentin Garcia](https://github.com/corenting): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:corenting), [Web](http://corenting.fr/)
