@@ -36,6 +36,7 @@ LABEL \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
 RUN a2dismod -f alias autoindex negotiation status && \
+	a2dismod auth_openidc && \
 	a2enmod deflate expires headers mime remoteip setenvif && \
 	a2disconf '*' && \
 	a2dissite '*' && \
