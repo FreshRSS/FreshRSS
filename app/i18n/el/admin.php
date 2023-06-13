@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Ενημέρωση συστήματος',
 		'apply' => 'Εφαρμογή',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
 		'last' => 'Τελευταία επαλήθευση: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Ενημέρωση συστήματος',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Διαχειριστής',

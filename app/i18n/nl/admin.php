@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Versie controle',
 		'apply' => 'Toepassen',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controleer op nieuwe versies',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
 		'last' => 'Laatste controle: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Geen nieuwe versie om toe te passen',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Vernieuw systeem',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Beheerder',

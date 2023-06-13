@@ -261,6 +261,17 @@ function data_leave_validation(parent, excludeForm = null) {
 	return true;
 }
 
+function init_2stateButton() {
+	const btns = document.getElementsByClassName('btn-state1');
+	Array.prototype.forEach.call(btns, function (el) {
+		el.addEventListener('click', function () {
+			const btnState2 = document.getElementById(el.dataset.state2Id);
+			btnState2.classList.add('show');
+			this.classList.add('hide');
+		});
+	});
+}
+
 function init_configuration_alert() {
 	window.onsubmit = function (e) {
 		window.hasSubmit = data_leave_validation(document.body, e.submitter ? e.submitter.form : null);
@@ -288,6 +299,7 @@ function init_extra_afterDOM() {
 		init_password_observers(document.body);
 		init_select_observers();
 		init_configuration_alert();
+		init_2stateButton();
 
 		const slider = document.getElementById('slider');
 		if (slider) {

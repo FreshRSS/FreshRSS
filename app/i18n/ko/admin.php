@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => '업데이트',
 		'apply' => '업데이트 적용하기',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '새 업데이트 확인하기',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => '현재 FreshRSS 버전은 %s 입니다.',
 		'last' => '마지막 확인: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => '적용 가능한 업데이트가 없습니다',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => '업데이트',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '관리자',
