@@ -156,7 +156,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 
 # Alternatives
 
-If FreshRSS does not suite you for one reason or another, here are alternative solutions to consider:
+If FreshRSS does not suit you for one reason or another, here are alternative solutions to consider:
 
 * [Kriss Feed](https://tontof.net/kriss/feed/)
 * [Leed](https://github.com/LeedRSS/Leed)
