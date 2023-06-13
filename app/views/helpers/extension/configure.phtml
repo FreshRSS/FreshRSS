@@ -1,4 +1,9 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	/** @var FreshRSS_View $this */
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_configure');
+	}
+?>
 <div class="post">
 	<h2>
 		<?= $this->extension->getName() ?> (<?= $this->extension->getVersion() ?>) —
@@ -11,7 +16,7 @@
 	<form id="form-extension" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group form-actions">
-			<div class="group-controls">		
+			<div class="group-controls">
 				<button class="btn btn-attention confirm" form="form-extension" formaction="<?= _url('extension', 'remove', 'e', urlencode($this->extension->getName())) ?>"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>
