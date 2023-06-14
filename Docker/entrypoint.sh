@@ -12,7 +12,7 @@ if [ -n "$LISTEN" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
-	a2enmod auth_openidc
+	a2enmod -q auth_openidc
 fi
 
 if [ -n "$CRON_MIN" ]; then
