@@ -1,5 +1,8 @@
 <?php
 	/** @var FreshRSS_View $this */
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_configure');
+	}
 ?>
 
 <?php $isDefault = $this->details['is_default']; ?>
