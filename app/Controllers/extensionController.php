@@ -97,6 +97,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
+		FreshRSS_View::prependTitle($ext->getName() . ' · ' . _t('admin.extensions.title') . ' · ');
 		$this->view->extension = $ext;
 		$this->view->extension->handleConfigureAction();
 	}
