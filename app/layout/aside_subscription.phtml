@@ -8,7 +8,7 @@
 					<a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.menu.add') ?></a>
 				</li>
 
-				<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::controllerName() === 'subscription' && in_array(Minz_Request::actionName(), ['index', 'category', 'feed'], true) ? ' active' : '' ?>">
 					<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
 				</li>
 
