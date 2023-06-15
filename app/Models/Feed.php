@@ -764,23 +764,27 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Applies the *mark as read upon gone* policy, if enabled.
-	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * Remember to call `updateCachedValue($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
-	public function markAsReadUponGone() {
+	public function markAsReadUponGone(bool $upstreamIsEmpty) {
 		$readUponGone = $this->attributes('read_upon_gone');
 		if ($readUponGone === null) {
 			$readUponGone = FreshRSS_Context::$user_conf->mark_when['gone'];
 		}
-		if ($readUponGone) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			return $feedDAO->markAsReadUponGone($this->id());
+		if (!$readUponGone) {
+			return false;
 		}
-		return false;
+		if ($upstreamIsEmpty) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			return $entryDAO->markReadFeed($this->id());
+		}
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		return $feedDAO->markAsReadUponGone($this->id());
 	}
 
 	/**
-	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	 * Remember to call `updateCachedValue($id_feed)` or `updateCachedValues()` just after
 	 * @return int|false
 	 */
 	public function cleanOldEntries() {

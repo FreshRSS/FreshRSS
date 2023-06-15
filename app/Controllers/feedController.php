@@ -368,30 +368,27 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
-			if ((!$simplePiePush) && (!$feed_id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+			if ($simplePiePush === null && $feed_id === 0 && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				//$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
 				//Minz_Log::debug($text, PSHB_LOG);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
-			$mtime = 0;
 			if ($feed->mute()) {
 				continue;	//Feed refresh is disabled
 			}
+			$mtime = $feed->cacheModifiedTime() ?: 0;
 			$ttl = $feed->ttl();
-			if ((!$simplePiePush) && (!$feed_id) &&
-				($feed->lastUpdate() + 10 >= time() - (
-					$ttl === FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
+			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
+				$ttl = FreshRSS_Context::$user_conf->ttl_default;
+			}
+			if ($simplePiePush === null && $feed_id === 0 && (time() <= $feed->lastUpdate() + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
-				$mtime = $feed->cacheModifiedTime() ?: 0;
-				if ($feed->lastUpdate() + 10 >= $mtime) {
+				if ($mtime <= 0 || $feed->lastUpdate() >= $mtime) {
 					continue;	//Nothing newer from other users
 				}
-				//Minz_Log::debug($feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user');
-				//Will take advantage of the newer cache
-			} else {
-				$mtime = time();
+				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user; will take advantage of the newer cache.');
 			}
 
 			if (!$feed->lock()) {
@@ -422,6 +419,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$feedIsUnchanged = true;
 					}
 				}
+				$mtime = $feed->cacheModifiedTime() ?: time();
 				$newGuids = $simplePie === null ? [] : $feed->loadGuids($simplePie);
 				$entries = $simplePie === null ? [] : $feed->loadEntries($simplePie);
 			} catch (FreshRSS_Feed_Exception $e) {
@@ -553,9 +551,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
-			if (!$simplePiePush) {
+			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
-				$needFeedCacheRefresh |= ($feed->markAsReadUponGone() != false);
+				$upstreamIsEmpty = empty($newGuids);
+				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($upstreamIsEmpty) != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());

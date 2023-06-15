@@ -503,9 +503,6 @@ WHERE id_feed=:id_feed1 AND is_read=0 AND (
 	`lastSeen` + 60 < (SELECT s1.maxlastseen FROM (
 		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
 	) s1)
-	OR `lastSeen` + 60 < (SELECT s2.lastcorrectupdate FROM (
-		SELECT f2.`lastUpdate` AS lastcorrectupdate FROM `_feed` f2 WHERE f2.id = :id_feed3 AND f2.error = 0
-	) s2)
 )
 SQL;
 
