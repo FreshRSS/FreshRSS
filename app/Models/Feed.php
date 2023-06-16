@@ -777,10 +777,13 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		if ($upstreamIsEmpty) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			return $entryDAO->markReadFeed($this->id());
+			$affected = $entryDAO->markReadFeed($this->id());
+		} else {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$affected = $feedDAO->markAsReadUponGone($this->id());
 		}
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->markAsReadUponGone($this->id());
+		Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : ''));
+		return $affected;
 	}
 
 	/**
