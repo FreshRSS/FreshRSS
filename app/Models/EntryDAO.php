@@ -556,7 +556,8 @@ SQL;
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
-		if (!$this->pdo->inTransaction()) {
+		$hadTransaction = $this->pdo->inTransaction();
+		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
 		}
 
@@ -591,7 +592,9 @@ SQL;
 			}
 		}
 
-		$this->pdo->commit();
+		if (!$hadTransaction) {
+			$this->pdo->commit();
+		}
 		return $affected;
 	}
 
