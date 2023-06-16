@@ -120,7 +120,7 @@ SQL;
 	 */
 	private $addEntryPrepared = false;
 
-	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'hash':string,
+	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
@@ -556,7 +556,10 @@ SQL;
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
-		$this->pdo->beginTransaction();
+		$hadTransaction = $this->pdo->inTransaction();
+		if (!$hadTransaction) {
+			$this->pdo->beginTransaction();
+		}
 
 		$sql = 'UPDATE `_entry` '
 			 . 'SET is_read=? '
@@ -589,7 +592,9 @@ SQL;
 			}
 		}
 
-		$this->pdo->commit();
+		if (!$hadTransaction) {
+			$this->pdo->commit();
+		}
 		return $affected;
 	}
 
@@ -698,7 +703,7 @@ SQL;
 		}
 	}
 
-	/** @return Traversable<array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+	/** @return Traversable<array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
 	 *		'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}> */
 	public function selectAll(): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
