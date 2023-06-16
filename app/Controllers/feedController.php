@@ -396,7 +396,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			$isNewFeed = $feed->lastUpdate() <= 0;
+			$feedIsNew = $feed->lastUpdate() <= 0;
+			$feedIsEmpty = false;
 			$feedIsUnchanged = false;
 
 			try {
@@ -413,15 +414,22 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
-					$simplePie = $feed->load(false, $isNewFeed);
-					if ($simplePie === null) {
-						// Feed is cached and unchanged
-						$feedIsUnchanged = true;
-					}
+					$simplePie = $feed->load(false, $feedIsNew);
+				}
+
+				if ($simplePie === null) {
+					// Feed is cached and unchanged
+					$newGuids = [];
+					$entries = [];
+					$feedIsEmpty = false;	// We do not know
+					$feedIsUnchanged = true;
+				} else {
+					$newGuids = $feed->loadGuids($simplePie);
+					$entries = $feed->loadEntries($simplePie);
+					$feedIsEmpty = empty($newGuids);
+					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
-				$newGuids = $simplePie === null ? [] : $feed->loadGuids($simplePie);
-				$entries = $simplePie === null ? [] : $feed->loadEntries($simplePie);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
@@ -553,8 +561,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
-				$upstreamIsEmpty = empty($newGuids);
-				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($upstreamIsEmpty, $mtime) != false);
+				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
@@ -607,7 +614,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if (!empty($feedProperties)) {
 				$ok = $feedDAO->updateFeed($feed->id(), $feedProperties);
-				if (!$ok && $isNewFeed) {
+				if (!$ok && $feedIsNew) {
 					//Cancel adding new feed in case of database error at first actualize
 					$feedDAO->deleteFeed($feed->id());
 					$feed->unlock();
