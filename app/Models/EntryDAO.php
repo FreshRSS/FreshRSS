@@ -556,7 +556,9 @@ SQL;
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
-		$this->pdo->beginTransaction();
+		if (!$this->pdo->inTransaction()) {
+			$this->pdo->beginTransaction();
+		}
 
 		$sql = 'UPDATE `_entry` '
 			 . 'SET is_read=? '
