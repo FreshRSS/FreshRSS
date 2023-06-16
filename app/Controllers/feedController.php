@@ -554,7 +554,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$upstreamIsEmpty = empty($newGuids);
-				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($upstreamIsEmpty) != false);
+				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($upstreamIsEmpty, $mtime) != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
