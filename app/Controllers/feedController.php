@@ -401,7 +401,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feedIsUnchanged = false;
 
 			try {
-				if ($simplePiePush) {
+				if ($simplePiePush !== null) {
 					$simplePie = $simplePiePush;	//Used by WebSub
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH) {
 					$simplePie = $feed->loadHtmlXpath();
@@ -426,7 +426,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				} else {
 					$newGuids = $feed->loadGuids($simplePie);
 					$entries = $feed->loadEntries($simplePie);
-					$feedIsEmpty = empty($newGuids);
+					$feedIsEmpty = $simplePiePush !== null && empty($newGuids);
 					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
