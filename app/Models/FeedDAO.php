@@ -509,7 +509,6 @@ SQL;
 		if (($stm = $this->pdo->prepare($sql)) &&
 			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
 			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed3', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
