@@ -785,7 +785,9 @@ class FreshRSS_Feed extends Minz_Model {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$affected = $feedDAO->markAsReadUponGone($this->id());
 		}
-		Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : ''));
+		if ($affected > 0) {
+			Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : ''));
+		}
 		return $affected;
 	}
 
