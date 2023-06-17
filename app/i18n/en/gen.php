@@ -209,6 +209,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'omnivore' => 'Omnivore',	// TODO
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
