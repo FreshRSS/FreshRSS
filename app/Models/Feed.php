@@ -408,8 +408,8 @@ class FreshRSS_Feed extends Minz_Model {
 					throw new FreshRSS_Feed_Exception(
 						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) .
 							' [' . $this->url . ']',
-							$simplePie->status_code()
-						);
+						$simplePie->status_code()
+					);
 				}
 
 				$links = $simplePie->get_links('self');
