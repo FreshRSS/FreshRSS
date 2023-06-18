@@ -21,7 +21,7 @@ Blue Lagoon est distribué sous license AlcoholWare
 
 « LICENCE ALCOHOLWARE » (Révision 42):
 
-mister.air@gmail.com a créé ce fichier. Tant que vous conservez cet avertissement,
+<mister.air@gmail.com> a créé ce fichier. Tant que vous conservez cet avertissement,
 
 vous pouvez faire ce que vous voulez de ce truc. Si on se rencontre un jour et
 
