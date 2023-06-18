@@ -400,11 +400,16 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ((!$mtime) || $simplePie->error()) {
 					$errorMessage = $simplePie->error();
+					if (empty($errorMessage)) {
+						$errorMessage = '';
+					} elseif (is_array($errorMessage)) {
+						$errorMessage = json_encode($errorMessage, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS) ?: '';
+					}
 					throw new FreshRSS_Feed_Exception(
-						($errorMessage == '' ? 'Unknown error for feed' : json_encode($errorMessage, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS)) .
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) .
 							' [' . $this->url . ']',
-						$simplePie->status_code()
-					);
+							$simplePie->status_code()
+						);
 				}
 
 				$links = $simplePie->get_links('self');
