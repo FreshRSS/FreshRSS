@@ -5,7 +5,7 @@ de l’annoncer sur GitHub en créant un ticket dédié ([voir les
 exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)).
 Ceci est à faire **au moins une semaine à l’avance**.
 
-Il est aussi recommandé de faire l’annonce sur mailing@freshrss.org.
+Il est aussi recommandé de faire l’annonce sur <mailing@freshrss.org>.
 
 ## S’assurer de l’état de dev
 
@@ -139,7 +139,7 @@ Lorsque tout fonctionne, il est temps d’annoncer la sortie au monde entier !
 	l’article sur
 	[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
 * sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
-* et sur mailing@freshrss.org ;
+* et sur <mailing@freshrss.org> ;
 
 ## Lancer la prochaine version de développement
 
