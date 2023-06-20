@@ -143,6 +143,13 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
+	'omnivore' => [
+		'url' => '~URL~/api/save?url=~LINK~',
+		'transform' => ['urlencode'],
+		'help' => 'https://omnivore.app/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
 	'pinboard' => [
 		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;title=~TITLE~',
 		'transform' => ['urlencode'],
