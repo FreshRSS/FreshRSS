@@ -4,7 +4,7 @@ FreshRSS has a built-in scraping engine that generates a feed on websites that h
 
 ## How to Add
 
-Go to Subscription Management where a new feed can be added. Change the "Type of feed source" to "HTML + XPath (Web scrapping)". An additonal list of text boxes to configure the web scraping. XPath 1.0 is used as traversing language.
+Go to Subscription Management where a new feed can be added. Change the "Type of feed source" to "HTML + XPath (Web scrapping)". An additional list of text boxes to configure the web scraping. XPath 1.0 is used as traversing language.
 
 ### Get the XPath Path
 
