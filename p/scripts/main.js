@@ -1697,7 +1697,7 @@ function load_more_posts() {
 	const req = new XMLHttpRequest();
 	req.open('GET', url_load_more, true);
 	req.responseType = 'document';
-	req.timeout = 30000;
+	req.timeout = 20000;
 	req.ontimeout = function (e) {
 		document.getElementById('load_more').classList.remove('loading');
 		load_more = false;
