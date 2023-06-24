@@ -1701,7 +1701,7 @@ function load_more_posts() {
 	req.ontimeout = function (e) {
 		document.getElementById('load_more').classList.remove('loading');
 		load_more = false;
-	}
+	};
 	req.onload = function (e) {
 		const html = this.response;
 		const streamFooter = document.getElementById('stream-footer');
