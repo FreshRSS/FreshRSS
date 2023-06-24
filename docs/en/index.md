@@ -12,7 +12,7 @@ FreshRSS has a lot of features including:
 * Mark article as favorite if you liked it or if you want to read it later
 * Filter and search functionality helps to easily find articles ([more information](./users/10_filter.html))
 * Statistics to show you the publishing frequency all the websites you follow
-* Import/export of your feeds into OPML format ([more information](./users/04_Subscriptions.html#import-and-export#import--export))
+* Import/export of your feeds into OPML format ([more information](./users/04_Subscriptions.html#import--export))
 * Several themes created by the community ([more information](./admins/11_Themes.html))
 * Several extensions created by the community ([more information](./admins/15_extensions.html))
 * "Google Reader"-like API to connect Android applications ([more information](./users/06_Mobile_access.html#access-via-mobile-app))
