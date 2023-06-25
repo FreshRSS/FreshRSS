@@ -1711,11 +1711,11 @@ function load_more_posts() {
 		// default: wait max 20 seconds
 		req.timeout = 20000;
 	}
-	req.ontimeout = function () { 
-		remove_loading_from_more_button(div_load_more) 
+	req.ontimeout = function () {
+		remove_loading_from_more_button(div_load_more);
 	};
-	req.onerror = function () { 
-		remove_loading_from_more_button(div_load_more) 
+	req.onerror = function () {
+		remove_loading_from_more_button(div_load_more);
 	};
 	req.onload = function (e) {
 		const html = this.response;
