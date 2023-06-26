@@ -1,19 +1,24 @@
 # Website scraping
 
-FreshRSS has a built-in scraping engine that generates a feed on websites that has no RSS/Atom feed published.
+FreshRSS has a built-in [Web scrapping](https://en.wikipedia.org/wiki/Web_scraping) engine that generates a feed from websites that have no RSS/Atom feed published.
 
-## How to Add
+## How to add
 
-Go to Subscription Management where a new feed can be added. Change the "Type of feed source" to "HTML + XPath (Web scrapping)". An additional list of text boxes to configure the web scraping. XPath 1.0 is used as traversing language.
+Go to “Subscription Management” where a new feed can be added.
+Change the “Type of feed source” to “HTML + XPath (Web scrapping)”.
+An additional list of text boxes to configure the web scraping.
+[XPath 1.0](https://www.w3.org/TR/xpath-10/) is used as traversing language.
 
-### Get the XPath Path
+### Get the XPath path
 
-Firefox: use the built-in "inspect" tool. Select the node in the HTML, right click with your mouse and chose "Copy" and "Xpath". The XPath is stored in your clipboard now.
+Firefox: the built-in “inspect” tool may be used to help create a valid XPath expression.
+Select the node in the HTML, right click with your mouse and chose “Copy” and “XPath”.
+The XPath is stored in your clipboard now.
 
-## Tipps and Tricks
+## Tipps & tricks
 
 - [Timezone of date](https://github.com/FreshRSS/FreshRSS/discussions/5483)
 
-## Recommended External Manuals
+## Recommended external manuals
 
-- [https://danq.me/2022/09/27/freshrss-xpath/](https://danq.me/2022/09/27/freshrss-xpath/) (published September 2022)
+- [XPath Scraping with FreshRSS, by Dan Q](https://danq.me/2022/09/27/freshrss-xpath/) (September 2022)
