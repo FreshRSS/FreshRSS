@@ -1059,8 +1059,8 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in background-tab
-			return ev.ctrlKey;
+		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
+			return ev.ctrlKey || ev.metaKey;
 		}
 
 		el = ev.target.closest('.flux .content .text a');
