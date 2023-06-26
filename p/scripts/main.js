@@ -1704,12 +1704,11 @@ function load_more_posts() {
 	const req = new XMLHttpRequest();
 	req.open('GET', url_load_more, true);
 	req.responseType = 'document';
+	// default: wait max 20 seconds
+	req.timeout = 20000;
 	if (url_load_more.includes('&search=')) {
 		// user queries could run a bit longer than usual
 		req.timeout = 45000;
-	} else {
-		// default: wait max 20 seconds
-		req.timeout = 20000;
 	}
 	req.ontimeout = function () {
 		remove_loading_from_more_button(div_load_more);
