@@ -116,14 +116,14 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	if ($url == '') {
 		return '';
 	}
-	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
+	if ($fixScheme && preg_match('#^https?://#i', $url) === false) {
 		$url = 'https://' . ltrim($url, '/');
 	}
 
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
 	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
 
-	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
+	if (is_string(filter_var($urlRelaxed, FILTER_VALIDATE_URL))) {
 		return $url;
 	} else {
 		return false;
@@ -244,6 +244,7 @@ function sensitive_log($log) {
 
 /**
  * @param array<string,mixed> $attributes
+ * @throws FreshRSS_Context_Exception
  */
 function customSimplePie(array $attributes = array()): SimplePie {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -258,13 +259,13 @@ function customSimplePie(array $attributes = array()): SimplePie {
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->enable_order_by_date(false);
 
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$feed_timeout = empty($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
 	$curl_options = FreshRSS_Context::$system_conf->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
-		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
 		if (!$attributes['ssl_verify']) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
@@ -468,7 +469,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	if (isset($attributes['ssl_verify'])) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
 		if (!$attributes['ssl_verify']) {
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}

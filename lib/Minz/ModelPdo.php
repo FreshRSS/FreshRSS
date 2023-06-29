@@ -69,6 +69,12 @@ class Minz_ModelPdo {
 				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
 				break;
 			case 'sqlite':
+				if ($this->current_user === null) {
+					throw new Minz_PDOConnectionException(
+						'Current user is null',
+						$db['user'], Minz_Exception::ERROR
+					);
+				}
 				$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite');
 				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 				$this->pdo->setPrefix('');
@@ -120,7 +126,6 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
-		$ex = null;
 		//Attempt a few times to connect to database
 		for ($attempt = 1; $attempt <= 5; $attempt++) {
 			try {
@@ -136,14 +141,13 @@ class Minz_ModelPdo {
 				$ex = $e;
 			}
 			sleep(2);
-		}
+			$db = Minz_Configuration::get('system')->db;
 
-		$db = Minz_Configuration::get('system')->db;
-
-		throw new Minz_PDOConnectionException(
+			throw new Minz_PDOConnectionException(
 				$ex->getMessage(),
 				$db['user'], Minz_Exception::ERROR
 			);
+		}
 	}
 
 	public function beginTransaction(): void {

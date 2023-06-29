@@ -306,9 +306,11 @@ class Minz_Request {
 			return false;
 		}
 		$host = parse_url($address, PHP_URL_HOST);
-		if (!$host) {
+		if ($host === false) {
 			return false;
 		}
+
+		assert(is_string($host));
 
 		$is_public = !in_array($host, [
 			'localhost',
@@ -329,7 +331,7 @@ class Minz_Request {
 
 	private static function requestId(): string {
 		if (empty($_GET['rid']) || !ctype_xdigit($_GET['rid'])) {
-			$_GET['rid'] = uniqid();
+			$_GET['rid'] = uniqid('', true);
 		}
 		return $_GET['rid'];
 	}
@@ -355,22 +357,22 @@ class Minz_Request {
 
 	/** @return array<string,string>|null */
 	public static function getNotification(): ?array {
-		$notif = null;
+		$notify = null;
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
-		if ($requests) {
+		if ($requests !== false) {
 			//Delete abandoned notifications
 			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {
-				$notif = $requests[$requestId]['notification'];
+				$notify = $requests[$requestId]['notification'];
 				unset($requests[$requestId]);
 			}
 			Minz_Session::_param('requests', $requests);
 		}
 		Minz_Session::unlock();
-		return $notif;
+		return $notify;
 	}
 
 	/**
@@ -454,7 +456,7 @@ class Minz_Request {
 	 * @return array<string>
 	 */
 	public static function getPreferredLanguages(): array {
-		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {
+		if (is_bool(preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) === false) {
 			return $matches['lang'];
 		}
 		return array('en');

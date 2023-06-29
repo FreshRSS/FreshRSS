@@ -62,7 +62,7 @@ if (!file_exists($applied_migrations_path)) {
 		$error = $e->getMessage();
 	}
 
-	if ($error) {
+	if (is_string($error)) {
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 		FreshRSS::killApp($error);
 	}
