@@ -61,23 +61,26 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *
 	 * It forwards to the correct login page (form) or main page if
 	 * the user is already connected.
+	 * @throws Minz_ConfigurationParamException
 	 */
 	public function loginAction(): void {
 		if (FreshRSS_Auth::hasAccess() && Minz_Request::paramString('u') === '') {
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
 		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
 		switch ($auth_type) {
 			case 'form':
-				Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
+				Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']);
 				break;
 			case 'http_auth':
-				Minz_Error::error(403, array('error' => array(_t('feedback.access.denied'),
+				Minz_Error::error(403, [
+					'error' => [
+						_t('feedback.access.denied'),
 						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
-						' ; Remote IP address=' . ($_SERVER['REMOTE_ADDR'] ?? '') . ']'
-					)), false);
+						' ; Remote IP address=' . ($_SERVER['REMOTE_ADDR'] ?? '') . ']']
+				], false);
 				break;
 			case 'none':
 				// It should not happen!
@@ -205,7 +208,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				Minz_Request::bad(
 					_t('feedback.auth.login.invalid'),
-					array('c' => 'auth', 'a' => 'login')
+					['c' => 'auth', 'a' => 'login']
 				);
 			}
 		}
@@ -229,7 +232,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 */
 	public function registerAction(): void {
 		if (FreshRSS_Auth::hasAccess()) {
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
 		if (max_registrations_reached()) {

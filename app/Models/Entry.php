@@ -1,11 +1,11 @@
 <?php
 
 class FreshRSS_Entry extends Minz_Model {
-	const STATE_READ = 1;
-	const STATE_NOT_READ = 2;
-	const STATE_ALL = 3;
-	const STATE_FAVORITE = 4;
-	const STATE_NOT_FAVORITE = 8;
+	public const STATE_READ = 1;
+	public const STATE_NOT_READ = 2;
+	public const STATE_ALL = 3;
+	public const STATE_FAVORITE = 4;
+	public const STATE_NOT_FAVORITE = 8;
 
 	/** @var string */
 	private $id = '0';
@@ -143,7 +143,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$medium = $enclosure['medium'] ?? '';
 		$mime = $enclosure['type'] ?? '';
 
-		return $elink != '' && $medium === 'image' || strpos($mime, 'image') === 0 ||
+		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
 			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
 	}
 
@@ -793,7 +793,7 @@ HTML;
 	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
 	 */
 	public function toArray(): array {
-		return array(
+		return [
 			'id' => $this->id(),
 			'guid' => $this->guid(),
 			'title' => $this->title(),
@@ -808,7 +808,7 @@ HTML;
 			'id_feed' => $this->feedId(),
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
-		);
+			];
 	}
 
 	/**
@@ -826,7 +826,7 @@ HTML;
 	 * Some clients (tested with News+) would fail if sending too long item content
 	 * @var int
 	 */
-	const API_MAX_COMPAT_CONTENT_LENGTH = 500000;
+	public const API_MAX_COMPAT_CONTENT_LENGTH = 500000;
 
 	/**
 	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.

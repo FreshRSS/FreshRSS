@@ -86,7 +86,7 @@ SET `cache_nbUnreads`=(
 	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
 SQL;
 		$hasWhere = false;
-		$values = array();
+		$values = [];
 		if ($feedId != null) {
 			$sql .= ' WHERE';
 			$hasWhere = true;
@@ -135,7 +135,7 @@ SQL;
 		} else {
 			$this->pdo->beginTransaction();
 			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
-			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
+			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -147,7 +147,7 @@ SQL;
 			if ($affected > 0) {
 				$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=?)';
-				$values = array($ids);
+				$values = [$ids];
 				$stm = $this->pdo->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
 					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -196,9 +196,9 @@ SQL;
 		} elseif ($priorityMin >= 0) {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
-		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
+		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -235,9 +235,9 @@ SQL;
 			 . 'SET is_read = ? '
 			 . 'WHERE is_read <> ? AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)';
-		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id);
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
+		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -271,12 +271,12 @@ SQL;
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';
-		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
 		if ($id != 0) {
 			$values[] = $id;
 		}
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
+		[$searchValues, $search] = $this->sqlListEntriesWhere('e.', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {

@@ -142,17 +142,17 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 			if (touch(FRESHRSS_PATH . '/index.html')) {
 				$this->view->update_to_apply = true;
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'good',
 					'title' => _t('gen.short.ok'),
 					'body' => _t('feedback.update.can_apply', $version),
-				);
+					];
 			} else {
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'bad',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
-				);
+					];
 			}
 		}
 	}
@@ -174,7 +174,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			// There is already an update file to apply: we don’t need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
-			Minz_Request::forward(array('c' => 'update'), true);
+			Minz_Request::forward(['c' => 'update'], true);
 
 			return;
 		}
@@ -185,10 +185,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::hasGitUpdate()) {
 				$version = self::getCurrentGitBranch();
 			} else {
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'latest',
-					'body' => _t('feedback.update.none')
-				);
+					'body' => _t('feedback.update.none'),
+					];
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
@@ -219,20 +219,20 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'Error during update (HTTP code ' . $curlGetinfo . '): ' . $curlError
 				);
 
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'bad',
-					'body' => _t('feedback.update.server_not_found', $auto_update_url)
-				);
+					'body' => _t('feedback.update.server_not_found', $auto_update_url),
+					];
 				return;
 			}
 
 			$res_array = explode("\n", (string)$result, 2);
 			$status = $res_array[0];
 			if (strpos($status, 'UPDATE') !== 0) {
-				$this->view->message = array(
+				$this->view->message = [
 					'status' => 'latest',
-					'body' => _t('feedback.update.none')
-				);
+					'body' => _t('feedback.update.none'),
+					];
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
@@ -246,18 +246,18 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
 			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
-			Minz_Request::forward(array('c' => 'update'), true);
+			Minz_Request::forward(['c' => 'update'], true);
 		} else {
-			$this->view->message = array(
+			$this->view->message = [
 				'status' => 'bad',
-				'body' => _t('feedback.update.error', 'Cannot save the update script')
-			);
+				'body' => _t('feedback.update.error', 'Cannot save the update script'),
+				];
 		}
 	}
 
 	public function applyAction(): void {
 		if (FreshRSS_Context::$system_conf->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
-			Minz_Request::forward(array('c' => 'update'), true);
+			Minz_Request::forward(['c' => 'update'], true);
 		}
 
 		if (Minz_Request::paramBoolean('post_conf')) {
@@ -305,11 +305,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($res === true) {
-				Minz_Request::forward(array(
+				Minz_Request::forward([
 					'c' => 'update',
 					'a' => 'apply',
-					'params' => array('post_conf' => '1')
-				), true);
+					'params' => ['post_conf' => '1'],
+					], true);
 			} else {
 				Minz_Log::error(_t('feedback.update.error', $res));
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);

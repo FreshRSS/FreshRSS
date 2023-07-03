@@ -7,7 +7,7 @@ class FreshRSS_Auth {
 	/**
 	 * Determines if user is connected.
 	 */
-	const DEFAULT_COOKIE_DURATION = 7776000;
+	public const DEFAULT_COOKIE_DURATION = 7776000;
 
 	/** @var bool */
 	private static $login_ok = false;
@@ -216,7 +216,7 @@ class FreshRSS_Auth {
 		$csrf = Minz_Session::param('csrf');
 		if ($csrf == '') {
 			$salt = FreshRSS_Context::$system_conf->salt;
-			$csrf = sha1($salt . uniqid('' . mt_rand(), true));
+			$csrf = sha1($salt . uniqid('' . random_int(0, mt_getrandmax()), true));
 			Minz_Session::_param('csrf', $csrf);
 		}
 		return $csrf;

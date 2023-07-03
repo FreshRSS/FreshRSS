@@ -645,7 +645,7 @@ class FreshRSS_Search {
 			return '';
 		}
 		if (preg_match_all('/(?<=\s|^)[!-](?P<search>[^\s]+)/', $input, $matches)) {
-			$this->not_search = array_merge(is_array($this->not_search) ? $this->not_search : array(), $matches['search']);
+			$this->not_search = array_merge(is_array($this->not_search) ? $this->not_search : [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_search = self::removeEmptyValues($this->not_search);
