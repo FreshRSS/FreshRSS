@@ -116,7 +116,7 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	if ($url == '') {
 		return '';
 	}
-	if ($fixScheme && preg_match('#^https?://#i', $url) === false) {
+	if ($fixScheme && preg_match('#^https?://#i', $url) !== 1) {
 		$url = 'https://' . ltrim($url, '/');
 	}
 

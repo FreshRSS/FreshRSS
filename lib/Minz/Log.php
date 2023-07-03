@@ -78,12 +78,11 @@ class Minz_Log {
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize(string $file_name): void {
-		$maxSize = (int)defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
-		if (@filesize($file_name) > $maxSize) {
+		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
+		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
 			$fp = fopen($file_name, 'c+');
 			if (is_resource($fp) && flock($fp, LOCK_EX)) {
 				fseek($fp, -(int)($maxSize / 2), SEEK_END);
-				assert($maxSize > 0);
 				$content = fread($fp, $maxSize);
 				rewind($fp);
 				ftruncate($fp, 0);

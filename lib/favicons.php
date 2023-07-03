@@ -78,8 +78,7 @@ function searchFavicon(string &$url): string {
 					$href = trim($link->getAttribute('href'));
 					if (substr($href, 0, 2) === '//') {
 						// Case of protocol-relative URLs
-						$protocolUrlMatch = preg_match('%^(https?:)//%i', $url, $matches);
-						if (is_int($protocolUrlMatch)) {
+						if (preg_match('%^(https?:)//%i', $url, $matches) === 1) {
 							$href = $matches[1] . $href;
 						} else {
 							$href = 'https:' . $href;
@@ -121,7 +120,6 @@ function download_favicon(string $url, string $dest): bool {
 			}
 		}
 	}
-	$filePutContent = file_put_contents($dest, $favicon);
-	return ($favicon != '' && is_int($filePutContent)) ||
+	return ($favicon != '' && file_put_contents($dest, $favicon) > 0) ||
 		@copy(DEFAULT_FAVICON, $dest);
 }
