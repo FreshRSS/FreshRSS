@@ -1,4 +1,4 @@
-FROM debian:11-slim
+FROM debian:12-slim
 
 ENV TZ UTC
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -35,12 +35,12 @@ LABEL \
 	org.opencontainers.image.vendor="FreshRSS" \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
-RUN a2dismod -f alias autoindex negotiation status && \
-	a2dismod auth_openidc && \
-	a2enmod deflate expires headers mime remoteip setenvif && \
-	a2disconf '*' && \
-	a2dissite '*' && \
-	a2ensite 'FreshRSS*'
+RUN a2dismod -q -f alias autoindex negotiation status && \
+	a2dismod -q auth_openidc && \
+	a2enmod -q deflate expires headers mime remoteip setenvif && \
+	a2disconf -q '*' && \
+	a2dissite -q '*' && \
+	a2ensite -q 'FreshRSS*'
 
 RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
