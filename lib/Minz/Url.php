@@ -119,7 +119,7 @@ class Minz_Url {
 		];
 	}
 
-	/** @param array<string,string|array<string,string>>|null $url */
+	/** @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url */
 	public static function serialize(?array $url = []): string {
 		if (empty($url)) {
 			return '';
@@ -137,7 +137,7 @@ class Minz_Url {
 	 */
 	public static function unserialize(string $url = ''): array {
 		try {
-			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR) ?? [];
+			return json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
 		} catch (\Throwable $exception) {
 			return [];
 		}

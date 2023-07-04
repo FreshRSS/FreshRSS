@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => '更新系統',
 		'apply' => '應用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '檢查更新',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => '當前 FreshRSS 版本為 %s。',
 		'last' => '上次檢查：%s',
+		'loading' => 'Updating…',	// TODO
 		'none' => '沒有可用更新',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => '系統更新',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理員',

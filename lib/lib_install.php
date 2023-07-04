@@ -40,15 +40,11 @@ function checkRequirements(string $dbType = ''): array {
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
-	// @phpstan-ignore-next-line
-	$data = DATA_PATH != '' && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
-	// @phpstan-ignore-next-line
-	$cache = CACHE_PATH != '' && touch(CACHE_PATH . '/index.html');
-	$tmp = TMP_PATH != '' && is_writable(TMP_PATH);
-	// @phpstan-ignore-next-line
-	$users = USERS_PATH != '' && touch(USERS_PATH . '/index.html');
-	// @phpstan-ignore-next-line
-	$favicons = DATA_PATH != '' && touch(DATA_PATH . '/favicons/index.html');
+	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
+	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
+	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
+	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',

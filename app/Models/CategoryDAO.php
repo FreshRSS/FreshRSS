@@ -430,13 +430,13 @@ SQL;
 		$list = [];
 		$previousLine = [];
 		$feedsDao = [];
-		$feedDao = FreshRSS_Factory::createFeedDAO();
+		$feedDao = FreshRSS_Factory::createFeedDao();
 		foreach ($listDAO as $line) {
 			if (!empty($previousLine['c_id']) && $line['c_id'] !== $previousLine['c_id']) {
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
-					$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
+					$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id($previousLine['c_id']);
 				$cat->_kind($previousLine['c_kind']);
@@ -454,7 +454,7 @@ SQL;
 		if ($previousLine != null) {
 			$cat = new FreshRSS_Category(
 				$previousLine['c_name'],
-				$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
+				$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id($previousLine['c_id']);
 			$cat->_kind($previousLine['c_kind']);

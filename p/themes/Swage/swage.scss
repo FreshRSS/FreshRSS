@@ -107,16 +107,6 @@ a {
 	color: var(--color-text-nav);
 	outline: none;
 
-	&.btn {
-		min-height: 25px;
-		line-height: 1.5;
-		text-decoration: none;
-
-		.icon {
-			filter: brightness(3);
-		}
-	}
-
 	&#btn-subscription {
 		width: 76%;
 	}
@@ -280,11 +270,13 @@ form {
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
-	min-height: 35px;
+	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
+	line-height: 1.5;
+	text-decoration: none;
 
 	&.active,
 	&:active,

@@ -23,12 +23,12 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		Minz_ActionController::$viewType = 'FreshRSS_View';
+		Minz_ActionController::$defaultViewType = FreshRSS_View::class;
 
 		FreshRSS_Context::initSystem();
 		if (FreshRSS_Context::$system_conf == null) {
 			$message = 'Error during context system init!';
-			Minz_Error::error(500, [$message], false);
+			Minz_Error::error(500, $message, false);
 			die($message);
 		}
 
@@ -51,7 +51,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		if (FreshRSS_Context::$user_conf == null) {
 			$message = 'Error during context user init!';
-			Minz_Error::error(500, [$message], false);
+			Minz_Error::error(500, $message, false);
 			die($message);
 		}
 
@@ -84,10 +84,7 @@ class FreshRSS extends Minz_FrontController {
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();
-				Minz_Error::error(403, array('error' => array(
-						_t('feedback.access.denied'),
-						' [CSRF]'
-					)));
+				Minz_Error::error(403, ['error' => [_t('feedback.access.denied'), ' [CSRF]']]);
 			}
 		}
 	}

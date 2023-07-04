@@ -41,11 +41,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$userConfig->passwordHash = $passwordHash;
 		}
 
-		if (is_array($userConfigUpdated)) {
-			foreach ($userConfigUpdated as $configName => $configValue) {
-				if ($configValue !== null) {
-					$userConfig->_param($configName, $configValue);
-				}
+		foreach ($userConfigUpdated as $configName => $configValue) {
+			if ($configValue !== null) {
+				$userConfig->_param($configName, $configValue);
 			}
 		}
 
@@ -224,9 +222,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		if (is_array($userConfigOverride)) {
-			$userConfig = array_merge($userConfig, $userConfigOverride);
-		}
+		$userConfig = array_merge($userConfig, $userConfigOverride);
 
 		$ok = self::checkUsername($new_user_name);
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
@@ -234,11 +230,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
-			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
+			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages, true)) {
 				$userConfig['language'] = 'en';
 			}
 
-			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
+			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()), true);	//Not an existing user, case-insensitive
 
 			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);
@@ -282,7 +278,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
-	 * @todo handle r redirection in Minz_Request::forward directly?
 	 */
 	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
@@ -376,10 +371,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 		Minz_Request::forward($redirect_url, true);
 	}
 
@@ -396,7 +388,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
 			$ok &= $oldUserDAO->deleteUser();
 			$ok &= recursive_unlink($user_data);
-			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
+			$filenames = glob(PSHB_PATH . '/feeds/*/' . $username . '.txt');
+			if (!empty($filenames)) {
+				array_map('unlink', $filenames);
+			}
 		}
 		return (bool)$ok;
 	}
@@ -535,10 +530,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -632,7 +624,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->details = $this->retrieveUserDetails($username);
 	}
 
-	/** @return array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
 	private function retrieveUserDetails(string $username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
@@ -640,7 +632,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		$userConfiguration = get_user_configuration($username);
 
-		return array(
+		return [
 			'feed_count' => $feedDAO->count(),
 			'article_count' => $entryDAO->count(),
 			'database_size' => $databaseDAO->size(),
@@ -648,8 +640,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			'mail_login' => $userConfiguration->mail_login,
 			'enabled' => $userConfiguration->enabled,
 			'is_admin' => $userConfiguration->is_admin,
-			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)),
+			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)) ?: '',
 			'is_default' => FreshRSS_Context::$system_conf->default_user === $username,
-		);
+		];
 	}
 }

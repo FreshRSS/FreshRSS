@@ -42,7 +42,7 @@ function notice(string $message): void {
 // Avoid having multiple actualization processes at the same time
 $mutexFile = TMP_PATH . '/actualize.freshrss.lock';
 $mutexTtl = 900; // seconds (refreshed before each new feed)
-if (file_exists($mutexFile) && ((time() - @filemtime($mutexFile)) > $mutexTtl)) {
+if (file_exists($mutexFile) && ((time() - (@filemtime($mutexFile) ?: 0)) > $mutexTtl)) {
 	unlink($mutexFile);
 }
 

@@ -49,7 +49,7 @@ class FreshRSS_View extends Minz_View {
 	public $signalError;
 
 	// Manage users
-	/** @var array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	/** @var array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
 	public $details;
 	/** @var bool */
 	public $disable_aside;
@@ -57,7 +57,7 @@ class FreshRSS_View extends Minz_View {
 	public $show_email_field;
 	/** @var string */
 	public $username;
-	/** @var array<array{'last_user_activity':int,'language':string,'enabled':bool,'is_admin':bool,'enabled':bool,'article_count':int,'database_size':int,'last_user_activity','mail_login':string,'feed_count':int,'is_default':bool}> */
+	/** @var array<array{'language':string,'enabled':bool,'is_admin':bool,'enabled':bool,'article_count':int,'database_size':int,'last_user_activity':string,'mail_login':string,'feed_count':int,'is_default':bool}> */
 	public $users;
 
 	// Updates
@@ -71,6 +71,8 @@ class FreshRSS_View extends Minz_View {
 	public $update_to_apply;
 	/** @var array<string,bool> */
 	public $status_database;
+	/** @var bool */
+	public $is_release_channel_stable;
 
 	// Archiving
 	/** @var int */
@@ -109,10 +111,6 @@ class FreshRSS_View extends Minz_View {
 	// Form login
 	/** @var int */
 	public $cookie_days;
-	/** @var string */
-	public $nonce;
-	/** @var string */
-	public $salt1;
 
 	// Registration
 	/** @var bool */
@@ -173,45 +171,5 @@ class FreshRSS_View extends Minz_View {
 	public $errorMessage;
 	/** @var array<string,string> */
 	public $message;
-
-	// Statistics
-	/** @var float */
-	public $average;
-	/** @var float */
-	public $averageDayOfWeek;
-	/** @var float */
-	public $averageHour;
-	/** @var float */
-	public $averageMonth;
-	/** @var array<string> */
-	public $days;
-	/** @var array<string,array<int,int|string>> */
-	public $entryByCategory;
-	/** @var array<int,int> */
-	public $entryCount;
-	/** @var array<string,array<int,int|string>> */
-	public $feedByCategory;
-	/** @var array<int, string> */
-	public $hours24Labels;
-	/** @var array<string,array<int,array<string,int|string>>> */
-	public $idleFeeds;
-	/** @var array<int,string> */
-	public $last30DaysLabel;
-	/** @var array<int,string> */
-	public $last30DaysLabels;
-	/** @var array<string,string> */
-	public $months;
-	/** @var array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false */
-	public $repartition;
-	/** @var array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false} */
-	public $repartitions;
-	/** @var array<int,int> */
-	public $repartitionDayOfWeek;
-	/** @var array<string,int>|array<int,int> */
-	public $repartitionHour;
-	/** @var array<int,int> */
-	public $repartitionMonth;
-	/** @var array<array{'id':int,'name':string,'category':string,'count':int}> */
-	public $topFeed;
 
 }

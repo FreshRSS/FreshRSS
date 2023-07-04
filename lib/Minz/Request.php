@@ -20,8 +20,8 @@ class Minz_Request {
 	/** @var string */
 	private static $default_action_name = 'index';
 
-	/** @var array{'c':string,'a':string,'params':array<string,mixed>}|null */
-	private static $originalRequest = null;
+	/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
+	private static $originalRequest = [];
 
 	/**
 	 * Getteurs
@@ -121,7 +121,7 @@ class Minz_Request {
 	 */
 	public static function paramTextToArray(string $key, array $default = []): array {
 		if (isset(self::$params[$key])) {
-			return preg_split('/\R/', self::$params[$key]);
+			return preg_split('/\R/', self::$params[$key]) ?: [];
 		}
 		return $default;
 	}
@@ -141,8 +141,8 @@ class Minz_Request {
 		];
 	}
 
-	/** @return array{'c':string,'a':string,'params':array<string,mixed>}|null */
-	public static function originalRequest(): ?array {
+	/** @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
+	public static function originalRequest() {
 		return self::$originalRequest;
 	}
 
@@ -219,7 +219,7 @@ class Minz_Request {
 		$prefix = self::extractPrefix();
 		$path = self::extractPath();
 
-		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL);
+		return filter_var("{$protocol}://{$host}{$port}{$prefix}{$path}", FILTER_SANITIZE_URL) ?: '';
 	}
 
 	private static function extractProtocol(): string {
@@ -231,11 +231,11 @@ class Minz_Request {
 
 	private static function extractHost(): string {
 		if ('' != $host = ($_SERVER['HTTP_X_FORWARDED_HOST'] ?? '')) {
-			return parse_url("http://{$host}", PHP_URL_HOST);
+			return parse_url("http://{$host}", PHP_URL_HOST) ?: 'localhost';
 		}
 		if ('' != $host = ($_SERVER['HTTP_HOST'] ?? '')) {
 			// Might contain a port number, and mind IPv6 addresses
-			return parse_url("http://{$host}", PHP_URL_HOST);
+			return parse_url("http://{$host}", PHP_URL_HOST) ?: 'localhost';
 		}
 		if ('' != $host = ($_SERVER['SERVER_NAME'] ?? '')) {
 			return $host;
@@ -276,7 +276,7 @@ class Minz_Request {
 	private static function extractPath(): string {
 		$path = $_SERVER['REQUEST_URI'] ?? '';
 		if ($path != '') {
-			$path = parse_url($path, PHP_URL_PATH);
+			$path = parse_url($path, PHP_URL_PATH) ?: '';
 			return substr($path, -1) === '/' ? rtrim($path, '/') : dirname($path);
 		}
 		return '';
@@ -288,7 +288,7 @@ class Minz_Request {
 	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
 		$url = trim($conf->base_url, ' /\\"');
-		return filter_var($url, FILTER_SANITIZE_URL);
+		return filter_var($url, FILTER_SANITIZE_URL) ?: '';
 	}
 
 	/**
@@ -310,14 +310,14 @@ class Minz_Request {
 			return false;
 		}
 
-		$is_public = !in_array($host, array(
+		$is_public = !in_array($host, [
 			'localhost',
 			'localhost.localdomain',
 			'[::1]',
 			'ip6-localhost',
 			'localhost6',
 			'localhost6.localdomain6',
-		));
+		], true);
 
 		if ($is_public) {
 			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
@@ -374,19 +374,13 @@ class Minz_Request {
 	}
 
 	/**
-	 * Relance une requête
-	 * @param string|array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url l'url vers laquelle est relancée la requête
-	 * @param bool $redirect si vrai, force la redirection http
-	 *                > sinon, le dispatcher recharge en interne
+	 * Restart a request
+	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url an array presentation of the URL to route to
+	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
 	 */
 	public static function forward($url = [], bool $redirect = false): void {
 		if (empty(Minz_Request::originalRequest())) {
 			self::$originalRequest = $url;
-		}
-
-		if (!is_array($url)) {
-			header('Location: ' . $url);
-			exit();
 		}
 
 		$url = Minz_Url::checkControllerUrl($url);
@@ -433,7 +427,8 @@ class Minz_Request {
 		if ('application/json' !== self::extractContentType()) {
 			return;
 		}
-		if ('' === $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576)) {
+		$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
+		if ($ORIGINAL_INPUT == false) {
 			return;
 		}
 		if (null === $json = json_decode($ORIGINAL_INPUT, true)) {

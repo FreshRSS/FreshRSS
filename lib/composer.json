@@ -11,10 +11,9 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0",
         "marienfressinaud/lib_opml": "0.5.1",
         "phpgt/cssxpath": "dev-master#4fbe420aba3d9e729940107ded4236a835a1a132",
-        "phpmailer/phpmailer": "6.6.0"
+        "phpmailer/phpmailer": "6.8.0"
     },
     "config": {
         "sort-packages": true,

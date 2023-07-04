@@ -2,7 +2,7 @@
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
-	const LASTUPDATEFILE = 'last_update.txt';
+	private const LASTUPDATEFILE = 'last_update.txt';
 
 	public static function isGit(): bool {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -44,10 +44,24 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return true;
 	}
 
+	public static function getCurrentGitBranch(): string {
+		$output = [];
+		exec('git branch --show-current', $output, $return);
+		if ($return === 0) {
+			return 'git branch: ' . $output[0];
+		} else {
+			return 'git';
+		}
+	}
+
 	public static function hasGitUpdate(): bool {
 		$cwd = getcwd();
+		if ($cwd === false) {
+			Minz_Log::warning('getcwd() failed');
+			return false;
+		}
 		chdir(FRESHRSS_PATH);
-		$output = array();
+		$output = [];
 		try {
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
@@ -68,7 +82,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	/** @return string|true */
 	public static function gitPull() {
+		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
+		if ($cwd === false) {
+			Minz_Log::warning('getcwd() failed');
+			return 'getcwd() failed';
+		}
 		chdir(FRESHRSS_PATH);
 		$output = [];
 		$return = 1;
@@ -101,6 +120,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		include_once(LIB_PATH . '/lib_install.php');
 
 		invalidateHttpCache();
+
+		$this->view->is_release_channel_stable = $this->is_release_channel_stable(FRESHRSS_VERSION);
 
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
@@ -136,7 +157,17 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	private function is_release_channel_stable(string $currentVersion): bool {
+		return strpos($currentVersion, 'dev') === false &&
+			strpos($currentVersion, 'edge') === false;
+	}
+
+	/*  Check installation if there is a newer version.
+		via Git, if available.
+		Else via system configuration  auto_update_url
+	*/
 	public function checkAction(): void {
+		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
@@ -149,15 +180,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 
 		$script = '';
-		$version = '';
 
 		if (self::isGit()) {
 			if (self::hasGitUpdate()) {
-				$version = 'git';
+				$version = self::getCurrentGitBranch();
 			} else {
 				$this->view->message = array(
 					'status' => 'latest',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
@@ -166,34 +195,42 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		} else {
 			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '/?v=' . FRESHRSS_VERSION;
 			Minz_Log::debug('HTTP GET ' . $auto_update_url);
-			$c = curl_init($auto_update_url);
-			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
-			$result = curl_exec($c);
-			$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-			$c_error = curl_error($c);
-			curl_close($c);
+			$curlResource = curl_init($auto_update_url);
 
-			if ($c_status !== 200) {
+			if ($curlResource === false) {
+				Minz_Log::warning('curl_init() failed');
+				$this->view->message = [
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.server_not_found', $auto_update_url)
+				];
+				return;
+			}
+			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curlResource, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($curlResource, CURLOPT_SSL_VERIFYHOST, 2);
+			$result = curl_exec($curlResource);
+			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
+			$curlError = curl_error($curlResource);
+			curl_close($curlResource);
+
+			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(
-					'Error during update (HTTP code ' . $c_status . '): ' . $c_error
+					'Error during update (HTTP code ' . $curlGetinfo . '): ' . $curlError
 				);
 
 				$this->view->message = array(
 					'status' => 'bad',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.server_not_found', $auto_update_url)
 				);
 				return;
 			}
 
-			$res_array = explode("\n", $result, 2);
+			$res_array = explode("\n", (string)$result, 2);
 			$status = $res_array[0];
 			if (strpos($status, 'UPDATE') !== 0) {
 				$this->view->message = array(
 					'status' => 'latest',
-					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
@@ -203,6 +240,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$script = $res_array[1];
 			$version = explode(' ', $status, 2);
 			$version = $version[1];
+
+			Minz_Log::notice(_t('admin.update.copiedFromURL', $auto_update_url));
 		}
 
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
@@ -211,7 +250,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
 				'body' => _t('feedback.update.error', 'Cannot save the update script')
 			);
 		}
@@ -236,8 +274,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
+				Minz_Log::notice(_t('feedback.update.finished'));
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
+				Minz_Log::error(_t('feedback.update.error', $res));
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
@@ -271,6 +311,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'params' => array('post_conf' => '1')
 				), true);
 			} else {
+				Minz_Log::error(_t('feedback.update.error', $res));
 				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}

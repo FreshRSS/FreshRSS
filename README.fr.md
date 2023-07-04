@@ -17,7 +17,9 @@ FreshRSS est capable de recevoir des notifications push instantanées depuis les
 
 FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
 
-Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
+Plusieurs [méthodes de connexion](https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html) sont supportées : formulaire Web (avec un mode anonyme), Authentification HTTP (compatible avec proxy), OpenID Connect.
+
+Enfin, FreshRSS permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : <https://freshrss.org>
 * Démo : <http://demo.freshrss.org/>
@@ -30,7 +32,7 @@ Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de per
 Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 Nous sommes une communauté amicale.
 
-Pour faciliter les contributions, l’option suivante est disponible :
+Pour faciliter les contributions, [l’option suivante](.devcontainer/README.md) est disponible :
 
 [![Ouvrir dans GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=edge&repo=6322699)
 
@@ -252,3 +254,12 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+
+# Alternatives
+
+Si FreshRSS ne vous convient pas pour une raison ou pour une autre, voici d’autres solutions à considérer :
+
+* [Kriss Feed](https://tontof.net/kriss/feed/)
+* [Leed](https://github.com/LeedRSS/Leed)
+* [Et plus…](https://framalibre.org/tags/lecteur-de-flux-rss)
+* [Et encore plus…](https://alternativeto.net/software/freshrss/) (mais si vous appréciez FreshRSS, mettez un “j’aime” !)

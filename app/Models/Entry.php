@@ -21,6 +21,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $link;
 	/** @var int */
 	private $date;
+	/** @var int */
+	private $lastSeen = 0;
 	/** @var string In microseconds */
 	private $date_added = '0';
 	/** @var string */
@@ -42,9 +44,10 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @param int|string $pubdate
 	 * @param bool|int|null $is_read
 	 * @param bool|int|null $is_favorite
+	 * @param string|array<string> $tags
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
-			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, string $tags = '') {
+			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -57,8 +60,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,
-	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string,'categories'?:string} $dao */
+	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
+	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
@@ -92,8 +95,8 @@ class FreshRSS_Entry extends Minz_Model {
 		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']) ?: 0);
 		}
-		if (!empty($dao['categories'])) {
-			$entry->_tags($dao['categories']);
+		if (isset($dao['lastSeen'])) {
+			$entry->_lastSeen($dao['lastSeen']);
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);
@@ -156,9 +159,9 @@ class FreshRSS_Entry extends Minz_Model {
 
 		$content = $this->content;
 
-		$thumbnail = $this->attributes('thumbnail');
-		if (!empty($thumbnail['url'])) {
-			$elink = $thumbnail['url'];
+		$thumbnailAttribute = $this->attributes('thumbnail');
+		if (!empty($thumbnailAttribute['url'])) {
+			$elink = $thumbnailAttribute['url'];
 			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
 			$content .= <<<HTML
 <figure class="enclosure">
@@ -243,7 +246,7 @@ HTML;
 			if ($searchEnclosures || $searchBodyImages) {
 				$dom = new DOMDocument();
 				$dom->loadHTML('<?xml version="1.0" encoding="UTF-8" ?>' . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-				$xpath = new DOMXpath($dom);
+				$xpath = new DOMXPath($dom);
 			}
 			if ($searchEnclosures) {
 				// Legacy code for database entries < FreshRSS 1.20.1
@@ -325,6 +328,10 @@ HTML;
 	}
 	public function machineReadableDate(): string {
 		return @date (DATE_ATOM, $this->date);
+	}
+
+	public function lastSeen(): int {
+		return $this->lastSeen;
 	}
 
 	/**
@@ -425,9 +432,10 @@ HTML;
 		}
 	}
 	public function _guid(string $value): void {
-		if ($value == '') {
+		$value = trim($value);
+		if (empty($value)) {
 			$value = $this->link;
-			if ($value == '') {
+			if (empty($value)) {
 				$value = $this->hash();
 			}
 		}
@@ -461,7 +469,7 @@ HTML;
 	}
 	public function _link(string $value): void {
 		$this->hash = '';
-		$this->link = $value;
+		$this->link = trim($value);
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
@@ -469,6 +477,11 @@ HTML;
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
+
+	public function _lastSeen(int $value): void {
+		$this->lastSeen = $value > 0 ? $value : 0;
+	}
+
 	/** @param int|string $value */
 	public function _dateAdded($value, bool $microsecond = false): void {
 		if ($microsecond) {
@@ -522,10 +535,10 @@ HTML;
 				// Searches are combined by OR and are not recursive
 				$ok = true;
 				if ($filter->getEntryIds()) {
-					$ok &= in_array($this->id, $filter->getEntryIds());
+					$ok &= in_array($this->id, $filter->getEntryIds(), true);
 				}
 				if ($ok && $filter->getNotEntryIds()) {
-					$ok &= !in_array($this->id, $filter->getNotEntryIds());
+					$ok &= !in_array($this->id, $filter->getNotEntryIds(), true);
 				}
 				if ($ok && $filter->getMinDate()) {
 					$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
@@ -552,10 +565,10 @@ HTML;
 					$ok &= $this->date > $filter->getNotMaxPubdate();
 				}
 				if ($ok && $filter->getFeedIds()) {
-					$ok &= in_array($this->feedId, $filter->getFeedIds());
+					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
 				}
 				if ($ok && $filter->getNotFeedIds()) {
-					$ok &= !in_array($this->feedId, $filter->getFeedIds());
+					$ok &= !in_array($this->feedId, $filter->getFeedIds(), true);
 				}
 				if ($ok && $filter->getAuthor()) {
 					foreach ($filter->getAuthor() as $author) {
@@ -627,14 +640,14 @@ HTML;
 		return (bool)$ok;
 	}
 
-	/** @param array<string,int> $titlesAsRead  */
+	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
 		if ($this->feed != null) {
 			if ($this->feed->attributes('read_upon_reception') ||
 				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
 				$this->_isRead(true);
 			}
-			if (isset($titlesAsRead[$this->title()])) {
+			if (!empty($titlesAsRead[$this->title()])) {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
 			}
@@ -719,7 +732,7 @@ HTML;
 							$filterednode->parentNode->removeChild($filterednode);
 						}
 					}
-					$content .= $doc->saveHtml($node) . "\n";
+					$content .= $doc->saveHTML($node) . "\n";
 				}
 			}
 			$html = trim(sanitizeHTML($content, $base));
@@ -776,7 +789,7 @@ HTML;
 	}
 
 	/**
-	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
 	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
 	 */
 	public function toArray(): array {
@@ -788,6 +801,7 @@ HTML;
 			'content' => $this->content(false),
 			'link' => $this->link(),
 			'date' => $this->date(true),
+			'lastSeen' => $this->lastSeen(),
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),

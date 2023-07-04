@@ -20,7 +20,7 @@
 					placeholder="<?= _t('gen.menu.search') ?>" />
 
 				<?php $param_a = Minz_Request::actionName(); ?>
-				<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+				<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
 				<input type="hidden" name="a" value="<?= $param_a ?>" />
 				<?php } ?>
 

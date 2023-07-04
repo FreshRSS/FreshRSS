@@ -144,34 +144,25 @@ table td span {
 }
 
 /*=== Buttons */
-.btn,
-a.btn {
+.btn {
 	margin: .3rem .3rem;
+	padding: 5px 10px;
 	background: var(--accent-bg);
 	color: var(--accent);
+	font-size: 0.9rem;
 	border: none;
 	border-radius: 5px;
-
 	text-decoration: none;
 	transition: .4s;
+	min-height: 25px;
+	min-width: 15px;
+	vertical-align: middle;
+	line-height: 25px;
 }
 
-a.btn.active {
+.btn.active {
 	background-color: var(--accent-bg);
 	border: 1px solid var(--border);
-}
-
-.btn {
-	padding: 5px 10px;
-	min-height: 37px;
-	min-width: 15px;
-	font-size: 0.9rem;
-	vertical-align: middle;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn-important, #nav_menu_read_all .read_all, #actualize {

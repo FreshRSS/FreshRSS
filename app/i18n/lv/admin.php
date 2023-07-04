@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Atjaunināt sistēmu',
 		'apply' => 'Pieteikties',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Jaunu atjauninājumu pārbaude',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
 		'last' => 'Pēdējā verifikācija: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Atjaunināt sistēmu',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrators',

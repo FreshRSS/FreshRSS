@@ -17,7 +17,7 @@ return array(
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
 		'keep_favourites' => 'Lieblingsartikel behalten',
 		'keep_labels' => 'Artikel mit Label behalten',
-		'keep_max' => 'Maximale Anzahl an Artikeln die behalten werden',
+		'keep_max' => 'Maximale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_period' => 'Maximales Alter der zu behaltenden Artikel',
 		'keep_unreads' => 'Ungelesene Artikel behalten',

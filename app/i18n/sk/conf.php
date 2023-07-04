@@ -17,7 +17,7 @@ return array(
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
 		'keep_favourites' => 'Nikdy nemazať obľúbené',
 		'keep_labels' => 'Nikdy nemazať štítky',
-		'keep_max' => 'Maximálny počet článkov na zachovanie',
+		'keep_max' => 'Maximálny počet článkov na zachovanie',	// DIRTY
 		'keep_min_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
 		'keep_period' => 'Maximálny vek článkov na zachovanie',
 		'keep_unreads' => 'Nikdy nemazať neprečítané články',

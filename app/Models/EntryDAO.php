@@ -221,7 +221,7 @@ SQL;
 	/** @var PDOStatement|null */
 	private $updateEntryPrepared = null;
 
-	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'hash':string,
+	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
 	public function updateEntry(array $valuesTmp): bool {
 		if (!isset($valuesTmp['is_read'])) {
@@ -260,7 +260,6 @@ SQL;
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$valuesTmp['lastSeen'] = time();
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			if ($valuesTmp['is_read'] === null) {
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
@@ -1274,7 +1273,7 @@ SQL;
 
 	/**
 	 * @param array<string> $guids
-	 * @return int|false The number of affected feeds, or false if error
+	 * @return int|false The number of affected entries, or false if error
 	 */
 	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0) {
 		if (count($guids) < 1) {
@@ -1304,6 +1303,37 @@ SQL;
 			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
 				. ' while updating feed ' . $id_feed);
+			return false;
+		}
+	}
+
+	/**
+	 * Update (touch) the last seen attribute of the latest entries of a given feed.
+	 * Useful when a feed is unchanged / cached.
+	 * To be performed just before {@see FreshRSS_FeedDAO::updateLastUpdate()}
+	 * @return int|false The number of affected entries, or false in case of error
+	 */
+	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
+		$sql = <<<'SQL'
+UPDATE `_entry` SET `lastSeen` = :mtime
+WHERE id_feed = :id_feed1 AND `lastSeen` = (
+	SELECT `lastUpdate` FROM `_feed` f
+	WHERE f.id = :id_feed2
+)
+SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($mtime <= 0) {
+			$mtime = time();
+		}
+		if ($stm !== false &&
+			$stm->bindValue(':mtime', $mtime, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed1', $id_feed, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed2', $id_feed, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' while updating feed ' . $id_feed);
 			return false;
 		}
 	}

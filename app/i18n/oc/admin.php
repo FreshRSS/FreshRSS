@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Sistèma de mesa a jorn',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Verificar las mesas a jorn',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
 		'last' => 'Darrièra verificacion : %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Cap d’actualizacion d’aplicar',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Sistèma de mesa a jorn',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

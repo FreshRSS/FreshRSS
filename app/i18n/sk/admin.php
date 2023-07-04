@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Aktualizácia systému',
 		'apply' => 'Použiť',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Skontrolovať aktualizácie',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vaša aktuálna verzia FreshRSS: %s',
 		'last' => 'Posledná kontrola: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Žiadna nová aktualizácia',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aktualizácia systému',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrátor',
