@@ -620,8 +620,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
+
 		$this->view->username = $username;
 		$this->view->details = $this->retrieveUserDetails($username);
+		FreshRSS_View::prependTitle($username . ' · ' . _t('gen.menu.user_management') . ' · ');
 	}
 
 	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */

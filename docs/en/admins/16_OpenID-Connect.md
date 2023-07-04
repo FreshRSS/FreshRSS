@@ -20,6 +20,8 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_CLIENT_ID`: The OIDC client id from your issuer.
 * `OIDC_CLIENT_SECRET`: The OIDC client secret issuer.
 * `OIDC_CLIENT_CRYPTO_KEY`: An opaque key used for internal encryption.
+* `OIDC_REMOTE_USER_CLAIM`: The claim to use as the username within FreshRSS. Defaults to `preferred_username`. Depending on what you choose here, and your identity provider, you’ll need to adjust the scopes you request so that this claim will be accessible. Refer to your identity provider’s documentation.
+* `OIDC_SCOPES`: The OIDC scopes to request. Defaults to `openid`. As mentioned previously, make sure the scopes you pick contain whatever `OIDC_REMOTE_USER_CLAIM` you chose.
 
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
 
