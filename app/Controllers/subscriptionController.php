@@ -107,7 +107,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$feed = $this->view->feeds[$id];
 		$this->view->feed = $feed;
 
-		FreshRSS_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $feed->name() . ' · ');
+		FreshRSS_View::prependTitle($feed->name() . ' · ' . _t('sub.title.feed_management') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$user = Minz_Request::paramString('http_user_feed' . $id);
@@ -283,7 +283,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	}
 
 	public function categoryAction(): void {
-		$this->view->_layout(null);
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 
@@ -294,6 +296,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			return;
 		}
 		$this->view->category = $category;
+
+		FreshRSS_View::prependTitle($category->name() . ' · ' . _t('sub.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {

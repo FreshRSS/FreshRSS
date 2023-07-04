@@ -323,12 +323,13 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->feeds = $feed_dao->listFeeds();
 		$this->view->tags = $tag_dao->listTags() ?: [];
 
-		$id = Minz_Request::paramInt('id');
-		$this->view->displaySlider = false;
-		if ($id !== 0) {
-			$this->view->displaySlider = true;
+		if (Minz_Request::paramTernary('id') !== null) {
+			$id = Minz_Request::paramInt('id');
 			$this->view->query = $this->view->queries[$id];
 			$this->view->queryId = $id;
+			$this->view->displaySlider = true;
+		} else {
+			$this->view->displaySlider = false;
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.query.title') . ' · ');
@@ -340,7 +341,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * applied to the selected query.
 	 */
 	public function queryAction(): void {
-		$this->view->_layout(null);
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
 
 		$id = Minz_Request::paramInt('id');
 		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::$user_conf->queries[$id])) {
@@ -369,22 +372,22 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['state']) && is_array($params['state'])) {
 				$queryParams['state'] = (int)(array_sum($params['state']));
 			}
-			$queryParams['url'] = Minz_Url::display(['params' => $params]);
 			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
 			if ('' === $name) {
 				$name = _t('conf.query.number', $id + 1);
 			}
 			$queryParams['name'] = $name;
+			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 
 			$queries = FreshRSS_Context::$user_conf->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, $feed_dao, $category_dao, $tag_dao))->toArray();
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => $id] ]);
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ]);
 		}
 
-		FreshRSS_View::prependTitle(_t('conf.query.title') . ' · ' . $query->getName() . ' · ');
+		FreshRSS_View::prependTitle($query->getName() . ' · ' . _t('conf.query.title') . ' · ');
 	}
 
 	/**

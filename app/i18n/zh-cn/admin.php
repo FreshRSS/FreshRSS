@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => '更新系统',
 		'apply' => '应用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '检查更新',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => '当前 FreshRSS 版本为 %s。',
 		'last' => '上次检查：%s',
+		'loading' => 'Updating…',	// TODO
 		'none' => '没有可用更新',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => '更新系统',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理员',

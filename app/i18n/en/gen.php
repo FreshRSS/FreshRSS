@@ -175,7 +175,7 @@ return array(
 		'queries' => 'User queries',
 		'reading' => 'Reading',
 		'search' => 'Search words or #tags',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',
 		'sharing' => 'Sharing',
 		'shortcuts' => 'Shortcuts',
 		'stats' => 'Statistics',
@@ -196,11 +196,11 @@ return array(
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'blogotext' => 'Blogotext',
-		'buffer' => 'Buffer',	// IGNORE
+		'buffer' => 'Buffer',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
@@ -209,6 +209,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',

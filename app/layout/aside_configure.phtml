@@ -47,7 +47,7 @@ function get_logout_url(): string {
 				<li class="item<?= Minz_Request::actionName() === 'shortcut' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
+				<li class="item<?= in_array(Minz_Request::actionName(), ['queries', 'query'], true) ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
 				</li>
 				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
@@ -69,7 +69,7 @@ function get_logout_url(): string {
 				<li class="item<?= Minz_Request::actionName() === 'system' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::controllerName() === 'user' && in_array(Minz_Request::actionName(), ['manage', 'details'], true) ? ' active' : '' ?>">
 					<a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a>
 				</li>
 				<li class="item<?= Minz_Request::controllerName() === 'auth' ? ' active' : '' ?>">

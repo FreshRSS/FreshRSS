@@ -192,11 +192,20 @@ return array(
 	'update' => array(
 		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'FreshRSS versione %s.',
 		'last' => 'Ultima verifica: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Nessun aggiornamento da applicare',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aggiorna sistema',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Amministratore',

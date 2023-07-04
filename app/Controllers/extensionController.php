@@ -80,7 +80,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	public function configureAction(): void {
 		if (Minz_Request::paramBoolean('ajax')) {
 			$this->view->_layout(null);
-		} else {
+		} elseif (Minz_Request::paramBoolean('slider')) {
 			$this->indexAction();
 			$this->view->_path('extension/index.phtml');
 		}
@@ -97,6 +97,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
+		FreshRSS_View::prependTitle($ext->getName() . ' · ' . _t('admin.extensions.title') . ' · ');
 		$this->view->extension = $ext;
 		$this->view->extension->handleConfigureAction();
 	}

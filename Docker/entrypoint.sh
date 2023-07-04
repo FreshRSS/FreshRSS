@@ -11,6 +11,10 @@ if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
 fi
 
+if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
+	a2enmod -q auth_openidc
+fi
+
 if [ -n "$CRON_MIN" ]; then
 	(
 		echo "export TZ=$TZ"

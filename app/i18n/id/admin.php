@@ -190,13 +190,22 @@ return array(
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO
-		'apply' => 'Apply',	// TODO
+		'_' => 'Update system',	// DIRTY
+		'apply' => 'Apply',	// DIRTY
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
 		'last' => 'Verifikasi terakhir: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Perbarui Sistem',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO
