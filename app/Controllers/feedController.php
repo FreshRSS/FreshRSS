@@ -479,8 +479,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							$entry->_isFavorite(null);	// Do not change favourite state
+							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							if ($mark_updated_article_unread) {
+								Minz_ExtensionManager::callHook('entry_auto_unread', $entry, 'updated_article');
+							}
+
+							$entry->applyFilterActions($titlesAsRead);
+							if ($readWhenSameTitleInFeed > 0) {
+								$titlesAsRead[$entry->title()] = true;
+							}
 
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if (!($entry instanceof FreshRSS_Entry)) {
