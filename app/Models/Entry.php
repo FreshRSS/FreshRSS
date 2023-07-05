@@ -643,20 +643,27 @@ HTML;
 	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
 		if ($this->feed != null) {
-			if ($this->feed->attributes('read_upon_reception') ||
-				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
-				$this->_isRead(true);
-			}
-			if (!empty($titlesAsRead[$this->title()])) {
-				Minz_Log::debug('Mark title as read: ' . $this->title());
-				$this->_isRead(true);
+			if (!$this->isRead()) {
+				if ($this->feed->attributes('read_upon_reception') ||
+					($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+					$this->_isRead(true);
+					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
+				}
+				if (!empty($titlesAsRead[$this->title()])) {
+					Minz_Log::debug('Mark title as read: ' . $this->title());
+					$this->_isRead(true);
+					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+				}
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
 				if ($this->matches($filterAction->booleanSearch())) {
 					foreach ($filterAction->actions() as $action) {
 						switch ($action) {
 							case 'read':
-								$this->_isRead(true);
+								if (!$this->isRead()) {
+									$this->_isRead(true);
+									Minz_ExtensionManager::callHook('entry_auto_read', $this, 'filter');
+								}
 								break;
 							case 'star':
 								$this->_isFavorite(true);

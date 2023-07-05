@@ -187,13 +187,13 @@ Your class will benefit from four methods to redefine:
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
 
-```html
+```php
 class HelloWorldExtension extends Minz_Extension
 {
-	public function init() {
-		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+	public function init(): void {
+		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
 	}
-	public function renderEntry($entry) {
+	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
 		$entry->_content('<h1>Hello World</h1>' . $entry->content());
 		return $entry;
 	}
@@ -206,6 +206,10 @@ The following events are available:
 	every time a URL is added. The URL itself will be passed as
 	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
+* `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`):
+	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`):
+	Appelé lorsqu’une entrée est automatiquement marquée comme non-lue. Le paramètre *why* supporte les règles {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
 	executed every time an entry is rendered. The entry itself (instance of
 	FreshRSS\_Entry) will be passed as parameter.

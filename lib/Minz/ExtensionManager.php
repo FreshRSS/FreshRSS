@@ -26,6 +26,14 @@ final class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'entry_auto_read' => array(	// function(FreshRSS_Entry $entry, string $why): void
+			'list' => array(),
+			'signature' => 'PassArguments',
+		),
+		'entry_auto_unread' => array(	// function(FreshRSS_Entry $entry, string $why): void
+			'list' => array(),
+			'signature' => 'PassArguments',
+		),
 		'entry_before_display' => array(	// function($entry) -> Entry | null
 			'list' => array(),
 			'signature' => 'OneToOne',
