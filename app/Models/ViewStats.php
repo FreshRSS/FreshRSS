@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 final class FreshRSS_ViewStats extends FreshRSS_View {
 
 	/** @var FreshRSS_Category|null */
