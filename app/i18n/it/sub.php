@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Timeout in secondi',
 		'title' => 'Titolo',
 		'title_add' => 'Aggiungi RSS feed',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Non aggiornare automaticamente piu di',
 		'url' => 'URL del feed',
 		'useragent' => 'Imposta lo user agent per recuperare questo feed',

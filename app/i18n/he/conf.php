@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
 		'title' => 'קריאה',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',
 			'global' => 'תצוגה גלובלית',

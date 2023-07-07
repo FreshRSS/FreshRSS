@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Таймаут в секундах',
 		'title' => 'Заголовок',
 		'title_add' => 'Добавить RSS-ленту',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
 		'url' => 'URL ленты',
 		'useragent' => 'Указать юзерагент для извлечения лент',

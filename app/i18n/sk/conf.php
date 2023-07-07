@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',
 			'global' => 'Prehľadné zobrazenie',

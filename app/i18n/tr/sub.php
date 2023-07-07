@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Zaman aşımı (saniye)',
 		'title' => 'Başlık',
 		'title_add' => 'RSS akışı ekle',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',
 		'url' => 'Akış URL',
 		'useragent' => 'Bu akışı yüklemek için user agent kullan',

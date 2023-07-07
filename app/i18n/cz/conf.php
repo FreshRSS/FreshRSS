@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
 		'title' => 'Čtení',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Výchozí zobrazení',
 			'global' => 'Zobrazení přehledu',

@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Öntanımlı görünüm',
 			'global' => 'Evrensel görünüm',

@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Časový limit v sekundách',
 		'title' => 'Název',
 		'title_add' => 'Přidat kanál RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Neobnovovat automaticky častěji než',
 		'url' => 'Adresa URL kanálu',
 		'useragent' => 'Nastavte uživatelský agent pro načítání tohoto kanálu',

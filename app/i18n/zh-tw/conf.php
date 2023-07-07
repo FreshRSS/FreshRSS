@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => '打開文章時將其置於頁首',
 		'title' => '閱讀',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => '預設視圖',
 			'global' => '全屏視圖',

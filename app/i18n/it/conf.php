@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
 		'title' => 'Lettura',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',
 			'global' => 'Vista globale per categorie',

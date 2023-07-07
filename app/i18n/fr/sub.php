@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Délai d’attente en secondes',
 		'title' => 'Titre',
 		'title_add' => 'Ajouter un flux RSS',
+		'title_rewriting' => array(
+			'help' => 'Explorez la documentation en ligne pour obtenir des détails sur la ré-écriture des titres',
+		),
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'url' => 'URL du flux',
 		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',

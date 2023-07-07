@@ -230,6 +230,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed->_attributes('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
+			$feed->_attributes('title_rewriting', Minz_Request::paramString('title_rewriting'));
 
 			$values = array(
 				'name' => Minz_Request::paramString('name'),

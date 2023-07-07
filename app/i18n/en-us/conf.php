@@ -230,6 +230,7 @@ return array(
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
 		'title' => 'Reading',	// IGNORE
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Default view',	// IGNORE
 			'global' => 'Global view',	// IGNORE

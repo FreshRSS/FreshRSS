@@ -162,6 +162,9 @@ return array(
 		'timeout' => '超时时间（秒）',
 		'title' => '标题',
 		'title_add' => '添加订阅源',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => '最小自动更新间隔',
 		'url' => '源地址',
 		'useragent' => '设置用于获取此源的 User Agent',

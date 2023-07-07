@@ -162,6 +162,9 @@ return array(
 		'timeout' => 'Temps d’espèra en segondas',
 		'title' => 'Títol',
 		'title_add' => 'Ajustar un flux RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 		'url' => 'Flux URL',
 		'useragent' => 'Definir un user agent per recuperar aqueste flux',
