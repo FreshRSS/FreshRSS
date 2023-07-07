@@ -70,9 +70,7 @@ class Minz_Migrator
 		}
 
 		$migrator = new self($migrations_path);
-		if ($applied_migrations) {
-			$migrator->setAppliedVersions($applied_migrations);
-		}
+		$migrator->setAppliedVersions($applied_migrations);
 		$results = $migrator->migrate();
 
 		foreach ($results as $migration => $result) {

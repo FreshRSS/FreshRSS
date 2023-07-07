@@ -78,13 +78,14 @@ function searchFavicon(string &$url): string {
 					$href = trim($link->getAttribute('href'));
 					if (substr($href, 0, 2) === '//') {
 						// Case of protocol-relative URLs
-						if (preg_match('%^(https?:)//%i', $url, $matches)) {
+						if (preg_match('%^(https?:)//%i', $url, $matches) === 1) {
 							$href = $matches[1] . $href;
 						} else {
 							$href = 'https:' . $href;
 						}
 					}
-					if (!checkUrl($href, false)) {
+					$checkUrl = checkUrl($href, false);
+					if (is_string($checkUrl)) {
 						$href = SimplePie_IRI::absolutize($url, $href);
 					}
 					$favicon = downloadHttp($href, array(
@@ -119,6 +120,6 @@ function download_favicon(string $url, string $dest): bool {
 			}
 		}
 	}
-	return ($favicon != '' && file_put_contents($dest, $favicon)) ||
+	return ($favicon != '' && file_put_contents($dest, $favicon) > 0) ||
 		@copy(DEFAULT_FAVICON, $dest);
 }
