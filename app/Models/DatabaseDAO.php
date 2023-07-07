@@ -6,18 +6,18 @@
 class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	//MySQL error codes
-	const ER_BAD_FIELD_ERROR = '42S22';
-	const ER_BAD_TABLE_ERROR = '42S02';
-	const ER_DATA_TOO_LONG = '1406';
+	public const ER_BAD_FIELD_ERROR = '42S22';
+	public const ER_BAD_TABLE_ERROR = '42S02';
+	public const ER_DATA_TOO_LONG = '1406';
 
 	/**
 	 * Based on SQLite SQLITE_MAX_VARIABLE_NUMBER
 	 */
-	const MAX_VARIABLE_NUMBER = 998;
+	public const MAX_VARIABLE_NUMBER = 998;
 
 	//MySQL InnoDB maximum index length for UTF8MB4
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
-	const LENGTH_INDEX_UNICODE = 191;
+	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
@@ -53,14 +53,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			return false;
 		}
 
-		$tables = array(
+		$tables = [
 			$this->pdo->prefix() . 'category' => false,
 			$this->pdo->prefix() . 'feed' => false,
 			$this->pdo->prefix() . 'entry' => false,
 			$this->pdo->prefix() . 'entrytmp' => false,
 			$this->pdo->prefix() . 'tag' => false,
 			$this->pdo->prefix() . 'entrytag' => false,
-		);
+		];
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
 		}
@@ -90,43 +90,59 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function categoryIsCorrect(): bool {
-		return $this->checkTable('category', array(
-			'id', 'name',
-		));
+		return $this->checkTable('category', ['id', 'name']);
 	}
 
 	public function feedIsCorrect(): bool {
-		return $this->checkTable('feed', array(
-			'id', 'url', 'category', 'name', 'website', 'description', 'lastUpdate',
-			'priority', 'pathEntries', 'httpAuth', 'error', 'ttl', 'attributes',
-			'cache_nbEntries', 'cache_nbUnreads',
-		));
+		return $this->checkTable('feed', [
+			'id',
+			'url',
+			'category',
+			'name',
+			'website',
+			'description',
+			'lastUpdate',
+			'priority',
+			'pathEntries',
+			'httpAuth',
+			'error',
+			'ttl',
+			'attributes',
+			'cache_nbEntries',
+			'cache_nbUnreads',
+		]);
 	}
 
 	public function entryIsCorrect(): bool {
-		return $this->checkTable('entry', array(
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entry', [
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content_bin',
+			'link',
+			'date',
+			'lastSeen',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+		]);
 	}
 
 	public function entrytmpIsCorrect(): bool {
-		return $this->checkTable('entrytmp', array(
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entrytmp', [
+			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
+		]);
 	}
 
 	public function tagIsCorrect(): bool {
-		return $this->checkTable('tag', array(
-			'id', 'name', 'attributes',
-		));
+		return $this->checkTable('tag', ['id', 'name', 'attributes']);
 	}
 
 	public function entrytagIsCorrect(): bool {
-		return $this->checkTable('entrytag', array(
-			'id_tag', 'id_entry',
-		));
+		return $this->checkTable('entrytag', ['id_tag', 'id_entry']);
 	}
 
 	/**
@@ -147,7 +163,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	 * @return array<array<string,string|int|bool|null>>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
-		$list = array();
+		$list = [];
 
 		foreach ($listDAO as $dao) {
 			$list[] = $this->daoToSchema($dao);
@@ -174,7 +190,7 @@ SQL;
 
 	public function optimize(): bool {
 		$ok = true;
-		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
+		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];
 
 		foreach ($tables as $table) {
 			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
@@ -219,8 +235,8 @@ SQL;
 		return false;
 	}
 
-	const SQLITE_EXPORT = 1;
-	const SQLITE_IMPORT = 2;
+	public const SQLITE_EXPORT = 1;
+	public const SQLITE_IMPORT = 2;
 
 	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
 		if (!extension_loaded('pdo_sqlite')) {

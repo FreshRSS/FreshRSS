@@ -13,14 +13,14 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			return false;
 		}
 
-		$tables = array(
+		$tables = [
 			$this->pdo->prefix() . 'category' => false,
 			$this->pdo->prefix() . 'feed' => false,
 			$this->pdo->prefix() . 'entry' => false,
 			$this->pdo->prefix() . 'entrytmp' => false,
 			$this->pdo->prefix() . 'tag' => false,
 			$this->pdo->prefix() . 'entrytag' => false,
-		);
+		];
 		foreach ($res as $value) {
 			$tables[$value['name']] = true;
 		}
@@ -36,17 +36,15 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	public function entryIsCorrect(): bool {
-		return $this->checkTable('entry', array(
-			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entry', [
+			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags',
+		]);
 	}
 
 	public function entrytmpIsCorrect(): bool {
-		return $this->checkTable('entrytmp', array(
-			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entrytmp', [
+			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
+		]);
 	}
 
 	/**

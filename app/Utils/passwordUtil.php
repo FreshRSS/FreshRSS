@@ -12,7 +12,7 @@ class FreshRSS_password_Util {
 		$passwordHash = password_hash(
 			$passwordPlain,
 			PASSWORD_BCRYPT,
-			array('cost' => self::BCRYPT_COST)
+			['cost' => self::BCRYPT_COST]
 		);
 
 		// Compatibility with bcrypt.js

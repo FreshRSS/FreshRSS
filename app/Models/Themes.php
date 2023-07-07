@@ -12,14 +12,14 @@ class FreshRSS_Themes extends Minz_Model {
 	public static function getList(): array {
 		return array_values(array_diff(
 			scandir(PUBLIC_PATH . self::$themesUrl) ?: [],
-			array('..', '.')
+			['..', '.']
 		));
 	}
 
 	/** @return array<string,array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}> */
 	public static function get(): array {
 		$themes_list = self::getList();
-		$list = array();
+		$list = [];
 		foreach ($themes_list as $theme_dir) {
 			$theme = self::get_infos($theme_dir);
 			if ($theme) {
@@ -76,8 +76,8 @@ class FreshRSS_Themes extends Minz_Model {
 		self::$themeIconsUrl = self::$themesUrl . $theme_id . '/icons/';
 		self::$themeIcons = is_dir(PUBLIC_PATH . self::$themeIconsUrl) ? array_fill_keys(array_diff(
 			scandir(PUBLIC_PATH . self::$themeIconsUrl) ?: [],
-			array('..', '.')
-		), 1) : array();
+			['..', '.']
+		), 1) : [];
 		return $infos;
 	}
 
@@ -89,7 +89,7 @@ class FreshRSS_Themes extends Minz_Model {
 	}
 
 	public static function alt(string $name): string {
-		static $alts = array(
+		static $alts = [
 			'add' => '➕',	//✚
 			'all' => '☰',
 			'bookmark-add' => '➕',	//✚
@@ -131,15 +131,15 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-global' => '📖',	//☷
 			'view-reader' => '📜',
 			'warning' => '⚠️',	//△
-		);
+		];
 		return $alts[$name] ?? '';
 	}
 
 	// TODO: Change for enum in PHP 8.1+
-	const ICON_DEFAULT = 0;
-	const ICON_IMG = 1;
-	const ICON_URL = 2;
-	const ICON_EMOJI = 3;
+	public const ICON_DEFAULT = 0;
+	public const ICON_IMG = 1;
+	public const ICON_URL = 2;
+	public const ICON_EMOJI = 3;
 
 	public static function icon(string $name, int $type = self::ICON_DEFAULT): string {
 		$alt = self::alt($name);
