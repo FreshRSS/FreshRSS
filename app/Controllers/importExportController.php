@@ -75,7 +75,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			'json_starred' => [],
 			'json_feed' => [],
 			'ttrss_starred' => [],
-			];
+		];
 
 		// We try to list all files according to their type
 		$list = [];
@@ -188,12 +188,16 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		try {
 			$error = !$this->importFile($file['name'], $file['tmp_name']);
 		} catch (FreshRSS_ZipMissing_Exception $zme) {
-			Minz_Request::bad(_t('feedback.import_export.no_zip_extension'),
-				['c' => 'importExport', 'a' => 'index']);
+			Minz_Request::bad(
+				_t('feedback.import_export.no_zip_extension'),
+				['c' => 'importExport', 'a' => 'index']
+			);
 		} catch (FreshRSS_Zip_Exception $ze) {
 			Minz_Log::warning('ZIP archive cannot be imported. Error code: ' . $ze->zipErrorCode());
-			Minz_Request::bad(_t('feedback.import_export.zip_error'),
-				['c' => 'importExport', 'a' => 'index']);
+			Minz_Request::bad(
+				_t('feedback.import_export.zip_error'),
+				['c' => 'importExport', 'a' => 'index']
+			);
 		}
 
 		// And finally, we get import status and redirect to the home page

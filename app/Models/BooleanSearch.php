@@ -62,7 +62,10 @@ class FreshRSS_BooleanSearch {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
-				for ($i = (is_countable($matches['search']) ? count($matches['search']) : 0) - 1; $i >= 0; $i--) {
+				if (empty($matches['search'])) {
+					continue;
+				}
+				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
@@ -97,7 +100,10 @@ class FreshRSS_BooleanSearch {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
-				for ($i = (is_countable($matches['search']) ? count($matches['search']) : 0) - 1; $i >= 0; $i--) {
+				if (empty($matches['search'])) {
+					continue;
+				}
+				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					// Index starting from 1
 					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {

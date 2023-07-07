@@ -135,7 +135,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward([
 				'c' => 'subscription',
 				'a' => 'index',
-				], true);
+			], true);
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -143,7 +143,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			'c' => 'subscription',
 			'a' => 'add',
 			'params' => [],
-			];
+		];
 
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
@@ -306,7 +306,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			'c' => 'subscription',
 			'a' => 'index',
 			'params' => ['id' => $id],
-			];
+		];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($url_redirect, true);
@@ -553,7 +553,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (random_int(0, 30) === 1) {	// Remove old entries once in 30.
+			if (rand(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
@@ -864,7 +864,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name()), [
 			'params' => ['get' => 'f_' . $feed->id()],
-			]);
+		]);
 	}
 
 	/**

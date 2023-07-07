@@ -979,7 +979,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$filterAction = FreshRSS_FilterAction::fromJSON([
 					'search' => $filter,
 					'actions' => [$action],
-					]);
+				]);
 				if ($filterAction != null) {
 					$filterActions[] = $filterAction;
 				}
@@ -1054,7 +1054,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
-					];
+				];
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
@@ -1100,18 +1100,18 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 			$ch = curl_init();
 			curl_setopt_array($ch, [
-					CURLOPT_URL => $hubJson['hub'],
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_POSTFIELDS => http_build_query([
-						'hub.verify' => 'sync',
-						'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-						'hub.topic' => $url, 'hub.callback' => $callbackUrl,
-						]),
-					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-					CURLOPT_MAXREDIRS => 10,
-					CURLOPT_FOLLOWLOCATION => true,
-					CURLOPT_ENCODING => '',	//Enable all encodings
-				]);
+				CURLOPT_URL => $hubJson['hub'],
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_POSTFIELDS => http_build_query([
+					'hub.verify' => 'sync',
+					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+					'hub.topic' => $url, 'hub.callback' => $callbackUrl,
+				]),
+				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_ENCODING => '',	//Enable all encodings
+			]);
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 

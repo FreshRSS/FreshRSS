@@ -59,7 +59,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-				], true);
+			], true);
 		}
 	}
 
@@ -77,7 +77,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward([
 				'c' => 'tag',
 				'a' => 'index',
-				], true);
+			], true);
 		}
 	}
 

@@ -13,7 +13,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		Minz_Request::forward([
 			'c' => 'index',
 			'a' => $preferred_output,
-			]);
+		]);
 	}
 
 	/**

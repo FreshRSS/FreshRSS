@@ -37,7 +37,7 @@ class FreshRSS_FilterAction {
 			return [
 				'search' => $this->booleanSearch->getRawInput(),
 				'actions' => $this->actions,
-				];
+			];
 		}
 		return [];
 	}

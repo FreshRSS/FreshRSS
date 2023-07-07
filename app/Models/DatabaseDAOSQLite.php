@@ -20,7 +20,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			$this->pdo->prefix() . 'entrytmp' => false,
 			$this->pdo->prefix() . 'tag' => false,
 			$this->pdo->prefix() . 'entrytag' => false,
-			];
+		];
 		foreach ($res as $value) {
 			$tables[$value['name']] = true;
 		}

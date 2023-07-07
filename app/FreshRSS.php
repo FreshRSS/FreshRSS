@@ -180,7 +180,7 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::forward([
 				'c' => 'user',
 				'a' => 'validateEmail',
-				], true);
+			], true);
 		}
 	}
 }

@@ -23,7 +23,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$this->view->extension_list = [
 			'system' => [],
 			'user' => [],
-			];
+		];
 
 		$this->view->extensions_installed = [];
 

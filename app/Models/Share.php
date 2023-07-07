@@ -259,13 +259,13 @@ class FreshRSS_Share {
 			'~URL~',
 			'~TITLE~',
 			'~LINK~',
-			];
+		];
 		$replaces = [
 			$this->id(),
 			$this->base_url,
 			$this->title(),
 			$this->link(),
-			];
+		];
 		return str_replace($matches, $replaces, $this->url_transform);
 	}
 

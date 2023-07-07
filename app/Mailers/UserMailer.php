@@ -25,8 +25,8 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 				'params' => [
 					'username' => $username,
 					'token' => $user_config->email_validation_token,
-					],
 				],
+			],
 			'txt',
 			true
 		);

@@ -60,7 +60,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$this->pdo->prefix() . 'entrytmp' => false,
 			$this->pdo->prefix() . 'tag' => false,
 			$this->pdo->prefix() . 'entrytag' => false,
-			];
+		];
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
 		}
@@ -110,8 +110,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			'attributes',
 			'cache_nbEntries',
 			'cache_nbUnreads',
-			]);
-}
+		]);
+	}
 
 	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', [
@@ -128,7 +128,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			'is_favorite',
 			'id_feed',
 			'tags',
-			]);
+		]);
 	}
 
 	public function entrytmpIsCorrect(): bool {

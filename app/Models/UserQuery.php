@@ -80,7 +80,7 @@ class FreshRSS_UserQuery {
 			'search' => $this->search->__toString(),
 			'state' => $this->state,
 			'url' => $this->url,
-			]);
+		]);
 	}
 
 	/**

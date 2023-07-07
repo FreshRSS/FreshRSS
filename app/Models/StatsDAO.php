@@ -17,7 +17,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 		return [
 			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
 			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
-			];
+		];
 	}
 
 	/**
@@ -321,7 +321,7 @@ SQL;
 			'thu',
 			'fri',
 			'sat',
-			]);
+		]);
 	}
 
 	/**
@@ -342,7 +342,7 @@ SQL;
 			'oct',
 			'nov',
 			'dec',
-			]);
+		]);
 	}
 
 	/**

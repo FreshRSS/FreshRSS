@@ -243,7 +243,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'httpAuth' => $httpAuth,
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
-				];
+			];
 
 			invalidateHttpCache();
 

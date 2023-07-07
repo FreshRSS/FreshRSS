@@ -815,7 +815,7 @@ HTML;
 			'id_feed' => $this->feedId(),
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
-			];
+		];
 	}
 
 	/**

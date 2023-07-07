@@ -64,7 +64,7 @@ SQL;
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
-			];
+		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
 			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
@@ -83,7 +83,7 @@ SQL;
 			$values = [
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
-				];
+			];
 			return $this->addTag($values);
 		}
 		return $tag->id();

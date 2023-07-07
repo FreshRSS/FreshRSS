@@ -139,7 +139,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			'last_3_month' => [],
 			'last_month' => [],
 			'last_week' => [],
-			];
+		];
 		$now = new \DateTime();
 		$feedDate = clone $now;
 		$lastWeek = clone $now;

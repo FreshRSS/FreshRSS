@@ -146,13 +146,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'status' => 'good',
 					'title' => _t('gen.short.ok'),
 					'body' => _t('feedback.update.can_apply', $version),
-					];
+				];
 			} else {
 				$this->view->message = [
 					'status' => 'bad',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
-					];
+				];
 			}
 		}
 	}
@@ -188,7 +188,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$this->view->message = [
 					'status' => 'latest',
 					'body' => _t('feedback.update.none'),
-					];
+				];
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
@@ -222,7 +222,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$this->view->message = [
 					'status' => 'bad',
 					'body' => _t('feedback.update.server_not_found', $auto_update_url),
-					];
+				];
 				return;
 			}
 
@@ -232,7 +232,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$this->view->message = [
 					'status' => 'latest',
 					'body' => _t('feedback.update.none'),
-					];
+				];
 				@touch(join_path(DATA_PATH, self::LASTUPDATEFILE));
 				return;
 			}
@@ -251,7 +251,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$this->view->message = [
 				'status' => 'bad',
 				'body' => _t('feedback.update.error', 'Cannot save the update script'),
-				];
+			];
 		}
 	}
 

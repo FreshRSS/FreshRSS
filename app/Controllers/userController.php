@@ -74,7 +74,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.user.updated.error', $username), [ 'c' => 'user', 'a' => 'manage' ]);
+				Minz_Request::bad(_t('feedback.user.updated.error', $username), ['c' => 'user', 'a' => 'manage']);
 			}
 		}
 	}
@@ -142,7 +142,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.profile.error'), [ 'c' => 'user', 'a' => 'profile' ]);
+				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);
 			}
 		}
 	}
@@ -494,7 +494,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-				], true);
+			], true);
 		}
 
 		$mailer = new FreshRSS_User_Mailer();
@@ -605,8 +605,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($ok) {
 			Minz_Request::good(_t('feedback.user.updated', $username), ['c' => 'user', 'a' => 'manage']);
 		} else {
-			Minz_Request::bad(_t('feedback.user.updated.error', $username),
-							  ['c' => 'user', 'a' => 'manage']);
+			Minz_Request::bad(
+				_t('feedback.user.updated.error', $username),
+				['c' => 'user', 'a' => 'manage']
+			);
 		}
 	}
 

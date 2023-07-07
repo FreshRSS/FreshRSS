@@ -1,7 +1,6 @@
 <?php
 
-class FreshRSS_FeedDAO extends Minz_ModelPdo
-{
+class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	protected function addColumn(string $name): bool {
 		if ($this->pdo->inTransaction()) {
@@ -9,7 +8,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo
 		}
 		Minz_Log::warning(__method__ . ': ' . $name);
 		try {
-			if ($name === 'kind') { //v1.20.0
+			if ($name === 'kind') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_feed` ADD COLUMN kind SMALLINT DEFAULT 0') !== false;
 			} elseif ($name === 'attributes') {	//v1.11.0
 				return $this->pdo->exec('ALTER TABLE `_feed` ADD COLUMN attributes TEXT') !== false;
@@ -24,7 +23,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", $errorInfo[2], 2); // The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['attributes', 'kind'] as $column) {
 					if (stripos($errorLines[0], $column) !== false) {
 						return $this->addColumn($column);
@@ -37,7 +36,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo
 
 	/**
 	 * @param array{'url':string,'kind':int,'category':int,'name':string,'website':string,'description':string,'lastUpdate':int,'priority'?:int,
-	 *    'pathEntries'?:string,'httpAuth':string,'error':int|bool,'ttl'?:int,'attributes'?:string|array<string|mixed>} $valuesTmp
+	 * 	'pathEntries'?:string,'httpAuth':string,'error':int|bool,'ttl'?:int,'attributes'?:string|array<string|mixed>} $valuesTmp
 	 * @return int|false
 	 * @throws JsonException
 	 */
@@ -103,7 +102,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo
 				'httpAuth' => $feed->httpAuth(),
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
-				];
+			];
 
 			$id = $this->addFeed($values);
 			if ($id) {
@@ -143,7 +142,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo
 
 	/**
 	 * @param array{'url'?:string,'kind'?:int,'category'?:int,'name'?:string,'website'?:string,'description'?:string,'lastUpdate'?:int,'priority'?:int,
-	 *    'pathEntries'?:string,'httpAuth'?:string,'error'?:int,'ttl'?:int,'attributes'?:string|array<string,mixed>} $valuesTmp $valuesTmp
+	 * 	'pathEntries'?:string,'httpAuth'?:string,'error'?:int,'ttl'?:int,'attributes'?:string|array<string,mixed>} $valuesTmp $valuesTmp
 	 * @return int|false
 	 */
 	public function updateFeed(int $id, array $valuesTmp) {
@@ -419,7 +418,8 @@ SQL;
 			return [];
 		}
 
-		/** @var array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
+		/**
+		 * @var array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
 		 *	'priority'?:int,'pathEntries'?:string,'httpAuth':string,'error':int,'ttl'?:int,'attributes'?:string}> $res
 		 */
 		$feeds = self::daoToFeed($res);
@@ -579,7 +579,7 @@ SQL;
 
 	/**
 	 * @param array<int,array{'id'?:int,'url'?:string,'kind'?:int,'category'?:int,'name'?:string,'website'?:string,'description'?:string,'lastUpdate'?:int,'priority'?:int,
-	 *    'pathEntries'?:string,'httpAuth'?:string,'error'?:int|bool,'ttl'?:int,'attributes'?:string,'cache_nbUnreads'?:int,'cache_nbEntries'?:int}> $listDAO
+	 * 	'pathEntries'?:string,'httpAuth'?:string,'error'?:int|bool,'ttl'?:int,'attributes'?:string,'cache_nbUnreads'?:int,'cache_nbEntries'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Feed>
 	 */
 	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
@@ -629,7 +629,7 @@ SQL;
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 
-			$sql2 = 'ALTER TABLE `_feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;    //v0.7.3
+			$sql2 = 'ALTER TABLE `_feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;	//v0.7.3
 			$stm = $this->pdo->query($sql2);
 			if ($stm === false) {
 				$info = $this->pdo->errorInfo();

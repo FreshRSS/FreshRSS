@@ -70,7 +70,7 @@ class FreshRSS_Import_Service {
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.
-		[$categories_elements, $categories_to_feeds, ] = $this->loadFromOutlines($opml_array['body'], '');
+		[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($opml_array['body'], '');
 
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
 			$category_element = $categories_elements[$category_name] ?? null;
@@ -299,7 +299,7 @@ class FreshRSS_Import_Service {
 		foreach ($outlines as $outline) {
 			// Get the categories and feeds from the child outline (it may
 			// return several categories and feeds if the outline is a category).
-			[$outline_categories, $outline_categories_to_feeds, ] = $this->loadFromOutline($outline, $parent_category_name);
+			[$outline_categories, $outline_categories_to_feeds] = $this->loadFromOutline($outline, $parent_category_name);
 
 			// Then, we merge the initial arrays with the arrays returned by
 			// the outline.
@@ -361,7 +361,7 @@ class FreshRSS_Import_Service {
 				$category_name = $parent_category_name;
 			}
 
-			[$categories_elements, $categories_to_feeds, ] = $this->loadFromOutlines($outline['@outlines'], $category_name);
+			[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($outline['@outlines'], $category_name);
 
 			unset($outline['@outlines']);
 			$categories_elements[$category_name] = $outline;

@@ -116,7 +116,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good($is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
+			Minz_Request::good(
+				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
 					'c' => 'index',
 					'a' => 'index',
@@ -146,7 +147,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-				], true);
+			], true);
 		}
 	}
 
@@ -162,7 +163,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$url_redirect = [
 			'c' => 'configure',
 			'a' => 'archiving',
-			];
+		];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($url_redirect, true);
@@ -211,6 +212,6 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
 			'c' => 'configure',
 			'a' => 'archiving',
-			]);
+		]);
 	}
 }
