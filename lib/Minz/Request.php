@@ -306,7 +306,7 @@ class Minz_Request {
 			return false;
 		}
 		$host = parse_url($address, PHP_URL_HOST);
-		if (!$host) {
+		if (!is_string($host)) {
 			return false;
 		}
 
@@ -358,7 +358,7 @@ class Minz_Request {
 		$notif = null;
 		Minz_Session::lock();
 		$requests = Minz_Session::param('requests');
-		if ($requests) {
+		if (is_array($requests)) {
 			//Delete abandoned notifications
 			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
 
@@ -454,7 +454,7 @@ class Minz_Request {
 	 * @return array<string>
 	 */
 	public static function getPreferredLanguages(): array {
-		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches)) {
+		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches) > 0) {
 			return $matches['lang'];
 		}
 		return array('en');
