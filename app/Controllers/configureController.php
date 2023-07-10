@@ -366,6 +366,12 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			/** @var array<string,string|array<string,string>> $params */
 			$params = array_filter(Minz_Request::paramArray('query'));
 			$queryParams = [];
+			if (!empty($params['get']) && is_string($params['get'])) {
+				$queryParams['get'] = htmlspecialchars_decode($params['get'], ENT_QUOTES);
+			}
+			if (!empty($params['order']) && is_string($params['order'])) {
+				$queryParams['order'] = htmlspecialchars_decode($params['order'], ENT_QUOTES);
+			}
 			if (!empty($params['search']) && is_string($params['search'])) {
 				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
