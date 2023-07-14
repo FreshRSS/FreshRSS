@@ -8,7 +8,7 @@ class FreshRSS_BooleanSearch {
 	/** @var string */
 	private $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
-	private $searches = array();
+	private $searches = [];
 
 	/**
 	 * @phpstan-var 'AND'|'OR'|'AND NOT'
@@ -62,6 +62,9 @@ class FreshRSS_BooleanSearch {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
+				if (empty($matches['search'])) {
+					continue;
+				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
@@ -97,9 +100,12 @@ class FreshRSS_BooleanSearch {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
+				if (empty($matches['search'])) {
+					continue;
+				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					// Index starting from 1
-					$id = intval(trim($matches['search'][$i])) - 1;
+					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
 						$toS[] = '(' . trim($queries[$id]->getSearch()) . ')';

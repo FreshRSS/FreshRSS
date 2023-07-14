@@ -177,10 +177,10 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::is('javascript', 'nonce')
 		);
 		if ($email_not_verified && !$action_is_allowed) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'user',
 				'a' => 'validateEmail',
-			), true);
+			], true);
 		}
 	}
 }

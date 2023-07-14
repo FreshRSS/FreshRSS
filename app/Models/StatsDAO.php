@@ -2,7 +2,7 @@
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
-	const ENTRY_COUNT_PERIOD = 30;
+	public const ENTRY_COUNT_PERIOD = 30;
 
 	protected function sqlFloor(string $s): string {
 		return "FLOOR($s)";
@@ -14,10 +14,10 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false}
 	 */
 	public function calculateEntryRepartition(): array {
-		return array(
+		return [
 			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
 			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
-		);
+		];
 	}
 
 	/**
@@ -313,7 +313,7 @@ SQL;
 	 * @return array<string>
 	 */
 	public function getDays(): array {
-		return $this->convertToTranslatedJson(array(
+		return $this->convertToTranslatedJson([
 			'sun',
 			'mon',
 			'tue',
@@ -321,7 +321,7 @@ SQL;
 			'thu',
 			'fri',
 			'sat',
-		));
+		]);
 	}
 
 	/**
@@ -329,7 +329,7 @@ SQL;
 	 * @return array<string>
 	 */
 	public function getMonths(): array {
-		return $this->convertToTranslatedJson(array(
+		return $this->convertToTranslatedJson([
 			'jan',
 			'feb',
 			'mar',
@@ -342,7 +342,7 @@ SQL;
 			'oct',
 			'nov',
 			'dec',
-		));
+		]);
 	}
 
 	/**
@@ -350,7 +350,7 @@ SQL;
 	 * @param array<string> $data
 	 * @return array<string>
 	 */
-	private function convertToTranslatedJson(array $data = array()): array {
+	private function convertToTranslatedJson(array $data = []): array {
 		$translated = array_map(static function (string $a) {
 			return _t('gen.date.' . $a);
 		}, $data);

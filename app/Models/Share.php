@@ -254,18 +254,18 @@ class FreshRSS_Share {
 	 * Return the current url by merging url_transform and base_url.
 	 */
 	public function url(): string {
-		$matches = array(
+		$matches = [
 			'~ID~',
 			'~URL~',
 			'~TITLE~',
 			'~LINK~',
-		);
-		$replaces = array(
+		];
+		$replaces = [
 			$this->id(),
 			$this->base_url,
 			$this->title(),
 			$this->link(),
-		);
+		];
 		return str_replace($matches, $replaces, $this->url_transform);
 	}
 

@@ -66,7 +66,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		if ($id == false) {
 			// id is false? It MUST be a POST request!
 			if (!Minz_Request::isPost()) {
-				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.access.not_found'), ['c' => 'index', 'a' => 'index']);
 				return;
 			}
 
@@ -104,11 +104,11 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			$ids = is_array($id) ? $id : array($id);
+			$ids = is_array($id) ? $id : [$id];
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?: [];
-			$tags = array();
+			$tags = [];
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
 			}
@@ -116,12 +116,14 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good($is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
-			array(
-				'c' => 'index',
-				'a' => 'index',
-				'params' => $params,
-			));
+			Minz_Request::good(
+				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
+				[
+					'c' => 'index',
+					'a' => 'index',
+					'params' => $params,
+				]
+			);
 		}
 	}
 
@@ -142,10 +144,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-			), true);
+			], true);
 		}
 	}
 
@@ -158,10 +160,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo call this action through web-cron when available
 	 */
 	public function optimizeAction(): void {
-		$url_redirect = array(
+		$url_redirect = [
 			'c' => 'configure',
 			'a' => 'archiving',
-		);
+		];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($url_redirect, true);
@@ -207,9 +209,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
+		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
 			'c' => 'configure',
-			'a' => 'archiving'
-		));
+			'a' => 'archiving',
+		]);
 	}
 }

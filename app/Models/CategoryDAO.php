@@ -2,7 +2,7 @@
 
 class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
-	const DEFAULTCATEGORYID = 1;
+	public const DEFAULTCATEGORYID = 1;
 
 	public function resetDefaultCategoryName(): bool {
 		//FreshRSS 1.15.1
@@ -51,7 +51,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 						$attributes = [];
 					}
 					if ($keepHistory > 0) {
-						$attributes['archiving']['keep_min'] = intval($keepHistory);
+						$attributes['archiving']['keep_min'] = (int)$keepHistory;
 					} elseif ($keepHistory == -1) {	//Infinite
 						$attributes['archiving']['keep_period'] = false;
 						$attributes['archiving']['keep_max'] = false;
@@ -100,6 +100,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	/**
 	 * @param array{'name':string,'id'?:int,'kind'?:int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string|array<string,mixed>} $valuesTmp
 	 * @return int|false
+	 * @throws JsonException
 	 */
 	public function addCategory(array $valuesTmp) {
 		// TRIM() to provide a type hint as text
@@ -115,12 +116,12 @@ SQL;
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = array(
+		$values = [
 			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
-		);
+		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
 			$catId = $this->pdo->lastInsertId('`_category_id_seq`');
@@ -153,6 +154,7 @@ SQL;
 	/**
 	 * @param array{'name':string,'kind':int,'attributes'?:string|array<string,mixed>} $valuesTmp
 	 * @return int|false
+	 * @throws JsonException
 	 */
 	public function updateCategory(int $id, array $valuesTmp) {
 		// No tag of the same name
@@ -166,13 +168,13 @@ SQL;
 		if (empty($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = array(
+		$values = [
 			$valuesTmp['name'],
 			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$id,
 			$valuesTmp['name'],
-		);
+		];
 
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
@@ -358,10 +360,10 @@ SQL;
 			}
 			$stm = $this->pdo->prepare($sql);
 
-			$values = array(
+			$values = [
 				$cat->id(),
 				$cat->name(),
-			);
+			];
 
 			if ($stm !== false && $stm->execute($values)) {
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
@@ -482,7 +484,7 @@ SQL;
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$cat->_error($dao['error'] ?? 0);
-			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
+			$cat->_attributes('', $dao['attributes'] ?? '');
 			$list[] = $cat;
 		}
 

@@ -45,7 +45,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 						$tagDAO->tagEntry($existing_tag->id(), $id_entry, $checked);
 					} else {
 						//Create new tag
-						$id_tag = $tagDAO->addTag(array('name' => $name_tag));
+						$id_tag = $tagDAO->addTag(['name' => $name_tag]);
 					}
 				}
 				if ($id_tag != false) {
@@ -56,10 +56,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(405);
 		}
 		if (!$this->ajax) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-			), true);
+			], true);
 		}
 	}
 
@@ -74,10 +74,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(405);
 		}
 		if (!$this->ajax) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'tag',
 				'a' => 'index',
-			), true);
+			], true);
 		}
 	}
 
@@ -107,7 +107,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException
+	 * @throws Minz_PDOConnectionException|JsonException
 	 */
 	public function renameAction(): void {
 		if (!Minz_Request::isPost()) {

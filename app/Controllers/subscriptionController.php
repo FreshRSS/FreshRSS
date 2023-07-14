@@ -231,7 +231,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$feed->_attributes('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
 
-			$values = array(
+			$values = [
 				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
 				'description' => sanitizeHTML(Minz_Request::paramString('description', true)),
@@ -243,26 +243,26 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				'httpAuth' => $httpAuth,
 				'ttl' => $feed->ttl(true),
 				'attributes' => $feed->attributes(),
-			);
+			];
 
 			invalidateHttpCache();
 
 			$from = Minz_Request::paramString('from');
 			switch ($from) {
 				case 'stats':
-					$url_redirect = array('c' => 'stats', 'a' => 'idle', 'params' => array('id' => $id, 'from' => 'stats'));
+					$url_redirect = ['c' => 'stats', 'a' => 'idle', 'params' => ['id' => $id, 'from' => 'stats']];
 					break;
 				case 'normal':
 				case 'reader':
 					$get = Minz_Request::paramString('get');
 					if ($get) {
-						$url_redirect = array('c' => 'index', 'a' => $from, 'params' => array('get' => $get));
+						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['get' => $get]];
 					} else {
-						$url_redirect = array('c' => 'index', 'a' => $from);
+						$url_redirect = ['c' => 'index', 'a' => $from];
 					}
 					break;
 				default:
-					$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id]];
 			}
 
 			if ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
@@ -346,7 +346,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id, 'type' => 'category'));
+			$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'type' => 'category']];
 			if (false !== $categoryDAO->updateCategory($id, $values)) {
 				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
 			} else {
