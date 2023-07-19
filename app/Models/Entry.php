@@ -235,12 +235,12 @@ HTML;
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributes('enclosures');
-		if (is_array($attributeEnclosures)) {
+		if (is_iterable($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
 			yield from $attributeEnclosures;
 		}
 		try {
-			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
+			$searchEnclosures = !is_iterable($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
