@@ -240,7 +240,7 @@ HTML;
 			yield from $attributeEnclosures;
 		}
 		try {
-			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
+			$searchEnclosures = !is_iterable($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
