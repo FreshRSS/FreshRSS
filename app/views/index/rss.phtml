@@ -48,7 +48,7 @@ foreach ($this->entries as $item) {
 						. '" />', "\n";
 				}
 				$enclosures = $item->enclosures(false);
-				if (is_array($enclosures)) {
+				if (is_iterable($enclosures)) {
 					foreach ($enclosures as $enclosure) {
 						// https://www.rssboard.org/media-rss
 						echo "\t\t\t", '<media:content url="' . $enclosure['url']

@@ -21,6 +21,7 @@ if [ -n "$CRON_MIN" ]; then
 		echo "export COPY_LOG_TO_SYSLOG=$COPY_LOG_TO_SYSLOG"
 		echo "export COPY_SYSLOG_TO_STDERR=$COPY_SYSLOG_TO_STDERR"
 		echo "export FRESHRSS_ENV=$FRESHRSS_ENV"
+		echo "export DATA_PATH=$DATA_PATH"
 	) >/var/www/FreshRSS/Docker/env.txt
 	sed </etc/crontab.freshrss.default \
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
