@@ -49,7 +49,7 @@
         "ext-phar": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*",
-        "phpstan/phpstan": "~1.10.19",
+        "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
         "phpstan/phpstan-strict-rules": "^1.5",
         "phpunit/phpunit": "^9",
