@@ -330,7 +330,8 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
-      # Optional parameter, set to 0 to disable, or (if you use a proxy) to a space-separated list of trusted IP ranges
+      # Optional parameter, remove for automatic settings, set to 0 to disable,
+	  # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteiptrustedproxy
       # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
       # This also impacts external authentication methods;
