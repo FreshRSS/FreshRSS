@@ -11,6 +11,16 @@ if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
 fi
 
+if [ -n "$TRUSTED_PROXY" ]; then
+	if [ "$TRUSTED_PROXY" -eq 0 ]; then
+		# Disable RemoteIPHeader and RemoteIPTrustedProxy
+		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^\s*RemoteIP.*$/s/^/#/" {} \;
+	else
+		# Custom list for RemoteIPTrustedProxy
+		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^\s*RemoteIPTrustedProxy#s#^.*#\tRemoteIPTrustedProxy $TRUSTED_PROXY#" {} \;
+	fi
+fi
+
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	a2enmod -q auth_openidc
 fi

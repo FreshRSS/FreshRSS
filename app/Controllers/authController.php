@@ -79,7 +79,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 					'error' => [
 						_t('feedback.access.denied'),
 						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
-						' ; Remote IP address=' . ($_SERVER['REMOTE_ADDR'] ?? '') . ']'
+						' ; Remote IP address=' . connectionRemoteAddress() . ']'
 					]
 				], false);
 				break;

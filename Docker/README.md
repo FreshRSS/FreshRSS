@@ -330,6 +330,12 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+	  # Optional parameter, set to 0 to disable, or (if you use a proxy) to a space-separated list of trusted IP ranges
+	  # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteiptrustedproxy
+	  # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
+	  # This also impacts external authentication methods;
+	  # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	  TRUSTED_PROXY: 172.16.0.1/12 192.168.0.1/16
       # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
       # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
       OIDC_ENABLED: 0
