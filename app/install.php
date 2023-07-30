@@ -208,9 +208,14 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' && !empty($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])) {
-			// Trust by default the remote IP address (e.g. proxy) used during install to provide remote user name
-			FreshRSS_Context::$system_conf->trusted_sources = [ $_SERVER['REMOTE_ADDR'] ];
+		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' &&
+			connectionRemoteAddress() !== '' &&
+			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
+			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
+		) {
+			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
+			FreshRSS_Context::$system_conf->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::$system_conf->trusted_sources = array_unique(FreshRSS_Context::$system_conf->trusted_sources);
 		}
 
 		// Create default user files but first, we delete previous data to
