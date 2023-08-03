@@ -385,10 +385,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if ($simplePiePush === null && $feed_id === 0 && (time() <= $feed->lastUpdate() + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
-				if ($mtime <= 0 || $feed->lastUpdate() >= $mtime) {
+				$ε = 10;	// negligible offset errors in seconds
+				if ($mtime <= 0 ||
+					$feed->lastUpdate() + $ε >= $mtime ||
+					time() + $ε >= $mtime + FreshRSS_Context::$system_conf->limits['cache_duration']) {	// is cache still valid?
 					continue;	//Nothing newer from other users
 				}
-				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user; will take advantage of the newer cache.');
+				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
+					', and at ' . date('c', $mtime) . ' by another user; take advantage of newer cache.');
 			}
 
 			if (!$feed->lock()) {
