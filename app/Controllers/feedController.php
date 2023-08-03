@@ -483,11 +483,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 								Minz_ExtensionManager::callHook('entry_auto_unread', $entry, 'updated_article');
 							}
 
-							$entry->applyFilterActions($titlesAsRead);
-							if ($readWhenSameTitleInFeed > 0) {
-								$titlesAsRead[$entry->title()] = true;
-							}
-
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if (!($entry instanceof FreshRSS_Entry)) {
 								// An extension has returned a null value, there is nothing to insert.
