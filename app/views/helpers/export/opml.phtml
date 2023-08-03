@@ -59,6 +59,9 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssFullContentFilter'] = $feed->attributes('path_entries_filter');
 		}
 
+		// Remove null attributes
+		$outline = array_filter($outline, static function (?string $value) { return $value !== null; });
+
 		$outlines[] = $outline;
 	}
 
