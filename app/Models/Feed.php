@@ -859,7 +859,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/** @return int|false */
 	public function cacheModifiedTime() {
-		return @filemtime(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
+		$filename = FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind);
+		clearstatcache(true, $filename);
+		return @filemtime($filename);
 	}
 
 	public function lock(): bool {
