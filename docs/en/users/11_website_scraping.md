@@ -15,7 +15,7 @@ Firefox: the built-in “inspect” tool may be used to help create a valid XPat
 Select the node in the HTML, right click with your mouse and chose “Copy” and “XPath”.
 The XPath is stored in your clipboard now.
 
-## Tipps & tricks
+## Tips & tricks
 
 - [Timezone of date](https://github.com/FreshRSS/FreshRSS/discussions/5483)
 
