@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`name` VARCHAR(255) NOT NULL,
 	`website` VARCHAR(32768),
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`author` VARCHAR(255),
 	`content` TEXT,
 	`link` VARCHAR(1023) NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`author` VARCHAR(255),
 	`content` TEXT,
 	`link` VARCHAR(1023) NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`name` VARCHAR(191) NOT NULL,
 	`website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`author` VARCHAR(255),
 	`content_bin` MEDIUMBLOB,	-- v0.7
 	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -80,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`author` VARCHAR(255),
 	`content_bin` MEDIUMBLOB,
 	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
