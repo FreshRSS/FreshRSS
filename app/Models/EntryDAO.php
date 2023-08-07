@@ -151,7 +151,6 @@ SQL;
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
-			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			if (empty($valuesTmp['lastSeen'])) {
 				$valuesTmp['lastSeen'] = time();
@@ -258,7 +257,6 @@ SQL;
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
-			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			if ($valuesTmp['is_read'] === null) {
