@@ -144,6 +144,7 @@ return array(
 		'en' => 'English',
 		'en-us' => 'English (United States)',
 		'es' => 'Español',
+		'fa' => 'فارسی',
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'id' => 'Bahasa Indonesia',
