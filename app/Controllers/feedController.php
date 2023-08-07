@@ -433,6 +433,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				/** @var array<string,bool> */
 				$newGuids = [];
 
+
+				$transactionStartTime = microtime(true);
+
 				// Add entries in database if possible.
 				/** @var FreshRSS_Entry $entry */
 				foreach ($entries as $entry) {
@@ -505,6 +508,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$feed->incPendingUnread();
 						}
 						$nb_new_articles++;
+					}
+
+					// check transactionStartTime >= 3s
+					if ((microtime(true) - $transactionStartTime)>= 3 && $entryDAO->inTransaction()) {
+						$entryDAO->commit();
+						$transactionStartTime = microtime(true);
 					}
 				}
 				$entryDAO->updateLastSeen($feed->id(), array_keys($newGuids), $mtime);
