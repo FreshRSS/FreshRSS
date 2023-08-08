@@ -20,7 +20,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		$db = FreshRSS_Context::$system_conf->db;
 
 		try {
@@ -205,19 +205,25 @@ SQL;
 	}
 
 	public function ensureCaseInsensitiveGuids(): bool {
-		$ok = true;
 		if ($this->pdo->dbType() === 'mysql') {
-			include(APP_PATH . '/SQL/install.sql.mysql.php');
-
-			$ok = false;
-			try {
-				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
-			} catch (Exception $e) {
-				$ok = false;
-				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
+			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			if ($this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) === false) {	//FreshRSS 1.12
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+				return false;
 			}
 		}
-		return $ok;
+		return true;
+	}
+
+	private function ensureYear2038Compatible(): bool {
+		if ($this->pdo->dbType() !== 'sqlite') {
+			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			if ($this->pdo->exec($GLOBALS['SQL_UPDATE_YEAR_2038']) === false) {	//FreshRSS 1.23
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public function minorDbMaintenance(): void {
@@ -225,6 +231,7 @@ SQL;
 		$catDAO->resetDefaultCategoryName();
 
 		$this->ensureCaseInsensitiveGuids();
+		$this->ensureYear2038Compatible();
 	}
 
 	private static function stdError(string $error): bool {

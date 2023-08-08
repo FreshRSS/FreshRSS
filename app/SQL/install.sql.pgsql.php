@@ -109,3 +109,14 @@ SQL;
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;
+
+$GLOBALS['SQL_UPDATE_YEAR_2038'] = <<<'SQL'
+ALTER TABLE `_entry`	-- v1.23
+	ALTER COLUMN "date" SET DATA TYPE BIGINT,
+	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT;
+ALTER TABLE `_entrytmp`
+	ALTER COLUMN "date" SET DATA TYPE BIGINT,
+	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT;
+ALTER TABLE `_feed`
+	ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT;
+SQL;
