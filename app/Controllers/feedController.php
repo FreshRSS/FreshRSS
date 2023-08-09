@@ -466,6 +466,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				/** @var array<string,bool> $newGuids */
 				$newGuids = [];
 
+				// record the start time of the transaction
+				$transactionStartTime = microtime(true);
 				// Add entries in database if possible.
 				/** @var FreshRSS_Entry $entry */
 				foreach ($entries as $entry) {
@@ -508,6 +510,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						}
 					} else {
 						$id = uTimeString();
+
 						$entry->_id($id);
 						$entry->applyFilterActions($titlesAsRead);
 						if ($readWhenSameTitleInFeed > 0) {
@@ -539,6 +542,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$feed->incPendingUnread();
 						}
 						$nb_new_articles++;
+					}
+
+					// Commit transaction if it has been running for more than 3 seconds
+					// avoid long transactions that could block other processes
+					$currentMicrotime = microtime(true);
+					if ($currentMicrotime - $transactionStartTime > 3) {
+						$entryDAO->commit();
+
+						 // update the start time of the transaction
+						$transactionStartTime = $currentMicrotime;
 					}
 				}
 				// N.B.: Applies to _entry table and not _entrytmp:
