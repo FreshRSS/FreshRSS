@@ -1138,8 +1138,8 @@ SQL;
 		if ($order !== 'DESC' && $order !== 'ASC') {
 			$order = 'DESC';
 		}
-		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
-		$hash = static::sqlHexEncode('hash');
+		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
+		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link, e0.date, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
 FROM `_entry` e0
