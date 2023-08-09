@@ -1172,7 +1172,7 @@ SQL;
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-				 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
+				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
 				yield FreshRSS_Entry::fromArray($row);
 			}
 		}
@@ -1215,7 +1215,7 @@ SQL;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 			/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-			 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
+			 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
 			yield FreshRSS_Entry::fromArray($row);
 		}
 	}
