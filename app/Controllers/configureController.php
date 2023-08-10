@@ -25,7 +25,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * The options available on the page are:
 	 *   - language (default: en)
 	 *   - theme (default: Origin)
-	 *   - darkMode (default: no)
+	 *   - darkMode (default: auto)
 	 *   - content width (default: thin)
 	 *   - display of read action in header
 	 *   - display of favorite action in header
@@ -45,7 +45,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$user_conf->language = Minz_Request::paramString('language') ?: 'en';
 			FreshRSS_Context::$user_conf->timezone = Minz_Request::paramString('timezone');
 			FreshRSS_Context::$user_conf->theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
-			FreshRSS_Context::$user_conf->darkMode = Minz_Request::paramString('darkMode') ?: 'no';
+			FreshRSS_Context::$user_conf->darkMode = Minz_Request::paramString('darkMode') ?: 'auto';
 			FreshRSS_Context::$user_conf->content_width = Minz_Request::paramString('content_width') ?: 'thin';
 			FreshRSS_Context::$user_conf->topline_read = Minz_Request::paramBoolean('topline_read');
 			FreshRSS_Context::$user_conf->topline_favorite = Minz_Request::paramBoolean('topline_favorite');
