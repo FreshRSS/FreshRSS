@@ -218,7 +218,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} elseif (stripos($filename, 'opml') !== false) {
 			return 'opml';
 		} elseif (substr_compare($filename, '.json', -5) === 0) {
-			if (strpos($filename, 'starred') !== false) {
+			if (preg_match('/starred|favorites|favourites/i', $filename)) {
 				return 'json_starred';
 			} else {
 				return 'json_feed';
@@ -297,7 +297,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 			return false;
 		}
-		$items = $article_object['items'] ?? $article_object;
+		$items = $article_object['items'] ??
+			$article_object['articles'] ?? // TT-RSS
+			$article_object;
 
 		$mark_as_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
@@ -309,7 +311,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (!isset($item['guid']) && isset($item['id'])) {
 				$item['guid'] = $item['id'];
 			}
@@ -382,7 +384,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// Then, articles are imported.
 		$newGuids = [];
 		$this->entryDAO->beginTransaction();
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (empty($item['guid']) || empty($article_to_feed[$item['guid']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
@@ -392,7 +394,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$author = $item['author'] ?? '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
-			$tags = empty($item['categories']) ? [] : $item['categories'];
+			$tags = $item['categories'] ??
+				$item['tags'] ?? // TT-RSS
+				[];
 			$labels = [];
 			for ($i = count($tags) - 1; $i >= 0; $i--) {
 				$tag = trim($tags[$i]);
@@ -420,13 +424,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$is_read = $mark_as_read;
 			}
 
-			if (isset($item['alternate'][0]['href'])) {
-				$url = $item['alternate'][0]['href'];
-			} elseif (isset($item['url'])) {
-				$url = $item['url'];	//FeedBin
-			} else {
-				$url = '';
-			}
+			$url = $item['alternate'][0]['href'] ??
+				$item['url'] ??	// FeedBin
+				$item['link'];	// TT-RSS
 
 			$title = empty($item['title']) ? $url : $item['title'];
 
@@ -436,6 +436,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$content = $item['summary']['content'];
 			} elseif (!empty($item['content'])) {
 				$content = $item['content'];	//FeedBin
+			} elseif (!empty($item['content'])) {
+				$content = $item['excerpt'];	//TT-RSS
 			} else {
 				$content = '';
 			}
