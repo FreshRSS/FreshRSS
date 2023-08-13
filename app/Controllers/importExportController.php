@@ -334,7 +334,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$item['origin']['feedUrl'] = $feedUrl;
 			} elseif (!empty($item['origin']['htmlUrl'])) {
 				$feedUrl = $item['origin']['htmlUrl'];
-			} elseif (!empty($item['source']['link'])) {
+			} elseif (!empty($item['source']['link']) && is_string($item['source']['link'])) {
 				$feedUrl = $item['source']['link'];	// TT-RSS
 				$item['origin']['htmlUrl'] = $feedUrl;
 				$item['origin']['feedUrl'] = $feedUrl;
@@ -434,6 +434,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$url = $item['alternate'][0]['href'] ??
 				$item['url'] ??	// FeedBin
 				$item['link'];	// TT-RSS
+			if (!is_string($url)) {
+				$url = '';
+			}
 
 			$title = empty($item['title']) ? $url : $item['title'];
 
@@ -443,11 +446,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$content = $item['summary']['content'];
 			} elseif (!empty($item['content'])) {
 				$content = $item['content'];	//FeedBin
-			} elseif (!empty($item['content'])) {
+			} elseif (!empty($item['excerpt'])) {
 				$content = $item['excerpt'];	//TT-RSS
 			} else {
 				$content = '';
 			}
+			if (!is_string($content)) {
+				$content = '';
+			}
+
 			$content = sanitizeHTML($content, $url);
 
 			if (!empty($item['published'])) {
