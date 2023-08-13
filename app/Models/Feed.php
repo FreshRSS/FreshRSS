@@ -433,10 +433,13 @@ class FreshRSS_Feed extends Minz_Model {
 
 					$this->_website(html_only_entity_decode($simplePie->get_link()));
 					$this->_description(html_only_entity_decode($simplePie->get_description()));
-					$this->_kind(FreshRSS_Feed::KIND_RSS);
 				} else {
 					//The case of HTTP 301 Moved Permanently
 					$subscribe_url = $simplePie->subscribe_url(true);
+				}
+
+				if ($this->kind() === FreshRSS_Feed::KIND_RSS_MAYBE) {
+					$this->_kind(FreshRSS_Feed::KIND_RSS);
 				}
 
 				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);

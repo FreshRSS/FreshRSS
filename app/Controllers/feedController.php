@@ -421,6 +421,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_RSS_MAYBE) {
 					$simplePie = $feed->load(false, $feedIsNew);
+					// @phpstan-ignore-next-line
 					if ($feed->kind() !== FreshRSS_Feed::KIND_RSS_MAYBE) {
 						$feedProperties['kind'] = $feed->kind();
 					}
