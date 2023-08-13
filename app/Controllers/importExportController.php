@@ -321,6 +321,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			if (empty($item['origin'])) {
 				$item['origin'] = [];
 			}
+			if (!empty($item['source']['title'])) {
+				$item['origin']['title'] = $item['source']['title'];	// TT-RSS
+			}
 			if (empty($item['origin']['title']) || trim($item['origin']['title']) === '') {
 				$item['origin']['title'] = 'Import';
 			}
@@ -331,6 +334,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$item['origin']['feedUrl'] = $feedUrl;
 			} elseif (!empty($item['origin']['htmlUrl'])) {
 				$feedUrl = $item['origin']['htmlUrl'];
+			} elseif (!empty($item['source']['link'])) {
+				$feedUrl = $item['source']['link'];	// TT-RSS
+				$item['origin']['htmlUrl'] = $feedUrl;
+				$item['origin']['feedUrl'] = $feedUrl;
 			} else {
 				$feedUrl = 'http://import.localhost/import.xml';
 				$item['origin']['feedUrl'] = $feedUrl;
@@ -553,6 +560,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
+			$feed->_kind(FreshRSS_Feed::KIND_RSS_MAYBE);
 			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
 			$feed->_name($name);
 			$feed->_website($website);
