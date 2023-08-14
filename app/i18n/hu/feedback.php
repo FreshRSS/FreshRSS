@@ -94,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> gyorsítótára kiürítve',
 			'deleted' => 'Hírforrás törlése megtörtént',
 			'error' => 'Hírforrás frissítése nem lehetséges',
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO
+			'internal_problem' => 'A hírforrást nem sikerült hozzáadni. <a href="%s">Nézd meg a FreshRSS logokat</a> a részletekért. Megpróbálhatod mindenképp hozzáadni, ha az <code>#force_feed</code> szöveget az URL után írod.',
 			'invalid_url' => 'URL <em>%s</em> érvénytelen',
 			'n_actualized' => '%d hírforrások frissítése kész',
 			'n_entries_deleted' => '%d cikkek törlése kész',
@@ -122,7 +122,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'Egy FreshRSS frissítés elérhető : <strong>Verzió %s</strong>.',
 		'error' => 'A frissítési folyamat hibába ütkozott: %s',
-		'file_is_nok' => 'An update of FreshRSS is available (<strong>Version %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// TODO
+		'file_is_nok' => 'Egy frissítés elérhető a FreshRSS-hez (<strong>Verzió %s</strong>), de ellenőrizd a jogosultságokat a <em>%s</em> könyvtáron. A HTTP szervernek szüksége van írási jogosultságra.',
 		'finished' => 'Frissítés kész!',
 		'none' => 'Nem áll rendelkezésre új frissítés',
 		'server_not_found' => 'Frissítési szerver nem található. [%s]',
