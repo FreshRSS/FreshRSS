@@ -18,7 +18,7 @@ return array(
 		),
 		'validation' => array(
 			'change_email' => 'Megváltoztathatod az email címed <a href="%s">a profil lapon</a>.',
-			'email_sent_to' => 'Email-t küldtünk neked a <strong>%s</strong> címre. Követsd a leírást hogy visszaigazolhasd a címedet.',
+			'email_sent_to' => 'Email-t küldtünk neked a <strong>%s</strong> címre. Kövesd a leírást hogy visszaigazolhasd a címedet.',
 			'feedback' => array(
 				'email_failed' => 'Nem tudtunk email-t küldeni neked egy szerver konfigurációs hiba miatt.',
 				'email_sent' => 'Egy email lett elküldve a címedre.',
