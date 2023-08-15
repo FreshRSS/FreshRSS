@@ -60,7 +60,7 @@ return array(
 		),
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
-			'ok' => 'A DOM böngészésére való könyvtár teleépítve van.',
+			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
 		),
 		'favicons' => array(
 			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtár jogosultságait a <em>%2$s</em> felhasználónak.	A HTTP szervernek szüksége van írási jogosultságra.',
