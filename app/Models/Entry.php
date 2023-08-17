@@ -61,7 +61,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
+	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
@@ -100,6 +100,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);
+		}
+		if (!empty($dao['hash'])) {
+			$entry->_hash($dao['hash']);
 		}
 		return $entry;
 	}
@@ -145,6 +148,13 @@ class FreshRSS_Entry extends Minz_Model {
 
 		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
 			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+	}
+
+	/**
+	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 */
+	public function originalContent(): string {
+		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content);
 	}
 
 	/**
@@ -412,7 +422,7 @@ HTML;
 	public function hash(): string {
 		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
 		}
 		return $this->hash;
 	}
@@ -473,7 +483,6 @@ HTML;
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
-		$this->hash = '';
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
@@ -770,7 +779,7 @@ HTML;
 					);
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
-						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
+						$originalContent = $this->originalContent();
 						switch ($feed->attributes('content_action')) {
 							case 'prepend':
 								$this->content = $fullContent . $originalContent;

@@ -68,6 +68,7 @@ People are sorted by name so please keep this order.
 * [Felix2yu 石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
 * [flo0627](https://github.com/flo0627): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:flo0627)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Frenzie), [Web](http://fransdejonge.com/)
+* [FromTheMoon85](https://github.com/FromTheMoon85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:FromTheMoon85)
 * [Gaurav Thakur](https://github.com/notfoss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:notfoss), [Web](https://blog.notfoss.com/)
 * [Gianni Scolaro](https://github.com/giannidsp): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:giannidsp)
 * [Gregor Nathanael Meyer](https://github.com/spackmat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spackmat), [Web](https://der-meyer.de)

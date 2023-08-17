@@ -208,7 +208,9 @@ final class FreshRSS_Context {
 		self::$state = Minz_Request::paramInt('state') ?: self::$user_conf->default_state;
 		$state_forced_by_user = Minz_Request::paramString('state') !== '';
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
+			if (self::$user_conf->default_view === 'all') {
+				self::$state |= FreshRSS_Entry::STATE_ALL;
+			} elseif (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
 			}
 			if (self::$user_conf->show_fav_unread &&
