@@ -1,4 +1,4 @@
-FROM alpine:3.18 as dev
+FROM alpine:3.18
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
