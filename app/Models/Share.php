@@ -15,7 +15,7 @@ class FreshRSS_Share {
 	 * @param array{'type':string,'url':string,'transform'?:array<callable>|array<string,array<callable>>,'field'?:string,'help'?:string,'form'?:'simple'|'advanced',
 	 *	'method'?:'GET'|'POST','HTMLtag'?:'button','deprecated'?:bool} $share_options is an array defining the share option.
 	 */
-	private static function register(array $share_options): void {
+	public static function register(array $share_options): void {
 		$type = $share_options['type'];
 		if (isset(self::$list_sharing[$type])) {
 			return;

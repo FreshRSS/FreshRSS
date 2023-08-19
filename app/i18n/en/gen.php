@@ -147,6 +147,7 @@ return array(
 		'fa' => 'فارسی',
 		'fr' => 'Français',
 		'he' => 'עברית',
+		'hu' => 'Magyar',
 		'id' => 'Bahasa Indonesia',
 		'it' => 'Italiano',
 		'ja' => '日本語',
