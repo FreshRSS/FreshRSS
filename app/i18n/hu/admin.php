@@ -12,7 +12,7 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Anoním felasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
+		'allow_anonymous' => 'Anoním felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Anoním felhasználok frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobil alkalmazás szükséges)</small>',
 		'form' => 'Web form (hagyományos, JavaScript szükséges hozzá)',
@@ -42,7 +42,7 @@ return array(
 			'ok' => 'Karakter típus ellenőrző könyvtár rendben (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nem található a cURL könytár (php-curl csomag).',
+			'nok' => 'Nem található a cURL könyvtár (php-curl csomag).',
 			'ok' => 'cURL könyvtár rendben van.',
 		),
 		'data' => array(
@@ -52,7 +52,7 @@ return array(
 		'database' => 'Adatbázis telepítés',
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár. (php-xml csomag).',
-			'ok' => 'A DOM böngészésére való könyvtár telelpítve van.',
+			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
 		),
 		'entries' => array(
 			'nok' => 'Belépési tábla nincs helyesen konfigurálva.',

@@ -127,11 +127,11 @@ return array(
 	'js' => array(
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
-		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minen kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
+		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
 		'feedback' => array(
 			'body_new_articles' => ' %%d db új cikk olvasható a FreshRSS-ben.',
 			'body_unread_articles' => '(olvasatlan: %%d)',
-			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kacsolattal vannak problémák.',
+			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',

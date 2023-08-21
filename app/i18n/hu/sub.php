@@ -43,12 +43,12 @@ return array(
 		'archiving' => 'Archiválás',
 		'auth' => array(
 			'configuration' => 'Bejelentkezés',
-			'help' => 'Lehetővé teszi http védelemmel ellátott RSS hírforrások hozzáférését',
+			'help' => 'Lehetővé teszi HTTP védelemmel ellátott RSS hírforrások hozzáférését',
 			'http' => 'HTTP Hitelesítés',
 			'password' => 'HTTP jelszó',
 			'username' => 'HTTP felhasználónév',
 		),
-		'clear_cache' => 'Mindíg törölje a cache-t',
+		'clear_cache' => 'Mindig törölje a cache-t',
 		'content_action' => array(
 			'_' => 'Tartalom művelet amikor cikk tartalma beszerzésre kerül',
 			'append' => 'Hozzáadás a létező tartalom után',
@@ -121,7 +121,7 @@ return array(
 				'relative' => 'XPath (az elemhez viszonyítva) ehhez:',
 				'xpath' => 'XPath ehhez:',
 			),
-			'rss' => 'RSS / Atom (alapértelemezett)',
+			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
