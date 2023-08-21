@@ -899,9 +899,8 @@ a:hover .icon {
 	margin: 10px auto;
 	padding: 10px 20px;
 	overflow: auto;
-	background-color: var(--font-color);
-	color: var(--font-color-light);
 	font-size: 0.9rem;
+	border: 1px solid var(--border-color);
 	border-radius: 3px;
 }
 
@@ -911,12 +910,6 @@ a:hover .icon {
 	color: var(--error-feed-color);
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
-}
-
-.content pre code {
-	background-color: transparent;
-	color: var(--font-color-light);
-	border: none;
 }
 
 .content blockquote {
