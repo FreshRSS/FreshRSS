@@ -1087,8 +1087,19 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
-		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.dataset.url);
+		if (el) { // Clipboard
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(el.dataset.url);
+			} else {
+				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
+				const inputElement = document.createElement('input');
+				inputElement.value = el.dataset.url;
+				inputElement.type = 'text';
+				document.body.appendChild(inputElement);
+				inputElement.select();
+				document.execCommand('copy');
+				inputElement.remove();
+			}
 			el.classList.remove('ok');
 			el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
 			el.classList.add('ok');
