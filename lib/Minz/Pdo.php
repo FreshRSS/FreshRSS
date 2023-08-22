@@ -28,7 +28,7 @@ abstract class Minz_Pdo extends PDO {
 	}
 
 	protected function preSql(string $statement): string {
-		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
+		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement) === 1) {
 			invalidateHttpCache();
 		}
 		return $this->autoPrefix($statement);

@@ -10,10 +10,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
-		Minz_Request::forward(array(
+		Minz_Request::forward([
 			'c' => 'index',
-			'a' => $preferred_output
-		));
+			'a' => $preferred_output,
+		]);
 	}
 
 	/**
@@ -22,14 +22,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	public function normalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
 		}
 
 		$id = Minz_Request::paramInt('id');
 		if ($id !== 0) {
 			$view = Minz_Request::paramString('a');
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => $view));
+			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => $view]];
 			Minz_Request::forward($url_redirect, true);
 			return;
 		}
@@ -58,7 +58,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_Context::$id_max = time() . '000000';
 
-		$this->view->callbackBeforeFeeds = function (FreshRSS_View $view) {
+		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$view->tags = $tagDAO->listTags(true) ?: [];
@@ -71,7 +71,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforeEntries = function (FreshRSS_View $view) {
+		$this->view->callbackBeforeEntries = static function (FreshRSS_View $view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for articles' page
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
@@ -83,7 +83,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforePagination = function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
+		$this->view->callbackBeforePagination = static function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
@@ -108,7 +108,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	public function globalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
 		}
 

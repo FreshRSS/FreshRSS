@@ -18,11 +18,11 @@ final class FreshRSS_Context {
 	/**
 	 * @var array<int,FreshRSS_Category>
 	 */
-	public static $categories = array();
+	public static $categories = [];
 	/**
 	 * @var array<int,FreshRSS_Tag>
 	 */
-	public static $tags = array();
+	public static $tags = [];
 	/**
 	 * @var string
 	 */
@@ -208,7 +208,9 @@ final class FreshRSS_Context {
 		self::$state = Minz_Request::paramInt('state') ?: self::$user_conf->default_state;
 		$state_forced_by_user = Minz_Request::paramString('state') !== '';
 		if (!$state_forced_by_user && !self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			if (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
+			if (self::$user_conf->default_view === 'all') {
+				self::$state |= FreshRSS_Entry::STATE_ALL;
+			} elseif (self::$user_conf->default_view === 'adaptive' && self::$get_unread <= 0) {
 				self::$state |= FreshRSS_Entry::STATE_READ;
 			}
 			if (self::$user_conf->show_fav_unread &&
@@ -261,19 +263,19 @@ final class FreshRSS_Context {
 			return $asArray ? ['s', true] : 's';
 		} elseif (self::$current_get['feed']) {
 			if ($asArray) {
-				return array('f', self::$current_get['feed']);
+				return ['f', self::$current_get['feed']];
 			} else {
 				return 'f_' . self::$current_get['feed'];
 			}
 		} elseif (self::$current_get['category']) {
 			if ($asArray) {
-				return array('c', self::$current_get['category']);
+				return ['c', self::$current_get['category']];
 			} else {
 				return 'c_' . self::$current_get['category'];
 			}
 		} elseif (self::$current_get['tag']) {
 			if ($asArray) {
-				return array('t', self::$current_get['tag']);
+				return ['t', self::$current_get['tag']];
 			} else {
 				return 't_' . self::$current_get['tag'];
 			}

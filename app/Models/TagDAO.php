@@ -60,11 +60,11 @@ SQL;
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = array(
+		$values = [
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
-		);
+		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
 			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
@@ -80,10 +80,10 @@ SQL;
 	public function addTagObject(FreshRSS_Tag $tag) {
 		$tag0 = $this->searchByName($tag->name());
 		if (!$tag0) {
-			$values = array(
+			$values = [
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
-			);
+			];
 			return $this->addTag($values);
 		}
 		return $tag->id();
@@ -148,7 +148,7 @@ SQL;
 		$sql = 'DELETE FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
 
-		$values = array($id);
+		$values = [$id];
 
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
@@ -326,7 +326,7 @@ SQL;
 			$sql = 'DELETE FROM `_entrytag` WHERE id_tag=? AND id_entry=?';
 		}
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id_tag, $id_entry);
+		$values = [$id_tag, $id_entry];
 
 		if ($stm !== false && $stm->execute($values)) {
 			return true;
@@ -348,12 +348,12 @@ ORDER BY t.name
 SQL;
 
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id_entry);
+		$values = [$id_entry];
 
 		if ($stm !== false && $stm->execute($values)) {
 			$lines = $stm->fetchAll(PDO::FETCH_ASSOC);
 			for ($i = count($lines) - 1; $i >= 0; $i--) {
-				$lines[$i]['id'] = intval($lines[$i]['id']);
+				$lines[$i]['id'] = (int)($lines[$i]['id']);
 				$lines[$i]['checked'] = !empty($lines[$i]['checked']);
 			}
 			return $lines;
@@ -377,7 +377,7 @@ FROM `_tag` t
 INNER JOIN `_entrytag` et ON et.id_tag = t.id
 SQL;
 
-		$values = array();
+		$values = [];
 		if (count($entries) > 0) {
 			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
@@ -424,12 +424,12 @@ SQL;
 	 * @return array<string,array<string>>
 	 */
 	public function getEntryIdsTagNames(array $entries): array {
-		$result = array();
+		$result = [];
 		foreach ($this->getTagsForEntries($entries) ?: [] as $line) {
 			$entryId = 'e_' . $line['id_entry'];
 			$tagName = $line['name'];
 			if (empty($result[$entryId])) {
-				$result[$entryId] = array();
+				$result[$entryId] = [];
 			}
 			$result[$entryId][] = $tagName;
 		}

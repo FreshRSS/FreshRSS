@@ -10,7 +10,7 @@ if (!FreshRSS_user_Controller::checkUsername($username)) {
 }
 
 $usernames = listUsers();
-if (preg_grep("/^$username$/i", $usernames)) {
+if (preg_grep("/^$username$/i", $usernames) !== false) {
 	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 
@@ -31,7 +31,7 @@ if (!$ok) {
 if (!empty($options['api_password'])) {
 	$username = cliInitUser($username);
 	$error = FreshRSS_api_Controller::updatePassword($options['api_password']);
-	if ($error) {
+	if ($error !== false) {
 		fail($error);
 	}
 }

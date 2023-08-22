@@ -208,9 +208,14 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' && !empty($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR'])) {
-			// Trust by default the remote IP address (e.g. proxy) used during install to provide remote user name
-			FreshRSS_Context::$system_conf->trusted_sources = [ $_SERVER['REMOTE_ADDR'] ];
+		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' &&
+			connectionRemoteAddress() !== '' &&
+			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
+			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
+		) {
+			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
+			FreshRSS_Context::$system_conf->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::$system_conf->trusted_sources = array_unique(FreshRSS_Context::$system_conf->trusted_sources);
 		}
 
 		// Create default user files but first, we delete previous data to
@@ -268,11 +273,11 @@ function checkStep0(): array {
 	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages, true);
 	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
 
-	return array(
+	return [
 		'language' => $language ? 'ok' : 'ko',
 		'sessionWorking' => $sessionWorking ? 'ok' : 'ko',
-		'all' => $language && $sessionWorking ? 'ok' : 'ko'
-	);
+		'all' => $language && $sessionWorking ? 'ok' : 'ko',
+	];
 }
 
 function freshrss_already_installed(): bool {
@@ -376,7 +381,7 @@ function printStep0(): void {
 			<?= FRESHRSS_VERSION ?>
 		</div>
 	</div>
-	
+
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">
@@ -544,7 +549,7 @@ function printStep2(): void {
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
 				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?=
-					isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : ($system_default_config->db['host'] ?? '') ?>" tabindex="2" />
+					$_SESSION['bd_host'] ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
 			</div>
 		</div>
 
@@ -552,7 +557,7 @@ function printStep2(): void {
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
 				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?=
-					isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
+					$_SESSION['bd_user'] ?? '' ?>" tabindex="3" />
 			</div>
 		</div>
 
@@ -561,7 +566,7 @@ function printStep2(): void {
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="pass" name="pass" value="<?=
-						isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
+						$_SESSION['bd_password'] ?? '' ?>" tabindex="4" autocomplete="off" />
 					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
 				</div>
 			</div>
@@ -571,7 +576,7 @@ function printStep2(): void {
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
 				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?=
-					isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="6" />
+					$_SESSION['bd_base'] ?? '' ?>" tabindex="6" />
 			</div>
 		</div>
 
@@ -579,7 +584,7 @@ function printStep2(): void {
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
-					isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : ($system_default_config->db['prefix'] ?? '') ?>" tabindex="7" />
+					$_SESSION['bd_prefix'] ?? $system_default_config->db['prefix'] ?? '' ?>" tabindex="7" />
 			</div>
 		</div>
 		</div>
@@ -603,7 +608,7 @@ function no_auth(string $auth_type): bool {
 
 /* Create default user */
 function printStep3(): void {
-	$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
+	$auth_type = $_SESSION['auth_type'] ?? '';
 	$s3 = checkStep3();
 	if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
@@ -618,7 +623,7 @@ function printStep3(): void {
 			<label class="group-name" for="default_user"><?= _t('install.default_user') ?></label>
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
-					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>"
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= $_SESSION['default_user'] ?? '' ?>"
 					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>

@@ -182,7 +182,7 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
  * Reference rfc2616-sec14.html#sec14.11
  */
 function _httpConditionalCallBack(string $buffer, int $mode = 5): string {
-	if (extension_loaded('zlib') && (!ini_get('zlib.output_compression'))) {
+	if (extension_loaded('zlib') && (ini_get('zlib.output_compression') == false)) {
 		$buffer2 = ob_gzhandler($buffer, $mode) ?: ''; //Will check HTTP_ACCEPT_ENCODING and put correct headers such as Vary //rfc2616-sec14.html#sec14.44
 		if (strlen($buffer2) > 1) //When ob_gzhandler succeeded
 			$buffer = $buffer2;

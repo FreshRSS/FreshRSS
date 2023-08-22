@@ -73,14 +73,14 @@ class FreshRSS_UserQuery {
 	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}
 	 */
 	public function toArray(): array {
-		return array_filter(array(
+		return array_filter([
 			'get' => $this->get,
 			'name' => $this->name,
 			'order' => $this->order,
 			'search' => $this->search->__toString(),
 			'state' => $this->state,
 			'url' => $this->url,
-		));
+		]);
 	}
 
 	/**

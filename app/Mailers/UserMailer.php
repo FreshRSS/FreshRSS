@@ -19,14 +19,14 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 		$this->view->username = $username;
 		$this->view->site_title = FreshRSS_Context::$system_conf->title;
 		$this->view->validation_url = Minz_Url::display(
-			array(
+			[
 				'c' => 'user',
 				'a' => 'validateEmail',
-				'params' => array(
+				'params' => [
 					'username' => $username,
-					'token' => $user_config->email_validation_token
-				)
-			),
+					'token' => $user_config->email_validation_token,
+				],
+			],
 			'txt',
 			true
 		);

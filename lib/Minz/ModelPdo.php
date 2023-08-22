@@ -69,7 +69,7 @@ class Minz_ModelPdo {
 				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
 				break;
 			case 'sqlite':
-				$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite');
+				$dsn = 'sqlite:' . DATA_PATH . '/users/' . $this->current_user . '/db.sqlite';
 				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 				$this->pdo->setPrefix('');
 				break;

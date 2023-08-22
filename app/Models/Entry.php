@@ -1,11 +1,11 @@
 <?php
 
 class FreshRSS_Entry extends Minz_Model {
-	const STATE_READ = 1;
-	const STATE_NOT_READ = 2;
-	const STATE_ALL = 3;
-	const STATE_FAVORITE = 4;
-	const STATE_NOT_FAVORITE = 8;
+	public const STATE_READ = 1;
+	public const STATE_NOT_READ = 2;
+	public const STATE_ALL = 3;
+	public const STATE_FAVORITE = 4;
+	public const STATE_NOT_FAVORITE = 8;
 
 	/** @var string */
 	private $id = '0';
@@ -61,7 +61,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
+	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
@@ -100,6 +100,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);
+		}
+		if (!empty($dao['hash'])) {
+			$entry->_hash($dao['hash']);
 		}
 		return $entry;
 	}
@@ -143,8 +146,15 @@ class FreshRSS_Entry extends Minz_Model {
 		$medium = $enclosure['medium'] ?? '';
 		$mime = $enclosure['type'] ?? '';
 
-		return $elink != '' && $medium === 'image' || strpos($mime, 'image') === 0 ||
+		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
 			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+	}
+
+	/**
+	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 */
+	public function originalContent(): string {
+		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content);
 	}
 
 	/**
@@ -235,12 +245,12 @@ HTML;
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributes('enclosures');
-		if (is_array($attributeEnclosures)) {
+		if (is_iterable($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
 			yield from $attributeEnclosures;
 		}
 		try {
-			$searchEnclosures = !is_array($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
+			$searchEnclosures = !is_iterable($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
@@ -412,7 +422,7 @@ HTML;
 	public function hash(): string {
 		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
 		}
 		return $this->hash;
 	}
@@ -473,7 +483,6 @@ HTML;
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
-		$this->hash = '';
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
@@ -643,20 +652,27 @@ HTML;
 	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
 		if ($this->feed != null) {
-			if ($this->feed->attributes('read_upon_reception') ||
-				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
-				$this->_isRead(true);
-			}
-			if (!empty($titlesAsRead[$this->title()])) {
-				Minz_Log::debug('Mark title as read: ' . $this->title());
-				$this->_isRead(true);
+			if (!$this->isRead()) {
+				if ($this->feed->attributes('read_upon_reception') ||
+					($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+					$this->_isRead(true);
+					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
+				}
+				if (!empty($titlesAsRead[$this->title()])) {
+					Minz_Log::debug('Mark title as read: ' . $this->title());
+					$this->_isRead(true);
+					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+				}
 			}
 			foreach ($this->feed->filterActions() as $filterAction) {
 				if ($this->matches($filterAction->booleanSearch())) {
 					foreach ($filterAction->actions() as $action) {
 						switch ($action) {
 							case 'read':
-								$this->_isRead(true);
+								if (!$this->isRead()) {
+									$this->_isRead(true);
+									Minz_ExtensionManager::callHook('entry_auto_read', $this, 'filter');
+								}
 								break;
 							case 'star':
 								$this->_isFavorite(true);
@@ -763,7 +779,7 @@ HTML;
 					);
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
-						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
+						$originalContent = $this->originalContent();
 						switch ($feed->attributes('content_action')) {
 							case 'prepend':
 								$this->content = $fullContent . $originalContent;
@@ -793,7 +809,7 @@ HTML;
 	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
 	 */
 	public function toArray(): array {
-		return array(
+		return [
 			'id' => $this->id(),
 			'guid' => $this->guid(),
 			'title' => $this->title(),
@@ -808,7 +824,7 @@ HTML;
 			'id_feed' => $this->feedId(),
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
-		);
+		];
 	}
 
 	/**
@@ -826,7 +842,7 @@ HTML;
 	 * Some clients (tested with News+) would fail if sending too long item content
 	 * @var int
 	 */
-	const API_MAX_COMPAT_CONTENT_LENGTH = 500000;
+	public const API_MAX_COMPAT_CONTENT_LENGTH = 500000;
 
 	/**
 	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.
