@@ -1094,7 +1094,6 @@ function init_stream(stream) {
 				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
 				const inputElement = document.createElement('input');
 				inputElement.value = el.dataset.url;
-				inputElement.type = 'text';
 				document.body.appendChild(inputElement);
 				inputElement.select();
 				document.execCommand('copy');
