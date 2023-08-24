@@ -82,10 +82,10 @@ function get_logout_url(): string {
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 				</li>
+				<?php } ?>
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?php } ?>
 				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
 			</ul>
 		</li>

@@ -21,6 +21,7 @@ Available languages are:
 | Spanish                 | Español                | es                                   |
 | French                  | Français               | fr                                   |
 | Hebrew                  | עברית                  | he                                   |
+| Hungarian               | Magyar                 | hu                                   |
 | Indonesian              | Bahasa Indonesia       | id                                   |
 | Italian                 | Italiano               | it                                   |
 | Japanease               | 日本語                  | ja                                   |
