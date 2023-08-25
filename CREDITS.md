@@ -128,6 +128,7 @@ People are sorted by name so please keep this order.
 * [May Meow](https://github.com/MayMeow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MayMeow), [Web](https://maymeow.com)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
+* [Miguel Sánchez](https://github.com/msdlr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:msdlr)
 * [Miika Launiainen](https://gitlab.com/miicat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miicat), [Web](https://miicat.eu/)
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
