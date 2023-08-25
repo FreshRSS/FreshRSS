@@ -13,14 +13,14 @@
 return array(
 	'action' => array(
 		'finish' => 'Telepítés befejeződött',
-		'fix_errors_before' => 'Javíts meg minden hibátt mielőtt továbblépnél a következő lépésre.',
+		'fix_errors_before' => 'Javíts meg minden hibát mielőtt továbblépnél a következő lépésre.',
 		'keep_install' => 'Előző konfiguráció megtartása',
 		'next_step' => 'Ugrás a következő lépésre',
 		'reinstall' => 'FreshRSS újratelepítése',
 	),
 	'auth' => array(
 		'form' => 'Web form (hagyományos, JavaScript-et igényel)',
-		'http' => 'HTTP (haladó felhasználókank HTTPSel)',
+		'http' => 'HTTP (haladó felhasználóknak HTTPSel)',
 		'none' => 'None (veszélyes)',
 		'password_form' => 'Jelszó<br /><small>(a Web-form belépési módszerhez)</small>',
 		'password_format' => 'Legalább 7 karakter',
@@ -60,7 +60,7 @@ return array(
 		),
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
-			'ok' => 'A DOM böngészésére való könyvtár telelpítve van.',
+			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
 		),
 		'favicons' => array(
 			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtár jogosultságait a <em>%2$s</em> felhasználónak.	A HTTP szervernek szüksége van írási jogosultságra.',
@@ -117,7 +117,7 @@ return array(
 	'fix_errors_before' => 'Javíts meg minden hibát mielőtt továbblépnél a következő lépésre.',
 	'javascript_is_better' => 'A FreshRSS sokkal jobban élvezhető ha a JavaScript engedélyezve van.',
 	'js' => array(
-		'confirm_reinstall' => 'Az előző konfiguráció elveszlik ha újratelepíted a FreshRSS-t. Biztos vagy benne hogy folytatod?',
+		'confirm_reinstall' => 'Az előző konfiguráció elveszik ha újratelepíted a FreshRSS-t. Biztos vagy benne hogy folytatod?',
 	),
 	'language' => array(
 		'_' => 'Nyelv',

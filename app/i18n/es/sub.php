@@ -188,7 +188,7 @@ return array(
 		'label_management' => 'Gestión de etiquetas',
 		'stats' => array(
 			'idle' => 'Fuentes inactivas',
-			'main' => 'Estadísticas principañes',
+			'main' => 'Estadísticas principales',
 			'repartition' => 'Reparto de artículos',
 		),
 		'subscription_management' => 'Administración de suscripciones',
