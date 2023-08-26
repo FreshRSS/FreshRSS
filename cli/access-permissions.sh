@@ -14,8 +14,8 @@ fi
 # Based on group access
 chown -R :www-data .
 
-# Read files, and directory traversal
-chmod -R g+rX .
+# Read files, write files, and directory traversal
+chmod -R g+rwX .
 
 # Write access
 mkdir -p ./data/users/_/
