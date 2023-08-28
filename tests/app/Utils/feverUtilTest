@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
+
+class feverUtilTest extends TestCase
+{
+	public function testDeleteKey(): void
+	{
+		$bool = FreshRSS_fever_Util::checkFeverPath();
+		$this->assertIsBool($bool);
+		$this->assertTrue($bool);
+	}
+
+	public function testKeyPathExpectContextException(): void
+	{
+		$this->expectException(FreshRSS_Context_Exception::class);
+		FreshRSS_fever_Util::getKeyPath('foo');
+	}
+
+	public function testUpdateKeyExpectContextException(): void
+	{
+		$this->expectException(FreshRSS_Context_Exception::class);
+		$this->expectExceptionMessage('System configuration not initialised!');
+		FreshRSS_fever_Util::updateKey('foo', 'bar');
+	}
+
+}
