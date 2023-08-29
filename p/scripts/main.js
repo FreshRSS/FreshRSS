@@ -1103,7 +1103,7 @@ function init_stream(stream) {
 				inputElement.value = el.dataset.url;
 				document.body.appendChild(inputElement);
 				inputElement.select();
-				if (document.execCommand('copy')) {
+				if (document.execCommand && document.execCommand('copy')) {
 					toggleClass(el, 'ok');
 				} else {
 					console.log('document.execCommand("copy") failed');
