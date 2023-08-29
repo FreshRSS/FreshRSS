@@ -1922,6 +1922,16 @@ html.slider-active {
 	animation-name: easeOut;
 }
 
+.item.share button.error::before {
+	content: "❌";
+	position: absolute;
+	left: 0.25rem;
+}
+
+.item.share button.error {
+	text-decoration: line-through;
+}
+
 @keyframes easeOut {
 	0% {opacity: 1;}
 
