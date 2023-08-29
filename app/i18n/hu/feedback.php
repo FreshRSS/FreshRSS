@@ -21,7 +21,7 @@ return array(
 	'api' => array(
 		'password' => array(
 			'failed' => 'A jelszó nem módosítható',
-			'updated' => 'A jelszó módosításaa megtörtént',
+			'updated' => 'A jelszó módosítása megtörtént',
 		),
 	),
 	'auth' => array(
@@ -108,7 +108,7 @@ return array(
 				'no_entries' => 'Nincsenek cikkek ebben a hírforrásban. Legalább egy cikk szükséges az előnézet elkészítéséhez.',
 				'no_feed' => 'Belső hiba (hírforrás nem található.',
 				'no_result' => 'A kiválasztó nem egyezett semmivel. Az eredeti hírforrás szövege lesz megjelenítve helyette.',
-				'selector_empty' => 'A kiválasztó üres. Meg kell határozni egyet, hogy az előnézet lérehozható legyen.',
+				'selector_empty' => 'A kiválasztó üres. Meg kell határozni egyet, hogy az előnézet létrehozható legyen.',
 			),
 			'updated' => 'Hírforrás frissítve',
 		),
@@ -121,7 +121,7 @@ return array(
 	),
 	'update' => array(
 		'can_apply' => 'Egy FreshRSS frissítés elérhető : <strong>Verzió %s</strong>.',
-		'error' => 'A frissítési folyamat hibába ütkozott: %s',
+		'error' => 'A frissítési folyamat hibába ütközött: %s',
 		'file_is_nok' => 'Egy frissítés elérhető a FreshRSS-hez (<strong>Verzió %s</strong>), de ellenőrizd a jogosultságokat a <em>%s</em> könyvtáron. A HTTP szervernek szüksége van írási jogosultságra.',
 		'finished' => 'Frissítés kész!',
 		'none' => 'Nem áll rendelkezésre új frissítés',
