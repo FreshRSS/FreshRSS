@@ -330,7 +330,6 @@ function customSimplePie(array $attributes = array()): SimplePie {
 	return $simplePie;
 }
 
-/** @param string $data */
 function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
 	if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
