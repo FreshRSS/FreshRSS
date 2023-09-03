@@ -423,9 +423,10 @@ SQL;
 	}
 
 	/**
-	 * For API
-	 * @param array<FreshRSS_Entry|numeric-string> $entries
-	 * @return array<string,array<string>>
+	 * Produces an array: for each entry ID (prefixed by `e_`), associate a list of labels.
+	 * Used by API and by JSON export, to speed up queries (would be very expensive to perform a label look-up on each entry individually).
+	 * @param array<FreshRSS_Entry|numeric-string> $entries the list of entries for which to retrieve the labels.
+	 * @return array<string,array<string>> An array of the shape `[e_id_entry => ["label 1", "label 2"]]`
 	 */
 	public function getEntryIdsTagNames(array $entries): array {
 		$result = [];
