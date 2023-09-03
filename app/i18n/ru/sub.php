@@ -178,6 +178,7 @@ return array(
 		'feed_list' => 'Список из %s статей',
 		'file_to_import' => 'Файл для импорта<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'Файл для импорта<br />(OPML or JSON)',
+		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Импорт',
 		'starred_list' => 'Список избранных статей',
 		'title' => 'Импорт / экспорт',

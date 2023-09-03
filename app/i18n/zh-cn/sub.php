@@ -178,6 +178,7 @@ return array(
 		'feed_list' => '%s 文章列表',
 		'file_to_import' => '需要导入的文件 <br />（OPML、JSON 或 ZIP）',
 		'file_to_import_no_zip' => '需要导入的文件 <br />（OPML 或 JSON）',
+		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => '导入',
 		'starred_list' => '收藏文章列表',
 		'title' => '导入/导出',

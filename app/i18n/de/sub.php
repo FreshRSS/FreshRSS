@@ -178,6 +178,7 @@ return array(
 		'feed_list' => 'Liste von %s Artikeln',
 		'file_to_import' => 'Zu importierende Datei<br />(OPML, JSON oder ZIP)',
 		'file_to_import_no_zip' => 'Zu importierende Datei<br />(OPML oder JSON)',
+		'dont_update_after_import' => 'Nach dem Import Feeds nicht sofort aktualisieren<br /> (Vermeidet doppelte Feeds beim Import mehrerer Dateien)<br />Automatische Feed-Updates durch cron oder alternative Verfahren sollten während der Imports deaktiviert sein.',
 		'import' => 'Importieren',
 		'starred_list' => 'Liste der Lieblingsartikel',
 		'title' => 'Importieren / Exportieren',

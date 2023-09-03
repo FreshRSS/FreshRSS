@@ -178,6 +178,7 @@ return array(
 		'feed_list' => 'Lista wiadomości z kanału %s',
 		'file_to_import' => 'Plik do zaimportowania<br />(formaty OPML, JSON lub ZIP)',
 		'file_to_import_no_zip' => 'Plik do zaimportowania<br />(OPML lub JSON)',
+		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Import',	// IGNORE
 		'starred_list' => 'Lista ulubionych wiadomości',
 		'title' => 'Import / eksport',

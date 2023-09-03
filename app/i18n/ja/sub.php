@@ -178,6 +178,7 @@ return array(
 		'feed_list' => '%s 記事のリスト',
 		'file_to_import' => 'インポートするファイル<br />(OPML, JSON あるいは ZIP)',
 		'file_to_import_no_zip' => 'インポートするファイル<br />(OPML あるいは JSON)',
+		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'インポート',
 		'starred_list' => 'お気に入りの記事',
 		'title' => 'インポート / エクスポート',

@@ -178,6 +178,7 @@ return array(
 		'feed_list' => ' فهرست %s مقاله',
 		'file_to_import' => ' فایل برای وارد کردن<br />(OPML',
 		'file_to_import_no_zip' => ' فایل برای وارد کردن<br /> (OPML یا JSON)',
+		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'واردات',
 		'starred_list' => ' فهرست مقالات مورد علاقه',
 		'title' => ' واردات / صادرات',
