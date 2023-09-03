@@ -383,7 +383,7 @@ SQL;
 				// Split a query with too many variables parameters
 				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
-					$values += $this->getTagsForEntries($idsChunk);
+					$values = array_merge($values, $this->getTagsForEntries($idsChunk));
 				}
 				return $values;
 			}
