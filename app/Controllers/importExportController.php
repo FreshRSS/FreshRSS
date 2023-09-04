@@ -312,7 +312,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (!isset($item['guid']) && isset($item['id'])) {
 				$item['guid'] = $item['id'];
 			}
@@ -385,7 +385,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// Then, articles are imported.
 		$newGuids = [];
 		$this->entryDAO->beginTransaction();
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (empty($item['guid']) || empty($article_to_feed[$item['guid']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
@@ -430,14 +430,17 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$url = '';
 			}
+			if (!is_string($url)) {
+				$url = '';
+			}
 
 			$title = empty($item['title']) ? $url : $item['title'];
 
-			if (!empty($item['content']['content'])) {
+			if (isset($item['content']['content']) && is_string($item['content']['content'])) {
 				$content = $item['content']['content'];
-			} elseif (!empty($item['summary']['content'])) {
+			} elseif (isset($item['summary']['content']) && is_string($item['summary']['content'])) {
 				$content = $item['summary']['content'];
-			} elseif (!empty($item['content'])) {
+			} elseif (isset($item['content']) && is_string($item['content'])) {
 				$content = $item['content'];	//FeedBin
 			} else {
 				$content = '';
