@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Journal des modifications',
 		'check' => 'Vérifier les mises à jour',
 		'copiedFromURL' => 'update.php copié depuis %s vers ./data',
-		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
-		'last' => 'Dernière vérification : %s',
+		'current_version' => 'Votre version actuelle',
+		'last' => 'Dernière vérification',
 		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
 		'releaseChannel' => array(
