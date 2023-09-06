@@ -32,10 +32,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		]);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-
 		$catDAO->checkDefault();
-		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listSortedCategories(false) ?: [];
 		$this->view->default_category = $catDAO->getDefault();
 
