@@ -846,12 +846,12 @@ HTML;
 
 	/**
 	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.
-	 * N.B.: You might have to populate `$entry->_tags()` prior to calling this function.
 	 * @param string $mode Set to `'compat'` to use an alternative Unicode representation for problematic HTML special characters not decoded by some clients;
 	 * 	set to `'freshrss'` for using FreshRSS additions for internal use (e.g. export/import).
+	 * @param array<string> $labels List of labels associated to this entry.
 	 * @return array<string,mixed> A representation of this entry in a format compatible with Google Reader API
 	 */
-	public function toGReader(string $mode = ''): array {
+	public function toGReader(string $mode = '', array $labels = []): array {
 
 		$feed = $this->feed();
 		$category = $feed == null ? null : $feed->category();
@@ -935,8 +935,11 @@ HTML;
 		if ($this->isFavorite()) {
 			$item['categories'][] = 'user/-/state/com.google/starred';
 		}
+		foreach ($labels as $labelName) {
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($labelName, ENT_QUOTES);
+		}
 		foreach ($this->tags() as $tagName) {
-			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
+			$item['categories'][] = htmlspecialchars_decode($tagName, ENT_QUOTES);
 		}
 		return $item;
 	}

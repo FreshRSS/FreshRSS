@@ -26,11 +26,7 @@ foreach ($this->entries as $entry) {
 	$feed = $this->feed ?? FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId());
 	$entry->_feed($feed);
 
-	if (isset($this->entryIdsTagNames['e_' . $entry->id()])) {
-		$entry->_tags($this->entryIdsTagNames['e_' . $entry->id()]);
-	}
-
-	$article = $entry->toGReader('freshrss');
+	$article = $entry->toGReader('freshrss', $this->entryIdsTagNames['e_' . $entry->id()] ?? []);
 
 	$line = json_encode($article, $options);
 	if ($line != '') {
