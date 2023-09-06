@@ -11,6 +11,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	/** @var FreshRSS_FeedDAO */
 	private $feedDAO;
 
+	/** @var FreshRSS_CategoryDAO */
+	private $categoryDAO;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
@@ -23,6 +26,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao();
 	}
 
 	/**
@@ -67,6 +71,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao();
 
 		$type_file = self::guessFileType($name);
 
@@ -551,10 +556,25 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 		$name = empty($origin['title']) ? $website : $origin['title'];
 
+		$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+		if(!empty($origin['category'])) {
+			$new_cat_id = null;
+
+			$new_cat = $this->categoryDAO->searchByName($origin['category']); // returns FreshRSS_Category
+			if($new_cat != null) {
+				$new_cat_id=$new_cat->id();
+			} else {
+				$new_cat_id = $this->categoryDAO->addCategory(['name' => $origin['category']]); // returns id
+			}
+			if($new_cat_id != null) {
+				$cat_id = $new_cat_id;
+			}
+		}
+
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+			$feed->_categoryId($cat_id);
 			$feed->_name($name);
 			$feed->_website($website);
 			if (!empty($origin['disable'])) {
