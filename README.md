@@ -154,6 +154,12 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) 
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
 
+# Migration
+
+If you come from another feed reader you might want to migrate your categories, feeds and articles to FreshRSS.
+
+* Tiny Tiny RSS (TT-RSS): there is an (exporter)[https://github.com/robertdahlem/export_ttrss] for TT-RSS, that support FreshRSS's native import format.
+
 # Alternatives
 
 If FreshRSS does not suit you for one reason or another, here are alternative solutions to consider:
