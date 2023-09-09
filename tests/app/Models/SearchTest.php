@@ -330,8 +330,8 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'intitle:"\\(test\\)"',
 				'(e.title LIKE ? )',
-				['%\\(test\\)%'],
-			]
+				['%(test)%'],
+			],
 		];
 	}
 }
