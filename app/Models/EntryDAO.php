@@ -349,10 +349,13 @@ SQL;
 	 * feeds from one category or on all feeds.
 	 */
 	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
-		$sql = <<<'SQL'
+		// Help MySQL/MariaDB's optimizer with the query plan:
+		$useIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index)' : '';
+
+		$sql = <<<SQL
 UPDATE `_feed`
 SET `cache_nbUnreads`=(
-	SELECT COUNT(*) AS nbUnreads FROM `_entry` e
+	SELECT COUNT(*) AS nbUnreads FROM `_entry` e {$useIndex}
 	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
 SQL;
 		$hasWhere = false;
