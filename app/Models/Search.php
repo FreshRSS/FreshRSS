@@ -73,6 +73,7 @@ class FreshRSS_Search {
 
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
+		$input = self::unescape($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
@@ -661,5 +662,10 @@ class FreshRSS_Search {
 			return '';
 		}
 		return trim($input);
+	}
+
+	/** Remove escaping backslashes for parenthesis logic */
+	private static function unescape(string $input): string {
+		return str_replace(['\\(', '\\)'], ['(', ')'], $input);
 	}
 }
