@@ -1300,46 +1300,53 @@ function loadDynamicTags(div) {
 			return req.onerror(e);
 		}
 
-		const li_item0 = document.createElement('li');
-		li_item0.setAttribute('class', 'item addItem');
+		if (!context.anonymous) {
+			const li_item0 = document.createElement('li');
+			li_item0.setAttribute('class', 'item addItem');
 
-		const label = document.createElement('label');
-		label.setAttribute('class', 'noHover');
+			const label = document.createElement('label');
+			label.setAttribute('class', 'noHover');
 
-		const input_checkboxTag = document.createElement('input');
-		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
-		input_checkboxTag.setAttribute('name', 't_0');
-		input_checkboxTag.setAttribute('type', 'checkbox');
+			const input_checkboxTag = document.createElement('input');
+			input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+			input_checkboxTag.setAttribute('name', 't_0');
+			input_checkboxTag.setAttribute('type', 'checkbox');
 
-		const input_newTag = document.createElement('input');
-		input_newTag.setAttribute('type', 'text');
-		input_newTag.setAttribute('name', 'newTag');
-		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+			const input_newTag = document.createElement('input');
+			input_newTag.setAttribute('type', 'text');
+			input_newTag.setAttribute('name', 'newTag');
+			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
-		const button_btn = document.createElement('button');
-		button_btn.setAttribute('type', 'button');
-		button_btn.setAttribute('class', 'btn');
-		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+			const button_btn = document.createElement('button');
+			button_btn.setAttribute('type', 'button');
+			button_btn.setAttribute('class', 'btn');
+			button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
 
-		const text_plus = document.createTextNode('+');
+			const text_plus = document.createTextNode('+');
 
-		const div_stick = document.createElement('div');
-		div_stick.setAttribute('class', 'stick');
+			const div_stick = document.createElement('div');
+			div_stick.setAttribute('class', 'stick');
 
-		button_btn.appendChild(text_plus);
-		div_stick.appendChild(input_newTag);
-		div_stick.appendChild(button_btn);
-		label.appendChild(input_checkboxTag);
-		label.appendChild(div_stick);
-		li_item0.appendChild(label);
+			button_btn.appendChild(text_plus);
+			div_stick.appendChild(input_newTag);
+			div_stick.appendChild(button_btn);
+			label.appendChild(input_checkboxTag);
+			label.appendChild(div_stick);
+			li_item0.appendChild(label);
 
-		div.querySelector('.dropdown-menu').appendChild(li_item0);
+			div.querySelector('.dropdown-menu').appendChild(li_item0);
+		}
 
 		let html = '';
 		if (json && json.length) {
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
+				if (context.anonymous && !tag.checked) {
+					// In anomymous mode, show only the used tags
+					continue;
+				}
 				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
+						(context.anonymous ? ' disabled="disabled"' : '') +
 						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
 			}
 		}
