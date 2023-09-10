@@ -1341,10 +1341,6 @@ function loadDynamicTags(div) {
 		if (json && json.length) {
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
-				if (context.anonymous && !tag.checked) {
-					// In anomymous mode, show only the used tags
-					continue;
-				}
 				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
 						(context.anonymous ? ' disabled="disabled"' : '') +
 						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
