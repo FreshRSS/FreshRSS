@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
-		'last' => 'Τελευταία επαλήθευση: %s',
+		'current_version' => 'Η τρέχουσα έκδοση του',
+		'last' => 'Τελευταία επαλήθευση',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
 		'releaseChannel' => array(

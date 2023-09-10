@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
-		'last' => 'Poslední kontrola: %s',
+		'current_version' => 'Vaše aktuální verze',
+		'last' => 'Poslední kontrola',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Žádné nové aktualizace',
 		'releaseChannel' => array(

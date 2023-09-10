@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Jaunu atjauninājumu pārbaude',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
-		'last' => 'Pēdējā verifikācija: %s',
+		'current_version' => 'Jūsu pašreizējā versija',
+		'last' => 'Pēdējā verifikācija',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(

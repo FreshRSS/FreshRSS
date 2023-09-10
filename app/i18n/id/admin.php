@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
-		'last' => 'Verifikasi terakhir: %s',
+		'current_version' => 'Versi saat ini adalah',
+		'last' => 'Verifikasi terakhir',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
 		'releaseChannel' => array(

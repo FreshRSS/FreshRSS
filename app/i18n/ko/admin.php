@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => '새 업데이트 확인하기',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => '현재 FreshRSS 버전은 %s 입니다.',
-		'last' => '마지막 확인: %s',
+		'current_version' => '현버전은 입니다',
+		'last' => '마지막 확인',
 		'loading' => 'Updating…',	// TODO
 		'none' => '적용 가능한 업데이트가 없습니다',
 		'releaseChannel' => array(

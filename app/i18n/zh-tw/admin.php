@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => '檢查更新',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => '當前 FreshRSS 版本為 %s。',
-		'last' => '上次檢查：%s',
+		'current_version' => '當前 版本為',
+		'last' => '上次檢查',
 		'loading' => 'Updating…',	// TODO
 		'none' => '沒有可用更新',
 		'releaseChannel' => array(

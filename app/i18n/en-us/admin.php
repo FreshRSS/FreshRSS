@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Check for new updates',	// IGNORE
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// IGNORE
-		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
-		'last' => 'Last verification: %s',	// IGNORE
+		'current_version' => 'Current installed version',	// IGNORE
+		'last' => 'Last verification',	// IGNORE
 		'loading' => 'Updating…',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
 		'releaseChannel' => array(
