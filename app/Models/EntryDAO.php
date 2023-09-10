@@ -347,31 +347,26 @@ SQL;
 	 * Update the unread article cache held on every feed details.
 	 * Depending on the parameters, it updates the cache on one feed, on all
 	 * feeds from one category or on all feeds.
-	 *
-	 * @todo It can use the query builder refactoring to build that query
 	 */
 	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
 		$sql = <<<'SQL'
-UPDATE `_feed` f LEFT OUTER JOIN (
-	SELECT e.id_feed, COUNT(*) AS nbUnreads
-	FROM `_entry` e
-	WHERE e.is_read = 0
-	GROUP BY e.id_feed
-) x ON x.id_feed = f.id
-SET f.`cache_nbUnreads` = COALESCE(x.nbUnreads, 0)
+UPDATE `_feed`
+SET `cache_nbUnreads`=(
+	SELECT COUNT(*) AS nbUnreads FROM `_entry` e
+	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
 SQL;
 		$hasWhere = false;
 		$values = [];
 		if ($feedId != null) {
 			$sql .= ' WHERE';
 			$hasWhere = true;
-			$sql .= ' f.id=?';
+			$sql .= ' id=?';
 			$values[] = $feedId;
 		}
 		if ($catId != null) {
 			$sql .= $hasWhere ? ' AND' : ' WHERE';
 			$hasWhere = true;
-			$sql .= ' f.category=?';
+			$sql .= ' category=?';
 			$values[] = $catId;
 		}
 		$stm = $this->pdo->prepare($sql);

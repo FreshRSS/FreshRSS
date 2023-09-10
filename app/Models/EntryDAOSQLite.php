@@ -78,37 +78,6 @@ SQL;
 		return $result;
 	}
 
-	protected function updateCacheUnreads(?int $catId = null, ?int $feedId = null): bool {
-		$sql = <<<'SQL'
-UPDATE `_feed`
-SET `cache_nbUnreads`=(
-	SELECT COUNT(*) AS nbUnreads FROM `_entry` e
-	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
-SQL;
-		$hasWhere = false;
-		$values = [];
-		if ($feedId != null) {
-			$sql .= ' WHERE';
-			$hasWhere = true;
-			$sql .= ' id=?';
-			$values[] = $feedId;
-		}
-		if ($catId != null) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
-			$hasWhere = true;
-			$sql .= ' category=?';
-			$values[] = $catId;
-		}
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($values)) {
-			return true;
-		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-			return false;
-		}
-	}
-
 	/**
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
