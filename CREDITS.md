@@ -30,6 +30,7 @@ People are sorted by name so please keep this order.
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)
 * [Axel Leroy](https://github.com/axeleroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:axeleroy), [Web](https://axel.leroy.sh/)
 * [azlux](https://github.com/azlux): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:azlux), [Web](https://azlux.fr/)
+* [Balázs Keresztury](https://github.com/belidzs/): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:belidzs), [Web](https://keresztury.com/)
 * [Bartosz Taudul](https://github.com/wolfpld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wolfpld), [Web](https://wolf.nereid.pl/)
 * [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
 * [bluewhale235](https://github.com/BuleWhale): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BuleWhale)

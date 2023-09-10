@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'FreshRSS versione %s.',
-		'last' => 'Ultima verifica: %s',
+		'current_version' => 'Versione',
+		'last' => 'Ultima verifica',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nessun aggiornamento da applicare',
 		'releaseChannel' => array(

@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Buscar actualizaciones',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Dispones de la versión %s de FreshRSS.',
-		'last' => 'Última comprobación: %s',
+		'current_version' => 'Dispones de la versión',
+		'last' => 'Última comprobación',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'No hay actualizaciones disponibles',
 		'releaseChannel' => array(
