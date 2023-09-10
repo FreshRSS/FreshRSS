@@ -557,16 +557,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$name = empty($origin['title']) ? $website : $origin['title'];
 
 		$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
-		if(!empty($origin['category'])) {
-			$new_cat_id = null;
-
-			$new_cat = $this->categoryDAO->searchByName($origin['category']); // returns FreshRSS_Category
-			if($new_cat != null) {
-				$new_cat_id=$new_cat->id();
-			} else {
-				$new_cat_id = $this->categoryDAO->addCategory(['name' => $origin['category']]); // returns id
-			}
-			if($new_cat_id != null) {
+		if (!empty($origin['category'])) {
+			$new_cat = $this->categoryDAO->searchByName($origin['category']);
+			$new_cat_id = $new_cat === null ? $this->categoryDAO->addCategory(['name' => $origin['category']]) : $new_cat->id();
+			if ($new_cat_id != false) {
 				$cat_id = $new_cat_id;
 			}
 		}
