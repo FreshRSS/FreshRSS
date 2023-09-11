@@ -17,7 +17,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $authors;
 	/** @var string */
 	private $content;
-	/** @var string[]|null */
+	/** @var array<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title':string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}>|null */
 	private $content_enclosures;
 	/** @var string */
 	private $link;
@@ -186,7 +186,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 		foreach ($attributeEnclosures as $enclosure) {
 			$elink = $enclosure['url'] ?? '';
-			$temp['link'] = $enclosure['url'] ?? '';
+			$temp['url'] = $enclosure['url'] ?? '';
 			if ($elink == '') {
 				continue;
 			}
@@ -225,10 +225,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @return array|null
+	 * @return array<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title':string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}>
 	 */
-	public function content_enclosures(): ?array {
-		return $this->content_enclosures;
+	public function content_enclosures(): array {
+		return $this->content_enclosures ?? [];
 	}
 
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
