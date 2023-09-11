@@ -195,8 +195,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Проверить обновления',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
-		'last' => 'Последняя проверка: %s',
+		'current_version' => 'Ваша текущая версия',
+		'last' => 'Последняя проверка',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Нет обновлений',
 		'releaseChannel' => array(
