@@ -68,7 +68,7 @@ return array(
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
 		'filteractions' => array(
 			'_' => 'Filter actions',	// IGNORE
-			'help' => 'Write one search filter per line.',	// IGNORE
+			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
 		),
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE

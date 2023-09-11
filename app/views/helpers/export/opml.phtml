@@ -2,8 +2,9 @@
 
 /**
  * @param array<FreshRSS_Feed> $feeds
+ * @return array<array<string,string|null>>
  */
-function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
+function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
 		if ($feed->mute() && $excludeMutedFeeds) {
@@ -58,6 +59,9 @@ function feedsToOutlines($feeds, $excludeMutedFeeds = false): array {
 			$outline['frss:cssFullContentFilter'] = $feed->attributes('path_entries_filter');
 		}
 
+		// Remove null attributes
+		$outline = array_filter($outline, static function (?string $value) { return $value !== null; });
+
 		$outlines[] = $outline;
 	}
 
@@ -78,7 +82,7 @@ $opml_array = [
 ];
 
 if (!empty($this->categories)) {
-	foreach ($this->categories as $key => $cat) {
+	foreach ($this->categories as $cat) {
 		$outline = [
 			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
@@ -88,13 +92,15 @@ if (!empty($this->categories)) {
 			$outline['frss:opmlUrl'] = $cat->attributes('opml_url');
 		}
 
-		$opml_array['body'][$key] = $outline;
+		$opml_array['body'][] = $outline;
 	}
 }
 
 if (!empty($this->feeds)) {
-	$opml_array['body'][] = feedsToOutlines($this->feeds, $this->excludeMutedFeeds);
+	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
 }
 
 $libopml = new \marienfressinaud\LibOpml\LibOpml(true);
-echo $libopml->render($opml_array);
+$opml = $libopml->render($opml_array);
+/** @var string $opml */
+echo $opml;

@@ -9,7 +9,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
-	public function firstAction() {
+	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -18,14 +18,14 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action lists all the extensions available to the current user.
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		FreshRSS_View::prependTitle(_t('admin.extensions.title') . ' · ');
-		$this->view->extension_list = array(
-			'system' => array(),
-			'user' => array(),
-		);
+		$this->view->extension_list = [
+			'system' => [],
+			'user' => [],
+		];
 
-		$this->view->extensions_installed = array();
+		$this->view->extensions_installed = [];
 
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
@@ -33,36 +33,35 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
 
-		$availableExtensions = $this->getAvailableExtensionList();
-		$this->view->available_extensions = $availableExtensions;
+		$this->view->available_extensions = $this->getAvailableExtensionList();
 	}
 
 	/**
 	 * fetch extension list from GitHub
+	 * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
 	 */
-	protected function getAvailableExtensionList() {
+	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
 		$json = @file_get_contents($extensionListUrl);
 
 		// we ran into problems, simply ignore them
 		if ($json === false) {
 			Minz_Log::error('Could not fetch available extension from GitHub');
-			return array();
+			return [];
 		}
 
 		// fetch the list as an array
+		/** @var array<string,mixed> $list*/
 		$list = json_decode($json, true);
 		if (empty($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
-			return array();
+			return [];
 		}
-
-		// we could use that for comparing and caching later
-		$version = $list['version'];
 
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
+		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> $extensions*/
 		$extensions = $list['extensions'];
 
 		return $extensions;
@@ -78,24 +77,27 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * - additional parameters which should be handle by the extension
 	 *   handleConfigureAction() method (POST request).
 	 */
-	public function configureAction() {
-		if (Minz_Request::param('ajax')) {
-			$this->view->_layout(false);
-		} else {
+	public function configureAction(): void {
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		} elseif (Minz_Request::paramBoolean('slider')) {
 			$this->indexAction();
 			$this->view->_path('extension/index.phtml');
 		}
 
-		$ext_name = urldecode(Minz_Request::param('e'));
+		$ext_name = urldecode(Minz_Request::paramString('e'));
 		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
-		if (is_null($ext)) {
+		if ($ext === null) {
 			Minz_Error::error(404);
+			return;
 		}
 		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
+			return;
 		}
 
+		FreshRSS_View::prependTitle($ext->getName() . ' · ' . _t('admin.extensions.title') . ' · ');
 		$this->view->extension = $ext;
 		$this->view->extension->handleConfigureAction();
 	}
@@ -109,41 +111,52 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
 	 */
-	public function enableAction() {
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+	public function enableAction(): void {
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			if ($ext->isEnabled()) {
 				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name), $url_redirect);
 			}
 
-			$conf = null;
-			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
-				$conf = FreshRSS_Context::$system_conf;
-			} elseif ($ext->getType() === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
-			} else {
+			$type = $ext->getType();
+			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
 				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				return;
+			}
+
+			$conf = null;
+			if ($type === 'system') {
+				$conf = FreshRSS_Context::$system_conf;
+			} elseif ($type === 'user') {
+				$conf = FreshRSS_Context::$user_conf;
 			}
 
 			$res = $ext->install();
 
-			if ($res === true) {
+			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
+				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+					// Remove from list the extensions that have disappeared or changed type
+					$extension = Minz_ExtensionManager::findExtension($key);
+					return $extension !== null && $extension->getType() === $type;
+				}, ARRAY_FILTER_USE_KEY);
+
 				$ext_list[$ext_name] = true;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
 				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name), $url_redirect);
 			} else {
-				Minz_Log::warning('Can not enable extension ' . $ext_name . ': ' . $res);
+				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
 			}
 		}
@@ -160,45 +173,52 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
 	 */
-	public function disableAction() {
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+	public function disableAction(): void {
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			if (!$ext->isEnabled()) {
 				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name), $url_redirect);
 			}
 
-			$conf = null;
-			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
-				$conf = FreshRSS_Context::$system_conf;
-			} elseif ($ext->getType() === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
-			} else {
+			$type = $ext->getType();
+			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
 				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				return;
+			}
+
+			$conf = null;
+			if ($type === 'system') {
+				$conf = FreshRSS_Context::$system_conf;
+			} elseif ($type === 'user') {
+				$conf = FreshRSS_Context::$user_conf;
 			}
 
 			$res = $ext->uninstall();
 
-			if ($res === true) {
+			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$legacyKey = array_search($ext_name, $ext_list, true);
-				if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
-					unset($ext_list[$legacyKey]);
-				}
+				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+					// Remove from list the extensions that have disappeared or changed type
+					$extension = Minz_ExtensionManager::findExtension($key);
+					return $extension !== null && $extension->getType() === $type;
+				}, ARRAY_FILTER_USE_KEY);
+
 				$ext_list[$ext_name] = false;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
 				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name), $url_redirect);
 			} else {
-				Minz_Log::warning('Can not unable extension ' . $ext_name . ': ' . $res);
+				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
 			}
 		}
@@ -215,19 +235,20 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * Parameter is:
 	 * -e: extension name (urlencoded)
 	 */
-	public function removeAction() {
+	public function removeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
 
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e'));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				return;
 			}
 
 			$res = recursive_unlink($ext->getPath());

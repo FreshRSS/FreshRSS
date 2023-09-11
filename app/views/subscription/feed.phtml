@@ -1,7 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
 <?php
+/** @var FreshRSS_View $this */
 
-if (!Minz_Request::param('ajax')) {
+if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_subscription');
 }
 

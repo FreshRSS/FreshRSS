@@ -24,6 +24,10 @@
 	&.current {
 		background: variables.$white;
 		border-left-color: variables.$main-first;
+
+		&:not(.active) {
+			background: variables.$grey-lighter;
+		}
 	}
 
 	&.not_read:not(.current) {

@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Flusso principale',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
-		'percent_of_total' => '%% del totale',
+		'percent_of_total' => '% del totale',
 		'repartition' => 'Ripartizione articoli',
 		'status_favorites' => 'Preferiti',
 		'status_read' => 'Letti',
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'Form di registrazione utente',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'FreshRSS versione %s.',
 		'last' => 'Ultima verifica: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Nessun aggiornamento da applicare',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aggiorna sistema',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Amministratore',

@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Všechny kanály',
 		'no_idle' => 'Nejsou žádné nečinné kanály!',
 		'number_entries' => '%d článků',
-		'percent_of_total' => '%% ze všech',
+		'percent_of_total' => '% ze všech',
 		'repartition' => 'Přerozdělení článků',
 		'status_favorites' => 'Oblíbené',
 		'status_read' => 'Přečtené',
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'Registrační formulář uživatele',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
 		'last' => 'Poslední kontrola: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Žádné nové aktualizace',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aktualizovat systém',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrátor',

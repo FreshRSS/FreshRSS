@@ -8,28 +8,28 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action only redirect on the default view mode (normal or global)
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
-		Minz_Request::forward(array(
+		Minz_Request::forward([
 			'c' => 'index',
-			'a' => $preferred_output
-		));
+			'a' => $preferred_output,
+		]);
 	}
 
 	/**
 	 * This action displays the normal view of FreshRSS.
 	 */
-	public function normalAction() {
+	public function normalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
 		}
 
-		$id = Minz_Request::param('id');
-		if ($id) {
-			$view = Minz_Request::param('a');
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => $id, 'from' => $view));
+		$id = Minz_Request::paramInt('id');
+		if ($id !== 0) {
+			$view = Minz_Request::paramString('a');
+			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => $view]];
 			Minz_Request::forward($url_redirect, true);
 			return;
 		}
@@ -58,10 +58,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_Context::$id_max = time() . '000000';
 
-		$this->view->callbackBeforeFeeds = function ($view) {
+		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				$view->tags = $tagDAO->listTags(true);
+				$view->tags = $tagDAO->listTags(true) ?: [];
 				$view->nbUnreadTags = 0;
 				foreach ($view->tags as $tag) {
 					$view->nbUnreadTags += $tag->nbUnread();
@@ -71,7 +71,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforeEntries = function ($view) {
+		$this->view->callbackBeforeEntries = static function (FreshRSS_View $view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for articles' page
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
@@ -83,7 +83,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforePagination = function ($view, $nbEntries, $lastEntry) {
+		$this->view->callbackBeforePagination = static function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
 			if ($nbEntries >= FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
@@ -98,17 +98,17 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 *
 	 * @todo: change this view into specific CSS rules?
 	 */
-	public function readerAction() {
+	public function readerAction(): void {
 		$this->normalAction();
 	}
 
 	/**
 	 * This action displays the global view of FreshRSS.
 	 */
-	public function globalAction() {
+	public function globalAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
 		}
 
@@ -141,10 +141,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the RSS feed of FreshRSS.
 	 */
-	public function rssAction() {
+	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
@@ -170,14 +170,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// No layout for RSS output.
 		$this->view->rss_url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	public function opmlAction() {
+	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
@@ -192,13 +192,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$get = FreshRSS_Context::currentGet(true);
-		if (is_array($get)) {
-			$type = $get[0];
-			$id = $get[1];
-		} else {
-			$type = $get;
-			$id = '';
-		}
+		$type = (string)$get[0];
+		$id = (int)$get[1];
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $catDAO->listCategories(true, true);
@@ -219,7 +214,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 'f':
 				// We most likely already have the feed object in cache
 				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
-				if ($feed == null) {
+				if ($feed === null) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);
 					if ($feed == null) {
@@ -238,23 +233,24 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		// No layout for OPML output.
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		header('Content-Type: application/xml; charset=utf-8');
 	}
 
 	/**
 	 * This method returns a list of entries based on the Context object.
+	 * @return Traversable<FreshRSS_Entry>
 	 */
-	public static function listEntriesByContext() {
+	public static function listEntriesByContext(): Traversable {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
 		if (is_array($get)) {
 			$type = $get[0];
-			$id = $get[1];
+			$id = (int)($get[1]);
 		} else {
 			$type = $get;
-			$id = '';
+			$id = 0;
 		}
 
 		$limit = FreshRSS_Context::$number;
@@ -277,20 +273,21 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the about page of FreshRSS.
 	 */
-	public function aboutAction() {
+	public function aboutAction(): void {
 		FreshRSS_View::prependTitle(_t('index.about.title') . ' · ');
 	}
 
 	/**
-	 * This action displays the EULA page of FreshRSS.
+	 * This action displays the EULA/TOS (Terms of Service) page of FreshRSS.
 	 * This page is enabled only if admin created a data/tos.html file.
 	 * The content of the page is the content of data/tos.html.
-	 * It returns 404 if there is no EULA.
+	 * It returns 404 if there is no EULA/TOS.
 	 */
-	public function tosAction() {
-		$terms_of_service = file_get_contents(join_path(DATA_PATH, 'tos.html'));
-		if (!$terms_of_service) {
+	public function tosAction(): void {
+		$terms_of_service = file_get_contents(TOS_FILENAME);
+		if ($terms_of_service === false) {
 			Minz_Error::error(404);
+			return;
 		}
 
 		$this->view->terms_of_service = $terms_of_service;
@@ -301,7 +298,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays logs of FreshRSS for the current user.
 	 */
-	public function logsAction() {
+	public function logsAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -315,7 +312,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
-		$page = intval(Minz_Request::param('page', 1));
+		$page = Minz_Request::paramInt('page') ?: 1;
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);

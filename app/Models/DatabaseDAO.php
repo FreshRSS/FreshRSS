@@ -6,18 +6,18 @@
 class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	//MySQL error codes
-	const ER_BAD_FIELD_ERROR = '42S22';
-	const ER_BAD_TABLE_ERROR = '42S02';
-	const ER_DATA_TOO_LONG = '1406';
+	public const ER_BAD_FIELD_ERROR = '42S22';
+	public const ER_BAD_TABLE_ERROR = '42S02';
+	public const ER_DATA_TOO_LONG = '1406';
 
 	/**
 	 * Based on SQLite SQLITE_MAX_VARIABLE_NUMBER
 	 */
-	const MAX_VARIABLE_NUMBER = 998;
+	public const MAX_VARIABLE_NUMBER = 998;
 
 	//MySQL InnoDB maximum index length for UTF8MB4
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
-	const LENGTH_INDEX_UNICODE = 191;
+	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
@@ -36,8 +36,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		try {
 			$sql = 'SELECT 1';
 			$stm = $this->pdo->query($sql);
+			if ($stm === false) {
+				return 'Error during SQL connection test!';
+			}
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-			return $res == false ? 'Error during SQL connection test!' : '';
+			return $res == false ? 'Error during SQL connection fetch test!' : '';
 		} catch (Exception $e) {
 			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
 			return $e->getMessage();
@@ -45,92 +48,122 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function tablesAreCorrect(): bool {
-		$stm = $this->pdo->query('SHOW TABLES');
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc('SHOW TABLES');
+		if ($res == null) {
+			return false;
+		}
 
-		$tables = array(
+		$tables = [
 			$this->pdo->prefix() . 'category' => false,
 			$this->pdo->prefix() . 'feed' => false,
 			$this->pdo->prefix() . 'entry' => false,
 			$this->pdo->prefix() . 'entrytmp' => false,
 			$this->pdo->prefix() . 'tag' => false,
 			$this->pdo->prefix() . 'entrytag' => false,
-		);
+		];
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
 		}
 
-		return count(array_keys($tables, true, true)) == count($tables);
+		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
+	/** @return array<array<string,string|int|bool|null>> */
 	public function getSchema(string $table): array {
-		$sql = 'DESC `_' . $table . '`';
-		$stm = $this->pdo->query($sql);
-		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
+		$res = $this->fetchAssoc('DESC `_' . $table . '`');
+		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
 
-	public function checkTable(string $table, $schema): bool {
+	/** @param array<string> $schema */
+	public function checkTable(string $table, array $schema): bool {
 		$columns = $this->getSchema($table);
-
-		$ok = (count($columns) == count($schema));
-		foreach ($columns as $c) {
-			$ok &= in_array($c['name'], $schema);
+		if (count($columns) === 0 || count($schema) === 0) {
+			return false;
 		}
 
-		return $ok;
+		$ok = count($columns) === count($schema);
+		foreach ($columns as $c) {
+			$ok &= in_array($c['name'], $schema, true);
+		}
+
+		return (bool)$ok;
 	}
 
 	public function categoryIsCorrect(): bool {
-		return $this->checkTable('category', array(
-			'id', 'name',
-		));
+		return $this->checkTable('category', ['id', 'name']);
 	}
 
 	public function feedIsCorrect(): bool {
-		return $this->checkTable('feed', array(
-			'id', 'url', 'category', 'name', 'website', 'description', 'lastUpdate',
-			'priority', 'pathEntries', 'httpAuth', 'error', 'ttl', 'attributes',
-			'cache_nbEntries', 'cache_nbUnreads',
-		));
+		return $this->checkTable('feed', [
+			'id',
+			'url',
+			'category',
+			'name',
+			'website',
+			'description',
+			'lastUpdate',
+			'priority',
+			'pathEntries',
+			'httpAuth',
+			'error',
+			'ttl',
+			'attributes',
+			'cache_nbEntries',
+			'cache_nbUnreads',
+		]);
 	}
 
 	public function entryIsCorrect(): bool {
-		return $this->checkTable('entry', array(
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entry', [
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content_bin',
+			'link',
+			'date',
+			'lastSeen',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+		]);
 	}
 
 	public function entrytmpIsCorrect(): bool {
-		return $this->checkTable('entrytmp', array(
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read',
-			'is_favorite', 'id_feed', 'tags',
-		));
+		return $this->checkTable('entrytmp', [
+			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
+		]);
 	}
 
 	public function tagIsCorrect(): bool {
-		return $this->checkTable('tag', array(
-			'id', 'name', 'attributes',
-		));
+		return $this->checkTable('tag', ['id', 'name', 'attributes']);
 	}
 
 	public function entrytagIsCorrect(): bool {
-		return $this->checkTable('entrytag', array(
-			'id_tag', 'id_entry',
-		));
+		return $this->checkTable('entrytag', ['id_tag', 'id_entry']);
 	}
 
+	/**
+	 * @param array<string,string|int|bool|null> $dao
+	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
+	 */
 	public function daoToSchema(array $dao): array {
-		return array(
-			'name' => $dao['Field'],
-			'type' => strtolower($dao['Type']),
+		return [
+			'name' => (string)($dao['Field']),
+			'type' => strtolower((string)($dao['Type'])),
 			'notnull' => (bool)$dao['Null'],
 			'default' => $dao['Default'],
-		);
+		];
 	}
 
-	public function listDaoToSchema($listDAO): array {
-		$list = array();
+	/**
+	 * @param array<array<string,string|int|bool|null>> $listDAO
+	 * @return array<array<string,string|int|bool|null>>
+	 */
+	public function listDaoToSchema(array $listDAO): array {
+		$list = [];
 
 		foreach ($listDAO as $dao) {
 			$list[] = $this->daoToSchema($dao);
@@ -141,21 +174,23 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
-		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
-		$values = array($db['base']);
+		//MySQL:
+		$sql = <<<'SQL'
+SELECT SUM(data_length + index_length)
+FROM information_schema.TABLES WHERE table_schema=:table_schema
+SQL;
+		$values = [':table_schema' => $db['base']];
 		if (!$all) {
-			$sql .= ' AND table_name LIKE ?';
-			$values[] = $this->pdo->prefix() . '%';
+			$sql .= ' AND table_name LIKE :table_name';
+			$values[':table_name'] = $this->pdo->prefix() . '%';
 		}
-		$stm = $this->pdo->prepare($sql);
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return intval($res[0]);
+		$res = $this->fetchColumn($sql, 0, $values);
+		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
 	public function optimize(): bool {
 		$ok = true;
-		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
+		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];
 
 		foreach ($tables as $table) {
 			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
@@ -185,14 +220,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $ok;
 	}
 
-	public function minorDbMaintenance() {
+	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
 		$this->ensureCaseInsensitiveGuids();
 	}
 
-	private static function stdError($error): bool {
+	private static function stdError(string $error): bool {
 		if (defined('STDERR')) {
 			fwrite(STDERR, $error . "\n");
 		}
@@ -200,8 +235,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return false;
 	}
 
-	const SQLITE_EXPORT = 1;
-	const SQLITE_IMPORT = 2;
+	public const SQLITE_EXPORT = 1;
+	public const SQLITE_IMPORT = 2;
 
 	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
 		if (!extension_loaded('pdo_sqlite')) {

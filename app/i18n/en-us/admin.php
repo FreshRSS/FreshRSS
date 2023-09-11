@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Main stream',	// IGNORE
 		'no_idle' => 'There are no idle feeds!',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% of total',	// IGNORE
+		'percent_of_total' => '% of total',	// IGNORE
 		'repartition' => 'Articles repartition',	// IGNORE
 		'status_favorites' => 'Favorites',
 		'status_read' => 'Read',	// IGNORE
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'User registration form',	// IGNORE
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// IGNORE
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// IGNORE
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// IGNORE
+		),
 	),
 	'update' => array(
 		'_' => 'Update system',	// IGNORE
 		'apply' => 'Apply',	// IGNORE
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Check for new updates',	// IGNORE
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// IGNORE
 		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
 		'last' => 'Last verification: %s',	// IGNORE
+		'loading' => 'Updating…',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// IGNORE
+			'edge' => 'Rolling release (“edge”)',	// IGNORE
+			'latest' => 'Stable release (“latest”)',	// IGNORE
+		),
 		'title' => 'Update system',	// IGNORE
+		'viaGit' => 'Update via git and Github.com started',	// IGNORE
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

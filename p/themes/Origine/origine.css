@@ -5,7 +5,8 @@
 :root {
 	--frss-padding-top-bottom: 0.5rem;
 
-	--background-color-light-gradient: #eee;
+	--background-color-light-gradient1: #fff;
+	--background-color-light-gradient2: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
 	--background-color-grey: #f0f0f0;
@@ -260,7 +261,7 @@ form th {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	background-image: linear-gradient(to bottom, var(--background-color-light) 0%, var(--background-color-light-gradient) 100%);
+	background-image: linear-gradient(to bottom, var(--background-color-light-gradient1) 0%, var(--background-color-light-gradient2) 100%);
 	display: inline-block;
 	color: var(--font-color-grey);
 	font-size: 0.9rem;
@@ -268,7 +269,7 @@ form th {
 	border-right: 1px solid var(--border-color-shadow-side);
 	border-bottom: 1px solid var(--border-color-shadow-side);
 	border-radius: 3px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
@@ -276,16 +277,28 @@ form th {
 	overflow: hidden;
 }
 
-a.btn,
-.stick .btn {
-	min-height: 25px;
-	line-height: 1.7;
-}
-
 .btn:hover {
 	background-image: none;
 	background-color: var(--background-color-hover);
 	text-decoration: none;
+}
+
+.btn-state1.hide {
+	display: none;
+}
+
+.btn-state2 {
+	display: none;
+}
+
+.btn-state2.show {
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-left: 2rem;
 }
 
 a:hover .icon {
@@ -352,9 +365,6 @@ a:hover .icon {
 
 .btn-attention:hover {
 	background-image: linear-gradient(to bottom, var(--attention-background-color-gradient1-hover), var(--attention-background-color-gradient2-hover));
-}
-
-a.btn-attention:hover {
 	color: var(--font-color-light);
 }
 
@@ -738,20 +748,6 @@ a.btn-attention:hover {
 	left: 2px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt .form-group {
 	margin-bottom: 1rem;
@@ -835,13 +831,12 @@ a.btn-attention:hover {
 	border-left: 2px solid var(--contrast-border-color-active);
 }
 
-.flux .flux_header:hover,
-.flux .flux_header:hover .item {
+.flux .flux_header:hover {
 	background-color: var(--background-color-hover);
 }
 
 .flux .flux_header:not(.current):hover .flux_header,
-.flux .flux_header:not(.current):hover .flux_header .item {
+.flux.current .flux_header {
 	background-color: var(--background-color-hover);
 }
 
@@ -849,12 +844,12 @@ a.btn-attention:hover {
 	border-left: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read .flux_header .item {
+.flux.not_read .flux_header {
 	background-color: var(--unread-article-background-color);
 }
 
 .flux.not_read:not(.current):hover .flux_header,
-.flux.not_read:not(.current):hover .flux_header .item {
+.flux.not_read.current .flux_header {
 	background-color: var(--unread-article-background-color-hover);
 }
 
@@ -862,12 +857,12 @@ a.btn-attention:hover {
 	border-left: 2px solid var(--favorite-article-border-color);
 }
 
-.flux.favorite:not(.current) .flux_header .item {
+.flux.favorite:not(.current) .flux_header {
 	background-color: var(--favorite-article-background-color);
 }
 
 .flux.favorite:not(.current):hover .flux_header,
-.flux.favorite:not(.current):hover .flux_header .item {
+.flux.favorite.current .flux_header {
 	background-color: var(--favorite-article-background-color-hover);
 }
 
@@ -904,9 +899,8 @@ a.btn-attention:hover {
 	margin: 10px auto;
 	padding: 10px 20px;
 	overflow: auto;
-	background-color: var(--font-color);
-	color: var(--font-color-light);
 	font-size: 0.9rem;
+	border: 1px solid var(--border-color);
 	border-radius: 3px;
 }
 
@@ -916,12 +910,6 @@ a.btn-attention:hover {
 	color: var(--error-feed-color);
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
-}
-
-.content pre code {
-	background-color: transparent;
-	color: var(--font-color-light);
-	border: none;
 }
 
 .content blockquote {
@@ -1124,7 +1112,7 @@ a.btn-attention:hover {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background-color: var(--background-color-light-shadowed);
@@ -1164,6 +1152,10 @@ a.btn-attention:hover {
 		margin-bottom: 3rem;
 	}
 
+	#overlay {
+		background-color: var(--background-color-light);
+	}
+
 	.form-group.form-actions {
 		margin-left: -15px;
 		margin-right: -15px;
@@ -1192,7 +1184,7 @@ a.btn-attention:hover {
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	:root .darkMode_auto {
+	:root.darkMode_auto {
 		--frss-background-color: #000;
 		--frss-background-color-middle: #222;
 		--frss-border-color: #444;
@@ -1202,18 +1194,20 @@ a.btn-attention:hover {
 		--frss-background-color-transparent: #000000a3;
 		--frss-scrollbar-handle: #fff1;
 		--frss-scrollbar-handle-hover: #fff4;
+		--frss-font-color-grey-light: #555;
 
-		--background-color-light-gradient: #111;
+		--background-color-light-gradient1: #1c1c1c;
+		--background-color-light-gradient2: #111;
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
 		--background-color-grey: #1f1f1f;
-		--background-color-hover: #09090977;
+		--background-color-hover: #212227;
 
-		--unread-article-background-color: #201f1e;
-		--unread-article-background-color-hover: #1a1918;
+		--unread-article-background-color: #1b1817;
+		--unread-article-background-color-hover: #292422;
 		--unread-article-border-color: #ff5300;
 		--favorite-article-background-color: #24221d;
-		--favorite-article-background-color-hover: #1d1b17;
+		--favorite-article-background-color-hover: #302d26;
 		--favorite-article-border-color: #ffc300;
 
 		--contrast-background-color: #0084cc;
@@ -1260,7 +1254,7 @@ a.btn-attention:hover {
 
 		--text-shadow-color: #1c1c1c;
 		--text-shadow-color-dark: #666;
-		--box-shadow-color: #4446;
+		--box-shadow-color: #0009;
 		--box-shadow-color-inset: #1f1f1f;
 
 		--font-color-link: #467eb3;
@@ -1270,16 +1264,28 @@ a.btn-attention:hover {
 		--border-color-shadow-side: #333;
 		--contrast-border-color-active: #0062be;
 
-		--form-element-font-color-focus: #879db1;
+		--form-element-font-color-focus: #b8d0e7;
 		--form-element-border-color-focus: #0062be;
 		--form-element-focus-box-shadow-color-inset: #110;
 		--form-element-border-color-invalid: #f00;
-		--form-element-invalid-box-shadow-color-inset: #fdd;
+		--form-element-invalid-box-shadow-color-inset: none;
 	}
 
-	.btn.active,
-	.btn:active,
-	.dropdown-target:target ~ .btn.dropdown-toggle {
+	:root .darkMode_auto .nav_menu .btn {
+		color: #777;
+	}
+
+	:root .darkMode_auto .nav_menu .btn:hover {
+		color: var(--font-color-grey);
+	}
+
+	:root .darkMode_auto .nav_menu .btn.active,
+	:root .darkMode_auto .nav_menu .btn:active,
+	:root .darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
 		background: var(--border-color);
+	}
+
+	:root .darkMode_auto .dropdown-menu {
+		background-color: #0a0a0a;
 	}
 }

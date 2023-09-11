@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Aliran utama',
 		'no_idle' => 'Tidak ada idle feed!',
 		'number_entries' => '%d artikel',
-		'percent_of_total' => '%% dari total',
+		'percent_of_total' => '% dari total',
 		'repartition' => 'Mengembalikan artikel',
 		'status_favorites' => 'Favorites',
 		'status_read' => 'Read',	// TODO
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'Formulir Pendaftaran Pengguna',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO
-		'apply' => 'Apply',	// TODO
+		'_' => 'Update system',	// DIRTY
+		'apply' => 'Apply',	// DIRTY
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
 		'last' => 'Verifikasi terakhir: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Perbarui Sistem',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO

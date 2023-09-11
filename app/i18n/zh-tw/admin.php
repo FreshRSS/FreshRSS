@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '首頁',
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
-		'percent_of_total' => '%%',
+		'percent_of_total' => '%',
 		'repartition' => '文章分布',
 		'status_favorites' => '收藏',
 		'status_read' => '已讀',
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => '使用者註冊表單',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => '更新系統',
 		'apply' => '應用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '檢查更新',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => '當前 FreshRSS 版本為 %s。',
 		'last' => '上次檢查：%s',
+		'loading' => 'Updating…',	// TODO
 		'none' => '沒有可用更新',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => '系統更新',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理員',

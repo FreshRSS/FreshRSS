@@ -19,7 +19,7 @@ class Minz_Log {
 	 * @param string $file_name fichier de log
 	 * @throws Minz_PermissionDeniedException
 	 */
-	public static function record ($information, $level, $file_name = null) {
+	public static function record(string $information, int $level, ?string $file_name = null): void {
 		$env = getenv('FRESHRSS_ENV');
 		if ($env == '') {
 			try {
@@ -31,14 +31,9 @@ class Minz_Log {
 		}
 
 		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
-			$username = Minz_Session::param('currentUser', '');
-			if ($username == '') {
-				$username = '_';
-			}
+			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
-			} else {
-				$username = '_';
 			}
 
 			switch ($level) {
@@ -61,7 +56,6 @@ class Minz_Log {
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
 
-			// @phpstan-ignore-next-line
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));
 			}
@@ -78,32 +72,28 @@ class Minz_Log {
 	 * Make sure we do not waste a huge amount of disk space with old log messages.
 	 *
 	 * This method can be called multiple times for one script execution, but its result will not change unless
-	 * you call clearstatcache() in between. We won't due do that for performance reasons.
+	 * you call clearstatcache() in between. We won’t do do that for performance reasons.
 	 *
 	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
-	protected static function ensureMaxLogSize($file_name) {
+	protected static function ensureMaxLogSize(string $file_name): void {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
-		// @phpstan-ignore-next-line
 		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
 			$fp = fopen($file_name, 'c+');
-			if ($fp && flock($fp, LOCK_EX)) {
-				fseek($fp, -intval($maxSize / 2), SEEK_END);
+			if (is_resource($fp) && flock($fp, LOCK_EX)) {
+				fseek($fp, -(int)($maxSize / 2), SEEK_END);
 				$content = fread($fp, $maxSize);
 				rewind($fp);
 				ftruncate($fp, 0);
-				fwrite($fp, $content ? $content : '');
+				fwrite($fp, $content ?: '');
 				fwrite($fp, sprintf("[%s] [notice] --- Log rotate.\n", date('r')));
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
-			// @phpstan-ignore-next-line
-			if ($fp) {
-				fclose($fp);
-			}
+			fclose($fp);
 		}
 	}
 
@@ -111,16 +101,16 @@ class Minz_Log {
 	 * Some helpers to Minz_Log::record() method
 	 * Parameters are the same of those of the record() method.
 	 */
-	public static function debug($msg, $file_name = null) {
+	public static function debug(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_DEBUG, $file_name);
 	}
-	public static function notice($msg, $file_name = null) {
+	public static function notice(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_NOTICE, $file_name);
 	}
-	public static function warning($msg, $file_name = null) {
+	public static function warning(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_WARNING, $file_name);
 	}
-	public static function error($msg, $file_name = null) {
+	public static function error(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_ERR, $file_name);
 	}
 }

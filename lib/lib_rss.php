@@ -17,7 +17,6 @@ if (!function_exists('str_starts_with')) {
 }
 
 if (!function_exists('syslog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
@@ -31,7 +30,6 @@ if (!function_exists('syslog')) {
 }
 
 if (function_exists('openlog')) {
-	// @phpstan-ignore-next-line
 	if (COPY_SYSLOG_TO_STDERR) {
 		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
 	} else {
@@ -118,26 +116,22 @@ function checkUrl(string $url, bool $fixScheme = true) {
 	if ($url == '') {
 		return '';
 	}
-	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
+	if ($fixScheme && preg_match('#^https?://#i', $url) !== 1) {
 		$url = 'https://' . ltrim($url, '/');
 	}
 
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
 	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
 
-	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
+	if (is_string(filter_var($urlRelaxed, FILTER_VALIDATE_URL))) {
 		return $url;
 	} else {
 		return false;
 	}
 }
 
-/**
- * @param string $text
- * @return string
- */
-function safe_ascii($text) {
-	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '';
+function safe_ascii(?string $text): string {
+	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
@@ -154,12 +148,7 @@ if (function_exists('mb_convert_encoding')) {
 	}
 }
 
-/**
- * @param string $text
- * @param bool $extended
- * @return string
- */
-function escapeToUnicodeAlternative($text, $extended = true) {
+function escapeToUnicodeAlternative(string $text, bool $extended = true): string {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
 	//Problematic characters
@@ -176,7 +165,8 @@ function escapeToUnicodeAlternative($text, $extended = true) {
 	return trim(str_replace($problem, $replace, $text));
 }
 
-function format_number(float $n, int $precision = 0): string {
+/** @param int|float $n */
+function format_number($n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',	// Thin non-breaking space
 		number_format($n, $precision, '.', ' ')
@@ -234,7 +224,7 @@ function html_only_entity_decode(?string $text): string {
 function sensitive_log($log) {
 	if (is_array($log)) {
 		foreach ($log as $k => $v) {
-			if (in_array($k, ['api_key', 'Passwd', 'T'])) {
+			if (in_array($k, ['api_key', 'Passwd', 'T'], true)) {
 				$log[$k] = '██';
 			} elseif (is_array($v) || is_string($v)) {
 				$log[$k] = sensitive_log($v);
@@ -254,8 +244,9 @@ function sensitive_log($log) {
 
 /**
  * @param array<string,mixed> $attributes
+ * @throws FreshRSS_Context_Exception
  */
-function customSimplePie($attributes = array()): SimplePie {
+function customSimplePie(array $attributes = array()): SimplePie {
 	if (FreshRSS_Context::$system_conf === null) {
 		throw new FreshRSS_Context_Exception('System configuration not initialised!');
 	}
@@ -268,13 +259,13 @@ function customSimplePie($attributes = array()): SimplePie {
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->enable_order_by_date(false);
 
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$feed_timeout = empty($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
 	$curl_options = FreshRSS_Context::$system_conf->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
-		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
 		if (!$attributes['ssl_verify']) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
@@ -339,11 +330,8 @@ function customSimplePie($attributes = array()): SimplePie {
 	return $simplePie;
 }
 
-/**
- * @param string $data
- */
-function sanitizeHTML($data, string $base = '', ?int $maxLength = null): string {
-	if (!is_string($data) || ($maxLength !== null && $maxLength <= 0)) {
+function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {
+	if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 		return '';
 	}
 	if ($maxLength !== null) {
@@ -480,7 +468,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	if (isset($attributes['ssl_verify'])) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
 		if (!$attributes['ssl_verify']) {
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
@@ -495,8 +483,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		$body = '';
 		// TODO: Implement HTTP 410 Gone
-	}
-	if (!is_string($body)) {
+	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
 		$body = enforceHttpEncoding($body, $c_content_type);
@@ -547,7 +534,7 @@ function uTimeString(): string {
 function invalidateHttpCache(string $username = ''): bool {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
 	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
 	//if (!$ok) {
@@ -564,7 +551,7 @@ function listUsers(): array {
 	$base_path = join_path(DATA_PATH, 'users');
 	$dir_list = array_values(array_diff(
 		scandir($base_path) ?: [],
-		['..', '.', '_']
+		['..', '.', Minz_User::INTERNAL_USER]
 	));
 	foreach ($dir_list as $file) {
 		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
@@ -579,7 +566,7 @@ function listUsers(): array {
  * Return if the maximum number of registrations has been reached.
  * Note a max_registrations of 0 means there is no limit.
  *
- * @return boolean true if number of users >= max registrations, false else.
+ * @return bool true if number of users >= max registrations, false else.
  */
 function max_registrations_reached(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
@@ -601,13 +588,13 @@ function max_registrations_reached(): bool {
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
  */
-function get_user_configuration(string $username) {
+function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		return null;
 	}
 	$namespace = 'user_' . $username;
 	try {
-		Minz_Configuration::register($namespace,
+		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
 	} catch (Minz_ConfigurationNamespaceException $e) {
@@ -618,10 +605,7 @@ function get_user_configuration(string $username) {
 		return null;
 	}
 
-	/**
-	 * @var FreshRSS_UserConfiguration $user_conf
-	 */
-	$user_conf = Minz_Configuration::get($namespace);
+	$user_conf = FreshRSS_UserConfiguration::get($namespace);
 	return $user_conf;
 }
 
@@ -644,50 +628,86 @@ function ipToBits(string $ip): string {
  *
  * @param string $ip the IP that we want to verify (ex: 192.168.16.1)
  * @param string $range the range to check against (ex: 192.168.16.0/24)
- * @return boolean true if the IP is in the range, otherwise false
+ * @return bool true if the IP is in the range, otherwise false
  */
 function checkCIDR(string $ip, string $range): bool {
 	$binary_ip = ipToBits($ip);
-	list($subnet, $mask_bits) = explode('/', $range);
-	$mask_bits = intval($mask_bits);
+	$split = explode('/', $range);
+
+	$subnet = $split[0] ?? '';
+	if ($subnet == '') {
+		return false;
+	}
 	$binary_subnet = ipToBits($subnet);
+
+	$mask_bits = $split[1] ?? '';
+	$mask_bits = (int)$mask_bits;
+	if ($mask_bits === 0) {
+		$mask_bits = null;
+	}
 
 	$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 	$subnet_bits = substr($binary_subnet, 0, $mask_bits);
-
 	return $ip_net_bits === $subnet_bits;
 }
 
 /**
- * Check if the client is allowed to send unsafe headers
- * This uses the REMOTE_ADDR header to determine the sender's IP
- * and the configuration option "trusted_sources" to get an array of the authorized ranges
- *
- * @return boolean, true if the sender's IP is in one of the ranges defined in the configuration, else false
+ * Use CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip) or REMOTE_ADDR environment variable to determine the connection IP.
+ */
+function connectionRemoteAddress(): string {
+	$remoteIp = $_SERVER['CONN_REMOTE_ADDR'] ?? '';
+	if ($remoteIp == '') {
+		$remoteIp = $_SERVER['REMOTE_ADDR'] ?? '';
+	}
+	if ($remoteIp == 0) {
+		$remoteIp = '';
+	}
+	return $remoteIp;
+}
+
+/**
+ * Check if the client (e.g. last proxy) is allowed to send unsafe headers.
+ * This uses the `TRUSTED_PROXY` environment variable or the `trusted_sources` configuration option to get an array of the authorized ranges,
+ * The connection IP is obtained from the `CONN_REMOTE_ADDR` (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
+ * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
+		return false;
 	}
-	if (!empty($_SERVER['REMOTE_ADDR'])) {
-		foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
-			if (checkCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
-				return true;
-			}
+	$remoteIp = connectionRemoteAddress();
+	if ($remoteIp === '') {
+		return false;
+	}
+	$trusted = getenv('TRUSTED_PROXY');
+	if ($trusted != 0 && is_string($trusted)) {
+		$trusted = preg_split('/\s+/', $trusted, -1, PREG_SPLIT_NO_EMPTY);
+	}
+	if (empty($trusted)) {
+		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
+	}
+	foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+		if (checkCIDR($remoteIp, $cidr)) {
+			return true;
 		}
 	}
 	return false;
 }
 
-function httpAuthUser(): string {
+function httpAuthUser(bool $onlyTrusted = true): string {
 	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_REMOTE_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_REMOTE_USER'];
-	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
+	}
+	if (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER']) && checkTrustedIP()) {
-		return $_SERVER['HTTP_X_WEBAUTH_USER'];
+	}
+	if (!$onlyTrusted || checkTrustedIP()) {
+		if (!empty($_SERVER['HTTP_REMOTE_USER'])) {
+			return $_SERVER['HTTP_REMOTE_USER'];
+		}
+		if (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+			return $_SERVER['HTTP_X_WEBAUTH_USER'];
+		}
 	}
 	return '';
 }
@@ -726,25 +746,19 @@ function check_install_php(): array {
 	);
 }
 
-
 /**
  * Check different data files and directories exist.
- *
  * @return array<string,bool> of tested values.
  */
 function check_install_files(): array {
-	return array(
-		// @phpstan-ignore-next-line
-		'data' => DATA_PATH && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
-		// @phpstan-ignore-next-line
-		'cache' => CACHE_PATH && touch(CACHE_PATH . '/index.html'),
-		// @phpstan-ignore-next-line
-		'users' => USERS_PATH && touch(USERS_PATH . '/index.html'),
-		'favicons' => touch(DATA_PATH . '/favicons/index.html'),
-		'tokens' => touch(DATA_PATH . '/tokens/index.html'),
-	);
+	return [
+		'data' => is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
+		'cache' => is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html'),
+		'users' => is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html'),
+		'favicons' => is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html'),
+		'tokens' => is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html'),
+	];
 }
-
 
 /**
  * Check database is well-installed.
@@ -806,8 +820,8 @@ function recursive_unlink(string $dir): bool {
 /**
  * Remove queries where $get is appearing.
  * @param string $get the get attribute which should be removed.
- * @param array<int,array<string,string>> $queries an array of queries.
- * @return array<int,array<string,string>> without queries where $get is appearing.
+ * @param array<int,array<string,string|int>> $queries an array of queries.
+ * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
 	$final_queries = array();
@@ -840,7 +854,7 @@ const SHORTCUT_KEYS = [
 function getNonStandardShortcuts(array $shortcuts): array {
 	$standard = strtolower(implode(' ', SHORTCUT_KEYS));
 
-	$nonStandard = array_filter($shortcuts, function ($shortcut) use ($standard) {
+	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
 		return $shortcut !== '' & stripos($standard, $shortcut) === false;
 	});
@@ -853,8 +867,9 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 
 	$message = '';
 	$details = '';
-	// Prevent empty tags by checking if error isn not empty first
-	if ($error) {
+	$error = trim($error);
+	// Prevent empty tags by checking if error is not empty first
+	if ($error !== '') {
 		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8') . "\n";
 
 		// First line is the main message, other lines are the details

@@ -34,7 +34,7 @@ example('PT6M/');
 example('PT7S/');
 example('P1DT1H/');
 
-function example($dateInterval) {
+function example(string $dateInterval) {
 	$dateIntervalArray = parseDateInterval($dateInterval);
 	echo $dateInterval, "\t=>\t",
 		$dateIntervalArray[0] == null ? 'null' : @date('c', $dateIntervalArray[0]), '/',
@@ -42,13 +42,13 @@ function example($dateInterval) {
 }
 */
 
-function _dateFloor($isoDate) {
+function _dateFloor(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
 	$t = isset($x[1]) ? str_pad($x[1], 6, '0') : '000000';
 	return str_pad($x[0], 8, '01') . 'T' . $t;
 }
 
-function _dateCeiling($isoDate) {
+function _dateCeiling(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
 	$t = isset($x[1]) && strlen($x[1]) > 1 ? str_pad($x[1], 6, '59') : '235959';
 	switch (strlen($x[0])) {
@@ -56,20 +56,23 @@ function _dateCeiling($isoDate) {
 			return $x[0] . '1231T' . $t;
 		case 6:
 			$d = @strtotime($x[0] . '01');
-			return $x[0] . date('t', $d) . 'T' . $t;
-		default:
-			return $x[0] . 'T' . $t;
+			if ($d != false) {
+				return $x[0] . date('t', $d) . 'T' . $t;
+			}
 	}
+	return $x[0] . 'T' . $t;
 }
 
-function _noDelimit($isoDate) {
+/** @phpstan-return ($isoDate is null ? null : ($isoDate is '' ? null : string)) */
+function _noDelimit(?string $isoDate): ?string {
 	return $isoDate === null || $isoDate === '' ? null : str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
 }
 
-function _dateRelative($d1, $d2) {
+function _dateRelative(?string $d1, ?string $d2): ?string {
 	if ($d2 === null) {
 		return $d1 !== null && $d1[0] !== 'P' ? $d1 : null;
-	} elseif ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
+	}
+	if ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
 		$y2 = substr($d2, 0, 4);
 		if (strlen($y2) < 4 || !ctype_digit($y2)) {	//Does not start by a year
 			$d2 = _noDelimit($d2);
@@ -81,10 +84,10 @@ function _dateRelative($d1, $d2) {
 
 /**
  * Parameter $dateInterval is a string containing an ISO 8601 time interval.
- * Returns an array with the minimum and maximum Unix timestamp of this interval,
+ * @return array{int|null|false,int|null|false} an array with the minimum and maximum Unix timestamp of this interval,
  *  or null if open interval, or false if error.
  */
-function parseDateInterval($dateInterval) {
+function parseDateInterval(string $dateInterval): array {
 	$dateInterval = trim($dateInterval);
 	$dateInterval = str_replace('--', '/', $dateInterval);
 	$dateInterval = strtoupper($dateInterval);
@@ -101,10 +104,14 @@ function parseDateInterval($dateInterval) {
 			try {
 				$di2 = new DateInterval($d2);
 				$dt1 = @date_create();	//new DateTime() would create an Exception if the default time zone is not defined
-				if ($min !== null && $min !== false) {
-					$dt1->setTimestamp($min);
+				if ($dt1 === false) {
+					$max = false;
+				} else {
+					if ($min !== null && $min !== false) {
+						$dt1->setTimestamp($min);
+					}
+					$max = $dt1->add($di2)->getTimestamp() - 1;
 				}
-				$max = $dt1->add($di2)->getTimestamp() - 1;
 			} catch (Exception $e) {
 				$max = false;
 			}
@@ -118,12 +125,16 @@ function parseDateInterval($dateInterval) {
 		try {
 			$di1 = new DateInterval($d1);
 			$dt2 = @date_create();
-			if ($max !== null && $max !== false) {
-				$dt2->setTimestamp($max);
-			}
-			$min = $dt2->sub($di1)->getTimestamp() + 1;
-		} catch (Exception $e) {
+			if ($dt2 === false) {
 				$min = false;
+			} else {
+				if ($max !== null && $max !== false) {
+					$dt2->setTimestamp($max);
+				}
+				$min = $dt2->sub($di1)->getTimestamp() + 1;
+			}
+		} catch (Exception $e) {
+			$min = false;
 		}
 	}
 	return array($min, $max);

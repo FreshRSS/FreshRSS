@@ -1,15 +1,28 @@
+<?php
+function get_logout_url(): string {
+	if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
+		$url_string = urlencode(Minz_Request::guessBaseUrl());
+		return './oidc/?logout=' . $url_string . '/';
+		# The trailing slash is necessary so that we don’t redirect to http://.
+		# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
+	} else {
+		return _url('auth', 'logout') ?: '';
+	}
+}
+?>
+
 <nav class="nav nav-list aside" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<ul>
 		<li class="item nav-section">
-			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8')?></div>
+			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8')?></div>
 			<ul>
 				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'profile' ? ' active' : '' ?>">
 					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 				</li>
 				<li class="item">
-					<a class="signout" href="<?= _url('auth', 'logout') ?>">
+					<a class="signout" href="<?= get_logout_url() ?>">
 						<?php
 						echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
 				</li>
@@ -34,7 +47,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'shortcut' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::actionName() === 'queries' ? ' active' : '' ?>">
+				<li class="item<?= in_array(Minz_Request::actionName(), ['queries', 'query'], true) ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a>
 				</li>
 				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
@@ -56,7 +69,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'system' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'manage' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::controllerName() === 'user' && in_array(Minz_Request::actionName(), ['manage', 'details'], true) ? ' active' : '' ?>">
 					<a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a>
 				</li>
 				<li class="item<?= Minz_Request::controllerName() === 'auth' ? ' active' : '' ?>">
@@ -69,10 +82,10 @@
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 				</li>
+				<?php } ?>
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?php } ?>
 				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
 			</ul>
 		</li>
@@ -84,6 +97,11 @@
 				<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
 				</li>
+				<?php if (file_exists(TOS_FILENAME)) { ?>
+					<li class="item">
+						<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+					</li>
+				<?php } ?>
 			</ul>
 		</li>
 	</ul>

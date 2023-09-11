@@ -18,6 +18,9 @@ $_SERVER['HTTP_HOST'] = '';
 $app = new FreshRSS();
 
 FreshRSS_Context::initSystem();
+if (FreshRSS_Context::$system_conf === null) {
+	throw new FreshRSS_Context_Exception('System configuration not initialised!');
+}
 FreshRSS_Context::$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
 
@@ -25,23 +28,40 @@ define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_sys
  * Writes to FreshRSS admin log, and if it is not already done by default,
  * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
  */
-function notice($message) {
+function notice(string $message): void {
 	Minz_Log::notice($message, ADMIN_LOG);
-	// @phpstan-ignore-next-line
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
-	// @phpstan-ignore-next-line
 	if (defined('STDOUT') && !COPY_SYSLOG_TO_STDERR) {
 		fwrite(STDOUT, $message . "\n");	//Unbuffered
 	}
 }
 
+// <Mutex>
+// Avoid having multiple actualization processes at the same time
+$mutexFile = TMP_PATH . '/actualize.freshrss.lock';
+$mutexTtl = 900; // seconds (refreshed before each new feed)
+if (file_exists($mutexFile) && ((time() - (@filemtime($mutexFile) ?: 0)) > $mutexTtl)) {
+	unlink($mutexFile);
+}
+
+if (($handle = @fopen($mutexFile, 'x')) === false) {
+	notice('FreshRSS feeds actualization was already running, so aborting new run at ' . $begin_date->format('c'));
+	die();
+}
+fclose($handle);
+
+register_shutdown_function(static function () use ($mutexFile) {
+	unlink($mutexFile);
+});
+// </Mutex>
+
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 echo 'Failed requirements!', "\n";
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 ob_clean();
 
 echo 'Results: ', "\n";	//Buffered
@@ -75,11 +95,17 @@ foreach ($users as $user) {
 
 	FreshRSS_Auth::giveAccess();
 
-	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
-
+	// NB: Extensions and hooks are reinitialised there
 	$app->init();
+
+	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
+		touch($mutexFile);
+		return $feed;
+	});
+
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
+	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
 	$app->run();
 
 	if (!invalidateHttpCache()) {

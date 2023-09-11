@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Основной поток',
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
-		'percent_of_total' => '%% от всего',
+		'percent_of_total' => '% от всего',
 		'repartition' => 'Распределение статей',
 		'status_favorites' => 'В избранном',
 		'status_read' => 'Прочитано',
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'Форма регистрации пользователей',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Обновление системы',
 		'apply' => 'Применить',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Проверить обновления',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
 		'last' => 'Последняя проверка: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Нет обновлений',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Обновить систему',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Администратор',

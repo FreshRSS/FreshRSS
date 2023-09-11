@@ -66,7 +66,7 @@
 	font-size: 1rem;
 	border: none;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
@@ -93,11 +93,6 @@
 }
 .btn:hover {
 	text-decoration: none;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 /*=== Forms */
@@ -744,7 +739,7 @@ main.prompt {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: calc(0.75rem + var(--frss-padding-top-bottom)) 1rem;
 	font-weight: bold;
 	color: #fff;
 }
@@ -980,6 +975,9 @@ main.prompt {
 	background: #fff;
 	border-right-color: #ca7227;
 }
+.flux.current:not(.active) {
+	background: #fcfaf8;
+}
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
@@ -1099,14 +1097,7 @@ main.prompt {
 
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
-}
-.post form {
-	margin: 1rem 0;
-}
-.post.content {
-	max-width: 550px;
 }
 .post h1, .post h2 {
 	color: #363330;
@@ -1145,13 +1136,13 @@ main.prompt {
 	box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.35);
 }
 
-.slide-container .properties {
+.theme-preview-list .preview-container .properties {
 	padding: 1rem;
 	background: rgba(0, 0, 0, 0.75);
 	color: white;
 	border: 0;
 }
-.slide-container .properties .page-number {
+.theme-preview-list .preview-container .properties .page-number {
 	left: 1rem;
 	top: 1rem;
 }
@@ -1192,19 +1183,19 @@ main.prompt {
 		padding: 0.5rem 1rem;
 	}
 	.aside .toggle_aside,
-#panel .close,
+#overlay .close,
 .dropdown-menu .toggle_aside,
 #slider .toggle_aside {
 		background-color: #ca7227;
 	}
 	.aside .toggle_aside:hover,
-#panel .close:hover,
+#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover,
 #slider .toggle_aside:hover {
 		background-color: #b7641d;
 	}
 	.aside .toggle_aside .icon,
-#panel .close .icon,
+#overlay .close .icon,
 .dropdown-menu .toggle_aside .icon,
 #slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
@@ -1219,6 +1210,12 @@ main.prompt {
 	}
 	#global {
 		height: calc(100% - 8rem);
+	}
+	#panel {
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 	.post {
 		padding-right: 1rem;

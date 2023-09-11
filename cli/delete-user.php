@@ -2,7 +2,7 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
 
 $params = array(
 	'user:',
@@ -10,7 +10,7 @@ $params = array(
 
 $options = getopt('', $params);
 
-if (!validateOptions($argv, $params) || empty($options['user'])) {
+if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username");
 }
 $username = $options['user'];
@@ -19,7 +19,7 @@ if (!FreshRSS_user_Controller::checkUsername($username)) {
 }
 
 $usernames = listUsers();
-if (!preg_grep("/^$username$/i", $usernames)) {
+if (preg_grep("/^$username$/i", $usernames) === false) {
 	fail('FreshRSS error: username not found “' . $username . '”');
 }
 

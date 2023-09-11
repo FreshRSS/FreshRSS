@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.18
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -50,12 +50,15 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
+ENV OIDC_ENABLED ''
+ENV TRUSTED_PROXY ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')

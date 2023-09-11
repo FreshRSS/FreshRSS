@@ -40,27 +40,27 @@
 					<span>
 						<form action="<?= _url('index', 'index') ?>" method="get">
 							<?php $param_a = Minz_Request::actionName(); ?>
-							<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+							<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
 							<input type="hidden" name="a" value="<?= $param_a ?>" />
 							<?php } ?>
 
-							<?php $get = Minz_Request::param('get', ''); ?>
-							<?php if ($get != '') { ?>
+							<?php $get = Minz_Request::paramString('get'); ?>
+							<?php if ($get !== '') { ?>
 							<input type="hidden" name="get" value="<?= $get ?>" />
 							<?php } ?>
 
-							<?php $order = Minz_Request::param('order', ''); ?>
-							<?php if ($order != '') { ?>
+							<?php $order = Minz_Request::paramString('order'); ?>
+							<?php if ($order !== '') { ?>
 							<input type="hidden" name="order" value="<?= $order ?>" />
 							<?php } ?>
 
-							<?php $state = Minz_Request::param('state', ''); ?>
-							<?php if ($state != '') { ?>
+							<?php $state = Minz_Request::paramString('state'); ?>
+							<?php if ($state !== '') { ?>
 							<input type="hidden" name="state" value="<?= $state ?>" />
-							<?php } ?>	
+							<?php } ?>
 
 							<div class="stick search">
-								<input type="search" name="search" 
+								<input type="search" name="search"
 									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
 									placeholder="<?= _t('gen.menu.search') ?>" title="<?= _t('gen.menu.search') ?>" /><button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
 							</div>
@@ -85,7 +85,7 @@
 				<?php foreach (FreshRSS_Context::$user_conf->queries as $raw_query): ?>
 					<li class="item query">
 						<?php if (!empty($raw_query['url'])): ?>
-							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?></a>
+							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
 						<?php else: ?>
 						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
 							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
@@ -132,7 +132,7 @@
 		);
 
 		$mark_unread_url = $mark_read_url;
-		$mark_unread_url['params']['is_read'] = false;
+		$mark_unread_url['params']['is_read'] = '0';
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
@@ -209,7 +209,7 @@
 		<?php
 			$url_output['a'] = 'rss';
 			if (FreshRSS_Context::$user_conf->token) {
-				$url_output['params']['user'] = Minz_Session::param('currentUser');
+				$url_output['params']['user'] = Minz_User::name();
 				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
 			}
 			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {

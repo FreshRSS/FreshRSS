@@ -153,7 +153,7 @@ class LibOpml
             $result = false;
         }
 
-        if (!$result) {
+        if (!$result || !$dom->documentElement) {
             throw new Exception('OPML string is not valid XML');
         }
 

@@ -17,7 +17,7 @@ return array(
 		'help' => '個々のフィード設定内で、より多くの設定をしていただけます。',
 		'keep_favourites' => 'お気に入りを消去しない',
 		'keep_labels' => 'ラベルを消去しない',
-		'keep_max' => '記事を保存する最大数',
+		'keep_max' => '記事を保存する最大数',	// DIRTY
 		'keep_min_by_feed' => '記事をフィードに残す最小数',
 		'keep_period' => '記事を保存する最大時間',
 		'keep_unreads' => '未読の記事を消去しない',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '表示',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',

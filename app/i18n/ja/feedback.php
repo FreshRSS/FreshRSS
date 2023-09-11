@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'あなたのフィードはインポートされましたが、エラーが起きました。',
 		'file_cannot_be_uploaded' => 'ファイルをアップロードすることはできません!',
 		'no_zip_extension' => 'ZIP拡張は現在あなたのサーバーに存在しません。',
-		'zip_error' => 'ZIPをインポートするときエラーが発生しました。',
+		'zip_error' => 'ZIPをインポートするときエラーが発生しました。',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'あなたのプロフィールを変更することはできません',

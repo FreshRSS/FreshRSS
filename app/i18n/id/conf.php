@@ -17,7 +17,7 @@ return array(
 		'help' => 'More options are available in the individual feed’s settings',	// TODO
 		'keep_favourites' => 'Never delete favorites',
 		'keep_labels' => 'Never delete labels',	// TODO
-		'keep_max' => 'Maximum number of articles to keep',	// TODO
+		'keep_max' => 'Maximum number of articles to keep per feed',	// TODO
 		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// TODO
 		'keep_period' => 'Maximum age of articles to keep',	// TODO
 		'keep_unreads' => 'Never delete unread articles',	// TODO
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// TODO
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// TODO
 			'display_authors' => 'Authors',	// TODO

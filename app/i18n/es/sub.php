@@ -68,7 +68,7 @@ return array(
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
-			'help' => 'Escribir un filtro de búsqueda por línea.',
+			'help' => 'Escribir un filtro de búsqueda por línea. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
@@ -99,8 +99,8 @@ return array(
 					'help' => 'Ejemplo: <code>descendiente::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Formato personalizado de fecha y hora',
+					'help' => 'Opcional. Un formato compatible con <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> como <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'fecha del elemento',
@@ -122,7 +122,7 @@ return array(
 				'xpath' => 'XPath para:',
 			),
 			'rss' => 'RSS / Atom (por defecto)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Borrar caché',
@@ -188,7 +188,7 @@ return array(
 		'label_management' => 'Gestión de etiquetas',
 		'stats' => array(
 			'idle' => 'Fuentes inactivas',
-			'main' => 'Estadísticas principañes',
+			'main' => 'Estadísticas principales',
 			'repartition' => 'Reparto de artículos',
 		),
 		'subscription_management' => 'Administración de suscripciones',

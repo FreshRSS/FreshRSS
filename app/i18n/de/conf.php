@@ -17,7 +17,7 @@ return array(
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
 		'keep_favourites' => 'Lieblingsartikel behalten',
 		'keep_labels' => 'Artikel mit Label behalten',
-		'keep_max' => 'Maximale Anzahl an Artikeln die behalten werden',
+		'keep_max' => 'Maximale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_period' => 'Maximales Alter der zu behaltenden Artikel',
 		'keep_unreads' => 'Ungelesene Artikel behalten',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Anzeige',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatischer Dunkel-Modus (Beta)',
+			'auto' => 'Automatisch',
+			'no' => 'Nein',
+		),
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -64,14 +68,14 @@ return array(
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Zeitzone',
 		'title' => 'Anzeige',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icon und Name',
+			'icon' => 'Nur Icon',
+			'label' => 'Webseite',
+			'name' => 'Nur Name',
+			'none' => 'Keine',
 		),
 		'width' => array(
 			'content' => 'Inhaltsbreite',

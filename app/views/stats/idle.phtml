@@ -1,5 +1,5 @@
 <?php
-	/** @var FreshRSS_View $this */
+	/** @var FreshRSS_ViewStats $this */
 	$this->partial('aside_subscription');
 ?>
 
@@ -45,7 +45,7 @@
 					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>">
 						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 						<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
-						<span title="<?= timestamptodate($feedInPeriod['last_date'], false) ?>"><?= $feedInPeriod['name'] ?>
+						<span title="<?= timestamptodate((int)($feedInPeriod['last_date']), false) ?>"><?= $feedInPeriod['name'] ?>
 							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
 					</li>
 				<?php } ?>

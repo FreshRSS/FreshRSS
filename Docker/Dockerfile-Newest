@@ -6,6 +6,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
 	apk add --no-cache \
 	tzdata \
 	apache2 php82-apache2 \
+	apache-mod-auth-openidc \
 	php82 php82-curl php82-gmp php82-intl php82-mbstring php82-xml php82-zip \
 	php82-ctype php82-dom php82-fileinfo php82-iconv php82-json php82-opcache php82-openssl php82-phar php82-session php82-simplexml php82-xmlreader php82-xmlwriter php82-xml php82-tokenizer php82-zlib \
 	php82-pdo_sqlite php82-pdo_mysql php82-pdo_pgsql
@@ -52,12 +53,15 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
+ENV OIDC_ENABLED ''
+ENV TRUSTED_PROXY ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')

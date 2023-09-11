@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Κύρια ροή',
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
-		'percent_of_total' => '%% εκ του συνόλου',
+		'percent_of_total' => '% εκ του συνόλου',
 		'repartition' => 'Articles repartition',	// TODO
 		'status_favorites' => 'Αγαπημένα',
 		'status_read' => 'Ανάγνωση',
@@ -183,15 +183,29 @@ return array(
 			),
 			'title' => 'Φόρμα εγγραφής χρήστη',
 		),
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Ενημέρωση συστήματος',
 		'apply' => 'Εφαρμογή',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Η τρέχουσα έκδοση του FreshRSS είναι %s.',
 		'last' => 'Τελευταία επαλήθευση: %s',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Ενημέρωση συστήματος',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Διαχειριστής',

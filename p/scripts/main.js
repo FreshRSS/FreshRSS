@@ -1059,8 +1059,8 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in background-tab
-			return ev.ctrlKey;
+		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
+			return ev.ctrlKey || ev.metaKey;
 		}
 
 		el = ev.target.closest('.flux .content .text a');
@@ -1087,8 +1087,31 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
-		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.dataset.url);
+		if (el) { // Clipboard
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(el.dataset.url)
+					.then(() => {
+						toggleClass(el, 'error');
+					})
+					.catch(e => {
+						console.log(e);
+						toggleClass(el, 'error');
+					});
+			} else {
+				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
+				const inputElement = document.createElement('input');
+				inputElement.value = el.dataset.url;
+				document.body.appendChild(inputElement);
+				inputElement.select();
+				if (document.execCommand && document.execCommand('copy')) {
+					toggleClass(el, 'ok');
+				} else {
+					console.log('document.execCommand("copy") failed');
+					toggleClass(el, 'error');
+				}
+				inputElement.remove();
+			}
+
 			return false;
 		}
 
@@ -1188,7 +1211,7 @@ function init_stream(stream) {
 				checkboxTag.disabled = true;
 
 				const req = new XMLHttpRequest();
-				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.open('POST', './?c=tag&a=tagEntry&ajax=1', true);
 				req.responseType = 'json';
 				req.onerror = function (e) {
 					checkboxTag.checked = !isChecked;
@@ -1220,6 +1243,12 @@ function init_stream(stream) {
 			}
 		}
 	};
+}
+
+function toggleClass(el, cssclass) {
+	el.classList.remove(cssclass);
+	el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
+	el.classList.add(cssclass);
 }
 
 function init_nav_entries() {

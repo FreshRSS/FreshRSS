@@ -17,7 +17,7 @@ return array(
 		'help' => 'Mais opções estão disponíveis nas configurações individuais do Feed',
 		'keep_favourites' => 'Nunca deletar os favoritos',
 		'keep_labels' => 'Nunca deletar etiquetas',
-		'keep_max' => 'Número máximo de artigos para manter',
+		'keep_max' => 'Número máximo de artigos para manter no feed',
 		'keep_min_by_feed' => 'Número mínimo de artigos para deixar no feed',
 		'keep_period' => 'Idade máxima dos artigos a serem mantidos',
 		'keep_unreads' => 'Nunca apagar os não lidos',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Exibição',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
 			'display_authors' => 'Autores',

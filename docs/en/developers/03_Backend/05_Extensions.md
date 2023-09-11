@@ -131,13 +131,13 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
 
-```html
+```php
 class HelloWorldExtension extends Minz_Extension
 {
-	public function init() {
-		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+	public function init(): void {
+		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
 	}
-	public function renderEntry($entry) {
+	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
 		$entry->_content('<h1>Hello World</h1>' . $entry->content());
 		return $entry;
 	}
@@ -147,6 +147,8 @@ class HelloWorldExtension extends Minz_Extension
 The following events are available:
 
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
+* `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.

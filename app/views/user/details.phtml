@@ -1,16 +1,16 @@
 <?php
 	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_configure');
+	}
 ?>
 
 <?php $isDefault = $this->details['is_default']; ?>
 <?php $isAdmin = $this->details['is_admin']; ?>
 <?php $enabled = $this->details['enabled']; ?>
 
-<main class="post">
-	<a href="<?= _url('user', 'manage'); ?>"><?= _t('admin.user.back_to_manage'); ?></a>
-
-	<h1><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h1>
+<div class="post">
+	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
 	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
 
@@ -31,14 +31,14 @@
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.feed_count') ?></label>
 			<div class="group-controls">
-				<?= format_number($this->details['feed_count']) ?>
+				<?= format_number($this->details['feed_count'] ?: 0) ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.article_count') ?></label>
 			<div class="group-controls">
-				<?= format_number($this->details['article_count']) ?>
+				<?= format_number($this->details['article_count'] ?: 0) ?>
 			</div>
 		</div>
 
@@ -87,4 +87,4 @@
 			<div>
 		</div>
 	</form>
-</main>
+</div>

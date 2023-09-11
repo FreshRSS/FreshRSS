@@ -15,11 +15,11 @@ class Minz_Url {
 	 * @param bool|string $absolute
 	 * @return string Formatted URL
 	 */
-	public static function display ($url = array (), $encoding = 'html', $absolute = false) {
+	public static function display($url = [], string $encoding = 'html', $absolute = false): string {
 		$isArray = is_array($url);
 
 		if ($isArray) {
-			$url = self::checkUrl($url);
+			$url = self::checkControllerUrl($url);
 		}
 
 		$url_string = '';
@@ -60,7 +60,7 @@ class Minz_Url {
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri($url, $encodage) {
+	private static function printUri(array $url, string $encodage): string {
 		$uri = '';
 		$separator = '?';
 		$anchor = '';
@@ -92,7 +92,10 @@ class Minz_Url {
 			unset($url['params']['c']);
 			unset($url['params']['a']);
 			foreach ($url['params'] as $key => $param) {
-				$uri .= $separator . urlencode($key) . '=' . urlencode($param);
+				if (!is_string($key) || (!is_string($param) && !is_int($param))) {
+					continue;
+				}
+				$uri .= $separator . urlencode($key) . '=' . urlencode((string)$param);
 				$separator = $and;
 			}
 		}
@@ -107,29 +110,23 @@ class Minz_Url {
 	}
 
 	/**
-	 * Vérifie que les éléments du tableau représentant une url soit ok
-	 * @param array<string,array<string,string>> $url sous forme de tableau
-	 * @return array<string,array<string,string>> url vérifié
+	 * Check that all array elements representing the controller URL are OK
+	 * @param array<string,string|array<string,mixed>> $url controller URL as array
+	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
 	 */
-	public static function checkUrl ($url) {
-		$url_checked = $url;
-
-		if (is_array ($url)) {
-			if (!isset ($url['c'])) {
-				$url_checked['c'] = Minz_Request::defaultControllerName ();
-			}
-			if (!isset ($url['a'])) {
-				$url_checked['a'] = Minz_Request::defaultActionName ();
-			}
-			if (!isset ($url['params'])) {
-				$url_checked['params'] = array ();
-			}
-		}
-
-		return $url_checked;
+	public static function checkControllerUrl(array $url): array {
+		return [
+			'c' => empty($url['c']) || !is_string($url['c']) ? Minz_Request::defaultControllerName() : $url['c'],
+			'a' => empty($url['a']) || !is_string($url['a']) ? Minz_Request::defaultActionName() : $url['a'],
+			'params' => empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
+		];
 	}
 
-	public static function serialize($url = []) {
+	/** @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url */
+	public static function serialize(?array $url = []): string {
+		if (empty($url)) {
+			return '';
+		}
 		try {
 			return base64_encode(json_encode($url, JSON_THROW_ON_ERROR));
 		} catch (\Throwable $exception) {
@@ -137,19 +134,23 @@ class Minz_Url {
 		}
 	}
 
-	public static function unserialize($url = '') {
+	/**
+	 * @phpstan-return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>}
+	 * @return array<string,string|array<string,string>>
+	 */
+	public static function unserialize(string $url = ''): array {
 		try {
-			return json_decode(base64_decode($url), true, JSON_THROW_ON_ERROR);
+			return json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
 		} catch (\Throwable $exception) {
-			return '';
+			return [];
 		}
 	}
 
 	/**
 	 * Returns an array representing the URL as passed in the address bar
-	 * @return array URL representation
+	 * @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} URL representation
 	 */
-	public static function build () {
+	public static function build(): array {
 		$url = [
 			'c' => $_GET['c'] ?? Minz_Request::defaultControllerName(),
 			'a' => $_GET['a'] ?? Minz_Request::defaultActionName(),
@@ -170,7 +171,7 @@ class Minz_Url {
  * @param string|int ...$args
  * @return string|false
  */
-function _url ($controller, $action, ...$args) {
+function _url(string $controller, string $action, ...$args) {
 	$nb_args = count($args);
 
 	if ($nb_args % 2 !== 0) {

@@ -17,7 +17,7 @@ return array(
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
 		'keep_labels' => 'Etiketleri asla silme',
-		'keep_max' => 'Bellekte tutulacak en fazla makale sayısı',
+		'keep_max' => 'Bellekte tutulacak en fazla makale sayısı',	// DIRTY
 		'keep_min_by_feed' => 'Akışta en az tutulacak makale sayısı',
 		'keep_period' => 'Bellekte tutulacak en eski makale tarihi',
 		'keep_unreads' => 'Okunmamaış makaleleri asla silme',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Görünüm',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',

@@ -230,17 +230,12 @@ form th {
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
-	min-height: 29px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 1.7;
 }
 
 .read_all.btn {
@@ -714,20 +709,6 @@ a.signin {
 	filter: brightness(3);
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt .form-group {
 	margin-bottom: 1rem;
@@ -810,7 +791,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article);
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+.flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
 
@@ -827,7 +809,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article-unread);
 }
 
-.flux .item.title a, .flux.not_read:not(.current):hover .item.title {
+.flux .item.title a,
+.flux.not_read:not(.current):hover .item.title {
 	color: var(--font-color-link-title);
 }
 
@@ -839,7 +822,8 @@ a.signin {
 	background-color: var(--background-color-favorite);
 }
 
-.flux.favorite:not(.current) .flux_header:hover {
+.flux.favorite:not(.current) .flux_header:hover,
+.flux.favorite.current .flux_header {
 	background-color: var(--background-color-favorite-hover);
 }
 
@@ -1070,7 +1054,7 @@ a.signin {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--background-color-grey);
 		border-bottom: 1px solid var(--border-color-grey-light);
@@ -1120,5 +1104,9 @@ a.signin {
 	.post {
 		padding-left: 15px;
 		padding-right: 15px;
+	}
+
+	#overlay {
+		background-color: var(--background-color-grey);
 	}
 }

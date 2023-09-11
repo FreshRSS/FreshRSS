@@ -17,7 +17,7 @@ return array(
 		'help' => 'В индивидуальных настройках лент есть больше опций',
 		'keep_favourites' => 'Никогда не удалять избранное',
 		'keep_labels' => 'Никогда не удалять метки',
-		'keep_max' => 'Максимальное количество статей',
+		'keep_max' => 'Максимальное количество статей',	// DIRTY
 		'keep_min_by_feed' => 'Минимальное количество статей в ленте',
 		'keep_period' => 'Максимальный возраст статей',
 		'keep_unreads' => 'Никогда не удалять непрочитанные статьи',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Отображение',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',

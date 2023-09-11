@@ -32,8 +32,11 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
+	/** @var string */
 	private $mailer;
+	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
 	private $smtp_config;
+	/** @var int */
 	private $debug_level;
 
 	/**
@@ -41,7 +44,7 @@ class Minz_Mailer {
 	 */
 	public function __construct () {
 		$this->view = new Minz_View();
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 		$this->view->attributeParams();
 
 		$conf = Minz_Configuration::get('system');
@@ -63,13 +66,12 @@ class Minz_Mailer {
 	 *
 	 * @param string $to The recipient of the email
 	 * @param string $subject The subject of the email
-	 *
 	 * @return bool true on success, false if a SMTP error happens
 	 */
-	public function mail($to, $subject) {
+	public function mail(string $to, string $subject): bool {
 		ob_start();
 		$this->view->render();
-		$body = ob_get_contents();
+		$body = ob_get_contents() ?: '';
 		ob_end_clean();
 
 		PHPMailer::$validator = 'html5';

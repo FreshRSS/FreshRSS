@@ -189,16 +189,17 @@ return array(
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
-		'Google-Groups' => true,
-		'Tumblr-GDPR' => true,
 	],
 
 	# Disable self-update,
 	'disable_update' => false,
 
-	# Trusted IPs that are allowed to send unsafe headers
-	# Please read the documentation, before configuring this
-	# https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	# Trusted IPs (e.g. of last proxy) that are allowed to send unsafe HTTP headers.
+	# The connection IP used during FreshRSS setup is automatically added to this list.
+	# Will be checked against CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip)
+	# or REMOTE_ADDR environment variable.
+	# This array can be overridden by the TRUSTED_PROXY environment variable.
+	# Read the documentation before configuring this https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',

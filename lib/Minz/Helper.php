@@ -12,6 +12,13 @@ class Minz_Helper {
 	/**
 	 * Wrapper for htmlspecialchars.
 	 * Force UTf-8 value and can be used on array too.
+	 *
+	 * @phpstan-template T of string|array<mixed>
+	 * @phpstan-param T $var
+	 * @phpstan-return T
+	 *
+	 * @param string|array<string> $var
+	 * @return string|array<string>
 	 */
 	public static function htmlspecialchars_utf8($var) {
 		if (is_array($var)) {

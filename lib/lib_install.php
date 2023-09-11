@@ -1,9 +1,10 @@
 <?php
 
-Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
+FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
-function checkRequirements($dbType = '') {
+/** @return array<string,string> */
+function checkRequirements(string $dbType = ''): array {
 	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -39,15 +40,11 @@ function checkRequirements($dbType = '') {
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
-	// @phpstan-ignore-next-line
-	$data = DATA_PATH && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
-	// @phpstan-ignore-next-line
-	$cache = CACHE_PATH && touch(CACHE_PATH . '/index.html');
-	// @phpstan-ignore-next-line
-	$tmp = TMP_PATH && is_writable(TMP_PATH);
-	// @phpstan-ignore-next-line
-	$users = USERS_PATH && touch(USERS_PATH . '/index.html');
-	$favicons = touch(DATA_PATH . '/favicons/index.html');
+	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
+	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
+	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
+	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
@@ -74,11 +71,11 @@ function checkRequirements($dbType = '') {
 	);
 }
 
-function generateSalt() {
-	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__)));
+function generateSalt(): string {
+	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
 }
 
-function initDb() {
+function initDb(): string {
 	$conf = FreshRSS_Context::$system_conf;
 	$db = $conf->db;
 	if (empty($db['pdo_options'])) {
@@ -87,10 +84,14 @@ function initDb() {
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
+	if (empty($db['type'])) {
+		$db['type'] = 'sqlite';
+	}
+
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
 		Minz_ModelPdo::$usesSharedPdo = false;
-		$dbBase = isset($db['base']) ? $db['base'] : '';
+		$dbBase = $db['base'] ?? '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
 		$conf->db = $db;
@@ -115,7 +116,7 @@ function initDb() {
 	return $databaseDAO->testConnection();
 }
 
-function setupMigrations() {
+function setupMigrations(): bool {
 	$migrations_path = APP_PATH . '/migrations';
 	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
 
