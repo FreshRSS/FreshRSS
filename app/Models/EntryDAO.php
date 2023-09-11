@@ -386,11 +386,6 @@ SQL;
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
 	 *
-	 * @todo change the way the query is build because it seems there is
-	 * unnecessary code in here. For instance, the part with the str_repeat.
-	 * @todo remove code duplication. It seems the code is basically the
-	 * same if it is an array or not.
-	 *
 	 * @param string|array<string> $ids
 	 * @param bool $is_read
 	 * @return int|false affected rows
@@ -457,34 +452,26 @@ SQL;
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @todo refactor this method along with markReadCat and markReadFeed
-	 * since they are all doing the same thing. I think we need to build a
-	 * tool to generate the query instead of having queries all over the
-	 * place. It will be reused also for the filtering making every thing
-	 * separated.
-	 *
 	 * @param string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
 	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if ($idMax == 0) {
+		if ($idMax == '0') {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=? '
-			 . 'WHERE e.is_read <> ? AND e.id <= ?';
+		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
 		if ($onlyFavorites) {
-			$sql .= ' AND e.is_favorite=1';
+			$sql .= ' AND is_favorite=1';
 		} elseif ($priorityMin >= 0) {
-			$sql .= ' AND f.priority > ' . intval($priorityMin);
+			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
 
-		[$searchValues, $search] = $this->sqlListEntriesWhere('e.', $filters, $state);
+		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -517,12 +504,15 @@ SQL;
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=? '
-			 . 'WHERE f.category=? AND e.is_read <> ? AND e.id <= ?';
-		$values = [$is_read ? 1 : 0, $id, $is_read ? 1 : 0, $idMax];
+		$sql = <<<'SQL'
+UPDATE `_entry`
+SET is_read = ?
+WHERE is_read <> ? AND id <= ?
+AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)
+SQL;
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
 
-		[$searchValues, $search] = $this->sqlListEntriesWhere('e.', $filters, $state);
+		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
