@@ -1339,15 +1339,22 @@ function loadDynamicTags(div) {
 
 		let html = '';
 		if (json && json.length) {
+			let nbLabelsChecked = 0;
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
 				if (context.anonymous && !tag.checked) {
 					// In anomymous mode, show only the used tags
 					continue;
 				}
+				if (tag.checked) {
+					nbLabelsChecked++;
+				}
 				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
 						(context.anonymous ? ' disabled="disabled"' : '') +
-						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
+						(tag.checked ? ' checked="checked"' : '') + '/> ' + tag.name + '</label></li>';
+			}
+			if (nbLabelsChecked === 0) {
+				html += '<li class="item">' + context.i18n.labels_empty + '</li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
