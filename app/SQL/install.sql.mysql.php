@@ -66,13 +66,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 ENGINE = INNODB;
 
 INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
-SQL;
 
-$GLOBALS['SQL_CREATE_INDEX_ENTRY_1'] = <<<'SQL'
-CREATE INDEX `entry_feed_read_index` ON `_entry` (`id_feed`,`is_read`);	-- v1.7
-SQL;
-
-$GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
@@ -94,9 +88,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
-SQL;
 
-$GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(63) NOT NULL,
@@ -119,9 +111,4 @@ SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
-SQL;
-
-$GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN'] = <<<'SQL'
-ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;	-- v1.12
-ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
 SQL;

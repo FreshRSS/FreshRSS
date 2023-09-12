@@ -29,14 +29,6 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 					}
 				}
 			}
-			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
-				if (stripos($errorInfo[2], 'tag') !== false) {
-					$tagDAO = FreshRSS_Factory::createTagDao();
-					return $tagDAO->createTagTable();	//v1.12.0
-				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
-					return $this->createEntryTempTable();	//v1.7.0
-				}
-			}
 		}
 		return false;
 	}
