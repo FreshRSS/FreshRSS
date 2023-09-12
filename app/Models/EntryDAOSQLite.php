@@ -32,19 +32,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				}
 			}
 		}
-		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='tag'")) {
-			$showCreate = $tableInfo->fetchColumn();
-			if (is_string($showCreate) && stripos($showCreate, 'tag') === false) {
-				$tagDAO = FreshRSS_Factory::createTagDao();
-				return $tagDAO->createTagTable();	//v1.12.0
-			}
-		}
-		if ($tableInfo = $this->pdo->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
-			$showCreate = $tableInfo->fetchColumn();
-			if (is_string($showCreate) && stripos($showCreate, 'entrytmp') === false) {
-				return $this->createEntryTempTable();	//v1.7.0
-			}
-		}
 		return false;
 	}
 
