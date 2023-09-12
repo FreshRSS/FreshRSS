@@ -204,27 +204,9 @@ SQL;
 		return $ok;
 	}
 
-	public function ensureCaseInsensitiveGuids(): bool {
-		$ok = true;
-		if ($this->pdo->dbType() === 'mysql') {
-			include(APP_PATH . '/SQL/install.sql.mysql.php');
-
-			$ok = false;
-			try {
-				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
-			} catch (Exception $e) {
-				$ok = false;
-				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
-			}
-		}
-		return $ok;
-	}
-
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
-
-		$this->ensureCaseInsensitiveGuids();
 	}
 
 	private static function stdError(string $error): bool {
