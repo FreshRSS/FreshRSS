@@ -1354,7 +1354,7 @@ function loadDynamicTags(div) {
 						(tag.checked ? ' checked="checked"' : '') + '/> ' + tag.name + '</label></li>';
 			}
 			if (nbLabelsChecked === 0) {
-				html += '<li class="item">' + context.i18n.labels_empty + '</li>';
+				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
