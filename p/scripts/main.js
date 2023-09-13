@@ -1353,7 +1353,7 @@ function loadDynamicTags(div) {
 						(context.anonymous ? ' disabled="disabled"' : '') +
 						(tag.checked ? ' checked="checked"' : '') + '/> ' + tag.name + '</label></li>';
 			}
-			if (nbLabelsChecked === 0) {
+			if (context.anonymous && nbLabelsChecked === 0) {
 				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
