@@ -1349,9 +1349,11 @@ function loadDynamicTags(div) {
 				if (tag.checked) {
 					nbLabelsChecked++;
 				}
-				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
-						(context.anonymous ? ' disabled="disabled"' : '') +
-						(tag.checked ? ' checked="checked"' : '') + '/> ' + tag.name + '</label></li>';
+				html += '<li class="item"><label><input ' +
+					(context.anonymous ? '' : 'class="checkboxTag" ') +
+					'name="t_' + tag.id + '"type="checkbox" ' +
+					(context.anonymous ? 'disabled="disabled" ' : '') +
+					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
 			}
 			if (context.anonymous && nbLabelsChecked === 0) {
 				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
