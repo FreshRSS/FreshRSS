@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'System configuration',	// TODO
 		'auto-update-url' => 'Auto-update server URL',	// TODO
-		'base-url' => 'Base URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO
 			'number' => 'Duration to keep logged in',	// TODO

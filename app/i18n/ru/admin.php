@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'URL сервера для автоматического обновления',
-		'base-url' => 'Base URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',

@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
-		'base-url' => 'URL de la racine',
+		'base-url' => array(
+			'_' => 'URL de la racine',
+			'recommendation' => 'Recommandation automatique: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',

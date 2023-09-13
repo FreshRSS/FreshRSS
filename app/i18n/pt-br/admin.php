@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
-		'base-url' => 'Base URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',

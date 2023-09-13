@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
-		'base-url' => 'Base URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'saniye',
 			'number' => 'Oturum açık kalma süresi',

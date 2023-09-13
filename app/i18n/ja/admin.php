@@ -159,7 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
-		'base-url' => 'Base URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
