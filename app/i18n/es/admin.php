@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',

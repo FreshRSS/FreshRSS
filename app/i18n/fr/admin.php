@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',

@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Ρυθμίσεις συστήματος',
 		'auto-update-url' => 'Αυτόματη ενημέρωση URL διακομιστή',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'σε δευτερόλεπτα',
 			'number' => 'Διάρκεια παραμονής σε σύνδεση',

@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Konfiguracja serwisu',
 		'auto-update-url' => 'Adres serwera automatycznej aktualizacji',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',

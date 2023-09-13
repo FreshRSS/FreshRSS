@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
 		'auto-update-url' => 'Szerver URL automata frissítése',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezési sütik megtartási ideje',

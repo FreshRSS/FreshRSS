@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => ' پیکربندی سیستم',
 		'auto-update-url' => ' به روز رسانی خودکار URL سرور',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => ' در ثانیه',
 			'number' => ' مدت زمان ورود به سیستم',

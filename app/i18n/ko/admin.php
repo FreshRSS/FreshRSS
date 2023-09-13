@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => '시스템 설정',
 		'auto-update-url' => '자동 업데이트 서버 URL',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',

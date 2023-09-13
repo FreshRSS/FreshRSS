@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',

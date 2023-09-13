@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => '系统配置',
 		'auto-update-url' => '自动更新服务器 URL',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => '单位：秒',
 			'number' => '保持登录的时长',

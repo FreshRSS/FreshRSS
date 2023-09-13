@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Nastavení systému',
 		'auto-update-url' => 'Adresa URL serveru pro automatické aktualizace',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',

@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器地址',
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',

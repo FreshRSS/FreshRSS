@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'System configuration',	// IGNORE
 		'auto-update-url' => 'Auto-update server URL',	// IGNORE
+		'base-url' => 'Base URL',	// TODO
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
