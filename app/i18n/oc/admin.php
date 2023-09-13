@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',

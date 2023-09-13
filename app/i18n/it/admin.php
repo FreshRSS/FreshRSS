@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configurazione di sistema',
 		'auto-update-url' => 'Aggiorna automaticamente l’URL del server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in secondi',
 			'number' => 'Tempo in cui rimanere loggati',

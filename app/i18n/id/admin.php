@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistem konfigurasi',
 		'auto-update-url' => 'Auto-update server URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'dalam hitungan detik',
 			'number' => 'Durasi untuk terus masuk',
