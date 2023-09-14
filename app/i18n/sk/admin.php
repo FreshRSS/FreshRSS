@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavenia systému',
 		'auto-update-url' => 'Odkaz na aktualizačný server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
