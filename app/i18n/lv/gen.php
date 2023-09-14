@@ -134,6 +134,7 @@ return array(
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
 	),

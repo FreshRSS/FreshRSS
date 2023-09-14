@@ -134,6 +134,7 @@ return array(
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '发现新文章，点击刷新页面。',
 		'should_be_activated' => '必须启用 JavaScript',
 	),
