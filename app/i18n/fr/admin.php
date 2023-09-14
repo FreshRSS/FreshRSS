@@ -187,6 +187,7 @@ return array(
 			),
 			'title' => 'Formulaire d’inscription utilisateur',
 		),
+		'sensitive-parameter' => 'Paramètre sensible. Éditez manuallement <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'non renseigné',
 			'enabled' => '<a href="./?a=tos">activées</a>',

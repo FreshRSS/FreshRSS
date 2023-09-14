@@ -187,6 +187,7 @@ return array(
 			),
 			'title' => 'Felhasználó regisztrációs űrlap',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'nincs elfogadva',
 			'enabled' => '<a href="./?a=tos">engedélyezve</a>',

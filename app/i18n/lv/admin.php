@@ -187,6 +187,7 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
