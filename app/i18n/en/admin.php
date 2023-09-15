@@ -187,6 +187,7 @@ return array(
 			),
 			'title' => 'User registration form',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'is not given',
 			'enabled' => '<a href="./?a=tos">is enabled</a>',

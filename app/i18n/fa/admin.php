@@ -187,6 +187,7 @@ return array(
 			),
 			'title' => 'فرم ثبت نام کاربر',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => ' داده نشده است',
 			'enabled' => ' <a href="./?a=tos">فعال است</a>',
