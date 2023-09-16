@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'System configuration',	// IGNORE
 		'auto-update-url' => 'Auto-update server URL',	// IGNORE
+		'base-url' => array(
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'User registration form',	// IGNORE
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// IGNORE
 		'tos' => array(
 			'disabled' => 'is not given',	// IGNORE
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// IGNORE
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Check for new updates',	// IGNORE
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// IGNORE
-		'current_version' => 'Your current version of FreshRSS is %s.',	// IGNORE
-		'last' => 'Last verification: %s',	// IGNORE
+		'current_version' => 'Current installed version',	// IGNORE
+		'last' => 'Last verification',	// IGNORE
 		'loading' => 'Updating…',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
 		'releaseChannel' => array(

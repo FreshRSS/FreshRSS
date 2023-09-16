@@ -573,11 +573,7 @@ final class GReaderAPI {
 			}
 			$entry->_feed($feed);
 
-			if (isset($entryIdsTagNames['e_' . $entry->id()])) {
-				$entry->_tags($entryIdsTagNames['e_' . $entry->id()]);
-			}
-
-			$items[] = $entry->toGReader('compat');
+			$items[] = $entry->toGReader('compat', $entryIdsTagNames['e_' . $entry->id()] ?? []);
 		}
 		return $items;
 	}

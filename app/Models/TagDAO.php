@@ -6,42 +6,6 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return 'IGNORE';
 	}
 
-	public function createTagTable(): bool {
-		$ok = false;
-		$hadTransaction = $this->pdo->inTransaction();
-		if ($hadTransaction) {
-			$this->pdo->commit();
-		}
-		try {
-			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-
-			Minz_Log::warning('SQL ALTER GUID case sensitivity…');
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->ensureCaseInsensitiveGuids();
-
-			Minz_Log::warning('SQL CREATE TABLE tag…');
-			$ok = $this->pdo->exec($GLOBALS['SQL_CREATE_TABLE_TAGS']) !== false;
-		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
-		}
-		if ($hadTransaction) {
-			$this->pdo->beginTransaction();
-		}
-		return $ok;
-	}
-
-	/** @param array<string> $errorInfo */
-	protected function autoUpdateDb(array $errorInfo): bool {
-		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
-				if (stripos($errorInfo[2], 'tag') !== false) {
-					return $this->createTagTable();	//v1.12.0
-				}
-			}
-		}
-		return false;
-	}
-
 	/**
 	 * @param array{'id'?:int,'name':string,'attributes'?:array<string,mixed>} $valuesTmp
 	 * @return int|false
@@ -244,9 +208,6 @@ SQL;
 			return self::daoToTag($res);
 		} else {
 			$info = $this->pdo->errorInfo();
-			if ($this->autoUpdateDb($info)) {
-				return $this->listTags($precounts);
-			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -284,9 +245,6 @@ SQL;
 			return (int)$res[0]['count'];
 		}
 		$info = $this->pdo->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->count();
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return -1;
 	}
@@ -359,9 +317,6 @@ SQL;
 			return $lines;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntry($id_entry);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -383,7 +338,11 @@ SQL;
 				// Split a query with too many variables parameters
 				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
-					$values += $this->getTagsForEntries($idsChunk);
+					$valuesChunk = $this->getTagsForEntries($idsChunk);
+					if (!is_array($valuesChunk)) {
+						return false;
+					}
+					$values = array_merge($values, $valuesChunk);
 				}
 				return $values;
 			}
@@ -411,17 +370,15 @@ SQL;
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntries($entries);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
 
 	/**
-	 * For API
-	 * @param array<FreshRSS_Entry|numeric-string> $entries
-	 * @return array<string,array<string>>
+	 * Produces an array: for each entry ID (prefixed by `e_`), associate a list of labels.
+	 * Used by API and by JSON export, to speed up queries (would be very expensive to perform a label look-up on each entry individually).
+	 * @param array<FreshRSS_Entry|numeric-string> $entries the list of entries for which to retrieve the labels.
+	 * @return array<string,array<string>> An array of the shape `[e_id_entry => ["label 1", "label 2"]]`
 	 */
 	public function getEntryIdsTagNames(array $entries): array {
 		$result = [];

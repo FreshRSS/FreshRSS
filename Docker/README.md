@@ -199,10 +199,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -e MYSQL_PASSWORD=freshrss \
   --net freshrss-network \
   --name freshrss-db mysql \
-  --default-authentication-plugin=mysql_native_password
 ```
-
-> ℹ️ The parameter `--default-authentication-plugin` is not needed if using PHP 8+ (which is the case for our Alpine images but not yet for our Debian images).
 
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
 
@@ -331,7 +328,7 @@ services:
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
       # Optional parameter, remove for automatic settings, set to 0 to disable,
-	  # or (if you use a proxy) to a space-separated list of trusted IP ranges
+      # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteiptrustedproxy
       # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
       # This also impacts external authentication methods;

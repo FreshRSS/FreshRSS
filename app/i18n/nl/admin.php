@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Gebruikersregistratieformulier',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controleer op nieuwe versies',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
-		'last' => 'Laatste controle: %s',
+		'current_version' => 'Uw huidige versie',
+		'last' => 'Laatste controle',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Geen nieuwe versie om toe te passen',
 		'releaseChannel' => array(

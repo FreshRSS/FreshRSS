@@ -233,7 +233,7 @@ class FreshRSS_BooleanSearch {
 
 	private function parseOrSegments(string $input): void {
 		$input = trim($input);
-		if ($input == '') {
+		if ($input === '') {
 			return;
 		}
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
