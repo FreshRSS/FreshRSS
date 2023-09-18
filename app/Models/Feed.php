@@ -676,7 +676,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$lastBuildDate = date(DATE_RSS, $latestDate);
 
 		//Create the RSS feed
-		$xmlFeed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
+		$xmlFeed = new FreshRSS_sxml_Util('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
 		$xmlFeed->addChild("channel");
 
 		//Required elements
@@ -696,7 +696,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if (isset($item['id'])) $newItem->addChild('guid', $item['id']);
 			if (isset($item['title'])) $newItem->addChild('title', $item['title']);
 			if (isset($item['content_text'])) $newItem->addChild('description', $item['content_text']);
-			if (isset($item['content_html'])) $newItem->addChild('description', $item['content_html']);
+			if (isset($item['content_html'])) $newItem->addChildWithCDATA('description', $item['content_html']);
 			if (isset($item['date_published'])) $newItem->addChild('pubDate', $item['date_published']);
 			if (isset($item['url'])) $newItem->addChild('link', $item['url']);
 
@@ -711,12 +711,7 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 		}
 
-		//Make the output pretty
-		$dom = new DOMDocument("1.0");
-		$dom->preserveWhiteSpace = false;
-		$dom->formatOutput = true;
-		$dom->loadXML($xmlFeed->asXML());
-		return $dom->saveXML();
+		return $xmlFeed->saveXML();
 	}
 
 
