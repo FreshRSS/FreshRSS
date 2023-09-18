@@ -169,6 +169,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$useragent = Minz_Request::paramString('curl_params_useragent');
 			$proxy_address = Minz_Request::paramString('curl_params');
 			$proxy_type = Minz_Request::paramString('proxy_type');
+			$request_method = Minz_Request::paramString('curl_method');
+			$request_fields = Minz_Request::paramString('curl_fields');
+
 			$opts = [];
 			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
@@ -188,6 +191,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
+			}
+			if ($request_method === 'POST') {
+				$opts[CURLOPT_POST] = 1;
+				if ($request_fields !== '') {
+					$opts[CURLOPT_POSTFIELDS] = urlencode($request_fields);
+				}
 			}
 
 			$attributes = [
@@ -327,8 +336,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
-	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
-		bool $noCommit = false, int $maxFeeds = 10): array {
+	public static function actualizeFeed(
+		int $feed_id,
+		string $feed_url,
+		bool $force,
+		?SimplePie $simplePiePush = null,
+		bool $noCommit = false,
+		int $maxFeeds = 10
+	): array {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -388,7 +403,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$ε = 10;	// negligible offset errors in seconds
 				if ($mtime <= 0 ||
 					$feed->lastUpdate() + $ε >= $mtime ||
-					time() + $ε >= $mtime + FreshRSS_Context::$system_conf->limits['cache_duration']) {	// is cache still valid?
+					time() + $ε >= $mtime + FreshRSS_Context::$system_conf->limits['cache_duration']
+				) {	// is cache still valid?
 					continue;	//Nothing newer from other users
 				}
 				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
@@ -480,7 +496,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						if (strcasecmp($existingHash, $entry->hash()) !== 0) {
 							//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
-								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
+							//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isFavorite(null);	// Do not change favourite state
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if ($mark_updated_article_unread) {
@@ -794,7 +810,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			// Remove related queries
 			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
-				'f_' . $feed_id, FreshRSS_Context::$user_conf->queries);
+				'f_' . $feed_id,
+				FreshRSS_Context::$user_conf->queries
+			);
 			FreshRSS_Context::$user_conf->save();
 
 			return true;
@@ -891,7 +909,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		//Re-fetch articles as if the feed was new.
-		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
+		$feedDAO->updateFeed($feed->id(), ['lastUpdate' => 0]);
 		self::actualizeFeed($feed_id, '', false);
 
 		//Extract all feed entries from database, load complete content and store them back in database.

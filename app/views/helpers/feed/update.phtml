@@ -601,6 +601,29 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="curl_method"><?= _t('HTTP METHOD') ?></label>
+			<div class="group-controls">
+				<select class="number" name="curl_method" id="curl_method"><?php
+				$curl_method = 'GET';
+				if (is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_POST]) && $this->feed->attributes('curl_params')[CURLOPT_POST] === 1) {
+					$curl_method = 'POST';
+				}
+				foreach (['GET' => 'GET', 'POST' => 'POST'] as $k => $v) {
+					echo '<option value="' . $k . ($curl_method === $k ? '" selected="selected' : '') . '">' . $v . '</option>';
+				}
+				?>
+				</select>
+				<div class="stick">
+					<input type="text" name="curl_fields" id="curl_fields" value="<?=
+					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) ?
+						urldecode($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) : ''
+					?>" placeholder="<?= _t('Curl fields for POST') ?>" />
+				</div>
+				<p class="help"><?= _i('help') ?> <?= _t('curl post method help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 			<div class="group-controls">
 				<input type="number" name="timeout" id="timeout" class="w50" min="3" max="900" value="<?= $this->feed->attributes('timeout') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
