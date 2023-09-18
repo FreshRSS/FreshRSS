@@ -485,7 +485,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		// TODO: Implement HTTP 410 Gone
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
-	} else {
+	} elseif ($type !== 'json') {
 		$body = enforceHttpEncoding($body, $c_content_type);
 	}
 

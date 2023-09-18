@@ -28,6 +28,9 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public const KIND_JSON_XPATH = 20;
 
+	public const KIND_JSONFEED = 25;
+	public const KIND_JSON_DOTPATH = 30;
+
 	public const PRIORITY_MAIN_STREAM = 10;
 	public const PRIORITY_NORMAL = 0;
 	public const PRIORITY_ARCHIVED = -10;
@@ -620,10 +623,193 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+
 	/**
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public function loadHtmlXpath(): ?SimplePie {
+
+	public function loadJson(): ?SimplePie
+	{
+		if ($this->url == '') {
+			return null;
+		}
+		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
+		if ($this->httpAuth != '') {
+			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
+		}
+
+		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
+		$httpAccept = 'json';
+		$json = httpGet($feedSourceUrl, $cachePath, $httpAccept, $this->attributes());
+		if (strlen($json) <= 0) {
+			return null;
+		}
+
+		//check if the content is actual JSON
+		$jf = json_decode($json, TRUE);
+		if (json_last_error() !== JSON_ERROR_NONE) return null;
+
+		$feedContent = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->convertJSONFeedToRss($jf) :  $this->convertJsonDotPathToRss($jf, $feedSourceUrl);
+
+		if (!$feedContent) return null;
+
+		$simplePie = customSimplePie();
+		$simplePie->set_raw_data($feedContent);
+		$simplePie->init();
+		return $simplePie;
+	}
+
+	//From https://gist.github.com/daveajones/be26f5ca9cb7559d0c33549b53323770 
+	//Convert JSONfeed to RSS in a single function as a drop-in to make adding JSONfeed
+	//support to an aggregator easier
+	private function convertJSONFeedToRss(array $jf): ?string
+	{
+		if (!isset($jf['version'])) return null;
+		if (!isset($jf['title'])) return null;
+		if (!isset($jf['items'])) return null;
+
+		//Get the latest item publish date to use as the channel pubDate
+		$latestDate = 0;
+		foreach ($jf['items'] as $item) {
+			if (strtotime($item['date_published']) > $latestDate) $latestDate = strtotime($item['date_published']);
+		}
+		$lastBuildDate = date(DATE_RSS, $latestDate);
+
+		//Create the RSS feed
+		$xmlFeed = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
+		$xmlFeed->addChild("channel");
+
+		//Required elements
+		$xmlFeed->channel->addChild("title", $jf['title']);
+		$xmlFeed->channel->addChild("pubDate", $lastBuildDate);
+		$xmlFeed->channel->addChild("lastBuildDate", $lastBuildDate);
+
+		//Optional elements
+		if (isset($jf['description'])) $xmlFeed->channel->description = $jf['description'];
+		if (isset($jf['home_page_url'])) $xmlFeed->channel->link = $jf['home_page_url'];
+
+		//Items
+		foreach ($jf['items'] as $item) {
+			$newItem = $xmlFeed->channel->addChild('item');
+
+			//Standard stuff
+			if (isset($item['id'])) $newItem->addChild('guid', $item['id']);
+			if (isset($item['title'])) $newItem->addChild('title', $item['title']);
+			if (isset($item['content_text'])) $newItem->addChild('description', $item['content_text']);
+			if (isset($item['content_html'])) $newItem->addChild('description', $item['content_html']);
+			if (isset($item['date_published'])) $newItem->addChild('pubDate', $item['date_published']);
+			if (isset($item['url'])) $newItem->addChild('link', $item['url']);
+
+			//Enclosures?
+			if (isset($item['attachments'])) {
+				foreach ($item['attachments'] as $attachment) {
+					$enclosure = $newItem->addChild('enclosure');
+					$enclosure['url'] = $attachment['url'];
+					$enclosure['type'] = $attachment['mime_type'];
+					$enclosure['length'] = $attachment['size_in_bytes'];
+				}
+			}
+		}
+
+		//Make the output pretty
+		$dom = new DOMDocument("1.0");
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML($xmlFeed->asXML());
+		return $dom->saveXML();
+	}
+
+
+	private function convertJsonDotPathToRss(array $jf, string $feedSourceUrl = ''): ?string
+	{
+		/** @var array<string,string> $jsonSettings */
+		$jsonSettings = $this->attributes('json_dotpath');
+		$jsonFeedTitle = $jsonSettings['feedTitle'] ?? '';
+		$jsonItem = $jsonSettings['item'] ?? '';
+		$jsonItemTitle = $jsonSettings['itemTitle'] ?? '';
+		$jsonItemContent = $jsonSettings['itemContent'] ?? '';
+		$jsonItemUri = $jsonSettings['itemUri'] ?? '';
+		$jsonItemAuthor = $jsonSettings['itemAuthor'] ?? '';
+		$jsonItemTimestamp = $jsonSettings['itemTimestamp'] ?? '';
+		$jsonItemTimeFormat = $jsonSettings['itemTimeFormat'] ?? '';
+		$jsonItemThumbnail = $jsonSettings['itemThumbnail'] ?? '';
+		$jsonItemCategories = $jsonSettings['itemCategories'] ?? '';
+		$jsonItemUid = $jsonSettings['itemUid'] ?? '';
+		if ($jsonItem == '') {
+			return null;
+		}
+
+		$view = new FreshRSS_View();
+		$view->_path('index/rss.phtml');
+		$view->internal_rendering = true;
+		$view->rss_url = $feedSourceUrl;
+		$view->entries = [];
+
+		try {
+			$view->rss_title = $jsonFeedTitle == '' ? $this->name() :
+				htmlspecialchars(FreshRSS_dotpath_Util::get($jf, $jsonFeedTitle), ENT_COMPAT, 'UTF-8');
+			$nodes = FreshRSS_dotpath_Util::get($jf, $jsonItem);
+			if ($nodes === false || count($nodes) === 0) {
+				return null;
+			}
+
+			foreach ($nodes as $node) {
+				$item = [];
+				$item['title'] = $jsonItemTitle == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemTitle);
+				$item['content'] = '';
+				if ($jsonItemContent != '') {
+					$item['content'] = FreshRSS_dotpath_Util::get($node, $jsonItemContent);
+				}
+				$item['link'] = $jsonItemUri == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemUri);
+				$item['author'] = $jsonItemAuthor == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemAuthor);
+				$item['timestamp'] = $jsonItemTimestamp == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemTimestamp);
+				if ($jsonItemTimeFormat != '') {
+					$dateTime = DateTime::createFromFormat($jsonItemTimeFormat, $item['timestamp'] ?? '');
+					if ($dateTime != false) {
+						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+					}
+				}
+				$item['thumbnail'] = $jsonItemThumbnail == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemThumbnail);
+				if ($jsonItemCategories != '') {
+					$itemCategories = FreshRSS_dotpath_Util::get($node, $jsonItemCategories);
+					if (is_string($itemCategories) && $itemCategories !== '') {
+						$item['tags'] = [$itemCategories];
+					} elseif (is_array($itemCategories) && count($itemCategories) > 0) {
+						$item['tags'] = $itemCategories;
+					}
+				}
+				if ($jsonItemUid != '') {
+					$item['guid'] = FreshRSS_dotpath_Util::get($node, $jsonItemUid);
+				}
+				if (empty($item['guid'])) {
+					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
+				}
+
+				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
+					// HTML-encoding/escaping of the relevant fields (all except 'content')
+					foreach (['author', 'guid', 'link', 'thumbnail', 'timestamp', 'tags', 'title'] as $key) {
+						if (!empty($item[$key]) && is_string($item[$key])) {
+							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
+						}
+					}
+					$view->entries[] = FreshRSS_Entry::fromArray($item);
+				}
+			}
+		} catch (Exception $ex) {
+			Minz_Log::warning($ex->getMessage());
+			return null;
+		}
+
+		return $view->renderToString();
+	}
+
+
+
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 */
+	public function loadHtmlXpath(): ?SimplePie
+	{
 		if ($this->url == '') {
 			return null;
 		}

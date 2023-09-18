@@ -195,7 +195,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($request_method === 'POST') {
 				$opts[CURLOPT_POST] = 1;
 				if ($request_fields !== '') {
-					$opts[CURLOPT_POSTFIELDS] = urlencode($request_fields);
+					$opts[CURLOPT_POSTFIELDS] = json_decode(html_entity_decode($request_fields), true);
 				}
 			}
 
@@ -244,6 +244,45 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				if (!empty($xPathSettings)) {
 					$attributes['xpath'] = $xPathSettings;
+				}
+			}
+			if ($feed_kind === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+				$jsonSettings = [];
+				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
+					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItem') !== '') {
+					$jsonSettings['item'] = Minz_Request::paramString('jsonItem', true);
+				}
+				if (Minz_Request::paramString('jsonItemTitle') !== '') {
+					$jsonSettings['itemTitle'] = Minz_Request::paramString('jsonItemTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItemContent') !== '') {
+					$jsonSettings['itemContent'] = Minz_Request::paramString('jsonItemContent', true);
+				}
+				if (Minz_Request::paramString('jsonItemUri') !== '') {
+					$jsonSettings['itemUri'] = Minz_Request::paramString('jsonItemUri', true);
+				}
+				if (Minz_Request::paramString('jsonItemAuthor') !== '') {
+					$jsonSettings['itemAuthor'] = Minz_Request::paramString('jsonItemAuthor', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimestamp') !== '') {
+					$jsonSettings['itemTimestamp'] = Minz_Request::paramString('jsonItemTimestamp', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimeFormat') !== '') {
+					$jsonSettings['itemTimeFormat'] = Minz_Request::paramString('jsonItemTimeFormat', true);
+				}
+				if (Minz_Request::paramString('jsonItemThumbnail') !== '') {
+					$jsonSettings['itemThumbnail'] = Minz_Request::paramString('jsonItemThumbnail', true);
+				}
+				if (Minz_Request::paramString('jsonItemCategories') !== '') {
+					$jsonSettings['itemCategories'] = Minz_Request::paramString('jsonItemCategories', true);
+				}
+				if (Minz_Request::paramString('jsonItemUid') !== '') {
+					$jsonSettings['itemUid'] = Minz_Request::paramString('jsonItemUid', true);
+				}
+				if (!empty($jsonSettings)) {
+					$attributes['json_dotpath'] = $jsonSettings;
 				}
 			}
 
@@ -432,6 +471,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$simplePie = $feed->loadHtmlXpath();
 					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+					$simplePie = $feed->loadJson();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('JSON dotpath parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSONFEED) {
+					$simplePie = $feed->loadJson();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('JSONFeed parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);
