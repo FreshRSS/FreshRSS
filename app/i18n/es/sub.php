@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivo',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinámico',
-			'help' => 'Provee la URL a un <a href=http://opml.org/ target=_blank>archivo OPML</a> para llenar dinámicamente esta categoría con feeds',
+			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con feeds',
 		),
 		'empty' => 'Vaciar categoría',
 		'information' => 'Información',
@@ -147,11 +147,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href=https://php.net/datetime.createfromformat target=_blank><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href=https://php.net/strtotime target=_blank><code>strtotime()</code></a>',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
 				'item_title' => array(
 					'_' => 'item title',	// TODO

@@ -122,50 +122,50 @@ return array(
 				'xpath' => 'XPath for:',	// IGNORE
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted Paths)',	// TODO
+				'_' => 'JSON (Dotted Paths)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+					'_' => 'feed title',	// IGNORE
+					'help' => 'Example: <code>title</code> or a static string: <code>My',	// IGNORE
 				),
-				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// IGNORE
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
+					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// IGNORE
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'finding the author of the piece',	// TODO
+					'_' => 'item author',	// IGNORE
+					'help' => 'finding the author of the piece',	// IGNORE
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'item tags',	// IGNORE
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'item content',	// IGNORE
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// IGNORE
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'item thumbnail',	// IGNORE
+					'help' => 'Example: <code>image</code>',	// IGNORE
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href=https://php.net/datetime.createfromformat target=_blank><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Custom date/time format',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href=https://php.net/strtotime target=_blank><code>strtotime()</code></a>',	// TODO
+					'_' => 'item date',	// IGNORE
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
+					'_' => 'item title',	// IGNORE
+					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// IGNORE
 				),
-				'item_uid' => 'item unique ID',	// TODO
+				'item_uid' => 'item unique ID',	// IGNORE
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'item link (URL)',	// IGNORE
+					'help' => 'Example: <code>permalink</code>',	// IGNORE
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Dotted Path for:',	// IGNORE
+				'relative' => 'Dotted Path (relative to item) for:',	// IGNORE
 			),
-			'jsonfeed' => 'JSONFeed',	// TODO
+			'jsonfeed' => 'JSONFeed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -179,10 +179,10 @@ return array(
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// IGNORE
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Method',	// IGNORE
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
+		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// IGNORE
+		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
 		'mute' => 'mute',	// IGNORE
 		'no_selected' => 'No feed selected.',	// IGNORE

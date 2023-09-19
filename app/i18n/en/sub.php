@@ -122,50 +122,50 @@ return array(
 				'xpath' => 'XPath for:',
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted Paths)',	// TODO
+				'_' => 'JSON (Dotted Paths)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+					'_' => 'feed title',
+					'help' => 'Example: <code>title</code> or a static string: <code>My',
 				),
-				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
+					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'finding the author of the piece',	// TODO
+					'_' => 'item author',
+					'help' => 'finding the author of the piece',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'item tags',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'item content',
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'item thumbnail',
+					'help' => 'Example: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href=https://php.net/datetime.createfromformat target=_blank><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href=https://php.net/strtotime target=_blank><code>strtotime()</code></a>',	// TODO
+					'_' => 'item date',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
+					'_' => 'item title',
+					'help' => 'Key under which the title is found, e.g. <code>title</code>',
 				),
-				'item_uid' => 'item unique ID',	// TODO
+				'item_uid' => 'item unique ID',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'item link (URL)',
+					'help' => 'Example: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Dotted Path for:',
+				'relative' => 'Dotted Path (relative to item) for:',
 			),
-			'jsonfeed' => 'JSONFeed',	// TODO
+			'jsonfeed' => 'JSONFeed',
 			'rss' => 'RSS / Atom (default)',
 			'xml_xpath' => 'XML + XPath',
 		),
@@ -179,10 +179,10 @@ return array(
 		'max_http_redir' => 'Max HTTP redirects',
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Method',
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
+		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',
+		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',
