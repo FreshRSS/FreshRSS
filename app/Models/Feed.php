@@ -627,9 +627,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @throws FreshRSS_Context_Exception
 	 */
-
-	public function loadJson(): ?SimplePie
-	{
+	public function loadJson(): ?SimplePie {
 		if ($this->url == '') {
 			return null;
 		}
@@ -646,10 +644,10 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		//check if the content is actual JSON
-		$jf = json_decode($json, TRUE);
+		$jf = json_decode($json, true);
 		if (json_last_error() !== JSON_ERROR_NONE) return null;
 
-		$feedContent = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->convertJSONFeedToRss($jf) :  $this->convertJsonDotPathToRss($jf, $feedSourceUrl);
+		$feedContent = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->convertJSONFeedToRss($jf) : $this->convertJsonDotPathToRss($jf, $feedSourceUrl);
 
 		if (!$feedContent) return null;
 
@@ -659,11 +657,11 @@ class FreshRSS_Feed extends Minz_Model {
 		return $simplePie;
 	}
 
-	//From https://gist.github.com/daveajones/be26f5ca9cb7559d0c33549b53323770 
-	//Convert JSONfeed to RSS in a single function as a drop-in to make adding JSONfeed
-	//support to an aggregator easier
-	private function convertJSONFeedToRss(array $jf): ?string
-	{
+	/**
+	 * Convert JSONfeed to RSS in a single function as a drop-in to make adding JSONfeed support to an aggregator easier.
+	 * From https://gist.github.com/daveajones/be26f5ca9cb7559d0c33549b53323770
+	 */
+	private function convertJSONFeedToRss(array $jf): ?string {
 		if (!isset($jf['version'])) return null;
 		if (!isset($jf['title'])) return null;
 		if (!isset($jf['items'])) return null;
@@ -715,8 +713,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 
-	private function convertJsonDotPathToRss(array $jf, string $feedSourceUrl = ''): ?string
-	{
+	private function convertJsonDotPathToRss(array $jf, string $feedSourceUrl = ''): ?string {
 		/** @var array<string,string> $jsonSettings */
 		$jsonSettings = $this->attributes('json_dotpath');
 		$jsonFeedTitle = $jsonSettings['feedTitle'] ?? '';
@@ -803,8 +800,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public function loadHtmlXpath(): ?SimplePie
-	{
+	public function loadHtmlXpath(): ?SimplePie {
 		if ($this->url == '') {
 			return null;
 		}

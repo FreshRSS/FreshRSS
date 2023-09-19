@@ -13,16 +13,20 @@ Change the “Type of feed source” to one of:
 An additional list of text boxes to configure the web scraping will show.
 
 For HTML + Xpath, [XPath 1.0](https://www.w3.org/TR/xpath-10/) is used as traversing language.
+
 ### Get the XPath path
+
 Firefox: the built-in “inspect” tool may be used to help create a valid XPath expression.
 Select the node in the HTML, right click with your mouse and chose “Copy” and “XPath”.
 The XPath is stored in your clipboard now.
 
 ### Get the JSON dotted path
+
 Suppose the JSON to which you are subscribing (or scraping) looks like this:
-```
+
+```json
 {
-    "data" {    
+    "data" {
         "items": [
             {
                 "meta": {"title": "Some news item"},
