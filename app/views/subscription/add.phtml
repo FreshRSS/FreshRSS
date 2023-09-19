@@ -327,7 +327,7 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="curl_method"><?= _t('HTTP METHOD') ?></label>
+				<label class="group-name" for="curl_method"><?= _t('sub.feed.method') ?></label>
 				<div class="group-controls">
 					<select class="number" name="curl_method" id="curl_method"><?php
 					foreach (['GET' => 'GET', 'POST' => 'POST'] as $k => $v) {
@@ -336,9 +336,9 @@
 					?>
 					</select>
 					<div class="stick">
-						<input type="text" name="curl_fields" id="curl_fields" value="" placeholder="<?= _t('JSON with fields for POST') ?>" />
+						<input type="text" name="curl_fields" id="curl_fields" value="" placeholder="<?= _t('sub.feed.method_postparams') ?>" />
 					</div>
-					<p class="help"><?= _i('help') ?> <?= _t('curl post method help') ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.method_help') ?></p>
 				</div>
 			</div>
 

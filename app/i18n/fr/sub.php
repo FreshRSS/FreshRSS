@@ -121,6 +121,51 @@ return array(
 				'relative' => 'XPath (relatif à l’article) pour :',
 				'xpath' => 'XPath pour :',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted Paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+				),
+				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'finding the author of the piece',	// TODO
+				),
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href=https://php.net/datetime.createfromformat target=_blank><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href=https://php.net/strtotime target=_blank><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
+				),
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSONFeed',	// TODO
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,6 +178,11 @@ return array(
 		),
 		'max_http_redir' => 'Maximum de redirections HTTP',
 		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
+		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',

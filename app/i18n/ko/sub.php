@@ -121,6 +121,51 @@ return array(
 				'relative' => '다음의 (기사와 관련된) XPath:',
 				'xpath' => '다음의 XPath:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted Paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+				),
+				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'finding the author of the piece',	// TODO
+				),
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href=https://php.net/datetime.createfromformat target=_blank><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href=https://php.net/strtotime target=_blank><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
+				),
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSONFeed',	// TODO
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
@@ -133,6 +178,11 @@ return array(
 		),
 		'max_http_redir' => '최대 HTTP 리다이렉션',
 		'max_http_redir_help' => '값을 비워두거나 0으로 설정하면 비활성화하며, -1으로 설정하면 무제한 리다이렉션합니다',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
+		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
