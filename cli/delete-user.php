@@ -19,7 +19,7 @@ if (!FreshRSS_user_Controller::checkUsername($username)) {
 }
 
 $usernames = listUsers();
-if (preg_grep("/^$username$/i", $usernames) === false) {
+if (!preg_grep("/^$username$/i", $usernames)) {
 	fail('FreshRSS error: username not found “' . $username . '”');
 }
 
