@@ -623,6 +623,26 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/** @return array<string,string> */
+	private function dotPathsForStandardJSONFeed(): array {
+		return [
+			'feedTitle' => 'title',
+			'item' => 'items',
+			'itemTitle' => 'title',
+			'itemContent' => 'content_text',
+			'itemContentHTML' => 'content_html',
+			'itemUri' => 'url',
+			'itemTimestamp' => 'date_published',
+			'itemTimeFormat' => DateTimeInterface::RFC3339_EXTENDED,
+			'itemThumbnail' => 'image',
+			'itemCategories' => 'tags',
+			'itemUid' => 'id',
+			'itemAttachment' => 'attachments',
+			'itemAttachmentUrl' => 'url',
+			'itemAttachmentType' => 'mime_type',
+			'itemAttachmentLength' => 'size_in_bytes',
+		];
+	}
 
 	/**
 	 * @throws FreshRSS_Context_Exception
@@ -647,7 +667,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$jf = json_decode($json, true);
 		if (json_last_error() !== JSON_ERROR_NONE) return null;
 
-		$feedContent = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->convertJSONFeedToRss($jf) : $this->convertJsonDotPathToRss($jf, $feedSourceUrl);
+		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJSONFeed() : $this->attributes('json_dotpath');
+		$feedContent = $this->convertJSONtoRSS($jf, $feedSourceUrl, $dotPaths);
 
 		if (!$feedContent) return null;
 
@@ -658,77 +679,18 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * Convert JSONfeed to RSS in a single function as a drop-in to make adding JSONfeed support to an aggregator easier.
-	 * From https://gist.github.com/daveajones/be26f5ca9cb7559d0c33549b53323770
+	 * Convert a JSON object to a RSS document
+	 * mapping fields from the JSON object into RSS equivalents
+	 * according to the dot-separated paths
+	 *
+	 * @param array<string> $jf json feed
+	 * @param string $feedSourceUrl the source URL for the feed
+	 * @param array<string,string> $dotPaths dot paths to map JSON into RSS
 	 */
-	private function convertJSONFeedToRss(array $jf): ?string {
-		if (!isset($jf['version'])) return null;
-		if (!isset($jf['title'])) return null;
-		if (!isset($jf['items'])) return null;
-
-		//Get the latest item publish date to use as the channel pubDate
-		$latestDate = 0;
-		foreach ($jf['items'] as $item) {
-			if (strtotime($item['date_published']) > $latestDate) $latestDate = strtotime($item['date_published']);
-		}
-		$lastBuildDate = date(DATE_RSS, $latestDate);
-
-		//Create the RSS feed
-		$xmlFeed = new FreshRSS_sxml_Util('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
-		$xmlFeed->addChild("channel");
-
-		//Required elements
-		$xmlFeed->channel->addChild("title", $jf['title']);
-		$xmlFeed->channel->addChild("pubDate", $lastBuildDate);
-		$xmlFeed->channel->addChild("lastBuildDate", $lastBuildDate);
-
-		//Optional elements
-		if (isset($jf['description'])) $xmlFeed->channel->description = $jf['description'];
-		if (isset($jf['home_page_url'])) $xmlFeed->channel->link = $jf['home_page_url'];
-
-		//Items
-		foreach ($jf['items'] as $item) {
-			$newItem = $xmlFeed->channel->addChild('item');
-
-			//Standard stuff
-			if (isset($item['id'])) $newItem->addChild('guid', $item['id']);
-			if (isset($item['title'])) $newItem->addChild('title', $item['title']);
-			if (isset($item['content_text'])) $newItem->addChild('description', $item['content_text']);
-			if (isset($item['content_html'])) $newItem->addChildWithCDATA('description', $item['content_html']);
-			if (isset($item['date_published'])) $newItem->addChild('pubDate', $item['date_published']);
-			if (isset($item['url'])) $newItem->addChild('link', $item['url']);
-
-			//Enclosures?
-			if (isset($item['attachments'])) {
-				foreach ($item['attachments'] as $attachment) {
-					$enclosure = $newItem->addChild('enclosure');
-					$enclosure['url'] = $attachment['url'];
-					$enclosure['type'] = $attachment['mime_type'];
-					$enclosure['length'] = $attachment['size_in_bytes'];
-				}
-			}
-		}
-
-		return $xmlFeed->saveXML();
-	}
-
-
-	private function convertJsonDotPathToRss(array $jf, string $feedSourceUrl = ''): ?string {
-		/** @var array<string,string> $jsonSettings */
-		$jsonSettings = $this->attributes('json_dotpath');
-		$jsonFeedTitle = $jsonSettings['feedTitle'] ?? '';
-		$jsonItem = $jsonSettings['item'] ?? '';
-		$jsonItemTitle = $jsonSettings['itemTitle'] ?? '';
-		$jsonItemContent = $jsonSettings['itemContent'] ?? '';
-		$jsonItemUri = $jsonSettings['itemUri'] ?? '';
-		$jsonItemAuthor = $jsonSettings['itemAuthor'] ?? '';
-		$jsonItemTimestamp = $jsonSettings['itemTimestamp'] ?? '';
-		$jsonItemTimeFormat = $jsonSettings['itemTimeFormat'] ?? '';
-		$jsonItemThumbnail = $jsonSettings['itemThumbnail'] ?? '';
-		$jsonItemCategories = $jsonSettings['itemCategories'] ?? '';
-		$jsonItemUid = $jsonSettings['itemUid'] ?? '';
-		if ($jsonItem == '') {
-			return null;
+	private function convertJSONtoRSS(array $jf, string $feedSourceUrl, array $dotPaths): ?string {
+		//------------------------------------------------------------
+		if (!isset($dotPaths['item']) || $dotPaths['item'] == '') {
+			return null; //no definition of item path, but we can't scrape anything without knowing this
 		}
 
 		$view = new FreshRSS_View();
@@ -738,53 +700,85 @@ class FreshRSS_Feed extends Minz_Model {
 		$view->entries = [];
 
 		try {
-			$view->rss_title = $jsonFeedTitle == '' ? $this->name() :
-				htmlspecialchars(FreshRSS_dotpath_Util::get($jf, $jsonFeedTitle), ENT_COMPAT, 'UTF-8');
-			$nodes = FreshRSS_dotpath_Util::get($jf, $jsonItem);
-			if ($nodes === false || count($nodes) === 0) {
+			$view->rss_title =
+				isset($dotPaths['feedTitle'])
+				? htmlspecialchars(FreshRSS_dotpath_Util::get($jf, $dotPaths['feedTitle']), ENT_COMPAT, 'UTF-8')
+				: $this->name();
+
+			$jsonItems = FreshRSS_dotpath_Util::get($jf, $dotPaths['item']);
+			if ($jsonItems === false || count($jsonItems) === 0) {
 				return null;
 			}
 
-			foreach ($nodes as $node) {
-				$item = [];
-				$item['title'] = $jsonItemTitle == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemTitle);
-				$item['content'] = '';
-				if ($jsonItemContent != '') {
-					$item['content'] = FreshRSS_dotpath_Util::get($node, $jsonItemContent);
-				}
-				$item['link'] = $jsonItemUri == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemUri);
-				$item['author'] = $jsonItemAuthor == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemAuthor);
-				$item['timestamp'] = $jsonItemTimestamp == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemTimestamp);
-				if ($jsonItemTimeFormat != '') {
-					$dateTime = DateTime::createFromFormat($jsonItemTimeFormat, $item['timestamp'] ?? '');
+			foreach ($jsonItems as $jsonItem) {
+				$rssItem = [];
+				$rssItem['title'] = isset($dotPaths['itemTitle']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemTitle']) : '';
+
+				//get simple content, but if a path for HTML content has been provided, replace the simple content with HTML content
+				$rssItem['content'] = isset($dotPaths['itemContent']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemContent']) : '';
+				$rssItem['content'] = isset($dotPaths['itemContentHTML'])
+					? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemContentHTML'])
+					: $rssItem['content'];
+
+				$rssItem['link'] = isset($dotPaths['itemUri']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemUri']) : '';
+				$rssItem['author'] = isset($dotPaths['itemAuthor']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemAuthor']) : '';
+				$rssItem['timestamp'] = isset($dotPaths['itemTimestamp']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemTimestamp']) : '';
+
+				if (isset($dotPaths['itemTimeFormat'])) {
+					$dateTime = DateTime::createFromFormat($dotPaths['itemTimeFormat'], $rssItem['timestamp'] ?? '');
 					if ($dateTime != false) {
-						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
+						$rssItem['timestamp'] = $dateTime->format(DateTime::ATOM);
 					}
-				}
-				$item['thumbnail'] = $jsonItemThumbnail == '' ? '' : FreshRSS_dotpath_Util::get($node, $jsonItemThumbnail);
-				if ($jsonItemCategories != '') {
-					$itemCategories = FreshRSS_dotpath_Util::get($node, $jsonItemCategories);
-					if (is_string($itemCategories) && $itemCategories !== '') {
-						$item['tags'] = [$itemCategories];
-					} elseif (is_array($itemCategories) && count($itemCategories) > 0) {
-						$item['tags'] = $itemCategories;
-					}
-				}
-				if ($jsonItemUid != '') {
-					$item['guid'] = FreshRSS_dotpath_Util::get($node, $jsonItemUid);
-				}
-				if (empty($item['guid'])) {
-					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
 				}
 
-				if ($item['title'] != '' || $item['content'] != '' || $item['link'] != '') {
-					// HTML-encoding/escaping of the relevant fields (all except 'content')
-					foreach (['author', 'guid', 'link', 'thumbnail', 'timestamp', 'tags', 'title'] as $key) {
-						if (!empty($item[$key]) && is_string($item[$key])) {
-							$item[$key] = Minz_Helper::htmlspecialchars_utf8($item[$key]);
+				$rssItem['thumbnail'] = isset($dotPaths['itemThumbnail']) ? FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemThumbnail']) : '';
+
+				if (isset($dotPaths['itemCategories'])) {
+					$jsonItemCategories = FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemCategories']);
+					if (is_string($jsonItemCategories) && $jsonItemCategories !== '') {
+						$rssItem['tags'] = [$jsonItemCategories];
+					} elseif (is_array($jsonItemCategories) && count($jsonItemCategories) > 0) {
+						$rssItem['tags'] = $jsonItemCategories;
+					}
+				}
+
+				//Enclosures?
+				if (isset($dotPaths['itemAttachment'])) {
+					$jsonItemAttachments = FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemAttachment']);
+					if (is_array($jsonItemAttachments) && count($jsonItemAttachments) > 0) {
+						$rssItem['attachments'] = [];
+						foreach ($jsonItemAttachments as $attachment) {
+							$rssAttachment = [];
+							$rssAttachment['url'] = isset($dotPaths['itemAttachmentUrl'])
+								? FreshRSS_dotpath_Util::get($attachment, $dotPaths['itemAttachmentUrl'])
+								: '';
+							$rssAttachment['type'] = isset($dotPaths['itemAttachmentType'])
+								? FreshRSS_dotpath_Util::get($attachment, $dotPaths['itemAttachmentType'])
+								: '';
+							$rssAttachment['length'] = isset($dotPaths['itemAttachmentLength'])
+								? FreshRSS_dotpath_Util::get($attachment, $dotPaths['itemAttachmentLength'])
+								: '';
+							$rssItem['attachments'][] = $rssAttachment;
 						}
 					}
-					$view->entries[] = FreshRSS_Entry::fromArray($item);
+				}
+
+				if (isset($dotPaths['itemUid'])) {
+					$rssItem['guid'] = FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemUid']);
+				}
+
+				if (empty($rssItem['guid'])) {
+					$rssItem['guid'] = 'urn:sha1:' . sha1($rssItem['title'] . $rssItem['content'] . $rssItem['link']);
+				}
+
+				if ($rssItem['title'] != '' || $rssItem['content'] != '' || $rssItem['link'] != '') {
+					// HTML-encoding/escaping of the relevant fields (all except 'content')
+					foreach (['author', 'guid', 'link', 'thumbnail', 'timestamp', 'tags', 'title'] as $key) {
+						if (!empty($rssItem[$key]) && is_string($rssItem[$key])) {
+							$rssItem[$key] = Minz_Helper::htmlspecialchars_utf8($rssItem[$key]);
+						}
+					}
+					$view->entries[] = FreshRSS_Entry::fromArray($rssItem);
 				}
 			}
 		} catch (Exception $ex) {
@@ -794,8 +788,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 		return $view->renderToString();
 	}
-
-
 
 	/**
 	 * @throws FreshRSS_Context_Exception

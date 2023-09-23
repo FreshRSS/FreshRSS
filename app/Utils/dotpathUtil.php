@@ -1,12 +1,12 @@
 <?php
 // functions from https://stackoverflow.com/a/39118759
-class FreshRSS_dotpath_Util
+final class FreshRSS_dotpath_Util
 {
 
 	/**
 	 * Get an item from an array using "dot" notation.
 	 *
-	 * @param  \ArrayAccess|array  $array
+	 * @param  \ArrayAccess<string,mixed>|array<string,mixed>  $array
 	 * @param  string  $key
 	 * @param  mixed   $default
 	 * @return mixed
@@ -47,8 +47,8 @@ class FreshRSS_dotpath_Util
 	/**
 	 * Determine if the given key exists in the provided array.
 	 *
-	 * @param  \ArrayAccess|array  $array
-	 * @param  string|int  $key
+	 * @param  \ArrayAccess<string,mixed>|array<string,mixed>  $array
+	 * @param  string  $key
 	 * @return bool
 	 */
 	private static function exists($array, $key) {
@@ -57,7 +57,8 @@ class FreshRSS_dotpath_Util
 		}
 		return array_key_exists($key, $array);
 	}
-	private function value($value) {
+
+	private static function value(mixed $value):mixed {
 		return $value instanceof Closure ? $value() : $value;
 	}
 }

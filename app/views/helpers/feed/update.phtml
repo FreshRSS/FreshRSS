@@ -704,7 +704,7 @@
 				<div class="stick">
 					<input type="text" name="curl_fields" id="curl_fields" value="<?=
 					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) ?
-						htmlentities(json_encode($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS])) : ''
+						htmlentities(json_encode($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) ?: '') : ''
 					?>" placeholder="<?= _t('sub.feed.method_postparams') ?>" />
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.method_help') ?></p>
