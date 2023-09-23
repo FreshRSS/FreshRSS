@@ -178,7 +178,6 @@ return array(
 		'feed_list' => '%s makalenin listesi',
 		'file_to_import' => 'Dosyadan içe aktar<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'Dosyadan içe aktar<br />(OPML or JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'İçe aktar',
 		'starred_list' => 'Favori makaleleirn listesi',
 		'title' => 'İçe / dışa aktar',

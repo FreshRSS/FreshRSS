@@ -178,7 +178,6 @@ return array(
 		'feed_list' => '%s 개의 글 목록',
 		'file_to_import' => '불러올 파일<br />(OPML, JSON 또는 ZIP)',
 		'file_to_import_no_zip' => '불러올 파일<br />(OPML 또는 JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => '불러오기',
 		'starred_list' => '즐겨찾기에 등록된 글 목록',
 		'title' => '불러오기 / 내보내기',

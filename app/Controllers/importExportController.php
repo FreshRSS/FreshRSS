@@ -176,7 +176,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$file = $_FILES['file'];
 		$status_file = $file['error'];
-		$dont_update_after_import = Minz_Request::paramBoolean('dont_update_after_import');
 
 		if ($status_file !== 0) {
 			Minz_Log::warning('File cannot be uploaded. Error code: ' . $status_file);
@@ -202,9 +201,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		// And finally, we get import status and redirect to the home page
-		if (!$dont_update_after_import) {
-			Minz_Session::_param('actualize_feeds', true);
-		}
+		Minz_Session::_param('actualize_feeds', true);
 		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}

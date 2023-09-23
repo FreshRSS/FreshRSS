@@ -178,7 +178,6 @@ return array(
 		'feed_list' => 'Seznam %s článků',
 		'file_to_import' => 'Soubor k importu<br />(OPML, JSON nebo ZIP)',
 		'file_to_import_no_zip' => 'Soubor k importu<br />(OPML nebo JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Importovat',
 		'starred_list' => 'Seznam oblíbených článků',
 		'title' => 'Importovat / exportovat',

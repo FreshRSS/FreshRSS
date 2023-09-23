@@ -178,7 +178,6 @@ return array(
 		'feed_list' => 'רשימה של %s מאמרים',
 		'file_to_import' => 'קובץ לייבוא<br />(OPML, Json or Zip)',
 		'file_to_import_no_zip' => 'קובץ לייבוא<br />(OPML or Json)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'ייבוא',
 		'starred_list' => 'רשימת מאמרים מועדפים',
 		'title' => 'יבוא / יצוא ',

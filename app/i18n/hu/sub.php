@@ -178,7 +178,6 @@ return array(
 		'feed_list' => 'Cikkek %s listája',
 		'file_to_import' => 'Állomány importálása<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML or JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Importálás',
 		'starred_list' => 'Kedvenc cikkek listája',
 		'title' => 'Importálás / exportálás',

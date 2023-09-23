@@ -178,7 +178,6 @@ return array(
 		'feed_list' => '%s rakstu saraksts',
 		'file_to_import' => 'Fails, ko eksportēt<br />(OPML, JSON vai ZIP)',
 		'file_to_import_no_zip' => 'Fails, ko eksportēt<br />(OPML vai JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Importēt',
 		'starred_list' => 'Mīļāko rakstu saraksts',
 		'title' => 'Importēt / Eksportēt',

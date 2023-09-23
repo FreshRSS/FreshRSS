@@ -178,7 +178,6 @@ return array(
 		'feed_list' => 'Zoznam článkov %s',
 		'file_to_import' => 'Súbor na import<br />(OPML, JSON alebo ZIP)',
 		'file_to_import_no_zip' => 'Súbor na import<br />(OPML alebo JSON)',
-		'dont_update_after_import' => 'Don\'t update feeds after import<br />(avoids duplicate feeds when importing multiple files)<br />Automatic feed updates by cron or alternatives should be deactivated during imports.', // TODO
 		'import' => 'Importovať',
 		'starred_list' => 'Zoznam obľúbených článkov',
 		'title' => 'Import / export',	// IGNORE
