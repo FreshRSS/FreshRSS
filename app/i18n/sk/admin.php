@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavenia systému',
 		'auto-update-url' => 'Odkaz na aktualizačný server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Registračný formulár používateľa',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

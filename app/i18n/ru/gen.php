@@ -134,6 +134,7 @@ return array(
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
 	),

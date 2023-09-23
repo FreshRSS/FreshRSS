@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'URL сервера для автоматического обновления',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Форма регистрации пользователей',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

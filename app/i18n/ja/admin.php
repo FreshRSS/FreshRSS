@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

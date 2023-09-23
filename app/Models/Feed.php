@@ -723,8 +723,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
 				if ($xPathItemCategories != '') {
-					$itemCategories = @$xpath->query($xPathItemCategories, $node);
-					if ($itemCategories !== false) {
+					$itemCategories = @$xpath->evaluate($xPathItemCategories, $node);
+					if (is_string($itemCategories) && $itemCategories !== '') {
+						$item['tags'] = [$itemCategories];
+					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
 						/** @var DOMNode $itemCategory */
 						foreach ($itemCategories as $itemCategory) {

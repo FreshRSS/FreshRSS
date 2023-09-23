@@ -10,7 +10,7 @@ if (!FreshRSS_user_Controller::checkUsername($username)) {
 }
 
 $usernames = listUsers();
-if (preg_grep("/^$username$/i", $usernames) !== false) {
+if (preg_grep("/^$username$/i", $usernames)) {
 	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 

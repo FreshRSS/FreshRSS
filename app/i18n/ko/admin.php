@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => '시스템 설정',
 		'auto-update-url' => '자동 업데이트 서버 URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => '사용자 회원가입 양식',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
