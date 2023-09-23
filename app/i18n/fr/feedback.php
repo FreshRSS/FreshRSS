@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
-		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.  / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.', // TODO
-		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.  / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.', // TODO
+		'feeds_imported' => 'Vos flux ont été importés.  Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.'
+		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.  Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
 		'zip_error' => 'Une erreur est survenue durant le traintement du fichier ZIP.',
