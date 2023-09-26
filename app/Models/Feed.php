@@ -623,6 +623,18 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/**
+	 * Given a feed content generated from a FreshRSS_View
+	 * returns a SimplePie initialized already with that content
+	 * @param string $feedContent the content of the feed, typically generated via FreshRSS_View::renderToString()
+	 */
+	private function simplePieFromContent(string $feedContent): SimplePie {
+		$simplePie = customSimplePie();
+		$simplePie->set_raw_data($feedContent);
+		$simplePie->init();
+		return $simplePie;
+	}
+
 	/** @return array<string,string> */
 	private function dotPathsForStandardJSONFeed(): array {
 		return [
@@ -672,10 +684,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		if (!$feedContent) return null;
 
-		$simplePie = customSimplePie();
-		$simplePie->set_raw_data($feedContent);
-		$simplePie->init();
-		return $simplePie;
+		return $this->simplePieFromContent($feedContent);
 	}
 
 	/**
@@ -926,11 +935,7 @@ class FreshRSS_Feed extends Minz_Model {
 			Minz_Log::warning($ex->getMessage());
 			return null;
 		}
-
-		$simplePie = customSimplePie();
-		$simplePie->set_raw_data($view->renderToString());
-		$simplePie->init();
-		return $simplePie;
+		return $this->simplePieFromContent($view->renderToString());
 	}
 
 	/**
