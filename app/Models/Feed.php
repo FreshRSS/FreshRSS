@@ -697,7 +697,6 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @param array<string,string> $dotPaths dot paths to map JSON into RSS
 	 */
 	private function convertJSONtoRSS(array $jf, string $feedSourceUrl, array $dotPaths): ?string {
-		//------------------------------------------------------------
 		if (!isset($dotPaths['item']) || $dotPaths['item'] == '') {
 			return null; //no definition of item path, but we can't scrape anything without knowing this
 		}
