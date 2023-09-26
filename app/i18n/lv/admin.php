@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Jaunu atjauninājumu pārbaude',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
-		'last' => 'Pēdējā verifikācija: %s',
+		'current_version' => 'Jūsu pašreizējā versija',
+		'last' => 'Pēdējā verifikācija',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(

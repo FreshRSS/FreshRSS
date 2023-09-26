@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'アップデートを確認する',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
-		'last' => '最近の検証: %s',
+		'current_version' => '現在のバージョンは',
+		'last' => '最近の検証',
 		'loading' => 'Updating…',	// TODO
 		'none' => '更新を適用できません',
 		'releaseChannel' => array(

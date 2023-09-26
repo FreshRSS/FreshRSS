@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavení systému',
 		'auto-update-url' => 'Adresa URL serveru pro automatické aktualizace',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Registrační formulář uživatele',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
-		'last' => 'Poslední kontrola: %s',
+		'current_version' => 'Vaše aktuální verze',
+		'last' => 'Poslední kontrola',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Žádné nové aktualizace',
 		'releaseChannel' => array(

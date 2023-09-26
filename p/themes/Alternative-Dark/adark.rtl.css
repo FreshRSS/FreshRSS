@@ -378,6 +378,15 @@ form th {
 	border-radius: 3px;
 }
 
+.dropdown-menu input[type="checkbox"] {
+	margin-right: 1rem;
+}
+
+.dropdown-menu .item .emptyLabels {
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
 .item ~ .dropdown-header,
 .dropdown-section ~ .dropdown-section,
 .item.separator {

@@ -6,42 +6,6 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return 'IGNORE';
 	}
 
-	public function createTagTable(): bool {
-		$ok = false;
-		$hadTransaction = $this->pdo->inTransaction();
-		if ($hadTransaction) {
-			$this->pdo->commit();
-		}
-		try {
-			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-
-			Minz_Log::warning('SQL ALTER GUID case sensitivity…');
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->ensureCaseInsensitiveGuids();
-
-			Minz_Log::warning('SQL CREATE TABLE tag…');
-			$ok = $this->pdo->exec($GLOBALS['SQL_CREATE_TABLE_TAGS']) !== false;
-		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
-		}
-		if ($hadTransaction) {
-			$this->pdo->beginTransaction();
-		}
-		return $ok;
-	}
-
-	/** @param array<string> $errorInfo */
-	protected function autoUpdateDb(array $errorInfo): bool {
-		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
-				if (stripos($errorInfo[2], 'tag') !== false) {
-					return $this->createTagTable();	//v1.12.0
-				}
-			}
-		}
-		return false;
-	}
-
 	/**
 	 * @param array{'id'?:int,'name':string,'attributes'?:array<string,mixed>} $valuesTmp
 	 * @return int|false
@@ -244,9 +208,6 @@ SQL;
 			return self::daoToTag($res);
 		} else {
 			$info = $this->pdo->errorInfo();
-			if ($this->autoUpdateDb($info)) {
-				return $this->listTags($precounts);
-			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -284,9 +245,6 @@ SQL;
 			return (int)$res[0]['count'];
 		}
 		$info = $this->pdo->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->count();
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return -1;
 	}
@@ -359,9 +317,6 @@ SQL;
 			return $lines;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntry($id_entry);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -415,9 +370,6 @@ SQL;
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntries($entries);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}

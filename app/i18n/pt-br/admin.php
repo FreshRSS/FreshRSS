@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Formulário de Cadastro de Usuário',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Buscar por novas atualizações',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Sua versão do FreshRSS é %s.',
-		'last' => 'Última verificação: %s',
+		'current_version' => 'Sua versão',
+		'last' => 'Última verificação',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nenhuma atualização para se aplicar',
 		'releaseChannel' => array(

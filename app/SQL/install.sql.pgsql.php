@@ -62,13 +62,7 @@ INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
 	WHERE NOT EXISTS (SELECT id FROM `_category` WHERE id = 1)
 	RETURNING nextval('`_category_id_seq`');
-SQL;
 
-$GLOBALS['SQL_CREATE_INDEX_ENTRY_1'] = <<<'SQL'
-CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
-SQL;
-
-$GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id" BIGINT NOT NULL PRIMARY KEY,
 	"guid" VARCHAR(760) NOT NULL,
@@ -88,9 +82,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	UNIQUE ("id_feed","guid")
 );
 CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
-SQL;
 
-$GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(63) UNIQUE NOT NULL,
