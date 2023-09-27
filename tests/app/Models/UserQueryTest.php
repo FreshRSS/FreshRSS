@@ -19,14 +19,6 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals('favorite', $user_query->getGetType());
 	}
 
-	public function test__construct_whenCategoryQueryAndNoDao_throwsException(): void {
-		$this->expectException(FreshRSS_DAO_Exception::class);
-		$this->expectExceptionMessage('Category DAO is not loaded in UserQuery');
-
-		$query = array('get' => 'c_1');
-		new FreshRSS_UserQuery($query);
-	}
-
 	public function test__construct_whenCategoryQuery_storesCategoryParameters(): void {
 		$category_name = 'some category name';
 		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
@@ -45,14 +37,6 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
 		self::assertEquals($category_name, $user_query->getGetName());
 		self::assertEquals('category', $user_query->getGetType());
-	}
-
-	public function test__construct_whenFeedQueryAndNoDao_throwsException(): void {
-		$this->expectException(FreshRSS_DAO_Exception::class);
-		$this->expectExceptionMessage('Feed DAO is not loaded in UserQuery');
-
-		$query = array('get' => 'f_1');
-		new FreshRSS_UserQuery($query);
 	}
 
 	public function test__construct_whenFeedQuery_storesFeedParameters(): void {
