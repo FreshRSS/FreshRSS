@@ -182,9 +182,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'), [ 'c' => 'importExport', 'a' => 'index' ]);
 		}
 
-                if (function_exists('set_time_limit')) {
-                        @set_time_limit(300);
-                }
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$error = false;
 		try {
