@@ -36,7 +36,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
 		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
 		FreshRSS_UserDAO::touch();
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 
@@ -329,7 +331,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
 		bool $noCommit = false, int $maxFeeds = 10): array {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -875,7 +879,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public function reloadAction(): void {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		//Get Feed ID.
 		$feed_id = Minz_Request::paramInt('id');
