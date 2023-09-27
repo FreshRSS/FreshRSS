@@ -170,7 +170,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
@@ -191,7 +191,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 */
 	public function purgeAction(): void {
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

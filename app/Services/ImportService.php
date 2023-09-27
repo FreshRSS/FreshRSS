@@ -35,7 +35,7 @@ class FreshRSS_Import_Service {
 	 */
 	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false): void {
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 		$this->lastStatus = true;
 		$opml_array = [];

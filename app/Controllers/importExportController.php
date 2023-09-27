@@ -183,7 +183,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 
 		$error = false;

@@ -37,7 +37,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
 		FreshRSS_UserDAO::touch();
 		if (function_exists('set_time_limit')) {
-			set_time_limit(300);
+			@set_time_limit(300);
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -332,7 +332,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
 		bool $noCommit = false, int $maxFeeds = 10): array {
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -880,7 +880,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public function reloadAction(): void {
                 if (function_exists('set_time_limit')) {
-                        set_time_limit(300);
+                        @set_time_limit(300);
                 }
 
 		//Get Feed ID.
