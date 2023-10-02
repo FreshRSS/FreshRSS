@@ -125,7 +125,7 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseCategory(int $id): void {
 		if ($this->category_dao === null) {
-			throw new FreshRSS_DAO_Exception('Category DAO is not loaded in UserQuery');
+			$this->category_dao = FreshRSS_Factory::createCategoryDao();
 		}
 		$category = $this->category_dao->searchById($id);
 		if ($category !== null) {
@@ -143,7 +143,7 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseFeed(int $id): void {
 		if ($this->feed_dao === null) {
-			throw new FreshRSS_DAO_Exception('Feed DAO is not loaded in UserQuery');
+			$this->feed_dao = FreshRSS_Factory::createFeedDao();
 		}
 		$feed = $this->feed_dao->searchById($id);
 		if ($feed !== null) {
@@ -160,8 +160,8 @@ class FreshRSS_UserQuery {
 	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseTag(int $id): void {
-		if ($this->tag_dao == null) {
-			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
+		if ($this->tag_dao === null) {
+			$this->tag_dao = FreshRSS_Factory::createTagDao();
 		}
 		$tag = $this->tag_dao->searchById($id);
 		if ($tag !== null) {
