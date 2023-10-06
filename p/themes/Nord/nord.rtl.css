@@ -144,34 +144,25 @@ table td span {
 }
 
 /*=== Buttons */
-.btn,
-a.btn {
+.btn {
 	margin: .3rem .3rem;
+	padding: 5px 10px;
 	background: var(--accent-bg);
 	color: var(--accent);
+	font-size: 0.9rem;
 	border: none;
 	border-radius: 5px;
-
 	text-decoration: none;
 	transition: .4s;
+	min-height: 25px;
+	min-width: 15px;
+	vertical-align: middle;
+	line-height: 25px;
 }
 
-a.btn.active {
+.btn.active {
 	background-color: var(--accent-bg);
 	border: 1px solid var(--border);
-}
-
-.btn {
-	padding: 5px 10px;
-	min-height: 37px;
-	min-width: 15px;
-	font-size: 0.9rem;
-	vertical-align: middle;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn-important, #nav_menu_read_all .read_all, #actualize {
@@ -914,21 +905,6 @@ option {
 	right: 2px;
 }
 
-
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt input {
 	margin: 5px auto;
@@ -1034,6 +1010,10 @@ option {
 		position: relative;
 	}
 
+	#overlay {
+		background-color: var(--accent-bg);
+	}
+
 	.notification {
 		top: 0;
 		right: 0;
@@ -1042,19 +1022,6 @@ option {
 
 	#nav_entries {
 		width: 100%;
-	}
-
-	#panel {
-		top: 25px; bottom: 30px;
-		right: 0; left: 0;
-	}
-
-	#panel .close {
-		top: 0; left: 0;
-		right: auto; bottom: auto;
-		display: inline-block;
-		width: 30px;
-		height: 30px;
 	}
 
 	#slider.active {

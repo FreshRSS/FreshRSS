@@ -17,7 +17,8 @@ return array(
 		'bugs_reports' => 'バグレポート',
 		'credits' => 'クレジット',
 		'credits_content' => 'いくつかのデザイン要素は <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>から来ています。しかしFreshRSSはこのフレームワークを使用していません。 <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">アイコン</a> は <a href="https://www.gnome.org/">GNOME プロジェクトから作られています</a>。 <em>Open Sans</em> フォントは <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson によって作成されました</a>。 FreshRSS は<a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>,PHP フレームワークをもとにしています。',
-		'freshrss_description' => 'FreshRSSは <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> や <a href="https://github.com/LeedRSS/Leed">Leed</a>のようなセルフホストできるRSSフィード収集ツールです。強力なツールになっており、軽量で簡単に使え、豊富な設定が特徴です。',
+		'documentation' => 'Documentation',	// TODO
+		'freshrss_description' => 'FreshRSSは なセルフホストできるRSSフィード収集ツールです。強力なツールになっており、軽量で簡単に使え、豊富な設定が特徴です。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Githubへお願いします</a>',
 		'license' => 'ライセンス',
 		'project_website' => 'プロジェクトのwebサイト',

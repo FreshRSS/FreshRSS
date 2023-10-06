@@ -20,7 +20,7 @@
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background-color: variables.$main-first;
@@ -51,6 +51,13 @@
 
 	#global {
 		height: calc(100% - 8rem);
+	}
+
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
 	}
 
 	main.prompt {

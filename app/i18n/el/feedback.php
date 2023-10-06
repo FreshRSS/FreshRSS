@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',	// TODO
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// TODO
-		'zip_error' => 'An error occurred during ZIP import.',	// TODO
+		'zip_error' => 'An error occurred during ZIP processing.',	// TODO
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// TODO
@@ -120,11 +120,11 @@ return array(
 		'renamed' => 'Label “%s” has been renamed to “%s”.',	// TODO
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// TODO
+		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// DIRTY
 		'error' => 'The update process has encountered an error: %s',	// TODO
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// TODO
+		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// DIRTY
 		'finished' => 'Update complete!',	// TODO
-		'none' => 'No update to apply',	// TODO
+		'none' => 'No update to apply',	// DIRTY
 		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO
 	),
 	'user' => array(

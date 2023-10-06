@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',
-		'zip_error' => 'An error occurred during ZIP import.',
+		'zip_error' => 'An error occurred during ZIP processing.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
@@ -120,11 +120,11 @@ return array(
 		'renamed' => 'Label “%s” has been renamed to “%s”.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
+		'can_apply' => 'An update of FreshRSS is available: <strong>Version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
+		'file_is_nok' => 'An update of FreshRSS is available (<strong>Version %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
 		'finished' => 'Update complete!',
-		'none' => 'No update to apply',
+		'none' => 'No update available',
 		'server_not_found' => 'Update server cannot be found. [%s]',
 	),
 	'user' => array(

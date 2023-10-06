@@ -38,10 +38,12 @@
 	--alert-error-border-color: #912621;
 
 	--notification-border-color: #eeb;
-	--notification-good-border-color: #0044cb;
+	--notification-good-border-color: #0062b7;
 	--notification-bad-background-color: #fdd;
 	--notification-bad-font-color: #912621;
 	--notification-bad-border-color: #ecc;
+
+	--frss-box-shadow-color-transparent: #bbb3;
 }
 
 html, body {
@@ -201,16 +203,12 @@ form th {
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
 }
 
 .btn:hover {
@@ -378,6 +376,15 @@ a.btn {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
 	border-radius: 3px;
+}
+
+.dropdown-menu input[type="checkbox"] {
+	margin-right: 1rem;
+}
+
+.dropdown-menu .item .emptyLabels {
+	padding-right: 1rem;
+	padding-left: 1rem;
 }
 
 .item ~ .dropdown-header,
@@ -619,25 +626,11 @@ kbd {
 	right: 2px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
-.slides {
+.theme-preview-list {
 	border-color: var(--border-color-middle);
 }
 
-.properties {
+.theme-preview-list .properties {
 	background-color: var(--background-color-light);
 	color: var(--font-color-middle);
 	border-color: var(--border-color-middle);
@@ -752,6 +745,10 @@ kbd {
 }
 
 .flux:not(.current):hover .item.title {
+	background: var(--background-color-hover);
+}
+
+.flux.current:not(.active) {
 	background: var(--background-color-hover);
 }
 
@@ -1058,7 +1055,7 @@ kbd {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background: var(--background-color-light);
@@ -1066,14 +1063,14 @@ kbd {
 	}
 
 	.aside .toggle_aside:hover,
-	#panel .close:hover,
+	#overlay .close:hover,
 	.dropdown-menu .toggle_aside:hover,
 	#slider .toggle_aside:hover {
 		background-color: var(--background-color-hover);
 	}
 
 	.aside .toggle_aside:hover .icon,
-	#panel .close:hover .icon,
+	#overlay .close:hover .icon,
 	.dropdown-menu .toggle_aside:hover .icon {
 		filter: brightness(2);
 	}

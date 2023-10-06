@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Kanał główny',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
-		'percent_of_total' => '%% wszystkich',
+		'percent_of_total' => '% wszystkich',
 		'repartition' => 'Podział wiadomości',
 		'status_favorites' => 'Ulubione',
 		'status_read' => 'Przeczytane',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Konfiguracja serwisu',
 		'auto-update-url' => 'Adres serwera automatycznej aktualizacji',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'Formularz rejestracji użytkowników',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Aktualizacja',
 		'apply' => 'Zastosuj',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Szukaj uaktualnień',
-		'current_version' => 'Używana wersja FreshRSS to %s.',
-		'last' => 'Ostatnie sprawdzenie: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Używana wersja',
+		'last' => 'Ostatnie sprawdzenie',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Brak nowych aktualizacji',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aktualizacja',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

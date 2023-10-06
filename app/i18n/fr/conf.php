@@ -17,7 +17,7 @@ return array(
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_favourites' => 'Ne jamais supprimer les articles favoris',
 		'keep_labels' => 'Ne jamais supprimer les articles étiquetés',
-		'keep_max' => 'Nombre maximum d’articles à conserver',
+		'keep_max' => 'Nombre maximum d’articles à conserver par flux',
 		'keep_min_by_feed' => 'Nombre minimum d’articles à conserver par flux',
 		'keep_period' => 'Âge maximum des articles à conserver',
 		'keep_unreads' => 'Ne jamais supprimer les articles non lus',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
-		'darkMode' => 'Mode sombre automatique (bêta)',
+		'darkMode' => array(
+			'_' => 'Mode sombre automatique (bêta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Non',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',

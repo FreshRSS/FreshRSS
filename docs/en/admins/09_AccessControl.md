@@ -24,18 +24,24 @@ variable containing the email address of the authenticated user (e.g. `REMOTE_US
 
 ## External Authentication
 
-You may also use the `Remote-User` or `X-WebAuth-User` header to integrate with a your reverse-proxy’s authentication.
+You may also use the `Remote-User` or `X-WebAuth-User` HTTP headers to integrate with a reverse-proxy’s authentication.
 
 To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
 To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
 Likewise to allow only one IPv6, you can use a `/128` like this: `trusted_sources => [ '::1/128' ]`.
 
-WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
+You may alternatively pass a `TRUSTED_PROXY` environment variable in a format compatible with [Apache’s `mod_remoteip` `RemoteIPTrustedProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteiptrustedproxy).
+
+> ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
 ## No Authentication
 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
 It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
+
+## OpenID Connect
+
+* See [dedicated section](16_OpenID-Connect.md).
 
 ## Hints
 

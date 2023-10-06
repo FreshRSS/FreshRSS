@@ -22,6 +22,16 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="base-url"><?= _t('admin.system.base-url') ?></label>
+			<div class="group-controls">
+				<input type="text" id="base-url" name="base-url" value="<?= FreshRSS_Context::$system_conf->base_url ?>"
+					data-leave-validation="<?= FreshRSS_Context::$system_conf->base_url ?>" disabled="disabled" />
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.base-url.recommendation', dirname(Minz_Request::guessBaseUrl())) ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="auto-update-url"><?= _t('admin.system.auto-update-url') ?></label>
 			<div class="group-controls">
 				<input type="text" id="auto-update-url" name="auto-update-url" value="<?= FreshRSS_Context::$system_conf->auto_update_url ?>"
@@ -80,6 +90,19 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<?= ($number > 1 ? _t('admin.user.numbers', $number) : _t('admin.user.number', $number)); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name"><?= _t('index.tos.title') ?></label>
+			<div class="group-controls">
+				<?php if (file_exists(TOS_FILENAME)) { ?>
+					<?= _t('admin.system.tos.enabled') ?>
+					<?php
+				} else { ?>
+					<?= _t('admin.system.tos.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.tos.help') ?></p>
+				<?php } ?>
 			</div>
 		</div>
 

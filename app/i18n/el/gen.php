@@ -134,6 +134,7 @@ return array(
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO
 	),
@@ -144,12 +145,15 @@ return array(
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
 		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -195,6 +199,7 @@ return array(
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// TODO
 		'blogotext' => 'Blogotext',	// TODO
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
 		'email' => 'Email',	// TODO
@@ -207,6 +212,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// TODO
 		'mastodon' => 'Mastodon',	// TODO
 		'movim' => 'Movim',	// TODO
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// TODO
 		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// TODO

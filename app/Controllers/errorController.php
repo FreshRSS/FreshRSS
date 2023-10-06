@@ -13,9 +13,9 @@ class FreshRSS_error_Controller extends FreshRSS_ActionController {
 	 *   - error_code (default: 404)
 	 *   - error_logs (default: array())
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		$code_int = Minz_Session::param('error_code', 404);
-		$error_logs = Minz_Session::param('error_logs', array());
+		$error_logs = Minz_Session::param('error_logs', []);
 		Minz_Session::_params([
 			'error_code' => false,
 			'error_logs' => false,

@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다',
 		'file_cannot_be_uploaded' => '파일을 업로드할 수 없습니다!',
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
-		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
+		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => '프로필을 변경할 수 없습니다',

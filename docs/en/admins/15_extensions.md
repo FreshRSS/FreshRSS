@@ -48,6 +48,4 @@ metadata.json:
 
 See folder: `.lib/core-extensions`
 
-Two system extensions are already pre-installed: `Google-Groups` and `Tumblr-GDPR`.
-
 Important: do not install your chosen extensions here!

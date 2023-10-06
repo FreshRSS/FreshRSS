@@ -127,17 +127,13 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	display: inline-block;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	font-size: 0.9rem;
 	line-height: 1.7;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
 }
 
 .btn:hover {
@@ -461,20 +457,6 @@ a.btn {
 	border-radius: 3px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt {
 	text-align: center;
@@ -746,7 +728,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background: #fff;
@@ -754,7 +736,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside:hover,
-	#panel .close:hover,
+	#overlay .close:hover,
 	.dropdown-menu .toggle_aside:hover,
 	#slider .toggle_aside:hover {
 		background-color: #ddd;

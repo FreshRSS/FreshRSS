@@ -20,22 +20,22 @@
 					placeholder="<?= _t('gen.menu.search') ?>" />
 
 				<?php $param_a = Minz_Request::actionName(); ?>
-				<?php if (in_array($param_a, ['normal', 'global', 'reader'])) { ?>
+				<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
 				<input type="hidden" name="a" value="<?= $param_a ?>" />
 				<?php } ?>
 
-				<?php $get = Minz_Request::param('get', ''); ?>
-				<?php if ($get != '') { ?>
+				<?php $get = Minz_Request::paramString('get'); ?>
+				<?php if ($get !== '') { ?>
 				<input type="hidden" name="get" value="<?= $get ?>" />
 				<?php } ?>
 
-				<?php $order = Minz_Request::param('order', ''); ?>
-				<?php if ($order != '') { ?>
+				<?php $order = Minz_Request::paramString('order'); ?>
+				<?php if ($order !== '') { ?>
 				<input type="hidden" name="order" value="<?= $order ?>" />
 				<?php } ?>
 
-				<?php $state = Minz_Request::param('state', ''); ?>
-				<?php if ($state != '') { ?>
+				<?php $state = Minz_Request::paramString('state'); ?>
+				<?php if ($state !== '') { ?>
 				<input type="hidden" name="state" value="<?= $state ?>" />
 				<?php } ?>
 
@@ -55,14 +55,14 @@
 
 				<li class="item dropdown-section">
 					<div class="dropdown-section-title">
-						<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>
+						<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>
 					</div>
 					<ul>
 						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 						<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
 						<?php else: ?>
-						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
+						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
 						<?php endif; ?>
 					</ul>
 				</li>
@@ -103,6 +103,11 @@
 					<ul>
 						<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
 						<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+						<?php if (file_exists(TOS_FILENAME)) { ?>
+							<li class="item">
+								<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+							</li>
+						<?php } ?>
 						<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
 					</ul>
 				</li>

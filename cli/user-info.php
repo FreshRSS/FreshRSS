@@ -63,6 +63,7 @@ foreach ($users as $username) {
 
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
+	$feedList = $feedDAO->listFeedsIds();
 
 	$data = array(
 		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
@@ -71,12 +72,12 @@ foreach ($users as $username) {
 		'enabled' => FreshRSS_Context::$user_conf->enabled ? '*' : '',
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
-		'categories' => (int) $catDAO->count(),
-		'feeds' => (int) count($feedDAO->listFeedsIds()),
-		'reads' => (int) $nbEntries['read'],
-		'unreads' => (int) $nbEntries['unread'],
-		'favourites' => (int) $nbFavorites['all'],
-		'tags' => (int) $tagDAO->count(),
+		'categories' => $catDAO->count(),
+		'feeds' => count($feedList),
+		'reads' => (int)$nbEntries['read'],
+		'unreads' => (int)$nbEntries['unread'],
+		'favourites' => (int)$nbFavorites['all'],
+		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::$user_conf->language,
 		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
 	);
@@ -84,11 +85,12 @@ foreach ($users as $username) {
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}
+
 	if ($formatJson) {
 		$data['default'] = !empty($data['default']);
 		$data['admin'] = !empty($data['admin']);
 		$data['enabled'] = !empty($data['enabled']);
-		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', $data['last_user_activity']);
+		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', (int)$data['last_user_activity']);
 		$jsonOutput[] = $data;
 	} else {
 		vprintf(DATA_FORMAT, $data);

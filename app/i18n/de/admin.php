@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Haupt-Feeds',
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
-		'percent_of_total' => '%% Gesamt',
+		'percent_of_total' => '% Gesamt',
 		'repartition' => 'Artikel-Verteilung',
 		'status_favorites' => 'Favoriten',
 		'status_read' => 'Gelesen',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'sind nicht aktiviert',
+			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
+			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
+		'changelog' => 'Liste der Änderungen',
 		'check' => 'Auf neue Aktualisierungen prüfen',
-		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
-		'last' => 'Letzte Überprüfung: %s',
+		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
+		'current_version' => 'Aktuelle Version',
+		'last' => 'Letzte Überprüfung',
+		'loading' => 'Aktualisierung läuft…',
 		'none' => 'Keine ausstehende Aktualisierung',
+		'releaseChannel' => array(
+			'_' => 'Veröffentlichungskanal',
+			'edge' => 'Aktueller Entwicklungsstand (“edge”)',
+			'latest' => 'Stabile Version (“latest”)',
+		),
 		'title' => 'System aktualisieren',
+		'viaGit' => 'Update über git und Github.com gestartet',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

@@ -51,7 +51,7 @@
 							continue;
 						}
 				?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() == ( Minz_Request::param('cat_id') ?: 1 ) ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() === (Minz_Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>

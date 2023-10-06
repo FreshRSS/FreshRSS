@@ -23,12 +23,12 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		Minz_ActionController::$viewType = 'FreshRSS_View';
+		Minz_ActionController::$defaultViewType = FreshRSS_View::class;
 
 		FreshRSS_Context::initSystem();
 		if (FreshRSS_Context::$system_conf == null) {
 			$message = 'Error during context system init!';
-			Minz_Error::error(500, [$message], false);
+			Minz_Error::error(500, $message, false);
 			die($message);
 		}
 
@@ -51,7 +51,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		if (FreshRSS_Context::$user_conf == null) {
 			$message = 'Error during context user init!';
-			Minz_Error::error(500, [$message], false);
+			Minz_Error::error(500, $message, false);
 			die($message);
 		}
 
@@ -61,7 +61,7 @@ class FreshRSS extends Minz_FrontController {
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
-			Minz_ExtensionManager::enableByList($ext_list);
+			Minz_ExtensionManager::enableByList($ext_list, 'user');
 		}
 
 		if (FreshRSS_Context::$system_conf->force_email_validation && !FreshRSS_Auth::hasAccess('admin')) {
@@ -84,10 +84,7 @@ class FreshRSS extends Minz_FrontController {
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();
-				Minz_Error::error(403, array('error' => array(
-						_t('feedback.access.denied'),
-						' [CSRF]'
-					)));
+				Minz_Error::error(403, ['error' => [_t('feedback.access.denied'), ' [CSRF]']]);
 			}
 		}
 	}
@@ -155,7 +152,7 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function loadNotifications(): void {
 		$notif = Minz_Request::getNotification();
-		if ($notif) {
+		if (!empty($notif)) {
 			FreshRSS_View::_param('notification', $notif);
 		}
 	}
@@ -180,10 +177,10 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::is('javascript', 'nonce')
 		);
 		if ($email_not_verified && !$action_is_allowed) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'user',
 				'a' => 'validateEmail',
-			), true);
+			], true);
 		}
 	}
 }

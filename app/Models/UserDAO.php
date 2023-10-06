@@ -1,11 +1,12 @@
 <?php
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
-	public function createUser() {
+
+	public function createUser(): bool {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$sql = $GLOBALS['SQL_CREATE_TABLES'] . $GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] . $GLOBALS['SQL_CREATE_TABLE_TAGS'];
+			$sql = $GLOBALS['SQL_CREATE_TABLES'];
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 		} catch (Exception $e) {
 			$ok = false;
@@ -21,7 +22,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function deleteUser() {
+	public function deleteUser(): bool {
 		if (defined('STDERR')) {
 			fwrite(STDERR, 'Deleting SQL data for user “' . $this->current_user . "”…\n");
 		}
@@ -38,18 +39,18 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public static function exists($username) {
+	public static function exists(string $username): bool {
 		return is_dir(USERS_PATH . '/' . $username);
 	}
 
-	public static function touch($username = '') {
+	public static function touch(string $username = ''): bool {
 		if (!FreshRSS_user_Controller::checkUsername($username)) {
-			$username = Minz_Session::param('currentUser', '_');
+			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 		}
 		return touch(USERS_PATH . '/' . $username . '/config.php');
 	}
 
-	public static function mtime($username) {
-		return @filemtime(USERS_PATH . '/' . $username . '/config.php');
+	public static function mtime(string $username): int {
+		return @(int)filemtime(USERS_PATH . '/' . $username . '/config.php');
 	}
 }

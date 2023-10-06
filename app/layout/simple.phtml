@@ -46,7 +46,7 @@
 			<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
 				<a class="signout" href="<?= _url('auth', 'logout') ?>">
 					<?= _i('logout') . _t('gen.auth.logout') ?>
-					(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)
+					(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)
 				</a>
 			<?php } ?>
 		</div>

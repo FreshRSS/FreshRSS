@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám',
 		'file_cannot_be_uploaded' => 'Soubor nelze nahrát!',
 		'no_zip_extension' => 'Na serveru není přítomno rozšíření ZIP.',
-		'zip_error' => 'Během importu ZIP došlo k chybě.',
+		'zip_error' => 'Během importu ZIP došlo k chybě.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',

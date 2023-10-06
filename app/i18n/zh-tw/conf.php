@@ -17,7 +17,7 @@ return array(
 		'help' => '具體選項位於各訂閱源的設置',
 		'keep_favourites' => '不清理已收藏的文章',
 		'keep_labels' => '不清理標簽',
-		'keep_max' => '最多保留的文章數',
+		'keep_max' => '最多保留的文章數',	// DIRTY
 		'keep_min_by_feed' => '至少保留的文章數',
 		'keep_period' => '文章最多保留',
 		'keep_unreads' => '不清理未讀文章',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',

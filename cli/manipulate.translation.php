@@ -5,11 +5,12 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
+/** @var array<string,string>|false $options */
+$options = getopt('a:hk:l:o:rv:');
 
-$options = getopt("a:hk:l:o:rv:");
-
-if (array_key_exists('h', $options)) {
-	help();
+if (!is_array($options) || array_key_exists('h', $options)) {
+	manipulateHelp();
+	exit();
 }
 
 if (!array_key_exists('a', $options)) {
@@ -27,7 +28,7 @@ switch ($options['a']) {
 			$i18nData->addKey($options['k'], $options['v']);
 		} elseif (array_key_exists('l', $options)) {
 			$reference = null;
-			if (array_key_exists('o', $options) && is_string($options['o'])) {
+			if (array_key_exists('o', $options)) {
 				$reference = $options['o'];
 			}
 			$i18nData->addLanguage($options['l'], $reference);
@@ -76,7 +77,7 @@ switch ($options['a']) {
 		}
 		break;
 	default :
-		help();
+		manipulateHelp();
 		exit;
 }
 
@@ -85,19 +86,19 @@ $data->dump($i18nData->getData());
 /**
  * Output error message.
  */
-function error($message) {
+function error(string $message): void {
 	$error = <<<ERROR
 WARNING
 	%s\n\n
 ERROR;
 	echo sprintf($error, $message);
-	help();
+	manipulateHelp();
 }
 
 /**
  * Output help message.
  */
-function help() {
+function manipulateHelp(): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 	echo <<<HELP
 NAME

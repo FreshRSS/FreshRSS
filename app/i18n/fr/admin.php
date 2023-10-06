@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Flux principal',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
 		'number_entries' => '%d articles',	// IGNORE
-		'percent_of_total' => '%% du total',
+		'percent_of_total' => '% du total',
 		'repartition' => 'Répartition des articles',
 		'status_favorites' => 'favoris',
 		'status_read' => 'lus',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'base-url' => array(
+			'_' => 'URL de la racine',
+			'recommendation' => 'Recommandation automatique: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'Formulaire d’inscription utilisateur',
 		),
+		'sensitive-parameter' => 'Paramètre sensible. Éditez manuallement <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'non renseigné',
+			'enabled' => '<a href="./?a=tos">activées</a>',
+			'help' => 'Comment <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activer les conditions d’utilisation</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
+		'changelog' => 'Journal des modifications',
 		'check' => 'Vérifier les mises à jour',
-		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
-		'last' => 'Dernière vérification : %s',
+		'copiedFromURL' => 'update.php copié depuis %s vers ./data',
+		'current_version' => 'Votre version actuelle',
+		'last' => 'Dernière vérification',
+		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
+		'releaseChannel' => array(
+			'_' => 'Canal de publication',
+			'edge' => 'Publication continue (“edge”)',
+			'latest' => 'Publication stable (“latest”)',
+		),
 		'title' => 'Système de mise à jour',
+		'viaGit' => 'Mise à jour via git et Github.com démarrée',
 	),
 	'user' => array(
 		'admin' => 'Administrateur',

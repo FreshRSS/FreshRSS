@@ -17,7 +17,7 @@ return array(
 		'help' => '更多可用选项位于各订阅源的设置',
 		'keep_favourites' => '永不删除已收藏的文章',
 		'keep_labels' => '永不删除标签',
-		'keep_max' => '最多保留的文章数',
+		'keep_max' => '最多保留的文章数',	// DIRTY
 		'keep_min_by_feed' => '至少保留的文章数',
 		'keep_period' => '文章最多保留',
 		'keep_unreads' => '永不删除未读文章',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '显示',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '底栏',
 			'display_authors' => '作者',

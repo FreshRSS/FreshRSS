@@ -8,13 +8,14 @@ FreshRSS has the option to share links with a bunch of services.
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Clipboard     | Copy article link into the operation system clipboard | |
 | Email         | Open the email app to send the article link            | |
-| Print         | Open browser's print dialog to print out the article   | |
+| Print         | Open browser’s print dialog to print out the article   | |
 
 ## Available Services: Hosted Services
 
 | Service           | Short description                                    | Links                                            | Notes                                                         |
 |:------------------|:-----------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------------------|
 | Blogotext         | A little more than a lightweight SQLite Blog-Engine. | [GitHub](https://github.com/BlogoText/blogotext) | Deprecated since FreshRSS V1.20.0 (2022). Will be deleted in 2023 (scheduled to FreshRSS V1.22.0) |
+| Buffer         | Buffer.com is a social media management platform for scheduling, publishing, and analyzing content. | [Website](https://buffer.com) ||
 | Diaspora*         | The online social world where you are in control     | [Website](https://diasporafoundation.org/), [Wikipedia](https://en.wikipedia.org/wiki/Diaspora_(social_network)) |  |
 | Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://facebook.com), [Wikipedia](https://en.wikipedia.org/wiki/Facebook)
 | GNU social        | Social communication software for both public and private communications | [Website](https://gnu.io/social/) | |
@@ -25,6 +26,7 @@ FreshRSS has the option to share links with a bunch of services.
 | LinkedIn          | Business and employment-oriented online service      | [Website](https://www.linkedin.com/), [Wikipedia](https://en.wikipedia.org/wiki/LinkedIn)| |
 | Mastodon          | Self-hosted social networking & microblogging services | [Website](https://joinmastodon.org/), [Wikipedia](https://en.wikipedia.org/wiki/Mastodon_(software)) | |
 | Movim             | A powerful web frontend for XMPP                     | [Website](https://movim.eu/) | |
+| Omnivore          | A complete, open source read-it-later solution for people who love to read. | [Website](https://omnivore.app/) | |
 | Pinboard          | Social Bookmarking for Introverts                    | [Website](https://pinboard.in/) | |
 | Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
 | Pocket            | Social bookmarking (previous "Read it Later", owned by Mozilla) | [Website](https://getpocket.com), [Wikipedia](https://en.wikipedia.org/wiki/Pocket_(service)) | |

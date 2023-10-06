@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Stream principal',
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'percent_of_total' => '%% do total',
+		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Lido',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'Formulário de Cadastro de Usuário',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Atualização do sistema',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Buscar por novas atualizações',
-		'current_version' => 'Sua versão do FreshRSS é %s.',
-		'last' => 'Última verificação: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Sua versão',
+		'last' => 'Última verificação',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Nenhuma atualização para se aplicar',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Sistema de atualização',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrador',

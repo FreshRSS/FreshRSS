@@ -11,21 +11,25 @@
 class Minz_Translate {
 	/**
 	 * $path_list is the list of registered base path to search translations.
+	 * @var array<string>
 	 */
 	private static $path_list = array();
 
 	/**
 	 * $lang_name is the name of the current language to use.
+	 * @var string
 	 */
 	private static $lang_name;
 
 	/**
 	 * $lang_files is a list of registered i18n files.
+	 * @var array<string,array<string>>
 	 */
 	private static $lang_files = array();
 
 	/**
 	 * $translates is a cache for i18n translation.
+	 * @var array<string,mixed>
 	 */
 	private static $translates = array();
 
@@ -33,7 +37,7 @@ class Minz_Translate {
 	 * Init the translation object.
 	 * @param string $lang_name the lang to show.
 	 */
-	public static function init($lang_name = null) {
+	public static function init(string $lang_name = ''): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
@@ -47,7 +51,7 @@ class Minz_Translate {
 	 * Reset the translation object with a new language.
 	 * @param string $lang_name the new language to use
 	 */
-	public static function reset($lang_name) {
+	public static function reset(string $lang_name): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
@@ -60,7 +64,7 @@ class Minz_Translate {
 	 * Return the list of available languages.
 	 * @return array<string> containing langs found in different registered paths.
 	 */
-	public static function availableLanguages() {
+	public static function availableLanguages(): array {
 		$list_langs = array();
 
 		self::registerPath(APP_PATH . '/i18n');
@@ -72,9 +76,7 @@ class Minz_Translate {
 					$scan,
 					array('..', '.')
 				));
-				if (is_array($path_langs)) {
-					$list_langs = array_merge($list_langs, $path_langs);
-				}
+				$list_langs = array_merge($list_langs, $path_langs);
 			}
 		}
 
@@ -103,15 +105,15 @@ class Minz_Translate {
 			}
 		}
 
-		return $default ? $default : 'en';
+		return $default == null ? 'en' : $default;
 	}
 
 	/**
 	 * Register a new path.
 	 * @param string $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
-	public static function registerPath($path) {
-		if (!in_array($path, self::$path_list) && is_dir($path)) {
+	public static function registerPath(string $path): void {
+		if (!in_array($path, self::$path_list, true) && is_dir($path)) {
 			self::$path_list[] = $path;
 			self::loadLang($path);
 		}
@@ -121,16 +123,21 @@ class Minz_Translate {
 	 * Load translations of the current language from the given path.
 	 * @param string $path the path containing i18n directories.
 	 */
-	private static function loadLang($path) {
+	private static function loadLang(string $path): void {
 		$lang_path = $path . '/' . self::$lang_name;
-		if (!file_exists($lang_path) || self::$lang_name == '') {
-			// The lang path does not exist, nothing more to do.
-			return;
+		if (self::$lang_name === '' || !is_dir($lang_path)) {
+			// The lang path does not exist, fallback to English ('en')
+			self::$lang_name = 'en';
+			$lang_path = $path . '/' . self::$lang_name;
+			if (!is_dir($lang_path)) {
+				// English ('en') i18n files not provided. Stop here. The keys will be shown.
+				return;
+			}
 		}
 
 		$list_i18n_files = array_values(array_diff(
-			scandir($lang_path),
-			array('..', '.')
+			scandir($lang_path) ?: [],
+			['..', '.']
 		));
 
 		// Each file basename correspond to a top-level i18n key. For each of
@@ -150,7 +157,7 @@ class Minz_Translate {
 	 * Load the files associated to $key into $translates.
 	 * @param string $key the top level i18n key we want to load.
 	 */
-	private static function loadKey($key) {
+	private static function loadKey(string $key): bool {
 		// The top level key is not in $lang_files, it means it does not exist!
 		if (!isset(self::$lang_files[$key])) {
 			Minz_Log::debug($key . ' is not a valid top level key');
@@ -183,7 +190,7 @@ class Minz_Translate {
 	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
-	public static function t($key, ...$args) {
+	public static function t(string $key, ...$args): string {
 		$group = explode('.', $key);
 
 		if (count($group) < 2) {
@@ -195,8 +202,7 @@ class Minz_Translate {
 
 		// If $translates[$top_level] is null it means we have to load the
 		// corresponding files.
-		if (!isset(self::$translates[$top_level]) ||
-				is_null(self::$translates[$top_level])) {
+		if (empty(self::$translates[$top_level])) {
 			$res = self::loadKey($top_level);
 			if (!$res) {
 				return $key;
@@ -238,7 +244,7 @@ class Minz_Translate {
 	/**
 	 * Return the current language.
 	 */
-	public static function language() {
+	public static function language(): string {
 		return self::$lang_name;
 	}
 }
@@ -249,6 +255,6 @@ class Minz_Translate {
  * @param string $key
  * @param mixed ...$args
  */
-function _t($key, ...$args) {
+function _t(string $key, ...$args): string {
 	return Minz_Translate::t($key, ...$args);
 }

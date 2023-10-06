@@ -1059,8 +1059,8 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.title > a');
-		if (el) {	// Allow default control-click behaviour such as open in background-tab
-			return ev.ctrlKey;
+		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
+			return ev.ctrlKey || ev.metaKey;
 		}
 
 		el = ev.target.closest('.flux .content .text a');
@@ -1087,8 +1087,31 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
-		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.dataset.url);
+		if (el) { // Clipboard
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(el.dataset.url)
+					.then(() => {
+						toggleClass(el, 'error');
+					})
+					.catch(e => {
+						console.log(e);
+						toggleClass(el, 'error');
+					});
+			} else {
+				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
+				const inputElement = document.createElement('input');
+				inputElement.value = el.dataset.url;
+				document.body.appendChild(inputElement);
+				inputElement.select();
+				if (document.execCommand && document.execCommand('copy')) {
+					toggleClass(el, 'ok');
+				} else {
+					console.log('document.execCommand("copy") failed');
+					toggleClass(el, 'error');
+				}
+				inputElement.remove();
+			}
+
 			return false;
 		}
 
@@ -1188,7 +1211,7 @@ function init_stream(stream) {
 				checkboxTag.disabled = true;
 
 				const req = new XMLHttpRequest();
-				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.open('POST', './?c=tag&a=tagEntry&ajax=1', true);
 				req.responseType = 'json';
 				req.onerror = function (e) {
 					checkboxTag.checked = !isChecked;
@@ -1220,6 +1243,12 @@ function init_stream(stream) {
 			}
 		}
 	};
+}
+
+function toggleClass(el, cssclass) {
+	el.classList.remove(cssclass);
+	el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
+	el.classList.add(cssclass);
 }
 
 function init_nav_entries() {
@@ -1271,47 +1300,63 @@ function loadDynamicTags(div) {
 			return req.onerror(e);
 		}
 
-		const li_item0 = document.createElement('li');
-		li_item0.setAttribute('class', 'item addItem');
+		if (!context.anonymous) {
+			const li_item0 = document.createElement('li');
+			li_item0.setAttribute('class', 'item addItem');
 
-		const label = document.createElement('label');
-		label.setAttribute('class', 'noHover');
+			const label = document.createElement('label');
+			label.setAttribute('class', 'noHover');
 
-		const input_checkboxTag = document.createElement('input');
-		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
-		input_checkboxTag.setAttribute('name', 't_0');
-		input_checkboxTag.setAttribute('type', 'checkbox');
+			const input_checkboxTag = document.createElement('input');
+			input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+			input_checkboxTag.setAttribute('name', 't_0');
+			input_checkboxTag.setAttribute('type', 'checkbox');
 
-		const input_newTag = document.createElement('input');
-		input_newTag.setAttribute('type', 'text');
-		input_newTag.setAttribute('name', 'newTag');
-		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+			const input_newTag = document.createElement('input');
+			input_newTag.setAttribute('type', 'text');
+			input_newTag.setAttribute('name', 'newTag');
+			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
-		const button_btn = document.createElement('button');
-		button_btn.setAttribute('type', 'button');
-		button_btn.setAttribute('class', 'btn');
-		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+			const button_btn = document.createElement('button');
+			button_btn.setAttribute('type', 'button');
+			button_btn.setAttribute('class', 'btn');
+			button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
 
-		const text_plus = document.createTextNode('+');
+			const text_plus = document.createTextNode('+');
 
-		const div_stick = document.createElement('div');
-		div_stick.setAttribute('class', 'stick');
+			const div_stick = document.createElement('div');
+			div_stick.setAttribute('class', 'stick');
 
-		button_btn.appendChild(text_plus);
-		div_stick.appendChild(input_newTag);
-		div_stick.appendChild(button_btn);
-		label.appendChild(input_checkboxTag);
-		label.appendChild(div_stick);
-		li_item0.appendChild(label);
+			button_btn.appendChild(text_plus);
+			div_stick.appendChild(input_newTag);
+			div_stick.appendChild(button_btn);
+			label.appendChild(input_checkboxTag);
+			label.appendChild(div_stick);
+			li_item0.appendChild(label);
 
-		div.querySelector('.dropdown-menu').appendChild(li_item0);
+			div.querySelector('.dropdown-menu').appendChild(li_item0);
+		}
 
 		let html = '';
 		if (json && json.length) {
+			let nbLabelsChecked = 0;
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
-				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
-						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
+				if (context.anonymous && !tag.checked) {
+					// In anomymous mode, show only the used tags
+					continue;
+				}
+				if (tag.checked) {
+					nbLabelsChecked++;
+				}
+				html += '<li class="item"><label><input ' +
+					(context.anonymous ? '' : 'class="checkboxTag" ') +
+					'name="t_' + tag.id + '"type="checkbox" ' +
+					(context.anonymous ? 'disabled="disabled" ' : '') +
+					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
+			}
+			if (context.anonymous && nbLabelsChecked === 0) {
+				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);

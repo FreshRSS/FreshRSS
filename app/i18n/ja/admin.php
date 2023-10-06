@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '主なストリーム',
 		'no_idle' => '未使用のフィードはありません!',
 		'number_entries' => '%d 記事',
-		'percent_of_total' => '%% 総計',
+		'percent_of_total' => '% 総計',
 		'repartition' => '記事の仕切り',
 		'status_favorites' => 'お気に入り',
 		'status_read' => '既読',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'システムアップデート',
 		'apply' => '適用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'アップデートを確認する',
-		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
-		'last' => '最近の検証: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => '現在のバージョンは',
+		'last' => '最近の検証',
+		'loading' => 'Updating…',	// TODO
 		'none' => '更新を適用できません',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'アップデートシステム',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理者',

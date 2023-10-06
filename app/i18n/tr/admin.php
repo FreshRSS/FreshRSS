@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Ana akış',
 		'no_idle' => 'Boşta akış yok!',
 		'number_entries' => '%d makale',
-		'percent_of_total' => '%% toplamın yüzdesi',
+		'percent_of_total' => '% toplamın yüzdesi',
 		'repartition' => 'Makale dağılımı',
 		'status_favorites' => 'Favoriler',
 		'status_read' => 'Okunmuş',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'saniye',
 			'number' => 'Oturum açık kalma süresi',
@@ -183,15 +187,30 @@ return array(
 			),
 			'title' => 'Kullanıcı kayıt formu',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Güncelleme kontrolü',
-		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
-		'last' => 'Son kontrol: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Mevcut sürümünüz',
+		'last' => 'Son kontrol',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Yeni güncelleme yok',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Sistem güncelleme',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Yönetici',

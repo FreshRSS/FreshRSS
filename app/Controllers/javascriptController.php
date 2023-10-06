@@ -1,8 +1,19 @@
 <?php
 
 class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
+
+	/**
+	 * @var FreshRSS_ViewJavascript
+	 * @phpstan-ignore-next-line
+	 */
+	protected $view;
+
+	public function __construct() {
+		parent::__construct(FreshRSS_ViewJavascript::class);
+	}
+
 	public function firstAction(): void {
-		$this->view->_layout(false);
+		$this->view->_layout(null);
 	}
 
 	public function actualizeAction(): void {
@@ -19,12 +30,16 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	public function nbUnreadsPerFeedAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$this->view->categories = $catDAO->listCategories(true, false);
+		$this->view->categories = $catDAO->listCategories(true, false) ?: [];
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags(true);
+		$this->view->tags = $tagDAO->listTags(true) ?: [];
 	}
 
 	//For Web-form login
+
+	/**
+	 * @throws Exception
+	 */
 	public function nonceAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T'));
@@ -32,7 +47,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		header('Pragma: no-cache');
 
-		$user = isset($_GET['user']) ? $_GET['user'] : '';
+		$user = $_GET['user'] ?? '';
 		if (FreshRSS_Context::initUser($user)) {
 			try {
 				$salt = FreshRSS_Context::$system_conf->salt;
@@ -54,7 +69,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);
 		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		for ($i = 22; $i > 0; $i--) {
-			$this->view->salt1 .= $alphabet[mt_rand(0, 63)];
+			$this->view->salt1 .= $alphabet[random_int(0, 63)];
 		}
 		$this->view->nonce = sha1('' . mt_rand());
 	}

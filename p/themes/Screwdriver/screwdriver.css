@@ -162,17 +162,13 @@ button.as-link[disabled] {
 	font-size: 0.9rem;
 	border: solid 1px #ccc;
 	border-radius: 4px;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
+	line-height: 25px;
 	text-shadow: 0px -1px rgba(255,255,255,0.08);
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -635,20 +631,6 @@ a.btn {
 	border-radius: 3px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt {
 	text-shadow: 0 1px rgba(255,255,255,0.08);
@@ -1092,7 +1074,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background: #171717;
 		border-radius: 0 8px 0 8px;

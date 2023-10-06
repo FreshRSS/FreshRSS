@@ -17,7 +17,8 @@ return array(
 		'bugs_reports' => 'דיווח באגים',
 		'credits' => 'קרדיטים',
 		'credits_content' => 'מאפייני עיצוב מסויימים הגיעו מ <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> אף על פי ש FreshRSS אינו משתמש בתשתית הזו. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">סמלילים</a> הגיעו מ <a href="https://www.gnome.org/"> פרוייקט GNOME </a>. <em>Open Sans</em> הגופן police נוצר על ידי <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons נאספים בעזרת <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS מבוסס על <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, תשתית PHP.',
-		'freshrss_description' => 'FreshRSS הוא קורא RSS לאחסון עצמי בדומה ל <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> או <a href="https://github.com/LeedRSS/Leed">Leed</a>. אינו צורך משאבים רבים, וקל לתפעול אך בו בזמן חזק וניתן להתאמה.',
+		'documentation' => 'Documentation',	// TODO
+		'freshrss_description' => 'FreshRSS הוא קורא RSS לאחסון עצמי .אינו צורך משאבים רבים, וקל לתפעול אך בו בזמן חזק וניתן להתאמה.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">בגיטהאב</a>',
 		'license' => 'רישיון',
 		'project_website' => 'אתר',

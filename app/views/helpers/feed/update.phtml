@@ -17,12 +17,12 @@
 	<?php } ?>
 
 	<?php
-	$from = Minz_Request::param('from');
-	if ($from === false) {
+	$from = Minz_Request::paramString('from');
+	if ($from === '') {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
 	} else {
-		$get = Minz_Request::param('get');
-		if (!$get) {
+		$get = Minz_Request::paramString('get');
+		if ($get === '') {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
 		} else {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
@@ -132,7 +132,7 @@
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				<?php
-				if ($from === false) {
+				if ($from === '') {
 					$url = _url('feed', 'delete', 'id', $this->feed->id());
 				} else {
 					$url = _url('feed', 'delete', 'id', $this->feed->id(), 'from', $from);
@@ -400,7 +400,7 @@
 
 		<fieldset id="html_xpath">
 			<?php
-				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('xpath'));
+				$xpath = Minz_Helper::htmlspecialchars_utf8((array)($this->feed->attributes('xpath')));
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 			<div class="form-group">
@@ -515,7 +515,7 @@
 
 		<div class="form-group">
 			<?php
-				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributes('path_entries_filter'));
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8((string)($this->feed->attributes('path_entries_filter')));
 			?>
 			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 			<div class="group-controls">

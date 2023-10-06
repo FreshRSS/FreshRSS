@@ -95,6 +95,7 @@
 		<table id="user-list">
 			<thead>
 				<tr>
+					<th></th>
 					<th><?= _t('admin.user.username') ?></th>
 					<th><?= _t('admin.user.enabled') ?></th>
 					<th><?= _t('admin.user.is_admin') ?></th>
@@ -109,7 +110,8 @@
 			<tbody>
 				<?php foreach ($this->users as $username => $values) : ?>
 					<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
-						<td><a href="<?= _url('user', 'details', 'username', $username) ?>"><?= $username ?></a></td>
+						<td><a href="<?= _url('user', 'details', 'username', $username) ?>" class="configure open-slider" ><?= _i('configure') ?></a></td>
+						<td><?= $username ?></td>
 						<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
 						<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 						<td><?= $values['mail_login'] ?></td>
@@ -124,3 +126,18 @@
 		</table>
 	</div>
 </main>
+
+<?php $class = ($this->query != null) ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if ($this->query != null) {
+				$this->renderHelper('configure/query');
+			}
+		?>
+	</div>
+</aside>
+<a href="#" id="close-slider">
+	<?= _i('close') ?>
+</a>

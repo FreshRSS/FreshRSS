@@ -31,7 +31,7 @@ if (!$ok) {
 if (!empty($options['api_password'])) {
 	$username = cliInitUser($username);
 	$error = FreshRSS_api_Controller::updatePassword($options['api_password']);
-	if ($error) {
+	if ($error !== false) {
 		fail($error);
 	}
 }

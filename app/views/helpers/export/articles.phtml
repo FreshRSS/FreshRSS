@@ -1,6 +1,6 @@
 <?php
 /** @var FreshRSS_View $this */
-$username = Minz_Session::param('currentUser', '_');
+$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 
 $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
@@ -11,7 +11,7 @@ $articles = array(
 	'items' => array(),
 );
 
-echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
+echo rtrim(json_encode($articles, $options) ?: '', " ]}\n\r\t"), "\n";
 $first = true;
 
 if (empty($this->entryIdsTagNames)) {
@@ -26,11 +26,7 @@ foreach ($this->entries as $entry) {
 	$feed = $this->feed ?? FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId());
 	$entry->_feed($feed);
 
-	if (isset($this->entryIdsTagNames['e_' . $entry->id()])) {
-		$entry->_tags($this->entryIdsTagNames['e_' . $entry->id()]);
-	}
-
-	$article = $entry->toGReader('freshrss');
+	$article = $entry->toGReader('freshrss', $this->entryIdsTagNames['e_' . $entry->id()] ?? []);
 
 	$line = json_encode($article, $options);
 	if ($line != '') {
