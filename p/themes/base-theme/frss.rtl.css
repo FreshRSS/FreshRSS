@@ -1846,7 +1846,7 @@ html.slider-active {
 	position: absolute;
 }
 
-.theme-preview-list .preview:hover + .nav label {
+.theme-preview-list .preview + .nav label {
 	opacity: 0.5;
 }
 
@@ -2380,10 +2380,6 @@ html.slider-active {
 
 	.stat.half {
 		grid-column: 1 / span 2;
-	}
-
-	.theme-preview-list .preview + .nav label {
-		opacity: 0.5;
 	}
 }
 
