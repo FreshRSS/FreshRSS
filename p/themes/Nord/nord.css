@@ -912,6 +912,11 @@ option {
 }
 
 /*=== Navigation menu (for articles) */
+
+#stream-footer {
+	border-top: 0;
+}
+
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
