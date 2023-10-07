@@ -134,6 +134,7 @@ return array(
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO
 	),

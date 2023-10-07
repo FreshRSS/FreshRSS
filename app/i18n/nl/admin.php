@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Gebruikersregistratieformulier',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

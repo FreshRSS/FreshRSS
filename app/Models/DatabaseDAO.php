@@ -174,10 +174,20 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
+
+		// MariaDB does not refresh size information automatically
+		$sql = <<<'SQL'
+ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
+SQL;
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$stm->fetchAll();
+		}
+
 		//MySQL:
 		$sql = <<<'SQL'
-SELECT SUM(data_length + index_length)
-FROM information_schema.TABLES WHERE table_schema=:table_schema
+SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
+FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
 SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
@@ -204,27 +214,9 @@ SQL;
 		return $ok;
 	}
 
-	public function ensureCaseInsensitiveGuids(): bool {
-		$ok = true;
-		if ($this->pdo->dbType() === 'mysql') {
-			include(APP_PATH . '/SQL/install.sql.mysql.php');
-
-			$ok = false;
-			try {
-				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
-			} catch (Exception $e) {
-				$ok = false;
-				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
-			}
-		}
-		return $ok;
-	}
-
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
-
-		$this->ensureCaseInsensitiveGuids();
 	}
 
 	private static function stdError(string $error): bool {

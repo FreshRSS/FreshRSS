@@ -13,6 +13,8 @@ or as [GitHub Codespaces](https://github.com/features/codespaces) simply in a We
 A test instance of FreshRSS is automatically started as visible from the *Ports* tab: check the *Local Address* column, and click on the *Open in browser* 🌐 icon.
 It runs the FreshRSS code that you are currently editing.
 
+Apache logs can be seen in `/var/log/apache2/access.log` and `/var/log/apache2/error.log`.
+
 ## Software tests
 
 Running the tests can be done directly from the built-in terminal, e.g.:

@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'System configuration',	// TODO
 		'auto-update-url' => 'Auto-update server URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO
 			'number' => 'Duration to keep logged in',	// TODO
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'User registration form',	// TODO
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

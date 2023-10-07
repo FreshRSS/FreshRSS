@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器地址',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => '使用者註冊表單',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO

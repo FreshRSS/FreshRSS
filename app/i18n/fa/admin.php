@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => ' پیکربندی سیستم',
 		'auto-update-url' => ' به روز رسانی خودکار URL سرور',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => ' در ثانیه',
 			'number' => ' مدت زمان ورود به سیستم',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'فرم ثبت نام کاربر',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => ' داده نشده است',
 			'enabled' => ' <a href="./?a=tos">فعال است</a>',

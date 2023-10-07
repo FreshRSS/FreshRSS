@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
