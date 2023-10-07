@@ -580,11 +580,9 @@ li.item.active {
 	text-align: center;
 }
 
-
 .flux_header:hover {
 	background-color: var(--accent-bg);
 	transition: .4s;
-
 }
 
 .flux.current {
@@ -705,7 +703,17 @@ li.item.active {
 	text-decoration: none;
 }
 
+#bigMarkAsRead:hover {
+	background-color: var(--accent-bg);
+	transition: .4s;
+}
+
+#bigMarkAsRead:hover .bigTick {
+	color: var(--text);
+}
+
 .bigTick {
+	color: var(--accent);
 	font-size: 4em;
 }
 
@@ -912,7 +920,6 @@ option {
 }
 
 /*=== Navigation menu (for articles) */
-
 #stream-footer {
 	border-top: 0;
 }
