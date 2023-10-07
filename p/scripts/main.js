@@ -1602,9 +1602,12 @@ function notifs_html5_is_supported() {
 }
 
 function notifs_html5_ask_permission() {
-	window.Notification.requestPermission(function () {
-		notifs_html5_permission = window.Notification.permission;
-	});
+	try {
+		window.Notification.requestPermission(function () {
+			notifs_html5_permission = window.Notification.permission;
+		});
+	} catch (e) {
+	}
 }
 
 function notifs_html5_show(nb, nb_new) {
@@ -1612,24 +1615,27 @@ function notifs_html5_show(nb, nb_new) {
 		return;
 	}
 
-	const notification = new window.Notification(context.i18n.notif_title_articles, {
-		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
-		tag: 'freshRssNewArticles',
-	});
-
-	notification.onclick = function () {
-		delayedFunction(function () {
-			location.reload();
-			window.focus();
-			notification.close();
+	try {
+		const notification = new window.Notification(context.i18n.notif_title_articles, {
+			icon: '../themes/icons/favicon-256-padding.png',
+			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			tag: 'freshRssNewArticles',
 		});
-	};
 
-	if (context.html5_notif_timeout !== 0) {
-		setTimeout(function () {
-			notification.close();
-		}, context.html5_notif_timeout * 1000);
+		notification.onclick = function () {
+			delayedFunction(function () {
+				location.reload();
+				window.focus();
+				notification.close();
+			});
+		};
+
+		if (context.html5_notif_timeout !== 0) {
+			setTimeout(function () {
+				notification.close();
+			}, context.html5_notif_timeout * 1000);
+		}
+	} catch (e) {
 	}
 }
 
