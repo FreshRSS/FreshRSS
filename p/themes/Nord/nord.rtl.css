@@ -745,6 +745,15 @@ li.item.active {
 	text-align: center;
 }
 
+.nav_menu .btn {
+	margin: .125rem;
+}
+
+.nav_menu .stick {
+	margin-left: 1rem;
+	margin-right: .125rem;
+}
+
 /*=== PRINTER */
 /*============*/
 
@@ -1062,15 +1071,7 @@ option {
 	}
 
 	.nav_menu .btn {
-		margin: 5px 10px;
-	}
-
-	.nav_menu .stick {
-		margin: 0 10px;
-	}
-
-	.nav_menu .stick .btn {
-		margin: 5px 0;
+		margin-bottom: .5rem;
 	}
 
 	.nav_menu .search {
