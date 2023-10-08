@@ -46,5 +46,6 @@ extend-exclude = [
 	"node_modules/",
 	"p/scripts/vendor/",
 	"package-lock.json",
+	"themes/BlueLagoon/README.md",
 	"vendor/",
 ]
