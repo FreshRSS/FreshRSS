@@ -211,7 +211,7 @@ table td span {
 
 .dropdown-header,
 .dropdown-section .dropdown-section-title {
-	padding: 0 5px 5px;
+	padding: 0.5rem 0.75rem;
 	font-weight: bold;
 	text-align: left;
 }
