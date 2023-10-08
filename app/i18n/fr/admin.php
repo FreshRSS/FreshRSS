@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'base-url' => array(
+			'_' => 'URL de la racine',
+			'recommendation' => 'Recommandation automatique: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Formulaire d’inscription utilisateur',
 		),
+		'sensitive-parameter' => 'Paramètre sensible. Éditez manuallement <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'non renseigné',
 			'enabled' => '<a href="./?a=tos">activées</a>',

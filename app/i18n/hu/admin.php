@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
 		'auto-update-url' => 'Szerver URL automata frissítése',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezési sütik megtartási ideje',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Felhasználó regisztrációs űrlap',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'nincs elfogadva',
 			'enabled' => '<a href="./?a=tos">engedélyezve</a>',

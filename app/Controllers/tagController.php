@@ -17,9 +17,6 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 * underlying framework.
 	 */
 	public function firstAction(): void {
-		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
-		}
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::paramBoolean('ajax');
 		if ($this->ajax) {
@@ -32,6 +29,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 * This action adds (checked=true) or removes (checked=false) a tag to an entry.
 	 */
 	public function tagEntryAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::paramInt('id_tag');
 			$name_tag = Minz_Request::paramString('name_tag');
@@ -64,6 +64,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function deleteAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::paramInt('id_tag');
 			if ($id_tag !== 0) {
@@ -82,6 +85,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function getTagsForEntryAction(): void {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::$system_conf->allow_anonymous) {
+			Minz_Error::error(403);
+		}
 		$this->view->_layout(null);
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
@@ -91,6 +97,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function addAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
 		}
@@ -110,6 +119,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 * @throws Minz_PDOConnectionException|JsonException
 	 */
 	public function renameAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(405);
 		}
@@ -139,6 +151,9 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function indexAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags() ?: [];
 	}

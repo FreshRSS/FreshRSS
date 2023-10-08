@@ -174,10 +174,20 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
+
+		// MariaDB does not refresh size information automatically
+		$sql = <<<'SQL'
+ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
+SQL;
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$stm->fetchAll();
+		}
+
 		//MySQL:
 		$sql = <<<'SQL'
-SELECT SUM(data_length + index_length)
-FROM information_schema.TABLES WHERE table_schema=:table_schema
+SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
+FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
 SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {

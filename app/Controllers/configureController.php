@@ -474,6 +474,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$system_conf->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::paramString('auto-update-url');
 			FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			FreshRSS_Context::$system_conf->base_url = Minz_Request::paramString('base-url');
 			FreshRSS_Context::$system_conf->save();
 
 			invalidateHttpCache();
