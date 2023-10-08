@@ -1458,7 +1458,7 @@
 
 * Features
 	* New option `disable_update` (also from CLI) to hide the system to update to new FreshRSS versions [#1436](https://github.com/FreshRSS/FreshRSS/pull/1436)
-	* Share with Ⓚnown [#1420](https://github.com/FreshRSS/FreshRSS/pull/1420)
+	* Share with Known [#1420](https://github.com/FreshRSS/FreshRSS/pull/1420)
 	* Share with GNU social [#1422](https://github.com/FreshRSS/FreshRSS/issues/1422)
 * UI
 	* New theme *Origine-compact* [#1388](https://github.com/FreshRSS/FreshRSS/pull/1388)
