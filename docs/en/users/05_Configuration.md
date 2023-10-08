@@ -24,7 +24,7 @@ Available languages are:
 | Hungarian               | Magyar                 | hu                                   |
 | Indonesian              | Bahasa Indonesia       | id                                   |
 | Italian                 | Italiano               | it                                   |
-| Japanease               | 日本語                  | ja                                   |
+| Japanese                | 日本語                  | ja                                   |
 | Korean                  | 한국어                  | ko                                   |
 | Latvian                 | Latviešu               | lv                                   |
 | Dutch                   | Nederlands             | nl                                   |
