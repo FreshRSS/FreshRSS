@@ -153,7 +153,7 @@ table td span {
 	border: none;
 	border-radius: 5px;
 	text-decoration: none;
-	transition: .4s;
+	transition: .3s;
 	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
@@ -510,7 +510,7 @@ li.item.active {
 
 .item.feed:hover {
 	background-color: var(--accent-bg);
-	transition: .4s;
+	transition: .3s;
 }
 
 /*=== New article notification */
@@ -582,7 +582,7 @@ li.item.active {
 
 .flux_header:hover {
 	background-color: var(--accent-bg);
-	transition: .4s;
+	transition: .3s;
 }
 
 .flux.current {
@@ -591,7 +591,7 @@ li.item.active {
 
 .flux:not(.current):hover .item.title {
 	background: var(--accent-bg);
-	transition: .4s;
+	transition: .3s;
 }
 
 .flux .item.title a {
@@ -705,7 +705,7 @@ li.item.active {
 
 #bigMarkAsRead:hover {
 	background-color: var(--accent-bg);
-	transition: .4s;
+	transition: .3s;
 }
 
 #bigMarkAsRead:hover .bigTick {
@@ -895,7 +895,7 @@ option {
 .dropdown-menu > .item > span:hover,
 .dropdown-menu > .item > .as-link:hover {
 	color: var(--accent);
-	transition: .4s;
+	transition: .2s;
 }
 
 /*=== Pagination */
