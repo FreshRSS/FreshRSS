@@ -45,6 +45,7 @@ extend-exclude = [
 	"lib/SimplePie/",
 	"node_modules/",
 	"p/scripts/vendor/",
+	"p/themes/BlueLagoon/README.md",
 	"package-lock.json",
 	"vendor/",
 ]
