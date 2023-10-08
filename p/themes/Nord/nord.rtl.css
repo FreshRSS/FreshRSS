@@ -910,11 +910,15 @@ option {
 /*=== Body */
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
-	position: absolute;
-	left: 0;
 	margin: 10px 0;
 	padding: 0 10px;
 	font-size: 0.9rem;
+}
+
+.aside .category .title:not([data-unread="0"])::after,
+.aside .feed .item-title:not([data-unread="0"])::after {
+	text-align: left;
+	left: 0.25rem;
 }
 
 /*=== Aside main page (feeds) */
