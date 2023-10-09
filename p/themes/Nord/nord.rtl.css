@@ -175,6 +175,17 @@ table td span {
 	filter: brightness(0);
 }
 
+.btn-attention {
+	border: 2px solid var(--accent-light);
+	color: var(--accent-light) !important;
+}
+
+.btn-attention:hover {
+	background: var(--accent-light);
+	transition: 0.2s background;
+	color: var(--bg) !important;
+}
+
 .btn:hover, svg:hover {
 	opacity: .8;
 	cursor: pointer;
