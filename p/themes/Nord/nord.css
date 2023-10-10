@@ -6,16 +6,16 @@
 	--mono-font: "mononoki Nerd Font","IBM Plex Mono","Roboto Mono","Ubuntu Mono","Fira Code","Overpass Mono", Monaco,"Droid Sans Mono",monospace;
 	/*This is my dark themed color scheme*/
 	--bg: #242933;
-	--accent-bg: rgb(46, 52, 64);
-	--text: #eceff4;
-	--text-light: #d8dee9;
-	--border: #88c0d0;
-	--accent: #81a1c1;
-	--accent-light: #bf616a;
-	--code: #ebcb8b;
-	--alert: #a3be8c;
+	--accent-bg: #2e3440; /* nord0-polarnight */
+	--text: #eceff4; /* nord6-snowstorm */
+	--text-light: #d8dee9; /* nord4-snowstorm */
+	--border: #88c0d0; /* nord8-frost */
+	--accent: #81a1c1; /* nord9-frost */
+	--accent-light: #bf616a; /* nord11-aurora */
+	--code: #ebcb8b; /* nord13-aurora */
+	--alert: #a3be8c; /* nord14-aurora */
 	--alert-bg: #8fbcbb;
-	--code-bg: #2e3440;
+	--code-bg: #2e3440; /* nord0-polarnight */
 
 	--frss-background-color-transparent: #2e34407f;
 }
@@ -956,12 +956,12 @@ option {
 /*=== READER VIEW */
 /*================*/
 #stream.reader .flux {
-	background: #242933;
+	background-color: var(--bg);
 	border: none;
 }
 
 #stream.reader .flux .content {
-	background-color: #2e3440;
+	background-color: var(--accent-bg);
 	border: none;
 }
 
