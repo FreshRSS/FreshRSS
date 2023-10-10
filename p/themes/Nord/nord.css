@@ -176,8 +176,8 @@ table td span {
 }
 
 .btn-attention {
-	border: 2px solid var(--accent-light);
 	color: var(--accent-light) !important;
+	border: 2px solid var(--accent-light);
 }
 
 .btn-attention:hover {
