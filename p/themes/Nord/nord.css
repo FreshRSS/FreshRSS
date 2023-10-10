@@ -7,6 +7,7 @@
 	/*This is my dark themed color scheme*/
 	--bg: #242933;
 	--accent-bg: #2e3440; /* nord0-polarnight */
+	--border-elements: #4c566a; /* nord3-polarnight */
 	--text: #eceff4; /* nord6-snowstorm */
 	--text-light: #d8dee9; /* nord4-snowstorm */
 	--border: #88c0d0; /* nord8-frost */
@@ -64,16 +65,22 @@ label {
 }
 
 input, select, textarea {
-	margin: 5px;
 	padding: 5px;
 	color: var(--text);
-	border: 1px solid var(--border);
+	border: 1px solid var(--border-elements);
 	border-radius: 6px;
-	border-color: var(--border);
-	background-color: var(--bg);
+	background-color: transparent;
 	min-height: 25px;
 	line-height: 25px;
 	vertical-align: middle;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	background-color: var(--bg);
+	border-color: var(--border);
+	outline: none;
 }
 
 input:disabled, select:disabled {
@@ -198,10 +205,6 @@ table td span {
 .stick .btn {
 	margin-top: 0;
 	margin-bottom: 0;
-}
-
-.stick {
-	margin: 0 5px;
 }
 
 .header .stick,
