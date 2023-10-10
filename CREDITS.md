@@ -136,6 +136,7 @@ People are sorted by name so please keep this order.
 * [mincerafter42](https://github.com/mincerafter42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mincerafter42), [Web](https://mincerafter42.github.io)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
+* [NaeiKinDus](https://github.com/NaeiKinDus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NaeiKinDus)
 * [Nainor](https://github.com/Nainor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Nainor)
 * [nanhualyq](https://github.com/nanhualyq): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nanhualyq)
 * [Natalie Stroud](https://github.com/natastro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:natastro)
