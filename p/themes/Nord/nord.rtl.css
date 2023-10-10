@@ -742,7 +742,6 @@ li.item.active {
 /*=== Slider */
 #slider {
 	background: var(--accent-bg);
-	border-right: 1px solid var(--border);
 }
 
 /*=== DIVERS */
