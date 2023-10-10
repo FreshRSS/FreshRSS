@@ -485,18 +485,14 @@ img.favicon {
 	text-align: center;
 }
 
-.aside.nav-list .nav-section .item a:hover {
-	background-color: var(--bg);
-	color: var(--text);
-	transition: .2s;
-}
-
 .aside.nav-list .nav-section .item.active a {
 	color: var(--border);
 }
 
 .aside.nav-list .nav-section .item a:hover {
+	background-color: var(--bg);
 	color: var(--text);
+	transition: .2s;
 }
 
 .aside.aside_feed .tree {
