@@ -75,6 +75,12 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:hover,
+select:hover,
+textarea:hover {
+	border-color: var(--accent);
+}
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -82,6 +88,8 @@ textarea:focus {
 	border-color: var(--border);
 	outline: none;
 }
+
+
 
 input:disabled, select:disabled {
 	color: #aaa;
@@ -475,6 +483,20 @@ img.favicon {
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
+}
+
+.aside.nav-list .nav-section .item a:hover {
+	background-color: var(--bg);
+	color: var(--text);
+	transition: .2s;
+}
+
+.aside.nav-list .nav-section .item.active a {
+	color: var(--border);
+}
+
+.aside.nav-list .nav-section .item a:hover {
+	color: var(--text);
 }
 
 .aside.aside_feed .tree {
