@@ -165,19 +165,30 @@ table td span {
 	background: var(--accent-bg);
 	color: var(--accent);
 	font-size: 0.9rem;
-	border: none;
+	border: 1px solid var(--border-elements);
 	border-radius: 5px;
 	text-decoration: none;
-	transition: .3s;
+	transition: .2s;
 	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
 	line-height: 25px;
 }
 
-.btn.active {
-	background-color: var(--accent-bg);
+.btn.active,
+div:target ~ .btn {
+	background-color: var(--bg);
+	border: 1px solid var(--accent);
+}
+
+.btn:hover {
+	color: var(--border);
 	border: 1px solid var(--border);
+}
+
+.btn:hover .icon {
+	filter: invert(86%) sepia(8%) saturate(1976%) hue-rotate(159deg) brightness(180%) contrast(100%);
+	transition: .2s filter;
 }
 
 .btn-important, #nav_menu_read_all .read_all, #actualize {
@@ -186,13 +197,17 @@ table td span {
 	color: var(--bg) !important;
 }
 
+.btn-important:hover, #nav_menu_read_all .read_all:hover, #actualize:hover {
+	background-color: var(--border) !important;
+}
+
 #btn-add.btn-important .icon, #actualize .icon {
 	filter: brightness(0);
 }
 
 .btn-attention {
 	color: var(--accent-light) !important;
-	border: 2px solid var(--accent-light);
+	border: 1px solid var(--accent-light) !important;
 }
 
 .btn-attention:hover {
@@ -201,8 +216,8 @@ table td span {
 	color: var(--bg) !important;
 }
 
-.btn:hover, svg:hover {
-	opacity: .8;
+.btn:hover,
+svg:hover {
 	cursor: pointer;
 }
 
