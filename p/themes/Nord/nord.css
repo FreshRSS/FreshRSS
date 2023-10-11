@@ -394,8 +394,7 @@ img.favicon {
 /*=== Boxes */
 .box {
 	background-color: var(--accent-bg);
-	border: 1px solid var(--border);
-	border-radius: 6px;
+	border-radius: 10px;
 }
 
 .box .box-title {
