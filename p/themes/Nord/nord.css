@@ -35,6 +35,11 @@
 	--code-bg: var(--nord0-polarnight);
 
 	--frss-background-color-transparent: #2e34407f;
+
+	--frss-scrollbar-handle: #0002;
+	--frss-scrollbar-handle-hover: var(--nord1-polarnight);
+	--frss-scrollbar-track: transparent;
+	--frss-scrollbar-track-hover: transparent;
 }
 
 
