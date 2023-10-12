@@ -64,7 +64,7 @@ a {
 }
 
 a:hover {
-	color: var(--accent);
+	color: var(--border);
 }
 
 
@@ -709,8 +709,20 @@ li.item.active {
 	word-wrap: break-word;
 }
 
+.flux_content .content header h1.title {
+	margin: 1.5rem 0px;
+}
+
+.flux_content .content header h1.title a{
+	color: var(--nord8-frost);
+}
+
 .hide_posts > .flux:not(.active) > .flux_content {
 	display: none;
+}
+
+.content > footer .subtitle {
+	border-color: var(--nord2-polarnight);
 }
 
 .content hr {
@@ -1037,6 +1049,7 @@ option {
 #stream.reader .flux .content {
 	background-color: var(--accent-bg);
 	border: none;
+	border-radius: 12px;
 }
 
 #stream.reader .flux .author {
