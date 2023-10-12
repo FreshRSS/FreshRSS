@@ -181,7 +181,7 @@ table td span {
 
 /*=== Buttons */
 .btn {
-	margin: .3rem .3rem;
+	margin: .3rem 0 0.3rem .6rem;
 	padding: 5px 10px;
 	background: var(--accent-bg);
 	color: var(--accent);
@@ -205,6 +205,7 @@ div:target ~ .btn {
 .btn:hover {
 	color: var(--border);
 	border: 1px solid var(--border);
+	text-decoration: none;
 }
 
 .btn:hover .icon {
@@ -242,13 +243,36 @@ svg:hover {
 	cursor: pointer;
 }
 
-.stick input {
-	margin: 0 0 0 5px;
+.stick input,
+.stick .btn {
+	border-radius: 0;
+}
+
+.stick input:first-child,
+.stick .btn:first-child {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-left-width: 0;
+}
+
+.nav_menu .stick input,
+.nav_menu .stick .btn {
+	border-radius: 6px;
+	border-left-width: 1px;
+}
+
+.stick .btn:last-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
 }
 
 .stick .btn {
 	margin-top: 0;
 	margin-bottom: 0;
+}
+
+.stick.configure-feeds .btn {
+	margin-left: 0;
 }
 
 .header .stick,
