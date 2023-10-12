@@ -447,11 +447,31 @@ img.favicon {
 }
 
 .box .box-content {
+	padding-bottom: 1.5rem;
+	list-style: none;
 	max-height: 260px;
 }
 
+.box .box-title,
+.box .box-content {
+	padding: 1rem 1rem .25rem 1rem;
+}
+
+.box .box-title .configure {
+	padding-left: .5rem;
+}
+
+.box .box-title h2 {
+	color: var(--accent);
+	font-size: 1rem;
+}
+
+.box .box-title .configure:not([data-cat-position=""])::after {
+	top: .5rem;
+}
+
 .box .box-content .item {
-	padding: 0 10px;
+	padding: 0;
 	font-size: 0.9rem;
 }
 
@@ -869,10 +889,6 @@ li.item.active {
 .theme-preview-list:hover,
 .theme-preview-list:hover .properties {
 	border-color: var(--border);
-}
-
-table tr {
-	border-color: var(--border-elements);
 }
 
 /*=== PRINTER */
