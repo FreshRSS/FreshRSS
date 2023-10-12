@@ -5,18 +5,34 @@
 	--sans-font: Inter, Lato,Helvetica,"IBM Plex Sans","Roboto",-apple-system,BlinkMacSystemFont,"Nimbus Sans L",Avenir,"Noto Sans", "Segoe UI",Arial,Helvetica,"Helvetica Neue",sans-serif;
 	--mono-font: "mononoki Nerd Font","IBM Plex Mono","Roboto Mono","Ubuntu Mono","Fira Code","Overpass Mono", Monaco,"Droid Sans Mono",monospace;
 	/*This is my dark themed color scheme*/
+	--nord0-polarnight: #2e3440;
+	--nord1-polarnight: #3b4252;
+	--nord2-polarnight: #434c5e;
+	--nord3-polarnight: #4c566a;
+
+	--nord4-snowstorm: #d8dee9;
+	--nord6-snowstorm: #eceff4;
+
+	--nord8-frost: #88c0d0;
+	--nord9-frost: #81a1c1;
+
+	--nord11-aurora: #bf616a;
+	--nord13-aurora: #ebcb8b;
+	--nord14-aurora: #a3be8c;
+
 	--bg: #242933;
-	--accent-bg: #2e3440; /* nord0-polarnight */
-	--border-elements: #4c566a; /* nord3-polarnight */
-	--text: #eceff4; /* nord6-snowstorm */
-	--text-light: #d8dee9; /* nord4-snowstorm */
-	--border: #88c0d0; /* nord8-frost */
-	--accent: #81a1c1; /* nord9-frost */
-	--accent-light: #bf616a; /* nord11-aurora */
-	--code: #ebcb8b; /* nord13-aurora */
-	--alert: #a3be8c; /* nord14-aurora */
+	--accent-bg: var(--nord0-polarnight);
+	--dropdown-bg: var(--nord2-polarnight);
+	--border-elements: var(--nord3-polarnight);
+	--text: var(--nord6-snowstorm);
+	--text-light: var(--nord4-snowstorm);
+	--border: var(--nord8-frost);
+	--accent: var(--nord9-frost);
+	--accent-light: var(--nord11-aurora);
+	--code: var(--nord13-aurora);
+	--alert: var(--nord14-aurora);
 	--alert-bg: #8fbcbb;
-	--code-bg: #2e3440; /* nord0-polarnight */
+	--code-bg: var(--nord0-polarnight);
 
 	--frss-background-color-transparent: #2e34407f;
 }
@@ -239,9 +255,9 @@ svg:hover {
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 0.5rem 0 0.25rem 0;
-	background: var(--accent-bg);
+	background: var(--dropdown-bg);
 	font-size: 0.8rem;
-	border: 1px solid var(--border);
+	border: none;
 	border-radius: 6px;
 	text-align: right;
 }
@@ -275,7 +291,7 @@ svg:hover {
 .dropdown-menu .item > a:hover,
 .dropdown-menu .item > button:hover:not([disabled]),
 .dropdown-menu .item > label:hover:not(.noHover) {
-	background-color: var(--bg);
+	background-color: var(--nord1-polarnight);
 	color: var(--text);
 	transition: .2s;
 }
@@ -326,8 +342,7 @@ svg:hover {
 
 .dropdown-target:target ~ .dropdown-toggle::after {
 	background-color: var(--accent-bg);
-	border-top: 1px solid var(--border);
-	border-right: 1px solid var(--border);
+	border: none;
 }
 
 .dropdown-menu-scrollable .dropdown-close {
@@ -337,7 +352,7 @@ svg:hover {
 .item ~ .dropdown-header,
 .dropdown-section ~ .dropdown-section,
 .item.separator {
-	border-top-color: var(--border);
+	border-top-color: var(--nord0-polarnight);
 }
 
 /*=== Alerts */
@@ -932,20 +947,16 @@ option {
 	height: 10px;
 	z-index: -10;
 	transform: rotate(-45deg);
-	border-color: var(--border);
+	border: none;
 }
 
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
-	color: var(--accent);
-}
-
-.dropdown-menu > .item > a:hover,
-.dropdown-menu > .item > span:hover,
-.dropdown-menu > .item > .as-link:hover {
-	color: var(--text);
-	transition: .2s;
+.dropdown-menu > .item > .as-link,
+.dropdown-menu > .item > ul > .item > a,
+.dropdown-menu > .item > ul > .item > span,
+.dropdown-menu > .item > ul > .item > .as-link {
+	color: var(--text-light);
 }
 
 /*=== Pagination */
