@@ -725,6 +725,11 @@ li.item.active {
 	border-color: var(--nord2-polarnight);
 }
 
+.content > header .dropdown-menu .dropdown-header,
+.content > footer .dropdown-menu .dropdown-header {
+	color: var(--text);
+}
+
 .content hr {
 	margin: 30px 10px;
 	height: 1px;
