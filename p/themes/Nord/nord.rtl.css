@@ -861,6 +861,20 @@ li.item.active {
 	margin-right: .125rem;
 }
 
+.theme-preview-list,
+.theme-preview-list .properties {
+	border-color: var(--border-elements);
+}
+
+.theme-preview-list:hover,
+.theme-preview-list:hover .properties {
+	border-color: var(--border);
+}
+
+table tr {
+	border-color: var(--border-elements);
+}
+
 /*=== PRINTER */
 /*============*/
 
