@@ -446,15 +446,15 @@ img.favicon {
 	padding: 5px 10px;
 }
 
+.box .box-title,
+.box .box-content {
+	padding: 1rem 1rem .25rem 1rem;
+}
+
 .box .box-content {
 	padding-bottom: 1.5rem;
 	list-style: none;
 	max-height: 260px;
-}
-
-.box .box-title,
-.box .box-content {
-	padding: 1rem 1rem .25rem 1rem;
 }
 
 .box .box-title .configure {
