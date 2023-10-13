@@ -1,37 +1,47 @@
 @charset "UTF-8";
 
+/*******************
+* Theme is based on the Nord theme: https://www.nordtheme.com/docs/colors-and-palettes (archived: https://archive.ph/LVpdB)
+*******************/
+
 :root {
 	/* Set sans-serif & mono fonts */
 	--sans-font: Inter, Lato,Helvetica,"IBM Plex Sans","Roboto",-apple-system,BlinkMacSystemFont,"Nimbus Sans L",Avenir,"Noto Sans", "Segoe UI",Arial,Helvetica,"Helvetica Neue",sans-serif;
 	--mono-font: "mononoki Nerd Font","IBM Plex Mono","Roboto Mono","Ubuntu Mono","Fira Code","Overpass Mono", Monaco,"Droid Sans Mono",monospace;
-	/*This is my dark themed color scheme*/
+	/* given theme colors: */
+	--nordX-background: #242933;
 	--nord0-polarnight: #2e3440;
 	--nord1-polarnight: #3b4252;
 	--nord2-polarnight: #434c5e;
 	--nord3-polarnight: #4c566a;
 
 	--nord4-snowstorm: #d8dee9;
+	/* --nord5-snowstorm: #e5e9f0; */
 	--nord6-snowstorm: #eceff4;
 
+	--nord7-frost: #8fbcbb;
 	--nord8-frost: #88c0d0;
 	--nord9-frost: #81a1c1;
+	/* -nord10-frost: #5e81ac; */
 
 	--nord11-aurora: #bf616a;
+	/* --nord12-aurora: #d08770; */
 	--nord13-aurora: #ebcb8b;
 	--nord14-aurora: #a3be8c;
+	/* --nord15-aurora: #b48ead; */
 
-	--bg: #242933;
+	--bg: var(--nordX-background);
 	--accent-bg: var(--nord0-polarnight);
 	--dropdown-bg: var(--nord2-polarnight);
 	--border-elements: var(--nord3-polarnight);
 	--text: var(--nord6-snowstorm);
 	--text-light: var(--nord4-snowstorm);
-	--border: var(--nord8-frost);
+	--highlight: var(--nord8-frost);
 	--accent: var(--nord9-frost);
 	--accent-light: var(--nord11-aurora);
 	--code: var(--nord13-aurora);
 	--alert: var(--nord14-aurora);
-	--alert-bg: #8fbcbb;
+	--alert-bg: var(--nord7-frost);
 	--code-bg: var(--nord0-polarnight);
 
 	--frss-background-color-transparent: #2e34407f;
@@ -64,7 +74,7 @@ a {
 }
 
 a:hover {
-	color: var(--border);
+	color: var(--highlight);
 }
 
 
@@ -112,30 +122,26 @@ input:focus,
 select:focus,
 textarea:focus {
 	background-color: var(--bg);
-	border-color: var(--border);
+	border-color: var(--highlight);
 	outline: none;
 }
 
 
 
 input:disabled, select:disabled {
-	color: #aaa;
-	border-color: var(--border);
-}
-
-button {
-	font-family: var(--sans-font);
+	border-color: var(--border-elements);
+	color: var(--text-light);
 }
 
 button.as-link,
 button.as-link:hover,
 button.as-link:active {
 	background: transparent;
-	/*	background-color: var(--bg);A*/
 }
 
 button.as-link[disabled] {
-	color: #ddd !important;
+	color: var(--text-light);
+	font-style: italic;
 }
 
 /*=== Tables */
@@ -161,15 +167,6 @@ table tr {
 
 table th, table td {
 	padding: 10px 20px;
-}
-
-table td span {
-	padding: 5px;
-	color: dimgrey;
-	/*display: none;*/
-	font-size: 10px;
-	font-weight: bold;
-	/*position: absolute;*/
 }
 
 .form-group.form-actions {
@@ -209,8 +206,8 @@ div:target ~ .btn {
 }
 
 .btn:hover {
-	color: var(--border);
-	border: 1px solid var(--border);
+	color: var(--highlight);
+	border: 1px solid var(--highlight);
 	text-decoration: none;
 }
 
@@ -227,7 +224,7 @@ a:hover .icon,
 }
 
 .btn-important:hover, #nav_menu_read_all .read_all:hover, #actualize:hover {
-	background-color: var(--border) !important;
+	background-color: var(--highlight) !important;
 }
 
 #btn-add.btn-important .icon, #actualize .icon {
@@ -486,7 +483,6 @@ img.favicon {
 /*=== Draggable */
 .drag-hover {
 	margin: 0 0 5px;
-	border-bottom: 2px solid var(--border);
 }
 
 [draggable=true] {
@@ -572,7 +568,7 @@ img.favicon {
 }
 
 .aside.nav-list .nav-section .item.active a {
-	color: var(--border);
+	color: var(--highlight);
 }
 
 .aside.nav-list .nav-section .item a:hover {
@@ -808,18 +804,8 @@ li.item.active {
 }
 
 /*=== Popup */
-#popup {
-	background-color: rgb(0,0,0,.4);
-}
-
 #popup-content {
 	background-color: var(--accent-bg);
-	box-shadow: 0 0 1px #d8dee9, 1px 2px 3px var(--bg);
-}
-
-#popup-close:hover,
-#popup-close:focus {
-	color: #d8dee9;
 }
 
 #popup-txt {
@@ -896,7 +882,7 @@ li.item.active {
 
 .theme-preview-list:hover,
 .theme-preview-list:hover .properties {
-	border-color: var(--border);
+	border-color: var(--highlight);
 }
 
 /*=== PRINTER */
@@ -926,23 +912,13 @@ li.item.active {
 	.flux_content .content {
 		width: 100% !important;
 	}
-
-	.flux_content .content a {
-		color: #000;
-	}
 }
 
 /*=== PREVIEW */
 /*===========*/
 .preview_controls {
-	margin-left: auto;
-	margin-right: auto;
-	padding: 1rem;
-	max-width: 1000px;
-	text-align: center;
-	background-color: #eee;
-	border: 1px solid #e0e0e0;
-	border-radius: .25rem;
+	background-color: var(--nord1-polarnight);
+	border-color: var(--border-elements);
 }
 
 .preview_controls label {
