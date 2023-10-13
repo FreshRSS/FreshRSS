@@ -70,6 +70,7 @@ a:hover {
 
 kbd {
 	color: var(--code);
+	border-color: var(--border-elements);
 	background-color: var(--accent-bg);
 }
 
@@ -988,7 +989,7 @@ option {
 /*===============*/
 /*=== Forms */
 .form-group.form-actions .btn {
-	margin: 0 10px;
+	margin-left: 1rem;
 }
 
 /*=== Navigation */
