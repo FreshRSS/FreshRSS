@@ -214,6 +214,7 @@ div:target ~ .btn {
 	text-decoration: none;
 }
 
+a:hover .icon,
 .btn:hover .icon {
 	filter: invert(86%) sepia(8%) saturate(1976%) hue-rotate(159deg) brightness(180%) contrast(100%);
 	transition: .2s filter;
