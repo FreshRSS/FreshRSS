@@ -267,6 +267,7 @@ svg:hover {
 }
 
 .stick .btn:last-child {
+	margin-left: 0;
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
 }
