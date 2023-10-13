@@ -96,6 +96,11 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+select {
+	padding-top: 10px;
+	padding-bottom: 9px;
+}
+
 input:hover,
 select:hover,
 textarea:hover {
