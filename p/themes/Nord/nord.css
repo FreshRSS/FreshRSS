@@ -41,7 +41,7 @@
 	--accent-light: var(--nord11-aurora);
 	--code: var(--nord13-aurora);
 	--alert: var(--nord14-aurora);
-	--alert-bg: var(--nord7-frost);
+	--alert-bg: var(--nord2-polarnight);
 	--code-bg: var(--nord0-polarnight);
 
 	--frss-background-color-transparent: #2e34407f;
@@ -419,11 +419,13 @@ svg:hover {
 .alert {
 	font-size: 0.9em;
 	border-radius: 6px;
+	background-color: var(--nord2-polarnight);
+	color: var(--text-light);
 }
 
 .alert-success {
-	color: var(--bg);
-	background-color: var(--alert-bg)
+	background-color: var(--nord14-aurora);
+	color: var(--nord1-polarnight);
 }
 
 .alert-head {
@@ -435,13 +437,13 @@ svg:hover {
 }
 
 .alert-warn {
-	border-radius: 6px;
-	background-color: var(--code-bg);
+	background-color: var(--nord13-aurora);
+	color: var(--nord0-polarnight);
 }
 
 .alert-error {
-	background-color: var(--accent-light);
-	color: var(--bg);
+	background-color: var(--nord11-aurora);
+	color: var(--nord0-polarnight);
 }
 
 /*=== Icons */
