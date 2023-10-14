@@ -417,10 +417,10 @@ svg:hover {
 
 /*=== Alerts */
 .alert {
+	color: var(--text-light);
 	font-size: 0.9em;
 	border-radius: 6px;
 	background-color: var(--nord2-polarnight);
-	color: var(--text-light);
 }
 
 .alert-success {
