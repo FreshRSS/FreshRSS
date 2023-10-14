@@ -259,6 +259,32 @@ svg:hover {
 	border-right-width: 0;
 }
 
+.dropdown-menu .stick input {
+	background-color: var(--nord1-polarnight);
+	border-color: var(--nord0-polarnight);
+}
+
+.dropdown-menu .stick input:focus {
+	background-color: var(--nord0-polarnight);
+}
+
+.dropdown-menu .stick .btn {
+	border-color: var(--nord0-polarnight);
+}
+
+.stick input:hover,
+.stick:hover input,
+.stick:hover .btn {
+	border-color: var(--accent) !important
+}
+
+.stick .btn:hover,
+.stick input:focus,
+.stick input:focus ~ .btn {
+	border-color: var(--highlight) !important
+}
+
+
 .nav_menu .stick input,
 .nav_menu .stick .btn {
 	border-radius: 6px;
