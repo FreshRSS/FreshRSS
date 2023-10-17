@@ -922,6 +922,14 @@ li.item.active {
 	border-color: var(--highlight);
 }
 
+.theme-preview-list .nav label {
+	color: var(--accent);
+}
+
+.theme-preview-list .nav label:hover {
+	color: var(--highlight)
+}
+
 /*=== PRINTER */
 /*============*/
 
