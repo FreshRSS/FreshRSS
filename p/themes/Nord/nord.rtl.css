@@ -770,14 +770,6 @@ li.item.active {
 
 
 /*=== Feed article content */
-.content {
-	margin: auto;
-	padding: 20px 10px;
-	min-height: 20em;
-	line-height: 1.7em;
-	word-wrap: break-word;
-}
-
 .flux_content .content header h1.title {
 	margin: 1.5rem 0px;
 }
