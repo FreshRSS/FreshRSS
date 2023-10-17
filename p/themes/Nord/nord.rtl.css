@@ -522,11 +522,26 @@ img.favicon {
 
 .tree-folder-title .title {
 	background: inherit;
-	color: var(--text);
 }
 
 .tree-folder.category {
 	border-bottom: 1px solid var(--bg);
+}
+
+.tree-folder.category.active .tree-folder-title,
+.tree-folder.category .tree-folder-title:hover,
+.tree-folder.category:hover .tree-folder-title {
+	background: var(--nord1-polarnight);
+}
+
+.tree-folder .tree-folder-title:hover a,
+.tree-folder.category.active .tree-folder-title:hover a,
+.tree-folder .tree-folder-items .item.feed:hover a {
+	color: var(--text);
+}
+
+.tree-folder.category.active .tree-folder-title a {
+	color: var(--highlight);
 }
 
 .tree-folder-items > .item {
@@ -612,6 +627,7 @@ img.favicon {
 }
 
 .aside_feed .tree-folder-items.active {
+	padding-bottom: 2rem;
 	background-color: var(--bg);
 }
 
@@ -641,7 +657,10 @@ img.favicon {
 .item.feed.active {
 	background-color: var(--accent-bg);
 	font-weight: bold;
+}
 
+.item.feed.active a {
+	color: var(--highlight);
 }
 
 li.item.active {
