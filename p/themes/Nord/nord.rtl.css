@@ -419,13 +419,13 @@ svg:hover {
 .alert {
 	color: var(--text-light);
 	font-size: 0.9em;
+	border: 1px solid var(--nord3-polarnight);
 	border-radius: 6px;
-	background-color: var(--nord2-polarnight);
+	background-color: var(--nord1-polarnight);
 }
 
 .alert-success {
-	background-color: var(--nord14-aurora);
-	color: var(--nord1-polarnight);
+	border-color: var(--nord14-aurora);
 }
 
 .alert-head {
@@ -437,13 +437,11 @@ svg:hover {
 }
 
 .alert-warn {
-	background-color: var(--nord13-aurora);
-	color: var(--nord0-polarnight);
+	border-color: var(--nord13-aurora);
 }
 
 .alert-error {
-	background-color: var(--nord11-aurora);
-	color: var(--nord0-polarnight);
+	border-color: var(--nord11-aurora);
 }
 
 /*=== Icons */
