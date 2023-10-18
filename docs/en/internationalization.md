@@ -75,7 +75,7 @@ git grep TODO app/i18n/he
 
 ## Acknowledge a false-positive
 
-Our tool detects if a string needs to be translated if it equals to the English version. For instance, the word “version” is the same in English and French. Thus, our tool would mark the French word to be translated. This is, in fact, the case for the `index.about.version` key. This case is considered as a false-positive because the word _is_ actually translated. To aknowledge such translations, you can run:
+Our tool detects if a string needs to be translated if it equals to the English version. For instance, the word “version” is the same in English and French. Thus, our tool would mark the French word to be translated. This is, in fact, the case for the `index.about.version` key. This case is considered as a false-positive because the word _is_ actually translated. To acknowledge such translations, you can run:
 
 ```sh
 make i18n-ignore-key lang=fr key=index.about.version
