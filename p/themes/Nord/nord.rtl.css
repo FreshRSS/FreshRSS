@@ -456,14 +456,23 @@ img.favicon {
 
 /*=== Pagination */
 .pagination {
-	width: 100%;
+	padding: 0.5rem;
+	background-color: var(--accent-bg);
 }
 
-.pagination .pager-first,
-.pagination .pager-previous,
-.pagination .pager-next,
-.pagination .pager-last {
-	width: 100px;
+.pagination .item a {
+	border-radius: 6px;
+}
+
+.pagination .item.active a {
+	color: var(--highlight);
+	font-weight: bold;
+}
+
+.pagination .item a:hover {
+	background-color: var(--bg);
+	color: var(--text);
+	transition: .2s;
 }
 
 /*=== Boxes */
@@ -1071,11 +1080,6 @@ option {
 .dropdown-menu > .item > ul > .item > span,
 .dropdown-menu > .item > ul > .item > .as-link {
 	color: var(--text-light);
-}
-
-/*=== Pagination */
-.pagination .item a {
-	font-style: italic;
 }
 
 /*=== STRUCTURE */
