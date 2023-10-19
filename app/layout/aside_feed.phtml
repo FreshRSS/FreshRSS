@@ -30,15 +30,14 @@
 	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
-				<?= _i('all') ?> <a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
+				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
 					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
 			</div>
 		</li>
 
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
-				<?= _i('starred') ?>
-				<a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
+				<?= _i('starred') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
 					<?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?>
 				</a>
 			</div>
@@ -50,8 +49,7 @@
 		?>
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>">
 			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($t_show ? 'up' : 'down') ?></a>
-				<a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>"><?= _t('index.menu.tags') ?></a>
+				<a class="dropdown-toggle" href="#"><?= _i($t_show ? 'up' : 'down') ?></a><a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>"><?= _t('index.menu.tags') ?></a>
 			</div>
 			<ul class="tree-folder-items<?= $t_show ? ' active' : '' ?>">
 				<?php
@@ -87,8 +85,7 @@
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
 			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a>
-				<a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
+				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a><a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
 					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?=
 						$cat->name()
 					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></a>
@@ -121,9 +118,8 @@
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::$user_conf->simplify_over_n_feeds):
 	?><div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
-	</div>
-	<?php
-			if (FreshRSS_Context::$user_conf->show_favicons) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
+	</div><?php
+			if (FreshRSS_Context::$user_conf->show_favicons) { ?><img class="favicon test" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
 		endif;
 	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
 		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
