@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// IGNORE
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',	// IGNORE
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',	// IGNORE
+		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
+		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// IGNORE
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// IGNORE
 		'zip_error' => 'An error occurred during ZIP processing.',	// IGNORE
