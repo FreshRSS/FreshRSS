@@ -28,7 +28,7 @@
 	/* --nord12-aurora: #d08770; */
 	--nord13-aurora: #ebcb8b;
 	--nord14-aurora: #a3be8c;
-	/* --nord15-aurora: #b48ead; */
+	--nord15-aurora: #b48ead;
 
 	--bg: var(--nordX-background);
 	--accent-bg: var(--nord0-polarnight);
@@ -689,11 +689,19 @@ li.item.active {
 }
 
 #new-article > a {
+	margin: 1rem auto;
+	width: 90%;
+	color: var(--nord15-aurora);
+	border: 2px solid var(--nord15-aurora);
+	border-radius: 6px;
 	line-height: 3em;
 	font-weight: bold;
+	transition: 0.2s background-color, .2s color;
 }
 
 #new-article > a:hover {
+	background-color: var(--nord15-aurora);
+	color: var(--bg);
 	text-decoration: none;
 }
 
