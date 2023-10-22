@@ -11,13 +11,14 @@
 	* Use proxy settings also for fetching favicons https://github.com/FreshRSS/FreshRSS/pull/5421
 	* Add mutual exclusion semaphore for better scaling of actualize script https://github.com/FreshRSS/FreshRSS/pull/5235
 	* Better reporting of XPath failures https://github.com/FreshRSS/FreshRSS/pull/5317
-	* New constant `CLEANCACHE_HOURS` https://github.com/FreshRSS/FreshRSS/pull/5144
 	* Add sharing with Buffer.com https://github.com/FreshRSS/FreshRSS/pull/5286
 	* Add sharing with Omnivore https://github.com/FreshRSS/FreshRSS/pull/5477
 	* Improve sharing with Linkding https://github.com/FreshRSS/FreshRSS/pull/5433
+	* New configuration constant `CLEANCACHE_HOURS` https://github.com/FreshRSS/FreshRSS/pull/5144
 * Bug fixing
 	* Fix cache refresh https://github.com/FreshRSS/FreshRSS/pull/5562
 	* Fix and improvement of hash of articles using *load full content* https://github.com/FreshRSS/FreshRSS/pull/5576
+	* Fix and improve JSON export/import https://github.com/FreshRSS/FreshRSS/pull/5332, https://github.com/FreshRSS/FreshRSS/pull/5626
 	* Fix enclosures in RSS output https://github.com/FreshRSS/FreshRSS/pull/5540
 	* Fix regression in Fever API enclosures https://github.com/FreshRSS/FreshRSS/pull/5214
 	* Fix regression in Fever API mark-all-as-read https://github.com/FreshRSS/FreshRSS/pull/5185
@@ -27,7 +28,6 @@
 	* Fix link to configuration (system or user) for extensions https://github.com/FreshRSS/FreshRSS/pull/5394
 	* Fix *mark as read upon gone* option in some conditions https://github.com/FreshRSS/FreshRSS/pull/5315,
 		https://github.com/FreshRSS/FreshRSS/pull/5382, https://github.com/FreshRSS/FreshRSS/pull/5404
-	* Fix JSON import of starred articles https://github.com/FreshRSS/FreshRSS/pull/5332
 	* Fix *mark selection as unread* https://github.com/FreshRSS/FreshRSS/pull/5367
 	* Fix warning in articles repartition statistics https://github.com/FreshRSS/FreshRSS/pull/5228
 	* Fix count entries with some databases https://github.com/FreshRSS/FreshRSS/pull/5368
@@ -96,8 +96,11 @@
 * SimplePie
 	* Fix `error_reporting` for PHP 8.1+ https://github.com/FreshRSS/FreshRSS/pull/5199
 * Misc.
+	* Reduce database locks https://github.com/FreshRSS/FreshRSS/pull/5576, https://github.com/FreshRSS/FreshRSS/pull/5625,
+		https://github.com/FreshRSS/FreshRSS/pull/5648, https://github.com/FreshRSS/FreshRSS/pull/5649
 	* Increase time limit import OPML https://github.com/FreshRSS/FreshRSS/pull/5231
 	* Save SQL attributes as native Unicode https://github.com/FreshRSS/FreshRSS/pull/5371
+	* Remove old SQL auto-updates https://github.com/FreshRSS/FreshRSS/pull/5625, https://github.com/FreshRSS/FreshRSS/pull/5649
 	* Improve Dev Container (update to Alpine 3.18, use `DATA_PATH` environment variable) https://github.com/FreshRSS/FreshRSS/pull/5423
 	* Update `lib_opml` https://github.com/FreshRSS/FreshRSS/pull/5188
 	* Update `lib/http-conditional` https://github.com/FreshRSS/FreshRSS/pull/5277
