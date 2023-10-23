@@ -329,6 +329,25 @@ svg:hover {
 	text-align: right;
 }
 
+.aside .toggle_aside,
+#overlay .close,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside,
+.dropdown-header-close a {
+	background: var(--accent-bg);
+	border: 1px solid var(--nord0-polarnight);
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+.aside .toggle_aside:hover,
+#slider .toggle_aside:hover,
+#overlay .close:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--bg) !important;
+	border-color: var(--highlight) !important;
+}
+
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
 .dropdown-menu .item > .as-link {
@@ -1168,8 +1187,9 @@ option {
 /*===========*/
 
 @media (max-width: 840px) {
-	.aside:target + .close-aside {
-		background: rgba(0, 0, 0, 0.2);
+	.aside:target + .close-aside,
+	.configure .dropdown-target:target ~ .dropdown-close {
+		backdrop-filter: grayscale(60%) blur(1px);
 		display: block;
 		font-size: 0;
 		position: fixed;
@@ -1197,6 +1217,15 @@ option {
 
 	.aside.aside_feed {
 		padding: 0;
+	}
+
+	.nav.aside {
+		max-width: 300px;
+		border-radius: 0;
+	}
+
+	.configure .dropdown .dropdown-menu {
+		max-width: 300px;
 	}
 
 	.aside:target,
@@ -1238,8 +1267,6 @@ option {
 	}
 
 	#slider.active {
-		right: 0;
-		top: 50px;
 		background-color: var(--bg);
 	}
 
