@@ -3,7 +3,7 @@
 
 //<Not customisable>
 const FRESHRSS_MIN_PHP_VERSION = '7.2.0';
-const FRESHRSS_VERSION = '1.21.1-dev';
+const FRESHRSS_VERSION = '1.22.0';
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 
