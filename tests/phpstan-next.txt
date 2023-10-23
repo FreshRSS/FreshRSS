@@ -1,4 +1,4 @@
-# List of files, which are not yet passing PHPStan level 7 https://phpstan.org/user-guide/rule-levels
+# List of files, which are not yet passing PHPStan level 8 https://phpstan.org/user-guide/rule-levels
 # Used for automated tests to avoid regressions in files already passing that level.
 # Can be regenerated with something like:
 # find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 8 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
