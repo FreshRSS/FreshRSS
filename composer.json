@@ -17,7 +17,7 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
