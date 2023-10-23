@@ -9,8 +9,6 @@ final class FreshRSS_ViewJavascript extends FreshRSS_View {
 	/** @var array<FreshRSS_Tag> */
 	public $tags;
 
-	/** @var string */
-	public $nonce;
-	/** @var string */
-	public $salt1;
+	public string $nonce;
+	public string $salt1;
 }

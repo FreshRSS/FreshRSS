@@ -8,12 +8,9 @@ class I18nUsageValidator implements I18nValidatorInterface {
 	private $code;
 	/** @var array<string,array<string,string>> */
 	private $reference;
-	/** @var int */
-	private $totalEntries = 0;
-	/** @var int */
-	private $failedEntries = 0;
-	/** @var string */
-	private $result = '';
+	private int $totalEntries = 0;
+	private int $failedEntries = 0;
+	private string $result = '';
 
 	/**
 	 * @param array<string,array<string,string>> $reference

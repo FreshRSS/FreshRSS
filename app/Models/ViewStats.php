@@ -2,25 +2,18 @@
 
 final class FreshRSS_ViewStats extends FreshRSS_View {
 
-	/** @var FreshRSS_Category|null */
-	public $default_category;
+	public ?FreshRSS_Category $default_category;
 	/** @var array<FreshRSS_Category> */
 	public $categories;
-	/** @var FreshRSS_Feed|null */
-	public $feed;
+	public ?FreshRSS_Feed $feed;
 	/** @var array<FreshRSS_Feed> */
 	public $feeds;
-	/** @var bool */
-	public $displaySlider;
+	public bool $displaySlider;
 
-	/** @var float */
-	public $average;
-	/** @var float */
-	public $averageDayOfWeek;
-	/** @var float */
-	public $averageHour;
-	/** @var float */
-	public $averageMonth;
+	public float $average;
+	public float $averageDayOfWeek;
+	public float $averageHour;
+	public float $averageMonth;
 	/** @var array<string> */
 	public $days;
 	/** @var array<string,array<int,int|string>> */

@@ -12,9 +12,8 @@ class FreshRSS_Search {
 
 	/**
 	 * This contains the user input string
-	 * @var string
 	 */
-	private $raw_input = '';
+	private string $raw_input = '';
 
 	// The following properties are extracted from the raw input
 	/** @var array<string>|null */

@@ -25,7 +25,7 @@ class Minz_ActionController {
 	 * @var class-string
 	 * @deprecated Use constructor with view type instead
 	 */
-	public static $defaultViewType = Minz_View::class;
+	public static string $defaultViewType = Minz_View::class;
 
 	/**
 	 * @phpstan-param class-string|'' $viewType

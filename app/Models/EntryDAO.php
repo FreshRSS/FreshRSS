@@ -190,8 +190,7 @@ SQL;
 		return $result;
 	}
 
-	/** @var PDOStatement|null */
-	private $updateEntryPrepared = null;
+	private ?PDOStatement $updateEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */

@@ -12,14 +12,11 @@ class Minz_View {
 	private const LAYOUT_PATH_NAME = '/layout/';
 	private const LAYOUT_DEFAULT = 'layout';
 
-	/** @var string */
-	private $view_filename = '';
-	/** @var string */
-	private $layout_filename = '';
+	private string $view_filename = '';
+	private string $layout_filename = '';
 	/** @var array<string> */
 	private static $base_pathnames = array(APP_PATH);
-	/** @var string */
-	private static $title = '';
+	private static string $title = '';
 	/** @var array<array{'media':string,'url':string}> */
 	private static $styles = [];
 	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */

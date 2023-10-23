@@ -6,10 +6,9 @@
  * @todo see coding style for methods!!
  */
 final class Minz_ExtensionManager {
-	/** @var string */
-	private static $ext_metaname = 'metadata.json';
-	/** @var string */
-	private static $ext_entry_point = 'extension.php';
+
+	private static string $ext_metaname = 'metadata.json';
+	private static string $ext_entry_point = 'extension.php';
 	/** @var array<string,Minz_Extension> */
 	private static $ext_list = array();
 	/** @var array<string,Minz_Extension> */

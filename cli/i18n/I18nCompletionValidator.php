@@ -8,12 +8,9 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 	private $reference;
 	/** @var array<string,array<string,I18nValue>> */
 	private $language;
-	/** @var int */
-	private $totalEntries = 0;
-	/** @var int */
-	private $passEntries = 0;
-	/** @var string */
-	private $result = '';
+	private int $totalEntries = 0;
+	private int $passEntries = 0;
+	private string $result = '';
 
 	/**
 	 * @param array<string,array<string,I18nValue>> $reference

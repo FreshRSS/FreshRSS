@@ -1,12 +1,10 @@
 <?php
 
 class FreshRSS_Log extends Minz_Model {
-	/** @var string */
-	private $date;
-	/** @var string */
-	private $level;
-	/** @var string */
-	private $information;
+
+	private string $date;
+	private string $level;
+	private string $information;
 
 	public function date(): string {
 		return $this->date;

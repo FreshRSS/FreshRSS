@@ -7,38 +7,26 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
 
-	/** @var string */
-	private $id = '0';
-	/** @var string */
-	private $guid;
-	/** @var string */
-	private $title;
+	private string $id = '0';
+	private string $guid;
+	private string $title;
 	/** @var array<string> */
-	private $authors;
-	/** @var string */
-	private $content;
-	/** @var string */
-	private $link;
-	/** @var int */
-	private $date;
-	/** @var int */
-	private $lastSeen = 0;
-	/** @var string In microseconds */
-	private $date_added = '0';
-	/** @var string */
-	private $hash = '';
-	/** @var bool|null */
-	private $is_read;
-	/** @var bool|null */
-	private $is_favorite;
-	/** @var int */
-	private $feedId;
-	/** @var FreshRSS_Feed|null */
-	private $feed;
+	private array $authors;
+	private string $content;
+	private string $link;
+	private int $date;
+	private int $lastSeen = 0;
+	/** In microseconds */
+	private string $date_added = '0';
+	private string $hash = '';
+	private ?bool $is_read;
+	private ?bool $is_favorite;
+	private int $feedId;
+	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
-	private $tags = [];
+	private array $tags = [];
 	/** @var array<string,mixed> */
-	private $attributes = [];
+	private array $attributes = [];
 
 	/**
 	 * @param int|string $pubdate

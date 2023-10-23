@@ -2,8 +2,7 @@
 
 class FreshRSS_FilterAction {
 
-	/** @var FreshRSS_BooleanSearch */
-	private $booleanSearch = null;
+	private FreshRSS_BooleanSearch $booleanSearch;
 	/** @var array<string>|null */
 	private $actions = null;
 

@@ -76,15 +76,13 @@ class Minz_Configuration {
 
 	/**
 	 * The filename for the current configuration.
-	 * @var string
 	 */
-	private $config_filename = '';
+	private string $config_filename = '';
 
 	/**
 	 * The filename for the current default values, null by default.
-	 * @var string|null
 	 */
-	private $default_filename = null;
+	private ?string $default_filename = null;
 
 	/**
 	 * The configuration values, an empty array by default.
@@ -94,9 +92,8 @@ class Minz_Configuration {
 
 	/**
 	 * An object which help to set good values in configuration.
-	 * @var Minz_ConfigurationSetterInterface|null
 	 */
-	private $configuration_setter;
+	private ?Minz_ConfigurationSetterInterface $configuration_setter;
 
 	/**
 	 * Create a new Minz_Configuration object.
