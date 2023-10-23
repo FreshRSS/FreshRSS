@@ -28,7 +28,7 @@
 	/* --nord12-aurora: #d08770; */
 	--nord13-aurora: #ebcb8b;
 	--nord14-aurora: #a3be8c;
-	/* --nord15-aurora: #b48ead; */
+	--nord15-aurora: #b48ead;
 
 	--bg: var(--nordX-background);
 	--accent-bg: var(--nord0-polarnight);
@@ -199,10 +199,18 @@ table th, table td {
 	line-height: 25px;
 }
 
-.btn.active,
-div:target ~ .btn {
+.btn.active {
 	background-color: var(--bg);
 	border: 1px solid var(--accent);
+}
+
+div:target ~ .btn {
+	background-color: var(--highlight);
+	border: 1px solid var(--highlight);
+}
+
+div:target ~ .btn .icon {
+	filter: brightness(30%);
 }
 
 .btn:hover {
@@ -329,6 +337,25 @@ svg:hover {
 	text-align: left;
 }
 
+.aside .toggle_aside,
+#overlay .close,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside,
+.dropdown-header-close a {
+	background: var(--accent-bg);
+	border: 1px solid var(--nord0-polarnight);
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+.aside .toggle_aside:hover,
+#slider .toggle_aside:hover,
+#overlay .close:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--bg) !important;
+	border-color: var(--highlight) !important;
+}
+
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
 .dropdown-menu .item > .as-link {
@@ -401,8 +428,10 @@ svg:hover {
 }
 
 .dropdown-target:target ~ .dropdown-toggle::after {
-	background-color: var(--accent-bg);
+	background-color: var(--dropdown-bg);
 	border: none;
+	right: 13px;
+	bottom: -14px;
 }
 
 .dropdown-menu-scrollable .dropdown-close {
@@ -689,11 +718,19 @@ li.item.active {
 }
 
 #new-article > a {
+	margin: 1rem auto;
+	width: 90%;
+	color: var(--nord15-aurora);
+	border: 2px solid var(--nord15-aurora);
+	border-radius: 6px;
 	line-height: 3em;
 	font-weight: bold;
+	transition: 0.2s background-color, .2s color;
 }
 
 #new-article > a:hover {
+	background-color: var(--nord15-aurora);
+	color: var(--bg);
 	text-decoration: none;
 }
 
@@ -921,6 +958,7 @@ li.item.active {
 	text-align: center;
 }
 
+.header .configure .btn.dropdown-toggle,
 .nav_menu .btn {
 	margin: .125rem;
 }
@@ -1063,13 +1101,7 @@ option {
 
 /*=== Dropdown */
 .dropdown-menu::after {
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	width: 10px;
-	height: 10px;
-	z-index: -10;
-	transform: rotate(45deg);
+	top: -5px;
 	border: none;
 }
 
@@ -1160,8 +1192,9 @@ option {
 /*===========*/
 
 @media (max-width: 840px) {
-	.aside:target + .close-aside {
-		background: rgba(0, 0, 0, 0.2);
+	.aside:target + .close-aside,
+	.configure .dropdown-target:target ~ .dropdown-close {
+		backdrop-filter: grayscale(60%) blur(1px);
 		display: block;
 		font-size: 0;
 		position: fixed;
@@ -1189,6 +1222,15 @@ option {
 
 	.aside.aside_feed {
 		padding: 0;
+	}
+
+	.nav.aside {
+		max-width: 300px;
+		border-radius: 0;
+	}
+
+	.configure .dropdown .dropdown-menu {
+		max-width: 300px;
 	}
 
 	.aside:target,
@@ -1230,8 +1272,6 @@ option {
 	}
 
 	#slider.active {
-		left: 0;
-		top: 50px;
 		background-color: var(--bg);
 	}
 
@@ -1295,5 +1335,17 @@ option {
 
 	.notification a.close .icon {
 		display: none;
+	}
+
+	.dropdown-menu {
+		margin: 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 7px;
+	}
+
+	.dropdown .dropdown-menu {
+		border-radius: 6px;
 	}
 }

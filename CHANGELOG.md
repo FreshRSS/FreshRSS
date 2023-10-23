@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2023-10-XX FreshRSS 1.21.1-dev
+## 2023-10-23 FreshRSS 1.22.0
 
 * Features
 	* Add support for OpenID Connect (only in our Debian-based Docker image) through [`libapache2-mod-auth-openidc`](https://github.com/OpenIDC/mod_auth_openidc)
@@ -75,7 +75,7 @@
 		* *Ansum* / *Mapco* [#5453](https://github.com/FreshRSS/FreshRSS/pull/5453)
 		* *Dark* [#5280](https://github.com/FreshRSS/FreshRSS/pull/5280), [#5439](https://github.com/FreshRSS/FreshRSS/pull/5439)
 		* *Flat* (un-deprecated) [#5316](https://github.com/FreshRSS/FreshRSS/pull/5316)
-		* *Nord* [#5689](https://github.com/FreshRSS/FreshRSS/pull/5689)
+		* *Nord* [#5689](https://github.com/FreshRSS/FreshRSS/pull/5689), [#5719](https://github.com/FreshRSS/FreshRSS/pull/5719)
 	* Delete previously deprecated themes: *BlueLagoon*, *Screwdriver* [#5374](https://github.com/FreshRSS/FreshRSS/pull/5374),
 		[#5694](https://github.com/FreshRSS/FreshRSS/pull/5694)
 	* Various UI and style improvements [#5147](https://github.com/FreshRSS/FreshRSS/pull/5147), [#5216](https://github.com/FreshRSS/FreshRSS/pull/5216),
