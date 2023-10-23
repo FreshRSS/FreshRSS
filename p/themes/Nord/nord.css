@@ -420,8 +420,10 @@ svg:hover {
 }
 
 .dropdown-target:target ~ .dropdown-toggle::after {
-	background-color: var(--accent-bg);
+	background-color: var(--dropdown-bg);
 	border: none;
+	right: 13px;
+	bottom: -14px;
 }
 
 .dropdown-menu-scrollable .dropdown-close {
@@ -948,6 +950,7 @@ li.item.active {
 	text-align: center;
 }
 
+.header .configure .btn.dropdown-toggle,
 .nav_menu .btn {
 	margin: .125rem;
 }
@@ -1090,13 +1093,7 @@ option {
 
 /*=== Dropdown */
 .dropdown-menu::after {
-	position: absolute;
-	top: -6px;
-	right: 13px;
-	width: 10px;
-	height: 10px;
-	z-index: -10;
-	transform: rotate(45deg);
+	top: -5px;
 	border: none;
 }
 
@@ -1330,5 +1327,13 @@ option {
 
 	.notification a.close .icon {
 		display: none;
+	}
+
+	.dropdown-menu {
+		margin: 0;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 7px;
 	}
 }
