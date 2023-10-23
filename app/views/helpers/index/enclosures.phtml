@@ -1,0 +1,58 @@
+<?php
+/** @var FreshRSS_View $this */
+$enclosures = $this->entry->content_enclosures();
+
+$i = 0;
+
+if (!empty($enclosures[0]['main-thumbnail']['src'])) { ?>
+	<figure class="enclosure">
+		<p class="enclosure-content">
+			<img class="enclosure-thumbnail" src="<?= $enclosures[0]['main-thumbnail']['src'] ?>" alt="" />
+		</p>
+	</figure>
+	<?php
+	$i++;
+}
+
+foreach ($enclosures as $enclosure) {
+	echo '<figure class="enclosure">';
+
+	if (!empty($enclosure['thumbnails'])) {
+		foreach ($enclosure['thumbnails'] as $thumbnail) {
+			echo '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $enclosure['title'] . '" /></p>';
+		}
+	}
+
+	switch ($enclosure['type'] ?? '') {
+		case 'image':
+			echo '<p class="enclosure-content"><img src="' . $enclosure['url'] . '" alt="" title="' . $enclosure['title'] . '" /></p>';
+			break;
+		case 'audio':
+			echo '<p class="enclosure-content"><audio preload="none" src="' . $enclosure['url']
+				. (empty($enclosure['data-length']) ? '' : '" data-length="' . $enclosure['data-length'] . '"')
+				. (empty($enclosure['data-type']) ? '' : '" data-type="' . $enclosure['data-type'] . '"')
+				. '" controls="controls" title="' . $enclosure['title'] . '"></audio> <a download="" href="' . $enclosure['url'] . '">💾</a></p>';
+			break;
+		case 'video':
+			echo '<p class="enclosure-content"><video preload="none" src="' . $enclosure['url']
+				. (empty($enclosure['data-length']) ? '' : '" data-length="' . $enclosure['data-length'] . '"')
+				. (empty($enclosure['data-type']) ? '' : '" data-type="' . $enclosure['data-type'] . '"')
+				. '" controls="controls" title="' . $enclosure['title'] . '"></video> <a download="" href="' . $enclosure['url'] . '">💾</a></p>';
+			break;
+		case 'unknown':
+		default:
+			echo '<p class="enclosure-content"><a download="" href="' . $enclosure['url']
+				. (empty($enclosure['data-type']) ? '' : '" data-type="' . $enclosure['data-type'] . '"')
+				. (empty($enclosure['data-medium']) ? '' : '" data-medium="' . $enclosure['data-medium'] . '"')
+				. '" title="' . $enclosure['title'] . '">💾</a></p>';
+	}
+
+	if (!empty($enclosure['credit'])) {
+		echo '<p class="enclosure-credits">© ' . $enclosure['credit'] . '</p>';
+	}
+	if (!empty($enclosure['description'])) {
+		echo '<figcaption class="enclosure-description">' . $enclosure['description'] . '</figcaption>';
+	}
+
+	echo '</figure>';
+}

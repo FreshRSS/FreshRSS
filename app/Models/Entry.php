@@ -17,6 +17,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $authors;
 	/** @var string */
 	private $content;
+	/** @var array<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title':string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}>|null */
+	private $content_enclosures;
 	/** @var string */
 	private $link;
 	/** @var int */
@@ -173,13 +175,7 @@ class FreshRSS_Entry extends Minz_Model {
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
 			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
-			$content .= <<<HTML
-<figure class="enclosure">
-	<p class="enclosure-content">
-		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
-	</p>
-</figure>
-HTML;
+				$this->content_enclosures[0]['main-thumbnail']['src'] = $elink;
 			}
 		}
 
@@ -190,56 +186,49 @@ HTML;
 
 		foreach ($attributeEnclosures as $enclosure) {
 			$elink = $enclosure['url'] ?? '';
+			$temp['url'] = $enclosure['url'] ?? '';
 			if ($elink == '') {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 				continue;
 			}
-			$credit = $enclosure['credit'] ?? '';
-			$description = $enclosure['description'] ?? '';
+
+			$temp['credit'] = $enclosure['credit'] ?? '';
+			$temp['description'] = $enclosure['description'] ?? '';
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
-			$thumbnails = $enclosure['thumbnails'] ?? [];
-			$etitle = $enclosure['title'] ?? '';
-
-			$content .= "\n";
-			$content .= '<figure class="enclosure">';
-
-			foreach ($thumbnails as $thumbnail) {
-				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
-			}
+			$temp['thumbnails'] = $enclosure['thumbnails'] ?? [];
+			$temp['title'] = $enclosure['title'] ?? '';
 
 			if (self::enclosureIsImage($enclosure)) {
-				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
+				$temp['type'] = 'image';
 			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
-				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+				$temp['type'] = 'audio';
+				$temp['data-length'] = $length == null ? '' : intval($length);
+				$temp['data-type'] = htmlspecialchars($mime, ENT_COMPAT, 'UTF-8');
 			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
-				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
+				$temp['type'] = 'video';
+				$temp['data-length'] = $length == null ? '' : intval($length);
+				$temp['data-type'] = $mime == '' ? '' : htmlspecialchars($mime, ENT_COMPAT, 'UTF-8');
 			} else {	//e.g. application, text, unknown
-				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
-					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars($medium, ENT_COMPAT, 'UTF-8'))
-					. '" title="' . $etitle . '">💾</a></p>';
+				$temp['type'] = 'unknown';
+				$temp['data-medium'] = $medium == '' ? '' : htmlspecialchars($medium, ENT_COMPAT, 'UTF-8');
+				$temp['data-type'] = $mime == '' ? '' : htmlspecialchars($mime, ENT_COMPAT, 'UTF-8');
 			}
 
-			if ($credit != '') {
-				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
-			}
-			if ($description != '') {
-				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
-			}
-			$content .= "</figure>\n";
+			$this->content_enclosures[] = $temp;
 		}
 
 		return $content;
+	}
+
+	/**
+	 * @return array<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title':string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}>
+	 */
+	public function content_enclosures(): array {
+		return $this->content_enclosures ?? [];
 	}
 
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
