@@ -199,10 +199,18 @@ table th, table td {
 	line-height: 25px;
 }
 
-.btn.active,
-div:target ~ .btn {
+.btn.active {
 	background-color: var(--bg);
 	border: 1px solid var(--accent);
+}
+
+div:target ~ .btn {
+	background-color: var(--highlight);
+	border: 1px solid var(--highlight);
+}
+
+div:target ~ .btn .icon {
+	filter: brightness(30%);
 }
 
 .btn:hover {
@@ -1335,5 +1343,9 @@ option {
 
 	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
 		margin-top: 7px;
+	}
+
+	.dropdown .dropdown-menu {
+		border-radius: 6px;
 	}
 }
