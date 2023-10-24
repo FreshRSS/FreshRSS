@@ -441,7 +441,8 @@ td.numeric {
 }
 
 /*=== Buttons */
-.stick {
+.stick,
+.group {
 	display: inline-flex;
 	max-width: 100%;
 	white-space: nowrap;
@@ -457,7 +458,8 @@ td.numeric {
 	flex-shrink: 1;
 }
 
-.stick > .btn {
+.stick > .btn,
+.group > .btn {
 	flex-shrink: 0;
 }
 

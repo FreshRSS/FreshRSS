@@ -217,11 +217,13 @@ form th {
 
 /*=== Buttons */
 .stick input,
-.stick .btn {
+.stick .btn,
+.group .btn {
 	border-radius: 0;
 }
 
 .stick .btn:first-child,
+.group .btn:first-child,
 .stick input:first-child,
 .stick select:first-child {
 	border-radius: 0 3px 3px 0;
@@ -232,20 +234,25 @@ form th {
 }
 
 .stick .btn:last-child,
+.group .btn:last-child,
 .stick input:last-child {
 	border-radius: 3px 0 0 3px;
 }
 
 .stick .btn + .btn,
+.group .btn + .btn,
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
+.group .btn + .dropdown > .btn,
 .stick input + .btn,
 .stick select + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
+.group .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn {
+.stick .dropdown + .dropdown > .btn,
+.group .dropdown + .dropdown > .btn {
 	border-right: none;
 }
 
@@ -253,7 +260,8 @@ form th {
 	border-top: 1px solid var(--border-color);
 }
 
-.stick .btn + .dropdown > .btn {
+.stick .dropdown:last-child > .btn,
+.group .dropdown:last-child > .btn {
 	border-right: none;
 	border-radius: 3px 0 0 3px;
 }
@@ -1143,11 +1151,13 @@ a:hover .icon {
 		min-height: 0;
 	}
 
-	.nav_menu .stick {
+	.nav_menu .stick,
+	.nav_menu .group {
 		margin: 0 10px;
 	}
 
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+	.nav_menu .group .btn {
 		margin: 5px 0;
 	}
 
