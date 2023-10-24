@@ -4,7 +4,9 @@
 
 <nav class="nav_menu">
 	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
-	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+		<div class="group">
+			<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+		</div>
 	<?php } ?>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -136,7 +138,7 @@
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
-	<div class="stick" id="nav_menu_read_all">
+	<div class="group stick" id="nav_menu_read_all">
 		<form id="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
@@ -241,12 +243,16 @@
 		$url_order = Minz_Request::currentRequest();
 		$url_order['params']['order'] = $order;
 	?>
-	<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
-		<?= _i($icon) ?>
-	</a>
+	<div class="group">
+		<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
+			<?= _i($icon) ?>
+		</a>
+	</div>
 
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
-	<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
+		<div class="group">
+			<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
+		</div>
 	<?php } ?>
 </nav>
 <?php flush(); ?>
