@@ -13,8 +13,6 @@ data:
   OIDC_PROVIDER_METADATA_URL: ""
   OIDC_REMOTE_USER_CLAIM: preferred_username
   OIDC_CLIENT_ID: ""
-  OIDC_CLIENT_SECRET: ""
-  OIDC_CLIENT_CRYPTO_KEY: ""
   OIDC_SCOPES: "openid profile"
   OIDC_X_FORWARDED_HEADERS: X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto
   
