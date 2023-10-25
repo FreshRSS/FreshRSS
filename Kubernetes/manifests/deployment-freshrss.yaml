@@ -34,6 +34,9 @@ spec:
             - configMapRef:
                 name: freshrss-config
                 optional: true
+            - secretRef:
+                name: freshrss-secrets
+                optional: true
           volumeMounts:
             # Add other volume mounts / subpaths as needed.
             - mountPath: "/var/www/FreshRSS/data"
