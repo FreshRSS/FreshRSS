@@ -227,6 +227,7 @@ People are sorted by name so please keep this order.
 * [witchcraze](https://github.com/witchcraze): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:witchcraze)
 * [wtoscer](https://github.com/wtoscer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wtoscer)
 * [xnaas](https://github.com/xnaas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xnaas), [Web](https://xnaas.info/)
+* [XtremeOwnage](https://github.com/XtremeOwnage): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:XtremeOwnageDotCom), [Web](https://static.xtremeownage.com/)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
