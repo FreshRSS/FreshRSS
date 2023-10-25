@@ -1,0 +1,15 @@
+# Only applicable if you use Traefik w/CRDs installed.
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: freshrss
+  namespace: freshrss
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`freshrss.yourdomain.com`)
+      kind: Rule
+      services:
+        - name: freshrss
+          port: http
