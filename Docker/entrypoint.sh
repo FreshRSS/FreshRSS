@@ -12,7 +12,7 @@ if [ -n "$LISTEN" ]; then
 fi
 
 if [ -n "$TRUSTED_PROXY" ]; then
-	if [ "$TRUSTED_PROXY" -eq 0 ]; then
+	if [ "$TRUSTED_PROXY" = "0" ]; then
 		# Disable RemoteIPHeader and RemoteIPInternalProxy
 		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^\s*RemoteIP.*$/s/^/#/" {} \;
 	else
