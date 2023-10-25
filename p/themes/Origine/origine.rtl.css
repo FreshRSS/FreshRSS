@@ -1290,21 +1290,21 @@ a:hover .icon {
 		--form-element-invalid-box-shadow-color-inset: none;
 	}
 
-	:root .darkMode_auto .nav_menu .btn {
+	:root.darkMode_auto .nav_menu .btn {
 		color: #777;
 	}
 
-	:root .darkMode_auto .nav_menu .btn:hover {
+	:root.darkMode_auto .nav_menu .btn:hover {
 		color: var(--font-color-grey);
 	}
 
-	:root .darkMode_auto .nav_menu .btn.active,
-	:root .darkMode_auto .nav_menu .btn:active,
-	:root .darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
+	:root.darkMode_auto .nav_menu .btn.active,
+	:root.darkMode_auto .nav_menu .btn:active,
+	:root.darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
 		background: var(--border-color);
 	}
 
-	:root .darkMode_auto .dropdown-menu {
+	:root.darkMode_auto .dropdown-menu {
 		background-color: #0a0a0a;
 	}
 }
