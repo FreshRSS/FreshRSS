@@ -136,6 +136,7 @@ People are sorted by name so please keep this order.
 * [Mike Vanbuskirk](https://github.com/codevbus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:codevbus) [Web](http://mikevanbuskirk.io/)
 * [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
 * [mincerafter42](https://github.com/mincerafter42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mincerafter42), [Web](https://mincerafter42.github.io)
+* [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
 * [NaeiKinDus](https://github.com/NaeiKinDus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NaeiKinDus)
