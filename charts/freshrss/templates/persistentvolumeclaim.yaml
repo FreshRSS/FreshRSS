@@ -10,9 +10,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 spec:
- storageClassName: {{ .Values.storage.storageClassName | default "" | quote }}
+  storageClassName: "{{ .Values.persistence.storageClass }}"
   accessModes:
-    - {{ .Values.storage.accessModes | quote | default "[ReadWriteOnce]" }}
+    - {{ .Values.persistence.accessMode | quote }}
   resources:
     requests:
-      storage: {{ .Values.storage.resources.requests.storage | quote | default "5Gi" }}
+      storage: {{ .Values.persistence.size | quote }}

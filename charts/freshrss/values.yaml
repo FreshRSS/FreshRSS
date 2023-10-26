@@ -20,10 +20,8 @@ ingress:
   host: "freshrsstest.kube.xtremeownage.com"
   path: "/"
 
-storage:
-  storageClassName: ""
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: "5Gi"
+persistence:
+  enabled: false
+  # storageClassName: "-"
+  accessMode: ReadWriteOnce
+  size: "5Gi"
