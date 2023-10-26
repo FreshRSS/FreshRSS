@@ -7,9 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ template "name" . }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
+    # app.kubernetes.io/managed-by: {{ .Release.Service }}
+    # app.kubernetes.io/instance: {{ .Release.Name }}
+    # app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 data:
   # {{- if .Values.oidc.enabled -}}
   # OIDC_ENABLED: "1"
