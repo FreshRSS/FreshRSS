@@ -11,7 +11,7 @@ class Minz_Paginator {
 	/**
 	 * @var array<Minz_Model> tableau des éléments à afficher/gérer
 	 */
-	private $items = array ();
+	private array $items = [];
 
 	/**
 	 * le nombre d'éléments par page

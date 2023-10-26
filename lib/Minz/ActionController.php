@@ -10,12 +10,12 @@
 class Minz_ActionController {
 
 	/** @var array<string,string> */
-	private static $csp_default = [
+	private static array $csp_default = [
 		'default-src' => "'self'",
 	];
 
 	/** @var array<string,string> */
-	private $csp_policies;
+	private array $csp_policies;
 
 	/** @var Minz_View */
 	protected $view;

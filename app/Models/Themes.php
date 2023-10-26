@@ -51,7 +51,7 @@ class FreshRSS_Themes extends Minz_Model {
 
 	private static string $themeIconsUrl;
 	/** @var array<string,int> */
-	private static $themeIcons;
+	private static array $themeIcons;
 
 	/**
 	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}

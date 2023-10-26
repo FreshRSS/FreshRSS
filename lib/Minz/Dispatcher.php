@@ -13,10 +13,10 @@ class Minz_Dispatcher {
 	/**
 	 * Singleton
 	 */
-	private static ?Minz_Dispatcher $instance;
+	private static ?Minz_Dispatcher $instance = null;
 	private static bool $needsReset;
 	/** @var array<string,string> */
-	private static $registrations = [];
+	private static array $registrations = [];
 	private Minz_ActionController $controller;
 
 	/**

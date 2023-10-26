@@ -18,7 +18,7 @@ class FreshRSS_Category extends Minz_Model {
 	private int $nbFeeds = -1;
 	private int $nbNotRead = -1;
 	/** @var array<FreshRSS_Feed>|null */
-	private ?array $feeds;
+	private ?array $feeds = null;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
 	/** @var array<string,mixed> */

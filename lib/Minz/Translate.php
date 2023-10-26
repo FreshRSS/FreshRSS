@@ -13,7 +13,7 @@ class Minz_Translate {
 	 * $path_list is the list of registered base path to search translations.
 	 * @var array<string>
 	 */
-	private static $path_list = array();
+	private static array $path_list = [];
 
 	/**
 	 * $lang_name is the name of the current language to use.
@@ -24,13 +24,13 @@ class Minz_Translate {
 	 * $lang_files is a list of registered i18n files.
 	 * @var array<string,array<string>>
 	 */
-	private static $lang_files = array();
+	private static array $lang_files = [];
 
 	/**
 	 * $translates is a cache for i18n translation.
 	 * @var array<string,mixed>
 	 */
-	private static $translates = array();
+	private static array $translates = [];
 
 	/**
 	 * Init the translation object.

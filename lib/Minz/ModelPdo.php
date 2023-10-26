@@ -15,7 +15,7 @@ class Minz_ModelPdo {
 	 */
 	public static bool $usesSharedPdo = true;
 
-	private static ?Minz_Pdo $sharedPdo;
+	private static ?Minz_Pdo $sharedPdo = null;
 
 	private static ?string $sharedCurrentUser;
 

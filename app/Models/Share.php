@@ -8,7 +8,7 @@ class FreshRSS_Share {
 	 * The list of available sharing options.
 	 * @var array<string,FreshRSS_Share>
 	 */
-	private static $list_sharing = [];
+	private static array $list_sharing = [];
 
 	/**
 	 * Register a new sharing option.
@@ -75,7 +75,7 @@ class FreshRSS_Share {
 	private string $name;
 	private string $url_transform;
 	/** @var array<callable>|array<string,array<callable>> */
-	private $transforms;
+	private array $transforms;
 	/**
 	 * @phpstan-var 'simple'|'advanced'
 	 */

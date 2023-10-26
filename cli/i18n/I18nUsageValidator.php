@@ -5,9 +5,9 @@ require_once __DIR__ . '/I18nValidatorInterface.php';
 class I18nUsageValidator implements I18nValidatorInterface {
 
 	/** @var array<string> */
-	private $code;
+	private array $code;
 	/** @var array<string,array<string,string>> */
-	private $reference;
+	private array $reference;
 	private int $totalEntries = 0;
 	private int $failedEntries = 0;
 	private string $result = '';

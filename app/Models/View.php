@@ -10,7 +10,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var callable */
 	public $callbackBeforePagination;
 	/** @var array<FreshRSS_Category> */
-	public $categories;
+	public array $categories;
 	public ?FreshRSS_Category $category;
 	public string $current_user;
 	/** @var iterable<FreshRSS_Entry> */
@@ -18,43 +18,43 @@ class FreshRSS_View extends Minz_View {
 	public FreshRSS_Entry $entry;
 	public ?FreshRSS_Feed $feed;
 	/** @var array<FreshRSS_Feed> */
-	public $feeds;
+	public array $feeds;
 	public int $nbUnreadTags;
 	/** @var array<FreshRSS_Tag> */
-	public $tags;
+	public array $tags;
 	/** @var array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}> */
-	public $tagsForEntry;
+	public array $tagsForEntry;
 	/** @var array<string,array<string>> */
-	public $tagsForEntries;
+	public array $tagsForEntries;
 	/** @var array<string,string> */
-	public $notification;
+	public array $notification;
 	public bool $excludeMutedFeeds;
 
 	// Substriptions
 	public ?FreshRSS_Category $default_category;
-	public bool $displaySlider;
+	public bool $displaySlider = false;
 	public bool $load_ok;
 	public bool $onlyFeedsWithError;
 	public bool $signalError;
 
 	// Manage users
 	/** @var array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
-	public $details;
+	public array $details;
 	public bool $disable_aside;
 	public bool $show_email_field;
 	public string $username;
 	/** @var array<array{'language':string,'enabled':bool,'is_admin':bool,'enabled':bool,'article_count':int,'database_size':int,'last_user_activity':string,'mail_login':string,'feed_count':int,'is_default':bool}> */
-	public $users;
+	public array $users;
 
 	// Updates
 	public string $last_update_time;
 	/** @var array<string,bool> */
-	public $status_files;
+	public array $status_files;
 	/** @var array<string,bool> */
-	public $status_php;
+	public array $status_php;
 	public bool $update_to_apply;
 	/** @var array<string,bool> */
-	public $status_database;
+	public array $status_database;
 	public bool $is_release_channel_stable;
 
 	// Archiving
@@ -64,22 +64,22 @@ class FreshRSS_View extends Minz_View {
 
 	// Display
 	/** @var array<string,array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}> */
-	public $themes;
+	public array $themes;
 
 	// Shortcuts
 	/** @var array<int, string> */
-	public $list_keys;
+	public array $list_keys;
 
 	// User queries
 	/** @var array<int,FreshRSS_UserQuery> */
-	public $queries;
+	public array $queries;
 	/**  @var FreshRSS_UserQuery|null */
-	public $query;
+	public ?FreshRSS_UserQuery $query = null;
 
 	// Export / Import
 	public string $content;
 	/** @var array<string,array<string>> */
-	public $entryIdsTagNames;
+	public array $entryIdsTagNames;
 	public string $list_title;
 	public int $queryId;
 	public string $type;
@@ -113,18 +113,18 @@ class FreshRSS_View extends Minz_View {
 
 	// Extensions
 	/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
-	public $available_extensions;
+	public array $available_extensions;
 	public ?Minz_Extension $ext_details;
 	/** @var array{'system':array<Minz_Extension>,'user':array<Minz_Extension>} */
-	public $extension_list;
+	public array $extension_list;
 	public ?Minz_Extension $extension;
 	/** @var array<string,string> */
-	public $extensions_installed;
+	public array $extensions_installed;
 
 	// Errors
 	public string $code;
 	public string $errorMessage;
 	/** @var array<string,string> */
-	public $message;
+	public array $message;
 
 }

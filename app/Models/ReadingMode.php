@@ -9,7 +9,7 @@ class FreshRSS_ReadingMode {
 	protected string $name;
 	protected string $title;
 	/** @var array{'c':string,'a':string,'params':array<string,mixed>} */
-	protected $urlParams;
+	protected array $urlParams;
 	protected bool $isActive = false;
 
 	/**

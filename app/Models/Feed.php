@@ -55,14 +55,14 @@ class FreshRSS_Feed extends Minz_Model {
 	private bool $error = false;
 	private int $ttl = self::TTL_DEFAULT;
 	/** @var array<string,mixed> */
-	private $attributes = [];
+	private array $attributes = [];
 	private bool $mute = false;
 	private string $hash = '';
 	private string $lockPath = '';
 	private string $hubUrl = '';
 	private string $selfUrl = '';
 	/** @var array<FreshRSS_FilterAction> $filterActions */
-	private $filterActions = null;
+	private array $filterActions = [];
 
 	public function __construct(string $url, bool $validate = true) {
 		if ($validate) {
