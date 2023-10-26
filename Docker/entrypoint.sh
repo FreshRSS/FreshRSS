@@ -23,6 +23,11 @@ fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	a2enmod -q auth_openidc
+	if [ -n "$OIDC_ENABLED" ]; then
+		# Compatibility with : as separator instead of space:
+		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
+		export OIDC_SCOPES
+	fi
 fi
 
 if [ -n "$CRON_MIN" ]; then
