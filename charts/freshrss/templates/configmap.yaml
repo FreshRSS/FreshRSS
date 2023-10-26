@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -24,3 +25,4 @@ data:
   CRON_MIN: {{ .Values.freshrss.config.CRON_MIN | default "*/15" }}
   ADMIN_EMAIL: {{ .Values.freshrss.config.ADMIN_EMAIL | default "" }}
   {{- end }}
+{{- end }}
