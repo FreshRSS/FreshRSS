@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
+    app.kubernetes.io/component: app
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
@@ -15,25 +16,29 @@ spec:
   serviceName: freshrss
   selector:
     matchLabels:
-      app: freshrss
+      app.kubernetes.io/name: {{ template "name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: app
   template:
     metadata:
       labels:
-        app: freshrss
+        app.kubernetes.io/name: {{ template "name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: app
     spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: freshrss-data
+            claimName: {{ .Release.Name }}-data
       containers:
         - name: freshrss
-          image: freshrss/freshrss:latest #1.22.0 - Change to match the version tag wanted.
+          image: freshrss/freshrss:{{ .Values.image.tag }}
           envFrom:
             - configMapRef:
-                name: freshrss-config
+                name: {{ .Release.Name }}-config
                 optional: true
             - secretRef:
-                name: freshrss-secrets
+                name: {{ .Release.Name }}-secrets
                 optional: true
           volumeMounts:
             # Add other volume mounts / subpaths as needed.
