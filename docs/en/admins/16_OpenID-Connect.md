@@ -39,3 +39,9 @@ After being properly configured, OIDC support can be activated in FreshRSS.
 During a new FreshRSS install, the **HTTP Authentication Method** must be picked.
 
 After install, the method can be changed in *Administration > Authentication*. Note that this option will be greyed out if Apache is unable to read the `REMOTE_USER` variable.
+
+## Identity Provider
+
+See specific instructions for:
+
+* [authentik](16_OpenID-Connect-Authentik.md)

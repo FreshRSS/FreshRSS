@@ -557,6 +557,11 @@ a:hover .icon {
 	border: 1px solid var(--alert-error-boder-color);
 }
 
+.alert-error a {
+	color: var(--alert-error-font-color);
+	font-weight: bold;
+}
+
 /*=== Pagination */
 .pagination {
 	background-color: var(--background-color-light);
@@ -1255,7 +1260,7 @@ a:hover .icon {
 		--alert-success-font-color: #96c196;
 		--alert-success-border-color: #cec;
 		--alert-error-background-color: #fdda;
-		--alert-error-font-color: #693a3a;
+		--alert-error-font-color: #512b2b;
 		--alert-error-boder-color: #ecc;
 
 		--notification-good-background-color: #ffe;
@@ -1290,21 +1295,21 @@ a:hover .icon {
 		--form-element-invalid-box-shadow-color-inset: none;
 	}
 
-	:root .darkMode_auto .nav_menu .btn {
+	:root.darkMode_auto .nav_menu .btn {
 		color: #777;
 	}
 
-	:root .darkMode_auto .nav_menu .btn:hover {
+	:root.darkMode_auto .nav_menu .btn:hover {
 		color: var(--font-color-grey);
 	}
 
-	:root .darkMode_auto .nav_menu .btn.active,
-	:root .darkMode_auto .nav_menu .btn:active,
-	:root .darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
+	:root.darkMode_auto .nav_menu .btn.active,
+	:root.darkMode_auto .nav_menu .btn:active,
+	:root.darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
 		background: var(--border-color);
 	}
 
-	:root .darkMode_auto .dropdown-menu {
+	:root.darkMode_auto .dropdown-menu {
 		background-color: #0a0a0a;
 	}
 }
