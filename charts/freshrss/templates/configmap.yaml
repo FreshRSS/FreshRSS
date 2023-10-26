@@ -21,6 +21,6 @@ data:
   {{- else }}
   OIDC_ENABLED: "0"
   {{- end }}
-  CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" }}
+  CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" | quote }}
   ADMIN_EMAIL: {{ .Values.freshrss.ADMIN_EMAIL | default "" }}
 {{- end }}

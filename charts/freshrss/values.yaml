@@ -17,7 +17,7 @@ oidc:
 
 ingress:
   enabled: true
-  host: "freshrss.example.com"
+  host: "freshrsstest.kube.xtremeownage.com"
   path: "/"
 
 storage:

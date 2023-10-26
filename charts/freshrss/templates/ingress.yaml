@@ -14,7 +14,7 @@ spec:
     - host: {{ .Values.ingress.host  | quote }}
       http:
         paths:
-          - path: "{{ .Values.ingress.path | quote}}"
+          - path: {{ .Values.ingress.path | quote}}
             pathType: Prefix
             backend:
               service:
