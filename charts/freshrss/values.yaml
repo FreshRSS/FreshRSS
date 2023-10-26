@@ -1,0 +1,30 @@
+image:
+  tag: latest
+
+freshrss:
+  CRON_MIN: "*/15"
+  ADMIN_EMAIL: ""
+
+
+oidc:
+  enabled: false
+  providerMetadataUrl: ""
+  remoteUserClaim: preferred_username
+  clientId: ""
+  scopes: "openid profile"
+  xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto"
+  secrets:
+    clientSecret: ""
+    clientCryptoKey: ""
+
+
+ingress:
+  enabled: true
+  host: "freshrsstest.kube.xtremeownage.com"
+  path: "/"
+
+persistence:
+  enabled: true
+  # storageClassName: "-"
+  accessMode: ReadWriteOnce
+  size: "5Gi"
