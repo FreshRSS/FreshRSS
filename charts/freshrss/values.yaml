@@ -1,30 +1,31 @@
+# Configuration for the Docker image used in the deployment
 image:
   tag: latest
 
+# FreshRSS specific configuration
 freshrss:
-  CRON_MIN: "*/15"
-  ADMIN_EMAIL: ""
+  CRON_MIN: "*/15"       # Cron timer schedule for FreshRSS. See https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#environment-variables -> CRON_MIN
+  ADMIN_EMAIL: ""        # Admin email for FreshRSS
 
-
+# OpenID Connect (OIDC) configuration 
+# See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
 oidc:
-  enabled: false
-  providerMetadataUrl: ""
-  remoteUserClaim: preferred_username
-  clientId: ""
-  scopes: "openid profile"
-  xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto"
-  secrets:
-    clientSecret: ""
-    clientCryptoKey: ""
+  enabled: false                        # Enable or disable OIDC
+  providerMetadataUrl: ""               # URL to OIDC provider metadata
+  remoteUserClaim: preferred_username   # OIDC claim for remote user
+  clientId: ""                          # OIDC client ID
+  scopes: "openid profile"              # OIDC scopes
+  xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" # Headers for OIDC
 
-
+# Ingress configuration
 ingress:
-  enabled: true
-  host: "freshrsstest.kube.xtremeownage.com"
-  path: "/"
+  enabled: true                         # Enable or disable Ingress
+  host: "freshrsstest.yourdomain.com"   # Host for Ingress.
+  path: "/"                             # Path for Ingress
 
+# Persistence configuration for storage
 persistence:
-  enabled: true
-  # storageClassName: "-"
-  accessMode: ReadWriteOnce
-  size: "5Gi"
+  enabled: true                         # Enable or disable persistent storage
+  # storageClassName: "-"               # Storage class name (uncomment to specify)
+  accessMode: ReadWriteOnce             # Access mode for storage
+  size: "5Gi"                           # Size of the persistent volume
