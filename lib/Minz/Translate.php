@@ -127,8 +127,7 @@ class Minz_Translate {
 		$lang_path = $path . '/' . self::$lang_name;
 		if (self::$lang_name === '' || !is_dir($lang_path)) {
 			// The lang path does not exist, fallback to English ('en')
-			self::$lang_name = 'en';
-			$lang_path = $path . '/' . self::$lang_name;
+			$lang_path = $path . '/en';
 			if (!is_dir($lang_path)) {
 				// English ('en') i18n files not provided. Stop here. The keys will be shown.
 				return;
