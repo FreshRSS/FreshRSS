@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 spec:
- storageClassName: {{ .Values.storage.storageClassName | default "" }}
+ storageClassName: {{ .Values.storage.storageClassName | default "" | quote }}
   accessModes:
     - {{ .Values.storage.accessModes | quote | default "[ReadWriteOnce]" }}
   resources:
