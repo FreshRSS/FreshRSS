@@ -21,7 +21,7 @@ ingress:
   path: "/"
 
 persistence:
-  enabled: false
+  enabled: true
   # storageClassName: "-"
   accessMode: ReadWriteOnce
   size: "5Gi"
