@@ -7,10 +7,22 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ template "name" . }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    # app.kubernetes.io/managed-by: {{ .Release.Service }}
-    # app.kubernetes.io/instance: {{ .Release.Name }}
-    # app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 data:
-  TESTDATA: "Hi"
-
+  {{- if .Values.oidc.enabled -}}
+  OIDC_ENABLED: "1"
+  OIDC_PROVIDER_METADATA_URL: {{ .Values.oidc.providerMetadataUrl | default "" }}
+  OIDC_REMOTE_USER_CLAIM: {{ .Values.oidc.remoteUserClaim | default "preferred_username" }}
+  OIDC_CLIENT_ID: {{ .Values.oidc.clientId | default "" }}
+  OIDC_SCOPES: {{ .Values.oidc.scopes | default "openid profile" }}
+  OIDC_X_FORWARDED_HEADERS: {{ .Values.oidc.xForwardedHeaders | default "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" }}
+  {{- else }}
+  OIDC_ENABLED: "0"
+  {{- end }}
+  {{- if .Values.freshrss.config }}
+  CRON_MIN: {{ .Values.freshrss.config.CRON_MIN | default "*/15" }}
+  ADMIN_EMAIL: {{ .Values.freshrss.config.ADMIN_EMAIL | default "" }}
+  {{- end }}
 {{- end }}
