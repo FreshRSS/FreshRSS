@@ -48,3 +48,13 @@ spec:
           ports:
           - containerPort: 80
             name: http
+          livenessProbe:
+            exec:
+              command:
+                - "/bin/sh"
+                - "-c"
+                - "curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1"
+            initialDelaySeconds: 8
+            periodSeconds: 67
+            timeoutSeconds: 5
+            failureThreshold: 3
