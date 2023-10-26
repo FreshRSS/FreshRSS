@@ -293,6 +293,7 @@ HTML;
 						if ($src != null) {
 							$result = [
 								'url' => $src,
+								'medium' => 'image',
 							];
 							yield Minz_Helper::htmlspecialchars_utf8($result);
 						}
