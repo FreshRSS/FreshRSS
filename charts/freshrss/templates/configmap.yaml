@@ -11,6 +11,7 @@ metadata:
     # app.kubernetes.io/instance: {{ .Release.Name }}
     # app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 data:
+  TESTDATA: "Hi"
   # {{- if .Values.oidc.enabled -}}
   # OIDC_ENABLED: "1"
   # OIDC_PROVIDER_METADATA_URL: {{ .Values.oidc.providerMetadataUrl | default "" }}
