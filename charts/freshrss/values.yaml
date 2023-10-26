@@ -13,10 +13,12 @@ oidc:
   enabled: false                        # Enable or disable OIDC
   providerMetadataUrl: ""               # URL to OIDC provider metadata
   remoteUserClaim: preferred_username   # OIDC claim for remote user
-  clientId: ""                          # OIDC client ID
+  clientId: ""                          # OIDC client ID This comes from your SSO/OIDC Provider)
   scopes: "openid profile"              # OIDC scopes
   xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" # Headers for OIDC
-
+  secrets:
+    clientSecret: ""                    # OIDC Secret. (This comes from your SSO/OIDC Provider)
+    clientCryptoKey: ""                 # Put a random value here?
 # Ingress configuration
 ingress:
   enabled: true                         # Enable or disable Ingress
