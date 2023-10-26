@@ -1,0 +1,30 @@
+freshrss:
+  config:
+    CRON_MIN: "*/15"
+    ADMIN_EMAIL: ""
+
+
+oidc:
+  enabled: false
+  providerMetadataUrl: ""
+  remoteUserClaim: preferred_username
+  clientId: ""
+  scopes: "openid profile"
+  xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto"
+  secrets:
+    clientSecret: ""
+    clientCryptoKey: ""
+
+
+ingress:
+  enabled: true
+  host: "freshrss.example.com"
+  path: "/"
+
+storage:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "5Gi"

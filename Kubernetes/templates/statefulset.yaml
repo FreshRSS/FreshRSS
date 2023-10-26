@@ -1,17 +1,15 @@
 apiVersion: apps/v1
-kind: StatefulSet # Stateful set, as we only ever want a single copy of freshrss running.
+kind: StatefulSet
 metadata:
   labels:
-    app: freshrss
-  name: freshrss
-  namespace: freshrss
-  annotations:
-    # Keel annotations, useful if you have keel in your cluster. Won't hurt anything if it is not installed.
-    keel.sh/policy: all
-    keel.sh/trigger: poll
-    keel.sh/pollSchedule: "@daily"
-    keel.sh/approvals: "1"
-    keel.sh/releaseNotes: "https://github.com/FreshRSS/FreshRSS/blob/edge/CHANGELOG.md"
+    app: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ template "name" . }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   serviceName: freshrss
