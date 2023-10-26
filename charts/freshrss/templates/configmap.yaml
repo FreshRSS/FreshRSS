@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 data:
-{{- if .Values.oidc.enabled }}
+{{- if .Values.oidc.enabled -}}
   OIDC_ENABLED: "1"
   OIDC_PROVIDER_METADATA_URL: {{ .Values.oidc.providerMetadataUrl | default "" }}
   OIDC_REMOTE_USER_CLAIM: {{ .Values.oidc.remoteUserClaim | default "preferred_username" }}
