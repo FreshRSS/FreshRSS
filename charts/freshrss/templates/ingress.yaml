@@ -11,13 +11,13 @@ metadata:
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 spec:
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ .Values.ingress.host  | quote }}
       http:
         paths:
-          - path: {{ .Values.ingress.path }}
+          - path: "{{ .Values.ingress.path | quote}}"
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}
+                name: "{{ .Release.Name }}"
                 port:
                   number: 80
