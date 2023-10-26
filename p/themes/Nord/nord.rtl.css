@@ -1122,7 +1122,7 @@ option {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	margin: 10px 0;
-	padding: 0 10px;
+	padding: 0 0.5rem;
 	font-size: 0.9rem;
 }
 
