@@ -11,7 +11,9 @@ metadata:
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
 spec:
   selector:
-    app: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ template "name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: app
   ports:
     - name: http
       port: 80

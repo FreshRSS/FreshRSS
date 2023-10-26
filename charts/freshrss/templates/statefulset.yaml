@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Release.Name }}
     app.kubernetes.io/name: {{ template "name" . }}
@@ -9,8 +11,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
     app.kubernetes.io/component: app
-  name: {{ .Release.Name }}
-  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   serviceName: freshrss
