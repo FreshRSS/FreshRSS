@@ -1,7 +1,6 @@
 freshrss:
-  config:
-    CRON_MIN: "*/15"
-    ADMIN_EMAIL: ""
+  CRON_MIN: "*/15"
+  ADMIN_EMAIL: ""
 
 
 oidc:
