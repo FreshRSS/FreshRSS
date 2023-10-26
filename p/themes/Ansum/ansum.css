@@ -517,13 +517,19 @@ form th {
 }
 
 /*=== Buttons */
-.stick input, .stick .btn {
+.stick input, .stick .btn,
+.group input,
+.group .btn {
 	border-radius: 0;
 }
-.stick .btn:first-child {
+.stick .btn:first-child,
+.group .btn:first-child {
 	border-radius: 5px 0 0 5px;
 }
-.stick .btn:last-child, .stick input:last-child, .stick .dropdown:last-child > .btn {
+.stick .btn:last-child, .stick input:last-child, .stick .dropdown:last-child > .btn,
+.group .btn:last-child,
+.group input:last-child,
+.group .dropdown:last-child > .btn {
 	border-radius: 0 5px 5px 0;
 }
 .stick .btn + .btn,
@@ -534,7 +540,16 @@ form th {
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn {
+.stick .dropdown + .dropdown > .btn,
+.group .btn + .btn,
+.group .btn + input,
+.group .btn + .dropdown > .btn,
+.group input + .btn,
+.group input + input,
+.group input + .dropdown > .btn,
+.group .dropdown + .btn,
+.group .dropdown + input,
+.group .dropdown + .dropdown > .btn {
 	border-left: 1px solid #e4d8cc;
 }
 
@@ -798,7 +813,8 @@ main.prompt {
 .nav_menu .btn:hover {
 	background-color: #e4d8cc;
 }
-.nav_menu .stick .btn {
+.nav_menu .stick .btn,
+.nav_menu .group .btn {
 	border-left-width: 0;
 	padding: 0.5rem 1rem;
 	background-color: #fcfaf8;
@@ -806,32 +822,40 @@ main.prompt {
 	background-repeat: no-repeat;
 	transition: all 0.15s ease-in-out;
 }
-.nav_menu .stick .btn:hover {
+.nav_menu .stick .btn:hover,
+.nav_menu .group .btn:hover {
 	background-color: #e4d8cc;
 }
-.nav_menu .stick .btn.active {
+.nav_menu .stick .btn.active,
+.nav_menu .group .btn.active {
 	background-color: #ca7227;
 }
-.nav_menu .stick .btn.active .icon {
+.nav_menu .stick .btn.active .icon,
+.nav_menu .group .btn.active .icon {
 	filter: brightness(5);
 }
-.nav_menu .stick .btn.read_all {
+.nav_menu .stick .btn.read_all,
+.nav_menu .group .btn.read_all {
 	padding: 5px 16px;
 	color: #363330;
 	background-color: #fcfaf8;
 	transition: all 0.15s ease-in-out;
 }
-.nav_menu .stick .btn.read_all:hover {
+.nav_menu .stick .btn.read_all:hover,
+.nav_menu .group .btn.read_all:hover {
 	background-color: #e4d8cc;
 }
-.nav_menu .stick .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle {
+.nav_menu .stick .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle,
+.nav_menu .group .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle {
 	border-left-width: 0;
 	background-image: url(icons/more.svg);
 }
-.nav_menu .stick .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle .icon {
+.nav_menu .stick .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle .icon,
+.nav_menu .group .dropdown:not(#dropdown-search-wrapper) a.dropdown-toggle .icon {
 	display: none;
 }
-.nav_menu .stick #dropdown-search-wrapper.dropdown a.dropdown-toggle {
+.nav_menu .stick #dropdown-search-wrapper.dropdown a.dropdown-toggle,
+.nav_menu .group #dropdown-search-wrapper.dropdown a.dropdown-toggle {
 	border-left-width: 0;
 }
 
@@ -1225,14 +1249,17 @@ main.prompt {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
 	}
-	.nav_menu .stick {
+	.nav_menu .stick,
+.nav_menu .group {
 		margin: 0.5rem 0.5rem;
 	}
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+.nav_menu .group .btn {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
 	}
-	.nav_menu .stick .btn.read_all {
+	.nav_menu .stick .btn.read_all,
+.nav_menu .group .btn.read_all {
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .search .input {
@@ -1306,5 +1333,3 @@ a, button.as-link {
 	outline: none;
 	color: #ca7227;
 }
-
-/*# sourceMappingURL=ansum.css.map */

@@ -13,7 +13,7 @@ The callback URL is `https://<your-domain>/i/oidc/`.
 
 OIDC support in Docker is activated by the presence of a non-empty non-zero `OIDC_ENABLED` environment variable.
 
-> ℹ️ Only available in our Debian image.
+> ℹ️ Only available in our Debian image for `x86_64` ([help welcome](https://github.com/FreshRSS/FreshRSS/issues/5722)).
 
 ## The config is done with these environment variables
 
@@ -39,3 +39,9 @@ After being properly configured, OIDC support can be activated in FreshRSS.
 During a new FreshRSS install, the **HTTP Authentication Method** must be picked.
 
 After install, the method can be changed in *Administration > Authentication*. Note that this option will be greyed out if Apache is unable to read the `REMOTE_USER` variable.
+
+## Identity Provider
+
+See specific instructions for:
+
+* [authentik](16_OpenID-Connect-Authentik.md)

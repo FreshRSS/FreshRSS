@@ -12,12 +12,12 @@ if [ -n "$LISTEN" ]; then
 fi
 
 if [ -n "$TRUSTED_PROXY" ]; then
-	if [ "$TRUSTED_PROXY" -eq 0 ]; then
-		# Disable RemoteIPHeader and RemoteIPTrustedProxy
+	if [ "$TRUSTED_PROXY" = "0" ]; then
+		# Disable RemoteIPHeader and RemoteIPInternalProxy
 		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^\s*RemoteIP.*$/s/^/#/" {} \;
 	else
-		# Custom list for RemoteIPTrustedProxy
-		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^\s*RemoteIPTrustedProxy#s#^.*#\tRemoteIPTrustedProxy $TRUSTED_PROXY#" {} \;
+		# Custom list for RemoteIPInternalProxy
+		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^\s*RemoteIPInternalProxy#s#^.*#\tRemoteIPInternalProxy $TRUSTED_PROXY#" {} \;
 	fi
 fi
 
