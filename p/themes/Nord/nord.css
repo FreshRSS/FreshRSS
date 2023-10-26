@@ -162,7 +162,7 @@ table {
 }
 
 table tr {
-	border-bottom: 1px solid
+	border-bottom: 1px solid var(--border-elements);
 }
 
 table th, table td {
