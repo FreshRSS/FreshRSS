@@ -1045,9 +1045,8 @@ li.item.active {
 }
 
 .drag-drop-marker {
-	margin: -1px;
+	border: 2px dashed var(--highlight);
 }
-
 
 /*BEGINS BASE.CSS*/
 
