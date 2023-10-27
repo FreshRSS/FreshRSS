@@ -776,6 +776,10 @@ li.item.active {
 	position: absolute;
 }
 
+.flux .tags .icon {
+	padding: 0.25rem;
+}
+
 .flux .website span {
 	margin-left: 2rem;
 }
