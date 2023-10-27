@@ -694,21 +694,27 @@ img.favicon {
 
 .item.feed.active {
 	background-color: var(--accent-bg);
-	font-weight: bold;
 }
 
 .item.feed.active a {
 	color: var(--highlight);
 }
 
+.item.feed.active .item-title {
+	font-weight: bold;
+}
+
 li.item.active {
 	background-color: var(--bg);
-	font-weight: bold;
 }
 
 .item.feed:hover {
 	background-color: var(--accent-bg);
 	transition: .3s;
+}
+
+.feed .item-title:not([data-unread="0"]) {
+	font-weight: normal;
 }
 
 /*=== New article notification */
@@ -1128,8 +1134,19 @@ option {
 
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
+	margin: calc(var(--frss-padding-top-bottom)) 0 0 0;
 	text-align: right;
 	right: 0.25rem;
+}
+
+.aside .feed.active .item-title:not([data-unread="0"])::after {
+	color: var(--bg);
+	border: none;
+	background-color: var(--highlight);
+}
+
+.aside .feed.active:hover .item-title:not([data-unread="0"])::after {
+	background-color: var(--text);
 }
 
 /*=== Aside main page (feeds) */
