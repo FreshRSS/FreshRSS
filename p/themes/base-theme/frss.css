@@ -1114,7 +1114,7 @@ input[type="search"] {
 
 .aside_feed .tree-folder-title .icon,
 .aside_feed .tree-folder-items .feed .icon {
-	padding: 0 0.5rem 0 0;
+	margin: 0 0.5rem 0 0;
 }
 
 .aside_feed .tree-folder-items .feed .favicon {
@@ -2330,8 +2330,8 @@ html.slider-active {
 	}
 
 	.aside_feed .tree-folder-items .feed .favicon {
-		margin: 0;
-		padding: 0 0.5rem 0 0;
+		margin: 0 0.5rem 0 0;
+		padding: 0;
 	}
 
 	.flux_header .item.website {
