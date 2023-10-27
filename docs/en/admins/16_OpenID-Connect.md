@@ -13,7 +13,7 @@ The callback URL is `https://<your-domain>/i/oidc/`.
 
 OIDC support in Docker is activated by the presence of a non-empty non-zero `OIDC_ENABLED` environment variable.
 
-> ℹ️ Only available in our Debian image for `x86_64` ([help welcome](https://github.com/FreshRSS/FreshRSS/issues/5722)).
+> ℹ️ Only available in our default Debian image (not Alpine) for `x86_64` ([help welcome](https://github.com/FreshRSS/FreshRSS/issues/5722)).
 
 ## The config is done with these environment variables
 
