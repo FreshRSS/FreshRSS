@@ -6,7 +6,7 @@
 ## 2023-10-23 FreshRSS 1.22.0
 
 * Features
-	* Add support for OpenID Connect (only in our Debian-based Docker image) through [`libapache2-mod-auth-openidc`](https://github.com/OpenIDC/mod_auth_openidc)
+	* Add support for OpenID Connect (only in our default Debian-based Docker image for x86_64, not Alpine) through [`libapache2-mod-auth-openidc`](https://github.com/OpenIDC/mod_auth_openidc)
 		[#5351](https://github.com/FreshRSS/FreshRSS/pull/5351), [#5463](https://github.com/FreshRSS/FreshRSS/pull/5463), [#5481](https://github.com/FreshRSS/FreshRSS/pull/5481),
 		[#5523](https://github.com/FreshRSS/FreshRSS/pull/5523), [#5646](https://github.com/FreshRSS/FreshRSS/pull/5646)
 	* Allow sharing in anonymous mode [#5261](https://github.com/FreshRSS/FreshRSS/pull/5261)
