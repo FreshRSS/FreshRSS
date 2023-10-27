@@ -919,6 +919,10 @@ li.item.active {
 	line-height: 3em;
 }
 
+#nav_entries .item a:hover {
+	background-color: var(--bg);
+}
+
 #bigMarkAsRead {
 	text-decoration: none;
 }
