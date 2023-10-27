@@ -107,6 +107,12 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:invalid,
+select:invalid,
+textarea:invalid {
+	border-color: var(--nord11-aurora);
+}
+
 select {
 	padding-top: 10px;
 	padding-bottom: 9px;
