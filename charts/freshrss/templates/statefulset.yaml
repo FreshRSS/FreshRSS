@@ -46,7 +46,7 @@ spec:
               name: data
               subPath: www/freshrss/data
           ports:
-          - containerPort: {{ include "freshrss.port" . | int}}
+          - containerPort: {{ required "A valid freshrss.PORT is required." .Values.freshrss.PORT }}
             name: http
           livenessProbe:
             exec:
