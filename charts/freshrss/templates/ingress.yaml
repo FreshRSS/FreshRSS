@@ -19,5 +19,4 @@ spec:
             backend:
               service:
                 name: "{{ .Release.Name }}"
-                port:
-                  number: 80
+                port: http

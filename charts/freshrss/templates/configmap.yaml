@@ -1,4 +1,3 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -22,5 +21,6 @@ data:
   OIDC_ENABLED: "0"
   {{- end }}
   CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" | quote }}
-  ADMIN_EMAIL: {{ .Values.freshrss.ADMIN_EMAIL | default "" }}
-{{- end }}
+  LISTEN: {{ include freshrss.port }}
+  FRESHRSS_ENV: {{ .Values.freshrss.FRESHRSS_ENV | default "production" }}
+
