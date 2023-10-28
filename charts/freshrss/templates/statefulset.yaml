@@ -46,7 +46,7 @@ spec:
               name: data
               subPath: www/freshrss/data
           ports:
-          - containerPort: 80
+          - containerPort: {{ include "freshrss.port" . }}
             name: http
           livenessProbe:
             exec:
