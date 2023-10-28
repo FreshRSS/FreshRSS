@@ -2,11 +2,27 @@
 
 ## 202X-XX-XX FreshRSS 1.22.1-dev
 
+* Bug fixing
+	* Fix regression in i18n English fallback for extensions [#5752](https://github.com/FreshRSS/FreshRSS/pull/5752)
+	* Fix identification of thumbnails [#5750](https://github.com/FreshRSS/FreshRSS/pull/5750)
+	* OpenID Connect compatibility with colon `:` in `OIDC_SCOPES` [#5753](https://github.com/FreshRSS/FreshRSS/pull/5753)
+	* Avoid a warning on non-numeric `TRUSTED_PROXY` environment variable [#5733](https://github.com/FreshRSS/FreshRSS/pull/5733)
+	* Better identification of proxied client IP with `RemoteIPInternalProxy` in Apache [#5740](https://github.com/FreshRSS/FreshRSS/pull/5740)
+* i18n
+	* Better i18n string for feed submenu for mark as read [#5762](https://github.com/FreshRSS/FreshRSS/pull/5762)
+	* Improve Dutch [#5759](https://github.com/FreshRSS/FreshRSS/pull/5759)
+* UI
+	* Improve *Origine* theme (dark mode) [#5745](https://github.com/FreshRSS/FreshRSS/pull/5745)
+	* Improve *Nord* theme [#5754](https://github.com/FreshRSS/FreshRSS/pull/5754)
+	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737)
+* Misc.
+	* Move to GitHub Actions for our GitHub Pages [#5681](https://github.com/FreshRSS/FreshRSS/pull/5681)
+
 
 ## 2023-10-23 FreshRSS 1.22.0
 
 * Features
-	* Add support for OpenID Connect (only in our Debian-based Docker image) through [`libapache2-mod-auth-openidc`](https://github.com/OpenIDC/mod_auth_openidc)
+	* Add support for OpenID Connect (only in our default Debian-based Docker image for `x86_64`, not Alpine) through [`libapache2-mod-auth-openidc`](https://github.com/OpenIDC/mod_auth_openidc)
 		[#5351](https://github.com/FreshRSS/FreshRSS/pull/5351), [#5463](https://github.com/FreshRSS/FreshRSS/pull/5463), [#5481](https://github.com/FreshRSS/FreshRSS/pull/5481),
 		[#5523](https://github.com/FreshRSS/FreshRSS/pull/5523), [#5646](https://github.com/FreshRSS/FreshRSS/pull/5646)
 	* Allow sharing in anonymous mode [#5261](https://github.com/FreshRSS/FreshRSS/pull/5261)
