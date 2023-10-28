@@ -5,7 +5,7 @@
 * Bug fixing
 	* Fix regression in i18n English fallback for extensions [#5752](https://github.com/FreshRSS/FreshRSS/pull/5752)
 	* Fix identification of thumbnails [#5750](https://github.com/FreshRSS/FreshRSS/pull/5750)
-	* OpenID Connect compatibility with colon `:` in `OIDC_SCOPES` [#5753](https://github.com/FreshRSS/FreshRSS/pull/5753)
+	* OpenID Connect compatibility with colon `:` in `OIDC_SCOPES` [#5753](https://github.com/FreshRSS/FreshRSS/pull/5753), [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 	* Avoid a warning on non-numeric `TRUSTED_PROXY` environment variable [#5733](https://github.com/FreshRSS/FreshRSS/pull/5733)
 	* Better identification of proxied client IP with `RemoteIPInternalProxy` in Apache [#5740](https://github.com/FreshRSS/FreshRSS/pull/5740)
 * i18n
@@ -15,6 +15,10 @@
 	* Improve *Origine* theme (dark mode) [#5745](https://github.com/FreshRSS/FreshRSS/pull/5745)
 	* Improve *Nord* theme [#5754](https://github.com/FreshRSS/FreshRSS/pull/5754)
 	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737)
+* Deployment
+	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
+* Compatibility
+	* Test compatibility with PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * Misc.
 	* Move to GitHub Actions for our GitHub Pages [#5681](https://github.com/FreshRSS/FreshRSS/pull/5681)
 
