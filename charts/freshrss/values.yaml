@@ -28,6 +28,7 @@ ingress:
 # Persistence configuration for storage
 persistence:
   enabled: true                         # Enable or disable persistent storage
+  existingPVCName: ""                   # Name of an existing PVC to reuse (leave empty to create a new PVC)
   # storageClassName: "-"               # Storage class name (uncomment to specify)
   accessMode: ReadWriteOnce             # Access mode for storage
   size: "5Gi"                           # Size of the persistent volume

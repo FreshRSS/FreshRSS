@@ -1,8 +1,18 @@
-{{- if .Values.persistence.enabled -}}
+{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.existingPVCName }}
+# Reuse an existing PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Release.Name }}-data
+  name: {{ .Values.persistence.existingPVCName }}
+  namespace: {{ .Release.Namespace }}
+---
+{{- else }}
+# Create a new PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "mychart.pvcName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ template "name" . }}
@@ -23,4 +33,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size | quote }}
-{{- end -}}
+{{- end }}
+{{- end }}
+{{- end }}

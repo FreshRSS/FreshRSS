@@ -29,7 +29,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-data
+            claimName: {{ include "freshrss.dataPVC" . }}
       containers:
         - name: freshrss
           image: freshrss/freshrss:{{ .Values.image.tag }}
