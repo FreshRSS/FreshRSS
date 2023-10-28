@@ -12,15 +12,15 @@ metadata:
 data:
   {{- if .Values.oidc.enabled -}}
   OIDC_ENABLED: "1"
-  OIDC_PROVIDER_METADATA_URL: {{ .Values.oidc.providerMetadataUrl | default "" }}
-  OIDC_REMOTE_USER_CLAIM: {{ .Values.oidc.remoteUserClaim | default "preferred_username" }}
-  OIDC_CLIENT_ID: {{ .Values.oidc.clientId | default "" }}
-  OIDC_SCOPES: {{ .Values.oidc.scopes | default "openid profile" }}
-  OIDC_X_FORWARDED_HEADERS: {{ .Values.oidc.xForwardedHeaders | default "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" }}
+  OIDC_PROVIDER_METADATA_URL: {{ .Values.oidc.providerMetadataUrl | default "" | quote }}
+  OIDC_REMOTE_USER_CLAIM: {{ .Values.oidc.remoteUserClaim | default "preferred_username" | quote }}
+  OIDC_CLIENT_ID: {{ .Values.oidc.clientId | default "" | quote }}
+  OIDC_SCOPES: {{ .Values.oidc.scopes | default "openid profile" | quote }}
+  OIDC_X_FORWARDED_HEADERS: {{ .Values.oidc.xForwardedHeaders | default "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" | quote }}
   {{- else }}
   OIDC_ENABLED: "0"
   {{- end }}
   CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" | quote }}
-  LISTEN: {{ .Values.freshrss.PORT }}
-  FRESHRSS_ENV: {{ .Values.freshrss.FRESHRSS_ENV | default "production" }}
+  LISTEN: {{ .Values.freshrss.PORT | quote }}
+  FRESHRSS_ENV: {{ .Values.freshrss.FRESHRSS_ENV | default "production" | quote }}
 
