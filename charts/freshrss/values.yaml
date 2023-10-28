@@ -22,7 +22,7 @@ oidc:
 # Ingress configuration
 ingress:
   enabled: true                         # Enable or disable Ingress
-  host: "freshrsstest.yourdomain.com"   # Host for Ingress.
+  host: "freshrss.yourdomain.com"   # Host for Ingress.
   path: "/"                             # Path for Ingress
 
 # Persistence configuration for storage
