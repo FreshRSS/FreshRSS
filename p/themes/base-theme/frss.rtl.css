@@ -208,7 +208,7 @@ label {
 	display: block;
 }
 
-input {
+input:not(.w50,.w100) {
 	max-width: 90%;
 	width: 300px;
 }
