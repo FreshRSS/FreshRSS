@@ -1,14 +1,4 @@
-{{- if .Values.persistence.enabled }}
-{{- if .Values.persistence.existingPVCName }}
-# Reuse an existing PVC
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: {{ .Values.persistence.existingPVCName }}
-  namespace: {{ .Release.Namespace }}
----
-{{- else }}
-# Create a new PVC
+{{- if .Values.persistence.enabled -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -33,6 +23,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size | quote }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{- end -}}
