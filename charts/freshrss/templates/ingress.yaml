@@ -19,4 +19,5 @@ spec:
             backend:
               service:
                 name: "{{ .Release.Name }}"
-                port: {{ .Values.freshrss.PORT }}
+                port: 
+                  number: {{ .Values.freshrss.PORT }}
