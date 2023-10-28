@@ -16,7 +16,7 @@ spec:
     app.kubernetes.io/component: app
   ports:
     - name: http
-      port: 80
+      port: {{ .Values.freshrss.PORT }}
       protocol: TCP
       targetPort: http
   type: ClusterIP

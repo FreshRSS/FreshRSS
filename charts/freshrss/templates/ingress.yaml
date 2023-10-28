@@ -19,4 +19,4 @@ spec:
             backend:
               service:
                 name: "{{ .Release.Name }}"
-                port: http
+                port: {{ .Values.freshrss.PORT }}
