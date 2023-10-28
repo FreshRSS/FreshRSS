@@ -21,6 +21,6 @@ data:
   OIDC_ENABLED: "0"
   {{- end }}
   CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" | quote }}
-  LISTEN: {{ include "freshrss.port" . | int }}
+  LISTEN: {{ include "freshrss.port" . }}
   FRESHRSS_ENV: {{ .Values.freshrss.FRESHRSS_ENV | default "production" }}
 

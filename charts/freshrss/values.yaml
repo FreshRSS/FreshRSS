@@ -7,8 +7,8 @@ image:
 freshrss:
   CRON_MIN: "*/15"                      # Cron timer schedule for FreshRSS. See https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#environment-variables -> CRON_MIN
   FRESHRSS_ENV: "production"            # Set to "development" to increase logging verbosity.
-  LISTEN: 80                            # Port which freshrss will listen on. This also updates the ingress.
-  
+  LISTEN: "80"                            # Port which freshrss will listen on. This also updates the ingress.
+
 # OpenID Connect (OIDC) configuration 
 # See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
 oidc:
