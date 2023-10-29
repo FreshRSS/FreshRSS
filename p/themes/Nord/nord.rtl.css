@@ -176,7 +176,7 @@ table th, table td {
 }
 
 .form-group.form-actions {
-	padding: 5px 0;
+	margin: 2rem 0 5rem 0;
 }
 
 .form-group .group-name {
@@ -1380,5 +1380,22 @@ option {
 
 	.header .configure .dropdown .dropdown-menu {
 		border-radius: 0;
+	}
+
+	.form-group .group-name {
+		font-weight: bold;
+	}
+
+	.form-group .group-name::after {
+		content: ':';
+	}
+
+	.form-group .group-name {
+		padding: 0 0 0.25rem 0;
+	}
+
+	.form-group {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
 	}
 }
