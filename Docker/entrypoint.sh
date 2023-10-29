@@ -22,7 +22,15 @@ if [ -n "$TRUSTED_PROXY" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
-	a2enmod -q auth_openidc
+	# Debian
+	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
+		# Alpine
+		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.')
+	if [ -n "$OIDC_SCOPES" ]; then
+		# Compatibility with : as separator instead of space
+		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
+		export OIDC_SCOPES
+	fi
 fi
 
 if [ -n "$CRON_MIN" ]; then
