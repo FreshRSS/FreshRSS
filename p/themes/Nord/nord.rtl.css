@@ -735,7 +735,6 @@ li.item.active {
 	color: var(--nord15-aurora);
 	border: 2px solid var(--nord15-aurora);
 	border-radius: 6px;
-	line-height: 3em;
 	font-weight: bold;
 	transition: 0.2s background-color, .2s color;
 }
