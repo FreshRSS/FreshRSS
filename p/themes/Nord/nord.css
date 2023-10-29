@@ -1377,4 +1377,8 @@ option {
 	.dropdown .dropdown-menu {
 		border-radius: 6px;
 	}
+
+	.header .configure .dropdown .dropdown-menu {
+		border-radius: 0;
+	}
 }
