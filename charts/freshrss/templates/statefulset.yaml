@@ -1,30 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "freshrss.fullname" . }}
+  namespace: {{ include "freshrss.namespace" . }}
   labels:
-    app: {{ .Release.Name }}
-    app.kubernetes.io/name: {{ template "name" . }}
-    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | default "" }}
+    {{- include "freshrss.labels" . | nindent 4 }}
     app.kubernetes.io/component: app
 spec:
   replicas: 1
   serviceName: freshrss
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ template "name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: app
+        {{- include "freshrss.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ template "name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: app
+        {{- include "freshrss.selectorLabels" . | nindent 8 }}
     spec:
       volumes:
         - name: data
@@ -35,10 +26,10 @@ spec:
           image: freshrss/freshrss:{{ .Values.image.tag }}
           envFrom:
             - configMapRef:
-                name: {{ .Release.Name }}-config
+                name: {{ include "freshrss.fullname" . }}
                 optional: true
             - secretRef:
-                name: {{ .Release.Name }}-secrets
+                name: {{ include "freshrss.fullname" . }}
                 optional: true
           volumeMounts:
             # Add other volume mounts / subpaths as needed.
@@ -46,7 +37,7 @@ spec:
               name: data
               subPath: www/freshrss/data
           ports:
-          - containerPort: {{ required "A valid freshrss.PORT is required." .Values.freshrss.PORT }}
+          - containerPort: {{ .Values.freshrss.PORT }}
             name: http
           livenessProbe:
             exec:

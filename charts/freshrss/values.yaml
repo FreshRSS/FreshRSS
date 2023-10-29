@@ -20,12 +20,14 @@ oidc:
   xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" # Headers for OIDC
   secrets:
     clientSecret: ""                    # OIDC Secret. (This comes from your SSO/OIDC Provider)
-    clientCryptoKey: ""                 # Put a random value here?
+    clientCryptoKey: ""                 # Random value will be automatically generated, if not provided.
+
 # Ingress configuration
 ingress:
   enabled: true                         # Enable or disable Ingress
-  host: "freshrss.yourdomain.com"   # Host for Ingress.
+  host: "freshrss.yourdomain.com"       # Host for Ingress.
   path: "/"                             # Path for Ingress
+  annotations: {}
 
 # Persistence configuration for storage
 persistence:
@@ -34,3 +36,16 @@ persistence:
   # storageClassName: "-"               # Storage class name (uncomment to specify)
   accessMode: ReadWriteOnce             # Access mode for storage
   size: "5Gi"                           # Size of the persistent volume
+
+# Kubernetes Service Configuration
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  ## Service annotations. Can be templated.
+  annotations: {}
+  labels: {}
+  portName: service
+
+# Extra labels which will be applied to all created resources.
+extraLabels: {}
