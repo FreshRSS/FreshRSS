@@ -9,7 +9,7 @@ freshrss:
   FRESHRSS_ENV: "production"            # Set to "development" to increase logging verbosity.
   PORT: 80                              # Port which freshrss will listen on. This also updates the ingress.
 
-# OpenID Connect (OIDC) configuration 
+# OpenID Connect (OIDC) configuration
 # See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
 oidc:
   enabled: false                        # Enable or disable OIDC

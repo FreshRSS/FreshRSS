@@ -19,8 +19,3 @@ At a minimum, set an ingress rule.
 Install.
 
 ![image](https://github.com/XtremeOwnageDotCom/FreshRSS/assets/5262735/b10532de-bb51-4b13-b428-dddc68630154)
-
-
-
-
-

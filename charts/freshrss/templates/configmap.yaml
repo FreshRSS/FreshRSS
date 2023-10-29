@@ -19,4 +19,3 @@ data:
   CRON_MIN: {{ .Values.freshrss.CRON_MIN | default "*/15" | quote }}
   LISTEN: {{ .Values.freshrss.PORT | quote }}
   FRESHRSS_ENV: {{ .Values.freshrss.FRESHRSS_ENV | default "production" | quote }}
-

@@ -7,7 +7,7 @@ Note-
 
 To install, download the manifests to your computer. Run the below script.
 
-```
+```sh
 # Define the namespace
 kubectl apply -f namespace.yaml
 
