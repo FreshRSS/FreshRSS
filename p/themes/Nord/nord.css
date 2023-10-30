@@ -107,6 +107,12 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
+input:invalid,
+select:invalid,
+textarea:invalid {
+	border-color: var(--nord11-aurora);
+}
+
 select {
 	padding-top: 10px;
 	padding-bottom: 9px;
@@ -162,7 +168,7 @@ table {
 }
 
 table tr {
-	border-bottom: 1px solid
+	border-bottom: 1px solid var(--border-elements);
 }
 
 table th, table td {
@@ -694,21 +700,27 @@ img.favicon {
 
 .item.feed.active {
 	background-color: var(--accent-bg);
-	font-weight: bold;
 }
 
 .item.feed.active a {
 	color: var(--highlight);
 }
 
+.item.feed.active .item-title {
+	font-weight: bold;
+}
+
 li.item.active {
 	background-color: var(--bg);
-	font-weight: bold;
 }
 
 .item.feed:hover {
 	background-color: var(--accent-bg);
 	transition: .3s;
+}
+
+.feed .item-title:not([data-unread="0"]) {
+	font-weight: normal;
 }
 
 /*=== New article notification */
@@ -768,6 +780,10 @@ li.item.active {
 .flux .website .favicon {
 	padding: 0.25rem;
 	position: absolute;
+}
+
+.flux .tags .icon {
+	padding: 0.25rem;
 }
 
 .flux .website span {
@@ -913,6 +929,10 @@ li.item.active {
 	line-height: 3em;
 }
 
+#nav_entries .item a:hover {
+	background-color: var(--bg);
+}
+
 #bigMarkAsRead {
 	text-decoration: none;
 }
@@ -1039,9 +1059,8 @@ li.item.active {
 }
 
 .drag-drop-marker {
-	margin: -1px;
+	border: 2px dashed var(--highlight);
 }
-
 
 /*BEGINS BASE.CSS*/
 
@@ -1122,14 +1141,25 @@ option {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	margin: 10px 0;
-	padding: 0 10px;
+	padding: 0 0.5rem;
 	font-size: 0.9rem;
 }
 
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
+	margin: calc(var(--frss-padding-top-bottom)) 0 0 0;
 	text-align: right;
 	right: 0.25rem;
+}
+
+.aside .feed.active .item-title:not([data-unread="0"])::after {
+	color: var(--bg);
+	border: none;
+	background-color: var(--highlight);
+}
+
+.aside .feed.active:hover .item-title:not([data-unread="0"])::after {
+	background-color: var(--text);
 }
 
 /*=== Aside main page (feeds) */

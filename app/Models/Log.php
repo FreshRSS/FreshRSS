@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_Log extends Minz_Model {
 
 	private string $date;
