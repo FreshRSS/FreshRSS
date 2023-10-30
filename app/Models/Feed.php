@@ -61,8 +61,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $lockPath = '';
 	private string $hubUrl = '';
 	private string $selfUrl = '';
-	/** @var array<FreshRSS_FilterAction> $filterActions */
-	private array $filterActions = [];
+	/** @var array<FreshRSS_FilterAction>|null $filterActions */
+	private ?array $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
 		if ($validate) {
