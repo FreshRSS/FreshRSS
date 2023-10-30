@@ -32,12 +32,10 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
-	/** @var string */
-	private $mailer;
+	private string $mailer;
 	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
-	private $smtp_config;
-	/** @var int */
-	private $debug_level;
+	private array $smtp_config;
+	private int $debug_level;
 
 	/**
 	 * Constructor.

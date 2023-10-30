@@ -4,20 +4,16 @@
  * Provide useful methods to generate files to export.
  */
 class FreshRSS_Export_Service {
-	/** @var string */
-	private $username;
 
-	/** @var FreshRSS_CategoryDAO */
-	private $category_dao;
+	private string $username;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feed_dao;
+	private FreshRSS_CategoryDAO $category_dao;
 
-	/** @var FreshRSS_EntryDAO */
-	private $entry_dao;
+	private FreshRSS_FeedDAO $feed_dao;
 
-	/** @var FreshRSS_TagDAO */
-	private $tag_dao;
+	private FreshRSS_EntryDAO $entry_dao;
+
+	private FreshRSS_TagDAO $tag_dao;
 
 	public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	public const TYPE_HTML_XPATH = 'HTML+XPath';

@@ -136,11 +136,9 @@ final class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
-	/** @var FreshRSS_EntryDAO */
-	private $entryDAO;
+	private FreshRSS_EntryDAO $entryDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_FeedDAO $feedDAO;
 
 	/**
 	 * Authenticate the user

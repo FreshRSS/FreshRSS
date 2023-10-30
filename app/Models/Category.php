@@ -12,26 +12,19 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	public const KIND_DYNAMIC_OPML = 2;
 
-	/** @var int */
-	private $id = 0;
-	/** @var int */
-	private $kind = 0;
-	/** @var string */
-	private $name;
-	/** @var int */
-	private $nbFeeds = -1;
-	/** @var int */
-	private $nbNotRead = -1;
+	private int $id = 0;
+	private int $kind = 0;
+	private string $name;
+	private int $nbFeeds = -1;
+	private int $nbNotRead = -1;
 	/** @var array<FreshRSS_Feed>|null */
-	private $feeds;
+	private ?array $feeds = null;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
 	/** @var array<string,mixed> */
-	private $attributes = [];
-	/** @var int */
-	private $lastUpdate = 0;
-	/** @var bool */
-	private $error = false;
+	private array $attributes = [];
+	private int $lastUpdate = 0;
+	private bool $error = false;
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds

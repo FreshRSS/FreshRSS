@@ -10,10 +10,8 @@ class I18nValue {
 		self::STATE_TODO,
 	];
 
-	/** @var string */
-	private $value;
-	/**	@var string|null */
-	private $state;
+	private string $value;
+	private ?string $state = null;
 
 	public function __construct(string $data) {
 		$data = explode(' -> ', $data);

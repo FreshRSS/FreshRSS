@@ -5,7 +5,7 @@ class I18nData {
 	public const REFERENCE_LANGUAGE = 'en';
 
 	/** @var array<string,array<string,array<string,I18nValue>>> */
-	private $data;
+	private array $data;
 
 	/** @param array<string,array<string,array<string,I18nValue>>> $data */
 	public function __construct(array $data) {

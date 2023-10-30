@@ -6,22 +6,21 @@
  * @todo see coding style for methods!!
  */
 final class Minz_ExtensionManager {
-	/** @var string */
-	private static $ext_metaname = 'metadata.json';
-	/** @var string */
-	private static $ext_entry_point = 'extension.php';
+
+	private static string $ext_metaname = 'metadata.json';
+	private static string $ext_entry_point = 'extension.php';
 	/** @var array<string,Minz_Extension> */
-	private static $ext_list = array();
+	private static array $ext_list = [];
 	/** @var array<string,Minz_Extension> */
-	private static $ext_list_enabled = array();
+	private static array $ext_list_enabled = [];
 	/** @var array<string,bool> */
-	private static $ext_auto_enabled = array();
+	private static array $ext_auto_enabled = [];
 
 	/**
 	 * List of available hooks. Please keep this list sorted.
 	 * @var array<string,array{'list':array<callable>,'signature':'NoneToNone'|'NoneToString'|'OneToOne'|'PassArguments'}>
 	 */
-	private static $hook_list = array(
+	private static array $hook_list = [
 		'check_url_before_add' => array(	// function($url) -> Url | null
 			'list' => array(),
 			'signature' => 'OneToOne',
@@ -90,7 +89,7 @@ final class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'PassArguments',
 		),
-	);
+	];
 
 	/** Remove extensions and hooks from a previous initialisation */
 	private static function reset(): void {

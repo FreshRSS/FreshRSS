@@ -8,7 +8,7 @@ class FreshRSS_Share {
 	 * The list of available sharing options.
 	 * @var array<string,FreshRSS_Share>
 	 */
-	private static $list_sharing = [];
+	private static array $list_sharing = [];
 
 	/**
 	 * Register a new sharing option.
@@ -71,45 +71,31 @@ class FreshRSS_Share {
 	}
 
 
-	/** @var string */
-	private $type;
-	/** @var string */
-	private $name;
-	/** @var string */
-	private $url_transform;
+	private string $type;
+	private string $name;
+	private string $url_transform;
 	/** @var array<callable>|array<string,array<callable>> */
-	private $transforms;
+	private array $transforms;
 	/**
 	 * @phpstan-var 'simple'|'advanced'
-	 * @var string
 	 */
-	private $form_type;
-	/** @var string */
-	private $help_url;
-	/** @var string|null */
-	private $custom_name = null;
-	/** @var string|null */
-	private $base_url = null;
-	/** @var string|null */
-	private $id = null;
-	/** @var string|null */
-	private $title = null;
-	/** @var string|null */
-	private $link = null;
-	/** @var bool */
-	private $isDeprecated;
+	private string $form_type;
+	private string $help_url;
+	private ?string $custom_name = null;
+	private ?string $base_url = null;
+	private ?string $id = null;
+	private ?string $title = null;
+	private ?string $link = null;
+	private bool $isDeprecated;
 	/**
 	 * @phpstan-var 'GET'|'POST'
-	 * @var string
 	 */
-	private $method;
-	/** @var string|null */
-	private $field;
+	private string $method;
+	private ?string $field;
 	/**
 	 * @phpstan-var 'button'|null
-	 * @var string
 	 */
-	private $HTMLtag;
+	private ?string $HTMLtag;
 
 	/**
 	 * Create a FreshRSS_Share object.

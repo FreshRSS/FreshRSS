@@ -4,16 +4,13 @@
  * The Minz_Session class handles user’s session
  */
 class Minz_Session {
-	/**
-	 * @var bool
-	 */
-	private static $volatile = false;
+
+	private static bool $volatile = false;
 
 	/**
 	 * For mutual exclusion.
-	 * @var bool
 	 */
-	private static $locked = false;
+	private static bool $locked = false;
 
 	public static function lock(): bool {
 		if (!self::$volatile && !self::$locked) {

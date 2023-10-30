@@ -6,11 +6,9 @@ use PHPUnit\Framework\TestCase;
 class LogDAOTest extends TestCase {
 	private const LOG_FILE_TEST = 'logFileTest.txt';
 
-	/** @var FreshRSS_LogDAO */
-	private $logDAO;
+	private FreshRSS_LogDAO $logDAO;
 
-	/** @var string */
-	private $logPath;
+	private string $logPath;
 
 	protected function setUp(): void {
 		$this->logDAO = new FreshRSS_LogDAO();
@@ -27,7 +25,6 @@ class LogDAOTest extends TestCase {
 
 		$line = $this->logDAO::lines(self::LOG_FILE_TEST);
 
-		self::assertIsArray($line);
 		self::assertCount(1, $line);
 		self::assertInstanceOf(FreshRSS_Log::class, $line[0]);
 		self::assertEquals('Wed, 08 Feb 2023 15:35:05 +0000', $line[0]->date());

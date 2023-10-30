@@ -12,29 +12,16 @@ class Minz_ModelPdo {
 
 	/**
 	 * Shares the connection to the database between all instances.
-	 * @var bool
 	 */
-	public static $usesSharedPdo = true;
+	public static bool $usesSharedPdo = true;
 
-	/**
-	 * @var Minz_Pdo|null
-	 */
-	private static $sharedPdo;
+	private static ?Minz_Pdo $sharedPdo = null;
 
-	/**
-	 * @var string|null
-	 */
-	private static $sharedCurrentUser;
+	private static ?string $sharedCurrentUser;
 
-	/**
-	 * @var Minz_Pdo
-	 */
-	protected $pdo;
+	protected Minz_Pdo $pdo;
 
-	/**
-	 * @var string|null
-	 */
-	protected $current_user;
+	protected ?string $current_user;
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
