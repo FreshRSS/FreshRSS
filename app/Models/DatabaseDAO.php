@@ -214,22 +214,14 @@ SQL;
 		return $ok;
 	}
 
-	private function ensureYear2038Compatible(): bool {
-		if ($this->pdo->dbType() !== 'sqlite') {
-			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-			if ($this->pdo->exec($GLOBALS['SQL_UPDATE_YEAR_2038']) === false) {	//FreshRSS 1.23
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		$this->ensureYear2038Compatible();
+		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		}
 	}
 
 	private static function stdError(string $error): bool {
