@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'archived' => 'Ne jelenjen meg (archivált)',
+			'category' => 'Jelenjen meg a saját kategóriájában',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Megjelenítés a Minden cikk között',
-			'normal' => 'Jelenjen meg a saját kategóriájában',
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
 		'proxy_help' => 'Válassz egy protokolt (pl: SOCKS5) és add meg a proxy címét (pl: <kbd>127.0.0.1:1080</kbd>)',

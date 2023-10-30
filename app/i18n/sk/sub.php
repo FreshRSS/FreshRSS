@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',
+			'category' => 'Zobraziť vo svojej kategórii',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Zobraziť v prehľade kanálov',
-			'normal' => 'Zobraziť vo svojej kategórii',
 		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
 		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd>)',

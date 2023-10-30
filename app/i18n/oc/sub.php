@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',
+			'category' => 'Mostar dins sa categoria',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostar al flux màger',
-			'normal' => 'Mostar dins sa categoria',
 		),
 		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
 		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd>)',

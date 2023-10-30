@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
 		'title' => 'Lecture',
 		'view' => array(
+			'category' => 'Vue normale',
 			'default' => 'Vue par défaut',
 			'global' => 'Vue globale',
-			'normal' => 'Vue normale',
 			'reader' => 'Vue lecture',
 		),
 	),

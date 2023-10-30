@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',
 		'view' => array(
+			'category' => 'Vista Normal',
 			'default' => 'Vista por defecto',
 			'global' => 'Vista Global',
-			'normal' => 'Vista Normal',
 			'reader' => 'Vista de Lectura',
 		),
 	),

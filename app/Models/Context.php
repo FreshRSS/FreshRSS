@@ -52,6 +52,7 @@ final class FreshRSS_Context {
 	public static $current_get = [
 		'all' => false,
 		'starred' => false,
+		'important' => false,
 		'feed' => false,
 		'category' => false,
 		'tag' => false,
@@ -259,6 +260,8 @@ final class FreshRSS_Context {
 	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
 			return $asArray ? ['a', true] : 'a';
+		} elseif (self::$current_get['important']) {
+			return $asArray ? ['i', true] : 'i';
 		} elseif (self::$current_get['starred']) {
 			return $asArray ? ['s', true] : 's';
 		} elseif (self::$current_get['feed']) {
@@ -293,6 +296,13 @@ final class FreshRSS_Context {
 	}
 
 	/**
+	 * @return bool true if the current request targets important feeds, false otherwise.
+	 */
+	public static function isImportant(): bool {
+		return self::$current_get['important'] != false;
+	}
+
+	/**
 	 * @return bool true if the current request targets a category, false otherwise.
 	 */
 	public static function isCategory(): bool {
@@ -323,6 +333,8 @@ final class FreshRSS_Context {
 		switch($type) {
 		case 'a':
 			return self::$current_get['all'];
+		case 'i':
+			return self::$current_get['important'];
 		case 's':
 			return self::$current_get['starred'];
 		case 'f':
@@ -366,6 +378,12 @@ final class FreshRSS_Context {
 		switch($type) {
 		case 'a':
 			self::$current_get['all'] = true;
+			self::$name = _t('index.feed.title');
+			self::$description = self::$system_conf->meta_description;
+			self::$get_unread = self::$total_unread;
+			break;
+		case 'i':
+			self::$current_get['important'] = true;
 			self::$name = _t('index.feed.title');
 			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;

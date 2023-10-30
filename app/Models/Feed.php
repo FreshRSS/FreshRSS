@@ -28,8 +28,9 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public const KIND_JSON_XPATH = 20;
 
+	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
-	public const PRIORITY_NORMAL = 0;
+	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;

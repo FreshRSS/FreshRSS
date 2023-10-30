@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',
 			'archived' => 'Do not show (archived)',
+			'category' => 'Show in its category',
+			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
-			'normal' => 'Show in its category',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',

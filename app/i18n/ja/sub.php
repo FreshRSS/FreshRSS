@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',
+			'category' => 'カテゴリで表示する',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'メインストリームで表示する',
-			'normal' => 'カテゴリで表示する',
 		),
 		'proxy' => 'フィードを読み込み時にproxyを設定してください',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd>)',

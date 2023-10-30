@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',
 		'view' => array(
+			'category' => 'Normal görünüm',
 			'default' => 'Öntanımlı görünüm',
 			'global' => 'Evrensel görünüm',
-			'normal' => 'Normal görünüm',
 			'reader' => 'Okuma görünümü',
 		),
 	),

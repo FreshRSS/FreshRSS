@@ -46,6 +46,7 @@ return array(
 		'bookmark_query' => 'Huidige query opslaan',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Overzicht',
 		'mark_all_read' => 'Markeer alles als gelezen',
 		'mark_cat_read' => 'Markeer categorie als gelezen',

@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Při otevření připnout článek na začátek',
 		'title' => 'Čtení',
 		'view' => array(
+			'category' => 'Normální zobrazení',
 			'default' => 'Výchozí zobrazení',
 			'global' => 'Zobrazení přehledu',
-			'normal' => 'Normální zobrazení',
 			'reader' => 'Zobrazení pro čtení',
 		),
 	),

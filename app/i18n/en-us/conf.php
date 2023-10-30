@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
 		'title' => 'Reading',	// IGNORE
 		'view' => array(
+			'category' => 'Normal view',	// IGNORE
 			'default' => 'Default view',	// IGNORE
 			'global' => 'Global view',	// IGNORE
-			'normal' => 'Normal view',	// IGNORE
 			'reader' => 'Reading view',	// IGNORE
 		),
 	),

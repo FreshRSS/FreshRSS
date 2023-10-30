@@ -28,18 +28,26 @@
 	<form id="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
-		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
-					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
-			</div>
-		</li>
-
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
 				<?= _i('starred') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
 					<?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?>
 				</a>
+			</div>
+		</li>
+
+		<li class="tree-folder category <?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
+			<div class="tree-folder-title">
+				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
+					<?= _t('index.menu.important', format_number(FreshRSS_Context::$total_starred['all'])) ?>
+				</a>
+			</div>
+		</li>
+
+		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
+			<div class="tree-folder-title">
+				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
+					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
 			</div>
 		</li>
 

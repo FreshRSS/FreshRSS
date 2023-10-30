@@ -46,6 +46,7 @@ return array(
 		'bookmark_query' => 'Pievienot grāmatzīmi pašreizējam pieprasījumam',
 		'favorites' => 'Mīļākie (%s)',
 		'global_view' => 'Globālais skats',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Galvenā plūsma',
 		'mark_all_read' => 'Atzīmēt visus kā izlasītus',
 		'mark_cat_read' => 'Atzīmēt kategoriju kā izlasītu',

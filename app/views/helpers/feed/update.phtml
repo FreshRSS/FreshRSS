@@ -80,10 +80,12 @@
 			<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 			<div class="group-controls">
 				<select name="priority" id="priority" class="w50">
+					<option value='<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.important') ?></option>
 					<option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php
 						if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
-					<option value='<?= FreshRSS_Feed::PRIORITY_NORMAL ?>' <?php
-						if (FreshRSS_Feed::PRIORITY_NORMAL === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.normal') ?></option>
+					<option value='<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.category') ?></option>
 					<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
 						if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
 				</select>

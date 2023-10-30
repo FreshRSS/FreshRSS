@@ -46,6 +46,7 @@ return array(
 		'bookmark_query' => '收藏當前查詢',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局視圖',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => '首頁',
 		'mark_all_read' => '全部設為已讀',
 		'mark_cat_read' => '此分類設為已讀',

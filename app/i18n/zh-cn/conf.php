@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',
 		'view' => array(
+			'category' => '普通视图',
 			'default' => '默认视图',
 			'global' => '全屏视图',
-			'normal' => '普通视图',
 			'reader' => '阅读视图',
 		),
 	),
