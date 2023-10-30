@@ -854,7 +854,7 @@ function init_column_categories() {
 			const itemId = a.closest('.item').id;
 			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
 			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb');
+			const feed_web = a.getAttribute('data-fweb') || '';
 			const div = a.parentElement;
 			const dropdownMenu = div.querySelector('.dropdown-menu');
 			const template = document.getElementById(templateId)
@@ -863,8 +863,11 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
-				if (feed_web.length < 1) {
-					div.querySelector('.item.link.website').remove();
+				if (feed_web == '') {
+					const website = div.querySelector('.item.link.website');
+					if (website) {
+						website.remove();
+					}
 				}
 				const b = div.querySelector('button.confirm');
 				if (b) {
