@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"name" VARCHAR(191) NOT NULL,
 	"website" VARCHAR(32768),
 	"description" TEXT,
-	"lastUpdate" INT DEFAULT 0,
+	"lastUpdate" BIGINT DEFAULT 0,
 	"priority" SMALLINT NOT NULL DEFAULT 10,
 	"pathEntries" VARCHAR(65535) DEFAULT NULL,
 	"httpAuth" VARCHAR(1024) DEFAULT NULL,
@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"author" VARCHAR(65535),
 	"content" TEXT,
 	"link" VARCHAR(32768) NOT NULL,
-	"date" INT,
-	"lastSeen" INT DEFAULT 0,
+	"date" BIGINT,
+	"lastSeen" BIGINT DEFAULT 0,
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"author" VARCHAR(65535),
 	"content" TEXT,
 	"link" VARCHAR(32768) NOT NULL,
-	"date" INT,
-	"lastSeen" INT DEFAULT 0,
+	"date" BIGINT,
+	"lastSeen" BIGINT DEFAULT 0,
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
@@ -100,4 +100,15 @@ SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_YEAR_2038'] = <<<'SQL'
+ALTER TABLE `_entry`	-- v1.23
+	ALTER COLUMN "date" SET DATA TYPE BIGINT,
+	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT;
+ALTER TABLE `_entrytmp`
+	ALTER COLUMN "date" SET DATA TYPE BIGINT,
+	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT;
+ALTER TABLE `_feed`
+	ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT;
 SQL;

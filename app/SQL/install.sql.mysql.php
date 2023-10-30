@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`name` VARCHAR(191) NOT NULL,
 	`website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(65535) DEFAULT NULL,
 	`httpAuth` VARCHAR(1024) DEFAULT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`author` VARCHAR(65535),
 	`content_bin` MEDIUMBLOB,	-- v0.7
 	`link` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`author` VARCHAR(65535),
 	`content_bin` MEDIUMBLOB,
 	`link` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -111,4 +111,15 @@ SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_YEAR_2038'] = <<<'SQL'
+ALTER TABLE `_entry`	-- v1.23
+	MODIFY COLUMN `date` BIGINT,
+	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0;
+ALTER TABLE `_entrytmp`
+	MODIFY COLUMN `date` BIGINT,
+	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0;
+ALTER TABLE `_feed`
+	MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0;
 SQL;
