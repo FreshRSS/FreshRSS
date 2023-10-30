@@ -143,7 +143,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _name(string $value): void {
-		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
+		$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 	}
 
 	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */

@@ -109,18 +109,18 @@ SQL;
 		}
 		if ($this->addEntryPrepared) {
 			$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
-			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
 			$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
+			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 65535, 'UTF-8');
 			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
 			$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
-			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
+			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 65535, 'UTF-8');
 			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
 			$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
 			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
 			$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
-			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 32768);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
@@ -134,7 +134,7 @@ SQL;
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
 			$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
+			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 65535, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 			if (!isset($valuesTmp['attributes'])) {
@@ -215,18 +215,18 @@ SQL;
 			$this->updateEntryPrepared = $this->pdo->prepare($sql) ?: null;
 		}
 		if ($this->updateEntryPrepared) {
-			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
 			$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
+			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 65535, 'UTF-8');
 			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
 			$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
-			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
+			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 65535, 'UTF-8');
 			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
 			$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
 			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
 			$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
-			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 32768);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$valuesTmp['date'] = min($valuesTmp['date'], 2147483647);
@@ -243,7 +243,7 @@ SQL;
 				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
 			}
 			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
+			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 65535, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 			if (!isset($valuesTmp['attributes'])) {
