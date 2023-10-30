@@ -1123,7 +1123,7 @@ option {
 .dropdown-menu > .item > ul > .item > a,
 .dropdown-menu > .item > ul > .item > span,
 .dropdown-menu > .item > ul > .item > .as-link {
-	color: var(--text-light);
+	color: var(--text-light) !important;
 }
 
 /*=== STRUCTURE */
