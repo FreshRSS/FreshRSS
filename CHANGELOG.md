@@ -5,7 +5,8 @@
 * Compatibility
 	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
 * Features
-	* Increase SQL (`VARCHAR`) text fields to maximum possible [#5756](https://github.com/FreshRSS/FreshRSS/pull/5756)
+	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5756](https://github.com/FreshRSS/FreshRSS/pull/5756)
+	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
 * Misc.
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
 
