@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This is a configuration file. You shouldn’t modify it unless you know what
  * you are doing. If you want to add a share type, this is where you need to do

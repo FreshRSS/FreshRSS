@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @property bool $allow_anonymous
  * @property bool $allow_anonymous_refresh
@@ -27,6 +29,7 @@
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
+	/** @throws Minz_ConfigurationNamespaceException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		return parent::get('system');

@@ -1087,11 +1087,31 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
-		if (el && navigator.clipboard) {	// Clipboard
-			navigator.clipboard.writeText(el.dataset.url);
-			el.classList.remove('ok');
-			el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
-			el.classList.add('ok');
+		if (el) { // Clipboard
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(el.dataset.url)
+					.then(() => {
+						toggleClass(el, 'error');
+					})
+					.catch(e => {
+						console.log(e);
+						toggleClass(el, 'error');
+					});
+			} else {
+				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
+				const inputElement = document.createElement('input');
+				inputElement.value = el.dataset.url;
+				document.body.appendChild(inputElement);
+				inputElement.select();
+				if (document.execCommand && document.execCommand('copy')) {
+					toggleClass(el, 'ok');
+				} else {
+					console.log('document.execCommand("copy") failed');
+					toggleClass(el, 'error');
+				}
+				inputElement.remove();
+			}
+
 			return false;
 		}
 
@@ -1225,6 +1245,12 @@ function init_stream(stream) {
 	};
 }
 
+function toggleClass(el, cssclass) {
+	el.classList.remove(cssclass);
+	el.dataset.foo = el.offsetWidth; // it does nothing, but it is needed. See https://github.com/FreshRSS/FreshRSS/pull/5295
+	el.classList.add(cssclass);
+}
+
 function init_nav_entries() {
 	const nav_entries = document.getElementById('nav_entries');
 	if (nav_entries) {
@@ -1274,47 +1300,63 @@ function loadDynamicTags(div) {
 			return req.onerror(e);
 		}
 
-		const li_item0 = document.createElement('li');
-		li_item0.setAttribute('class', 'item addItem');
+		if (!context.anonymous) {
+			const li_item0 = document.createElement('li');
+			li_item0.setAttribute('class', 'item addItem');
 
-		const label = document.createElement('label');
-		label.setAttribute('class', 'noHover');
+			const label = document.createElement('label');
+			label.setAttribute('class', 'noHover');
 
-		const input_checkboxTag = document.createElement('input');
-		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
-		input_checkboxTag.setAttribute('name', 't_0');
-		input_checkboxTag.setAttribute('type', 'checkbox');
+			const input_checkboxTag = document.createElement('input');
+			input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+			input_checkboxTag.setAttribute('name', 't_0');
+			input_checkboxTag.setAttribute('type', 'checkbox');
 
-		const input_newTag = document.createElement('input');
-		input_newTag.setAttribute('type', 'text');
-		input_newTag.setAttribute('name', 'newTag');
-		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+			const input_newTag = document.createElement('input');
+			input_newTag.setAttribute('type', 'text');
+			input_newTag.setAttribute('name', 'newTag');
+			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
-		const button_btn = document.createElement('button');
-		button_btn.setAttribute('type', 'button');
-		button_btn.setAttribute('class', 'btn');
-		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+			const button_btn = document.createElement('button');
+			button_btn.setAttribute('type', 'button');
+			button_btn.setAttribute('class', 'btn');
+			button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
 
-		const text_plus = document.createTextNode('+');
+			const text_plus = document.createTextNode('+');
 
-		const div_stick = document.createElement('div');
-		div_stick.setAttribute('class', 'stick');
+			const div_stick = document.createElement('div');
+			div_stick.setAttribute('class', 'stick');
 
-		button_btn.appendChild(text_plus);
-		div_stick.appendChild(input_newTag);
-		div_stick.appendChild(button_btn);
-		label.appendChild(input_checkboxTag);
-		label.appendChild(div_stick);
-		li_item0.appendChild(label);
+			button_btn.appendChild(text_plus);
+			div_stick.appendChild(input_newTag);
+			div_stick.appendChild(button_btn);
+			label.appendChild(input_checkboxTag);
+			label.appendChild(div_stick);
+			li_item0.appendChild(label);
 
-		div.querySelector('.dropdown-menu').appendChild(li_item0);
+			div.querySelector('.dropdown-menu').appendChild(li_item0);
+		}
 
 		let html = '';
 		if (json && json.length) {
+			let nbLabelsChecked = 0;
 			for (let i = 0; i < json.length; i++) {
 				const tag = json[i];
-				html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
-						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
+				if (context.anonymous && !tag.checked) {
+					// In anomymous mode, show only the used tags
+					continue;
+				}
+				if (tag.checked) {
+					nbLabelsChecked++;
+				}
+				html += '<li class="item"><label><input ' +
+					(context.anonymous ? '' : 'class="checkboxTag" ') +
+					'name="t_' + tag.id + '"type="checkbox" ' +
+					(context.anonymous ? 'disabled="disabled" ' : '') +
+					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
+			}
+			if (context.anonymous && nbLabelsChecked === 0) {
+				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
@@ -1560,9 +1602,12 @@ function notifs_html5_is_supported() {
 }
 
 function notifs_html5_ask_permission() {
-	window.Notification.requestPermission(function () {
-		notifs_html5_permission = window.Notification.permission;
-	});
+	try {
+		window.Notification.requestPermission(function () {
+			notifs_html5_permission = window.Notification.permission;
+		});
+	} catch (e) {
+	}
 }
 
 function notifs_html5_show(nb, nb_new) {
@@ -1570,24 +1615,27 @@ function notifs_html5_show(nb, nb_new) {
 		return;
 	}
 
-	const notification = new window.Notification(context.i18n.notif_title_articles, {
-		icon: '../themes/icons/favicon-256-padding.png',
-		body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
-		tag: 'freshRssNewArticles',
-	});
-
-	notification.onclick = function () {
-		delayedFunction(function () {
-			location.reload();
-			window.focus();
-			notification.close();
+	try {
+		const notification = new window.Notification(context.i18n.notif_title_articles, {
+			icon: '../themes/icons/favicon-256-padding.png',
+			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			tag: 'freshRssNewArticles',
 		});
-	};
 
-	if (context.html5_notif_timeout !== 0) {
-		setTimeout(function () {
-			notification.close();
-		}, context.html5_notif_timeout * 1000);
+		notification.onclick = function () {
+			delayedFunction(function () {
+				location.reload();
+				window.focus();
+				notification.close();
+			});
+		};
+
+		if (context.html5_notif_timeout !== 0) {
+			setTimeout(function () {
+				notification.close();
+			}, context.html5_notif_timeout * 1000);
+		}
+	} catch (e) {
 	}
 }
 

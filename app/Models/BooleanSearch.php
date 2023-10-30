@@ -5,16 +5,14 @@
  */
 class FreshRSS_BooleanSearch {
 
-	/** @var string */
-	private $raw_input = '';
+	private string $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
-	private $searches = [];
+	private array $searches = [];
 
 	/**
 	 * @phpstan-var 'AND'|'OR'|'AND NOT'
-	 * @var string
 	 */
-	private $operator;
+	private string $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND') {
@@ -90,10 +88,14 @@ class FreshRSS_BooleanSearch {
 		}
 
 		if (!empty($all_matches)) {
+			$category_dao = FreshRSS_Factory::createCategoryDao();
+			$feed_dao = FreshRSS_Factory::createFeedDao();
+			$tag_dao = FreshRSS_Factory::createTagDao();
+
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
 			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query);
+				$query = new FreshRSS_UserQuery($raw_query, $feed_dao, $category_dao, $tag_dao);
 				$queries[] = $query;
 			}
 
@@ -233,7 +235,7 @@ class FreshRSS_BooleanSearch {
 
 	private function parseOrSegments(string $input): void {
 		$input = trim($input);
-		if ($input == '') {
+		if ($input === '') {
 			return;
 		}
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];

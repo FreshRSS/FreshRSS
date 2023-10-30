@@ -302,7 +302,7 @@
 		</p>
 
 		<div class="form-group">
-			<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
+			<div class="group-name"><?= _t('conf.archiving.policy') ?></div>
 			<div class="group-controls">
 				<label class="checkbox">
 					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
@@ -519,7 +519,7 @@
 			?>
 			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 			<div class="group-controls">
-				<div class="stick w100">
+				<div class="w100">
 					<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>"
 						data-leave-validation="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				</div>

@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistem konfigurasi',
 		'auto-update-url' => 'Auto-update server URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'dalam hitungan detik',
 			'number' => 'Durasi untuk terus masuk',
@@ -183,6 +187,7 @@ return array(
 			),
 			'title' => 'Formulir Pendaftaran Pengguna',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
@@ -195,8 +200,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Periksa pembaruan baru',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
-		'last' => 'Verifikasi terakhir: %s',
+		'current_version' => 'Versi saat ini adalah',
+		'last' => 'Verifikasi terakhir',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
 		'releaseChannel' => array(

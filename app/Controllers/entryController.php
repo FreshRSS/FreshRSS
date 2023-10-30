@@ -7,9 +7,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
-	 * @var bool
 	 */
-	private $ajax = false;
+	private bool $ajax = false;
 
 	/**
 	 * This action is called before every other action in that class. It is
@@ -169,7 +168,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward($url_redirect, true);
 		}
 
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->optimize();
@@ -188,7 +189,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();

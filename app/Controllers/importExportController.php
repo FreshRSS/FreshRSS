@@ -5,11 +5,9 @@
  */
 class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
-	/** @var FreshRSS_EntryDAO */
-	private $entryDAO;
+	private FreshRSS_EntryDAO $entryDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_FeedDAO $feedDAO;
 
 	/**
 	 * This action is called before every other action in that class. It is
@@ -182,7 +180,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'), [ 'c' => 'importExport', 'a' => 'index' ]);
 		}
 
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$error = false;
 		try {
@@ -201,7 +201,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		// And finally, we get import status and redirect to the home page
-		Minz_Session::_param('actualize_feeds', true);
 		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}
@@ -309,7 +308,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (!isset($item['guid']) && isset($item['id'])) {
 				$item['guid'] = $item['id'];
 			}
@@ -382,7 +381,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// Then, articles are imported.
 		$newGuids = [];
 		$this->entryDAO->beginTransaction();
-		foreach ($items as $item) {
+		foreach ($items as &$item) {
 			if (empty($item['guid']) || empty($article_to_feed[$item['guid']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
@@ -427,14 +426,17 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$url = '';
 			}
+			if (!is_string($url)) {
+				$url = '';
+			}
 
 			$title = empty($item['title']) ? $url : $item['title'];
 
-			if (!empty($item['content']['content'])) {
+			if (isset($item['content']['content']) && is_string($item['content']['content'])) {
 				$content = $item['content']['content'];
-			} elseif (!empty($item['summary']['content'])) {
+			} elseif (isset($item['summary']['content']) && is_string($item['summary']['content'])) {
 				$content = $item['summary']['content'];
-			} elseif (!empty($item['content'])) {
+			} elseif (isset($item['content']) && is_string($item['content'])) {
 				$content = $item['content'];	//FeedBin
 			} else {
 				$content = '';

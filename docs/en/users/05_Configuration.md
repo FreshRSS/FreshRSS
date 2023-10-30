@@ -21,9 +21,10 @@ Available languages are:
 | Spanish                 | Español                | es                                   |
 | French                  | Français               | fr                                   |
 | Hebrew                  | עברית                  | he                                   |
+| Hungarian               | Magyar                 | hu                                   |
 | Indonesian              | Bahasa Indonesia       | id                                   |
 | Italian                 | Italiano               | it                                   |
-| Japanease               | 日本語                  | ja                                   |
+| Japanese                | 日本語                  | ja                                   |
 | Korean                  | 한국어                  | ko                                   |
 | Latvian                 | Latviešu               | lv                                   |
 | Dutch                   | Nederlands             | nl                                   |

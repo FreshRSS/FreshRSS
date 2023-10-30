@@ -7,38 +7,26 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
 
-	/** @var string */
-	private $id = '0';
-	/** @var string */
-	private $guid;
-	/** @var string */
-	private $title;
+	private string $id = '0';
+	private string $guid;
+	private string $title;
 	/** @var array<string> */
-	private $authors;
-	/** @var string */
-	private $content;
-	/** @var string */
-	private $link;
-	/** @var int */
-	private $date;
-	/** @var int */
-	private $lastSeen = 0;
-	/** @var string In microseconds */
-	private $date_added = '0';
-	/** @var string */
-	private $hash = '';
-	/** @var bool|null */
-	private $is_read;
-	/** @var bool|null */
-	private $is_favorite;
-	/** @var int */
-	private $feedId;
-	/** @var FreshRSS_Feed|null */
-	private $feed;
+	private array $authors;
+	private string $content;
+	private string $link;
+	private int $date;
+	private int $lastSeen = 0;
+	/** In microseconds */
+	private string $date_added = '0';
+	private string $hash = '';
+	private ?bool $is_read;
+	private ?bool $is_favorite;
+	private int $feedId;
+	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
-	private $tags = [];
+	private array $tags = [];
 	/** @var array<string,mixed> */
-	private $attributes = [];
+	private array $attributes = [];
 
 	/**
 	 * @param int|string $pubdate
@@ -61,7 +49,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *		'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
+	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
@@ -100,6 +88,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes('', $dao['attributes']);
+		}
+		if (!empty($dao['hash'])) {
+			$entry->_hash($dao['hash']);
 		}
 		return $entry;
 	}
@@ -145,6 +136,13 @@ class FreshRSS_Entry extends Minz_Model {
 
 		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
 			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+	}
+
+	/**
+	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 */
+	public function originalContent(): string {
+		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content);
 	}
 
 	/**
@@ -283,6 +281,7 @@ HTML;
 						if ($src != null) {
 							$result = [
 								'url' => $src,
+								'medium' => 'image',
 							];
 							yield Minz_Helper::htmlspecialchars_utf8($result);
 						}
@@ -412,7 +411,7 @@ HTML;
 	public function hash(): string {
 		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
 		}
 		return $this->hash;
 	}
@@ -473,7 +472,6 @@ HTML;
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
-		$this->hash = '';
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
@@ -770,7 +768,7 @@ HTML;
 					);
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
-						$originalContent = preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content());
+						$originalContent = $this->originalContent();
 						switch ($feed->attributes('content_action')) {
 							case 'prepend':
 								$this->content = $fullContent . $originalContent;
@@ -837,12 +835,12 @@ HTML;
 
 	/**
 	 * N.B.: To avoid expensive lookups, ensure to set `$entry->_feed($feed)` before calling this function.
-	 * N.B.: You might have to populate `$entry->_tags()` prior to calling this function.
 	 * @param string $mode Set to `'compat'` to use an alternative Unicode representation for problematic HTML special characters not decoded by some clients;
 	 * 	set to `'freshrss'` for using FreshRSS additions for internal use (e.g. export/import).
+	 * @param array<string> $labels List of labels associated to this entry.
 	 * @return array<string,mixed> A representation of this entry in a format compatible with Google Reader API
 	 */
-	public function toGReader(string $mode = ''): array {
+	public function toGReader(string $mode = '', array $labels = []): array {
 
 		$feed = $this->feed();
 		$category = $feed == null ? null : $feed->category();
@@ -926,8 +924,11 @@ HTML;
 		if ($this->isFavorite()) {
 			$item['categories'][] = 'user/-/state/com.google/starred';
 		}
+		foreach ($labels as $labelName) {
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($labelName, ENT_QUOTES);
+		}
 		foreach ($this->tags() as $tagName) {
-			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
+			$item['categories'][] = htmlspecialchars_decode($tagName, ENT_QUOTES);
 		}
 		return $item;
 	}

@@ -174,10 +174,20 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::$system_conf->db;
+
+		// MariaDB does not refresh size information automatically
+		$sql = <<<'SQL'
+ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
+SQL;
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$stm->fetchAll();
+		}
+
 		//MySQL:
 		$sql = <<<'SQL'
-SELECT SUM(data_length + index_length)
-FROM information_schema.TABLES WHERE table_schema=:table_schema
+SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
+FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
 SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
@@ -204,17 +214,6 @@ SQL;
 		return $ok;
 	}
 
-	public function ensureCaseInsensitiveGuids(): bool {
-		if ($this->pdo->dbType() === 'mysql') {
-			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-			if ($this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) === false) {	//FreshRSS 1.12
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
-				return false;
-			}
-		}
-		return true;
-	}
-
 	private function ensureYear2038Compatible(): bool {
 		if ($this->pdo->dbType() !== 'sqlite') {
 			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
@@ -230,7 +229,6 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		$this->ensureCaseInsensitiveGuids();
 		$this->ensureYear2038Compatible();
 	}
 

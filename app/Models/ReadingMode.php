@@ -5,24 +5,12 @@
  */
 class FreshRSS_ReadingMode {
 
-	/**
-	 * @var string
-	 */
-	protected $id;
-	/**
-	 * @var string
-	 */
-	protected $name;
-	/**
-	 * @var string
-	 */
-	protected $title;
+	protected string $id;
+	protected string $name;
+	protected string $title;
 	/** @var array{'c':string,'a':string,'params':array<string,mixed>} */
-	protected $urlParams;
-	/**
-	 * @var bool
-	 */
-	protected $isActive = false;
+	protected array $urlParams;
+	protected bool $isActive = false;
 
 	/**
 	 * ReadingMode constructor.

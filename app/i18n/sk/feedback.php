@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
-		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný',
-		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby',
+		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
 		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',	// DIRTY
