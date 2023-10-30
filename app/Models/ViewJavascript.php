@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 final class FreshRSS_ViewJavascript extends FreshRSS_View {
 
 	/** @var array<FreshRSS_Category> */
