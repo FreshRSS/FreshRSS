@@ -9,8 +9,11 @@ class FreshRSS_fever_Util {
 	 * @return bool true if the path is writable, false otherwise.
 	 */
 	public static function checkFeverPath(): bool {
-		if (!file_exists(self::FEVER_PATH)) {
-			@mkdir(self::FEVER_PATH, 0770, true);
+		if (!file_exists(self::FEVER_PATH) &&
+			!mkdir($concurrentDirectory = self::FEVER_PATH, 0770, true) &&
+			!is_dir($concurrentDirectory)
+		) {
+			throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
 		}
 
 		$ok = touch(self::FEVER_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
@@ -22,6 +25,7 @@ class FreshRSS_fever_Util {
 
 	/**
 	 * Return the corresponding path for a fever key.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function getKeyPath(string $feverKey): string {
 		if (FreshRSS_Context::$system_conf === null) {
@@ -34,6 +38,7 @@ class FreshRSS_fever_Util {
 	/**
 	 * Update the fever key of a user.
 	 * @return string|false the Fever key, or false if the update failed
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function updateKey(string $username, string $passwordPlain) {
 		if (!self::checkFeverPath()) {
@@ -56,6 +61,7 @@ class FreshRSS_fever_Util {
 	 * Delete the Fever key of a user.
 	 *
 	 * @return bool true if the deletion succeeded, else false.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function deleteKey(string $username): bool {
 		$userConfig = get_user_configuration($username);

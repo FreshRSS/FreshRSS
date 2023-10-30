@@ -1,55 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 final class FreshRSS_ViewStats extends FreshRSS_View {
 
-	/** @var FreshRSS_Category|null */
-	public $default_category;
+	public ?FreshRSS_Category $default_category;
 	/** @var array<FreshRSS_Category> */
-	public $categories;
-	/** @var FreshRSS_Feed|null */
-	public $feed;
+	public array $categories;
+	public ?FreshRSS_Feed $feed;
 	/** @var array<FreshRSS_Feed> */
-	public $feeds;
-	/** @var bool */
-	public $displaySlider;
+	public array $feeds;
+	public bool $displaySlider = false;
 
-	/** @var float */
-	public $average;
-	/** @var float */
-	public $averageDayOfWeek;
-	/** @var float */
-	public $averageHour;
-	/** @var float */
-	public $averageMonth;
+	public float $average;
+	public float $averageDayOfWeek;
+	public float $averageHour;
+	public float $averageMonth;
 	/** @var array<string> */
-	public $days;
+	public array $days;
 	/** @var array<string,array<int,int|string>> */
-	public $entryByCategory;
+	public array $entryByCategory;
 	/** @var array<int,int> */
-	public $entryCount;
+	public array $entryCount;
 	/** @var array<string,array<int,int|string>> */
-	public $feedByCategory;
+	public array $feedByCategory;
 	/** @var array<int, string> */
-	public $hours24Labels;
+	public array $hours24Labels;
 	/** @var array<string,array<int,array<string,int|string>>> */
-	public $idleFeeds;
+	public array $idleFeeds;
 	/** @var array<int,string> */
-	public $last30DaysLabel;
+	public array $last30DaysLabel;
 	/** @var array<int,string> */
-	public $last30DaysLabels;
+	public array $last30DaysLabels;
 	/** @var array<string,string> */
-	public $months;
+	public array $months;
 	/** @var array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false */
 	public $repartition;
 	/** @var array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false} */
-	public $repartitions;
+	public array $repartitions;
 	/** @var array<int,int> */
-	public $repartitionDayOfWeek;
+	public array $repartitionDayOfWeek;
 	/** @var array<string,int>|array<int,int> */
-	public $repartitionHour;
+	public array $repartitionHour;
 	/** @var array<int,int> */
-	public $repartitionMonth;
+	public array $repartitionMonth;
 	/** @var array<array{'id':int,'name':string,'category':string,'count':int}> */
-	public $topFeed;
+	public array $topFeed;
 
 }

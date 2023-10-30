@@ -10,9 +10,8 @@
 class Minz_ModelArray {
 	/**
 	 * $filename est le nom du fichier
-	 * @var string
 	 */
-	protected $filename;
+	protected string $filename;
 
 	/**
 	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename

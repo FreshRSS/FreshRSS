@@ -20,7 +20,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		$db = FreshRSS_Context::$system_conf->db;
 
 		try {
@@ -214,9 +214,22 @@ SQL;
 		return $ok;
 	}
 
+	private function ensureYear2038Compatible(): bool {
+		if ($this->pdo->dbType() !== 'sqlite') {
+			include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+			if ($this->pdo->exec($GLOBALS['SQL_UPDATE_YEAR_2038']) === false) {	//FreshRSS 1.23
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
+
+		$this->ensureYear2038Compatible();
 	}
 
 	private static function stdError(string $error): bool {

@@ -5,16 +5,14 @@
  */
 class FreshRSS_BooleanSearch {
 
-	/** @var string */
-	private $raw_input = '';
+	private string $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
-	private $searches = [];
+	private array $searches = [];
 
 	/**
 	 * @phpstan-var 'AND'|'OR'|'AND NOT'
-	 * @var string
 	 */
-	private $operator;
+	private string $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND') {

@@ -22,22 +22,20 @@ if [ -n "$TRUSTED_PROXY" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
-	a2enmod -q auth_openidc
-	if [ -n "$OIDC_ENABLED" ]; then
-		# Compatibility with : as separator instead of space:
+	# Debian
+	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
+		# Alpine
+		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.')
+	if [ -n "$OIDC_SCOPES" ]; then
+		# Compatibility with : as separator instead of space
 		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
 		export OIDC_SCOPES
 	fi
 fi
 
 if [ -n "$CRON_MIN" ]; then
-	(
-		echo "export TZ=$TZ"
-		echo "export COPY_LOG_TO_SYSLOG=$COPY_LOG_TO_SYSLOG"
-		echo "export COPY_SYSLOG_TO_STDERR=$COPY_SYSLOG_TO_STDERR"
-		echo "export FRESHRSS_ENV=$FRESHRSS_ENV"
-		echo "export DATA_PATH=$DATA_PATH"
-	) >/var/www/FreshRSS/Docker/env.txt
+	# shellcheck disable=SC2002
+	cat /proc/self/environ | tr '\0' '\n' | grep -vE '^(HOME|PATH|PWD|SHLVL|TERM|_)=' | sort -u | sed 's/^/export /' >/var/www/FreshRSS/Docker/env.txt
 	sed </etc/crontab.freshrss.default \
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi

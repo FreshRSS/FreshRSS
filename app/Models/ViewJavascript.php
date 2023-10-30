@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 final class FreshRSS_ViewJavascript extends FreshRSS_View {
 
 	/** @var array<FreshRSS_Category> */
-	public $categories;
+	public array $categories;
 	/** @var array<FreshRSS_Feed> */
-	public $feeds;
+	public array $feeds;
 	/** @var array<FreshRSS_Tag> */
-	public $tags;
+	public array $tags;
 
-	/** @var string */
-	public $nonce;
-	/** @var string */
-	public $salt1;
+	public string $nonce;
+	public string $salt1;
 }

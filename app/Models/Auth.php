@@ -9,8 +9,7 @@ class FreshRSS_Auth {
 	 */
 	public const DEFAULT_COOKIE_DURATION = 7776000;
 
-	/** @var bool */
-	private static $login_ok = false;
+	private static bool $login_ok = false;
 
 	/**
 	 * This method initializes authentication system.

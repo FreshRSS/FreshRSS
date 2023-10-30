@@ -12,22 +12,19 @@ class Minz_View {
 	private const LAYOUT_PATH_NAME = '/layout/';
 	private const LAYOUT_DEFAULT = 'layout';
 
-	/** @var string */
-	private $view_filename = '';
-	/** @var string */
-	private $layout_filename = '';
+	private string $view_filename = '';
+	private string $layout_filename = '';
 	/** @var array<string> */
-	private static $base_pathnames = array(APP_PATH);
-	/** @var string */
-	private static $title = '';
+	private static array $base_pathnames = [APP_PATH];
+	private static string $title = '';
 	/** @var array<array{'media':string,'url':string}> */
-	private static $styles = [];
+	private static array $styles = [];
 	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
-	private static $scripts = [];
+	private static array $scripts = [];
 	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
 	private static $themeColors;
 	/** @var array<string,mixed> */
-	private static $params = [];
+	private static array $params = [];
 
 	/**
 	 * Determines if a layout is used or not

@@ -1,26 +1,15 @@
 <?php
 
 class FreshRSS_Tag extends Minz_Model {
-	/**
-	 * @var int
-	 */
-	private $id = 0;
-	/**
-	 * @var string
-	 */
-	private $name;
+
+	private int $id = 0;
+	private string $name;
 	/**
 	 * @var array<string,mixed>
 	 */
-	private $attributes = [];
-	/**
-	 * @var int
-	 */
-	private $nbEntries = -1;
-	/**
-	 * @var int
-	 */
-	private $nbUnread = -1;
+	private array $attributes = [];
+	private int $nbEntries = -1;
+	private int $nbUnread = -1;
 
 	public function __construct(string $name = '') {
 		$this->_name($name);

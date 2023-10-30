@@ -12,64 +12,63 @@ class FreshRSS_Search {
 
 	/**
 	 * This contains the user input string
-	 * @var string
 	 */
-	private $raw_input = '';
+	private string $raw_input = '';
 
 	// The following properties are extracted from the raw input
 	/** @var array<string>|null */
-	private $entry_ids;
+	private ?array $entry_ids = null;
 	/** @var array<int>|null */
-	private $feed_ids;
+	private ?array $feed_ids = null;
 	/** @var array<int>|'*'|null */
-	private $label_ids;
+	private $label_ids = null;
 	/** @var array<string>|null */
-	private $label_names;
+	private ?array $label_names = null;
 	/** @var array<string>|null */
-	private $intitle;
+	private ?array $intitle = null;
 	/** @var int|false|null */
-	private $min_date;
+	private $min_date = null;
 	/** @var int|false|null */
-	private $max_date;
+	private $max_date = null;
 	/** @var int|false|null */
-	private $min_pubdate;
+	private $min_pubdate = null;
 	/** @var int|false|null */
-	private $max_pubdate;
+	private $max_pubdate = null;
 	/** @var array<string>|null */
-	private $inurl;
+	private ?array $inurl = null;
 	/** @var array<string>|null */
-	private $author;
+	private ?array $author = null;
 	/** @var array<string>|null */
-	private $tags;
+	private ?array $tags = null;
 	/** @var array<string>|null */
-	private $search;
+	private ?array $search = null;
 
 	/** @var array<string>|null */
-	private $not_entry_ids;
+	private ?array $not_entry_ids = null;
 	/** @var array<int>|null */
-	private $not_feed_ids;
+	private ?array $not_feed_ids = null;
 	/** @var array<int>|'*'|null */
-	private $not_label_ids;
+	private $not_label_ids = null;
 	/** @var array<string>|null */
-	private $not_label_names;
+	private ?array $not_label_names = null;
 	/** @var array<string>|null */
-	private $not_intitle;
+	private ?array $not_intitle = null;
 	/** @var int|false|null */
-	private $not_min_date;
+	private $not_min_date = null;
 	/** @var int|false|null */
-	private $not_max_date;
+	private $not_max_date = null;
 	/** @var int|false|null */
-	private $not_min_pubdate;
+	private $not_min_pubdate = null;
 	/** @var int|false|null */
-	private $not_max_pubdate;
+	private $not_max_pubdate = null;
 	/** @var array<string>|null */
-	private $not_inurl;
+	private ?array $not_inurl = null;
 	/** @var array<string>|null */
-	private $not_author;
+	private ?array $not_author = null;
 	/** @var array<string>|null */
-	private $not_tags;
+	private ?array $not_tags = null;
 	/** @var array<string>|null */
-	private $not_search;
+	private ?array $not_search = null;
 
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
