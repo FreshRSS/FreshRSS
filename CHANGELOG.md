@@ -2,8 +2,15 @@
 
 ## 202X-XX-XX FreshRSS 1.22.2-dev
 
+* Compatibility
+	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
+* Features
+	* Increase SQL (`VARCHAR`) text fields to maximum possible [#5756](https://github.com/FreshRSS/FreshRSS/pull/5756)
+* Misc.
+	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
 
-## 2023-12-30 FreshRSS 1.22.1
+
+## 2023-10-30 FreshRSS 1.22.1
 
 * Bug fixing
 	* Fix regression in i18n English fallback for extensions [#5752](https://github.com/FreshRSS/FreshRSS/pull/5752)
