@@ -778,21 +778,13 @@ li.item.active {
 
 .flux .website .favicon {
 	padding: 0.25rem;
-	position: absolute;
 }
 
 .flux .tags .icon {
 	padding: 0.25rem;
 }
 
-.flux .website span {
-	margin-right: 2rem;
-}
-
 .flux .item.date {
-	width: 155px;
-	text-align: left;
-	overflow: hidden;
 	font-size: 0.7rem;
 }
 
@@ -821,6 +813,8 @@ li.item.active {
 
 .flux .item.title .summary {
 	color: var(--text-light);
+	font-size: 0.8rem;
+	font-style: italic;
 	opacity: 0.8;
 }
 
