@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2023-1X-XX FreshRSS 1.22.1-dev
+## 2023-12-30 FreshRSS 1.22.1
 
 * Bug fixing
 	* Fix regression in i18n English fallback for extensions [#5752](https://github.com/FreshRSS/FreshRSS/pull/5752)
@@ -8,19 +8,19 @@
 	* OpenID Connect compatibility with colon `:` in `OIDC_SCOPES` [#5753](https://github.com/FreshRSS/FreshRSS/pull/5753), [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 	* Avoid a warning on non-numeric `TRUSTED_PROXY` environment variable [#5733](https://github.com/FreshRSS/FreshRSS/pull/5733)
 	* Better identification of proxied client IP with `RemoteIPInternalProxy` in Apache [#5740](https://github.com/FreshRSS/FreshRSS/pull/5740)
-* i18n
-	* Better i18n string for feed submenu for mark as read [#5762](https://github.com/FreshRSS/FreshRSS/pull/5762)
-	* Improve Dutch [#5759](https://github.com/FreshRSS/FreshRSS/pull/5759)
-* UI
-	* Improve *Origine* theme (dark mode) [#5745](https://github.com/FreshRSS/FreshRSS/pull/5745)
-	* Improve *Nord* theme [#5754](https://github.com/FreshRSS/FreshRSS/pull/5754)
-	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737), [#5765](https://github.com/FreshRSS/FreshRSS/pull/5765),
-		[#5773](https://github.com/FreshRSS/FreshRSS/pull/5773), [#5774](https://github.com/FreshRSS/FreshRSS/pull/5774)
 * Deployment
 	* Export all environment variables to cron (to allow custom environment variables such as for Kubernetes) [#5772](https://github.com/FreshRSS/FreshRSS/pull/5772)
 	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * Compatibility
 	* Test compatibility with PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
+* UI
+	* Improve *Origine* theme (dark mode) [#5745](https://github.com/FreshRSS/FreshRSS/pull/5745)
+	* Improve *Nord* theme [#5754](https://github.com/FreshRSS/FreshRSS/pull/5754)
+	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737), [#5765](https://github.com/FreshRSS/FreshRSS/pull/5765),
+		[#5773](https://github.com/FreshRSS/FreshRSS/pull/5773), [#5774](https://github.com/FreshRSS/FreshRSS/pull/5774)
+* i18n
+	* Better i18n string for feed submenu for mark as read [#5762](https://github.com/FreshRSS/FreshRSS/pull/5762)
+	* Improve Dutch [#5759](https://github.com/FreshRSS/FreshRSS/pull/5759)
 * Misc.
 	* Move to GitHub Actions for our GitHub Pages [#5681](https://github.com/FreshRSS/FreshRSS/pull/5681)
 	* Update dev dependencies and use `stylelint-stylistic` [#5766](https://github.com/FreshRSS/FreshRSS/pull/5766)
