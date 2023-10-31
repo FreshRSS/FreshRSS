@@ -139,12 +139,6 @@ input:disabled, select:disabled {
 	color: var(--text-light);
 }
 
-button.as-link,
-button.as-link:hover,
-button.as-link:active {
-	background: transparent;
-}
-
 button.as-link[disabled] {
 	color: var(--text-light);
 	font-style: italic;
@@ -156,15 +150,8 @@ form th {
 	font-weight: normal;
 }
 
-.table-wrapper {
-	overflow-x: auto;
-}
-
 table {
-	max-width: 100%;
-
 	border-collapse: collapse;
-
 }
 
 table tr {
@@ -517,7 +504,6 @@ img.favicon {
 }
 
 .box .box-title {
-	margin: 0;
 	padding: 5px 10px;
 }
 
@@ -529,7 +515,6 @@ img.favicon {
 .box .box-content {
 	padding-bottom: 1.5rem;
 	list-style: none;
-	max-height: 260px;
 }
 
 .box .box-title .configure {
@@ -833,10 +818,6 @@ li.item.active {
 	color: var(--nord8-frost);
 }
 
-.hide_posts > .flux:not(.active) > .flux_content {
-	display: none;
-}
-
 .content > footer .subtitle {
 	border-color: var(--nord2-polarnight);
 }
@@ -884,10 +865,8 @@ li.item.active {
 	border-radius: 6px;
 	border-color: var(--nord1-polarnight);
 	z-index: 10;
-	text-align: center;
 	font-weight: bold;
 	line-height: 3em;
-	vertical-align: middle;
 }
 
 .notification.bad {
@@ -1218,28 +1197,10 @@ option {
 	.aside:target + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		backdrop-filter: grayscale(60%) blur(1px);
-		display: block;
-		font-size: 0;
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		cursor: pointer;
-		z-index: 99;
-	}
-
-	.nav_mobile {
-		display: block;
 	}
 
 	.aside {
-		position: fixed;
-		top: 0; bottom: 0;
 		right: 0;
-		width: 0;
-		overflow: hidden;
-		z-index: 100;
 		transition: width 200ms linear;
 	}
 
@@ -1256,42 +1217,12 @@ option {
 		max-width: 300px;
 	}
 
-	.aside:target,
-	.reader .aside:target {
-		width: 90%;
-		height: 100vh;
-	}
-
-	.aside_feed .configure-feeds {
-		margin-top: 10px;
-	}
-
-	.flux_header .item.website {
-		width: 40px;
-	}
-
-	.flux:not(.current):hover .item.title {
-		position: relative;
-		width: auto;
-		white-space: nowrap;
-	}
-
 	.flux .website .favicon {
 		position: relative;
 	}
 
 	#overlay {
 		background-color: var(--accent-bg);
-	}
-
-	.notification {
-		top: 0;
-		right: 0;
-		left: 0;
-	}
-
-	#nav_entries {
-		width: 100%;
 	}
 
 	#slider.active {
