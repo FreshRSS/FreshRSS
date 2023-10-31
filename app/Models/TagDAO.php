@@ -20,7 +20,7 @@ WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
 
-		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
@@ -61,7 +61,7 @@ UPDATE `_tag` SET name=? WHERE id=?
 AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)
 SQL;
 
-		$name = mb_strcut(trim($name), 0, 63, 'UTF-8');
+		$name = mb_strcut(trim($name), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&

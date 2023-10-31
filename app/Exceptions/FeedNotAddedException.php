@@ -2,8 +2,7 @@
 
 class FreshRSS_FeedNotAdded_Exception extends Exception {
 
-	/** @var string */
-	private $url = '';
+	private string $url = '';
 
 	public function __construct(string $url) {
 		parent::__construct('Feed not added! ' . $url, 2147);

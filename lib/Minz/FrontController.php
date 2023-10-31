@@ -25,8 +25,7 @@
  */
 class Minz_FrontController {
 
-	/** @var Minz_Dispatcher */
-	protected $dispatcher;
+	protected Minz_Dispatcher $dispatcher;
 
 	/**
 	 * Constructeur

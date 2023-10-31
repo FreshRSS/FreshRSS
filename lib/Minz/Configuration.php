@@ -17,7 +17,7 @@ class Minz_Configuration {
 	 * The list of configurations.
 	 * @var array<string,static>
 	 */
-	private static $config_list = array();
+	private static array $config_list = array();
 
 	/**
 	 * Add a new configuration to the list of configuration.
@@ -72,31 +72,28 @@ class Minz_Configuration {
 	 * Unused.
 	 * @phpstan-ignore-next-line
 	 */
-	private $namespace = '';
+	private string $namespace = '';
 
 	/**
 	 * The filename for the current configuration.
-	 * @var string
 	 */
-	private $config_filename = '';
+	private string $config_filename = '';
 
 	/**
 	 * The filename for the current default values, null by default.
-	 * @var string|null
 	 */
-	private $default_filename = null;
+	private ?string $default_filename = null;
 
 	/**
 	 * The configuration values, an empty array by default.
 	 * @var array<string,mixed>
 	 */
-	private $data = array();
+	private array $data = [];
 
 	/**
 	 * An object which help to set good values in configuration.
-	 * @var Minz_ConfigurationSetterInterface|null
 	 */
-	private $configuration_setter;
+	private ?Minz_ConfigurationSetterInterface $configuration_setter = null;
 
 	/**
 	 * Create a new Minz_Configuration object.

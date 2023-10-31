@@ -42,7 +42,7 @@
     "rtlcss": "^4.1.1",
     "sass": "^1.69.5",
     "stylelint": "^15.11.0",
-    "stylelint-config-recommended-scss": "^13.0.0",
+    "stylelint-config-recommended-scss": "git+https://github.com/Alkarex/stylelint-config-recommended-scss.git#load-no-partial-leading-underscore",
     "stylelint-order": "^6.0.3",
     "stylelint-stylistic": "^0.4.3"
   },

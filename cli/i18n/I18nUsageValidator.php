@@ -5,15 +5,12 @@ require_once __DIR__ . '/I18nValidatorInterface.php';
 class I18nUsageValidator implements I18nValidatorInterface {
 
 	/** @var array<string> */
-	private $code;
+	private array $code;
 	/** @var array<string,array<string,string>> */
-	private $reference;
-	/** @var int */
-	private $totalEntries = 0;
-	/** @var int */
-	private $failedEntries = 0;
-	/** @var string */
-	private $result = '';
+	private array $reference;
+	private int $totalEntries = 0;
+	private int $failedEntries = 0;
+	private string $result = '';
 
 	/**
 	 * @param array<string,array<string,string>> $reference

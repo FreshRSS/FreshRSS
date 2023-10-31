@@ -1,12 +1,10 @@
 <?php
 
 class FreshRSS_Themes extends Minz_Model {
-	/** @var string */
-	private static $themesUrl = '/themes/';
-	/** @var string */
-	private static $defaultIconsUrl = '/themes/icons/';
-	/** @var string */
-	public static $defaultTheme = 'Origine';
+
+	private static string $themesUrl = '/themes/';
+	private static string $defaultIconsUrl = '/themes/icons/';
+	public static string $defaultTheme = 'Origine';
 
 	/** @return array<string> */
 	public static function getList(): array {
@@ -51,10 +49,9 @@ class FreshRSS_Themes extends Minz_Model {
 		return false;
 	}
 
-	/** @var string */
-	private static $themeIconsUrl;
+	private static string $themeIconsUrl;
 	/** @var array<string,int> */
-	private static $themeIcons;
+	private static array $themeIcons;
 
 	/**
 	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}

@@ -2,8 +2,7 @@
 
 class FreshRSS_AlreadySubscribed_Exception extends Exception {
 
-	/** @var string */
-	private $feedName = '';
+	private string $feedName = '';
 
 	public function __construct(string $url, string $feedName) {
 		parent::__construct('Already subscribed! ' . $url, 2135);
