@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`description` TEXT,
 	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
-	`pathEntries` VARCHAR(65535) DEFAULT NULL,
+	`pathEntries` VARCHAR(4096) DEFAULT NULL,
 	`httpAuth` VARCHAR(1024) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
 	`ttl` INT NOT NULL DEFAULT 0,
@@ -39,17 +39,17 @@ CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);
 CREATE TABLE IF NOT EXISTS `entry` (
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(767) NOT NULL,
-	`title` VARCHAR(65535) NOT NULL,
-	`author` VARCHAR(65535),
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content` TEXT,
-	`link` VARCHAR(32768) NOT NULL,
+	`link` VARCHAR(16383) NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
-	`tags` VARCHAR(65535),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -65,17 +65,17 @@ INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(767) NOT NULL,
-	`title` VARCHAR(65535) NOT NULL,
-	`author` VARCHAR(65535),
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content` TEXT,
-	`link` VARCHAR(32768) NOT NULL,
+	`link` VARCHAR(16383) NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
-	`tags` VARCHAR(65535),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -106,4 +106,7 @@ DROP TABLE IF EXISTS `entrytmp`;
 DROP TABLE IF EXISTS `entry`;
 DROP TABLE IF EXISTS `feed`;
 DROP TABLE IF EXISTS `category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
 SQL;
