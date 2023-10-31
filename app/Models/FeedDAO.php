@@ -61,7 +61,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			sanitizeHTML($valuesTmp['description'], ''),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
-			mb_strcut($valuesTmp['pathEntries'], 0, 65535, 'UTF-8'),
+			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
 			base64_encode($valuesTmp['httpAuth']),
 			isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0,
 			isset($valuesTmp['ttl']) ? (int)$valuesTmp['ttl'] : FreshRSS_Feed::TTL_DEFAULT,
