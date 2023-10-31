@@ -292,6 +292,20 @@ svg:hover {
 	border-right-width: 1px;
 }
 
+.nav_menu .stick #mark-read-menu .read_all.btn {
+	margin-right: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+	margin-left: 0;
+	border-left: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+
 .stick .btn:last-child {
 	margin-right: 0;
 	border-top-right-radius: 6px;
@@ -955,7 +969,7 @@ li.item.active {
 	margin: .125rem;
 }
 
-.nav_menu .stick {
+.nav_menu .group {
 	margin-right: 1rem;
 	margin-left: .125rem;
 }
@@ -1309,14 +1323,11 @@ option {
 
 	.form-group .group-name {
 		font-weight: bold;
+		padding: 0 0 0.25rem 0;
 	}
 
 	.form-group .group-name::after {
 		content: ':';
-	}
-
-	.form-group .group-name {
-		padding: 0 0 0.25rem 0;
 	}
 
 	.form-group {
