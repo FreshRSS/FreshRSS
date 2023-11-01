@@ -1072,8 +1072,16 @@ textarea {
 	height: 100px;
 }
 
-option {
-	padding: 0 .5em;
+option,
+optgroup {
+	padding-right: 0.5rem;
+}
+
+optgroup::before {
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+	color: var(--accent);
+	font-style: normal;
 }
 
 /*=== COMPONENTS */
