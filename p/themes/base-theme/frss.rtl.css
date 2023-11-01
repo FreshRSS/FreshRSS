@@ -477,6 +477,24 @@ td.numeric {
 	font-weight: bold;
 }
 
+.btn-state1.hide {
+	display: none;
+}
+
+.btn-state2 {
+	display: none;
+}
+
+.btn-state2.show {
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-right: 2rem;
+}
+
 /*=== switch */
 .switch {
 	margin: 0 0.5em;
