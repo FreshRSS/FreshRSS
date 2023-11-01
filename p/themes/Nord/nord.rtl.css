@@ -1313,6 +1313,10 @@ option {
 		display: none;
 	}
 
+	.alert {
+		width: 85%;
+	}
+
 	.dropdown-menu {
 		margin: 0;
 	}
