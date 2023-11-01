@@ -9,6 +9,7 @@
 	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
 	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
 * Bug fixing
+	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
 	* Fix JavaScript regression in label dropdown [#5785](https://github.com/FreshRSS/FreshRSS/pull/5785)
 * Misc.
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
