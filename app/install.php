@@ -531,7 +531,7 @@ function printStep2(): void {
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql' ? 'selected="selected"' : '' ?>>
-					MySQL
+					MySQL / MariaDB
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>

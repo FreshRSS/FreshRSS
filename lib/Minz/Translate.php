@@ -18,7 +18,7 @@ class Minz_Translate {
 	/**
 	 * $lang_name is the name of the current language to use.
 	 */
-	private static string $lang_name;
+	private static string $lang_name = '';
 
 	/**
 	 * $lang_files is a list of registered i18n files.
