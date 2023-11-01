@@ -4,7 +4,7 @@
 
 * Compatibility
 	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
-	* Repair minimal compatibility with Apache 2.2, but start requiring Apache 2.4+ [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791)
+	* Require Apache 2.4+ [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791), [#5804](https://github.com/FreshRSS/FreshRSS/pull/5804)
 * Features
 	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
 	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
