@@ -19,6 +19,7 @@ final class FreshRSS_Context {
 	public static string $name = '';
 	public static string $description = '';
 	public static int $total_unread = 0;
+	public static int $total_important_unread = 0;
 
 	/** @var array{'all':int,'read':int,'unread':int} */
 	public static array $total_starred = [
@@ -155,9 +156,8 @@ final class FreshRSS_Context {
 		// Update number of read / unread variables.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		self::$total_starred = $entryDAO->countUnreadReadFavorites();
-		self::$total_unread = FreshRSS_CategoryDAO::countUnread(
-			self::$categories, 1
-		);
+		self::$total_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_MAIN_STREAM);
+		self::$total_important_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_IMPORTANT);
 
 		self::_get(Minz_Request::paramString('get') ?: 'a');
 

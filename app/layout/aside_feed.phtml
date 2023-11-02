@@ -37,8 +37,8 @@
 
 		<li class="tree-folder category <?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
 			<div class="tree-folder-title">
-				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
-					<?= _t('index.menu.important', format_number(FreshRSS_Context::$total_starred['all'])) ?>
+				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
+					<?= _t('index.menu.important', format_number(FreshRSS_Context::$total_important_unread)) ?>
 				</a>
 			</div>
 		</li>
