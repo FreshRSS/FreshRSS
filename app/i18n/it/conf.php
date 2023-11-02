@@ -205,7 +205,7 @@ return array(
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
 			'keep_max_n_unread' => 'Massimo numero di articoli da mantenere come non letti',
-			'scroll' => 'Scorrendo la pagina',
+			'scroll' => 'Scorrendo la pagina (except for important feeds)',	// DIRTY
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
