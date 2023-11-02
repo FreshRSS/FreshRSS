@@ -78,6 +78,17 @@ a:hover {
 	color: var(--highlight);
 }
 
+p.help {
+	color: var(--text-accent);
+	font-size: 0.9em;
+	font-style: italic;
+	padding-right: 0.25rem;
+}
+
+p.help img {
+	height: 1em;
+	vertical-align: middle;
+}
 
 kbd {
 	color: var(--orange);
