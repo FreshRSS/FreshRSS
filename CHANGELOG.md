@@ -4,10 +4,13 @@
 
 * Compatibility
 	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
+	* Require Apache 2.4+ (but repair minimal compatibility with Apache 2.2) [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791), [#5804](https://github.com/FreshRSS/FreshRSS/pull/5804)
 * Features
-	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5756](https://github.com/FreshRSS/FreshRSS/pull/5756)
+	* Add support for more thumbnail types [#5806](https://github.com/FreshRSS/FreshRSS/pull/5806)
+	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
 	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
 * Bug fixing
+	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
 	* Fix JavaScript regression in label dropdown [#5785](https://github.com/FreshRSS/FreshRSS/pull/5785)
 * Misc.
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
@@ -25,7 +28,7 @@
 	* Better identification of proxied client IP with `RemoteIPInternalProxy` in Apache [#5740](https://github.com/FreshRSS/FreshRSS/pull/5740)
 * Deployment
 	* Export all environment variables to cron (to allow custom environment variables such as for Kubernetes) [#5772](https://github.com/FreshRSS/FreshRSS/pull/5772)
-	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
+	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 and Apache 2.4.58 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * Compatibility
 	* Test compatibility with PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * UI
