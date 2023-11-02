@@ -290,7 +290,7 @@ function freshrss_already_installed(): bool {
 	$system_conf = null;
 	try {
 		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
-	} catch (Minz_FileNotExistException $e) {
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
@@ -298,7 +298,7 @@ function freshrss_already_installed(): bool {
 	$current_user = $system_conf->default_user;
 	try {
 		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
-	} catch (Minz_FileNotExistException $e) {
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
@@ -531,7 +531,7 @@ function printStep2(): void {
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql' ? 'selected="selected"' : '' ?>>
-					MySQL
+					MySQL / MariaDB
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>

@@ -2,8 +2,8 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-const FRESHRSS_MIN_PHP_VERSION = '7.2.0';
-const FRESHRSS_VERSION = '1.22.1-dev';
+const FRESHRSS_MIN_PHP_VERSION = '7.4.0';
+const FRESHRSS_VERSION = '1.22.2-dev';
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 

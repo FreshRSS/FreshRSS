@@ -8,30 +8,18 @@
  */
 class FreshRSS_UserQuery {
 
-	/** @var bool */
-	private $deprecated = false;
-	/** @var string */
-	private $get = '';
-	/** @var string */
-	private $get_name = '';
-	/** @var string */
-	private $get_type = '';
-	/** @var string */
-	private $name = '';
-	/** @var string */
-	private $order = '';
-	/** @var FreshRSS_BooleanSearch */
-	private $search;
-	/** @var int */
-	private $state = 0;
-	/** @var string */
-	private $url = '';
-	/** @var FreshRSS_FeedDAO|null */
-	private $feed_dao;
-	/** @var FreshRSS_CategoryDAO|null */
-	private $category_dao;
-	/** @var FreshRSS_TagDAO|null */
-	private $tag_dao;
+	private bool $deprecated = false;
+	private string $get = '';
+	private string $get_name = '';
+	private string $get_type = '';
+	private string $name = '';
+	private string $order = '';
+	private FreshRSS_BooleanSearch $search;
+	private int $state = 0;
+	private string $url = '';
+	private ?FreshRSS_FeedDAO $feed_dao;
+	private ?FreshRSS_CategoryDAO $category_dao;
+	private ?FreshRSS_TagDAO $tag_dao;
 
 	/**
 	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string} $query

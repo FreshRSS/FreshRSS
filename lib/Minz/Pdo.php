@@ -14,8 +14,7 @@ abstract class Minz_Pdo extends PDO {
 
 	abstract public function dbType(): string;
 
-	/** @var string */
-	private $prefix = '';
+	private string $prefix = '';
 	public function prefix(): string {
 		return $this->prefix;
 	}

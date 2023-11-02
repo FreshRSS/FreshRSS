@@ -26,10 +26,10 @@ abstract class Minz_Extension {
 	private $system_configuration;
 
 	/** @var array{0:'system',1:'user'} */
-	public static $authorized_types = array(
+	public static array $authorized_types = [
 		'system',
 		'user',
-	);
+	];
 
 	/** @var bool */
 	private $is_enabled;
