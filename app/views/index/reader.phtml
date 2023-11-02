@@ -45,7 +45,7 @@ $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
 				}
 			}
 		}
-	?><div class="flux<?= !$item->isRead() ? ' not_read' : '' ?><?= $item->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $item->id() ?>">
+	?><div class="flux<?= !$item->isRead() ? ' not_read' : '' ?><?= $item->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $item->id() ?>" data-priority="<?= $this->feed->priority() ?>">
 		<article class="flux_content" dir="auto">
 
 			<div class="content <?= $content_width ?>">
