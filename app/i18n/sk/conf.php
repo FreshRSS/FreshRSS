@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
 		'view' => array(
-			'category' => 'Základné zobrazenie',
 			'default' => 'Prednastavené zobrazenie',
 			'global' => 'Prehľadné zobrazenie',
+			'normal' => 'Základné zobrazenie',
 			'reader' => 'Zobrazenie na čítanie',
 		),
 	),

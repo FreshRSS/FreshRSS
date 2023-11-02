@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Cikk gördüljön felülre mikor megnyitásra kerül',
 		'title' => 'Olvasás',
 		'view' => array(
-			'category' => 'Normál nézet',
 			'default' => 'Alapértelmezett nézet',
 			'global' => 'Globális nézet',
+			'normal' => 'Normál nézet',
 			'reader' => 'Olvasó nézet',
 		),
 	),

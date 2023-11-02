@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',
 		'view' => array(
-			'category' => '標準ビュー',
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',
+			'normal' => '標準ビュー',
 			'reader' => 'リーディングビュー',
 		),
 	),

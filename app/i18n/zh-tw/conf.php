@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => '打開文章時將其置於頁首',
 		'title' => '閱讀',
 		'view' => array(
-			'category' => '普通視圖',
 			'default' => '預設視圖',
 			'global' => '全屏視圖',
+			'normal' => '普通視圖',
 			'reader' => '閱讀視圖',
 		),
 	),

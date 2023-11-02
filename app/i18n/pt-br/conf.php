@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
 		'title' => 'Lendo',
 		'view' => array(
-			'category' => 'Visualização normal',
 			'default' => 'Visualização padrão',
 			'global' => 'Visualização global',
+			'normal' => 'Visualização normal',
 			'reader' => 'Visualização de leitura',
 		),
 	),

@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
 		'title' => 'Czytanie',
 		'view' => array(
-			'category' => 'Widok normalny',
 			'default' => 'Domyślny widok',
 			'global' => 'Widok globalny',
+			'normal' => 'Widok normalny',
 			'reader' => 'Widok czytania',
 		),
 	),

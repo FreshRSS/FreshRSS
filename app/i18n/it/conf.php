@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
 		'title' => 'Lettura',
 		'view' => array(
-			'category' => 'Vista elenco',
 			'default' => 'Visualizzazione predefinita',
 			'global' => 'Vista globale per categorie',
+			'normal' => 'Vista elenco',
 			'reader' => 'Modalità di lettura',
 		),
 	),

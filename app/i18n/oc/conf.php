@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',
 		'view' => array(
-			'category' => 'Vista normala',
 			'default' => 'Vista per defaut',
 			'global' => 'Vista generala',
+			'normal' => 'Vista normala',
 			'reader' => 'Vista lectura',
 		),
 	),

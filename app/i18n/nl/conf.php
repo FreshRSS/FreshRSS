@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',
 		'view' => array(
-			'category' => 'Normale weergave',
 			'default' => 'Standaard weergave',
 			'global' => 'Globale weergave',
+			'normal' => 'Normale weergave',
 			'reader' => 'Lees weergave',
 		),
 	),

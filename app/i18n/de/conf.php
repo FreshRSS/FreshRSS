@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
 		'view' => array(
-			'category' => 'Normale Ansicht',
 			'default' => 'Standard-Ansicht',
 			'global' => 'Globale Ansicht',
+			'normal' => 'Normale Ansicht',
 			'reader' => 'Lese-Ansicht',
 		),
 	),

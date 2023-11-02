@@ -231,9 +231,9 @@ return array(
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',
 		'view' => array(
-			'category' => 'Parastais skats',
 			'default' => 'Noklusējuma skats',
 			'global' => 'Globālais skats',
+			'normal' => 'Parastais skats',
 			'reader' => 'Lasīšanas skats',
 		),
 	),
