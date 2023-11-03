@@ -7,6 +7,10 @@ on:
   release:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  # packages: write
+
 jobs:
   build-container-image:
     name: Image Build ${{ matrix.name }}
