@@ -53,6 +53,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
+        flavor: ${{ matrix.flavor }}
         images: |
           docker.io/freshrss/freshrss
           ghcr.io/${{ github.repository }}
@@ -61,7 +62,11 @@ jobs:
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
-        flavor: ${{ matrix.flavor }}
+        labels: |
+          org.opencontainers.image.description="A self-hosted RSS feed aggregator"
+          org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/"
+          org.opencontainers.image.url="https://freshrss.org/"
+
 
     - name: Build and push
       uses: docker/build-push-action@v5
