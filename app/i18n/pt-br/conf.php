@@ -206,6 +206,7 @@ return array(
 			'article_viewed' => 'Quando o artigo é visualizado',
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
 			'scroll' => 'enquanto scrolling',
+			'focus' => 'when focused', // TODO
 			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',

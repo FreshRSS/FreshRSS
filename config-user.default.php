@@ -61,6 +61,7 @@ return array (
 		'reception' => false,
 		'same_title_in_feed' => false,
 		'scroll' => false,
+		'focus' => false,
 		'site' => true,
 	),
 	'theme' => 'Origine',

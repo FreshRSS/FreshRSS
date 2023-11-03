@@ -206,6 +206,7 @@ return array(
 			'article_viewed' => 'when the article is viewed',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
 			'scroll' => 'while scrolling',
+			'focus' => 'when focused',
 			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',

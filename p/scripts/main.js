@@ -472,6 +472,9 @@ function prev_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus) {
+		mark_read(new_active, true, false);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -487,6 +490,9 @@ function next_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus) {
+		mark_read(new_active, true, false);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -501,6 +507,9 @@ function next_unread_entry(skipping) {
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
+	}
+	if (context.auto_mark_focus) {
+		mark_read(new_active, true, false);
 	}
 	toggleContent(new_active, old_active, skipping);
 }

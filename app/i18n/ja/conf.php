@@ -206,6 +206,7 @@ return array(
 			'article_viewed' => '記事を読んだとき',
 			'keep_max_n_unread' => '未読の記事として残す最大数',
 			'scroll' => 'スクロールしているとき',
+			'focus' => 'when focused', // TODO
 			'upon_gone' => 'ニュースフィードの提供元がなくなったとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',

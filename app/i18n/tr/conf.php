@@ -206,6 +206,7 @@ return array(
 			'article_viewed' => 'makale görüntülendiğinde',
 			'keep_max_n_unread' => 'Okunmadı tutulacak maksimum metin sayısı',
 			'scroll' => 'kaydırma yapılırken',
+			'focus' => 'when focused', // TODO
 			'upon_gone' => 'Yeni akışta üst sıralarda değilken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',

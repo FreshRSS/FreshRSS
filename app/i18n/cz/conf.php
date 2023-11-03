@@ -206,6 +206,7 @@ return array(
 			'article_viewed' => 'když je článek zobrazen',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
 			'scroll' => 'během posouvání',
+			'focus' => 'when focused', // TODO
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
