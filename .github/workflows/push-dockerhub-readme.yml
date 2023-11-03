@@ -5,7 +5,7 @@ on:
     paths:
       - Docker/README.md
     branches:
-      - latest
+      - edge
   workflow_dispatch:
 
 jobs:
