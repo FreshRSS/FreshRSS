@@ -64,6 +64,7 @@ jobs:
           org.opencontainers.image.url="https://freshrss.org/"
 
     - name: Login to DockerHub
+      if: github.repository_owner == 'FreshRSS'
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -81,6 +82,6 @@ jobs:
       with:
         file: ${{ matrix.file }}
         platforms: linux/arm/v7,linux/arm64,linux/amd64
-        push: ${{ github.ref == 'refs/heads/latest' || github.ref == 'refs/heads/edge' || startsWith(github.ref, 'refs/tags/') }}
+        push: ${{ (github.ref == 'refs/heads/latest' || github.ref == 'refs/heads/edge' || startsWith(github.ref, 'refs/tags/') && github.repository_owner == 'FreshRSS' ) }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
