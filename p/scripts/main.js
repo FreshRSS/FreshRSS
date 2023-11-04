@@ -735,20 +735,21 @@ function onScroll() {
 	}
 }
 
+let lastScroll = 0;	// Throttle
+let timerId = 0;
+function debouncedOnScroll() {
+	clearTimeout(timerId);
+	if (lastScroll + 500 < Date.now()) {
+		lastScroll = Date.now();
+		onScroll();
+	} else {
+		timerId = setTimeout(onScroll, 500);
+	}
+}
+
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
 		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
-		let lastScroll = 0;	// Throttle
-		let timerId = 0;
-		function debouncedOnScroll() {
-			clearTimeout(timerId);
-			if (lastScroll + 500 < Date.now()) {
-				lastScroll = Date.now();
-				onScroll();
-			} else {
-				timerId = setTimeout(onScroll, 500);
-			}
-		}
 		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnscroll;
 		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
