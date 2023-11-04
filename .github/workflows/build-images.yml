@@ -22,22 +22,12 @@ jobs:
             file: Docker/Dockerfile
             flavor: |
               latest=auto
-<<<<<<< HEAD
               suffix=,onlatest=false
-=======
-              suffix=
-              suffixLatest=false
->>>>>>> c58fd894 (fix suffix for alpine image)
           - name: Alpine
             file: Docker/Dockerfile-Alpine
             flavor: |
               latest=auto
-<<<<<<< HEAD
               suffix=-alpine,onlatest=true
-=======
-              suffix=-alpine
-              suffixLatest=true
->>>>>>> c58fd894 (fix suffix for alpine image)
     steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
