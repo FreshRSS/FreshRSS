@@ -22,14 +22,12 @@ jobs:
             file: Docker/Dockerfile
             flavor: |
               latest=auto
-              suffix=
-              onlatest=false
+              suffix=,onlatest=false
           - name: Alpine
             file: Docker/Dockerfile-Alpine
             flavor: |
               latest=auto
-              suffix=-alpine
-              onlatest=true
+              suffix=-alpine,onlatest=true
     steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
