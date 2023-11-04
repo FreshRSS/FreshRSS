@@ -750,7 +750,7 @@ function debouncedOnScroll() {
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
 		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
-		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnscroll;
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnScroll;
 		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
 	}
