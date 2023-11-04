@@ -20,6 +20,8 @@ jobs:
         include:
           - name: Debian
             file: Docker/Dockerfile
+            flavor: |
+              latest=auto
             tags: |
               type=edge
               type=semver,pattern={{version}}
@@ -27,6 +29,8 @@ jobs:
               type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
           - name: Alpine
             file: Docker/Dockerfile-Alpine
+            flavor: |
+              latest=false
             tags: |
               type=raw,value=alpine,enable=${{ github.ref == 'refs/heads/latest' || startsWith(github.ref, 'refs/tags/') }}
               type=edge,suffix=-alpine,onlatest=false
@@ -44,6 +48,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
+        flavor: ${{ matrix.flavor }}
         images: |
           docker.io/freshrss/freshrss
       #     ghcr.io/${{ github.repository }}
