@@ -740,8 +740,7 @@ function init_posts() {
 		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
 		let lastScroll = 0;	// Throttle
 		let timerId = 0;
-		window.addEventListener('resize', onScroll);
-		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = function () {
+		function debouncedOnScroll() {
 			clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
@@ -749,7 +748,9 @@ function init_posts() {
 			} else {
 				timerId = setTimeout(onScroll, 500);
 			}
-		};
+		}
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnscroll;
+		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
 	}
 
