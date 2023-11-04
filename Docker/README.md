@@ -67,9 +67,9 @@ The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshR
 * `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
 * `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
-* `:x.y` tags are tied to a specific major version and minor version number. For example, `:12.2` will automatically receive updates for any `12.2.x` releases, but will not update to `12.3.x`
-* `:x` tags track the latest release within a major version series. For instance, `:12` will update to include any `12.x` releases, but will exclude versions beyond `13.x`
-* `*-alpine` use apline as base-image instead debian
+* `:x.y` tags are tied to a specific major version and minor version number. For example, `:1.23` will automatically receive updates for any `1.23.x` releases, but will not update to `1.24.x`
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `*-alpine` use Linux Alpine as base-image instead of Debian
 * Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
 
