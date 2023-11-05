@@ -298,11 +298,24 @@ HTML;
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributes('thumbnail');
+		// First, use the provided thumbnail, if any
 		if (!empty($thumbnail['url'])) {
 			return $thumbnail;
 		}
 		if ($searchEnclosures) {
 			foreach ($this->enclosures(true) as $enclosure) {
+				// Second, search each enclosure’s thumbnails
+				if (!empty($enclosure['thumbnails'][0])) {
+					foreach ($enclosure['thumbnails'] as $src) {
+						if (is_string($src)) {
+							return [
+								'url' => $src,
+								'medium' => 'image',
+							];
+						}
+					}
+				}
+				// Third, check whether each enclosure itself is an appropriate image
 				if (self::enclosureIsImage($enclosure)) {
 					return $enclosure;
 				}
