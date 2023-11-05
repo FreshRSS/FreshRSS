@@ -44,19 +44,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Add metadata to Docker images
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        flavor: ${{ matrix.flavor }}
-        images: |
-          docker.io/freshrss/freshrss
-      #     ghcr.io/${{ github.repository }}
-        tags: ${{ matrix.tags }}
-        labels: |
-          org.opencontainers.image.description="A self-hosted RSS feed aggregator"
-          org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/"
-          org.opencontainers.image.url="https://freshrss.org/"
+    - name: Get FreshRSS version
+      run: |
+        FRESHRSS_VERSION=$(sed -n "s/^const FRESHRSS_VERSION = '\(.*\)'.*$/\1/p" constants.php)
+        echo "FRESHRSS_VERSION=$FRESHRSS_VERSION" >> $GITHUB_ENV
 
     - name: Login to Docker Hub
       if: github.repository_owner == 'FreshRSS'
@@ -77,6 +68,9 @@ jobs:
       with:
         file: ${{ matrix.file }}
         platforms: linux/arm/v7,linux/arm64,linux/amd64
+        build-args: |
+          FRESHRSS_VERSION=$FRESHRSS_VERSION
+          SOURCE_BRANCH=$GITHUB_REF_NAME
+          SOURCE_COMMIT=$GITHUB_SHA
+        tags: ${{ matrix.tags }}
         push: ${{ (github.ref == 'refs/heads/latest' || github.ref == 'refs/heads/edge' || startsWith(github.ref, 'refs/tags/')) && github.repository_owner == 'FreshRSS' }}
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
