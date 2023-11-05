@@ -50,6 +50,7 @@ jobs:
     - name: Get FreshRSS version
       run: |
         FRESHRSS_VERSION=$(sed -n "s/^const FRESHRSS_VERSION = '\(.*\)'.*$/\1/p" constants.php)
+        echo "$FRESHRSS_VERSION"
         echo "FRESHRSS_VERSION=$FRESHRSS_VERSION" >> $GITHUB_ENV
 
     - name: Add metadata to Docker images
@@ -62,9 +63,6 @@ jobs:
       #     ghcr.io/${{ github.repository }}
         tags: ${{ matrix.tags }}
         labels: |
-          org.opencontainers.image.description=A self-hosted RSS feed aggregator
-          org.opencontainers.image.documentation=https://freshrss.github.io/FreshRSS/
-          org.opencontainers.image.url=https://freshrss.org/
           org.opencontainers.image.revision=${{ github.ref_name }}.${{ github.sha }}
           org.opencontainers.image.version=${{ env.FRESHRSS_VERSION }}
 
@@ -88,9 +86,9 @@ jobs:
         file: ${{ matrix.file }}
         platforms: linux/arm/v7,linux/arm64,linux/amd64
         build-args: |
-          FRESHRSS_VERSION=$FRESHRSS_VERSION
-          SOURCE_BRANCH=$GITHUB_REF_NAME
-          SOURCE_COMMIT=$GITHUB_SHA
+          FRESHRSS_VERSION=${{ env.FRESHRSS_VERSION }}
+          SOURCE_BRANCH=${{ github.ref_name }}
+          SOURCE_COMMIT=${{ github.sha }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ (github.ref == 'refs/heads/latest' || github.ref == 'refs/heads/edge' || startsWith(github.ref, 'refs/tags/')) && github.repository_owner == 'FreshRSS' }}
