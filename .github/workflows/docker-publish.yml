@@ -44,10 +44,11 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Get FreshRSS version
       run: |
-        echo ${PWD}
-        ls
         FRESHRSS_VERSION=$(sed -n "s/^const FRESHRSS_VERSION = '\(.*\)'.*$/\1/p" constants.php)
         echo "FRESHRSS_VERSION=$FRESHRSS_VERSION" >> $GITHUB_ENV
 
