@@ -1,4 +1,4 @@
-name: push readme to dockerhub
+name: Update Docker Hub description
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  push-docker-readme:
+  dockerhub-description:
     if: github.repository_owner == 'FreshRSS'
     runs-on: ubuntu-latest
     steps:

@@ -1,4 +1,4 @@
-name: build-images
+name: Publish Docker images
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build-container-image:
-    name: Image Build ${{ matrix.name }}
+    name: Build Docker image ${{ matrix.name }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Metadata
+    - name: Add metadata to Docker images
       id: meta
       uses: docker/metadata-action@v5
       with:
@@ -58,7 +58,7 @@ jobs:
           org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/"
           org.opencontainers.image.url="https://freshrss.org/"
 
-    - name: Login to DockerHub
+    - name: Login to Docker Hub
       if: github.repository_owner == 'FreshRSS'
       uses: docker/login-action@v3
       with:
@@ -72,7 +72,7 @@ jobs:
     #     username: ${{ github.repository_owner }}
     #     password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push
+    - name: Build and push Docker images
       uses: docker/build-push-action@v5
       with:
         file: ${{ matrix.file }}
