@@ -23,10 +23,10 @@ jobs:
             flavor: |
               latest=auto
             tags: |
-              type=edge
+              type=edge,onlatest=false
               type=semver,pattern={{version}}
-              type=semver,pattern={{major}}.{{minor}}
-              type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
+            #  type=semver,pattern={{major}}.{{minor}}
+            #  type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
           - name: Alpine
             file: Docker/Dockerfile-Alpine
             flavor: |
@@ -35,8 +35,8 @@ jobs:
               type=raw,value=alpine,enable=${{ github.ref == 'refs/heads/latest' || startsWith(github.ref, 'refs/tags/') }}
               type=edge,suffix=-alpine,onlatest=false
               type=semver,pattern={{version}}-alpine
-              type=semver,pattern={{major}}.{{minor}}-alpine
-              type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
+            #  type=semver,pattern={{major}}.{{minor}}-alpine
+            #  type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
     steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -83,7 +83,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         file: ${{ matrix.file }}
-        platforms: linux/arm/v7,linux/arm64,linux/amd64
+        platforms: linux/amd64,linux/arm/v7,linux/arm64
         build-args: |
           FRESHRSS_VERSION=${{ env.FRESHRSS_VERSION }}
           SOURCE_COMMIT=${{ github.sha }}

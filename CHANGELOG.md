@@ -12,6 +12,8 @@
 * Bug fixing
 	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
 	* Fix JavaScript regression in label dropdown [#5785](https://github.com/FreshRSS/FreshRSS/pull/5785)
+* Deployment
+	* Use GitHub Actions to build Docker images, offering architectures `amd64`, `arm32v7`, `arm64v8` with automatic detection [#5808](https://github.com/FreshRSS/FreshRSS/pull/5808)
 * Misc.
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
 	* Update dev dependencies [#5787](https://github.com/FreshRSS/FreshRSS/pull/5787),
