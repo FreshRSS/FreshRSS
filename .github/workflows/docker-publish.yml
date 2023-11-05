@@ -65,8 +65,8 @@ jobs:
           org.opencontainers.image.description="A self-hosted RSS feed aggregator"
           org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/"
           org.opencontainers.image.url="https://freshrss.org/"
-          org.opencontainers.image.revision="${GITHUB_REF_NAME}.${GITHUB_SHA}"
-          org.opencontainers.image.version="$FRESHRSS_VERSION"
+          org.opencontainers.image.revision=${GITHUB_REF_NAME}.${GITHUB_SHA}
+          org.opencontainers.image.version=$FRESHRSS_VERSION
 
     - name: Login to Docker Hub
       if: github.repository_owner == 'FreshRSS'
