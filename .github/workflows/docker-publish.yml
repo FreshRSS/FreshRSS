@@ -25,8 +25,8 @@ jobs:
             tags: |
               type=edge,onlatest=false
               type=semver,pattern={{version}}
+              type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
             #  type=semver,pattern={{major}}.{{minor}}
-            #  type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
           - name: Alpine
             file: Docker/Dockerfile-Alpine
             flavor: |
@@ -35,8 +35,8 @@ jobs:
               type=raw,value=alpine,enable=${{ github.ref == 'refs/heads/latest' || startsWith(github.ref, 'refs/tags/') }}
               type=edge,suffix=-alpine,onlatest=false
               type=semver,pattern={{version}}-alpine
+              type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
             #  type=semver,pattern={{major}}.{{minor}}-alpine
-            #  type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
     steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
