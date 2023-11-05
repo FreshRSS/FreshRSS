@@ -111,7 +111,7 @@ docker rm freshrss_old
 ## Build custom Docker image
 
 Building your own Docker image is especially relevant for platforms not available on our Docker Hub,
-which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
+which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
@@ -397,27 +397,6 @@ docker-compose down --remove-orphans --volumes
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
-
-### Docker Compose and ARM64
-
-If you’re working or want to host on an ARM64 system (such as Apple Silicon (M1/M2)) you’ll need to use the `arm` tag in your `docker-compose.yml` file:
-```yaml
-image: freshrss/freshrss:arm
-```
-
-If you then get this error message when running `docker compose up`:
-
-> The requested image’s platform (linux/arm/v7) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-
-… you will also need to specify the platform in the `service` part:
-
-```yaml
-services:
-  freshrss:
-    image: freshrss/freshrss:arm
-    platform: linux/arm/v7
-    container_name: freshrss
- ```
 
 ## Run in production
 
