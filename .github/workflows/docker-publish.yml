@@ -46,6 +46,8 @@ jobs:
 
     - name: Get FreshRSS version
       run: |
+        echo ${PWD}
+        ls
         FRESHRSS_VERSION=$(sed -n "s/^const FRESHRSS_VERSION = '\(.*\)'.*$/\1/p" constants.php)
         echo "FRESHRSS_VERSION=$FRESHRSS_VERSION" >> $GITHUB_ENV
 
