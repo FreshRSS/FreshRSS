@@ -63,6 +63,7 @@ jobs:
       #     ghcr.io/${{ github.repository }}
         tags: ${{ matrix.tags }}
         labels: |
+          org.opencontainers.image.url=https://freshrss.org/
           org.opencontainers.image.version=${{ env.FRESHRSS_VERSION }}
 
     - name: Login to Docker Hub
