@@ -63,7 +63,6 @@ jobs:
       #     ghcr.io/${{ github.repository }}
         tags: ${{ matrix.tags }}
         labels: |
-          org.opencontainers.image.revision=${{ github.ref_name }}.${{ github.sha }}
           org.opencontainers.image.version=${{ env.FRESHRSS_VERSION }}
 
     - name: Login to Docker Hub
@@ -87,7 +86,6 @@ jobs:
         platforms: linux/arm/v7,linux/arm64,linux/amd64
         build-args: |
           FRESHRSS_VERSION=${{ env.FRESHRSS_VERSION }}
-          SOURCE_BRANCH=${{ github.ref_name }}
           SOURCE_COMMIT=${{ github.sha }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
