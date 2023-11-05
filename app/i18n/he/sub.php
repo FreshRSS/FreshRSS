@@ -144,7 +144,7 @@ return array(
 			'normal' => 'Show in its category',	// TODO
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO
 			'show_rendered' => 'Show content',	// TODO
