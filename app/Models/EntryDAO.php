@@ -424,7 +424,7 @@ SQL;
 	 * @param string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $prioritMax = null,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
@@ -433,12 +433,22 @@ SQL;
 		}
 
 		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
-		} elseif ($priorityMin >= 0) {
-			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
+		if ($priorityMin !== null || $prioritMax !== null) {
+			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1';
+			if ($priorityMin !== null) {
+				$sql .= ' AND f.priority >= ?';
+				$values[] = $priorityMin;
+			}
+			if ($prioritMax !== null) {
+				$sql .= ' AND f.priority < ?';
+				$values[] = $prioritMax;
+			}
+			$sql .= ')';
+		}
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
