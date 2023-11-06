@@ -46,6 +46,7 @@
 	--purple: var(--nord15-aurora);
 
 	--frss-background-color-transparent: #2e34407f;
+	--frss-box-shadow-color-transparent: #111;
 
 	--frss-scrollbar-handle: #0002;
 	--frss-scrollbar-handle-hover: var(--nord1-polarnight);
@@ -909,6 +910,7 @@ li.item.active {
 	z-index: 10;
 	font-weight: bold;
 	line-height: 3em;
+	box-shadow: 0px 0px 10px var(--frss-box-shadow-color-transparent);
 }
 
 .notification.bad {
@@ -1326,6 +1328,12 @@ optgroup::before {
 
 	.pagination {
 		margin: 0 0 3.5em;
+	}
+
+	.notification {
+		top: 1%;
+		right: 2%;
+		left: 2%;
 	}
 
 	.notification a.close {
