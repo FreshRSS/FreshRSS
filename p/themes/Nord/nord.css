@@ -58,9 +58,17 @@
 /*============*/
 
 @font-face {
-	/*	src: local('Open Sans'), local('OpenSans'),
-		url('../fonts/OpenSans.woff2') format('woff2'),
-		url('../fonts/OpenSans.woff') format('woff');*/
+	font-family: 'Lato';
+	src: local('Lato'),
+		url('../fonts/LatoLatin-Regular.woff') format('woff'),
+		url('../fonts/LatoLatin-Bold.woff') format('woff'),
+		url('../fonts/LatoLatin-Bolditalic.woff') format('woff'),
+		url('../fonts/LatoLatin-Italic.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: local('Noto Sans'), local('NotoSans');
 }
 
 html, body {
