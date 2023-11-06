@@ -145,7 +145,7 @@ return array(
 			'main_stream' => '메인 스트림에 표시하기',
 		),
 		'proxy' => '이 피드를 가져올 때 사용할 프록시 설정',
-		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => '소스코드 표시',
 			'show_rendered' => '콘텐츠 표시',

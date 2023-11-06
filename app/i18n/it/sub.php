@@ -145,7 +145,7 @@ return array(
 			'main_stream' => 'Mostra in homepage',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
-		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Mostra codice sorgente',
 			'show_rendered' => 'Mostra contenuto',
