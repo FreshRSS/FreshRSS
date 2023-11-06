@@ -6,50 +6,31 @@
  */
 final class FreshRSS_Context {
 
-	/**
-	 * @var FreshRSS_UserConfiguration|null
-	 */
-	public static $user_conf;
-
-	/**
-	 * @var FreshRSS_SystemConfiguration|null
-	 */
-	public static $system_conf;
+	public static ?FreshRSS_UserConfiguration $user_conf = null;
+	public static ?FreshRSS_SystemConfiguration $system_conf = null;
 	/**
 	 * @var array<int,FreshRSS_Category>
 	 */
-	public static $categories = [];
+	public static array $categories = [];
 	/**
 	 * @var array<int,FreshRSS_Tag>
 	 */
-	public static $tags = [];
-	/**
-	 * @var string
-	 */
-	public static $name = '';
-	/**
-	 * @var string
-	 */
-	public static $description = '';
-	/**
-	 * @var int
-	 */
-	public static $total_unread = 0;
+	public static array $tags = [];
+	public static string $name = '';
+	public static string $description = '';
+	public static int $total_unread = 0;
 
 	/** @var array{'all':int,'read':int,'unread':int} */
-	public static $total_starred = [
+	public static array $total_starred = [
 		'all' => 0,
 		'read' => 0,
 		'unread' => 0,
 	];
 
-	/**
-	 * @var int
-	 */
-	public static $get_unread = 0;
+	public static int $get_unread = 0;
 
 	/** @var array{'all':bool,'starred':bool,'feed':int|false,'category':int|false,'tag':int|false,'tags':bool} */
-	public static $current_get = [
+	public static array $current_get = [
 		'all' => false,
 		'starred' => false,
 		'feed' => false,
@@ -58,45 +39,19 @@ final class FreshRSS_Context {
 		'tags' => false,
 	];
 
-	/**
-	 * @var string
-	 */
-	public static $next_get = 'a';
-	/**
-	 * @var int
-	 */
-	public static $state = 0;
+	public static string $next_get = 'a';
+	public static int $state = 0;
 	/**
 	 * @phpstan-var 'ASC'|'DESC'
-	 * @var string
 	 */
-	public static $order = 'DESC';
-	/**
-	 * @var int
-	 */
-	public static $number = 0;
-	/** @var FreshRSS_BooleanSearch */
-	public static $search;
-	/**
-	 * @var string
-	 */
-	public static $first_id = '';
-	/**
-	 * @var string
-	 */
-	public static $next_id = '';
-	/**
-	 * @var string
-	 */
-	public static $id_max = '';
-	/**
-	 * @var int
-	 */
-	public static $sinceHours = 0;
-	/**
-	 * @var bool
-	 */
-	public static $isCli = false;
+	public static string $order = 'DESC';
+	public static int $number = 0;
+	public static FreshRSS_BooleanSearch $search;
+	public static string $first_id = '';
+	public static string $next_id = '';
+	public static string $id_max = '';
+	public static int $sinceHours = 0;
+	public static bool $isCli = false;
 
 	/**
 	 * Initialize the context for the global system.

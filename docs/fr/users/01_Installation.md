@@ -6,10 +6,10 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 
 | Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
 | --------         | -----------                                                                                                    | ---------------------          |
-| Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
-| PHP              | **PHP 7.2+**                                                                                                   |                                |
+| Serveur web      | **Apache 2.4+**                                                                                                | nginx, lighttpd                |
+| PHP              | **PHP 7.4+**                                                                                                   |                                |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
-| Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+, PostgreSQL 9.5+   |
+| Base de données  | **PostgreSQL 9.5+** | SQLite, MySQL 5.5.3+, MariaDB 5.5+ |
 | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
@@ -115,7 +115,7 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !

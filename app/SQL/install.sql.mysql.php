@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`name` VARCHAR(191) NOT NULL,
 	`website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
-	`pathEntries` VARCHAR(511) DEFAULT NULL,
-	`httpAuth` VARCHAR(511) DEFAULT NULL,
+	`pathEntries` VARCHAR(4096) DEFAULT NULL,
+	`httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
@@ -42,18 +42,18 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `_entry` (
 	`id` BIGINT NOT NULL,	-- v0.7
-	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,	-- Maximum for UNIQUE is 767B
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
+	`guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,	-- Maximum for UNIQUE is 767B
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content_bin` MEDIUMBLOB,	-- v0.7
-	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INT,	-- 1.20.0
-	`tags` VARCHAR(1023),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -69,18 +69,18 @@ INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
 
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
-	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
+	`guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content_bin` MEDIUMBLOB,
-	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INT,	-- 1.20.0
-	`tags` VARCHAR(1023),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -91,7 +91,7 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(63) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	`attributes` TEXT,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)
@@ -111,4 +111,29 @@ SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
+ALTER TABLE `_feed`
+	MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,
+	MODIFY COLUMN `pathEntries` VARCHAR(4096),
+	MODIFY COLUMN `httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL;
+ALTER TABLE `_entry`
+	MODIFY COLUMN `date` BIGINT,
+	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+	MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+	MODIFY COLUMN `author` VARCHAR(1024),
+	MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	MODIFY COLUMN `tags` VARCHAR(2048);
+ALTER TABLE `_entrytmp`
+	MODIFY COLUMN `date` BIGINT,
+	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+	MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+	MODIFY COLUMN `author` VARCHAR(1024),
+	MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	MODIFY COLUMN `tags` VARCHAR(2048);
+ALTER TABLE `_tag`
+	MODIFY COLUMN `name` VARCHAR(191) NOT NULL;
 SQL;

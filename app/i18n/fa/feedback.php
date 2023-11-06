@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => ' پسوند ZIP در سرور شما وجود ندارد. لطفا سعی کنید فایل ها را یکی یکی صادر کنید.',
-		'feeds_imported' => ' فیدهای شما وارد شده اند و اکنون به روز خواهند شد',
-		'feeds_imported_with_errors' => ' فیدهای شما وارد شده است',
+		'feeds_imported' => ' فیدهای شما وارد شده اند و اکنون به روز خواهند شد / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => ' فیدهای شما وارد شده است / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => ' فایل قابل آپلود نیست!',
 		'no_zip_extension' => ' پسوند ZIP در سرور شما وجود ندارد.',
 		'zip_error' => ' در حین پردازش ZIP خطایی روی داد.',

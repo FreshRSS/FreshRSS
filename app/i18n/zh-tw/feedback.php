@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '伺服器未啟用 ZIP 擴展。請嘗試逐個導出文件。',
-		'feeds_imported' => '你的訂閱已導入，即將刷新',
-		'feeds_imported_with_errors' => '你的訂閱源已導入，但發生錯誤',
+		'feeds_imported' => '你的訂閱已導入，即將刷新 / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',
+		'feeds_imported_with_errors' => '你的訂閱源已導入，但發生錯誤 / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',
 		'file_cannot_be_uploaded' => '文件未能上傳！',
 		'no_zip_extension' => '伺服器未啟用 ZIP 擴展。',
 		'zip_error' => '導入 ZIP 文件時出錯',	// DIRTY

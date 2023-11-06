@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'A ZIP kiterjesztés nem létezik a szerveren. Exportáld a fájlokat egyesével.',
-		'feeds_imported' => 'A hírlisták importálása megtörtént és most frissítésre kerülnek',
-		'feeds_imported_with_errors' => 'A hírlisták importálása megtörtént, de néhány hiba történt',
+		'feeds_imported' => 'A hírlisták importálása megtörtént és most frissítésre kerülnek / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'A hírlisták importálása megtörtént, de néhány hiba történt / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Fájl nem feltölthető!',
 		'no_zip_extension' => 'A ZIP kiterjesztés nem létezik a szerveren.',
 		'zip_error' => 'Hiba történt a ZIP feldolgozása közben.',

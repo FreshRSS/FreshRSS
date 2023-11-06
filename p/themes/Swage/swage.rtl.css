@@ -993,10 +993,12 @@ a.signin {
 	.nav_menu .btn {
 		margin: 0;
 	}
-	.nav_menu .stick {
+	.nav_menu .stick,
+.nav_menu .group {
 		margin: 0;
 	}
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+.nav_menu .group .btn {
 		margin: 0;
 	}
 	.nav_menu .item.search {

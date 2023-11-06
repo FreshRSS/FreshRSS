@@ -208,7 +208,7 @@ label {
 	display: block;
 }
 
-input {
+input:not(.w50,.w100) {
 	max-width: 90%;
 	width: 300px;
 }
@@ -441,7 +441,8 @@ td.numeric {
 }
 
 /*=== Buttons */
-.stick {
+.stick,
+.group {
 	display: inline-flex;
 	max-width: 100%;
 	white-space: nowrap;
@@ -457,7 +458,8 @@ td.numeric {
 	flex-shrink: 1;
 }
 
-.stick > .btn {
+.stick > .btn,
+.group > .btn {
 	flex-shrink: 0;
 }
 
@@ -473,6 +475,24 @@ td.numeric {
 
 .btn-important {
 	font-weight: bold;
+}
+
+.btn-state1.hide {
+	display: none;
+}
+
+.btn-state2 {
+	display: none;
+}
+
+.btn-state2.show {
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-left: 2rem;
 }
 
 /*=== switch */
@@ -1112,7 +1132,7 @@ input[type="search"] {
 
 .aside_feed .tree-folder-title .icon,
 .aside_feed .tree-folder-items .feed .icon {
-	padding: 0 0.5rem 0 0;
+	margin: 0 0.5rem 0 0;
 }
 
 .aside_feed .tree-folder-items .feed .favicon {
@@ -2328,8 +2348,8 @@ html.slider-active {
 	}
 
 	.aside_feed .tree-folder-items .feed .favicon {
-		margin: 0;
-		padding: 0 0.5rem 0 0;
+		margin: 0 0.5rem 0 0;
+		padding: 0;
 	}
 
 	.flux_header .item.website {

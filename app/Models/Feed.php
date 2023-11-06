@@ -37,54 +37,32 @@ class FreshRSS_Feed extends Minz_Model {
 	public const ARCHIVING_RETENTION_COUNT_LIMIT = 10000;
 	public const ARCHIVING_RETENTION_PERIOD = 'P3M';
 
-	/** @var int */
-	private $id = 0;
-	/** @var string */
-	private $url = '';
-	/** @var int */
-	private $kind = 0;
-	/** @var int */
-	private $categoryId = 1;
-	/** @var FreshRSS_Category|null */
-	private $category;
-	/** @var int */
-	private $nbEntries = -1;
-	/** @var int */
-	private $nbNotRead = -1;
-	/** @var int */
-	private $nbPendingNotRead = 0;
-	/** @var string */
-	private $name = '';
-	/** @var string */
-	private $website = '';
-	/** @var string */
-	private $description = '';
-	/** @var int */
-	private $lastUpdate = 0;
-	/** @var int */
-	private $priority = self::PRIORITY_MAIN_STREAM;
-	/** @var string */
-	private $pathEntries = '';
-	/** @var string */
-	private $httpAuth = '';
-	/** @var bool */
-	private $error = false;
-	/** @var int */
-	private $ttl = self::TTL_DEFAULT;
+	private int $id = 0;
+	private string $url = '';
+	private int $kind = 0;
+	private int $categoryId = 1;
+	private ?FreshRSS_Category $category;
+	private int $nbEntries = -1;
+	private int $nbNotRead = -1;
+	private int $nbPendingNotRead = 0;
+	private string $name = '';
+	private string $website = '';
+	private string $description = '';
+	private int $lastUpdate = 0;
+	private int $priority = self::PRIORITY_MAIN_STREAM;
+	private string $pathEntries = '';
+	private string $httpAuth = '';
+	private bool $error = false;
+	private int $ttl = self::TTL_DEFAULT;
 	/** @var array<string,mixed> */
-	private $attributes = [];
-	/** @var bool */
-	private $mute = false;
-	/** @var string */
-	private $hash = '';
-	/** @var string */
-	private $lockPath = '';
-	/** @var string */
-	private $hubUrl = '';
-	/** @var string */
-	private $selfUrl = '';
-	/** @var array<FreshRSS_FilterAction> $filterActions */
-	private $filterActions = null;
+	private array $attributes = [];
+	private bool $mute = false;
+	private string $hash = '';
+	private string $lockPath = '';
+	private string $hubUrl = '';
+	private string $selfUrl = '';
+	/** @var array<FreshRSS_FilterAction>|null $filterActions */
+	private ?array $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
 		if ($validate) {

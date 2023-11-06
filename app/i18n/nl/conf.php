@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Opmaak',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Automatische dark mode (beta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Nee',
 		),
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Verouderd',
+				'description' => 'Dit thema wordt niet langer ondersteund en zal niet meer beschikbaar zijn in een <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">toekomstige release van FreshRSS</a>.',
 			),
 		),
 		'theme_not_available' => 'Het „%s” thema is niet meer beschikbaar. Kies een ander thema.',
@@ -71,11 +71,11 @@ return array(
 		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icoon en naam',
+			'icon' => 'Alleen icoon',
+			'label' => 'Website',	// IGNORE
+			'name' => 'Alleen naam',
+			'none' => 'Geen',
 		),
 		'width' => array(
 			'content' => 'Inhoud breedte',

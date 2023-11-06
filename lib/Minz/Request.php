@@ -8,20 +8,17 @@
  * Request représente la requête http
  */
 class Minz_Request {
-	/** @var string */
-	private static $controller_name = '';
-	/** @var string */
-	private static $action_name = '';
-	/** @var array<string,mixed> */
-	private static $params = array();
 
-	/** @var string */
-	private static $default_controller_name = 'index';
-	/** @var string */
-	private static $default_action_name = 'index';
+	private static string $controller_name = '';
+	private static string $action_name = '';
+	/** @var array<string,mixed> */
+	private static array $params = [];
+
+	private static string $default_controller_name = 'index';
+	private static string $default_action_name = 'index';
 
 	/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
-	private static $originalRequest = [];
+	private static array $originalRequest = [];
 
 	/**
 	 * Getteurs

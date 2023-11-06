@@ -160,8 +160,8 @@ return array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Basis-url',
+			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'in seconden',
@@ -187,30 +187,30 @@ return array(
 			),
 			'title' => 'Gebruikersregistratieformulier',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Kwetsbare parameter. Handmatig te bewerken in <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'is niet ingegeven',
+			'enabled' => '<a href="./?a=tos">is ingeschakeld</a>',
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">algemene voorwaarden inschakelen</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Versie controle',
 		'apply' => 'Toepassen',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Controleer op nieuwe versies',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php gekopieerd van %s naar ./data',
 		'current_version' => 'Uw huidige versie',
 		'last' => 'Laatste controle',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Updaten…',
 		'none' => 'Geen nieuwe versie om toe te passen',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Release-kanaal',
+			'edge' => 'Rollende release (“edge”)',
+			'latest' => 'Stabiele release (“latest”)',
 		),
 		'title' => 'Vernieuw systeem',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Update via git and Github.com gestart',
 	),
 	'user' => array(
 		'admin' => 'Beheerder',

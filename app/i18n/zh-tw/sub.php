@@ -144,7 +144,7 @@ return array(
 			'normal' => '在分類中顯示',
 		),
 		'proxy' => '獲取訂閱源時的代理',
-		'proxy_help' => '選擇協議（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd>）',
+		'proxy_help' => '選擇協議（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>）',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => '顯示源碼',
 			'show_rendered' => '顯示內容',
