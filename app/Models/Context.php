@@ -339,7 +339,7 @@ final class FreshRSS_Context {
 			break;
 		case 'i':
 			self::$current_get['important'] = true;
-			self::$name = _t('index.feed.title');
+			self::$name = _t('index.menu.important');
 			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;
 			break;
