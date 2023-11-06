@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Please add some feeds.',	// IGNORE
 		'empty' => 'There are no articles to show.',	// IGNORE
 		'rss_of' => 'RSS feed of %s',	// IGNORE
 		'title' => 'Main stream',	// IGNORE

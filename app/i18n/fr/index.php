@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Vous pouvez ajouter des flux.',
 		'empty' => 'Il n’y a aucun article à afficher.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux principal',

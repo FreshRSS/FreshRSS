@@ -26,7 +26,6 @@ return array(
 		'version' => 'Wersja',
 	),
 	'feed' => array(
-		'add' => 'Dodaj więcej kanałów.',
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'rss_of' => 'Kanał RSS: %s',
 		'title' => 'Kanał główny',
