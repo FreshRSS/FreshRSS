@@ -26,7 +26,6 @@ return array(
 		'version' => 'Verzió',
 	),
 	'feed' => array(
-		'add' => 'Adj hozzá hírforrást.',
 		'empty' => 'Nincs megjeleníthető cikk.',
 		'rss_of' => 'RSS hírforrás %s',
 		'title' => 'Minden cikk',

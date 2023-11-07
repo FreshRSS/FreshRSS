@@ -26,7 +26,6 @@ return array(
 		'version' => '版本',
 	),
 	'feed' => array(
-		'add' => '你可以添加一些訂閱源。',
 		'empty' => '暫時沒有文章可顯示。',
 		'rss_of' => '%s 的訂閱源',
 		'title' => '首頁',
