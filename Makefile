@@ -21,8 +21,6 @@ endif
 
 ifeq ($(findstring alpine,$(TAG)),alpine)
 	DOCKERFILE=Dockerfile-Alpine
-else ifeq ($(findstring arm,$(TAG)),arm)
-	DOCKERFILE=Dockerfile-QEMU-ARM
 else
 	DOCKERFILE=Dockerfile
 endif
