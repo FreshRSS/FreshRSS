@@ -2,6 +2,8 @@
 
 **[authentik](https://goauthentik.io/)** is an open-source Identity Provider compatible with OpenID Connect (OIDC) (see [FreshRSS’ OpenID Connect documentation](16_OpenID-Connect.md)).
 
+You can find more information in [authentik integrations documentation](https://goauthentik.io/integrations/services/freshrss/).
+
 ## 1. Create OAuth2/OpenID Provider
 
 In authentik Web interface:
