@@ -901,15 +901,14 @@ li.item.active {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 5px 0 0;
+	padding: 1rem 1rem 1rem 3rem;
 	background: var(--dropdown-bg);
 	color: var(--text-default);
-	font-size: 0.9em;
+	font-size: 0.9rem;
 	border-radius: 6px;
 	border-color: var(--border-elements);
-	z-index: 10;
+	z-index: 9999;
 	font-weight: bold;
-	line-height: 3em;
 	box-shadow: 0px 0px 10px var(--frss-box-shadow-color-transparent);
 }
 
@@ -922,9 +921,9 @@ li.item.active {
 	filter: brightness(60%);
 }
 
-.notification.closed {
-	opacity: 0;
-	visibility: hidden;
+.notification a.close {
+	padding: 1.25rem;
+	line-height: 1;
 }
 
 /*=== Popup */
