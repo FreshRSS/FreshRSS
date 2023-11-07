@@ -1979,7 +1979,7 @@ html.slider-active {
 }
 
 .feed[data-priority="20"] .item-title,
-.flux[data-priority="20"] .website {
+.flux[data-priority="20"] .website > a {
 	text-decoration: underline double;
 }
 
