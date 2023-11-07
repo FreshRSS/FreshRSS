@@ -25,5 +25,6 @@ Now that you’ve mastered basic use, it’s time to configure FreshRSS to impro
 * [Access your feeds on a mobile device](06_Mobile_access.md)
 * [Add some extensions](https://github.com/FreshRSS/Extensions)
 * [Frequently asked questions](07_Frequently_Asked_Questions.md)
+* [Receive articles instantly with WebSub](WebSub.md)
 
 FreshRSS has a built-in engine that [scrapes a website to create an own feed](11_website_scraping.md).
