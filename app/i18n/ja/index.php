@@ -26,7 +26,6 @@ return array(
 		'version' => 'バージョン',
 	),
 	'feed' => array(
-		'add' => 'フィードを追加してください。',
 		'empty' => '表示できる記事がありません',
 		'rss_of' => '%s のRSSフィード',
 		'title' => 'メイン',

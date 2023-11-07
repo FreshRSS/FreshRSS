@@ -26,7 +26,6 @@ return array(
 		'version' => '버전',
 	),
 	'feed' => array(
-		'add' => '피드를 추가하세요.',
 		'empty' => '글이 없습니다.',
 		'rss_of' => '%s의 피드',
 		'title' => '메인 스트림',

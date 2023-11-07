@@ -26,7 +26,6 @@ return array(
 		'version' => 'Versie',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'U kunt wat feeds toevoegen.',
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'rss_of' => 'RSS-feed van %s',
 		'title' => 'Overzicht',

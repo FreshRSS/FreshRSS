@@ -26,7 +26,6 @@ return array(
 		'version' => 'Versão',
 	),
 	'feed' => array(
-		'add' => 'Você pode adicionar alguns feeds.',
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'rss_of' => 'RSS feed do %s',
 		'title' => 'Stream principal',

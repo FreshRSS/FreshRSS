@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux màger',

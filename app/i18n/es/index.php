@@ -26,7 +26,6 @@ return array(
 		'version' => 'Versión',
 	),
 	'feed' => array(
-		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
 		'title' => 'Salida Principal',

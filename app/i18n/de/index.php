@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Sie können Feeds hinzufügen.',
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
 		'title' => 'Haupt-Feeds',

@@ -26,7 +26,6 @@ return array(
 		'version' => 'Versija',
 	),
 	'feed' => array(
-		'add' => 'Lūdzu pievienojat barotni.',
 		'empty' => 'Nav neviena raksta, ko parādīt.',
 		'rss_of' => 'RSS plūsma %s',
 		'title' => 'Galvenā plūsma',

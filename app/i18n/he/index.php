@@ -26,7 +26,6 @@ return array(
 		'version' => 'גרסה',
 	),
 	'feed' => array(
-		'add' => 'ניתן להוסיף הזנות חדשות.',
 		'empty' => 'אין מאמר להצגה.',
 		'rss_of' => 'הזנת RSS של %s',
 		'title' => 'הזנה ראשית',

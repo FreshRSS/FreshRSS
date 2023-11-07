@@ -26,7 +26,6 @@ return array(
 		'version' => 'Sürüm',
 	),
 	'feed' => array(
-		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => '%s kaynağına ait RSS akışı',
 		'title' => 'Ana akış',

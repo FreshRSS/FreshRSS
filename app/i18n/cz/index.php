@@ -26,7 +26,6 @@ return array(
 		'version' => 'Verze',
 	),
 	'feed' => array(
-		'add' => 'Přidejte nějaké kanály.',
 		'empty' => 'Nejsou žádné články k zobrazení.',
 		'rss_of' => 'Kanál RSS %s',
 		'title' => 'Hlavní kanál',

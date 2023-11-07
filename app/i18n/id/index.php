@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// TODO
 	),
 	'feed' => array(
-		'add' => 'Please add some feeds.',	// TODO
 		'empty' => 'There are no articles to show.',	// TODO
 		'rss_of' => 'RSS feed of %s',	// TODO
 		'title' => 'Main stream',	// TODO
