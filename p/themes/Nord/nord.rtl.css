@@ -429,32 +429,11 @@ svg:hover {
 }
 
 .dropdown-close {
-	display: inline;
-}
-
-.dropdown-close a {
-	background: none;
-	display: block;
-	font-size: 0;
-	position: fixed;
-	top: 0; bottom: 0;
-	right: 0; left: 0;
-	z-index: -11;
-	cursor: default;
+	backdrop-filter: grayscale(25%) brightness(0.9);
 }
 
 .dropdown-close a:hover {
 	background: none;
-}
-
-.dropdown div.dropdown-close {
-	display: none;
-}
-
-.dropdown-target:target ~ div.dropdown-close {
-	display: block;
-	z-index: 999;
-	position: relative;
 }
 
 .dropdown-target:target ~ .dropdown-toggle::after {
