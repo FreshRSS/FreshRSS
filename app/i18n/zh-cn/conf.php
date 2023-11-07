@@ -204,9 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
+			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后',
-			'focus' => 'when focused', // TODO
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',

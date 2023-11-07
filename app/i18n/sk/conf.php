@@ -204,9 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'keď je článok otvorený na svojej webovej stránke',
 			'article_viewed' => 'keď je článok zobrazený',
+			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Maximálny počet článkov ponechať ako neprečítané',
 			'scroll' => 'počas skrolovania',
-			'focus' => 'when focused', // TODO
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',

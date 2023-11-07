@@ -204,9 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => ' هنگامی که مقاله در وب سایت اصلی خود باز می شود',
 			'article_viewed' => ' هنگام مشاهده مقاله',
+			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => ' حداکثر تعداد مقالات خوانده نشده',
 			'scroll' => ' در حین پیمایش',
-			'focus' => 'when focused', // TODO
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',
