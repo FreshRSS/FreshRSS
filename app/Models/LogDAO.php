@@ -12,9 +12,9 @@ final class FreshRSS_LogDAO {
 	public static function lines(?string $logFileName = null): array {
 		$logs = [];
 		$handle = @fopen(self::logPath($logFileName), 'r');
-		if ($handle) {
+		if ($handle !== false) {
 			while (($line = fgets($handle)) !== false) {
-				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
+				if (is_int(preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches))) {
 					$myLog = new FreshRSS_Log();
 					$myLog->_date($matches[1]);
 					$myLog->_level($matches[2]);
