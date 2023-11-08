@@ -4,7 +4,7 @@
 
 * Features
 	* New *Important feeds* group in the main view, with corresponding new priority level for feeds [#5782](https://github.com/FreshRSS/FreshRSS/pull/5782)
-		* Entries from important feeds are not marked as read during scroll, during *focus*, or nor during *Mark all as read*
+		* Entries from important feeds are not marked as read during *scroll*, during *focus*, nor during *Mark all as read*
 	* New option to mark entries as read when focused from keyboard shortcut [5812](https://github.com/FreshRSS/FreshRSS/pull/5812)
 	* Add support for more thumbnail types [#5806](https://github.com/FreshRSS/FreshRSS/pull/5806)
 	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
