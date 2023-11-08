@@ -16,11 +16,11 @@ Many individual feeds and platforms already offer instant notifications through 
 
 You can test that WebSub works properly in your FreshRSS instance with a service such as:
 
-* <http://push-tester.cweiske.de/>
+* <http://push-tester.cweiske.de>
 
 ## Add WebSub to your RSS / ATOM feeds
 
 Your CMS (e.g. WordPress) might already offer WebSub as an option. Otherwise, you can make a solution that notifies a hub such as:
 
-* <https://websub.flus.io/>
-* <https://websubhub.com/>
+* <https://websubhub.com>
+* <https://pubsubhubbub.appspot.com>

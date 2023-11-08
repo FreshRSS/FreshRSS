@@ -31,5 +31,5 @@ Vous pouver tester que le support WebSub de votre instance FreshRSS est correct 
 
 Votre CMS (par exemple WordPress) supporte peut-être déjà WebSub en option. Sinon, vous pouvez faire une solution qui notifie un hub tel :
 
-* <https://websub.flus.io/>
 * <https://websubhub.com/>
+* <https://pubsubhubbub.appspot.com>
