@@ -89,6 +89,7 @@
 					<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
 						if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
 				</select>
+				<?= _i('important') ?>
 			</div>
 		</div>
 
