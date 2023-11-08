@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'ha a cikk megtekintésre került',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Cikkek maximális száma olvasatlanként tartva',
-			'scroll' => 'görgetés közben',
+			'scroll' => 'görgetés közben (except for important feeds)',	// DIRTY
 			'upon_gone' => 'ha már nincs benne a hírforrásban',
 			'upon_reception' => 'a cikk beérkezésekor',
 			'when' => 'Jelölje a cikket olvasottként…',

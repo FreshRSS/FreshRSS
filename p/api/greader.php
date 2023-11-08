@@ -963,7 +963,7 @@ final class GReaderAPI {
 				}
 			}
 		} elseif ($streamId === 'user/-/state/com.google/reading-list') {
-			$entryDAO->markReadEntries($olderThanId, false, -1);
+			$entryDAO->markReadEntries($olderThanId, false);
 		} else {
 			self::badRequest();
 		}

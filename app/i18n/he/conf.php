@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
-			'scroll' => 'כאשר גוללים',
+			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',

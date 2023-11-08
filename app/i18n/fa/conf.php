@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => ' هنگام مشاهده مقاله',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => ' حداکثر تعداد مقالات خوانده نشده',
-			'scroll' => ' در حین پیمایش',
+			'scroll' => '(except for important feeds) در حین پیمایش',	// DIRTY
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',

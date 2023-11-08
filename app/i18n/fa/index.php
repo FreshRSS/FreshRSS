@@ -26,7 +26,6 @@ return array(
 		'version' => ' نسخه',
 	),
 	'feed' => array(
-		'add' => ' لطفاً چند فید اضافه کنید.',
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'rss_of' => ' فید RSS %s',
 		'title' => ' جریان اصلی',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => ' جریان اصلی',
 		'mark_all_read' => ' همه را به عنوان خوانده شده علامت گذاری کنید',
 		'mark_cat_read' => ' دسته را به عنوان خوانده شده علامت گذاری کنید',

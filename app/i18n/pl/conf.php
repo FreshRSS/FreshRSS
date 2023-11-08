@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'gdy wiadomość jest otworzona',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
-			'scroll' => 'podczas przewijania',
+			'scroll' => 'podczas przewijania (except for important feeds)',	// DIRTY
 			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',

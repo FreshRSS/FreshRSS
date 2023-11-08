@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'keď je článok zobrazený',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Maximálny počet článkov ponechať ako neprečítané',
-			'scroll' => 'počas skrolovania',
+			'scroll' => 'počas skrolovania (except for important feeds)',	// DIRTY
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',

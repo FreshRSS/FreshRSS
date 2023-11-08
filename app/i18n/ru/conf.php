@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'когда статья просматривается',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
-			'scroll' => 'во время прокрутки',
+			'scroll' => 'во время прокрутки (except for important feeds)',	// DIRTY
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',

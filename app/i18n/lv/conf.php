@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'kad raksts tiek skatīts',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Maksimālais nelasīto rakstu skaits',
-			'scroll' => 'ritināšanas laikā',
+			'scroll' => 'ritināšanas laikā (except for important feeds)',	// DIRTY
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',

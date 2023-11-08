@@ -206,7 +206,7 @@ return array(
 			'article_viewed' => 'wenn der Artikel angesehen wird',
 			'focus' => 'when focused',	// TODO
 			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
-			'scroll' => 'beim Scrollen bzw. Überspringen',
+			'scroll' => 'beim Scrollen bzw. Überspringen (except for important feeds)',	// DIRTY
 			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
