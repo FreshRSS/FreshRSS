@@ -1088,7 +1088,8 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_POSTFIELDS => http_build_query([
 					'hub.verify' => 'sync',
 					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url, 'hub.callback' => $callbackUrl,
+					'hub.topic' => $url,
+					'hub.callback' => $callbackUrl,
 				]),
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,

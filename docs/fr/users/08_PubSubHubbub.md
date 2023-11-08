@@ -19,4 +19,17 @@ Pour pouvoir être notifié, les abonnés doivent fournir une adresse accessible
 
 Depuis la version 1.1.2-beta, FreshRSS supporte officiellement WebSub.
 Vous pouvez donc recevoir en temps réel les articles des sites qui affichent dans leur flux RSS un « hub »,
-tels [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), WordPress (WordPress.com ou avec [une extension](https://wordpress.org/plugins/pubsubhubbub/)), Blogger, FeedBurner, Slashdot, etc.
+tels [Friendica](https://friendi.ca), WordPress (WordPress.com ou avec [une extension](https://wordpress.org/plugins/pubsubhubbub/)), Blogger, Medium, etc.
+
+## Tester WebSub
+
+Vous pouver tester que le support WebSub de votre instance FreshRSS est correct avec un service comme :
+
+* <http://push-tester.cweiske.de/>
+
+## Ajouter WebSub à votre flux RSS / ATOM
+
+Votre CMS (par exemple WordPress) supporte peut-être déjà WebSub en option. Sinon, vous pouvez faire une solution qui notifie un hub tel :
+
+* <https://websubhub.com/>
+* <https://pubsubhubbub.appspot.com>

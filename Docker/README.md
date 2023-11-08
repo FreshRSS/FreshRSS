@@ -5,8 +5,8 @@
 
 FreshRSS is a self-hosted RSS feed aggregator.
 
-* Official website: [freshrss.org](https://freshrss.org/)
-* Official Docker images: [hub.docker.com/r/freshrss/freshrss](https://hub.docker.com/r/freshrss/freshrss/)
+* Official website: [`freshrss.org`](https://freshrss.org/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
 * Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
