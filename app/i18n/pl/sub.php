@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Widoczność',
 			'archived' => 'Nie pokazuj (zarchiwizowany)',
+			'category' => 'Pokaż w kategorii kanału',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Pokaż w kanale głównym',
-			'normal' => 'Pokaż w kategorii kanału',
 		),
 		'proxy' => 'Użyj mechanizmu proxy podczas pobierania kanału',
 		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY

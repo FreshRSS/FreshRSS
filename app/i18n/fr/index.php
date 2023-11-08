@@ -43,9 +43,10 @@ return array(
 		'before_one_day' => 'Antérieurs à 1 jour',
 		'before_one_week' => 'Antérieurs à 1 semaine',
 		'bookmark_query' => 'Enregistrer la recherche courante',
-		'favorites' => 'Favoris (%s)',
+		'favorites' => 'Articles favoris (%s)',
 		'global_view' => 'Vue globale',
-		'main_stream' => 'Flux principal',
+		'important' => 'Flux importants',	// DIRTY
+		'main_stream' => 'Flux principaux',
 		'mark_all_read' => 'Tout marquer comme lu',
 		'mark_cat_read' => 'Marquer la catégorie comme lue',
 		'mark_feed_read' => 'Marquer le flux comme lu',

@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Şuana ait yer imi sorgusu',
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Evrensel görünüm',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Ana akış',
 		'mark_all_read' => 'Hepsini okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',

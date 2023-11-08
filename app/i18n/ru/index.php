@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Сохранить текущий запрос',
 		'favorites' => 'Избранное (%s)',
 		'global_view' => 'Глобальный вид',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Основной поток',
 		'mark_all_read' => 'Отметить всё прочитанным',
 		'mark_cat_read' => 'Отметить категорию прочитанной',

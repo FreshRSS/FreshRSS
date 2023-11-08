@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'archived' => 'Nerādīt (arhivēts)',
+			'category' => 'Rādīt kategorijā',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',
-			'normal' => 'Rādīt kategorijā',
 		),
 		'proxy' => 'Iestatīt starpniekserveri šīs plūsmas iegūšanai',
 		'proxy_help' => 'Izvēlieties protokolu (piemēram, SOCKS5) un ievadiet starpniekservera adresi (piemēram, <kbd>127.0.0.0.1:1080</kbd>).',
