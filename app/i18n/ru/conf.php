@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
-			'focus' => 'when focused',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
 			'scroll' => 'во время прокрутки (except for important feeds)',	// DIRTY
 			'upon_gone' => 'когда это больше не в новостной ленте',

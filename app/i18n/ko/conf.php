@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
-			'focus' => 'when focused',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
 			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',

@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',	// TODO
 			'article_viewed' => 'when the article is viewed',	// TODO
-			'focus' => 'when focused',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => 'while scrolling (except for important feeds)',	// TODO
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO

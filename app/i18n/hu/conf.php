@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'ha a cikk megnyitásra került az eredeti weblapon',
 			'article_viewed' => 'ha a cikk megtekintésre került',
-			'focus' => 'when focused',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Cikkek maximális száma olvasatlanként tartva',
 			'scroll' => 'görgetés közben (except for important feeds)',	// DIRTY
 			'upon_gone' => 'ha már nincs benne a hírforrásban',

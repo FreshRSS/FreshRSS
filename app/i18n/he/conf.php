@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'כאשר מאמר נפתח באתר המקורי',
 			'article_viewed' => 'כאשר מאמר נצפה',
-			'focus' => 'when focused',	// TODO
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
 			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO

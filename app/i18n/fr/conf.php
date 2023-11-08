@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',
 			'article_viewed' => 'lorsque l’article est affiché',
-			'focus' => 'lorsque l’article est selectionné',
+			'focus' => 'lorsque l’article est selectionné (sauf pour les flux importants)',
 			'keep_max_n_unread' => 'Nombre maximum d’articles conservés non lus',
 			'scroll' => 'au défilement de la page (sauf pour les flux importants)',
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
