@@ -37,14 +37,9 @@ $today = @strtotime('today');
 		}
 		$this->entry = $item;
 
-		// We most likely already have the feed object in cache
-		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feedId());
-		if ($this->feed == null) {
-			$this->feed = $this->entry->feed() ?: null;
-			if ($this->feed == null) {
-				$this->feed = FreshRSS_Feed::example();
-			}
-		}
+		// We most likely already have the feed object in cache, otherwise make a request
+		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feedId()) ??
+			$this->entry->feed() ?? FreshRSS_Feed::example();
 
 		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
 			?><div class="day" id="day_today"><?php
@@ -71,8 +66,10 @@ $today = @strtotime('today');
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
+		?><?= $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
+		?>" data-priority="<?= $this->feed->priority()
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 

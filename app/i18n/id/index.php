@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'Favorites (%s)',
 		'global_view' => 'Global view',	// TODO
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Main stream',	// TODO
 		'mark_all_read' => 'Mark all as read',	// TODO
 		'mark_cat_read' => 'Mark category as read',	// TODO

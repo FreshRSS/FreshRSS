@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Bookmark current query',	// IGNORE
 		'favorites' => 'Favorites (%s)',
 		'global_view' => 'Global view',	// IGNORE
+		'important' => 'Important feeds',	// IGNORE
 		'main_stream' => 'Main stream',	// IGNORE
 		'mark_all_read' => 'Mark all as read',	// IGNORE
 		'mark_cat_read' => 'Mark category as read',	// IGNORE

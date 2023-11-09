@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Marcar aquesta requèsta',
 		'favorites' => 'Favorits (%s)',
 		'global_view' => 'Vista generala',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Flux màger',
 		'mark_all_read' => 'O marcar tot coma legit',
 		'mark_cat_read' => 'Marcar la categoria coma legida',
