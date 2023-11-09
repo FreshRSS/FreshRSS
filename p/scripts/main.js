@@ -481,6 +481,9 @@ function prev_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -496,6 +499,9 @@ function next_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -510,6 +516,9 @@ function next_unread_entry(skipping) {
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
+	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
 }
