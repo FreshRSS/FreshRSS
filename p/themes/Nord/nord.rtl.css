@@ -644,7 +644,7 @@ img.favicon {
 /*=== Body */
 .aside {
 	background-color: var(--accent-bg);
-	border-radius: 12px;
+	border-top-left-radius: 12px;
 }
 
 /*=== Aside main page */
