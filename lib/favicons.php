@@ -68,34 +68,32 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 function searchFavicon(string &$url): string {
 	$dom = new DOMDocument();
 	$html = downloadHttp($url);
-	if ($html != '' && @$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
-		$rels = array('shortcut icon', 'icon');
-		$links = $dom->getElementsByTagName('link');
-		foreach ($rels as $rel) {
-			foreach ($links as $link) {
-				if ($link->hasAttribute('rel') && $link->hasAttribute('href') &&
-					strtolower(trim($link->getAttribute('rel'))) === $rel) {
-					$href = trim($link->getAttribute('href'));
-					if (substr($href, 0, 2) === '//') {
-						// Case of protocol-relative URLs
-						if (preg_match('%^(https?:)//%i', $url, $matches) === 1) {
-							$href = $matches[1] . $href;
-						} else {
-							$href = 'https:' . $href;
-						}
-					}
-					$checkUrl = checkUrl($href, false);
-					if (is_string($checkUrl)) {
-						$href = SimplePie_IRI::absolutize($url, $href);
-					}
-					$favicon = downloadHttp($href, array(
-							CURLOPT_REFERER => $url,
-						));
-					if (isImgMime($favicon)) {
-						return $favicon;
-					}
-				}
-			}
+
+	if ($html == '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+		return '';
+	}
+
+	$xpath = new DOMXPath($dom);
+	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon" or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
+
+	// Use the base element for relative paths, if there is one
+	$baseElements = $xpath->query('//base[@href]');
+	$baseUrl = ($baseElements->length > 0) ? $baseElements->item(0)->getAttribute('href') : $url;
+
+	foreach ($links as $link) {
+		$href = trim($link->getAttribute('href'));
+		$urlParts = parse_url($url);
+
+		// Handle protocol-relative URLs by adding the current URL's scheme
+		if (substr($href, 0, 2) === '//') {
+			$href = $urlParts['scheme'] . '://' . $href;
+		}
+
+		$href = SimplePie_IRI::absolutize($baseUrl, $href);
+
+		$favicon = downloadHttp($href, array(CURLOPT_REFERER => $url));
+		if (isImgMime($favicon)) {
+			return $favicon;
 		}
 	}
 	return '';
