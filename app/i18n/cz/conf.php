@@ -204,6 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je článek otevřen na své původní webové stránce',
 			'article_viewed' => 'když je článek zobrazen',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
 			'scroll' => 'během posouvání (except for important feeds)',	// DIRTY
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
