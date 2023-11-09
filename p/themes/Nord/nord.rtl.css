@@ -655,6 +655,7 @@ img.favicon {
 
 .aside.nav-list .nav-section .item.active a {
 	color: var(--highlight);
+	font-weight: bold;
 }
 
 .aside.nav-list .nav-section .item a:hover {
