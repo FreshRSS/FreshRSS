@@ -74,7 +74,8 @@ function searchFavicon(string &$url): string {
 	}
 
 	$xpath = new DOMXPath($dom);
-	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon" or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
+	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
+		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
 
 	// Use the base element for relative paths, if there is one
 	$baseElements = $xpath->query('//base[@href]');
