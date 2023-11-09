@@ -206,7 +206,7 @@ class SimplePie_Content_Type_Sniffer
 	/**
 	 * Sniff images
 	 *
-	 * @return string Actual Content-Type
+	 * @return string|false Actual Content-Type
 	 */
 	public function image()
 	{

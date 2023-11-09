@@ -117,7 +117,7 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	/**
 	 * Retrieve the data saved to the cache
 	 *
-	 * @return array Data for SimplePie::$data
+	 * @return array|false Data for SimplePie::$data
 	 */
 	public function load()
 	{

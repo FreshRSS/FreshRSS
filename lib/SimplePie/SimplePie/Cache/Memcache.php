@@ -120,7 +120,7 @@ class SimplePie_Cache_Memcache implements SimplePie_Cache_Base
 	/**
 	 * Retrieve the data saved to the cache
 	 *
-	 * @return array Data for SimplePie::$data
+	 * @return array|false Data for SimplePie::$data
 	 */
 	public function load()
 	{
@@ -136,7 +136,7 @@ class SimplePie_Cache_Memcache implements SimplePie_Cache_Base
 	/**
 	 * Retrieve the last modified time for the cache
 	 *
-	 * @return int Timestamp
+	 * @return int|false Timestamp
 	 */
 	public function mtime()
 	{

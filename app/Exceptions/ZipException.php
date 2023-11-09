@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 class FreshRSS_Zip_Exception extends Exception {
 
 	private int $zipErrorCode = 0;

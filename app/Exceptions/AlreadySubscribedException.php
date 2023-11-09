@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 class FreshRSS_AlreadySubscribed_Exception extends Exception {
 
 	private string $feedName = '';

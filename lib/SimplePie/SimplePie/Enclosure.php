@@ -606,7 +606,7 @@ class SimplePie_Enclosure
 	/**
 	 * Get length
 	 *
-	 * @return float Length in bytes
+	 * @return mixed|null|string Length in bytes
 	 */
 	public function get_length()
 	{
@@ -1129,7 +1129,7 @@ class SimplePie_Enclosure
 	 *
 	 * @see get_type()
 	 * @param bool $find_handler Internal use only, use {@see get_handler()} instead
-	 * @return string MIME type
+	 * @return string|null MIME type
 	 */
 	public function get_real_type($find_handler = false)
 	{
