@@ -46,7 +46,11 @@
 	--purple: var(--nord15-aurora);
 
 	--frss-background-color-transparent: #2e34407f;
+	--frss-background-color: var(--main-background);
 	--frss-box-shadow-color-transparent: #111;
+	--frss-switch-accent-color: var(--nord14-aurora);
+	--frss-background-color-middle: var(--highlight);
+	--frss-background-color-dark: var(--light-bg);
 
 	--frss-scrollbar-handle: #0002;
 	--frss-scrollbar-handle-hover: var(--nord1-polarnight);
