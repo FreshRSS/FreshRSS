@@ -205,7 +205,7 @@ return array(
 			'article_open_on_website' => 'quando o artigo é aberto no site original',
 			'article_viewed' => 'Quando o artigo é visualizado',
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
-			'scroll' => 'enquanto scrolling',
+			'scroll' => 'enquanto scrolling (except for important feeds)',	// DIRTY
 			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',

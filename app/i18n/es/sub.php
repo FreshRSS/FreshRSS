@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'archived' => 'No mostrar (archivado)',
+			'category' => 'Mostrar en su categoría',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostrar en salida principal',
-			'normal' => 'Mostrar en su categoría',
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY

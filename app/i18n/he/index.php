@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'מועדפים (%s)',
 		'global_view' => 'תצוגה גלובלית',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'הזנה ראשית',
 		'mark_all_read' => 'סימון הכל כנקרא',
 		'mark_cat_read' => 'סימון קטגוריה כנקראה',

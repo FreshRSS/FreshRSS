@@ -28,8 +28,9 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public const KIND_JSON_XPATH = 20;
 
+	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
-	public const PRIORITY_NORMAL = 0;
+	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;
@@ -1087,7 +1088,8 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_POSTFIELDS => http_build_query([
 					'hub.verify' => 'sync',
 					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url, 'hub.callback' => $callbackUrl,
+					'hub.topic' => $url,
+					'hub.callback' => $callbackUrl,
 				]),
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,

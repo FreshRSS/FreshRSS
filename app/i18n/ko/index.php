@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => '현재 쿼리 북마크',
 		'favorites' => '즐겨찾기 (%s)',
 		'global_view' => '전체 모드',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => '메인 스트림',
 		'mark_all_read' => '모두 읽음으로 표시',
 		'mark_cat_read' => '카테고리를 읽음으로 표시',
