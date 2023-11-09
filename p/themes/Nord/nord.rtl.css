@@ -372,25 +372,6 @@ svg:hover {
 	text-align: right;
 }
 
-.aside .toggle_aside,
-#overlay .close,
-.dropdown-menu .toggle_aside,
-#slider .toggle_aside,
-.dropdown-header-close a {
-	background: var(--accent-bg);
-	border: 1px solid var(--accent-border);
-	box-sizing: border-box;
-	transition: 0.2s;
-}
-
-.aside .toggle_aside:hover,
-#slider .toggle_aside:hover,
-#overlay .close:hover,
-.dropdown-menu .toggle_aside:hover {
-	background-color: var(--main-background) !important;
-	border-color: var(--highlight) !important;
-}
-
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
 .dropdown-menu .item > .as-link {
@@ -699,6 +680,23 @@ img.favicon {
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
+}
+
+.aside .toggle_aside,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside,
+.dropdown-header-close a {
+	background: var(--accent-bg);
+	border: 1px solid var(--accent-border);
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+.aside .toggle_aside:hover,
+#slider .toggle_aside:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--main-background) !important;
+	border-color: var(--highlight) !important;
 }
 
 .item.feed.error > .item-title {
@@ -1348,6 +1346,18 @@ optgroup::before {
 
 	.dropdown .dropdown-menu {
 		border-radius: 6px;
+	}
+
+	#overlay .close {
+		background: var(--accent-bg);
+		border: 1px solid var(--accent-border);
+		box-sizing: border-box;
+		transition: 0.2s;
+	}
+
+	#overlay .close:hover {
+		background-color: var(--main-background) !important;
+		border-color: var(--highlight) !important;
 	}
 
 	.header .configure .dropdown .dropdown-menu {
