@@ -77,17 +77,25 @@ function searchFavicon(string &$url): string {
 	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
 		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
 
+	if (!$links) {
+		return '';
+	}
+
 	// Use the base element for relative paths, if there is one
 	$baseElements = $xpath->query('//base[@href]');
-	$baseUrl = ($baseElements->length > 0) ? $baseElements->item(0)->getAttribute('href') : $url;
+	$baseElement = ($baseElements !== false && $baseElements->length > 0) ? $baseElements->item(0) : null;
+	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $url;
 
 	foreach ($links as $link) {
+		if (!$link instanceof DOMElement) {
+			continue;
+		}
 		$href = trim($link->getAttribute('href'));
 		$urlParts = parse_url($url);
 
 		// Handle protocol-relative URLs by adding the current URL's scheme
 		if (substr($href, 0, 2) === '//') {
-			$href = $urlParts['scheme'] . '://' . $href;
+			$href = ($urlParts['scheme'] ?? 'https') . '://' . $href;
 		}
 
 		$href = SimplePie_IRI::absolutize($baseUrl, $href);
