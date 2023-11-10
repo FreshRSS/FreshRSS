@@ -419,6 +419,26 @@ SERVER_DNS=freshrss.example.net
 
 ### Use [Træfik](https://traefik.io/traefik/) reverse proxy
 
+#### Option 1: server FreshRSS as a sub-domain
+
+Use [`Host()` rule](https://doc.traefik.io/traefik/routing/routers/#rule), like:
+
+```yml
+- traefik.http.routers.freshrss.rule=Host(`freshrss.example.net`)
+```
+
+#### Option 2: serve FreshRSS as a sub-path
+
+Use [`PathPrefix()` rules](https://doc.traefik.io/traefik/routing/routers/#rule) and [`StripPrefix` middleware](https://doc.traefik.io/traefik/middlewares/http/stripprefix/#stripprefix), like:
+
+```yml
+- traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+- traefik.http.routers.freshrss.middlewares=freshrssM3
+- traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)
+```
+
+#### Full example
+
 Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS.
 
 See [`docker-compose-proxy.yml`](./freshrss/docker-compose-proxy.yml)
