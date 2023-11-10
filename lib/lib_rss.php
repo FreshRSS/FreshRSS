@@ -686,7 +686,7 @@ function checkTrustedIP(): bool {
 	if (empty($trusted)) {
 		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
 	}
-	foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+	foreach ($trusted as $cidr) {
 		if (checkCIDR($remoteIp, $cidr)) {
 			return true;
 		}
