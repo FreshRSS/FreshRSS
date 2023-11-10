@@ -36,7 +36,7 @@ You may alternatively pass a `TRUSTED_PROXY` environment variable in a format co
 
 ### Authentik Proxy Provider
 
-If you wish to use external authentication with Authentik, you will need to configure a [Proxy Provider](https://version-2023-10.goauthentik.io/docs/providers/proxy/) with a Property Mapping that tells Authentik to inject the `X-Remote-User` and/or `X-WebAuth-User`. You can do so with the following expression:
+If you wish to use external authentication with Authentik, you will need to configure a [Proxy Provider](https://version-2023-10.goauthentik.io/docs/providers/proxy/) with a Property Mapping that tells Authentik to inject the `X-Remote-User` and/or `X-WebAuth-User` headers. You can do so with the following expression:
 
 ```python
 return {
