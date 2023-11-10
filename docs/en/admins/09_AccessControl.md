@@ -34,6 +34,23 @@ You may alternatively pass a `TRUSTED_PROXY` environment variable in a format co
 
 > ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
+### Authentik Proxy Provider
+
+If you wish to use external authentication with Authentik, you will need to configure a [Proxy Provider](https://version-2023-10.goauthentik.io/docs/providers/proxy/) with a Property Mapping that tells Authentik to inject the `X-Remote-User` and/or `X-WebAuth-User`. You can do so with the following expression:
+
+```python
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "X-Remote-User": request.user.username,
+                "X-WebAuth-User": request.user.username,
+            }
+        }
+    }
+}
+```
+
 ## No Authentication
 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
