@@ -683,7 +683,7 @@ function checkTrustedIP(): bool {
 	if ($trusted != 0 && is_string($trusted)) {
 		$trusted = preg_split('/\s+/', $trusted, -1, PREG_SPLIT_NO_EMPTY);
 	}
-	if (empty($trusted)) {
+	if (!is_array($trusted) || empty($trusted)) {
 		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
 	}
 	foreach ($trusted as $cidr) {
