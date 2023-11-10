@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 class FreshRSS_FeedNotAdded_Exception extends Exception {
 
 	private string $url = '';
