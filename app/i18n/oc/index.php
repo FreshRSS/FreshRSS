@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux màger',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Marcar aquesta requèsta',
 		'favorites' => 'Favorits (%s)',
 		'global_view' => 'Vista generala',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Flux màger',
 		'mark_all_read' => 'O marcar tot coma legit',
 		'mark_cat_read' => 'Marcar la categoria coma legida',

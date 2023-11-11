@@ -44,4 +44,4 @@ After install, the method can be changed in *Administration > Authentication*. N
 
 See specific instructions for:
 
-* [authentik](16_OpenID-Connect-Authentik.md)
+* Authentik : [here](16_OpenID-Connect-Authentik.md) or [here](https://goauthentik.io/integrations/services/freshrss/)

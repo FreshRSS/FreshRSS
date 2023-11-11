@@ -82,11 +82,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return false;
 	}
 
-	/** @param array<string> $errorInfo */
+	/** @param array<string|int> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['kind', 'lastUpdate', 'error', 'attributes'] as $column) {
 					if (stripos($errorLines[0], $column) !== false) {
 						return $this->addColumn($column);
@@ -284,11 +284,11 @@ SQL;
 				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.kind, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 				. 'FROM `_category` c '
 				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
-				. 'WHERE f.priority >= :priority_normal '
+				. 'WHERE f.priority >= :priority '
 				. 'GROUP BY f.id, c_id '
 				. 'ORDER BY c.name, f.name';
 			$stm = $this->pdo->prepare($sql);
-			$values = [ ':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL ];
+			$values = [ ':priority' => FreshRSS_Feed::PRIORITY_CATEGORY ];
 			if ($stm !== false && $stm->execute($values)) {
 				$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
 				/** @var array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,

@@ -13,6 +13,7 @@ echo htmlspecialchars(json_encode(array(
 		'auto_mark_article' => !!$mark['article'],
 		'auto_mark_site' => !!$mark['site'],
 		'auto_mark_scroll' => !!$mark['scroll'],
+		'auto_mark_focus' => !!$mark['focus'],
 		'auto_load_more' => !!FreshRSS_Context::$user_conf->auto_load_more,
 		'auto_actualize_feeds' => !!Minz_Session::param('actualize_feeds', false),
 		'does_lazyload' => !!FreshRSS_Context::$user_conf->lazyload ,

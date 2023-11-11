@@ -71,7 +71,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 			if (!$get) {
 				// No get? Mark all entries as read (from $id_max)
-				$entryDAO->markReadEntries($id_max, false, 0, null, 0, $is_read);
+				$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
 				$get = (int)substr($get, 2);
@@ -83,10 +83,16 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 's':
-					$entryDAO->markReadEntries($id_max, true, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadEntries($id_max, true, null, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 'a':
-					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
+				case 'i':
+					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_IMPORTANT, null,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 't':
 					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
