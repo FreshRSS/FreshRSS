@@ -185,7 +185,7 @@ HTML;
 				continue;
 			}
 			$credit = $enclosure['credit'] ?? '';
-			$description = $enclosure['description'] ?? '';
+			$description = nl2br($enclosure['description'] ?? '');
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
@@ -222,7 +222,7 @@ HTML;
 				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
 			}
 			if ($description != '') {
-				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
+				$content .= '<figcaption>' . $description . '</figcaption>';
 			}
 			$content .= "</figure>\n";
 		}
