@@ -21,15 +21,32 @@ Depuis la version 1.1.2-beta, FreshRSS supporte officiellement WebSub.
 Vous pouvez donc recevoir en temps réel les articles des sites qui affichent dans leur flux RSS un « hub »,
 tels [Friendica](https://friendi.ca), WordPress (WordPress.com ou avec [une extension](https://wordpress.org/plugins/pubsubhubbub/)), Blogger, Medium, etc.
 
-## Tester WebSub
+## Tester la compatibilité WebSub d’un flux RSS / ATOM
 
-Vous pouver tester que le support WebSub de votre instance FreshRSS est correct avec un service comme :
+* <https://test.livewire.io> (pour n’importe quel flux)
+* <https://websub.rocks/publisher> (pour les flux que vous contrôlez)
 
-* <http://push-tester.cweiske.de/>
+## Tester la compatibilité WebSub de votre instance FreshRSS
+
+Vous pouvez tester que le support WebSub de votre instance FreshRSS est correct avec un service comme :
+
+* <http://push-tester.cweiske.de>
 
 ## Ajouter WebSub à votre flux RSS / ATOM
 
-Votre CMS (par exemple WordPress) supporte peut-être déjà WebSub en option. Sinon, vous pouvez faire une solution qui notifie un hub tel :
+Votre CMS (par exemple WordPress) supporte peut-être déjà WebSub en option, comme :
 
-* <https://websubhub.com/>
+* <https://wordpress.org/plugins/pushpress/>
+
+Sinon, vous pouvez faire une solution qui notifie un hub, comme :
+
+* <https://websubhub.com>
 * <https://pubsubhubbub.appspot.com>
+
+Ou encore déployer votre propre hub, comme :
+
+* <https://github.com/flusio/Webubbub>
+
+## Tester la compatibilité WebSub d’un hub
+
+* <https://websub.rocks/hub/100>

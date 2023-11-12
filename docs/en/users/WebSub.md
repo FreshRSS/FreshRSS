@@ -12,7 +12,12 @@ Just like for the FreshRSS API to work from a mobile phone, supporting WebSub re
 Many individual feeds and platforms already offer instant notifications through WebSub, such as:
 [Friendica instances](https://friendi.ca), WordPress (from WordPress.com or with [an extension](https://wordpress.org/plugins/pubsubhubbub/)), Blogger sites, Medium sites, etc.
 
-## Test WebSub
+## Test WebSub compatibility of an RSS / ATOM feed
+
+* <https://test.livewire.io> (for any feed)
+* <https://websub.rocks/publisher> (for feeds you control)
+
+## Test WebSub compatibility of your FreshRSS instance
 
 You can test that WebSub works properly in your FreshRSS instance with a service such as:
 
@@ -20,7 +25,19 @@ You can test that WebSub works properly in your FreshRSS instance with a service
 
 ## Add WebSub to your RSS / ATOM feeds
 
-Your CMS (e.g. WordPress) might already offer WebSub as an option. Otherwise, you can make a solution that notifies a hub such as:
+Your CMS (e.g. WordPress) might already offer WebSub as an option, such as:
+
+* <https://wordpress.org/plugins/pushpress/>
+
+Otherwise, you can make a solution that notifies a hub, such as:
 
 * <https://websubhub.com>
 * <https://pubsubhubbub.appspot.com>
+
+Or even deploy your own hub, such as:
+
+* <https://github.com/flusio/Webubbub>
+
+## Test WebSub compatibility of a hub
+
+* <https://websub.rocks/hub/100>
