@@ -222,7 +222,7 @@ HTML;
 				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
 			}
 			if ($description != '') {
-				$content .= '<figcaption>' . $description . '</figcaption>';
+				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
 			}
 			$content .= "</figure>\n";
 		}
