@@ -1,6 +1,6 @@
-# Qu’est-ce que [WebSub](https://www.w3.org/TR/websub/) ?
+# Qu’est-ce que WebSub ?
 
-Derrière ce nom (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)) se cache un protocole qui vient compléter Atom et RSS.
+Derrière le nom de [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)) se cache un protocole qui vient compléter Atom et RSS.
 En effet, le fonctionnement de base de ces deux derniers implique de vérifier à intervalles réguliers s’il existe de nouveaux articles sur les sites suivis.
 Cela même si le site concerné n’a rien publié depuis la dernière synchronisation.
 Le [protocole WebSub](https://www.w3.org/TR/websub/) permet d’éviter des synchronisations inutiles en notifiant en temps réel l’agrégateur de la présence de nouveaux articles.
