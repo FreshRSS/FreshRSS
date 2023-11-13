@@ -71,6 +71,7 @@ People are sorted by name so please keep this order.
 * [fabianski7](https://github.com/fabianski7): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:fabianski7)
 * [Fake4d](https://github.com/Fake4d): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Fake4d)
 * [Felix2yu 石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
+* [FireFingers21](https://github.com/firefingers21): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:firefingers21)
 * [flo0627](https://github.com/flo0627): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:flo0627)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Frenzie), [Web](http://fransdejonge.com/)
 * [FromTheMoon85](https://github.com/FromTheMoon85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:FromTheMoon85)
