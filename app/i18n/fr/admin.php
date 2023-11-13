@@ -193,6 +193,9 @@ return array(
 			'enabled' => '<a href="./?a=tos">activées</a>',
 			'help' => 'Comment <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activer les conditions d’utilisation</a>',
 		),
+		'websub' => array(
+			'help' => 'À propos de <a href="https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html" target="_blank">WebSub</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'Système de mise à jour',
