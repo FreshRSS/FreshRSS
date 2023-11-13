@@ -103,6 +103,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *       - opened on site
 	 *       - scrolled
 	 *       - received
+	 *       - focus
 	 * Default values are false unless specified.
 	 */
 	public function readingAction(): void {
@@ -136,6 +137,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 					Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') && Minz_Request::paramBoolean('read_when_same_title_in_feed'),
 				'scroll' => Minz_Request::paramBoolean('mark_scroll'),
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
+				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();

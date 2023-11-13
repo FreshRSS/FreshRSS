@@ -683,10 +683,10 @@ function checkTrustedIP(): bool {
 	if ($trusted != 0 && is_string($trusted)) {
 		$trusted = preg_split('/\s+/', $trusted, -1, PREG_SPLIT_NO_EMPTY);
 	}
-	if (empty($trusted)) {
+	if (!is_array($trusted) || empty($trusted)) {
 		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
 	}
-	foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+	foreach ($trusted as $cidr) {
 		if (checkCIDR($remoteIp, $cidr)) {
 			return true;
 		}

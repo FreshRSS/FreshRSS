@@ -204,6 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => ' هنگامی که مقاله در وب سایت اصلی خود باز می شود',
 			'article_viewed' => ' هنگام مشاهده مقاله',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => ' حداکثر تعداد مقالات خوانده نشده',
 			'scroll' => '(except for important feeds) در حین پیمایش',	// DIRTY
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
