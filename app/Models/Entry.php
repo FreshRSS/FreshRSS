@@ -185,7 +185,7 @@ HTML;
 				continue;
 			}
 			$credit = $enclosure['credit'] ?? '';
-			$description = nl2br($enclosure['description'] ?? '');
+			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
