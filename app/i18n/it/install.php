@@ -43,7 +43,7 @@ return array(
 		'_' => 'Controlli',
 		'already_installed' => 'FreshRSS risulta già installato!',
 		'cache' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
+			'nok' => 'Verifica i permessi sulla cartella <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Il Server HTTP (User name: %s) deve avere i permessi per scriverci dentro.',	// DIRTY
 			'ok' => 'I permessi sulla cartella della cache sono corretti.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Estensione cURL presente.',
 		),
 		'data' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
+			'nok' => 'Verifica i permessi sulla cartella <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Il Server HTTP (User name: %s) deve avere i permessi per scriverci dentro.',	// DIRTY
 			'ok' => 'I permessi sulla cartella data sono corretti.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
 		),
 		'favicons' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
+			'nok' => 'Verifica i permessi sulla cartella <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Il Server HTTP (User name: %s) deve avere i permessi per scriverci dentro.',	// DIRTY
 			'ok' => 'I permessi sulla cartella favicons sono corretti.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Controlla di nuovo',
 		'tmp' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
+			'nok' => 'Verifica i permessi sulla cartella <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Il Server HTTP (User name: %s) deve avere i permessi per scriverci dentro.',	// DIRTY
 			'ok' => 'I permessi sulla cartella temp sono corretti.',
 		),
 		'unknown_process_username' => 'sconosciuto',
 		'users' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
+			'nok' => 'Verifica i permessi sulla cartella <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />Il Server HTTP (User name: %s) deve avere i permessi per scriverci dentro.',	// DIRTY
 			'ok' => 'I permessi sulla cartella users sono corretti.',
 		),
 		'xml' => array(

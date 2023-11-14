@@ -43,7 +43,7 @@ return array(
 		'_' => 'Kontroller',
 		'already_installed' => 'FreshRSS zaten yüklü!',
 		'cache' => array(
-			'nok' => '<em>%s/em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'nok' => '<em>%s/em> (Owner: %s, Group: %s, Rights: %s) klasör yetkisini kontrol edin. HTTP yazma (User name: %s) yetkisi olmalı.',	// DIRTY
 			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'cURL eklentisi sorunsuz.',
 		),
 		'data' => array(
-			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'nok' => '<em>%s/em> (Owner: %s, Group: %s, Rights: %s) klasör yetkisini kontrol edin. HTTP yazma (User name: %s) yetkisi olmalı.',	// DIRTY
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'DOM kütüphanesi sorunsuz.',
 		),
 		'favicons' => array(
-			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'nok' => '<em>%s/em> (Owner: %s, Group: %s, Rights: %s) klasör yetkisini kontrol edin. HTTP yazma (User name: %s) yetkisi olmalı.',	// DIRTY
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
-			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'nok' => '<em>%s/em> (Owner: %s, Group: %s, Rights: %s) klasör yetkisini kontrol edin. HTTP yazma (User name: %s) yetkisi olmalı.',	// DIRTY
 			'ok' => 'Geçici klasör izinleri sorunsuz.',
 		),
 		'unknown_process_username' => 'bilinmeyen',
 		'users' => array(
-			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'nok' => '<em>%s/em> (Owner: %s, Group: %s, Rights: %s) klasör yetkisini kontrol edin. HTTP yazma (User name: %s) yetkisi olmalı.',	// DIRTY
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
 		),
 		'xml' => array(

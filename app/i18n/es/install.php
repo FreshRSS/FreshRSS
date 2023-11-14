@@ -43,7 +43,7 @@ return array(
 		'_' => 'Verificaciones',
 		'already_installed' => '¡FreshRSS ya está instalado!',
 		'cache' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Comprueba los permisos en el directorio <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />El servidor HTTP (User name: %s) debe contar con permisos de escritura.',	// DIRTY
 			'ok' => 'Los permisos del directorio cache son correctos.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'Dispones de la librería cURL.',
 		),
 		'data' => array(
-			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Comprueba los permisos del directorio <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />El servidor HTTP (User name: %s) debe contar con permisos de escritura.',	// DIRTY
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Verifica los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Verifica los permisos en el directorio <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />El servidor HTTP (User name: %s) debe contar con permisos de escritura.',	// DIRTY
 			'ok' => 'Los permisos del directorio favicons son correctos.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => 'Revisar otra vez',
 		'tmp' => array(
-			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Revisa los permisos en el directorio <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />El servidor HTTP (User name: %s) debe contar con permisos de escritura.',	// DIRTY
 			'ok' => 'Los permisos en el directorio temp son buenos.',
 		),
 		'unknown_process_username' => 'desconocido',
 		'users' => array(
-			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'nok' => 'Revisa los permisos en el directorio <em>%s</em> (Owner: %s, Group: %s, Rights: %s).<br />El servidor HTTP (User name: %s) debe contar con permisos de escritura.',	// DIRTY
 			'ok' => 'Los permisos en el directorio users son correctos.',
 		),
 		'xml' => array(

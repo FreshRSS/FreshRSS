@@ -49,6 +49,7 @@ if (is_string($dataPath) && $dataPath !== '') {
 
 defined('UPDATE_FILENAME') or define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 defined('USERS_PATH') or define('USERS_PATH', DATA_PATH . '/users');
+defined('FAVICONS_PATH') or define('FAVICONS_PATH', DATA_PATH . '/favicons');
 defined('LOG_FILENAME') or define('LOG_FILENAME', 'log.txt');
 defined('ADMIN_LOG') or define('ADMIN_LOG', USERS_PATH . '/_/' . LOG_FILENAME);
 defined('API_LOG') or define('API_LOG', USERS_PATH . '/_/log_api.txt');

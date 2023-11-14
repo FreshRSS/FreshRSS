@@ -1,5 +1,5 @@
 <?php
-const FAVICONS_DIR = DATA_PATH . '/favicons/';
+const FAVICONS_DIR = FAVICONS_PATH . '/';
 const DEFAULT_FAVICON = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
 function isImgMime(string $content): bool {

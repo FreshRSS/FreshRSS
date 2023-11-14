@@ -43,7 +43,7 @@ return array(
 		'_' => '설치 요구사항 확인',
 		'already_installed' => 'FreshRSS가 이미 설치되어 있는 것을 감지했습니다!',
 		'cache' => array(
-			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> (Owner: %s, Group: %s, Rights: %s) 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다 (User name: %s)',	// DIRTY
 			'ok' => 'cache 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'cURL 라이브러리가 설치되어 있습니다.',
 		),
 		'data' => array(
-			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> (Owner: %s, Group: %s, Rights: %s) 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다 (User name: %s)',	// DIRTY
 			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',
 		),
 		'favicons' => array(
-			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'nok' => '<em>%s</em> (Owner: %s, Group: %s, Rights: %s) 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다 (User name: %s)',	// DIRTY
 			'ok' => 'favicons 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => '다시 확인',
 		'tmp' => array(
-			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
+			'nok' => '<em>%s</em> (Owner: %s, Group: %s, Rights: %s) 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다 (User name: %s).',	// DIRTY
 			'ok' => 'temp 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'unknown_process_username' => '알 수 없음',
 		'users' => array(
-			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
+			'nok' => '<em>%s</em> (Owner: %s, Group: %s, Rights: %s) 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다 (User name: %s).',	// DIRTY
 			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'xml' => array(

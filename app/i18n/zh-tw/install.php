@@ -43,7 +43,7 @@ return array(
 		'_' => '檢查',
 		'already_installed' => '我們檢測到 FreshRSS 已經安裝！',
 		'cache' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> (Owner: %s, Group: %s, Rights: %s) 目錄權限。HTTP 服務器必須有其寫入權限。(User name: %s)',	// DIRTY
 			'ok' => 'cache 目錄權限正常',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => '已找到 cURL 庫',
 		),
 		'data' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> (Owner: %s, Group: %s, Rights: %s) 目錄權限。HTTP 服務器必須有其寫入權限。(User name: %s)',	// DIRTY
 			'ok' => 'data 目錄權限正常',
 		),
 		'dom' => array(
@@ -63,7 +63,7 @@ return array(
 			'ok' => '已找到用于瀏覽 DOM 的庫',
 		),
 		'favicons' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> (Owner: %s, Group: %s, Rights: %s) 目錄權限。HTTP 服務器必須有其寫入權限。(User name: %s)',	// DIRTY
 			'ok' => 'favicons 目錄權限正常',
 		),
 		'fileinfo' => array(
@@ -92,12 +92,12 @@ return array(
 		),
 		'reload' => '再檢查一遍',
 		'tmp' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> (Owner: %s, Group: %s, Rights: %s) 目錄權限。HTTP 服務器必須有其寫入權限。(User name: %s)',	// DIRTY
 			'ok' => '緩存目錄權限正常。',
 		),
 		'unknown_process_username' => '未知',
 		'users' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> (Owner: %s, Group: %s, Rights: %s) 目錄權限。HTTP 服務器必須有其寫入權限。(User name: %s)',	// DIRTY
 			'ok' => 'users 目錄權限正常',
 		),
 		'xml' => array(
