@@ -21,6 +21,7 @@
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
 	* Update dev dependencies [#5787](https://github.com/FreshRSS/FreshRSS/pull/5787),
 		[stylelint-config-recommended-scss/#252](https://github.com/stylelint-scss/stylelint-config-recommended-scss/pull/252)
+	* Replace js images lazy loading by html `loading` attribute [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816)
 
 
 ## 2023-10-30 FreshRSS 1.22.1

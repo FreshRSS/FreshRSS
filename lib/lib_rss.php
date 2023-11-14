@@ -515,13 +515,9 @@ function validateEmailAddress(string $email): bool {
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
-	return preg_replace([
-			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
-		], [
-			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-		],
+	return preg_replace(
+		'/<((?:img|iframe)[^>]+?)([^>]*)>/i',
+		'<$1 loading="lazy"$2>',
 		$content
 	) ?? '';
 }

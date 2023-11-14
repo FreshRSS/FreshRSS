@@ -408,13 +408,6 @@ function toggleContent(new_active, old_active, skipping) {
 		return;
 	}
 
-	if (context.does_lazyload && !skipping) {
-		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
-			el.src = el.getAttribute('data-original');
-			el.removeAttribute('data-original');
-		});
-	}
-
 	if (old_active !== new_active) {
 		if (!skipping) {
 			new_active.classList.add('active');
