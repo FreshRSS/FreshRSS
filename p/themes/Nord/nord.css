@@ -275,11 +275,13 @@ svg:hover {
 }
 
 .stick input,
+.stick select,
 .stick .btn {
 	border-radius: 0;
 }
 
 .stick input:first-child,
+.stick select:first-child,
 .stick .btn:first-child {
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
