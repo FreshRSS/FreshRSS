@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
 == Description ==
 Server-side API compatible with Google Reader API layer 2

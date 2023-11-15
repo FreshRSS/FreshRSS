@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	public static function isCompressed(): bool {

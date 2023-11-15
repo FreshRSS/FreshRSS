@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_Entry extends Minz_Model {
 	public const STATE_READ = 1;
 	public const STATE_NOT_READ = 2;

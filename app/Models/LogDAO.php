@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 final class FreshRSS_LogDAO {
 	public static function logPath(?string $logFileName = null): string {
 		if ($logFileName === null || $logFileName === '') {
@@ -12,9 +14,9 @@ final class FreshRSS_LogDAO {
 	public static function lines(?string $logFileName = null): array {
 		$logs = [];
 		$handle = @fopen(self::logPath($logFileName), 'r');
-		if ($handle !== false) {
+		if ($handle) {
 			while (($line = fgets($handle)) !== false) {
-				if (is_int(preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches))) {
+				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
 					$myLog = new FreshRSS_Log();
 					$myLog->_date($matches[1]);
 					$myLog->_level($matches[2]);

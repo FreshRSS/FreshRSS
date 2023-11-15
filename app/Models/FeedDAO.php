@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	protected function addColumn(string $name): bool {

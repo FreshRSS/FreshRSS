@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Controller to handle actions relative to categories.
  * User needs to be connected.

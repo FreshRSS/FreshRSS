@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class I18nValue {
 	private const STATE_DIRTY = 'dirty';
 	public const STATE_IGNORE = 'ignore';

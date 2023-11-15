@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_password_Util {
 	// Will also have to be computed client side on mobile devices,
 	// so do not use a too high cost

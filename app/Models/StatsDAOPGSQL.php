@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 
 	/**

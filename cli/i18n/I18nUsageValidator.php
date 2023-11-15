@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/I18nValidatorInterface.php';
 
 class I18nUsageValidator implements I18nValidatorInterface {

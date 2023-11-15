@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
 	public static function isCompressed(): bool {

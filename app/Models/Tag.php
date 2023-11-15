@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_Tag extends Minz_Model {
 
 	private int $id = 0;

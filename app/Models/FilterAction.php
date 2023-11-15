@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_FilterAction {
 
 	private FreshRSS_BooleanSearch $booleanSearch;

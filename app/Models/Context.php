@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * The context object handles the current configuration file and different
  * useful functions associated to the current view state.

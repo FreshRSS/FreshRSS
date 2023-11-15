@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 	public function createUser(): bool {

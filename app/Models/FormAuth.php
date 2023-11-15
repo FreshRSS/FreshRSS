@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_FormAuth {
 	public static function checkCredentials(string $username, string $hash, string $nonce, string $challenge): bool {
 		if (!FreshRSS_user_Controller::checkUsername($username) ||

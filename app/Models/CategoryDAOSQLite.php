@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
 
 	/** @param array<int|string> $errorInfo */

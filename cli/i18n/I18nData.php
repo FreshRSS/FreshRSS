@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class I18nData {
 
 	public const REFERENCE_LANGUAGE = 'en';

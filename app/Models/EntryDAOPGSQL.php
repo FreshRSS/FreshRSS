@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
 	public static function hasNativeHex(): bool {

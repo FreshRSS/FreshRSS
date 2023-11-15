@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class FreshRSS_Themes extends Minz_Model {
 
 	private static string $themesUrl = '/themes/';
