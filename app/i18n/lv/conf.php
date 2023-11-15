@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Apakšējā līnija',
 			'display_authors' => 'Autori',
 			'entry' => 'Raksta ikonas',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Publicēšanas datums',
 			'related_tags' => 'Raksta birkas',
 			'sharing' => 'Dalīšanās',

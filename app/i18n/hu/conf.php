@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Alsó sor',
 			'display_authors' => 'Szerzők',
 			'entry' => 'Cikk ikonok',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Kiadás ideje',
 			'related_tags' => 'Cikk tag-ek',
 			'sharing' => 'Megosztás',

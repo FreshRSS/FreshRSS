@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',
 			'entry' => 'Makale ikonları',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',
 			'sharing' => 'Paylaşım',

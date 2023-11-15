@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Bottom line',	// TODO
 			'display_authors' => 'Authors',	// TODO
 			'entry' => 'Article icons',	// TODO
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Date of publication',	// TODO
 			'related_tags' => 'Article tags',	// TODO
 			'sharing' => 'Sharing',	// TODO

@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Spodný riadok',
 			'display_authors' => 'Autori',
 			'entry' => 'Ikony článku',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Dátum zverejnenia',
 			'related_tags' => 'Značky článku',
 			'sharing' => 'Zdieľanie',

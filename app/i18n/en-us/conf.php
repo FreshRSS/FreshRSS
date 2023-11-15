@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
 			'entry' => 'Article icons',	// IGNORE
-			'myLabels' => 'My labels',	// IGNORE
 			'publication_date' => 'Date of publication',	// IGNORE
 			'related_tags' => 'Article tags',	// IGNORE
 			'sharing' => 'Sharing',	// IGNORE

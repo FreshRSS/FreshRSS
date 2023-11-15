@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Linha enbàs',
 			'display_authors' => 'Autors',
 			'entry' => 'Icònas d’article',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',

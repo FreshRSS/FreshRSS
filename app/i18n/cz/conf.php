@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
 			'entry' => 'Ikony článků',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Štítky článků',
 			'sharing' => 'Sdílení',

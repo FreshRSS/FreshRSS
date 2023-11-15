@@ -41,7 +41,6 @@ return array(
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',
 			'entry' => ' نمادهای مقاله',
-			'myLabels' => 'My labels',	// TODO
 			'publication_date' => ' تاریخ انتشار',
 			'related_tags' => ' برچسب های مقاله',
 			'sharing' => ' اشتراک گذاری',
