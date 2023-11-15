@@ -122,6 +122,12 @@ h3 {
 	line-height: 1.5;
 }
 
+h4,
+h5,
+h6 {
+	font-size: 1em;
+}
+
 .title_hidden {
 	display: none;
 }
