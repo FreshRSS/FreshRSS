@@ -3,7 +3,7 @@
 	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
 	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
 	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count(FreshRSS_Context::$user_conf->sharing) > 0);
-	$bottomline_labels = true;	//TODO
+	$bottomline_myLabels = FreshRSS_Context::$user_conf->bottomline_myLabels;
 	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
 	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
 	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
@@ -31,7 +31,7 @@
 		}
 	}
 	// @phpstan-ignore-next-line
-	if ($bottomline_labels) {
+	if ($bottomline_myLabels) {
 	?><li class="item labels">
 		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
@@ -70,7 +70,7 @@
 	</li><?php
 	}
 	?><li class="item share"><?php
-			if ($bottomline_sharing) {
+		if ($bottomline_sharing) {
 		?><div class="item-element dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
