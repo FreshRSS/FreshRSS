@@ -26,7 +26,6 @@ return array(
 		'version' => 'バージョン',
 	),
 	'feed' => array(
-		'add' => 'フィードを追加してください。',
 		'empty' => '表示できる記事がありません',
 		'rss_of' => '%s のRSSフィード',
 		'title' => 'メイン',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => '現在のブックマーククエリ',
 		'favorites' => 'お気に入り (%s)',
 		'global_view' => 'グローバルビュー',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'メイン',
 		'mark_all_read' => 'すべての記事に既読をつける',
 		'mark_cat_read' => 'カテゴリーに既読をつける',

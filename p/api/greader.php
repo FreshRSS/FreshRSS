@@ -581,7 +581,7 @@ final class GReaderAPI {
 	/**
 	 * @param 'A'|'c'|'f'|'s' $type
 	 * @param string|int $streamId
-	 * @return array{'A'|'c'|'f'|'s'|'t',int,int,FreshRSS_BooleanSearch}
+	 * @phpstan-return array{'A'|'c'|'f'|'s'|'t',int,int,FreshRSS_BooleanSearch}
 	 */
 	private static function streamContentsFilters(string $type, $streamId,
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {
@@ -963,7 +963,7 @@ final class GReaderAPI {
 				}
 			}
 		} elseif ($streamId === 'user/-/state/com.google/reading-list') {
-			$entryDAO->markReadEntries($olderThanId, false, -1);
+			$entryDAO->markReadEntries($olderThanId, false);
 		} else {
 			self::badRequest();
 		}

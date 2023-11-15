@@ -5,8 +5,8 @@
 
 FreshRSS is a self-hosted RSS feed aggregator.
 
-* Official website: [freshrss.org](https://freshrss.org/)
-* Official Docker images: [hub.docker.com/r/freshrss/freshrss](https://hub.docker.com/r/freshrss/freshrss/)
+* Official website: [`freshrss.org`](https://freshrss.org/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
 * Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
@@ -418,6 +418,26 @@ SERVER_DNS=freshrss.example.net
 ```
 
 ### Use [Træfik](https://traefik.io/traefik/) reverse proxy
+
+#### Option 1: server FreshRSS as a sub-domain
+
+Use [`Host()` rule](https://doc.traefik.io/traefik/routing/routers/#rule), like:
+
+```yml
+- traefik.http.routers.freshrss.rule=Host(`freshrss.example.net`)
+```
+
+#### Option 2: serve FreshRSS as a sub-path
+
+Use [`PathPrefix()` rules](https://doc.traefik.io/traefik/routing/routers/#rule) and [`StripPrefix` middleware](https://doc.traefik.io/traefik/middlewares/http/stripprefix/#stripprefix), like:
+
+```yml
+- traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+- traefik.http.routers.freshrss.middlewares=freshrssM3
+- traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)
+```
+
+#### Full example
 
 Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS.
 

@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
-			'scroll' => 'en davalant la pagina',
+			'scroll' => 'en davalant la pagina (except for important feeds)',	// DIRTY
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',

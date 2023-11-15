@@ -65,11 +65,11 @@ SQL;
 	}
 
 	//TODO: Move the database auto-updates to DatabaseDAO
-	/** @param array<string> $errorInfo */
+	/** @param array<string|int> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['attributes'] as $column) {
 					if (stripos($errorLines[0], $column) !== false) {
 						return $this->addColumn($column);
@@ -78,8 +78,9 @@ SQL;
 			}
 		}
 		if (isset($errorInfo[1])) {
+			// May be a string or an int
 			if ($errorInfo[1] == FreshRSS_DatabaseDAO::ER_DATA_TOO_LONG) {
-				if (stripos($errorInfo[2], 'content_bin') !== false) {
+				if (stripos((string)$errorInfo[2], 'content_bin') !== false) {
 					return $this->updateToMediumBlob();	//v1.15.0
 				}
 			}
@@ -424,7 +425,7 @@ SQL;
 	 * @param string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, int $priorityMin = 0,
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $prioritMax = null,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
@@ -433,12 +434,22 @@ SQL;
 		}
 
 		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
-		} elseif ($priorityMin >= 0) {
-			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
+		if ($priorityMin !== null || $prioritMax !== null) {
+			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1';
+			if ($priorityMin !== null) {
+				$sql .= ' AND f.priority >= ?';
+				$values[] = $priorityMin;
+			}
+			if ($prioritMax !== null) {
+				$sql .= ' AND f.priority < ?';
+				$values[] = $prioritMax;
+			}
+			$sql .= ')';
+		}
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
 
@@ -1018,7 +1029,7 @@ SQL;
 	}
 
 	/**
-	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
+	 * @phpstan-param 'a'|'A'|'i'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
 	 * @param 'ASC'|'DESC' $order
 	 * @return array{0:array<int|string>,1:string}
@@ -1033,20 +1044,23 @@ SQL;
 		$values = [];
 		switch ($type) {
 		case 'a':	//All PRIORITY_MAIN_STREAM
-			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
 			break;
 		case 'A':	//All except PRIORITY_ARCHIVED
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+			break;
+		case 'i':	//Priority important feeds
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
 			break;
 		case 's':	//Starred. Deprecated: use $state instead
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
 			$where .= 'AND e.is_favorite=1 ';
 			break;
 		case 'S':	//Starred
 			$where .= 'e.is_favorite=1 ';
 			break;
 		case 'c':	//Category
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
 			$where .= 'AND f.category=? ';
 			$values[] = $id;
 			break;
@@ -1082,7 +1096,7 @@ SQL;
 	}
 
 	/**
-	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
+	 * @phpstan-param 'a'|'A'|'s'|'S'|'i'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param 'ASC'|'DESC' $order
 	 * @param int $id category/feed/tag ID
 	 * @return PDOStatement|false
@@ -1117,7 +1131,7 @@ SQL;
 	}
 
 	/**
-	 * @phpstan-param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST' $type
+	 * @phpstan-param 'a'|'A'|'s'|'S'|'i'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param int $id category/feed/tag ID
 	 * @param 'ASC'|'DESC' $order
 	 * @return Traversable<FreshRSS_Entry>
@@ -1359,20 +1373,20 @@ SELECT c FROM (
 		FROM `_entry` AS e1
 		JOIN `_feed` AS f1 ON e1.id_feed = f1.id
 		WHERE e1.is_favorite = 1
-		AND f1.priority >= :priority_normal1
+		AND f1.priority >= :priority1
 	UNION
 	SELECT COUNT(e2.id) AS c, 2 AS o
 		FROM `_entry` AS e2
 		JOIN `_feed` AS f2 ON e2.id_feed = f2.id
 		WHERE e2.is_favorite = 1
-		AND e2.is_read = 0 AND f2.priority >= :priority_normal2
+		AND e2.is_read = 0 AND f2.priority >= :priority2
 	) u
 ORDER BY o
 SQL;
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$res = $this->fetchColumn($sql, 0, [
-			':priority_normal1' => FreshRSS_Feed::PRIORITY_NORMAL,
-			':priority_normal2' => FreshRSS_Feed::PRIORITY_NORMAL,
+			':priority1' => FreshRSS_Feed::PRIORITY_CATEGORY,
+			':priority2' => FreshRSS_Feed::PRIORITY_CATEGORY,
 		]);
 		if ($res === null) {
 			return ['all' => -1, 'unread' => -1, 'read' => -1];

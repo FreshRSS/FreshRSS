@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'archived' => 'Do not show (archived)',	// TODO
+			'category' => 'Show in its category',	// TODO
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Show in main stream',	// TODO
-			'normal' => 'Show in its category',	// TODO
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
@@ -168,7 +169,7 @@ return array(
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO
 		'validator' => 'Check the validity of the feed',	// TODO
 		'website' => 'Website URL',	// TODO
-		'websub' => 'Instant notification with WebSub',	// TODO
+		'websub' => 'Instant notifications with WebSub',	// TODO
 	),
 	'import_export' => array(
 		'export' => 'Export',	// TODO

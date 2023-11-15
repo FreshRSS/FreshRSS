@@ -26,7 +26,6 @@ return array(
 		'version' => 'Wersja',
 	),
 	'feed' => array(
-		'add' => 'Dodaj więcej kanałów.',
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'rss_of' => 'Kanał RSS: %s',
 		'title' => 'Kanał główny',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Zapisz bieżące zapytanie',
 		'favorites' => 'Ulubione (%s)',
 		'global_view' => 'Widok globalny',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Kanał główny',
 		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
 		'mark_cat_read' => 'Oznacz kategorię jako przeczytaną',

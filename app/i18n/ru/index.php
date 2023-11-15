@@ -26,7 +26,6 @@ return array(
 		'version' => 'Версия',
 	),
 	'feed' => array(
-		'add' => 'Вы можете добавить ленты.',
 		'empty' => 'Нет статей для отображения.',
 		'rss_of' => 'RSS-лента %s',
 		'title' => 'Основной поток',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Сохранить текущий запрос',
 		'favorites' => 'Избранное (%s)',
 		'global_view' => 'Глобальный вид',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Основной поток',
 		'mark_all_read' => 'Отметить всё прочитанным',
 		'mark_cat_read' => 'Отметить категорию прочитанной',

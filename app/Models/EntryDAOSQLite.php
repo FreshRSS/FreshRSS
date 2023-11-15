@@ -22,7 +22,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	/** @param array<string> $errorInfo */
+	/** @param array<string|int> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];

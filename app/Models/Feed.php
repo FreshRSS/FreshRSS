@@ -28,8 +28,9 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public const KIND_JSON_XPATH = 20;
 
+	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
-	public const PRIORITY_NORMAL = 0;
+	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;
@@ -399,12 +400,17 @@ class FreshRSS_Feed extends Minz_Model {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
 					$subscribe_url = $simplePie->subscribe_url(false);
 
-					//HTML to HTML-PRE	//ENT_COMPAT except '&'
-					$title = strtr(html_only_entity_decode($simplePie->get_title()), ['<' => '&lt;', '>' => '&gt;', '"' => '&quot;']);
-					$this->_name($title == '' ? $this->url : $title);
-
-					$this->_website(html_only_entity_decode($simplePie->get_link()));
-					$this->_description(html_only_entity_decode($simplePie->get_description()));
+					if ($this->name(true) === '') {
+						//HTML to HTML-PRE	//ENT_COMPAT except '&'
+						$title = strtr(html_only_entity_decode($simplePie->get_title()), ['<' => '&lt;', '>' => '&gt;', '"' => '&quot;']);
+						$this->_name($title == '' ? $this->url : $title);
+					}
+					if ($this->website() === '') {
+						$this->_website(html_only_entity_decode($simplePie->get_link()));
+					}
+					if ($this->description() === '') {
+						$this->_description(html_only_entity_decode($simplePie->get_description()));
+					}
 				} else {
 					//The case of HTTP 301 Moved Permanently
 					$subscribe_url = $simplePie->subscribe_url(true);
@@ -1087,7 +1093,8 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_POSTFIELDS => http_build_query([
 					'hub.verify' => 'sync',
 					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url, 'hub.callback' => $callbackUrl,
+					'hub.topic' => $url,
+					'hub.callback' => $callbackUrl,
 				]),
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,

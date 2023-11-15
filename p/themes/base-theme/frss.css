@@ -1978,6 +1978,11 @@ html.slider-active {
 	color: var(--frss-font-color-light);
 }
 
+.feed[data-priority="20"] .item-title,
+.flux[data-priority="20"] .website > a {
+	text-decoration: underline double;
+}
+
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
 	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
@@ -2089,10 +2094,6 @@ html.slider-active {
 .enclosure [download] {
 	font-size: 3rem;
 	margin-left: .8em;
-}
-
-.enclosure-description {
-	white-space: pre-line;
 }
 
 .default-user {

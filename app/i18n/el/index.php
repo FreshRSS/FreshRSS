@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',	// TODO
 	),
 	'feed' => array(
-		'add' => 'Please add some feeds.',	// TODO
 		'empty' => 'There are no articles to show.',	// TODO
 		'rss_of' => 'RSS feed of %s',	// TODO
 		'title' => 'Main stream',	// TODO
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'Favourites (%s)',	// TODO
 		'global_view' => 'Global view',	// TODO
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Main stream',	// TODO
 		'mark_all_read' => 'Mark all as read',	// TODO
 		'mark_cat_read' => 'Mark category as read',	// TODO

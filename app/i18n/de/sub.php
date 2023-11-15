@@ -140,8 +140,9 @@ return array(
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
+			'category' => 'Zeige in eigener Kategorie',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'In Haupt-Feeds zeigen',
-			'normal' => 'Zeige in eigener Kategorie',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
 		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
