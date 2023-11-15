@@ -19,7 +19,7 @@ function isImgMime(string $content): bool {
 		$isImage = strpos($content, 'image') !== false;
 		finfo_close($fInfo);
 	} catch (Exception $e) {
-		echo 'Caught exception: ',  $e->getMessage(), "\n";
+		syslog(LOG_WARNING, 'FreshRSS favicon error: ' . $e->getMessage());
 	}
 	return $isImage;
 }

@@ -12,7 +12,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 Il permet de gérer plusieurs utilisateurs, dispose d’un mode de lecture anonyme, et supporte les étiquettes personnalisées.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
 
-Grâce au standard [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
+Grâce au standard [WebSub](https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html),
 FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, Medium, etc.
 
 FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
@@ -22,7 +22,7 @@ Plusieurs [méthodes de connexion](https://freshrss.github.io/FreshRSS/en/admins
 Enfin, FreshRSS permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : <https://freshrss.org>
-* Démo : <http://demo.freshrss.org/>
+* Démo : <https://demo.freshrss.org>
 * Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
 
 ![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
