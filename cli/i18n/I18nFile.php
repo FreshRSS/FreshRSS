@@ -117,10 +117,10 @@ class I18nFile {
 		$a = array();
 
 		ksort($translation, SORT_NATURAL);
-		foreach ($translation as $compoundKey => $value) {
+        foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value, "'") . "';");
+			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes((string)$value, "'") . "';");
 		}
 
 		return $a;
