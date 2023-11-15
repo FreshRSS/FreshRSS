@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',
 			'entry' => 'Artikel pictogrammen',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',

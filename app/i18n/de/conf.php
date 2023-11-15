@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Hashtags',
 			'sharing' => 'Teilen',

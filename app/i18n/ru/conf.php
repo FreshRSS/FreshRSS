@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',
 			'entry' => 'Иконки статей',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Дата публикации',
 			'related_tags' => 'Связанные метки',
 			'sharing' => 'Обмен',

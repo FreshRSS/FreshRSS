@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',
 			'entry' => '記事のアイコン',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => '出版された日',
 			'related_tags' => '記事のタグ',
 			'sharing' => '共有',

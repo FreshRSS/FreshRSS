@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'Linha inferior',
 			'display_authors' => 'Autores',
 			'entry' => 'Ícones de artigos',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Data da publicação',
 			'related_tags' => 'Tags relacionadas',
 			'sharing' => 'Compartilhar',

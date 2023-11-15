@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'שורה תחתונה',
 			'display_authors' => 'Authors',	// TODO
 			'entry' => 'סמלילי מאמרים',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'תאריך הפרסום',
 			'related_tags' => 'תגיות קשורות',
 			'sharing' => 'שיתוף',

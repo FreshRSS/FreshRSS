@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',
 			'entry' => 'Ikony wiadomości',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => 'Data publikacji',
 			'related_tags' => 'Tagi',
 			'sharing' => 'Podaj dalej',

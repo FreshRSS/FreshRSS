@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => '하단',
 			'display_authors' => '저자',
 			'entry' => '문서 아이콘',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => '발행일',
 			'related_tags' => '관련 태그',
 			'sharing' => '공유',

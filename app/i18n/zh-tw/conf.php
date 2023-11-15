@@ -41,6 +41,7 @@ return array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',
 			'entry' => '文章圖示',
+			'myLabels' => 'My labels',	// TODO
 			'publication_date' => '更新日期',
 			'related_tags' => '相關標簽',
 			'sharing' => '分享',
