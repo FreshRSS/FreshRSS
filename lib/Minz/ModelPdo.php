@@ -58,7 +58,7 @@ class Minz_ModelPdo {
 				break;
 			case 'sqlite':
 				$dsn = 'sqlite:' . DATA_PATH . '/users/' . $this->current_user . '/db.sqlite';
-				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, null, null, $driver_options);
 				$this->pdo->setPrefix('');
 				break;
 			case 'pgsql':
