@@ -335,7 +335,7 @@ class Minz_Request {
 
 	private static function setNotification(string $type, string $content): void {
 		Minz_Session::lock();
-		$requests = Minz_Session::param('requests', []);
+		$requests = Minz_Session::paramArray('requests');
 		$requests[self::requestId()] = [
 				'time' => time(),
 				'notification' => [ 'type' => $type, 'content' => $content ],
@@ -352,14 +352,15 @@ class Minz_Request {
 		self::setNotification('bad', $content);
 	}
 
-	/** @return array<string,string>|null */
+	/** @return array{type:string,content:string}|null */
 	public static function getNotification(): ?array {
 		$notif = null;
 		Minz_Session::lock();
-		$requests = Minz_Session::param('requests');
-		if (is_array($requests)) {
+		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
+		$requests = Minz_Session::paramArray('requests');
+		if (!empty($requests)) {
 			//Delete abandoned notifications
-			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
+			$requests = array_filter($requests, static function (array $r) { return $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {
