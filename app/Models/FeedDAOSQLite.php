@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAO {

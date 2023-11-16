@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+<?php
+	declare(strict_types=1);
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
 <head>
 <meta charset="UTF-8" />

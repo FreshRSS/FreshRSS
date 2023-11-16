@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_Session class handles user’s session

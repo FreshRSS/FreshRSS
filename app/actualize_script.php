@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/../cli/_cli.php');
 
 session_cache_limiter('');

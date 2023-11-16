@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 class FreshRSS_Feed extends Minz_Model {

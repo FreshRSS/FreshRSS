@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }

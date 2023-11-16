@@ -1,7 +1,5 @@
 <?php
-
 declare(strict_types=1);
-
 require(__DIR__ . '/../constants.php');
 
 // Supported types with their associated content type

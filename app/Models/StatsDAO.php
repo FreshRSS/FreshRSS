@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {

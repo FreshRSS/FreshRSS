@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');

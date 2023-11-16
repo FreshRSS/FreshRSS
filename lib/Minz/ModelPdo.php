@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
