@@ -79,7 +79,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['tags'] ?? ''
 		);
 		if (!empty($dao['id'])) {
-			$entry->_id((string)$dao['id']);
+			$entry->_id($dao['id']);
 		}
 		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']) ?: 0);
@@ -438,7 +438,11 @@ HTML;
 		return $this->hash;
 	}
 
-	public function _id(string $value): void {
+	/** @param int|string $value String is for compatibility with 32-bit platforms */
+	public function _id($value): void {
+		if (is_int($value)) {
+			$value = (string)$value;
+		}
 		$this->id = $value;
 		if ($this->date_added == 0) {
 			$this->date_added = $value;
