@@ -46,6 +46,12 @@
 	--purple: var(--nord15-aurora);
 
 	--frss-background-color-transparent: #2e34407f;
+	--frss-background-color: var(--main-background);
+	--frss-box-shadow-color-transparent: #111;
+	--frss-switch-accent-color: var(--nord14-aurora);
+	--frss-background-color-middle: var(--highlight);
+	--frss-background-color-dark: var(--light-bg);
+	--frss-background-color-error-transparent: #bf616a40;
 
 	--frss-scrollbar-handle: #0002;
 	--frss-scrollbar-handle-hover: var(--nord1-polarnight);
@@ -58,9 +64,17 @@
 /*============*/
 
 @font-face {
-	/*	src: local('Open Sans'), local('OpenSans'),
-		url('../fonts/OpenSans.woff2') format('woff2'),
-		url('../fonts/OpenSans.woff') format('woff');*/
+	font-family: 'Lato';
+	src: local('Lato'),
+		url('../fonts/LatoLatin-Regular.woff') format('woff'),
+		url('../fonts/LatoLatin-Bold.woff') format('woff'),
+		url('../fonts/LatoLatin-Bolditalic.woff') format('woff'),
+		url('../fonts/LatoLatin-Italic.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Noto Sans';
+	src: local('Noto Sans'), local('NotoSans');
 }
 
 html, body {
@@ -261,11 +275,13 @@ svg:hover {
 }
 
 .stick input,
+.stick select,
 .stick .btn {
 	border-radius: 0;
 }
 
 .stick input:first-child,
+.stick select:first-child,
 .stick .btn:first-child {
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
@@ -304,13 +320,15 @@ svg:hover {
 	border-right-width: 1px;
 }
 
-.nav_menu .stick #mark-read-menu .read_all.btn {
+.nav_menu .stick #mark-read-menu .read_all.btn,
+.nav_menu .dropdown-menu .stick.search input {
 	margin-right: 0;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
-.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+.nav_menu .stick #mark-read-menu .dropdown-toggle.btn,
+.nav_menu .dropdown-menu .stick.search .btn {
 	margin-left: 0;
 	border-left: 0;
 	border-top-left-radius: 0;
@@ -356,25 +374,6 @@ svg:hover {
 	text-align: left;
 }
 
-.aside .toggle_aside,
-#overlay .close,
-.dropdown-menu .toggle_aside,
-#slider .toggle_aside,
-.dropdown-header-close a {
-	background: var(--accent-bg);
-	border: 1px solid var(--accent-border);
-	box-sizing: border-box;
-	transition: 0.2s;
-}
-
-.aside .toggle_aside:hover,
-#slider .toggle_aside:hover,
-#overlay .close:hover,
-.dropdown-menu .toggle_aside:hover {
-	background-color: var(--main-background) !important;
-	border-color: var(--highlight) !important;
-}
-
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
 .dropdown-menu .item > .as-link {
@@ -418,32 +417,11 @@ svg:hover {
 }
 
 .dropdown-close {
-	display: inline;
-}
-
-.dropdown-close a {
-	background: none;
-	display: block;
-	font-size: 0;
-	position: fixed;
-	top: 0; bottom: 0;
-	left: 0; right: 0;
-	z-index: -11;
-	cursor: default;
+	backdrop-filter: grayscale(25%) brightness(0.9);
 }
 
 .dropdown-close a:hover {
 	background: none;
-}
-
-.dropdown div.dropdown-close {
-	display: none;
-}
-
-.dropdown-target:target ~ div.dropdown-close {
-	display: block;
-	z-index: 999;
-	position: relative;
 }
 
 .dropdown-target:target ~ .dropdown-toggle::after {
@@ -654,7 +632,7 @@ img.favicon {
 /*=== Body */
 .aside {
 	background-color: var(--accent-bg);
-	border-radius: 12px;
+	border-top-right-radius: 12px;
 }
 
 /*=== Aside main page */
@@ -665,6 +643,7 @@ img.favicon {
 
 .aside.nav-list .nav-section .item.active a {
 	color: var(--highlight);
+	font-weight: bold;
 }
 
 .aside.nav-list .nav-section .item a:hover {
@@ -703,6 +682,23 @@ img.favicon {
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
+}
+
+.aside .toggle_aside,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside,
+.dropdown-header-close a {
+	background: var(--accent-bg);
+	border: 1px solid var(--accent-border);
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+.aside .toggle_aside:hover,
+#slider .toggle_aside:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--main-background) !important;
+	border-color: var(--highlight) !important;
 }
 
 .item.feed.error > .item-title {
@@ -892,15 +888,15 @@ li.item.active {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0 0 0 5px;
+	padding: 1rem 3rem 1rem 1rem;
 	background: var(--dropdown-bg);
 	color: var(--text-default);
-	font-size: 0.9em;
+	font-size: 0.9rem;
 	border-radius: 6px;
 	border-color: var(--border-elements);
-	z-index: 10;
+	z-index: 9999;
 	font-weight: bold;
-	line-height: 3em;
+	box-shadow: 0px 0px 10px var(--frss-box-shadow-color-transparent);
 }
 
 .notification.bad {
@@ -912,9 +908,9 @@ li.item.active {
 	filter: brightness(60%);
 }
 
-.notification.closed {
-	opacity: 0;
-	visibility: hidden;
+.notification a.close {
+	padding: 1.25rem;
+	line-height: 1;
 }
 
 /*=== Popup */
@@ -1294,11 +1290,6 @@ optgroup::before {
 		margin-bottom: .5rem;
 	}
 
-	.nav_menu .search {
-		display: inline-block;
-		max-width: 97%;
-	}
-
 	.nav_menu .search input {
 		max-width: 97%;
 		width: 90px;
@@ -1306,6 +1297,10 @@ optgroup::before {
 
 	.nav_menu .search input:focus {
 		width: 400px;
+	}
+
+	.dropdown .dropdown-menu .item .stick.search {
+		width: 100%;
 	}
 
 	.post {
@@ -1318,6 +1313,12 @@ optgroup::before {
 
 	.pagination {
 		margin: 0 0 3.5em;
+	}
+
+	.notification {
+		top: 1%;
+		left: 2%;
+		right: 2%;
 	}
 
 	.notification a.close {
@@ -1347,6 +1348,18 @@ optgroup::before {
 
 	.dropdown .dropdown-menu {
 		border-radius: 6px;
+	}
+
+	#overlay .close {
+		background: var(--accent-bg);
+		border: 1px solid var(--accent-border);
+		box-sizing: border-box;
+		transition: 0.2s;
+	}
+
+	#overlay .close:hover {
+		background-color: var(--main-background) !important;
+		border-color: var(--highlight) !important;
 	}
 
 	.header .configure .dropdown .dropdown-menu {
