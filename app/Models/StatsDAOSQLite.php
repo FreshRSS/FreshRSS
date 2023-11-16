@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 

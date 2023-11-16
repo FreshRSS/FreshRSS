@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 const FAVICONS_DIR = DATA_PATH . '/favicons/';
 const DEFAULT_FAVICON = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
@@ -99,8 +101,12 @@ function searchFavicon(string &$url): string {
 		}
 
 		$href = SimplePie_IRI::absolutize($baseUrl, $href);
+		if ($href == false) {
+			return '';
+		}
 
-		$favicon = downloadHttp($href, array(CURLOPT_REFERER => $url));
+		$iri = $href->get_iri();
+		$favicon = downloadHttp($iri, array(CURLOPT_REFERER => $url));
 		if (isImgMime($favicon)) {
 			return $favicon;
 		}

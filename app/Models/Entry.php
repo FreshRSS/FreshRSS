@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Entry extends Minz_Model {
 	public const STATE_READ = 1;
@@ -437,7 +438,11 @@ HTML;
 		return $this->hash;
 	}
 
-	public function _id(string $value): void {
+	/** @param int|string $value String is for compatibility with 32-bit platforms */
+	public function _id($value): void {
+		if (is_int($value)) {
+			$value = (string)$value;
+		}
 		$this->id = $value;
 		if ($this->date_added == 0) {
 			$this->date_added = $value;
@@ -741,11 +746,11 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($path))->asXPath());
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
 					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node) ?: [];
+						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							$filterednode->parentNode->removeChild($filterednode);
 						}
