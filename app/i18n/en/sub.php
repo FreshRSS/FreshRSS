@@ -169,7 +169,7 @@ return array(
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
-		'websub' => 'Instant notification with WebSub',
+		'websub' => 'Instant notifications with WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Export',

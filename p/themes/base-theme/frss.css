@@ -122,6 +122,12 @@ h3 {
 	line-height: 1.5;
 }
 
+h4,
+h5,
+h6 {
+	font-size: 1em;
+}
+
 .title_hidden {
 	display: none;
 }
@@ -2094,10 +2100,6 @@ html.slider-active {
 .enclosure [download] {
 	font-size: 3rem;
 	margin-left: .8em;
-}
-
-.enclosure-description {
-	white-space: pre-line;
 }
 
 .default-user {
