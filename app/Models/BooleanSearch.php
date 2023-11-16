@@ -69,7 +69,7 @@ class FreshRSS_BooleanSearch {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$name]->getSearch()) . ')';
+						$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
 					}
 				}
 			}
@@ -112,7 +112,7 @@ class FreshRSS_BooleanSearch {
 					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$id]->getSearch()) . ')';
+						$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
 					}
 				}
 			}

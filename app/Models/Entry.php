@@ -743,11 +743,11 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($path))->asXPath());
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
 					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node) ?: [];
+						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							$filterednode->parentNode->removeChild($filterednode);
 						}

@@ -15,7 +15,11 @@ class I18nValue {
 	private string $value;
 	private ?string $state = null;
 
-	public function __construct(string $data) {
+	/** @param I18nValue|string $data */
+	public function __construct($data) {
+		if ($data instanceof I18nValue) {
+			$data = $data->__toString();
+		}
 		$data = explode(' -> ', $data);
 
 		$this->value = array_shift($data);
