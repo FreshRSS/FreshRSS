@@ -56,7 +56,7 @@ abstract class Minz_Extension {
 		$this->path = $meta_info['path'];
 		$this->author = isset($meta_info['author']) ? $meta_info['author'] : '';
 		$this->description = isset($meta_info['description']) ? $meta_info['description'] : '';
-		$this->version = isset($meta_info['version']) ? $meta_info['version'] : '0.1';
+		$this->version = isset($meta_info['version']) ? (string)$meta_info['version'] : '0.1';
 		$this->setType(isset($meta_info['type']) ? $meta_info['type'] : 'user');
 
 		$this->is_enabled = false;
