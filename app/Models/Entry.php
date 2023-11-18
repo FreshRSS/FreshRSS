@@ -52,6 +52,8 @@ class FreshRSS_Entry extends Minz_Model {
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
 	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
+		FreshRSS_DatabaseDAO::pdoInt($dao, ['id_feed', 'date', 'lastSeen', 'is_read', 'is_favorite']);
+
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
 		}

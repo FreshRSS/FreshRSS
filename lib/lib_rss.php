@@ -171,7 +171,7 @@ function escapeToUnicodeAlternative(string $text, bool $extended = true): string
 function format_number($n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',	// Thin non-breaking space
-		number_format($n, $precision, '.', ' ')
+		number_format((float)$n, $precision, '.', ' ')
 	);
 }
 

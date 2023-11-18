@@ -584,6 +584,7 @@ SQL;
 		$list = [];
 
 		foreach ($listDAO as $key => $dao) {
+			FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'kind', 'category', 'lastUpdate', 'priority', 'error', 'ttl', 'cache_nbUnreads', 'cache_nbEntries']);
 			if (!isset($dao['name'])) {
 				continue;
 			}
@@ -627,6 +628,6 @@ SQL;
 			return -1;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0] ?? 0;
+		return (int)($res[0] ?? 0);
 	}
 }
