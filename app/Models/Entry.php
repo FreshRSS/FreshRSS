@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Entry extends Minz_Model {
 	public const STATE_READ = 1;
@@ -7,38 +8,26 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
 
-	/** @var string */
-	private $id = '0';
-	/** @var string */
-	private $guid;
-	/** @var string */
-	private $title;
+	private string $id = '0';
+	private string $guid;
+	private string $title;
 	/** @var array<string> */
-	private $authors;
-	/** @var string */
-	private $content;
-	/** @var string */
-	private $link;
-	/** @var int */
-	private $date;
-	/** @var int */
-	private $lastSeen = 0;
-	/** @var string In microseconds */
-	private $date_added = '0';
-	/** @var string */
-	private $hash = '';
-	/** @var bool|null */
-	private $is_read;
-	/** @var bool|null */
-	private $is_favorite;
-	/** @var int */
-	private $feedId;
-	/** @var FreshRSS_Feed|null */
-	private $feed;
+	private array $authors;
+	private string $content;
+	private string $link;
+	private int $date;
+	private int $lastSeen = 0;
+	/** In microseconds */
+	private string $date_added = '0';
+	private string $hash = '';
+	private ?bool $is_read;
+	private ?bool $is_favorite;
+	private int $feedId;
+	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
-	private $tags = [];
+	private array $tags = [];
 	/** @var array<string,mixed> */
-	private $attributes = [];
+	private array $attributes = [];
 
 	/**
 	 * @param int|string $pubdate
@@ -63,6 +52,8 @@ class FreshRSS_Entry extends Minz_Model {
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
 	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
+		FreshRSS_DatabaseDAO::pdoInt($dao, ['id_feed', 'date', 'lastSeen', 'is_read', 'is_favorite']);
+
 		if (empty($dao['content'])) {
 			$dao['content'] = '';
 		}
@@ -197,7 +188,7 @@ HTML;
 				continue;
 			}
 			$credit = $enclosure['credit'] ?? '';
-			$description = $enclosure['description'] ?? '';
+			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
@@ -310,11 +301,24 @@ HTML;
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributes('thumbnail');
+		// First, use the provided thumbnail, if any
 		if (!empty($thumbnail['url'])) {
 			return $thumbnail;
 		}
 		if ($searchEnclosures) {
 			foreach ($this->enclosures(true) as $enclosure) {
+				// Second, search each enclosure’s thumbnails
+				if (!empty($enclosure['thumbnails'][0])) {
+					foreach ($enclosure['thumbnails'] as $src) {
+						if (is_string($src)) {
+							return [
+								'url' => $src,
+								'medium' => 'image',
+							];
+						}
+					}
+				}
+				// Third, check whether each enclosure itself is an appropriate image
 				if (self::enclosureIsImage($enclosure)) {
 					return $enclosure;
 				}
@@ -436,7 +440,11 @@ HTML;
 		return $this->hash;
 	}
 
-	public function _id(string $value): void {
+	/** @param int|string $value String is for compatibility with 32-bit platforms */
+	public function _id($value): void {
+		if (is_int($value)) {
+			$value = (string)$value;
+		}
 		$this->id = $value;
 		if ($this->date_added == 0) {
 			$this->date_added = $value;
@@ -740,11 +748,11 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query(new Gt\CssXPath\Translator($path));
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($path))->asXPath());
 			if ($nodes != false) {
 				foreach ($nodes as $node) {
 					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query(new Gt\CssXPath\Translator($attributes['path_entries_filter']), $node) ?: [];
+						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							$filterednode->parentNode->removeChild($filterednode);
 						}

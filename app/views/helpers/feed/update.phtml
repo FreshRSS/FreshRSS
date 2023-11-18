@@ -1,4 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <div class="post" id="feed_update">
 	<h1><?= $this->feed->name() ?></h1>
 
@@ -80,13 +83,16 @@
 			<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 			<div class="group-controls">
 				<select name="priority" id="priority" class="w50">
+					<option value='<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.important') ?></option>
 					<option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php
 						if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
-					<option value='<?= FreshRSS_Feed::PRIORITY_NORMAL ?>' <?php
-						if (FreshRSS_Feed::PRIORITY_NORMAL === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.normal') ?></option>
+					<option value='<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>' <?php
+						if (FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.category') ?></option>
 					<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
 						if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
 				</select>
+				<?= _i('important') ?>
 			</div>
 		</div>
 
@@ -302,7 +308,7 @@
 		</p>
 
 		<div class="form-group">
-			<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
+			<div class="group-name"><?= _t('conf.archiving.policy') ?></div>
 			<div class="group-controls">
 				<label class="checkbox">
 					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>

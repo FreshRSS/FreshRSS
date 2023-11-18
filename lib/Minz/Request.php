@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -8,20 +10,17 @@
  * Request représente la requête http
  */
 class Minz_Request {
-	/** @var string */
-	private static $controller_name = '';
-	/** @var string */
-	private static $action_name = '';
-	/** @var array<string,mixed> */
-	private static $params = array();
 
-	/** @var string */
-	private static $default_controller_name = 'index';
-	/** @var string */
-	private static $default_action_name = 'index';
+	private static string $controller_name = '';
+	private static string $action_name = '';
+	/** @var array<string,mixed> */
+	private static array $params = [];
+
+	private static string $default_controller_name = 'index';
+	private static string $default_action_name = 'index';
 
 	/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
-	private static $originalRequest = [];
+	private static array $originalRequest = [];
 
 	/**
 	 * Getteurs
@@ -336,7 +335,7 @@ class Minz_Request {
 
 	private static function setNotification(string $type, string $content): void {
 		Minz_Session::lock();
-		$requests = Minz_Session::param('requests', []);
+		$requests = Minz_Session::paramArray('requests');
 		$requests[self::requestId()] = [
 				'time' => time(),
 				'notification' => [ 'type' => $type, 'content' => $content ],
@@ -353,14 +352,15 @@ class Minz_Request {
 		self::setNotification('bad', $content);
 	}
 
-	/** @return array<string,string>|null */
+	/** @return array{type:string,content:string}|null */
 	public static function getNotification(): ?array {
 		$notif = null;
 		Minz_Session::lock();
-		$requests = Minz_Session::param('requests');
-		if (is_array($requests)) {
+		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
+		$requests = Minz_Session::paramArray('requests');
+		if (!empty($requests)) {
 			//Delete abandoned notifications
-			$requests = array_filter($requests, static function (array $r) { return isset($r['time']) && $r['time'] > time() - 3600; });
+			$requests = array_filter($requests, static function (array $r) { return $r['time'] > time() - 3600; });
 
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {

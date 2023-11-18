@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The context object handles the current configuration file and different
@@ -6,97 +7,54 @@
  */
 final class FreshRSS_Context {
 
-	/**
-	 * @var FreshRSS_UserConfiguration|null
-	 */
-	public static $user_conf;
-
-	/**
-	 * @var FreshRSS_SystemConfiguration|null
-	 */
-	public static $system_conf;
+	public static ?FreshRSS_UserConfiguration $user_conf = null;
+	public static ?FreshRSS_SystemConfiguration $system_conf = null;
 	/**
 	 * @var array<int,FreshRSS_Category>
 	 */
-	public static $categories = [];
+	public static array $categories = [];
 	/**
 	 * @var array<int,FreshRSS_Tag>
 	 */
-	public static $tags = [];
-	/**
-	 * @var string
-	 */
-	public static $name = '';
-	/**
-	 * @var string
-	 */
-	public static $description = '';
-	/**
-	 * @var int
-	 */
-	public static $total_unread = 0;
+	public static array $tags = [];
+	public static string $name = '';
+	public static string $description = '';
+	public static int $total_unread = 0;
+	public static int $total_important_unread = 0;
 
 	/** @var array{'all':int,'read':int,'unread':int} */
-	public static $total_starred = [
+	public static array $total_starred = [
 		'all' => 0,
 		'read' => 0,
 		'unread' => 0,
 	];
 
-	/**
-	 * @var int
-	 */
-	public static $get_unread = 0;
+	public static int $get_unread = 0;
 
-	/** @var array{'all':bool,'starred':bool,'feed':int|false,'category':int|false,'tag':int|false,'tags':bool} */
-	public static $current_get = [
+	/** @var array{'all':bool,'starred':bool,'important':bool,'feed':int|false,'category':int|false,'tag':int|false,'tags':bool} */
+	public static array $current_get = [
 		'all' => false,
 		'starred' => false,
+		'important' => false,
 		'feed' => false,
 		'category' => false,
 		'tag' => false,
 		'tags' => false,
 	];
 
-	/**
-	 * @var string
-	 */
-	public static $next_get = 'a';
-	/**
-	 * @var int
-	 */
-	public static $state = 0;
+	public static string $next_get = 'a';
+	public static int $state = 0;
 	/**
 	 * @phpstan-var 'ASC'|'DESC'
-	 * @var string
 	 */
-	public static $order = 'DESC';
-	/**
-	 * @var int
-	 */
-	public static $number = 0;
-	/** @var FreshRSS_BooleanSearch */
-	public static $search;
-	/**
-	 * @var string
-	 */
-	public static $first_id = '';
-	/**
-	 * @var string
-	 */
-	public static $next_id = '';
-	/**
-	 * @var string
-	 */
-	public static $id_max = '';
-	/**
-	 * @var int
-	 */
-	public static $sinceHours = 0;
-	/**
-	 * @var bool
-	 */
-	public static $isCli = false;
+	public static string $order = 'DESC';
+	public static int $number = 0;
+	public static FreshRSS_BooleanSearch $search;
+	public static string $first_id = '';
+	public static string $next_id = '';
+	public static string $id_max = '';
+	public static int $sinceHours = 0;
+	public static bool $isCli = false;
 
 	/**
 	 * Initialize the context for the global system.
@@ -199,9 +157,8 @@ final class FreshRSS_Context {
 		// Update number of read / unread variables.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		self::$total_starred = $entryDAO->countUnreadReadFavorites();
-		self::$total_unread = FreshRSS_CategoryDAO::countUnread(
-			self::$categories, 1
-		);
+		self::$total_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_MAIN_STREAM);
+		self::$total_important_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_IMPORTANT);
 
 		self::_get(Minz_Request::paramString('get') ?: 'a');
 
@@ -253,12 +210,14 @@ final class FreshRSS_Context {
 	 * Return the current get as a string or an array.
 	 *
 	 * If $array is true, the first item of the returned value is 'f' or 'c' or 't' and the second is the id.
-	 * @phpstan-return ($asArray is true ? array{'a'|'c'|'f'|'s'|'t'|'T',bool|int} : string)
+	 * @phpstan-return ($asArray is true ? array{'a'|'c'|'f'|'i'|'s'|'t'|'T',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
 	public static function currentGet(bool $asArray = false) {
 		if (self::$current_get['all']) {
 			return $asArray ? ['a', true] : 'a';
+		} elseif (self::$current_get['important']) {
+			return $asArray ? ['i', true] : 'i';
 		} elseif (self::$current_get['starred']) {
 			return $asArray ? ['s', true] : 's';
 		} elseif (self::$current_get['feed']) {
@@ -293,6 +252,13 @@ final class FreshRSS_Context {
 	}
 
 	/**
+	 * @return bool true if the current request targets important feeds, false otherwise.
+	 */
+	public static function isImportant(): bool {
+		return self::$current_get['important'] != false;
+	}
+
+	/**
 	 * @return bool true if the current request targets a category, false otherwise.
 	 */
 	public static function isCategory(): bool {
@@ -323,6 +289,8 @@ final class FreshRSS_Context {
 		switch($type) {
 		case 'a':
 			return self::$current_get['all'];
+		case 'i':
+			return self::$current_get['important'];
 		case 's':
 			return self::$current_get['starred'];
 		case 'f':
@@ -367,6 +335,12 @@ final class FreshRSS_Context {
 		case 'a':
 			self::$current_get['all'] = true;
 			self::$name = _t('index.feed.title');
+			self::$description = self::$system_conf->meta_description;
+			self::$get_unread = self::$total_unread;
+			break;
+		case 'i':
+			self::$current_get['important'] = true;
+			self::$name = _t('index.menu.important');
 			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;
 			break;

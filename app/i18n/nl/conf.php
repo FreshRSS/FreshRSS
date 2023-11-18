@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
-			'scroll' => 'tijdens het scrollen',
+			'scroll' => 'tijdens het scrollen (except for important feeds)',	// DIRTY
 			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',

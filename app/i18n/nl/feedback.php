@@ -120,7 +120,7 @@ return array(
 		'renamed' => 'Label „%s” hernoemd naar „%s”.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
+		'can_apply' => 'FreshRSS word nu bijgewerkt naar <strong>versie %s</strong>.',
 		'error' => 'Het vernieuwingsproces kwam een fout tegen: %s',
 		'file_is_nok' => '<strong>Versie %s</strong>. Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
 		'finished' => 'Vernieuwing compleet!',

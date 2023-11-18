@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
@@ -31,6 +32,7 @@ if ($canonical === false) {
 		header('Connection: close');
 		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 	}
+	// https://github.com/w3c/websub/issues/106 , https://w3c.github.io/websub/#content-distribution
 	header('HTTP/1.1 410 Gone');
 	Minz_Log::warning('Warning: Feed key not found!: ' . $key, PSHB_LOG);
 	die('Feed key not found!');

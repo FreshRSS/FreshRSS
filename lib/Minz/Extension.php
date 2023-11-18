@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The extension base class.
@@ -26,10 +27,10 @@ abstract class Minz_Extension {
 	private $system_configuration;
 
 	/** @var array{0:'system',1:'user'} */
-	public static $authorized_types = array(
+	public static array $authorized_types = [
 		'system',
 		'user',
-	);
+	];
 
 	/** @var bool */
 	private $is_enabled;
@@ -55,7 +56,7 @@ abstract class Minz_Extension {
 		$this->path = $meta_info['path'];
 		$this->author = isset($meta_info['author']) ? $meta_info['author'] : '';
 		$this->description = isset($meta_info['description']) ? $meta_info['description'] : '';
-		$this->version = isset($meta_info['version']) ? $meta_info['version'] : '0.1';
+		$this->version = isset($meta_info['version']) ? (string)$meta_info['version'] : '0.1';
 		$this->setType(isset($meta_info['type']) ? $meta_info['type'] : 'user');
 
 		$this->is_enabled = false;

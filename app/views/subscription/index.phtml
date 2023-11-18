@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -61,7 +61,7 @@
 						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
 				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
-					draggable="true" data-feed-id="<?= $feed->id() ?>">
+					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
 					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
 					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<span class="item-title"><?= $feed->name() ?></span>

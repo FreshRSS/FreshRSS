@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every tag actions.
@@ -7,9 +8,8 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
-	 * @var bool|mixed
 	 */
-	private $ajax = false;
+	private bool $ajax = false;
 
 	/**
 	 * This action is called before every other action in that class. It is

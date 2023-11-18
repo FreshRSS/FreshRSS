@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -10,12 +12,12 @@
 class Minz_ActionController {
 
 	/** @var array<string,string> */
-	private static $csp_default = [
+	private static array $csp_default = [
 		'default-src' => "'self'",
 	];
 
 	/** @var array<string,string> */
-	private $csp_policies;
+	private array $csp_policies;
 
 	/** @var Minz_View */
 	protected $view;
@@ -25,7 +27,7 @@ class Minz_ActionController {
 	 * @var class-string
 	 * @deprecated Use constructor with view type instead
 	 */
-	public static $defaultViewType = Minz_View::class;
+	public static string $defaultViewType = Minz_View::class;
 
 	/**
 	 * @phpstan-param class-string|'' $viewType

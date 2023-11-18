@@ -122,6 +122,12 @@ h3 {
 	line-height: 1.5;
 }
 
+h4,
+h5,
+h6 {
+	font-size: 1em;
+}
+
 .title_hidden {
 	display: none;
 }
@@ -475,6 +481,24 @@ td.numeric {
 
 .btn-important {
 	font-weight: bold;
+}
+
+.btn-state1.hide {
+	display: none;
+}
+
+.btn-state2 {
+	display: none;
+}
+
+.btn-state2.show {
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-right: 2rem;
 }
 
 /*=== switch */
@@ -1960,6 +1984,11 @@ html.slider-active {
 	color: var(--frss-font-color-light);
 }
 
+.feed[data-priority="20"] .item-title,
+.flux[data-priority="20"] .website > a {
+	text-decoration: underline double;
+}
+
 .aside .category .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
 	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
@@ -2071,10 +2100,6 @@ html.slider-active {
 .enclosure [download] {
 	font-size: 3rem;
 	margin-right: .8em;
-}
-
-.enclosure-description {
-	white-space: pre-line;
 }
 
 .default-user {

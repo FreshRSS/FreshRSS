@@ -1,6 +1,29 @@
 ﻿# FreshRSS changelog
 
-## 202X-XX-XX FreshRSS 1.22.1-dev
+## 202X-XX-XX FreshRSS 1.22.2-dev
+
+* Features
+	* New *Important feeds* group in the main view, with corresponding new priority level for feeds [#5782](https://github.com/FreshRSS/FreshRSS/pull/5782)
+		* Entries from important feeds are not marked as read during *scroll*, during *focus*, nor during *Mark all as read*
+	* New option to mark entries as read when focused from keyboard shortcut [5812](https://github.com/FreshRSS/FreshRSS/pull/5812)
+	* Add support for more thumbnail types [#5806](https://github.com/FreshRSS/FreshRSS/pull/5806)
+	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
+	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
+* Compatibility
+	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
+	* Require Apache 2.4+ (but repair minimal compatibility with Apache 2.2) [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791), [#5804](https://github.com/FreshRSS/FreshRSS/pull/5804)
+* Bug fixing
+	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
+	* Fix JavaScript regression in label dropdown [#5785](https://github.com/FreshRSS/FreshRSS/pull/5785)
+* Deployment
+	* Use GitHub Actions to build Docker images, offering architectures `amd64`, `arm32v7`, `arm64v8` with automatic detection [#5808](https://github.com/FreshRSS/FreshRSS/pull/5808)
+* Misc.
+	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
+	* Update dev dependencies [#5787](https://github.com/FreshRSS/FreshRSS/pull/5787),
+		[stylelint-config-recommended-scss/#252](https://github.com/stylelint-scss/stylelint-config-recommended-scss/pull/252)
+
+
+## 2023-10-30 FreshRSS 1.22.1
 
 * Bug fixing
 	* Fix regression in i18n English fallback for extensions [#5752](https://github.com/FreshRSS/FreshRSS/pull/5752)
@@ -8,19 +31,22 @@
 	* OpenID Connect compatibility with colon `:` in `OIDC_SCOPES` [#5753](https://github.com/FreshRSS/FreshRSS/pull/5753), [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 	* Avoid a warning on non-numeric `TRUSTED_PROXY` environment variable [#5733](https://github.com/FreshRSS/FreshRSS/pull/5733)
 	* Better identification of proxied client IP with `RemoteIPInternalProxy` in Apache [#5740](https://github.com/FreshRSS/FreshRSS/pull/5740)
-* i18n
-	* Better i18n string for feed submenu for mark as read [#5762](https://github.com/FreshRSS/FreshRSS/pull/5762)
-	* Improve Dutch [#5759](https://github.com/FreshRSS/FreshRSS/pull/5759)
+* Deployment
+	* Export all environment variables to cron (to allow custom environment variables such as for Kubernetes) [#5772](https://github.com/FreshRSS/FreshRSS/pull/5772)
+	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 and Apache 2.4.58 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
+* Compatibility
+	* Test compatibility with PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * UI
 	* Improve *Origine* theme (dark mode) [#5745](https://github.com/FreshRSS/FreshRSS/pull/5745)
 	* Improve *Nord* theme [#5754](https://github.com/FreshRSS/FreshRSS/pull/5754)
-	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737)
-* Deployment
-	* Docker: Upgraded Alpine dev image `freshrss/freshrss:newest` to PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
-* Compatibility
-	* Test compatibility with PHP 8.3 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
+	* Various UI and style improvements [#5737](https://github.com/FreshRSS/FreshRSS/pull/5737), [#5765](https://github.com/FreshRSS/FreshRSS/pull/5765),
+		[#5773](https://github.com/FreshRSS/FreshRSS/pull/5773), [#5774](https://github.com/FreshRSS/FreshRSS/pull/5774)
+* i18n
+	* Better i18n string for feed submenu for mark as read [#5762](https://github.com/FreshRSS/FreshRSS/pull/5762)
+	* Improve Dutch [#5759](https://github.com/FreshRSS/FreshRSS/pull/5759)
 * Misc.
 	* Move to GitHub Actions for our GitHub Pages [#5681](https://github.com/FreshRSS/FreshRSS/pull/5681)
+	* Update dev dependencies and use `stylelint-stylistic` [#5766](https://github.com/FreshRSS/FreshRSS/pull/5766)
 
 
 ## 2023-10-23 FreshRSS 1.22.0

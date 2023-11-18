@@ -1,4 +1,5 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$actual_view = Minz_Request::actionName();
 	$class = '';
@@ -32,6 +33,14 @@
 			<div class="tree-folder-title">
 				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
 					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
+			</div>
+		</li>
+
+		<li class="tree-folder category important<?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
+			<div class="tree-folder-title">
+				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
+					<?= _t('index.menu.important') ?>
+				</a>
 			</div>
 		</li>
 

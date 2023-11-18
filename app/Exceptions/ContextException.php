@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * An exception raised when a context is invalid

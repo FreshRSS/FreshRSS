@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'cuando el artículo se abra en su web original',
 			'article_viewed' => 'cuando se muestre el artículo',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
-			'scroll' => 'durante el desplazamiento',
+			'scroll' => 'durante el desplazamiento (except for important feeds)',	// DIRTY
 			'upon_gone' => 'cuando ya no está disponible en el feed de noticias previo',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',

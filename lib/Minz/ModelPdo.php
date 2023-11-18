@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
@@ -12,29 +13,16 @@ class Minz_ModelPdo {
 
 	/**
 	 * Shares the connection to the database between all instances.
-	 * @var bool
 	 */
-	public static $usesSharedPdo = true;
+	public static bool $usesSharedPdo = true;
 
-	/**
-	 * @var Minz_Pdo|null
-	 */
-	private static $sharedPdo;
+	private static ?Minz_Pdo $sharedPdo = null;
 
-	/**
-	 * @var string|null
-	 */
-	private static $sharedCurrentUser;
+	private static ?string $sharedCurrentUser;
 
-	/**
-	 * @var Minz_Pdo
-	 */
-	protected $pdo;
+	protected Minz_Pdo $pdo;
 
-	/**
-	 * @var string|null
-	 */
-	protected $current_user;
+	protected ?string $current_user;
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
@@ -70,7 +58,7 @@ class Minz_ModelPdo {
 				break;
 			case 'sqlite':
 				$dsn = 'sqlite:' . DATA_PATH . '/users/' . $this->current_user . '/db.sqlite';
-				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				$this->pdo = new Minz_PdoSqlite($dsn . $dsnParams, null, null, $driver_options);
 				$this->pdo->setPrefix('');
 				break;
 			case 'pgsql':

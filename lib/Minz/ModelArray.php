@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -10,9 +12,8 @@
 class Minz_ModelArray {
 	/**
 	 * $filename est le nom du fichier
-	 * @var string
 	 */
-	protected $filename;
+	protected string $filename;
 
 	/**
 	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename
