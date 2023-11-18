@@ -395,10 +395,10 @@ SQL;
 	}
 
 	/**
-	 * Ensure that some PDO results are `int` and not `string`.
+	 * Ensure that some PDO columns are `int` and not `string`.
 	 * Compatibility with PHP 7.
-	 * @var array<string|int|null> $table
-	 * @var array<string> $columns
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
 	 */
 	public static function pdoInt(array &$table, array $columns): void {
 		foreach ($columns as $column) {
