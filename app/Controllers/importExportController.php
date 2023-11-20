@@ -1,15 +1,14 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every import and export actions.
  */
 class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
-	/** @var FreshRSS_EntryDAO */
-	private $entryDAO;
+	private FreshRSS_EntryDAO $entryDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_FeedDAO $feedDAO;
 
 	/**
 	 * This action is called before every other action in that class. It is

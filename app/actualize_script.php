@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+// declare(strict_types=1);	// Need to wait for PHP 8+ due to https://php.net/ob-implicit-flush
 require(__DIR__ . '/../cli/_cli.php');
 
 session_cache_limiter('');

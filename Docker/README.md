@@ -1,9 +1,17 @@
-![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/freshrss/freshrss.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/freshrss/freshrss.svg)
+[![Liberapay donations](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 # Deploy FreshRSS with Docker
 
-Our official images are available on [Docker Hub](https://hub.docker.com/r/freshrss/freshrss/).
+FreshRSS is a self-hosted RSS feed aggregator.
+
+* Official website: [`freshrss.org`](https://freshrss.org/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
+* Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
+* Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
+* License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
+
+![FreshRSS logo](https://github.com/FreshRSS/FreshRSS/raw/edge/docs/img/FreshRSS-logo.png)
 
 ## Install Docker
 
@@ -66,13 +74,15 @@ The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshR
 
 * `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
-* `:x.y.z` are [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases)
-* `:arm` or `:*-arm` are the ARM `arm32v7` versions (e.g., for Raspberry Pi).
+* `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `*-alpine` use Linux Alpine as base-image instead of Debian
+* Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
 
 ### Linux: Debian vs. Alpine
 
-Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `:alpine` or `*-alpine` tag suffix).
+Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
 In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205) (2019), Alpine was slower,
 while Alpine is smaller on disk (and much faster to build),
 and with newer packages in general (Apache, PHP).
@@ -108,7 +118,7 @@ docker rm freshrss_old
 ## Build custom Docker image
 
 Building your own Docker image is especially relevant for platforms not available on our Docker Hub,
-which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
+which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
@@ -395,27 +405,6 @@ docker-compose down --remove-orphans --volumes
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
 
-### Docker Compose and ARM64
-
-If you’re working or want to host on an ARM64 system (such as Apple Silicon (M1/M2)) you’ll need to use the `arm` tag in your `docker-compose.yml` file:
-```yaml
-image: freshrss/freshrss:arm
-```
-
-If you then get this error message when running `docker compose up`:
-
-> The requested image’s platform (linux/arm/v7) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-
-… you will also need to specify the platform in the `service` part:
-
-```yaml
-services:
-  freshrss:
-    image: freshrss/freshrss:arm
-    platform: linux/arm/v7
-    container_name: freshrss
- ```
-
 ## Run in production
 
 For production, it is a good idea to use a reverse proxy on your host server, providing HTTPS.
@@ -429,6 +418,26 @@ SERVER_DNS=freshrss.example.net
 ```
 
 ### Use [Træfik](https://traefik.io/traefik/) reverse proxy
+
+#### Option 1: server FreshRSS as a sub-domain
+
+Use [`Host()` rule](https://doc.traefik.io/traefik/routing/routers/#rule), like:
+
+```yml
+- traefik.http.routers.freshrss.rule=Host(`freshrss.example.net`)
+```
+
+#### Option 2: serve FreshRSS as a sub-path
+
+Use [`PathPrefix()` rules](https://doc.traefik.io/traefik/routing/routers/#rule) and [`StripPrefix` middleware](https://doc.traefik.io/traefik/middlewares/http/stripprefix/#stripprefix), like:
+
+```yml
+- traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+- traefik.http.routers.freshrss.middlewares=freshrssM3
+- traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)
+```
+
+#### Full example
 
 Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS.
 

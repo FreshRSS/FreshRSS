@@ -34,8 +34,7 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 fi
 
 if [ -n "$CRON_MIN" ]; then
-	# shellcheck disable=SC2002
-	cat /proc/self/environ | tr '\0' '\n' | grep -vE '^(HOME|PATH|PWD|SHLVL|TERM|_)=' | sort -u | sed 's/^/export /' >/var/www/FreshRSS/Docker/env.txt
+	awk -v RS='\0' '!/^(HOME|PATH|PWD|SHLVL|TERM|_)/ {gsub("\047", "\047\\\047\047"); print "export \047" $0 "\047"}' /proc/self/environ >/var/www/FreshRSS/Docker/env.txt
 	sed </etc/crontab.freshrss.default \
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi

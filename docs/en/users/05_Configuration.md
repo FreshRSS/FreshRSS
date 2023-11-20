@@ -45,7 +45,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| ~~Blue Lagoon~~     |Mister aiR | Was removed with FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | |
@@ -54,12 +54,12 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| ~~Screwdriver~~ | Mister aiR | Was removed with FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
-If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
-
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
+
+If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.
 
 ## Content width
 
@@ -190,7 +190,7 @@ Extensions can be managed from this menu. Note that while extensions can be remo
 
 1. User control is based on the `.htaccess` file.
 2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
-3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that WebSub and API will not work!
+3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that [WebSub](WebSub.md) and API will not work!
 4. Example `.htaccess` file for a user "marie":
 
 ```apache

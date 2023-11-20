@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -25,8 +27,7 @@
  */
 class Minz_FrontController {
 
-	/** @var Minz_Dispatcher */
-	protected $dispatcher;
+	protected Minz_Dispatcher $dispatcher;
 
 	/**
 	 * Constructeur

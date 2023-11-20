@@ -61,6 +61,7 @@ return array (
 		'reception' => false,
 		'same_title_in_feed' => false,
 		'scroll' => false,
+		'focus' => false,
 		'site' => true,
 	),
 	'theme' => 'Origine',
@@ -110,6 +111,7 @@ return array (
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,
 	'bottomline_tags' => true,
+	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
 	'sharing' => array (

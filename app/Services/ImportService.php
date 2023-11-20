@@ -1,17 +1,17 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Provide methods to import files.
  */
 class FreshRSS_Import_Service {
-	/** @var FreshRSS_CategoryDAO */
-	private $catDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_CategoryDAO $catDAO;
 
-	/** @var bool true if success, false otherwise */
-	private $lastStatus;
+	private FreshRSS_FeedDAO $feedDAO;
+
+	/** true if success, false otherwise */
+	private bool $lastStatus;
 
 	/**
 	 * Initialize the service for the given user.

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_Migrator helps to migrate data (in a database or not) or the
@@ -9,11 +10,11 @@
  */
 class Minz_Migrator
 {
-	/** @var string[] */
-	private $applied_versions;
+	/** @var array<string> */
+	private array $applied_versions;
 
 	/** @var array<callable> */
-	private $migrations = [];
+	private array $migrations = [];
 
 	/**
 	 * Execute a list of migrations, skipping versions indicated in a file

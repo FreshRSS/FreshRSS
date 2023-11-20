@@ -1,4 +1,5 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('nav_menu');
 
@@ -12,7 +13,6 @@
 		$state_unread = true;
 	}
 ?>
-
 <main id="stream" class="global<?= $class ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php
@@ -76,9 +76,6 @@
 		?>
 	<div id="noArticlesToShow" class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
-		<?php } ?>
 	</div>
 	<?php } ?>
 </main>

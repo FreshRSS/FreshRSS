@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
@@ -17,11 +18,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return false;
 	}
 
-	/** @param array<string> $errorInfo */
+	/** @param array<int|string> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['kind'] as $column) {
 					if (stripos($errorLines[0], $column) !== false) {
 						return $this->addColumn($column);
@@ -58,10 +59,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			$valuesTmp['website'],
-			sanitizeHTML($valuesTmp['description'], '', 1023),
+			sanitizeHTML($valuesTmp['description'], ''),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
-			mb_strcut($valuesTmp['pathEntries'], 0, 511, 'UTF-8'),
+			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
 			base64_encode($valuesTmp['httpAuth']),
 			isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0,
 			isset($valuesTmp['ttl']) ? (int)$valuesTmp['ttl'] : FreshRSS_Feed::TTL_DEFAULT,
@@ -583,6 +584,7 @@ SQL;
 		$list = [];
 
 		foreach ($listDAO as $key => $dao) {
+			FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'kind', 'category', 'lastUpdate', 'priority', 'error', 'ttl', 'cache_nbUnreads', 'cache_nbEntries']);
 			if (!isset($dao['name'])) {
 				continue;
 			}
@@ -626,6 +628,6 @@ SQL;
 			return -1;
 		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0] ?? 0;
+		return (int)($res[0] ?? 0);
 	}
 }

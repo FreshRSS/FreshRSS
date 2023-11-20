@@ -1,4 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>
 
@@ -20,7 +23,7 @@
 		<div class="form-group">
 			<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 			<div class="group-controls">
-				<input type="text" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch(), ENT_COMPAT, 'UTF-8') ?>"/>
+				<input type="text" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->getRawInput(), ENT_COMPAT, 'UTF-8') ?>"/>
 			</div>
 		</div>
 		<div class="form-group">

@@ -135,6 +135,15 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
+	// Update unread: important
+	if (feed_priority >= 20) {
+		elem = document.querySelector('#aside_feed .important .title');
+		if (elem) {
+			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		}
+	}
+
 	// Update unread: favourites
 	if (article && article.closest('div').classList.contains('favorite')) {
 		elem = document.querySelector('#aside_feed .favorites .title');
@@ -472,6 +481,9 @@ function prev_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -487,6 +499,9 @@ function next_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -501,6 +516,9 @@ function next_unread_entry(skipping) {
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
+	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
 }
@@ -735,20 +753,23 @@ function onScroll() {
 	}
 }
 
+let lastScroll = 0;	// Throttle
+let timerId = 0;
+function debouncedOnScroll() {
+	clearTimeout(timerId);
+	if (lastScroll + 500 < Date.now()) {
+		lastScroll = Date.now();
+		onScroll();
+	} else {
+		timerId = setTimeout(onScroll, 500);
+	}
+}
+
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
 		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
-		let lastScroll = 0;	// Throttle
-		let timerId = 0;
-		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = function () {
-			clearTimeout(timerId);
-			if (lastScroll + 500 < Date.now()) {
-				lastScroll = Date.now();
-				onScroll();
-			} else {
-				timerId = setTimeout(onScroll, 500);
-			}
-		};
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnScroll;
+		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
 	}
 
@@ -854,7 +875,7 @@ function init_column_categories() {
 			const itemId = a.closest('.item').id;
 			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
 			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb');
+			const feed_web = a.getAttribute('data-fweb') || '';
 			const div = a.parentElement;
 			const dropdownMenu = div.querySelector('.dropdown-menu');
 			const template = document.getElementById(templateId)
@@ -863,8 +884,11 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
-				if (feed_web.length < 1) {
-					div.querySelector('.item.link.website').remove();
+				if (feed_web == '') {
+					const website = div.querySelector('.item.link.website');
+					if (website) {
+						website.remove();
+					}
 				}
 				const b = div.querySelector('button.confirm');
 				if (b) {

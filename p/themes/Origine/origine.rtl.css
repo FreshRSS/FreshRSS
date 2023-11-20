@@ -291,24 +291,6 @@ form th {
 	text-decoration: none;
 }
 
-.btn-state1.hide {
-	display: none;
-}
-
-.btn-state2 {
-	display: none;
-}
-
-.btn-state2.show {
-	display: inline-block;
-}
-
-#button-update-loading {
-	background: var(--frss-loading-image) 0.5rem center no-repeat;
-	background-size: 1rem;
-	padding-right: 2rem;
-}
-
 a:hover .icon {
 	filter: brightness(1.5);
 	transition: 0.1s linear;

@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打開原文章後',
 			'article_viewed' => '在文章被瀏覽後',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '未讀最多保留 n 條',
-			'scroll' => '在滾動瀏覽後',
+			'scroll' => '在滾動瀏覽後 (except for important feeds)',	// DIRTY
 			'upon_gone' => '在被原訂閱源移除後',
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',

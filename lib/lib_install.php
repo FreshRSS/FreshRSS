@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
 FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));

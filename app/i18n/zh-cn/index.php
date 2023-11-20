@@ -26,7 +26,6 @@ return array(
 		'version' => '版本',
 	),
 	'feed' => array(
-		'add' => '请添加一些订阅源。',
 		'empty' => '没有文章可以显示。',
 		'rss_of' => '%s 的订阅源',
 		'title' => '首页',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => '收藏当前查询',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局视图',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => '首页',
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',

@@ -140,11 +140,12 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'archived' => 'Do not show (archived)',	// IGNORE
+			'category' => 'Show in its category',	// IGNORE
+			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
-			'normal' => 'Show in its category',	// IGNORE
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// IGNORE
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// IGNORE
 			'show_rendered' => 'Show content',	// IGNORE
@@ -168,7 +169,7 @@ return array(
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// IGNORE
 		'validator' => 'Check the validity of the feed',	// IGNORE
 		'website' => 'Website URL',	// IGNORE
-		'websub' => 'Instant notification with WebSub',	// IGNORE
+		'websub' => 'Instant notifications with WebSub',	// IGNORE
 	),
 	'import_export' => array(
 		'export' => 'Export',	// IGNORE

@@ -12,8 +12,8 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 Il permet de gérer plusieurs utilisateurs, dispose d’un mode de lecture anonyme, et supporte les étiquettes personnalisées.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
 
-Grâce au standard [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
-FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, telles [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, FeedBurner, etc.
+Grâce au standard [WebSub](https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html),
+FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, Medium, etc.
 
 FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
 
@@ -22,7 +22,7 @@ Plusieurs [méthodes de connexion](https://freshrss.github.io/FreshRSS/en/admins
 Enfin, FreshRSS permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : <https://freshrss.org>
-* Démo : <http://demo.freshrss.org/>
+* Démo : <https://demo.freshrss.org>
 * Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
 
 ![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
@@ -57,11 +57,12 @@ FreshRSS n’est fourni avec aucune garantie.
 	* Fonctionne aussi sur mobile (sauf certaines fonctionnalités)
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
-* Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 7.2+
-	* Requis : [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), et [PDO_MySQL](https://www.php.net/pdo-mysql) ou [PDO_SQLite](https://www.php.net/pdo-sqlite) ou [PDO_PGSQL](https://www.php.net/pdo-pgsql)
-	* Recommandés : [GMP](https://www.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://www.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://www.php.net/mbstring) (pour le texte Unicode), [iconv](https://www.php.net/iconv) (pour conversion d’encodages), [ZIP](https://www.php.net/zip) (pour import/export), [zlib](https://www.php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ ou équivalent MariaDB, ou SQLite 3.7.4+, ou PostgreSQL 9.5+
+* Serveur Web Apache2.4+ (recommandé), ou nginx, lighttpd (non testé sur les autres)
+* PHP 7.4+
+	* Extensions requises : [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype)
+	* Extensions recommandées : [PDO_SQLite](https://www.php.net/pdo-sqlite) (pour l’export/import), [GMP](https://www.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://www.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://www.php.net/mbstring) (pour le texte Unicode), [iconv](https://www.php.net/iconv) (pour conversion d’encodages), [ZIP](https://www.php.net/zip) (pour import/export), [zlib](https://www.php.net/zlib) (pour les flux compressés)
+	* Extension pour base de données : [PDO_PGSQL](https://www.php.net/pdo-pgsql) ou [PDO_SQLite](https://www.php.net/pdo-sqlite) ou [PDO_MySQL](https://www.php.net/pdo-mysql)
+* PostgreSQL 9.5+ ou SQLite ou MySQL 5.5.3+ ou MariaDB 5.5+
 
 # [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
 
@@ -229,7 +230,7 @@ et [l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.htm
 | [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/)                            | Android, iOS| [✔️](https://github.com/yang991178/fluent-reader-lite)        | ✔️✔️                   | GReader, Fever   | ✔️            | ⭐⭐⭐ | ➖                             | ➖                  | ✓         | ➖     | ➖       | ➖           |
 | [ChristopheHenry](https://gitlab.com/christophehenry/freshrss-android)                | Android     | [✔️](https://gitlab.com/christophehenry/freshrss-android)     | En développement       | GReader          | ✔️            | ⭐⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ➖       | ➖           |
 | [Fluent Reader](https://hyliu.me/fluent-reader/)                             | Windows, Linux, macOS| [✔️](https://github.com/yang991178/fluent-reader)             | ✔️✔️                   | Fever            | ✔️            | ⭐         | ➖                             | ✔️                  | ✓         | ➖     | ➖       | ➖           |
-| [RSS Guard](https://github.com/martinrotter/rssguard)             | Windows, GNU/Linux, macOS, OS/2 | [✔️](https://github.com/martinrotter/rssguard)                | ✔️✔️                   | GReader          | ✔️            | ⭐⭐ | ➖ | ✔️ | ✔️ | ✔️ | ✔️ | ➖ |
+| [RSS Guard](https://github.com/martinrotter/rssguard)             | Windows, GNU/Linux, macOS, OS/2 | [✔️](https://github.com/martinrotter/rssguard)                | ✔️✔️                   | GReader          | ✔️            | ⭐⭐ | ➖ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
 | [NewsFlash](https://gitlab.com/news-flash/news_flash_gtk)                             | GNU/Linux   | [✔️](https://gitlab.com/news-flash/news_flash_gtk)            | ✔️✔️                   | GReader, Fever   | ➖            | ⭐⭐        | ➖                           | ✔️                | ✔️       | ✔️    | ➖      | ➖          |
 | [Newsboat 2.24+](https://newsboat.org/)                                 | GNU/Linux, macOS, FreeBSD | [✔️](https://github.com/newsboat/newsboat/)                   | ✔️✔️                   | GReader          | ➖            | ⭐        | ➖                             | ✔️                  | ✔️         | ➖     | ✔️       | ➖           |
 | [Vienna RSS](http://www.vienna-rss.com/)                                              | macOS       | [✔️](https://github.com/ViennaRSS/vienna-rss)                 | ✔️✔️                   | GReader          | ❔            | ❔        | ❔                             | ❔                  | ❔         | ❔     | ❔       | ❔           |

@@ -114,7 +114,7 @@ If your FreshRSS instance uses no authentication (public instance, default user)
 
 ### Background
 
-FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports instant push (WebSub).
+FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports [instant push (WebSub)](WebSub.md).
 
 FreshRSS is part of an RSS ecosystem. A typical reaction that we have seen from several servers is to simply ban by, IP, user-agent, or to remove their RSS feed altogether. Bad user behaviours affect the larger community.
 

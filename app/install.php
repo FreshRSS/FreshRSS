@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
@@ -27,15 +29,15 @@ function initTranslate(): void {
 	Minz_Translate::init();
 	$available_languages = Minz_Translate::availableLanguages();
 
-	if (Minz_Session::param('language') == '') {
+	if (Minz_Session::paramString('language') == '') {
 		Minz_Session::_param('language', get_best_language());
 	}
 
-	if (!in_array(Minz_Session::param('language'), $available_languages, true)) {
+	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
 		Minz_Session::_param('language', 'en');
 	}
 
-	Minz_Translate::reset(Minz_Session::param('language'));
+	Minz_Translate::reset(Minz_Session::paramString('language'));
 }
 
 function get_best_language(): string {
@@ -91,7 +93,7 @@ function saveStep1(): void {
 
 function saveStep2(): void {
 	if (!empty($_POST)) {
-		if (Minz_Session::param('bd_type') === 'sqlite') {
+		if (Minz_Session::paramString('bd_type') === 'sqlite') {
 			Minz_Session::_params([
 					'bd_base' => false,
 					'bd_host' => false,
@@ -114,8 +116,8 @@ function saveStep2(): void {
 					'bd_prefix' => substr($_POST['prefix'], 0, 16),
 				]);
 		}
-		if (Minz_Session::param('bd_type') === 'pgsql') {
-			Minz_Session::_param('bd_base', strtolower(Minz_Session::param('bd_base')));
+		if (Minz_Session::paramString('bd_type') === 'pgsql') {
+			Minz_Session::_param('bd_base', strtolower(Minz_Session::paramString('bd_base')));
 		}
 
 		// We use dirname to remove the /i part
@@ -125,18 +127,18 @@ function saveStep2(): void {
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => Minz_Session::param('bd_type'),
-				'host' => Minz_Session::param('bd_host'),
-				'user' => Minz_Session::param('bd_user'),
-				'password' => Minz_Session::param('bd_password'),
-				'base' => Minz_Session::param('bd_base'),
-				'prefix' => Minz_Session::param('bd_prefix'),
+				'type' => Minz_Session::paramString('bd_type'),
+				'host' => Minz_Session::paramString('bd_host'),
+				'user' => Minz_Session::paramString('bd_user'),
+				'password' => Minz_Session::paramString('bd_password'),
+				'base' => Minz_Session::paramString('bd_base'),
+				'prefix' => Minz_Session::paramString('bd_prefix'),
 				'pdo_options' => [],
 			],
 			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
 		];
-		if (Minz_Session::param('title') != '') {
-			$config_array['title'] = Minz_Session::param('title');
+		if (Minz_Session::paramString('title') != '') {
+			$config_array['title'] = Minz_Session::paramString('title');
 		}
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
@@ -177,7 +179,7 @@ function saveStep2(): void {
 		if ($ok) {
 			Minz_Session::_param('bd_error');
 			header('Location: index.php?step=3');
-		} elseif (Minz_Session::param('bd_error') == '') {
+		} elseif (Minz_Session::paramString('bd_error') == '') {
 			Minz_Session::_param('bd_error', 'Unknown error!');
 		}
 	}
@@ -186,7 +188,7 @@ function saveStep2(): void {
 
 function saveStep3(): bool {
 	FreshRSS_Context::initSystem();
-	Minz_Translate::init(Minz_Session::param('language'));
+	Minz_Translate::init(Minz_Session::paramString('language'));
 
 	if (!empty($_POST)) {
 		if (param('auth_type', 'form') != '') {
@@ -220,16 +222,16 @@ function saveStep3(): bool {
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		recursive_unlink(USERS_PATH . '/' . Minz_Session::param('default_user'));
+		recursive_unlink(USERS_PATH . '/' . Minz_Session::paramString('default_user'));
 
 		$ok = false;
 		try {
 			$ok = FreshRSS_user_Controller::createUser(
-				Minz_Session::param('default_user'),
+				Minz_Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
 				$password_plain,
 				[
-					'language' => Minz_Session::param('language'),
+					'language' => Minz_Session::paramString('language'),
 					'is_admin' => true,
 					'enabled' => true,
 				]
@@ -270,8 +272,8 @@ function checkStep(): void {
 /** @return array<string,string> */
 function checkStep0(): array {
 	$languages = Minz_Translate::availableLanguages();
-	$language = Minz_Session::param('language') != '' && in_array(Minz_Session::param('language'), $languages, true);
-	$sessionWorking = Minz_Session::param('sessionWorking') === 'ok';
+	$language = Minz_Session::paramString('language') != '' && in_array(Minz_Session::paramString('language'), $languages, true);
+	$sessionWorking = Minz_Session::paramString('sessionWorking') === 'ok';
 
 	return [
 		'language' => $language ? 'ok' : 'ko',
@@ -290,7 +292,7 @@ function freshrss_already_installed(): bool {
 	$system_conf = null;
 	try {
 		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
-	} catch (Minz_FileNotExistException $e) {
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
@@ -298,7 +300,7 @@ function freshrss_already_installed(): bool {
 	$current_user = $system_conf->default_user;
 	try {
 		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
-	} catch (Minz_FileNotExistException $e) {
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
@@ -310,8 +312,8 @@ function freshrss_already_installed(): bool {
 function checkStep2(): array {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = Minz_Session::param('bd_type') != '';
-	$conn = Minz_Session::param('bd_error') == '';
+	$bd = Minz_Session::paramString('bd_type') != '';
+	$conn = Minz_Session::paramString('bd_error') == '';
 
 	return [
 		'bd' => $bd ? 'ok' : 'ko',
@@ -323,13 +325,13 @@ function checkStep2(): array {
 
 /** @return array<string,string> */
 function checkStep3(): array {
-	$conf = Minz_Session::param('default_user') != '';
+	$conf = Minz_Session::paramString('default_user') != '';
 
-	$form = Minz_Session::param('auth_type') != '';
+	$form = Minz_Session::paramString('auth_type') != '';
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
-		$defaultUser = Minz_Session::param('default_user') == '' ? '' : Minz_Session::param('default_user');
+		$defaultUser = Minz_Session::paramString('default_user') == '' ? '' : Minz_Session::paramString('default_user');
 	}
 	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
@@ -531,7 +533,7 @@ function printStep2(): void {
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql' ? 'selected="selected"' : '' ?>>
-					MySQL
+					MySQL / MariaDB
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>

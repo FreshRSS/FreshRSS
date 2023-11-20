@@ -26,7 +26,6 @@ return array(
 		'version' => 'Versie',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'U kunt wat feeds toevoegen.',
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'rss_of' => 'RSS-feed van %s',
 		'title' => 'Overzicht',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Huidige query opslaan',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Overzicht',
 		'mark_all_read' => 'Markeer alles als gelezen',
 		'mark_cat_read' => 'Markeer categorie als gelezen',

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * @property string $apiPasswordHash
@@ -11,6 +12,7 @@
  * @property bool $bottomline_read
  * @property bool $bottomline_sharing
  * @property bool $bottomline_tags
+ * @property bool $bottomline_myLabels
  * @property string $content_width
  * @property-read int $default_state
  * @property string $default_view
@@ -71,6 +73,7 @@
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
+	/** @throws Minz_ConfigurationNamespaceException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
 		return parent::get('user');
