@@ -46,10 +46,29 @@ $today = @strtotime('today');
 			}
 		}
 
+		if (FreshRSS_Context::$user_conf->timezone == 'Asia/Tehran' || FreshRSS_Context::$user_conf->timezone == 'Asia/Kabul') {
+			$userLanguage = FreshRSS_Context::$user_conf->language;
+			if ($userLanguage == 'fa') {
+				$num = 'fa';
+				$dateFormat = 'j F Y';
+			} elseif ($userLanguage == 'ps') {
+				$num = 'fa';
+				$dateFormat = 'j p Y';
+			} else {
+				$num = 'en';
+				$dateFormat = 'Y/n/j';
+			}
+			$todayDate = jdate($dateFormat , time(), '', FreshRSS_Context::$user_conf->timezone, $num);
+			$yesterdayDate = jdate($dateFormat, time() - 86400, '', FreshRSS_Context::$user_conf->timezone, $num);
+		} else {
+			$todayDate = timestamptodate(time(), false);
+			$yesterdayDate = timestamptodate(time() - 86400, false);
+		}
+
 		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
 			?><div class="day" id="day_today"><?php
 				echo _t('gen.date.today');
-				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
+				?><span class="date"> — <?= $todayDate ?></span><?php
 				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
 			?></div><?php
 			$display_today = false;
@@ -57,7 +76,7 @@ $today = @strtotime('today');
 		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
 			?><div class="day" id="day_yesterday"><?php
 				echo _t('gen.date.yesterday');
-				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
+				?><span class="date"> — <?= $yesterdayDate ?></span><?php
 				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
 			?></div><?php
 			$display_yesterday = false;
