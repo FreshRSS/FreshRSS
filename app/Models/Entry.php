@@ -1,6 +1,6 @@
 <?php
-require_once (FRESHRSS_PATH . '/app/views/helpers/calendars/jalali/jdf.php');
 declare(strict_types=1);
+require_once (FRESHRSS_PATH . '/app/views/helpers/calendars/jalali/jdf.php');
 
 class FreshRSS_Entry extends Minz_Model {
 	public const STATE_READ = 1;
