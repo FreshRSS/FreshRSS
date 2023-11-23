@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_fever_Util {
 	private const FEVER_PATH = DATA_PATH . '/fever';

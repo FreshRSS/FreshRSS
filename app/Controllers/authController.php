@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This controller handles action about authentication.
@@ -116,11 +117,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
 
-		$isPOST = Minz_Request::isPost() && !Minz_Session::param('POST_to_GET');
+		$isPOST = Minz_Request::isPost() && !Minz_Session::paramBoolean('POST_to_GET');
 		Minz_Session::_param('POST_to_GET');
 
 		if ($isPOST) {
-			$nonce = Minz_Session::param('nonce', '');
+			$nonce = Minz_Session::paramString('nonce');
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
 

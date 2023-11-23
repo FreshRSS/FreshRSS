@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The context object handles the current configuration file and different

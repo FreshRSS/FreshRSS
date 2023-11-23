@@ -1,16 +1,17 @@
 <?php
-function get_logout_url(): string {
-	if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
-		$url_string = urlencode(Minz_Request::guessBaseUrl());
-		return './oidc/?logout=' . $url_string . '/';
-		# The trailing slash is necessary so that we don’t redirect to http://.
-		# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
-	} else {
-		return _url('auth', 'logout') ?: '';
-	}
-}
-?>
+	declare(strict_types=1);
 
+	function get_logout_url(): string {
+		if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
+			$url_string = urlencode(Minz_Request::guessBaseUrl());
+			return './oidc/?logout=' . $url_string . '/';
+			# The trailing slash is necessary so that we don’t redirect to http://.
+			# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
+		} else {
+			return _url('auth', 'logout') ?: '';
+		}
+	}
+?>
 <nav class="nav nav-list aside" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
