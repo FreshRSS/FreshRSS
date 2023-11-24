@@ -165,7 +165,7 @@ abstract class Minz_Extension {
 	 * Return the url for a given file.
 	 *
 	 * @param string $filename name of the file to serve.
-	 * @param 'css'|'js' $type the type (js or css) of the file to serve.
+	 * @param 'css'|'js'|'svg' $type the type (js or css or svg) of the file to serve.
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
