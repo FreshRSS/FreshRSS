@@ -16,6 +16,9 @@ parameters:
 			- vendor/*
 		analyseAndScan:
 			- .git/*
+			- extensions/node_modules
+			- extensions/symbolic
+			- extensions/vendor
 			- node_modules/*
 	bootstrapFiles:
 		- cli/_cli.php
@@ -32,6 +35,7 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
+	reportMaybesInPropertyPhpDocTypes: false
 	strictRules:
 		allRules: false
 		booleansInConditions: false	# TODO pass
