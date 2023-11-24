@@ -15,7 +15,7 @@ final class FreshRSS_LogDAO {
 		$handle = @fopen(self::logPath($logFileName), 'r');
 		if ($handle !== false) {
 			while (($line = fgets($handle)) !== false) {
-				if (is_bool(preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) === false) {
+				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches) === 1) {
 					$myLog = new FreshRSS_Log();
 					$myLog->_date($matches[1]);
 					$myLog->_level($matches[2]);
