@@ -341,7 +341,7 @@ HTML;
 		$userLanguage = FreshRSS_Context::$user_conf->language;
 		if ($raw) {
 			return $this->date;
-		} else if ($userTimezone == 'Asia/Tehran' || $userTimezone == 'Asia/Kabul') {
+		} elseif ($userTimezone === 'Asia/Tehran' || $userTimezone === 'Asia/Kabul') {
 			if ($userLanguage == 'fa') {
 				$num = 'fa';
 				$dateFormat = 'j F Y در H:i';
