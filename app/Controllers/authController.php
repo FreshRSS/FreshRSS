@@ -246,4 +246,15 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
+
+	public static function getLogoutUrl(): string {
+		if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
+			$url_string = urlencode(Minz_Request::guessBaseUrl());
+			return './oidc/?logout=' . $url_string . '/';
+			# The trailing slash is necessary so that we don’t redirect to http://.
+			# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
+		} else {
+			return _url('auth', 'logout') ?: '';
+		}
+	}
 }
