@@ -1,10 +1,10 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$c = Minz_Request::controllerName();
 	$a = Minz_Request::actionName();
 	$params = $_GET;
 ?>
-
 <?php if ($this->nbPage > 1) { ?>
 <nav class="nav-pagination nav-list">
 	<ul class="pagination">

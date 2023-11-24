@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';

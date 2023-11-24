@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /**
@@ -13,6 +12,7 @@ declare(strict_types=1);
  * @property bool $bottomline_read
  * @property bool $bottomline_sharing
  * @property bool $bottomline_tags
+ * @property bool $bottomline_myLabels
  * @property string $content_width
  * @property-read int $default_state
  * @property string $default_view

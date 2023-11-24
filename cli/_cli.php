@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }

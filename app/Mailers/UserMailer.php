@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Manage the emails sent to the users.
@@ -7,7 +8,6 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 
 	/**
 	 * @var FreshRSS_View
-	 * @phpstan-ignore-next-line
 	 */
 	protected $view;
 

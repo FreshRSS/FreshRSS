@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>

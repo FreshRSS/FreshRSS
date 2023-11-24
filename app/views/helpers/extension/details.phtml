@@ -1,6 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
-
 <?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+
 	$name_encoded = urlencode($this->ext_details->getName());
 	$ext_enabled = $this->ext_details->isEnabled();
 	if ($ext_enabled) {

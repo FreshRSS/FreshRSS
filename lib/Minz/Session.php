@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_Session class handles user’s session
@@ -60,11 +61,60 @@ class Minz_Session {
 	 * @param string $p the parameter to retrieve
 	 * @param mixed|false $default the default value if the parameter doesn’t exist
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
+	 * @deprecated Use typed versions instead
 	 */
 	public static function param(string $p, $default = false) {
 		return $_SESSION[$p] ?? $default;
 	}
 
+	/** @return array<string|int,string|array<string,mixed>> */
+	public static function paramArray(string $key): array {
+		if (empty($_SESSION[$key]) || !is_array($_SESSION[$key])) {
+			return [];
+		}
+		return $_SESSION[$key];
+	}
+
+	public static function paramTernary(string $key): ?bool {
+		if (isset($_SESSION[$key])) {
+			$p = $_SESSION[$key];
+			$tp = is_string($p) ? trim($p) : true;
+			if ($tp === '' || $tp === 'null') {
+				return null;
+			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
+				return false;
+			}
+			return true;
+		}
+		return null;
+	}
+
+	public static function paramBoolean(string $key): bool {
+		if (null === $value = self::paramTernary($key)) {
+			return false;
+		}
+		return $value;
+	}
+
+	public static function paramInt(string $key): int {
+		if (!empty($_SESSION[$key])) {
+			return intval($_SESSION[$key]);
+		}
+		return 0;
+	}
+
+	public static function paramString(string $key): string {
+		if (isset($_SESSION[$key])) {
+			$s = $_SESSION[$key];
+			if (is_string($s)) {
+				return $s;
+			}
+			if (is_int($s) || is_bool($s)) {
+				return (string)$s;
+			}
+		}
+		return '';
+	}
 
 	/**
 	 * Allows you to create or update a session variable
