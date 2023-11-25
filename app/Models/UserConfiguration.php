@@ -34,7 +34,7 @@ declare(strict_types=1);
  * @property bool $lazyload
  * @property string $mail_login
  * @property bool $mark_updated_article_unread
- * @property array<string,bool> $mark_when
+ * @property array<string,bool|int> $mark_when
  * @property int $max_posts_per_rss
  * @property-read array<string,int> $limits
  * @property int|null $old_entries

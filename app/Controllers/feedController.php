@@ -363,6 +363,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
+
+		/**
+		 * List of feeds for which to call keep-max-n-unread-articles,
+		 * associate to how many entries to keep
+		 * @var array<int,int>
+		 */
+		$feedsNeedCallMaxUnread = [];
+
 		foreach ($feeds as $feed) {
 			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
@@ -499,8 +507,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							}
 
 							if (!$entry->isRead()) {
-								$needFeedCacheRefresh = true;
-								$feed->incPendingUnread();	//Maybe
+								$needFeedCacheRefresh = true;	//Maybe
 							}
 
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
@@ -540,9 +547,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						}
 						$entryDAO->addEntry($entry->toArray(), true);
 
-						if (!$entry->isRead()) {
-							$feed->incPendingUnread();
-						}
 						$nb_new_articles++;
 					}
 				}
@@ -568,10 +572,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
-			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
+			}
+			if ($needFeedCacheRefresh) {
+				$needFeedCacheRefresh |= ($feedDAO->keepMaxUnread($feed->id(), $feed->keepMaxUnread()) != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
@@ -655,6 +661,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$entryDAO->beginTransaction();
 			}
 			$entryDAO->commitNewEntries();
+
+			foreach ($feedsNeedCallMaxUnread as $keepMax) {
+				if ($keepMax['feedId'] > 0 && is_int($keepMax['n'])) {
+					$feedDAO->keepMaxUnread($keepMax['feedId'], $keepMax['n']);
+				}
+			}
+
 			$feedDAO->updateCachedValues();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();

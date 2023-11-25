@@ -469,6 +469,7 @@ SQL;
 	 * @return int|false number of lines affected or false in case of error
 	 */
 	public function keepMaxUnread(int $id, int $n) {
+		syslog(LOG_DEBUG, __METHOD__ . " A {$id}, {$n}");
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
@@ -485,10 +486,12 @@ SQL;
 			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
 			$stm->bindParam(':limit', $n, PDO::PARAM_INT) &&
 			$stm->execute()) {
+			syslog(LOG_DEBUG, __METHOD__ . " B {$stm->rowCount()}");
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			syslog(LOG_DEBUG, __METHOD__ . " C error");
 			return false;
 		}
 	}
