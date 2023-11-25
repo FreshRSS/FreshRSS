@@ -1,26 +1,51 @@
 ﻿# FreshRSS changelog
 
-## 202X-XX-XX FreshRSS 1.22.2-dev
+## 2023-12-XX FreshRSS 1.23.0-dev
 
 * Features
 	* New *Important feeds* group in the main view, with corresponding new priority level for feeds [#5782](https://github.com/FreshRSS/FreshRSS/pull/5782)
 		* Entries from important feeds are not marked as read during *scroll*, during *focus*, nor during *Mark all as read*
 	* New option to mark entries as read when focused from keyboard shortcut [5812](https://github.com/FreshRSS/FreshRSS/pull/5812)
-	* Add support for more thumbnail types [#5806](https://github.com/FreshRSS/FreshRSS/pull/5806)
+	* New display option to hide *My labels"* [#5884](https://github.com/FreshRSS/FreshRSS/pull/5884)
+	* Add support for more thumbnail types in feeds enclosures [#5806](https://github.com/FreshRSS/FreshRSS/pull/5806)
+	* Support for favicons with non-absolute paths [#5839](https://github.com/FreshRSS/FreshRSS/pull/5839)
 	* Increase SQL (`VARCHAR`) text fields length to maximum possible [#5788](https://github.com/FreshRSS/FreshRSS/pull/5788)
 	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
 * Compatibility
 	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
+		* Enforce PHP [strict typing](https://php.net/language.types.declarations#language.types.declarations.strict) [#5830](https://github.com/FreshRSS/FreshRSS/pull/5830)
 	* Require Apache 2.4+ (but repair minimal compatibility with Apache 2.2) [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791), [#5804](https://github.com/FreshRSS/FreshRSS/pull/5804)
 * Bug fixing
 	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
+	* Improve filtering of cron environment variables [#5898](https://github.com/FreshRSS/FreshRSS/pull/5898)
+	* Fix the `TRUSTED_PROXY` environment variable used in combination with *trusted sources* [#5853](https://github.com/FreshRSS/FreshRSS/pull/5853)
 	* Fix JavaScript regression in label dropdown [#5785](https://github.com/FreshRSS/FreshRSS/pull/5785)
+	* Fix regression when renaming a label [#5842](https://github.com/FreshRSS/FreshRSS/pull/5842)
+	* Fix API for adding feed with a title [#5868](https://github.com/FreshRSS/FreshRSS/pull/5868)
+	* Fix regression in UI of update page [#5802](https://github.com/FreshRSS/FreshRSS/pull/5802)
 * Deployment
 	* Use GitHub Actions to build Docker images, offering architectures `amd64`, `arm32v7`, `arm64v8` with automatic detection [#5808](https://github.com/FreshRSS/FreshRSS/pull/5808)
+* Extensions
+	* Upgrade extensions code to PHP 7.4+ [#5901](https://github.com/FreshRSS/FreshRSS/pull/5901)
+	* Breaking change: upgraded extensions require FreshRSS 1.23.0+ [Extensions#181](https://github.com/FreshRSS/Extensions/pull/181)
+	* Pass FreshRSS version to JavaScript client side for extensions [#5902](https://github.com/FreshRSS/FreshRSS/pull/5902)
+	* Add GitHub Actions and PHPStan for automatic testing of the Extensions repository [Extensions#185](https://github.com/FreshRSS/Extensions/pull/185)
+* API
+	* Improve handling of new lines in enclosure descriptions (e.g., YouTube video descriptions) [#5859](https://github.com/FreshRSS/FreshRSS/pull/5859)
+* Security
+	* Avoid printing exceptions in favicons [#5867](https://github.com/FreshRSS/FreshRSS/pull/5867)
+	* Remove unneeded execution permissions on some files [#5831](https://github.com/FreshRSS/FreshRSS/pull/5831)
+* UI
+	* Ensure that enough articles are loaded on window resize [#5815](https://github.com/FreshRSS/FreshRSS/pull/5815)
+	* Improve *Nord* theme [#5885](https://github.com/FreshRSS/FreshRSS/pull/5885)
+	* Do not show message *Add some feeds* [#5827](https://github.com/FreshRSS/FreshRSS/pull/5827)
+	* Various UI and style improvements [#5886](https://github.com/FreshRSS/FreshRSS/pull/5886)
+* i18n
+	* Improve Dutch [#5796](https://github.com/FreshRSS/FreshRSS/pull/5796)
 * Misc.
+	* Compatibility PHP 8.2+ for running automated tests [#5826](https://github.com/FreshRSS/FreshRSS/pull/5826)
 	* Code improvements [#5511](https://github.com/FreshRSS/FreshRSS/pull/5511)
-	* Update dev dependencies [#5787](https://github.com/FreshRSS/FreshRSS/pull/5787),
-		[stylelint-config-recommended-scss/#252](https://github.com/stylelint-scss/stylelint-config-recommended-scss/pull/252)
+	* Update dev dependencies [#5787](https://github.com/FreshRSS/FreshRSS/pull/5787)
 
 
 ## 2023-10-30 FreshRSS 1.22.1
