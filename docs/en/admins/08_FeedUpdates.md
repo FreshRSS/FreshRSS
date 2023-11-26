@@ -57,3 +57,63 @@ ExecStart=/usr/bin/php /usr/share/FreshRSS/app/actualize_script.php
 ```
 
 Finally, you need to enable the timer with `systemctl enable freshrss.timer` and reload the systemd configuration with `systemctl daemon-reload`.
+
+## Ofelia as a trigger on Docker
+
+If you are [using Docker](https://github.com/FreshRSS/FreshRSS/tree/edge/Docker#docker-compose), you can use [Ofelia](https://github.com/mcuadros/ofelia) to run `actualize_script.php` to update your feeds.
+
+```yaml
+version: "2.4"
+
+volumes:
+  data:
+  extensions:
+
+services:
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - freshrss
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+  freshrss:
+    image: freshrss/freshrss:edge
+    container_name: freshrss
+    restart: unless-stopped
+    labels:
+      - "ofelia.enabled=true"
+      - "ofelia.job-exec.datecron.schedule=@every 30m"
+      - "ofelia.job-exec.datecron.command=/usr/bin/php /var/www/FreshRSS/app/actualize_script.php"
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
+    ports:
+      - "8080:80"
+    environment:
+      TZ: Europe/Paris
+      CRON_MIN: '2,32'
+      FRESHRSS_ENV: development
+      LISTEN: 0.0.0.0:80
+      TRUSTED_PROXY: 172.16.0.1/12 192.168.0.1/16
+      OIDC_ENABLED: 0
+      FRESHRSS_INSTALL: |-
+        --api_enabled
+        --base_url ${BASE_URL}
+        --db-base ${DB_BASE}
+        --db-host ${DB_HOST}
+        --db-password ${DB_PASSWORD}
+        --db-type pgsql
+        --db-user ${DB_USER}
+        --default_user admin
+        --language en
+      FRESHRSS_USER: |-
+        --api_password ${ADMIN_API_PASSWORD}
+        --email ${ADMIN_EMAIL}
+        --language en
+        --password ${ADMIN_PASSWORD}
+        --user admin
+```
