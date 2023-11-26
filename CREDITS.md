@@ -239,3 +239,4 @@ People are sorted by name so please keep this order.
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
 * [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)
+* [Manan Dhiman](https://github.com/manandhiman): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:manandhiman), [Web](https://manandhiman.com)
