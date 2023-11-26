@@ -62,11 +62,6 @@
 					</div>
 					<ul>
 						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
-						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
-						<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
-						<?php else: ?>
-						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
-						<?php endif; ?>
 					</ul>
 				</li>
 				<li class="item dropdown-section">
@@ -112,6 +107,15 @@
 							</li>
 						<?php } ?>
 						<?= Minz_ExtensionManager::callHook('menu_other_entry') ?>
+					</ul>
+				</li>
+				<li class="item dropdown-section">
+					<ul>
+						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
+						<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
+						<?php else: ?>
+						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
+						<?php endif; ?>
 					</ul>
 				</li>
 			</ul>
