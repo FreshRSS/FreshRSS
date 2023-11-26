@@ -1,3 +1,6 @@
+<?php
+	declare(strict_types=1);
+?>
 <header class="header">
 	<div class="item title">
 		<a href="<?= _url('index', 'index') ?>">
@@ -16,7 +19,7 @@
 		<form action="<?= _url('index', 'index') ?>" method="get">
 			<div class="stick">
 				<input type="search" name="search" id="search"
-					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
+					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
 					placeholder="<?= _t('gen.menu.search') ?>" />
 
 				<?php $param_a = Minz_Request::actionName(); ?>

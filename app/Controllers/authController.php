@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This controller handles action about authentication.
@@ -116,11 +117,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
 
-		$isPOST = Minz_Request::isPost() && !Minz_Session::param('POST_to_GET');
+		$isPOST = Minz_Request::isPost() && !Minz_Session::paramBoolean('POST_to_GET');
 		Minz_Session::_param('POST_to_GET');
 
 		if ($isPOST) {
-			$nonce = Minz_Session::param('nonce', '');
+			$nonce = Minz_Session::paramString('nonce');
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
 
@@ -244,5 +245,16 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
+	}
+
+	public static function getLogoutUrl(): string {
+		if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
+			$url_string = urlencode(Minz_Request::guessBaseUrl());
+			return './oidc/?logout=' . $url_string . '/';
+			# The trailing slash is necessary so that we don’t redirect to http://.
+			# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
+		} else {
+			return _url('auth', 'logout') ?: '';
+		}
 	}
 }

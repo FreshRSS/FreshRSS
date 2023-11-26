@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
+
 $isUpdate = false;
 require(__DIR__ . '/_update-or-create-user.php');
 

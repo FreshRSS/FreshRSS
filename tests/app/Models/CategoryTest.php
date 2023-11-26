@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class CategoryTest extends PHPUnit\Framework\TestCase {
 

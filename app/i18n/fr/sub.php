@@ -78,7 +78,7 @@ return array(
 				'_' => 'HTML + XPath (Moissonnage du Web)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
-					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
+					'help' => 'Exemple : <code>//title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
@@ -169,7 +169,7 @@ return array(
 		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
-		'websub' => 'Notification instantanée par WebSub',
+		'websub' => 'Notifications instantanée par WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Exporter',

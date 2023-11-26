@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @var FreshRSS_ViewJavascript
-	 * @phpstan-ignore-next-line
 	 */
 	protected $view;
 

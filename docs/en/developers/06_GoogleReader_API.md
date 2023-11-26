@@ -79,7 +79,7 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 * [By Niall Kennedy](https://web.archive.org/web/20170426184845/http://www.niallkennedy.com/blog/2005/12/google-reader-api.html)
 * [By Mihai Parparita](https://web.archive.org/web/20140919042419/http://code.google.com/p/google-reader-api/w/list) ([source](https://github.com/mihaip/google-reader-api))
 
-### API documentation from other compatible clients
+### API documentation from other compatible servers
 
 * [FeedHQ](https://feedhq.readthedocs.io/en/latest/api/index.html)
 * [Inoreader](https://www.inoreader.com/developers/)

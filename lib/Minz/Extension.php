@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The extension base class.
@@ -55,7 +56,7 @@ abstract class Minz_Extension {
 		$this->path = $meta_info['path'];
 		$this->author = isset($meta_info['author']) ? $meta_info['author'] : '';
 		$this->description = isset($meta_info['description']) ? $meta_info['description'] : '';
-		$this->version = isset($meta_info['version']) ? $meta_info['version'] : '0.1';
+		$this->version = isset($meta_info['version']) ? (string)$meta_info['version'] : '0.1';
 		$this->setType(isset($meta_info['type']) ? $meta_info['type'] : 'user');
 
 		$this->is_enabled = false;
@@ -163,7 +164,7 @@ abstract class Minz_Extension {
 	 * Return the url for a given file.
 	 *
 	 * @param string $filename name of the file to serve.
-	 * @param 'css'|'js' $type the type (js or css) of the file to serve.
+	 * @param 'css'|'js'|'svg' $type the type (js or css or svg) of the file to serve.
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */

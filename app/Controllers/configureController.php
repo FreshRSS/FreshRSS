@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every configuration options.
@@ -34,7 +35,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - display of read action in footer
 	 *   - display of favorite action in footer
 	 *   - display of sharing action in footer
-	 *   - display of tags in footer
+	 *   - display of article tags in footer
+	 *   - display of my Labels in footer
 	 *   - display of date in footer
 	 *   - display of open action in footer
 	 *   - html5 notification timeout (default: 0)
@@ -59,6 +61,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::$user_conf->bottomline_favorite = Minz_Request::paramBoolean('bottomline_favorite');
 			FreshRSS_Context::$user_conf->bottomline_sharing = Minz_Request::paramBoolean('bottomline_sharing');
 			FreshRSS_Context::$user_conf->bottomline_tags = Minz_Request::paramBoolean('bottomline_tags');
+			FreshRSS_Context::$user_conf->bottomline_myLabels = Minz_Request::paramBoolean('bottomline_myLabels');
 			FreshRSS_Context::$user_conf->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
 			FreshRSS_Context::$user_conf->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::$user_conf->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');

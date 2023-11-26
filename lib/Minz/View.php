@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -155,7 +157,7 @@ class Minz_View {
 
 	/**
 	 * Choose the current view layout.
-	 * @param string|null $layout the layout name to use, false to use no layouts.
+	 * @param string|null $layout the layout name to use, null to use no layouts.
 	 */
 	public function _layout(?string $layout): void {
 		if ($layout != null) {
@@ -203,7 +205,7 @@ class Minz_View {
 	 */
 	public static function headStyle(): string {
 		$styles = '';
-		foreach(self::$styles as $style) {
+		foreach (self::$styles as $style) {
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
@@ -218,10 +220,13 @@ class Minz_View {
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
 	public static function prependStyle(string $url, string $media = 'all', bool $cond = false): void {
-		array_unshift (self::$styles, array (
+		if ($url === '') {
+			return;
+		}
+		array_unshift(self::$styles, [
 			'url' => $url,
 			'media' => $media,
-		));
+		]);
 	}
 
 	/**
@@ -231,10 +236,13 @@ class Minz_View {
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
 	public static function appendStyle(string $url, string $media = 'all', bool $cond = false): void {
-		self::$styles[] = array (
+		if ($url === '') {
+			return;
+		}
+		self::$styles[] = [
 			'url' => $url,
 			'media' => $media,
-		);
+		];
 	}
 
 	/**
@@ -296,12 +304,15 @@ class Minz_View {
 	 * @param string $id Add a script `id` attribute
 	 */
 	public static function prependScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
-		array_unshift(self::$scripts, array (
+		if ($url === '') {
+			return;
+		}
+		array_unshift(self::$scripts, [
 			'url' => $url,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
-		));
+		]);
 	}
 
 	/**
@@ -313,12 +324,15 @@ class Minz_View {
 	 * @param string $id Add a script `id` attribute
 	 */
 	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
-		self::$scripts[] = array (
+		if ($url === '') {
+			return;
+		}
+		self::$scripts[] = [
 			'url' => $url,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
-		);
+		];
 	}
 
 	/**
