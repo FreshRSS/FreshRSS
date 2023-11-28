@@ -363,13 +363,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
-
-		/**
-		 * List of feeds for which to call keep-max-n-unread-articles,
-		 * associate to how many entries to keep
-		 * @var array<int,int>
-		 */
-		$feedsNeedCallMaxUnread = [];
+		$nbMarkedUnread = 0;
 
 		foreach ($feeds as $feed) {
 			/** @var FreshRSS_Feed|null $feed */
@@ -508,6 +502,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 							if (!$entry->isRead()) {
 								$needFeedCacheRefresh = true;	//Maybe
+								$nbMarkedUnread++;
 							}
 
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
@@ -572,12 +567,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
+			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() + $nbMarkedUnread > $feed->keepMaxUnread())) {
+				syslog(LOG_DEBUG, __METHOD__ . ' 571 ');
+				$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
+			}
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
-			}
-			if ($needFeedCacheRefresh) {
-				$needFeedCacheRefresh |= ($feedDAO->keepMaxUnread($feed->id(), $feed->keepMaxUnread()) != false);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedDAO->updateCachedValues($feed->id());
@@ -662,9 +658,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			$entryDAO->commitNewEntries();
 
-			foreach ($feedsNeedCallMaxUnread as $keepMax) {
-				if ($keepMax['feedId'] > 0 && is_int($keepMax['n'])) {
-					$feedDAO->keepMaxUnread($keepMax['feedId'], $keepMax['n']);
+			foreach ($maxUnreadStats as $feedId => $maxUnreadStat) {
+				if (is_int($maxUnreadStat['keepMaxUnread']) && ($maxUnreadStat['nbMaybeUnread'] > $maxUnreadStat['keepMaxUnread'])) {
+					$feedDAO->markAsReadMaxUnread($feedId, $maxUnreadStat['keepMaxUnread']);
 				}
 			}
 

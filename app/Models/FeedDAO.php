@@ -468,7 +468,7 @@ SQL;
 	 * Remember to call updateCachedValues() after calling this function
 	 * @return int|false number of lines affected or false in case of error
 	 */
-	public function keepMaxUnread(int $id, int $n) {
+	public function markAsReadMaxUnread(int $id, int $n) {
 		syslog(LOG_DEBUG, __METHOD__ . " A {$id}, {$n}");
 		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
 		$sql = <<<'SQL'

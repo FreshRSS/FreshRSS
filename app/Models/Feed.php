@@ -212,6 +212,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function nbNotRead(): int {
 		if ($this->nbNotRead < 0) {
+			syslog(LOG_DEBUG, __METHOD__);
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
 		}
@@ -749,8 +750,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
-	 * @return int|false the number of lines affected, or false if not applicable
+	 * @return int|null The max number of unread articles to keep, or null if disabled.
 	 * @throws JsonException
 	 */
 	public function keepMaxUnread() {
@@ -758,10 +758,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
 		}
-		if (is_int($keepMaxUnread) && $keepMaxUnread >= 0) {
-			return FreshRSS_Factory::createFeedDao()->keepMaxUnread($this->id(), $keepMaxUnread);
-		}
-		return false;
+		return is_int($keepMaxUnread) && $keepMaxUnread >= 0 ? $keepMaxUnread : null;
 	}
 
 	/**
