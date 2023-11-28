@@ -652,27 +652,30 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 			}
 		}
-		if (!$noCommit && ($nb_new_articles > 0 || $updated_feeds > 0)) {
-			if (!$entryDAO->inTransaction()) {
-				$entryDAO->beginTransaction();
-			}
-			$entryDAO->commitNewEntries();
+		return [$updated_feeds, reset($feeds), $nb_new_articles];
+	}
 
+	public static function commitNewEntries(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		if (!$entryDAO->inTransaction()) {
+			$entryDAO->beginTransaction();
+		}
+		if ($entryDAO->commitNewEntries()) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			foreach ($maxUnreadStats as $feedId => $maxUnreadStat) {
 				if (is_int($maxUnreadStat['keepMaxUnread']) && ($maxUnreadStat['nbMaybeUnread'] > $maxUnreadStat['keepMaxUnread'])) {
 					$feedDAO->markAsReadMaxUnread($feedId, $maxUnreadStat['keepMaxUnread']);
 				}
 			}
-
 			$feedDAO->updateCachedValues();
-			if ($entryDAO->inTransaction()) {
-				$entryDAO->commit();
-			}
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->minorDbMaintenance();
 		}
-		return [$updated_feeds, reset($feeds), $nb_new_articles];
+		if ($entryDAO->inTransaction()) {
+			$entryDAO->commit();
+		}
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+		return true;
 	}
 
 	/**
@@ -697,15 +700,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;
-			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$entryDAO->beginTransaction();
-			$entryDAO->commitNewEntries();
-			$feedDAO->updateCachedValues();
-			$entryDAO->commit();
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->minorDbMaintenance();
+			self::commitNewEntries();
 		} else {
 			FreshRSS_category_Controller::refreshDynamicOpmls();
 			[$updated_feeds, $feed] = self::actualizeFeed($id, $url, $force, null, $noCommit, $maxFeeds);
