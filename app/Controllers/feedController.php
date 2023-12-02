@@ -574,7 +574,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() + $nbMarkedUnread > $feed->keepMaxUnread())) {
-				Minz_Log::debug('Entries marked as unread exceeding max number of unread entries for [' . $feed->url(false) . ']');
+				Minz_Log::debug('Existing unread entries (' . ($feed->nbNotRead() + $nbMarkedUnread) . ') exceeding max number of ' .
+					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
 				$needFeedCacheRefresh |= ($feed->markAsReadMaxUnread() != false);
 			}
 			if ($simplePiePush === null) {
@@ -665,13 +666,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$entryDAO->beginTransaction();
 		}
 
-		$newEntriesPerFeed = $entryDAO->newEntriesPerFeed();
+		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
 		if ($entryDAO->commitNewEntries()) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
 			foreach ($feeds as $feed) {
-				if (!empty($newEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
-					($feed->nbNotRead() + $newEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+				if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+					($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+					Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+						$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
 					$feed->markAsReadMaxUnread();
 				}
 			}

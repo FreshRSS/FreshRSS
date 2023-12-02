@@ -277,9 +277,10 @@ SQL;
 	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by feed ID.
 	 * @return array<int,int>
 	 */
-	public function newEntriesPerFeed(): array {
+	public function newUnreadEntriesPerFeed(): array {
 		$sql = <<<'SQL'
 		SELECT id_feed, COUNT(id) AS nb_entries FROM `_entrytmp`
+		WHERE is_read = 0
 		GROUP BY id_feed
 		SQL;
 		$lines = $this->fetchAssoc($sql) ?? [];
