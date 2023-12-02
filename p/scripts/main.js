@@ -1419,7 +1419,6 @@ function refreshFeed(feeds, feeds_count) {
 			req2.setRequestHeader('Content-Type', 'application/json');
 			req2.send(JSON.stringify({
 				_csrf: context.csrf,
-				noCommit: 0,
 			}));
 		} else {
 			refreshFeed(feeds, feeds_count);
@@ -1428,7 +1427,6 @@ function refreshFeed(feeds, feeds_count) {
 	req.setRequestHeader('Content-Type', 'application/json');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
-		noCommit: 1,
 	}));
 }
 
@@ -1444,7 +1442,6 @@ function refreshFeeds(json) {
 		req2.setRequestHeader('Content-Type', 'application/json');
 		req2.send(JSON.stringify({
 			_csrf: context.csrf,
-			noCommit: 0,
 		}));
 	} else {
 		const feeds_count = json.feeds.length;
@@ -1479,7 +1476,6 @@ function refreshDynamicOpml(categories, categories_count, next) {
 	req.setRequestHeader('Content-Type', 'application/json');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
-		noCommit: 1,
 	}));
 }
 

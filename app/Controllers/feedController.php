@@ -105,7 +105,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_id($id);
 
 		// Ok, feed has been added in database. Now we have to refresh entries.
-		self::actualizeFeed($id, $url, false, null);
+		[, , $nb_new_articles] = self::actualizeFeeds($id, $url);
+		if ($nb_new_articles > 0) {
+			self::commitNewEntries();
+		}
 
 		return $feed;
 	}
@@ -327,34 +330,37 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
+	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
-	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
-		bool $noCommit = false, int $maxFeeds = 10): array {
+	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
+		}
+
+		if (!is_int($feed_id) || $feed_id <= 0) {
+			$feed_id = null;
+		}
+		if (!is_string($feed_url) || trim($feed_url) === '') {
+			$feed_url = null;
+		}
+		if (!is_int($maxFeeds) || $maxFeeds <= 0) {
+			$maxFeeds = PHP_INT_MAX;
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		// Create a list of feeds to actualize.
-		// If feed_id is set and valid, corresponding feed is added to the list but
-		// alone in order to automatize further process.
 		$feeds = [];
-		if ($feed_id > 0 || $feed_url) {
-			$feed = $feed_id > 0 ? $feedDAO->searchById($feed_id) : $feedDAO->searchByUrl($feed_url);
-			if ($feed) {
+		if ($feed_id !== null || $feed_url !== null) {
+			$feed = $feed_id !== null ? $feedDAO->searchById($feed_id) : $feedDAO->searchByUrl($feed_url);
+			if ($feed !== null && $feed->id() > 0) {
 				$feeds[] = $feed;
+				$feed_id = $feed->id();
 			}
 		} else {
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
-		}
-
-		// Set maxFeeds to a minimum of 10
-		if ($maxFeeds < 10) {
-			$maxFeeds = 10;
 		}
 
 		// WebSub (PubSubHubbub) support
@@ -375,7 +381,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
-			if ($simplePiePush === null && $feed_id === 0 && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+			if ($simplePiePush === null && $feed_id === null && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				//$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
 				//Minz_Log::debug($text, PSHB_LOG);
@@ -390,7 +396,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
 				$ttl = FreshRSS_Context::$user_conf->ttl_default;
 			}
-			if ($simplePiePush === null && $feed_id === 0 && (time() <= $feed->lastUpdate() + $ttl)) {
+			if ($simplePiePush === null && $feed_id === null && (time() <= $feed->lastUpdate() + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
 				$ε = 10;	// negligible offset errors in seconds
 				if ($mtime <= 0 ||
@@ -646,13 +652,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			unset($feed);
 			gc_collect_cycles();
 
-			// No more than $maxFeeds feeds unless $force is true to avoid overloading
-			// the server.
-			if ($updated_feeds >= $maxFeeds && !$force) {
+			if ($updated_feeds >= $maxFeeds) {
 				break;
 			}
 		}
-		return [$updated_feeds, reset($feeds), $nb_new_articles];
+		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
 	}
 
 	public static function commitNewEntries(): bool {
@@ -687,28 +691,24 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * This action actualizes entries from one or several feeds.
 	 *
 	 * Parameters are:
-	 *   - id (default: false): Feed ID
-	 *   - url (default: false): Feed URL
-	 *   - force (default: false)
-	 *   - noCommit (default: 0): Set to 1 to prevent committing the new articles to the main database
-	 * If id and url are not specified, all the feeds are actualized. But if force is
-	 * false, process stops at 10 feeds to avoid time execution problem.
+	 *   - id (default: null): Feed ID, or set to -1 to commit new articles to the main database
+	 *   - url (default: null): Feed URL (instead of feed ID)
+	 *   - maxFeeds (default: 10): Max number of feeds to refresh
+	 * If id and url are not specified, all the feeds are actualized, within the limits of maxFeeds.
 	 */
 	public function actualizeAction(): int {
 		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::paramInt('id');
 		$url = Minz_Request::paramString('url');
-		$force = Minz_Request::paramBoolean('force');
-		$maxFeeds = Minz_Request::paramInt('maxFeeds');
-		$noCommit = ($_POST['noCommit'] ?? 0) == 1;
-		$feed = null;
+		$maxFeeds = Minz_Request::paramInt('maxFeeds') ?: 10;
 
-		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
+		if ($id === -1) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;
+			$feed = null;
 			self::commitNewEntries();
 		} else {
 			FreshRSS_category_Controller::refreshDynamicOpmls();
-			[$updated_feeds, $feed] = self::actualizeFeed($id, $url, $force, null, $noCommit, $maxFeeds);
+			[$updated_feeds, $feed, ] = self::actualizeFeeds($id, $url, $maxFeeds);
 		}
 
 		if (Minz_Request::paramBoolean('ajax')) {
@@ -720,15 +720,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->_layout(null);
 		} elseif ($feed instanceof FreshRSS_Feed) {
 			// Redirect to the main page with correct notification.
-			if ($updated_feeds === 1) {
-				Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), [
-					'params' => ['get' => 'f_' . $feed->id()]
-				]);
-			} elseif ($updated_feeds > 1) {
-				Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), []);
-			} else {
-				Minz_Request::good(_t('feedback.sub.feed.no_refresh'), []);
-			}
+			Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), [
+				'params' => ['get' => 'f_' . $id]
+			]);
+		} elseif ($updated_feeds >= 1) {
+			Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), []);
+		} else {
+			Minz_Request::good(_t('feedback.sub.feed.no_refresh'), []);
 		}
 		return $updated_feeds;
 	}
@@ -908,7 +906,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//Re-fetch articles as if the feed was new.
 		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
-		self::actualizeFeed($feed_id, '', false);
+		[, , $nb_new_articles] = self::actualizeFeeds($feed_id);
+		if ($nb_new_articles > 0) {
+			FreshRSS_feed_Controller::commitNewEntries();
+		}
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', $limit);
