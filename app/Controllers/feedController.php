@@ -697,6 +697,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (default: null): Feed ID, or set to -1 to commit new articles to the main database
 	 *   - url (default: null): Feed URL (instead of feed ID)
 	 *   - maxFeeds (default: 10): Max number of feeds to refresh
+	 *   - noCommit (default: 0): Set to 1 to prevent committing the new articles to the main database
 	 * If id and url are not specified, all the feeds are actualized, within the limits of maxFeeds.
 	 */
 	public function actualizeAction(): int {
@@ -704,14 +705,18 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$id = Minz_Request::paramInt('id');
 		$url = Minz_Request::paramString('url');
 		$maxFeeds = Minz_Request::paramInt('maxFeeds') ?: 10;
+		$noCommit = ($_POST['noCommit'] ?? 0) == 1;
 
-		if ($id === -1) {	//Special request only to commit & refresh DB cache
+		if ($id === -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;
 			$feed = null;
 			self::commitNewEntries();
 		} else {
 			FreshRSS_category_Controller::refreshDynamicOpmls();
-			[$updated_feeds, $feed, ] = self::actualizeFeeds($id, $url, $maxFeeds);
+			[$updated_feeds, $feed, $nbNewArticles] = self::actualizeFeeds($id, $url, $maxFeeds);
+			if (!$noCommit && $nbNewArticles > 0) {
+				FreshRSS_feed_Controller::commitNewEntries();
+			}
 		}
 
 		if (Minz_Request::paramBoolean('ajax')) {
