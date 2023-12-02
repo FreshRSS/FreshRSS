@@ -199,10 +199,10 @@ class Minz_ModelPdo {
 		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 6);
 		$calling = '';
 		for ($i = 2; $i < 6; $i++) {
-			if (empty($backtrace[$i])) {
+			if (empty($backtrace[$i]['function'])) {
 				break;
 			}
-			$calling .= '|' . ($backtrace[$i]['function'] ?? '??');
+			$calling .= '|' . $backtrace[$i]['function'];
 		}
 		$calling = trim($calling, '|');
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
