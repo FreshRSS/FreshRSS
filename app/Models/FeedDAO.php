@@ -373,7 +373,7 @@ SQL;
 	 * @return array<FreshRSS_Feed>
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
-		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes '
+		$sql = 'SELECT id, url, kind, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes, `cache_nbEntries`, `cache_nbUnreads` '
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 				. ' AND `lastUpdate` < (' . (time() + 60)
@@ -613,8 +613,8 @@ SQL;
 			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
 			$myFeed->_attributes('', $dao['attributes'] ?? '');
-			$myFeed->_nbNotRead($dao['cache_nbUnreads'] ?? 0);
-			$myFeed->_nbEntries($dao['cache_nbEntries'] ?? 0);
+			$myFeed->_nbNotRead($dao['cache_nbUnreads'] ?? -1);
+			$myFeed->_nbEntries($dao['cache_nbEntries'] ?? -1);
 			if (isset($dao['id'])) {
 				$myFeed->_id($dao['id']);
 			}

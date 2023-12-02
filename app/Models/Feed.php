@@ -762,6 +762,22 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * @return int|false The number of articles marked as read, of false if error
+	 */
+	public function markAsReadMaxUnread() {
+		$keepMaxUnread = $this->keepMaxUnread();
+		if ($keepMaxUnread === null) {
+			return false;
+		}
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$affected = $feedDAO->markAsReadMaxUnread($this->id(), $keepMaxUnread);
+		if ($affected > 0) {
+			Minz_Log::debug(__METHOD__ . " $affected items [" . $this->url(false) . ']');
+		}
+		return $affected;
+	}
+
+	/**
 	 * Applies the *mark as read upon gone* policy, if enabled.
 	 * Remember to call `updateCachedValue($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable

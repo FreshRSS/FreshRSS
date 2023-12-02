@@ -568,8 +568,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() + $nbMarkedUnread > $feed->keepMaxUnread())) {
-				syslog(LOG_DEBUG, __METHOD__ . ' 571 ');
-				$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
+				Minz_Log::debug('Entries marked as unread exceeding max number of unread entries for [' . $feed->url(false) . ']');
+				$needFeedCacheRefresh |= ($feed->markAsReadMaxUnread() != false);
 			}
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
@@ -660,15 +660,20 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if (!$entryDAO->inTransaction()) {
 			$entryDAO->beginTransaction();
 		}
+
+		$newEntriesPerFeed = $entryDAO->newEntriesPerFeed();
 		if ($entryDAO->commitNewEntries()) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			foreach ($maxUnreadStats as $feedId => $maxUnreadStat) {
-				if (is_int($maxUnreadStat['keepMaxUnread']) && ($maxUnreadStat['nbMaybeUnread'] > $maxUnreadStat['keepMaxUnread'])) {
-					$feedDAO->markAsReadMaxUnread($feedId, $maxUnreadStat['keepMaxUnread']);
+			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+			foreach ($feeds as $feed) {
+				if (!empty($newEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+					($feed->nbNotRead() + $newEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+					$feed->markAsReadMaxUnread();
 				}
 			}
 			$feedDAO->updateCachedValues();
 		}
+
 		if ($entryDAO->inTransaction()) {
 			$entryDAO->commit();
 		}

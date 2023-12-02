@@ -274,6 +274,25 @@ SQL;
 	}
 
 	/**
+	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by feed ID.
+	 * @return array<int,int>
+	 */
+	public function newEntriesPerFeed(): array {
+		$sql = <<<'SQL'
+		SELECT id_feed, COUNT(id) AS nb_entries FROM `_entrytmp`
+		GROUP BY id_feed
+		SQL;
+		$lines = $this->fetchAssoc($sql) ?? [];
+		$result = [];
+		foreach ($lines as $line) {
+			if (!empty($line['id_feed'])) {
+				$result[(int)$line['id_feed']] = (int)($line['nb_entries'] ?? 0);
+			}
+		}
+		return $result;
+	}
+
+	/**
 	 * Toggle favorite marker on one or more article
 	 *
 	 * @todo simplify the query by removing the str_repeat. I am pretty sure
