@@ -212,7 +212,6 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function nbNotRead(): int {
 		if ($this->nbNotRead < 0) {
-			syslog(LOG_DEBUG, __METHOD__);
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
 		}
