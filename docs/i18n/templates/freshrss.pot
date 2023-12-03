@@ -7880,15 +7880,6 @@ msgid "Special parameters to configure the script - all parameters can be combin
 msgstr ""
 
 #. type: Plain text
-#: en/./users/09_refreshing_feeds.md:64
-#, markdown-text
-msgid ""
-"- Parameter \"force\" "
-"<https://freshrss.example.net/i/?c=feed&a=actualize&force=1> If *force* is "
-"set to 1 all feeds will be refreshed at once."
-msgstr ""
-
-#. type: Plain text
 #: en/./users/09_refreshing_feeds.md:68
 #, markdown-text
 msgid ""

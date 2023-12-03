@@ -327,7 +327,10 @@ final class GReaderAPI {
 		$importService = new FreshRSS_Import_Service($user);
 		$importService->importOpml($opml);
 		if ($importService->lastStatus()) {
-			FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+			[, , $nb_new_articles] = FreshRSS_feed_Controller::actualizeFeeds();
+			if ($nb_new_articles > 0) {
+				FreshRSS_feed_Controller::commitNewEntries();
+			}
 			invalidateHttpCache($user);
 			exit('OK');
 		} else {
