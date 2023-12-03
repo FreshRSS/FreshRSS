@@ -220,6 +220,7 @@ class FreshRSS_Category extends Minz_Model {
 				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
 					$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
 				}
+				Minz_Log::warning(__METHOD__ . ' 1 import ' . json_encode(array_keys($dryRunFeeds), JSON_UNESCAPED_SLASHES));
 
 				/** @var array<string,FreshRSS_Feed> */
 				$existingFeeds = [];
@@ -227,21 +228,25 @@ class FreshRSS_Category extends Minz_Model {
 					$existingFeeds[$existingFeed->url()] = $existingFeed;
 					if (empty($dryRunFeeds[$existingFeed->url()])) {
 						// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
+						Minz_Log::warning(__METHOD__ . ' 2 disable ' . $existingFeed->url());
 						$existingFeed->_mute(true);
 						$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
 							'ttl' => $existingFeed->ttl(true),
 						]) !== false);
 					}
 				}
+				Minz_Log::warning(__METHOD__ . ' 3 exist ' . json_encode(array_keys($existingFeeds), JSON_UNESCAPED_SLASHES));
 
 				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
 					if (empty($existingFeeds[$dryRunFeed->url()])) {
 						// The feed does not exist in the current category, so add that feed
+						Minz_Log::warning(__METHOD__ . ' 4 add ' . $dryRunFeed->url());
 						$dryRunFeed->_categoryId($this->id());
 						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
 					} else {
 						$existingFeed = $existingFeeds[$dryRunFeed->url()];
 						if ($existingFeed->mute()) {
+							Minz_Log::warning(__METHOD__ . ' 5 enable ' . $dryRunFeed->url());
 							// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
 							$existingFeed->_mute(false);
 							$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
