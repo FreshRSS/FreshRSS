@@ -46,7 +46,6 @@ class FreshRSS_Feed extends Minz_Model {
 	private ?FreshRSS_Category $category;
 	private int $nbEntries = -1;
 	private int $nbNotRead = -1;
-	private int $nbPendingNotRead = 0;
 	private string $name = '';
 	private string $website = '';
 	private string $description = '';
@@ -211,13 +210,13 @@ class FreshRSS_Feed extends Minz_Model {
 
 		return $this->nbEntries;
 	}
-	public function nbNotRead(bool $includePending = false): int {
+	public function nbNotRead(): int {
 		if ($this->nbNotRead < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead($this->id());
 		}
 
-		return $this->nbNotRead + ($includePending ? $this->nbPendingNotRead : 0);
+		return $this->nbNotRead;
 	}
 
 	public function faviconPrepare(): void {
@@ -750,15 +749,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * To keep track of some new potentially unread articles since last commit+fetch from database
-	 */
-	public function incPendingUnread(int $n = 1): void {
-		$this->nbPendingNotRead += $n;
-	}
-
-	/**
-	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
-	 * @return int|false the number of lines affected, or false if not applicable
+	 * @return int|null The max number of unread articles to keep, or null if disabled.
 	 * @throws JsonException
 	 */
 	public function keepMaxUnread() {
@@ -766,11 +757,23 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
 		}
-		$keepMaxUnread = (int)$keepMaxUnread;
-		if ($keepMaxUnread > 0 && $this->nbNotRead(false) + $this->nbPendingNotRead > $keepMaxUnread) {
-			return FreshRSS_Factory::createFeedDao()->keepMaxUnread($this->id(), max(0, $keepMaxUnread - $this->nbPendingNotRead));
+		return is_int($keepMaxUnread) && $keepMaxUnread >= 0 ? $keepMaxUnread : null;
+	}
+
+	/**
+	 * @return int|false The number of articles marked as read, of false if error
+	 */
+	public function markAsReadMaxUnread() {
+		$keepMaxUnread = $this->keepMaxUnread();
+		if ($keepMaxUnread === null) {
+			return false;
 		}
-		return false;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$affected = $feedDAO->markAsReadMaxUnread($this->id(), $keepMaxUnread);
+		if ($affected > 0) {
+			Minz_Log::debug(__METHOD__ . " $affected items [" . $this->url(false) . ']');
+		}
+		return $affected;
 	}
 
 	/**
