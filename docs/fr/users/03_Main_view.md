@@ -45,19 +45,15 @@ toutes les heures.
 « Paramètres de configuration du script; Ils sont utilisables simultanément
 : »
 
-* Parameter "force"
-<https://freshrss.example.net/i/?c=feed&a=actualize&force=1> If *force* is set
-to 1 all feeds will be refreshed at once.
-
-* Parameter "ajax" <https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
+* Parameter `ajax` <https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
 Only a status site is returned and not a complete website. Example: "OK"
 
-* Parameter "maxFeeds"
+* Parameter `maxFeeds`
 <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30> If *maxFeeds*
 is set the configured amount of feeds is refreshed at once. The default
-setting is "10".
+setting is `10`.
 
-* Parameter "token"
+* Parameter `token`
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed
 Documentation see "Form authentication".

@@ -15,6 +15,7 @@ $hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 $lazyload = FreshRSS_Context::$user_conf->lazyload;
 $content_width = FreshRSS_Context::$user_conf->content_width;
 $MAX_TAGS_DISPLAYED = FreshRSS_Context::$user_conf->show_tags_max;
+$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 
 $today = @strtotime('today');
 ?>
@@ -67,7 +68,7 @@ $today = @strtotime('today');
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?><?= $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT ? ' keep_unread ' : ''
+		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()

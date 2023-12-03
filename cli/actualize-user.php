@@ -31,7 +31,10 @@ if (!empty($result['successes'])) {
 	echo "FreshRSS refreshed $successes dynamic OPMLs for $username\n";
 }
 
-list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+[$nbUpdatedFeeds, , $nbNewArticles] = FreshRSS_feed_Controller::actualizeFeeds();
+if ($nbNewArticles > 0) {
+	FreshRSS_feed_Controller::commitNewEntries();
+}
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
 

@@ -19,10 +19,10 @@ return array(
 		'reinstall' => 'FreshRSS újratelepítése',
 	),
 	'auth' => array(
-		'form' => 'Web form (hagyományos, JavaScript-et igényel)',
+		'form' => 'Webes űrlap (hagyományos, JavaScript-et igényel)',
 		'http' => 'HTTP (haladó felhasználóknak HTTPSel)',
-		'none' => 'None (veszélyes)',
-		'password_form' => 'Jelszó<br /><small>(a Web-form belépési módszerhez)</small>',
+		'none' => 'Egyik sem (veszélyes)',
+		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
 		'password_format' => 'Legalább 7 karakter',
 		'type' => 'Hitelesítési mód',
 	),
