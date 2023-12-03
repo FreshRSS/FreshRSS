@@ -369,7 +369,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
-		$nbMarkedUnread = 0;
 
 		foreach ($feeds as $feed) {
 			/** @var FreshRSS_Feed|null $feed */
@@ -460,6 +459,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$needFeedCacheRefresh = false;
+			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
 				$titlesAsRead = [];
@@ -712,7 +712,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feed = null;
 			self::commitNewEntries();
 		} else {
-			FreshRSS_category_Controller::refreshDynamicOpmls();
+			if ($id === 0 && $url === '') {
+				FreshRSS_category_Controller::refreshDynamicOpmls();
+			}
 			[$updated_feeds, $feed, $nbNewArticles] = self::actualizeFeeds($id, $url, $maxFeeds);
 			if (!$noCommit && $nbNewArticles > 0) {
 				FreshRSS_feed_Controller::commitNewEntries();
