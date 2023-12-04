@@ -124,8 +124,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
-			$keep_max_n_unread = Minz_Request::paramInt('keep_max_n_unread');
-			$feed->_attributes('keep_max_n_unread', $keep_max_n_unread > 0 ? $keep_max_n_unread : null);
+			$keep_max_n_unread = Minz_Request::paramTernary('keep_max_n_unread') === true ? Minz_Request::paramInt('keep_max_n_unread') : null;
+			$feed->_attributes('keep_max_n_unread', $keep_max_n_unread >= 0 ? $keep_max_n_unread : null);
 
 			$read_when_same_title_in_feed = Minz_Request::paramString('read_when_same_title_in_feed');
 			if ($read_when_same_title_in_feed === '') {

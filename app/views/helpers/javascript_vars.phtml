@@ -28,6 +28,7 @@ echo htmlspecialchars(json_encode(array(
 			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),
 			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
 		],
+		'version' => FRESHRSS_VERSION,
 	),
 	'shortcuts' => array(
 		'actualize' => @$s['actualize'],
