@@ -90,7 +90,7 @@
 html, body {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-grey);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
