@@ -580,7 +580,7 @@ class FreshRSS_Feed extends Minz_Model {
 					}
 				}
 			}
-			$authorNames = substr($authorNames, 0, -2);
+			$authorNames = substr($authorNames, 0, -2) ?: '';
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
