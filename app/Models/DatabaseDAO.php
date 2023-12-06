@@ -407,4 +407,17 @@ SQL;
 			}
 		}
 	}
+
+	/**
+	 * Ensure that some PDO columns are `string` and not `bigint`.
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
+	 */
+	public static function pdoString(array &$table, array $columns): void {
+		foreach ($columns as $column) {
+			if (isset($table[$column])) {
+				$table[$column] = (string)$table[$column];
+			}
+		}
+	}
 }

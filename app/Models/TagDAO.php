@@ -147,6 +147,8 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			FreshRSS_DatabaseDAO::pdoInt($row, ['id_tag']);
+			FreshRSS_DatabaseDAO::pdoString($row, ['id_entry']);
 			yield $row;
 		}
 	}
