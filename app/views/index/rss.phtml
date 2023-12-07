@@ -49,6 +49,14 @@ foreach ($this->entries as $item) {
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
 						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
 						. '" />', "\n";
+					/*  Added mostly for MailChimp + Feedbro which don't support <media:thumbnail> 
+						different to media actually inside enclosures below. 
+						See https://mailchimp.com/help/rss-merge-tags/
+					*/
+					  echo "\t\t\t", '<media:content medium="image" url="' . $thumbnail['url']
+						. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
+						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
+						. '" />', "\n";
 				}
 				$enclosures = $item->enclosures(false);
 				if (is_iterable($enclosures)) {
