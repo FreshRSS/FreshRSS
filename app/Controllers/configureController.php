@@ -258,13 +258,15 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'keep_period_count' => '3',
 				'keep_period_unit' => 'P1M',
 			];
-		$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
-		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
-			$volatile = [
-				'enable_keep_period' => true,
-				'keep_period_count' => $matches['count'],
-				'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
-			];
+		if (!empty(FreshRSS_Context::$user_conf->archiving['keep_period'])) {
+			$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
+			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+				$volatile = [
+					'enable_keep_period' => true,
+					'keep_period_count' => $matches['count'],
+					'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
+				];
+			}
 		}
 		FreshRSS_Context::$user_conf->volatile = $volatile;
 
