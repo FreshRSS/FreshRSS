@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once (FRESHRSS_PATH . '/app/views/helpers/calendars/jalali/jdf.php');
 
 class FreshRSS_Entry extends Minz_Model {
 	public const STATE_READ = 1;
@@ -336,10 +337,25 @@ HTML;
 	 * @return string|int
 	 */
 	public function date(bool $raw = false) {
+		$userTimezone = FreshRSS_Context::$user_conf->timezone;
+		$userLanguage = FreshRSS_Context::$user_conf->language;
 		if ($raw) {
 			return $this->date;
+		} elseif ($userTimezone === 'Asia/Tehran' || $userTimezone === 'Asia/Kabul') {
+			if ($userLanguage == 'fa') {
+				$num = 'fa';
+				$dateFormat = 'j F Y در H:i';
+			} elseif ($userLanguage == 'ps') {
+				$num = 'fa';
+				$dateFormat = 'j p Y در H:i';
+			} else {
+				$num = 'en';
+				$dateFormat = 'Y/n/j - H:i';
+			}
+			return jdate($dateFormat, $this->date, '', $userTimezone, $num);
+		} else {
+			return timestamptodate($this->date);
 		}
-		return timestamptodate($this->date);
 	}
 	public function machineReadableDate(): string {
 		return @date (DATE_ATOM, $this->date);
