@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
 if (file_exists(DATA_PATH . '/applied_migrations.txt')) {

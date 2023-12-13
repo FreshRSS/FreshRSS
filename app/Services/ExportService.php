@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Provide useful methods to generate files to export.

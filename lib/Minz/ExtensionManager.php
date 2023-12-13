@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * An extension manager to load extensions present in CORE_EXTENSIONS_PATH and THIRDPARTY_EXTENSIONS_PATH.

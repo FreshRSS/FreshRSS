@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /*
  Enable support for HTTP/1.x conditional requests in PHP.
  Goal: Optimisation

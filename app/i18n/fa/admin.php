@@ -193,6 +193,9 @@ return array(
 			'enabled' => ' <a href="./?a=tos">فعال است</a>',
 			'help' => ' نحوه <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">فعال کردن شرایط خدمات </a>',
 		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => ' FreshRSS را به روز کنید',

@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -188,8 +188,9 @@
 							<th> </th>
 							<th title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i('read') ?></th>
 							<th title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i('starred') ?></th>
-							<th><?= _t('conf.display.icon.related_tags') ?></th>
-							<th><?= _t('conf.display.icon.sharing') ?></th>
+							<th title="<?= _t('index.menu.tags') ?>"><?= _i('label') ?></th>
+							<th title="<?= _t('conf.display.icon.related_tags') ?>"><?= _i('tag') ?></th>
+							<th title="<?= _t('conf.display.icon.sharing') ?>"><?= _i('share') ?></th>
 							<th><?= _t('conf.display.icon.summary') ?></th>
 							<th><?= _t('conf.display.icon.display_authors') ?></th>
 							<th><?= _t('conf.display.icon.publication_date') ?></th>
@@ -205,6 +206,7 @@
 							<td><input type="checkbox" name="topline_favorite" value="1"<?=
 								FreshRSS_Context::$user_conf->topline_favorite ? ' checked="checked"' : '' ?>
 								data-leave-validation="<?= FreshRSS_Context::$user_conf->topline_favorite ?>" /></td>
+							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" name="topline_summary" value="1"<?=
@@ -226,6 +228,9 @@
 							<td><input type="checkbox" name="bottomline_favorite" value="1"<?=
 								FreshRSS_Context::$user_conf->bottomline_favorite ? ' checked="checked"' : '' ?>
 								data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_favorite ?>" /></td>
+							<td><input type="checkbox" name="bottomline_myLabels" value="1"<?=
+								FreshRSS_Context::$user_conf->bottomline_myLabels ? ' checked="checked"' : '' ?>
+								data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_myLabels ?>" /></td>
 							<td><input type="checkbox" name="bottomline_tags" value="1"<?=
 								FreshRSS_Context::$user_conf->bottomline_tags ? ' checked="checked"' : '' ?>
 								data-leave-validation="<?= FreshRSS_Context::$user_conf->bottomline_tags ?>" /></td>
