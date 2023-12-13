@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * @property string $apiPasswordHash
- * @property array<string,mixed> $archiving
+ * @property array{'keep_period':string|false,'keep_max':int|false,'keep_min':int|false,'keep_favourites':bool,'keep_labels':bool,'keep_unreads':bool} $archiving
  * @property bool $auto_load_more
  * @property bool $auto_remove_article
  * @property bool $bottomline_date
@@ -34,7 +34,7 @@ declare(strict_types=1);
  * @property bool $lazyload
  * @property string $mail_login
  * @property bool $mark_updated_article_unread
- * @property array<string,bool> $mark_when
+ * @property array<string,bool|int> $mark_when
  * @property int $max_posts_per_rss
  * @property-read array<string,int> $limits
  * @property int|null $old_entries

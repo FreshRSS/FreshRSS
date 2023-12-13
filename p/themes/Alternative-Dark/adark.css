@@ -49,7 +49,7 @@
 html, body {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */

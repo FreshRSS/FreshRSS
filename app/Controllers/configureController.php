@@ -136,8 +136,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'gone' => Minz_Request::paramBoolean('read_upon_gone'),
 				'max_n_unread' => Minz_Request::paramBoolean('enable_keep_max_n_unread') ? Minz_Request::paramInt('keep_max_n_unread') : false,
 				'reception' => Minz_Request::paramBoolean('mark_upon_reception'),
-				'same_title_in_feed' =>
-					Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') && Minz_Request::paramBoolean('read_when_same_title_in_feed'),
+				'same_title_in_feed' => Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') ?
+					Minz_Request::paramInt('read_when_same_title_in_feed') : false,
 				'scroll' => Minz_Request::paramBoolean('mark_scroll'),
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
@@ -258,13 +258,15 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'keep_period_count' => '3',
 				'keep_period_unit' => 'P1M',
 			];
-		$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
-		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
-			$volatile = [
-				'enable_keep_period' => true,
-				'keep_period_count' => $matches['count'],
-				'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
-			];
+		if (!empty(FreshRSS_Context::$user_conf->archiving['keep_period'])) {
+			$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
+			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+				$volatile = [
+					'enable_keep_period' => true,
+					'keep_period_count' => $matches['count'],
+					'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
+				];
+			}
 		}
 		FreshRSS_Context::$user_conf->volatile = $volatile;
 
