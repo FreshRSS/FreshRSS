@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 class FreshRSS_Entry extends Minz_Model {
+	use FreshRSS_AttributesTrait;
+
 	public const STATE_READ = 1;
 	public const STATE_NOT_READ = 2;
 	public const STATE_ALL = 3;
@@ -26,8 +28,6 @@ class FreshRSS_Entry extends Minz_Model {
 	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
 	private array $tags = [];
-	/** @var array<string,mixed> */
-	private array $attributes = [];
 
 	/**
 	 * @param int|string $pubdate
@@ -396,34 +396,6 @@ HTML;
 		}
 	}
 
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ($key == '') {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif ($value === null) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
-	}
-
 	public function hash(): string {
 		if ($this->hash == '') {
 			//Do not include $this->date because it may be automatically generated when lacking
@@ -675,10 +647,11 @@ HTML;
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
 			}
 		}
-		$this->feed->applyFilterActions($this);
+		FreshRSS_Context::$user_conf->applyFilterActions($this);
 		if ($this->feed->category() !== null) {
 			$this->feed->category()->applyFilterActions($this);
 		}
+		$this->feed->applyFilterActions($this);
 	}
 
 	public function isDay(int $day, int $today): bool {

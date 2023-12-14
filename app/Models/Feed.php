@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Feed extends Minz_Model {
-	use FreshRSS_FilterActionsTrait;
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal RSS or Atom feed
@@ -56,8 +56,6 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $httpAuth = '';
 	private bool $error = false;
 	private int $ttl = self::TTL_DEFAULT;
-	/** @var array<string,mixed> */
-	private array $attributes = [];
 	private bool $mute = false;
 	private string $hash = '';
 	private string $lockPath = '';
@@ -185,18 +183,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
-	}
-
 	public function mute(): bool {
 		return $this->mute;
 	}
@@ -322,22 +308,6 @@ class FreshRSS_Feed extends Minz_Model {
 		$value = min($value, 100000000);
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ($key == '') {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif ($value === null) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
 	}
 
 	public function _nbNotRead(int $value): void {

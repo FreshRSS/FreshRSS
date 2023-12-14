@@ -142,6 +142,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
+			FreshRSS_Context::$user_conf->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 

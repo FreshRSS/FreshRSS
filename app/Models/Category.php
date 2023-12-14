@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Category extends Minz_Model {
-	use FreshRSS_FilterActionsTrait;
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal
@@ -23,8 +23,6 @@ class FreshRSS_Category extends Minz_Model {
 	private ?array $feeds = null;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
-	/** @var array<string,mixed> */
-	private array $attributes = [];
 	private int $lastUpdate = 0;
 	private bool $error = false;
 
@@ -122,18 +120,6 @@ class FreshRSS_Category extends Minz_Model {
 		return (bool)($this->hasFeedsWithError);
 	}
 
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
-	}
-
 	public function _id(int $id): void {
 		$this->id = $id;
 		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
@@ -169,22 +155,6 @@ class FreshRSS_Category extends Minz_Model {
 		$this->feeds[] = $feed;
 
 		$this->sortFeeds();
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ('' === $key) {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif (null === $value) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
 	}
 
 	/**

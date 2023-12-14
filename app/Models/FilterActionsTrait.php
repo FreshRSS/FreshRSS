@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Logic to apply filter actions (for feeds, categories...).
+ * Logic to apply filter actions (for feeds, categories, user configuration...).
  */
 trait FreshRSS_FilterActionsTrait {
 
