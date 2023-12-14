@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Category extends Minz_Model {
+	use FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal
@@ -37,6 +38,7 @@ class FreshRSS_Category extends Minz_Model {
 			$this->nbFeeds = 0;
 			$this->nbNotRead = 0;
 			foreach ($feeds as $feed) {
+				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
 				$this->hasFeedsWithError |= $feed->inError();
