@@ -215,7 +215,7 @@
 
 		<?php if (!$this->category->isDefault()): ?>
 		<p class="alert alert-warn">
-			<?= _t('sub.feed.moved_category_deleted', $this->default_category->name()) ?>
+			<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
 		</p>
 		<?php endif;?>
 		<div class="form-group form-actions">
