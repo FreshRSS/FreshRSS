@@ -50,7 +50,7 @@ class FreshRSS_Import_Service {
 
 		$this->catDAO->checkDefault();
 		$default_category = $this->catDAO->getDefault();
-		if (!$default_category) {
+		if ($default_category === null) {
 			self::log('Cannot get the default category');
 			$this->lastStatus = false;
 			return;
