@@ -632,12 +632,13 @@ HTML;
 
 	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
-		if ($this->feed === null) {
+		$feed = $this->feed;
+		if ($feed === null) {
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($this->feed->attributes('read_upon_reception') ||
-				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributes('read_upon_reception') ||
+				($feed->attributes('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}
@@ -648,10 +649,10 @@ HTML;
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);
-		if ($this->feed->category() !== null) {
-			$this->feed->category()->applyFilterActions($this);
+		if ($feed->category() !== null) {
+			$feed->category()->applyFilterActions($this);
 		}
-		$this->feed->applyFilterActions($this);
+		$feed->applyFilterActions($this);
 	}
 
 	public function isDay(int $day, int $today): bool {

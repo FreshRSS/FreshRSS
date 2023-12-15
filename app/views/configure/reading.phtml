@@ -351,7 +351,7 @@
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
-						foreach (FreshRSS_Context::$user_conf->filtersAction('read') as $filterRead) {
+						foreach (FreshRSS_Context::userConf()->filtersAction('read') as $filterRead) {
 							echo $filterRead->getRawInput(), PHP_EOL;
 						}
 					?></textarea>
