@@ -29,7 +29,8 @@ class FreshRSS_Category extends Minz_Model {
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
 	 */
-	public function __construct(string $name = '', ?array $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+		$this->_id($id);
 		$this->_name($name);
 		if ($feeds !== null) {
 			$this->_feeds($feeds);

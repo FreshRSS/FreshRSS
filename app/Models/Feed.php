@@ -110,6 +110,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function categoryId(): int {
+		if ($this->category !== null) {
+			return $this->category->id() ?: $this->categoryId;
+		}
 		return $this->categoryId;
 	}
 

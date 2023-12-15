@@ -351,8 +351,7 @@ SQL;
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {
-			$cat = new FreshRSS_Category(_t('gen.short.default_category'));
-			$cat->_id(self::DEFAULTCATEGORYID);
+			$cat = new FreshRSS_Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
 
 			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
 			if ($this->pdo->dbType() === 'pgsql') {
@@ -441,9 +440,9 @@ SQL;
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
+					$previousLine['c_id'],
 					$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
 				);
-				$cat->_id($previousLine['c_id']);
 				$cat->_kind($previousLine['c_kind']);
 				$cat->_attributes('', $previousLine['c_attributes'] ?? '[]');
 				$list[(int)$previousLine['c_id']] = $cat;
@@ -459,9 +458,9 @@ SQL;
 		if ($previousLine != null) {
 			$cat = new FreshRSS_Category(
 				$previousLine['c_name'],
+				$previousLine['c_id'],
 				$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
 			);
-			$cat->_id($previousLine['c_id']);
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
 			$cat->_error($previousLine['c_error'] ?? 0);
@@ -482,9 +481,9 @@ SQL;
 		foreach ($listDAO as $dao) {
 			FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'kind', 'lastUpdate', 'error']);
 			$cat = new FreshRSS_Category(
-				$dao['name']
+				$dao['name'],
+				$dao['id']
 			);
-			$cat->_id($dao['id']);
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$cat->_error($dao['error'] ?? 0);
