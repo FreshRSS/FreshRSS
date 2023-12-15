@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Feed extends Minz_Model {
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal RSS or Atom feed
@@ -42,7 +43,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private int $id = 0;
 	private string $url = '';
 	private int $kind = 0;
-	private int $categoryId = 1;
+	private int $categoryId = 0;
 	private ?FreshRSS_Category $category;
 	private int $nbEntries = -1;
 	private int $nbNotRead = -1;
@@ -55,15 +56,11 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $httpAuth = '';
 	private bool $error = false;
 	private int $ttl = self::TTL_DEFAULT;
-	/** @var array<string,mixed> */
-	private array $attributes = [];
 	private bool $mute = false;
 	private string $hash = '';
 	private string $lockPath = '';
 	private string $hubUrl = '';
 	private string $selfUrl = '';
-	/** @var array<FreshRSS_FilterAction>|null $filterActions */
-	private ?array $filterActions = null;
 
 	public function __construct(string $url, bool $validate = true) {
 		if ($validate) {
@@ -105,7 +102,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function category(): ?FreshRSS_Category {
-		if ($this->category === null) {
+		if ($this->category === null && $this->categoryId > 0) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->category = $catDAO->searchById($this->categoryId);
 		}
@@ -113,6 +110,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function categoryId(): int {
+		if ($this->category !== null) {
+			return $this->category->id() ?: $this->categoryId;
+		}
 		return $this->categoryId;
 	}
 
@@ -184,18 +184,6 @@ class FreshRSS_Feed extends Minz_Model {
 			return $ttl * ($this->mute ? -1 : 1);
 		}
 		return $this->ttl;
-	}
-
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
 	}
 
 	public function mute(): bool {
@@ -323,22 +311,6 @@ class FreshRSS_Feed extends Minz_Model {
 		$value = min($value, 100000000);
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ($key == '') {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif ($value === null) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
 	}
 
 	public function _nbNotRead(int $value): void {
@@ -875,119 +847,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function unlock(): bool {
 		return @unlink($this->lockPath);
-	}
-
-	/**
-	 * @return array<FreshRSS_FilterAction>
-	 */
-	public function filterActions(): array {
-		if (empty($this->filterActions)) {
-			$this->filterActions = [];
-			$filters = $this->attributes('filters');
-			if (is_array($filters)) {
-				foreach ($filters as $filter) {
-					$filterAction = FreshRSS_FilterAction::fromJSON($filter);
-					if ($filterAction != null) {
-						$this->filterActions[] = $filterAction;
-					}
-				}
-			}
-		}
-		return $this->filterActions;
-	}
-
-	/**
-	 * @param array<FreshRSS_FilterAction>|null $filterActions
-	 */
-	private function _filterActions(?array $filterActions): void {
-		$this->filterActions = $filterActions;
-		if (is_array($this->filterActions) && !empty($this->filterActions)) {
-			$this->_attributes('filters', array_map(static function (?FreshRSS_FilterAction $af) {
-					return $af == null ? null : $af->toJSON();
-				}, $this->filterActions));
-		} else {
-			$this->_attributes('filters', null);
-		}
-	}
-
-	/** @return array<FreshRSS_BooleanSearch> */
-	public function filtersAction(string $action): array {
-		$action = trim($action);
-		if ($action == '') {
-			return [];
-		}
-		$filters = [];
-		$filterActions = $this->filterActions();
-		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
-			$filterAction = $filterActions[$i];
-			if ($filterAction != null && $filterAction->booleanSearch() != null &&
-				$filterAction->actions() != null && in_array($action, $filterAction->actions(), true)) {
-				$filters[] = $filterAction->booleanSearch();
-			}
-		}
-		return $filters;
-	}
-
-	/**
-	 * @param array<string> $filters
-	 */
-	public function _filtersAction(string $action, array $filters): void {
-		$action = trim($action);
-		if ($action == '') {
-			return;
-		}
-		$filters = array_unique(array_map('trim', $filters));
-		$filterActions = $this->filterActions();
-
-		//Check existing filters
-		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
-			$filterAction = $filterActions[$i];
-			if ($filterAction == null || !is_array($filterAction->actions()) ||
-				$filterAction->booleanSearch() == null || trim($filterAction->booleanSearch()->getRawInput()) == '') {
-				array_splice($filterActions, $i, 1);
-				continue;
-			}
-			$actions = $filterAction->actions();
-			//Remove existing rules with same action
-			for ($j = count($actions) - 1; $j >= 0; $j--) {
-				if ($actions[$j] === $action) {
-					array_splice($actions, $j, 1);
-				}
-			}
-			//Update existing filter with new action
-			for ($k = count($filters) - 1; $k >= 0; $k --) {
-				$filter = $filters[$k];
-				if ($filter === $filterAction->booleanSearch()->getRawInput()) {
-					$actions[] = $action;
-					array_splice($filters, $k, 1);
-				}
-			}
-			//Save result
-			if (empty($actions)) {
-				array_splice($filterActions, $i, 1);
-			} else {
-				$filterAction->_actions($actions);
-			}
-		}
-
-		//Add new filters
-		for ($k = count($filters) - 1; $k >= 0; $k --) {
-			$filter = $filters[$k];
-			if ($filter != '') {
-				$filterAction = FreshRSS_FilterAction::fromJSON([
-					'search' => $filter,
-					'actions' => [$action],
-				]);
-				if ($filterAction != null) {
-					$filterActions[] = $filterAction;
-				}
-			}
-		}
-
-		if (empty($filterActions)) {
-			$filterActions = null;
-		}
-		$this->_filterActions($filterActions);
 	}
 
 	//<WebSub>

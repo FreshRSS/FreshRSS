@@ -80,47 +80,80 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action updates the given category.
-	 * @todo Check whether this function is used at all
-	 * @see FreshRSS_subscription_Controller::categoryAction() (consider merging)
-	 *
-	 * Request parameters are:
-	 *   - id
-	 *   - name
 	 */
 	public function updateAction(): void {
-		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$url_redirect = ['c' => 'subscription', 'a' => 'index'];
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
+
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
+
+		$id = Minz_Request::paramInt('id');
+		$category = $categoryDAO->searchById($id);
+		if ($id === 0 || null === $category) {
+			Minz_Error::error(404);
+			return;
+		}
+		$this->view->category = $category;
+
+		FreshRSS_View::prependTitle($category->name() . ' · ' . _t('sub.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
-			invalidateHttpCache();
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
 
-			$id = Minz_Request::paramInt('id');
-			$name = Minz_Request::paramString('name');
-			if (strlen($name) <= 0) {
-				Minz_Request::bad(_t('feedback.sub.category.no_name'), $url_redirect);
-				return;
+			if (Minz_Request::paramBoolean('use_default_purge_options')) {
+				$category->_attributes('archiving', null);
+			} else {
+				if (!Minz_Request::paramBoolean('enable_keep_max')) {
+					$keepMax = false;
+				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) !== 0) {
+					$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+				}
+				if (Minz_Request::paramBoolean('enable_keep_period')) {
+					$keepPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
+					if (is_numeric(Minz_Request::paramString('keep_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::paramString('keep_period_unit'))) {
+						$keepPeriod = str_replace('1', Minz_Request::paramString('keep_period_count'), Minz_Request::paramString('keep_period_unit'));
+					}
+				} else {
+					$keepPeriod = false;
+				}
+				$category->_attributes('archiving', [
+					'keep_period' => $keepPeriod,
+					'keep_max' => $keepMax,
+					'keep_min' => Minz_Request::paramInt('keep_min'),
+					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
+					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
+					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
+				]);
 			}
 
-			$cat = $catDAO->searchById($id);
-			if ($cat === null) {
-				Minz_Request::bad(_t('feedback.sub.category.not_exist'), $url_redirect);
-				return;
+			$position = Minz_Request::paramInt('position') ?: null;
+			$category->_attributes('position', $position);
+
+			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
+			if ($opml_url != '') {
+				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+				$category->_attributes('opml_url', $opml_url);
+			} else {
+				$category->_kind(FreshRSS_Category::KIND_NORMAL);
+				$category->_attributes('opml_url', null);
 			}
 
 			$values = [
-				'name' => $cat->name(),
-				'kind' => $cat->kind(),
-				'attributes' => $cat->attributes(),
+				'kind' => $category->kind(),
+				'name' => Minz_Request::paramString('name'),
+				'attributes' => $category->attributes(),
 			];
 
-			if ($catDAO->updateCategory($id, $values)) {
+			invalidateHttpCache();
+
+			$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'type' => 'category']];
+			if (false !== $categoryDAO->updateCategory($id, $values)) {
 				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
 			} else {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 		}
-
-		Minz_Request::forward($url_redirect, true);
 	}
 
 	/**

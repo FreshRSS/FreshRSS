@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Category extends Minz_Model {
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal
@@ -22,21 +23,21 @@ class FreshRSS_Category extends Minz_Model {
 	private ?array $feeds = null;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
-	/** @var array<string,mixed> */
-	private array $attributes = [];
 	private int $lastUpdate = 0;
 	private bool $error = false;
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
 	 */
-	public function __construct(string $name = '', ?array $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+		$this->_id($id);
 		$this->_name($name);
 		if ($feeds !== null) {
 			$this->_feeds($feeds);
 			$this->nbFeeds = 0;
 			$this->nbNotRead = 0;
 			foreach ($feeds as $feed) {
+				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
 				$this->hasFeedsWithError |= $feed->inError();
@@ -120,18 +121,6 @@ class FreshRSS_Category extends Minz_Model {
 		return (bool)($this->hasFeedsWithError);
 	}
 
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
-	}
-
 	public function _id(int $id): void {
 		$this->id = $id;
 		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
@@ -167,22 +156,6 @@ class FreshRSS_Category extends Minz_Model {
 		$this->feeds[] = $feed;
 
 		$this->sortFeeds();
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ('' === $key) {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif (null === $value) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
 	}
 
 	/**

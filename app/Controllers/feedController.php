@@ -361,6 +361,19 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 		} else {
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+
+			// Hydrate category for each feed to avoid that each feed has to make an SQL request
+			$categories = [];
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			foreach ($catDAO->listCategories(false, false) as $category) {
+				$categories[$category->id()] = $category;
+			}
+			foreach ($feeds as $feed) {
+				$category = $categories[$feed->categoryId()] ?? null;
+				if ($category !== null) {
+					$feed->_category($category);
+				}
+			}
 		}
 
 		// WebSub (PubSubHubbub) support

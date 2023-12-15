@@ -72,10 +72,31 @@ declare(strict_types=1);
  * @property array<string,mixed> $volatile
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
+	use FreshRSS_FilterActionsTrait;
 
 	/** @throws Minz_ConfigurationNamespaceException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
 		return parent::get('user');
+	}
+
+	/**
+	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @return array<string,mixed>|mixed|null
+	 */
+	public function attributes(string $key = '') {
+		if ($key === '') {
+			return [];	// Not implemented for user configuration
+		} else {
+			return parent::param($key, null);
+		}
+	}
+
+	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
+	public function _attributes(string $key, $value = null): void {
+		if ($key == '') {
+			return;	// Not implemented for user configuration
+		}
+		parent::_param($key, $value);
 	}
 }
