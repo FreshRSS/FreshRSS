@@ -30,8 +30,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
-				/** @var array<array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
-				 * 	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'ttl':int,'attributes':string}> $feeds */
+				/** @var array<array{'id':int,'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
+				 * 	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'keep_history':?int,'ttl':int,'attributes':string}> $feeds */
 				$feeds = $this->fetchAssoc('SELECT * FROM `_feed`') ?? [];
 
 				$stm = $this->pdo->prepare('UPDATE `_feed` SET attributes = :attributes WHERE id = :id');
