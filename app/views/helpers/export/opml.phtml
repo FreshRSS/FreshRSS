@@ -76,7 +76,7 @@ $opml_array = [
 		'frss' => FreshRSS_Export_Service::FRSS_NAMESPACE,
 	],
 	'head' => [
-		'title' => FreshRSS_Context::$system_conf->title,
+		'title' => FreshRSS_Context::systemConf()->title,
 		'dateCreated' => new DateTime(),
 	],
 	'body' => [],

@@ -36,7 +36,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			$id_tag = Minz_Request::paramInt('id_tag');
 			$name_tag = Minz_Request::paramString('name_tag');
 			$id_entry = Minz_Request::paramString('id_entry');
-			$checked = Minz_Request::paramTernary('checked');
+			$checked = Minz_Request::paramBoolean('checked');
 			if ($id_entry != '') {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				if ($id_tag == 0 && $name_tag !== '' && $checked) {
@@ -85,7 +85,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function getTagsForEntryAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::$system_conf->allow_anonymous) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
 			Minz_Error::error(403);
 		}
 		$this->view->_layout(null);

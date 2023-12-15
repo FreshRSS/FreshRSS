@@ -145,7 +145,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
 	 */
 	public function originalContent(): string {
-		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content);
+		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
 	}
 
 	/**
@@ -249,7 +249,7 @@ HTML;
 				$dom->loadHTML('<?xml version="1.0" encoding="UTF-8" ?>' . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 				$xpath = new DOMXPath($dom);
 			}
-			if ($searchEnclosures) {
+			if ($searchEnclosures && $xpath !== null) {
 				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				if (!empty($enclosures)) {
@@ -272,7 +272,7 @@ HTML;
 					}
 				}
 			}
-			if ($searchBodyImages) {
+			if ($searchBodyImages && $xpath !== null) {
 				$images = $xpath->query('//img');
 				if (!empty($images)) {
 					/** @var DOMElement $img */
@@ -586,7 +586,7 @@ HTML;
 					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
 				}
 				if ($ok && $filter->getNotFeedIds()) {
-					$ok &= !in_array($this->feedId, $filter->getFeedIds(), true);
+					$ok &= !in_array($this->feedId, $filter->getNotFeedIds(), true);
 				}
 				if ($ok && $filter->getAuthor()) {
 					foreach ($filter->getAuthor() as $author) {
@@ -660,36 +660,40 @@ HTML;
 
 	/** @param array<string,bool> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
-		if ($this->feed != null) {
-			if (!$this->isRead()) {
-				if ($this->feed->attributes('read_upon_reception') ||
-					($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
-					$this->_isRead(true);
-					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
-				}
-				if (!empty($titlesAsRead[$this->title()])) {
-					Minz_Log::debug('Mark title as read: ' . $this->title());
-					$this->_isRead(true);
-					Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
-				}
+		if ($this->feed === null) {
+			return;
+		}
+		if (!$this->isRead()) {
+			if ($this->feed->attributes('read_upon_reception') ||
+				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+				$this->_isRead(true);
+				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}
-			foreach ($this->feed->filterActions() as $filterAction) {
-				if ($this->matches($filterAction->booleanSearch())) {
-					foreach ($filterAction->actions() as $action) {
-						switch ($action) {
-							case 'read':
-								if (!$this->isRead()) {
-									$this->_isRead(true);
-									Minz_ExtensionManager::callHook('entry_auto_read', $this, 'filter');
-								}
-								break;
-							case 'star':
-								$this->_isFavorite(true);
-								break;
-							case 'label':
-								//TODO: Implement more actions
-								break;
-						}
+			if (!empty($titlesAsRead[$this->title()])) {
+				Minz_Log::debug('Mark title as read: ' . $this->title());
+				$this->_isRead(true);
+				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+			}
+		}
+		if ($this->feed === null) {
+			return;
+		}
+		foreach ($this->feed->filterActions() as $filterAction) {
+			if ($this->matches($filterAction->booleanSearch())) {
+				foreach ($filterAction->actions() as $action) {
+					switch ($action) {
+						case 'read':
+							if (!$this->isRead()) {
+								$this->_isRead(true);
+								Minz_ExtensionManager::callHook('entry_auto_read', $this, 'filter');
+							}
+							break;
+						case 'star':
+							$this->_isFavorite(true);
+							break;
+						case 'label':
+							//TODO: Implement more actions
+							break;
 					}
 				}
 			}
@@ -754,6 +758,9 @@ HTML;
 					if (!empty($attributes['path_entries_filter'])) {
 						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
+							if ($filterednode->parentNode === null) {
+								continue;
+							}
 							$filterednode->parentNode->removeChild($filterednode);
 						}
 					}

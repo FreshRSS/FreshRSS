@@ -68,7 +68,7 @@ class FreshRSS_Import_Service {
 		// verify the user can import its categories/feeds.
 		$nb_categories = count($categories);
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.

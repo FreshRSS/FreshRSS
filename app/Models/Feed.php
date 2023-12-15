@@ -85,7 +85,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function hash(): string {
 		if ($this->hash == '') {
-			$salt = FreshRSS_Context::$system_conf->salt;
+			$salt = FreshRSS_Context::systemConf()->salt;
 			$this->hash = hash('crc32b', $salt . $this->url);
 		}
 		return $this->hash;
@@ -126,7 +126,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $simplePie == null ? [] : iterator_to_array($this->loadEntries($simplePie));
 	}
 	public function name(bool $raw = false): string {
-		return $raw || $this->name != '' ? $this->name : preg_replace('%^https?://(www[.])?%i', '', $this->url);
+		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
 	/** @return string HTML-encoded URL of the Web site of the feed */
 	public function website(): string {
@@ -179,7 +179,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($raw) {
 			$ttl = $this->ttl;
 			if ($this->mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
-				$ttl = FreshRSS_Context::$user_conf ? FreshRSS_Context::$user_conf->ttl_default : 3600;
+				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
 			return $ttl * ($this->mute ? -1 : 1);
 		}
@@ -359,7 +359,7 @@ class FreshRSS_Feed extends Minz_Model {
 			} else {
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
 				if ($this->httpAuth != '') {
-					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
+					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url) ?? '';
 				}
 				$simplePie = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
@@ -398,7 +398,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
-					$subscribe_url = $simplePie->subscribe_url(false);
+					$subscribe_url = $simplePie->subscribe_url(false) ?? '';
 
 					if ($this->name(true) === '') {
 						//HTML to HTML-PRE	//ENT_COMPAT except '&'
@@ -413,11 +413,11 @@ class FreshRSS_Feed extends Minz_Model {
 					}
 				} else {
 					//The case of HTTP 301 Moved Permanently
-					$subscribe_url = $simplePie->subscribe_url(true);
+					$subscribe_url = $simplePie->subscribe_url(true) ?? '';
 				}
 
 				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
-				if ($subscribe_url !== null && $subscribe_url !== $url) {
+				if ($subscribe_url !== '' && $subscribe_url !== $url) {
 					$this->_url($clean_url);
 				}
 
@@ -454,7 +454,10 @@ class FreshRSS_Feed extends Minz_Model {
 			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
 			$testGuids['_' . $guid] = true;
 			$guids[] = $guid;
-			$links[] = $item->get_permalink();
+			$permalink = $item->get_permalink();
+			if ($permalink != null) {
+				$links[] = $permalink;
+			}
 		}
 
 		if ($hadBadGuids != !$hasUniqueGuids) {
@@ -588,7 +591,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$title == '' ? '' : $title,
 				$authorNames,
 				$content == '' ? '' : $content,
-				$link == '' ? '' : $link,
+				$link == null ? '' : $link,
 				$date ?: time()
 			);
 			$entry->_tags($tags);
@@ -614,6 +617,9 @@ class FreshRSS_Feed extends Minz_Model {
 		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
 		if ($this->httpAuth != '') {
 			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
+		}
+		if ($feedSourceUrl == null) {
+			return null;
 		}
 
 		// Same naming conventions than https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html
@@ -755,7 +761,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function keepMaxUnread() {
 		$keepMaxUnread = $this->attributes('keep_max_n_unread');
 		if ($keepMaxUnread === null) {
-			$keepMaxUnread = FreshRSS_Context::$user_conf->mark_when['max_n_unread'];
+			$keepMaxUnread = FreshRSS_Context::userConf()->mark_when['max_n_unread'];
 		}
 		return is_int($keepMaxUnread) && $keepMaxUnread >= 0 ? $keepMaxUnread : null;
 	}
@@ -784,7 +790,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function markAsReadUponGone(bool $upstreamIsEmpty, int $maxTimestamp = 0) {
 		$readUponGone = $this->attributes('read_upon_gone');
 		if ($readUponGone === null) {
-			$readUponGone = FreshRSS_Context::$user_conf->mark_when['gone'];
+			$readUponGone = FreshRSS_Context::userConf()->mark_when['gone'];
 		}
 		if (!$readUponGone) {
 			return false;
@@ -816,7 +822,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$category = $catDAO->searchById($this->categoryId);
 			$archiving = $category == null ? null : $category->attributes('archiving');
 			if ($archiving == null) {
-				$archiving = FreshRSS_Context::$user_conf->archiving;
+				$archiving = FreshRSS_Context::userConf()->archiving;
 			}
 		}
 		if (is_array($archiving)) {
@@ -1017,7 +1023,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public function pubSubHubbubPrepare() {
 		$key = '';
-		if (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) &&
+		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
 			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
@@ -1042,7 +1048,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			} else {
 				@mkdir($path, 0770, true);
-				$key = sha1($path . FreshRSS_Context::$system_conf->salt);
+				$key = sha1($path . FreshRSS_Context::systemConf()->salt);
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
@@ -1054,7 +1060,7 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
 			}
-			$currentUser = Minz_User::name();
+			$currentUser = Minz_User::name() ?? '';
 			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}
@@ -1069,7 +1075,7 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::$system_conf->base_url) || !$state)) {
+		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {

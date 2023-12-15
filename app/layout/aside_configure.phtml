@@ -68,7 +68,7 @@
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
 				</li>
-				<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
+				<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 				</li>

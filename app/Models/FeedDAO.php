@@ -236,6 +236,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if ($newCat === null) {
 			$newCat = $catDAO->getDefault();
 		}
+		if ($newCat === null) {
+			return false;
+		}
 
 		$sql = 'UPDATE `_feed` SET category=? WHERE category=?';
 		$stm = $this->pdo->prepare($sql);

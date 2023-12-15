@@ -41,10 +41,10 @@ fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 foreach ($params as $param) {
 	$param = rtrim($param, ':');
 	if (isset($options[$param])) {
-		FreshRSS_Context::$system_conf->$param = $options[$param] === false ? true : $options[$param];
+		FreshRSS_Context::systemConf()->$param = $options[$param] === false ? true : $options[$param];
 	}
 }
-$db = FreshRSS_Context::$system_conf->db;
+$db = FreshRSS_Context::systemConf()->db;
 foreach ($dBparams as $dBparam) {
 	$dBparam = rtrim($dBparam, ':');
 	if (isset($options[$dBparam])) {
@@ -52,19 +52,21 @@ foreach ($dBparams as $dBparam) {
 		$db[$param] = $options[$dBparam];
 	}
 }
-FreshRSS_Context::$system_conf->db = $db;
+/** @var array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
+ *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db */
+FreshRSS_Context::systemConf()->db = $db;
 
-if (!FreshRSS_user_Controller::checkUsername(FreshRSS_Context::$system_conf->default_user)) {
+if (!FreshRSS_user_Controller::checkUsername(FreshRSS_Context::systemConf()->default_user)) {
 	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' .
-		FreshRSS_Context::$system_conf->default_user);
+		FreshRSS_Context::systemConf()->default_user);
 }
 
-if (isset(FreshRSS_Context::$system_conf->auth_type) &&
-	!in_array(FreshRSS_Context::$system_conf->auth_type, ['form', 'http_auth', 'none'], true)) {
+if (isset(FreshRSS_Context::systemConf()->auth_type) &&
+	!in_array(FreshRSS_Context::systemConf()->auth_type, ['form', 'http_auth', 'none'], true)) {
 	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: '
-		. FreshRSS_Context::$system_conf->auth_type);
+		. FreshRSS_Context::systemConf()->auth_type);
 }
 
-FreshRSS_Context::$system_conf->save();
+FreshRSS_Context::systemConf()->save();
 
 done();
