@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Logic to work with (JSON) attributes (for entries, feeds, categories, tags, user configuration...).
+ * Logic to work with (JSON) attributes (for entries, feeds, categories, tags...).
  */
 trait FreshRSS_AttributesTrait {
 	/**
