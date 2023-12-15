@@ -377,7 +377,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			$url = $feed->url();	//For deFreshRSS_Context::systemConf()
+			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
 			if ($simplePiePush === null && $feed_id === null && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
