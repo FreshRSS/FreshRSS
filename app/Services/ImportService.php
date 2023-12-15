@@ -179,7 +179,7 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
+					preg_split('/\R/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 

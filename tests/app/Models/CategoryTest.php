@@ -51,7 +51,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 			->method('name')
 			->willReturn('lll');
 
-		$category = new FreshRSS_Category('test', [
+		$category = new FreshRSS_Category('test', 0, [
 			$feed_1,
 			$feed_2,
 			$feed_3,
