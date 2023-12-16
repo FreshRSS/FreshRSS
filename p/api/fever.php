@@ -157,7 +157,7 @@ final class FeverAPI
 			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::systemConf()->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
-				FreshRSS_Context::initUser($username);	// Assignment to help PHPStan
+				FreshRSS_Context::initUser($username);
 				if ($feverKey === FreshRSS_Context::userConf()->feverKey && FreshRSS_Context::userConf()->enabled) {
 					Minz_Translate::init(FreshRSS_Context::userConf()->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
