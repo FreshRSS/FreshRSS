@@ -61,10 +61,10 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
-				$cat->_attributes('opml_url', $opml_url);
+				$cat->_attribute('opml_url', $opml_url);
 			} else {
 				$cat->_kind(FreshRSS_Category::KIND_NORMAL);
-				$cat->_attributes('opml_url', null);
+				$cat->_attribute('opml_url', null);
 			}
 
 			if ($catDAO->addCategoryObject($cat)) {
@@ -102,7 +102,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
-				$category->_attributes('archiving', null);
+				$category->_attribute('archiving', null);
 			} else {
 				if (!Minz_Request::paramBoolean('enable_keep_max')) {
 					$keepMax = false;
@@ -117,7 +117,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				} else {
 					$keepPeriod = false;
 				}
-				$category->_attributes('archiving', [
+				$category->_attribute('archiving', [
 					'keep_period' => $keepPeriod,
 					'keep_max' => $keepMax,
 					'keep_min' => Minz_Request::paramInt('keep_min'),
@@ -128,15 +128,15 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			$position = Minz_Request::paramInt('position') ?: null;
-			$category->_attributes('position', $position);
+			$category->_attribute('position', $position);
 
 			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
-				$category->_attributes('opml_url', $opml_url);
+				$category->_attribute('opml_url', $opml_url);
 			} else {
 				$category->_kind(FreshRSS_Category::KIND_NORMAL);
-				$category->_attributes('opml_url', null);
+				$category->_attribute('opml_url', null);
 			}
 
 			$values = [

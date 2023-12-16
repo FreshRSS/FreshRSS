@@ -153,7 +153,7 @@ SQL;
 	}
 
 	/**
-	 * @param array{'name':string,'kind':int,'attributes'?:string|array<string,mixed>} $valuesTmp
+	 * @param array{'name':string,'kind':int,'attributes'?:array<string,mixed>|mixed|null} $valuesTmp
 	 * @return int|false
 	 * @throws JsonException
 	 */
@@ -245,7 +245,7 @@ SQL;
 	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$res = $this->fetchAssoc($sql, ['id' => $id]) ?? [];
-		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
+		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate':int,'error':int|bool,'attributes':string}> $res */
 		$cat = self::daoToCategory($res);
 		return $cat[0] ?? null;
 	}
@@ -253,7 +253,7 @@ SQL;
 	public function searchByName(string $name): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE name=:name';
 		$res = $this->fetchAssoc($sql, ['name' => $name]) ?? [];
-		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
+		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate':int,'error':int|bool,'attributes':string}> $res */
 		$cat = self::daoToCategory($res);
 		return $cat[0] ?? null;
 	}
@@ -263,8 +263,8 @@ SQL;
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
 		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
-			$aPosition = $a->attributes('position');
-			$bPosition = $b->attributes('position');
+			$aPosition = $a->attribute('position');
+			$bPosition = $b->attribute('position');
 			if ($aPosition === $bPosition) {
 				return ($a->name() < $b->name()) ? -1 : 1;
 			} elseif (null === $aPosition) {
@@ -444,7 +444,7 @@ SQL;
 					$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_kind($previousLine['c_kind']);
-				$cat->_attributes('', $previousLine['c_attributes'] ?? '[]');
+				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
 				$list[(int)$previousLine['c_id']] = $cat;
 
 				$feedsDao = [];	//Prepare for next category
@@ -464,7 +464,7 @@ SQL;
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
 			$cat->_error($previousLine['c_error'] ?? 0);
-			$cat->_attributes('', $previousLine['c_attributes'] ?? []);
+			$cat->_attributes($previousLine['c_attributes'] ?? []);
 			$list[(int)$previousLine['c_id']] = $cat;
 		}
 
@@ -487,7 +487,7 @@ SQL;
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$cat->_error($dao['error'] ?? 0);
-			$cat->_attributes('', $dao['attributes'] ?? '');
+			$cat->_attributes($dao['attributes'] ?? '');
 			$list[] = $cat;
 		}
 

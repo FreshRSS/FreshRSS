@@ -315,7 +315,7 @@ SQL;
 			$affected = 0;
 			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
-				$affected += $this->markFavorite($idsChunk, $is_favorite);
+				$affected += ($this->markFavorite($idsChunk, $is_favorite) ?: 0);
 			}
 			return $affected;
 		}
@@ -387,7 +387,7 @@ SQL;
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
 				foreach ($ids as $id) {
-					$affected += $this->markRead($id, $is_read);
+					$affected += ($this->markRead($id, $is_read) ?: 0);
 				}
 				return $affected;
 			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
@@ -395,7 +395,7 @@ SQL;
 				$affected = 0;
 				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
-					$affected += $this->markRead($idsChunk, $is_read);
+					$affected += ($this->markRead($idsChunk, $is_read) ?: 0);
 				}
 				return $affected;
 			}
@@ -1163,9 +1163,11 @@ SQL;
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
-				yield FreshRSS_Entry::fromArray($row);
+				if (is_array($row)) {
+					/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+					 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
+					yield FreshRSS_Entry::fromArray($row);
+				}
 			}
 		}
 	}
@@ -1206,9 +1208,11 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-			 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
-			yield FreshRSS_Entry::fromArray($row);
+			if (is_array($row)) {
+				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
+				yield FreshRSS_Entry::fromArray($row);
+			}
 		}
 	}
 
@@ -1283,7 +1287,7 @@ SQL;
 			$affected = 0;
 			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
-				$affected += $this->updateLastSeen($id_feed, $guidsChunk, $mtime);
+				$affected += ($this->updateLastSeen($id_feed, $guidsChunk, $mtime) ?: 0);
 			}
 			return $affected;
 		}

@@ -662,7 +662,7 @@ function connectionRemoteAddress(): string {
  * Check if the client (e.g. last proxy) is allowed to send unsafe headers.
  * This uses the `TRUSTED_PROXY` environment variable or the `trusted_sources` configuration option to get an array of the authorized ranges,
  * The connection IP is obtained from the `CONN_REMOTE_ADDR` (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
- * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
+ * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
 	if (!FreshRSS_Context::hasSystemConf()) {

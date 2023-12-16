@@ -31,7 +31,7 @@
 		<div class="form-group">
 			<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
 			<div class="group-controls">
-				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributes('position') ?>" />
+				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attribute('position') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributes('opml_url') ?>" />
+					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attribute('opml_url') ?>" />
 					<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
 					</button>
@@ -93,7 +93,7 @@
 
 		<legend><?= _t('sub.category.archiving') ?></legend>
 		<?php
-			$archiving = $this->category->attributes('archiving');
+			$archiving = $this->category->attribute('archiving');
 			if (empty($archiving)) {
 				$archiving = [ 'default' => true ];
 			} else {

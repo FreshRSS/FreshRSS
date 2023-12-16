@@ -342,7 +342,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$simplePie->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
-				if ($this->attributes('clear_cache')) {
+				if ($this->attribute('clear_cache')) {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
@@ -411,7 +411,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$testGuids = [];
 		$guids = [];
 		$links = [];
-		$hadBadGuids = $this->attributes('hasBadGuids');
+		$hadBadGuids = $this->attribute('hasBadGuids');
 
 		$items = $simplePie->get_items();
 		if (empty($items)) {
@@ -447,7 +447,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/** @return Traversable<FreshRSS_Entry> */
 	public function loadEntries(SimplePie $simplePie): Traversable {
-		$hasBadGuids = $this->attributes('hasBadGuids');
+		$hasBadGuids = $this->attribute('hasBadGuids');
 
 		$items = $simplePie->get_items();
 		if (empty($items)) {
@@ -569,9 +569,9 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry->_tags($tags);
 			$entry->_feed($this);
 			if (!empty($attributeThumbnail['url'])) {
-				$entry->_attributes('thumbnail', $attributeThumbnail);
+				$entry->_attribute('thumbnail', $attributeThumbnail);
 			}
-			$entry->_attributes('enclosures', $attributeEnclosures);
+			$entry->_attribute('enclosures', $attributeEnclosures);
 			$entry->hash();	//Must be computed before loading full content
 			$entry->loadCompleteContent();	// Optionally load full content for truncated feeds
 
@@ -597,7 +597,7 @@ class FreshRSS_Feed extends Minz_Model {
 		// Same naming conventions than https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html
 		// https://rss-bridge.github.io/rss-bridge/Bridge_API/BridgeAbstract.html#collectdata
 		/** @var array<string,string> $xPathSettings */
-		$xPathSettings = $this->attributes('xpath');
+		$xPathSettings = $this->attribute('xpath');
 		$xPathFeedTitle = $xPathSettings['feedTitle'] ?? '';
 		$xPathItem = $xPathSettings['item'] ?? '';
 		$xPathItemTitle = $xPathSettings['itemTitle'] ?? '';
@@ -731,7 +731,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @throws JsonException
 	 */
 	public function keepMaxUnread() {
-		$keepMaxUnread = $this->attributes('keep_max_n_unread');
+		$keepMaxUnread = $this->attribute('keep_max_n_unread');
 		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::userConf()->mark_when['max_n_unread'];
 		}
@@ -760,7 +760,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
 	public function markAsReadUponGone(bool $upstreamIsEmpty, int $maxTimestamp = 0) {
-		$readUponGone = $this->attributes('read_upon_gone');
+		$readUponGone = $this->attribute('read_upon_gone');
 		if ($readUponGone === null) {
 			$readUponGone = FreshRSS_Context::userConf()->mark_when['gone'];
 		}
@@ -788,11 +788,11 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return int|false
 	 */
 	public function cleanOldEntries() {
-		$archiving = $this->attributes('archiving');
+		$archiving = $this->attribute('archiving');
 		if ($archiving == null) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$category = $catDAO->searchById($this->categoryId);
-			$archiving = $category == null ? null : $category->attributes('archiving');
+			$archiving = $category == null ? null : $category->attribute('archiving');
 			if ($archiving == null) {
 				$archiving = FreshRSS_Context::userConf()->archiving;
 			}

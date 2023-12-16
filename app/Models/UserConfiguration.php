@@ -70,6 +70,7 @@ declare(strict_types=1);
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,mixed> $volatile
+ * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
@@ -81,22 +82,26 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	}
 
 	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
+	 * @param non-empty-string $key
 	 * @return array<string,mixed>|mixed|null
 	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return [];	// Not implemented for user configuration
-		} else {
-			return parent::param($key, null);
-		}
+	public function attribute(string $key) {
+		return parent::param($key, null);
 	}
 
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value = null): void {
-		if ($key == '') {
-			return;	// Not implemented for user configuration
-		}
+	/**
+	 * @param non-empty-string $key
+	 */
+	public function attributeString(string $key): string {
+		$s = parent::param($key, null);
+		return is_string($s) ? $s : '';
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
+	 */
+	public function _attribute(string $key, $value = null): void {
 		parent::_param($key, $value);
 	}
 }

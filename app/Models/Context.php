@@ -54,8 +54,16 @@ final class FreshRSS_Context {
 	public static int $sinceHours = 0;
 	public static bool $isCli = false;
 
-	private static ?FreshRSS_SystemConfiguration $system_conf = null;
-	private static ?FreshRSS_UserConfiguration $user_conf = null;
+	/**
+	 * @deprecated Will be made `private`; use `FreshRSS_Context::systemConf()` instead.
+	 * @internal
+	 */
+	public static ?FreshRSS_SystemConfiguration $system_conf = null;
+	/**
+	 * @deprecated Will be made `private`; use `FreshRSS_Context::userConf()` instead.
+	 * @internal
+	 */
+	public static ?FreshRSS_UserConfiguration $user_conf = null;
 
 	/**
 	 * Initialize the context for the global system.

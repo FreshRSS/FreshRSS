@@ -6,8 +6,8 @@ declare(strict_types=1);
  * @property string $base_url
  * @property array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
  *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db
- * @property-read string $disable_update
- * @property-read string $environment
+ * @property bool $disable_update
+ * @property string $environment
  * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
  * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} $smtp

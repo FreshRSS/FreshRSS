@@ -72,7 +72,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feed->_name($title);
 		}
 		$feed->_kind($kind);
-		$feed->_attributes('', $attributes);
+		$feed->_attributes($attributes);
 		$feed->_httpAuth($http_auth);
 		$feed->_categoryId($cat_id);
 		switch ($kind) {
@@ -476,17 +476,17 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			if (count($newGuids) > 0) {
 				$titlesAsRead = [];
-				$readWhenSameTitleInFeed = $feed->attributes('read_when_same_title_in_feed');
+				$readWhenSameTitleInFeed = $feed->attribute('read_when_same_title_in_feed');
 				if ($readWhenSameTitleInFeed == false) {
 					$readWhenSameTitleInFeed = FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
 				}
 				$readWhenSameTitleInFeed = is_numeric($readWhenSameTitleInFeed) ? (int)$readWhenSameTitleInFeed : 0;
 				if ($readWhenSameTitleInFeed > 0) {
-					/** @var array<string,bool> $titlesAsRead*/
+					/** @var array<string,bool|int> $titlesAsRead*/
 					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
 				}
 
-				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
+				$mark_updated_article_unread = $feed->attribute('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
 
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids) ?: [];

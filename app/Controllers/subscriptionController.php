@@ -118,13 +118,13 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_ttl(Minz_Request::paramInt('ttl') ?: FreshRSS_Feed::TTL_DEFAULT);
 			$feed->_mute(Minz_Request::paramBoolean('mute'));
 
-			$feed->_attributes('read_upon_gone', Minz_Request::paramTernary('read_upon_gone'));
-			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
-			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
-			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
+			$feed->_attribute('read_upon_gone', Minz_Request::paramTernary('read_upon_gone'));
+			$feed->_attribute('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
+			$feed->_attribute('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
+			$feed->_attribute('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
 			$keep_max_n_unread = Minz_Request::paramTernary('keep_max_n_unread') === true ? Minz_Request::paramInt('keep_max_n_unread') : null;
-			$feed->_attributes('keep_max_n_unread', $keep_max_n_unread >= 0 ? $keep_max_n_unread : null);
+			$feed->_attribute('keep_max_n_unread', $keep_max_n_unread >= 0 ? $keep_max_n_unread : null);
 
 			$read_when_same_title_in_feed = Minz_Request::paramString('read_when_same_title_in_feed');
 			if ($read_when_same_title_in_feed === '') {
@@ -135,7 +135,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$read_when_same_title_in_feed = false;
 				}
 			}
-			$feed->_attributes('read_when_same_title_in_feed', $read_when_same_title_in_feed);
+			$feed->_attribute('read_when_same_title_in_feed', $read_when_same_title_in_feed);
 
 			$cookie = Minz_Request::paramString('curl_params_cookie');
 			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
@@ -163,16 +163,16 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
 			}
-			$feed->_attributes('curl_params', empty($opts) ? null : $opts);
+			$feed->_attribute('curl_params', empty($opts) ? null : $opts);
 
-			$feed->_attributes('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
+			$feed->_attribute('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
 
-			$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
+			$feed->_attribute('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
 			$timeout = Minz_Request::paramInt('timeout');
-			$feed->_attributes('timeout', $timeout > 0 ? $timeout : null);
+			$feed->_attribute('timeout', $timeout > 0 ? $timeout : null);
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
-				$feed->_attributes('archiving', null);
+				$feed->_attribute('archiving', null);
 			} else {
 				if (Minz_Request::paramBoolean('enable_keep_max')) {
 					$keepMax = Minz_Request::paramInt('keep_max') ?: FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
@@ -187,7 +187,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				} else {
 					$keepPeriod = false;
 				}
-				$feed->_attributes('archiving', [
+				$feed->_attribute('archiving', [
 					'keep_period' => $keepPeriod,
 					'keep_max' => $keepMax,
 					'keep_min' => Minz_Request::paramInt('keep_min'),
@@ -223,10 +223,10 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				if (Minz_Request::paramString('xPathItemUid') != '')
 					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
 				if (!empty($xPathSettings))
-					$feed->_attributes('xpath', $xPathSettings);
+					$feed->_attribute('xpath', $xPathSettings);
 			}
 
-			$feed->_attributes('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
+			$feed->_attribute('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
 
 			$values = [
 				'name' => Minz_Request::paramString('name'),

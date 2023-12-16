@@ -58,7 +58,7 @@ class Minz_Request {
 		}
 	}
 
-	/** @return array<string|int,string|array<string,string>> */
+	/** @return array<string|int,string|array<string,string|int>> */
 	public static function paramArray(string $key, bool $specialchars = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];

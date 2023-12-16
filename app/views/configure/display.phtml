@@ -49,8 +49,8 @@
 			<div class="group-controls">
 				<ul class="theme-preview-list">
 					<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
-					<?php  /** @var array{'id':string, 'deprecated':bool, 'author':string, 'name':string, 'description':string} $theme */
-						foreach($this->themes as $theme) { ?>
+					<?php
+						foreach ($this->themes as $theme) { ?>
 						<?php if (FreshRSS_Context::userConf()->theme === $theme['id']) {
 							$checked = 'checked="checked"';
 							$themeAvailable = true;

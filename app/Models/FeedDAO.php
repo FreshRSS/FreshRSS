@@ -118,7 +118,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			// Merge existing and import attributes
 			$existingAttributes = $feed_search->attributes();
 			$importAttributes = $feed->attributes();
-			$feed->_attributes('', array_replace_recursive($existingAttributes, $importAttributes));
+			$feed->_attributes(array_replace_recursive($existingAttributes, $importAttributes));
 
 			// Update some values of the existing feed using the import
 			$values = [
@@ -190,11 +190,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	/**
+	 * @param non-empty-string $key
 	 * @param string|array<mixed>|bool|int|null $value
 	 * @return int|false
 	 */
 	public function updateFeedAttribute(FreshRSS_Feed $feed, string $key, $value) {
-		$feed->_attributes($key, $value);
+		$feed->_attribute($key, $value);
 		return $this->updateFeed(
 			$feed->id(),
 			['attributes' => $feed->attributes()]
@@ -612,7 +613,7 @@ SQL;
 			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? '', true) ?: '');
 			$myFeed->_error($dao['error'] ?? 0);
 			$myFeed->_ttl($dao['ttl'] ?? FreshRSS_Feed::TTL_DEFAULT);
-			$myFeed->_attributes('', $dao['attributes'] ?? '');
+			$myFeed->_attributes($dao['attributes'] ?? '');
 			$myFeed->_nbNotRead($dao['cache_nbUnreads'] ?? -1);
 			$myFeed->_nbEntries($dao['cache_nbEntries'] ?? -1);
 			if (isset($dao['id'])) {

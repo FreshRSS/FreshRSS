@@ -85,7 +85,7 @@
 
 			foreach ($this->categories as $cat):
 				$feeds = $cat->feeds();
-				$position = $cat->attributes('position');
+				$position = $cat->attribute('position');
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
 					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))

@@ -169,7 +169,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function refreshDynamicOpml(): bool {
-		$url = $this->attributes('opml_url');
+		$url = $this->attribute('opml_url');
 		if ($url == '') {
 			return false;
 		}

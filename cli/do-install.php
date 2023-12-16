@@ -62,7 +62,7 @@ foreach ($params as $param) {
 	}
 }
 
-if ((!empty($config['base_url'])) && Minz_Request::serverIsPublic($config['base_url'])) {
+if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;
 }
 
