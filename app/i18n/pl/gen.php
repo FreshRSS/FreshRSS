@@ -175,6 +175,7 @@ return array(
 		'display' => 'Wyświetlanie',
 		'extensions' => 'Rozszerzenia',
 		'logs' => 'Dziennik',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Zapisane zapytania',
 		'reading' => 'Czytanie',
 		'search' => 'Wyszukaj wyrazy lub #tagi',

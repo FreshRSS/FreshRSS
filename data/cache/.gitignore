@@ -2,3 +2,4 @@
 *.html
 *.xml
 !index.html
+extensions.json

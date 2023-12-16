@@ -98,6 +98,10 @@ return array(
 			'previous' => 'Předchozí',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Správa profilu',
 		'api' => 'Správa API',

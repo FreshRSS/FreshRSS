@@ -116,6 +116,7 @@ return array(
 		'description' => 'Keterangan',
 		'disabled' => 'Disabled',	// TODO
 		'empty_list' => 'Tidak ada ekstensi terpasang',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Enabled',	// TODO
 		'latest' => 'Installed',	// TODO
 		'name' => 'Name',	// TODO

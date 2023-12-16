@@ -116,6 +116,7 @@ return array(
 		'description' => 'Περιγραφή',
 		'disabled' => 'Απενεργοποιημένες',
 		'empty_list' => 'Δεν υπάρχουν εγκατεστημένες επεκτάσεις',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ενεργοποιημένες',
 		'latest' => 'Εγκατεστημένες',
 		'name' => 'Όνομα',

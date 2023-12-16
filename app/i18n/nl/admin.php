@@ -116,6 +116,7 @@ return array(
 		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ingeschakeld',
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',

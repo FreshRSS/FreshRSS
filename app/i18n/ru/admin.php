@@ -116,6 +116,7 @@ return array(
 		'description' => 'Описание',
 		'disabled' => 'Отключены',
 		'empty_list' => 'Нет установленных расширений',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Включены',
 		'latest' => 'Установлено',
 		'name' => 'Название',
