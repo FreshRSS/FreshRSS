@@ -89,12 +89,18 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 		return parent::param($key, null);
 	}
 
+	/** @param non-empty-string $key */
+	public function attributeInt(string $key): int {
+		$a = parent::param($key, null);
+		return is_numeric($a) ? (int)$a : 0;
+	}
+
 	/**
 	 * @param non-empty-string $key
 	 */
 	public function attributeString(string $key): string {
-		$s = parent::param($key, null);
-		return is_string($s) ? $s : '';
+		$a = parent::param($key, null);
+		return is_string($a) ? $a : '';
 	}
 
 	/**

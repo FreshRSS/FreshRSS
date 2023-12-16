@@ -24,9 +24,15 @@ trait FreshRSS_AttributesTrait {
 	}
 
 	/** @param non-empty-string $key */
+	public function attributeInt(string $key): int {
+		$a = $this->attributes[$key] ?? null;
+		return is_numeric($a) ? (int)$a : 0;
+	}
+
+	/** @param non-empty-string $key */
 	public function attributeString(string $key): string {
-		$s = $this->attributes[$key] ?? null;
-		return is_string($s) ? $s : '';
+		$a = $this->attributes[$key] ?? null;
+		return is_string($a) ? $a : '';
 	}
 
 	/** @param string|array<string,mixed> $values Values, not HTML-encoded */
