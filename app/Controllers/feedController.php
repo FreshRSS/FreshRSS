@@ -482,7 +482,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				$readWhenSameTitleInFeed = is_numeric($readWhenSameTitleInFeed) ? (int)$readWhenSameTitleInFeed : 0;
 				if ($readWhenSameTitleInFeed > 0) {
-					/** @var array<string,bool|int> $titlesAsRead*/
 					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
 				}
 

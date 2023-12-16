@@ -685,10 +685,9 @@ HTML;
 
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				$metas = $xpath->query('//meta[@content]');
-				/** @var array<DOMElement> $metas */
+				$metas = $xpath->query('//meta[@content]') ?: [];
 				foreach ($metas as $meta) {
-					if (strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
+					if ($meta instanceof DOMElement && strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {

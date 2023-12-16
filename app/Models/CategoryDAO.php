@@ -332,9 +332,9 @@ SQL;
 
 	public function getDefault(): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
-		$res = $this->fetchAssoc($sql, [':id' => self::DEFAULTCATEGORYID]);
+		$res = $this->fetchAssoc($sql, [':id' => self::DEFAULTCATEGORYID]) ?? [];
 		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
-		$cat = self::daoToCategory($res ?? []);
+		$cat = self::daoToCategory($res);
 		if (isset($cat[0])) {
 			return $cat[0];
 		} else {

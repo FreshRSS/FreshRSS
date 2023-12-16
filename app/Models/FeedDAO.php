@@ -397,12 +397,12 @@ SQL;
 		}
 	}
 
-	/** @return array<string> */
+	/** @return array<int,string> */
 	public function listTitles(int $id, int $limit = 0): array {
 		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
 			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
 		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id]) ?? [];
-		/** @var array<string> $res */
+		/** @var array<int,string> $res */
 		return $res;
 	}
 

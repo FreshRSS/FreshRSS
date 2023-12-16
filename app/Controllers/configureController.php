@@ -375,7 +375,6 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->tags = $tag_dao->listTags() ?: [];
 
 		if (Minz_Request::isPost()) {
-			/** @var array<string,string|array<string,string>> $params */
 			$params = array_filter(Minz_Request::paramArray('query'));
 			$queryParams = [];
 			if (!empty($params['get']) && is_string($params['get'])) {
