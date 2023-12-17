@@ -777,7 +777,7 @@ SQL;
 			}
 			// Searches are combined by OR and are not recursive
 			$sub_search = '';
-			if ($filter->getEntryIds()) {
+			if ($filter->getEntryIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id IN (';
 				foreach ($filter->getEntryIds() as $entry_id) {
 					$sub_search .= '?,';
@@ -786,7 +786,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotEntryIds()) {
+			if ($filter->getNotEntryIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id NOT IN (';
 				foreach ($filter->getNotEntryIds() as $entry_id) {
 					$sub_search .= '?,';
@@ -796,56 +796,56 @@ SQL;
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getMinDate()) {
+			if ($filter->getMinDate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id >= ? ';
 				$values[] = "{$filter->getMinDate()}000000";
 			}
-			if ($filter->getMaxDate()) {
+			if ($filter->getMaxDate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id <= ? ';
 				$values[] = "{$filter->getMaxDate()}000000";
 			}
-			if ($filter->getMinPubdate()) {
+			if ($filter->getMinPubdate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'date >= ? ';
 				$values[] = $filter->getMinPubdate();
 			}
-			if ($filter->getMaxPubdate()) {
+			if ($filter->getMaxPubdate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
 
 			//Negation of date intervals must be combined by OR
-			if ($filter->getNotMinDate() || $filter->getNotMaxDate()) {
+			if ($filter->getNotMinDate() !== null || $filter->getNotMaxDate() !== null) {
 				$sub_search .= 'AND (';
-				if ($filter->getNotMinDate()) {
+				if ($filter->getNotMinDate() !== null) {
 					$sub_search .= $alias . 'id < ?';
 					$values[] = "{$filter->getNotMinDate()}000000";
 					if ($filter->getNotMaxDate()) {
 						$sub_search .= ' OR ';
 					}
 				}
-				if ($filter->getNotMaxDate()) {
+				if ($filter->getNotMaxDate() !== null) {
 					$sub_search .= $alias . 'id > ?';
 					$values[] = "{$filter->getNotMaxDate()}000000";
 				}
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotMinPubdate() || $filter->getNotMaxPubdate()) {
+			if ($filter->getNotMinPubdate() !== null || $filter->getNotMaxPubdate() !== null) {
 				$sub_search .= 'AND (';
-				if ($filter->getNotMinPubdate()) {
+				if ($filter->getNotMinPubdate() !== null) {
 					$sub_search .= $alias . 'date < ?';
 					$values[] = $filter->getNotMinPubdate();
 					if ($filter->getNotMaxPubdate()) {
 						$sub_search .= ' OR ';
 					}
 				}
-				if ($filter->getNotMaxPubdate()) {
+				if ($filter->getNotMaxPubdate() !== null) {
 					$sub_search .= $alias . 'date > ?';
 					$values[] = $filter->getNotMaxPubdate();
 				}
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getFeedIds()) {
+			if ($filter->getFeedIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id_feed IN (';
 				foreach ($filter->getFeedIds() as $feed_id) {
 					$sub_search .= '?,';
@@ -854,7 +854,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotFeedIds()) {
+			if ($filter->getNotFeedIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
 				foreach ($filter->getNotFeedIds() as $feed_id) {
 					$sub_search .= '?,';
@@ -864,7 +864,7 @@ SQL;
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getLabelIds()) {
+			if ($filter->getLabelIds() !== null) {
 				if ($filter->getLabelIds() === '*') {
 					$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
 				} else {
@@ -877,7 +877,7 @@ SQL;
 					$sub_search .= ')) ';
 				}
 			}
-			if ($filter->getNotLabelIds()) {
+			if ($filter->getNotLabelIds() !== null) {
 				if ($filter->getNotLabelIds() === '*') {
 					$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
 				} else {
@@ -891,7 +891,7 @@ SQL;
 				}
 			}
 
-			if ($filter->getLabelNames()) {
+			if ($filter->getLabelNames() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
 				foreach ($filter->getLabelNames() as $label_name) {
 					$sub_search .= '?,';
@@ -900,7 +900,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ')) ';
 			}
-			if ($filter->getNotLabelNames()) {
+			if ($filter->getNotLabelNames() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
 				foreach ($filter->getNotLabelNames() as $label_name) {
 					$sub_search .= '?,';
@@ -910,57 +910,57 @@ SQL;
 				$sub_search .= ')) ';
 			}
 
-			if ($filter->getAuthor()) {
+			if ($filter->getAuthor() !== null) {
 				foreach ($filter->getAuthor() as $author) {
 					$sub_search .= 'AND ' . $alias . 'author LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
-			if ($filter->getIntitle()) {
+			if ($filter->getIntitle() !== null) {
 				foreach ($filter->getIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
-			if ($filter->getTags()) {
+			if ($filter->getTags() !== null) {
 				foreach ($filter->getTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' LIKE ? ';
 					$values[] = "%{$tag} #%";
 				}
 			}
-			if ($filter->getInurl()) {
+			if ($filter->getInurl() !== null) {
 				foreach ($filter->getInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
-			if ($filter->getNotAuthor()) {
+			if ($filter->getNotAuthor() !== null) {
 				foreach ($filter->getNotAuthor() as $author) {
 					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
-			if ($filter->getNotIntitle()) {
+			if ($filter->getNotIntitle() !== null) {
 				foreach ($filter->getNotIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
-			if ($filter->getNotTags()) {
+			if ($filter->getNotTags() !== null) {
 				foreach ($filter->getNotTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' NOT LIKE ? ';
 					$values[] = "%{$tag} #%";
 				}
 			}
-			if ($filter->getNotInurl()) {
+			if ($filter->getNotInurl() !== null) {
 				foreach ($filter->getNotInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
-			if ($filter->getSearch()) {
+			if ($filter->getSearch() !== null) {
 				foreach ($filter->getSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
@@ -972,7 +972,7 @@ SQL;
 					}
 				}
 			}
-			if ($filter->getNotSearch()) {
+			if ($filter->getNotSearch() !== null) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ? ';
