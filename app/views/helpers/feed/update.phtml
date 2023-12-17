@@ -248,7 +248,10 @@
 		<div class="form-group">
 			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
 			<div class="group-controls">
-				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributeInt('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000"
+					data-leave-validation="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
+					value="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
+					placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
