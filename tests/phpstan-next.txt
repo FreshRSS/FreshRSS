@@ -13,5 +13,3 @@
 ./app/views/helpers/feed/update.phtml
 ./lib/Minz/Helper.php
 ./lib/Minz/Request.php
-./lib/Minz/Translate.php
-./lib/Minz/Url.php
