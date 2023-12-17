@@ -17,7 +17,7 @@ if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($o
 
 $username = cliInitUser($options['user']);
 
-Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 

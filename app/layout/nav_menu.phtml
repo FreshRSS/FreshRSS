@@ -196,6 +196,9 @@
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
 		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		if (!is_iterable($readingModes)) {
+			$readingModes = FreshRSS_ReadingMode::getReadingModes();
+		}
 
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
@@ -223,7 +226,7 @@
 		</a>
 	</div>
 
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHook('nav_menu'); ?>
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
 	<?php if ($nav_menu_hooks != '') { ?>
 	<div class="group" id="nav_menu_hooks">
 		<?= $nav_menu_hooks ?>

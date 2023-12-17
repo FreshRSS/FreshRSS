@@ -230,6 +230,7 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				/** @var array{'id':int,'name':string,'kind':int,'lastUpdate':int,'error':int,'attributes'?:array<string,mixed>} $row */
 				yield $row;
 			}
 		} else {

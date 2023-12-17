@@ -704,6 +704,8 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				/** @var array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
+				 *	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $row */
 				yield $row;
 			}
 		} else {

@@ -135,6 +135,7 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			/** @var array{'id':int,'name':string,'attributes'?:array<string,mixed>} $row */
 			yield $row;
 		}
 	}
