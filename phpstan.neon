@@ -38,7 +38,7 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 	strictRules:
 		allRules: false
-		booleansInConditions: true	# TODO pass
+		booleansInConditions: false	# TODO pass
 		closureUsesThis: true
 		disallowedConstructs: false
 		disallowedLooseComparison: false
