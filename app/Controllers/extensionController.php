@@ -54,7 +54,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		// fetch the list as an array
 		/** @var array<string,mixed> $list*/
 		$list = json_decode($json, true);
-		if (empty($list)) {
+		if (empty($list) || !is_array($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
 			return [];
 		}

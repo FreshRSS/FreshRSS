@@ -856,7 +856,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
 			$hubJson = json_decode($hubFile, true);
-			if ($hubJson && empty($hubJson['error']) &&
+			if (is_array($hubJson) && empty($hubJson['error']) &&
 				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
 				return true;
 			}
@@ -868,8 +868,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$url = $this->selfUrl ?: $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
-		$hubJson = $hubFile ? json_decode($hubFile, true) : [];
-		if (!isset($hubJson['error']) || $hubJson['error'] !== $error) {
+		$hubJson = is_string($hubFile) ? json_decode($hubFile, true) : null;
+		if (is_array($hubJson) && !isset($hubJson['error']) || $hubJson['error'] !== $error) {
 			$hubJson['error'] = $error;
 			file_put_contents($hubFilename, json_encode($hubJson));
 			Minz_Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
@@ -888,7 +888,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$hubFilename = $path . '/!hub.json';
 			if ($hubFile = @file_get_contents($hubFilename)) {
 				$hubJson = json_decode($hubFile, true);
-				if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
+				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
@@ -942,7 +942,7 @@ class FreshRSS_Feed extends Minz_Model {
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
-			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
+			if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
 				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}

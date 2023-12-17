@@ -5,6 +5,9 @@
 
 ./app/Controllers/configureController.php
 ./app/Controllers/importExportController.php
+./app/layout/aside_configure.phtml
+./app/layout/header.phtml
+./app/layout/nav_menu.phtml
 ./app/Models/Category.php
 ./app/Models/CategoryDAO.php
 ./app/Models/DatabaseDAO.php
@@ -12,19 +15,12 @@
 ./app/Models/EntryDAO.php
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
-./app/Models/FilterAction.php
 ./app/Models/TagDAO.php
 ./app/Models/Themes.php
 ./app/Services/ImportService.php
-./app/layout/aside_configure.phtml
-./app/layout/aside_feed.phtml
-./app/layout/header.phtml
-./app/layout/nav_menu.phtml
 ./app/views/configure/archiving.phtml
-./app/views/helpers/category/update.phtml
 ./app/views/helpers/export/opml.phtml
 ./app/views/helpers/feed/update.phtml
-./app/views/subscription/index.phtml
 ./lib/Minz/Helper.php
 ./lib/Minz/Request.php
 ./lib/Minz/Translate.php

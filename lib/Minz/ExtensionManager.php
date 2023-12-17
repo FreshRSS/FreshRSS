@@ -147,7 +147,7 @@ final class Minz_ExtensionManager {
 			$meta_raw_content = file_get_contents($metadata_filename) ?: '';
 			/** @var array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'}|null $meta_json */
 			$meta_json = json_decode($meta_raw_content, true);
-			if (!$meta_json || !self::isValidMetadata($meta_json)) {
+			if (!is_array($meta_json) || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
 				// or metadata.json is invalid (no required information), invalid!
 				Minz_Log::warning('`' . $metadata_filename . '` is not a valid metadata file');

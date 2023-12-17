@@ -38,11 +38,12 @@ class FreshRSS_Themes extends Minz_Model {
 			if (file_exists($json_filename)) {
 				$content = file_get_contents($json_filename) ?: '';
 				$res = json_decode($content, true);
-				if ($res &&
+				if (is_array($res) &&
 						!empty($res['name']) &&
 						isset($res['files']) &&
 						is_array($res['files'])) {
 					$res['id'] = $theme_id;
+					/** @var array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}} */
 					return $res;
 				}
 			}

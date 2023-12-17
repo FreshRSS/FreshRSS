@@ -289,7 +289,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
-		if ($article_object == null) {
+		if (!is_array($article_object)) {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error trying to import a non-JSON file' . "\n");
 			} else {

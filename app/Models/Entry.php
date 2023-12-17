@@ -161,6 +161,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$content = $this->content;
 
 		$thumbnailAttribute = $this->attribute('thumbnail');
+		if (!is_array($thumbnailAttribute)) {
+			$thumbnailAttribute = [];
+		}
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
 			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
@@ -175,11 +178,14 @@ HTML;
 		}
 
 		$attributeEnclosures = $this->attribute('enclosures');
-		if (empty($attributeEnclosures)) {
+		if (empty($attributeEnclosures) || !is_array($attributeEnclosures)) {
 			return $content;
 		}
 
 		foreach ($attributeEnclosures as $enclosure) {
+			if (!is_array($enclosure)) {
+				continue;
+			}
 			$elink = $enclosure['url'] ?? '';
 			if ($elink == '') {
 				continue;
@@ -192,7 +198,10 @@ HTML;
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
 			$mime = $enclosure['type'] ?? '';
-			$thumbnails = $enclosure['thumbnails'] ?? [];
+			$thumbnails = $enclosure['thumbnails'] ?? null;
+			if (!is_array($thumbnails)) {
+				$thumbnails = [];
+			}
 			$etitle = $enclosure['title'] ?? '';
 
 			$content .= "\n";

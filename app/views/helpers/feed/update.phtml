@@ -271,6 +271,9 @@
 		</div>
 		<?php
 			$archiving = $this->feed->attribute('archiving');
+			if (!is_array($archiving)) {
+				$archiving = [];
+			}
 			if (empty($archiving)) {
 				$archiving = [ 'default' => true ];
 			} else {
