@@ -11,22 +11,29 @@ trait FreshRSS_AttributesTrait {
 	private array $attributes = [];
 
 	/** @return array<string,mixed> */
-	public function attributes() {
+	public function attributes(): array {
 		return $this->attributes;
 	}
 
 	/**
 	 * @param non-empty-string $key
-	 * @return array<string,mixed>|mixed|null
+	 * @return array<int|string,mixed>|null
 	 */
-	public function attribute(string $key) {
-		return $this->attributes[$key] ?? null;
+	public function attributeArray(string $key): ?array {
+		$a = $this->attributes[$key] ?? null;
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeBoolean(string $key): ?bool {
+		$a = $this->attributes[$key] ?? null;
+		return is_bool($a) ? $a : null;
 	}
 
 	/** @param non-empty-string $key */
 	public function attributeInt(string $key): ?int {
 		$a = $this->attributes[$key] ?? null;
-		return is_numeric($a) ? (int)$a : null;
+		return is_int($a) ? $a : null;
 	}
 
 	/** @param non-empty-string $key */

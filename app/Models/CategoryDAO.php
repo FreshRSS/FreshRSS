@@ -263,8 +263,8 @@ SQL;
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
 		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
-			$aPosition = $a->attribute('position');
-			$bPosition = $b->attribute('position');
+			$aPosition = $a->attributeInt('position');
+			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
 				return ($a->name() < $b->name()) ? -1 : 1;
 			} elseif (null === $aPosition) {

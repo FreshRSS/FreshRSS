@@ -83,10 +83,17 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 
 	/**
 	 * @param non-empty-string $key
-	 * @return array<string,mixed>|mixed|null
+	 * @return array<int|string,mixed>|null
 	 */
-	public function attribute(string $key) {
-		return parent::param($key, null);
+	public function attributeArray(string $key): ?array {
+		$a = parent::param($key, null);
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeBool(string $key): ?bool {
+		$a = parent::param($key, null);
+		return is_bool($a) ? $a : null;
 	}
 
 	/** @param non-empty-string $key */
@@ -95,9 +102,7 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 		return is_numeric($a) ? (int)$a : null;
 	}
 
-	/**
-	 * @param non-empty-string $key
-	 */
+	/** @param non-empty-string $key */
 	public function attributeString(string $key): ?string {
 		$a = parent::param($key, null);
 		return is_string($a) ? $a : null;

@@ -8,7 +8,6 @@
 ./app/layout/aside_configure.phtml
 ./app/layout/header.phtml
 ./app/layout/nav_menu.phtml
-./app/Models/Category.php
 ./app/Models/CategoryDAO.php
 ./app/Models/DatabaseDAO.php
 ./app/Models/Entry.php
@@ -16,10 +15,8 @@
 ./app/Models/Feed.php
 ./app/Models/FeedDAO.php
 ./app/Models/TagDAO.php
-./app/Models/Themes.php
 ./app/Services/ImportService.php
 ./app/views/configure/archiving.phtml
-./app/views/helpers/export/opml.phtml
 ./app/views/helpers/feed/update.phtml
 ./lib/Minz/Helper.php
 ./lib/Minz/Request.php

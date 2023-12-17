@@ -160,10 +160,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 		$content = $this->content;
 
-		$thumbnailAttribute = $this->attribute('thumbnail');
-		if (!is_array($thumbnailAttribute)) {
-			$thumbnailAttribute = [];
-		}
+		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
 			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
@@ -177,8 +174,8 @@ HTML;
 			}
 		}
 
-		$attributeEnclosures = $this->attribute('enclosures');
-		if (empty($attributeEnclosures) || !is_array($attributeEnclosures)) {
+		$attributeEnclosures = $this->attributeArray('enclosures');
+		if (empty($attributeEnclosures)) {
 			return $content;
 		}
 
@@ -244,7 +241,7 @@ HTML;
 
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
-		$attributeEnclosures = $this->attribute('enclosures');
+		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
 			yield from $attributeEnclosures;
@@ -309,7 +306,7 @@ HTML;
 	 * @return array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}|null
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
-		$thumbnail = $this->attribute('thumbnail');
+		$thumbnail = $this->attributeArray('thumbnail') ?? [];
 		// First, use the provided thumbnail, if any
 		if (!empty($thumbnail['url'])) {
 			return $thumbnail;
@@ -646,8 +643,8 @@ HTML;
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attribute('read_upon_reception') ||
-				($feed->attribute('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributeBoolean('read_upon_reception') ||
+				($feed->attributeBoolean('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}
@@ -759,7 +756,7 @@ HTML;
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
-						switch ($feed->attribute('content_action')) {
+						switch ($feed->attributeString('content_action')) {
 							case 'prepend':
 								$this->content = $fullContent . $originalContent;
 								break;

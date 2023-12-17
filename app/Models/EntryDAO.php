@@ -630,7 +630,7 @@ SQL;
 
 	/**
 	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
-	 * @param array<string,int|bool|string> $options
+	 * @param array<string,bool|int|string> $options
 	 * @return int|false
 	 */
 	public function cleanOldEntries(int $id_feed, array $options = []) {
