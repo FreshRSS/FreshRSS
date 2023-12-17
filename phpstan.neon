@@ -38,7 +38,7 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 	strictRules:
 		allRules: false
-		booleansInConditions: false	# TODO pass
+		booleansInConditions: true	# TODO pass
 		closureUsesThis: true
 		disallowedConstructs: false
 		disallowedLooseComparison: false
@@ -50,6 +50,8 @@ parameters:
 		strictCalls: true
 		switchConditionsMatchingType: true
 		uselessCast: true
+	ignoreErrors:
+		- '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
