@@ -431,7 +431,7 @@ class Minz_Request {
 		if ($ORIGINAL_INPUT == false) {
 			return;
 		}
-		if (null === $json = json_decode($ORIGINAL_INPUT, true)) {
+		if (!is_array($json = json_decode($ORIGINAL_INPUT, true))) {
 			return;
 		}
 
