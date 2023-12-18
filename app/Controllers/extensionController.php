@@ -54,7 +54,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		// fetch the list as an array
 		/** @var array<string,mixed> $list*/
 		$list = json_decode($json, true);
-		if (empty($list)) {
+		if (empty($list) || !is_array($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
 			return [];
 		}
@@ -136,9 +136,9 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->install();
@@ -198,9 +198,9 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->uninstall();

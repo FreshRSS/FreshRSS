@@ -15,11 +15,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// Token is useful in the case that anonymous refresh is forbidden
 			// and CRON task cannot be used with php command so the user can
 			// set a CRON task to refresh his feeds by using token inside url
-			$token = FreshRSS_Context::$user_conf->token;
+			$token = FreshRSS_Context::userConf()->token;
 			$token_param = Minz_Request::paramString('token');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName();
-			$allow_anonymous_refresh = FreshRSS_Context::$system_conf->allow_anonymous_refresh;
+			$allow_anonymous_refresh = FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 			if ($action !== 'actualize' ||
 					!($allow_anonymous_refresh || $token_is_ok)) {
 				Minz_Error::error(403);
@@ -45,7 +45,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$url = trim($url);
 
-		/** @var string|null $url */
+		/** @var string|null $urlHooked */
 		$urlHooked = Minz_ExtensionManager::callHook('check_url_before_add', $url);
 		if ($urlHooked === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
@@ -72,7 +72,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feed->_name($title);
 		}
 		$feed->_kind($kind);
-		$feed->_attributes('', $attributes);
+		$feed->_attributes($attributes);
 		$feed->_httpAuth($http_auth);
 		$feed->_categoryId($cat_id);
 		switch ($kind) {
@@ -151,7 +151,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			'params' => [],
 		];
 
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
 			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']), $url_redirect);
@@ -377,7 +377,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		// WebSub (PubSubHubbub) support
-		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
+		$pubsubhubbubEnabledGeneral = FreshRSS_Context::systemConf()->pubsubhubbub_enabled;
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
 
 		$updated_feeds = 0;
@@ -406,14 +406,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$mtime = $feed->cacheModifiedTime() ?: 0;
 			$ttl = $feed->ttl();
 			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
-				$ttl = FreshRSS_Context::$user_conf->ttl_default;
+				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
 			if ($simplePiePush === null && $feed_id === null && (time() <= $feed->lastUpdate() + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
 				$ε = 10;	// negligible offset errors in seconds
 				if ($mtime <= 0 ||
 					$feed->lastUpdate() + $ε >= $mtime ||
-					time() + $ε >= $mtime + FreshRSS_Context::$system_conf->limits['cache_duration']) {	// is cache still valid?
+					time() + $ε >= $mtime + FreshRSS_Context::systemConf()->limits['cache_duration']) {	// is cache still valid?
 					continue;	//Nothing newer from other users
 				}
 				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
@@ -475,17 +475,20 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
-				$titlesAsRead = [];
-				$readWhenSameTitleInFeed = $feed->attributes('read_when_same_title_in_feed');
-				if ($readWhenSameTitleInFeed == false) {
-					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
+				if ($feed->attributeBoolean('read_when_same_title_in_feed') === null) {
+					$readWhenSameTitleInFeed = (int)FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
+				} elseif ($feed->attributeBoolean('read_when_same_title_in_feed') === false) {
+					$readWhenSameTitleInFeed = 0;
+				} else {
+					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					/** @var array<string,bool> $titlesAsRead*/
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), (int)$readWhenSameTitleInFeed));
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
+				} else {
+					$titlesAsRead = [];
 				}
 
-				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') ?? FreshRSS_Context::$user_conf->mark_updated_article_unread;
+				$mark_updated_article_unread = $feed->attributeBoolean('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
 
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids) ?: [];
@@ -828,10 +831,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// TODO: Delete old favicon
 
 			// Remove related queries
-			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
-				'f_' . $feed_id, FreshRSS_Context::$user_conf->queries);
-			FreshRSS_Context::$user_conf->save();
-
+			/** @var array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $queries */
+			$queries = remove_query_by_get('f_' . $feed_id, FreshRSS_Context::userConf()->queries);
+			FreshRSS_Context::userConf()->queries = $queries;
+			FreshRSS_Context::userConf()->save();
 			return true;
 		}
 		return false;
@@ -939,7 +942,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;
-		if (FreshRSS_Context::$system_conf->db['type'] === 'mysql') {
+		if (FreshRSS_Context::systemConf()->db['type'] === 'mysql') {
 			// Second parallel connection for unbuffered streaming: MySQL
 			$entryDAO2 = FreshRSS_Factory::createEntryDao();
 		} else {

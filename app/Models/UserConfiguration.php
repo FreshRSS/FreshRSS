@@ -70,6 +70,7 @@ declare(strict_types=1);
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,mixed> $volatile
+ * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
@@ -81,22 +82,37 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	}
 
 	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
+	 * @param non-empty-string $key
+	 * @return array<int|string,mixed>|null
 	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return [];	// Not implemented for user configuration
-		} else {
-			return parent::param($key, null);
-		}
+	public function attributeArray(string $key): ?array {
+		$a = parent::param($key, null);
+		return is_array($a) ? $a : null;
 	}
 
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value = null): void {
-		if ($key == '') {
-			return;	// Not implemented for user configuration
-		}
+	/** @param non-empty-string $key */
+	public function attributeBool(string $key): ?bool {
+		$a = parent::param($key, null);
+		return is_bool($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeInt(string $key): ?int {
+		$a = parent::param($key, null);
+		return is_numeric($a) ? (int)$a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeString(string $key): ?string {
+		$a = parent::param($key, null);
+		return is_string($a) ? $a : null;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
+	 */
+	public function _attribute(string $key, $value = null): void {
 		parent::_param($key, $value);
 	}
 }

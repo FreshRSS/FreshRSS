@@ -4,6 +4,9 @@
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
 	}
+	if ($this->extension === null) {
+		throw new FreshRSS_Context_Exception('Extension not initialised!');
+	}
 ?>
 <div class="post">
 	<h2>

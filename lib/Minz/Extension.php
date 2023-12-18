@@ -19,8 +19,6 @@ abstract class Minz_Extension {
 	private $version;
 	/** @var 'system'|'user' */
 	private $type;
-	/** @var string */
-	private $config_key = 'extensions';
 	/** @var array<string,mixed>|null */
 	private $user_configuration;
 	/** @var array<string,mixed>|null */
@@ -175,8 +173,11 @@ abstract class Minz_Extension {
 			$mtime = @filemtime("{$this->path}/static/{$filename}");
 		} else {
 			$username = Minz_User::name();
-			$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
-			$file_name_url = urlencode("{$username}/{$this->config_key}/{$this->getName()}/{$filename}");
+			if ($username == null) {
+				return '';
+			}
+			$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}/{$filename}";
+			$file_name_url = urlencode("{$username}/extensions/{$this->getName()}/{$filename}");
 			$mtime = @filemtime($path);
 		}
 
@@ -224,8 +225,8 @@ abstract class Minz_Extension {
 		}
 
 		switch ($type) {
-			case 'system': return FreshRSS_Context::$system_conf !== null;
-			case 'user': return FreshRSS_Context::$user_conf !== null;
+			case 'system': return FreshRSS_Context::hasSystemConf();
+			case 'user': return FreshRSS_Context::hasUserConf();
 		}
 	}
 
@@ -233,50 +234,40 @@ abstract class Minz_Extension {
 	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
 			case 'user':
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 				break;
 			case 'system':
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 				break;
+			default:
+				return false;
 		}
 
-		if ($conf === null || !$conf->hasParam($this->config_key)) {
+		if (!$conf->hasParam('extensions')) {
 			return false;
 		}
 
-		$extensions = $conf->{$this->config_key};
-		return array_key_exists($this->getName(), $extensions);
-	}
-
-	/**
-	 * @phpstan-param 'system'|'user' $type
-	 * @return array<string,mixed>
-	 */
-	private function getConfiguration(string $type): array {
-		if (!$this->isConfigurationEnabled($type)) {
-			return [];
-		}
-
-		if (!$this->isExtensionConfigured($type)) {
-			return [];
-		}
-
-		$conf = "{$type}_conf";
-		return FreshRSS_Context::$$conf->{$this->config_key}[$this->getName()];
+		return array_key_exists($this->getName(), $conf->extensions);
 	}
 
 	/**
 	 * @return array<string,mixed>
 	 */
 	public final function getSystemConfiguration(): array {
-		return $this->getConfiguration('system');
+		if ($this->isConfigurationEnabled('system') && $this->isExtensionConfigured('system')) {
+			return FreshRSS_Context::systemConf()->extensions[$this->getName()];
+		}
+		return [];
 	}
 
 	/**
 	 * @return array<string,mixed>
 	 */
 	public final function getUserConfiguration(): array {
-		return $this->getConfiguration('user');
+		if ($this->isConfigurationEnabled('user') && $this->isExtensionConfigured('user')) {
+			return FreshRSS_Context::userConf()->extensions[$this->getName()];
+		}
+		return [];
 	}
 
 	/**
@@ -314,17 +305,26 @@ abstract class Minz_Extension {
 	 * @param array<string,mixed> $configuration
 	 */
 	private function setConfiguration(string $type, array $configuration): void {
-		$conf = "{$type}_conf";
+		switch ($type) {
+			case 'system':
+				$conf = FreshRSS_Context::systemConf();
+				break;
+			case 'user':
+				$conf = FreshRSS_Context::userConf();
+				break;
+			default:
+				return;
+		}
 
-		if (FreshRSS_Context::$$conf->hasParam($this->config_key)) {
-			$extensions = FreshRSS_Context::$$conf->{$this->config_key};
+		if ($conf->hasParam('extensions')) {
+			$extensions = $conf->extensions;
 		} else {
 			$extensions = [];
 		}
 		$extensions[$this->getName()] = $configuration;
 
-		FreshRSS_Context::$$conf->{$this->config_key} = $extensions;
-		FreshRSS_Context::$$conf->save();
+		$conf->extensions = $extensions;
+		$conf->save();
 	}
 
 	/** @param array<string,mixed> $configuration */
@@ -341,23 +341,28 @@ abstract class Minz_Extension {
 
 	/** @phpstan-param 'system'|'user' $type */
 	private function removeConfiguration(string $type): void {
-		if (!$this->isConfigurationEnabled($type)) {
+		if (!$this->isConfigurationEnabled($type) || !$this->isExtensionConfigured($type)) {
 			return;
 		}
 
-		if (!$this->isExtensionConfigured($type)) {
-			return;
+		switch ($type) {
+			case 'system':
+				$conf = FreshRSS_Context::systemConf();
+				break;
+			case 'user':
+				$conf = FreshRSS_Context::userConf();
+				break;
+			default:
+				return;
 		}
 
-		$conf = "{$type}_conf";
-		$extensions = FreshRSS_Context::$$conf->{$this->config_key};
+		$extensions = $conf->extensions;
 		unset($extensions[$this->getName()]);
 		if (empty($extensions)) {
-			$extensions = null;
+			$extensions = [];
 		}
-
-		FreshRSS_Context::$$conf->{$this->config_key} = $extensions;
-		FreshRSS_Context::$$conf->save();
+		$conf->extensions = $extensions;
+		$conf->save();
 	}
 
 	public final function removeSystemConfiguration(): void {
@@ -372,7 +377,7 @@ abstract class Minz_Extension {
 
 	public final function saveFile(string $filename, string $content): void {
 		$username = Minz_User::name();
-		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}";
+		$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
 
 		if (!file_exists($path)) {
 			mkdir($path, 0777, true);
@@ -383,7 +388,10 @@ abstract class Minz_Extension {
 
 	public final function removeFile(string $filename): void {
 		$username = Minz_User::name();
-		$path = USERS_PATH . "/{$username}/{$this->config_key}/{$this->getName()}/{$filename}";
+		if ($username == null) {
+			return;
+		}
+		$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}/{$filename}";
 
 		if (file_exists($path)) {
 			unlink($path);

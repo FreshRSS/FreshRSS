@@ -58,7 +58,7 @@ class Minz_Request {
 		}
 	}
 
-	/** @return array<string|int,string|array<string,string>> */
+	/** @return array<string|int,string|array<string,string|int>> */
 	public static function paramArray(string $key, bool $specialchars = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];
@@ -89,8 +89,8 @@ class Minz_Request {
 	}
 
 	public static function paramInt(string $key): int {
-		if (!empty(self::$params[$key])) {
-			return intval(self::$params[$key]);
+		if (!empty(self::$params[$key]) && is_numeric(self::$params[$key])) {
+			return (int)self::$params[$key];
 		}
 		return 0;
 	}
@@ -119,7 +119,7 @@ class Minz_Request {
 	 * @return array<string>
 	 */
 	public static function paramTextToArray(string $key, array $default = []): array {
-		if (isset(self::$params[$key])) {
+		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
 			return preg_split('/\R/', self::$params[$key]) ?: [];
 		}
 		return $default;
@@ -431,7 +431,7 @@ class Minz_Request {
 		if ($ORIGINAL_INPUT == false) {
 			return;
 		}
-		if (null === $json = json_decode($ORIGINAL_INPUT, true)) {
+		if (!is_array($json = json_decode($ORIGINAL_INPUT, true))) {
 			return;
 		}
 

@@ -35,11 +35,12 @@ function cliInitUser(string $username): string {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	if (!FreshRSS_Context::initUser($username)) {
+	FreshRSS_Context::initUser($username);
+	if (!FreshRSS_Context::hasUserConf()) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
-	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
 	Minz_ExtensionManager::enableByList($ext_list, 'user');
 
 	return $username;
@@ -80,10 +81,10 @@ function performRequirementCheck(string $databaseType): void {
  */
 function getLongOptions(array $options, string $regex): array {
 	$longOptions = array_filter($options, static function (string $a) use ($regex) {
-		return preg_match($regex, $a);
+		return preg_match($regex, $a) === 1;
 	});
 	return array_map(static function (string $a) use ($regex) {
-		return preg_replace($regex, '', $a);
+		return preg_replace($regex, '', $a) ?? '';
 	}, $longOptions);
 }
 

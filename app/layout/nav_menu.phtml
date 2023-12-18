@@ -84,7 +84,7 @@
 					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
 				</li>
 
-				<?php foreach (FreshRSS_Context::$user_conf->queries as $raw_query): ?>
+				<?php foreach (FreshRSS_Context::userConf()->queries as $raw_query): ?>
 					<li class="item query">
 						<?php if (!empty($raw_query['url'])): ?>
 							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
@@ -97,7 +97,7 @@
 
 				<?php
 					$classSeparator = '';
-					if (count(FreshRSS_Context::$user_conf->queries) > 0) {
+					if (count(FreshRSS_Context::userConf()->queries) > 0) {
 						$classSeparator = ' separator';
 					}
 
@@ -140,7 +140,7 @@
 
 	<div class="group stick" id="nav_menu_read_all">
 		<form id="mark-read-menu" method="post">
-		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
+		<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
 			form="mark-read-menu"
 			formaction="<?= Minz_Url::display($mark_read_url) ?>"
@@ -196,6 +196,9 @@
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
 		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		if (!is_iterable($readingModes)) {
+			$readingModes = FreshRSS_ReadingMode::getReadingModes();
+		}
 
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
@@ -210,12 +213,12 @@
 
 		<?php
 			$url_output['a'] = 'rss';
-			if (FreshRSS_Context::$user_conf->token) {
+			if (FreshRSS_Context::userConf()->token) {
 				$url_output['params']['user'] = Minz_User::name();
-				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
+				$url_output['params']['token'] = FreshRSS_Context::userConf()->token;
 			}
-			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
-				$url_output['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
+			if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
+				$url_output['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
 			}
 		?>
 		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz_Url::display($url_output) ?>">
@@ -223,7 +226,7 @@
 		</a>
 	</div>
 
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHook('nav_menu'); ?>
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
 	<?php if ($nav_menu_hooks != '') { ?>
 	<div class="group" id="nav_menu_hooks">
 		<?= $nav_menu_hooks ?>
@@ -249,7 +252,7 @@
 		</a>
 	</div>
 
-	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
+	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous_refresh) { ?>
 		<div class="group">
 			<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 		</div>

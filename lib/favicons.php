@@ -45,9 +45,8 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 		]);
 
 	FreshRSS_Context::initSystem();
-	$system_conf = FreshRSS_Context::$system_conf;
-	if (isset($system_conf)) {
-		curl_setopt_array($ch, $system_conf->curl_options);
+	if (FreshRSS_Context::hasSystemConf()) {
+		curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 	}
 
 	curl_setopt_array($ch, $curlOptions);

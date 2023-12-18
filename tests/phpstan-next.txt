@@ -1,73 +1,15 @@
-# List of files, which are not yet passing PHPStan level 8 https://phpstan.org/user-guide/rule-levels
+# List of files, which are not yet passing PHPStan level 9 https://phpstan.org/user-guide/rule-levels
 # Used for automated tests to avoid regressions in files already passing that level.
 # Can be regenerated with something like:
-# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 8 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
+# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 9 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/Controllers/apiController.php
-./app/Controllers/authController.php
-./app/Controllers/categoryController.php
 ./app/Controllers/configureController.php
-./app/Controllers/feedController.php
 ./app/Controllers/importExportController.php
-./app/Controllers/indexController.php
-./app/Controllers/javascriptController.php
-./app/Controllers/tagController.php
-./app/Controllers/updateController.php
-./app/Controllers/userController.php
-./app/install.php
-./app/layout/aside_configure.phtml
-./app/layout/aside_feed.phtml
-./app/layout/header.phtml
-./app/layout/layout.phtml
-./app/layout/nav_menu.phtml
-./app/layout/simple.phtml
-./app/Mailers/UserMailer.php
-./app/Models/Auth.php
-./app/Models/BooleanSearch.php
-./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
-./app/Models/DatabaseDAOPGSQL.php
 ./app/Models/Entry.php
 ./app/Models/Feed.php
-./app/Models/FeedDAO.php
-./app/Models/FormAuth.php
-./app/Models/StatsDAO.php
 ./app/Services/ImportService.php
-./app/views/auth/index.phtml
 ./app/views/configure/archiving.phtml
-./app/views/configure/display.phtml
-./app/views/configure/integration.phtml
-./app/views/configure/reading.phtml
-./app/views/configure/shortcut.phtml
-./app/views/configure/system.phtml
-./app/views/feed/contentSelectorPreview.phtml
-./app/views/helpers/category/update.phtml
-./app/views/helpers/configure/query.phtml
-./app/views/helpers/export/opml.phtml
-./app/views/helpers/extension/configure.phtml
-./app/views/helpers/extension/details.phtml
 ./app/views/helpers/feed/update.phtml
-./app/views/helpers/index/normal/entry_bottom.phtml
-./app/views/helpers/index/normal/entry_header.phtml
-./app/views/helpers/javascript_vars.phtml
-./app/views/helpers/stream-footer.phtml
-./app/views/index/about.phtml
-./app/views/index/global.phtml
-./app/views/index/normal.phtml
-./app/views/index/reader.phtml
-./app/views/stats/idle.phtml
-./app/views/subscription/index.phtml
-./app/views/user/manage.phtml
-./app/views/user/profile.phtml
-./app/views/user/validateEmail.phtml
-./cli/_cli.php
-./cli/create-user.php
-./cli/delete-user.php
-./cli/do-install.php
-./cli/i18n/I18nData.php
-./cli/i18n/I18nValue.php
-./cli/list-users.php
-./cli/reconfigure.php
-./cli/user-info.php
-./lib/lib_install.php
-./lib/Minz/ModelPdo.php
+./lib/Minz/Helper.php
+./lib/Minz/Request.php

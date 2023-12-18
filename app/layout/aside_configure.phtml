@@ -48,7 +48,7 @@
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
+				<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
 			</ul>
 		</li>
 
@@ -68,7 +68,7 @@
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
 				</li>
-				<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
+				<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 				</li>
@@ -76,7 +76,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
+				<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
 			</ul>
 		</li>
 		<?php } ?>

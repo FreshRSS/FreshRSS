@@ -15,13 +15,11 @@ trait FreshRSS_FilterActionsTrait {
 	private function filterActions(): array {
 		if (empty($this->filterActions)) {
 			$this->filterActions = [];
-			$filters = $this->attributes('filters');
-			if (is_array($filters)) {
-				foreach ($filters as $filter) {
-					$filterAction = FreshRSS_FilterAction::fromJSON($filter);
-					if ($filterAction != null) {
-						$this->filterActions[] = $filterAction;
-					}
+			$filters = $this->attributeArray('filters') ?? [];
+			foreach ($filters as $filter) {
+				$filterAction = FreshRSS_FilterAction::fromJSON($filter);
+				if ($filterAction != null) {
+					$this->filterActions[] = $filterAction;
 				}
 			}
 		}
@@ -33,12 +31,12 @@ trait FreshRSS_FilterActionsTrait {
 	 */
 	private function _filterActions(?array $filterActions): void {
 		$this->filterActions = $filterActions;
-		if (is_array($this->filterActions) && !empty($this->filterActions)) {
-			$this->_attributes('filters', array_map(static function (?FreshRSS_FilterAction $af) {
+		if ($this->filterActions !== null && !empty($this->filterActions)) {
+			$this->_attribute('filters', array_map(static function (?FreshRSS_FilterAction $af) {
 					return $af == null ? null : $af->toJSON();
 				}, $this->filterActions));
 		} else {
-			$this->_attributes('filters', null);
+			$this->_attribute('filters', null);
 		}
 	}
 

@@ -30,7 +30,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 					break;
 			}
 			/** @var array<string,string> */
-			$xPathSettings = $feed->attributes('xpath');
+			$xPathSettings = $feed->attributeArray('xpath') ?? [];
 			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;
 			$outline['frss:xPathItemTitle'] = $xPathSettings['itemTitle'] ?? null;
 			$outline['frss:xPathItemContent'] = $xPathSettings['itemContent'] ?? null;
@@ -56,8 +56,8 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssFullContent'] = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 		}
 
-		if ($feed->attributes('path_entries_filter') != '') {
-			$outline['frss:cssFullContentFilter'] = $feed->attributes('path_entries_filter');
+		if ($feed->attributeString('path_entries_filter') != '') {
+			$outline['frss:cssFullContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
 		// Remove null attributes
@@ -76,7 +76,7 @@ $opml_array = [
 		'frss' => FreshRSS_Export_Service::FRSS_NAMESPACE,
 	],
 	'head' => [
-		'title' => FreshRSS_Context::$system_conf->title,
+		'title' => FreshRSS_Context::systemConf()->title,
 		'dateCreated' => new DateTime(),
 	],
 	'body' => [],
@@ -90,7 +90,7 @@ if (!empty($this->categories)) {
 		];
 
 		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
-			$outline['frss:opmlUrl'] = $cat->attributes('opml_url');
+			$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
 		}
 
 		$opml_array['body'][] = $outline;
