@@ -32,13 +32,13 @@
 	<?php } elseif ($hasAccess) { ?>
 		<?= _t('gen.stream.nothing_to_load') ?><br />
 		<button id="bigMarkAsRead"
-			class="as-link <?= FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
+			class="as-link <?= FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
 			form="stream-footer"
 			formaction="<?= Minz_Url::display($url_mark_read) ?>"
 			type="submit">
 			<span class="bigTick">✓</span><br />
 			<span class="markAllRead"><?= _t('gen.stream.mark_all_read') ?></span><br />
-			<?php if (FreshRSS_Context::$user_conf->onread_jump_next) { ?>
+			<?php if (FreshRSS_Context::userConf()->onread_jump_next) { ?>
 				<span class="jumpNext"><?= _t('conf.reading.jump_next') ?></span>
 			<?php } ?>
 		</button>

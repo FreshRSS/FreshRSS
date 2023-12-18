@@ -8,11 +8,11 @@
 >
 	<channel>
 		<title><?= $this->rss_title ?></title>
-		<link><?= $this->internal_rendering ? $this->rss_url : Minz_Url::display('', 'html', true) ?></link>
+		<link><?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_NOQUOTES, 'UTF-8') : Minz_Url::display('', 'html', true) ?></link>
 		<description><?= _t('index.feed.rss_of', $this->rss_title) ?></description>
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
-		<atom:link href="<?= $this->internal_rendering ? $this->rss_url :
+		<atom:link href="<?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_COMPAT, 'UTF-8') :
 			Minz_Url::display($this->rss_url, 'html', true) ?>" rel="self" type="application/rss+xml" />
 <?php
 /** @var FreshRSS_Entry */
@@ -47,7 +47,7 @@ foreach ($this->entries as $item) {
 					echo "\t\t\t", '<media:thumbnail url="' . $thumbnail['url']
 						. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
-						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
+						. (empty($thumbnail['type']) ? '' : '" type="' . $thumbnail['type'])
 						. '" />', "\n";
 				}
 				$enclosures = $item->enclosures(false);

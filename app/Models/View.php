@@ -32,7 +32,6 @@ class FreshRSS_View extends Minz_View {
 	public bool $excludeMutedFeeds;
 
 	// Substriptions
-	public ?FreshRSS_Category $default_category;
 	public bool $displaySlider = false;
 	public bool $load_ok;
 	public bool $onlyFeedsWithError;

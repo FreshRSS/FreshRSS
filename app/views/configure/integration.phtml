@@ -57,8 +57,11 @@
 		</template>
 
 		<?php
-			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
+			foreach (FreshRSS_Context::userConf()->sharing as $key => $share_options) {
 				$share = FreshRSS_Share::get($share_options['type']);
+				if ($share === null) {
+					continue;
+				}
 				$share->update($share_options);
 		?>
 		<formgroup class="group-share dragbox" id="group-share-<?= $key ?>">

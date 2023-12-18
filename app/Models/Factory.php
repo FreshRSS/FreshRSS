@@ -14,7 +14,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createCategoryDao(?string $username = null): FreshRSS_CategoryDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_CategoryDAOSQLite($username);
 			default:
@@ -26,7 +26,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createFeedDao(?string $username = null): FreshRSS_FeedDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_FeedDAOSQLite($username);
 			default:
@@ -38,7 +38,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createEntryDao(?string $username = null): FreshRSS_EntryDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_EntryDAOSQLite($username);
 			case 'pgsql':
@@ -52,7 +52,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createTagDao(?string $username = null): FreshRSS_TagDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_TagDAOSQLite($username);
 			case 'pgsql':
@@ -66,7 +66,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createStatsDAO(?string $username = null): FreshRSS_StatsDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_StatsDAOSQLite($username);
 			case 'pgsql':
@@ -80,7 +80,7 @@ class FreshRSS_Factory {
 	 * @throws Minz_ConfigurationNamespaceException|Minz_PDOConnectionException
 	 */
 	public static function createDatabaseDAO(?string $username = null): FreshRSS_DatabaseDAO {
-		switch (FreshRSS_Context::$system_conf->db['type'] ?? '') {
+		switch (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			case 'sqlite':
 				return new FreshRSS_DatabaseDAOSQLite($username);
 			case 'pgsql':

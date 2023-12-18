@@ -249,22 +249,19 @@ function sensitive_log($log) {
  * @throws FreshRSS_Context_Exception
  */
 function customSimplePie(array $attributes = array()): SimplePie {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limits = FreshRSS_Context::$system_conf->limits;
+	$limits = FreshRSS_Context::systemConf()->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+	$simplePie->set_syslog(FreshRSS_Context::systemConf()->simplepie_syslog_enabled);
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->enable_order_by_date(false);
 
-	$feed_timeout = empty($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
+	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = FreshRSS_Context::$system_conf->curl_options;
+	$curl_options = FreshRSS_Context::systemConf()->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
@@ -408,11 +405,8 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
  * @param array<string,mixed> $attributes
  */
 function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limits = FreshRSS_Context::$system_conf->limits;
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$limits = FreshRSS_Context::systemConf()->limits;
+	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
 	$cacheMtime = @filemtime($cachePath);
 	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
@@ -427,7 +421,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		cleanCache(CLEANCACHE_HOURS);
 	}
 
-	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
+	if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
 	}
 
@@ -462,7 +456,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_ENCODING => '',	//Enable all encodings
 	]);
 
-	curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
 	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 		curl_setopt_array($ch, $attributes['curl_params']);
@@ -571,10 +565,7 @@ function listUsers(): array {
  * @return bool true if number of users >= max registrations, false else.
  */
 function max_registrations_reached(): bool {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
+	$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
 	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
@@ -671,10 +662,10 @@ function connectionRemoteAddress(): string {
  * Check if the client (e.g. last proxy) is allowed to send unsafe headers.
  * This uses the `TRUSTED_PROXY` environment variable or the `trusted_sources` configuration option to get an array of the authorized ranges,
  * The connection IP is obtained from the `CONN_REMOTE_ADDR` (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
- * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
+ * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
-	if (FreshRSS_Context::$system_conf === null) {
+	if (!FreshRSS_Context::hasSystemConf()) {
 		return false;
 	}
 	$remoteIp = connectionRemoteAddress();
@@ -686,7 +677,7 @@ function checkTrustedIP(): bool {
 		$trusted = preg_split('/\s+/', $trusted, -1, PREG_SPLIT_NO_EMPTY);
 	}
 	if (!is_array($trusted) || empty($trusted)) {
-		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
+		$trusted = FreshRSS_Context::systemConf()->trusted_sources;
 	}
 	foreach ($trusted as $cidr) {
 		if (checkCIDR($remoteIp, $cidr)) {

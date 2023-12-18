@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $params = array(
 	'user:',
@@ -17,7 +17,7 @@ if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($o
 
 $username = cliInitUser($options['user']);
 
-Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
@@ -31,7 +31,10 @@ if (!empty($result['successes'])) {
 	echo "FreshRSS refreshed $successes dynamic OPMLs for $username\n";
 }
 
-list($nbUpdatedFeeds, $feed, $nbNewArticles) = FreshRSS_feed_Controller::actualizeFeed(0, '', true);
+[$nbUpdatedFeeds, , $nbNewArticles] = FreshRSS_feed_Controller::actualizeFeeds();
+if ($nbNewArticles > 0) {
+	FreshRSS_feed_Controller::commitNewEntries();
+}
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
 

@@ -1,7 +1,6 @@
 parameters:
 	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
-	level: 7
-	treatPhpDocTypesAsCertain: false
+	level: 8
 	fileExtensions:
 		- php
 		- phtml
@@ -36,6 +35,7 @@ parameters:
 		- TMP_PATH
 		- USERS_PATH
 	reportMaybesInPropertyPhpDocTypes: false
+	treatPhpDocTypesAsCertain: false
 	strictRules:
 		allRules: false
 		booleansInConditions: false	# TODO pass
@@ -43,14 +43,17 @@ parameters:
 		disallowedConstructs: false
 		disallowedLooseComparison: false
 		matchingInheritedMethodNames: true
-		noVariableVariables: false	# TODO pass
+		noVariableVariables: true
 		numericOperandsInArithmeticOperators: true
 		overwriteVariablesWithLoop: true
 		requireParentConstructorCall: true
 		strictCalls: true
 		switchConditionsMatchingType: true
 		uselessCast: true
+	ignoreErrors:
+		# - '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
+	# - vendor/phpstan/phpstan/conf/bleedingEdge.neon
