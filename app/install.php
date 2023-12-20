@@ -551,7 +551,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?=
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.\-]{1,64}(:[0-9]{2,5})?" value="<?=
 					$_SESSION['bd_host'] ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
 			</div>
 		</div>
@@ -559,7 +559,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?=
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.\-]{1,64}" value="<?=
 					$_SESSION['bd_user'] ?? '' ?>" tabindex="3" />
 			</div>
 		</div>
@@ -578,7 +578,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?=
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_\-]{1,64}" value="<?=
 					$_SESSION['bd_base'] ?? '' ?>" tabindex="6" />
 			</div>
 		</div>
