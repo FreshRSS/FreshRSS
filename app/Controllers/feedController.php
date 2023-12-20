@@ -678,27 +678,41 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 	public static function commitNewEntries(): bool {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		if (!$entryDAO->inTransaction()) {
-			$entryDAO->beginTransaction();
-		}
-
 		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
-		if ($entryDAO->commitNewEntries()) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
-			foreach ($feeds as $feed) {
-				if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
-					($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
-					Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
-						$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
-					$feed->markAsReadMaxUnread();
+		$nbNewEntries = array_sum($newUnreadEntriesPerFeed);
+		if ($nbNewEntries > 0) {
+			if (!$entryDAO->inTransaction()) {
+				$entryDAO->beginTransaction();
+			}
+			if ($entryDAO->commitNewEntries()) {
+				// Keep max unreads
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+				foreach ($feeds as $feed) {
+					if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+						($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+						Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+							$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
+						$feed->markAsReadMaxUnread();
+					}
+				}
+				$feedDAO->updateCachedValues();
+
+				// Auto-add labels
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$labels = $tagDAO->listTags() ?: [];
+				$labels = array_filter($labels, static function(FreshRSS_Tag $label) {
+					return $label->filtersAction('label') !== null;
+				});
+				if (count($labels) > 0) {
+					foreach (iterator_to_array($entryDAO->selectAll($nbNewEntries)) as $entry) {
+						// TODO
+					}
 				}
 			}
-			$feedDAO->updateCachedValues();
-		}
-
-		if ($entryDAO->inTransaction()) {
-			$entryDAO->commit();
+			if ($entryDAO->inTransaction()) {
+				$entryDAO->commit();
+			}
 		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();

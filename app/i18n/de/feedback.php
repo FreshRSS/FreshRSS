@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Label „%s“ wurde erstellt.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Label-Name existiert bereits.',
 		'renamed' => 'Das Label „%s“ wurde umbenannt in „%s“.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',

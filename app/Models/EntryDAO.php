@@ -694,13 +694,16 @@ SQL;
 
 	/** @return Traversable<array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
 	 *		'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}> */
-	public function selectAll(): Traversable {
+	public function selectAll(?int $limit = null): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
 SQL;
+		if (is_int($limit) && $limit >= 0) {
+			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
+		}
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {

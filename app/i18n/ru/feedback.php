@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Метка “%s” создана.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Метка с таким названием уже существует.',
 		'renamed' => 'Метка “%s” переименована в “%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS будет обновлён до <strong>версии %s</strong>.',

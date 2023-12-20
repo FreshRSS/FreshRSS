@@ -13,6 +13,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<FreshRSS_Category> */
 	public array $categories;
 	public ?FreshRSS_Category $category;
+	public ?FreshRSS_Tag $tag;
 	public string $current_user;
 	/** @var iterable<FreshRSS_Entry> */
 	public $entries;

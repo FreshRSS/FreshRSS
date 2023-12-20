@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Naam',
 		'new_name' => 'Nieuwe naam',
 		'old_name' => 'Oude naam',

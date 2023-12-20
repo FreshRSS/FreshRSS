@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => '订阅工具',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => '名称',
 		'new_name' => '新名称',
 		'old_name' => '旧名称',
