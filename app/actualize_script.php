@@ -19,11 +19,8 @@ $_SERVER['HTTP_HOST'] = '';
 $app = new FreshRSS();
 
 FreshRSS_Context::initSystem();
-if (FreshRSS_Context::$system_conf === null) {
-	throw new FreshRSS_Context_Exception('System configuration not initialised!');
-}
-FreshRSS_Context::$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
-define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+FreshRSS_Context::systemConf()->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
+define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::systemConf()->simplepie_syslog_enabled);
 
 /**
  * Writes to FreshRSS admin log, and if it is not already done by default,
@@ -62,7 +59,7 @@ notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 echo 'Failed requirements!', "\n";
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 ob_clean();
 
 echo 'Results: ', "\n";	//Buffered
@@ -71,24 +68,24 @@ echo 'Results: ', "\n";	//Buffered
 // Users are processed in a random order but always start with default user
 $users = listUsers();
 shuffle($users);
-if (FreshRSS_Context::$system_conf->default_user !== '') {
-	array_unshift($users, FreshRSS_Context::$system_conf->default_user);
+if (FreshRSS_Context::systemConf()->default_user !== '') {
+	array_unshift($users, FreshRSS_Context::systemConf()->default_user);
 	$users = array_unique($users);
 }
 
-$limits = FreshRSS_Context::$system_conf->limits;
+$limits = FreshRSS_Context::systemConf()->limits;
 $min_last_activity = time() - $limits['max_inactivity'];
 foreach ($users as $user) {
 	FreshRSS_Context::initUser($user);
-	if (FreshRSS_Context::$user_conf == null) {
+	if (!FreshRSS_Context::hasUserConf()) {
 		notice('Invalid user ' . $user);
 		continue;
 	}
-	if (!FreshRSS_Context::$user_conf->enabled) {
+	if (!FreshRSS_Context::userConf()->enabled) {
 		notice('FreshRSS skip disabled user ' . $user);
 		continue;
 	}
-	if (($user !== FreshRSS_Context::$system_conf->default_user) &&
+	if (($user !== FreshRSS_Context::systemConf()->default_user) &&
 			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
 		notice('FreshRSS skip inactive user ' . $user);
 		continue;
@@ -106,7 +103,7 @@ foreach ($users as $user) {
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
-	Minz_ExtensionManager::callHook('freshrss_user_maintenance');
+	Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 	$app->run();
 
 	if (!invalidateHttpCache()) {

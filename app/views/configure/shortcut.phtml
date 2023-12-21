@@ -16,7 +16,7 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
+	<?php $s = FreshRSS_Context::userConf()->shortcuts; ?>
 
 	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">

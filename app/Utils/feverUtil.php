@@ -29,10 +29,7 @@ class FreshRSS_fever_Util {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function getKeyPath(string $feverKey): string {
-		if (FreshRSS_Context::$system_conf === null) {
-			throw new FreshRSS_Context_Exception('System configuration not initialised!');
-		}
-		$salt = sha1(FreshRSS_Context::$system_conf->salt);
+		$salt = sha1(FreshRSS_Context::systemConf()->salt);
 		return self::FEVER_PATH . '/.key-' . $salt . '-' . $feverKey . '.txt';
 	}
 

@@ -64,6 +64,7 @@ return array (
 		'focus' => false,
 		'site' => true,
 	),
+	'filters' => [],
 	'theme' => 'Origine',
 	'darkMode' => 'no',
 	'content_width' => 'thin',
@@ -120,5 +121,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
-	'extensions_enabled' => array(),
+	# List of enabled FreshRSS extensions.
+	'extensions_enabled' => [],
+	# Extensions configurations
+	'extensions' => [],
 );

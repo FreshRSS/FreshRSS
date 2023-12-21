@@ -50,7 +50,7 @@ class FreshRSS_Import_Service {
 
 		$this->catDAO->checkDefault();
 		$default_category = $this->catDAO->getDefault();
-		if (!$default_category) {
+		if ($default_category === null) {
 			self::log('Cannot get the default category');
 			$this->lastStatus = false;
 			return;
@@ -68,7 +68,7 @@ class FreshRSS_Import_Service {
 		// verify the user can import its categories/feeds.
 		$nb_categories = count($categories);
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.
@@ -173,13 +173,13 @@ class FreshRSS_Import_Service {
 			}
 
 			if (isset($feed_elt['frss:cssFullContentFilter'])) {
-				$feed->_attributes('path_entries_filter', $feed_elt['frss:cssFullContentFilter']);
+				$feed->_attribute('path_entries_filter', $feed_elt['frss:cssFullContentFilter']);
 			}
 
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
+					preg_split('/\R/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 
@@ -216,7 +216,7 @@ class FreshRSS_Import_Service {
 			}
 
 			if (!empty($xPathSettings)) {
-				$feed->_attributes('xpath', $xPathSettings);
+				$feed->_attribute('xpath', $xPathSettings);
 			}
 
 			// Call the extension hook
@@ -263,7 +263,7 @@ class FreshRSS_Import_Service {
 			$opml_url = checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
-				$category->_attributes('opml_url', $opml_url);
+				$category->_attribute('opml_url', $opml_url);
 			}
 		}
 

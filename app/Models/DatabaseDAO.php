@@ -22,7 +22,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function create(): string {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		$db = FreshRSS_Context::$system_conf->db;
+		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
 			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
@@ -174,7 +174,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function size(bool $all = false): int {
-		$db = FreshRSS_Context::$system_conf->db;
+		$db = FreshRSS_Context::systemConf()->db;
 
 		// MariaDB does not refresh size information automatically
 		$sql = <<<'SQL'

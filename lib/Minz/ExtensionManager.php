@@ -147,7 +147,7 @@ final class Minz_ExtensionManager {
 			$meta_raw_content = file_get_contents($metadata_filename) ?: '';
 			/** @var array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'}|null $meta_json */
 			$meta_json = json_decode($meta_raw_content, true);
-			if (!$meta_json || !self::isValidMetadata($meta_json)) {
+			if (!is_array($meta_json) || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
 				// or metadata.json is invalid (no required information), invalid!
 				Minz_Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
@@ -347,9 +347,9 @@ final class Minz_ExtensionManager {
 				call_user_func($function, ...$args);
 			}
 		} elseif ($signature === 'NoneToString') {
-			return self::callNoneToString($hook_name);
+			return self::callHookString($hook_name);
 		} elseif ($signature === 'NoneToNone') {
-			self::callNoneToNone($hook_name);
+			self::callHookVoid($hook_name);
 		}
 		return;
 	}
@@ -391,9 +391,9 @@ final class Minz_ExtensionManager {
 	 * @param string $hook_name is the hook to call.
 	 * @return string concatenated result of the call to all the hooks.
 	 */
-	private static function callNoneToString(string $hook_name): string {
+	public static function callHookString(string $hook_name): string {
 		$result = '';
-		foreach (self::$hook_list[$hook_name]['list'] as $function) {
+		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
 			$result = $result . call_user_func($function);
 		}
 		return $result;
@@ -407,8 +407,8 @@ final class Minz_ExtensionManager {
 	 *
 	 * @param string $hook_name is the hook to call.
 	 */
-	private static function callNoneToNone(string $hook_name): void {
-		foreach (self::$hook_list[$hook_name]['list'] as $function) {
+	public static function callHookVoid(string $hook_name): void {
+		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
 			call_user_func($function);
 		}
 	}

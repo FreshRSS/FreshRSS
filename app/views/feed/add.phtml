@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	if ($this->feed) {
+	if ($this->feed !== null) {
 ?>
 <main class="post">
 	<h1><?= _t('sub.feed.add') ?></h1>

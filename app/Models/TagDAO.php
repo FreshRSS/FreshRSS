@@ -96,11 +96,12 @@ SQL;
 	}
 
 	/**
+	 * @param non-empty-string $key
 	 * @param mixed $value
 	 * @return int|false
 	 */
 	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, $value) {
-		$tag->_attributes($key, $value);
+		$tag->_attribute($key, $value);
 		return $this->updateTagAttributes($tag->id(), $tag->attributes());
 	}
 
@@ -134,6 +135,7 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			/** @var array{'id':int,'name':string,'attributes'?:array<string,mixed>} $row */
 			yield $row;
 		}
 	}
@@ -410,7 +412,7 @@ SQL;
 			$tag = new FreshRSS_Tag($dao['name']);
 			$tag->_id($dao['id']);
 			if (!empty($dao['attributes'])) {
-				$tag->_attributes('', $dao['attributes']);
+				$tag->_attributes($dao['attributes']);
 			}
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);

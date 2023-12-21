@@ -209,7 +209,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->beginTransaction();
 
 		foreach ($feeds as $feed) {
-			$nb_total += $feed->cleanOldEntries();
+			$nb_total += ($feed->cleanOldEntries() ?: 0);
 		}
 
 		$feedDAO->updateCachedValues();

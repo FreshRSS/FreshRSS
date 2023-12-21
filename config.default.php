@@ -190,6 +190,8 @@ return array(
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
 	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,
