@@ -182,7 +182,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::good(_t('feedback.auth.login.success'), $url);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
-
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
