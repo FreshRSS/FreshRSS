@@ -79,7 +79,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
-			} catch (FreshRSS_EntriesGetter_Exception $e) {
+			} catch (Throwable $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
 			}
@@ -167,7 +167,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
-		} catch (FreshRSS_EntriesGetter_Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
 		}
