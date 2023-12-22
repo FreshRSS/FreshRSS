@@ -19,7 +19,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return @file_exists(USERS_PATH . '/' . $username . '/config.php');
 	}
 
-	/** @param array<string,mixed> $userConfigUpdated */
+    /**
+     * @param array<string,mixed> $userConfigUpdated
+     * @throws FreshRSS_Context_Exception
+     */
 	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {
@@ -48,11 +51,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$ok = $userConfig->save();
-		return $ok;
+        return $userConfig->save();
 	}
 
-	public function updateAction(): void {
+    /**
+     * @throws FreshRSS_Context_Exception
+     */
+    public function updateAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -80,9 +85,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/**
-	 * This action displays the user profile page.
-	 */
+    /**
+     * This action displays the user profile page.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function profileAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -146,7 +152,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function purgeAction(): void {
+    /**
+     * @throws Minz_ConfigurationNamespaceException
+     * @throws Minz_PDOConnectionException
+     */
+    public function purgeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -163,9 +173,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/**
-	 * This action displays the user management page.
-	 */
+    /**
+     * This action displays the user management page.
+     * @throws FreshRSS_Context_Exception
+     * @throws Exception
+     */
 	public function manageAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
@@ -208,7 +220,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/** @param array<string,mixed> $userConfigOverride */
+    /**
+     * @param array<string,mixed> $userConfigOverride
+     * @throws FreshRSS_Context_Exception
+     */
 	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
@@ -266,18 +281,19 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return (bool)$ok;
 	}
 
-	/**
-	 * This action creates a new user.
-	 *
-	 * Request parameters are:
-	 *   - new_user_language
-	 *   - new_user_name
-	 *   - new_user_email
-	 *   - new_user_passwordPlain
-	 *   - r (i.e. a redirection url, optional)
-	 *
-	 * @todo clean up this method. Idea: write a method to init a user with basic information.
-	 */
+    /**
+     * This action creates a new user.
+     *
+     * Request parameters are:
+     *   - new_user_language
+     *   - new_user_name
+     *   - new_user_email
+     *   - new_user_passwordPlain
+     *   - r (i.e. a redirection url, optional)
+     *
+     * @throws FreshRSS_Context_Exception
+     * @todo clean up this method. Idea: write a method to init a user with basic information.
+     */
 	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
 			Minz_Error::error(403);
@@ -376,7 +392,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		Minz_Request::forward($redirect_url, true);
 	}
 
-	public static function deleteUser(string $username): bool {
+    /**
+     * @throws FreshRSS_Context_Exception
+     * @throws Minz_ConfigurationNamespaceException
+     * @throws Minz_PDOConnectionException
+     */
+    public static function deleteUser(string $username): bool {
 		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::systemConf()->default_user;
@@ -397,23 +418,24 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return (bool)$ok;
 	}
 
-	/**
-	 * This action validates an email address, based on the token sent by email.
-	 * It also serves the main page when user is blocked.
-	 *
-	 * Request parameters are:
-	 *   - username
-	 *   - token
-	 *
-	 * This route works with GET requests since the URL is provided by email.
-	 * The security risks (e.g. forged URL by an attacker) are not very high so
-	 * it’s ok.
-	 *
-	 * It returns 404 error if `force_email_validation` is disabled or if the
-	 * user doesn’t exist.
-	 *
-	 * It returns 403 if user isn’t logged in and `username` param isn’t passed.
-	 */
+    /**
+     * This action validates an email address, based on the token sent by email.
+     * It also serves the main page when user is blocked.
+     *
+     * Request parameters are:
+     *   - username
+     *   - token
+     *
+     * This route works with GET requests since the URL is provided by email.
+     * The security risks (e.g. forged URL by an attacker) are not very high so
+     * it’s ok.
+     *
+     * It returns 404 error if `force_email_validation` is disabled or if the
+     * user doesn’t exist.
+     *
+     * It returns 403 if user isn’t logged in and `username` param isn’t passed.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function validateEmailAction(): void {
 		if (!FreshRSS_Context::systemConf()->force_email_validation) {
 			Minz_Error::error(404);
@@ -469,16 +491,17 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/**
-	 * This action resends a validation email to the current user.
-	 *
-	 * It only acts on POST requests but doesn’t require any param (except the
-	 * CSRF token).
-	 *
-	 * It returns 403 error if the user is not logged in or 404 if request is
-	 * not POST. Else it redirects silently to the index if user has already
-	 * validated its email, or to the user#validateEmail route.
-	 */
+    /**
+     * This action resends a validation email to the current user.
+     *
+     * It only acts on POST requests but doesn’t require any param (except the
+     * CSRF token).
+     *
+     * It returns 403 error if the user is not logged in or 404 if request is
+     * not POST. Else it redirects silently to the index if user has already
+     * validated its email, or to the user#validateEmail route.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function sendValidationEmailAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -514,14 +537,15 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/**
-	 * This action delete an existing user.
-	 *
-	 * Request parameter is:
-	 *   - username
-	 *
-	 * @todo clean up this method. Idea: create a User->clean() method.
-	 */
+    /**
+     * This action delete an existing user.
+     *
+     * Request parameter is:
+     *   - username
+     *
+     * @throws FreshRSS_Context_Exception
+     * @todo clean up this method. Idea: create a User->clean() method.
+     */
 	public function deleteAction(): void {
 		$username = Minz_Request::paramString('username');
 		$self_deletion = Minz_User::name() === $username;
@@ -613,7 +637,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	public function detailsAction(): void {
+    /**
+     * @throws Exception
+     */
+    public function detailsAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -632,7 +659,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($username . ' · ' . _t('gen.menu.user_management') . ' · ');
 	}
 
-	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+    /**
+     * @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool}
+     * @throws FreshRSS_Context_Exception
+     */
 	private function retrieveUserDetails(string $username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);

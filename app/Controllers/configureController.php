@@ -16,32 +16,33 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/**
-	 * This action handles the display configuration page.
-	 *
-	 * It displays the display configuration page.
-	 * If this action is reached through a POST request, it stores all new
-	 * configuration values then sends a notification to the user.
-	 *
-	 * The options available on the page are:
-	 *   - language (default: en)
-	 *   - theme (default: Origin)
-	 *   - darkMode (default: no)
-	 *   - content width (default: thin)
-	 *   - display of read action in header
-	 *   - display of favorite action in header
-	 *   - display of date in header
-	 *   - display of open action in header
-	 *   - display of read action in footer
-	 *   - display of favorite action in footer
-	 *   - display of sharing action in footer
-	 *   - display of article tags in footer
-	 *   - display of my Labels in footer
-	 *   - display of date in footer
-	 *   - display of open action in footer
-	 *   - html5 notification timeout (default: 0)
-	 * Default values are false unless specified.
-	 */
+    /**
+     * This action handles the display configuration page.
+     *
+     * It displays the display configuration page.
+     * If this action is reached through a POST request, it stores all new
+     * configuration values then sends a notification to the user.
+     *
+     * The options available on the page are:
+     *   - language (default: en)
+     *   - theme (default: Origin)
+     *   - darkMode (default: no)
+     *   - content width (default: thin)
+     *   - display of read action in header
+     *   - display of favorite action in header
+     *   - display of date in header
+     *   - display of open action in header
+     *   - display of read action in footer
+     *   - display of favorite action in footer
+     *   - display of sharing action in footer
+     *   - display of article tags in footer
+     *   - display of my Labels in footer
+     *   - display of date in footer
+     *   - display of open action in footer
+     *   - html5 notification timeout (default: 0)
+     * Default values are false unless specified.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function displayAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->language = Minz_Request::paramString('language') ?: 'en';
@@ -80,35 +81,36 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.display.title') . ' · ');
 	}
 
-	/**
-	 * This action handles the reading configuration page.
-	 *
-	 * It displays the reading configuration page.
-	 * If this action is reached through a POST request, it stores all new
-	 * configuration values then sends a notification to the user.
-	 *
-	 * The options available on the page are:
-	 *   - number of posts per page (default: 10)
-	 *   - view mode (default: normal)
-	 *   - default article view (default: all)
-	 *   - load automatically articles
-	 *   - display expanded articles
-	 *   - display expanded categories
-	 *   - hide categories and feeds without unread articles
-	 *   - jump on next category or feed when marked as read
-	 *   - image lazy loading
-	 *   - stick open articles to the top
-	 *   - display a confirmation when reading all articles
-	 *   - auto remove article after reading
-	 *   - article order (default: DESC)
-	 *   - mark articles as read when:
-	 *       - displayed
-	 *       - opened on site
-	 *       - scrolled
-	 *       - received
-	 *       - focus
-	 * Default values are false unless specified.
-	 */
+    /**
+     * This action handles the reading configuration page.
+     *
+     * It displays the reading configuration page.
+     * If this action is reached through a POST request, it stores all new
+     * configuration values then sends a notification to the user.
+     *
+     * The options available on the page are:
+     *   - number of posts per page (default: 10)
+     *   - view mode (default: normal)
+     *   - default article view (default: all)
+     *   - load automatically articles
+     *   - display expanded articles
+     *   - display expanded categories
+     *   - hide categories and feeds without unread articles
+     *   - jump on next category or feed when marked as read
+     *   - image lazy loading
+     *   - stick open articles to the top
+     *   - display a confirmation when reading all articles
+     *   - auto remove article after reading
+     *   - article order (default: DESC)
+     *   - mark articles as read when:
+     *       - displayed
+     *       - opened on site
+     *       - scrolled
+     *       - received
+     *       - focus
+     * Default values are false unless specified.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function readingAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->posts_per_page = Minz_Request::paramInt('posts_per_page') ?: 10;
@@ -156,16 +158,17 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.reading.title') . ' · ');
 	}
 
-	/**
-	 * This action handles the integration configuration page.
-	 *
-	 * It displays the integration configuration page.
-	 * If this action is reached through a POST request, it stores all
-	 * configuration values then sends a notification to the user.
-	 *
-	 * Before v1.16, we used sharing instead of integration. This has
-	 * some unwanted behavior when the end-user was using an ad-blocker.
-	 */
+    /**
+     * This action handles the integration configuration page.
+     *
+     * It displays the integration configuration page.
+     * If this action is reached through a POST request, it stores all
+     * configuration values then sends a notification to the user.
+     *
+     * Before v1.16, we used sharing instead of integration. This has
+     * some unwanted behavior when the end-user was using an ad-blocker.
+     * @throws FreshRSS_Context_Exception
+     */
 	public function integrationAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/integration.js?' . @filemtime(PUBLIC_PATH . '/scripts/integration.js')));
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
@@ -182,18 +185,19 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.sharing.title') . ' · ');
 	}
 
-	/**
-	 * This action handles the shortcut configuration page.
-	 *
-	 * It displays the shortcut configuration page.
-	 * If this action is reached through a POST request, it stores all new
-	 * configuration values then sends a notification to the user.
-	 *
-	 * The authorized values for shortcuts are letters (a to z), numbers (0
-	 * to 9), function keys (f1 to f12), backspace, delete, down, end, enter,
-	 * escape, home, insert, left, page down, page up, return, right, space,
-	 * tab and up.
-	 */
+    /**
+     * This action handles the shortcut configuration page.
+     *
+     * It displays the shortcut configuration page.
+     * If this action is reached through a POST request, it stores all new
+     * configuration values then sends a notification to the user.
+     *
+     * The authorized values for shortcuts are letters (a to z), numbers (0
+     * to 9), function keys (f1 to f12), backspace, delete, down, end, enter,
+     * escape, home, insert, left, page down, page up, return, right, space,
+     * tab and up.
+     * @throws FreshRSS_Context_Exception|Minz_FileNotExistException
+     */
 	public function shortcutAction(): void {
 		$this->view->list_keys = SHORTCUT_KEYS;
 

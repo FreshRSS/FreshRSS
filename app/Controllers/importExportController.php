@@ -278,15 +278,16 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return json_encode($table);
 	}
 
-	/**
-	 * This method import a JSON-based file (Google Reader format).
-	 *
-	 * $article_file the JSON file content.
-	 * true if articles from the file must be starred.
-	 * @return bool false if an error occurred, true otherwise.
-	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException
-	 */
+    /**
+     * This method import a JSON-based file (Google Reader format).
+     *
+     * $article_file the JSON file content.
+     * true if articles from the file must be starred.
+     * @return bool false if an error occurred, true otherwise.
+     * @throws Minz_ConfigurationNamespaceException
+     * @throws Minz_PDOConnectionException
+     * @throws FreshRSS_Context_Exception
+     */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
 		if (!is_array($article_object)) {
@@ -607,7 +608,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$export_opml = Minz_Request::paramBoolean('export_opml');
 		$export_starred = Minz_Request::paramBoolean('export_starred');
 		$export_labelled = Minz_Request::paramBoolean('export_labelled');
-		/** @var array<numeric-string> */
+		/** @var array<numeric-string> $export_feeds */
 		$export_feeds = Minz_Request::paramArray('export_feeds');
 		$max_number_entries = 50;
 
