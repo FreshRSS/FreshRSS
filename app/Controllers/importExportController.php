@@ -278,16 +278,16 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return json_encode($table);
 	}
 
-    /**
-     * This method import a JSON-based file (Google Reader format).
-     *
-     * $article_file the JSON file content.
-     * true if articles from the file must be starred.
-     * @return bool false if an error occurred, true otherwise.
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     * @throws FreshRSS_Context_Exception
-     */
+	/**
+	 * This method import a JSON-based file (Google Reader format).
+	 *
+	 * $article_file the JSON file content.
+	 * true if articles from the file must be starred.
+	 * @return bool false if an error occurred, true otherwise.
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 * @throws FreshRSS_Context_Exception
+	 */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
 		if (!is_array($article_object)) {

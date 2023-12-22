@@ -113,27 +113,27 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		return $feed;
 	}
 
-    /**
-     * This action subscribes to a feed.
-     *
-     * It can be reached by both GET and POST requests.
-     *
-     * GET request displays a form to add and configure a feed.
-     * Request parameter is:
-     *   - url_rss (default: false)
-     *
-     * POST request adds a feed in database.
-     * Parameters are:
-     *   - url_rss (default: false)
-     *   - category (default: false)
-     *   - http_user (default: false)
-     *   - http_pass (default: false)
-     * It tries to get website information from RSS feed.
-     * If no category is given, feed is added to the default one.
-     *
-     * If url_rss is false, nothing happened.
-     * @throws FreshRSS_Context_Exception
-     */
+	/**
+	 * This action subscribes to a feed.
+	 *
+	 * It can be reached by both GET and POST requests.
+	 *
+	 * GET request displays a form to add and configure a feed.
+	 * Request parameter is:
+	 *   - url_rss (default: false)
+	 *
+	 * POST request adds a feed in database.
+	 * Parameters are:
+	 *   - url_rss (default: false)
+	 *   - category (default: false)
+	 *   - http_user (default: false)
+	 *   - http_pass (default: false)
+	 * It tries to get website information from RSS feed.
+	 * If no category is given, feed is added to the default one.
+	 *
+	 * If url_rss is false, nothing happened.
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public function addAction(): void {
 		$url = Minz_Request::paramString('url_rss');
 
@@ -330,12 +330,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-    /**
-     * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
-     * @throws FreshRSS_BadUrl_Exception
-     * @throws FreshRSS_Context_Exception
-     * @throws JsonException
-     */
+	/**
+	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
+	 * @throws FreshRSS_BadUrl_Exception
+	 * @throws FreshRSS_Context_Exception
+	 * @throws JsonException
+	 */
 	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
@@ -677,12 +677,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
 	}
 
-    /**
-     * @throws JsonException
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public static function commitNewEntries(): bool {
+	/**
+	 * @throws JsonException
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public static function commitNewEntries(): bool {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if (!$entryDAO->inTransaction()) {
 			$entryDAO->beginTransaction();
@@ -830,12 +830,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-    /**
-     * @throws FreshRSS_Context_Exception
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public static function deleteFeed(int $feed_id): bool {
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public static function deleteFeed(int $feed_id): bool {
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->deleteFeed($feed_id)) {
@@ -915,15 +915,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		]);
 	}
 
-    /**
-     * This action forces reloading the articles of a feed.
-     *
-     * Parameters are:
-     *   - id (mandatory - no default): Feed ID
-     *
-     * @throws FreshRSS_BadUrl_Exception
-     * @throws FreshRSS_Context_Exception
-     */
+	/**
+	 * This action forces reloading the articles of a feed.
+	 *
+	 * Parameters are:
+	 *   - id (mandatory - no default): Feed ID
+	 *
+	 * @throws FreshRSS_BadUrl_Exception
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public function reloadAction(): void {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);

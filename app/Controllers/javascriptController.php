@@ -16,12 +16,12 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		$this->view->_layout(null);
 	}
 
-    /**
-     * @throws FreshRSS_Context_Exception
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public function actualizeAction(): void {
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public function actualizeAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
 
@@ -32,11 +32,11 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::userConf()->ttl_default);
 	}
 
-    /**
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public function nbUnreadsPerFeedAction(): void {
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public function nbUnreadsPerFeedAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategories(true, false) ?: [];

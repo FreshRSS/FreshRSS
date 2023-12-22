@@ -37,10 +37,10 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$this->view->available_extensions = $this->getAvailableExtensionList();
 	}
 
-    /**
-     * fetch extension list from GitHub
-     * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
-     */
+	/**
+	 * fetch extension list from GitHub
+	 * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
+	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
 		$json = @file_get_contents($extensionListUrl);
@@ -52,7 +52,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		}
 
 		// fetch the list as an array
-		/** @var array<string,mixed> $list*/
+		/** @var array<string,mixed> $list */
 		$list = json_decode($json);
 		if (empty($list) || !is_array($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
@@ -62,7 +62,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
-		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> $extensions*/
+		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> $extensions */
 		$extensions = $list['extensions'];
 
 		return $extensions;
@@ -75,7 +75,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 *
 	 * Parameters are:
 	 * - e: the extension name (urlencoded)
-	 * - additional parameters which should be handle by the extension
+	 * - additional parameters which should be handled by the extension
 	 *   handleConfigureAction() method (POST request).
 	 */
 	public function configureAction(): void {

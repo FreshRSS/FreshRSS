@@ -63,11 +63,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-    /**
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public function deleteAction(): void {
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public function deleteAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
@@ -88,12 +88,12 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-    /**
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws FreshRSS_Context_Exception
-     * @throws Minz_PDOConnectionException
-     */
-    public function getTagsForEntryAction(): void {
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_PDOConnectionException
+	 */
+	public function getTagsForEntryAction(): void {
 		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
 			Minz_Error::error(403);
 		}
@@ -105,11 +105,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry) ?: [];
 	}
 
-    /**
-     * @throws Minz_ConfigurationNamespaceException
-     * @throws Minz_PDOConnectionException
-     */
-    public function addAction(): void {
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public function addAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}

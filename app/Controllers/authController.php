@@ -66,7 +66,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * It forwards to the correct login page (form) or main page if
 	 * the user is already connected.
 	 * @throws Minz_ConfigurationParamException|FreshRSS_Context_Exception
-     */
+	 */
 	public function loginAction(): void {
 		if (FreshRSS_Auth::hasAccess() && Minz_Request::paramString('u') === '') {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
@@ -108,8 +108,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - challenge (default: '')
 	 *   - keep_logged_in (default: false)
 	 *
-	 * @todo move unsafe autologin in an extension.
 	 * @throws Exception
+	 * @todo move unsafe autologin in an extension.
 	 */
 	public function formLoginAction(): void {
 		invalidateHttpCache();
