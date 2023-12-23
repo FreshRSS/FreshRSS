@@ -63,6 +63,8 @@ foreach ($this->entries as $item) {
 							. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
 							. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
 							. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
+							. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
+							. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
 							. '">'
 							. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
 							. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
