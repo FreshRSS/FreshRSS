@@ -129,7 +129,7 @@ class Minz_ModelPdo {
 		$db = Minz_Configuration::get('system')->db;
 
 		throw new Minz_PDOConnectionException(
-				$ex->getMessage(),
+				$ex === null ? '' : $ex->getMessage(),
 				$db['user'], Minz_Exception::ERROR
 			);
 	}

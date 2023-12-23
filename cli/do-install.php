@@ -44,7 +44,7 @@ fwrite(STDERR, 'FreshRSS install…' . "\n");
 
 $config = array(
 		'salt' => generateSalt(),
-		'db' => FreshRSS_Context::$system_conf->db,
+		'db' => FreshRSS_Context::systemConf()->db,
 	);
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
@@ -62,7 +62,7 @@ foreach ($params as $param) {
 	}
 }
 
-if ((!empty($config['base_url'])) && Minz_Request::serverIsPublic($config['base_url'])) {
+if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;
 }
 

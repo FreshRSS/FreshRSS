@@ -47,7 +47,7 @@ foreach ($this->entries as $item) {
 					echo "\t\t\t", '<media:thumbnail url="' . $thumbnail['url']
 						. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
-						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
+						. (empty($thumbnail['type']) ? '' : '" type="' . $thumbnail['type'])
 						. '" />', "\n";
 					/*  Added mostly for MailChimp + Feedbro which don't support <media:thumbnail> 
 						different to media actually inside enclosures below. 

@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if ($this->query === null) {
+		throw new FreshRSS_Context_Exception('Query not initialised!');
+	}
 ?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>

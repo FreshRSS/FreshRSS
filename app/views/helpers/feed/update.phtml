@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if ($this->feed === null) {
+		throw new FreshRSS_Context_Exception('Feed not initialised!');
+	}
 ?>
 <div class="post" id="feed_update">
 	<h1><?= $this->feed->name() ?></h1>
@@ -184,9 +187,9 @@
 			<label class="group-name" for="mark_updated_article_unread"><?= _t('conf.reading.mark_updated_article_unread') ?></label>
 			<div class="group-controls">
 				<select name="mark_updated_article_unread" id="mark_updated_article_unread" class="w50">
-					<option value=""<?= $this->feed->attributes('mark_updated_article_unread') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('mark_updated_article_unread') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="1"<?= $this->feed->attributes('mark_updated_article_unread') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					<option value=""<?= $this->feed->attributeBoolean('mark_updated_article_unread') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributeBoolean('mark_updated_article_unread') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributeBoolean('mark_updated_article_unread') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
 			</div>
 		</div>
@@ -195,12 +198,12 @@
 			<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
 				<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
-					<option value=""<?= $this->feed->attributes('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="10"<?= $this->feed->attributes('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
-					<option value="25"<?= $this->feed->attributes('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
-					<option value="100"<?= $this->feed->attributes('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
-					<option value="1000"<?= $this->feed->attributes('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
+					<option value=""<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="10"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
+					<option value="25"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
+					<option value="100"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 100 ? ' selected="selected"' : '' ?>>100</option>
+					<option value="1000"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 1000 ? ' selected="selected"' : '' ?>>1 000</option>
 				</select>
 				<?= _t('conf.reading.read.when_same_title') ?>
 			</div>
@@ -210,9 +213,9 @@
 			<label class="group-name" for="read_upon_reception"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
 				<select name="read_upon_reception" id="read_upon_reception" class="w50">
-					<option value=""<?= $this->feed->attributes('read_upon_reception') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('read_upon_reception') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="1"<?= $this->feed->attributes('read_upon_reception') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					<option value=""<?= $this->feed->attributeBoolean('read_upon_reception') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributeBoolean('read_upon_reception') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributeBoolean('read_upon_reception') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
 				<?= _t('conf.reading.read.upon_reception') ?>
 			</div>
@@ -222,9 +225,9 @@
 			<label class="group-name" for="read_upon_gone"><?= _t('conf.reading.read.when') ?></label>
 			<div class="group-controls">
 				<select name="read_upon_gone" id="read_upon_gone" class="w50">
-					<option value=""<?= $this->feed->attributes('read_upon_gone') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('read_upon_gone') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="1"<?= $this->feed->attributes('read_upon_gone') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					<option value=""<?= $this->feed->attributeBoolean('read_upon_gone') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributeBoolean('read_upon_gone') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributeBoolean('read_upon_gone') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
 				<?= _t('conf.reading.read.upon_gone') ?>
 			</div>
@@ -245,7 +248,10 @@
 		<div class="form-group">
 			<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
 			<div class="group-controls">
-				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000" value="<?= $this->feed->attributes('keep_max_n_unread') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000"
+					data-leave-validation="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
+					value="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
+					placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
@@ -267,7 +273,8 @@
 			</div>
 		</div>
 		<?php
-			$archiving = $this->feed->attributes('archiving');
+			$archiving = $this->feed->attributeArray('archiving');
+			/** @var array<'default'?:bool,'keep_period'?:string,'keep_max'?:int,'keep_min'?:int,'keep_favourites'?:bool,'keep_labels'?:bool,'keep_unreads'?:bool>|null $archiving */
 			if (empty($archiving)) {
 				$archiving = [ 'default' => true ];
 			} else {
@@ -278,7 +285,7 @@
 				'keep_period_count' => '3',
 				'keep_period_unit' => 'P1M',
 			];
-			if (!empty($archiving['keep_period'])) {
+			if (!empty($archiving['keep_period']) && is_string($archiving['keep_period'])) {
 				if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
 					$volatile['enable_keep_period'] = true;
 					$volatile['keep_period_count'] = $matches['count'];
@@ -286,19 +293,19 @@
 				}
 			}
 			//Defaults
-			if (!isset($archiving['keep_max'])) {
-				$archiving['keep_max'] = false;
+			if (!isset($archiving['keep_max']) || !is_int($archiving['keep_max'])) {
+				$archiving['keep_max'] = 0;
 			}
-			if (!isset($archiving['keep_min'])) {
+			if (!isset($archiving['keep_min']) || !is_int($archiving['keep_min'])) {
 				$archiving['keep_min'] = 50;
 			}
-			if (!isset($archiving['keep_favourites'])) {
+			if (!isset($archiving['keep_favourites']) || !is_bool($archiving['keep_favourites'])) {
 				$archiving['keep_favourites'] = true;
 			}
-			if (!isset($archiving['keep_labels'])) {
+			if (!isset($archiving['keep_labels']) || !is_bool($archiving['keep_labels'])) {
 				$archiving['keep_labels'] = true;
 			}
-			if (!isset($archiving['keep_unreads'])) {
+			if (!isset($archiving['keep_unreads']) || !is_bool($archiving['keep_unreads'])) {
 				$archiving['keep_unreads'] = false;
 			}
 		?>
@@ -406,7 +413,7 @@
 
 		<fieldset id="html_xpath">
 			<?php
-				$xpath = Minz_Helper::htmlspecialchars_utf8((array)($this->feed->attributes('xpath')));
+				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('xpath') ?? []);
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 			<div class="form-group">
@@ -521,7 +528,7 @@
 
 		<div class="form-group">
 			<?php
-				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8((string)($this->feed->attributes('path_entries_filter')));
+				$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('path_entries_filter') ?? '');
 			?>
 			<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 			<div class="group-controls">
@@ -537,13 +544,13 @@
 			<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 			<div class="group-controls">
 				<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="w100" value="<?=
-					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_COOKIE]) ?
-						$this->feed->attributes('curl_params')[CURLOPT_COOKIE] : ''
+					$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_COOKIE]) ?
+						$this->feed->attributeArray('curl_params')[CURLOPT_COOKIE] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
 				<label for="curl_params_cookiefile">
 					<input type="checkbox" name="curl_params_cookiefile" id="curl_params_cookiefile" value="1"<?=
-						is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_COOKIEFILE]) ?
+						$this->feed->attributeArray('curl_params') !== null && isset($this->feed->attributeArray('curl_params')[CURLOPT_COOKIEFILE]) ?
 							' checked="checked"' : ''
 					?> />
 					<?= _t('sub.feed.accept_cookies') ?>
@@ -556,8 +563,8 @@
 			<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
 			<div class="group-controls">
 				<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="w50" min="-1" value="<?=
-					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS]) ?
-						$this->feed->attributes('curl_params')[CURLOPT_MAXREDIRS] : ''
+					$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_MAXREDIRS]) ?
+						$this->feed->attributeArray('curl_params')[CURLOPT_MAXREDIRS] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 			</div>
@@ -567,9 +574,9 @@
 			<label class="group-name" for="content_action"><?= _t('sub.feed.content_action') ?></label>
 			<div class="group-controls">
 				<select name="content_action" id="content_action" class="w50">
-					<option value="replace"<?= 'replace' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.replace') ?></option>
-					<option value="prepend"<?= 'prepend' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.prepend') ?></option>
-					<option value="append"<?= 'append' === $this->feed->attributes('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.append') ?></option>
+					<option value="replace"<?= 'replace' === $this->feed->attributeString('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.replace') ?></option>
+					<option value="prepend"<?= 'prepend' === $this->feed->attributeString('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.prepend') ?></option>
+					<option value="append"<?= 'append' === $this->feed->attributeString('content_action') ? ' selected="selected"' : '' ?>><?= _t('sub.feed.content_action.append') ?></option>
 				</select>
 			</div>
 		</div>
@@ -578,8 +585,8 @@
 			<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 			<div class="group-controls">
 				<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="w100" value="<?=
-					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_USERAGENT]) ?
-						$this->feed->attributes('curl_params')[CURLOPT_USERAGENT] : ''
+					$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_USERAGENT]) ?
+						$this->feed->attributeArray('curl_params')[CURLOPT_USERAGENT] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 			</div>
@@ -590,8 +597,8 @@
 			<div class="group-controls">
 				<select name="proxy_type" id="proxy_type"><?php
 					$type = '';
-					if (is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_PROXYTYPE])) {
-						$type = $this->feed->attributes('curl_params')[CURLOPT_PROXYTYPE];
+					if ($this->feed->attributeArray('curl_params') !== null && isset($this->feed->attributeArray('curl_params')[CURLOPT_PROXYTYPE])) {
+						$type = $this->feed->attributeArray('curl_params')[CURLOPT_PROXYTYPE];
 					}
 					foreach(['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
 						echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
@@ -599,8 +606,8 @@
 				?>
 				</select>
 				<input type="text" name="curl_params" id="curl_params" value="<?=
-					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_PROXY]) ?
-						$this->feed->attributes('curl_params')[CURLOPT_PROXY] : ''
+					$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_PROXY]) ?
+						$this->feed->attributeArray('curl_params')[CURLOPT_PROXY] : ''
 				?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 			</div>
@@ -609,7 +616,7 @@
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?= _t('sub.feed.timeout') ?></label>
 			<div class="group-controls">
-				<input type="number" name="timeout" id="timeout" class="w50" min="3" max="900" value="<?= $this->feed->attributes('timeout') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
+				<input type="number" name="timeout" id="timeout" class="w50" min="3" max="900" value="<?= $this->feed->attributeInt('timeout') ?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 			</div>
 		</div>
 
@@ -617,9 +624,9 @@
 			<label class="group-name" for="ssl_verify"><?= _t('sub.feed.ssl_verify') ?></label>
 			<div class="group-controls">
 				<select name="ssl_verify" id="ssl_verify" class="w50">
-					<option value=""<?= $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="0"<?= $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
-					<option value="1"<?= $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					<option value=""<?= $this->feed->attributeBoolean('ssl_verify') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="0"<?= $this->feed->attributeBoolean('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+					<option value="1"<?= $this->feed->attributeBoolean('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 				</select>
 			</div>
 		</div>
@@ -627,7 +634,7 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="clear_cache">
-					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributes('clear_cache') ? ' checked="checked"' : '' ?> />
+					<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributeBoolean('clear_cache') ? ' checked="checked"' : '' ?> />
 					<?= _t('sub.feed.clear_cache') ?>
 				</label>
 			</div>

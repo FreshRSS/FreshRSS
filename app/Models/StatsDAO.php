@@ -248,8 +248,8 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'label':string,'data':int}>|null @res */
+		$res = $this->fetchAssoc($sql);
 		return $res == null ? [] : $res;
 	}
 

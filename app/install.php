@@ -70,20 +70,20 @@ function saveStep1(): void {
 
 		// First, we try to get previous configurations
 		FreshRSS_Context::initSystem();
-		FreshRSS_Context::initUser(FreshRSS_Context::$system_conf->default_user, false);
+		FreshRSS_Context::initUser(FreshRSS_Context::systemConf()->default_user, false);
 
 		// Then, we set $_SESSION vars
 		Minz_Session::_params([
-				'title' => FreshRSS_Context::$system_conf->title,
-				'auth_type' => FreshRSS_Context::$system_conf->auth_type,
-				'default_user' => Minz_User::name(),
-				'passwordHash' => FreshRSS_Context::$user_conf->passwordHash,
-				'bd_type' => FreshRSS_Context::$system_conf->db['type'] ?? '',
-				'bd_host' => FreshRSS_Context::$system_conf->db['host'] ?? '',
-				'bd_user' => FreshRSS_Context::$system_conf->db['user'] ?? '',
-				'bd_password' => FreshRSS_Context::$system_conf->db['password'] ?? '',
-				'bd_base' => FreshRSS_Context::$system_conf->db['base'] ?? '',
-				'bd_prefix' => FreshRSS_Context::$system_conf->db['prefix'] ?? '',
+				'title' => FreshRSS_Context::systemConf()->title,
+				'auth_type' => FreshRSS_Context::systemConf()->auth_type,
+				'default_user' => Minz_User::name() ?? '',
+				'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
+				'bd_type' => FreshRSS_Context::systemConf()->db['type'] ?? '',
+				'bd_host' => FreshRSS_Context::systemConf()->db['host'] ?? '',
+				'bd_user' => FreshRSS_Context::systemConf()->db['user'] ?? '',
+				'bd_password' => FreshRSS_Context::systemConf()->db['password'] ?? '',
+				'bd_base' => FreshRSS_Context::systemConf()->db['base'] ?? '',
+				'bd_prefix' => FreshRSS_Context::systemConf()->db['prefix'] ?? '',
 				'bd_error' => false,
 			]);
 
@@ -191,33 +191,34 @@ function saveStep3(): bool {
 	Minz_Translate::init(Minz_Session::paramString('language'));
 
 	if (!empty($_POST)) {
-		if (param('auth_type', 'form') != '') {
-			FreshRSS_Context::$system_conf->auth_type = param('auth_type', 'form');
-			Minz_Session::_param('auth_type', FreshRSS_Context::$system_conf->auth_type);
+		$auth_type = param('auth_type', 'form');
+		if (in_array($auth_type, ['form', 'http_auth', 'none'], true)) {
+			FreshRSS_Context::systemConf()->auth_type = $auth_type;
+			Minz_Session::_param('auth_type', FreshRSS_Context::systemConf()->auth_type);
 		} else {
 			return false;
 		}
 
 		$password_plain = param('passwordPlain', '');
-		if (FreshRSS_Context::$system_conf->auth_type === 'form' && $password_plain == '') {
+		if (FreshRSS_Context::systemConf()->auth_type === 'form' && $password_plain == '') {
 			return false;
 		}
 
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			FreshRSS_Context::$system_conf->default_user = param('default_user', '');
-			Minz_Session::_param('default_user', FreshRSS_Context::$system_conf->default_user);
+			FreshRSS_Context::systemConf()->default_user = param('default_user', '');
+			Minz_Session::_param('default_user', FreshRSS_Context::systemConf()->default_user);
 		} else {
 			return false;
 		}
 
-		if (FreshRSS_Context::$system_conf->auth_type === 'http_auth' &&
+		if (FreshRSS_Context::systemConf()->auth_type === 'http_auth' &&
 			connectionRemoteAddress() !== '' &&
 			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
 			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
 		) {
 			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
-			FreshRSS_Context::$system_conf->trusted_sources[] = connectionRemoteAddress();
-			FreshRSS_Context::$system_conf->trusted_sources = array_unique(FreshRSS_Context::$system_conf->trusted_sources);
+			FreshRSS_Context::systemConf()->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::systemConf()->trusted_sources = array_unique(FreshRSS_Context::systemConf()->trusted_sources);
 		}
 
 		// Create default user files but first, we delete previous data to
@@ -244,7 +245,7 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		FreshRSS_Context::$system_conf->save();
+		FreshRSS_Context::systemConf()->save();
 
 		header('Location: index.php?step=4');
 	}
@@ -550,7 +551,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?=
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.\-]{1,64}(:[0-9]{2,5})?" value="<?=
 					$_SESSION['bd_host'] ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
 			</div>
 		</div>
@@ -558,7 +559,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.-]{1,64}" value="<?=
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.\-]{1,64}" value="<?=
 					$_SESSION['bd_user'] ?? '' ?>" tabindex="3" />
 			</div>
 		</div>
@@ -577,7 +578,7 @@ function printStep2(): void {
 		<div class="form-group">
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?=
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_\-]{1,64}" value="<?=
 					$_SESSION['bd_base'] ?? '' ?>" tabindex="6" />
 			</div>
 		</div>

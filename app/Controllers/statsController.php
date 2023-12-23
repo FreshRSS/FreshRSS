@@ -34,7 +34,6 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->checkDefault();
 		$this->view->categories = $catDAO->listSortedCategories(false) ?: [];
-		$this->view->default_category = $catDAO->getDefault();
 
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}

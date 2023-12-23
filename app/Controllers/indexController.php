@@ -10,7 +10,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action only redirect on the default view mode (normal or global)
 	 */
 	public function indexAction(): void {
-		$preferred_output = FreshRSS_Context::$user_conf->view_mode;
+		$preferred_output = FreshRSS_Context::userConf()->view_mode;
 		Minz_Request::forward([
 			'c' => 'index',
 			'a' => $preferred_output,
@@ -21,7 +21,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the normal view of FreshRSS.
 	 */
 	public function normalAction(): void {
-		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
+		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
@@ -107,7 +107,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction(): void {
-		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
+		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
 			return;
@@ -143,8 +143,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the RSS feed of FreshRSS.
 	 */
 	public function rssAction(): void {
-		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
-		$token = FreshRSS_Context::$user_conf->token;
+		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
+		$token = FreshRSS_Context::userConf()->token;
 		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
@@ -176,8 +176,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	public function opmlAction(): void {
-		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
-		$token = FreshRSS_Context::$user_conf->token;
+		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
+		$token = FreshRSS_Context::userConf()->token;
 		$token_param = Minz_Request::paramString('token');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
@@ -259,7 +259,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$date_min = 0;
 		if (FreshRSS_Context::$sinceHours) {
 			$date_min = time() - (FreshRSS_Context::$sinceHours * 3600);
-			$limit = FreshRSS_Context::$user_conf->max_posts_per_rss;
+			$limit = FreshRSS_Context::userConf()->max_posts_per_rss;
 		}
 
 		foreach ($entryDAO->listWhere(
