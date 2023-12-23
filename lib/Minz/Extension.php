@@ -14,9 +14,9 @@ abstract class Minz_Extension {
 	/** @var 'system'|'user' */
 	private string $type;
 	/** @var array<string,mixed>|null */
-	private ?array $user_configuration;
+	private ?array $user_configuration = null;
 	/** @var array<string,mixed>|null */
-	private ?array $system_configuration;
+	private ?array $system_configuration = null;
 
 	/** @var array{0:'system',1:'user'} */
 	public static array $authorized_types = [
