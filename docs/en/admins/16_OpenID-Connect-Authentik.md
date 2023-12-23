@@ -10,24 +10,29 @@ In authentik Web interface:
 
 ![authentik-new-provider-type](../img/admins/authentik-01.png)
 
-Click Next.
+Select oAuth2/OpenID Provider. Click Next.
 
-Give it a name, and select your desired auth flows (default flows for this example).
+Give it a name, and select your desired auth flows (default flows for this example). Select "Confidential" Client Type. 
 
 ![authentik-new-provider-create](../img/admins/authentik-02.png)
 
-Copy the ID / secret for later.
+Copy the ID / secret for later (you can also come back and get it later).
 
-Set the redirect URIs for FreshRSS: If FreshRSS’ root is `https://freshrss.example.net/`, the proper redirect URI would be `https://freshrss.example.net/i/oidc`
+Set the redirect URIs for FreshRSS: If FreshRSS’ root is `https://freshrss.example.net/`, the proper redirect URI would be `https://freshrss.example.net:443/i/oidc`/ Note the port number is required even if you are using standard ports (443 for HTTPS). Without the port number, Authentik will give a `redirect_url` error. 
 
 You will need to choose a signing key.
-If you don’t have one, generate one under *System > Certificates*.
+If you don’t have one, generate one under *System > Certificates*. The defualt `authentik Self-Signed Certificate` will also work. 
+
+Under Advanced Protocol Settings -> Scopes you will see that email, openid and profile are selected by default. These are the scopes you will set later in the docker config file. 
 
 ![authentik-new-provider-secrets](../img/admins/authentik-03.png)
 
 After you have created the provider, you will need to create an application for it.
 
 ![authentik-create-application](../img/admins/authentik-04.png)
+
+In Authentik, click on Applications, then select the FreshRSS application you just made. Select the `Policy / Group / User Bindings` tab at the top. This is where you define which of your Authentik users are allowed to access this application (FreshRSS). Select `Bind existing policy` then select either the group or the user tab to add a group of users or a specific user. (Note: Suggested to make a group such as `app-users` and `app-admin-users` so that you can simply add entire groups to applications. Then when new users are made, they are just added to the group and all your applications will allow them to authenticate).
+
 
 Finally, go to *Providers*, and click on the OIDC provider you created for FreshRSS.
 
