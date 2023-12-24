@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2023-12-XX FreshRSS 1.23.0-dev
+## 2023-12-24 FreshRSS 1.23.0
 
 * Features
 	* New *Important feeds* group in the main view, with corresponding new priority level for feeds [#5782](https://github.com/FreshRSS/FreshRSS/pull/5782)
@@ -15,7 +15,6 @@
 	* Increase SQL date fields to 64-bit to be ready for year 2038+ [#5570](https://github.com/FreshRSS/FreshRSS/pull/5570)
 * Compatibility
 	* Require PHP 7.4+, and implement *typed properties* [#5720](https://github.com/FreshRSS/FreshRSS/pull/5720)
-		* Enforce PHP [strict typing](https://php.net/language.types.declarations#language.types.declarations.strict) [#5830](https://github.com/FreshRSS/FreshRSS/pull/5830)
 	* Require Apache 2.4+ (but repair minimal compatibility with Apache 2.2) [#5791](https://github.com/FreshRSS/FreshRSS/pull/5791), [#5804](https://github.com/FreshRSS/FreshRSS/pull/5804)
 * Bug fixing
 	* Fix regression in Docker `CRON_MIN` if any environment variable contains a single quote [#5795](https://github.com/FreshRSS/FreshRSS/pull/5795)
@@ -27,11 +26,12 @@
 	* Fix API for adding feed with a title [#5868](https://github.com/FreshRSS/FreshRSS/pull/5868)
 	* Fix regression in UI of update page [#5802](https://github.com/FreshRSS/FreshRSS/pull/5802)
 	* Fix XPath encoding [#5912](https://github.com/FreshRSS/FreshRSS/pull/5912)
+	* Fix notifications, in particular during login [#5959](https://github.com/FreshRSS/FreshRSS/pull/5959)
 * Deployment
 	* Use GitHub Actions to build Docker images, offering architectures `amd64`, `arm32v7`, `arm64v8` with automatic detection [#5808](https://github.com/FreshRSS/FreshRSS/pull/5808)
 	* Docker alternative image updated to Alpine 3.19 with PHP 8.2.13 and Apache 2.4.58 [#5383](https://github.com/FreshRSS/FreshRSS/pull/5383)
 * Extensions
-	* Upgrade extensions code to PHP 7.4+ [#5901](https://github.com/FreshRSS/FreshRSS/pull/5901)
+	* Upgrade extensions code to PHP 7.4+ [#5901](https://github.com/FreshRSS/FreshRSS/pull/5901), [#5957](https://github.com/FreshRSS/FreshRSS/pull/5957)
 	* Breaking change: upgraded extensions require FreshRSS 1.23.0+ [Extensions#181](https://github.com/FreshRSS/Extensions/pull/181)
 	* Pass FreshRSS version to JavaScript client side for extensions [#5902](https://github.com/FreshRSS/FreshRSS/pull/5902)
 	* Add GitHub Actions and PHPStan for automatic testing of the Extensions repository [Extensions#185](https://github.com/FreshRSS/Extensions/pull/185)
@@ -50,7 +50,7 @@
 	* Improve Dutch [#5796](https://github.com/FreshRSS/FreshRSS/pull/5796)
 	* Improve Hungarian [#5918](https://github.com/FreshRSS/FreshRSS/pull/5918)
 * Misc.
-	* Increase PHPStan from Level 7 to [level 8](https://phpstan.org/user-guide/rule-levels) [#5946](https://github.com/FreshRSS/FreshRSS/pull/5946)
+	* Increase PHPStan from Level 7 to [Level 8](https://phpstan.org/user-guide/rule-levels) [#5946](https://github.com/FreshRSS/FreshRSS/pull/5946)
 	* Compatibility PHP 8.2+ for running automated tests [#5826](https://github.com/FreshRSS/FreshRSS/pull/5826)
 	* Use PHP [`declare(strict_types=1);`](https://php.net/language.types.declarations#language.types.declarations.strict) [#5830](https://github.com/FreshRSS/FreshRSS/pull/5830)
 	* Better stack trace for SQL errors [#5916](https://github.com/FreshRSS/FreshRSS/pull/5916)
