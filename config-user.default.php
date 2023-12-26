@@ -37,7 +37,7 @@ return array (
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
 	'show_tags' => '0',
-	'show_tags_max' => '7',
+	'show_tags_max' => 7,
 	'show_author_date' => 'h',
 	'show_feed_name' => 'a',
 	'hide_read_feeds' => true,

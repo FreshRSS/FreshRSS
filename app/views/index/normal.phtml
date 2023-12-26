@@ -14,7 +14,7 @@ $display_others = true;
 $hidePosts = !FreshRSS_Context::userConf()->display_posts;
 $lazyload = FreshRSS_Context::userConf()->lazyload;
 $content_width = FreshRSS_Context::userConf()->content_width;
-$MAX_TAGS_DISPLAYED = FreshRSS_Context::userConf()->show_tags_max;
+$MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 
 $today = @strtotime('today');
