@@ -10,7 +10,7 @@ call_user_func($this->callbackBeforeEntries, $this);
 
 $lazyload = FreshRSS_Context::userConf()->lazyload;
 $content_width = FreshRSS_Context::userConf()->content_width;
-$MAX_TAGS_DISPLAYED = FreshRSS_Context::userConf()->show_tags_max;
+$MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 ?>
 <main id="stream" class="reader">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
