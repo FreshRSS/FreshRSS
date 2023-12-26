@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
-			'focus' => '在关注后（除了重要订阅）',
+			'focus' => '被聚焦时（除了重要订阅）',
 			'keep_max_n_unread' => '未读最多保留 n 条',
 			'scroll' => '在滚动浏览后（除了重要订阅）',
 			'upon_gone' => '在被原订阅源被移除后',
