@@ -1,6 +1,13 @@
 ﻿# FreshRSS changelog
 
-## 2023-12-24 FreshRSS 1.23.1-dev
+## 2023-12-XX FreshRSS 1.23.1-dev
+
+* Bug fixing
+	* Fix crash regression with the option *Max number of tags shown* [#5978](https://github.com/FreshRSS/FreshRSS/pull/5978)
+	* Fix crash regression when enabling extensions [#5979](https://github.com/FreshRSS/FreshRSS/pull/5979)
+	* More robust assignment of categories to feeds [#5986](https://github.com/FreshRSS/FreshRSS/pull/5986)
+* i18n
+	* Improve simplified Chinese [#5977](https://github.com/FreshRSS/FreshRSS/pull/5977)
 
 
 ## 2023-12-24 FreshRSS 1.23.0
