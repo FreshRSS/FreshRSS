@@ -5,6 +5,7 @@
 * Bug fixing
 	* Fix crash regression with the option *Max number of tags shown* [#5978](https://github.com/FreshRSS/FreshRSS/pull/5978)
 	* Fix crash regression when enabling extensions [#5979](https://github.com/FreshRSS/FreshRSS/pull/5979)
+	* Fix crash regression during export when using MySQL [#5988](https://github.com/FreshRSS/FreshRSS/pull/5988)
 	* More robust assignment of categories to feeds [#5986](https://github.com/FreshRSS/FreshRSS/pull/5986)
 * i18n
 	* Improve simplified Chinese [#5977](https://github.com/FreshRSS/FreshRSS/pull/5977)
