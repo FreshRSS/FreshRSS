@@ -34,7 +34,7 @@
 		<div class="form-group">
 			<label class="group-name" for="websub"><?= _t('sub.feed.websub') ?></label>
 			<div class="group-controls">
-				<input type="checkbox" id="websub" name="websub" readonly="readonly" <?=
+				<input type="checkbox" id="websub" name="websub" disabled="disabled" <?=
 					FreshRSS_Context::systemConf()->pubsubhubbub_enabled && Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) ? 'checked="checked"' : '' ?> />
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.websub.help') ?></p>
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
