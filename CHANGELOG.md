@@ -7,6 +7,7 @@
 	* Fix crash regression when enabling extensions [#5979](https://github.com/FreshRSS/FreshRSS/pull/5979)
 	* Fix crash regression during export when using MySQL [#5988](https://github.com/FreshRSS/FreshRSS/pull/5988)
 	* More robust assignment of categories to feeds [#5986](https://github.com/FreshRSS/FreshRSS/pull/5986)
+	* Fix `base_url` being cleared when saving settings [#5992](https://github.com/FreshRSS/FreshRSS/pull/5992)
 * i18n
 	* Improve simplified Chinese [#5977](https://github.com/FreshRSS/FreshRSS/pull/5977)
 
