@@ -153,6 +153,7 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			$this->feeds = [];
 		}
+		$feed->_category($this);
 		$this->feeds[] = $feed;
 
 		$this->sortFeeds();
@@ -210,7 +211,7 @@ class FreshRSS_Category extends Minz_Model {
 				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
 					if (empty($existingFeeds[$dryRunFeed->url()])) {
 						// The feed does not exist in the current category, so add that feed
-						$dryRunFeed->_categoryId($this->id());
+						$dryRunFeed->_category($this);
 						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
 					} else {
 						$existingFeed = $existingFeeds[$dryRunFeed->url()];

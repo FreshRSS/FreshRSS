@@ -64,7 +64,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($cat === null) {
 			$catDAO->checkDefault();
 		}
-		$cat_id = $cat === null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$title = trim($title);
@@ -74,7 +73,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_kind($kind);
 		$feed->_attributes($attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->_categoryId($cat_id);
+		if ($cat === null) {
+			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		} else {
+			$feed->_category($cat);
+		}
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
