@@ -61,7 +61,6 @@
 	margin: 0;
 	padding: 0.5rem 1.5rem;
 	background: #f9fafb;
-	display: inline-block;
 	color: #5b6871;
 	font-size: 1rem;
 	border: none;
@@ -70,8 +69,6 @@
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 	transition: all 0.15s ease-in-out;
 }
 .btn.btn-important {
