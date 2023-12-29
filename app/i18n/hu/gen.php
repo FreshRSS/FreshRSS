@@ -188,11 +188,11 @@ return array(
 		'user_profile' => 'Profil',
 	),
 	'period' => array(
-		'days' => 'napok',
-		'hours' => 'órák',
-		'months' => 'hónapok',
-		'weeks' => 'hetek',
-		'years' => 'évek',
+		'days' => 'nap',
+		'hours' => 'óra',
+		'months' => 'hónap',
+		'weeks' => 'hét',
+		'years' => 'év',
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',
