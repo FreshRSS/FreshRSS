@@ -36,6 +36,7 @@ LABEL \
 
 RUN a2dismod -q -f alias autoindex negotiation status && \
 	a2dismod -q auth_openidc && \
+	phpdismod calendar exif ffi ftp gettext mysqli posix readline shmop sockets sysvmsg sysvsem sysvshm xsl && \
 	a2enmod -q deflate expires headers mime remoteip setenvif && \
 	a2disconf -q '*' && \
 	a2dissite -q '*' && \
