@@ -118,8 +118,8 @@ sudo git checkout latest
 
 # Mettre les droits d’accès pour le serveur Web
 sudo cli/access-permissions.sh
-# Si vous souhaitez permettre les mises à jour par l’interface Web
-sudo chmod -R g+w .
+# Si vous souhaitez permettre les mises à jour par l’interface Web (un peu moins sûr)
+sudo chown www-data:www-data -R .
 
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
