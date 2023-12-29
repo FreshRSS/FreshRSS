@@ -401,6 +401,7 @@ SQL;
 		foreach ($categories as $category) {
 			foreach ($category->feeds() as $feed) {
 				if ($feed->id() === $feed_id) {
+					$feed->_category($category);	// Should already be done; just to be safe
 					return $feed;
 				}
 			}

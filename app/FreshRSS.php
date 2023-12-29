@@ -16,7 +16,6 @@ class FreshRSS extends Minz_FrontController {
 	 * - Init i18n (need context)
 	 * - Init sharing system (need user conf and i18n)
 	 * - Init generic styles and scripts (need user conf)
-	 * - Init notifications
 	 * - Enable user extensions (need all the other initializations)
 	 */
 	public function init(): void {
@@ -58,7 +57,6 @@ class FreshRSS extends Minz_FrontController {
 
 		// Complete initialization of the other FreshRSS / Minz components.
 		self::initI18n();
-		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous) {
 			$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
@@ -149,13 +147,6 @@ class FreshRSS extends Minz_FrontController {
 			FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
 		}
 		FreshRSS_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
-	}
-
-	private static function loadNotifications(): void {
-		$notif = Minz_Request::getNotification();
-		if (!empty($notif)) {
-			FreshRSS_View::_param('notification', $notif);
-		}
 	}
 
 	public static function preLayout(): void {

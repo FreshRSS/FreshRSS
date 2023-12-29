@@ -5,24 +5,18 @@ declare(strict_types=1);
  * The extension base class.
  */
 abstract class Minz_Extension {
-	/** @var string */
-	private $name;
-	/** @var string */
-	private $entrypoint;
-	/** @var string */
-	private $path;
-	/** @var string */
-	private $author;
-	/** @var string */
-	private $description;
-	/** @var string */
-	private $version;
+	private string $name;
+	private string $entrypoint;
+	private string $path;
+	private string $author;
+	private string $description;
+	private string $version;
 	/** @var 'system'|'user' */
-	private $type;
+	private string $type;
 	/** @var array<string,mixed>|null */
-	private $user_configuration;
+	private ?array $user_configuration = null;
 	/** @var array<string,mixed>|null */
-	private $system_configuration;
+	private ?array $system_configuration = null;
 
 	/** @var array{0:'system',1:'user'} */
 	public static array $authorized_types = [
@@ -30,8 +24,7 @@ abstract class Minz_Extension {
 		'user',
 	];
 
-	/** @var bool */
-	private $is_enabled;
+	private bool $is_enabled;
 
 	/**
 	 * The constructor to assign specific information to the extension.

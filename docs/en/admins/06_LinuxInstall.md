@@ -84,10 +84,13 @@ cd FreshRSS
 sudo cli/access-permissions.sh
 ```
 
-Optional: If you would like to allow updates from the Web interface, set write permissions
+Optional: If you would like to allow updates from the Web interface, set write permissions (reduces slightly the security)
 
 ```sh
-chmod -R g+w .
+# Debian
+chown www-data:www-data -R .
+# Alpine
+chown apache:www-data -R .
 ```
 
 Finally, symlink the public folder to the root of your web directory
