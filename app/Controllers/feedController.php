@@ -679,6 +679,66 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
 	}
 
+	/**
+	 * @param array<int,int> $newUnreadEntriesPerFeed
+	 * @return int|false The number of articles marked as read, of false if error
+	 */
+	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed) {
+		$affected = 0;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+		foreach ($feeds as $feed) {
+			if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+				($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+				Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
+				$n = $feed->markAsReadMaxUnread();
+				if ($n === false) {
+					$affected = false;
+					break;
+				} else {
+					$affected += $n;
+				}
+			}
+		}
+		if ($feedDAO->updateCachedValues() === false) {
+			$affected = false;
+		}
+		return $affected;
+	}
+
+	/**
+	 * Auto-add labels to new articles.
+	 * @param int $nbNewEntries The number of top recent entries to process.
+	 * @return int|false The number of new labels added, or false in case of error.
+	 */
+	private static function applyLabelActions(int $nbNewEntries) {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$labels = $tagDAO->listTags() ?: [];
+		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
+			return !empty($label->filtersAction('label'));
+		});
+		if (count($labels) <= 0) {
+			return 0;
+		}
+
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		/** @var array<array{id_tag:int,id_entry:string}> $applyLabels */
+		$applyLabels = [];
+		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll($nbNewEntries)) as $entry) {
+			foreach ($labels as $label) {
+				$label->applyFilterActions($entry, $applyLabel);
+				if ($applyLabel) {
+					$applyLabels[] = [
+						'id_tag' => $label->id(),
+						'id_entry' => $entry->id(),
+					];
+				}
+			}
+		}
+		return $tagDAO->tagEntries($applyLabels);
+	}
+
 	public static function commitNewEntries(): bool {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
@@ -688,30 +748,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$entryDAO->beginTransaction();
 			}
 			if ($entryDAO->commitNewEntries()) {
-				// Keep max unreads
-				$feedDAO = FreshRSS_Factory::createFeedDao();
-				$feeds = $feedDAO->listFeedsOrderUpdate(-1);
-				foreach ($feeds as $feed) {
-					if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
-						($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
-						Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
-							$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
-						$feed->markAsReadMaxUnread();
-					}
-				}
-				$feedDAO->updateCachedValues();
-
-				// Auto-add labels
-				$tagDAO = FreshRSS_Factory::createTagDao();
-				$labels = $tagDAO->listTags() ?: [];
-				$labels = array_filter($labels, static function(FreshRSS_Tag $label) {
-					return $label->filtersAction('label') !== null;
-				});
-				if (count($labels) > 0) {
-					foreach (iterator_to_array($entryDAO->selectAll($nbNewEntries)) as $entry) {
-						// TODO
-					}
-				}
+				self::keepMaxUnreads($newUnreadEntriesPerFeed);
+				self::applyLabelActions($nbNewEntries);
 			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
