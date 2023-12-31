@@ -59,9 +59,10 @@
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (!empty($this->notification)) {
-		$msg = $this->notification['content'];
-		$status = $this->notification['type'];
+	$notif = Minz_Request::getNotification();
+	if (!empty($notif)) {
+		$msg = $notif['content'];
+		$status = $notif['type'];
 		invalidateHttpCache();
 	}
 ?>

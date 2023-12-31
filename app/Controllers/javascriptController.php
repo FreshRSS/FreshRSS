@@ -49,7 +49,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 		$user = $_GET['user'] ?? '';
 		FreshRSS_Context::initUser($user);
-		if (!FreshRSS_Context::hasUserConf()) {
+		if (FreshRSS_Context::hasUserConf()) {
 			try {
 				$salt = FreshRSS_Context::systemConf()->salt;
 				$s = FreshRSS_Context::userConf()->passwordHash;
@@ -64,7 +64,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
 			}
 		} else {
-			Minz_Log::notice('Nonce failure due to invalid username!');
+			Minz_Log::notice('Nonce failure due to invalid username! ' . $user);
 		}
 		//Failure: Return random data.
 		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);

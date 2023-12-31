@@ -221,7 +221,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			$id = null;
 		}
 
-		$this->view->categories 	= $categoryDAO->listCategories() ?: [];
+		$this->view->categories 	= $categoryDAO->listCategories(true) ?: [];
 		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();

@@ -352,8 +352,11 @@ class Minz_Request {
 		self::setNotification('bad', $content);
 	}
 
-	/** @return array{type:string,content:string}|null */
-	public static function getNotification(): ?array {
+	/**
+	 * @param $pop true (default) to remove the notification, false to keep it.
+	 * @return array{type:string,content:string}|null
+	 */
+	public static function getNotification(bool $pop = true): ?array {
 		$notif = null;
 		Minz_Session::lock();
 		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
@@ -365,7 +368,9 @@ class Minz_Request {
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {
 				$notif = $requests[$requestId]['notification'];
-				unset($requests[$requestId]);
+				if ($pop) {
+					unset($requests[$requestId]);
+				}
 			}
 			Minz_Session::_param('requests', $requests);
 		}
