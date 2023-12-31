@@ -1,37 +1,54 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.',	// TODO - Translation
-			'required' => 'The email address is required.',	// TODO - Translation
+			'invalid' => 'Этот адрес электронной почты неверный.',
+			'required' => 'Требуется адрес электронной почты.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',	// TODO - Translation
+			'change_email' => 'Вы можете изменить ваш адрес электронной почты <a href="%s">на странице профиля</a>.',
+			'email_sent_to' => 'Мы отправили вам письмо по адресу <strong>%s</strong>. Пожалуйста, следуйте инструкциям в нём, чтобы подтвердить ваш адрес электронной почты.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'The email address failed to be validated.',	// TODO - Translation
-				'ok' => 'The email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'The email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Мы не смогли отправить вам письмо из-за ошибки конфигурации сервера.',
+				'email_sent' => 'Письмо отправлено на ваш адрес электронной почты.',
+				'error' => 'Не удалось подтвердить адрес электронной почты.',
+				'ok' => 'Адрес электронной почты подтверждён.',
+				'unnecessary' => 'Этот адрес электронной почты уже подтверждён.',
+				'wrong_token' => 'Не удалось подтвердить этот адрес электронной почты из-за неверного токена.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => 'Вам необходимо подтвердить адрес электронной почты, прежде чем вы сможете пользоваться %s.',
+			'resend_email' => 'Отправить ещё раз',
+			'title' => 'Подтверждение адреса электронной почты',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => 'Вы зарегистрировались в %s, но вам всё ещё нужно подтвердить ваш адрес электронной почты. Для этого просто перейдите по ссылке:',
+			'title' => 'Вам нужно подтвердить ваш аккаунт',
+			'welcome' => 'Добро пожаловать, %s,',
 		),
+	),
+	'password' => array(
+		'invalid' => 'Неверный пароль.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Вы должны принять Условия предоставления услуг, чтобы зарегистрироваться.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'Неверное имя пользователя.',
+		'taken' => 'Имя пользователя %s занято.',
 	),
 );

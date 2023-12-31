@@ -1,32 +1,41 @@
-<?php $this->partial('aside_configure'); ?>
-
-<div class="post">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
+<main class="post">
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
-
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<?php if (!empty($this->extension_list['system'])) { ?>
 	<h2><?= _t('admin.extensions.system') ?></h2>
+	<ul class="manage-list">
 	<?php
 		foreach ($this->extension_list['system'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	?>
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+	</ul>
 	<?php } ?>
 
 	<?php if (!empty($this->extension_list['user'])) { ?>
 	<h2><?= _t('admin.extensions.user') ?></h2>
+	<ul class="manage-list">
 	<?php
 		foreach ($this->extension_list['user'] as $ext) {
-			$this->ext_details = $ext;
-			$this->renderHelper('extension/details');
-		}
-	?>
-	<?php
-	}
+			$this->ext_details = $ext; ?>
+			<li>
+			<?php $this->renderHelper('extension/details'); ?>
+			</li>
+		<?php } ?>
+		</ul>
+	<?php }
 
 	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 	?>
@@ -36,44 +45,52 @@
 
 	<?php if (!empty($this->available_extensions)) { ?>
 		<h2><?= _t('admin.extensions.community') ?></h2>
-		<table>
-			<tr>
-				<th><?= _t('admin.extensions.name') ?></th>
-				<th><?= _t('admin.extensions.version') ?></th>
-				<th><?= _t('admin.extensions.author') ?></th>
-				<th><?= _t('admin.extensions.description') ?></th>
-			</tr>
-			<?php foreach ($this->available_extensions as $ext) { ?>
+		<div class="table-wrapper scrollbar-thin">
+			<table>
 				<tr>
-					<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
-					<td><?= $ext['version'] ?></td>
-					<td><?= $ext['author'] ?></td>
-					<td>
-						<?= $ext['description'] ?>
-						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
-								<span class="alert alert-success">
-									<?= _t('admin.extensions.latest') ?>
-								</span>
-							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
-								<span class="alert alert-warn">
-									<?= _t('admin.extensions.update') ?>
-								</span>
-							<?php } ?>
-						<?php } ?>
-					</td>
+					<th><?= _t('admin.extensions.name') ?></th>
+					<th><?= _t('admin.extensions.version') ?></th>
+					<th><?= _t('admin.extensions.author') ?></th>
+					<th><?= _t('admin.extensions.description') ?></th>
 				</tr>
-			<?php } ?>
-		</table>
+				<?php foreach ($this->available_extensions as $ext) { ?>
+					<tr>
+						<td><a href="<?= $ext['url'] ?>" target="_blank"><?= $ext['name'] ?></a></td>
+						<td><?= $ext['version'] ?></td>
+						<td><?= $ext['author'] ?></td>
+						<td>
+							<?= $ext['description'] ?>
+							<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+								<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+									<span class="alert alert-success">
+										<?= _t('admin.extensions.latest') ?>
+									</span>
+								<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+									<span class="alert alert-warn">
+										<?= _t('admin.extensions.update') ?>
+									</span>
+								<?php } ?>
+							<?php } ?>
+						</td>
+					</tr>
+				<?php } ?>
+			</table>
+		</div>
 	<?php } ?>
-</div>
+</main>
 
-<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-<a href="#" id="close-slider"<?= $class ?>></a>
-<div id="slider"<?= $class ?>>
-<?php
-	if (isset($this->extension)) {
-		$this->renderHelper('extension/configure');
-	}
-?>
-</div>
+<?php $class = isset($this->extension) ? ' active' : ''; ?>
+<?php $closelink = isset($this->extension) ? _url('extension', 'index') : ''; ?>
+<aside id="slider">
+<a class="toggle_aside" href="<?= $closelink ?>#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->extension)) {
+				$this->renderHelper('extension/configure');
+			}
+		?>
+	</div>
+</aside>
+<a href="#" id="close-slider">
+	<?= _i('close') ?>
+</a>

@@ -1,23 +1,40 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Actualiser',
+		'actualize' => 'Actualiser flux',
+		'add' => 'Ajouter',
 		'back' => '← Retour',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
 		'create' => 'Créer',
+		'delete_muted_feeds' => 'Supprimer les flux désactivés',
+		'demote' => 'Rétrograder',
 		'disable' => 'Désactiver',
 		'empty' => 'Vider',
 		'enable' => 'Activer',
 		'export' => 'Exporter',
 		'filter' => 'Filtrer',
 		'import' => 'Importer',
+		'load_default_shortcuts' => 'Utiliser les raccourcis par défaut',
 		'manage' => 'Gérer',
-		'mark_favorite' => 'Mettre en favori',
 		'mark_read' => 'Marquer comme lu',
+		'open_url' => 'Ouvrir l’URL',
+		'promote' => 'Promouvoir',
 		'purge' => 'Purger',
+		'refresh_opml' => 'Rafraîchir OPML',
 		'remove' => 'Supprimer',
+		'rename' => 'Renommer',
 		'see_website' => 'Voir le site',
 		'submit' => 'Valider',
 		'truncate' => 'Supprimer tous les articles',
@@ -30,68 +47,69 @@ return array(
 		'login' => 'Connexion',
 		'logout' => 'Déconnexion',
 		'password' => array(
-			'format' => '<small>7 caractères minimum</small>',
 			'_' => 'Mot de passe',
+			'format' => '<small>7 caractères minimum</small>',
 		),
 		'registration' => array(
+			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
 			'title' => 'Création de compte',
-			'_' => 'Nouveau compte',
 		),
-		'reset' => 'Réinitialisation de l’authentification',
 		'username' => array(
-			'admin' => 'Nom d’utilisateur administrateur',
-			'format' => '<small>16 caractères alphanumériques maximum</small>',
 			'_' => 'Nom d’utilisateur',
+			'format' => '<small>16 caractères alphanumériques maximum</small>',
 		),
 	),
 	'date' => array(
 		'Apr' => '\\a\\v\\r\\i\\l',
+		'Aug' => '\\a\\o\\û\\t',
+		'Dec' => '\\d\\é\\c\\e\\m\\b\\r\\e',
+		'Feb' => '\\f\\é\\v\\r\\i\\e\\r',
+		'Jan' => '\\j\\a\\n\\v\\i\\e\\r',
+		'Jul' => '\\j\\u\\i\\l\\l\\e\\t',
+		'Jun' => '\\j\\u\\i\\n',
+		'Mar' => '\\m\\a\\r\\s',
+		'May' => '\\m\\a\\i',
+		'Nov' => '\\n\\o\\v\\e\\m\\b\\r\\e',
+		'Oct' => '\\o\\c\\t\\o\\b\\r\\e',
+		'Sep' => '\\s\\e\\p\\t\\e\\m\\b\\r\\e',
 		'apr' => 'avr.',
 		'april' => 'avril',
-		'Aug' => '\\a\\o\\û\\t',
 		'aug' => 'août',
 		'august' => 'août',
 		'before_yesterday' => 'À partir d’avant-hier',
-		'Dec' => '\\d\\é\\c\\e\\m\\b\\r\\e',
 		'dec' => 'déc.',
 		'december' => 'décembre',
-		'Feb' => '\\f\\é\\v\\r\\i\\e\\r',
 		'feb' => 'fév.',
 		'february' => 'février',
-		'format_date' => 'j %s Y',
-		'format_date_hour' => 'j %s Y \\à H\\:i',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\à H\\:i',	// IGNORE
 		'fri' => 'ven.',
-		'Jan' => '\\j\\a\\n\\v\\i\\e\\r',
 		'jan' => 'jan.',
 		'january' => 'janvier',
 		'jul' => 'jui.',
-		'Jul' => '\\j\\u\\i\\l\\l\\e\\t',
 		'july' => 'juillet',
-		'Jun' => '\\j\\u\\i\\n',
 		'jun' => 'juin',
 		'june' => 'juin',
+		'last_2_year' => 'Depuis deux ans',
 		'last_3_month' => 'Depuis les trois derniers mois',
+		'last_3_year' => 'Depuis trois ans',
+		'last_5_year' => 'Depuis cinq ans',
 		'last_6_month' => 'Depuis les six derniers mois',
 		'last_month' => 'Depuis le mois dernier',
 		'last_week' => 'Depuis la semaine dernière',
 		'last_year' => 'Depuis l’année dernière',
 		'mar' => 'mars',
-		'Mar' => '\\m\\a\\r\\s',
 		'march' => 'mars',
-		'May' => '\\m\\a\\i',
 		'may' => 'mai',
 		'may_' => 'mai',
 		'mon' => 'lun.',
 		'month' => 'mois',
-		'Nov' => '\\n\\o\\v\\e\\m\\b\\r\\e',
 		'nov' => 'nov.',
 		'november' => 'novembre',
-		'Oct' => '\\o\\c\\t\\o\\b\\r\\e',
 		'oct' => 'oct.',
 		'october' => 'octobre',
 		'sat' => 'sam.',
-		'Sep' => '\\s\\e\\p\\t\\e\\m\\b\\r\\e',
 		'sep' => 'sep.',
 		'september' => 'septembre',
 		'sun' => 'dim.',
@@ -101,9 +119,10 @@ return array(
 		'wed' => 'mer.',
 		'yesterday' => 'Hier',
 	),
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'À propos de FreshRSS',
-		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Catégorie vide',
@@ -111,42 +130,55 @@ return array(
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'feedback' => array(
 			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
+			'body_unread_articles' => '(non lus : %%d)',
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
+		'labels_empty' => 'Pas d’étiquettes',	// DIRTY
 		'new_article' => 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',	// TODO - Translation
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',	// TODO - Translation
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'À propos',
-		'admin' => 'Administration',
+		'account' => 'Compte',
+		'admin' => 'Administration',	// IGNORE
 		'archiving' => 'Archivage',
 		'authentication' => 'Authentification',
 		'check_install' => 'Vérification de l’installation',
-		'configuration' => 'Configuration',
+		'configuration' => 'Configuration',	// IGNORE
 		'display' => 'Affichage',
-		'extensions' => 'Extensions',
-		'logs' => 'Logs',
+		'extensions' => 'Extensions',	// IGNORE
+		'logs' => 'Logs',	// IGNORE
 		'queries' => 'Filtres utilisateurs',
 		'reading' => 'Lecture',
 		'search' => 'Rechercher des mots ou des #tags',
+		'search_help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">la documentation pour la syntaxe des recherches avancées</a>',
 		'sharing' => 'Partage',
 		'shortcuts' => 'Raccourcis',
 		'stats' => 'Statistiques',
@@ -154,15 +186,6 @@ return array(
 		'update' => 'Mise à jour',
 		'user_management' => 'Gestion des utilisateurs',
 		'user_profile' => 'Profil',
-	),
-	'pagination' => array(
-		'first' => 'Début',
-		'last' => 'Fin',
-		'load_more' => 'Charger plus d’articles',
-		'mark_all_read' => 'Tout marquer comme lu',
-		'next' => 'Suivant',
-		'nothing_to_load' => 'Fin des articles',
-		'previous' => 'Précédent',
 	),
 	'period' => array(
 		'days' => 'jours',
@@ -172,24 +195,37 @@ return array(
 		'years' => 'années',
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Courriel',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Presse-papier',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Courriel',
+		'email-webmail-firefox-fix' => 'Courriel (pour Webmail avec Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimer',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Partage standard',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attention !',
@@ -203,5 +239,10 @@ return array(
 		'ok' => 'Ok !',
 		'or' => 'ou',
 		'yes' => 'Oui',
+	),
+	'stream' => array(
+		'load_more' => 'Charger plus d’articles',
+		'mark_all_read' => 'Tout marquer comme lu',
+		'nothing_to_load' => 'Fin des articles',
 	),
 );

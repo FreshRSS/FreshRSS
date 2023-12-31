@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Kurulumu tamamla',
@@ -17,22 +27,23 @@ return array(
 		'type' => 'Kimlik doğrulama yöntemi',
 	),
 	'bdd' => array(
+		'_' => 'Veritabanı',
 		'conf' => array(
+			'_' => 'Veritabanı yapılandırılması',
 			'ko' => 'Veritabanı bilginizi doğrulayın.',
 			'ok' => 'Veritabanı yapılandırılması kayıt edildi.',
-			'_' => 'Veritabanı yapılandırılması',
 		),
 		'host' => 'Sunucu',
 		'password' => 'Veritabanı şifresi',
 		'prefix' => 'Tablo ön eki',
 		'type' => 'Veritabanı türü',
 		'username' => 'Veritabanı kullanıcı adı',
-		'_' => 'Veritabanı',
 	),
 	'check' => array(
+		'_' => 'Kontroller',
 		'already_installed' => 'FreshRSS zaten yüklü!',
 		'cache' => array(
-			'nok' => '<em>./data/cache</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s/em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
 		),
 		'ctype' => array(
@@ -44,7 +55,7 @@ return array(
 			'ok' => 'cURL eklentisi sorunsuz.',
 		),
 		'data' => array(
-			'nok' => '<em>./data</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
 		),
 		'dom' => array(
@@ -52,28 +63,20 @@ return array(
 			'ok' => 'DOM kütüphanesi sorunsuz.',
 		),
 		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
 		),
 		'fileinfo' => array(
 			'nok' => 'PHP fileinfo eksik (fileinfo package).',
 			'ok' => 'fileinfo eklentisi sorunsuz.',
 		),
-		'http_referer' => array(
-			'nok' => 'Lütfen HTTP REFERER değiştirmediğinize emin olun.',
-			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',
-		),
 		'json' => array(
 			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
 			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Minz framework eksik.',
-			'ok' => 'Minz framework sorunsuz.',
+			'nok' => 'Unicode için tavsiye edilen mbstring kütüphanesi bulunamadı.',
+			'ok' => 'Unicode için tavsiye edilen mbstring kütüphaneniz mevcut.',
 		),
 		'pcre' => array(
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
@@ -84,38 +87,48 @@ return array(
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
-			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
+			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
+			'ok' => 'PHP Sürümünüz %s, FreshRSS ile tam uyumlu.',
 		),
+		'reload' => 'Tekrar kontrol et',
+		'tmp' => array(
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
+			'ok' => 'Geçici klasör izinleri sorunsuz.',
+		),
+		'unknown_process_username' => 'bilinmeyen',
 		'users' => array(
-			'nok' => '<em>./data/users</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
 		),
 		'xml' => array(
-			'nok' => 'You lack the required library to parse XML.',
-			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+			'nok' => 'XML ayrıştırmak için gerekli kütüphaneye sahip değilsiniz.',
+			'ok' => 'XML ayrıştırmak için gerekli kütüphaneye sahipsiniz.',
 		),
-		'_' => 'Kontroller',
 	),
 	'conf' => array(
-		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 		'_' => 'Genel yapılandırma',
+		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
 	),
 	'congratulations' => 'Tebrikler!',
-	'default_user' => 'Öntanımlı kullanıcı adı <small>(en fazla 16 alfanümerik karakter)</small>',
-	'delete_articles_after' => 'Makaleleri şu süre sonunda sil',
+	'default_user' => array(
+		'_' => 'Öntanımlı kullanıcı adı',
+		'max_char' => 'en fazla 16 alfanümerik karakter',
+	),
 	'fix_errors_before' => 'Lütfen sonraki adıma geçmek için hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS JavaScript ile daha işlevseldir',
 	'js' => array(
 		'confirm_reinstall' => 'FreshRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
 	),
 	'language' => array(
+		'_' => 'Dil',
 		'choose' => 'FreshRSS için bir dil seçin',
 		'defined' => 'Dil belirlendi.',
-		'_' => 'Dil',
 	),
-	'not_deleted' => 'Hata meydana geldi; <em>%s</em> dosyasını elle silmelisiniz.',
+	'missing_applied_migrations' => 'Birşeyler ters gitti; <em>%s</em> boş dosyasını elle oluşturmalısınız.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',
+	'session' => array(
+		'nok' => 'Sunucu PHP çerez ayarları hatalı yapılmış görünüyor!',
+	),
 	'step' => 'adım %d',
 	'steps' => 'Adımlar',
 	'this_is_the_end' => 'Son Adım',

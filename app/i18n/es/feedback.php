@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'No dispones de permiso para acceder a esta página',
@@ -10,15 +20,11 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Su contraseña no se puede modificar',
+			'updated' => 'Su contraseña ha sido modificada',
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Hubo un problema durante la configuración del sistema de idenfificación. Por favor, inténtalo más tarde.',
-			'set' => 'El formulario será desde ahora tu sistema de identificación por defecto.',
-		),
 		'login' => array(
 			'invalid' => 'Identificación incorrecta',
 			'success' => 'Conexión',
@@ -26,16 +32,16 @@ return array(
 		'logout' => array(
 			'success' => 'Desconexión',
 		),
-		'no_password_set' => 'Esta opción no está disponible porque no se ha definido una contraseña de administrador.',
 	),
 	'conf' => array(
 		'error' => 'Hubo un error durante el guardado de la configuración.',
-		'query_created' => 'Se ha creado la petición "%s".',
+		'query_created' => 'Se ha creado la petición “%s”.',
 		'shortcuts_updated' => 'Se han actualizado los atajos de teclado',
 		'updated' => 'Se ha actualizado la configuración',
 	),
 	'extensions' => array(
 		'already_enabled' => '%s ya está activado',
+		'cannot_remove' => '%s no se puede quitar',
 		'disable' => array(
 			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado desactivado',
@@ -44,17 +50,18 @@ return array(
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
+		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
-		'no_access' => 'No tienes acceso a %s',
+		'removed' => '%s eliminado',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor. Por favor, exporta estos archivos uno a uno.',
-		'feeds_imported' => 'Se han importado tus fuentes y quedarán actualizadas',
-		'feeds_imported_with_errors' => 'Se importaron tus fuentes; pero hubo algunos errores',
+		'feeds_imported' => 'Se han importado tus fuentes y quedarán actualizadas / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Se importaron tus fuentes; pero hubo algunos errores / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'No es posible enviar el archivo',
 		'no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor.',
-		'zip_error' => 'Hubo un error durante la importación ZIP.',
+		'zip_error' => 'Hubo un error durante la importación ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Tu perfil no puede ser modificado',
@@ -63,8 +70,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Actualización',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
+			'marked_read' => 'Los artículos seleccionados han sido marcados como leídos.',
+			'marked_unread' => 'Los artículos han sido marcados como no leídos.',
 		),
 		'category' => array(
 			'created' => 'Se ha creado la categoría %s.',
@@ -72,10 +79,10 @@ return array(
 			'emptied' => 'Se ha vaciado la categoría',
 			'error' => 'No es posible actualizar la categoría',
 			'name_exists' => 'Ya existe una categoría con ese nombre.',
-			'not_delete_default' => '¡No puedes borrar la categoría por defecto!',
-			'not_exist' => 'La categoría no existe',
 			'no_id' => 'Debes especificar la id de la categoría.',
 			'no_name' => '¡El nombre de la categoría no puede dejarse en blanco!.',
+			'not_delete_default' => '¡No puedes borrar la categoría por defecto!',
+			'not_exist' => 'La categoría no existe',
 			'over_max' => 'Has alcanzado el límite de categorías (%d)',
 			'updated' => 'La categoría se ha actualizado.',
 		),
@@ -84,18 +91,33 @@ return array(
 			'actualizeds' => 'Las fuentes RSS se han actualizado',
 			'added' => 'Fuente RSS agregada <em>%s</em>',
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> se ha borrado la caché',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
-			'not_added' => '<em>%s</em> no ha podido se añadida',
-			'no_refresh' => 'No hay fuente a actualizar…',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
+			'no_refresh' => 'No hay fuente a actualizar…',
+			'not_added' => '<em>%s</em> no ha podido se añadida',
+			'not_found' => 'No se puede encontrar el feed',
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
+			'reloaded' => '<em>%s</em> se ha vuelto a cargar',
+			'selector_preview' => array(
+				'http_error' => 'Error al cargar el contenido del sitio web.',
+				'no_entries' => 'No hay artículos en este feed. Necesitas al menos un artículo para crear una vista previa.',
+				'no_feed' => 'Error interno (no se puede encontrar el feed).',
+				'no_result' => 'El selector no coincidyó con nada. Como reserva, se mostrará el texto original del feed en su lugar.',
+				'selector_empty' => 'El selector está vacío. Debe definir uno para crear una vista previa.',
+			),
 			'updated' => 'Fuente actualizada',
 		),
 		'purge_completed' => 'Limpieza completada (se han eliminado %d artículos)',
+	),
+	'tag' => array(
+		'created' => 'Se ha creado la etiqueta “%s”.',
+		'name_exists' => 'El nombre de la etiqueta ya existe.',
+		'renamed' => 'La etiqueta “%s” ha sido renombrada a “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS se va a actualizar a la <strong>versión %s</strong>.',
@@ -107,16 +129,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'No se ha podido crear al usuario %s',
 			'_' => 'Se ha creado el usuario %s',
+			'error' => 'No se ha podido crear al usuario %s',
 		),
 		'deleted' => array(
-			'error' => 'El usuario %s no ha podido ser eliminado',
 			'_' => 'El usuario %s ha sido eliminado',
+			'error' => 'El usuario %s no ha podido ser eliminado',
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
-			'_' => 'User %s has been updated',	// TODO - Translation
+			'_' => 'Se ha actualizado el usuario %s',
+			'error' => 'El usuario %s no se ha actualizado',
 		),
 	),
 );

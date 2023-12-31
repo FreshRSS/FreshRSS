@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+body {
+	font-family: sans-serif;
+	text-align: center;
+}
+
+h1 {
+	font-size: xx-large;
+	text-shadow: -1px -1px 0 #ccc;
+}
+
+h1 a {
+	color: #0062be;
+	text-decoration: none;
+}
+
+img {
+	border: 0;
+}

@@ -1,39 +1,41 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
 
 /**
- * La classe Error permet de lancer des erreurs HTTP
+ * The Minz_Error class logs and raises framework errors
  */
 class Minz_Error {
-	public function __construct () { }
+	public function __construct() { }
 
 	/**
 	* Permet de lancer une erreur
-	* @param $code le type de l'erreur, par défaut 404 (page not found)
-	* @param $logs logs d'erreurs découpés de la forme
+	* @param int $code le type de l'erreur, par défaut 404 (page not found)
+	* @param string|array<'error'|'warning'|'notice',array<string>> $logs logs d'erreurs découpés de la forme
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
-	* @param $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
+	* @param bool $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
-	public static function error ($code = 404, $logs = array (), $redirect = true) {
-		$logs = self::processLogs ($logs);
+	public static function error(int $code = 404, $logs = [], bool $redirect = true): void {
+		$logs = self::processLogs($logs);
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
-		if (file_exists ($error_filename)) {
-			Minz_Session::_param('error_code', $code);
-			Minz_Session::_param('error_logs', $logs);
+		if (file_exists($error_filename)) {
+			Minz_Session::_params([
+				'error_code' => $code,
+				'error_logs' => $logs,
+			]);
 
-			Minz_Request::forward (array (
-				'c' => 'error'
-			), $redirect);
+			Minz_Request::forward(['c' => 'error'], $redirect);
 		} else {
-			echo '<h1>An error occured</h1>' . "\n";
+			echo '<h1>An error occurred</h1>' . "\n";
 
-			if (!empty ($logs)) {
+			if (!empty($logs)) {
 				echo '<ul>' . "\n";
 				foreach ($logs as $log) {
 					echo '<li>' . $log . '</li>' . "\n";
@@ -41,42 +43,40 @@ class Minz_Error {
 				echo '</ul>' . "\n";
 			}
 
-			exit ();
+			exit();
 		}
 	}
 
 	/**
-	 * Permet de retourner les logs de façon à n'avoir que
-	 * ceux que l'on veut réellement
-	 * @param $logs les logs rangés par catégories (error, warning, notice)
-	 * @return la liste des logs, sans catégorie,
-	 *       > en fonction de l'environment
+	 * Returns filtered logs
+	 * @param string|array<'error'|'warning'|'notice',array<string>> $logs logs sorted by category (error, warning, notice)
+	 * @return array<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
-	private static function processLogs ($logs) {
-		$conf = Minz_Configuration::get('system');
-		$env = $conf->environment;
-		$logs_ok = array ();
-		$error = array ();
-		$warning = array ();
-		$notice = array ();
+	private static function processLogs($logs): array {
+		if (is_string($logs)) {
+			return [$logs];
+		}
 
-		if (isset ($logs['error'])) {
+		$error = [];
+		$warning = [];
+		$notice = [];
+
+		if (isset($logs['error']) && is_array($logs['error'])) {
 			$error = $logs['error'];
 		}
-		if (isset ($logs['warning'])) {
+		if (isset($logs['warning']) && is_array($logs['warning'])) {
 			$warning = $logs['warning'];
 		}
-		if (isset ($logs['notice'])) {
+		if (isset($logs['notice']) && is_array($logs['notice'])) {
 			$notice = $logs['notice'];
 		}
 
-		if ($env == 'production') {
-			$logs_ok = $error;
+		switch (Minz_Configuration::get('system')->environment) {
+			case 'development':
+				return array_merge($error, $warning, $notice);
+			case 'production':
+			default:
+					return $error;
 		}
-		if ($env == 'development') {
-			$logs_ok = array_merge ($error, $warning, $notice);
-		}
-
-		return $logs_ok;
 	}
 }

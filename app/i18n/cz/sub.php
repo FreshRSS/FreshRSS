@@ -1,104 +1,215 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
-		'title' => 'API',	// TODO - Translation
+		'documentation' => 'Zkopírujte následující adresu URL pro její použití v externím nástroji.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Přetáhněte toto tlačítko do svého panelu nástrojů záložek nebo na něj klikněte pravým tlačítkem myši a zvolte „Uložit tento odkaz do záložek“. Pak klikněte na tlačítko „Přihlásit se k odběru“ na kterékoliv stránce, kde se chcete přihlásit k odběru.',
+		'label' => 'Přihlásit se k odběru',
+		'title' => 'Záložkový aplet',
 	),
 	'category' => array(
+		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'archiving' => 'Archivace',
+		'dynamic_opml' => array(
+			'_' => 'Dynamický OPML',
+			'help' => 'Zadejte adresu URL na <a href="http://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
+		),
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
-		'new' => 'Nová kategorie',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
+		'opml_url' => 'ADRESA URL OPML',
+		'position' => 'Zobrazit pozici',
+		'position_help' => 'Pro ovládání pořadí řazení kategorií',
 		'title' => 'Název',
-		'_' => 'Kategorie',
 	),
 	'feed' => array(
-		'add' => 'Přidat RSS kanál',
-		'advanced' => 'Pokročilé',
+		'accept_cookies' => 'Přijímat soubory cookie',
+		'accept_cookies_help' => 'Povolit serveru feedu nastavit soubory cookie (uložené v paměti pouze po dobu trvání požadavku).',
+		'add' => 'Přidat kanál RSS',
+		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
 		'auth' => array(
 			'configuration' => 'Přihlášení',
-			'help' => 'Umožní přístup k RSS kanálům chráneným HTTP autentizací',
-			'http' => 'HTTP přihlášení',
-			'password' => 'Heslo',
-			'username' => 'Přihlašovací jméno',
+			'help' => 'Umožní přístup ke kanálům RSS chráněným HTTP',
+			'http' => 'HTTP ověřování',
+			'password' => 'HTTP heslo',
+			'username' => 'HTTP uživatelské jméno',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
-		'css_help' => 'Stáhne zkrácenou verzi RSS kanálů (pozor, náročnější na čas!)',
-		'css_path' => 'Původní CSS soubor článku z webových stránek',
+		'clear_cache' => 'Vždy vymazat mezipaměť',
+		'content_action' => array(
+			'_' => 'Akce obsahu při načítání obsahu článku',
+			'append' => 'Přidat za existující obsah',
+			'prepend' => 'Přidat před existující obsah',
+			'replace' => 'Nahradit existující obsah',
+		),
+		'css_cookie' => 'Použít cookies při načítání obsahu článku',
+		'css_cookie_help' => 'Příklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
+		'css_help' => 'Načte oříznuté kanály RSS (pozor, náročnější na čas!)',
+		'css_path' => 'Přepínač CSS článku na původních webových stránkách',
+		'css_path_filter' => array(
+			'_' => 'selektor CSS prvků, které mají být odstraněny',
+			'help' => 'Selektor CSS může být seznam, například: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Popis',
-		'empty' => 'Kanál je prázdný. Ověřte prosím zda je ještě autorem udržován.',
-		'error' => 'Vyskytl se problém s kanálem. Ověřte že je vždy dostupný, prosím, a poté jej aktualizujte.',
+		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
+		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
-			'_' => 'Filter actions',	// TODO - Translation
+			'_' => 'Akce filtrování',
+			'help' => 'Zapište jeden filtr hledání na řádek. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informace',
-		'keep_min' => 'Zachovat tento minimální počet článků',
-		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
-		'mute' => 'mute',	// TODO - Translation
-		'no_selected' => 'Nejsou označeny žádné kanály.',
+		'keep_min' => 'Minimální počet článků pro ponechání',
+		'kind' => array(
+			'_' => 'Typ zdroje feedu',
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'feed_title' => array(
+					'_' => 'název zdroje',
+					'help' => 'Příklad: <code>//title</code> nebo statický řetězec: <code>"Můj vlastní zdroj"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> je standardní dotazovací jazyk pro pokročilé uživatele, který FreshRSS podporuje, aby umožnil Web scraping.',
+				'item' => array(
+					'_' => 'vyhledávání <strong>novinek</strong><br /><small>(nejdůležitější)</small>',
+					'help' => 'Příklad: <code>//div[@class="news-item"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'autor položky',
+					'help' => 'Může to být také statický řetězec. Příklad: <code>"Anonymous"</code>',
+				),
+				'item_categories' => 'štítky položek',
+				'item_content' => array(
+					'_' => 'obsah položky',
+					'help' => 'Příklad pro převzetí celé položky: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'náhled položky',
+					'help' => 'Příklad: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'datum položky',
+					'help' => 'Výsledek bude zpracován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => 'název položky',
+					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">osu XPath</a> <code>descendant::</code> jako např. <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'jedinečné ID položky',
+					'help' => 'Volitelně. Příklad: <code>descendant::div/@data-uri</code>',
+				),
+				'item_uri' => array(
+					'_' => 'odkaz na položku (URL)',
+					'help' => 'Například: <code>descendant::a/@href</code>',
+				),
+				'relative' => 'XPath (vzhledem k položce) pro:',
+				'xpath' => 'XPath pro:',
+			),
+			'rss' => 'RSS / Atom (výchozí)',
+			'xml_xpath' => 'XML + XPath',	// TODO
+		),
+		'maintenance' => array(
+			'clear_cache' => 'Vymazat mezipaměť',
+			'clear_cache_help' => 'Vymazat mezipaměť pro tento kanál.',
+			'reload_articles' => 'Znovu načíst články',
+			'reload_articles_help' => 'Znovu načíst články a získat úplný obsah, pokud je definován selektor.',
+			'title' => 'Údržba',
+		),
+		'max_http_redir' => 'Maximální počet přesměrování HTTP',
+		'max_http_redir_help' => 'Nastavte na 0 nebo nechte prázdné pro zakázání, -1 pro neomezené přesměrování.',
+		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
+		'mute' => 'ztlumit',
+		'no_selected' => 'Nejsou vybrány žádné kanály.',
 		'number_entries' => '%d článků',
 		'priority' => array(
-			'archived' => 'Do not show (archived)',	// TODO - Translation
-			'main_stream' => 'Zobrazit ve “Všechny kanály”',
-			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
+			'_' => 'Viditelnost',
+			'archived' => 'Nezobrazovat (archivováno)',
+			'category' => 'Zobrazit v jeho kategorii',
+			'important' => 'Show in important feeds',	// TODO
+			'main_stream' => 'Zobrazit ve hlavním kanálu',
+		),
+		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
+		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'selector_preview' => array(
+			'show_raw' => 'Zobrazit zdrojový kód',
+			'show_rendered' => 'Zobrazit obsah',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'all' => 'Zobrazit všechny kanály',
+			'error' => 'Zobrazit pouze kanály s chybami',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Zobrazení pouze kanálů s chybami',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
+		'ssl_verify' => 'Ověřit zabezpečení SSL',
 		'stats' => 'Statistika',
-		'think_to_add' => 'Můžete přidat kanály.',
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
+		'think_to_add' => 'Můžete přidat nějaké kanály.',
+		'timeout' => 'Časový limit v sekundách',
 		'title' => 'Název',
-		'title_add' => 'Přidat RSS kanál',
-		'ttl' => 'Neobnovovat častěji než',
-		'url' => 'URL kanálu',
+		'title_add' => 'Přidat kanál RSS',
+		'ttl' => 'Neobnovovat automaticky častěji než',
+		'url' => 'Adresa URL kanálu',
+		'useragent' => 'Nastavte uživatelský agent pro načítání tohoto kanálu',
+		'useragent_help' => 'Příklad: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Zkontrolovat platnost kanálu',
-		'website' => 'URL webové stránky',
+		'website' => 'Adresa URL webové stránky',
 		'websub' => 'Okamžité oznámení s WebSub',
 	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
-	),
 	'import_export' => array(
-		'export' => 'Export',	// TODO - Translation
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
+		'export' => 'Exportovat',
+		'export_labelled' => 'Exportovat články s vašimi popisky',
 		'export_opml' => 'Exportovat seznam kanálů (OPML)',
-		'export_starred' => 'Exportovat oblíbené',
+		'export_starred' => 'Exportovat vaše oblíbené',
 		'feed_list' => 'Seznam %s článků',
 		'file_to_import' => 'Soubor k importu<br />(OPML, JSON nebo ZIP)',
 		'file_to_import_no_zip' => 'Soubor k importu<br />(OPML nebo JSON)',
-		'import' => 'Import',	// TODO - Translation
+		'import' => 'Importovat',
 		'starred_list' => 'Seznam oblíbených článků',
-		'title' => 'Import / export',	// TODO - Translation
+		'title' => 'Importovat / exportovat',
 	),
 	'menu' => array(
-		'bookmark' => 'Přihlásit (FreshRSS bookmark)',
-		'import_export' => 'Import / export',	// TODO - Translation
-		'subscription_management' => 'Správa subskripcí',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'add' => 'Přidat kanál nebo kategorii',
+		'import_export' => 'Importovat / exportovat',
+		'label_management' => 'Správa popisků',
+		'stats' => array(
+			'idle' => 'Nečinné kanály',
+			'main' => 'Hlavní statistika',
+			'repartition' => 'Přerozdělení článků',
+		),
+		'subscription_management' => 'Správa odběrů',
+		'subscription_tools' => 'Nástroje odběrů',
+	),
+	'tag' => array(
+		'name' => 'Název',
+		'new_name' => 'Nový název',
+		'old_name' => 'Starý název',
 	),
 	'title' => array(
-		'feed_management' => 'Správa RSS kanálů',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
-		'_' => 'Správa subskripcí',
+		'_' => 'Správa odběrů',
+		'add' => 'Přidat kanál nebo kategorii',
+		'add_category' => 'Přidat kategorii',
+		'add_dynamic_opml' => 'Přidání dynamického OPML',
+		'add_feed' => 'Přidat kanál',
+		'add_label' => 'Přidat popisek',
+		'delete_label' => 'Odstranit popisek',
+		'feed_management' => 'Správa kanálů RSS',
+		'rename_label' => 'Přejmenovat popisek',
+		'subscription_tools' => 'Nástroje odběrů',
 	),
 );

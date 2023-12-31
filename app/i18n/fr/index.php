@@ -1,42 +1,52 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'_' => 'À propos',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Rapports de bugs',
 		'credits' => 'Crédits',
-		'credits_content' => 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
-		'freshrss_description' => 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> ou <a href="https://github.com/LeedRSS/Leed">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
+		'credits_content' => 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS repose sur <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
+		'documentation' => 'Documentation',	// IGNORE
+		'freshrss_description' => 'FreshRSS est un agrégateur de flux RSS à auto-héberger. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">sur Github</a>',
 		'license' => 'Licence',
 		'project_website' => 'Site du projet',
 		'title' => 'À propos',
-		'version' => 'Version',
-		'website' => 'Site Internet',
-		'_' => 'À propos',
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Vous pouvez ajouter des flux.',
 		'empty' => 'Il n’y a aucun article à afficher.',
 		'rss_of' => 'Flux RSS de %s',
-		'title' => 'Vos flux RSS',
-		'title_fav' => 'Vos favoris',
+		'title' => 'Flux principal',
+		'title_fav' => 'Favoris',
 		'title_global' => 'Vue globale',
 	),
 	'log' => array(
+		'_' => 'Logs',	// IGNORE
 		'clear' => 'Effacer les logs',
 		'empty' => 'Les logs sont vides.',
-		'title' => 'Logs',
-		'_' => 'Logs',
+		'title' => 'Logs',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'À propos de FreshRSS',
-		'add_query' => 'Créer un filtre',
 		'before_one_day' => 'Antérieurs à 1 jour',
 		'before_one_week' => 'Antérieurs à 1 semaine',
-		'favorites' => 'Favoris (%s)',
+		'bookmark_query' => 'Enregistrer la recherche courante',
+		'favorites' => 'Articles favoris (%s)',
 		'global_view' => 'Vue globale',
-		'main_stream' => 'Flux principal',
+		'important' => 'Flux importants',	// DIRTY
+		'main_stream' => 'Flux principaux',
 		'mark_all_read' => 'Tout marquer comme lu',
 		'mark_cat_read' => 'Marquer la catégorie comme lue',
 		'mark_feed_read' => 'Marquer le flux comme lu',

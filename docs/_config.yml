@@ -4,3 +4,5 @@ description: Documentation center
 
 logo: /img/FreshRSS-logo.png
 show_downloads: true
+
+include: contributing.md

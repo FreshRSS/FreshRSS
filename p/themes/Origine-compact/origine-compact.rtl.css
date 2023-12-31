@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+/*=== GENERAL */
+/*============*/
+:root {
+	--frss-padding-top-bottom: 0.125rem;
+}
+
+/*=== COMPONENTS */
+/*===============*/
+/*=== Forms */
+.form-group.form-actions .btn {
+	margin: 0 10px;
+}
+
+.form-group .group-controls {
+	min-height: 25px;
+	padding: 8px 0;
+}
+
+/*=== Buttons */
+.btn {
+	margin: 0;
+	padding: 5px 10px;
+	min-height: 20px;
+	line-height: 1.4;
+}
+
+/*=== Navigation */
+
+/*=== Horizontal-list */
+.horizontal-list {
+	font-size: 0.9rem;
+}
+
+/*=== Dropdown */
+/*=== Alerts */
+/*=== Pagination */
+/*=== Boxes */
+/*=== Tree */
+/*=== STRUCTURE */
+/*===============*/
+/*=== Header */
+.header {
+	/* search bar and config button height = 2.1rem */
+	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
+}
+
+.header > .item.title a {
+	padding: 0 1rem;
+}
+
+.header > .item.title .logo {
+	/* logo is smaller than needed */
+	height: 1.5rem;
+}
+
+/*=== Body */
+#global {
+	height: calc(100vh - (calc(2.1rem + 2 * var(--frss-padding-top-bottom))))
+}
+
+/*=== Aside main page (categories) */
+.aside.aside_feed .category .title:not([data-unread="0"])::after,
+.global .box.category .title:not([data-unread="0"])::after {
+	font-size: 0.8rem;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 0.125rem;
+}
+
+.aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
+	font-size: 0.7rem;
+}
+
+/*=== Day indication */
+.day {
+	font-size: 0.9rem;
+	line-height: 2;
+}
+
+.day .name {
+	font-size: 1em;
+	opacity: 0.6;
+}
+
+/*=== Index menu */
+/*=== Feed articles */
+.flux .item.thumbnail {
+	padding: 5px;
+	height: 50px;
+}
+
+.flux .item.thumbnail.small {
+	height: 30px;
+}
+
+.flux .item.thumbnail.portrait {
+	width: 38px;
+}
+
+.flux .item.thumbnail.square {
+	width: 50px;
+}
+
+.flux .item.thumbnail.landscape {
+	width: 80px;
+}
+
+.flux .item.thumbnail.portrait.small {
+	width: 20px;
+}
+
+.flux .item.thumbnail.square.small {
+	width: 30px;
+}
+
+.flux .item.thumbnail.landscape.small {
+	width: 40px;
+}
+
+.flux .item.title .summary {
+	max-height: 1.5em;
+}
+
+.flux .flux_header .item .item-element {
+	padding: 0.25rem 0;
+}
+
+/*=== Content of feed articles */
+/*=== Notification and actualize notification */
+/*=== "Load more" part */
+#bigMarkAsRead {
+	font-size: 1.2em;
+}
+
+#bigMarkAsRead .bigTick {
+	font-size: 3em;
+}
+
+/*=== Navigation menu (for articles) */
+/*=== READER VIEW */
+/*================*/
+/*=== GLOBAL VIEW */
+/*================*/
+/*=== DIVERS */
+/*===========*/
+/*=== STATISTICS */
+/*===============*/
+/*=== MOBILE */
+/*===========*/
+
+@media (max-width: 840px) {
+	.nav_menu .search input {
+		padding: 1px 5px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 5px;
+	}
+
+	.post {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+}

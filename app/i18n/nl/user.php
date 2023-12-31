@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
@@ -14,7 +24,7 @@ return array(
 				'email_sent' => 'Er is een email naar het adres verzonden.',
 				'error' => 'Het emailadres kon niet worden gevalideerd.',
 				'ok' => 'Het emailadres is gevalideerd.',
-				'unneccessary' => 'Het emailadres is al eerder gevalideerd.',
+				'unnecessary' => 'Het emailadres is al eerder gevalideerd.',
 				'wrong_token' => 'Het emailadres kon niet worden gevalideerd vanwege een fout token.',
 			),
 			'need_to' => 'Het emailadres %1 moet worden gevalideerd voordat het kan worden gebruikt.',
@@ -29,9 +39,16 @@ return array(
 			'welcome' => 'Welkom %s,',
 		),
 	),
+	'password' => array(
+		'invalid' => 'Het wachtwoord is ongeldig.',
+	),
 	'tos' => array(
 		'feedback' => array(
 			'invalid' => 'De gebruiksvoorwaarden moeten worden geaccepteerd om te kunnen registeren.',
 		),
+	),
+	'username' => array(
+		'invalid' => 'De gebruikersnaam is ongeldig.',
+		'taken' => 'De gebruikersnaam %s is bezet.',
 	),
 );

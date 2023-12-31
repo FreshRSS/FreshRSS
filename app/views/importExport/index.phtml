@@ -1,11 +1,27 @@
-<?php $this->partial('aside_subscription'); ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
+<main class="post ">
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
-<div class="post ">
-	<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	<h1><?= _t('sub.menu.import_export') ?></h1>
 
+	<h2><?= _t('sub.category.dynamic_opml') ?></h2>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<ul>
+				<li><a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.title.add_dynamic_opml') ?> <?= _i('opml-dyn') ?></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<h2><?= _t('sub.import_export.import') ?></h2>
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('sub.import_export.import') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="file">
 				<?= extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip') ?>
@@ -22,10 +38,10 @@
 		</div>
 	</form>
 
+	<h2><?= _t('sub.import_export.export') ?></h2>
 	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?= _url('importExport', 'export') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('sub.import_export.export') ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="export_opml">
@@ -65,4 +81,4 @@
 		</div>
 	</form>
 	<?php } ?>
-</div>
+</main>

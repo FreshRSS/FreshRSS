@@ -1,0 +1,8 @@
+{
+  "name": "Dark pink",
+  "author": "Miicat_47",
+  "description": "Nice dawk pink theme. >_< UwU",
+  "version": 0.1,
+  "files": ["_frss.css", "../Alternative-Dark/adark.css", "pinkdark.css"],
+	"theme-color": "#171717"
+}

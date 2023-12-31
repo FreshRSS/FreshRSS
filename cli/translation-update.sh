@@ -20,7 +20,7 @@ if [ -z "$(command -v po4a)" ]; then
 fi
 
 # Generate po4a.conf file with list of TLDR pages
-echo 'Generating configuration file for po4a...'
+echo 'Generating configuration file for po4a…'
 {
 	echo '# WARNING: this file is generated with translation-update.sh'
 	echo '# DO NOT modify this file manually!'
@@ -34,5 +34,5 @@ for FILE in $(cd en && tree -f -i | grep ".md" | grep -v "admins"); do
 done
 
 # Generate POT file, PO files, and pages.XX pages
-echo 'Generating POT file and translated pages...'
+echo 'Generating POT file and translated pages…'
 po4a -k 0 --msgid-bugs-address 'https://github.com/FreshRSS/FreshRSS/issues' $CONFIGFILE

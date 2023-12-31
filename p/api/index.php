@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+<?php
+	declare(strict_types=1);
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
 <head>
 <meta charset="UTF-8" />
@@ -10,7 +13,7 @@
 <?php
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+FreshRSS_Context::initSystem();
 echo json_encode(array(
 		'greader' => Minz_Url::display('/api/greader.php', 'php', true),
 		'fever' => Minz_Url::display('/api/fever.php', 'php', true),

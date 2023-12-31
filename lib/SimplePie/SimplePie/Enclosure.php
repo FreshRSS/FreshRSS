@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,9 +33,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
- * @author Geoffrey Sneddon
+ * @author Sam Sneddon
  * @author Ryan McCue
  * @link http://simplepie.org/ SimplePie
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -627,7 +627,7 @@ class SimplePie_Enclosure
 	{
 		if ($this->link !== null)
 		{
-			return urldecode($this->link);
+			return $this->link;
 		}
 
 		return null;
@@ -843,7 +843,7 @@ class SimplePie_Enclosure
 	 *
 	 * @deprecated Use the second parameter to {@see embed} instead
 	 *
-	 * @param array|string $options See first paramter to {@see embed}
+	 * @param array|string $options See first parameter to {@see embed}
 	 * @return string HTML string to output
 	 */
 	public function native_embed($options='')
@@ -1152,7 +1152,12 @@ class SimplePie_Enclosure
 		// If we encounter an unsupported mime-type, check the file extension and guess intelligently.
 		if (!in_array($type, array_merge($types_flash, $types_fmedia, $types_quicktime, $types_wmedia, $types_mp3)))
 		{
-			switch (strtolower($this->get_extension()))
+			$extension = $this->get_extension();
+			if ($extension === null) {
+				return null;
+			}
+
+			switch (strtolower($extension))
 			{
 				// Audio mime-types
 				case 'aac':

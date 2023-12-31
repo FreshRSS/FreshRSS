@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Anonymes Lesen der Artikel des Standardbenutzers (%s) erlauben',
@@ -9,7 +19,6 @@ return array(
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'title_reset' => 'Zurücksetzen der Authentifizierung',
 		'token' => 'Authentifizierungs-Token',
 		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
 		'type' => 'Authentifizierungsmethode',
@@ -70,10 +79,6 @@ return array(
 			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',
 			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',
 		),
-		'minz' => array(
-			'nok' => 'Ihnen fehlt das Minz-Framework.',
-			'ok' => 'Sie haben das Minz-Framework.',
-		),
 		'pcre' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
@@ -83,9 +88,9 @@ return array(
 			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP-Installation',
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
-			'_' => 'PHP-Installation',
 		),
 		'tables' => array(
 			'nok' => 'Es fehlen eine oder mehrere Tabellen in der Datenbank.',
@@ -107,24 +112,25 @@ return array(
 	),
 	'extensions' => array(
 		'author' => 'Autor',
-		'community' => 'Verfügbare Community Erweiterungen',
+		'community' => 'Verfügbare Community-Erweiterungen',
 		'description' => 'Beschreibungen',
 		'disabled' => 'Deaktiviert',
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'enabled' => 'Aktiviert',
 		'latest' => 'Installiert',
-		'name' => 'Name',	// TODO - Translation
+		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
 		'system' => array(
-			'no_rights' => 'System-Erweiterung (Sie haben keine Berechtigung dafür)',
 			'_' => 'System-Erweiterungen',
+			'no_rights' => 'System-Erweiterung (Sie haben keine Berechtigung dafür)',
 		),
 		'title' => 'Erweiterungen',
 		'update' => 'Update verfügbar',
 		'user' => 'Benutzer-Erweiterungen',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
+		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
 		'entry_count' => 'Anzahl der Einträge',
@@ -134,19 +140,14 @@ return array(
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
 		'entry_repartition' => 'Einträge-Verteilung',
-		'feed' => 'Feed',	// TODO - Translation
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds pro Kategorie',
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'menu' => array(
-			'idle' => 'Inaktive Feeds',
-			'main' => 'Haupt-Statistiken',
-			'repartition' => 'Artikel-Verteilung',
-		),
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
-		'percent_of_total' => '%% Gesamt',
+		'percent_of_total' => '% Gesamt',
 		'repartition' => 'Artikel-Verteilung',
 		'status_favorites' => 'Favoriten',
 		'status_read' => 'Gelesen',
@@ -154,53 +155,84 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
-		'_' => 'Statistiken',
 	),
 	'system' => array(
-		'auto-update-url' => 'Auto-update URL',
+		'_' => 'Systemeinstellungen',
+		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
 		),
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
-		'instance-name' => 'Dein Reader Name',
+		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
-			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
+			'select' => array(
+				'label' => 'Registrierungsformular',
+				'option' => array(
+					'noform' => 'Deaktiviert: Keine Registrierung möglich',
+					'nolimit' => 'Aktiviert: Registrierung möglich',
+					'setaccountsnumber' => 'Anzahl maximaler Benutzer-Acounts festlegen',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formular deaktiviert',
+				'enabled' => 'Formular aktiviert',
+			),
+			'title' => 'Benutzer-Registrierungsformular',
 		),
-		'_' => 'Systemeinstellungen',
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'sind nicht aktiviert',
+			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
+			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'apply' => 'Anwenden',
-		'check' => 'Auf neue Aktualisierungen prüfen',
-		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
-		'last' => 'Letzte Überprüfung: %s',
-		'none' => 'Keine ausstehende Aktualisierung',
-		'title' => 'System aktualisieren',
 		'_' => 'System aktualisieren',
+		'apply' => 'Anwenden',
+		'changelog' => 'Liste der Änderungen',
+		'check' => 'Auf neue Aktualisierungen prüfen',
+		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
+		'current_version' => 'Aktuelle Version',
+		'last' => 'Letzte Überprüfung',
+		'loading' => 'Aktualisierung läuft…',
+		'none' => 'Keine ausstehende Aktualisierung',
+		'releaseChannel' => array(
+			'_' => 'Veröffentlichungskanal',
+			'edge' => 'Aktueller Entwicklungsstand (“edge”)',
+			'latest' => 'Stabile Version (“latest”)',
+		),
+		'title' => 'System aktualisieren',
+		'viaGit' => 'Update über git und Github.com gestartet',
 	),
 	'user' => array(
-		'articles_and_size' => '%s Artikel (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrator',	// IGNORE
+		'article_count' => 'Artikel',
+		'back_to_manage' => '← Zurück zur Benutzerliste',
 		'create' => 'Neuen Benutzer erstellen',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Lösche Benutzer',
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
+		'database_size' => 'Datenbankgröße',
+		'email' => 'E-Mail-Adresse',
+		'enabled' => 'Aktiviert',
+		'feed_count' => 'Feeds',	// IGNORE
+		'is_admin' => 'Ist Administrator',
 		'language' => 'Sprache',
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Letzte Benutzeraktivität',
+		'list' => 'Benutzerliste',
 		'number' => 'Es wurde bis jetzt %d Account erstellt',
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
-		'selected' => 'Ausgewählter Benutzer',
 		'title' => 'Benutzer verwalten',
-		'update_users' => 'Aktualisiere Benutzer',
 		'username' => 'Nutzername',
-		'users' => 'Benutzer',
-		'user_list' => 'Liste der Benutzer',
 	),
 );

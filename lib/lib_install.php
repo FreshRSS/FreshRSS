@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
 
-define('BCRYPT_COST', 9);
+FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
-Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
-
-function checkRequirements($dbType = '') {
-	$php = version_compare(PHP_VERSION, '5.6.0') >= 0;
-	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
+/** @return array<string,string> */
+function checkRequirements(string $dbType = ''): array {
+	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -42,15 +41,14 @@ function checkRequirements($dbType = '') {
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
-	$data = DATA_PATH && is_writable(DATA_PATH);
-	$cache = CACHE_PATH && is_writable(CACHE_PATH);
-	$users = USERS_PATH && is_writable(USERS_PATH);
-	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
-	$http_referer = is_referer_from_same_domain();
+	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
+	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
+	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
+	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
-		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
@@ -65,42 +63,51 @@ function checkRequirements($dbType = '') {
 		'mbstring' => $mbstring ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
+		'tmp' => $tmp ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'message' => $message ?: 'ok',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
+		'message' => $message ?: '',
+		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
+			$data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
 	);
 }
 
-function generateSalt() {
-	return sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+function generateSalt(): string {
+	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
 }
 
-function initDb() {
-	$conf = FreshRSS_Context::$system_conf;
-	$db = $conf->db;
+function initDb(): string {
+	$db = FreshRSS_Context::systemConf()->db;
 	if (empty($db['pdo_options'])) {
 		$db['pdo_options'] = [];
 	}
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
+	FreshRSS_Context::systemConf()->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
+
+	if (empty($db['type'])) {
+		$db['type'] = 'sqlite';
+	}
 
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
 		Minz_ModelPdo::$usesSharedPdo = false;
-		$dbBase = isset($db['base']) ? $db['base'] : '';
+		$dbBase = $db['base'] ?? '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
-		$conf->db = $db;
-		//First connection without database name to create the database
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		FreshRSS_Context::systemConf()->db = $db;
+		try {
+			//First connection without database name to create the database
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		} catch (Exception $ex) {
+			$databaseDAO = null;
+		}
 		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
-		$conf->db = $db;
-		//Perfom database auto-creation
-		$databaseDAO->create();
+		FreshRSS_Context::systemConf()->db = $db;
+		if ($databaseDAO != null) {
+			//Perform database auto-creation
+			$databaseDAO->create();
+		}
 	}
 
 	//New connection with the database name
@@ -109,8 +116,11 @@ function initDb() {
 	return $databaseDAO->testConnection();
 }
 
-function deleteInstall() {
-	$path = join_path(DATA_PATH, 'do-install.txt');
-	@unlink($path);
-	return !file_exists($path);
+function setupMigrations(): bool {
+	$migrations_path = APP_PATH . '/migrations';
+	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
+
+	$migrator = new Minz_Migrator($migrations_path);
+	$versions = implode("\n", $migrator->versions());
+	return @file_put_contents($migrations_version_path, $versions) !== false;
 }

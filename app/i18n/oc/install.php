@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Acabar l’installacion',
@@ -17,22 +27,23 @@ return array(
 		'type' => 'Mòde d’autentification',
 	),
 	'bdd' => array(
+		'_' => 'Basa de donadas',
 		'conf' => array(
+			'_' => 'Configuracion de la basa de donadas',
 			'ko' => 'Verificatz las informacions de la basa de donadas.',
 			'ok' => 'La configuracion de la basa de donadas es salvagarda.',
-			'_' => 'Configuracion de la basa de donadas',
 		),
 		'host' => 'Òste',
 		'password' => 'Senhal de la basa de donadas',
 		'prefix' => 'Prefixe de tabla',
 		'type' => 'Tipe de basa de donadas',
 		'username' => 'Nom d’utilizaire de la basa de donadas',
-		'_' => 'Basa de donadas',
 	),
 	'check' => array(
+		'_' => 'Verificacions',
 		'already_installed' => 'Sembla que FreshRSS es ja installat !',
 		'cache' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/cache</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul cache son bons.',
 		),
 		'ctype' => array(
@@ -44,7 +55,7 @@ return array(
 			'ok' => 'Avètz la bibliotèca cURL.',
 		),
 		'data' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri data son bons.',
 		),
 		'dom' => array(
@@ -52,16 +63,12 @@ return array(
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/favicons</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels favicons son bons.',
 		),
 		'fileinfo' => array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
-		),
-		'http_referer' => array(
-			'nok' => 'Mercés de verificar que modificatz pas vòstre HTTP REFERER.',
-			'ok' => 'Lo HTTP REFERER es conegut e sembla correspondre a vòstre servidor.',
 		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
@@ -70,10 +77,6 @@ return array(
 		'mbstring' => array(
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Avètz pas la bibliotèca Minz.',
-			'ok' => 'Avètz la bibliotèca Minz.',
 		),
 		'pcre' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
@@ -87,35 +90,45 @@ return array(
 			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
+		'reload' => 'Revérifier',
+		'tmp' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
+			'ok' => 'Las permissions sul repertòri temporari son bonas.',
+		),
+		'unknown_process_username' => 'desconegut',
 		'users' => array(
-			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/users</em>. Lo servidor HTTP deu poder escriure dedins',
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
 		),
 		'xml' => array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
 		),
-		'_' => 'Verificacions',
 	),
 	'conf' => array(
-		'ok' => 'La configuracion generala es enregistrada.',
 		'_' => 'Configuracion generala',
+		'ok' => 'La configuracion generala es enregistrada.',
 	),
 	'congratulations' => 'Òsca !',
-	'default_user' => 'Nom d’utilizaire per defaut <small>16 caractèrs alfanumerics maximum)</small>',
-	'delete_articles_after' => 'Levar los articles aprèp',
+	'default_user' => array(
+		'_' => 'Nom d’utilizaire per defaut',
+		'max_char' => '16 caractèrs alfanumerics maximum',
+	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',
 	'js' => array(
 		'confirm_reinstall' => 'En reïnstallant FreshRSS perdretz la configuracion precedenta. Volètz vertadièrament contunhar ?',
 	),
 	'language' => array(
+		'_' => 'Lenga',
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
-		'_' => 'Lenga',
 	),
-	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
+	'missing_applied_migrations' => 'Quicòm a trucat ; devètz crear un fichièr <em>%s</em> void manualament.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
+	'session' => array(
+		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',
+	),
 	'step' => 'etapa %d',
 	'steps' => 'Etapas',
 	'this_is_the_end' => 'Es la fin',

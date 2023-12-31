@@ -1,33 +1,54 @@
-<div class="prompt">
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
 	<?php if (!max_registrations_reached()) { ?>
-		<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+		<div class="link-registration">
+			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+		</div>
 	<?php } ?>
 
 	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div>
+		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
+
+		<div class="form-group">
 			<label for="username"><?= _t('gen.auth.username') ?></label>
-			<input type="text" id="username" name="username" autocomplete="username" size="16" required="required" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autofocus="autofocus" />
+			<input type="text" id="username" name="username" autocomplete="username" size="16" required="required"
+				pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autofocus="autofocus" autocapitalize="off" />
 		</div>
-		<div>
+
+		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
+			<div class="stick">
 				<input type="password" id="passwordPlain" required="required" />
-				<input type="hidden" id="challenge" name="challenge" /><br />
-				<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+				<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
+			</div>
+			<input type="hidden" id="challenge" name="challenge" />
+			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 		</div>
-		<div>
+
+		<div class="form-group">
 			<label class="checkbox" for="keep_logged_in">
 				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
 				<?= _t('gen.auth.keep_logged_in', $this->cookie_days) ?>
 			</label>
-			<br />
 		</div>
-		<div>
-			<button id="loginButton" type="submit" class="btn btn-important"><?= _t('gen.auth.login') ?></button>
+
+		<div class="form-group form-group-actions">
+			<button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
+				<?= _t('gen.auth.login') ?>
+			</button>
 		</div>
 	</form>
+</main>
 
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
-</div>
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
@@ -6,10 +8,7 @@ header("Content-Security-Policy: default-src 'self'");
 
 require(LIB_PATH . '/lib_install.php');
 
-session_name('FreshRSS');
-$forwardedPrefix = empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) ? '' : rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
-session_set_cookie_params(0, $forwardedPrefix . dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
-session_start();
+Minz_Session::init('FreshRSS');
 
 if (isset($_GET['step'])) {
 	define('STEP', (int)$_GET['step']);
@@ -18,53 +17,51 @@ if (isset($_GET['step'])) {
 }
 
 if (STEP === 2 && isset($_POST['type'])) {
-	$_SESSION['bd_type'] = $_POST['type'];
+	Minz_Session::_param('bd_type', $_POST['type']);
 }
 
-function param($key, $default = false) {
-	if (isset($_POST[$key])) {
-		return $_POST[$key];
-	} else {
-		return $default;
-	}
+function param(string $key, string $default = ''): string {
+	return isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : $default;
 }
 
 // gestion internationalisation
-function initTranslate() {
+function initTranslate(): void {
 	Minz_Translate::init();
 	$available_languages = Minz_Translate::availableLanguages();
 
-	if (!isset($_SESSION['language'])) {
-		$_SESSION['language'] = get_best_language();
+	if (Minz_Session::paramString('language') == '') {
+		Minz_Session::_param('language', get_best_language());
 	}
 
-	if (!in_array($_SESSION['language'], $available_languages)) {
-		$_SESSION['language'] = 'en';
+	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
+		Minz_Session::_param('language', 'en');
 	}
 
-	Minz_Translate::reset($_SESSION['language']);
+	Minz_Translate::reset(Minz_Session::paramString('language'));
 }
 
-function get_best_language() {
+function get_best_language(): string {
 	$accept = empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? '' : $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 	return strtolower(substr($accept, 0, 2));
 }
 
 
 /*** SAUVEGARDES ***/
-function saveLanguage() {
+function saveLanguage(): bool {
 	if (!empty($_POST)) {
 		if (!isset($_POST['language'])) {
 			return false;
 		}
 
-		$_SESSION['language'] = $_POST['language'];
+		Minz_Session::_param('language', $_POST['language']);
+		Minz_Session::_param('sessionWorking', 'ok');
 
 		header('Location: index.php?step=1');
 	}
+	return true;
 }
 
-function saveStep1() {
+function saveStep1(): void {
 	if (isset($_POST['freshrss-keep-install']) &&
 			$_POST['freshrss-keep-install'] === '1') {
 		// We want to keep our previous installation of FreshRSS
@@ -72,59 +69,55 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		Minz_Configuration::register('system',
-		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config.default.php'));
-		$system_conf = Minz_Configuration::get('system');
-
-		$current_user = $system_conf->default_user;
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		$user_conf = Minz_Configuration::get('user');
+		FreshRSS_Context::initSystem();
+		FreshRSS_Context::initUser(FreshRSS_Context::systemConf()->default_user, false);
 
 		// Then, we set $_SESSION vars
-		$_SESSION['title'] = $system_conf->title;
-		$_SESSION['auth_type'] = $system_conf->auth_type;
-		$_SESSION['default_user'] = $current_user;
-		$_SESSION['passwordHash'] = $user_conf->passwordHash;
-
-		$db = $system_conf->db;
-		$_SESSION['bd_type'] = $db['type'];
-		$_SESSION['bd_host'] = $db['host'];
-		$_SESSION['bd_user'] = $db['user'];
-		$_SESSION['bd_password'] = $db['password'];
-		$_SESSION['bd_base'] = $db['base'];
-		$_SESSION['bd_prefix'] = $db['prefix'];
-		$_SESSION['bd_error'] = '';
+		Minz_Session::_params([
+				'title' => FreshRSS_Context::systemConf()->title,
+				'auth_type' => FreshRSS_Context::systemConf()->auth_type,
+				'default_user' => Minz_User::name() ?? '',
+				'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
+				'bd_type' => FreshRSS_Context::systemConf()->db['type'] ?? '',
+				'bd_host' => FreshRSS_Context::systemConf()->db['host'] ?? '',
+				'bd_user' => FreshRSS_Context::systemConf()->db['user'] ?? '',
+				'bd_password' => FreshRSS_Context::systemConf()->db['password'] ?? '',
+				'bd_base' => FreshRSS_Context::systemConf()->db['base'] ?? '',
+				'bd_prefix' => FreshRSS_Context::systemConf()->db['prefix'] ?? '',
+				'bd_error' => false,
+			]);
 
 		header('Location: index.php?step=4');
 	}
 }
 
-function saveStep2() {
+function saveStep2(): void {
 	if (!empty($_POST)) {
-		if ($_SESSION['bd_type'] === 'sqlite') {
-			$_SESSION['bd_base'] = '';
-			$_SESSION['bd_host'] = '';
-			$_SESSION['bd_user'] = '';
-			$_SESSION['bd_password'] = '';
-			$_SESSION['bd_prefix'] = '';
+		if (Minz_Session::paramString('bd_type') === 'sqlite') {
+			Minz_Session::_params([
+					'bd_base' => false,
+					'bd_host' => false,
+					'bd_user' => false,
+					'bd_password' => false,
+					'bd_prefix' => false,
+				]);
 		} else {
 			if (empty($_POST['type']) ||
-			    empty($_POST['host']) ||
-			    empty($_POST['user']) ||
-			    empty($_POST['base'])) {
-				$_SESSION['bd_error'] = 'Missing parameters!';
+				empty($_POST['host']) ||
+				empty($_POST['user']) ||
+				empty($_POST['base'])) {
+				Minz_Session::_param('bd_error', 'Missing parameters!');
 			}
-			$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
-			$_SESSION['bd_host'] = $_POST['host'];
-			$_SESSION['bd_user'] = $_POST['user'];
-			$_SESSION['bd_password'] = $_POST['pass'];
-			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
+			Minz_Session::_params([
+					'bd_base' => substr($_POST['base'], 0, 64),
+					'bd_host' => $_POST['host'],
+					'bd_user' => $_POST['user'],
+					'bd_password' => $_POST['pass'],
+					'bd_prefix' => substr($_POST['prefix'], 0, 16),
+				]);
 		}
-		if ($_SESSION['bd_type'] === 'pgsql') {
-			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
+		if (Minz_Session::paramString('bd_type') === 'pgsql') {
+			Minz_Session::_param('bd_base', strtolower(Minz_Session::paramString('bd_base')));
 		}
 
 		// We use dirname to remove the /i part
@@ -134,21 +127,26 @@ function saveStep2() {
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => $_SESSION['bd_type'],
-				'host' => $_SESSION['bd_host'],
-				'user' => $_SESSION['bd_user'],
-				'password' => $_SESSION['bd_password'],
-				'base' => $_SESSION['bd_base'],
-				'prefix' => $_SESSION['bd_prefix'],
+				'type' => Minz_Session::paramString('bd_type'),
+				'host' => Minz_Session::paramString('bd_host'),
+				'user' => Minz_Session::paramString('bd_user'),
+				'password' => Minz_Session::paramString('bd_password'),
+				'base' => Minz_Session::paramString('bd_base'),
+				'prefix' => Minz_Session::paramString('bd_prefix'),
 				'pdo_options' => [],
 			],
-			'pubsubhubbub_enabled' => server_is_public($base_url),
+			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
 		];
-		if (!empty($_SESSION['title'])) {
-			$config_array['title'] = $_SESSION['title'];
+		if (Minz_Session::paramString('title') != '') {
+			$config_array['title'] = Minz_Session::paramString('title');
 		}
-		if (!empty($_SESSION['auth_type'])) {
-			$config_array['auth_type'] = $_SESSION['auth_type'];
+
+		$customConfigPath = DATA_PATH . '/config.custom.php';
+		if (file_exists($customConfigPath)) {
+			$customConfig = include($customConfigPath);
+			if (is_array($customConfig)) {
+				$config_array = array_merge($customConfig, $config_array);
+			}
 		}
 
 		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
@@ -158,16 +156,20 @@ function saveStep2() {
 			opcache_reset();
 		}
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		FreshRSS_Context::initSystem(true);
 
 		$ok = false;
 		try {
-			Minz_Session::_param('currentUser', $config_array['default_user']);
-			$ok = initDb();
-			Minz_Session::_param('currentUser');
+			Minz_User::change($config_array['default_user']);
+			$error = initDb();
+			Minz_User::change();
+			if ($error != '') {
+				Minz_Session::_param('bd_error', $error);
+			} else {
+				$ok = true;
+			}
 		} catch (Exception $ex) {
-			$_SESSION['bd_error'] = $ex->getMessage();
+			Minz_Session::_param('bd_error', $ex->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -175,98 +177,113 @@ function saveStep2() {
 		}
 
 		if ($ok) {
-			$_SESSION['bd_error'] = '';
+			Minz_Session::_param('bd_error');
 			header('Location: index.php?step=3');
-		} elseif (empty($_SESSION['bd_error'])) {
-			$_SESSION['bd_error'] = 'Unknown error!';
+		} elseif (Minz_Session::paramString('bd_error') == '') {
+			Minz_Session::_param('bd_error', 'Unknown error!');
 		}
 	}
 	invalidateHttpCache();
 }
 
-function saveStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
+function saveStep3(): bool {
+	FreshRSS_Context::initSystem();
+	Minz_Translate::init(Minz_Session::paramString('language'));
+
 	if (!empty($_POST)) {
-		$system_default_config = Minz_Configuration::get('default_system');
-		$_SESSION['title'] = $system_default_config->title;
-		$_SESSION['auth_type'] = param('auth_type', 'form');
+		$auth_type = param('auth_type', 'form');
+		if (in_array($auth_type, ['form', 'http_auth', 'none'], true)) {
+			FreshRSS_Context::systemConf()->auth_type = $auth_type;
+			Minz_Session::_param('auth_type', FreshRSS_Context::systemConf()->auth_type);
+		} else {
+			return false;
+		}
+
+		$password_plain = param('passwordPlain', '');
+		if (FreshRSS_Context::systemConf()->auth_type === 'form' && $password_plain == '') {
+			return false;
+		}
+
 		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			$_SESSION['default_user'] = param('default_user', '');
-		}
-
-		if (empty($_SESSION['auth_type']) ||
-		    empty($_SESSION['default_user'])) {
+			FreshRSS_Context::systemConf()->default_user = param('default_user', '');
+			Minz_Session::_param('default_user', FreshRSS_Context::systemConf()->default_user);
+		} else {
 			return false;
 		}
 
-		$password_plain = param('passwordPlain', false);
-		if ($_SESSION['auth_type'] === 'form' && $password_plain == '') {
-			return false;
+		if (FreshRSS_Context::systemConf()->auth_type === 'http_auth' &&
+			connectionRemoteAddress() !== '' &&
+			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
+			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
+		) {
+			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
+			FreshRSS_Context::systemConf()->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::systemConf()->trusted_sources = array_unique(FreshRSS_Context::systemConf()->trusted_sources);
 		}
-
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-		Minz_Translate::init($_SESSION['language']);
-
-		FreshRSS_Context::$system_conf->default_user = $_SESSION['default_user'];
-		FreshRSS_Context::$system_conf->save();
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		recursive_unlink(USERS_PATH . '/' . $_SESSION['default_user']);
+		recursive_unlink(USERS_PATH . '/' . Minz_Session::paramString('default_user'));
 
 		$ok = false;
 		try {
 			$ok = FreshRSS_user_Controller::createUser(
-				$_SESSION['default_user'],
+				Minz_Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
 				$password_plain,
 				[
-					'language' => $_SESSION['language'],
+					'language' => Minz_Session::paramString('language'),
+					'is_admin' => true,
+					'enabled' => true,
 				]
 			);
 		} catch (Exception $e) {
-			$_SESSION['bd_error'] = $e->getMessage();
+			Minz_Session::_param('bd_error', $e->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
 			return false;
 		}
 
+		FreshRSS_Context::systemConf()->save();
+
 		header('Location: index.php?step=4');
 	}
+	return true;
 }
 
 /*** VÉRIFICATIONS ***/
-function checkStep() {
+function checkStep(): void {
 	$s0 = checkStep0();
 	$s1 = checkRequirements();
 	$s2 = checkStep2();
 	$s3 = checkStep3();
-	if (STEP > 0 && $s0['all'] != 'ok') {
+	if (STEP > 0 && $s0['all'] !== 'ok') {
 		header('Location: index.php?step=0');
-	} elseif (STEP > 1 && $s1['all'] != 'ok') {
+	} elseif (STEP > 1 && $s1['all'] !== 'ok') {
 		header('Location: index.php?step=1');
-	} elseif (STEP > 2 && $s2['all'] != 'ok') {
+	} elseif (STEP > 2 && $s2['all'] !== 'ok') {
 		header('Location: index.php?step=2');
-	} elseif (STEP > 3 && $s3['all'] != 'ok') {
+	} elseif (STEP > 3 && $s3['all'] !== 'ok') {
 		header('Location: index.php?step=3');
 	}
-	$_SESSION['actualize_feeds'] = true;
+	Minz_Session::_param('actualize_feeds', true);
 }
 
-function checkStep0() {
+/** @return array<string,string> */
+function checkStep0(): array {
 	$languages = Minz_Translate::availableLanguages();
-	$language = isset($_SESSION['language']) &&
-	            in_array($_SESSION['language'], $languages);
+	$language = Minz_Session::paramString('language') != '' && in_array(Minz_Session::paramString('language'), $languages, true);
+	$sessionWorking = Minz_Session::paramString('sessionWorking') === 'ok';
 
-	return array(
+	return [
 		'language' => $language ? 'ok' : 'ko',
-		'all' => $language ? 'ok' : 'ko'
-	);
+		'sessionWorking' => $sessionWorking ? 'ok' : 'ko',
+		'all' => $language && $sessionWorking ? 'ok' : 'ko',
+	];
 }
 
-function freshrss_already_installed() {
+function freshrss_already_installed(): bool {
 	$conf_path = join_path(DATA_PATH, 'config.php');
 	if (!file_exists($conf_path)) {
 		return false;
@@ -275,17 +292,16 @@ function freshrss_already_installed() {
 	// A configuration file already exists, we try to load it.
 	$system_conf = null;
 	try {
-		Minz_Configuration::register('system', $conf_path);
-		$system_conf = Minz_Configuration::get('system');
-	} catch (Minz_FileNotExistException $e) {
+		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
-	// ok, the global conf exists... but what about default user conf?
+	// ok, the global conf exists… but what about default user conf?
 	$current_user = $system_conf->default_user;
 	try {
-		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
-	} catch (Minz_FileNotExistException $e) {
+		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
+	} catch (Minz_ConfigurationNamespaceException $e) {
 		return false;
 	}
 
@@ -293,17 +309,12 @@ function freshrss_already_installed() {
 	return true;
 }
 
-function checkStep2() {
+/** @return array<string,string> */
+function checkStep2(): array {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = isset($_SESSION['bd_type']) &&
-	      isset($_SESSION['bd_host']) &&
-	      isset($_SESSION['bd_user']) &&
-	      isset($_SESSION['bd_password']) &&
-	      isset($_SESSION['bd_base']) &&
-	      isset($_SESSION['bd_prefix']) &&
-	      isset($_SESSION['bd_error']);
-	$conn = empty($_SESSION['bd_error']);
+	$bd = Minz_Session::paramString('bd_type') != '';
+	$conn = Minz_Session::paramString('bd_error') == '';
 
 	return [
 		'bd' => $bd ? 'ok' : 'ko',
@@ -313,14 +324,15 @@ function checkStep2() {
 	];
 }
 
-function checkStep3() {
-	$conf = !empty($_SESSION['default_user']);
+/** @return array<string,string> */
+function checkStep3(): array {
+	$conf = Minz_Session::paramString('default_user') != '';
 
-	$form = isset($_SESSION['auth_type']);
+	$form = Minz_Session::paramString('auth_type') != '';
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
-		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
+		$defaultUser = Minz_Session::paramString('default_user') == '' ? '' : Minz_Session::paramString('default_user');
 	}
 	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
@@ -333,14 +345,45 @@ function checkStep3() {
 }
 
 
-/*** AFFICHAGE ***/
-function printStep0() {
+/* select language */
+function printStep0(): void {
 	$actual = Minz_Translate::language();
 	$languages = Minz_Translate::availableLanguages();
+	$s0 = checkStep0();
 ?>
-	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
+	<?php if ($s0['all'] === 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.language.defined') ?></p>
+	<?php } elseif (!empty($_POST) && $s0['sessionWorking'] !== 'ok') { ?>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.session.nok') ?></p>
 	<?php } ?>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about') ?></label>
+		<div class="group-controls">
+			<?= _t('index.about.freshrss_description') ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.project_website') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WEBSITE ?>" target="_blank"><?= FRESHRSS_WEBSITE ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.documentation') ?></label>
+		<div class="group-controls">
+			<a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= FRESHRSS_WIKI ?></a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="group-name"><?= _t('index.about.version') ?></label>
+		<div class="group-controls">
+			<?= FRESHRSS_VERSION ?>
+		</div>
+	</div>
 
 	<form action="index.php?step=0" method="post">
 		<legend><?= _t('install.language.choose') ?></legend>
@@ -360,9 +403,8 @@ function printStep0() {
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" tabindex="2" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="3" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=1" tabindex="4" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -370,133 +412,111 @@ function printStep0() {
 <?php
 }
 
+/**
+ * Alert box template
+ * @param array<string> $messageParams
+ * */
+function printStep1Template(string $key, string $value, array $messageParams = []): void {
+	if ('ok' === $value) {
+		$message = _t("install.check.{$key}.ok", ...$messageParams);
+		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
+	} else {
+		$message = _t("install.check.{$key}.nok", ...$messageParams);
+		?><p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= $message ?></p><?php
+	}
+}
+
+function getProcessUsername(): string {
+	if (function_exists('posix_getpwuid') && function_exists('posix_geteuid')) {
+		$processUser = posix_getpwuid(posix_geteuid()) ?: [];
+		if (!empty($processUser['name'])) {
+			return $processUser['name'];
+		}
+	}
+
+	if (function_exists('exec')) {
+		exec('whoami', $output);
+		if (!empty($output[0])) {
+			return $output[0];
+		}
+	}
+
+	return _t('install.check.unknown_process_username');
+}
+
 // @todo refactor this view with the check_install action
-function printStep1() {
+/* check system environment */
+function printStep1(): void {
 	$res = checkRequirements();
+	$processUsername = getProcessUsername();
 ?>
+	<h2><?= _t('admin.check_install.php') ?></h2>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 
-	<?php if ($res['php'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.php.ok', PHP_VERSION) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.php.nok', PHP_VERSION, '5.6.0') ?></p>
-	<?php } ?>
-
-	<?php if ($res['minz'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.minz.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')) ?></p>
-	<?php } ?>
-
-	<?php if ($res['pdo'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.pdo.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.pdo.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['curl'] == 'ok') { ?>
-	<?php $version = curl_version(); ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.curl.ok', $version['version']) ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.curl.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['json'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.json.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.json.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['pcre'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.pcre.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.pcre.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['ctype'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.ctype.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.ctype.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['dom'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.dom.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.dom.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['xml'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.xml.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.xml.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['mbstring'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.mbstring.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.mbstring.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['fileinfo'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.fileinfo.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.fileinfo.nok') ?></p>
-	<?php } ?>
-
-	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.data.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.data.nok', DATA_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['cache'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.cache.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.cache.nok', CACHE_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['users'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.users.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.users.nok', USERS_PATH) ?></p>
-	<?php } ?>
-
-	<?php if ($res['favicons'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.favicons.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.favicons.nok', DATA_PATH . '/favicons') ?></p>
-	<?php } ?>
-
-	<?php if ($res['http_referer'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.check.http_referer.ok') ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.check.http_referer.nok') ?></p>
-	<?php } ?>
+	<?php
+	$version = function_exists('curl_version') ? curl_version() : [];
+	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
+	printStep1Template('pdo', $res['pdo']);
+	printStep1Template('curl', $res['curl'], [$version['version'] ?? '']);
+	printStep1Template('json', $res['json']);
+	printStep1Template('pcre', $res['pcre']);
+	printStep1Template('ctype', $res['ctype']);
+	printStep1Template('dom', $res['dom']);
+	printStep1Template('xml', $res['xml']);
+	printStep1Template('mbstring', $res['mbstring']);
+	printStep1Template('fileinfo', $res['fileinfo']);
+	?>
+	<h2><?= _t('admin.check_install.files') ?></h2>
+	<?php
+	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
+	printStep1Template('cache', $res['cache'], [CACHE_PATH, $processUsername]);
+	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
+	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
+	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
+	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
 	<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.check.already_installed') ?></p>
 
-	<form action="index.php?step=1" method="post">
-		<input type="hidden" name="freshrss-keep-install" value="1" />
-		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?= _t('install.action.keep_install') ?></button>
-		<a class="btn btn-attention next-step confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>" href="?step=2" tabindex="2" ><?= _t('install.action.reinstall') ?></a>
-	</form>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<form action="index.php?step=1" method="post">
+				<input type="hidden" name="freshrss-keep-install" value="1" />
+				<button type="submit" class="btn btn-important" tabindex="1"><?= _t('install.action.keep_install') ?></button>
+				<a class="btn btn-attention confirm" data-str-confirm="<?= _t('install.js.confirm_reinstall') ?>"
+					href="?step=2" tabindex="2"><?= _t('install.action.reinstall') ?></a>
+			</form>
+		</div>
+	</div>
 
 	<?php } elseif ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?= _t('install.action.next_step') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important" href="?step=2" tabindex="1"><?= _t('install.action.next_step') ?></a>
+		</div>
+	</div>
 	<?php } else { ?>
 	<p class="alert alert-error"><?= _t('install.action.fix_errors_before') ?></p>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
+				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+			</a>
+		</div>
+	</div>
 	<?php } ?>
 <?php
 }
 
-function printStep2() {
-	$system_default_config = Minz_Configuration::get('default_system');
-?>
-	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
+/* Select database & configuration */
+function printStep2(): void {
+	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
+	$s2 = checkStep2();
+	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
+		(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=2" method="post" autocomplete="off">
@@ -507,19 +527,19 @@ function printStep2() {
 				<select name="type" id="type" tabindex="1">
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
+					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite' ? 'selected="selected"' : '' ?>>
 					SQLite
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
-					MySQL
+					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql' ? 'selected="selected"' : '' ?>>
+					MySQL / MariaDB
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
 				<option value="pgsql"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
+					<?= isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql' ? 'selected="selected"' : '' ?>>
 					PostgreSQL
 				</option>
 				<?php }?>
@@ -531,45 +551,53 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?= isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host'] ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.\-]{1,64}(:[0-9]{2,5})?" value="<?=
+					$_SESSION['bd_host'] ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z_.-]{1,64}" value="<?= isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : '' ?>" tabindex="3" />
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.\-]{1,64}" value="<?=
+					$_SESSION['bd_user'] ?? '' ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="pass"><?= _t('install.bdd.password') ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?= isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : '' ?>" tabindex="4" autocomplete="off" />
+				<div class="stick">
+					<input type="password" id="pass" name="pass" value="<?=
+						$_SESSION['bd_password'] ?? '' ?>" tabindex="4" autocomplete="off" />
+					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
+				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_-]{1,64}" value="<?= isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : '' ?>" tabindex="5" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_\-]{1,64}" value="<?=
+					$_SESSION['bd_base'] ?? '' ?>" tabindex="6" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?= isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix'] ?>" tabindex="6" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
+					$_SESSION['bd_prefix'] ?? $system_default_config->db['prefix'] ?? '' ?>" tabindex="7" />
 			</div>
 		</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="8" ><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -577,10 +605,15 @@ function printStep2() {
 <?php
 }
 
-function printStep3() {
-	$user_default_config = Minz_Configuration::get('default_user');
-?>
-	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
+function no_auth(string $auth_type): bool {
+	return !in_array($auth_type, ['form', 'http_auth', 'none'], true);
+}
+
+/* Create default user */
+function printStep3(): void {
+	$auth_type = $_SESSION['auth_type'] ?? '';
+	$s3 = checkStep3();
+	if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.conf.ok') ?></p>
 	<?php } elseif (!empty($_POST)) { ?>
 	<p class="alert alert-error"><?= _t('install.fix_errors_before') ?></p>
@@ -592,23 +625,24 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?= _t('install.default_user') ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16" pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= isset($_SESSION['default_user']) ? $_SESSION['default_user'] : '' ?>" placeholder="<?= httpAuthUser() == '' ? 'alice' : httpAuthUser() ?>" tabindex="3" />
+				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= $_SESSION['default_user'] ?? '' ?>"
+					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
+				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" tabindex="4">
-					<?php
-						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'http_auth', 'none'));
-						}
-						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-					?>
-					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
-					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('install.auth.http') ?>(REMOTE_USER = '<?= httpAuthUser() ?>')</option>
-					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : '' ?>><?= _t('install.auth.none') ?></option>
+				<select id="auth_type" name="auth_type" required="required" tabindex="2">
+					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
+						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
+					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
+						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('install.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
+					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
+						?>><?= _t('install.auth.none') ?></option>
 				</select>
 			</div>
 		</div>
@@ -617,20 +651,21 @@ function printStep3() {
 			<label class="group-name" for="passwordPlain"><?= _t('install.auth.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="5" />
-					<a class="btn toggle-password" data-toggle="passwordPlain"><?= FreshRSS_Themes::icon('key') ?></a>
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
+					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
-				<?= _i('help') ?> <?= _t('install.auth.password_format') ?>
+				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?= _t('gen.action.cancel') ?></button>
+				<button type="submit" class="btn btn-important" tabindex="5" ><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn" tabindex="6" ><?= _t('gen.action.cancel') ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4" tabindex="9" ><?= _t('install.action.next_step') ?></a>
+				<a class="next-step" href="?step=4" tabindex="7" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -638,16 +673,25 @@ function printStep3() {
 <?php
 }
 
-function printStep4() {
+/* congrats. Installation successful completed */
+function printStep4(): void {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('install.congratulations') ?></span> <?= _t('install.ok') ?></p>
-	<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<a class="btn btn-important" href="?step=5" tabindex="1"><?= _t('install.action.finish') ?></a>
+		</div>
+	</div>
 <?php
 }
 
-function printStep5() {
+/* failed */
+function printStep5(): void {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.not_deleted', DATA_PATH . '/do-install.txt') ?></p>
+	<p class="alert alert-error">
+		<span class="alert-head"><?= _t('gen.short.damn') ?></span>
+		<?= _t('install.missing_applied_migrations', DATA_PATH . '/applied_migrations.txt') ?>
+	</p>
 <?php
 }
 
@@ -672,43 +716,95 @@ case 3:
 case 4:
 	break;
 case 5:
-	if (deleteInstall()) {
+	if (setupMigrations()) {
 		header('Location: index.php');
 	}
 	break;
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html <?php
+if (_t('gen.dir') === 'rtl') {
+	echo ' dir="rtl" class="rtl"';
+}
+?>>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
 		<script id="jsonVars" type="application/json">{}</script>
-		<title><?= _t('install.title') ?></title>
-		<link rel="stylesheet" href="../themes/base-theme/template.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css') ?>" />
+		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
+		<link rel="stylesheet" href="../themes/base-theme/frss.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/frss.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="../favicon.ico" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="../themes/icons/favicon-256.png" />
+		<link rel="apple-touch-icon" href="../themes/icons/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="FreshRSS">
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
 
-<div class="header">
+<header class="header">
 	<div class="item title">
-		<h1><a href="index.php"><?= _t('install.title') ?></a></h1>
-		<h2><?= _t('install.step', STEP) ?></h2>
+		<div id="logo-wrapper">
+			<a href="./">
+				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="" loading="lazy">
+			</a>
+		</div>
 	</div>
-</div>
+	<div class="item"></div>
+	<div class="item configure">
+		<a class="btn only-mobile" href="#aside"><?= _i('view-normal') ?></a>
+	</div>
+</header>
 
 <div id="global">
-	<ul class="nav nav-list aside">
-		<li class="nav-header"><?= _t('install.steps') ?></li>
-		<li class="item<?= STEP == 0 ? ' active' : '' ?>"><a href="?step=0"><?= _t('install.language') ?></a></li>
-		<li class="item<?= STEP == 1 ? ' active' : '' ?>"><a href="?step=1"><?= _t('install.check') ?></a></li>
-		<li class="item<?= STEP == 2 ? ' active' : '' ?>"><a href="?step=2"><?= _t('install.bdd.conf') ?></a></li>
-		<li class="item<?= STEP == 3 ? ' active' : '' ?>"><a href="?step=3"><?= _t('install.conf') ?></a></li>
-		<li class="item<?= STEP == 4 ? ' active' : '' ?>"><a href="?step=4"><?= _t('install.this_is_the_end') ?></a></li>
-	</ul>
+	<nav class="nav nav-list aside" id="aside">
+		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<ul>
+			<li class="item nav-section">
+				<div class="nav-header"><?= _t('install.steps') ?></div>
+				<ol>
+					<li class="item<?= STEP == 0 ? ' active' : '' ?>">
+						<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
+					</li>
+					<li class="item<?= STEP == 1 ? ' active' : '' ?>">
+						<?php if (STEP > 0) {?>
+						<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.check') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 2 ? ' active' : '' ?>">
+						<?php if (STEP > 1) {?>
+						<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.bdd.conf') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 3 ? ' active' : '' ?>">
+						<?php if (STEP > 2) {?>
+						<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.conf') ?></span>
+						<?php } ?>
+					</li>
+					<li class="item<?= STEP == 4 ? ' active' : '' ?>">
+						<?php if (STEP > 3) {?>
+						<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
+						<?php } else { ?>
+						<span><?= _t('install.this_is_the_end') ?></span>
+						<?php } ?>
+					</li>
+				</ol>
+			</li>
+		</ul>
+	</nav>
+	<a class="close-aside" href="#close">❌</a>
 
-	<div class="post">
+	<main class="post">
+		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
 		<?php
 		switch (STEP) {
 		case 0:
@@ -732,7 +828,7 @@ case 5:
 			break;
 		}
 		?>
-	</div>
+	</main>
 </div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>

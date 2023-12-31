@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
@@ -9,7 +19,6 @@ return array(
 		'http' => 'HTTP (voor gevorderde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
 		'title' => 'Authenticatie',
-		'title_reset' => 'Authenticatie terugzetten',
 		'token' => 'Authenticatie teken',
 		'token_help' => 'Sta toegang toe tot de RSS uitvoer van de standaard gebruiker zonder authenticatie:',
 		'type' => 'Authenticatie methode',
@@ -70,10 +79,6 @@ return array(
 			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
 			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
 		),
-		'minz' => array(
-			'nok' => 'U mist Minz framework.',
-			'ok' => 'U hebt Minz framework.',
-		),
 		'pcre' => array(
 			'nok' => 'U mist de benodigde bibliotheek voor regular expressions (php-pcre).',
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
@@ -83,9 +88,9 @@ return array(
 			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'PHP installatie',
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
-			'_' => 'PHP installatie',
 		),
 		'tables' => array(
 			'nok' => 'Er zijn één of meer ontbrekende tabellen in de database.',
@@ -116,8 +121,8 @@ return array(
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
 		'system' => array(
-			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 			'_' => 'Systeemuitbreidingen',
+			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 		),
 		'title' => 'Uitbreidingen',
 		'update' => 'Update beschikbaar',
@@ -125,6 +130,7 @@ return array(
 		'version' => 'Versie',
 	),
 	'stats' => array(
+		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
 		'entry_count' => 'Invoer aantallen',
@@ -134,19 +140,14 @@ return array(
 		'entry_per_hour' => 'Per uur (gemiddeld: %.2f berichten)',
 		'entry_per_month' => 'Per maand (gemiddeld: %.2f berichten)',
 		'entry_repartition' => 'Invoer verdeling',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds per categorie',
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
 		'main_stream' => 'Overzicht',
-		'menu' => array(
-			'idle' => 'Gepauzeerde feeds',
-			'main' => 'Hoofd statistieken',
-			'repartition' => 'Artikelen verdeling',
-		),
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
-		'percent_of_total' => '%% van totaal',
+		'percent_of_total' => '% van totaal',
 		'repartition' => 'Artikelverdeling',
 		'status_favorites' => 'Favorieten',
 		'status_read' => 'Gelezen',
@@ -154,10 +155,14 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
-		'_' => 'Statistieken',
 	),
 	'system' => array(
+		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'base-url' => array(
+			'_' => 'Basis-url',
+			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
@@ -167,40 +172,67 @@ return array(
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(
-			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
+			'select' => array(
+				'label' => 'Registratieformulier',
+				'option' => array(
+					'noform' => 'Uitgeschakeld: geen registratieformulier',
+					'nolimit' => 'Ingeschakeld: geen limiet op aantal accounts',
+					'setaccountsnumber' => 'Max. aantal accounts instellen',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulier uitgeschakeld',
+				'enabled' => 'Form ingeschakeld',
+			),
+			'title' => 'Gebruikersregistratieformulier',
 		),
-		'_' => 'Systeem configuratie',
+		'sensitive-parameter' => 'Kwetsbare parameter. Handmatig te bewerken in <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'is niet ingegeven',
+			'enabled' => '<a href="./?a=tos">is ingeschakeld</a>',
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">algemene voorwaarden inschakelen</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'apply' => 'Toepassen',
-		'check' => 'Controleer op nieuwe versies',
-		'current_version' => 'Uw huidige versie van FreshRSS is %s.',
-		'last' => 'Laatste controle: %s',
-		'none' => 'Geen nieuwe versie om toe te passen',
-		'title' => 'Vernieuw systeem',
 		'_' => 'Versie controle',
+		'apply' => 'Toepassen',
+		'changelog' => 'Changelog',	// IGNORE
+		'check' => 'Controleer op nieuwe versies',
+		'copiedFromURL' => 'update.php gekopieerd van %s naar ./data',
+		'current_version' => 'Uw huidige versie',
+		'last' => 'Laatste controle',
+		'loading' => 'Updaten…',
+		'none' => 'Geen nieuwe versie om toe te passen',
+		'releaseChannel' => array(
+			'_' => 'Release-kanaal',
+			'edge' => 'Rollende release (“edge”)',
+			'latest' => 'Stabiele release (“latest”)',
+		),
+		'title' => 'Vernieuw systeem',
+		'viaGit' => 'Update via git and Github.com gestart',
 	),
 	'user' => array(
-		'articles_and_size' => '%s artikelen (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Beheerder',
+		'article_count' => 'Artikelen',
+		'back_to_manage' => '← Terug naar gebruikerslijst',
 		'create' => 'Creëer nieuwe gebruiker',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Verwijder gebruiker',
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
+		'database_size' => 'Databasegrootte',
+		'email' => 'Emailadres',
+		'enabled' => 'Ingeschakeld',
+		'feed_count' => 'Feeds',	// IGNORE
+		'is_admin' => 'Is beheerder',
 		'language' => 'Taal',
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Laatste gebruikersactiviteit',
+		'list' => 'Gebruikerslijst',
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
-		'selected' => 'Geselecteerde gebruiker',
 		'title' => 'Beheer gebruikers',
-		'update_users' => 'Gebruiker bijwerken',
 		'username' => 'Gebruikersnaam',
-		'users' => 'Gebruikers',
-		'user_list' => 'Lijst van gebruikers ',
 	),
 );

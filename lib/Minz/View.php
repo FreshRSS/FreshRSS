@@ -1,30 +1,35 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
 
 /**
- * La classe View représente la vue de l'application
+ * The Minz_View represents a view in the MVC paradigm
  */
 class Minz_View {
-	const VIEWS_PATH_NAME = '/views';
-	const LAYOUT_PATH_NAME = '/layout/';
-	const LAYOUT_DEFAULT = 'layout';
+	private const VIEWS_PATH_NAME = '/views';
+	private const LAYOUT_PATH_NAME = '/layout/';
+	private const LAYOUT_DEFAULT = 'layout';
 
-	private $view_filename = '';
-	private $layout_filename = '';
-
-	private static $base_pathnames = array(APP_PATH);
-	private static $title = '';
-	private static $styles = array ();
-	private static $scripts = array ();
-
-	private static $params = array ();
+	private string $view_filename = '';
+	private string $layout_filename = '';
+	/** @var array<string> */
+	private static array $base_pathnames = [APP_PATH];
+	private static string $title = '';
+	/** @var array<array{'media':string,'url':string}> */
+	private static array $styles = [];
+	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
+	private static array $scripts = [];
+	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
+	private static $themeColors;
+	/** @var array<string,mixed> */
+	private static array $params = [];
 
 	/**
-	 * Constructeur
-	 * Détermine si on utilise un layout ou non
+	 * Determines if a layout is used or not
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
@@ -33,9 +38,9 @@ class Minz_View {
 	}
 
 	/**
-	 * [deprecated] Change the view file based on controller and action.
+	 * @deprecated Change the view file based on controller and action.
 	 */
-	public function change_view($controller_name, $action_name) {
+	public function change_view(string $controller_name, string $action_name): void {
 		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
 		$this->_path($controller_name. '/' . $action_name . '.phtml');
 	}
@@ -45,7 +50,7 @@ class Minz_View {
 	 *
 	 * @param string $path the new path
 	 */
-	public function _path($path) {
+	public function _path(string $path): void {
 		$this->view_filename = self::VIEWS_PATH_NAME . '/' . $path;
 	}
 
@@ -54,16 +59,16 @@ class Minz_View {
 	 *
 	 * New pathnames will be added at the beginning of the list.
 	 *
-	 * @param $base_pathname the new base pathname.
+	 * @param string $base_pathname the new base pathname.
 	 */
-	public static function addBasePathname($base_pathname) {
+	public static function addBasePathname(string $base_pathname): void {
 		array_unshift(self::$base_pathnames, $base_pathname);
 	}
 
 	/**
-	 * Construit la vue
+	 * Builds the view filename based on controller and action.
 	 */
-	public function build () {
+	public function build(): void {
 		if ($this->layout_filename !== '') {
 			$this->buildLayout ();
 		} else {
@@ -76,10 +81,10 @@ class Minz_View {
 	 *
 	 * The file is searched inside list of $base_pathnames.
 	 *
-	 * @param $filename the name of the file to include.
-	 * @return true if the file has been included, false else.
+	 * @param string $filename the name of the file to include.
+	 * @return bool true if the file has been included, false else.
 	 */
-	private function includeFile($filename) {
+	private function includeFile(string $filename): bool {
 		// We search the filename in the list of base pathnames. Only the first view
 		// found is considered.
 		foreach (self::$base_pathnames as $base) {
@@ -94,9 +99,9 @@ class Minz_View {
 	}
 
 	/**
-	 * Construit le layout
+	 * Builds the layout
 	 */
-	public function buildLayout () {
+	public function buildLayout(): void {
 		header('Content-Type: text/html; charset=UTF-8');
 		if (!$this->includeFile($this->layout_filename)) {
 			Minz_Log::notice('File not found: `' . $this->layout_filename . '`');
@@ -104,19 +109,25 @@ class Minz_View {
 	}
 
 	/**
-	 * Affiche la Vue en elle-même
+	 * Displays the View itself
 	 */
-	public function render () {
+	public function render(): void {
 		if (!$this->includeFile($this->view_filename)) {
 			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
 
+	public function renderToString(): string {
+		ob_start();
+		$this->render();
+		return ob_get_clean() ?: '';
+	}
+
 	/**
-	 * Ajoute un élément du layout
-	 * @param $part l'élément partial à ajouter
+	 * Adds a layout element
+	 * @param string $part the partial element to be added
 	 */
-	public function partial ($part) {
+	public function partial(string $part): void {
 		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
 		if (!$this->includeFile($fic_partial)) {
 			Minz_Log::warning('File not found: `' . $fic_partial . '`');
@@ -124,10 +135,10 @@ class Minz_View {
 	}
 
 	/**
-	 * Affiche un élément graphique situé dans APP./views/helpers/
-	 * @param $helper l'élément à afficher
+	 * Displays a graphic element located in APP./views/helpers/
+	 * @param string $helper the element to be displayed
 	 */
-	public function renderHelper ($helper) {
+	public function renderHelper(string $helper): void {
 		$fic_helper = '/views/helpers/' . $helper . '.phtml';
 		if (!$this->includeFile($fic_helper)) {
 			Minz_Log::warning('File not found: `' . $fic_helper . '`');
@@ -135,21 +146,21 @@ class Minz_View {
 	}
 
 	/**
-	 * Retourne renderHelper() dans une chaîne
-	 * @param $helper l'élément à traîter
+	 * Returns renderHelper() in a string
+	 * @param string $helper the element to be treated
 	 */
-	public function helperToString($helper) {
+	public function helperToString(string $helper): string {
 		ob_start();
 		$this->renderHelper($helper);
-		return ob_get_clean();
+		return ob_get_clean() ?: '';
 	}
 
 	/**
 	 * Choose the current view layout.
-	 * @param $layout the layout name to use, false to use no layouts.
+	 * @param string|null $layout the layout name to use, null to use no layouts.
 	 */
-	public function _layout($layout) {
-		if ($layout) {
+	public function _layout(?string $layout): void {
+		if ($layout != null) {
 			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
 		} else {
 			$this->layout_filename = '';
@@ -157,91 +168,121 @@ class Minz_View {
 	}
 
 	/**
-	 * [deprecated] Choose if we want to use the layout or not.
-	 * Please use the `_layout` function instead.
-	 * @param $use true if we want to use the layout, false else
+	 * Choose if we want to use the layout or not.
+	 * @deprecated Please use the `_layout` function instead.
+	 * @param bool $use true if we want to use the layout, false else
 	 */
-	public function _useLayout ($use) {
+	public function _useLayout(bool $use): void {
 		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
 		if ($use) {
 			$this->_layout(self::LAYOUT_DEFAULT);
 		} else {
-			$this->_layout(false);
+			$this->_layout(null);
 		}
 	}
 
 	/**
-	 * Gestion du titre
+	 * Title management
 	 */
-	public static function title () {
+	public static function title(): string {
 		return self::$title;
 	}
-	public static function headTitle () {
+	public static function headTitle(): string {
 		return '<title>' . self::$title . '</title>' . "\n";
 	}
-	public static function _title ($title) {
+	public static function _title(string $title): void {
 		self::$title = $title;
 	}
-	public static function prependTitle ($title) {
+	public static function prependTitle(string $title): void {
 		self::$title = $title . self::$title;
 	}
-	public static function appendTitle ($title) {
+	public static function appendTitle(string $title): void {
 		self::$title = self::$title . $title;
 	}
 
 	/**
-	 * Gestion des feuilles de style
+	 * Style sheet management
 	 */
-	public static function headStyle () {
+	public static function headStyle(): string {
 		$styles = '';
-
-		foreach(self::$styles as $style) {
-			$cond = $style['cond'];
-			if ($cond) {
-				$styles .= '<!--[if ' . $cond . ']>';
-			}
-
+		foreach (self::$styles as $style) {
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
-
-			if ($cond) {
-				$styles .= '<![endif]-->';
-			}
-
 			$styles .= "\n";
 		}
 
 		return $styles;
 	}
-	public static function prependStyle ($url, $media = 'all', $cond = false) {
-		array_unshift (self::$styles, array (
+
+	/**
+	 * Prepends a <link> element referencing stylesheet.
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
+	 */
+	public static function prependStyle(string $url, string $media = 'all', bool $cond = false): void {
+		if ($url === '') {
+			return;
+		}
+		array_unshift(self::$styles, [
 			'url' => $url,
 			'media' => $media,
-			'cond' => $cond
-		));
-	}
-	public static function appendStyle ($url, $media = 'all', $cond = false) {
-		self::$styles[] = array (
-			'url' => $url,
-			'media' => $media,
-			'cond' => $cond
-		);
+		]);
 	}
 
 	/**
-	 * Gestion des scripts JS
+	 * Append a `<link>` element referencing stylesheet.
+	 * @param string $url
+	 * @param string $media
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
-	public static function headScript () {
-		$scripts = '';
+	public static function appendStyle(string $url, string $media = 'all', bool $cond = false): void {
+		if ($url === '') {
+			return;
+		}
+		self::$styles[] = [
+			'url' => $url,
+			'media' => $media,
+		];
+	}
 
-		foreach (self::$scripts as $script) {
-			$cond = $script['cond'];
-			if ($cond) {
-				$scripts .= '<!--[if ' . $cond . ']>';
+	/**
+	 * @param string|array{'dark'?:string,'light'?:string,'default'?:string} $themeColors
+	 */
+	public static function appendThemeColors($themeColors): void {
+		self::$themeColors = $themeColors;
+	}
+
+	/**
+	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+	 */
+	public static function metaThemeColor(): string {
+		$meta = '';
+		if (is_array(self::$themeColors)) {
+			if (!empty(self::$themeColors['light'])) {
+				$meta .= '<meta name="theme-color" media="(prefers-color-scheme: light)" content="' . htmlspecialchars(self::$themeColors['light']) . '" />';
 			}
+			if (!empty(self::$themeColors['dark'])) {
+				$meta .= '<meta name="theme-color" media="(prefers-color-scheme: dark)" content="' . htmlspecialchars(self::$themeColors['dark']) . '" />';
+			}
+			if (!empty(self::$themeColors['default'])) {
+				$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors['default']) . '" />';
+			}
+		} elseif (is_string(self::$themeColors)) {
+			$meta .= '<meta name="theme-color" content="' . htmlspecialchars(self::$themeColors) . '" />';
+		}
+		return $meta;
+	}
 
+	/**
+	 * JS script management
+	 */
+	public static function headScript(): string {
+		$scripts = '';
+		foreach (self::$scripts as $script) {
 			$scripts .= '<script src="' . $script['url'] . '"';
+			if (!empty($script['id'])) {
+				$scripts .= ' id="' . $script['id'] . '"';
+			}
 			if ($script['defer']) {
 				$scripts .= ' defer="defer"';
 			}
@@ -249,41 +290,63 @@ class Minz_View {
 				$scripts .= ' async="async"';
 			}
 			$scripts .= '></script>';
-
-			if ($cond) {
-				$scripts .= '<![endif]-->';
-			}
-
 			$scripts .= "\n";
 		}
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $cond = false, $defer = true, $async = true) {
-		array_unshift(self::$scripts, array (
+	/**
+	 * Prepend a `<script>` element.
+	 * @param string $url
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
+	 * @param bool $defer Use `defer` flag
+	 * @param bool $async Use `async` flag
+	 * @param string $id Add a script `id` attribute
+	 */
+	public static function prependScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
+		if ($url === '') {
+			return;
+		}
+		array_unshift(self::$scripts, [
 			'url' => $url,
-			'cond' => $cond,
 			'defer' => $defer,
 			'async' => $async,
-		));
-	}
-	public static function appendScript ($url, $cond = false, $defer = true, $async = true) {
-		self::$scripts[] = array (
-			'url' => $url,
-			'cond' => $cond,
-			'defer' => $defer,
-			'async' => $async,
-		);
+			'id' => $id,
+		]);
 	}
 
 	/**
-	 * Gestion des paramètres ajoutés à la vue
+	 * Append a `<script>` element.
+	 * @param string $url
+	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
+	 * @param bool $defer Use `defer` flag
+	 * @param bool $async Use `async` flag
+	 * @param string $id Add a script `id` attribute
 	 */
-	public static function _param ($key, $value) {
+	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
+		if ($url === '') {
+			return;
+		}
+		self::$scripts[] = [
+			'url' => $url,
+			'defer' => $defer,
+			'async' => $async,
+			'id' => $id,
+		];
+	}
+
+	/**
+	 * Management of parameters added to the view
+	 * @param mixed $value
+	 */
+	public static function _param(string $key, $value): void {
 		self::$params[$key] = $value;
 	}
-	public function attributeParams () {
+
+	public function attributeParams(): void {
 		foreach (Minz_View::$params as $key => $value) {
+			// TODO: Do not use variable variable (noVariableVariables)
+			/** @phpstan-ignore-next-line */
 			$this->$key = $value;
 		}
 	}

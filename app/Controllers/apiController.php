@@ -1,47 +1,65 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This controller manage API-related features.
  */
-class FreshRSS_api_Controller extends Minz_ActionController {
+class FreshRSS_api_Controller extends FreshRSS_ActionController {
+
+	/**
+	 * Update the user API password.
+	 * Return an error message, or `false` if no error.
+	 * @return false|string
+	 */
+	public static function updatePassword(string $apiPasswordPlain) {
+		$username = Minz_User::name();
+		if ($username == null) {
+			return _t('feedback.api.password.failed');
+		}
+
+		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
+		FreshRSS_Context::userConf()->apiPasswordHash = $apiPasswordHash;
+
+		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
+		if (!$feverKey) {
+			return _t('feedback.api.password.failed');
+		}
+
+		FreshRSS_Context::userConf()->feverKey = $feverKey;
+		if (FreshRSS_Context::userConf()->save()) {
+			return false;
+		} else {
+			return _t('feedback.api.password.failed');
+		}
+	}
+
 	/**
 	 * This action updates the user API password.
 	 *
 	 * Parameter is:
 	 * - apiPasswordPlain: the new user password
 	 */
-	public function updatePasswordAction() {
+	public function updatePasswordAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
-		$return_url = array('c' => 'user', 'a' => 'profile');
+		$return_url = ['c' => 'user', 'a' => 'profile'];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($return_url, true);
 		}
 
-		$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+		$apiPasswordPlain = Minz_Request::paramString('apiPasswordPlain', true);
 		if ($apiPasswordPlain == '') {
 			Minz_Request::forward($return_url, true);
 		}
 
-		$username = Minz_Session::param('currentUser');
-		$userConfig = FreshRSS_Context::$user_conf;
-
-		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
-		$userConfig->apiPasswordHash = $apiPasswordHash;
-
-		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
-		if (!$feverKey) {
-			Minz_Request::bad(_t('feedback.api.password.failed'), $return_url);
-		}
-
-		$userConfig->feverKey = $feverKey;
-		if ($userConfig->save()) {
-			Minz_Request::good(_t('feedback.api.password.updated'), $return_url);
+		$error = self::updatePassword($apiPasswordPlain);
+		if ($error) {
+			Minz_Request::bad($error, $return_url);
 		} else {
-			Minz_Request::bad(_t('feedback.api.password.failed'), $return_url);
+			Minz_Request::good(_t('feedback.api.password.updated'), $return_url);
 		}
 	}
 }

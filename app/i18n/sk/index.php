@@ -1,41 +1,51 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'_' => 'O FreshRSS',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Nahlásiť chybu',
 		'credits' => 'Poďakovanie',
-		'credits_content' => 'Niektoré časti vzhľadu pochádzajú z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>u, aj keď FreshRSS tento framework nepoužíva. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ikony</a> sú z <a href="https://www.gnome.org/">GNOME project</a>. Font <em>Open Sans</em> zabezpečil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založený na PHP frameworku <a href="https://github.com/marienfressinaud/MINZ">Minz</a>.',
-		'freshrss_description' => 'FreshRSS je čítačka RSS kanálov, ktorú môžete nasadiť na vlastný server podobne ako <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> alebo <a href="https://github.com/LeedRSS/Leed">Leed</a>. Ide o jednoduchý a zároveň dobre nastaviteľný nástroj.',
+		'credits_content' => 'Niektoré časti vzhľadu pochádzajú z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>u, aj keď FreshRSS tento framework nepoužíva. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikony</a> sú z <a href="https://www.gnome.org/">GNOME project</a>. Font <em>Open Sans</em> zabezpečil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založený na PHP frameworku <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
+		'documentation' => 'Documentation',	// TODO
+		'freshrss_description' => 'FreshRSS je čítačka RSS kanálov, ktorú môžete nasadiť na vlastný server. Ide o jednoduchý a zároveň dobre nastaviteľný nástroj.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na Github</a>e',
 		'license' => 'Licencia',
 		'project_website' => 'Webová stránka projektu',
 		'title' => 'O FreshRSS',
 		'version' => 'Verzia',
-		'website' => 'Webová stránka',
-		'_' => 'O FreshRSS',
 	),
 	'feed' => array(
-		'add' => 'Môžete pridať kanály.',
 		'empty' => 'Žiadne články.',
 		'rss_of' => 'RSS kanál pre %s',
-		'title' => 'Vaše RSS kanály',
-		'title_fav' => 'Vaše obľúbené',
+		'title' => 'Všetky kanály',
+		'title_fav' => 'Obľúbené',
 		'title_global' => 'Prehľad',
 	),
 	'log' => array(
+		'_' => 'Záznamy',
 		'clear' => 'Vymazať záznamy',
 		'empty' => 'Súbor záznamu je prázdny',
 		'title' => 'Záznamy',
-		'_' => 'Záznamy',
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
-		'add_query' => 'Vytvoriť dopyt',
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
+		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Všetky kanály',
 		'mark_all_read' => 'Označiť všetko ako prečítané',
 		'mark_cat_read' => 'Označiť kategóriu ako prečítanú',
@@ -61,6 +71,6 @@ return array(
 		'related' => 'Značky článku',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO - Translation
+		'title' => 'Podmienky služby',
 	),
 );

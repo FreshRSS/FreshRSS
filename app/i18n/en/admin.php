@@ -1,15 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the articles of the default user (%s)',
+		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
 		'title' => 'Authentication',
-		'title_reset' => 'Authentication reset',
 		'token' => 'Authentication token',
 		'token_help' => 'Allows access to RSS output of the default user without authentication:',
 		'type' => 'Authentication method',
@@ -17,16 +26,16 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on cache directory are good.',
+			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',
+			'ok' => 'Permissions on the cache directory are good.',
 		),
 		'categories' => array(
 			'nok' => 'Category table is improperly configured.',
-			'ok' => 'Category table is ok.',
+			'ok' => 'Category table is okay.',
 		),
 		'connection' => array(
 			'nok' => 'Connection to the database cannot be established.',
-			'ok' => 'Connection to the database is ok.',
+			'ok' => 'Connection to the database is okay.',
 		),
 		'ctype' => array(
 			'nok' => 'Cannot find a required library for character type checking (php-ctype).',
@@ -37,8 +46,8 @@ return array(
 			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on data directory are good.',
+			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',
+			'ok' => 'Permissions on the data directory are good.',
 		),
 		'database' => 'Database installation',
 		'dom' => array(
@@ -47,15 +56,15 @@ return array(
 		),
 		'entries' => array(
 			'nok' => 'Entry table is improperly configured.',
-			'ok' => 'Entry table is ok.',
+			'ok' => 'Entry table is okay.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on favicons directory are good.',
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',
+			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'feeds' => array(
 			'nok' => 'Feed table is improperly configured.',
-			'ok' => 'Feed table is ok.',
+			'ok' => 'Feed table is okay.',
 		),
 		'fileinfo' => array(
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
@@ -64,15 +73,11 @@ return array(
 		'files' => 'File installation',
 		'json' => array(
 			'nok' => 'Cannot find JSON (php-json package).',
-			'ok' => 'You have JSON extension.',
+			'ok' => 'You have the JSON extension.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
-			'ok' => 'You have the recommended library mbstring for Unicode.',
-		),
-		'minz' => array(
-			'nok' => 'Cannot find the Minz framework.',
-			'ok' => 'You have the Minz framework.',
+			'nok' => 'Cannot find the recommended mbstring library for Unicode.',
+			'ok' => 'You have the recommended mbstring library for Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',
@@ -83,26 +88,26 @@ return array(
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
-			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',
 			'_' => 'PHP installation',
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
 		),
 		'tables' => array(
 			'nok' => 'There are one or more missing tables in the database.',
 			'ok' => 'The appropriate tables exist in the database.',
 		),
-		'title' => 'Installation checking',
+		'title' => 'Installation check',
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on tokens directory are good.',
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the tokens directory are good.',
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on users directory are good.',
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the users directory are good.',
 		),
 		'zip' => array(
-			'nok' => 'Cannot find ZIP extension (php-zip package).',
-			'ok' => 'You have ZIP extension.',
+			'nok' => 'Cannot find the ZIP extension (php-zip package).',
+			'ok' => 'You have the ZIP extension.',
 		),
 	),
 	'extensions' => array(
@@ -116,8 +121,8 @@ return array(
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
-			'no_rights' => 'System extension (you have no rights on it)',
 			'_' => 'System extensions',
+			'no_rights' => 'System extension (you do not have the required permissions)',
 		),
 		'title' => 'Extensions',
 		'update' => 'Update available',
@@ -125,6 +130,7 @@ return array(
 		'version' => 'Version',
 	),
 	'stats' => array(
+		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
 		'entry_count' => 'Entry count',
@@ -139,14 +145,9 @@ return array(
 		'idle' => 'Idle feeds',
 		'main' => 'Main statistics',
 		'main_stream' => 'Main stream',
-		'menu' => array(
-			'idle' => 'Idle feeds',
-			'main' => 'Main statistics',
-			'repartition' => 'Articles repartition',
-		),
-		'no_idle' => 'There is no idle feed!',
+		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',
-		'percent_of_total' => '%% of total',
+		'percent_of_total' => '% of total',
 		'repartition' => 'Articles repartition',
 		'status_favorites' => 'Favourites',
 		'status_read' => 'Read',
@@ -154,53 +155,84 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
-		'_' => 'Statistics',
 	),
 	'system' => array(
+		'_' => 'System configuration',
 		'auto-update-url' => 'Auto-update server URL',
+		'base-url' => array(
+			'_' => 'Base URL',
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
 		),
-		'force_email_validation' => 'Force email addresses validation',
+		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',
-		'max-categories' => 'Categories per user limit',
-		'max-feeds' => 'Feeds per user limit',
+		'max-categories' => 'Max number of categories per user',
+		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(
-			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',
+			'select' => array(
+				'label' => 'Registration form',
+				'option' => array(
+					'noform' => 'Disabled: No registration form',
+					'nolimit' => 'Enabled: No limit of accounts',
+					'setaccountsnumber' => 'Set max. number of accounts',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form disabled',
+				'enabled' => 'Form enabled',
+			),
+			'title' => 'User registration form',
 		),
-		'_' => 'System configuration',
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'is not given',
+			'enabled' => '<a href="./?a=tos">is enabled</a>',
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'apply' => 'Apply',
+		'_' => 'Update FreshRSS',
+		'apply' => 'Start update',
+		'changelog' => 'Changelog',
 		'check' => 'Check for new updates',
-		'current_version' => 'Your current version of FreshRSS is %s.',
-		'last' => 'Last verification: %s',
-		'none' => 'No update to apply',
-		'title' => 'Update system',
-		'_' => 'Update system',
+		'copiedFromURL' => 'update.php copied from %s to ./data',
+		'current_version' => 'Current installed version',
+		'last' => 'Last check',
+		'loading' => 'Updating…',
+		'none' => 'No update available',
+		'releaseChannel' => array(
+			'_' => 'Release channel',
+			'edge' => 'Rolling release (“edge”)',
+			'latest' => 'Stable release (“latest”)',
+		),
+		'title' => 'Update FreshRSS',
+		'viaGit' => 'Update via git and Github.com started',
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',
+		'admin' => 'Administrator',
 		'article_count' => 'Articles',
 		'back_to_manage' => '← Return to user list',
 		'create' => 'Create new user',
 		'database_size' => 'Database size',
-		'delete_users' => 'Delete user',
 		'email' => 'Email address',
+		'enabled' => 'Enabled',
 		'feed_count' => 'Feeds',
+		'is_admin' => 'Is admin',
 		'language' => 'Language',
+		'last_user_activity' => 'Last user activity',
 		'list' => 'User list',
 		'number' => 'There is %d account created',
 		'numbers' => 'There are %d accounts created',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
-		'selected' => 'Selected user',
 		'title' => 'Manage users',
-		'update_users' => 'Update user',
 		'username' => 'Username',
-		'users' => 'Users',
-		'user_list' => 'List of users',
 	),
 );

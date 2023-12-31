@@ -1,9 +1,15 @@
 # Apache/Nginx Configuration Files
 
-## Apache configuration
-This is an example Apache virtual hosts configuration file. It covers HTTP and HTTPS configuration.
+> ℹ️ For improved security, remove sensitive information in the Web server logs by using our [`sensitive-log.sh` script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/sensitive-log.sh),
+on the model of our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images
+(see [`CustomLog`](https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog)).
 
-```
+## Apache configuration
+
+This is an example Apache virtual hosts configuration file. It covers HTTP and HTTPS configuration.
+For more details, check our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images.
+
+```apache
 <VirtualHost *:80>
 	DocumentRoot /var/www/html/
 
@@ -23,6 +29,7 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 	</Directory>
 
 	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+	# Consider piping the logs for cleaning passwords; cf. comment higher up.
 	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
 
 	AllowEncodedSlashes On
@@ -62,7 +69,8 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 This is an example nginx configuration file. It covers HTTP, HTTPS, and php-fpm configuration.
 
 You can find simpler config file but they may be incompatible with FreshRSS API.
-```
+
+```nginx
 server {
 	listen 80;
 	listen 443 ssl;
@@ -87,11 +95,14 @@ server {
 	# php files handling
 	# this regex is mandatory because of the API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# By default, the variable PATH_INFO is not set under PHP-FPM
 		# But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!
-		fastcgi_param PATH_INFO $fastcgi_path_info;
+		# NOTE: the separate $path_info variable is required. For more details, see:
+		# https://trac.nginx.org/nginx/ticket/321
+		set $path_info $fastcgi_path_info;
+		fastcgi_param PATH_INFO $path_info;
 		include fastcgi_params;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 	}

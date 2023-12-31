@@ -1,28 +1,107 @@
 <?php
+declare(strict_types=1);
 
-$opml_array = array(
-	'head' => array(
-		'title' => FreshRSS_Context::$system_conf->title,
-		'dateCreated' => date('D, d M Y H:i:s')
-	),
-	'body' => array()
-);
+/**
+ * @param array<FreshRSS_Feed> $feeds
+ * @return array<array<string,string|null>>
+ */
+function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
+	$outlines = [];
+	foreach ($feeds as $feed) {
+		if ($feed->mute() && $excludeMutedFeeds) {
+			continue;
+		}
 
-foreach ($this->categories as $key => $cat) {
-	$opml_array['body'][$key] = array(
-		'text' => $cat['name'],
-		'@outlines' => array()
-	);
-
-	foreach ($cat['feeds'] as $feed) {
-		$opml_array['body'][$key]['@outlines'][] = array(
+		$outline = [
 			'text' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
-			'type' => 'rss',
+			'type' => FreshRSS_Export_Service::TYPE_RSS_ATOM,
 			'xmlUrl' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 			'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
 			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
-		);
+		];
+
+		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
+			switch ($feed->kind()) {
+				case FreshRSS_Feed::KIND_HTML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+					break;
+				case FreshRSS_Feed::KIND_XML_XPATH:
+					$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
+					break;
+			}
+			/** @var array<string,string> */
+			$xPathSettings = $feed->attributeArray('xpath') ?? [];
+			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;
+			$outline['frss:xPathItemTitle'] = $xPathSettings['itemTitle'] ?? null;
+			$outline['frss:xPathItemContent'] = $xPathSettings['itemContent'] ?? null;
+			$outline['frss:xPathItemUri'] = $xPathSettings['itemUri'] ?? null;
+			$outline['frss:xPathItemAuthor'] = $xPathSettings['itemAuthor'] ?? null;
+			$outline['frss:xPathItemTimestamp'] = $xPathSettings['itemTimestamp'] ?? null;
+			$outline['frss:xPathItemTimeformat'] = $xPathSettings['itemTimeformat'] ?? null;
+			$outline['frss:xPathItemThumbnail'] = $xPathSettings['itemThumbnail'] ?? null;
+			$outline['frss:xPathItemCategories'] = $xPathSettings['itemCategories'] ?? null;
+			$outline['frss:xPathItemUid'] = $xPathSettings['itemUid'] ?? null;
+		}
+
+		if (!empty($feed->filtersAction('read'))) {
+			$filters = '';
+			foreach ($feed->filtersAction('read') as $filterRead) {
+				$filters .= $filterRead->getRawInput() . "\n";
+			}
+			$filters = trim($filters);
+			$outline['frss:filtersActionRead'] = $filters;
+		}
+
+		if ($feed->pathEntries() != '') {
+			$outline['frss:cssFullContent'] = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
+		}
+
+		if ($feed->attributeString('path_entries_filter') != '') {
+			$outline['frss:cssFullContentFilter'] = $feed->attributeString('path_entries_filter');
+		}
+
+		// Remove null attributes
+		$outline = array_filter($outline, static function (?string $value) { return $value !== null; });
+
+		$outlines[] = $outline;
+	}
+
+	return $outlines;
+}
+
+/** @var FreshRSS_View $this */
+
+$opml_array = [
+	'namespaces' => [
+		'frss' => FreshRSS_Export_Service::FRSS_NAMESPACE,
+	],
+	'head' => [
+		'title' => FreshRSS_Context::systemConf()->title,
+		'dateCreated' => new DateTime(),
+	],
+	'body' => [],
+];
+
+if (!empty($this->categories)) {
+	foreach ($this->categories as $cat) {
+		$outline = [
+			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
+		];
+
+		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
+			$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
+		}
+
+		$opml_array['body'][] = $outline;
 	}
 }
 
-echo libopml_render($opml_array);
+if (!empty($this->feeds)) {
+	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
+}
+
+$libopml = new \marienfressinaud\LibOpml\LibOpml(true);
+$opml = $libopml->render($opml_array);
+/** @var string $opml */
+echo $opml;

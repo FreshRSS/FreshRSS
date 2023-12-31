@@ -1,41 +1,47 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Você não tem permissão para acessar esta página',
-		'not_found' => 'VocÊ está buscando por uma página que não existe',
+		'not_found' => 'Você está buscando por uma página que não existe',
 	),
 	'admin' => array(
 		'optimization_complete' => 'Otimização Completa',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Sua senha não pode ser modificada',
+			'updated' => 'Sua senha foi alterada com sucesso',
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Um problema ocorreu durante o sistema de configuração para autenticação. Por favor tente mais tarde.',
-			'set' => 'Formulário é agora seu sistema de autenticação padrão.',
-		),
 		'login' => array(
 			'invalid' => 'Login está incorreto',
-			'success' => 'Vocé está conectado',
+			'success' => 'Você está conectado',
 		),
 		'logout' => array(
 			'success' => 'Você está desconectado',
 		),
-		'no_password_set' => 'A senha do administrador não foi definida. Este recurso não está disponível.',
 	),
 	'conf' => array(
 		'error' => 'Um erro ocorreu durante o salvamento das configurações',
-		'query_created' => 'Query "%s" foi criada.',
+		'query_created' => 'A Query “%s” foi criada.',
 		'shortcuts_updated' => 'Atalhos foram criados',
 		'updated' => 'Configuração foi atualizada',
 	),
 	'extensions' => array(
 		'already_enabled' => '%s já está habilitado',
+		'cannot_remove' => '%s não pode ser removido',
 		'disable' => array(
 			'ko' => '%s não pode ser desabilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está desabilitado',
@@ -44,27 +50,28 @@ return array(
 			'ko' => '%s não pode ser habilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está habilitado',
 		),
+		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
-		'no_access' => 'Você não tem acesso ao %s',
+		'removed' => '%s removido',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
-		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora',
-		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram',
+		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Arquivo não pôde ser enviado',
 		'no_zip_extension' => 'extensão ZIP não está presente em seu servidor.',
-		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
+		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',	// DIRTY
 	),
 	'profile' => array(
-		'error' => 'Your profile cannot be modified',	// TODO - Translation
-		'updated' => 'Your profile has been modified',	// TODO - Translation
+		'error' => 'Seu perfil não pode ser editado',
+		'updated' => 'Seu perfil foi editado com sucesso',
 	),
 	'sub' => array(
 		'actualize' => 'Atualizando',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO - Translation
+			'marked_read' => 'Os artigos selecionados foram marcados como lidos.',
+			'marked_unread' => 'Os artigos foram marcados como não lidos',
 		),
 		'category' => array(
 			'created' => 'Categoria %s foi criada.',
@@ -72,33 +79,48 @@ return array(
 			'emptied' => 'Categoria foi esvaziada',
 			'error' => 'Categoria não pode ser atualizada',
 			'name_exists' => 'Este nome de categoria já existe.',
-			'not_delete_default' => 'Você não pode deletar uma categoria vazia!',
-			'not_exist' => 'A categoria não existe!',
 			'no_id' => 'Você precisa especificar um id para a categoria.',
 			'no_name' => 'Nome da categoria não pode ser vazio.',
+			'not_delete_default' => 'Você não pode deletar uma categoria vazia!',
+			'not_exist' => 'A categoria não existe!',
 			'over_max' => 'Você atingiu seu limite de categorias (%d)',
 			'updated' => 'Categoria foi atualizada.',
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> foi atualizado',
-			'actualizeds' => 'RSS feeds foi atualizado',
-			'added' => 'RSS feed <em>%s</em> foi adicionado',
+			'actualizeds' => 'Os feeds RSS foram atualizados',
+			'added' => 'O feed RSS <em>%s</em> foi adicionado',
 			'already_subscribed' => 'Você já está inscrito no <em>%s</em>',
+			'cache_cleared' => 'O cache do feed <em>%s</em> foi limpo',
 			'deleted' => 'o Feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
-			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FreshRSS logs</a> para detalhes.',
+			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'URL <em>%s</em> é inválida',
-			'not_added' => '<em>%s</em> não pode ser atualizado',
-			'no_refresh' => 'Não há feed para atualizar…',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',
+			'no_refresh' => 'Não há feed para atualizar…',
+			'not_added' => '<em>%s</em> não pode ser atualizado',
+			'not_found' => 'Não foi possível encontrar o feed',
 			'over_max' => 'Você atingiu seu limite de feeds (%d)',
-			'updated' => 'Feed foram atualizados',
+			'reloaded' => 'O feed <em>%s</em> foi recarregado',
+			'selector_preview' => array(
+				'http_error' => 'Falha ao carregar o conteúdo do site.',
+				'no_entries' => 'Não há nenhuma entrada nesse feed. Você precisa de pelo menos um artigo para criar uma pré-visualização',
+				'no_feed' => 'Erro interno (nenhum feed para verificar).',
+				'no_result' => 'O seletor não teve correspondência. Por isso foi exibido o texto do feed original.',
+				'selector_empty' => 'O seletor está vazio. Você precisa definir um para criar uma pré-visualização.',
+			),
+			'updated' => 'Os feeds foram atualizados',
 		),
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
+	'tag' => array(
+		'created' => 'A Tag “%s” foi criada.',	// DIRTY
+		'name_exists' => 'O nome da tag já existe.',	// DIRTY
+		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',	// DIRTY
+	),
 	'update' => array(
-		'can_apply' => 'FreshRSS será atualizado para a <strong>versão %s</strong>.',
+		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',
 		'error' => 'O processo de atualização encontrou um erro: %s',
 		'file_is_nok' => 'Nova <strong>versão %s</strong> disponível, mas verifique as permissões no diretório <em>%s</em>. Servidor HTTP deve ter direitos para escrever dentro',
 		'finished' => 'Atualização completa!',
@@ -107,16 +129,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Usuário %s não pode ser criado',
 			'_' => 'Usuário %s foi criado',
+			'error' => 'Usuário %s não pode ser criado',
 		),
 		'deleted' => array(
-			'error' => 'Usuário %s não pode ser deletado',
 			'_' => 'Usuário %s foi deletado',
+			'error' => 'Usuário %s não pode ser deletado',
 		),
 		'updated' => array(
-			'error' => 'User %s has not been updated',	// TODO - Translation
-			'_' => 'User %s has been updated',	// TODO - Translation
+			'_' => 'O usuário %s foi atualizado com sucesso',
+			'error' => 'O usuário %s não foi atualizado',
 		),
 	),
 );

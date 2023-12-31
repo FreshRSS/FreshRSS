@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Öntanımlı kullanıcının makalelerinin anonim okunmasına izin ver (%s)',
@@ -9,7 +19,6 @@ return array(
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'title' => 'Kimlik doğrulama',
-		'title_reset' => 'Kimlik doğrulama sıfırla',
 		'token' => 'Kimlik doğrulama işareti',
 		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
 		'type' => 'Kimlik doğrulama yöntemi',
@@ -67,12 +76,8 @@ return array(
 			'ok' => 'JSON eklentisi sorunsuz.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
-		),
-		'minz' => array(
-			'nok' => 'Minz framework eksik.',
-			'ok' => 'Minz framework sorunsuz.',
+			'nok' => 'Unicode için tavsiye edilen mbstring kütüphanesi bulunamadı.',
+			'ok' => 'Unicode için tavsiye edilen mbstring kütüphaneniz mevcut.',
 		),
 		'pcre' => array(
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
@@ -83,9 +88,9 @@ return array(
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
-			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
 			'_' => 'PHP kurulumu',
+			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
+			'ok' => 'PHP sürümünüz %s, FreshRSS ile tam uyumlu.',
 		),
 		'tables' => array(
 			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
@@ -106,25 +111,26 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Yazar',
+		'community' => 'Kullanılabilir topluluk eklentileri',
+		'description' => 'Açıklama',
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Kuruldu',
+		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
-			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 			'_' => 'Sistem eklentileri',
+			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Güncelleme mevcut',
 		'user' => 'Kullanıcı eklentileri',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Sürüm',
 	),
 	'stats' => array(
+		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm akış',
 		'category' => 'Kategori',
 		'entry_count' => 'Makale sayısı',
@@ -139,14 +145,9 @@ return array(
 		'idle' => 'Boştaki akışlar',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
-		'menu' => array(
-			'idle' => 'Boştaki akışlar',
-			'main' => 'Ana istatistikler',
-			'repartition' => 'Makale dağılımı',
-		),
 		'no_idle' => 'Boşta akış yok!',
 		'number_entries' => '%d makale',
-		'percent_of_total' => '%% toplamın yüzdesi',
+		'percent_of_total' => '% toplamın yüzdesi',
 		'repartition' => 'Makale dağılımı',
 		'status_favorites' => 'Favoriler',
 		'status_read' => 'Okunmuş',
@@ -154,53 +155,84 @@ return array(
 		'status_unread' => 'Okunmamış',
 		'title' => 'İstatistikler',
 		'top_feed' => 'İlk 10 akış',
-		'_' => 'İstatistikler',
 	),
 	'system' => array(
+		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
-		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
 		),
-		'force_email_validation' => 'Force email addresses validation',	// TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'saniye',
+			'number' => 'Oturum açık kalma süresi',
+		),
+		'force_email_validation' => 'Email doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
 		'registration' => array(
-			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
+			'select' => array(
+				'label' => 'Kayıt Formu',
+				'option' => array(
+					'noform' => 'Devre Dışı: Kayıt Formu',
+					'nolimit' => 'Devrede: Hesap limiti yok',
+					'setaccountsnumber' => 'Maksimum hesap limitini ayarla',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form devre dışı',
+				'enabled' => 'Form devrede',
+			),
+			'title' => 'Kullanıcı kayıt formu',
 		),
-		'_' => 'Sistem yapılandırması',
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'apply' => 'Uygula',
-		'check' => 'Güncelleme kontrolü',
-		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
-		'last' => 'Son kontrol: %s',
-		'none' => 'Yeni güncelleme yok',
-		'title' => 'Sistem güncelleme',
 		'_' => 'Sistem güncelleme',
+		'apply' => 'Uygula',
+		'changelog' => 'Changelog',	// TODO
+		'check' => 'Güncelleme kontrolü',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Mevcut sürümünüz',
+		'last' => 'Son kontrol',
+		'loading' => 'Updating…',	// TODO
+		'none' => 'Yeni güncelleme yok',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
+		'title' => 'Sistem güncelleme',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
-		'articles_and_size' => '%s makale (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Yönetici',
+		'article_count' => 'Makaleler',
+		'back_to_manage' => '← Kullanıcı listesine geri dön',
 		'create' => 'Yeni kullanıcı oluştur',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
+		'database_size' => 'Veritabanı boyutu',
+		'email' => 'Email adres',
+		'enabled' => 'Aktif',
+		'feed_count' => 'Akış',
+		'is_admin' => 'yöneticidir',
 		'language' => 'Dil',
-		'list' => 'User list',	// TODO - Translation
-		'number' => 'Oluşturulmuş %d hesap var',
-		'numbers' => 'Oluşturulmuş %d hesap var',
+		'last_user_activity' => 'Son kullanıcı hareketi',
+		'list' => 'Kullanıcı Listesi',
+		'number' => 'Oluşturulmuş %d hesap mevcut',
+		'numbers' => 'Oluşturulmuş %d hesap mevcut',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Kullanıcıları yönet',
-		'update_users' => 'Update user',	// TODO - Translation
 		'username' => 'Kullanıcı adı',
-		'users' => 'Kullanıcılar',
-		'user_list' => 'Kullanıcı listesi',
 	),
 );

@@ -1,27 +1,43 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
-		'title' => 'API',	// TODO - Translation
+		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO
+		'title' => 'API',	// TODO
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',	// TODO
+		'label' => 'Subscribe',	// TODO
+		'title' => 'Bookmarklet',	// TODO
 	),
 	'category' => array(
-		'add' => 'הוספת קטגוריה',
-		'archiving' => 'ארכוב',
-		'empty' => 'Empty category',	// TODO - Translation
-		'information' => 'מידע',
-		'new' => 'קטגוריה חדשה',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
-		'title' => 'כותרת',
 		'_' => 'קטגוריה',
+		'add' => 'Add a category',	// TODO
+		'archiving' => 'ארכוב',
+		'dynamic_opml' => array(
+			'_' => 'Dynamic OPML',	// TODO
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
+		),
+		'empty' => 'Empty category',	// TODO
+		'information' => 'מידע',
+		'opml_url' => 'OPML URL',	// TODO
+		'position' => 'Display position',	// TODO
+		'position_help' => 'To control category sort order',	// TODO
+		'title' => 'כותרת',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Accept cookies',	// TODO
+		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'הוספת הזנה',
 		'advanced' => 'מתקדם',
 		'archiving' => 'ארכוב',
@@ -32,55 +48,132 @@ return array(
 			'password' => 'HTTP סיסמה',
 			'username' => 'HTTP שם משתמש',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
+		'clear_cache' => 'Always clear cache',	// TODO
+		'content_action' => array(
+			'_' => 'Content action when fetching the article content',	// TODO
+			'append' => 'Add after existing content',	// TODO
+			'prepend' => 'Add before existing content',	// TODO
+			'replace' => 'Replace existing content',	// TODO
+		),
+		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO
+		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO
 		'css_help' => 'קבלת הזנות RSS קטומות	(זהירות, לוקח זמן רב יותר!)',
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
+		'css_path_filter' => array(
+			'_' => 'CSS selector of the elements to remove',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+		),
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
 		'filteractions' => array(
-			'help' => 'Write one search filter per line.',	// TODO - Translation
-			'_' => 'Filter actions',	// TODO - Translation
+			'_' => 'Filter actions',	// TODO
+			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
 		),
 		'information' => 'מידע',
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
+		'kind' => array(
+			'_' => 'Type of feed source',	// TODO
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+				),
+				'item_author' => array(
+					'_' => 'item author',	// TODO
+					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+				),
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => array(
+					'_' => 'item title',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+				),
+				'item_uid' => array(
+					'_' => 'item unique ID',	// TODO
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+				),
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+				),
+				'relative' => 'XPath (relative to item) for:',	// TODO
+				'xpath' => 'XPath for:',	// TODO
+			),
+			'rss' => 'RSS / Atom (default)',	// TODO
+			'xml_xpath' => 'XML + XPath',	// TODO
+		),
+		'maintenance' => array(
+			'clear_cache' => 'Clear cache',	// TODO
+			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO
+			'reload_articles' => 'Reload articles',	// TODO
+			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
+			'title' => 'Maintenance',	// TODO
+		),
+		'max_http_redir' => 'Max HTTP redirects',	// TODO
+		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
-		'mute' => 'mute',	// TODO - Translation
+		'mute' => 'mute',	// TODO
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
 		'priority' => array(
-			'archived' => 'Do not show (archived)',	// TODO - Translation
+			'_' => 'Visibility',	// TODO
+			'archived' => 'Do not show (archived)',	// TODO
+			'category' => 'Show in its category',	// TODO
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'הצגה בזרם המרכזי',
-			'normal' => 'Show in its category',	// TODO - Translation
-			'_' => 'Visibility',	// TODO - Translation
+		),
+		'proxy' => 'Set a proxy for fetching this feed',	// TODO
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
+		'selector_preview' => array(
+			'show_raw' => 'Show source code',	// TODO
+			'show_rendered' => 'Show content',	// TODO
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with error',	// TODO - Translation
+			'all' => 'Show all feeds',	// TODO
+			'error' => 'Show only feeds with errors',	// TODO
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	// TODO - Translation
+			'error' => 'Showing only feeds with errors',	// TODO
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
+		'ssl_verify' => 'Verify SSL security',	// TODO
 		'stats' => 'סטטיסטיקות',
 		'think_to_add' => 'ניתן להוסיף הזנות חדשות.',
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
+		'timeout' => 'Timeout in seconds',	// TODO
 		'title' => 'כותרת',
 		'title_add' => 'הוספת הזנה',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
 		'url' => 'הזנה URL',
+		'useragent' => 'Set the user agent for fetching this feed',	// TODO
+		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO
 		'validator' => 'בדיקות תקינות ההזנה',
 		'website' => 'אתר URL',
-		'websub' => 'Instant notification with WebSub',	// TODO - Translation
-	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
+		'websub' => 'Instant notifications with WebSub',	// TODO
 	),
 	'import_export' => array(
 		'export' => 'ייצוא',
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
+		'export_labelled' => 'Export your labelled articles',	// TODO
 		'export_opml' => 'ייצוא רשימת הזנות (OPML)',
 		'export_starred' => 'ייצוא מועדפים',
 		'feed_list' => 'רשימה של %s מאמרים',
@@ -91,14 +184,32 @@ return array(
 		'title' => 'יבוא / יצוא ',
 	),
 	'menu' => array(
-		'bookmark' => 'הרשמה (FreshRSS סימניית)',
+		'add' => 'Add a feed or category',	// TODO
 		'import_export' => 'יבוא / יצוא ',
+		'label_management' => 'Label management',	// TODO
+		'stats' => array(
+			'idle' => 'הזנות שלא עודכנו',
+			'main' => 'סטטיסטיקות ראשיות',
+			'repartition' => 'חלוקת המאמרים',
+		),
 		'subscription_management' => 'ניהול הרשמות',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Subscription tools',	// TODO
+	),
+	'tag' => array(
+		'name' => 'Name',	// TODO
+		'new_name' => 'New name',	// TODO
+		'old_name' => 'Old name',	// TODO
 	),
 	'title' => array(
-		'feed_management' => 'ניהול הזנות RSS',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
 		'_' => 'ניהול הרשמות',
+		'add' => 'Add a feed or category',	// TODO
+		'add_category' => 'Add a category',	// TODO
+		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_feed' => 'Add a feed',	// TODO
+		'add_label' => 'Add a label',	// TODO
+		'delete_label' => 'Delete a label',	// TODO
+		'feed_management' => 'ניהול הזנות RSS',
+		'rename_label' => 'Rename a label',	// TODO
+		'subscription_tools' => 'Subscription tools',	// TODO
 	),
 );

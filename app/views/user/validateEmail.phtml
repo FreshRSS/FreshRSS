@@ -1,10 +1,14 @@
-<div class="post">
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<main class="post">
 	<p>
-		<?= _t('user.email.validation.need_to', FreshRSS_Context::$system_conf->title) ?>
+		<?= _t('user.email.validation.need_to', FreshRSS_Context::systemConf()->title) ?>
 	</p>
 
 	<p>
-		<?= _t('user.email.validation.email_sent_to', FreshRSS_Context::$user_conf->mail_login) ?>
+		<?= _t('user.email.validation.email_sent_to', FreshRSS_Context::userConf()->mail_login) ?>
 	</p>
 
 	<form action="<?= _url('user', 'sendValidationEmail') ?>" method="post">
@@ -19,4 +23,4 @@
 			<?= _t('user.email.validation.change_email', _url('user', 'profile')) ?>
 		</small>
 	</p>
-</div>
+</main>

@@ -1,10 +1,13 @@
 .htpasswd
+config-user.custom.php
+config.custom.php
 config.php
 config.php.bak.php
-config-user.custom.php
 force-https.txt
 last_update.txt
 no-cache.txt
 update.php
 tos.html
 opml.xml
+applied_migrations.txt
+applied_migrations.txt.lock

@@ -1,5 +1,9 @@
-<?php if ($this->feed) { ?>
-<div class="post">
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	if ($this->feed !== null) {
+?>
+<main class="post">
 	<h1><?= _t('sub.feed.add') ?></h1>
 
 	<?php if (!$this->load_ok) { ?>
@@ -29,8 +33,10 @@
 		<div class="form-group">
 			<label class="group-name"><?= _t('sub.feed.website') ?></label>
 			<div class="group-controls">
-				<?= $this->feed->website() ?>
-				<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+				<div class="stick">
+					<input type="text" value="<?= $this->feed->website() ?>" disabled="disabled" />
+					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+				</div>
 			</div>
 		</div>
 		<?php } ?>
@@ -39,9 +45,10 @@
 			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url_rss" id="url" class="extend" value="<?= $this->feed->url() ?>" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>"><?= _i('link') ?></a>
+					<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
+					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 				</div>
+				<br />
 				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
 			</div>
 		</div>
@@ -54,12 +61,7 @@
 						<?= $cat->name() ?>
 					</option>
 					<?php } ?>
-					<option value="nc"><?= _t('sub.category.new') ?></option>
 				</select>
-
-				<span aria-hidden="true">
-					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?= _t('sub.category.new') ?>" />
-				</span>
 			</div>
 		</div>
 
@@ -68,16 +70,16 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?= empty($auth['username']) ? ' ' : $auth['username'] ?>" autocomplete="off" />
+				<input type="text" name="http_user" id="http_user" value="<?= $auth['username'] ?>" autocomplete="off" />
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 
 			<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?= $auth['password'] ?>" autocomplete="new-password" />
-			</div>
-
-			<div class="group-controls">
-				<?= _i('help') ?> <?= _t('sub.feed.auth.help') ?>
+				<div class="stick">
+					<input type="password" name="http_pass" id="http_pass" value="<?= $auth['password'] ?>" autocomplete="new-password" />
+					<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
+				</div>
 			</div>
 		</div>
 
@@ -88,5 +90,5 @@
 			</div>
 		</div>
 	</form>
-</div>
+</main>
 <?php } ?>

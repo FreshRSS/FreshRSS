@@ -1,9 +1,10 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-if (!file_exists(DATA_PATH . '/do-install.txt')) {
-	fail('FreshRSS seems to be already installed! Please use `./cli/reconfigure.php` instead.');
+if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
+	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
 $params = array(
@@ -26,12 +27,12 @@ $dBparams = array(
 		'db-user:',
 		'db-password:',
 		'db-base:',
-		'db-prefix:',
+		'db-prefix::',
 	);
 
 $options = getopt('', array_merge($params, $dBparams));
 
-if (!validateOptions($argv, array_merge($params, $dBparams)) || empty($options['default_user'])) {
+if (!validateOptions($argv, array_merge($params, $dBparams)) || empty($options['default_user']) || !is_string($options['default_user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
 		" --environment production --base_url https://rss.example.net --allow_robots" .
 		" --language en --title FreshRSS --allow_anonymous --allow_anonymous_refresh --api_enabled" .
@@ -43,8 +44,16 @@ fwrite(STDERR, 'FreshRSS install…' . "\n");
 
 $config = array(
 		'salt' => generateSalt(),
-		'db' => FreshRSS_Context::$system_conf->db,
+		'db' => FreshRSS_Context::systemConf()->db,
 	);
+
+$customConfigPath = DATA_PATH . '/config.custom.php';
+if (file_exists($customConfigPath)) {
+	$customConfig = include($customConfigPath);
+	if (is_array($customConfig)) {
+		$config = array_merge($customConfig, $config);
+	}
+}
 
 foreach ($params as $param) {
 	$param = rtrim($param, ':');
@@ -53,7 +62,7 @@ foreach ($params as $param) {
 	}
 }
 
-if ((!empty($config['base_url'])) && server_is_public($config['base_url'])) {
+if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;
 }
 
@@ -72,9 +81,8 @@ if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
-if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }): '
-		. $options['auth_type']);
+if (isset($options['auth_type']) && !in_array($options['auth_type'], ['form', 'http_auth', 'none'], true)) {
+	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none })');
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
@@ -86,17 +94,19 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-
-Minz_Session::_param('currentUser', '_');	//Default user
+FreshRSS_Context::initSystem(true);
+Minz_User::change(Minz_User::INTERNAL_USER);
 
 $ok = false;
 try {
-	$ok = initDb();
+	$error = initDb();
+	if ($error != '') {
+		$_SESSION['bd_error'] = $error;
+	} else {
+		$ok = true;
+	}
 } catch (Exception $ex) {
 	$_SESSION['bd_error'] = $ex->getMessage();
-	$ok = false;
 }
 
 if (!$ok) {
@@ -104,13 +114,13 @@ if (!$ok) {
 	fail('FreshRSS database error: ' . (empty($_SESSION['bd_error']) ? 'Unknown error' : $_SESSION['bd_error']));
 }
 
-echo '• Remember to create the default user: ', $config['default_user'] , "\n",
+echo 'ℹ️ Remember to create the default user: ', $config['default_user'],
 	"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
 
 accessRights();
 
-if (!deleteInstall()) {
-	fail('FreshRSS access right problem while deleting install file!');
+if (!setupMigrations()) {
+	fail('FreshRSS access right problem while creating migrations version file!');
 }
 
 done();

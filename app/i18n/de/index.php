@@ -1,41 +1,51 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO - Translation
-		'bugs_reports' => 'Fehlerberichte',
-		'credits' => 'Credits',	// TODO - Translation
-		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
-		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten wie zum Beispiel <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> oder <a href="https://github.com/LeedRSS/Leed">Leed</a>. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',	// TODO - Translation
-		'license' => 'Lizenz',
-		'project_website' => 'Projekt-Webseite',
-		'title' => 'Über',
-		'version' => 'Version',	// TODO - Translation
-		'website' => 'Webseite',
 		'_' => 'Über',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
+		'bugs_reports' => 'Fehlerberichte',
+		'credits' => 'Mitwirkende',
+		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
+		'documentation' => 'Handbuch',
+		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf Github</a>',
+		'license' => 'Lizenz',
+		'project_website' => 'Projekt-Website',
+		'title' => 'Über',
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Sie können Feeds hinzufügen.',
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
-		'title' => 'Ihre RSS-Feeds',
-		'title_fav' => 'Ihre Favoriten',
+		'title' => 'Haupt-Feeds',
+		'title_fav' => 'Favoriten',
 		'title_global' => 'Globale Ansicht',
 	),
 	'log' => array(
+		'_' => 'Protokolle',
 		'clear' => 'Protokolle leeren',
 		'empty' => 'Protokolldatei ist leer.',
 		'title' => 'Protokolle',
-		'_' => 'Protokolle',
 	),
 	'menu' => array(
 		'about' => 'Über FreshRSS',
-		'add_query' => 'Eine Abfrage hinzufügen',
 		'before_one_day' => 'Vor einem Tag',
 		'before_one_week' => 'Vor einer Woche',
+		'bookmark_query' => 'Aktuelle Abfrage speichern',
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Haupt-Feeds',
 		'mark_all_read' => 'Alle als gelesen markieren',
 		'mark_cat_read' => 'Kategorie als gelesen markieren',
@@ -53,12 +63,12 @@ return array(
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'tags' => 'Meine Tags',
+		'tags' => 'Meine Labels',
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Verwandte Tags',
+		'related' => 'Hashtags',
 	),
 	'tos' => array(
 		'title' => 'Nutzungsbedingungen',

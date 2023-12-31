@@ -1,7 +1,8 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `./data/config.php` instead, after the install process is completed.
+# but instead edit `./data/config.php` after the install process is completed,
+# or edit `./data/config.custom.php` before the install process.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -30,12 +31,17 @@ return array(
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
 
-	# Name of the user that has administration rights.
+	# Override logo of this FreshRSS instance in the Web user interface.
+	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
+	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
+	'logo_html' => '',
+
+	# Name of the default user. Also used as the public user for anonymous reading.
 	'default_user' => '_',
 
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
-	# feed if they didn't access this URL.
+	# feed if they didn’t access this URL.
 	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
 	# sent).
 	'force_email_validation' => false,
@@ -50,19 +56,26 @@ return array(
 	# Login method:
 	#	`none` is without password and shows only the default user;
 	#	`form` is a conventional Web login form;
-	#	`http_auth` is an access controled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
+	#	`http_auth` is an access controlled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
 	#		if you use `http_auth`, remember to protect only `/FreshRSS/p/i/`,
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
 
+	# When using http_auth, automatically register any unknown user
+	'http_auth_auto_register' => true,
+
+	# Optionally, you can specify the $_SERVER key containing the email address used when registering
+	# the user (e.g. REMOTE_USER_EMAIL).
+	'http_auth_auto_register_email_field' => '',
+
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is https://freshrss.example.net/api/greader.php
-	#	You need to set the user's API password.
+	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
 	# Allow or not the use of an unsafe login,
 	#	by providing username and password in the login URL:
-	#	http://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
+	#	https://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
 	'unsafe_autologin_enabled' => false,
 
 	# Enable or not the use of syslog to log the activity of
@@ -82,7 +95,7 @@ return array(
 	'limits' => array(
 
 		# Duration in seconds of the login cookie.
-		'cookie_duration' => 2592000,
+		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
 		# Duration in seconds of the SimplePie cache,
 		#	during which a query to the RSS feed will return the local cached version.
@@ -90,26 +103,26 @@ return array(
 		'cache_duration' => 800,
 
 		# SimplePie HTTP request timeout in seconds.
-		'timeout' => 15,
+		'timeout' => 20,
 
 		# If a user has not used FreshRSS for more than x seconds,
 		#	then its feeds are not refreshed anymore.
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
-		# Max number of accounts that anonymous users can create
+		# Max number of accounts that anonymous users can create (only for Web form login type)
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,
 	),
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# http://php.net/manual/function.curl-setopt
+	# https://php.net/manual/function.curl-setopt
 	'curl_options' => array(
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
@@ -160,7 +173,7 @@ return array(
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#
-	# See http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties
+	# See https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-PHPMailer.html#properties
 	'mailer' => 'mail', // 'mail' or 'smtp'
 	'smtp' => array(
 		'hostname' => '', // the domain used in the Message-ID header
@@ -175,10 +188,22 @@ return array(
 	),
 
 	# List of enabled FreshRSS extensions.
-	'extensions_enabled' => array(
-		'Tumblr-GDPR' => true,
-	),
+	'extensions_enabled' => [
+	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,
+
+	# Trusted IPs (e.g. of last proxy) that are allowed to send unsafe HTTP headers.
+	# The connection IP used during FreshRSS setup is automatically added to this list.
+	# Will be checked against CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip)
+	# or REMOTE_ADDR environment variable.
+	# This array can be overridden by the TRUSTED_PROXY environment variable.
+	# Read the documentation before configuring this https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
 );

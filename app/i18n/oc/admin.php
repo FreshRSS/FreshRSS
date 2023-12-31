@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
@@ -9,7 +19,6 @@ return array(
 		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
-		'title_reset' => 'Reïnicializacion de l’autentificacion',
 		'token' => 'Geton d’autentificacion',
 		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
 		'type' => 'Mòde d’autentification',
@@ -70,10 +79,6 @@ return array(
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
 		),
-		'minz' => array(
-			'nok' => 'Avètz pas la bibliotèca Minz.',
-			'ok' => 'Avètz la bibliotèca Minz.',
-		),
 		'pcre' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
 			'ok' => 'Avètz la bibliotèca per las expressions regularas (PCRE).',
@@ -83,9 +88,9 @@ return array(
 			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
+			'_' => 'Installacion PHP',
 			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
-			'_' => 'Installacion PHP',
 		),
 		'tables' => array(
 			'nok' => 'Manca una o mai tabla dins la basa de donadas.',
@@ -116,15 +121,16 @@ return array(
 		'name' => 'Nom',
 		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
 		'system' => array(
-			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 			'_' => 'Extensions sistèma',
+			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 		),
-		'title' => 'Extensions',
+		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mesa a jorn disponibla',
 		'user' => 'Extensions utilizaire',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
+		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
 		'entry_count' => 'Nombre d’articles',
@@ -139,25 +145,24 @@ return array(
 		'idle' => 'Fluxes inactius',
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
-		'menu' => array(
-			'idle' => 'Fluxes inactius',
-			'main' => 'Estatisticas principalas',
-			'repartition' => 'Reparticion dels articles',
-		),
 		'no_idle' => 'I a pas cap d’article inactiu !',
-		'number_entries' => '%d articles',
-		'percent_of_total' => '%% del total',
+		'number_entries' => '%d articles',	// IGNORE
+		'percent_of_total' => '% del total',
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
-		'status_total' => 'Total',	// TODO - Translation
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
-		'_' => 'Estatisticas',
 	),
 	'system' => array(
+		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
@@ -167,40 +172,67 @@ return array(
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
 		'registration' => array(
-			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulari d’inscripcion',
+				'option' => array(
+					'noform' => 'Desactivat : cap de formulari d’inscripcion',
+					'nolimit' => 'Activat : cap de limit de comptes',
+					'setaccountsnumber' => 'Definir lo numbre max. de comptes',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulari desactivat',
+				'enabled' => 'Formulari activat',
+			),
+			'title' => 'Formulari d’inscripcion utilizaire',
 		),
-		'_' => 'Configuracion sistèma',
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
-		'apply' => 'Aplicar',
-		'check' => 'Verificar las mesas a jorn',
-		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
-		'last' => 'Darrièra verificacion : %s',
-		'none' => 'Cap d’actualizacion d’aplicar',
-		'title' => 'Sistèma de mesa a jorn',
 		'_' => 'Sistèma de mesa a jorn',
+		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// TODO
+		'check' => 'Verificar las mesas a jorn',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Vòstra version actuala',
+		'last' => 'Darrièra verificacion',
+		'loading' => 'Updating…',	// TODO
+		'none' => 'Cap d’actualizacion d’aplicar',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
+		'title' => 'Sistèma de mesa a jorn',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',
-		'article_count' => 'Articles',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrator',	// IGNORE
+		'article_count' => 'Articles',	// IGNORE
+		'back_to_manage' => '← Tornar a la lista dels utilizaires',
 		'create' => 'Crear un nòu utilizaire',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Suprimir un utilizaire',
-		'email' => 'Email address',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
+		'database_size' => 'Talha basa de donadas',
+		'email' => 'Adreça electronica',
+		'enabled' => 'Activat',
+		'feed_count' => 'Flux',
+		'is_admin' => 'Es admin',
 		'language' => 'Lenga',
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Darrièra activitat utilizaire',
+		'list' => 'Lista dels utilizaires',
 		'number' => '%d compte ja creat',
 		'numbers' => '%d comptes ja creats',
 		'password_form' => 'Senhal <br /><small>(ex. : per la connexion via formulari)</small>',
 		'password_format' => 'Almens 7 caractèrs',
-		'selected' => 'Utilizaire seleccionat',
 		'title' => 'Gestion dels utilizaires',
-		'update_users' => 'Actualizar un utilizaire',
 		'username' => 'Nom d’utilizaire',
-		'users' => 'Utilizaires',
-		'user_list' => 'Lista dels utilizaires',
 	),
 );

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -14,7 +15,7 @@ use PHPMailer\PHPMailer\Exception;
  * with, for instance:
  *
  * ```
- * $this->view->_path('user_mailer/email_need_validation.txt')
+ * $this->view->_path('user_mailer/email_need_validation.txt.php')
  * ```
  *
  * Minz_Mailer uses the PHPMailer library under the hood. The latter requires
@@ -32,18 +33,25 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
-	/**
-	 * Constructor.
-	 *
-	 * If PHP version is < 5.5, a warning is logged.
-	 */
-	public function __construct () {
-		if (version_compare(PHP_VERSION, '5.5') < 0) {
-			Minz_Log::warning('Minz_Mailer cannot be used with a version of PHP < 5.5.');
-		}
+	private string $mailer;
+	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
+	private array $smtp_config;
+	private int $debug_level;
 
-		$this->view = new Minz_View();
-		$this->view->_layout(false);
+	/**
+	 * @phpstan-param class-string|'' $viewType
+	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
+	 */
+	public function __construct(string $viewType = '') {
+		$view = null;
+		if ($viewType !== '' && class_exists($viewType)) {
+			$view = new $viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
+		}
+		$this->view = $view ?? new Minz_View();
+		$this->view->_layout(null);
 		$this->view->attributeParams();
 
 		$conf = Minz_Configuration::get('system');
@@ -65,13 +73,12 @@ class Minz_Mailer {
 	 *
 	 * @param string $to The recipient of the email
 	 * @param string $subject The subject of the email
-	 *
 	 * @return bool true on success, false if a SMTP error happens
 	 */
-	public function mail($to, $subject) {
+	public function mail(string $to, string $subject): bool {
 		ob_start();
 		$this->view->render();
-		$body = ob_get_contents();
+		$body = ob_get_contents() ?: '';
 		ob_end_clean();
 
 		PHPMailer::$validator = 'html5';

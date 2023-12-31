@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2017, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2017, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,10 +33,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.5.3
- * @copyright 2004-2017 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @version 1.5.8
+ * @copyright 2004-2017 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
- * @author Geoffrey Sneddon
+ * @author Sam Sneddon
  * @author Ryan McCue
  * @link http://simplepie.org/ SimplePie
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.5.3');
+define('SIMPLEPIE_VERSION', '1.5.8');
 
 /**
  * SimplePie Build
@@ -418,6 +418,12 @@ define('SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS', 16);
  */
 class SimplePie
 {
+
+	/**
+	 * @internal Default value of the HTTP Accept header when fetching/locating feeds
+	 */
+	public const DEFAULT_HTTP_ACCEPT_HEADER = 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1';
+
 	/**
 	 * @var array Raw data
 	 * @access private
@@ -429,6 +435,13 @@ class SimplePie
 	 * @access private
 	 */
 	public $error;
+
+	/**
+	 * @var int HTTP status code
+	 * @see SimplePie::status_code()
+	 * @access private
+	 */
+	public $status_code = 0;
 
 	/**
 	 * @var object Instance of SimplePie_Sanitize (or other class)
@@ -650,11 +663,18 @@ class SimplePie
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
 	/**
+	 * @var array Stores the default tags to be stripped by rename_attributes().
+	 * @see SimplePie::rename_attributes()
+	 * @access private
+	 */
+	public $rename_attributes = array();
+
+	/**
 	 * @var bool Should we throw exceptions, or use the old-style error property?
 	 * @access private
 	 */
 	public $enable_exceptions = false;
-	
+
 	/**
 	 * Use syslog to report HTTP requests done by SimplePie.
 	 * @see SimplePie::set_syslog()
@@ -677,9 +697,9 @@ class SimplePie
 	 */
 	public function __construct()
 	{
-		if (version_compare(PHP_VERSION, '5.3', '<'))
+		if (version_compare(PHP_VERSION, '5.6', '<'))
 		{
-			trigger_error('Please upgrade to PHP 5.3 or newer.');
+			trigger_error('Please upgrade to PHP 5.6 or newer.');
 			die();
 		}
 
@@ -718,7 +738,7 @@ class SimplePie
 	 */
 	public function __destruct()
 	{
-		if ((version_compare(PHP_VERSION, '5.3', '<') || !gc_enabled()) && !ini_get('zend.ze1_compatibility_mode'))
+		if (!gc_enabled())
 		{
 			if (!empty($this->data['items']))
 			{
@@ -918,6 +938,39 @@ class SimplePie
 	public function set_cache_location($location = './cache')
 	{
 		$this->cache_location = (string) $location;
+	}
+
+	/**
+	 * Return the filename (i.e. hash, without path and without extension) of the file to cache a given URL.
+	 * @param string $url The URL of the feed to be cached.
+	 * @return string A filename (i.e. hash, without path and without extension).
+	 */
+	public function get_cache_filename($url)
+	{
+		// Append custom parameters to the URL to avoid cache pollution in case of multiple calls with different parameters.
+		$url .= $this->force_feed ? '#force_feed' : '';
+		$options = array();
+		if ($this->timeout != 10)
+		{
+			$options[CURLOPT_TIMEOUT] = $this->timeout;
+		}
+		if ($this->useragent !== SIMPLEPIE_USERAGENT)
+		{
+			$options[CURLOPT_USERAGENT] = $this->useragent;
+		}
+		if (!empty($this->curl_options))
+		{
+			foreach ($this->curl_options as $k => $v)
+			{
+				$options[$k] = $v;
+			}
+		}
+		if (!empty($options))
+		{
+			ksort($options);
+			$url .= '#' . urlencode(var_export($options, true));
+		}
+		return call_user_func($this->cache_name_function, $url);
 	}
 
 	/**
@@ -1195,6 +1248,15 @@ class SimplePie
 		$this->sanitize->encode_instead_of_strip($enable);
 	}
 
+	public function rename_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->rename_attributes;
+		}
+		$this->sanitize->rename_attributes($attribs);
+	}
+
 	public function strip_attributes($attribs = '')
 	{
 		if ($attribs === '')
@@ -1270,9 +1332,9 @@ class SimplePie
 	}
 
 	/**
-	 * Set the list of domains for which force HTTPS.
+	 * Set the list of domains for which to force HTTPS.
 	 * @see SimplePie_Sanitize::set_https_domains()
-	 * FreshRSS
+	 * @param array List of HTTPS domains. Example array('biz', 'example.com', 'example.org', 'www.example.net').
 	 */
 	public function set_https_domains($domains = array())
 	{
@@ -1285,8 +1347,8 @@ class SimplePie
 	/**
 	 * Set the handler to enable the display of cached images.
 	 *
-	 * @param str $page Web-accessible path to the handler_image.php file.
-	 * @param str $qs The query string that the value should be passed to.
+	 * @param string $page Web-accessible path to the handler_image.php file.
+	 * @param string $qs The query string that the value should be passed to.
 	 */
 	public function set_image_handler($page = false, $qs = 'i')
 	{
@@ -1322,12 +1384,24 @@ class SimplePie
 
 	function cleanMd5($rss)
 	{
-		return md5(preg_replace(array(
-			'#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
-			'#<(media:starRating|media:statistics) [^/<>]+/>#',
-			'#<!--.+?-->#s',
-			), '', $rss));
-		
+		//Process by chunks not to use too much memory
+		if (($stream = fopen('php://temp', 'r+')) &&
+			fwrite($stream, $rss) &&
+			rewind($stream))
+		{
+			$ctx = hash_init('md5');
+			while ($stream_data = fread($stream, 1048576))
+			{
+				hash_update($ctx, preg_replace([
+					'#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
+					'#<(media:starRating|media:statistics) [^/<>]+/>#',
+					'#<!--.+?-->#s',
+				], '', $stream_data));
+			}
+			fclose($stream);
+			return hash_final($ctx);
+		}
+		return '';
 	}
 
 	/**
@@ -1337,7 +1411,7 @@ class SimplePie
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
-	 * @return positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
+	 * @return boolean|integer positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
 	 */
 	public function init()
 	{
@@ -1417,13 +1491,14 @@ class SimplePie
 			// Decide whether to enable caching
 			if ($this->cache && $parsed_feed_url['scheme'] !== '')
 			{
-				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $this->feed_url), 'spc'));
+				$filename = $this->get_cache_filename($this->feed_url);
+				$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, $filename, 'spc'));
 			}
 
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return $this->data['mtime'];
+				return empty($this->data['mtime']) ? false : $this->data['mtime'];
 			}
 			elseif ($fetched === false) {
 				return false;
@@ -1508,7 +1583,7 @@ class SimplePie
 				$parser = $this->registry->create('Parser');
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8'))	//FreshRSS
+				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))
@@ -1571,7 +1646,7 @@ class SimplePie
 	 * Fetch the data via SimplePie_File
 	 *
 	 * If the data is already cached, attempt to fetch it from there instead
-	 * @param SimplePie_Cache|false $cache Cache handler, or false to not load from the cache
+	 * @param SimplePie_Cache_Base|false $cache Cache handler, or false to not load from the cache
 	 * @return array|true Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
 	 */
 	protected function fetch_data(&$cache)
@@ -1621,7 +1696,7 @@ class SimplePie
 				else
 				{
 					$headers = array(
-						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+						'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 					);
 					if (isset($this->data['headers']['last-modified']))
 					{
@@ -1633,6 +1708,7 @@ class SimplePie
 					}
 
 					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
+					$this->status_code = $file->status_code;
 
 					if ($file->success)
 					{
@@ -1684,11 +1760,13 @@ class SimplePie
 			else
 			{
 				$headers = array(
-					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+					'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 				);
 				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 			}
 		}
+		$this->status_code = $file->status_code;
+
 		// If the file connection has an error, set SimplePie::error to that and quit
 		if (!$file->success && !($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300)))
 		{
@@ -1773,8 +1851,8 @@ class SimplePie
 					}
 					$cache = $this->registry->call('Cache', 'get_handler', array($this->cache_location, call_user_func($this->cache_name_function, $file->url), 'spc'));
 				}
-				$this->feed_url = $file->url;
 			}
+			$this->feed_url = $file->url;
 			$locate = null;
 		}
 
@@ -1789,13 +1867,23 @@ class SimplePie
 	}
 
 	/**
-	 * Get the error message for the occured error
+	 * Get the error message for the occurred error
 	 *
 	 * @return string|array Error message, or array of messages for multifeeds
 	 */
 	public function error()
 	{
 		return $this->error;
+	}
+
+	/**
+	 * Get the last HTTP status code
+	 *
+	 * @return int Status code
+	 */
+	public function status_code()
+	{
+		return $this->status_code;
 	}
 
 	/**
@@ -1973,7 +2061,8 @@ class SimplePie
 	 *
 	 * When the 'permanent' mode is disabled (default),
 	 * may or may not be different from the URL passed to {@see set_feed_url()},
-	 * depending on whether auto-discovery was used.
+	 * depending on whether auto-discovery was used, and whether there were
+	 * any redirects along the way.
 	 *
 	 * @since Preview Release (previously called `get_feed_url()` since SimplePie 0.8.)
 	 * @todo Support <itunes:new-feed-url>
@@ -2192,7 +2281,7 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION) && !empty($element['xml_base_explicit']) && isset($element['xml_base']))
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
 		{
 			return $element['xml_base'];
 		}
@@ -2640,13 +2729,21 @@ class SimplePie
 			}
 		}
 
-		if (isset($this->data['headers']['link']) &&
-		    preg_match('/<([^>]+)>; rel='.preg_quote($rel).'/',
-		               $this->data['headers']['link'], $match))
+		if (isset($this->data['headers']['link']))
 		{
-			return array($match[1]);
+			$link_headers = $this->data['headers']['link'];
+			if (is_array($link_headers)) {
+				$link_headers = implode(',', $link_headers);
+			}
+			// https://datatracker.ietf.org/doc/html/rfc8288
+			if (is_string($link_headers) &&
+				preg_match_all('/<(?P<uri>[^>]+)>\s*;\s*rel\s*=\s*(?P<quote>"?)' . preg_quote($rel) . '(?P=quote)\s*(?=,|$)/i', $link_headers, $matches))
+			{
+				return $matches['uri'];
+			}
 		}
-		else if (isset($this->data['links'][$rel]))
+
+		if (isset($this->data['links'][$rel]))
 		{
 			return $this->data['links'][$rel];
 		}

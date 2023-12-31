@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,9 +33,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
  * @author Ryan Parman
- * @author Geoffrey Sneddon
+ * @author Sam Sneddon
  * @author Ryan McCue
  * @link http://simplepie.org/ SimplePie
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -157,7 +157,7 @@ class SimplePie_HTTP_Parser
 		}
 
 		$this->http_version = '';
-		$this->status_code = '';
+		$this->status_code = 0;
 		$this->reason = '';
 		$this->headers = array();
 		$this->body = '';
@@ -507,11 +507,13 @@ class SimplePie_HTTP_Parser
 	{
 		$data = explode("\r\n\r\n", $headers, $count);
 		$data = array_pop($data);
-		if (false !== stripos($data, "HTTP/1.0 200 Connection established\r\n\r\n")) {
-			$data = str_ireplace("HTTP/1.0 200 Connection established\r\n\r\n", '', $data);
+		if (false !== stripos($data, "HTTP/1.0 200 Connection established\r\n")) {
+			$exploded = explode("\r\n\r\n", $data, 2);
+			$data = end($exploded);
 		}
-		if (false !== stripos($data, "HTTP/1.1 200 Connection established\r\n\r\n")) {
-			$data = str_ireplace("HTTP/1.1 200 Connection established\r\n\r\n", '', $data);
+		if (false !== stripos($data, "HTTP/1.1 200 Connection established\r\n")) {
+			$exploded = explode("\r\n\r\n", $data, 2);
+			$data = end($exploded);
 		}
 		return $data;
 	}

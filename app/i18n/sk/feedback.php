@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Na prístup k tejto stránke nemáte oprávnenie',
@@ -10,15 +20,11 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO - Translation
-			'updated' => 'Your password has been modified',	// TODO - Translation
+			'failed' => 'Vaše heslo sa nepodarilo zmeniť',
+			'updated' => 'Vaše heslo bolo zmenené',
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Nastavl problém pri nastavovaní prihlasovacieho systému. Prosím, skúste to znova neskôr.',
-			'set' => 'Webový formulár je teraz váš prednastavený prihlasovací spôsob.',
-		),
 		'login' => array(
 			'invalid' => 'Nesprávne prihlasovacie údaje',
 			'success' => 'Úspešne ste sa prihlásili',
@@ -26,16 +32,16 @@ return array(
 		'logout' => array(
 			'success' => 'Boli ste odhlásený',
 		),
-		'no_password_set' => 'Heslo administrátora nebolo nastavené. Táto funkcia nie je dostupná.',
 	),
 	'conf' => array(
 		'error' => 'Vyskytla sa chyba počas ukladania nastavaní',
-		'query_created' => 'Dopyt "%s" bol vytvorený.',
+		'query_created' => 'Dopyt “%s” bol vytvorený.',
 		'shortcuts_updated' => 'Skratky boli aktualizované',
 		'updated' => 'Nastavenia boli aktualizované',
 	),
 	'extensions' => array(
 		'already_enabled' => '%s už je povolené',
+		'cannot_remove' => '%s sa nepodarilo odstrániť',
 		'disable' => array(
 			'ko' => '%s sa nepodarilo nainštalovať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz zakázaný',
@@ -44,17 +50,18 @@ return array(
 			'ko' => '%s sa nepodarilo povoliť. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz povolený',
 		),
+		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
-		'no_access' => 'Nemáte prístup k %s',
+		'removed' => '%s odstránené',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
-		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný',
-		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby',
+		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
-		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',
+		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Váš profil nie je možné upraviť',
@@ -72,10 +79,10 @@ return array(
 			'emptied' => 'Kategória bola vyprázdnená',
 			'error' => 'Nepodarilo sa aktualizovať kategóriu',
 			'name_exists' => 'Názov kategórie už existuje.',
-			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
-			'not_exist' => 'Kategória neexistuje!',
 			'no_id' => 'Musíte zadať ID kategórie.',
 			'no_name' => 'Názov kategórie nemôže byť prázdny.',
+			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
+			'not_exist' => 'Kategória neexistuje!',
 			'over_max' => 'Dosiahli ste limit počtu kategórií (%d)',
 			'updated' => 'Kategória bola aktualizovaná.',
 		),
@@ -84,18 +91,33 @@ return array(
 			'actualizeds' => 'RSS kanál bol aktualizovaný',
 			'added' => 'RSS kanál <em>%s</em> bol pridaný',
 			'already_subscribed' => 'Tento RSS kanál už odoberáte: <em>%s</em>',
+			'cache_cleared' => '<em>%s</em> vyrovnávacia pamäť bola vymazaná',
 			'deleted' => 'Kanál bol vymazaný',
 			'error' => 'Kanál sa nepodarilo aktualizovať',
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
-			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
-			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',
 			'n_entries_deleted' => 'Počet vymazaných článkov: %d',
+			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',
+			'not_added' => 'Kanál <em>%s</em> sa nepodarilo pridať',
+			'not_found' => 'Kanál sa nepodarilo nájsť',
 			'over_max' => 'Dosiahli ste limit počtu kanálov (%d)',
+			'reloaded' => '<em>%s</em> bol obnovený',
+			'selector_preview' => array(
+				'http_error' => 'Nepodarilo sa načítať obsah stránky.',
+				'no_entries' => 'V tomto kanáli nie sú články. Na vytvorenie náhľadu je potrebný aspoň jeden článok.',
+				'no_feed' => 'Vnútorná chyba (kanál sa nepodarilo nájsť).',
+				'no_result' => 'Selektor nič neoznačil. Bude sa zobrazovať pôvodný text kanála.',
+				'selector_empty' => 'Selektor je prázdny. Na vytvorenie náhľadu je potrebné definovať selektor.',
+			),
 			'updated' => 'Kanál bol aktualizovaný',
 		),
 		'purge_completed' => 'Čistenie ukončené. Počet vymazaných článkov: %d',
+	),
+	'tag' => array(
+		'created' => 'Štítok “%s” bol vytvorený.',
+		'name_exists' => 'Názov štítku už existuje.',
+		'renamed' => 'Štítok “%s” bol premenovaný na “%s”.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',
@@ -107,16 +129,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'error' => 'Používateľ %s nebol vytvorený',
 			'_' => 'Používateľ %s bol vytvorený',
+			'error' => 'Používateľ %s nebol vytvorený',
 		),
 		'deleted' => array(
-			'error' => 'Používateľ %s nebol vymazaný',
 			'_' => 'Používateľ %s bol vymazaný',
+			'error' => 'Používateľ %s nebol vymazaný',
 		),
 		'updated' => array(
-			'error' => 'Používateľ %s nebol aktualizovaný',
 			'_' => 'Používateľ %s bol aktualizovaný',
+			'error' => 'Používateľ %s nebol aktualizovaný',
 		),
 	),
 );

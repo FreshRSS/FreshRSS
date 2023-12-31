@@ -1,23 +1,40 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Actualizar',
+		'actualize' => 'Actualizar flux',
+		'add' => 'Ajustar',
 		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
+		'delete_muted_feeds' => 'Suprimir los flux muts',
+		'demote' => 'Retrogradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Voidar',
 		'enable' => 'Activar',
 		'export' => 'Exportar',
 		'filter' => 'Filtre',
 		'import' => 'Importar',
+		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
-		'mark_favorite' => 'Ajustar als favorits',
 		'mark_read' => 'Marcar coma legit',
-		'purge' => 'Purge',	// TODO - Translation
+		'open_url' => 'Dobrir l’URL',
+		'promote' => 'Promòure',
+		'purge' => 'Purgar',
+		'refresh_opml' => 'Refrescar OPML',
 		'remove' => 'Levar',
+		'rename' => 'Renomenar',
 		'see_website' => 'Veire lo site',
 		'submit' => 'Mandar',
 		'truncate' => 'Suprimir totes los articles',
@@ -30,68 +47,69 @@ return array(
 		'login' => 'Connexion',
 		'logout' => 'Se desconnectar',
 		'password' => array(
-			'format' => '<small>Almens 7 caractèrs</small>',
 			'_' => 'Senhal',
+			'format' => '<small>Almens 7 caractèrs</small>',
 		),
 		'registration' => array(
+			'_' => 'Compte nòu',
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
-			'_' => 'Compte nòu',
 		),
-		'reset' => 'Reïnicializacion de l’autentificacion',
 		'username' => array(
-			'admin' => 'Nom d’utilizaire administrator',
-			'format' => '<small>16 caractèrs alfanumerics maximum)</small>',
 			'_' => 'Nom d’utilizaire',
+			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
 		),
 	),
 	'date' => array(
 		'Apr' => '\\a\\b\\r\\i\\a\\l',
+		'Aug' => '\\a\\g\\o\\s\\t',
+		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
+		'Feb' => '\\f\\e\\b\\r\\i\\è\\r',
+		'Jan' => '\\g\\e\\n\\i\\è\\r',
+		'Jul' => '\\j\\u\\l\\h\\e\\t',
+		'Jun' => '\\j\\u\\n\\h',
+		'Mar' => '\\m\\a\\r\\ç',
+		'May' => '\\m\\a\\i',
+		'Nov' => '\\n\\o\\v\\e\\m\\b\\r\\e',
+		'Oct' => '\\o\\c\\t\\ò\\b\\r\\e',
+		'Sep' => '\\s\\e\\t\\e\\m\\b\\r\\e',
 		'apr' => 'abr.',
 		'april' => 'abrial',
-		'Aug' => '\\a\\g\\o\\s\\t',
 		'aug' => 'agost',
 		'august' => 'agost',
 		'before_yesterday' => 'Anterior a ièr',
-		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
 		'dec' => 'dec.',
 		'december' => 'decembre',
-		'Feb' => '\\f\\e\\b\\r\\i\\è\\r',
 		'feb' => 'feb.',
 		'february' => 'febrièr',
 		'format_date' => 'j \\d\\e %s \\d\\e Y',
 		'format_date_hour' => 'j \\d\\e %s \\d\\e Y \\a H\\:i',
 		'fri' => 'dv',
-		'Jan' => '\\g\\e\\n\\i\\è\\r',
 		'jan' => 'gen.',
 		'january' => 'genièr',
 		'jul' => 'julh',
-		'Jul' => '\\j\\u\\l\\h\\e\\t',
 		'july' => 'julhet',
-		'Jun' => '\\j\\u\\n\\h',
 		'jun' => 'junh',
 		'june' => 'junh',
+		'last_2_year' => 'Dempuèi las darrièras doas annadas',
 		'last_3_month' => 'Dempuèi los darrièrs tres meses',
+		'last_3_year' => 'Dempuèi las darrièras tres annadas',
+		'last_5_year' => 'Dempuèi las darrièras cinc annadas',
 		'last_6_month' => 'Dempuèi los darrièrs sièis meses',
 		'last_month' => 'Dempuèi lo mes passat',
 		'last_week' => 'Dempuèi la setmana passada',
 		'last_year' => 'Dempuèi l’annada passada',
 		'mar' => 'març',
-		'Mar' => '\\m\\a\\r\\ç',
 		'march' => 'març',
-		'May' => '\\m\\a\\i',
 		'may' => 'mai',
 		'may_' => 'mai',
 		'mon' => 'dl',
 		'month' => 'meses',
-		'Nov' => '\\n\\o\\v\\e\\m\\b\\r\\e',
 		'nov' => 'nov.',
 		'november' => 'novembre',
-		'Oct' => '\\o\\c\\t\\ò\\b\\r\\e',
 		'oct' => 'oct.',
 		'october' => 'octòbre',
 		'sat' => 'ds',
-		'Sep' => '\\s\\e\\t\\e\\m\\b\\r\\e',
 		'sep' => 'set.',
 		'september' => 'setembre',
 		'sun' => 'dg',
@@ -101,9 +119,10 @@ return array(
 		'wed' => 'Dc',
 		'yesterday' => 'Ièr',
 	),
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'A prepaus de FreshRSS',
-		'_' => 'FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria voida',
@@ -111,42 +130,55 @@ return array(
 		'confirm_action_feed_cat' => 'Volètz vertadièrament contunhar ? Perdretz los favorits e filtres ligats. Aquesta accion se pòt pas anullar !',
 		'feedback' => array(
 			'body_new_articles' => 'I a %%d nòus articles per legir sus FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Una requèsta a fach meuca, aquò pòt venir d’un problèma de connexion Internet.',
 			'title_new_articles' => 'FreshRSS : nòus articles !',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'I a d’articles nòus disponibles, clicatz per actualizar la pagina.',
 		'should_be_activated' => 'JavaScript deu èsser activat',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',	// TODO - Translation
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',	// TODO - Translation
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cz' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-us' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'A prepaus',
-		'admin' => 'Administracion',
+		'account' => 'Compte',
+		'admin' => 'Administracion',	// IGNORE
 		'archiving' => 'Archivar',
 		'authentication' => 'Autentificacion',
 		'check_install' => 'Verificacion de l’installacion',
-		'configuration' => 'Configuracion',
+		'configuration' => 'Configuracion',	// IGNORE
 		'display' => 'Afichatge',
-		'extensions' => 'Extensions',
-		'logs' => 'Jornals d’audit',
+		'extensions' => 'Extensions',	// IGNORE
+		'logs' => 'Jornals d’audit',	// IGNORE
 		'queries' => 'Filtres utilizaire',
 		'reading' => 'Lectura',
 		'search' => 'Recercar de mots o d’#etiquetas',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Partatge',
 		'shortcuts' => 'Acorchis',
 		'stats' => 'Estatisticas',
@@ -154,15 +186,6 @@ return array(
 		'update' => 'Mesa a jorn',
 		'user_management' => 'Gestion dels utilizaires',
 		'user_profile' => 'Perfil',
-	),
-	'pagination' => array(
-		'first' => 'Debuta',
-		'last' => 'Fin',
-		'load_more' => 'Cargar mai d’articles',
-		'mark_all_read' => 'O marcar tot coma legit',
-		'next' => 'Seguent',
-		'nothing_to_load' => 'I a pas mai d’articles',
-		'previous' => 'Precedent',
 	),
 	'period' => array(
 		'days' => 'jorns',
@@ -172,24 +195,37 @@ return array(
 		'years' => 'ans',
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Corrièl',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Quicha-papiers.',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Corrièl',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimir',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Atencion !',
@@ -203,5 +239,10 @@ return array(
 		'ok' => 'Òc-ben !',
 		'or' => 'o',
 		'yes' => 'Òc',
+	),
+	'stream' => array(
+		'load_more' => 'Cargar mai d’articles',
+		'mark_all_read' => 'O marcar tot coma legit',
+		'nothing_to_load' => 'I a pas mai d’articles',
 	),
 );
