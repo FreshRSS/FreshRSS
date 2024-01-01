@@ -303,7 +303,7 @@ HTML;
 	}
 
 	/**
-	 * @return array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}|null
+	 * @return array{'url':string,'height'?:int,'width'?:int,'time'?:string}|null
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
