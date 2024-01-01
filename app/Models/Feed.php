@@ -626,6 +626,9 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($this->httpAuth != '') {
 			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
 		}
+		if ($feedSourceUrl == null) {
+			return null;
+		}
 
 		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
 		$httpAccept = 'json';
@@ -636,13 +639,18 @@ class FreshRSS_Feed extends Minz_Model {
 
 		//check if the content is actual JSON
 		$jf = json_decode($json, true);
-		if (json_last_error() !== JSON_ERROR_NONE) return null;
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			return null;
+		}
 
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJSONFeed() : $this->attributes('json_dotpath');
+		/** @var array<string,string> $json_dotpath */
+		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
+		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJSONFeed() : $json_dotpath;
+
 		$feedContent = $this->convertJSONtoRSS($jf, $feedSourceUrl, $dotPaths);
-
-		if (!$feedContent) return null;
-
+		if ($feedContent == null) {
+			return null;
+		}
 		return $this->simplePieFromContent($feedContent);
 	}
 

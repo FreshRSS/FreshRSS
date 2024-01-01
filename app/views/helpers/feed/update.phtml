@@ -510,7 +510,7 @@
 
 		<fieldset id="json_dotpath">
 			<?php
-			$jsonSettings = Minz_Helper::htmlspecialchars_utf8((array)($this->feed->attributes('json_dotpath')));
+				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotpath') ?? []);
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.help') ?></p>
 			<div class="form-group">
@@ -706,7 +706,7 @@
 			<div class="group-controls">
 				<select class="number" name="curl_method" id="curl_method"><?php
 				$curl_method = 'GET';
-				if (is_array($this->feed->attributes('curl_params')) && isset($this->feed->attributes('curl_params')[CURLOPT_POST]) && $this->feed->attributes('curl_params')[CURLOPT_POST] === 1) {
+				if ($this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_POST])) {
 					$curl_method = 'POST';
 				}
 				foreach (['GET' => 'GET', 'POST' => 'POST'] as $k => $v) {
@@ -716,8 +716,8 @@
 				</select>
 				<div class="stick">
 					<input type="text" name="curl_fields" id="curl_fields" value="<?=
-					is_array($this->feed->attributes('curl_params')) && !empty($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) ?
-						htmlentities(json_encode($this->feed->attributes('curl_params')[CURLOPT_POSTFIELDS]) ?: '') : ''
+						$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS]) ?
+							htmlentities(json_encode($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS]) ?: '') : ''
 					?>" placeholder="<?= _t('sub.feed.method_postparams') ?>" />
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.method_help') ?></p>
