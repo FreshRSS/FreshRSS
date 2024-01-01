@@ -234,9 +234,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
 				if (!empty($xPathSettings))
 					$feed->_attribute('xpath', $xPathSettings);
-			}
-
-			if ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
 				$jsonSettings = [];
 				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
 					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
