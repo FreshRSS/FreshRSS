@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class is used to test database is well-constructed.
@@ -20,8 +21,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		$db = FreshRSS_Context::$system_conf->db;
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
 			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
@@ -173,7 +174,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function size(bool $all = false): int {
-		$db = FreshRSS_Context::$system_conf->db;
+		$db = FreshRSS_Context::systemConf()->db;
 
 		// MariaDB does not refresh size information automatically
 		$sql = <<<'SQL'
@@ -217,6 +218,11 @@ SQL;
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
+
+		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		}
 	}
 
 	private static function stdError(string $error): bool {
@@ -386,5 +392,32 @@ SQL;
 		$tagTo->commit();
 
 		return true;
+	}
+
+	/**
+	 * Ensure that some PDO columns are `int` and not `string`.
+	 * Compatibility with PHP 7.
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
+	 */
+	public static function pdoInt(array &$table, array $columns): void {
+		foreach ($columns as $column) {
+			if (isset($table[$column]) && is_string($table[$column])) {
+				$table[$column] = (int)$table[$column];
+			}
+		}
+	}
+
+	/**
+	 * Ensure that some PDO columns are `string` and not `bigint`.
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
+	 */
+	public static function pdoString(array &$table, array $columns): void {
+		foreach ($columns as $column) {
+			if (isset($table[$column])) {
+				$table[$column] = (string)$table[$column];
+			}
+		}
 	}
 }

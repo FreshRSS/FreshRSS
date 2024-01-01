@@ -49,7 +49,7 @@ return array(
 		),
 		'language' => 'Nyelv',
 		'notif_html5' => array(
-			'seconds' => 'másodpercek (0 means no timeout)',
+			'seconds' => 'másodpercek (A 0 azt jelenti, hogy nincs időkorlát)',
 			'timeout' => 'HTML5 értesítés hossza',
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
@@ -183,7 +183,7 @@ return array(
 			),
 		),
 		'articles_per_page' => 'Cikkek száma oldalanként',
-		'auto_load_more' => 'Mégtöbb cikk betöltése, ha a lap aljához ért',
+		'auto_load_more' => 'Még több cikk betöltése, ha a lap aljához ért',
 		'auto_remove_article' => 'Cikkek elrejtése elolvasás után',
 		'confirm_enabled' => 'Megerősítő jóváhagyás a "jelölje mindet olvasottként" végrehajtása előtt',
 		'display_articles_unfolded' => 'Legyenek a cikkek kibontva alapértelmezésben',
@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'ha a cikk megnyitásra került az eredeti weblapon',
 			'article_viewed' => 'ha a cikk megtekintésre került',
+			'focus' => 'amikor fókuszált (kivéve a fontos hírforrásokat)',
 			'keep_max_n_unread' => 'Cikkek maximális száma olvasatlanként tartva',
-			'scroll' => 'görgetés közben',
+			'scroll' => 'görgetés közben (kivéve a fontos hírforrásokat)',
 			'upon_gone' => 'ha már nincs benne a hírforrásban',
 			'upon_reception' => 'a cikk beérkezésekor',
 			'when' => 'Jelölje a cikket olvasottként…',

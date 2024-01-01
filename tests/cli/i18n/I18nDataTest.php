@@ -1,11 +1,11 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nDataTest extends PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
-	private $referenceData;
+	private array $referenceData;
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 

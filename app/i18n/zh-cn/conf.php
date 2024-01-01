@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => '显示',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => '自动黑暗模式（测试版）',
+			'auto' => '启动',
+			'no' => '关闭',
 		),
 		'icon' => array(
 			'bottom_line' => '底栏',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => '主题',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => '已弃用',
+				'description' => '这个主题已经不再被支持并且会在<a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">将来版本的 FreshRSS</a> 中删除',
 			),
 		),
 		'theme_not_available' => '“%s” 主题不再可用，请选择其他主题。',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => '纵向',
 			'square' => '方形',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => '时区',
 		'title' => '显示',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => '图标和名称',
+			'icon' => '仅图标',
+			'label' => '网页显示',
+			'name' => '仅名称',
+			'none' => '无',
 		),
 		'width' => array(
 			'content' => '内容宽度',
@@ -204,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
 			'article_viewed' => '在文章被浏览后',
+			'focus' => '被聚焦时（除了重要订阅）',
 			'keep_max_n_unread' => '未读最多保留 n 条',
-			'scroll' => '在滚动浏览后',
+			'scroll' => '在滚动浏览后（除了重要订阅）',
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',

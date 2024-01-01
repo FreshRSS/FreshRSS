@@ -37,7 +37,7 @@ return array (
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
 	'show_tags' => '0',
-	'show_tags_max' => '7',
+	'show_tags_max' => 7,
 	'show_author_date' => 'h',
 	'show_feed_name' => 'a',
 	'hide_read_feeds' => true,
@@ -61,8 +61,10 @@ return array (
 		'reception' => false,
 		'same_title_in_feed' => false,
 		'scroll' => false,
+		'focus' => false,
 		'site' => true,
 	),
+	'filters' => [],
 	'theme' => 'Origine',
 	'darkMode' => 'no',
 	'content_width' => 'thin',
@@ -110,6 +112,7 @@ return array (
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,
 	'bottomline_tags' => true,
+	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
 	'sharing' => array (
@@ -118,5 +121,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
-	'extensions_enabled' => array(),
+	# List of enabled FreshRSS extensions.
+	'extensions_enabled' => [],
+	# Extensions configurations
+	'extensions' => [],
 );

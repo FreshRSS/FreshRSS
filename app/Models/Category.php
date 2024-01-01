@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Category extends Minz_Model {
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal
@@ -12,37 +14,30 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	public const KIND_DYNAMIC_OPML = 2;
 
-	/** @var int */
-	private $id = 0;
-	/** @var int */
-	private $kind = 0;
-	/** @var string */
-	private $name;
-	/** @var int */
-	private $nbFeeds = -1;
-	/** @var int */
-	private $nbNotRead = -1;
+	private int $id = 0;
+	private int $kind = 0;
+	private string $name;
+	private int $nbFeeds = -1;
+	private int $nbNotRead = -1;
 	/** @var array<FreshRSS_Feed>|null */
-	private $feeds;
+	private ?array $feeds = null;
 	/** @var bool|int */
 	private $hasFeedsWithError = false;
-	/** @var array<string,mixed> */
-	private $attributes = [];
-	/** @var int */
-	private $lastUpdate = 0;
-	/** @var bool */
-	private $error = false;
+	private int $lastUpdate = 0;
+	private bool $error = false;
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
 	 */
-	public function __construct(string $name = '', ?array $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+		$this->_id($id);
 		$this->_name($name);
 		if ($feeds !== null) {
 			$this->_feeds($feeds);
 			$this->nbFeeds = 0;
 			$this->nbNotRead = 0;
 			foreach ($feeds as $feed) {
+				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
 				$this->hasFeedsWithError |= $feed->inError();
@@ -126,18 +121,6 @@ class FreshRSS_Category extends Minz_Model {
 		return (bool)($this->hasFeedsWithError);
 	}
 
-	/**
-	 * @phpstan-return ($key is non-empty-string ? mixed : array<string,mixed>)
-	 * @return array<string,mixed>|mixed|null
-	 */
-	public function attributes(string $key = '') {
-		if ($key === '') {
-			return $this->attributes;
-		} else {
-			return $this->attributes[$key] ?? null;
-		}
-	}
-
 	public function _id(int $id): void {
 		$this->id = $id;
 		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
@@ -150,7 +133,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _name(string $value): void {
-		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
+		$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 	}
 
 	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
@@ -170,25 +153,10 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			$this->feeds = [];
 		}
+		$feed->_category($this);
 		$this->feeds[] = $feed;
 
 		$this->sortFeeds();
-	}
-
-	/** @param string|array<mixed>|bool|int|null $value Value, not HTML-encoded */
-	public function _attributes(string $key, $value): void {
-		if ('' === $key) {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif (null === $value) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
 	}
 
 	/**
@@ -202,8 +170,8 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function refreshDynamicOpml(): bool {
-		$url = $this->attributes('opml_url');
-		if ($url == '') {
+		$url = $this->attributeString('opml_url');
+		if ($url == null) {
 			return false;
 		}
 		$ok = true;
@@ -243,7 +211,7 @@ class FreshRSS_Category extends Minz_Model {
 				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
 					if (empty($existingFeeds[$dryRunFeed->url()])) {
 						// The feed does not exist in the current category, so add that feed
-						$dryRunFeed->_categoryId($this->id());
+						$dryRunFeed->_category($this);
 						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
 					} else {
 						$existingFeed = $existingFeeds[$dryRunFeed->url()];

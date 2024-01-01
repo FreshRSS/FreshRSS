@@ -1,33 +1,38 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Contains Boolean search from the search form.
  */
 class FreshRSS_BooleanSearch {
 
-	/** @var string */
-	private $raw_input = '';
+	private string $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
-	private $searches = [];
+	private array $searches = [];
 
 	/**
 	 * @phpstan-var 'AND'|'OR'|'AND NOT'
-	 * @var string
 	 */
-	private $operator;
+	private string $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND') {
 		$this->operator = $operator;
 		$input = trim($input);
-		if ($input == '') {
+		if ($input === '') {
 			return;
 		}
 		$this->raw_input = $input;
 
 		if ($level === 0) {
 			$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
+			if (!is_string($input)) {
+				return;
+			}
 			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
+			if (!is_string($input)) {
+				return;
+			}
 
 			$input = $this->parseUserQueryNames($input);
 			$input = $this->parseUserQueryIds($input);
@@ -54,7 +59,7 @@ class FreshRSS_BooleanSearch {
 		if (!empty($all_matches)) {
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
-			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
+			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 				$query = new FreshRSS_UserQuery($raw_query);
 				$queries[$query->getName()] = $query;
 			}
@@ -69,7 +74,7 @@ class FreshRSS_BooleanSearch {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$name]->getSearch()) . ')';
+						$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
 					}
 				}
 			}
@@ -90,10 +95,14 @@ class FreshRSS_BooleanSearch {
 		}
 
 		if (!empty($all_matches)) {
+			$category_dao = FreshRSS_Factory::createCategoryDao();
+			$feed_dao = FreshRSS_Factory::createFeedDao();
+			$tag_dao = FreshRSS_Factory::createTagDao();
+
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
-			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query);
+			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
+				$query = new FreshRSS_UserQuery($raw_query, $feed_dao, $category_dao, $tag_dao);
 				$queries[] = $query;
 			}
 
@@ -108,7 +117,7 @@ class FreshRSS_BooleanSearch {
 					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$id]->getSearch()) . ')';
+						$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
 					}
 				}
 			}

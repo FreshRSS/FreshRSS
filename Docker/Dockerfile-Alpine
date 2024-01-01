@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.19
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -17,7 +17,6 @@ COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
-ARG SOURCE_BRANCH
 ARG SOURCE_COMMIT
 
 LABEL \
@@ -25,7 +24,7 @@ LABEL \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
-	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
 	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
 	org.opencontainers.image.title="FreshRSS" \
 	org.opencontainers.image.url="https://freshrss.org/" \

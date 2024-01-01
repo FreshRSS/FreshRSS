@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class is used to test database is well-constructed.
@@ -10,7 +11,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	public const UNDEFINED_TABLE = '42P01';
 
 	public function tablesAreCorrect(): bool {
-		$db = FreshRSS_Context::$system_conf->db;
+		$db = FreshRSS_Context::systemConf()->db;
 		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=:tableowner';
 		$res = $this->fetchAssoc($sql, [':tableowner' => $db['user']]);
 		if ($res == null) {
@@ -57,7 +58,7 @@ SQL;
 
 	public function size(bool $all = false): int {
 		if ($all) {
-			$db = FreshRSS_Context::$system_conf->db;
+			$db = FreshRSS_Context::systemConf()->db;
 			$res = $this->fetchColumn('SELECT pg_database_size(:base)', 0, [':base' => $db['base']]);
 		} else {
 			$sql = <<<SQL

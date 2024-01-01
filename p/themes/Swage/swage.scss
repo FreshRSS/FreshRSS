@@ -266,15 +266,12 @@ form {
 	margin: 0;
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
-	display: inline-block;
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
 	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 	line-height: 1.5;
 	text-decoration: none;
 
@@ -1276,7 +1273,8 @@ a.signin {
 			margin: 0;
 		}
 
-		.stick {
+		.stick,
+		.group {
 			margin: 0;
 
 			.btn {

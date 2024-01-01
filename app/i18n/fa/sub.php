@@ -190,11 +190,12 @@ return array(
 		'priority' => array(
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',
+			'category' => ' نمایش در دسته بندی خود',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => ' نمایش در جریان اصلی',
-			'normal' => ' نمایش در دسته بندی خود',
 		),
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
-		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => ' نمایش کد منبع',
 			'show_rendered' => 'نمایش محتوا',

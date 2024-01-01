@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 class Minz_Exception extends Exception {
 	const ERROR = 0;
 	const WARNING = 10;

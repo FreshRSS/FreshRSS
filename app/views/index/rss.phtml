@@ -1,15 +1,18 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/"
 	<?= $this->rss_base == '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>
 >
 	<channel>
 		<title><?= $this->rss_title ?></title>
-		<link><?= $this->internal_rendering ? $this->rss_url : Minz_Url::display('', 'html', true) ?></link>
+		<link><?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_NOQUOTES, 'UTF-8') : Minz_Url::display('', 'html', true) ?></link>
 		<description><?= _t('index.feed.rss_of', $this->rss_title) ?></description>
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
-		<atom:link href="<?= $this->internal_rendering ? $this->rss_url :
+		<atom:link href="<?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_COMPAT, 'UTF-8') :
 			Minz_Url::display($this->rss_url, 'html', true) ?>" rel="self" type="application/rss+xml" />
 <?php
 /** @var FreshRSS_Entry */
@@ -44,7 +47,7 @@ foreach ($this->entries as $item) {
 					echo "\t\t\t", '<media:thumbnail url="' . $thumbnail['url']
 						. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
-						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
+						. (empty($thumbnail['type']) ? '' : '" type="' . $thumbnail['type'])
 						. '" />', "\n";
 				}
 				$enclosures = $item->enclosures(false);

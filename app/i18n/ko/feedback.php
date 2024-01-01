@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
-		'feeds_imported' => '피드를 성공적으로 불러왔습니다',
-		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다',
+		'feeds_imported' => '피드를 성공적으로 불러왔습니다 / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다 / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => '파일을 업로드할 수 없습니다!',
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
 		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',	// DIRTY

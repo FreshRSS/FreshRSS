@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 class I18nData {
 
 	public const REFERENCE_LANGUAGE = 'en';
 
 	/** @var array<string,array<string,array<string,I18nValue>>> */
-	private $data;
+	private array $data;
 
 	/** @param array<string,array<string,array<string,I18nValue>>> $data */
 	public function __construct(array $data) {
@@ -329,7 +330,7 @@ class I18nData {
 	}
 
 	private function getFilenamePrefix(string $key): string {
-		return preg_replace('/\..*/', '.php', $key);
+		return preg_replace('/\..*/', '.php', $key) ?? '';
 	}
 
 }

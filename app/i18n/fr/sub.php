@@ -78,7 +78,7 @@ return array(
 				'_' => 'HTML + XPath (Moissonnage du Web)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
-					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
+					'help' => 'Exemple : <code>//title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
@@ -190,11 +190,12 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilité',
 			'archived' => 'Ne pas afficher (archivé)',
-			'main_stream' => 'Afficher dans le flux principal',
-			'normal' => 'Afficher dans sa catégorie',
+			'category' => 'Afficher dans sa catégorie',
+			'important' => 'Afficher dans les flux importants',
+			'main_stream' => 'Afficher dans les flux principaux',
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
-		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
 			'show_rendered' => 'Afficher le contenu',
@@ -218,7 +219,7 @@ return array(
 		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
-		'websub' => 'Notification instantanée par WebSub',
+		'websub' => 'Notifications instantanée par WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Exporter',

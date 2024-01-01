@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
-		'feeds_imported' => 'Ihre Feeds sind importiert worden und werden jetzt aktualisiert',
-		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf',
+		'feeds_imported' => 'Ihre Feeds sind importiert worden. Wenn Sie alle Dateien importiert haben, können Sie <i>Feeds aktualisieren</i> klicken.',
+		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf. Wenn Sie alle Dateien importiert haben, können Sie <i>Feeds aktualisieren</i> klicken.',
 		'file_cannot_be_uploaded' => 'Die Datei kann nicht hochgeladen werden!',
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
 		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',	// DIRTY

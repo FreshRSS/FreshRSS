@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_TagDAO extends Minz_ModelPdo {
 
@@ -20,7 +21,7 @@ WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
 
-		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
@@ -57,15 +58,16 @@ SQL;
 	public function updateTagName(int $id, string $name) {
 		// No category of the same name
 		$sql = <<<'SQL'
-UPDATE `_tag` SET name=? WHERE id=?
-AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)
+UPDATE `_tag` SET name = :name1 WHERE id = :id
+AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = :name2)
 SQL;
 
-		$name = mb_strcut(trim($name), 0, 63, 'UTF-8');
+		$name = mb_strcut(trim($name), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
-			$stm->bindValue(':name', $name, PDO::PARAM_STR) &&
+			$stm->bindValue(':name1', $name, PDO::PARAM_STR) &&
+			$stm->bindValue(':name2', $name, PDO::PARAM_STR) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -94,11 +96,12 @@ SQL;
 	}
 
 	/**
+	 * @param non-empty-string $key
 	 * @param mixed $value
 	 * @return int|false
 	 */
 	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, $value) {
-		$tag->_attributes($key, $value);
+		$tag->_attribute($key, $value);
 		return $this->updateTagAttributes($tag->id(), $tag->attributes());
 	}
 
@@ -132,6 +135,7 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			/** @var array{'id':int,'name':string,'attributes'?:array<string,mixed>} $row */
 			yield $row;
 		}
 	}
@@ -145,6 +149,8 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			FreshRSS_DatabaseDAO::pdoInt($row, ['id_tag']);
+			FreshRSS_DatabaseDAO::pdoString($row, ['id_entry']);
 			yield $row;
 		}
 	}
@@ -406,7 +412,7 @@ SQL;
 			$tag = new FreshRSS_Tag($dao['name']);
 			$tag->_id($dao['id']);
 			if (!empty($dao['attributes'])) {
-				$tag->_attributes('', $dao['attributes']);
+				$tag->_attributes($dao['attributes']);
 			}
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);

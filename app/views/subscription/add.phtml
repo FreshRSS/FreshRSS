@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post drop-section">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -303,9 +303,7 @@
 			<div class="form-group">
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
-					<div class="stick">
-						<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
-					</div>
+					<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
 			</div>
@@ -319,9 +317,7 @@
 						}
 					?>
 					</select>
-					<div class="stick">
-						<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
-					</div>
+					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
 			</div>

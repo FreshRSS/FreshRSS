@@ -1,9 +1,10 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
 ?>
 <!DOCTYPE html>
-<html class="preview_background" lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+<html class="preview_background" lang="<?= FreshRSS_Context::userConf()->language ?>" xml:lang="<?= FreshRSS_Context::userConf()->language ?>">
 	<head>
 		<?= FreshRSS_View::headStyle() ?>
 		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>

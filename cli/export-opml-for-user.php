@@ -1,8 +1,9 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $params = array(
 	'user:',

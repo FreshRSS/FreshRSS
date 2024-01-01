@@ -82,7 +82,7 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> egy szabványos lekérdezési nyelv haladó felhasználóknak, amit a FreshRSS támogat (Web scraping).',
 				'item' => array(
-					'_' => 'hírek keresése <strong>items</strong><br /><small>(most important)</small>',
+					'_' => 'hírek keresése <strong>elemek</strong><br /><small>(legfontosabb)</small>',
 					'help' => 'Példa: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
@@ -190,11 +190,12 @@ return array(
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'archived' => 'Ne jelenjen meg (archivált)',
+			'category' => 'Jelenjen meg a saját kategóriájában',
+			'important' => 'Megjelenítés a fontos hírforrásokban',
 			'main_stream' => 'Megjelenítés a Minden cikk között',
-			'normal' => 'Jelenjen meg a saját kategóriájában',
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
-		'proxy_help' => 'Válassz egy protokolt (pl: SOCKS5) és add meg a proxy címét (pl: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Forráskód mutatása',
 			'show_rendered' => 'Tartalom mutatása',
@@ -226,8 +227,8 @@ return array(
 		'export_opml' => 'Hírforrások listájának exportálása (OPML)',
 		'export_starred' => 'Kedvencek exportálása',
 		'feed_list' => 'Cikkek %s listája',
-		'file_to_import' => 'Állomány importálása<br />(OPML, JSON or ZIP)',
-		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML or JSON)',
+		'file_to_import' => 'Állomány importálása<br />(OPML, JSON vagy ZIP)',
+		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML vagy JSON)',
 		'import' => 'Importálás',
 		'starred_list' => 'Kedvenc cikkek listája',
 		'title' => 'Importálás / exportálás',

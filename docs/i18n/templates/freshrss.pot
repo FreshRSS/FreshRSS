@@ -5399,7 +5399,7 @@ msgid ""
 "English version. For instance, the word “version” is the same in English and "
 "French. Thus, our tool would mark the French word to be translated. This is, "
 "in fact, the case for the `index.about.version` key. This case is considered "
-"as a false-positive because the word _is_ actually translated. To aknowledge "
+"as a false-positive because the word _is_ actually translated. To acknowledge "
 "such translations, you can run:"
 msgstr ""
 
@@ -6356,7 +6356,7 @@ msgid ""
 "|\n"
 "| Italian                 | Italiano               | it                                   "
 "|\n"
-"| Japanease               | 日本語                  | ja                                   "
+"| Japanese                | 日本語                  | ja                                   "
 "|\n"
 "| Korean                  | 한국어                  | ko                                   "
 "|\n"
@@ -6405,8 +6405,6 @@ msgid ""
 "|:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|\n"
 "| Alternative Dark | Ghost | |\n"
 "| Ansum | Thomas Guesnon  | |\n"
-"| Blue Lagoon     |Mister aiR | No longer supported. Will be removed with "
-"FreshRSS V1.22.0 |\n"
 "| Dark | AD | |\n"
 "| Dark pink | Miicat_47 | |\n"
 "| Flat design | Marien Fressinaud | |\n"
@@ -6415,8 +6413,6 @@ msgid ""
 "| Origine | Marien Fressinaud | (default theme) |\n"
 "| Origine-compact | Kevin Papst | |\n"
 "| Pafat | Plopoyop | |\n"
-"| Screwdriver | Mister aiR | No longer supported. Will be removed with "
-"FreshRSS V1.22.0 |\n"
 "| Swage | Patrick Crandol | |\n"
 msgstr ""
 
@@ -7881,15 +7877,6 @@ msgstr ""
 #: en/./users/09_refreshing_feeds.md:60
 #, markdown-text
 msgid "Special parameters to configure the script - all parameters can be combined:"
-msgstr ""
-
-#. type: Plain text
-#: en/./users/09_refreshing_feeds.md:64
-#, markdown-text
-msgid ""
-"- Parameter \"force\" "
-"<https://freshrss.example.net/i/?c=feed&a=actualize&force=1> If *force* is "
-"set to 1 all feeds will be refreshed at once."
 msgstr ""
 
 #. type: Plain text

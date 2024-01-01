@@ -190,11 +190,12 @@ return array(
 		'priority' => array(
 			'_' => 'Viditelnost',
 			'archived' => 'Nezobrazovat (archivováno)',
+			'category' => 'Zobrazit v jeho kategorii',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
-			'normal' => 'Zobrazit v jeho kategorii',
 		),
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
-		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Zobrazit zdrojový kód',
 			'show_rendered' => 'Zobrazit obsah',

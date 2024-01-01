@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
@@ -22,7 +23,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	/** @param array<string> $errorInfo */
+	/** @param array<string|int> $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
@@ -79,7 +80,7 @@ SQL;
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 				$affected = 0;
 				foreach ($ids as $id) {
-					$affected += $this->markRead($id, $is_read);
+					$affected += ($this->markRead($id, $is_read) ?: 0);
 				}
 				return $affected;
 			//}

@@ -1,9 +1,10 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
 ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+<html lang="<?= FreshRSS_Context::userConf()->language ?>" xml:lang="<?= FreshRSS_Context::userConf()->language ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
@@ -17,7 +18,7 @@
 		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
+		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::systemConf()->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
 		<meta name="referrer" content="never" />
 		<meta name="robots" content="noindex,nofollow" />
@@ -30,11 +31,11 @@
 	<div class="header">
 		<div class="item title">
 			<a href="<?= _url('index', 'index') ?>">
-				<?php if (FreshRSS_Context::$system_conf->logo_html == '') { ?>
+				<?php if (FreshRSS_Context::systemConf()->logo_html == '') { ?>
 					<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
 				<?php
 					} else {
-						echo FreshRSS_Context::$system_conf->logo_html;
+						echo FreshRSS_Context::systemConf()->logo_html;
 					}
 				?>
 			</a>
@@ -58,9 +59,10 @@
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (!empty($this->notification)) {
-		$msg = $this->notification['content'];
-		$status = $this->notification['type'];
+	$notif = Minz_Request::getNotification();
+	if (!empty($notif)) {
+		$msg = $notif['content'];
+		$status = $notif['type'];
 		invalidateHttpCache();
 	}
 ?>

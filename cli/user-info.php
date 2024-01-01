@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
@@ -18,8 +19,10 @@ if (!validateOptions($argv, $params)) {
 if (empty($options['user'])) {
 	$users = listUsers();
 } elseif (is_array($options['user'])) {
+	/** @var array<string> $users */
 	$users = $options['user'];
 } else {
+	/** @var array<string> $users */
 	$users = array($options['user']);
 }
 
@@ -66,10 +69,10 @@ foreach ($users as $username) {
 	$feedList = $feedDAO->listFeedsIds();
 
 	$data = array(
-		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
+		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
-		'admin' => FreshRSS_Context::$user_conf->is_admin ? '*' : '',
-		'enabled' => FreshRSS_Context::$user_conf->enabled ? '*' : '',
+		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
+		'enabled' => FreshRSS_Context::userConf()->enabled ? '*' : '',
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
 		'categories' => $catDAO->count(),
@@ -78,8 +81,8 @@ foreach ($users as $username) {
 		'unreads' => (int)$nbEntries['unread'],
 		'favourites' => (int)$nbFavorites['all'],
 		'tags' => $tagDAO->count(),
-		'lang' => FreshRSS_Context::$user_conf->language,
-		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
+		'lang' => FreshRSS_Context::userConf()->language,
+		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
 	if (isset($options['h'])) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);

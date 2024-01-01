@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 /**
  * @property string $apiPasswordHash
- * @property array<string,mixed> $archiving
+ * @property array{'keep_period':string|false,'keep_max':int|false,'keep_min':int|false,'keep_favourites':bool,'keep_labels':bool,'keep_unreads':bool} $archiving
  * @property bool $auto_load_more
  * @property bool $auto_remove_article
  * @property bool $bottomline_date
@@ -11,6 +12,7 @@
  * @property bool $bottomline_read
  * @property bool $bottomline_sharing
  * @property bool $bottomline_tags
+ * @property bool $bottomline_myLabels
  * @property string $content_width
  * @property-read int $default_state
  * @property string $default_view
@@ -32,7 +34,7 @@
  * @property bool $lazyload
  * @property string $mail_login
  * @property bool $mark_updated_article_unread
- * @property array<string,bool> $mark_when
+ * @property array<string,bool|int> $mark_when
  * @property int $max_posts_per_rss
  * @property-read array<string,int> $limits
  * @property int|null $old_entries
@@ -68,11 +70,49 @@
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,mixed> $volatile
+ * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
+	use FreshRSS_FilterActionsTrait;
 
+	/** @throws Minz_ConfigurationNamespaceException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
 		return parent::get('user');
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @return array<int|string,mixed>|null
+	 */
+	public function attributeArray(string $key): ?array {
+		$a = parent::param($key, null);
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeBool(string $key): ?bool {
+		$a = parent::param($key, null);
+		return is_bool($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeInt(string $key): ?int {
+		$a = parent::param($key, null);
+		return is_numeric($a) ? (int)$a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeString(string $key): ?string {
+		$a = parent::param($key, null);
+		return is_string($a) ? $a : null;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
+	 */
+	public function _attribute(string $key, $value = null): void {
+		parent::_param($key, $value);
 	}
 }

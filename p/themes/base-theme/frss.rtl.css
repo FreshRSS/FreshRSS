@@ -122,6 +122,12 @@ h3 {
 	line-height: 1.5;
 }
 
+h4,
+h5,
+h6 {
+	font-size: 1em;
+}
+
 .title_hidden {
 	display: none;
 }
@@ -208,7 +214,7 @@ label {
 	display: block;
 }
 
-input {
+input:not(.w50,.w100) {
 	max-width: 90%;
 	width: 300px;
 }
@@ -441,7 +447,8 @@ td.numeric {
 }
 
 /*=== Buttons */
-.stick {
+.stick,
+.group {
 	display: inline-flex;
 	max-width: 100%;
 	white-space: nowrap;
@@ -457,7 +464,8 @@ td.numeric {
 	flex-shrink: 1;
 }
 
-.stick > .btn {
+.stick > .btn,
+.group > .btn {
 	flex-shrink: 0;
 }
 
@@ -473,6 +481,24 @@ td.numeric {
 
 .btn-important {
 	font-weight: bold;
+}
+
+.btn-state1.hide {
+	display: none;
+}
+
+.btn-state2 {
+	display: none;
+}
+
+.btn-state2.show {
+	display: inline-block;
+}
+
+#button-update-loading {
+	background: var(--frss-loading-image) 0.5rem center no-repeat;
+	background-size: 1rem;
+	padding-right: 2rem;
 }
 
 /*=== switch */
@@ -1105,8 +1131,18 @@ input[type="search"] {
 	width: calc(100% - 75px);
 }
 
-.aside_feed .tree-folder-title .icon {
-	padding: 0 0.25rem;
+.aside_feed .tree-folder.category .tree-folder-title .title.error .icon {
+	margin: 0 0.5rem;
+	padding: 0;
+}
+
+.aside_feed .tree-folder-title .icon,
+.aside_feed .tree-folder-items .feed .icon {
+	margin: 0 0 0 0.5rem;
+}
+
+.aside_feed .tree-folder-items .feed .favicon {
+	padding: 0;
 }
 
 .aside_feed .tree-folder-items .item.feed {
@@ -1846,7 +1882,7 @@ html.slider-active {
 	position: absolute;
 }
 
-.theme-preview-list .preview:hover + .nav label {
+.theme-preview-list .preview + .nav label {
 	opacity: 0.5;
 }
 
@@ -1946,6 +1982,11 @@ html.slider-active {
 
 .feed.item.error.active .item-title::before {
 	color: var(--frss-font-color-light);
+}
+
+.feed[data-priority="20"] .item-title,
+.flux[data-priority="20"] .website > a {
+	text-decoration: underline double;
 }
 
 .aside .category .title:not([data-unread="0"])::after,
@@ -2059,10 +2100,6 @@ html.slider-active {
 .enclosure [download] {
 	font-size: 3rem;
 	margin-right: .8em;
-}
-
-.enclosure-description {
-	white-space: pre-line;
 }
 
 .default-user {
@@ -2317,6 +2354,11 @@ html.slider-active {
 		margin-top: 10px;
 	}
 
+	.aside_feed .tree-folder-items .feed .favicon {
+		margin: 0 0 0 0.5rem;
+		padding: 0;
+	}
+
 	.flux_header .item.website {
 		width: 40px;
 	}
@@ -2380,10 +2422,6 @@ html.slider-active {
 
 	.stat.half {
 		grid-column: 1 / span 2;
-	}
-
-	.theme-preview-list .preview + .nav label {
-		opacity: 0.5;
 	}
 }
 
