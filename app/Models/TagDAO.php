@@ -305,15 +305,20 @@ SQL;
 	 * @return int|false Number of new entries or false in case of error
 	 */
 	public function tagEntries(array $addLabels) {
+		$hasValues = false;
 		$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES ';
 		foreach ($addLabels as $addLabel) {
 			$id_tag = (int)($addLabel['id_tag'] ?? 0);
 			$id_entry = $addLabel['id_entry'] ?? '';
 			if ($id_tag > 0 && ctype_digit($id_entry)) {
 				$sql .= "({$id_tag},{$id_entry}),";
+				$hasValues = true;
 			}
 		}
 		$sql = rtrim($sql, ',');
+		if (!$hasValues) {
+			return false;
+		}
 
 		$affected = $this->pdo->exec($sql);
 		if ($affected !== false) {
