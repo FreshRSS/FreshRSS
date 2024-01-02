@@ -165,7 +165,7 @@ return array(
 				'json' => 'Dotted Path for:',	// IGNORE
 				'relative' => 'Dotted Path (relative to item) for:',	// IGNORE
 			),
-			'jsonfeed' => 'JSONFeed',	// IGNORE
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

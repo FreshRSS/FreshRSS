@@ -165,7 +165,7 @@ return array(
 				'json' => 'Dotted Path for:',	// TODO
 				'relative' => 'Dotted Path (relative to item) for:',	// TODO
 			),
-			'jsonfeed' => 'JSONFeed',	// TODO
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

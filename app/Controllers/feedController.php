@@ -500,7 +500,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSONFEED) {
 					$simplePie = $feed->loadJson();
 					if ($simplePie === null) {
-						throw new FreshRSS_Feed_Exception('JSONFeed parsing failed for [' . $feed->url(false) . ']');
+						throw new FreshRSS_Feed_Exception('JSON Feed parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);

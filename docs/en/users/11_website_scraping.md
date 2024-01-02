@@ -7,8 +7,8 @@ FreshRSS has a built-in [Web scraping](https://en.wikipedia.org/wiki/Web_scrapin
 Go to “Subscription Management” where a new feed can be added.
 Change the “Type of feed source” to one of:
 - “HTML + XPath (Web scraping)”
-- JSONFeed (see [`jsonfeed.org`](https://www.jsonfeed.org/))
-- JSON (Dotted Paths)
+- JSON Feed (see [`jsonfeed.org`](https://www.jsonfeed.org/))
+- JSON (Dotted paths)
 
 An additional list of text boxes to configure the Web scraping will show.
 
