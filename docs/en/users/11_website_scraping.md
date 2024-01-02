@@ -7,12 +7,12 @@ FreshRSS has a built-in [Web scraping](https://en.wikipedia.org/wiki/Web_scrapin
 Go to “Subscription Management” where a new feed can be added.
 Change the “Type of feed source” to one of:
 - “HTML + XPath (Web scraping)”
-- JSONFeed
+- JSONFeed (see [`jsonfeed.org`](https://www.jsonfeed.org/))
 - JSON (Dotted Paths)
 
-An additional list of text boxes to configure the web scraping will show.
+An additional list of text boxes to configure the Web scraping will show.
 
-For HTML + Xpath, [XPath 1.0](https://www.w3.org/TR/xpath-10/) is used as traversing language.
+For HTML + XPath, [XPath 1.0](https://www.w3.org/TR/xpath-10/) is used as traversing language.
 
 ### Get the XPath path
 
@@ -26,7 +26,7 @@ Suppose the JSON to which you are subscribing (or scraping) looks like this:
 
 ```json
 {
-    "data" {
+    "data": {
         "items": [
             {
                 "meta": {"title": "Some news item"},
@@ -36,13 +36,13 @@ Suppose the JSON to which you are subscribing (or scraping) looks like this:
                 "meta": {"title": "Some other news item"},
                 "content": "Yet more content"
             }
-        ],
-        "count": 2
+        ]
     }
 }
 ```
 
-Then the RSS items are under `data.items`, and within each item, the title is `meta.title`. Essentially you can join nested keys with a dot.
+Then the items are under `data.items`, and within each item, the title is `meta.title`.
+Essentially you can join nested keys with a dot.
 
 ## Tips & tricks
 

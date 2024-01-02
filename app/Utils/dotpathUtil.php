@@ -5,11 +5,14 @@ final class FreshRSS_dotpath_Util
 
 	/**
 	 * Get an item from an array using "dot" notation.
-	 * Functions from https://stackoverflow.com/a/39118759
+	 * Functions adapted from https://stackoverflow.com/a/39118759
+	 * https://github.com/illuminate/support/blob/52e8f314b8043860b1c09e5c2c7e8cca94aafc7d/Arr.php#L270-L305
+	 * Newer version in
+	 * https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337
 	 *
-	 * @param  \ArrayAccess<string,mixed>|array<string,mixed>  $array
-	 * @param  string|null  $key
-	 * @param  mixed   $default
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param string|null $key
+	 * @param mixed $default
 	 * @return mixed
 	 */
 	public static function get($array, ?string $key, mixed $default = null) {
@@ -38,8 +41,8 @@ final class FreshRSS_dotpath_Util
 	/**
 	 * Get a string from an array using "dot" notation.
 	 *
-	 * @param  \ArrayAccess<string,mixed>|array<string,mixed>  $array
-	 * @param  string|null  $key
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param string|null $key
 	 */
 	public static function getString($array, ?string $key): ?string {
 		$result = self::get($array, $key, null);
@@ -49,7 +52,7 @@ final class FreshRSS_dotpath_Util
 	/**
 	 * Determine whether the given value is array accessible.
 	 *
-	 * @param  mixed  $value
+	 * @param mixed $value
 	 * @return bool
 	 */
 	private static function accessible(mixed $value): bool {
@@ -59,8 +62,8 @@ final class FreshRSS_dotpath_Util
 	/**
 	 * Determine if the given key exists in the provided array.
 	 *
-	 * @param  \ArrayAccess<string,mixed>|array<string,mixed>  $array
-	 * @param  string  $key
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param string $key
 	 * @return bool
 	 */
 	private static function exists($array, string $key): bool {
