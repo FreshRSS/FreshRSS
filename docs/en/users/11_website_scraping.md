@@ -22,7 +22,7 @@ The XPath is stored in your clipboard now.
 
 ### Get the JSON dotted path
 
-Suppose the JSON to which you are subscribing (or scraping) looks like this:
+Suppose the JSON to which you are subscribing to (or scraping) looks like this:
 
 ```json
 {
@@ -30,19 +30,25 @@ Suppose the JSON to which you are subscribing (or scraping) looks like this:
         "items": [
             {
                 "meta": {"title": "Some news item"},
-                "content": "Content of the news"
+                "content": "Content of the news",
+				"links": ["https://example.net/1", "https://example.org/1"]
             },
             {
                 "meta": {"title": "Some other news item"},
-                "content": "Yet more content"
+                "content": "Yet more content",
+				"links": ["https://example.net/2", "https://example.org/2"]
             }
         ]
     }
 }
 ```
 
-Then the items are under `data.items`, and within each item, the title is `meta.title`.
-Essentially you can join nested keys with a dot.
+The *dot notation* and *bracket notation* (only numeric) are supported.
+
+Then the items are under `data.items`, and within each item, the title is `meta.title`,
+and the link would be `links[1]`.
+
+It is a similar syntax to the JavaScript way to access JSON: `object.object.array[2].property`.
 
 ## Tips & tricks
 

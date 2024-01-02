@@ -10,7 +10,7 @@ final class FreshRSS_dotpath_Util
 	 * Newer version in
 	 * https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337
 	 *
-	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
 	 * @param string|null $key
 	 * @param mixed $default
 	 * @return mixed
@@ -19,9 +19,17 @@ final class FreshRSS_dotpath_Util
 		if (!static::accessible($array)) {
 			return static::value($default);
 		}
+		/** @var \ArrayAccess<string,mixed>|array<string,mixed> $array */
 		if ($key === null || $key === '') {
 			return $array;
 		}
+
+		// Compatibility with brackets path such as `items[0].value`
+		$key = preg_replace('/\[(\d+)\]/', '.$1', $key);
+		if ($key === null) {
+			return null;
+		}
+
 		if (static::exists($array, $key)) {
 			return $array[$key];
 		}
@@ -41,7 +49,7 @@ final class FreshRSS_dotpath_Util
 	/**
 	 * Get a string from an array using "dot" notation.
 	 *
-	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
 	 * @param string|null $key
 	 */
 	public static function getString($array, ?string $key): ?string {
@@ -56,21 +64,24 @@ final class FreshRSS_dotpath_Util
 	 * @return bool
 	 */
 	private static function accessible(mixed $value): bool {
-		return is_array($value) || $value instanceof ArrayAccess;
+		return is_array($value) || $value instanceof \ArrayAccess;
 	}
 
 	/**
 	 * Determine if the given key exists in the provided array.
 	 *
-	 * @param \ArrayAccess<string,mixed>|array<string,mixed> $array
+	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
 	 * @param string $key
 	 * @return bool
 	 */
 	private static function exists($array, string $key): bool {
-		if ($array instanceof ArrayAccess) {
+		if ($array instanceof \ArrayAccess) {
 			return $array->offsetExists($key);
 		}
-		return array_key_exists($key, $array);
+		if (is_array($array)) {
+			return array_key_exists($key, $array);
+		}
+		return false;
 	}
 
 	private static function value(mixed $value): mixed {
@@ -136,7 +147,12 @@ final class FreshRSS_dotpath_Util
 					if (is_string($jsonItemCategories) && $jsonItemCategories !== '') {
 						$rssItem['tags'] = [$jsonItemCategories];
 					} elseif (is_array($jsonItemCategories) && count($jsonItemCategories) > 0) {
-						$rssItem['tags'] = $jsonItemCategories;
+						$rssItem['tags'] = [];
+						foreach ($jsonItemCategories as $jsonItemCategory) {
+							if (is_string($jsonItemCategory)) {
+								$rssItem['tags'][] = $jsonItemCategory;
+							}
+						}
 					}
 				}
 
