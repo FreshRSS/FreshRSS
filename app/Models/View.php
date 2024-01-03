@@ -13,6 +13,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<FreshRSS_Category> */
 	public array $categories;
 	public ?FreshRSS_Category $category;
+	public ?FreshRSS_Tag $tag;
 	public string $current_user;
 	/** @var iterable<FreshRSS_Entry> */
 	public $entries;
@@ -110,7 +111,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $selectorSuccess;
 
 	// Extensions
-	/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
+	/** @var array<array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
 	public array $available_extensions;
 	public ?Minz_Extension $ext_details;
 	/** @var array{'system':array<Minz_Extension>,'user':array<Minz_Extension>} */

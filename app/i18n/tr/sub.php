@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Abonelik araçları',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'İsim',
 		'new_name' => 'Eski isim',
 		'old_name' => 'Yeni isim',

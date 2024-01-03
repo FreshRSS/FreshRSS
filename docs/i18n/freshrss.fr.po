@@ -8818,7 +8818,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./users/10_filter.md:93
 msgid "by free-text: `keyword` or `'composed keyword'`"
-msgstr "par texte libre : `mot` or `'mot composé'`"
+msgstr "par texte libre : `mot` ou `'mot composé'`"
 
 #. type: Bullet: '* '
 #: en/./users/10_filter.md:93

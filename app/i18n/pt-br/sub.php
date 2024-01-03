@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Nome',
 		'new_name' => 'Nome novo',
 		'old_name' => 'Nome antigo',
