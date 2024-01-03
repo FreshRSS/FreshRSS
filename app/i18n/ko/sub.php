@@ -175,8 +175,8 @@ return array(
 		'method' => array(
 			'_' => 'HTTP Method',	// TODO
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',

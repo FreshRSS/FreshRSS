@@ -173,10 +173,10 @@ return array(
 		'max_http_redir' => 'Maximum de redirections HTTP',
 		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'Méthode HTTP',
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
+		'method_help' => 'Les données POST supportent automatiquement <code>application/x-www-form-urlencoded</code> et <code>application/json</code>',
+		'method_postparams' => 'Données pour POST',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',

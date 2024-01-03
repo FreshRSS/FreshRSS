@@ -175,8 +175,8 @@ return array(
 		'method' => array(
 			'_' => 'HTTP Method',	// IGNORE
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// IGNORE
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// IGNORE
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// IGNORE
+		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
 		'mute' => 'mute',	// IGNORE
 		'no_selected' => 'No feed selected.',	// IGNORE

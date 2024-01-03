@@ -175,8 +175,8 @@ return array(
 		'method' => array(
 			'_' => 'HTTP Method',	// TODO
 		),
-		'method_help' => 'How to request the feed, GET or POST? Particularly useful for scraping.',	// TODO
-		'method_postparams' => 'JSON object with parameters to send in a POST request E.g. <code>{search:some-keyword}</code>.',	// TODO
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',
