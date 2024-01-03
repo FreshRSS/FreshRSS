@@ -209,6 +209,7 @@ People are sorted by name so please keep this order.
 * [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [Sebastian K](https://github.com/skrollme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrollme)
 * [shn7798](https://github.com/shn7798): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:shn7798), [Web](http://www.code2talk.com/)
+* [Simone "roughnecks" Canaletti](https://github.com/roughnecks): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:roughnecks), [Web](https://woodpeckersnest.space/)
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sirideain)
 * [skrlet13](https://github.com/skrlet13): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13), [Web](https://www.skrlet13.cl/)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
