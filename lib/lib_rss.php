@@ -428,7 +428,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$accept = '*/*;q=0.8';
 	switch ($type) {
 		case 'json':
-			$accept = 'application/json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
+			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
 			break;
 		case 'opml':
 			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
