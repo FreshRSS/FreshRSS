@@ -26,20 +26,20 @@ Suppose the JSON to which you are subscribing to (or scraping) looks like this:
 
 ```json
 {
-    "data": {
-        "items": [
-            {
-                "meta": {"title": "Some news item"},
-                "content": "Content of the news",
+	"data": {
+		"items": [
+			{
+				"meta": {"title": "Some news item"},
+				"content": "Content of the news",
 				"links": ["https://example.net/1", "https://example.org/1"]
-            },
-            {
-                "meta": {"title": "Some other news item"},
-                "content": "Yet more content",
+			},
+			{
+				"meta": {"title": "Some other news item"},
+				"content": "Yet more content",
 				"links": ["https://example.net/2", "https://example.org/2"]
-            }
-        ]
-    }
+			}
+		]
+	}
 }
 ```
 
