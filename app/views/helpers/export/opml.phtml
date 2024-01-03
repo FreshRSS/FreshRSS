@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * @param array<FreshRSS_Feed> $feeds
- * @return array<array<string,string|null>>
+ * @return array<array<string,string|bool|int>>
  */
 function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 	$outlines = [];
@@ -102,8 +102,8 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			}
 		}
 
-		// Remove null attributes
-		$outline = array_filter($outline, static function (mixed $value) { return $value !== null; });
+		// Remove null or invalid attributes
+		$outline = array_filter($outline, static function (mixed $value) { return (is_string($value) || is_int($value) || is_bool($value)) && $value !== ''; });
 
 		$outlines[] = $outline;
 	}
