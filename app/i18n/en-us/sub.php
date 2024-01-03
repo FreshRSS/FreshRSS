@@ -122,20 +122,17 @@ return array(
 				'xpath' => 'XPath for:',	// IGNORE
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted Paths)',	// IGNORE
+				'_' => 'JSON (Dotted paths)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'feed title',	// IGNORE
-					'help' => 'Example: <code>title</code> or a static string: <code>My',	// IGNORE
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
 				),
-				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// IGNORE
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
-					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// IGNORE
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// IGNORE
 				),
-				'item_author' => array(
-					'_' => 'item author',	// IGNORE
-					'help' => 'finding the author of the piece',	// IGNORE
-				),
+				'item_author' => 'item author',	// IGNORE
 				'item_categories' => 'item tags',	// IGNORE
 				'item_content' => array(
 					'_' => 'item content',	// IGNORE
@@ -153,10 +150,7 @@ return array(
 					'_' => 'item date',	// IGNORE
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
 				),
-				'item_title' => array(
-					'_' => 'item title',	// IGNORE
-					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// IGNORE
-				),
+				'item_title' => 'item title',	// IGNORE
 				'item_uid' => 'item unique ID',	// IGNORE
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// IGNORE

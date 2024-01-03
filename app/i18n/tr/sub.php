@@ -122,20 +122,17 @@ return array(
 				'xpath' => 'XPath:',
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted Paths)',	// TODO
+				'_' => 'JSON (Dotted paths)',	// TODO
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				),
-				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
 				),
-				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'finding the author of the piece',	// TODO
-				),
+				'item_author' => 'item author',	// TODO
 				'item_categories' => 'item tags',	// TODO
 				'item_content' => array(
 					'_' => 'item content',	// TODO
@@ -153,10 +150,7 @@ return array(
 					'_' => 'item date',	// TODO
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
-				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
-				),
+				'item_title' => 'item title',	// TODO
 				'item_uid' => 'item unique ID',	// TODO
 				'item_uri' => array(
 					'_' => 'item link (URL)',	// TODO

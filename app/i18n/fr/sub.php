@@ -82,7 +82,7 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
-					'_' => 'trouver les <strong>articles</strong>',
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
 					'help' => 'Exemple : <code>//div[@class="article"]</code>',
 				),
 				'item_author' => array(
@@ -122,50 +122,44 @@ return array(
 				'xpath' => 'XPath pour :',
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted Paths)',	// TODO
+				'_' => 'JSON (Chemin)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>title</code> or a static string: <code>My',	// TODO
+					'_' => 'titre de flux',
+					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
-				'help' => 'Nested JSON, accessed via dot-separated keys. (e.g. data.items.item.title.)',	// TODO
+				'help' => 'Un chemin JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Key under which the item is found, e.g. <code>newsItem</code>',	// TODO
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
+					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
 				),
-				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'finding the author of the piece',	// TODO
-				),
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'auteur de l’article',
+				'item_categories' => 'catégories (tags) de l’article',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'contenu de l’article',
+					'help' => 'Chemin JSON pour le contenu, par exemple <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'miniature de l’article',
+					'help' => 'Exemple : <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'date de l’article',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
-				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Key under which the title is found, e.g. <code>title</code>',	// TODO
-				),
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'titre de l’article',
+				'item_uid' => 'identifiant unique de l’article',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'lien (URL) de l’article',
+					'help' => 'Exemple : <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Chemin JSON pour :',
+				'relative' => 'Chemin relatif à l’article pour :',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
