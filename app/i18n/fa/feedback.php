@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => ' برچسب "%s" ایجاد شده است.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => ' نام برچسب از قبل وجود دارد.',
 		'renamed' => ' برچسب "%s" به "%s" تغییر نام داده است.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => ' به‌روزرسانی FreshRSS موجود است: <strong>نسخه %s</strong>.',

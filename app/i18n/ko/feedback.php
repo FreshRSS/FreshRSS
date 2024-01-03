@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '“%s” 태그가 생성되었습니다.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => '같은 이름의 태그가 이미 존재합니다.',
 		'renamed' => '“%s” 태그가 “%s” (으)로 이름이 변경되었습니다.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS가 <strong>%s</strong> 버전으로 업데이트됩니다.',

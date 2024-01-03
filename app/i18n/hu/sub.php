@@ -246,6 +246,7 @@ return array(
 		'subscription_tools' => 'Hírforrás eszközök',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Név',
 		'new_name' => 'Új név',
 		'old_name' => 'Régi név',

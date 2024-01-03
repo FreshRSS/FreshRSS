@@ -246,6 +246,7 @@ return array(
 		'subscription_tools' => 'Herramientas de suscripción',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Nombre',
 		'new_name' => 'Nuevo nombre',
 		'old_name' => 'Nombre antiguo',
