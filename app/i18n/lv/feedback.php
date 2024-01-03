@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Birka “%s” tika uztaisīta.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Birkas nosaukums jau pastāv.',
 		'renamed' => 'Birka “%s” tika pārdēvēts par “%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS tagad būs atjaunots uz <strong>%s versiju</strong>.',

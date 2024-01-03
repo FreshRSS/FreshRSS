@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 	'tag' => array(
+		'auto_label' => 'Ajoute l’étiquette aux nouveaux articles',
 		'name' => 'Nom',
 		'new_name' => 'Nouveau nom',
 		'old_name' => 'Ancien nom',

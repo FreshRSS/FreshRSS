@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => '구독 도구',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => '이름',
 		'new_name' => '새 이름',
 		'old_name' => '이전 이름',

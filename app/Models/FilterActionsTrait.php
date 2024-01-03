@@ -50,8 +50,7 @@ trait FreshRSS_FilterActionsTrait {
 		$filterActions = $this->filterActions();
 		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
 			$filterAction = $filterActions[$i];
-			if ($filterAction != null && $filterAction->booleanSearch() != null &&
-				$filterAction->actions() != null && in_array($action, $filterAction->actions(), true)) {
+			if (in_array($action, $filterAction->actions(), true)) {
 				$filters[] = $filterAction->booleanSearch();
 			}
 		}
@@ -120,7 +119,11 @@ trait FreshRSS_FilterActionsTrait {
 		$this->_filterActions($filterActions);
 	}
 
-	public function applyFilterActions(FreshRSS_Entry $entry): void {
+	/**
+	 * @param bool $applyLabel Parameter by reference, which will be set to true if the callers needs to apply a label to the article entry.
+	 */
+	public function applyFilterActions(FreshRSS_Entry $entry, ?bool &$applyLabel = null): void {
+		$applyLabel = false;
 		foreach ($this->filterActions() as $filterAction) {
 			if ($entry->matches($filterAction->booleanSearch())) {
 				foreach ($filterAction->actions() as $action) {
@@ -135,7 +138,7 @@ trait FreshRSS_FilterActionsTrait {
 							$entry->_isFavorite(true);
 							break;
 						case 'label':
-							//TODO: Implement more actions
+							$applyLabel = true;
 							break;
 					}
 				}

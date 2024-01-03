@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 class FreshRSS_Tag extends Minz_Model {
-	use FreshRSS_AttributesTrait;
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	private int $id = 0;
 	private string $name;

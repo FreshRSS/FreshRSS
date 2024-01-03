@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Názov',
 		'new_name' => 'Nový názov',
 		'old_name' => 'Starý názov',

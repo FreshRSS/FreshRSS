@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'ابزارهای اشتراک',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => ' نام',
 		'new_name' => ' نام جدید',
 		'old_name' => ' نام قدیمی',
