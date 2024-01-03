@@ -161,7 +161,12 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_RSS_ATOM):
+				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
+					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTPATH);
+					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
+					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
+					break;
 				default:
 					$feed->_kind(FreshRSS_Feed::KIND_RSS);
 					break;
@@ -213,9 +218,43 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:xPathItemUid'])) {
 				$xPathSettings['itemUid'] = $feed_elt['frss:xPathItemUid'];
 			}
-
 			if (!empty($xPathSettings)) {
 				$feed->_attribute('xpath', $xPathSettings);
+			}
+
+			$jsonSettings = [];
+			if (isset($feed_elt['frss:jsonItem'])) {
+				$jsonSettings['item'] = $feed_elt['frss:jsonItem'];
+			}
+			if (isset($feed_elt['frss:jsonItemTitle'])) {
+				$jsonSettings['itemTitle'] = $feed_elt['frss:jsonItemTitle'];
+			}
+			if (isset($feed_elt['frss:jsonItemContent'])) {
+				$jsonSettings['itemContent'] = $feed_elt['frss:jsonItemContent'];
+			}
+			if (isset($feed_elt['frss:jsonItemUri'])) {
+				$jsonSettings['itemUri'] = $feed_elt['frss:jsonItemUri'];
+			}
+			if (isset($feed_elt['frss:jsonItemAuthor'])) {
+				$jsonSettings['itemAuthor'] = $feed_elt['frss:jsonItemAuthor'];
+			}
+			if (isset($feed_elt['frss:jsonItemTimestamp'])) {
+				$jsonSettings['itemTimestamp'] = $feed_elt['frss:jsonItemTimestamp'];
+			}
+			if (isset($feed_elt['frss:jsonItemTimeFormat'])) {
+				$jsonSettings['itemTimeFormat'] = $feed_elt['frss:jsonItemTimeFormat'];
+			}
+			if (isset($feed_elt['frss:jsonItemThumbnail'])) {
+				$jsonSettings['itemThumbnail'] = $feed_elt['frss:jsonItemThumbnail'];
+			}
+			if (isset($feed_elt['frss:jsonItemCategories'])) {
+				$jsonSettings['itemCategories'] = $feed_elt['frss:jsonItemCategories'];
+			}
+			if (isset($feed_elt['frss:jsonItemUid'])) {
+				$jsonSettings['itemUid'] = $feed_elt['frss:jsonItemUid'];
+			}
+			if (!empty($jsonSettings)) {
+				$feed->_attribute('json_dotpath', $jsonSettings);
 			}
 
 			// Call the extension hook
