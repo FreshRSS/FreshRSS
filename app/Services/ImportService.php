@@ -257,6 +257,41 @@ class FreshRSS_Import_Service {
 				$feed->_attribute('json_dotpath', $jsonSettings);
 			}
 
+			$curl_params = [];
+			if (isset($feed_elt['frss:CURLOPT_COOKIE'])) {
+				$curl_params[CURLOPT_COOKIE] = $feed_elt['frss:CURLOPT_COOKIE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_COOKIEFILE'])) {
+				$curl_params[CURLOPT_COOKIEFILE] = $feed_elt['frss:CURLOPT_COOKIEFILE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_FOLLOWLOCATION'])) {
+				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_HTTPHEADER'])) {
+				$curl_params[CURLOPT_HTTPHEADER] = preg_split('/\R/', $feed_elt['frss:CURLOPT_HTTPHEADER']) ?: [];
+			}
+			if (isset($feed_elt['frss:CURLOPT_MAXREDIRS'])) {
+				$curl_params[CURLOPT_MAXREDIRS] = (int)$feed_elt['frss:CURLOPT_MAXREDIRS'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_POST'])) {
+				$curl_params[CURLOPT_POST] = (bool)$feed_elt['frss:CURLOPT_POST'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_POSTFIELDS'])) {
+				$curl_params[CURLOPT_POSTFIELDS] = $feed_elt['frss:CURLOPT_POSTFIELDS'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_PROXY'])) {
+				$curl_params[CURLOPT_PROXY] = $feed_elt['frss:CURLOPT_PROXY'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_PROXYTYPE'])) {
+				$curl_params[CURLOPT_PROXYTYPE] = $feed_elt['frss:CURLOPT_PROXYTYPE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_USERAGENT'])) {
+				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
+			}
+			if (!empty($curl_params)) {
+				$feed->_attribute('curl_params', $curl_params);
+			}
+
 			// Call the extension hook
 			/** @var FreshRSS_Feed|null */
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);

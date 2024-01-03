@@ -80,8 +80,30 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssFullContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
+		$curl_params = $feed->attributeArray('curl_params');
+		if (!empty($curl_params)) {
+			$outline['frss:CURLOPT_COOKIE'] = $curl_params[CURLOPT_COOKIE] ?? null;
+			$outline['frss:CURLOPT_COOKIEFILE'] = $curl_params[CURLOPT_COOKIEFILE] ?? null;
+			$outline['frss:CURLOPT_FOLLOWLOCATION'] = $curl_params[CURLOPT_FOLLOWLOCATION] ?? null;
+			$outline['frss:CURLOPT_MAXREDIRS'] = $curl_params[CURLOPT_MAXREDIRS] ?? null;
+			$outline['frss:CURLOPT_POST'] = $curl_params[CURLOPT_POST] ?? null;
+			$outline['frss:CURLOPT_POSTFIELDS'] = $curl_params[CURLOPT_POSTFIELDS] ?? null;
+			$outline['frss:CURLOPT_PROXY'] = $curl_params[CURLOPT_PROXY] ?? null;
+			$outline['frss:CURLOPT_PROXYTYPE'] = $curl_params[CURLOPT_PROXYTYPE] ?? null;
+			$outline['frss:CURLOPT_USERAGENT'] = $curl_params[CURLOPT_USERAGENT] ?? null;
+
+			if (!empty($curl_params[CURLOPT_HTTPHEADER]) && is_array($curl_params[CURLOPT_HTTPHEADER])) {
+				$headers = '';
+				foreach ($curl_params[CURLOPT_HTTPHEADER] as $header) {
+					$headers .= $header . "\n";
+				}
+				$headers = trim($headers);
+				$outline['frss:CURLOPT_HTTPHEADER'] = $headers;
+			}
+		}
+
 		// Remove null attributes
-		$outline = array_filter($outline, static function (?string $value) { return $value !== null; });
+		$outline = array_filter($outline, static function (mixed $value) { return $value !== null; });
 
 		$outlines[] = $outline;
 	}

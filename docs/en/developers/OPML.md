@@ -67,6 +67,21 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 
 * `<outline type="JSONFeed" ...`: Uses `JSON+DotPath` behind the scenes to parse a [JSON Feed](https://www.jsonfeed.org/).
 
+### cURL
+
+A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are supported:
+
+* `frss:CURLOPT_COOKIE`
+* `frss:CURLOPT_COOKIEFILE`
+* `frss:CURLOPT_FOLLOWLOCATION`
+* `frss:CURLOPT_HTTPHEADER`
+* `frss:CURLOPT_MAXREDIRS`
+* `frss:CURLOPT_POST`
+* `frss:CURLOPT_POSTFIELDS`
+* `frss:CURLOPT_PROXY`
+* `frss:CURLOPT_PROXYTYPE`
+* `frss:CURLOPT_USERAGENT`
+
 ### Miscellaneous
 
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
