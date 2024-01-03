@@ -595,7 +595,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return array<string,string> */
-	private function dotPathsForStandardJSONFeed(): array {
+	private function dotPathsForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
 			'item' => 'items',
@@ -645,9 +645,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 		/** @var array<string,string> $json_dotpath */
 		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJSONFeed() : $json_dotpath;
+		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
 
-		$feedContent = FreshRSS_dotpath_Util::convertJSONtoRSS($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotpath_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}

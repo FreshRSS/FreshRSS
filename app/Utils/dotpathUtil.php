@@ -98,7 +98,7 @@ final class FreshRSS_dotpath_Util
 	 * @param array<string,string> $dotPaths dot paths to map JSON into RSS
 	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotPath `feedTitle`
 	 */
-	public static function convertJSONtoRSS(array $jf, string $feedSourceUrl, array $dotPaths, string $defaultRssTitle = ''): ?string {
+	public static function convertJsonToRss(array $jf, string $feedSourceUrl, array $dotPaths, string $defaultRssTitle = ''): ?string {
 		if (!isset($dotPaths['item']) || $dotPaths['item'] === '') {
 			return null; //no definition of item path, but we can't scrape anything without knowing this
 		}

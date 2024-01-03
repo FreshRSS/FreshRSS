@@ -1,7 +1,6 @@
 [default.extend-identifiers]
 ot = "ot"
 Ths2 = "Ths2"
-convertJSONtoRSS = "convertJSONtoRSS"
 
 [default.extend-words]
 referer = "referer"
