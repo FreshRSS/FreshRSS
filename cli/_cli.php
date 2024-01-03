@@ -104,3 +104,48 @@ function validateOptions(array $input, array $params): bool {
 	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
 	return false;
 }
+
+/**
+ * Checks for use of deprecated parameters with FreshRSS' CLI commands.
+ * @param array<string> $input User inputs to check for deprecated parameter use.
+ * @param array<string> $params Deprecated parameters to check for use of in $input.
+ * @return bool Returns TRUE and generates a deprecation warning if deprecated parameters
+ * have been used, FALSE otherwise.
+ */
+function checkforDeprecatedParameterUse(array $input, array $params): bool {
+	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
+	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
+	$deprecatedOptions = array_intersect($sanitizeInput, $sanitizeParams);
+
+	if (0 === count($deprecatedOptions)) {
+		return false;
+	}
+
+	trigger_error("The FreshRss CLI option(s): " . implode (', ', $deprecatedOptions) .
+		" are deprecated and will be removed in a future release", E_USER_DEPRECATED);
+	return true;
+}
+
+/**
+ * Updates a deprecated parameter to it's replacement if it has one.
+ * @param array<string> $options Options set by user.
+ * @param array<string> $params An array with replacement parameters as keys and their respective deprecated
+ * parameters as values, eg.
+ * ```php
+ * ['replacement parameter' => 'deprecated parameter']
+ * ```
+ * @return array<string>  Returns $options with deprications replaced.
+ */
+function updateDeprecatedParameters(array $options, array $params): array {
+	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
+
+	foreach ($options as $param => $option) {
+		if (array_search($param, $sanitizeParams)) {
+			$updatedOptions[array_search($param, $sanitizeParams)] = $option;
+		} else {
+			$updatedOptions[$param] = $option;
+		}
+	}
+
+	return $updatedOptions;
+}
