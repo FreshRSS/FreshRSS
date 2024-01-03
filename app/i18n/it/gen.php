@@ -65,7 +65,7 @@ return array(
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
 		'Dec' => '\\D\\i\\c\\e\\m\\b\\r\\e',
 		'Feb' => '\\F\\e\\b\\b\\r\\a\\i\\o',
-		'Jan' => '\\G\\e\\n\\u\\a\\i\\o',
+		'Jan' => '\\G\\e\\n\\n\\a\\i\\o',
 		'Jul' => '\\L\\u\\g\\l\\i\\o',
 		'Jun' => '\\G\\i\\u\\g\\n\\o',
 		'Mar' => '\\M\\a\\r\\z\\o',
