@@ -85,6 +85,8 @@ function performRequirementCheck(string $databaseType): void {
  */
 function parseCliParams(array $parameters): array {
 	global $argv;
+	$cliParams = [];
+	$options = [];
 
 	foreach ($parameters['valid'] as $param => $getopt_val) {
 		$cliParams[] = $param . $getopt_val;
@@ -187,6 +189,8 @@ function checkforDeprecatedParameterUse(array $options, array $params): bool {
  * @return array<string,mixed>  Returns $options with deprications replaced.
  */
 function updateDeprecatedParameters(array $options, array $params): array {
+	$updatedOptions = [];
+
 	foreach ($options as $param => $option) {
 		if (array_search($param, $params)) {
 			$updatedOptions[array_search($param, $params)] = $option;
