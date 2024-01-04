@@ -20,7 +20,7 @@ echo 'FreshRSS creating user “', $username, "”…\n";
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
-	empty($options['mail_login']) ? '' : $options['mail_login'],
+	empty($options['email']) ? '' : $options['email'],
 	empty($options['password']) ? '' : $options['password'],
 	$GLOBALS['values'],
 	!isset($options['no_default_feeds'])

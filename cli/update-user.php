@@ -11,7 +11,7 @@ echo 'FreshRSS updating user “', $username, "”…\n";
 
 $ok = FreshRSS_user_Controller::updateUser(
 	$username,
-	empty($options['mail_login']) ? null : $options['mail_login'],
+	empty($options['email']) ? null : $options['email'],
 	empty($options['password']) ? '' : $options['password'],
 	$GLOBALS['values']);
 
