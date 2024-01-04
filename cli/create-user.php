@@ -23,7 +23,7 @@ $ok = FreshRSS_user_Controller::createUser(
 	empty($options['valid']['email']) ? '' : $options['valid']['email'],
 	empty($options['valid']['password']) ? '' : $options['valid']['password'],
 	$GLOBALS['values'],
-	!isset($options['no_default_feeds'])
+	!isset($options['valid']['no-default-feeds'])
 );
 
 if (!$ok) {
