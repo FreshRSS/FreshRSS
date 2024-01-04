@@ -60,7 +60,7 @@ $dBconfigParams = [
 
 $options = parseCliParams($parameters);
 
-if ($options['invalid']) {
+if (!empty($options['invalid'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default-user admin ( --auth-type form" .
 		" --environment production --base-url https://rss.example.net --allow-robots" .
 		" --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled" .

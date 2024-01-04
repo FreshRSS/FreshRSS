@@ -152,18 +152,20 @@ function findInvalidOptions(array $input, array $params): array {
  */
 function checkforDeprecatedParameterUse(array $options, array $params): bool {
 	$deprecatedOptions = array_intersect($options, $params);
+	$replacements = array_map(static fn($option) => array_search($option, $params), $deprecatedOptions);
 
 	if (0 === count($deprecatedOptions)) {
 		return false;
 	}
 
 	trigger_error("The FreshRss CLI option(s): " . implode (', ', $deprecatedOptions) .
-		" are deprecated and will be removed in a future release", E_USER_DEPRECATED);
+		" are deprecated and will be removed in a future release. Use: "
+		. implode (', ', $replacements) . " instead", E_USER_DEPRECATED);
 	return true;
 }
 
 /**
- * Switches used deprecated parameters to their replacements if they have one.
+ * Switches all used deprecated parameters to their replacements if they have one.
  * @param array<string> $options User inputs.
  * @param array<string> $params An array with replacement parameters as keys and their respective deprecated
  * parameters as values, eg.

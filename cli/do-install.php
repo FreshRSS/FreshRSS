@@ -40,31 +40,31 @@ $parameters = [
 ];
 
 $configParams = [
-		'environment' => 'environment',
-		'base-url' => 'base_url',
-		'language' => 'language',
-		'title' => 'title',
-		'default-user' => 'default_user',
-		'allow-anonymous' => 'allow_anonymous',
-		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
-		'auth-type' => 'auth_type',
-		'api-enabled' => 'api_enabled',
-		'allow-robots' => 'allow_robots',
-		'disable-update' => 'disable_update',
+	'environment' => 'environment',
+	'base-url' => 'base_url',
+	'language' => 'language',
+	'title' => 'title',
+	'default-user' => 'default_user',
+	'allow-anonymous' => 'allow_anonymous',
+	'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+	'auth-type' => 'auth_type',
+	'api-enabled' => 'api_enabled',
+	'allow-robots' => 'allow_robots',
+	'disable-update' => 'disable_update',
 ];
 
 $dBconfigParams = [
-		'db-type' => 'type',
-		'db-host' => 'host',
-		'db-user' => 'user',
-		'db-password' => 'password',
-		'db-base' => 'base',
-		'db-prefix' => 'prefix',
+	'db-type' => 'type',
+	'db-host' => 'host',
+	'db-user' => 'user',
+	'db-password' => 'password',
+	'db-base' => 'base',
+	'db-prefix' => 'prefix',
 ];
 
 $options = parseCliParams($parameters);
 
-if ($options['invalid'] || empty($options['valid']['default-user']) || !is_string($options['valid']['default-user'])) {
+if (!empty($options['invalid']) || empty($options['valid']['default-user']) || !is_string($options['valid']['default-user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default-user admin ( --auth-type form" .
 		" --environment production --base-url https://rss.example.net --allow-robots" .
 		" --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled" .
