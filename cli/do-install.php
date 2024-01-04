@@ -8,42 +8,27 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 }
 
 $parameters = array(
-		'valid' => array(
-				'environment' => ':',
-				'base-url' => ':',
-				'language' => ':',
-				'title' => ':',
-				'default-user' => ':',
-				'allow-anonymous' => '',
-				'allow-anonymous-refresh' => '',
-				'auth-type' => ':',
-				'api-enabled' => '',
-				'allow-robots' => '',
-				'disable-update' => '',
-				'db-type' => ':',
-				'db-host' => ':',
-				'db-user' => ':',
-				'db-password' => ':',
-				'db-base' => ':',
-				'db-prefix' => '::',
-			),
-		'deprecated' => array(
-				'base-url' => 'base_url',
-				'default-user' => 'default_user',
-				'allow-anonymous' => 'allow_anonymous',
-				'allow-anonymous-refresh' => 'allow_anonymous_refresh',
-				'auth-type' => 'auth_type',
-				'api-enabled' => 'api_enabled',
-				'allow-robots' => 'allow_robots',
-				'disable-update' => 'disable_update',
-			),
-	);
-
-$configParams = array(
-		'environment' => 'environment',
+	'valid' => array(
+		'environment' => ':',
+		'base-url' => ':',
+		'language' => ':',
+		'title' => ':',
+		'default-user' => ':',
+		'allow-anonymous' => '',
+		'allow-anonymous-refresh' => '',
+		'auth-type' => ':',
+		'api-enabled' => '',
+		'allow-robots' => '',
+		'disable-update' => '',
+		'db-type' => ':',
+		'db-host' => ':',
+		'db-user' => ':',
+		'db-password' => ':',
+		'db-base' => ':',
+		'db-prefix' => '::',
+	),
+	'deprecated' => array(
 		'base-url' => 'base_url',
-		'language' => 'language',
-		'title' => 'title',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',
 		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
@@ -51,16 +36,31 @@ $configParams = array(
 		'api-enabled' => 'api_enabled',
 		'allow-robots' => 'allow_robots',
 		'disable-update' => 'disable_update',
-	);
+	),
+);
+
+$configParams = array(
+	'environment' => 'environment',
+	'base-url' => 'base_url',
+	'language' => 'language',
+	'title' => 'title',
+	'default-user' => 'default_user',
+	'allow-anonymous' => 'allow_anonymous',
+	'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+	'auth-type' => 'auth_type',
+	'api-enabled' => 'api_enabled',
+	'allow-robots' => 'allow_robots',
+	'disable-update' => 'disable_update',
+);
 
 $dBconfigParams = array(
-		'db-type' => 'type',
-		'db-host' => 'host',
-		'db-user' => 'user',
-		'db-password' => 'password',
-		'db-base' => 'base',
-		'db-prefix' => 'prefix',
-	);
+	'db-type' => 'type',
+	'db-host' => 'host',
+	'db-user' => 'user',
+	'db-password' => 'password',
+	'db-base' => 'base',
+	'db-prefix' => 'prefix',
+);
 
 $options = parseCliParams($parameters);
 
