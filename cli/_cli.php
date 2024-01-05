@@ -95,7 +95,9 @@ function parseCliParams(array $parameters): array {
 		$cliParams[] = $deprecatedParam . $parameters['valid'][$param];
 	}
 
-	$options['valid'] = getopt('', $cliParams);
+	$opts = getopt('', $cliParams);
+
+	$options['valid'] = is_array($opts) ? $opts : []; 
 
 	array_walk($options['valid'], static fn(&$option) => $option = $option === false ? true : $option);
 
@@ -169,7 +171,7 @@ function findInvalidOptions(array $input, array $params): array {
  */
 function checkforDeprecatedParameterUse(array $options, array $params): bool {
 	$deprecatedOptions = array_intersect($options, $params);
-	$replacements = array_map(static fn($option) => array_search($option, $params), $deprecatedOptions);
+	$replacements = array_map(static fn($option) => array_search($option, $params, true), $deprecatedOptions);
 
 	if (0 === count($deprecatedOptions)) {
 		return false;
@@ -192,8 +194,9 @@ function updateDeprecatedParameters(array $options, array $params): array {
 	$updatedOptions = [];
 
 	foreach ($options as $param => $option) {
-		if (array_search($param, $params)) {
-			$updatedOptions[array_search($param, $params)] = $option;
+		$replacement = array_search($param, $params, true);
+		if (is_string($replacement)) {
+			$updatedOptions[$replacement] = $option;
 		} else {
 			$updatedOptions[$param] = $option;
 		}
