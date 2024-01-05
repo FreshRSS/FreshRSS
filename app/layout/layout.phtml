@@ -64,7 +64,6 @@ if (_t('gen.dir') === 'rtl') {
 	}
 ?>
 
-<div id="global">
 	<?php
 		flush();
 		if (isset($this->callbackBeforeFeeds)) {
@@ -72,7 +71,7 @@ if (_t('gen.dir') === 'rtl') {
 		}
 		$this->render();
 	?>
-</div>
+
 
 <?php
 	$msg = '';

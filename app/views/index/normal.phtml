@@ -3,6 +3,9 @@ declare(strict_types=1);
 /** @var FreshRSS_View $this */
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
+} ?>
+<main id="maincolumn">
+<?php if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
 
@@ -20,7 +23,7 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 $today = @strtotime('today');
 ?>
 
-<main id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
+<div id="stream" class="normal<?= $hidePosts ? ' hide_posts' : '' ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
@@ -245,6 +248,7 @@ $today = @strtotime('today');
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
 ?>
+</div>
 </main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles

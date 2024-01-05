@@ -1,5 +1,8 @@
 <?php
 	declare(strict_types=1);
+?>
+<main id="maincolumn">
+<?php
 	/** @var FreshRSS_View $this */
 	$this->partial('nav_menu');
 
@@ -13,7 +16,7 @@
 		$state_unread = true;
 	}
 ?>
-<main id="stream" class="global<?= $class ?>">
+<div id="stream" class="global<?= $class ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php
 	$params = $_GET;
@@ -78,6 +81,7 @@
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
 	</div>
 	<?php } ?>
+	</div>
 </main>
 
 <div id="overlay">

@@ -1,8 +1,14 @@
 <?php
 declare(strict_types=1);
+
 /** @var FreshRSS_View $this */
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
+}
+?>
+<main id="maincolumn">
+<?php
+if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
 
@@ -216,16 +222,18 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
-?></main><?php
+?></div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<main id="stream" class="reader">
-	<div id="new-article">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-	</div>
-	<div class="prompt alert alert-warn">
-		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+<main id="maincolumn">
+	<div id="stream" class="reader">
+		<div id="new-article">
+			<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		</div>
+		<div class="prompt alert alert-warn">
+			<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		</div>
 	</div>
 </main>
 <?php endif; ?>

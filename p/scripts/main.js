@@ -432,7 +432,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	const relative_move = context.current_view === 'global';
-	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+	const box_to_move = relative_move ? document.getElementById('panel') : document.getElementById('stream');
 
 	if (context.sticky_post) {	// Stick the article to the top when opened
 		const prev_article = new_active.previousElementSibling;
@@ -767,7 +767,7 @@ function debouncedOnScroll() {
 
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
-		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
+		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.getElementById('stream');
 		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnScroll;
 		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();

@@ -62,6 +62,12 @@ html, body {
 	font-size: 100%;
 }
 
+body {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+}
+
 main.prompt {
 	margin: 3rem auto 0;
 	padding: 2rem;
@@ -74,6 +80,10 @@ main.prompt {
 main.prompt .link-registration {
 	padding: 1rem 0 0;
 	margin-bottom: 3rem;
+}
+
+main#maincolumn {
+	width: 100%;
 }
 
 footer.main-footer {
@@ -437,13 +447,6 @@ td.numeric {
 	font-weight: bold;
 	text-align: right;
 	cursor: pointer;
-}
-
-@supports (position: sticky) {
-	#mark-read-aside {
-		position: sticky;
-		top: 0;
-	}
 }
 
 /*=== Buttons */
@@ -1000,7 +1003,6 @@ li.drag-hover {
 /*=== Tree */
 .tree {
 	margin: 0;
-	max-height: 99vh;
 	list-style: none;
 	text-align: left;
 	overflow-x: hidden;
@@ -1053,46 +1055,39 @@ li.drag-hover {
 /*===============*/
 /*=== Header */
 .header {
-	display: table;
-	width: 100%;
-	height: calc(2.5rem + 2 * var(--frss-padding-top-bottom));
-	table-layout: fixed;
+	width: 55px;
 }
 
-.header > .item {
-	padding-top: var(--frss-padding-top-bottom);
-	padding-bottom: var(--frss-padding-top-bottom);
-	display: table-cell;
-}
-
-.header > .item.title {
-	width: 300px;
-	text-align: center;
-	white-space: nowrap;
-}
-
-.header > .item.title h1 {
-	display: inline-block;
-}
-
-.header > .item.title a {
-	padding: 0.25rem 1rem;
-	display: inline-block;
-}
-
-.header > .item.title .logo {
-	display: inline-block;
-	height: 2rem;
-	vertical-align: middle;
-}
-
-.header > .item.title a:hover .logo {
+a:hover .logo {
 	filter: brightness(1.4);
 	transition: filter 0.1s linear;
 }
 
+.header .logo {
+	display: none;
+}
+
+.header .group {
+	flex-direction: column;
+}
+
+#aside_feed .logo {
+	margin: 0.5rem 3rem;
+	width: 120px;
+}
+
 .header > .item.configure {
 	width: 100px;
+}
+
+.header .nav-header {
+	padding: 1rem 0.5rem 2rem 0.5rem;
+	display: flex;
+	flex-direction: column;
+	width: 50px;
+	height: 100vh;
+	box-sizing: border-box;
+	justify-content: space-between;
 }
 
 input[type="search"] {
@@ -1112,14 +1107,30 @@ input[type="search"] {
 	background: inherit;
 }
 
-.aside {
-	display: table-cell;
-	width: 300px;
-	vertical-align: top;
+main #stream {
+	height: calc(100vh - 54px);
+	overflow-y: scroll;
 }
 
 .aside + .close-aside {
 	display: none;
+}
+
+.aside,
+#sidebar {
+	width: 300px;
+}
+
+.aside .logo {
+	display: inline-block;
+	height: 2rem;
+	vertical-align: middle;
+}
+
+.aside .nav-wrapper {
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 /*=== Aside main page */
@@ -1693,17 +1704,7 @@ a.website:hover .favicon {
 	text-align: left;
 }
 
-#global #panel {
-	bottom: 99vh;
-	display: block;
-	transition: visibility .3s, bottom .3s;
-	visibility: hidden;
-}
 
-#global #panel.visible {
-	bottom: 2%;
-	visibility: visible;
-}
 /*=== Panel */
 #overlay {
 	position: fixed;
@@ -1722,11 +1723,18 @@ a.website:hover .favicon {
 
 #panel {
 	background-color: var(--frss-background-color);
-	display: none;
+	display: block;
 	position: fixed;
 	top: 2%; bottom: 2%;
 	left: 3%; right: 3%;
 	overflow: auto;
+	transition: visibility .3s, bottom .3s;
+	visibility: hidden;
+}
+
+#panel.visible {
+	bottom: 2%;
+	visibility: visible;
 }
 
 #overlay .close {
@@ -2153,6 +2161,26 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
+	body {
+		flex-direction: column;
+	}
+
+	.header {
+		width: auto;
+		height: 55px;
+	}
+
+	.header .nav-header {
+		padding: 0.5rem 2rem 0.5rem 1rem ;
+		flex-direction: row;
+		width: auto;
+		height: 50px;
+	}
+
+	.header .group {
+		flex-direction: row;
+	}
+
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
@@ -2164,21 +2192,11 @@ html.slider-active {
 		display: unset !important;
 	}
 
-	.header > .item {
-		padding: 5px;
-	}
-
-	.header > .item.title {
-		width: 75%;
-		text-align: left;
-	}
-
-	.header > .item.title .logo {
+	.logo {
 		height: 24px;
 	}
 
-
-	header .item.search form {
+	.nav_menu .group.search {
 		display: none;
 	}
 
@@ -2348,10 +2366,6 @@ html.slider-active {
 	.reader .aside:target {
 		width: 90%;
 		height: 100vh;
-	}
-
-	.aside_feed .configure-feeds {
-		margin-top: 10px;
 	}
 
 	.aside_feed .tree-folder-items .feed .favicon {
