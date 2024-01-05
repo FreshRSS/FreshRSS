@@ -97,20 +97,24 @@ function parseCliParams(array $parameters): array {
 
 	$opts = getopt('', $cliParams);
 
-	$options['valid'] = is_array($opts) ? $opts : [];
+	/** @var array<string,string|bool> $valid */
+	$valid = is_array($opts) ? $opts : [];
 
-	array_walk($options['valid'], static fn(&$option) => $option = $option === false ? true : $option);
+	array_walk($valid, static fn(&$option) => $option = $option === false ? true : $option);
 
-	if (checkforDeprecatedParameterUse(array_keys($options['valid']), $parameters['deprecated'])) {
-		$options['valid'] = updateDeprecatedParameters($options['valid'], $parameters['deprecated']);
+	if (checkforDeprecatedParameterUse(array_keys($valid), $parameters['deprecated'])) {
+		$valid = updateDeprecatedParameters($valid, $parameters['deprecated']);
 	}
 
-	$options['invalid'] = findInvalidOptions(
+	$invalid = findInvalidOptions(
 		$argv,
 		array_merge(array_keys($parameters['valid']), array_values($parameters['deprecated']))
 	);
 
-	return $options;
+	return [
+		'valid' => $valid,
+		'invalid' => $invalid
+	];
 }
 
 /**
