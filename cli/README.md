@@ -35,7 +35,7 @@ cd /usr/share/FreshRSS
 # Ensure the needed directories in ./data/
 
 ./cli/do-install.php --default-user admin [ --auth-type form --environment production --base-url https://rss.example.net --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled --db-type sqlite --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss_ ]
-# --default-user must be alphanumeric and not longer than 38 charcters. The default user of this FreshRSS instance, used as the public user for anonymous reading
+# --default-user must be alphanumeric and not longer than 38 characters. The default user of this FreshRSS instance, used as the public user for anonymous reading
 # --auth-type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
 # --base-url should be a public (routable) URL if possible, and is used for push (WebSub), for some API functions (e.g. favicons), and external URLs in FreshRSS
@@ -64,7 +64,7 @@ cd /usr/share/FreshRSS
 cd /usr/share/FreshRSS
 
 ./cli/create-user.php --user username [ --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds --purge-after-months 3 --feed-min-articles-default 50 --feed-ttl-default 3600 --since-hours-posts-per-rss 168 --max-posts-per-rss 400 ]
-# --user must be alphanumeric, not longer than 38 charcters. The name of the user to be created/updated
+# --user must be alphanumeric, not longer than 38 characters. The name of the user to be created/updated
 # --password sets the user's password
 # --api-password sets the user's api password
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
