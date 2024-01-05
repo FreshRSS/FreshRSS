@@ -93,11 +93,11 @@ foreach ($configParams as $param) {
 				}
 				break;
 			case 'base-url':
-				FreshRSS_Context::systemConf()->base_url = $options['valid'][$param];
+				FreshRSS_Context::systemConf()->base_url = (string) $options['valid'][$param];
 				break;
 			case 'default-user':
-				if (FreshRSS_user_Controller::checkUsername($options['valid'][$param])) {
-					FreshRSS_Context::systemConf()->default_user = $options['valid'][$param];
+				if (FreshRSS_user_Controller::checkUsername((string) $options['valid'][$param])) {
+					FreshRSS_Context::systemConf()->default_user = (string) $options['valid'][$param];
 				} else {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
@@ -113,10 +113,10 @@ foreach ($configParams as $param) {
 				}
 				break;
 			case 'language':
-				FreshRSS_Context::systemConf()->language = $options['valid'][$param];
+				FreshRSS_Context::systemConf()->language = (string) $options['valid'][$param];
 				break;
 			case 'title':
-				FreshRSS_Context::systemConf()->title = $options['valid'][$param];
+				FreshRSS_Context::systemConf()->title = (string) $options['valid'][$param];
 				break;
 		}
 	}
