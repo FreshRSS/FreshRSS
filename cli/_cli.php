@@ -97,7 +97,7 @@ function parseCliParams(array $parameters): array {
 
 	$opts = getopt('', $cliParams);
 
-	$options['valid'] = is_array($opts) ? $opts : []; 
+	$options['valid'] = is_array($opts) ? $opts : [];
 
 	array_walk($options['valid'], static fn(&$option) => $option = $option === false ? true : $option);
 
