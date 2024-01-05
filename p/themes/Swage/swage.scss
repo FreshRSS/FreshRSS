@@ -255,11 +255,6 @@ form {
 	select {
 		margin-top: 0;
 	}
-
-	&.configure-feeds {
-
-		@extend %aside-width;
-	}
 }
 
 .btn {
@@ -1237,13 +1232,6 @@ a.signin {
 			.icon {
 				filter: brightness(3);
 			}
-		}
-
-		&.aside_feed .configure-feeds {
-			display: flex;
-			margin-top: 0;
-			margin-left: auto;
-			margin-right: auto;
 		}
 
 		&:target {

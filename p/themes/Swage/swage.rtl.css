@@ -74,7 +74,7 @@ select:invalid {
 	clear: both;
 }
 
-#nav_entries, .notification, #new-article, .aside, .header > .item.title, .stick.configure-feeds {
+#nav_entries, .notification, #new-article, .aside, .header > .item.title {
 	width: 231px;
 }
 
@@ -202,6 +202,7 @@ form th {
 .stick select {
 	margin-top: 0;
 }
+
 .btn {
 	margin: 0;
 	padding: 5px 10px;
@@ -964,12 +965,6 @@ a.signin {
 	}
 	.aside .toggle_aside .icon {
 		filter: brightness(3);
-	}
-	.aside.aside_feed .configure-feeds {
-		display: flex;
-		margin-top: 0;
-		margin-right: auto;
-		margin-left: auto;
 	}
 	.aside:target {
 		width: 78%;
