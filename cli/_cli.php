@@ -185,10 +185,13 @@ function checkforDeprecatedParameterUse(array $options, array $params): bool {
 
 /**
  * Switches all used deprecated parameters to their replacements if they have one.
- * @param array<string,mixed> $options User inputs.
+ *
+ * @template T
+ *
+ * @param array<string,T> $options User inputs.
  * @param array<string,string> $params An array with replacement parameters as keys and their respective deprecated
  * parameters as values.
- * @return array<string,mixed>  Returns $options with deprications replaced.
+ * @return array<string,T>  Returns $options with deprications replaced.
  */
 function updateDeprecatedParameters(array $options, array $params): array {
 	$updatedOptions = [];
