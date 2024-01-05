@@ -80,7 +80,7 @@ function performRequirementCheck(string $databaseType): void {
  * @param array{'valid':array<string,string>,'deprecated':array<string,string>} $parameters An array of 'valid': An
  * array of perameters as keys and their respective getopt() notations as values. 'deprecated' An array with
  * replacement parameters as keys and their respective deprecated parameters as values.
- * @return array{'valid':array<string,mixed>,'invalid':array<string>} An array of 'valid': an array of all
+ * @return array{'valid':array<string,string|bool>,'invalid':array<string>} An array of 'valid': an array of all
  * known parameters used and their respective options and 'invalid': an array of all unknown perameters used.
  */
 function parseCliParams(array $parameters): array {
