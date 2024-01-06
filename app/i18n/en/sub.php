@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Subscription tools',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',
 		'name' => 'Name',
 		'new_name' => 'New name',
 		'old_name' => 'Old name',

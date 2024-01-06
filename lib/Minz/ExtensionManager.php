@@ -275,7 +275,7 @@ final class Minz_ExtensionManager {
 			return;
 		}
 		foreach ($ext_list as $ext_name => $ext_status) {
-			if ($ext_status) {
+			if ($ext_status && is_string($ext_name)) {
 				self::enable($ext_name, $onlyOfType);
 			}
 		}

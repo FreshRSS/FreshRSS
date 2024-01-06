@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Nom',
 		'new_name' => 'Nom novèl',
 		'old_name' => 'Nom ancian',

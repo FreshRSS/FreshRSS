@@ -64,7 +64,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($cat === null) {
 			$catDAO->checkDefault();
 		}
-		$cat_id = $cat === null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$title = trim($title);
@@ -74,7 +73,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_kind($kind);
 		$feed->_attributes($attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->_categoryId($cat_id);
+		if ($cat === null) {
+			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		} else {
+			$feed->_category($cat);
+		}
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
@@ -676,29 +679,81 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
 	}
 
-	public static function commitNewEntries(): bool {
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		if (!$entryDAO->inTransaction()) {
-			$entryDAO->beginTransaction();
-		}
-
-		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
-		if ($entryDAO->commitNewEntries()) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
-			foreach ($feeds as $feed) {
-				if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
-					($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
-					Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
-						$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
-					$feed->markAsReadMaxUnread();
+	/**
+	 * @param array<int,int> $newUnreadEntriesPerFeed
+	 * @return int|false The number of articles marked as read, of false if error
+	 */
+	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed) {
+		$affected = 0;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+		foreach ($feeds as $feed) {
+			if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+				($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+				Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
+				$n = $feed->markAsReadMaxUnread();
+				if ($n === false) {
+					$affected = false;
+					break;
+				} else {
+					$affected += $n;
 				}
 			}
-			$feedDAO->updateCachedValues();
+		}
+		if ($feedDAO->updateCachedValues() === false) {
+			$affected = false;
+		}
+		return $affected;
+	}
+
+	/**
+	 * Auto-add labels to new articles.
+	 * @param int $nbNewEntries The number of top recent entries to process.
+	 * @return int|false The number of new labels added, or false in case of error.
+	 */
+	private static function applyLabelActions(int $nbNewEntries) {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$labels = $tagDAO->listTags() ?: [];
+		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
+			return !empty($label->filtersAction('label'));
+		});
+		if (count($labels) <= 0) {
+			return 0;
 		}
 
-		if ($entryDAO->inTransaction()) {
-			$entryDAO->commit();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		/** @var array<array{id_tag:int,id_entry:string}> $applyLabels */
+		$applyLabels = [];
+		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll($nbNewEntries)) as $entry) {
+			foreach ($labels as $label) {
+				$label->applyFilterActions($entry, $applyLabel);
+				if ($applyLabel) {
+					$applyLabels[] = [
+						'id_tag' => $label->id(),
+						'id_entry' => $entry->id(),
+					];
+				}
+			}
+		}
+		return $tagDAO->tagEntries($applyLabels);
+	}
+
+	public static function commitNewEntries(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
+		$nbNewEntries = array_sum($newUnreadEntriesPerFeed);
+		if ($nbNewEntries > 0) {
+			if (!$entryDAO->inTransaction()) {
+				$entryDAO->beginTransaction();
+			}
+			if ($entryDAO->commitNewEntries()) {
+				self::keepMaxUnreads($newUnreadEntriesPerFeed);
+				self::applyLabelActions($nbNewEntries);
+			}
+			if ($entryDAO->inTransaction()) {
+				$entryDAO->commit();
+			}
 		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();

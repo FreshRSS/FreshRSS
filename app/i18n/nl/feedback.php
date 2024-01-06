@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Label „%s” aangemaakt.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Label bestaat al.',
 		'renamed' => 'Label „%s” hernoemd naar „%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu bijgewerkt naar <strong>versie %s</strong>.',

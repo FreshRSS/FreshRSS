@@ -30,7 +30,7 @@ la machine sur laquelle est installée votre instance de FreshRSS.
 
 Le script qui permet de mettre à jour les articles s’appelle
 *actualize_script.php* et se trouve dans le répertoire *app* de votre
-instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliqué
+instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliquée
 ici, cependant voici [une introduction rapide à
 crontab](http://www.adminschoice.com/crontab-quick-reference/) qui peut vous
 aider.
@@ -205,48 +205,48 @@ the search field.
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats :
 
 * par ID de flux : `f:123` ou plusieurs flux (*ou*) : `f:123,234,345`
-* par auteur : `author:nom` or `author:'nom composé'`
-* par titre : `intitle:mot` or `intitle:'mot composé'`
-* par URL: `inurl:mot` or `inurl:'mot composé'`
-* par tag: `#tag`
-* par texte libre : `mot` or `'mot composé'`
-* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
-	* From a specific day, or month, or year:
+* par auteur : `author:nom` ou `author:'nom composé'`
+* par titre : `intitle:mot` ou `intitle:'mot composé'`
+* par URL : `inurl:mot` ou `inurl:'mot composé'`
+* par tag : `#tag`
+* par texte libre : `mot` ou `'mot composé'`
+* par date d’ajout, en utilisant le [format ISO 8601 d’intervalle entre deux dates](https://fr.wikipedia.org/wiki/ISO_8601#Intervalle_entre_deux_dates) : `date:<intervalle-de-dates>`
+	* D’un jour spécifique, ou mois, ou année :
 		* `date:2014-03-30`
 		* `date:2014-03` or `date:201403`
 		* `date:2014`
-	* From a specific time of a given day:
+	* D’une heure spécifiée d’un jour donné :
 		* `date:2014-05-30T13`
 		* `date:2014-05-30T13:30`
-	* Between two given dates:
+	* Entre deux dates :
 		* `date:2014-02/2014-04`
 		* `date:2014-02--2014-04`
 		* `date:2014-02/04`
 		* `date:2014-02-03/05`
 		* `date:2014-02-03T22:00/22:15`
 		* `date:2014-02-03T22:00/15`
-	* After a given date:
+	* Après une date donnée :
 		* `date:2014-03/`
-	* Before a given date:
+	* Avant une date donnée :
 		* `date:/2014-03`
-	* For a specific duration after a given date:
+	* Pour une certaine durée après une date donnée :
 		* `date:2014-03/P1W`
-	* For a specific duration before a given date:
+	* Pour une certaine durée avant une date donnée :
 		* `date:P1W/2014-05-25T23:59:59`
-	* For the past duration before now (the trailing slash is optional):
-		* `date:P1Y/` or `date:P1Y` (past year)
-		* `date:P2M/` (past two months)
-		* `date:P3W/` (past three weeks)
-		* `date:P4D/` (past four days)
-		* `date:PT5H/` (past five hours)
-		* `date:PT30M/` (past thirty minutes)
-		* `date:PT90S/` (past ninety seconds)
-		* `date:P1DT1H/` (past one day and one hour)
-* par date de publication, avec la même syntaxe: `pubdate:<date-interval>`
+	* Pour une certaine durée avant maintenant (la barre oblique finale est facultative) :
+		* `date:P1Y/` or `date:P1Y` (depuis un an)
+		* `date:P2M/` (depuis deux mois)
+		* `date:P3W/` (depuis trois semaines)
+		* `date:P4D/` (depuis quatre jours)
+		* `date:PT5H/` (depuis cinq heures)
+		* `date:PT30M/` (depuis trente minutes)
+		* `date:PT90S/` (depuis 90 secondes)
+		* `date:P1DT1H/` (depuis un jour et une heure)
+* par date de publication, avec la même syntaxe : `pubdate:<date-interval>`
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
-* par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmis une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
+* par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmi une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
-* par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*): `e:1639310674957894,1639310674957893`
+* par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*) : `e:1639310674957894,1639310674957893`
 * par nom de filtre utilisateur (recherche enregistrée) : `search:maRecherche`, `search:"Ma recherche"` ou par ID de recherche : `S:3`
 	* en interne, ces références sont remplacées par le filtre utilisateur correspondant dans l’expression de recherche
 

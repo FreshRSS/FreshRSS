@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Štítek „%s“ byl vytvořen.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Název štítku již existuje.',
 		'renamed' => 'Štítek „%s“ byl přejmenován na „%s“.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní aktualizováno na <strong>verzi %s</strong>.',

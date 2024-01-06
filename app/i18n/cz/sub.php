@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Nástroje odběrů',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Název',
 		'new_name' => 'Nový název',
 		'old_name' => 'Starý název',

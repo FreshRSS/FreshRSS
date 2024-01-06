@@ -362,7 +362,7 @@ final class FreshRSS_Context {
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			self::$categories = $catDAO->listCategories();
+			self::$categories = $catDAO->listCategories(true);
 		}
 
 		switch($type) {
@@ -458,7 +458,7 @@ final class FreshRSS_Context {
 
 		if (empty(self::$categories)) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
-			self::$categories = $catDAO->listCategories();
+			self::$categories = $catDAO->listCategories(true);
 		}
 
 		if (FreshRSS_Context::userConf()->onread_jump_next && strlen($get) > 2) {

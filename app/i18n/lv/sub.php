@@ -196,6 +196,7 @@ return array(
 		'subscription_tools' => 'Abonamentu rīki',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Vārds',
 		'new_name' => 'Jaunais vārds',
 		'old_name' => 'Vecais vārds',
