@@ -86,7 +86,6 @@ function performRequirementCheck(string $databaseType): void {
 function parseCliParams(array $parameters): array {
 	global $argv;
 	$cliParams = [];
-	$options = [];
 
 	foreach ($parameters['valid'] as $param => $getopt_val) {
 		$cliParams[] = $param . $getopt_val;
