@@ -76,12 +76,12 @@ function performRequirementCheck(string $databaseType): void {
 }
 
 /**
- * Parses perameters used with FreshRSS' CLI commands.
+ * Parses parameters used with FreshRSS' CLI commands.
  * @param array{'valid':array<string,string>,'deprecated':array<string,string>} $parameters An array of 'valid': An
- * array of perameters as keys and their respective getopt() notations as values. 'deprecated' An array with
+ * array of parameters as keys and their respective getopt() notations as values. 'deprecated' An array with
  * replacement parameters as keys and their respective deprecated parameters as values.
  * @return array{'valid':array<string,string|bool>,'invalid':array<string>} An array of 'valid': an array of all
- * known parameters used and their respective options and 'invalid': an array of all unknown perameters used.
+ * known parameters used and their respective options and 'invalid': an array of all unknown parameters used.
  */
 function parseCliParams(array $parameters): array {
 	global $argv;
@@ -148,10 +148,10 @@ function validateOptions(array $input, array $params): bool {
 }
 
 /**
- * Checks for use of unknown perameters with FreshRSS' CLI commands.
- * @param array<string> $input An array of perameters to check for validity.
- * @param array<string> $params An array of valid perameters to check against.
- * @return array<string> Returns an array of all unknown perameters found.
+ * Checks for use of unknown parameters with FreshRSS' CLI commands.
+ * @param array<string> $input An array of parameters to check for validity.
+ * @param array<string> $params An array of valid parameters to check against.
+ * @return array<string> Returns an array of all unknown parameters found.
  */
 function findInvalidOptions(array $input, array $params): array {
 	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
