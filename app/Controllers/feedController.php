@@ -35,7 +35,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws Minz_FileNotExistException
 	 */
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
-		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
+		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS_MAYBE): FreshRSS_Feed {
 		FreshRSS_UserDAO::touch();
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
@@ -81,6 +81,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
+			case FreshRSS_Feed::KIND_RSS_MAYBE:
 				$feed->load(true);	//Throws FreshRSS_Feed_Exception, Minz_FileNotExistException
 				break;
 			case FreshRSS_Feed::KIND_HTML_XPATH:
@@ -206,7 +207,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$timeout = Minz_Request::paramInt('timeout');
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 
-			$feed_kind = Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS;
+			$feed_kind = Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS_MAYBE;
 			if ($feed_kind === FreshRSS_Feed::KIND_HTML_XPATH || $feed_kind === FreshRSS_Feed::KIND_XML_XPATH) {
 				$xPathSettings = [];
 				if (Minz_Request::paramString('xPathFeedTitle') !== '') {
@@ -431,6 +432,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feedIsNew = $feed->lastUpdate() <= 0;
 			$feedIsEmpty = false;
 			$feedIsUnchanged = false;
+			$feedProperties = [];
 
 			try {
 				if ($simplePiePush !== null) {
@@ -444,6 +446,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$simplePie = $feed->loadHtmlXpath();
 					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_RSS_MAYBE) {
+					$simplePie = $feed->load(false, $feedIsNew);
+					// @phpstan-ignore-next-line
+					if ($feed->kind() !== FreshRSS_Feed::KIND_RSS_MAYBE) {
+						$feedProperties['kind'] = $feed->kind();
 					}
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);
@@ -607,8 +615,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
-
-			$feedProperties = [];
 
 			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs

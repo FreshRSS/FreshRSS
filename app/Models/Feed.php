@@ -15,6 +15,11 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public const KIND_RSS_FORCED = 2;
 	/**
+	 * Maybe RSS feed or HTML, will require auto-discovery
+	 * @var int
+	 */
+	public const KIND_RSS_MAYBE = 3;
+	/**
 	 * Normal HTML with XPath scraping
 	 * @var int
 	 */
@@ -339,7 +344,8 @@ class FreshRSS_Feed extends Minz_Model {
 					$url = substr($url, 0, -11);
 				}
 				$simplePie->set_feed_url($url);
-				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
+				if (!$loadDetails && $this->kind !== FreshRSS_Feed::KIND_RSS_MAYBE) {
+					// Disable feed auto-discovery
 					$simplePie->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
 				if ($this->attributeBoolean('clear_cache')) {
@@ -386,6 +392,10 @@ class FreshRSS_Feed extends Minz_Model {
 				} else {
 					//The case of HTTP 301 Moved Permanently
 					$subscribe_url = $simplePie->subscribe_url(true) ?? '';
+				}
+
+				if ($this->kind() === FreshRSS_Feed::KIND_RSS_MAYBE) {
+					$this->_kind(FreshRSS_Feed::KIND_RSS);
 				}
 
 				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
