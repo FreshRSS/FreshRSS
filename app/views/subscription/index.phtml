@@ -3,87 +3,89 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
-	<h1><?= _t('sub.title') ?></h1>
-
-	<?php if ($this->onlyFeedsWithError): ?>
-	<div class="link-showAllFeeds-wrapper">
-		<a href="<?= _url('subscription', 'index') ?>">← <?= _t('sub.feed.show.all') ?></a>
-	</div>
-		<p class="alert alert-warn">
-		<?= _t('sub.feed.showing.error') ?>
-	</p>
-
-	<?php endif; ?>
-
-	<?php if (!$this->onlyFeedsWithError && $this->signalError){ ?>
-		<div>
-			<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
+<main id="maincolumn" class="post">
+	<div id="maincolumn-inner">
+		<div class="link-back-wrapper">
+			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 		</div>
-	<?php } ?>
 
-	<div class="drop-section">
-		<?php
-			$signalError = false;
-			foreach ($this->categories as $cat) {
-				$feeds = $cat->feeds();
-		?>
-		<div class="box">
-			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
-				<h2><?= $cat->name() ?><?php if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) { echo " " . _i('opml-dyn'); } ?></h2>
+		<h1><?= _t('sub.title') ?></h1>
+
+		<?php if ($this->onlyFeedsWithError): ?>
+		<div class="link-showAllFeeds-wrapper">
+			<a href="<?= _url('subscription', 'index') ?>">← <?= _t('sub.feed.show.all') ?></a>
+		</div>
+			<p class="alert alert-warn">
+			<?= _t('sub.feed.showing.error') ?>
+		</p>
+
+		<?php endif; ?>
+
+		<?php if (!$this->onlyFeedsWithError && $this->signalError){ ?>
+			<div>
+				<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
 			</div>
-			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
-				<?php
-				if (!empty($feeds)) {
-					foreach ($feeds as $feed) {
-						if ($this->onlyFeedsWithError && !$feed->inError()) {
-							continue;
-						}
-
-						$error_class = '';
-						$error_title = '';
-						if ($feed->inError()) {
-							$error_class = ' error';
-							$error_title = _t('sub.feed.error');
-						}
-
-						$empty_class = '';
-						$empty_title = '';
-						if ($feed->nbEntries() == 0) {
-							$empty_class = ' empty';
-							$empty_title = _t('sub.feed.empty');
-						}
-						$mute_class = $feed->mute() ? ' mute' : '';
-				?>
-				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
-					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
-					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
-					<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-					<span class="item-title"><?= $feed->name() ?></span>
-				</li>
-				<?php
-					}
-				} else {
-				?>
-				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
-				<?php } ?>
-				<?php if ($cat->kind() != FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
-					<li class="item feed">✚ <a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _t('sub.feed.add') ?></a></li>
-				<?php endif; ?>
-			</ul>
-		</div>
 		<?php } ?>
 
-		<div class="box visible-semi">
-			<div class="box-title">
-				✚ <a href="<?= _url('subscription', 'add') ?>"><h2><?= _t('sub.category.add') ?></h2></a>
+		<div class="drop-section">
+			<?php
+				$signalError = false;
+				foreach ($this->categories as $cat) {
+					$feeds = $cat->feeds();
+			?>
+			<div class="box">
+				<div class="box-title">
+					<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
+					<h2><?= $cat->name() ?><?php if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) { echo " " . _i('opml-dyn'); } ?></h2>
+				</div>
+				<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
+					<?php
+					if (!empty($feeds)) {
+						foreach ($feeds as $feed) {
+							if ($this->onlyFeedsWithError && !$feed->inError()) {
+								continue;
+							}
+
+							$error_class = '';
+							$error_title = '';
+							if ($feed->inError()) {
+								$error_class = ' error';
+								$error_title = _t('sub.feed.error');
+							}
+
+							$empty_class = '';
+							$empty_title = '';
+							if ($feed->nbEntries() == 0) {
+								$empty_class = ' empty';
+								$empty_title = _t('sub.feed.empty');
+							}
+							$mute_class = $feed->mute() ? ' mute' : '';
+					?>
+					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
+						draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
+						<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
+						<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+						<span class="item-title"><?= $feed->name() ?></span>
+					</li>
+					<?php
+						}
+					} else {
+					?>
+					<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
+					<?php } ?>
+					<?php if ($cat->kind() != FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
+						<li class="item feed">✚ <a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _t('sub.feed.add') ?></a></li>
+					<?php endif; ?>
+				</ul>
 			</div>
-			<div class="box-content">
+			<?php } ?>
+
+			<div class="box visible-semi">
+				<div class="box-title">
+					✚ <a href="<?= _url('subscription', 'add') ?>"><h2><?= _t('sub.category.add') ?></h2></a>
+				</div>
+				<div class="box-content">
+				</div>
 			</div>
 		</div>
 	</div>

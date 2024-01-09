@@ -3,82 +3,84 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post ">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
-	<h1><?= _t('sub.menu.import_export') ?></h1>
-
-	<h2><?= _t('sub.category.dynamic_opml') ?></h2>
-	<div class="form-group form-actions">
-		<div class="group-controls">
-			<ul>
-				<li><a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.title.add_dynamic_opml') ?> <?= _i('opml-dyn') ?></a></li>
-			</ul>
-		</div>
-	</div>
-
-	<h2><?= _t('sub.import_export.import') ?></h2>
-	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<label class="group-name" for="file">
-				<?= extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip') ?>
-			</label>
-			<div class="group-controls">
-				<input type="file" name="file" id="file" />
-			</div>
+<main id="maincolumn" class="post">
+	<div id="maincolumn-inner">
+		<div class="link-back-wrapper">
+			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 		</div>
 
+		<h1><?= _t('sub.menu.import_export') ?></h1>
+
+		<h2><?= _t('sub.category.dynamic_opml') ?></h2>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.import') ?></button>
-			</div>
-		</div>
-	</form>
-
-	<h2><?= _t('sub.import_export.export') ?></h2>
-	<?php if (count($this->feeds) > 0) { ?>
-	<form method="post" action="<?= _url('importExport', 'export') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="export_opml">
-					<input type="checkbox" name="export_opml" id="export_opml" value="1" checked="checked" />
-					<?= _t('sub.import_export.export_opml') ?>
-				</label>
-
-				<label class="checkbox" for="export_labelled">
-					<input type="checkbox" name="export_labelled" id="export_labelled" value="1" <?= extension_loaded('zip') ? 'checked="checked"' : '' ?> />
-					<?= _t('sub.import_export.export_labelled') ?>
-				</label>
-
-				<label class="checkbox" for="export_starred">
-					<input type="checkbox" name="export_starred" id="export_starred" value="1" <?= extension_loaded('zip') ? 'checked="checked"' : '' ?> />
-					<?= _t('sub.import_export.export_starred') ?>
-				</label>
-
-				<?php
-					$select_args = '';
-					if (extension_loaded('zip')) {
-						$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
-					}
-				?>
-				<select name="export_feeds[]"<?= $select_args ?> size="10">
-					<?= extension_loaded('zip') ? '' : '<option></option>' ?>
-					<?php foreach ($this->feeds as $feed) { ?>
-					<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
-					<?php } ?>
-				</select>
+				<ul>
+					<li><a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.title.add_dynamic_opml') ?> <?= _i('opml-dyn') ?></a></li>
+				</ul>
 			</div>
 		</div>
 
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.export') ?></button>
+		<h2><?= _t('sub.import_export.import') ?></h2>
+		<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<div class="form-group">
+				<label class="group-name" for="file">
+					<?= extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip') ?>
+				</label>
+				<div class="group-controls">
+					<input type="file" name="file" id="file" />
+				</div>
 			</div>
-		</div>
-	</form>
-	<?php } ?>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.import') ?></button>
+				</div>
+			</div>
+		</form>
+
+		<h2><?= _t('sub.import_export.export') ?></h2>
+		<?php if (count($this->feeds) > 0) { ?>
+		<form method="post" action="<?= _url('importExport', 'export') ?>">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="export_opml">
+						<input type="checkbox" name="export_opml" id="export_opml" value="1" checked="checked" />
+						<?= _t('sub.import_export.export_opml') ?>
+					</label>
+
+					<label class="checkbox" for="export_labelled">
+						<input type="checkbox" name="export_labelled" id="export_labelled" value="1" <?= extension_loaded('zip') ? 'checked="checked"' : '' ?> />
+						<?= _t('sub.import_export.export_labelled') ?>
+					</label>
+
+					<label class="checkbox" for="export_starred">
+						<input type="checkbox" name="export_starred" id="export_starred" value="1" <?= extension_loaded('zip') ? 'checked="checked"' : '' ?> />
+						<?= _t('sub.import_export.export_starred') ?>
+					</label>
+
+					<?php
+						$select_args = '';
+						if (extension_loaded('zip')) {
+							$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
+						}
+					?>
+					<select name="export_feeds[]"<?= $select_args ?> size="10">
+						<?= extension_loaded('zip') ? '' : '<option></option>' ?>
+						<?php foreach ($this->feeds as $feed) { ?>
+						<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.export') ?></button>
+				</div>
+			</div>
+		</form>
+		<?php } ?>
+	</div>
 </main>

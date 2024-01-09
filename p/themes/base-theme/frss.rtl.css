@@ -83,7 +83,13 @@ main.prompt .link-registration {
 }
 
 main#maincolumn {
-	width: 100%;
+	width: calc(100vw - 55px - 300px);
+	box-sizing: border-box;
+}
+
+#maincolumn-inner {
+	height: 100vh;
+	overflow-y: auto;
 }
 
 footer.main-footer {
@@ -225,8 +231,8 @@ label {
 }
 
 input:not(.w50,.w100) {
-	max-width: 90%;
-	width: 300px;
+	max-width: 300px;
+	width: 90%;
 }
 
 input[type=number] {
@@ -432,7 +438,7 @@ td.numeric {
 }
 
 .form-group .group-controls {
-	min-width: 200px;
+	min-width: 150px;
 	margin: 0 220px 0 0;
 	overflow-x: auto;
 }
@@ -1117,6 +1123,7 @@ main #stream {
 }
 
 .aside,
+.aside .nav-inner,
 #sidebar {
 	width: 300px;
 }
@@ -1127,7 +1134,7 @@ main #stream {
 	vertical-align: middle;
 }
 
-.aside .nav-wrapper {
+.aside .nav-inner {
 	height: 100vh;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -1803,9 +1810,10 @@ html.slider-active {
 }
 
 /*=== Configuration pages */
-.post {
+#maincolumn-inner {
 	padding: 1rem 2rem;
 	font-size: 0.9em;
+	box-sizing: border-box;
 }
 
 .post form {

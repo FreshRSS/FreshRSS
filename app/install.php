@@ -803,7 +803,7 @@ if (_t('gen.dir') === 'rtl') {
 	</nav>
 	<a class="close-aside" href="#close">❌</a>
 
-	<main class="post">
+	<main id="maincolumn" class="post">
 		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
 		<?php
 		switch (STEP) {
