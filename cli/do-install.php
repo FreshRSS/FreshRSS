@@ -7,37 +7,69 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-$params = array(
-		'environment:',
-		'base_url:',
-		'language:',
-		'title:',
-		'default_user:',
-		'allow_anonymous',
-		'allow_anonymous_refresh',
-		'auth_type:',
-		'api_enabled',
-		'allow_robots',
-		'disable_update',
-	);
+$parameters = array(
+	'valid' => array(
+		'environment' => ':',
+		'base-url' => ':',
+		'language' => ':',
+		'title' => ':',
+		'default-user' => ':',
+		'allow-anonymous' => '',
+		'allow-anonymous-refresh' => '',
+		'auth-type' => ':',
+		'api-enabled' => '',
+		'allow-robots' => '',
+		'disable-update' => '',
+		'db-type' => ':',
+		'db-host' => ':',
+		'db-user' => ':',
+		'db-password' => ':',
+		'db-base' => ':',
+		'db-prefix' => '::',
+	),
+	'deprecated' => array(
+		'base-url' => 'base_url',
+		'default-user' => 'default_user',
+		'allow-anonymous' => 'allow_anonymous',
+		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+		'auth-type' => 'auth_type',
+		'api-enabled' => 'api_enabled',
+		'allow-robots' => 'allow_robots',
+		'disable-update' => 'disable_update',
+	),
+);
 
-$dBparams = array(
-		'db-type:',
-		'db-host:',
-		'db-user:',
-		'db-password:',
-		'db-base:',
-		'db-prefix::',
-	);
+$configParams = array(
+	'environment' => 'environment',
+	'base-url' => 'base_url',
+	'language' => 'language',
+	'title' => 'title',
+	'default-user' => 'default_user',
+	'allow-anonymous' => 'allow_anonymous',
+	'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+	'auth-type' => 'auth_type',
+	'api-enabled' => 'api_enabled',
+	'allow-robots' => 'allow_robots',
+	'disable-update' => 'disable_update',
+);
 
-$options = getopt('', array_merge($params, $dBparams));
+$dBconfigParams = array(
+	'db-type' => 'type',
+	'db-host' => 'host',
+	'db-user' => 'user',
+	'db-password' => 'password',
+	'db-base' => 'base',
+	'db-prefix' => 'prefix',
+);
 
-if (!validateOptions($argv, array_merge($params, $dBparams)) || empty($options['default_user']) || !is_string($options['default_user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
-		" --environment production --base_url https://rss.example.net --allow_robots" .
-		" --language en --title FreshRSS --allow_anonymous --allow_anonymous_refresh --api_enabled" .
+$options = parseCliParams($parameters);
+
+if (!empty($options['invalid']) || empty($options['valid']['default-user']) || !is_string($options['valid']['default-user'])) {
+	fail('Usage: ' . basename(__FILE__) . " --default-user admin ( --auth-type form" .
+		" --environment production --base-url https://rss.example.net --allow-robots" .
+		" --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
-		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
+		" --db-base freshrss --db-prefix freshrss_ --disable-update )");
 }
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
@@ -55,10 +87,9 @@ if (file_exists($customConfigPath)) {
 	}
 }
 
-foreach ($params as $param) {
-	$param = rtrim($param, ':');
-	if (isset($options[$param])) {
-		$config[$param] = $options[$param] === false ? true : $options[$param];
+foreach ($configParams as $param => $configParam) {
+	if (isset($options['valid'][$param])) {
+		$config[$configParam] = $options['valid'][$param];
 	}
 }
 
@@ -66,23 +97,21 @@ if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Requ
 	$config['pubsubhubbub_enabled'] = true;
 }
 
-foreach ($dBparams as $dBparam) {
-	$dBparam = rtrim($dBparam, ':');
-	if (isset($options[$dBparam])) {
-		$param = substr($dBparam, strlen('db-'));
-		$config['db'][$param] = $options[$dBparam];
+foreach ($dBconfigParams as $dBparam => $configDbParam) {
+	if (isset($options['valid'][$dBparam])) {
+		$config['db'][$configDbParam] = $options['valid'][$dBparam];
 	}
 }
 
 performRequirementCheck($config['db']['type']);
 
-if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
-	fail('FreshRSS error: invalid default username “' . $options['default_user']
+if (!FreshRSS_user_Controller::checkUsername($options['valid']['default-user'])) {
+	fail('FreshRSS error: invalid default username “' . $options['valid']['default-user']
 		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
-if (isset($options['auth_type']) && !in_array($options['auth_type'], ['form', 'http_auth', 'none'], true)) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none })');
+if (isset($options['valid']['auth-type']) && !in_array($options['valid']['auth-type'], ['form', 'http_auth', 'none'], true)) {
+	fail('FreshRSS invalid authentication method (auth-type must be one of { form, http_auth, none })');
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),

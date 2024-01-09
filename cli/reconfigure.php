@@ -3,99 +3,128 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$params = array(
-		'environment:',
-		'base_url:',
-		'language:',
-		'title:',
-		'default_user:',
-		'allow_anonymous',
-		'allow_anonymous_refresh',
-		'auth_type:',
-		'api_enabled',
-		'allow_robots',
-		'disable_update',
-	);
+$parameters = array(
+	'valid' => array(
+		'environment' => ':',
+		'base-url' => ':',
+		'language' => ':',
+		'title' => ':',
+		'default-user' => ':',
+		'allow-anonymous' => '',
+		'allow-anonymous-refresh' => '',
+		'auth-type' => ':',
+		'api-enabled' => '',
+		'allow-robots' => '',
+		'disable-update' => '',
+		'db-type' => ':',
+		'db-host' => ':',
+		'db-user' => ':',
+		'db-password' => ':',
+		'db-base' => ':',
+		'db-prefix' => '::',
+	),
+	'deprecated' => array(
+		'base-url' => 'base_url',
+		'default-user' => 'default_user',
+		'allow-anonymous' => 'allow_anonymous',
+		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+		'auth-type' => 'auth_type',
+		'api-enabled' => 'api_enabled',
+		'allow-robots' => 'allow_robots',
+		'disable-update' => 'disable_update',
+	),
+);
 
-$dBparams = array(
-		'db-type:',
-		'db-host:',
-		'db-user:',
-		'db-password:',
-		'db-base:',
-		'db-prefix::',
-	);
+$configParams = array(
+	'environment',
+	'base-url',
+	'language',
+	'title',
+	'default-user',
+	'allow-anonymous',
+	'allow-anonymous-refresh',
+	'auth-type',
+	'api-enabled',
+	'allow-robots',
+	'disable-update',
+);
 
-$options = getopt('', array_merge($params, $dBparams));
+$dBconfigParams = array(
+	'db-type' => 'type',
+	'db-host' => 'host',
+	'db-user' => 'user',
+	'db-password' => 'password',
+	'db-base' => 'base',
+	'db-prefix' => 'prefix',
+);
 
-if (!validateOptions($argv, array_merge($params, $dBparams))) {
-	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
-		" --environment production --base_url https://rss.example.net --allow_robots" .
-		" --language en --title FreshRSS --allow_anonymous --allow_anonymous_refresh --api_enabled" .
+$options = parseCliParams($parameters);
+
+if (!empty($options['invalid'])) {
+	fail('Usage: ' . basename(__FILE__) . " --default-user admin ( --auth-type form" .
+		" --environment production --base-url https://rss.example.net --allow-robots" .
+		" --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
-		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
+		" --db-base freshrss --db-prefix freshrss_ --disable-update )");
 }
 
 fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
-foreach ($params as $param) {
-	$param = rtrim($param, ':');
-	if (isset($options[$param])) {
+foreach ($configParams as $param) {
+	if (isset($options['valid'][$param])) {
 		switch ($param) {
-			case 'allow_anonymous_refresh':
+			case 'allow-anonymous-refresh':
 				FreshRSS_Context::systemConf()->allow_anonymous_refresh = true;
 				break;
-			case 'allow_anonymous':
+			case 'allow-anonymous':
 				FreshRSS_Context::systemConf()->allow_anonymous = true;
 				break;
-			case 'allow_robots':
+			case 'allow-robots':
 				FreshRSS_Context::systemConf()->allow_robots = true;
 				break;
-			case 'api_enabled':
+			case 'api-enabled':
 				FreshRSS_Context::systemConf()->api_enabled = true;
 				break;
-			case 'auth_type':
-				if (in_array($options[$param], ['form', 'http_auth', 'none'], true)) {
-					FreshRSS_Context::systemConf()->auth_type = $options[$param];
+			case 'auth-type':
+				if (in_array($options['valid'][$param], ['form', 'http_auth', 'none'], true)) {
+					FreshRSS_Context::systemConf()->auth_type = $options['valid'][$param];
 				} else {
 					fail('FreshRSS invalid authentication method! auth_type must be one of { form, http_auth, none }');
 				}
 				break;
-			case 'base_url':
-				FreshRSS_Context::systemConf()->base_url = $options[$param];
+			case 'base-url':
+				FreshRSS_Context::systemConf()->base_url = (string) $options['valid'][$param];
 				break;
-			case 'default_user':
-				if (FreshRSS_user_Controller::checkUsername($options[$param])) {
-					FreshRSS_Context::systemConf()->default_user = $options[$param];
+			case 'default-user':
+				if (FreshRSS_user_Controller::checkUsername((string) $options['valid'][$param])) {
+					FreshRSS_Context::systemConf()->default_user = (string) $options['valid'][$param];
 				} else {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
 				break;
-			case 'disable_update':
+			case 'disable-update':
 				FreshRSS_Context::systemConf()->disable_update = true;
 				break;
 			case 'environment':
-				if (in_array($options[$param], ['development', 'production', 'silent'], true)) {
-					FreshRSS_Context::systemConf()->environment = $options[$param];
+				if (in_array($options['valid'][$param], ['development', 'production', 'silent'], true)) {
+					FreshRSS_Context::systemConf()->environment = $options['valid'][$param];
 				} else {
 					fail('FreshRSS invalid environment! environment must be one of { development, production, silent }');
 				}
 				break;
 			case 'language':
-				FreshRSS_Context::systemConf()->language = $options[$param];
+				FreshRSS_Context::systemConf()->language = (string) $options['valid'][$param];
 				break;
 			case 'title':
-				FreshRSS_Context::systemConf()->title = $options[$param];
+				FreshRSS_Context::systemConf()->title = (string) $options['valid'][$param];
 				break;
 		}
 	}
 }
 $db = FreshRSS_Context::systemConf()->db;
-foreach ($dBparams as $dBparam) {
-	$dBparam = rtrim($dBparam, ':');
-	if (isset($options[$dBparam])) {
-		$param = substr($dBparam, strlen('db-'));
-		$db[$param] = $options[$dBparam];
+foreach ($dBconfigParams as $dBparam => $configDbParam) {
+	if (isset($options['valid'][$dBparam])) {
+		$db[$configDbParam] = $options['valid'][$dBparam];
 	}
 }
 /** @var array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
