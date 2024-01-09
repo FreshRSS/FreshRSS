@@ -180,9 +180,9 @@ function checkforDeprecatedParameterUse(array $options, array $params): bool {
 		return false;
 	}
 
-	trigger_error("The FreshRss CLI option(s): " . implode (', ', $deprecatedOptions) .
+	fwrite(STDERR, "FreshRSS deprecation warning: the CLI option(s): " . implode(', ', $deprecatedOptions) .
 		" are deprecated and will be removed in a future release. Use: "
-		. implode (', ', $replacements) . " instead", E_USER_DEPRECATED);
+		. implode(', ', $replacements) . " instead\n");
 	return true;
 }
 
