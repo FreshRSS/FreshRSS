@@ -8,7 +8,7 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 }
 
 $parameters = array(
-	'valid' => array(
+	'long' => array(
 		'environment' => ':',
 		'base-url' => ':',
 		'language' => ':',
@@ -27,6 +27,7 @@ $parameters = array(
 		'db-base' => ':',
 		'db-prefix' => '::',
 	),
+	'short' => array(),
 	'deprecated' => array(
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
