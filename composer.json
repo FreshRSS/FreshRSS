@@ -62,7 +62,7 @@
         "phpcbf": "phpcbf . -p -s",
         "phpstan": "phpstan analyse --memory-limit 512M .",
         "phpstan-next": "phpstan analyse --level 9 --memory-limit 512M $(find . -type d -name 'vendor' -prune -o -name '*.php' -o -name '*.phtml' | grep -Fxvf ./tests/phpstan-next.txt | sort | paste -s -)",
-        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests",
+        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php ./tests",
         "translations": "cli/manipulate.translation.php -a format",
         "test": [
             "@php-lint",
