@@ -18,7 +18,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array{string,string}> */
-	public function provideValidNames(): array {
+	public static function provideValidNames(): array {
 		return array(
 			array('', ''),
 			array('this string does not need trimming', 'this string does not need trimming'),
@@ -63,7 +63,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals('lll', $feeds[1]->name());
 		self::assertEquals('ZZZ', $feeds[2]->name());
 
-		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject */
+		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject $feed_4 */
 		$feed_4 = $this->getMockBuilder(FreshRSS_Feed::class)
 			->disableOriginalConstructor()
 			->getMock();

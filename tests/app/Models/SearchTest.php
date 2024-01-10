@@ -25,7 +25,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * Here is the description of the values
 	 * @return array{array{''},array{' '}}
 	 */
-	public function provideEmptyInput(): array {
+	public static function provideEmptyInput(): array {
 		return [
 			[''],
 			[' '],
@@ -46,7 +46,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<mixed>>
 	 */
-	public function provideIntitleSearch(): array {
+	public static function provideIntitleSearch(): array {
 		return array(
 			array('intitle:word1', array('word1'), null),
 			array('intitle:word1-word2', array('word1-word2'), null),
@@ -83,7 +83,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<mixed>>
 	 */
-	public function provideAuthorSearch(): array {
+	public static function provideAuthorSearch(): array {
 		return array(
 			array('author:word1', array('word1'), null),
 			array('author:word1-word2', array('word1-word2'), null),
@@ -120,7 +120,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<mixed>>
 	 */
-	public function provideInurlSearch(): array {
+	public static function provideInurlSearch(): array {
 		return array(
 			array('inurl:word1', array('word1'), null),
 			array('inurl: word1', array(), array('word1')),
@@ -145,7 +145,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<mixed>>
 	 */
-	public function provideDateSearch(): array {
+	public static function provideDateSearch(): array {
 		return array(
 			array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
 			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
@@ -168,7 +168,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<mixed>>
 	 */
-	public function providePubdateSearch(): array {
+	public static function providePubdateSearch(): array {
 		return array(
 			array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
 			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
@@ -193,7 +193,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<array<string|array<string>|null>>
 	 */
-	public function provideTagsSearch(): array {
+	public static function provideTagsSearch(): array {
 		return array(
 			array('#word1', array('word1'), null),
 			array('# word1', null, array('#', 'word1')),
@@ -231,7 +231,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideMultipleSearch(): array {
+	public static function provideMultipleSearch(): array {
 		return array(
 			array(
 				'author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
@@ -295,7 +295,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideParentheses(): array {
+	public static function provideParentheses(): array {
 		return [
 			[
 				'f:1 (f:2 OR f:3 OR f:4) (f:5 OR (f:6 OR f:7))',
