@@ -82,7 +82,7 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
-					'_' => 'trouver les <strong>articles</strong>',
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
 					'help' => 'Exemple : <code>//div[@class="article"]</code>',
 				),
 				'item_author' => array(
@@ -121,6 +121,45 @@ return array(
 				'relative' => 'XPath (relatif à l’article) pour :',
 				'xpath' => 'XPath pour :',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Chemin)',
+				'feed_title' => array(
+					'_' => 'titre de flux',
+					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
+				),
+				'help' => 'Un chemin JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
+					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
+				),
+				'item_author' => 'auteur de l’article',
+				'item_categories' => 'catégories (tags) de l’article',
+				'item_content' => array(
+					'_' => 'contenu de l’article',
+					'help' => 'Chemin JSON pour le contenu, par exemple <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniature de l’article',
+					'help' => 'Exemple : <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'date de l’article',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'titre de l’article',
+				'item_uid' => 'identifiant unique de l’article',
+				'item_uri' => array(
+					'_' => 'lien (URL) de l’article',
+					'help' => 'Exemple : <code>permalink</code>',
+				),
+				'json' => 'Chemin JSON pour :',
+				'relative' => 'Chemin relatif à l’article pour :',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => 'Maximum de redirections HTTP',
 		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
+		'method' => array(
+			'_' => 'Méthode HTTP',
+		),
+		'method_help' => 'Les données POST supportent automatiquement <code>application/x-www-form-urlencoded</code> et <code>application/json</code>',
+		'method_postparams' => 'Données pour POST',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'désactivé',
 		'no_selected' => 'Aucun flux sélectionné.',
