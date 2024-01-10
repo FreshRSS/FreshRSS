@@ -34,13 +34,22 @@ cd /usr/share/FreshRSS
 ./cli/prepare.php
 # Ensure the needed directories in ./data/
 
-./cli/do-install.php --default_user admin [ --auth_type form --environment production --base_url https://rss.example.net --language en --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss ]
-# --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
-# --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
-# --base_url should be a public (routable) URL if possible, and is used for push (WebSub), for some API functions (e.g. favicons), and external URLs in FreshRSS.
+./cli/do-install.php --default-user admin [ --auth-type form --environment production --base-url https://rss.example.net --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled --db-type sqlite --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss_ ]
+# --default-user must be alphanumeric and not longer than 38 characters. The default user of this FreshRSS instance, used as the public user for anonymous reading
+# --auth-type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
+# --base-url should be a public (routable) URL if possible, and is used for push (WebSub), for some API functions (e.g. favicons), and external URLs in FreshRSS
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
-# --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'
+# --title web user interface title for this FreshRSS instance
+# --allow-anonymous sets whether non logged-in visitors are permitted to see the default user's feeds
+# --allow-anonymous-refresh sets whether to permit anonymous users to start the refresh process
+# --api-enabled sets whether the API may be used for mobile apps. API passwords must be set for individual users
+# --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
+# --db-host URL of the database server. Default is 'localhost'
+# --db-user sets database user
+# --db-password sets database password
+# --db-base sets database name
+# --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_' (default)
 # This command does not create the default user. Do that with ./cli/create-user.php
 
 ./cli/reconfigure.php
@@ -54,11 +63,20 @@ cd /usr/share/FreshRSS
 ```sh
 cd /usr/share/FreshRSS
 
-./cli/create-user.php --user username [ --password 'password' --api_password 'api_password' --language en --email user@example.net --token 'longRandomString' --no_default_feeds --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --max_posts_per_rss 400 ]
+./cli/create-user.php --user username [ --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds --purge-after-months 3 --feed-min-articles-default 50 --feed-ttl-default 3600 --since-hours-posts-per-rss 168 --max-posts-per-rss 400 ]
+# --user must be alphanumeric, not longer than 38 characters. The name of the user to be created/updated
+# --password sets the user's password
+# --api-password sets the user's api password
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
+# --email sets an email for the user which will be used email validation if it forced email validation is enabled
+# --no-default-feeds do not add this FreshRSS instance's default feeds to the user during creation
+# --purge-after-months max age an article can reach before being archived. Default is '3'
+# --feed-min-articles-default number of articles in a feed at which archiving will pause. Default is '50'
+# --feed-ttl-default minimum number of seconds to elapse between feed refreshes. Default is '3600'
+# --max-posts-per-rss number of articles in a feed at which an old article will be archived before a new article is added. Default is '200' 
 
 ./cli/update-user.php --user username [ ... ]
-# Same options as create-user.php, except --no_default_feeds which is only available for create-user.php
+# Same options as create-user.php, except --no-default-feeds which is only available for create-user.php
 ```
 
 > ℹ️ More options for [the configuration of users](../config-user.default.php#L3-L5) may be set in `./data/config-user.custom.php` prior to creating new users, or in `./data/users/*/config.php` for existing users.
