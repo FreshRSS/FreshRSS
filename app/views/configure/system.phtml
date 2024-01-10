@@ -25,7 +25,7 @@
 			<label class="group-name" for="base-url"><?= _t('admin.system.base-url') ?></label>
 			<div class="group-controls">
 				<input type="text" id="base-url" name="base-url" value="<?= FreshRSS_Context::systemConf()->base_url ?>"
-					data-leave-validation="<?= FreshRSS_Context::systemConf()->base_url ?>" disabled="disabled" />
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->base_url ?>" readonly="readonly" />
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.base-url.recommendation', dirname(Minz_Request::guessBaseUrl())) ?></p>
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
 			</div>

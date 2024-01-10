@@ -121,6 +121,45 @@ return array(
 				'relative' => 'XPath (az elemhez viszonyítva) ehhez:',
 				'xpath' => 'XPath ehhez:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+				),
+				'item_author' => 'item author',	// TODO
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => 'item title',	// TODO
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP átirányítás',
 		'max_http_redir_help' => '0 vagy üresen hagyva kikapcsolt, -1 a végtelen átirányításhoz',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Ha kitörölsz egy kategóriát, az alá tartozó hírforrások automatikusan ide kerülnek <em>%s</em>.',
 		'mute' => 'némítás',
 		'no_selected' => 'Nincsen hírforrás kiválasztva.',
@@ -196,6 +240,7 @@ return array(
 		'subscription_tools' => 'Hírforrás eszközök',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Név',
 		'new_name' => 'Új név',
 		'old_name' => 'Régi név',

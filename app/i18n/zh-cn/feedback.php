@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '标签 “%s” 已创建。',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => '标签名已存在。',
 		'renamed' => '标签 “%s” 已被重命名为 “%s”。',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',

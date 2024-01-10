@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'A Tag “%s” foi criada.',	// DIRTY
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'O nome da tag já existe.',	// DIRTY
 		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',	// DIRTY
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',
