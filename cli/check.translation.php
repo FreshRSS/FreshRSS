@@ -5,6 +5,7 @@ require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
+require_once __DIR__ . '/../constants.php';
 
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
