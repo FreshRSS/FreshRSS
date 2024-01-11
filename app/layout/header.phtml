@@ -75,9 +75,22 @@
 			}
 			?>
 		</div>
-		
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-			<div class="group stick">
+		<div class="group stick">
+			<div class="dropdown dropdown-open-right-to-top">
+				<div id="dropdown-help" class="dropdown-target"></div>
+				<a class="btn dropdown-toggle" href="#dropdown-help"><?= _i('help') ?></a>
+				<ul class="dropdown-menu scrollbar-thin">
+					<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+					<li class="item dropdown-section">
+						<ul>
+							<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+							<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
+						</ul>
+					</li>
+				</ul>
+				<a class="dropdown-close" href="#close">❌</a>
+			</div>
+			<?php if (FreshRSS_Auth::hasAccess()) { ?>
 				<div class="dropdown dropdown-open-right-to-top">
 					<div id="dropdown-account" class="dropdown-target"></div>
 					<a class="btn dropdown-toggle" href="#dropdown-account"><?= _i('person') ?></a>
@@ -115,7 +128,6 @@
 						<li class="item dropdown-section">
 							<ul>
 								<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
-								<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 								<?php if (file_exists(TOS_FILENAME)) { ?>
 									<li class="item">
 										<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
@@ -127,7 +139,7 @@
 					</ul>
 					<a class="dropdown-close" href="#close">❌</a>
 				</div>
-				<?php 
+				<?php
 				if (FreshRSS_Auth::hasAccess('admin')) { ?>
 					<div class="dropdown dropdown-open-right-to-top">
 						<div id="dropdown-configure" class="dropdown-target"></div>
@@ -154,12 +166,12 @@
 						</ul>
 						<a class="dropdown-close" href="#close">❌</a>
 					</div>
-				</div>
-			<?php }
-		} elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
-		<div class="item configure">
-			<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
+				<?php }
+			} elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
+			<div class="item configure">
+				<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
+			</div>
+			<?php } ?>
 		</div>
-		<?php } ?>
 	</nav>
 </header>
