@@ -249,6 +249,7 @@ $today = @strtotime('today');
 		$this->renderHelper('stream-footer');
 ?>
 </div>
+<?php if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) $this->partial('nav_entries'); ?>
 </main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
@@ -272,5 +273,3 @@ $today = @strtotime('today');
 <a href="#" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
-
-<?php if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) $this->partial('nav_entries'); ?>

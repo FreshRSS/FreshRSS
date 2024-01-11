@@ -1654,11 +1654,15 @@ a.website:hover .favicon {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	display: table;
 	position: fixed;
-	bottom: 0; right: 0;
+	bottom: 0; right: 50%;
 	width: 300px;
+}
+
+#nav_entries ul {
+	display: table;
 	table-layout: fixed;
+	width: 100%;
 	padding-bottom: env(safe-area-inset-bottom);
 }
 
