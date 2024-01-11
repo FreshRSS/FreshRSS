@@ -129,7 +129,7 @@ function parseCliParams(array $parameters): array {
  * @param array<string> $options
  * @return array<string>
  */
-function getLongOptions(array $options, string $regex): array {
+function getOptions(array $options, string $regex): array {
 	$longOptions = array_filter($options, static function (string $a) use ($regex) {
 		return preg_match($regex, $a) === 1;
 	});
@@ -143,8 +143,8 @@ function getLongOptions(array $options, string $regex): array {
  * @param array<string> $params
  */
 function validateOptions(array $input, array $params): bool {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
-	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
+	$sanitizeInput = getOptions($input, REGEX_INPUT_OPTIONS);
+	$sanitizeParams = getOptions($params, REGEX_PARAM_OPTIONS);
 	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
 
 	if (0 === count($unknownOptions)) {
@@ -162,7 +162,7 @@ function validateOptions(array $input, array $params): bool {
  * @return array<string> Returns a list all unknown options found.
  */
 function findInvalidOptions(array $input, array $params): array {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
+	$sanitizeInput = getOptions($input, REGEX_INPUT_OPTIONS);
 	$unknownOptions = array_diff($sanitizeInput, $params);
 
 	if (0 === count($unknownOptions)) {
