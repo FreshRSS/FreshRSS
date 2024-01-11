@@ -5,8 +5,54 @@
 	<nav class="nav-header">
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 			<div class="group stick">
-				<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
-				<a id="btn-subscription" class="btn" href="<?= _url('subscription', 'index') ?>"><?= _i('icon') ?></a>
+				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>"><?= _i('add') ?></a>
+
+				<div class="dropdown dropdown-open-right-to-bottom">
+					<div id="dropdown-subscriptionMgmt" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-subscriptionMgmt" title="<?= _t('sub.menu.subscription_management') ?>"><?= _i('icon') ?></a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title"><?= _t('sub.menu.subscription_management') ?></div>
+							<ul>
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'add' ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.menu.add') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && in_array(Minz_Request::actionName(), ['index', 'category', 'feed'], true) ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'tag' ? ' active' : '' ?>">
+									<a href="<?= _url('tag', 'index') ?>"><?= _t('sub.menu.label_management') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'importExport' ? ' active' : '' ?>">
+									<a href="<?= _url('importExport', 'index') ?>"><?= _t('sub.menu.import_export') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'bookmarklet' ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'bookmarklet') ?>"><?= _t('sub.menu.subscription_tools') ?></a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title"><?= _t('admin.stats') ?></div>
+							<ul>
+								<li class="item<?= Minz_Request::controllerName() == 'stats' && Minz_Request::actionName() == 'index' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'index') ?>"><?= _t('sub.menu.stats.main') ?></a>
+								</li>
+								<li class="item<?= Minz_Request::actionName() == 'idle' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'idle') ?>"><?= _t('sub.menu.stats.idle') ?></a>
+								</li>
+								<li class="item<?= Minz_Request::actionName() == 'repartition' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'repartition') ?>"><?= _t('sub.menu.stats.repartition') ?></a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
 			</div>
 		<?php } ?>
 

@@ -717,6 +717,19 @@ input[type="checkbox"]:focus-visible {
 	bottom: 0;
 }
 
+.dropdown-open-right-to-bottom .dropdown-menu::after {
+	border-width: 0 0 1px 1px;
+	top: 13px;
+	right: auto;
+	left: -6px;
+	bottom: auto;
+}
+
+.dropdown-open-right-to-bottom .dropdown-menu {
+	left: 45px;
+	top: 0;
+}
+
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
