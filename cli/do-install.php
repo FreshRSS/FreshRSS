@@ -90,7 +90,8 @@ if (file_exists($customConfigPath)) {
 
 foreach ($configParams as $param => $configParam) {
 	if (isset($options['valid'][$param])) {
-		$config[$configParam] = $options['valid'][$param];
+		$isFlag = $parameters['long'][$param] === '';
+		$config[$configParam] = $isFlag ? true : $options['valid'][$param];
 	}
 }
 

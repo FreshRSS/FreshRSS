@@ -80,7 +80,7 @@ function performRequirementCheck(string $databaseType): void {
  * Matrix of 'long': map of long option names as keys and their respective getopt() notations as values,
  * 'short': map of short option names as values and their equivalent long options as keys, 'deprecated': map of
  * replacement option names as keys and their respective deprecated option names as values.
- * @return array{'valid':array<string,string|bool>,'invalid':array<string>} Matrix of 'valid': map of of all known
+ * @return array{'valid':array<string,string>,'invalid':array<string>} Matrix of 'valid': map of of all known
  * option names used and their respective values and 'invalid': list of all unknown options used.
  */
 function parseCliParams(array $parameters): array {
@@ -100,11 +100,11 @@ function parseCliParams(array $parameters): array {
 
 	$options = getopt($shortOptions, $longOptions);
 
-	/** @var array<string,string|bool> $valid */
 	$valid = is_array($options) ? $options : [];
 
-	array_walk($valid, static fn(&$option) => $option = $option === false ? true : $option);
+	array_walk($valid, static fn(&$option) => $option = $option === false ? '' : $option);
 
+	/** @var array<string,string> $valid */
 	checkForDeprecatedOptions(array_keys($valid), $parameters['deprecated']);
 
 	$valid = replaceOptions($valid, $parameters['short']);
@@ -112,10 +112,7 @@ function parseCliParams(array $parameters): array {
 
 	$invalid = findInvalidOptions(
 		$argv,
-		array_merge(
-			array_keys($parameters['long']),
-			array_values($parameters['short']),
-			array_values($parameters['deprecated']))
+		array_merge(array_keys($parameters['long']), array_values($parameters['short']), array_values($parameters['deprecated']))
 	);
 
 	return [
@@ -178,12 +175,11 @@ function checkForDeprecatedOptions(array $optionNames, array $params): bool {
 
 /**
  * Switches items in a list to their provided replacements.
- * @param array<string,string|bool> $options Map with items to check for replacement as keys.
+ * @param array<string,string> $options Map with items to check for replacement as keys.
  * @param array<string,string> $replacements Map of replacement items as keys and the item they replace as their values.
- * @return array<string,string|bool>  Returns $options with replacements.
+ * @return array<string,string>  Returns $options with replacements.
  */
 function replaceOptions(array $options, array $replacements): array {
-	/** @var array<string,string|bool> $updatedOptions */
 	$updatedOptions = [];
 
 	foreach ($options as $name => $value) {
