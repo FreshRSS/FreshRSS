@@ -7,7 +7,6 @@ if (php_sapi_name() !== 'cli') {
 
 const EXIT_CODE_ALREADY_EXISTS = 3;
 const REGEX_INPUT_OPTIONS = '/^-{2}|^-{1}/';
-const REGEX_PARAM_OPTIONS = '/:*$/';
 
 require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
@@ -136,23 +135,6 @@ function getOptions(array $options, string $regex): array {
 	return array_map(static function (string $a) use ($regex) {
 		return preg_replace($regex, '', $a) ?? '';
 	}, $longOptions);
-}
-
-/**
- * @param array<string> $input
- * @param array<string> $params
- */
-function validateOptions(array $input, array $params): bool {
-	$sanitizeInput = getOptions($input, REGEX_INPUT_OPTIONS);
-	$sanitizeParams = getOptions($params, REGEX_PARAM_OPTIONS);
-	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
-
-	if (0 === count($unknownOptions)) {
-		return true;
-	}
-
-	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
-	return false;
 }
 
 /**
