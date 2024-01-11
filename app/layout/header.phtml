@@ -31,8 +31,7 @@
 		</div>
 
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<nav class="item configure">
-			<div class="dropdown">
+			<div class="dropdown dropdown-open-right-to-top">
 				<div id="dropdown-configure" class="dropdown-target"></div>
 				<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
 				<ul class="dropdown-menu scrollbar-thin">
@@ -99,7 +98,6 @@
 				</ul>
 				<a class="dropdown-close" href="#close">❌</a>
 			</div>
-		</nav>
 		<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 		<div class="item configure">
 			<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
