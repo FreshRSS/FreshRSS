@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 ?>
 <header class="header">
-	<nav class="nav-header">
+	<nav class="nav-header scrollbar-thin">
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 			<div id="header_menu_feedsmgmt" class="group stick">
 				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>"><?= _i('add') ?></a>

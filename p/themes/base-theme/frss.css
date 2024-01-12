@@ -63,7 +63,7 @@ html, body {
 }
 
 body {
-	display: flex;
+	display: table;
 	width: 100vw;
 	height: 100vh;
 }
@@ -83,8 +83,9 @@ main.prompt .link-registration {
 }
 
 main#maincolumn {
-	width: calc(100vw - 55px - 300px);
+	display: table-cell;
 	box-sizing: border-box;
+	vertical-align: top;
 }
 
 #maincolumn-inner {
@@ -615,10 +616,6 @@ input[type="checkbox"]:focus-visible {
 }
 
 /*=== Navigation */
-.nav-list {
-	padding-bottom: 3rem;
-}
-
 .nav-list .nav-header,
 .nav-list .item {
 	display: block;
@@ -1090,6 +1087,8 @@ li.drag-hover {
 /*===============*/
 /*=== Header */
 .header {
+	display: table-cell;
+	vertical-align: top;
 	width: 55px;
 }
 
@@ -1151,6 +1150,11 @@ main #stream {
 	overflow-y: scroll;
 }
 
+.aside {
+	display: table-cell;
+	vertical-align: top;
+}
+
 .aside + .close-aside {
 	display: none;
 }
@@ -1168,9 +1172,11 @@ main #stream {
 }
 
 .aside .nav-inner {
+	padding-bottom: 3rem;
 	height: 100vh;
 	overflow-x: hidden;
 	overflow-y: auto;
+	box-sizing: border-box;
 }
 
 /*=== Aside main page */
