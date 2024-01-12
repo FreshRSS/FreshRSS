@@ -117,8 +117,8 @@ DESCRIPTION
 	Check if translation files have missing keys or missing translations.
 
 	-d, --display-result	display results.
-	-h,	--help				display this help and exit.
-	-l, --language=LANG		filter by LANG.
+	-h, --help		display this help and exit.
+	-l, --language=LANG	filter by LANG.
 	-r, --display-report	display completion report.
 
 HELP;
