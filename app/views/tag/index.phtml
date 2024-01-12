@@ -3,36 +3,38 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+<main id="maincolumn" class="post">
+	<div id="maincolumn-inner">
+		<div class="link-back-wrapper">
+			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+		</div>
+
+		<h1><?= _t('sub.menu.label_management') ?></h1>
+
+		<h2><?= _t('sub.title.add_label') ?></h2>
+		<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<div class="form-group">
+				<label class="group-name" for="new_label_name"><?= _t('sub.tag.name') ?></label>
+				<div class="group-controls">
+					<input id="new_label_name" name="name" type="text" autocomplete="off" required="required" />
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+				</div>
+			</div>
+		</form>
+
+		<?php if (count($this->tags) > 0): ?>
+		<h2><?= _t('gen.action.manage') ?></h2>
+		<ul>
+		<?php foreach ($this->tags as $tag): ?>
+			<li><a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>"><?= $tag->name() ?></a></li>
+		<?php endforeach; ?>
+		</ul>
+		<?php endif; ?>
 	</div>
-
-	<h1><?= _t('sub.menu.label_management') ?></h1>
-
-	<h2><?= _t('sub.title.add_label') ?></h2>
-	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<label class="group-name" for="new_label_name"><?= _t('sub.tag.name') ?></label>
-			<div class="group-controls">
-				<input id="new_label_name" name="name" type="text" autocomplete="off" required="required" />
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
-			</div>
-		</div>
-	</form>
-
-	<?php if (count($this->tags) > 0): ?>
-	<h2><?= _t('gen.action.manage') ?></h2>
-	<ul>
-	<?php foreach ($this->tags as $tag): ?>
-		<li><a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>"><?= $tag->name() ?></a></li>
-	<?php endforeach; ?>
-	</ul>
-	<?php endif; ?>
 </main>
