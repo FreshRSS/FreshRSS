@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Yapılandırma',
 		'display' => 'Görünüm',
 		'extensions' => 'Eklentiler',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log kayıtları',
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',

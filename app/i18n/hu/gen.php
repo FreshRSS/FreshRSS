@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Konfiguráció',
 		'display' => 'Megjelenítés',
 		'extensions' => 'Kiegészítők',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log-ok',
 		'queries' => 'Felhasználói lekérdezések',
 		'reading' => 'Olvasás',

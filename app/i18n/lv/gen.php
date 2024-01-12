@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Konfigurācija',
 		'display' => 'Display',	// TODO
 		'extensions' => 'Paplašinājumi',
+		'help' => 'Help',	// TODO
 		'logs' => 'Žurnāls',
 		'queries' => 'Lietotāja pieprasījumi',
 		'reading' => 'Lasīšana',

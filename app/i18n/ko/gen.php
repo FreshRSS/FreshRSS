@@ -174,6 +174,7 @@ return array(
 		'configuration' => '설정',
 		'display' => '표시',
 		'extensions' => '확장 기능',
+		'help' => 'Help',	// TODO
 		'logs' => '로그',
 		'queries' => '사용자 쿼리',
 		'reading' => '읽기',

@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Конфигурация',
 		'display' => 'Отображение',
 		'extensions' => 'Расширения',
+		'help' => 'Help',	// TODO
 		'logs' => 'Журнал',
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',

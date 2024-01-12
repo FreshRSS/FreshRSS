@@ -174,6 +174,7 @@ return array(
 		'configuration' => ' پیکربندی',
 		'display' => 'نمایش',
 		'extensions' => ' برنامه های افزودنی',
+		'help' => 'Help',	// TODO
 		'logs' => ' سیاهههای مربوط',
 		'queries' => ' پرس و جوهای کاربر',
 		'reading' => ' خواندن',

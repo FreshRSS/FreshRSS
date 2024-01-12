@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Configuration',	// TODO
 		'display' => 'Display',	// TODO
 		'extensions' => 'Extensions',	// TODO
+		'help' => 'Help',	// TODO
 		'logs' => 'Logs',	// TODO
 		'queries' => 'User queries',	// TODO
 		'reading' => 'Reading',	// TODO

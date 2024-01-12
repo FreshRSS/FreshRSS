@@ -174,6 +174,7 @@ return array(
 		'configuration' => '設定',
 		'display' => 'ディスプレイ',
 		'extensions' => '拡張機能',
+		'help' => 'Help',	// TODO
 		'logs' => 'ログ',
 		'queries' => 'ユーザークエリ',
 		'reading' => 'リーディング',

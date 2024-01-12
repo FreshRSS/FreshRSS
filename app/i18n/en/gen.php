@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Configuration',
 		'display' => 'Display',
 		'extensions' => 'Extensions',
+		'help' => 'Help',
 		'logs' => 'Logs',
 		'queries' => 'User queries',
 		'reading' => 'Reading',

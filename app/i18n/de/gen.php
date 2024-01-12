@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Konfiguration',
 		'display' => 'Anzeige',
 		'extensions' => 'Erweiterungen',
+		'help' => 'Hilfe',
 		'logs' => 'Protokolle',
 		'queries' => 'Benutzerabfragen',
 		'reading' => 'Lesen',

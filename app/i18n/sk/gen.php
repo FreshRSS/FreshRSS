@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Nastavenia',
 		'display' => 'Zobrazenie',
 		'extensions' => 'Rozšírenia',
+		'help' => 'Help',	// TODO
 		'logs' => 'Záznamy',
 		'queries' => 'Používateľské dopyty',
 		'reading' => 'Čítanie',

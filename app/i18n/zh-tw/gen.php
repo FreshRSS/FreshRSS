@@ -174,6 +174,7 @@ return array(
 		'configuration' => '配置',
 		'display' => '顯示',
 		'extensions' => '擴充功能',
+		'help' => 'Help',	// TODO
 		'logs' => '日誌',
 		'queries' => '自定義查詢',
 		'reading' => '閱讀',

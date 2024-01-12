@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'הגדרות',
 		'display' => 'תצוגה',
 		'extensions' => 'Extensions',	// TODO
+		'help' => 'Help',	// TODO
 		'logs' => 'לוגים',
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',

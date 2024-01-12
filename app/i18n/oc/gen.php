@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Configuracion',	// IGNORE
 		'display' => 'Afichatge',
 		'extensions' => 'Extensions',	// IGNORE
+		'help' => 'Help',	// TODO
 		'logs' => 'Jornals d’audit',	// IGNORE
 		'queries' => 'Filtres utilizaire',
 		'reading' => 'Lectura',

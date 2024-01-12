@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Configuratie',
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log boeken',
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',

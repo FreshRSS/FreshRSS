@@ -174,6 +174,7 @@ return array(
 		'configuration' => '配置',
 		'display' => '显示',
 		'extensions' => '扩展',
+		'help' => 'Help',	// TODO
 		'logs' => '日志',
 		'queries' => '自定义查询',
 		'reading' => '阅读',

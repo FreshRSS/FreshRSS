@@ -174,6 +174,7 @@ return array(
 		'configuration' => 'Configurazione',
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log',
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
