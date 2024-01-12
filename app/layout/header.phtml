@@ -4,7 +4,7 @@
 <header class="header">
 	<nav class="nav-header">
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-			<div class="group stick">
+			<div id="header_menu_feedsmgmt" class="group stick">
 				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>"><?= _i('add') ?></a>
 
 				<div class="dropdown dropdown-open-right-to-bottom">
@@ -56,7 +56,7 @@
 			</div>
 		<?php } ?>
 
-		<div class="group" id="nav_menu_views">
+		<div class="group" id="header_menu_views">
 			<?php
 			$readingModes = FreshRSS_ReadingMode::getReadingModes();
 			$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
@@ -75,7 +75,7 @@
 			}
 			?>
 		</div>
-		<div class="group stick">
+		<div id="header_menu_configs" class="group stick">
 			<div class="dropdown dropdown-open-right-to-top">
 				<div id="dropdown-help" class="dropdown-target"></div>
 				<a class="btn dropdown-toggle" href="#dropdown-help"><?= _i('help') ?></a>

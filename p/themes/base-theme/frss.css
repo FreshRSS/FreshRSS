@@ -719,7 +719,7 @@ input[type="checkbox"]:focus-visible {
 
 .dropdown-open-right-to-bottom .dropdown-menu::after {
 	border-width: 0 0 1px 1px;
-	top: 13px;
+	top: 7px;
 	right: auto;
 	left: -6px;
 	bottom: auto;
@@ -1123,6 +1123,10 @@ a:hover .logo {
 	height: 100vh;
 	box-sizing: border-box;
 	justify-content: space-between;
+}
+
+.header #header_menu_configs .dropdown {
+	margin-top: 1rem;
 }
 
 input[type="search"] {

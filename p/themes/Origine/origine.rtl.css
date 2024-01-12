@@ -253,7 +253,7 @@ form th {
 .stick .dropdown + input,
 .stick .dropdown + .dropdown > .btn,
 .group .dropdown + .dropdown > .btn {
-	border-right: none;
+	border-right-width: 0;
 }
 
 .stick input + .btn {
@@ -262,8 +262,34 @@ form th {
 
 .stick .dropdown:last-child > .btn,
 .group .dropdown:last-child > .btn {
-	border-right: none;
+	border-right-width: 0;
 	border-radius: 3px 0 0 3px;
+}
+
+header.header .group .btn,
+header.header #header_menu_configs.group .btn {
+	border: 1px solid var(--border-color);
+	border-left: 1px solid var(--border-color-shadow-side);
+	border-bottom: 1px solid var(--border-color-shadow-side);
+	border-radius: 3px;
+}
+
+header.header .group .btn:first-child {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+header.header .group .btn + .btn,
+header.header .group .btn + .dropdown .btn {
+	border-top: 0;
+	border-radius: 0;
+}
+
+header.header .group .dropdown:last-child > .btn,
+header.header .group .btn:last-child {
+	border-right-width: 1px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
 }
 
 .btn {
@@ -987,7 +1013,8 @@ a:hover .icon {
 #nav_entries {
 	margin: 0;
 	background-color: var(--background-color-light);
-	border-top: 1px solid var(--border-color);
+	border: 1px solid var(--border-color);
+	box-shadow: 0 0 0.5rem var(--box-shadow-color);
 	text-align: center;
 	line-height: 3;
 	table-layout: fixed;
