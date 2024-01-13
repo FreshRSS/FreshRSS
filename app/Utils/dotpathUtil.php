@@ -63,7 +63,7 @@ final class FreshRSS_dotpath_Util
 	 * @param mixed $value
 	 * @return bool
 	 */
-	private static function accessible(mixed $value): bool {
+	private static function accessible($value): bool {
 		return is_array($value) || $value instanceof \ArrayAccess;
 	}
 
@@ -84,7 +84,8 @@ final class FreshRSS_dotpath_Util
 		return false;
 	}
 
-	private static function value(mixed $value): mixed {
+	/** @param mixed $value */
+	private static function value($value): mixed {
 		return $value instanceof Closure ? $value() : $value;
 	}
 
