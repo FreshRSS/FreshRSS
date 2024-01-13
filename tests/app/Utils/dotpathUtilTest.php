@@ -4,7 +4,7 @@ declare(strict_types=1);
 class dotpathUtilTest extends PHPUnit\Framework\TestCase {
 
 	/**
-	 * @return Traversable<array{array<string,mixed>,string,mixed}>
+	 * @return Traversable<array{array<string,mixed>,string,string}>
 	 */
 	public function provideJsonDots(): Traversable {
 		$json = <<<json
@@ -37,7 +37,7 @@ class dotpathUtilTest extends PHPUnit\Framework\TestCase {
 	 * @dataProvider provideJsonDots
 	 * @param array<string,mixed> $array
 	 */
-	public function testJsonDots(array $array, string $key, mixed $expected): void {
+	public function testJsonDots(array $array, string $key, string $expected): void {
 		$value = FreshRSS_dotpath_Util::get($array, $key);
 		self::assertEquals($expected, $value);
 	}
