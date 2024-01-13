@@ -45,7 +45,7 @@
         "ext-pdo_pgsql": "*"
     },
     "require-dev": {
-        "php": ">=8.0",
+        "php": ">=7.4",
         "ext-phar": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*",

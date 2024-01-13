@@ -103,7 +103,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 		}
 
 		// Remove null or invalid attributes
-		$outline = array_filter($outline, static function (mixed $value) { return (is_string($value) || is_int($value) || is_bool($value)) && $value !== ''; });
+		$outline = array_filter($outline, static function ($value) { return (is_string($value) || is_int($value) || is_bool($value)) && $value !== ''; });
 
 		$outlines[] = $outline;
 	}
