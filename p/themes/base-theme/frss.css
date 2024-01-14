@@ -2248,6 +2248,12 @@ html.slider-active {
 		height: calc(100vh - 55px);
 	}
 
+	.aside,
+	.aside .nav-inner,
+	#sidebar {
+		width: auto;
+	}
+
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,

@@ -1180,10 +1180,6 @@ a:hover .icon {
 		border-right: 1px solid var(--border-color);
 	}
 
-	.dropdown-menu .dropdown-section:last-child {
-		margin-bottom: 3rem;
-	}
-
 	#overlay {
 		background-color: var(--background-color-light);
 	}
