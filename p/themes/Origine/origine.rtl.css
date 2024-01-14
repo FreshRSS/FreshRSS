@@ -617,10 +617,6 @@ a:hover .icon {
 }
 
 /*=== Tree */
-.tree {
-	margin: 10px 0;
-}
-
 .tree-folder-title {
 	position: relative;
 	padding-right: 0.75rem;
@@ -717,10 +713,6 @@ a:hover .icon {
 .aside.aside_feed {
 	text-align: center;
 	background-color: var(--background-color-light);
-}
-
-.aside.aside_feed .tree {
-	margin: 10px 0 50px;
 }
 
 /*=== Aside main page (categories) */
