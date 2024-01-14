@@ -3,7 +3,14 @@
 ?>
 <header class="header">
 	<nav class="nav-header scrollbar-thin">
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+		<?php if (Minz_Request::actionName() != 'global') { ?>
+			<div id="toggle_aside" class="nav_mobile group">
+				<a class="btn" href="#aside_feed"><?= _i('category') ?></a>
+			</div>
+		<?php
+		}
+
+		if (FreshRSS_Auth::hasAccess()) { ?>
 			<div id="header_menu_feedsmgmt" class="group stick">
 				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>"><?= _i('add') ?></a>
 
@@ -75,7 +82,7 @@
 			}
 			?>
 		</div>
-		<div id="header_menu_configs" class="group stick">
+		<div id="header_menu_configs" class="group">
 			<div class="dropdown dropdown-open-right-to-top">
 				<div id="dropdown-help" class="dropdown-target"></div>
 				<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>"><?= _i('help') ?></a>

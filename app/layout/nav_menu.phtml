@@ -1,14 +1,7 @@
 <?php
 	declare(strict_types=1);
-	$actual_view = Minz_Request::actionName();
 ?>
 <nav class="nav_menu">
-	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
-		<div class="group">
-			<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
-		</div>
-	<?php } ?>
-
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div id="nav_menu_actions" class="group">
 		<?php

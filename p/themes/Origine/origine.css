@@ -1112,6 +1112,10 @@ a:hover .icon {
 /*===========*/
 
 @media (max-width: 840px) {
+	body {
+		width: 100%;
+	}
+
 	.header > .item {
 		padding: 0.5rem 1rem;
 	}
@@ -1124,6 +1128,10 @@ a:hover .icon {
 	.header > .item.configure {
 		width: 25%;
 		text-align: right;
+	}
+
+	main#maincolumn {
+		display: block;
 	}
 
 	.form-group .group-name {
@@ -1148,11 +1156,6 @@ a:hover .icon {
 
 	.aside.aside_feed {
 		padding: 0;
-	}
-
-	.post {
-		padding-left: 1rem;
-		padding-right: 1rem;
 	}
 
 	.nav_menu .btn {

@@ -6,7 +6,8 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 }
 ?>
-<main id="maincolumn">
+<main id="maincolumn" class="feedstream">
+<div id="maincolumn-inner">
 <?php
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
@@ -18,7 +19,8 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 $content_width = FreshRSS_Context::userConf()->content_width;
 $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 ?>
-<main id="stream" class="reader">
+<div id="stream" class="reader">
+	
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
@@ -222,18 +224,20 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
-?></div></main><?php
+?></div></div></div><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<main id="maincolumn">
-	<div id="stream" class="reader">
-		<div id="new-article">
-			<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-		</div>
-		<div class="prompt alert alert-warn">
-			<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+<div id="maincolumn">
+	<div id="maincolumn-inner" class="feedstream">
+		<div id="stream" class="reader">
+			<div id="new-article">
+				<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+			</div>
+			<div class="prompt alert alert-warn">
+				<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+			</div>
 		</div>
 	</div>
-</main>
+</div>
 <?php endif; ?>
