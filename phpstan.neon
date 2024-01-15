@@ -1,6 +1,7 @@
 parameters:
 	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
 	level: 8
+	phpVersion: 80399	# TODO: Remove line when moving composer.json to PHP 8+
 	fileExtensions:
 		- php
 		- phtml
