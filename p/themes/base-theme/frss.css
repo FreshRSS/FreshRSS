@@ -99,12 +99,6 @@ main#maincolumn {
 	padding: 1rem 2rem;
 }
 
-.feedstream #maincolumn-inner {
-	display: grid;
-	grid-template-columns: 100%;
-	grid-template-rows: auto auto;
-}
-
 .feedstream #maincolumn-inner #stream {
 	height: 100%;
 }
@@ -1158,11 +1152,6 @@ input[type="search"] {
 	background: inherit;
 }
 
-main #stream {
-	height: calc(100vh - 54px);
-	overflow-y: scroll;
-}
-
 .aside {
 	display: table-cell;
 	vertical-align: top;
@@ -2145,6 +2134,9 @@ html.slider-active {
 }
 
 .nav_menu {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
 	background: inherit;
