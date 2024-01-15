@@ -719,17 +719,17 @@ input[type="checkbox"]:focus-visible {
 	top: auto;
 	right: auto;
 	left: -6px;
-	bottom: 13px;
+	bottom: 22px;
 }
 
 .dropdown-open-right-to-top .dropdown-menu {
 	left: 45px;
-	bottom: 0;
+	bottom: -12px;
 }
 
 .dropdown-open-right-to-bottom .dropdown-menu::after {
 	border-width: 0 0 1px 1px;
-	top: 7px;
+	top: 16px;
 	right: auto;
 	left: -6px;
 	bottom: auto;
@@ -737,7 +737,7 @@ input[type="checkbox"]:focus-visible {
 
 .dropdown-open-right-to-bottom .dropdown-menu {
 	left: 45px;
-	top: 0;
+	top: -10px;
 }
 
 .dropdown-menu-scrollable {
