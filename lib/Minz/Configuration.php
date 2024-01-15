@@ -27,6 +27,7 @@ class Minz_Configuration {
 	 * @param string $config_filename the filename of the configuration
 	 * @param string $default_filename a filename containing default values for the configuration
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @throws Minz_FileNotExistException
 	 */
 	public static function register(string $namespace, string $config_filename, string $default_filename = null,
 		Minz_ConfigurationSetterInterface $configuration_setter = null): void {
@@ -103,6 +104,7 @@ class Minz_Configuration {
 	 * @param string $config_filename the file containing configuration values.
 	 * @param string $default_filename the file containing default values, null by default.
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @throws Minz_FileNotExistException
 	 */
 	private final function __construct(string $namespace, string $config_filename, string $default_filename = null,
 		Minz_ConfigurationSetterInterface $configuration_setter = null) {
@@ -153,7 +155,6 @@ class Minz_Configuration {
 	 * @param string $key the name of the param.
 	 * @param mixed $default default value to return if key does not exist.
 	 * @return array|mixed value corresponding to the key.
-	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
 	public function param(string $key, $default = null) {
 		if (isset($this->data[$key])) {
