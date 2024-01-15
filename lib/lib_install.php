@@ -76,6 +76,9 @@ function generateSalt(): string {
 	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
 }
 
+/**
+ * @throws FreshRSS_Context_Exception
+ */
 function initDb(): string {
 	$db = FreshRSS_Context::systemConf()->db;
 	if (empty($db['pdo_options'])) {

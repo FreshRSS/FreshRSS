@@ -13,16 +13,12 @@ function isImgMime(string $content): bool {
 		return true;
 	}
 	$isImage = true;
-	try {
-		/** @var finfo $fInfo */
-		$fInfo = finfo_open(FILEINFO_MIME_TYPE);
-		/** @var string $content */
-		$content = finfo_buffer($fInfo, $content);
-		$isImage = strpos($content, 'image') !== false;
-		finfo_close($fInfo);
-	} catch (Exception $e) {
-		syslog(LOG_WARNING, 'FreshRSS favicon error: ' . $e->getMessage());
-	}
+	/** @var finfo $fInfo */
+	$fInfo = finfo_open(FILEINFO_MIME_TYPE);
+	/** @var string $content */
+	$content = finfo_buffer($fInfo, $content);
+	$isImage = strpos($content, 'image') !== false;
+	finfo_close($fInfo);
 	return $isImage;
 }
 

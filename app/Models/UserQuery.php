@@ -109,8 +109,6 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Parse the query string when it is a "category" query
-	 *
-	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseCategory(int $id): void {
 		if ($this->category_dao === null) {
@@ -127,8 +125,6 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Parse the query string when it is a "feed" query
-	 *
-	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseFeed(int $id): void {
 		if ($this->feed_dao === null) {
@@ -145,8 +141,6 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Parse the query string when it is a "tag" query
-	 *
-	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseTag(int $id): void {
 		if ($this->tag_dao === null) {

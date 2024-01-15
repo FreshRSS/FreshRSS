@@ -44,6 +44,14 @@
         "ext-pdo_mysql": "*",
         "ext-pdo_pgsql": "*"
     },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": false
+        },
+        "platform": {
+            "php": "7.4"
+        }
+    },
     "require-dev": {
         "php": ">=7.4",
         "ext-phar": "*",
@@ -76,10 +84,5 @@
             "@translations",
             "@phpcbf"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "phpstan/extension-installer": false
-        }
     }
 }

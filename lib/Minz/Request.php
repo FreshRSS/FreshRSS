@@ -283,6 +283,7 @@ class Minz_Request {
 
 	/**
 	 * Return the base_url from configuration
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
@@ -382,6 +383,7 @@ class Minz_Request {
 	 * Restart a request
 	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url an array presentation of the URL to route to
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function forward($url = [], bool $redirect = false): void {
 		if (empty(Minz_Request::originalRequest())) {

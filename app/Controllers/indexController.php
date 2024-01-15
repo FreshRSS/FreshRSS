@@ -241,6 +241,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This method returns a list of entries based on the Context object.
 	 * @return Traversable<FreshRSS_Entry>
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public static function listEntriesByContext(): Traversable {
 		$entryDAO = FreshRSS_Factory::createEntryDao();

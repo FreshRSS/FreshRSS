@@ -691,6 +691,7 @@ HTML;
 
 	/**
 	 * @param array<string,mixed> $attributes
+	 * @throws Minz_Exception
 	 */
 	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
 		$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
@@ -741,7 +742,7 @@ HTML;
 			$html = trim(sanitizeHTML($content, $base));
 			return $html;
 		} else {
-			throw new Exception();
+			throw new Minz_Exception();
 		}
 	}
 

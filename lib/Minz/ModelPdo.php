@@ -86,7 +86,7 @@ class Minz_ModelPdo {
 	 * HOST, BASE, USER and PASS variables defined in the configuration file
 	 * @param string|null $currentUser
 	 * @param Minz_Pdo|null $currentPdo
-	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_ConfigurationException
 	 * @throws Minz_PDOConnectionException
 	 */
 	public function __construct(?string $currentUser = null, ?Minz_Pdo $currentPdo = null) {
