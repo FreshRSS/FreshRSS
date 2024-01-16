@@ -18,8 +18,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array{string,string}> */
-	public function provideValidNames(): array
-	{
+	public function provideValidNames(): array {
 		return [
 			['', ''],
 			['this string does not need trimming', 'this string does not need trimming'],
