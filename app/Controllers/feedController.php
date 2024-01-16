@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	public function firstAction(): void {
@@ -480,8 +480,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedIsNew = $feed->lastUpdate() <= 0;
-			$feedIsEmpty = false;
-			$feedIsUnchanged = false;
 
 			try {
 				if ($simplePiePush !== null) {
@@ -642,7 +640,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (random_int(0, 30) === 1) {	// Remove old entries once in 30.
+			if (rand(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
@@ -742,9 +740,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @param array<int,int> $newUnreadEntriesPerFeed
-	 * @return int|false The number of articles marked as read, of false if error
+	 * @return void The number of articles marked as read, of false if error
 	 */
-	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed) {
+	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed): void {
 		$affected = 0;
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
@@ -765,7 +763,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($feedDAO->updateCachedValues() === false) {
 			$affected = false;
 		}
-		return $affected;
 	}
 
 	/**
@@ -776,7 +773,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	private static function applyLabelActions(int $nbNewEntries) {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$labels = $tagDAO->listTags() ?: [];
-		$labels = array_filter($labels, static fn(FreshRSS_Tag $label) => !empty($label->filtersAction('label')));
+		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
+			return !empty($label->filtersAction('label'));
+		});
 		if (count($labels) <= 0) {
 			return 0;
 		}

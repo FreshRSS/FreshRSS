@@ -136,19 +136,24 @@ class I18nFile {
 	 */
 	private function format(array $translation): string {
 		$translation = var_export($this->unflatten($translation), true);
-		$patterns = ['/ -> todo\',/', '/ -> dirty\',/', '/ -> ignore\',/', '/array \(/', '/=>\s*array/', '/(\w) {2}/', '/ {2}/'];
+		$patterns = [
+			'/ -> todo\',/',
+			'/ -> dirty\',/',
+			'/ -> ignore\',/',
+			'/array \(/',
+			'/=>\s*array/',
+			'/(\w) {2}/',
+			'/ {2}/',
+		];
 		$replacements = [
-	  "',\t// TODO",
-	  // Double quoting is mandatory to have a tab instead of the \t string
-	  "',\t// DIRTY",
-	  // Double quoting is mandatory to have a tab instead of the \t string
-	  "',\t// IGNORE",
-	  // Double quoting is mandatory to have a tab instead of the \t string
-	  'array(',
-	  '=> array',
-	  '$1 ',
-	  "\t",
-  ];
+			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
+			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
+			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
+			'array(',
+			'=> array',
+			'$1 ',
+			"\t",
+		];
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		return <<<OUTPUT
