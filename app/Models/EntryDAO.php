@@ -1109,7 +1109,7 @@ SQL;
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
-			. ($limit > 0 ? ' LIMIT ' . (int) $limit : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . $limit : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	/**

@@ -230,7 +230,7 @@ SQL;
 		if ($id_tag === null) {
 			$sql .= ' GROUP BY t.id';
 		} else {
-			$sql .= ' WHERE t.id=' . (int) $id_tag;
+			$sql .= ' WHERE t.id=' . $id_tag;
 		}
 		$res = $this->fetchAssoc($sql);
 		if ($res == null) {

@@ -225,7 +225,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/** @return int|false */
 	public function mute(int $id, bool $value = true) {
-		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . (int) $id;
+		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . $id;
 		return $this->pdo->exec($sql);
 	}
 
@@ -359,7 +359,7 @@ SQL;
 		if ($id_feed === null) {
 			$sql .= 'GROUP BY id_feed';
 		} else {
-			$sql .= 'WHERE id_feed=' . (int) $id_feed;
+			$sql .= 'WHERE id_feed=' . $id_feed;
 		}
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id_feed':int,'newest_item_us':string}>|null $res */
@@ -382,9 +382,9 @@ SQL;
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 				. ' AND `lastUpdate` < (' . (time() + 60)
-				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . (int) $defaultCacheDuration . ' ELSE ttl END)) ')
+				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . $defaultCacheDuration . ' ELSE ttl END)) ')
 			. 'ORDER BY `lastUpdate` '
-			. ($limit < 1 ? '' : 'LIMIT ' . (int) $limit);
+			. ($limit < 1 ? '' : 'LIMIT ' . $limit);
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -401,7 +401,7 @@ SQL;
 	/** @return array<int,string> */
 	public function listTitles(int $id, int $limit = 0): array {
 		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
-			. ($limit < 1 ? '' : ' LIMIT ' . (int) $limit);
+			. ($limit < 1 ? '' : ' LIMIT ' . $limit);
 		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id]) ?? [];
 		/** @var array<int,string> $res */
 		return $res;
