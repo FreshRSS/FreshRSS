@@ -4,29 +4,7 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = array(
-	'valid' => array(
-		'user' => ':',
-		'password' => ':',
-		'api-password' => ':',
-		'language' => ':',
-		'email' => ':',
-		'token' => ':',
-		'purge-after-months' => ':',
-		'feed-min-articles-default' => ':',
-		'feed-ttl-default' => ':',
-		'since-hours-posts-per-rss' => ':',
-		'max-posts-per-rss' => ':',
-	),
-	'deprecated' => array(
-		'api-password' => 'api_password',
-		'purge-after-months' => 'purge_after_months',
-		'feed-min-articles-default' => 'feed_min_articles_default',
-		'feed-ttl-default' => 'feed_ttl_default',
-		'since-hours-posts-per-rss' => 'since_hours_posts_per_rss',
-		'max-posts-per-rss' => 'max_posts_per_rss',
-	),
-);
+$parameters = ['valid' => ['user' => ':', 'password' => ':', 'api-password' => ':', 'language' => ':', 'email' => ':', 'token' => ':', 'purge-after-months' => ':', 'feed-min-articles-default' => ':', 'feed-ttl-default' => ':', 'since-hours-posts-per-rss' => ':', 'max-posts-per-rss' => ':'], 'deprecated' => ['api-password' => 'api_password', 'purge-after-months' => 'purge_after_months', 'feed-min-articles-default' => 'feed_min_articles_default', 'feed-ttl-default' => 'feed_ttl_default', 'since-hours-posts-per-rss' => 'since_hours_posts_per_rss', 'max-posts-per-rss' => 'max_posts_per_rss']];
 
 if (!isset($isUpdate)) {
 	$isUpdate = false;
@@ -53,18 +31,20 @@ function strParam(string $name): ?string {
 
 function intParam(string $name): ?int {
 	global $options;
-	return isset($options['valid'][$name]) && ctype_digit($options['valid'][$name]) ? intval($options['valid'][$name]) : null;
+	return isset($options['valid'][$name]) && ctype_digit($options['valid'][$name]) ? (int) $options['valid'][$name] : null;
 }
 
-$values = array(
-		'language' => strParam('language'),
-		'mail_login' => strParam('email'),
-		'token' => strParam('token'),
-		'old_entries' => intParam('purge-after-months'),	//TODO: Update with new mechanism
-		'keep_history_default' => intParam('feed-min-articles-default'),	//TODO: Update with new mechanism
-		'ttl_default' => intParam('feed-ttl-default'),
-		'since_hours_posts_per_rss' => intParam('since-hours-posts-per-rss'),
-		'max_posts_per_rss' => intParam('max-posts-per-rss'),
-	);
+$values = [
+	'language' => strParam('language'),
+	'mail_login' => strParam('email'),
+	'token' => strParam('token'),
+	'old_entries' => intParam('purge-after-months'),
+	//TODO: Update with new mechanism
+	'keep_history_default' => intParam('feed-min-articles-default'),
+	//TODO: Update with new mechanism
+	'ttl_default' => intParam('feed-ttl-default'),
+	'since_hours_posts_per_rss' => intParam('since-hours-posts-per-rss'),
+	'max_posts_per_rss' => intParam('max-posts-per-rss'),
+];
 
 $values = array_filter($values);

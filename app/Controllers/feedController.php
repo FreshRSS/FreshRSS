@@ -642,7 +642,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (rand(0, 30) === 1) {	// Remove old entries once in 30.
+			if (random_int(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
@@ -776,9 +776,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	private static function applyLabelActions(int $nbNewEntries) {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$labels = $tagDAO->listTags() ?: [];
-		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
-			return !empty($label->filtersAction('label'));
-		});
+		$labels = array_filter($labels, static fn(FreshRSS_Tag $label) => !empty($label->filtersAction('label')));
 		if (count($labels) <= 0) {
 			return 0;
 		}

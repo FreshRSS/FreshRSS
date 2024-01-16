@@ -327,7 +327,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		} else {
 			$this->view->queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
-				$this->view->queries[intval($key)] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+				$this->view->queries[(int) $key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 			}
 		}
 

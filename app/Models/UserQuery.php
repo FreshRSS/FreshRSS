@@ -52,7 +52,7 @@ class FreshRSS_UserQuery {
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search']);
 		if (!empty($query['state'])) {
-			$this->state = intval($query['state']);
+			$this->state = (int) $query['state'];
 		}
 	}
 
@@ -78,7 +78,7 @@ class FreshRSS_UserQuery {
 	private function parseGet(string $get): void {
 		$this->get = $get;
 		if (preg_match('/(?P<type>[acfst])(_(?P<id>\d+))?/', $get, $matches)) {
-			$id = intval($matches['id'] ?? '0');
+			$id = (int) ($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
 					$this->parseAll();

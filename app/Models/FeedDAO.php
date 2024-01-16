@@ -225,7 +225,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/** @return int|false */
 	public function mute(int $id, bool $value = true) {
-		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . intval($id);
+		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . (int) $id;
 		return $this->pdo->exec($sql);
 	}
 
@@ -359,7 +359,7 @@ SQL;
 		if ($id_feed === null) {
 			$sql .= 'GROUP BY id_feed';
 		} else {
-			$sql .= 'WHERE id_feed=' . intval($id_feed);
+			$sql .= 'WHERE id_feed=' . (int) $id_feed;
 		}
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id_feed':int,'newest_item_us':string}>|null $res */
@@ -382,9 +382,9 @@ SQL;
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 				. ' AND `lastUpdate` < (' . (time() + 60)
-				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
+				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . (int) $defaultCacheDuration . ' ELSE ttl END)) ')
 			. 'ORDER BY `lastUpdate` '
-			. ($limit < 1 ? '' : 'LIMIT ' . intval($limit));
+			. ($limit < 1 ? '' : 'LIMIT ' . (int) $limit);
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -401,7 +401,7 @@ SQL;
 	/** @return array<int,string> */
 	public function listTitles(int $id, int $limit = 0): array {
 		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
-			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+			. ($limit < 1 ? '' : ' LIMIT ' . (int) $limit);
 		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id]) ?? [];
 		/** @var array<int,string> $res */
 		return $res;
@@ -427,9 +427,7 @@ SQL;
 		 */
 		$feeds = self::daoToFeed($res);
 
-		usort($feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
-			return strnatcasecmp($a->name(), $b->name());
-		});
+		usort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
 
 		return $feeds;
 	}

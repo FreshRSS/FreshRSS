@@ -204,8 +204,7 @@ SQL;
 		}
 
 		if ($this->updateEntryPrepared === null) {
-			$sql = 'UPDATE `_entry` '
-				. 'SET title=:title, author=:author, '
+			$sql = 'UPDATE `_entry` SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
 				. ', hash=' . static::sqlHexDecode(':hash')
@@ -319,9 +318,7 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` '
-			. 'SET is_favorite=? '
-			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+		$sql = 'UPDATE `_entry` SET is_favorite=? WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
 		$values = [$is_favorite ? 1 : 0];
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
@@ -400,9 +397,7 @@ SQL;
 				return $affected;
 			}
 
-			$sql = 'UPDATE `_entry` '
-				 . 'SET is_read=? '
-				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+			$sql = 'UPDATE `_entry` SET is_read=? WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
 			$values = [$is_read ? 1 : 0];
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
@@ -417,8 +412,7 @@ SQL;
 			}
 			return $affected;
 		} else {
-			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-				 . 'SET e.is_read=?,'
+			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id SET e.is_read=?,'
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE e.id=? AND e.is_read=?';
 			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
@@ -550,9 +544,7 @@ SQL;
 			$this->pdo->beginTransaction();
 		}
 
-		$sql = 'UPDATE `_entry` '
-			 . 'SET is_read=? '
-			 . 'WHERE id_feed=? AND is_read <> ? AND id <= ?';
+		$sql = 'UPDATE `_entry` SET is_read=? WHERE id_feed=? AND is_read <> ? AND id <= ?';
 		$values = [$is_read ? 1 : 0, $id_feed, $is_read ? 1 : 0, $idMax];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere('', $filters, $state);
@@ -567,8 +559,7 @@ SQL;
 		$affected = $stm->rowCount();
 
 		if ($affected > 0) {
-			$sql = 'UPDATE `_feed` '
-				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
+			$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
 				 . ' WHERE id=:id';
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm !== false &&
@@ -601,9 +592,7 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id '
-			 . 'SET e.is_read = ? '
-			 . 'WHERE '
+		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id SET e.is_read = ? WHERE '
 			 . ($id == 0 ? '' : 'et.id_tag = ? AND ')
 			 . 'e.is_read <> ? AND e.id <= ?';
 		$values = [$is_read ? 1 : 0];
@@ -1120,7 +1109,7 @@ SQL;
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
-			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . (int) $limit : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	/**

@@ -3,60 +3,11 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$parameters = array(
-	'valid' => array(
-		'environment' => ':',
-		'base-url' => ':',
-		'language' => ':',
-		'title' => ':',
-		'default-user' => ':',
-		'allow-anonymous' => '',
-		'allow-anonymous-refresh' => '',
-		'auth-type' => ':',
-		'api-enabled' => '',
-		'allow-robots' => '',
-		'disable-update' => '',
-		'db-type' => ':',
-		'db-host' => ':',
-		'db-user' => ':',
-		'db-password' => ':',
-		'db-base' => ':',
-		'db-prefix' => '::',
-	),
-	'deprecated' => array(
-		'base-url' => 'base_url',
-		'default-user' => 'default_user',
-		'allow-anonymous' => 'allow_anonymous',
-		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
-		'auth-type' => 'auth_type',
-		'api-enabled' => 'api_enabled',
-		'allow-robots' => 'allow_robots',
-		'disable-update' => 'disable_update',
-	),
-);
+$parameters = ['valid' => ['environment' => ':', 'base-url' => ':', 'language' => ':', 'title' => ':', 'default-user' => ':', 'allow-anonymous' => '', 'allow-anonymous-refresh' => '', 'auth-type' => ':', 'api-enabled' => '', 'allow-robots' => '', 'disable-update' => '', 'db-type' => ':', 'db-host' => ':', 'db-user' => ':', 'db-password' => ':', 'db-base' => ':', 'db-prefix' => '::'], 'deprecated' => ['base-url' => 'base_url', 'default-user' => 'default_user', 'allow-anonymous' => 'allow_anonymous', 'allow-anonymous-refresh' => 'allow_anonymous_refresh', 'auth-type' => 'auth_type', 'api-enabled' => 'api_enabled', 'allow-robots' => 'allow_robots', 'disable-update' => 'disable_update']];
 
-$configParams = array(
-	'environment',
-	'base-url',
-	'language',
-	'title',
-	'default-user',
-	'allow-anonymous',
-	'allow-anonymous-refresh',
-	'auth-type',
-	'api-enabled',
-	'allow-robots',
-	'disable-update',
-);
+$configParams = ['environment', 'base-url', 'language', 'title', 'default-user', 'allow-anonymous', 'allow-anonymous-refresh', 'auth-type', 'api-enabled', 'allow-robots', 'disable-update'];
 
-$dBconfigParams = array(
-	'db-type' => 'type',
-	'db-host' => 'host',
-	'db-user' => 'user',
-	'db-password' => 'password',
-	'db-base' => 'base',
-	'db-prefix' => 'prefix',
-);
+$dBconfigParams = ['db-type' => 'type', 'db-host' => 'host', 'db-user' => 'user', 'db-password' => 'password', 'db-base' => 'base', 'db-prefix' => 'prefix'];
 
 $options = parseCliParams($parameters);
 

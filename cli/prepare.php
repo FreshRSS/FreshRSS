@@ -3,19 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$dirs = array(
-	'/',
-	'/cache',
-	'/extensions-data',
-	'/favicons',
-	'/fever',
-	'/PubSubHubbub',
-	'/PubSubHubbub/feeds',
-	'/PubSubHubbub/keys',
-	'/tokens',
-	'/users',
-	'/users/_',
-);
+$dirs = ['/', '/cache', '/extensions-data', '/favicons', '/fever', '/PubSubHubbub', '/PubSubHubbub/feeds', '/PubSubHubbub/keys', '/tokens', '/users', '/users/_'];
 
 $ok = true;
 
@@ -25,11 +13,12 @@ foreach ($dirs as $dir) {
 }
 
 file_put_contents(DATA_PATH . '/.htaccess',
-"# Apache 2.2\n" .
-"<IfModule !mod_authz_core.c>\n" .
-"	Order	Allow,Deny\n" .
-"	Deny	from all\n" .
-"	Satisfy	all\n" .
+'# Apache 2.2
+<IfModule !mod_authz_core.c>
+	Order	Allow,Deny
+	Deny	from all
+	Satisfy	all
+' .
 "</IfModule>\n" .
 "\n" .
 "# Apache 2.4\n" .

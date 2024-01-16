@@ -72,7 +72,7 @@ class FreshRSS_FormAuth {
 			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
 		}
 
-		if (rand(0, 10) === 1) {
+		if (random_int(0, 10) === 1) {
 			self::purgeTokens();
 		}
 	}

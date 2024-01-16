@@ -121,12 +121,8 @@ function parseCliParams(array $parameters): array {
  * @return array<string>
  */
 function getLongOptions(array $options, string $regex): array {
-	$longOptions = array_filter($options, static function (string $a) use ($regex) {
-		return preg_match($regex, $a) === 1;
-	});
-	return array_map(static function (string $a) use ($regex) {
-		return preg_replace($regex, '', $a) ?? '';
-	}, $longOptions);
+	$longOptions = array_filter($options, static fn(string $a) => preg_match($regex, $a) === 1);
+	return array_map(static fn(string $a) => preg_replace($regex, '', $a) ?? '', $longOptions);
 }
 
 /**

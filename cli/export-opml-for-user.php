@@ -5,9 +5,7 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
-	'user:',
-);
+$params = ['user:'];
 
 $options = getopt('', $params);
 
@@ -20,7 +18,7 @@ $username = cliInitUser($options['user']);
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
-list($filename, $content) = $export_service->generateOpml();
+[$filename, $content] = $export_service->generateOpml();
 echo $content;
 
 invalidateHttpCache($username);

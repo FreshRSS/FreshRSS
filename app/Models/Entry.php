@@ -223,12 +223,12 @@ HTML;
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
 			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($length == null ? '' : '" data-length="' . (int) $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($length == null ? '' : '" data-length="' . (int) $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 			} else {	//e.g. application, text, unknown
@@ -375,10 +375,10 @@ HTML;
 			if ($microsecond) {
 				return $this->date_added;
 			} else {
-				return intval(substr($this->date_added, 0, -6));
+				return (int) substr($this->date_added, 0, -6);
 			}
 		} else {
-			$date = intval(substr($this->date_added, 0, -6));
+			$date = (int) substr($this->date_added, 0, -6);
 			return timestamptodate($date);
 		}
 	}
@@ -481,7 +481,7 @@ HTML;
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
-		$value = intval($value);
+		$value = (int) $value;
 		$this->date = $value > 1 ? $value : time();
 	}
 
@@ -514,7 +514,7 @@ HTML;
 	/** @param int|string $id */
 	private function _feedId($id): void {
 		$this->feed = null;
-		$this->feedId = intval($id);
+		$this->feedId = (int) $id;
 	}
 
 	/** @param array<string>|string $value */
@@ -901,7 +901,7 @@ HTML;
 							(self::enclosureIsImage($enclosure) ? 'image' : ''),
 					];
 				if (!empty($enclosure['length'])) {
-					$media['length'] = intval($enclosure['length']);
+					$media['length'] = (int) $enclosure['length'];
 				}
 				$item['enclosure'][] = $media;
 			}
