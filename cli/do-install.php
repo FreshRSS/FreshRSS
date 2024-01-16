@@ -7,11 +7,60 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-$parameters = ['valid' => ['environment' => ':', 'base-url' => ':', 'language' => ':', 'title' => ':', 'default-user' => ':', 'allow-anonymous' => '', 'allow-anonymous-refresh' => '', 'auth-type' => ':', 'api-enabled' => '', 'allow-robots' => '', 'disable-update' => '', 'db-type' => ':', 'db-host' => ':', 'db-user' => ':', 'db-password' => ':', 'db-base' => ':', 'db-prefix' => '::'], 'deprecated' => ['base-url' => 'base_url', 'default-user' => 'default_user', 'allow-anonymous' => 'allow_anonymous', 'allow-anonymous-refresh' => 'allow_anonymous_refresh', 'auth-type' => 'auth_type', 'api-enabled' => 'api_enabled', 'allow-robots' => 'allow_robots', 'disable-update' => 'disable_update']];
+$parameters = [
+	'valid' => [
+		'environment' => ':',
+		'base-url' => ':',
+		'language' => ':',
+		'title' => ':',
+		'default-user' => ':',
+		'allow-anonymous' => '',
+		'allow-anonymous-refresh' => '',
+		'auth-type' => ':',
+		'api-enabled' => '',
+		'allow-robots' => '',
+		'disable-update' => '',
+		'db-type' => ':',
+		'db-host' => ':',
+		'db-user' => ':',
+		'db-password' => ':',
+		'db-base' => ':',
+		'db-prefix' => '::',
+	], 'deprecated' => [
+		'base-url' => 'base_url',
+		'default-user' => 'default_user',
+		'allow-anonymous' => 'allow_anonymous',
+		'allow-anonymous-refresh' =>
+			'allow_anonymous_refresh',
+		'auth-type' => 'auth_type',
+		'api-enabled' => 'api_enabled',
+		'allow-robots' => 'allow_robots',
+		'disable-update' => 'disable_update',
+	],
+];
 
-$configParams = ['environment' => 'environment', 'base-url' => 'base_url', 'language' => 'language', 'title' => 'title', 'default-user' => 'default_user', 'allow-anonymous' => 'allow_anonymous', 'allow-anonymous-refresh' => 'allow_anonymous_refresh', 'auth-type' => 'auth_type', 'api-enabled' => 'api_enabled', 'allow-robots' => 'allow_robots', 'disable-update' => 'disable_update'];
+$configParams = [
+	'environment' => 'environment',
+	'base-url' => 'base_url',
+	'language' => 'language',
+	'title' => 'title',
+	'default-user' => 'default_user',
+	'allow-anonymous' => 'allow_anonymous',
+	'allow-anonymous-refresh' => 'allow_anonymous_refresh',
+	'auth-type' => 'auth_type',
+	'api-enabled' => 'api_enabled',
+	'allow-robots' => 'allow_robots',
+	'disable-update' => 'disable_update',
+];
 
-$dBconfigParams = ['db-type' => 'type', 'db-host' => 'host', 'db-user' => 'user', 'db-password' => 'password', 'db-base' => 'base', 'db-prefix' => 'prefix'];
+$dBconfigParams = [
+	'db-type' => 'type',
+	'db-host' => 'host',
+	'db-user' => 'user',
+	'db-password' => 'password',
+	'db-base' => 'base',
+	'db-prefix' => 'prefix',
+];
 
 $options = parseCliParams($parameters);
 
@@ -25,7 +74,10 @@ if (!empty($options['invalid']) || empty($options['valid']['default-user']) || !
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
 
-$config = ['salt' => generateSalt(), 'db' => FreshRSS_Context::systemConf()->db];
+$config = [
+	'salt' => generateSalt(),
+	'db' => FreshRSS_Context::systemConf()->db,
+];
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {
@@ -63,7 +115,7 @@ if (isset($options['valid']['auth-type']) && !in_array($options['valid']['auth-t
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
-	"<?php\n return " . var_export($config, true) . ";\n") === false) {
+		"<?php\n return " . var_export($config, true) . ";\n") === false) {
 	fail('FreshRSS could not write configuration file!: ' . join_path(DATA_PATH, 'config.php'));
 }
 
@@ -92,7 +144,7 @@ if (!$ok) {
 }
 
 echo 'ℹ️ Remember to create the default user: ', $config['default_user'],
-	"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
+"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
 
 accessRights();
 
