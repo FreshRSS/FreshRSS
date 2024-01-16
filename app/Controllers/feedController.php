@@ -740,9 +740,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @param array<int,int> $newUnreadEntriesPerFeed
-	 * @return void The number of articles marked as read, of false if error
+	 * @return int|false The number of articles marked as read, of false if error
 	 */
-	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed): void {
+	private static function keepMaxUnreads(array $newUnreadEntriesPerFeed) {
 		$affected = 0;
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
@@ -763,6 +763,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($feedDAO->updateCachedValues() === false) {
 			$affected = false;
 		}
+		return $affected;
 	}
 
 	/**
