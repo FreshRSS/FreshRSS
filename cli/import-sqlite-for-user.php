@@ -5,15 +5,15 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = array(
-	'long' => array(
+$parameters = [
+	'long' => [
 		'user' => ':',
 		'filename' => ':',
 		'force-overwrite' => '',
-	),
-	'short' => array(),
-	'deprecated' => array(),
-);
+	],
+	'short' => [],
+	'deprecated' => [],
+];
 
 $options = parseCliParams($parameters);
 

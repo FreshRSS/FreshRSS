@@ -5,18 +5,18 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-$parameters = array(
-	'long' => array(
+$parameters = [
+	'long' => [
 		'user' => ':',
 		'header' => '',
 		'json' => '',
 		'human-readable' => '',
-	),
-	'short' => array(
+	],
+	'short' => [
 		'human-readable' => 'h',
-	),
-	'deprecated' => array(),
-);
+	],
+	'deprecated' => [],
+];
 
 $options = parseCliParams($parameters);
 
@@ -31,7 +31,7 @@ if (empty($options['valid']['user'])) {
 	$users = $options['valid']['user'];
 } else {
 	/** @var array<string> $users */
-	$users = array($options['valid']['user']);
+	$users = [$options['valid']['user']];
 }
 
 sort($users);

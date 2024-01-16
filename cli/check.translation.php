@@ -11,21 +11,21 @@ require_once __DIR__ . '/../constants.php';
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-$parameters = array(
-	'long' => array(
+$parameters = [
+	'long' => [
 		'display-result' => '',
 		'help' => '',
 		'language' => ':',
 		'display-report' => '',
-	),
-	'short' => array(
+	],
+	'short' => [
 		'display-result' => 'd',
 		'help' => 'h',
 		'language' => 'l',
 		'display-report' => 'r',
-	),
-	'deprecated' => array(),
-);
+	],
+	'deprecated' => [],
+];
 
 $options = parseCliParams($parameters);
 
@@ -34,7 +34,7 @@ if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) 
 }
 
 if (array_key_exists('language', $options['valid'])) {
-	$languages = array($options['valid']['language']);
+	$languages = [$options['valid']['language']];
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }

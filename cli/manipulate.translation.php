@@ -6,8 +6,8 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-$parameters = array(
-	'long' => array(
+$parameters = [
+	'long' => [
 		'action' => ':',
 		'help' => '',
 		'key' => ':',
@@ -15,8 +15,8 @@ $parameters = array(
 		'origin-language' => ':',
 		'revert' => '',
 		'value' => ':',
-	),
-	'short' => array(
+	],
+	'short' => [
 		'action' => 'a',
 		'help' => 'h',
 		'key' => 'k',
@@ -24,9 +24,9 @@ $parameters = array(
 		'origin-language' => 'o',
 		'revert' => 'r',
 		'value' => 'v',
-	),
-	'deprecated' => array(),
-);
+	],
+	'deprecated' => [],
+];
 
 $options = parseCliParams($parameters);
 
