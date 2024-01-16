@@ -152,7 +152,7 @@ class I18nFile {
 			'array(',
 			'=> array',
 			'$1 ',
-			"\t",
+			"\t", // Double quoting is mandatory to have a tab instead of the \t string
 		];
 		$translation = preg_replace($patterns, $replacements, $translation);
 

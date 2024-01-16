@@ -5,7 +5,10 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = ['user:', 'max-feed-entries:'];
+$params = [
+	'user:',
+	'max-feed-entries:',
+	];
 
 $options = getopt('', $params);
 

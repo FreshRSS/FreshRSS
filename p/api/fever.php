@@ -315,15 +315,15 @@ final class FeverAPI
 		/** @var FreshRSS_Feed $feed */
 		foreach ($myFeeds as $feed) {
 			$feeds[] = [
-	   'id' => $feed->id(),
-	   'favicon_id' => $feed->id(),
-	   'title' => escapeToUnicodeAlternative($feed->name(), true),
-	   'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
-	   'site_url' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
-	   'is_spark' => 0,
-	   // unsupported
-	   'last_updated_on_time' => $feed->lastUpdate(),
-   ];
+				'id' => $feed->id(),
+				'favicon_id' => $feed->id(),
+				'title' => escapeToUnicodeAlternative($feed->name(), true),
+				'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
+				'site_url' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
+				'is_spark' => 0,
+				// unsupported
+				'last_updated_on_time' => $feed->lastUpdate(),
+			];
 		}
 
 		return $feeds;
@@ -337,7 +337,10 @@ final class FeverAPI
 		$categories = $categoryDAO->listCategories(false, false) ?: [];
 
 		foreach ($categories as $category) {
-			$groups[] = ['id' => $category->id(), 'title' => escapeToUnicodeAlternative($category->name(), true)];
+			$groups[] = [
+				'id' => $category->id(),
+				'title' => escapeToUnicodeAlternative($category->name(), true)
+			];
 		}
 
 		return $groups;
@@ -360,7 +363,10 @@ final class FeverAPI
 				continue;
 			}
 
-			$favicons[] = ['id' => $feed->id(), 'data' => image_type_to_mime_type(exif_imagetype($filename) ?: 0) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')];
+			$favicons[] = [
+				'id' => $feed->id(),
+				'data' => image_type_to_mime_type(exif_imagetype($filename) ?: 0) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')
+			];
 		}
 
 		return $favicons;
@@ -383,7 +389,10 @@ final class FeverAPI
 		}
 
 		foreach ($ids as $category => $feedIds) {
-			$groups[] = ['group_id' => $category, 'feed_ids' => implode(',', $feedIds)];
+			$groups[] = [
+				'group_id' => $category,
+				'feed_ids' => implode(',', $feedIds)
+			];
 		}
 
 		return $groups;
@@ -501,7 +510,16 @@ final class FeverAPI
 			if ($entry == null) {
 				continue;
 			}
-			$items[] = ['id' => '' . $entry->id(), 'feed_id' => $entry->feedId(), 'title' => escapeToUnicodeAlternative($entry->title(), false), 'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false), 'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES), 'is_saved' => $entry->isFavorite() ? 1 : 0, 'is_read' => $entry->isRead() ? 1 : 0, 'created_on_time' => $entry->date(true)];
+			$items[] = [
+				'id' => $entry->id(),
+				'feed_id' => $entry->feedId(),
+				'title' => escapeToUnicodeAlternative($entry->title(), false),
+				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
+				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'is_saved' => $entry->isFavorite() ? 1 : 0,
+				'is_read' => $entry->isRead() ? 1 : 0,
+				'created_on_time' => $entry->date(true),
+			];
 		}
 
 		return $items;

@@ -18,8 +18,16 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array{string,string}> */
-	public function provideValidNames(): array {
-		return [['', ''], ['this string does not need trimming', 'this string does not need trimming'], ['  this string needs trimming on left', 'this string needs trimming on left'], ['this string needs trimming on right  ', 'this string needs trimming on right'], ['  this string needs trimming on both ends  ', 'this string needs trimming on both ends'], [str_repeat('X', 512), str_repeat('X', FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE)]];
+	public function provideValidNames(): array
+	{
+		return [
+			['', ''],
+			['this string does not need trimming', 'this string does not need trimming'],
+			['  this string needs trimming on left', 'this string needs trimming on left'],
+			['this string needs trimming on right  ', 'this string needs trimming on right'],
+			['  this string needs trimming on both ends  ', 'this string needs trimming on both ends'],
+			[str_repeat('X', 512), str_repeat('X', FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE)],    // max length
+		];
 	}
 
 	public function test_feedOrdering(): void {

@@ -268,14 +268,24 @@ final class GReaderAPI {
 			self::unauthorized();
 		}
 		$user = Minz_User::name();
-		exit(json_encode(['userId' => $user, 'userName' => $user, 'userProfileId' => $user, 'userEmail' => FreshRSS_Context::userConf()->mail_login], JSON_OPTIONS));
+		exit(json_encode([
+			'userId' => $user,
+			'userName' => $user,
+			'userProfileId' => $user,
+			'userEmail' => FreshRSS_Context::userConf()->mail_login,
+		], JSON_OPTIONS)
+		);
 	}
 
 	/** @return never */
 	private static function tagList() {
 		header('Content-Type: application/json; charset=UTF-8');
 
-		$tags = [['id' => 'user/-/state/com.google/starred']];
+		$tags = [
+			[
+				'id' => 'user/-/state/com.google/starred',
+			],
+		];
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(true, false) ?: [];
@@ -291,12 +301,11 @@ final class GReaderAPI {
 		$labels = $tagDAO->listTags(true) ?: [];
 		foreach ($labels as $label) {
 			$tags[] = [
-	   'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
-	   //'sortid' => $label->name(),
-	   'type' => 'tag',
-	   //Inoreader
-	   'unread_count' => $label->nbUnread(),
-   ];
+				'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
+				//'sortid' => $label->name(),
+				'type' => 'tag', //Inoreader
+				'unread_count' => $label->nbUnread(), //Inoreader
+			];
 		}
 
 		echo json_encode(['tags' => $tags], JSON_OPTIONS), "\n";
@@ -468,7 +477,12 @@ final class GReaderAPI {
 				$url = substr($url, 5);
 			}
 			$feed = FreshRSS_feed_Controller::addFeed($url);
-			exit(json_encode(['numResults' => 1, 'query' => $feed->url(), 'streamId' => 'feed/' . $feed->id(), 'streamName' => $feed->name()], JSON_OPTIONS));
+			exit(json_encode([
+				'numResults' => 1,
+				'query' => $feed->url(),
+				'streamId' => 'feed/' . $feed->id(),
+				'streamName' => $feed->name(),
+			], JSON_OPTIONS));
 		} catch (Exception $e) {
 			Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
 			die(json_encode(['numResults' => 0, 'error' => $e->getMessage()], JSON_OPTIONS));
@@ -491,12 +505,20 @@ final class GReaderAPI {
 			$catLastUpdate = 0;
 			foreach ($cat->feeds() as $feed) {
 				$lastUpdate = $feedsNewestItemUsec['f_' . $feed->id()] ?? 0;
-				$unreadcounts[] = ['id' => 'feed/' . $feed->id(), 'count' => $feed->nbNotRead(), 'newestItemTimestampUsec' => '' . $lastUpdate];
+				$unreadcounts[] = [
+					'id' => 'feed/' . $feed->id(),
+					'count' => $feed->nbNotRead(),
+					'newestItemTimestampUsec' => '' . $lastUpdate,
+				];
 				if ($catLastUpdate < $lastUpdate) {
 					$catLastUpdate = $lastUpdate;
 				}
 			}
-			$unreadcounts[] = ['id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES), 'count' => $cat->nbNotRead(), 'newestItemTimestampUsec' => '' . $catLastUpdate];
+			$unreadcounts[] = [
+				'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+				'count' => $cat->nbNotRead(),
+				'newestItemTimestampUsec' => '' . $catLastUpdate,
+			];
 			$totalUnreads += $cat->nbNotRead();
 			if ($totalLastUpdate < $catLastUpdate) {
 				$totalLastUpdate = $catLastUpdate;
@@ -507,12 +529,23 @@ final class GReaderAPI {
 		$tagsNewestItemUsec = $tagDAO->listTagsNewestItemUsec();
 		foreach ($tagDAO->listTags(true) ?: [] as $label) {
 			$lastUpdate = $tagsNewestItemUsec['t_' . $label->id()] ?? 0;
-			$unreadcounts[] = ['id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES), 'count' => $label->nbUnread(), 'newestItemTimestampUsec' => '' . $lastUpdate];
+			$unreadcounts[] = [
+				'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
+				'count' => $label->nbUnread(),
+				'newestItemTimestampUsec' => '' . $lastUpdate,
+			];
 		}
 
-		$unreadcounts[] = ['id' => 'user/-/state/com.google/reading-list', 'count' => $totalUnreads, 'newestItemTimestampUsec' => '' . $totalLastUpdate];
+		$unreadcounts[] = [
+			'id' => 'user/-/state/com.google/reading-list',
+			'count' => $totalUnreads,
+			'newestItemTimestampUsec' => '' . $totalLastUpdate,
+		];
 
-		echo json_encode(['max' => $totalUnreads, 'unreadcounts' => $unreadcounts], JSON_OPTIONS), "\n";
+		echo json_encode([
+			'max' => $totalUnreads,
+			'unreadcounts' => $unreadcounts,
+		], JSON_OPTIONS), "\n";
 		exit();
 	}
 
@@ -670,7 +703,11 @@ final class GReaderAPI {
 			$count--;
 		}
 
-		$response = ['id' => 'user/-/state/com.google/reading-list', 'updated' => time(), 'items' => $items];
+		$response = [
+			'id' => 'user/-/state/com.google/reading-list',
+			'updated' => time(),
+			'items' => $items,
+		];
 		if (count($entries) >= $count) {
 			$entry = end($entries);
 			if ($entry != false) {
@@ -723,7 +760,7 @@ final class GReaderAPI {
 		}
 		$itemRefs = [];
 		foreach ($ids as $entryId) {
-			$itemRefs[] = ['id' => '' . $entryId];
+			$itemRefs[] = ['id' => '' . $entryId]; //64-bit decimal
 		}
 
 		$response = ['itemRefs' => $itemRefs];
@@ -758,7 +795,11 @@ final class GReaderAPI {
 
 		$items = self::entriesToArray($entries);
 
-		$response = ['id' => 'user/-/state/com.google/reading-list', 'updated' => time(), 'items' => $items];
+		$response = [
+			'id' => 'user/-/state/com.google/reading-list',
+			'updated' => time(),
+			'items' => $items,
+		];
 
 		echo json_encode($response, JSON_OPTIONS), "\n";
 		exit();

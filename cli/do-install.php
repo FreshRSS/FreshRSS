@@ -30,8 +30,7 @@ $parameters = [
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',
-		'allow-anonymous-refresh' =>
-			'allow_anonymous_refresh',
+		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
 		'auth-type' => 'auth_type',
 		'api-enabled' => 'api_enabled',
 		'allow-robots' => 'allow_robots',
