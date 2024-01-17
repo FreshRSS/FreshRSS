@@ -7,8 +7,8 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-$parameters = array(
-	'valid' => array(
+$parameters = [
+	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
 		'language' => ':',
@@ -26,8 +26,9 @@ $parameters = array(
 		'db-password' => ':',
 		'db-base' => ':',
 		'db-prefix' => '::',
-	),
-	'deprecated' => array(
+	],
+	'short' => [],
+	'deprecated' => [
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',
@@ -36,10 +37,10 @@ $parameters = array(
 		'api-enabled' => 'api_enabled',
 		'allow-robots' => 'allow_robots',
 		'disable-update' => 'disable_update',
-	),
-);
+	],
+];
 
-$configParams = array(
+$configParams = [
 	'environment' => 'environment',
 	'base-url' => 'base_url',
 	'language' => 'language',
@@ -51,16 +52,16 @@ $configParams = array(
 	'api-enabled' => 'api_enabled',
 	'allow-robots' => 'allow_robots',
 	'disable-update' => 'disable_update',
-);
+];
 
-$dBconfigParams = array(
+$dBconfigParams = [
 	'db-type' => 'type',
 	'db-host' => 'host',
 	'db-user' => 'user',
 	'db-password' => 'password',
 	'db-base' => 'base',
 	'db-prefix' => 'prefix',
-);
+];
 
 $options = parseCliParams($parameters);
 
@@ -89,7 +90,8 @@ if (file_exists($customConfigPath)) {
 
 foreach ($configParams as $param => $configParam) {
 	if (isset($options['valid'][$param])) {
-		$config[$configParam] = $options['valid'][$param];
+		$isFlag = $parameters['long'][$param] === '';
+		$config[$configParam] = $isFlag ? true : $options['valid'][$param];
 	}
 }
 

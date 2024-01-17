@@ -6,8 +6,7 @@ if (php_sapi_name() !== 'cli') {
 }
 
 const EXIT_CODE_ALREADY_EXISTS = 3;
-const REGEX_INPUT_OPTIONS = '/^--/';
-const REGEX_PARAM_OPTIONS = '/:*$/';
+const REGEX_INPUT_OPTIONS = '/^-{2}|^-{1}/';
 
 require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
@@ -77,37 +76,43 @@ function performRequirementCheck(string $databaseType): void {
 
 /**
  * Parses parameters used with FreshRSS' CLI commands.
- * @param array{'valid':array<string,string>,'deprecated':array<string,string>} $parameters An array of 'valid': An
- * array of parameters as keys and their respective getopt() notations as values. 'deprecated' An array with
- * replacement parameters as keys and their respective deprecated parameters as values.
- * @return array{'valid':array<string,string|bool>,'invalid':array<string>} An array of 'valid': an array of all
- * known parameters used and their respective options and 'invalid': an array of all unknown parameters used.
+ * @param array{'long':array<string,string>,'short':array<string,string>,'deprecated':array<string,string>} $parameters
+ * Matrix of 'long': map of long option names as keys and their respective getopt() notations as values,
+ * 'short': map of short option names as values and their equivalent long options as keys, 'deprecated': map of
+ * replacement option names as keys and their respective deprecated option names as values.
+ * @return array{'valid':array<string,string>,'invalid':array<string>} Matrix of 'valid': map of of all known
+ * option names used and their respective values and 'invalid': list of all unknown options used.
  */
 function parseCliParams(array $parameters): array {
 	global $argv;
-	$cliParams = [];
+	$longOptions = [];
+	$shortOptions = '';
 
-	foreach ($parameters['valid'] as $param => $getopt_val) {
-		$cliParams[] = $param . $getopt_val;
+	foreach ($parameters['long'] as $name => $getopt_note) {
+		$longOptions[] = $name . $getopt_note;
 	}
-	foreach ($parameters['deprecated'] as $param => $deprecatedParam) {
-		$cliParams[] = $deprecatedParam . $parameters['valid'][$param];
+	foreach ($parameters['deprecated'] as $name => $deprecatedName) {
+		$longOptions[] = $deprecatedName . $parameters['long'][$name];
+	}
+	foreach ($parameters['short'] as $name => $shortName) {
+		$shortOptions .= $shortName . $parameters['long'][$name];
 	}
 
-	$opts = getopt('', $cliParams);
+	$options = getopt($shortOptions, $longOptions);
 
-	/** @var array<string,string|bool> $valid */
-	$valid = is_array($opts) ? $opts : [];
+	$valid = is_array($options) ? $options : [];
 
-	array_walk($valid, static fn(&$option) => $option = $option === false ? true : $option);
+	array_walk($valid, static fn(&$option) => $option = $option === false ? '' : $option);
 
-	if (checkforDeprecatedParameterUse(array_keys($valid), $parameters['deprecated'])) {
-		$valid = updateDeprecatedParameters($valid, $parameters['deprecated']);
-	}
+	/** @var array<string,string> $valid */
+	checkForDeprecatedOptions(array_keys($valid), $parameters['deprecated']);
+
+	$valid = replaceOptions($valid, $parameters['short']);
+	$valid = replaceOptions($valid, $parameters['deprecated']);
 
 	$invalid = findInvalidOptions(
 		$argv,
-		array_merge(array_keys($parameters['valid']), array_values($parameters['deprecated']))
+		array_merge(array_keys($parameters['long']), array_values($parameters['short']), array_values($parameters['deprecated']))
 	);
 
 	return [
@@ -120,7 +125,7 @@ function parseCliParams(array $parameters): array {
  * @param array<string> $options
  * @return array<string>
  */
-function getLongOptions(array $options, string $regex): array {
+function getOptions(array $options, string $regex): array {
 	$longOptions = array_filter($options, static function (string $a) use ($regex) {
 		return preg_match($regex, $a) === 1;
 	});
@@ -130,30 +135,13 @@ function getLongOptions(array $options, string $regex): array {
 }
 
 /**
- * @param array<string> $input
- * @param array<string> $params
- */
-function validateOptions(array $input, array $params): bool {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
-	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
-	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
-
-	if (0 === count($unknownOptions)) {
-		return true;
-	}
-
-	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
-	return false;
-}
-
-/**
- * Checks for use of unknown parameters with FreshRSS' CLI commands.
- * @param array<string> $input An array of parameters to check for validity.
- * @param array<string> $params An array of valid parameters to check against.
- * @return array<string> Returns an array of all unknown parameters found.
+ * Checks for presence of unknown options.
+ * @param array<string> $input List of command line arguments to check for validity.
+ * @param array<string> $params List of valid options to check against.
+ * @return array<string> Returns a list all unknown options found.
  */
 function findInvalidOptions(array $input, array $params): array {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
+	$sanitizeInput = getOptions($input, REGEX_INPUT_OPTIONS);
 	$unknownOptions = array_diff($sanitizeInput, $params);
 
 	if (0 === count($unknownOptions)) {
@@ -165,15 +153,14 @@ function findInvalidOptions(array $input, array $params): array {
 }
 
 /**
- * Checks for use of deprecated parameters with FreshRSS' CLI commands.
- * @param array<string> $options User inputs to check for deprecated parameter use.
- * @param array<string,string> $params An array with replacement parameters as keys and their respective deprecated
- * parameters as values.
- * @return bool Returns TRUE and generates a deprecation warning if deprecated parameters
- * have been used, FALSE otherwise.
+ * Checks for presence of deprecated options.
+ * @param array<string> $optionNames Command line option names to check for deprecation.
+ * @param array<string,string> $params Map of replacement options as keys and their respective deprecated
+ * options as values.
+ * @return bool Returns TRUE and generates a deprecation warning if deprecated options are present, FALSE otherwise.
  */
-function checkforDeprecatedParameterUse(array $options, array $params): bool {
-	$deprecatedOptions = array_intersect($options, $params);
+function checkForDeprecatedOptions(array $optionNames, array $params): bool {
+	$deprecatedOptions = array_intersect($optionNames, $params);
 	$replacements = array_map(static fn($option) => array_search($option, $params, true), $deprecatedOptions);
 
 	if (0 === count($deprecatedOptions)) {
@@ -187,25 +174,17 @@ function checkforDeprecatedParameterUse(array $options, array $params): bool {
 }
 
 /**
- * Switches all used deprecated parameters to their replacements if they have one.
- *
- * @template T
- *
- * @param array<string,T> $options User inputs.
- * @param array<string,string> $params An array with replacement parameters as keys and their respective deprecated
- * parameters as values.
- * @return array<string,T>  Returns $options with deprications replaced.
+ * Switches items in a list to their provided replacements.
+ * @param array<string,string> $options Map with items to check for replacement as keys.
+ * @param array<string,string> $replacements Map of replacement items as keys and the item they replace as their values.
+ * @return array<string,string>  Returns $options with replacements.
  */
-function updateDeprecatedParameters(array $options, array $params): array {
+function replaceOptions(array $options, array $replacements): array {
 	$updatedOptions = [];
 
-	foreach ($options as $param => $option) {
-		$replacement = array_search($param, $params, true);
-		if (is_string($replacement)) {
-			$updatedOptions[$replacement] = $option;
-		} else {
-			$updatedOptions[$param] = $option;
-		}
+	foreach ($options as $name => $value) {
+		$replacement = array_search($name, $replacements, true);
+		$updatedOptions[$replacement ? $replacement : $name] = $value;
 	}
 
 	return $updatedOptions;
