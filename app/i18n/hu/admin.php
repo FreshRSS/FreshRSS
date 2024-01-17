@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',
-		'token' => 'Hitelesítő token',
-		'token_help' => 'Engedélyezi az alapértelmezett felhasználó RSS-ének olvasását hitelesítés nélkül:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Hitelesítési módszer',
 		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
 	),

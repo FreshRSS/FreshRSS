@@ -679,9 +679,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
-			->method('unmarkAsIgnore');
 		$value->expects(self::once())
+			->method('unmarkAsIgnore');
+		$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$rawData = array_merge($this->referenceData, [
@@ -701,9 +701,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
+		$value->expects(self::once())
 			->method('unmarkAsIgnore');
-			$value->expects(self::once())
+			$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$this->value->expects(self::atLeast(2))

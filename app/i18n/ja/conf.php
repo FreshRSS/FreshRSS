@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
 			'search' => '式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '状態',
 			'tags' => 'タグごとに表示する',
 			'type' => 'タイプ',
 		),
 		'get_all' => 'すべての著者を表示する',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s”カテゴリを表示する',
 		'get_favorite' => 'お気に入りの著者を表示する',
 		'get_feed' => '“%s”フィードを表示する',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',
 		'order_asc' => '古い著者を最初に表示する',
 		'order_desc' => '新しい著者を最初に表示する',
 		'search' => '“%s”で検索する',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'すべての記事を表示する',
 		'state_1' => '既読の記事を表示する',
 		'state_2' => '未読の記事を表示する',

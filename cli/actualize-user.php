@@ -5,22 +5,30 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
-	'user:',
-);
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
 
-$options = getopt('', $params);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		parent::__construct();
+	}
+};
 
-if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username");
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['user']);
+$username = cliInitUser($cliOptions->user);
 
 Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
+$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+$databaseDAO->minorDbMaintenance();
+Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
+FreshRSS_feed_Controller::commitNewEntries();
 $result = FreshRSS_category_Controller::refreshDynamicOpmls();
 if (!empty($result['errors'])) {
 	$errors = $result['errors'];

@@ -162,11 +162,11 @@ class Minz_Request {
 	 * Setteurs
 	 */
 	public static function _controllerName(string $controller_name): void {
-		self::$controller_name = $controller_name;
+		self::$controller_name = ctype_alnum($controller_name) ? $controller_name : '';
 	}
 
 	public static function _actionName(string $action_name): void {
-		self::$action_name = $action_name;
+		self::$action_name = ctype_alnum($action_name) ? $action_name : '';
 	}
 
 	/** @param array<string,string> $params */
@@ -187,6 +187,7 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init(): void {
+		self::_params($_GET);
 		self::initJSON();
 	}
 
@@ -283,6 +284,7 @@ class Minz_Request {
 
 	/**
 	 * Return the base_url from configuration
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
@@ -382,6 +384,7 @@ class Minz_Request {
 	 * Restart a request
 	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url an array presentation of the URL to route to
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function forward($url = [], bool $redirect = false): void {
 		if (empty(Minz_Request::originalRequest())) {

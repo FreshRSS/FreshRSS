@@ -132,7 +132,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				$email,
 				$passwordPlain,
 				[
-					'token' => Minz_Request::paramString('token') ?: null,
+					'token' => Minz_Request::paramString('token'),
 				]
 			);
 
@@ -222,7 +222,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @param array<string,mixed> $userConfigOverride
-	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
 	 */
 	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
