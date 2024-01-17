@@ -6,7 +6,7 @@ require(__DIR__ . '/_cli.php');
 if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
-
+$parameters = [
 	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
