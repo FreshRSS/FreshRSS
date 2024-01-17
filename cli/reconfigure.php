@@ -2,6 +2,8 @@
 <?php
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
+
+$parameters = [
 	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
@@ -92,11 +94,11 @@ foreach ($configParams as $param) {
 				}
 				break;
 			case 'base-url':
-				FreshRSS_Context::systemConf()->base_url = (string) $options['valid'][$param];
+				FreshRSS_Context::systemConf()->base_url = (string)$options['valid'][$param];
 				break;
 			case 'default-user':
-				if (FreshRSS_user_Controller::checkUsername((string) $options['valid'][$param])) {
-					FreshRSS_Context::systemConf()->default_user = (string) $options['valid'][$param];
+				if (FreshRSS_user_Controller::checkUsername((string)$options['valid'][$param])) {
+					FreshRSS_Context::systemConf()->default_user = (string)$options['valid'][$param];
 				} else {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
@@ -112,10 +114,10 @@ foreach ($configParams as $param) {
 				}
 				break;
 			case 'language':
-				FreshRSS_Context::systemConf()->language = (string) $options['valid'][$param];
+				FreshRSS_Context::systemConf()->language = (string)$options['valid'][$param];
 				break;
 			case 'title':
-				FreshRSS_Context::systemConf()->title = (string) $options['valid'][$param];
+				FreshRSS_Context::systemConf()->title = (string)$options['valid'][$param];
 				break;
 		}
 	}
@@ -127,7 +129,8 @@ foreach ($dBconfigParams as $dBparam => $configDbParam) {
 	}
 }
 /** @var array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
- *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db */
+ *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db
+ */
 FreshRSS_Context::systemConf()->db = $db;
 
 FreshRSS_Context::systemConf()->save();
