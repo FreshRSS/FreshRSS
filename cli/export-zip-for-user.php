@@ -5,23 +5,15 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = [
-	'user:',
-	'max-feed-entries:',
-	];
+$parameters = [
+	'long' => [
+		'user' => ':',
+		'max-feed-entries' => ':',
+	],
+	'short' => [],
+	'deprecated' => [],
+];
 
-$options = getopt('', $params);
-
-if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
-	$parameters = [
-		'long' => [
-			'user' => ':',
-			'max-feed-entries' => ':',
-		],
-		'short' => [],
-		'deprecated' => [],
-	];
-}
 $options = parseCliParams($parameters);
 
 if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
@@ -37,7 +29,6 @@ $username = cliInitUser($options['valid']['user']);
 fwrite(STDERR, 'FreshRSS exporting ZIP for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
-
 $number_entries = empty($options['valid']['max-feed-entries']) ? 100 : (int) $options['valid']['max-feed-entries'];
 $exported_files = [];
 
