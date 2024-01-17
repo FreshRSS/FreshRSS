@@ -288,27 +288,27 @@ class I18nData {
 	}
 
 	/**
-	 * Ignore a key from a language, or reverse it.
+	 * Ignore a key from a language, or revert an existing ignore on a key.
 	 */
-	public function ignore(string $key, string $language, bool $reverse = false): void {
+	public function ignore(string $key, string $language, bool $revert = false): void {
 		$value = $this->data[$language][$this->getFilenamePrefix($key)][$key];
-		if ($reverse) {
-			$value->markAsIgnore();
-		} else {
+		if ($revert) {
 			$value->unmarkAsIgnore();
+		} else {
+			$value->markAsIgnore();
 		}
 	}
 
 	/**
-	 * Ignore all unmodified keys from a language, or reverse it.
+	 * Ignore all unmodified keys from a language, or revert all existing ignores on unmodified keys.
 	 */
-	public function ignore_unmodified(string $language, bool $reverse = false): void {
+	public function ignore_unmodified(string $language, bool $revert = false): void {
 		$my_language = $this->getLanguage($language);
 		foreach ($this->getReferenceLanguage() as $file => $ref_language) {
 			foreach ($ref_language as $key => $ref_value) {
 				if (array_key_exists($key, $my_language[$file])) {
 					if ($ref_value->equal($my_language[$file][$key])) {
-						$this->ignore($key, $language, $reverse);
+						$this->ignore($key, $language, $revert);
 					}
 				}
 			}
