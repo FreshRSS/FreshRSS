@@ -721,6 +721,10 @@ input[type="checkbox"]:focus-visible {
 	bottom: -12px;
 }
 
+header.header .dropdown-menu {
+	left: 56px;
+}
+
 .dropdown-open-right-to-bottom .dropdown-menu::after {
 	border-width: 0 0 1px 1px;
 	top: 16px;
@@ -1096,7 +1100,7 @@ li.drag-hover {
 .header {
 	display: table-cell;
 	vertical-align: top;
-	width: 55px;
+	width: 4rem;
 }
 
 a:hover .logo {
@@ -1125,7 +1129,6 @@ a:hover .logo {
 	padding: 1rem 0.5rem 2rem 0.5rem;
 	display: flex;
 	flex-direction: column;
-	width: 50px;
 	height: 100vh;
 	box-sizing: border-box;
 	justify-content: space-between;

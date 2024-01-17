@@ -11,12 +11,16 @@
 		}
 
 		if (FreshRSS_Auth::hasAccess()) { ?>
-			<div id="header_menu_feedsmgmt" class="group stick">
-				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>"><?= _i('add') ?></a>
+			<div id="header_menu_feedsmgmt" class="group">
+				<a id="btn-add" class="btn btn-important" href="<?= _t('index.menu.subscription') ?>">
+					<?= _i('add') ?>
+				</a>
 
 				<div class="dropdown dropdown-open-right-to-bottom">
 					<div id="dropdown-subscriptionMgmt" class="dropdown-target"></div>
-					<a class="btn dropdown-toggle" href="#dropdown-subscriptionMgmt" title="<?= _t('sub.menu.subscription_management') ?>"><?= _i('icon') ?></a>
+					<a class="btn dropdown-toggle" href="#dropdown-subscriptionMgmt" title="<?= _t('sub.menu.subscription_management') ?>">
+						<?= _i('icon') ?>
+					</a>
 					<ul class="dropdown-menu scrollbar-thin">
 						<li class="item dropdown-section">
 							<div class="dropdown-section-title"><?= _t('sub.menu.subscription_management') ?></div>
