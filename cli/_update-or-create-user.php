@@ -4,8 +4,8 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = array(
-	'valid' => array(
+$parameters = [
+	'long' => [
 		'user' => ':',
 		'password' => ':',
 		'api-password' => ':',
@@ -17,21 +17,22 @@ $parameters = array(
 		'feed-ttl-default' => ':',
 		'since-hours-posts-per-rss' => ':',
 		'max-posts-per-rss' => ':',
-	),
-	'deprecated' => array(
+	],
+	'short' => [],
+	'deprecated' => [
 		'api-password' => 'api_password',
 		'purge-after-months' => 'purge_after_months',
 		'feed-min-articles-default' => 'feed_min_articles_default',
 		'feed-ttl-default' => 'feed_ttl_default',
 		'since-hours-posts-per-rss' => 'since_hours_posts_per_rss',
 		'max-posts-per-rss' => 'max_posts_per_rss',
-	),
-);
+	],
+];
 
 if (!isset($isUpdate)) {
 	$isUpdate = false;
 } elseif (!$isUpdate) {
-	$parameters['valid']['no-default-feeds'] = '';	//Only for creating new users
+	$parameters['long']['no-default-feeds'] = '';	//Only for creating new users
 	$parameters['deprecated']['no-default-feeds'] = 'no_default_feeds';
 }
 
