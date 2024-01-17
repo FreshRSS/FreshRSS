@@ -18,7 +18,7 @@ class Minz_Configuration {
 	 * The list of configurations.
 	 * @var array<string,static>
 	 */
-	private static array $config_list = array();
+	private static array $config_list = [];
 
 	/**
 	 * Add a new configuration to the list of configuration.
@@ -133,7 +133,7 @@ class Minz_Configuration {
 	 * @param Minz_ConfigurationSetterInterface|null $configuration_setter the setter to call when modifying data.
 	 */
 	public function _configurationSetter(?Minz_ConfigurationSetterInterface $configuration_setter): void {
-		if (is_callable(array($configuration_setter, 'handle'))) {
+		if (is_callable([$configuration_setter, 'handle'])) {
 			$this->configuration_setter = $configuration_setter;
 		}
 	}

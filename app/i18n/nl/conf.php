@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archivering',
 		'exception' => 'Zuiveringsuitzondering',
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Schoon nu op',
 		'title' => 'Archivering',
 		'ttl' => 'Vernieuw niet automatisch meer dan',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Opmaak',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatische dark mode (beta)',
 			'auto' => 'Auto',	// IGNORE
 			'no' => 'Nee',
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',
 			'entry' => 'Artikel pictogrammen',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Delen',
 			'summary' => 'Samenvatting',
 			'top_line' => 'Bovenaan',
-		),
+		],
 		'language' => 'Taal',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'seconden (0 betekent geen stop)',
 			'timeout' => 'HTML5 notificatie stop',
-		),
+		],
 		'show_nav_buttons' => 'Toon navigatieknoppen',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Thema',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Verouderd',
 				'description' => 'Dit thema wordt niet langer ondersteund en zal niet meer beschikbaar zijn in een <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">toekomstige release van FreshRSS</a>.',
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Het „%s” thema is niet meer beschikbaar. Kies een ander thema.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Miniatuur',
 			'landscape' => 'Liggend',
 			'none' => 'Geen',
 			'portrait' => 'Staand',
 			'square' => 'Vierkant',
-		),
+		],
 		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
-		'website' => array(
+		'website' => [
 			'full' => 'Icoon en naam',
 			'icon' => 'Alleen icoon',
 			'label' => 'Website',	// IGNORE
 			'name' => 'Alleen naam',
 			'none' => 'Geen',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Inhoud breedte',
 			'large' => 'Breed',
 			'medium' => 'Normaal',
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Logniveau',
 			'message' => 'Logbericht',
 			'timestamp' => 'Tijdstempel',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'Eerste',
 			'last' => 'Laatste',
 			'next' => 'Volgende',
 			'previous' => 'Vorige',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profielbeheer',
 		'api' => 'API-beheer',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
-		),
+		],
 		'email' => 'Email adres',
 		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
 		'title' => 'Profiel',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Gebruikersquery’s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Status',
 			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE
-		),
+		],
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon „%s” categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Toon ongelezen artikelen',
 		'state_15' => 'Toon alle artikelen',
 		'title' => 'Gebruikersquery’s',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Lezen',
 		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Auteurs en datum',
 				'both' => 'In kop en voet',
 				'footer' => 'In voet',
 				'header' => 'In kop',
 				'none' => 'Geen',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Boven titel/tags',
 				'none' => 'Geen',
 				'with_authors' => 'In lijn met auteurs en datum',
-			),
+			],
 			'feed_title' => 'Feedtitel',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In kop en voet',
 				'footer' => 'In voet',
 				'header' => 'In kop',
 				'none' => 'Geen',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Max aantal getoonde tags',
 				'help' => '0 betekent: toon alle tags en verberg er geen',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
 		'confirm_enabled' => 'Toon een bevestigings dialoog op „markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Artikelen: openen/sluiten',
 			'articles_header_footer' => 'Artikelen: kop/voet',
 			'categories' => 'Linkernavigatie: categoriën',
 			'mark_as_read' => 'Artikelen als gelezen markeren',
 			'misc' => 'Diversen',
 			'view' => 'Weergave',
-		),
+		],
 		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met „Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik <em>lazy load</em> methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
 			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Artikelen om te tonen',
 			'active_category' => 'Actieve categorie',
 			'adaptive' => 'Pas weergave aan',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Geen categorie',
 			'remember_categories' => 'Open categorieën herinneren',
 			'unread' => 'Bekijk alleen ongelezen',
-		),
+		],
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Sorteer volgorde',
 			'newer_first' => 'Nieuwste eerst',
 			'older_first' => 'Oudste eerst',
-		),
+		],
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',
-		'view' => array(
+		'view' => [
 			'default' => 'Standaard weergave',
 			'global' => 'Globale weergave',
 			'normal' => 'Normale weergave',
 			'reader' => 'Lees weergave',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Delen',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Snelkoppelingen',
 		'article_action' => 'Artikelacties',
 		'auto_share' => 'Delen',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
 		'views' => 'Aanzichten',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s artikelen (%s)',
 		'current' => 'Huidige gebruiker',
 		'is_admin' => 'is beheerder',
 		'users' => 'Gebruikers',
-	),
-);
+	],
+];

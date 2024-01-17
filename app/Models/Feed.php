@@ -482,7 +482,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
-			$tags = array();
+			$tags = [];
 			if (is_array($categories)) {
 				foreach ($categories as $category) {
 					$text = html_only_entity_decode($category->get_label());

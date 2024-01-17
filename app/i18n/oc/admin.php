@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
 		'allow_anonymous_refresh' => 'Autorizar l’actualizacion anonime dels fluxes',
 		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
 		'type' => 'Mòde d’autentification',
 		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/cache</em>. Lo servidor HTTP deu poder escriure dedins',
 			'ok' => 'Los dreches sul cache son bons.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'La tabla “category” es mala configurada.',
 			'ok' => 'La tabla category es corrèctament configurada.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Connexion impossibla a la basa de donadas.',
 			'ok' => 'La connexion a la basa de donadas es bona.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Impossible de trobar una bibliotèca per la verificacion del tipe de caractèrs (php-ctype).',
 			'ok' => 'Avètz la bibliotèca per la verificacion del tipe de caractèrs (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Impossible de trobar la bibliotèca cURL( paquet php-curl).',
 			'ok' => 'Avètz la bibliotèca cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data</em>. Lo servidor HTTP deu poder escriure dedins',
 			'ok' => 'Los dreches sul repertòri data son bons.',
-		),
+		],
 		'database' => 'Installacion de la basa de donadas',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Impossible de trobar una bibliotèca per percórrer lo DOM (paquet php-xml).',
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'La tabla entry es pas configurada coma cal.',
 			'ok' => 'La tabla entry es corrèctament configurada.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/favicons</em>. Lo servidor HTTP deu poder escriure dedins',
 			'ok' => 'Los dreches sul repertòri dels favicons son bons.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'La tabla feed es pas configurada coma cal.',
 			'ok' => 'La tabla feed es corrèctament configurada.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
-		),
+		],
 		'files' => 'Installacion dels fichièrs',
-		'json' => array(
+		'json' => [
 			'nok' => 'Avètz pas l’extension recomandada JSON (paquet php-json).',
 			'ok' => 'Avètz l’exension recomandada JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
 			'ok' => 'Avètz la bibliotèca per las expressions regularas (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Installacion PHP',
 			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Manca una o mai tabla dins la basa de donadas.',
 			'ok' => 'Las tablas que cal existisson ben dins la basa de donadas.',
-		),
+		],
 		'title' => 'Verificacion de l’installacion',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/tokens</em>. Lo servidor HTTP deu poder escriure dedins',
 			'ok' => 'Los dreches sul repertòri dels getons son bons.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/users</em>. Lo servidor HTTP deu poder escriure dedins',
 			'ok' => 'Los dreches sul repertòri dels utilizaires son bons.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Avètz pas l’extension ZIP (paquet php-zip).',
 			'ok' => 'Avètz l’exension ZIP.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Autor',
 		'community' => 'Extensions utilizaires disponiblas',
 		'description' => 'Descripcion',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installada',
 		'name' => 'Nom',
 		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
-		'system' => array(
+		'system' => [
 			'_' => 'Extensions sistèma',
 			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
-		),
+		],
 		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mesa a jorn disponibla',
 		'user' => 'Extensions utilizaire',
 		'version' => 'Version',	// IGNORE
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
-		),
+		],
 		'force_email_validation' => 'Forçar la validacion de las adreças electronicas',
 		'instance-name' => 'Nom de l’instància',
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Nombre max de comptes',
-			'select' => array(
+			'select' => [
 				'label' => 'Formulari d’inscripcion',
-				'option' => array(
+				'option' => [
 					'noform' => 'Desactivat : cap de formulari d’inscripcion',
 					'nolimit' => 'Activat : cap de limit de comptes',
 					'setaccountsnumber' => 'Definir lo numbre max. de comptes',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formulari desactivat',
 				'enabled' => 'Formulari activat',
-			),
+			],
 			'title' => 'Formulari d’inscripcion utilizaire',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Sistèma de mesa a jorn',
 		'apply' => 'Aplicar',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Darrièra verificacion',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Cap d’actualizacion d’aplicar',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Sistèma de mesa a jorn',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Tornar a la lista dels utilizaires',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Almens 7 caractèrs',
 		'title' => 'Gestion dels utilizaires',
 		'username' => 'Nom d’utilizaire',
-	),
-);
+	],
+];

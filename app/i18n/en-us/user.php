@@ -10,45 +10,45 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'email' => array(
-		'feedback' => array(
+return [
+	'email' => [
+		'feedback' => [
 			'invalid' => 'This email address is invalid.',	// IGNORE
 			'required' => 'An email address is required.',	// IGNORE
-		),
-		'validation' => array(
+		],
+		'validation' => [
 			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// IGNORE
 			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// IGNORE
-			'feedback' => array(
+			'feedback' => [
 				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// IGNORE
 				'email_sent' => 'An email has been sent to your address.',	// IGNORE
 				'error' => 'Email address validation failed.',	// IGNORE
 				'ok' => 'This email address has been validated.',	// IGNORE
 				'unnecessary' => 'This email address was already validated.',	// IGNORE
 				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// IGNORE
-			),
+			],
 			'need_to' => 'You need to validate your email address before being able to use %s.',	// IGNORE
 			'resend_email' => 'Resend the email',	// IGNORE
 			'title' => 'Email address validation',	// IGNORE
-		),
-	),
-	'mailer' => array(
-		'email_need_validation' => array(
+		],
+	],
+	'mailer' => [
+		'email_need_validation' => [
 			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// IGNORE
 			'title' => 'You need to validate your account',	// IGNORE
 			'welcome' => 'Welcome %s,',	// IGNORE
-		),
-	),
-	'password' => array(
+		],
+	],
+	'password' => [
 		'invalid' => 'The password is invalid.',	// IGNORE
-	),
-	'tos' => array(
-		'feedback' => array(
+	],
+	'tos' => [
+		'feedback' => [
 			'invalid' => 'You must accept the Terms of Service to be able to register.',	// IGNORE
-		),
-	),
-	'username' => array(
+		],
+	],
+	'username' => [
 		'invalid' => 'This username is invalid.',	// IGNORE
 		'taken' => 'This username, %s, is taken.',	// IGNORE
-	),
-);
+	],
+];

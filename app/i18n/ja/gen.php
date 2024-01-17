@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'フィードを更新する',
 		'add' => '追加',
 		'back' => '← 戻る',
@@ -39,28 +39,28 @@ return array(
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
 		'update' => '更新',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',
 		'email' => 'Eメールアドレス',
 		'keep_logged_in' => 'ログインを保持する <small>%s日後にログアウトする</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
-		'password' => array(
+		'password' => [
 			'_' => 'パスワード',
 			'format' => '<small>最低７文字必要です</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => '新規アカウント',
 			'ask' => 'アカウントを作りますか?',
 			'title' => 'アカウント作成',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'ユーザー名',
 			'format' => '<small>最大16文字の英数字</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\四\\月',
 		'Aug' => '\\八\\月',
 		'Dec' => '\\十\\二\\月',
@@ -118,27 +118,27 @@ return array(
 		'tue' => '火',
 		'wed' => '水',
 		'yesterday' => '昨日',
-	),
+	],
 	'dir' => 'ディレクトリ',
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => '空白のカテゴリ',
 		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
 			'body_unread_articles' => '(未読: %%d)',
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'FreshRSSについて',
 		'account' => 'アカウント',
 		'admin' => '管理者',
@@ -186,15 +186,15 @@ return array(
 		'update' => '更新',
 		'user_management' => 'ユーザー管理',
 		'user_profile' => 'プロフィール',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => '日',
 		'hours' => '時',
 		'months' => '月',
 		'weeks' => '週',
 		'years' => '年',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'よく使われるサイト',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'システム共有',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => '警告!',
 		'blank_to_disable' => '空白のままにすると無効になります',
 		'by_author' => '著者:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'または',
 		'yes' => 'OK',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => '記事をもっと読み込む',
 		'mark_all_read' => 'すべての記事を既読にする',
 		'nothing_to_load' => 'これ以上の記事はありません',
-	),
-);
+	],
+];

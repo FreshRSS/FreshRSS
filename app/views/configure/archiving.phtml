@@ -19,11 +19,11 @@
 			<div class="group-controls">
 				<select class="number" name="ttl_default" id="ttl_default" required="required" data-leave-validation="<?= FreshRSS_Context::userConf()->ttl_default ?>"><?php
 					$found = false;
-					foreach (array(1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+					foreach ([1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
 							3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
 							36000 => '10h', 43200 => '12h', 64800 => '18h',
 							86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
-							604800 => '1wk') as $v => $t) {
+							604800 => '1wk'] as $v => $t) {
 						echo '<option value="' . $v . (FreshRSS_Context::userConf()->ttl_default == $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 						if (FreshRSS_Context::userConf()->ttl_default == $v) {
 							$found = true;

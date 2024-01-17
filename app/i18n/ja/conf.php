@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'アーカイブ',
 		'exception' => '例外を除く',
 		'help' => '個々のフィード設定内で、より多くの設定をしていただけます。',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => '不要なデータをまとめて削除する',
 		'title' => 'アーカイブ',
 		'ttl' => '自動的に更新される時間',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => '表示',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',
 			'entry' => '記事のアイコン',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => '共有',
 			'summary' => '要約',
 			'top_line' => '行の先頭',
-		),
+		],
 		'language' => '言語',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => '秒 (0秒だとタイムアウトしません)',
 			'timeout' => 'HTML5 の通知タイムアウト時間',
-		),
+		],
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
-		'theme' => array(
+		'theme' => [
 			'_' => 'テーマ',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => '“%s”テーマはご利用いただけません。他のテーマをお選びください。',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'サムネイル',
 			'landscape' => 'ランドスケープ',
 			'none' => 'なし',
 			'portrait' => 'ポートレート',
 			'square' => '四角',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'ディスプレイ',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'コンテンツ幅',
 			'large' => '広い',
 			'medium' => '中',
 			'no_limit' => '最大幅',
 			'thin' => '狭い',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'ログのレベル',
 			'message' => 'ログのメッセージ',
 			'timestamp' => 'タイムスタンプ',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => '先頭',
 			'last' => '最後',
 			'next' => 'つぎへ',
 			'previous' => '前へ',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'プロフィール',
 		'api' => 'API管理',
-		'delete' => array(
+		'delete' => [
 			'_' => 'アカウント消去',
 			'warn' => 'あなたのアカウントとそれに関連したデータが消去されます。',
-		),
+		],
 		'email' => 'Eメールアドレス',
 		'password_api' => 'APIのパスワード<br /><small>(モバイルアプリなど)</small>',
 		'password_form' => 'パスワード<br /><small>(Web-formのログイン時に使われます)</small>',
 		'password_format' => '最低7文字必要です',
 		'title' => 'プロフィール',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'ユーザークエリ',
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリあるいはフィードはすでに消去されました。',
-		'filter' => array(
+		'filter' => [
 			'_' => 'フィルターを適用:',
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
@@ -123,7 +123,7 @@ return array(
 			'state' => '状態',
 			'tags' => 'タグごとに表示する',
 			'type' => 'タイプ',
-		),
+		],
 		'get_all' => 'すべての著者を表示する',
 		'get_category' => '“%s”カテゴリを表示する',
 		'get_favorite' => 'お気に入りの著者を表示する',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => '未読の記事を表示する',
 		'state_15' => 'すべての記事を表示する',
 		'title' => 'ユーザークエリ',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'リーディング',
 		'after_onread' => 'あとで “すべてに既読を付ける”,',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => '著者と日付',
 				'both' => 'ヘッダーとフッター',
 				'footer' => 'フッター',
 				'header' => 'ヘッダー',
 				'none' => 'なし',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => '上のタイトル/タグ',
 				'none' => 'なし',
 				'with_authors' => '著者と日付の行',
-			),
+			],
 			'feed_title' => 'フィードのタイトル',
-			'tags' => array(
+			'tags' => [
 				'_' => 'タグ',
 				'both' => 'ヘッダーとフッター',
 				'footer' => 'フッター',
 				'header' => 'ヘッダー',
 				'none' => 'なし',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => '表示されるタグの数の上限',
 				'help' => '0は:すべてのタグを表示し、折り畳めまれないことを意味します。',
-			),
-		),
+			],
+		],
 		'articles_per_page' => '1ページ当たりの記事の数',
 		'auto_load_more' => 'ページの下にもっと記事を読み込む',
 		'auto_remove_article' => '記事を読んだら非表示にする',
 		'confirm_enabled' => '“すべてに既読を付ける” を押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトでフォルダーに入れてない記事を表示する',
 		'display_categories_unfolded' => '展開されていない記事',
-		'headline' => array(
+		'headline' => [
 			'articles' => '記事: 開く/閉じる',
 			'articles_header_footer' => '記事: ヘッダー/フッター',
 			'categories' => '左のナビゲーション: カテゴリ',
 			'mark_as_read' => 'チェックをつけた記事を既読にする',
 			'misc' => 'その他',
 			'view' => 'ビュー',
-		),
+		],
 		'hide_read_feeds' => 'カテゴリーを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '<em>lazy load</em>を写真の読み込み時に使う',
 		'jump_next' => '次の未読の姉妹記事へ移る (フィードあるいはカテゴリー)',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
 		'number_divided_when_reader' => 'reading viewを二分割する',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => '記事を元のwebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
 			'when_same_title' => '同一タイトルの新しい記事があるときには、上部へ表示する',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => '記事を表示する',
 			'active_category' => 'アクティブなカテゴリ',
 			'adaptive' => '表示を調整する',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'カテゴリがありません',
 			'remember_categories' => '開いたカテゴリを保存する',
 			'unread' => '未読のみ表示する',
-		),
+		],
 		'show_fav_unread_help' => 'ラベルも適用する',
 		'sides_close_article' => '記事の外をクリックすると記事を閉じるようにする',
-		'sort' => array(
+		'sort' => [
 			'_' => '順序',
 			'newer_first' => '最新のものを先頭にする',
 			'older_first' => '最古のものを先頭にする',
-		),
+		],
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',
-		'view' => array(
+		'view' => [
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',
 			'normal' => '標準ビュー',
 			'reader' => 'リーディングビュー',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => '共有',
 		'add' => '共有方法を追加する',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => '共有',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'ショートカット',
 		'article_action' => '記事のアクション',
 		'auto_share' => '共有',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'ユーザーのクエリにアクセスする',
 		'user_filter_help' => '一つのユーザークエリしかないとき、それが使われます。そうではなければ、番号によってクエリにアクセスできます。',
 		'views' => 'ビュー',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s 記事 (%s)',
 		'current' => '現在のユーザー',
 		'is_admin' => 'は管理者です',
 		'users' => 'ユーザー',
-	),
-);
+	],
+];

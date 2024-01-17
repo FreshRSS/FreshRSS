@@ -10,127 +10,127 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'finish' => 'השלמת ההתקנה',
 		'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 		'keep_install' => 'Keep previous configuration',	// TODO
 		'next_step' => 'לשלב הבא',
 		'reinstall' => 'Reinstall FreshRSS',	// TODO
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	// TODO
 		'type' => 'שיטת אימות',
-	),
-	'bdd' => array(
+	],
+	'bdd' => [
 		'_' => 'בסיס נתונים',
-		'conf' => array(
+		'conf' => [
 			'_' => 'הגדרות בסיס נתונים',
 			'ko' => 'נא לוודא את הגדרות בסיס הנתונים.',
 			'ok' => 'הגדרות בסיס הנתונים נשמרו.',
-		),
+		],
 		'host' => 'מארח',
 		'password' => 'HTTP סיסמה',
 		'prefix' => 'קידומת הטבלה',
 		'type' => 'סוג בסיס הנתונים',
 		'username' => 'HTTP שם משתמש',
-	),
-	'check' => array(
+	],
+	'check' => [
 		'_' => 'בדיקות',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
-		'cache' => array(
+		'cache' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'הספרייה הנדרשת ל character type checking (php-ctype) אינה מותקנת',
 			'ok' => 'הספרייה הנדרשת ל character type checking (ctype) מותקנת',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'בURL לא מותקן (php-curl package)',
 			'ok' => 'יש לכם את גירסת %s של cURL',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
-		),
-		'dom' => array(
+		],
+		'dom' => [
 			'nok' => 'הספרייה הנדרשת לסיור ב DOM אינה מותקנת	(php-xml package)',
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
 			'ok' => 'You have the fileinfo library.',	// TODO
-		),
-		'json' => array(
+		],
+		'json' => [
 			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO
 			'ok' => 'You have the recommended library to parse JSON.',	// TODO
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
 			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
 			'ok' => 'הספרייה הנדרשת לביטויים רגולריים מותקנת (PCRE)',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
-		),
+		],
 		'reload' => 'בדוק שוב',
-		'tmp' => array(
+		'tmp' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
 			'ok' => 'Permissions on the temp directory are good.',	// TODO
-		),
+		],
 		'unknown_process_username' => 'unknown',	// TODO
-		'users' => array(
+		'users' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
 			'ok' => 'Permissions on the users directory are good.',	// TODO
-		),
-		'xml' => array(
+		],
+		'xml' => [
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO
 			'ok' => 'You have the required library to parse XML.',	// TODO
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'_' => 'הגדרות כלליות',
 		'ok' => 'ההגדרות הכלליות נשמרו.',
-	),
+	],
 	'congratulations' => 'מזל טוב!',
-	'default_user' => array(
+	'default_user' => [
 		'_' => 'שם המשתמש של משתמש ברירת המחדל',
 		'max_char' => 'לכל היותר 16 תווים אלפאנומריים',
-	),
+	],
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
-	'js' => array(
+	'js' => [
 		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO
-	),
-	'language' => array(
+	],
+	'language' => [
 		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
 		'defined' => 'השפה הוגדרה.',
-	),
+	],
 	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
 	'ok' => 'The installation process was successful.',	// TODO
-	'session' => array(
+	'session' => [
 		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
-	),
+	],
 	'step' => 'step %d',	// TODO
 	'steps' => 'שלבים',
 	'this_is_the_end' => 'סיום',
 	'title' => 'התקנה · FreshRSS',
-);
+];

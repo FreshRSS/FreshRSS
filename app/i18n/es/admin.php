@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
 		'allow_anonymous_refresh' => 'Permitir la actualización anónima de los artículos',
 		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Comprueba los permisos en el directorio <em>./data/cache</em> . El servidor HTTP debe contar con permiso de escritura',
 			'ok' => 'Los permisos en el cache son correctos.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'La tabla Categorías está configurada de forma incorrecta.',
 			'ok' => 'La tabla Categorías está correcta.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'No se pudo establecer una conexión con la base de datos.',
 			'ok' => 'La conexión con la base de datos es correcta.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'No se puedo encontrar la librería necesaria para compropbar el tipo de caracteres (php-ctype).',
 			'ok' => 'Dispones de la librería necesaria para la verificación del tipo de caracteres (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'No se pudo encontrar la librería cURL (paquete php-curl).',
 			'ok' => 'Dispones de la librería cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Comprueba los permisos en el directorio <em>./data</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio data son correctos.',
-		),
+		],
 		'database' => 'Instalación de la base de datos',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar el DOM (paquete php-xml).',
 			'ok' => 'Dispones de la librería necesaria para explorar el DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'La tabla de entrada no está configurada correctamente.',
 			'ok' => 'La tabla de entrada está correcta.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Comprueba los permisos en el directorio <em>./data/favicons</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio favicons son correctos.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'La tabla Feed está configurada de forma incorrecta.',
 			'ok' => 'La tabla Feed está correcta.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
 			'ok' => 'Dispones de la librería fileinfo.',
-		),
+		],
 		'files' => 'Instalación de Archivos',
-		'json' => array(
+		'json' => [
 			'nok' => 'No se ha podido localizar JSON (paquete php-json).',
 			'ok' => 'Dispones de la extensión JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'No se puede encontrar la biblioteca mbstring recomendada para Unicode.',
 			'ok' => 'Tiene la biblioteca mbstring recomendada para Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'No se ha podido localizar la librería para las expresiones regulares (php-pcre).',
 			'ok' => 'Dispones de la librería necesaria para expresiones regulares (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'No se ha podido localiar PDO o uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Dispones de PDO y, al menos, de uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Instalación PHP',
 			'nok' => 'Dispones de la versión PHP %s pero FreshRSS requiere de, al menos, la versión %s.',
 			'ok' => 'Dispones de la versión PHP %s, que es compatible con FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Falta al menos una tabla en la base de datos.',
 			'ok' => 'Todas las tablas necesarias están disponibles en la base de datos.',
-		),
+		],
 		'title' => 'Verificación de instalación',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Comprueba los permisos en el directorio <em>./data/tokens</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio de tokens de identificación son correctos.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Comprueba los permisos en el directorio <em>./data/users</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio users son correctos.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'No se ha podido localizar la extensión ZIP (paquete php-zip).',
 			'ok' => 'Dispones de la extensión ZIP.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Autor',
 		'community' => 'Extensiones de comunidad disponibles',
 		'description' => 'Descripción',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Instalado',
 		'name' => 'Nombre',
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
-		'system' => array(
+		'system' => [
 			'_' => 'Sistema de extensiones',
 			'no_rights' => 'Sistema de extensiones (careces de los permisos necesarios)',
-		),
+		],
 		'title' => 'Extensiones',
 		'update' => 'Actualización disponible',
 		'user' => 'Extensiones de usuario',
 		'version' => 'Versión',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Estadísticas',
 		'all_feeds' => 'Todas las fuentes',
 		'category' => 'Categoría',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
-		),
+		],
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Número máximo de cuentas',
-			'select' => array(
+			'select' => [
 				'label' => 'Formulario de registro',
-				'option' => array(
+				'option' => [
 					'noform' => 'Deshabilitado: Sin formulario de registro',
 					'nolimit' => 'Habilitado: Sin límite de cuentas',
 					'setaccountsnumber' => 'Establece el número máximo de cuentas',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formulario deshabilitado',
 				'enabled' => 'Formulario habilitado',
-			),
+			],
 			'title' => 'Formulario de registro del usuario',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'no se proporciona',
 			'enabled' => '<a href="./?a=tos">está activado</a>',
 			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Última comprobación',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'No hay actualizaciones disponibles',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Actualizar sistema',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrador',
 		'article_count' => 'Artículos',
 		'back_to_manage' => '← Volver a la lista de usuarios',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Mínimo de 7 caracteres',
 		'title' => 'Administrar usuarios',
 		'username' => 'Nombre de usuario',
-	),
-);
+	],
+];

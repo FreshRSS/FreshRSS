@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => '关于',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => '报告错误',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => '项目网站',
 		'title' => '关于',
 		'version' => '版本',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => '没有文章可以显示。',
 		'rss_of' => '%s 的订阅源',
 		'title' => '首页',
 		'title_fav' => '收藏',
 		'title_global' => '全局视图',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => '日志',
 		'clear' => '清除日志',
 		'empty' => '日志文件为空',
 		'title' => '日志',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => '关于 FreshRSS',
 		'before_one_day' => '一天前',
 		'before_one_week' => '一周前',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => '订阅管理',
 		'tags' => '我的标签',
 		'unread' => '显示未读',
-	),
+	],
 	'share' => '分享',
-	'tag' => array(
+	'tag' => [
 		'related' => '文章标签',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => '服务条款',
-	),
-);
+	],
+];

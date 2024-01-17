@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// IGNORE
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// IGNORE
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// IGNORE
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Allows access to RSS output of the default user without authentication:',	// IGNORE
 		'type' => 'Authentication method',	// IGNORE
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',	// IGNORE
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// IGNORE
 			'ok' => 'Permissions on the cache directory are good.',	// IGNORE
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category table is improperly configured.',	// IGNORE
 			'ok' => 'Category table is okay.',	// IGNORE
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Connection to the database cannot be established.',	// IGNORE
 			'ok' => 'Connection to the database is okay.',	// IGNORE
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// IGNORE
 			'ok' => 'You have the required library for character type checking (ctype).',	// IGNORE
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Cannot find the cURL library (php-curl package).',	// IGNORE
 			'ok' => 'You have the cURL library.',	// IGNORE
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// IGNORE
 			'ok' => 'Permissions on the data directory are good.',	// IGNORE
-		),
+		],
 		'database' => 'Database installation',	// IGNORE
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// IGNORE
 			'ok' => 'You have the required library to browse the DOM.',	// IGNORE
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry table is improperly configured.',	// IGNORE
 			'ok' => 'Entry table is okay.',	// IGNORE
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// IGNORE
 			'ok' => 'Permissions on the favicons directory are good.',	// IGNORE
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed table is improperly configured.',	// IGNORE
 			'ok' => 'Feed table is okay.',	// IGNORE
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// IGNORE
 			'ok' => 'You have the fileinfo library.',	// IGNORE
-		),
+		],
 		'files' => 'File installation',	// IGNORE
-		'json' => array(
+		'json' => [
 			'nok' => 'Cannot find JSON (php-json package).',	// IGNORE
 			'ok' => 'You have the JSON extension.',	// IGNORE
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// IGNORE
 			'ok' => 'You have the recommended mbstring library for Unicode.',	// IGNORE
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// IGNORE
 			'ok' => 'You have the required library for regular expressions (PCRE).',	// IGNORE
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installation',	// IGNORE
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// IGNORE
 			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// IGNORE
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'There are one or more missing tables in the database.',	// IGNORE
 			'ok' => 'The appropriate tables exist in the database.',	// IGNORE
-		),
+		],
 		'title' => 'Installation check',	// IGNORE
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// IGNORE
 			'ok' => 'Permissions on the tokens directory are good.',	// IGNORE
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// IGNORE
 			'ok' => 'Permissions on the users directory are good.',	// IGNORE
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// IGNORE
 			'ok' => 'You have the ZIP extension.',	// IGNORE
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Author',	// IGNORE
 		'community' => 'Available community extensions',	// IGNORE
 		'description' => 'Description',	// IGNORE
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'This extension cannot be configured.',	// IGNORE
-		'system' => array(
+		'system' => [
 			'_' => 'System extensions',	// IGNORE
 			'no_rights' => 'System extension (you do not have the required permissions)',	// IGNORE
-		),
+		],
 		'title' => 'Extensions',	// IGNORE
 		'update' => 'Update available',	// IGNORE
 		'user' => 'User extensions',	// IGNORE
 		'version' => 'Version',	// IGNORE
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistics',	// IGNORE
 		'all_feeds' => 'All feeds',	// IGNORE
 		'category' => 'Category',	// IGNORE
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Unread',	// IGNORE
 		'title' => 'Statistics',	// IGNORE
 		'top_feed' => 'Top ten feeds',	// IGNORE
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'System configuration',	// IGNORE
 		'auto-update-url' => 'Auto-update server URL',	// IGNORE
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
-		),
+		],
 		'force_email_validation' => 'Force email address validation',	// IGNORE
 		'instance-name' => 'Instance name',	// IGNORE
 		'max-categories' => 'Max number of categories per user',	// IGNORE
 		'max-feeds' => 'Max number of feeds per user',	// IGNORE
-		'registration' => array(
+		'registration' => [
 			'number' => 'Max number of accounts',	// IGNORE
-			'select' => array(
+			'select' => [
 				'label' => 'Registration form',	// IGNORE
-				'option' => array(
+				'option' => [
 					'noform' => 'Disabled: No registration form',	// IGNORE
 					'nolimit' => 'Enabled: No limit of accounts',	// IGNORE
 					'setaccountsnumber' => 'Set max. number of accounts',	// IGNORE
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Form disabled',	// IGNORE
 				'enabled' => 'Form enabled',	// IGNORE
-			),
+			],
 			'title' => 'User registration form',	// IGNORE
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// IGNORE
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// IGNORE
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// IGNORE
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// IGNORE
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// IGNORE
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Update system',	// IGNORE
 		'apply' => 'Apply',	// IGNORE
 		'changelog' => 'Changelog',	// IGNORE
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Last verification',	// IGNORE
 		'loading' => 'Updating…',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
 			'latest' => 'Stable release (“latest”)',	// IGNORE
-		),
+		],
 		'title' => 'Update system',	// IGNORE
 		'viaGit' => 'Update via git and Github.com started',	// IGNORE
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Return to user list',	// IGNORE
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'At least 7 characters',	// IGNORE
 		'title' => 'Manage users',	// IGNORE
 		'username' => 'Username',	// IGNORE
-	),
-);
+	],
+];

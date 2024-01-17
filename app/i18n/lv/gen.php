@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Atjaunināt barotnes',
 		'add' => 'Pievienot',
 		'back' => '← Atgriezties',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Iesniegt',
 		'truncate' => 'Izdzēst visus rakstus',
 		'update' => 'Atjaunināt',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Es piekrītu <a href="%s">Pakalpojuma noteikumiem</a>.',
 		'email' => 'E-pasta adrese',
 		'keep_logged_in' => 'Turiet mani autorizētu <small>(%dienas)</small>',
 		'login' => 'Autorizēties',
 		'logout' => 'Izrakstīties',
-		'password' => array(
+		'password' => [
 			'_' => 'Parole',
 			'format' => '<small>Vismaz 7 rakstzīmes</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Jauns konts',
 			'ask' => 'Uztaisīt kontu?',
 			'title' => 'Konta izveide',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Lietotājvārds',
 			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\ī\\l\\i\\s',
 		'Aug' => '\\A\\u\\g\\u\\s\\t\\s',
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\r\\i\\s',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'O',
 		'wed' => 'T',
 		'yesterday' => 'Vakar',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'Par FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Tukša kategorija',
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
 			'body_unread_articles' => '(neizlasīti: %%d)',
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Par',
 		'account' => 'Konts',
 		'admin' => 'Administrācija',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Atjaunināt',
 		'user_management' => 'Lietotāju pārvaldība',
 		'user_profile' => 'Profils',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'dienas',
 		'hours' => 'stundas',
 		'months' => 'mēneši',
 		'weeks' => 'nedēļas',
 		'years' => 'gadi',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Zināmas vietnes',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Sistēmas koplietošana',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Brīdinājums!',
 		'blank_to_disable' => 'Atstāj tukšu, lai atspējotu',
 		'by_author' => 'No:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Labi!',
 		'or' => 'vai',
 		'yes' => 'Jā',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Ielādēt vairāk rakstus',
 		'mark_all_read' => 'Atzīmēt visus kā izlasītus',
 		'nothing_to_load' => 'Vairāk rakstu vairs nav',
-	),
-);
+	],
+];

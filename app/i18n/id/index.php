@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'About',	// TODO
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO
 		'bugs_reports' => 'Bug reports',	// TODO
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Project website',	// TODO
 		'title' => 'About',	// TODO
 		'version' => 'Version',	// TODO
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'There are no articles to show.',	// TODO
 		'rss_of' => 'RSS feed of %s',	// TODO
 		'title' => 'Main stream',	// TODO
 		'title_fav' => 'Favorites',
 		'title_global' => 'Global view',	// TODO
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Logs',	// TODO
 		'clear' => 'Clear the logs',	// TODO
 		'empty' => 'Log file is empty',	// TODO
 		'title' => 'Logs',	// TODO
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'About FreshRSS',	// TODO
 		'before_one_day' => 'Older than one day',	// TODO
 		'before_one_week' => 'Older than one week',	// TODO
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Subscription management',	// TODO
 		'tags' => 'My labels',	// TODO
 		'unread' => 'Show unread',	// TODO
-	),
+	],
 	'share' => 'Share',	// TODO
-	'tag' => array(
+	'tag' => [
 		'related' => 'Article tags',	// TODO
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Terms of Service',	// TODO
-	),
-);
+	],
+];

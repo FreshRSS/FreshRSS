@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'Vous n’avez pas le droit d’accéder à cette page !',
 		'not_found' => 'La page que vous cherchez n’existe pas !',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimisation terminée.',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Votre mot de passe n’a pas pu être mis à jour',
 			'updated' => 'Votre mot de passe a été mis à jour',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'L’identifiant est invalide',
 			'success' => 'Vous êtes désormais connecté',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Vous avez été déconnecté',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',
 		'query_created' => 'Le filtre <em>%s</em> a bien été créé.',
 		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s est déjà activée',
 		'cannot_remove' => '%s ne peut pas être supprimée',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s ne peut pas être désactivée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais désactivée',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s ne peut pas être activée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais activée',
-		),
+		],
 		'no_access' => 'Vous n’avez aucun accès sur %s',
 		'not_enabled' => '%s n’est pas encore activée',
 		'not_found' => '%s n’existe pas',
 		'removed' => '%s a été supprimée',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
 		'feeds_imported' => 'Vos flux ont été importés.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
 		'zip_error' => 'Une erreur est survenue durant le traitement du fichier ZIP.',
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Votre profil n’a pas pu être mis à jour',
 		'updated' => 'Votre profil a été mis à jour',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Actualiser',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Les articles sélectionnés ont été marqués comme lus.',
 			'marked_unread' => 'Les articles sélectionnés ont été marqués comme non-lus.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'La catégorie %s a été créée.',
 			'deleted' => 'La catégorie a été supprimée.',
 			'emptied' => 'La catégorie a été vidée.',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'Cette catégorie n’existe pas !',
 			'over_max' => 'Vous avez atteint votre limite de catégories (%d)',
 			'updated' => 'La catégorie a été mise à jour.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> a été mis à jour.',
 			'actualizeds' => 'Les flux ont été mis à jour.',
 			'added' => 'Le flux <em>%s</em> a bien été ajouté.',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Le flux n’a pas pu être trouvé.',
 			'over_max' => 'Vous avez atteint votre limite de flux (%d)',
 			'reloaded' => '<em>%s</em> a été rechargé.',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Échec lors du chargement du contenu du site web.',
 				'no_entries' => 'Il n’y a pas d’articles dans ce flux. Vous devez avoir au moins un article pour générer une prévisualisation.',
 				'no_feed' => 'Erreur interne (le flux n’a pas pu être trouvé).',
 				'no_result' => 'Le sélecteur n’a produit aucune concordance. Dans ces circonstances, le texte original du flux sera affiché.',
 				'selector_empty' => 'Le sélecteur est vide. Vous devez en définir un pour générer une prévisualisation.',
-			),
+			],
 			'updated' => 'Le flux a été mis à jour',
-		),
+		],
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'L’étiquette <em>%s</em> a été créée.',
 		'error' => 'L’étiquette n’a pas pu être modifiée',
 		'name_exists' => 'L’étiquette existe déjà!',
 		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
 		'updated' => 'L’étiquette a été mise à jour.',
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
 		'file_is_nok' => 'Nouvelle <strong>version %s</strong> disponible, mais veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 		'finished' => 'La mise à jour est terminée !',
 		'none' => 'Aucune mise à jour à appliquer',
 		'server_not_found' => 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'L’utilisateur %s a été créé.',
 			'error' => 'L’utilisateur %s ne peut pas être créé.',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'L’utilisateur %s a été supprimé.',
 			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'L’utilisateur %s a été mis à jour',
 			'error' => 'L’utilisateur %s n’a pas été mis à jour',
-		),
-	),
-);
+		],
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Izinkan pembacaan anonim artikel pengguna default (%s)',
 		'allow_anonymous_refresh' => 'Izinkan refresh artikel anonim',
 		'api_enabled' => 'Izinkan <abbr>API</abbr> akses <small>(Diperlukan untuk aplikasi seluler)</small>',	// DIRTY
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Memungkinkan akses ke output RSS dari pengguna default tanpa otentikasi:',
 		'type' => 'Authentication method',	// TODO
 		'unsafe_autologin' => 'Izinkan login otomatis yang tidak aman menggunakan format: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Periksa izin <em>./data/cache</em> direktori. HTTP server harus memiliki izin menulis.',
 			'ok' => 'Izin pada direktori cache bagus.',	// DIRTY
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Tabel kategori dikonfigurasi secara tidak tepat.',
 			'ok' => 'Tabel kategori baik-baik saja.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Koneksi ke database tidak dapat dibuat.',
 			'ok' => 'Koneksi ke database berhasil.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Tidak dapat menemukan library yang diperlukan untuk pemeriksaan jenis karakter (php-ctype).',
 			'ok' => 'Anda memiliki library yang dibutuhkan untuk pemeriksaan jenis karakter (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Tidak dapat menemukan cURL library (php-curl package).',
 			'ok' => 'Kamu punya cURL library.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Periksa izin <em>./data</em> direktori. HTTP server harus memiliki izin tulis.',
 			'ok' => 'Izin pada direktori data bagus.',
-		),
+		],
 		'database' => 'Database installation',	// TODO
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Tidak dapat menemukan library yang diperlukan untuk menelusuri DOM (php-xml package).',
 			'ok' => 'Anda memiliki library yang diperlukan untuk menelusuri DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Tabel entri dikonfigurasi secara tidak benar.',
 			'ok' => 'Tabel entri baik-baik saja.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Periksa izin on <em>./data/favicons</em> direktori. HTTP server harus memiliki izin tulis.',
 			'ok' => 'Izin di Direktori Favicons bagus.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Tabel feed dikonfigurasi secara tidak benar.',
 			'ok' => 'Feed table is okay.',	// TODO
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Tidak dapat menemukan PHP fileinfo library (fileinfo package).',
 			'ok' => 'You have the fileinfo library.',	// TODO
-		),
+		],
 		'files' => 'File installation',	// TODO
-		'json' => array(
+		'json' => [
 			'nok' => 'Tidak dapat menemukan JSON (php-json package).',
 			'ok' => 'You have the JSON extension.',	// TODO
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Tidak dapat menemukan mbstring library untuk Unicode.',
 			'ok' => 'Anda memiliki mbstring library untuk Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Tidak dapat menemukan library untuk regular expressions (php-pcre).',
 			'ok' => 'Anda memiliki library untuk regular expressions (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Tidak dapat menemukan PDO salah satu drivers yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Anda memiliki PDO dan setidaknya salah satu drivers yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installation',	// TODO
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
 			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Ada satu atau lebih tabel yang hilang dalam database.',
 			'ok' => 'Tabel yang sesuai ada dalam database.',
-		),
+		],
 		'title' => 'Installation check',	// TODO
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Periksa izin pada <em>./data/tokens</em> direktori. HTTP server harus memiliki izin menulis',
 			'ok' => 'Izin pada direktori token bagus.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Periksa izin <em>./data/users</em> direktori. HTTP server harus memiliki izin menulis',
 			'ok' => 'Izin pada direktori pengguna bagus.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Tidak dapat menemukan ekstensi zip (php-zip package).',
 			'ok' => 'Anda memiliki ekstensi zip.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Pengarang',
 		'community' => 'Ekstensi komunitas yang tersedia',
 		'description' => 'Keterangan',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installed',	// TODO
 		'name' => 'Name',	// TODO
 		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',
-		'system' => array(
+		'system' => [
 			'_' => 'System extensions',	// TODO
 			'no_rights' => 'System extension (Anda tidak memiliki izin yang diperlukan)',
-		),
+		],
 		'title' => 'Extensions',	// TODO
 		'update' => 'Pembaruan tersedia',
 		'user' => 'User extensions',	// TODO
 		'version' => 'Version',	// TODO
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua feed',
 		'category' => 'Kategori',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Unread',	// TODO
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh feed teratas',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Sistem konfigurasi',
 		'auto-update-url' => 'Auto-update server URL',	// TODO
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'dalam hitungan detik',
 			'number' => 'Durasi untuk terus masuk',
-		),
+		],
 		'force_email_validation' => 'Validasi alamat email paksa',
 		'instance-name' => 'Nama instansi',
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',
 		'max-feeds' => 'Maksimal Jumlah Feed Per Pengguna',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Jumlah Akun Maks',
-			'select' => array(
+			'select' => [
 				'label' => 'Formulir pendaftaran',
-				'option' => array(
+				'option' => [
 					'noform' => 'Disabled: Tidak ada formulir pendaftaran',
 					'nolimit' => 'Enabled: Tidak ada batasan akun',
 					'setaccountsnumber' => 'Setel Max. jumlah akun',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Form disabled',	// TODO
 				'enabled' => 'Form enabled',	// TODO
-			),
+			],
 			'title' => 'Formulir Pendaftaran Pengguna',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Update system',	// DIRTY
 		'apply' => 'Apply',	// DIRTY
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Verifikasi terakhir',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Perbarui Sistem',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',	// TODO
 		'article_count' => 'Artikel',
 		'back_to_manage' => '← Kembali ke Daftar Pengguna',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Setidaknya 7 karakter',
 		'title' => 'Kelola pengguna',
 		'username' => 'Username',	// TODO
-	),
-);
+	],
+];

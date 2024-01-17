@@ -75,10 +75,10 @@ if (!empty($options['invalid']) || empty($options['valid']['default-user']) || !
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
 
-$config = array(
+$config = [
 		'salt' => generateSalt(),
 		'db' => FreshRSS_Context::systemConf()->db,
-	);
+	];
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {

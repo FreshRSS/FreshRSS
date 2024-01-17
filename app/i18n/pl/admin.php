@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Pozwól na anonimowy odczyt wiadomości domyślnego użytkownika (%s)',
 		'allow_anonymous_refresh' => 'Pozwól na anonimowe odświeżanie wiadomości',
 		'api_enabled' => 'Pozwól na dostęp przez <abbr>API</abbr> <small>(wymagane dla aplikacji na telefon)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Pozwala na dostęp do treści RSS domyślnego użytkownika bez uwierzytelnienia:',
 		'type' => 'Metoda uwierzytelniania',
 		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem:	-> todo',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// TODO
 			'ok' => 'Permissions on the cache directory are good.',	// TODO
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category table is improperly configured.',	// TODO
 			'ok' => 'Category table is okay.',	// TODO
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Connection to the database cannot be established.',	// TODO
 			'ok' => 'Connection to the database is okay.',	// TODO
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// TODO
 			'ok' => 'You have the required library for character type checking (ctype).',	// TODO
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO
 			'ok' => 'You have the cURL library.',	// TODO
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// TODO
 			'ok' => 'Permissions on the data directory are good.',	// TODO
-		),
+		],
 		'database' => 'Database installation',	// TODO
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// TODO
 			'ok' => 'You have the required library to browse the DOM.',	// TODO
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry table is improperly configured.',	// TODO
 			'ok' => 'Entry table is okay.',	// TODO
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO
 			'ok' => 'Permissions on the favicons directory are good.',	// TODO
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed table is improperly configured.',	// TODO
 			'ok' => 'Feed table is okay.',	// TODO
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
 			'ok' => 'You have the fileinfo library.',	// TODO
-		),
+		],
 		'files' => 'File installation',	// TODO
-		'json' => array(
+		'json' => [
 			'nok' => 'Cannot find JSON (php-json package).',	// TODO
 			'ok' => 'You have the JSON extension.',	// TODO
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
 			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO
 			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installation',	// TODO
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
 			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'There are one or more missing tables in the database.',	// TODO
 			'ok' => 'The appropriate tables exist in the database.',	// TODO
-		),
+		],
 		'title' => 'Installation check',	// TODO
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
 			'ok' => 'Permissions on the tokens directory are good.',	// TODO
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO
 			'ok' => 'Permissions on the users directory are good.',	// TODO
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// TODO
 			'ok' => 'You have the ZIP extension.',	// TODO
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Autor',
 		'community' => 'Rozszerzenia stworzone przez społeczność',
 		'description' => 'Opis',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Zainstalowane',
 		'name' => 'Nazwa',
 		'no_configure_view' => 'To rozszerzenie nie jest konfigurowalne.',
-		'system' => array(
+		'system' => [
 			'_' => 'Rozszerzenia systemowe',
 			'no_rights' => 'Rozszerzenie systemowe (brak uprawnień)',
-		),
+		],
 		'title' => 'Rozszerzenia',
 		'update' => 'Dostępna jest aktualizacja',
 		'user' => 'Rozszerzenia użytkownika',
 		'version' => 'Wersja',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Konfiguracja serwisu',
 		'auto-update-url' => 'Adres serwera automatycznej aktualizacji',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',
-		),
+		],
 		'force_email_validation' => 'Wymuś weryfikację adresu e-mail',
 		'instance-name' => 'Nazwa instancji',
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Maksymalna liczba kont',
-			'select' => array(
+			'select' => [
 				'label' => 'Formularz tworzenia konta',
-				'option' => array(
+				'option' => [
 					'noform' => 'Wyłączony: formularz niedostępny',
 					'nolimit' => 'Włączony: brak limitu liczby kont',
 					'setaccountsnumber' => 'Ustaw limit liczby kont',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formularz wyłączony',
 				'enabled' => 'Formularz włączony',
-			),
+			],
 			'title' => 'Formularz rejestracji użytkowników',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Aktualizacja',
 		'apply' => 'Zastosuj',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Ostatnie sprawdzenie',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Brak nowych aktualizacji',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Aktualizacja',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Liczba wiadomości',
 		'back_to_manage' => '← Powrót do listy użytkowników',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Przynajmniej 7 znaków',
 		'title' => 'Zarządzanie użytkownikami',
 		'username' => 'Nazwa użytkownika',
-	),
-);
+	],
+];

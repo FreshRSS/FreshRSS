@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archivace',
 		'exception' => 'Výjimka vymazání',
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Vymazat nyní',
 		'title' => 'Archivace',
 		'ttl' => 'Neobnovovat automaticky častěji než',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Zobrazení',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
 			'entry' => 'Ikony článků',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Sdílení',
 			'summary' => 'Souhrn',
 			'top_line' => 'Horní řádek',
-		),
+		],
 		'language' => 'Jazyk',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'sekund (0 znamená žádný časový limit)',
 			'timeout' => 'Časový limit HTML5 oznámení',
-		),
+		],
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Motiv',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Motiv „%s“ již není dostupný. Zvolte jiný motiv, prosím.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Náhled',
 			'landscape' => 'Na šířku',
 			'none' => 'Žádný',
 			'portrait' => 'Na výšku',
 			'square' => 'Čtverec',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Zobrazení',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Šířka obsahu',
 			'large' => 'Široká',
 			'medium' => 'Střední',
 			'no_limit' => 'Plná šířka',
 			'thin' => 'Úzká',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Úroveň protokolování',
 			'message' => 'Záznam protokolu',
 			'timestamp' => 'Časová značka',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'První',
 			'last' => 'Poslední',
 			'next' => 'Další',
 			'previous' => 'Předchozí',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Správa profilu',
 		'api' => 'Správa API',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Odstranění účtu',
 			'warn' => 'Váš účet bude odstraněn spolu se všemi souvisejícími daty.',
-		),
+		],
 		'email' => 'E-mailová adresa',
 		'password_api' => 'Heslo API<br /><small>(např. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
 		'title' => 'Profil',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly odstraněny.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Použitý filtr:',
 			'categories' => 'Zobrazit podle kategorie',
 			'feeds' => 'Zobrazit podle kanálu',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Stav',
 			'tags' => 'Zobrazit podle štítku',
 			'type' => 'Typ',
-		),
+		],
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit kategorii „%s“',
 		'get_favorite' => 'Zobrazit oblíbené články',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Zobrazit nepřečtené články',
 		'state_15' => 'Zobrazit všechny články',
 		'title' => 'Uživatelské dotazy',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Čtení',
 		'after_onread' => 'Po „označit vše jako přečtené“',
 		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Autoři a datum',
 				'both' => 'V záhlaví a zápatí',
 				'footer' => 'V zápatí',
 				'header' => 'V záhlaví',
 				'none' => 'Žádný',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Nad názvem/štítky',
 				'none' => 'Žádný',
 				'with_authors' => 'V řádku s autory a datem',
-			),
+			],
 			'feed_title' => 'Název feedu',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Štítky',
 				'both' => 'V záhlaví a zápatí',
 				'footer' => 'V zápatí',
 				'header' => 'V záhlaví',
 				'none' => 'Žádné',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Maximální počet zobrazených štítků',
 				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Počet článků na stránku',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články skrýt',
 		'confirm_enabled' => 'Zobrazit potvrzovací dialové okno pro akce „označit vše jako přečtené“',
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Články: Otevřít/zavřít',
 			'articles_header_footer' => 'Články: záhlaví/zápatí',
 			'categories' => 'Navigace vlevo: Kategorie',
 			'mark_as_read' => 'Označit článek jako přečtený',
 			'misc' => 'Různé',
 			'view' => 'Zobrazit',
-		),
+		],
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtenou položku na stejné úrovni (kanál nebo kategorie)',
 		'mark_updated_article_unread' => 'Označit aktualizované články jako nepřečtené',
 		'number_divided_when_reader' => 'Děleno dvěma v zobrazení pro čtení.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'když je článek otevřen na své původní webové stránce',
 			'article_viewed' => 'když je článek zobrazen',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
 			'when_same_title' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Počet zobrazených článků',
 			'active_category' => 'Aktivní kategorie',
 			'adaptive' => 'Vyberte zobrazení',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Žádná kategorie',
 			'remember_categories' => 'Zapamatovat otevřené kategorie',
 			'unread' => 'Zobrazit pouze nepřečtené',
-		),
+		],
 		'show_fav_unread_help' => 'Použije se také na popisky',
 		'sides_close_article' => 'Kliknutí mimo oblast textu článku zavře článek',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Pořadí řazení',
 			'newer_first' => 'Nejdříve nejnovější',
 			'older_first' => 'Nejdříve nejstarší',
-		),
+		],
 		'sticky_post' => 'Při otevření připnout článek na začátek',
 		'title' => 'Čtení',
-		'view' => array(
+		'view' => [
 			'default' => 'Výchozí zobrazení',
 			'global' => 'Zobrazení přehledu',
 			'normal' => 'Normální zobrazení',
 			'reader' => 'Zobrazení pro čtení',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Sdílení',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Zkratky',
 		'article_action' => 'Akce článku',
 		'auto_share' => 'Sdílet',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Přístup k uživatelským dotazům',
 		'user_filter_help' => 'Pokud je pouze jeden uživatelský dotaz, je použit. Jinak jsou dotazy dostupné podle jejich čísla.',
 		'views' => 'Zobrazení',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s článků (%s)',
 		'current' => 'Aktuální uživatel',
 		'is_admin' => 'je administrátor',
 		'users' => 'Uživatelé',
-	),
-);
+	],
+];

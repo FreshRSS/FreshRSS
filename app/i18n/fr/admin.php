@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
 		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applis mobiles)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
 		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/cache</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'La table category est mal configurée.',
 			'ok' => 'La table category est bien configurée.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'La connexion à la base de données est impossible.',
 			'ok' => 'La connexion à la base de données est bonne.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Impossible de trouver une librairie pour la vérification des types de caractères (php-ctype).',
 			'ok' => 'Vous disposez de la librairie pour la vérification des types de caractères (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Impossible de trouver la librairie cURL (paquet php-curl).',
 			'ok' => 'Vous disposez de la librairie cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
-		),
+		],
 		'database' => 'Installation de la base de données',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Impossible de trouver une librairie pour parcourir le DOM (paquet php-xml).',
 			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'La table entry est mal configurée.',
 			'ok' => 'La table entry est bien configurée.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/favicons</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'La table feed est mal configurée.',
 			'ok' => 'La table feed est bien configurée.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Impossible de trouver la librairie PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Vous disposez de la librairie fileinfo.',
-		),
+		],
 		'files' => 'Installation des fichiers',
-		'json' => array(
+		'json' => [
 			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
 			'ok' => 'Vous disposez de l’extension recommandée JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
 			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
 			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Installation de PHP',
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Impossible de trouver une ou plusieurs tables en base de données.',
 			'ok' => 'Les tables sont bien présentes en base de données.',
-		),
+		],
 		'title' => 'Vérification de l’installation',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/tokens</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des tokens sont bons.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/users</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Vous ne disposez pas de l’extension ZIP (paquet php-zip).',
 			'ok' => 'Vous disposez de l’extension ZIP.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Auteur',
 		'community' => 'Extensions utilisateur disponibles',
 		'description' => 'Description',	// IGNORE
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installée',
 		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',
-		'system' => array(
+		'system' => [
 			'_' => 'Extensions système',
 			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
-		),
+		],
 		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mise à jour disponible',
 		'user' => 'Extensions utilisateur',
 		'version' => 'Version',	// IGNORE
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'non lus',
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'URL de la racine',
 			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
-		),
+		],
 		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Nombre max de comptes',
-			'select' => array(
+			'select' => [
 				'label' => 'Formulaire d’inscription',
-				'option' => array(
+				'option' => [
 					'noform' => 'Désactivé : Pas de formulaire d’inscription',
 					'nolimit' => 'Activé : Pas de limite au nombre d’utilisateurs',
 					'setaccountsnumber' => 'Nombre d’utilisateurs limités',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formulaire désactivé',
 				'enabled' => 'Formulaire activé',
-			),
+			],
 			'title' => 'Formulaire d’inscription utilisateur',
-		),
+		],
 		'sensitive-parameter' => 'Paramètre sensible. Éditez manuellement <kbd>./data/config.php</kbd>',
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'non renseigné',
 			'enabled' => '<a href="./?a=tos">activées</a>',
 			'help' => 'Comment <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activer les conditions d’utilisation</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'À propos de <a href="https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html" target="_blank">WebSub</a>',
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
 		'changelog' => 'Journal des modifications',
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Dernière vérification',
 		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Canal de publication',
 			'edge' => 'Publication continue (“edge”)',
 			'latest' => 'Publication stable (“latest”)',
-		),
+		],
 		'title' => 'Système de mise à jour',
 		'viaGit' => 'Mise à jour via git et Github.com démarrée',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrateur',
 		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => '7 caractères minimum',
 		'title' => 'Gestion des utilisateurs',
 		'username' => 'Nom d’utilisateur',
-	),
-);
+	],
+];

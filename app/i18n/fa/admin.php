@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => ' اجازه خواندن ناشناس مقالات کاربر پیش‌فرض (%s)',
 		'allow_anonymous_refresh' => ' اجازه بازخوانی ناشناس مقالات را بدهید',
 		'api_enabled' => ' اجازه دسترسی به <abbr>API</abbr> <small>(الزامی برای برنامه های تلفن همراه)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => ' امکان دسترسی به خروجی RSS کاربر پیش فرض بدون احراز هویت را می دهد:',
 		'type' => ' روش احراز هویت',
 		'unsafe_autologin' => ' اجازه ورود خودکار ناامن را با استفاده از قالب:',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => ' مجوزهای دایرکتوری <em>./data/cache</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
 			'ok' => ' مجوزهای دایرکتوری کش خوب است.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => ' جدول دسته بندی به درستی پیکربندی نشده است.',
 			'ok' => ' جدول رده درست است.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => ' اتصال به پایگاه داده نمی تواند برقرار شود.',
 			'ok' => ' اتصال به پایگاه داده مشکلی ندارد.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => ' نمی توان یک کتابخانه مورد نیاز برای بررسی نوع کاراکتر (php-ctype) پیدا کرد.',
 			'ok' => ' شما کتابخانه مورد نیاز برای بررسی نوع کاراکتر (ctype) دارید.',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => ' نمی توان کتابخانه cURL (بسته php-curl) را پیدا کرد.',
 			'ok' => ' شما کتابخانه cURL را دارید.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => ' مجوزهای دایرکتوری <em>./data</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
 			'ok' => ' مجوزهای دایرکتوری داده ها خوب است.',
-		),
+		],
 		'database' => ' نصب پایگاه داده',
-		'dom' => array(
+		'dom' => [
 			'nok' => ' نمی توان یک کتابخانه مورد نیاز برای مرور DOM (بسته php-xml) پیدا کرد.',
 			'ok' => ' شما کتابخانه مورد نیاز برای مرور DOM را دارید.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => ' جدول ورودی به درستی پیکربندی نشده است.',
 			'ok' => ' جدول ورودی اشکالی ندارد.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => ' مجوزهای دایرکتوری <em>./data/favicons</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
 			'ok' => ' مجوزهای موجود در فهرست فاویکون ها خوب است.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => ' جدول خوراک به درستی پیکربندی نشده است.',
 			'ok' => ' جدول خوراک درست است.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => ' نمی توان کتابخانه اطلاعات فایل PHP (بسته اطلاعات فایل) را پیدا کرد.',
 			'ok' => ' شما کتابخانه fileinfo را دارید.',
-		),
+		],
 		'files' => ' نصب فایل',
-		'json' => array(
+		'json' => [
 			'nok' => ' JSON (بسته php-json) را نمی توان پیدا کرد.',
 			'ok' => ' شما پسوند JSON دارید.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => ' نمی توان کتابخانه mbstring توصیه شده برای یونیکد را پیدا کرد.',
 			'ok' => ' شما کتابخانه mbstring توصیه شده برای یونیکد را دارید.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => ' نمی توان یک کتابخانه مورد نیاز برای عبارات منظم (php-pcre) پیدا کرد.',
 			'ok' => ' شما کتابخانه مورد نیاز برای عبارات منظم (PCRE) را دارید.',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => ' PDO یا یکی از درایورهای پشتیبانی شده (pdo_mysql',
 			'ok' => ' شما دارای PDO و حداقل یکی از درایورهای پشتیبانی شده (pdo_mysql',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => ' نصب پی اچ پی',
 			'nok' => ' نسخه PHP شما %s است اما FreshRSS حداقل به نسخه %s نیاز دارد.',
 			'ok' => ' نسخه PHP شما (%s) با FreshRSS سازگار است.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => ' یک یا چند جدول مفقود در پایگاه داده وجود دارد.',
 			'ok' => ' جداول مناسب در پایگاه داده وجود دارد.',
-		),
+		],
 		'title' => ' بررسی نصب',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => ' مجوزهای دایرکتوری <em>./data/tokens</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد',
 			'ok' => ' مجوزهای دایرکتوری توکن ها خوب است.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => ' مجوزهای فهرست <em>./data/users</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد',
 			'ok' => ' مجوزهای دایرکتوری کاربران خوب است.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => ' نمی توان پسوند ZIP (بسته php-zip) را پیدا کرد.',
 			'ok' => ' شما پسوند ZIP را دارید.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => ' نویسنده',
 		'community' => ' پسوندهای جامعه موجود',
 		'description' => ' توضیحات',
@@ -120,16 +120,16 @@ return array(
 		'latest' => ' نصب شده است',
 		'name' => ' نام',
 		'no_configure_view' => ' این برنامه افزودنی قابل پیکربندی نیست.',
-		'system' => array(
+		'system' => [
 			'_' => ' پسوندهای سیستم',
 			'no_rights' => ' پسوند سیستم (شما مجوزهای لازم را ندارید)',
-		),
+		],
 		'title' => ' برنامه های افزودنی',
 		'update' => ' به روز رسانی موجود است',
 		'user' => ' پسوندهای کاربر',
 		'version' => ' نسخه',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'آمار',
 		'all_feeds' => ' همه فیدها',
 		'category' => ' دسته',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => ' خوانده نشده',
 		'title' => 'آمار',
 		'top_feed' => ' ده فید برتر',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => ' پیکربندی سیستم',
 		'auto-update-url' => ' به روز رسانی خودکار URL سرور',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => ' در ثانیه',
 			'number' => ' مدت زمان ورود به سیستم',
-		),
+		],
 		'force_email_validation' => ' اعتبارسنجی آدرس ایمیل اجباری',
 		'instance-name' => ' نام نمونه',
 		'max-categories' => ' حداکثر تعداد دسته ها برای هر کاربر',
 		'max-feeds' => ' حداکثر تعداد فید برای هر کاربر',
-		'registration' => array(
+		'registration' => [
 			'number' => ' حداکثر تعداد حساب ها',
-			'select' => array(
+			'select' => [
 				'label' => ' فرم ثبت نام',
-				'option' => array(
+				'option' => [
 					'noform' => ' معلولین: بدون فرم ثبت نام',
 					'nolimit' => ' فعال: بدون محدودیت حساب',
 					'setaccountsnumber' => ' حداکثر تنظیم کنید. تعداد حساب ها',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => ' فرم غیرفعال است',
 				'enabled' => ' فرم فعال است',
-			),
+			],
 			'title' => 'فرم ثبت نام کاربر',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => ' داده نشده است',
 			'enabled' => ' <a href="./?a=tos">فعال است</a>',
 			'help' => ' نحوه <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">فعال کردن شرایط خدمات </a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => ' FreshRSS را به روز کنید',
 		'apply' => ' شروع به روز رسانی',
 		'changelog' => ' تغییرات',
@@ -207,15 +207,15 @@ return array(
 		'last' => ' آخرین بررسی',
 		'loading' => ' به روز رسانی…',
 		'none' => ' به روز رسانی در دسترس نیست',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => ' کانال انتشار',
 			'edge' => ' انتشار نورد ("لبه")',
 			'latest' => ' انتشار پایدار ("آخرین")',
-		),
+		],
 		'title' => ' FreshRSS را به روز کنید',
 		'viaGit' => ' به روز رسانی از طریق git و Github.com شروع شد',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => ' مدیر',
 		'article_count' => ' مقالات',
 		'back_to_manage' => ' ← بازگشت به لیست کاربران',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => ' حداقل 7 کاراکتر',
 		'title' => ' مدیریت کاربران',
 		'username' => ' نام کاربری',
-	),
-);
+	],
+];

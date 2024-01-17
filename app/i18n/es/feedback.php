@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'No dispones de permiso para acceder a esta página',
 		'not_found' => 'La página que buscas no existe',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimimización completada',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Su contraseña no se puede modificar',
 			'updated' => 'Su contraseña ha sido modificada',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Identificación incorrecta',
 			'success' => 'Conexión',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Desconexión',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Hubo un error durante el guardado de la configuración.',
 		'query_created' => 'Se ha creado la petición “%s”.',
 		'shortcuts_updated' => 'Se han actualizado los atajos de teclado',
 		'updated' => 'Se ha actualizado la configuración',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s ya está activado',
 		'cannot_remove' => '%s no se puede quitar',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado desactivado',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
-		),
+		],
 		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
 		'removed' => '%s eliminado',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor. Por favor, exporta estos archivos uno a uno.',
 		'feeds_imported' => 'Se han importado tus fuentes y quedarán actualizadas / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Se importaron tus fuentes; pero hubo algunos errores / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'No es posible enviar el archivo',
 		'no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor.',
 		'zip_error' => 'Hubo un error durante la importación ZIP.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Tu perfil no puede ser modificado',
 		'updated' => 'Tu perfil ha sido modificado',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Actualización',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Los artículos seleccionados han sido marcados como leídos.',
 			'marked_unread' => 'Los artículos han sido marcados como no leídos.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Se ha creado la categoría %s.',
 			'deleted' => 'Se ha eliminado la categoría.',
 			'emptied' => 'Se ha vaciado la categoría',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'La categoría no existe',
 			'over_max' => 'Has alcanzado el límite de categorías (%d)',
 			'updated' => 'La categoría se ha actualizado.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> ha sido actualizada',
 			'actualizeds' => 'Las fuentes RSS se han actualizado',
 			'added' => 'Fuente RSS agregada <em>%s</em>',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'No se puede encontrar el feed',
 			'over_max' => 'Has alcanzado tu límite de fuentes (%d)',
 			'reloaded' => '<em>%s</em> se ha vuelto a cargar',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Error al cargar el contenido del sitio web.',
 				'no_entries' => 'No hay artículos en este feed. Necesitas al menos un artículo para crear una vista previa.',
 				'no_feed' => 'Error interno (no se puede encontrar el feed).',
 				'no_result' => 'El selector no coincidyó con nada. Como reserva, se mostrará el texto original del feed en su lugar.',
 				'selector_empty' => 'El selector está vacío. Debe definir uno para crear una vista previa.',
-			),
+			],
 			'updated' => 'Fuente actualizada',
-		),
+		],
 		'purge_completed' => 'Limpieza completada (se han eliminado %d artículos)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Se ha creado la etiqueta “%s”.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'El nombre de la etiqueta ya existe.',
 		'renamed' => 'La etiqueta “%s” ha sido renombrada a “%s”.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS se va a actualizar a la <strong>versión %s</strong>.',
 		'error' => 'Hubo un error durante el proceso de actualización: %s',
 		'file_is_nok' => 'Disponible la nueva <strong>versión %s</strong>. Sin embargo, debes revisar los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura',
 		'finished' => '¡Actualización completada!',
 		'none' => 'No hay actualizaciones para procesar',
 		'server_not_found' => 'No se ha podido conectar con el servidor de actualizaciones. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Se ha creado el usuario %s',
 			'error' => 'No se ha podido crear al usuario %s',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'El usuario %s ha sido eliminado',
 			'error' => 'El usuario %s no ha podido ser eliminado',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Se ha actualizado el usuario %s',
 			'error' => 'El usuario %s no se ha actualizado',
-		),
-	),
-);
+		],
+	],
+];

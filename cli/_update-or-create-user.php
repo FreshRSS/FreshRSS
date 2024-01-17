@@ -57,7 +57,7 @@ function intParam(string $name): ?int {
 	return isset($options['valid'][$name]) && ctype_digit($options['valid'][$name]) ? intval($options['valid'][$name]) : null;
 }
 
-$values = array(
+$values = [
 		'language' => strParam('language'),
 		'mail_login' => strParam('email'),
 		'token' => strParam('token'),
@@ -66,6 +66,6 @@ $values = array(
 		'ttl_default' => intParam('feed-ttl-default'),
 		'since_hours_posts_per_rss' => intParam('since-hours-posts-per-rss'),
 		'max_posts_per_rss' => intParam('max-posts-per-rss'),
-	);
+	];
 
 $values = array_filter($values);

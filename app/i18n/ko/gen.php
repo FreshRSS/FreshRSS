@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => '새 글 가져오기',
 		'add' => '추가',
 		'back' => '← 돌아가기',
@@ -39,28 +39,28 @@ return array(
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',
 		'update' => '변경',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => '<a href="%s">서비스 약관</a>에 동의합니다.',
 		'email' => '메일 주소',
 		'keep_logged_in' => '로그인 유지 <small>(%s 일)</small>',
 		'login' => '로그인',
 		'logout' => '로그아웃',
-		'password' => array(
+		'password' => [
 			'_' => '암호',
 			'format' => '<small>7 글자 이상이어야 합니다</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => '새 계정',
 			'ask' => '새 계정을 만들까요?',
 			'title' => '계정 생성',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => '사용자 이름',
 			'format' => '<small>알파벳과 숫자를 포함할 수 있고 최대 16 글자</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\4\\월',	// IGNORE
 		'Aug' => '\\8\\월',	// IGNORE
 		'Dec' => '\\1\\2\\월',	// IGNORE
@@ -118,27 +118,27 @@ return array(
 		'tue' => '화',
 		'wed' => '수',
 		'yesterday' => '어제',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
 			'body_unread_articles' => '(%%d 개 읽지 않음)',
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '새 글이 있습니다. 여기를 클릭하면 페이지를 다시 불러옵니다.',
 		'should_be_activated' => '자바스크립트를 사용하도록 설정해야합니다',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => '정보',
 		'account' => '계정',
 		'admin' => '관리',
@@ -186,15 +186,15 @@ return array(
 		'update' => '업데이트',
 		'user_management' => '사용자 관리',
 		'user_profile' => '프로필',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => '일',
 		'hours' => '시',
 		'months' => '월',
 		'weeks' => '주',
 		'years' => '년',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known based sites',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => '기기 내장 공유 기능',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => '경고!',
 		'blank_to_disable' => '빈 칸으로 두면 비활성화',
 		'by_author' => '글쓴이:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => '좋습니다!',
 		'or' => '또는',
 		'yes' => '네',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => '글 더 불러오기',
 		'mark_all_read' => '모두 읽음으로 표시',
 		'nothing_to_load' => '더 이상 글이 없습니다',
-	),
-);
+	],
+];

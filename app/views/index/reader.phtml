@@ -32,8 +32,8 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 		$this->entry = $item;
 
 		$tags = null;
-		$firstTags = array();
-		$remainingTags = array();
+		$firstTags = [];
+		$remainingTags = [];
 
 		if (FreshRSS_Context::userConf()->show_tags == 'h' || FreshRSS_Context::userConf()->show_tags == 'f' || FreshRSS_Context::userConf()->show_tags == 'b') {
 			$tags = $this->entry->tags();
@@ -55,11 +55,11 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 			<div class="content <?= $content_width ?>">
 				<header>
 					<?php
-						$favoriteUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $item->id()));
+						$favoriteUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $item->id()]];
 						if ($item->isFavorite()) {
 							$favoriteUrl['params']['is_favorite'] = 0;
 						}
-						$readUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $item->id()));
+						$readUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $item->id()]];
 						if ($item->isRead()) {
 							$readUrl['params']['is_read'] = 0;
 						}

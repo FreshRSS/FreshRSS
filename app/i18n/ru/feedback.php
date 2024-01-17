@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'У вас нет разрешения на доступ к этой странице',
 		'not_found' => 'Данной страницы не существует',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Оптимизация завершена',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Ваш пароль не может быть изменён',
 			'updated' => 'Ваш пароль изменён',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Неверный логин',
 			'success' => 'Вы вошли',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Вы вышли',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Во время сохранения конфигурации возникла ошибка',
 		'query_created' => 'Запрос “%s” создан.',
 		'shortcuts_updated' => 'Горячие клавиши изменены',
 		'updated' => 'Конфигурация изменена',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s уже включено',
 		'cannot_remove' => '%s не может быть удалено',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s не может быть отключено. <a href="%s">Проверьте логи FreshRSS</a> для подробностей.',
 			'ok' => '%s теперь отключено',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s не может быть включено. <a href="%s">Проверьте логи FreshRSS</a> для подробностей.',
 			'ok' => '%s теперь включено',
-		),
+		],
 		'no_access' => 'У вас нет доступа к %s',
 		'not_enabled' => '%s не включено',
 		'not_found' => '%s не существует',
 		'removed' => '%s удалено',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'На вашем сервере нет расширения ZIP. Пожалуйста, попробуйте экспортировать файлы один за другим.',
 		'feeds_imported' => 'Ваши ленты импортированы и теперь будут обновлены / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Файл не может быть загружен!',
 		'no_zip_extension' => 'На вашем сервере нет расширения ZIP.',
 		'zip_error' => 'Ошибка возникла при импорте ZIP.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Ваш профиль не может быть изменён',
 		'updated' => 'Ваш профиль изменён',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Обновляется',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Выбранные статьи отмечены прочитанными.',
 			'marked_unread' => 'Статьи отмечены непрочитанными.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Категория %s создана.',
 			'deleted' => 'Категория удалена.',
 			'emptied' => 'Категория очищена',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'Категории не существует!',
 			'over_max' => 'Вы достигли вашего лимита категорий (%d)',
 			'updated' => 'Категория изменена.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> обновлена',
 			'actualizeds' => 'RSS-ленты обновлены',
 			'added' => 'RSS-лента <em>%s</em> добавлена',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Лента не найдена',
 			'over_max' => 'Вы достигли ограничения на количество лент (%d)',
 			'reloaded' => '<em>%s</em> перезагружена',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Не удалось загрузить содержимое сайта.',
 				'no_entries' => 'В этой ленте нет статей. Требуется хотя бы одна статья, чтобы создать предпросмотр.',
 				'no_feed' => 'Внутренняя ошибка (лента не найдена).',
 				'no_result' => 'Нет совпадений с селектором. В качестве запасного варианта, вместо этого отображается оригинальный текст ленты.',
 				'selector_empty' => 'Селектор пуст. Необходимо задать селектор, чтобы создать предпросмотр.',
-			),
+			],
 			'updated' => 'Лента изменена',
-		),
+		],
 		'purge_completed' => 'Очистка выполнена (%d статей удалено)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Метка “%s” создана.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Метка с таким названием уже существует.',
 		'renamed' => 'Метка “%s” переименована в “%s”.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS будет обновлён до <strong>версии %s</strong>.',
 		'error' => 'Процесс обновления столкнулся с ошибкой: %s',
 		'file_is_nok' => 'Новая <strong>версия %s</strong> доступна, но проверьте права к директории <em>%s</em>. У веб-сервера должно быть право на запись',
 		'finished' => 'Обновление завершено!',
 		'none' => 'Нет обновлений',
 		'server_not_found' => 'Сервер обновлений не найден. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Пользователь %s создан',
 			'error' => 'Пользователь %s не может быть создан',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'Пользователь %s удалён',
 			'error' => 'Пользователь %s не может быть удалён',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Пользователь %s изменён',
 			'error' => 'Пользователь %s не был изменён',
-		),
-	),
-);
+		],
+	],
+];

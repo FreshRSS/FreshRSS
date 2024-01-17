@@ -10,197 +10,197 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'api' => array(
+return [
+	'api' => [
 		'documentation' => 'Skopírujte tento odkaz a použite ho v inom programe.',
 		'title' => 'API',	// IGNORE
-	),
-	'bookmarklet' => array(
+	],
+	'bookmarklet' => [
 		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte “Uložiť odkaz do záložiek”. Potom kliknite na tlačidlo “Odoberať” na ktorejkoľvek stránke, ktorú chcete odoberať.',
 		'label' => 'Odoberať',
 		'title' => 'Záložka',
-	),
-	'category' => array(
+	],
+	'category' => [
 		'_' => 'Kategória',
 		'add' => 'Pridať kategória',
 		'archiving' => 'Archív',
-		'dynamic_opml' => array(
+		'dynamic_opml' => [
 			'_' => 'Dynamické OPML',
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
-		),
+		],
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'accept_cookies' => 'Prijať cookies',
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Pridať RSS kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
-		'auth' => array(
+		'auth' => [
 			'configuration' => 'Prihlásenie',
 			'help' => 'Povoliť prístup do kanálov chránených cez HTTP.',
 			'http' => 'Prihlásenie cez HTTP',
 			'password' => 'Heslo pre HTTP',
 			'username' => 'Používateľské meno pre HTTP',
-		),
+		],
 		'clear_cache' => 'Vždy vymazať vyrovnávaciu pamäť',
-		'content_action' => array(
+		'content_action' => [
 			'_' => 'Akcia obsahu pri sťahovaní obsahu článku',
 			'append' => 'Pridať za existujúci obsah',
 			'prepend' => 'Pridať pred existujúci obsah',
 			'replace' => 'Nahradiť existujúci obsh',
-		),
+		],
 		'css_cookie' => 'Pri sťahovaní obsahu článku použiť cookies',
 		'css_cookie_help' => 'Príklad: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Stiahnuť skrátenú verziu RSS kanála (pozor, vyžaduje viac času!)',
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
-		'css_path_filter' => array(
+		'css_path_filter' => [
 			'_' => 'CSS selektor elementu na odstránenie',
 			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside</kbd>',
-		),
+		],
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
-		'filteractions' => array(
+		'filteractions' => [
 			'_' => 'Filtrovať akcie',
 			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
-		),
+		],
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
-		'kind' => array(
+		'kind' => [
 			'_' => 'Typ zdroja kanála',
-			'html_xpath' => array(
+			'html_xpath' => [
 				'_' => 'HTML + XPath (Web scraping)',	// TODO
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'názov kanála',
 					'help' => 'Príklad: <code>//title</code> alebo statický text: <code>"Môj vlastný kanál"</code>',
-				),
+				],
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
-				'item' => array(
+				'item' => [
 					'_' => 'vyhľadávanie noviniek <strong>položky</strong><br /><small>(najdôležitejšie)</small>',
 					'help' => 'Príklad: <code>//div[@class="news-item"]</code>',
-				),
-				'item_author' => array(
+				],
+				'item_author' => [
 					'_' => 'položka autor',
 					'help' => 'Môže byť aj statický text. Príklad: <code>"Anonym"</code>',
-				),
+				],
 				'item_categories' => 'položka značky',
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'položka obsah',
 					'help' => 'Príklad na zabratie celej položky: <code>.</code>',
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'položka miniatúra',
 					'help' => 'Príklad: <code>descendant::img/@src</code>',
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// TODO
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'položka dátum',
 					'help' => 'Výsledok spracuje <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// DIRTY
-				),
-				'item_title' => array(
+				],
+				'item_title' => [
 					'_' => 'položka nadpis',
 					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
-				),
-				'item_uid' => array(
+				],
+				'item_uid' => [
 					'_' => 'položka unikátny identifikátor',
 					'help' => 'Nepovinné. Príklad: <code>descendant::div/@data-uri</code>',
-				),
-				'item_uri' => array(
+				],
+				'item_uri' => [
 					'_' => 'položka odkaz (URL)',
 					'help' => 'Príklad: <code>descendant::a/@href</code>',
-				),
+				],
 				'relative' => 'XPath (relatívne k položke) pre:',
 				'xpath' => 'XPath pre:',
-			),
-			'json_dotpath' => array(
+			],
+			'json_dotpath' => [
 				'_' => 'JSON (Dotted paths)',	// TODO
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
-				),
+				],
 				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
-				'item' => array(
+				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
-				),
+				],
 				'item_author' => 'item author',	// TODO
 				'item_categories' => 'item tags',	// TODO
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item content',	// TODO
 					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item thumbnail',	// TODO
 					'help' => 'Example: <code>image</code>',	// TODO
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// TODO
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item date',	// TODO
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
-				),
+				],
 				'item_title' => 'item title',	// TODO
 				'item_uid' => 'item unique ID',	// TODO
-				'item_uri' => array(
+				'item_uri' => [
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
-				),
+				],
 				'json' => 'Dotted Path for:',	// TODO
 				'relative' => 'Dotted Path (relative to item) for:',	// TODO
-			),
+			],
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (prednastavené)',
 			'xml_xpath' => 'XML + XPath',	// TODO
-		),
-		'maintenance' => array(
+		],
+		'maintenance' => [
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
 			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',
 			'reload_articles' => 'Obnoviť články',
 			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
 			'title' => 'Údržba',
-		),
+		],
 		'max_http_redir' => 'Max HTTP presmerovaní',
 		'max_http_redir_help' => 'Nastavte na 0 alebo nechajte prázdne na zakázanie, -1 pre neobmedzené množstvo presmerovaní',
-		'method' => array(
+		'method' => [
 			'_' => 'HTTP Method',	// TODO
-		),
+		],
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',
 		'number_entries' => 'Počet článkov: %d',
-		'priority' => array(
+		'priority' => [
 			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',
 			'category' => 'Zobraziť vo svojej kategórii',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Zobraziť v prehľade kanálov',
-		),
+		],
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
 		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'selector_preview' => array(
+		'selector_preview' => [
 			'show_raw' => 'Zobraziť zdrojový kód',
 			'show_rendered' => 'Zobraziť obsah',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'all' => 'Zobraziť všetky kanály',
 			'error' => 'Zobraziť iba kanály s chybou',
-		),
-		'showing' => array(
+		],
+		'showing' => [
 			'error' => 'Zobraziť iba kanály s chybou',
-		),
+		],
 		'ssl_verify' => 'Overiť bezpečnosť SSL',
 		'stats' => 'Štatistiky',
 		'think_to_add' => 'Mali by ste pridať kanály.',
@@ -214,8 +214,8 @@ return array(
 		'validator' => 'Skontrolovať platnosť kanála',
 		'website' => 'Odkaz webovej stránky',
 		'websub' => 'Okamžité oznámenia cez WebSub',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export' => 'Exportovať',
 		'export_labelled' => 'Exportovať vaše označené články',
 		'export_opml' => 'Exportovať zoznam kanálov (OPML)',
@@ -226,26 +226,26 @@ return array(
 		'import' => 'Importovať',
 		'starred_list' => 'Zoznam obľúbených článkov',
 		'title' => 'Import / export',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'add' => 'Pridať kanál alebo kategóriu',
 		'import_export' => 'Import / export',	// IGNORE
 		'label_management' => 'Správca štítkov',
-		'stats' => array(
+		'stats' => [
 			'idle' => 'Neaktívne kanály',
 			'main' => 'Hlavné štatistiky',
 			'repartition' => 'Rozdelenie článkov',
-		),
+		],
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Názov',
 		'new_name' => 'Nový názov',
 		'old_name' => 'Starý názov',
-	),
-	'title' => array(
+	],
+	'title' => [
 		'_' => 'Správa odoberaných kanálov',
 		'add' => 'Pridať kanál alebo kategóriu',
 		'add_category' => 'Pridať kategóriu',
@@ -256,5 +256,5 @@ return array(
 		'feed_management' => 'Správa RSS kanálov',
 		'rename_label' => 'Premenovať štítok',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Öntanımlı kullanıcının makalelerinin anonim okunmasına izin ver (%s)',
 		'allow_anonymous_refresh' => 'Anonim makale yenilemesine izin ver',
 		'api_enabled' => '<abbr>API</abbr> erişimine izin ver <small>(mobil uygulamalar için gerekli)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
 		'type' => 'Kimlik doğrulama yöntemi',
 		'unsafe_autologin' => 'Güvensiz otomatik girişe izin ver: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => '<em>./data/cache</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Kategori tablosu kötü yapılandırılmış.',
 			'ok' => 'Kategori tablosu sorunsuz.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Veritabanı ile bağlantı kurulamıyor.',
 			'ok' => 'Veritabanı ile bağlantı sorunsuz.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Karakter yazım kontrolü için kütüphane eksik (php-ctype).',
 			'ok' => 'Karakter yazım kontrolü için kütüphane sorunsuz (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'cURL eksik (php-curl package).',
 			'ok' => 'cURL eklentisi sorunsuz.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => '<em>./data</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
-		),
+		],
 		'database' => 'Veritabanı kurulumu',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'DOM kütüpbanesi eksik (php-xml package).',
 			'ok' => 'DOM kütüphanesi sorunsuz.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Giriş tablosu kötü yapılandırılmış.',
 			'ok' => 'Giriş tablosu sorunsuz.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => '<em>./data/favicons</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Akış tablosu kötü yapılandırılmış.',
 			'ok' => 'Akış tablosu sorunsuz.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'PHP fileinfo eksik (fileinfo package).',
 			'ok' => 'fileinfo eklentisi sorunsuz.',
-		),
+		],
 		'files' => 'Dosya kurulumu',
-		'json' => array(
+		'json' => [
 			'nok' => 'JSON eklentisi eksik (php-json package).',
 			'ok' => 'JSON eklentisi sorunsuz.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Unicode için tavsiye edilen mbstring kütüphanesi bulunamadı.',
 			'ok' => 'Unicode için tavsiye edilen mbstring kütüphaneniz mevcut.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
 			'ok' => 'Düzenli ifadeler kütüphanesi sorunsuz (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP kurulumu',
 			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP sürümünüz %s, FreshRSS ile tam uyumlu.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
 			'ok' => 'Veritabanı tabloları sorunsuz.',
-		),
+		],
 		'title' => 'Kurulum kontrolü',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => '<em>./data/tokens</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'İşaretler klasörü yetkileri sorunsuz..',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => '<em>./data/users</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'ZIP eklentisi eksik (php-zip package).',
 			'ok' => 'ZIP eklentisi sorunsuz.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Yazar',
 		'community' => 'Kullanılabilir topluluk eklentileri',
 		'description' => 'Açıklama',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Kuruldu',
 		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
-		'system' => array(
+		'system' => [
 			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
-		),
+		],
 		'title' => 'Eklentiler',
 		'update' => 'Güncelleme mevcut',
 		'user' => 'Kullanıcı eklentileri',
 		'version' => 'Sürüm',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm akış',
 		'category' => 'Kategori',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Okunmamış',
 		'title' => 'İstatistikler',
 		'top_feed' => 'İlk 10 akış',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'saniye',
 			'number' => 'Oturum açık kalma süresi',
-		),
+		],
 		'force_email_validation' => 'Email doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
-		'registration' => array(
+		'registration' => [
 			'number' => 'En fazla hesap sayısı',
-			'select' => array(
+			'select' => [
 				'label' => 'Kayıt Formu',
-				'option' => array(
+				'option' => [
 					'noform' => 'Devre Dışı: Kayıt Formu',
 					'nolimit' => 'Devrede: Hesap limiti yok',
 					'setaccountsnumber' => 'Maksimum hesap limitini ayarla',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Form devre dışı',
 				'enabled' => 'Form devrede',
-			),
+			],
 			'title' => 'Kullanıcı kayıt formu',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Son kontrol',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Yeni güncelleme yok',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Sistem güncelleme',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Yönetici',
 		'article_count' => 'Makaleler',
 		'back_to_manage' => '← Kullanıcı listesine geri dön',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Kullanıcıları yönet',
 		'username' => 'Kullanıcı adı',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => ' بایگانی',
 		'exception' => ' استثناء پاکسازی',
 		'help' => ' گزینه های بیشتری در تنظیمات فید فردی موجود است',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => ' اکنون پاکسازی کنید',
 		'title' => ' بایگانی',
 		'ttl' => ' به‌طور خودکار بیشتر از آن رفرش نکنید',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => ' نمایش',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => ' حالت تاریک خودکار (بتا)',
 			'auto' => ' خودکار',
 			'no' => ' شماره',
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',
 			'entry' => ' نمادهای مقاله',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => ' اشتراک گذاری',
 			'summary' => ' خلاصه',
 			'top_line' => ' خط بالا',
-		),
+		],
 		'language' => ' زبان',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => ' ثانیه (0 به معنای عدم وجود مهلت زمانی است)',
 			'timeout' => ' وقفه اعلان HTML5',
-		),
+		],
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
-		'theme' => array(
+		'theme' => [
 			'_' => ' موضوع',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => ' منسوخ شده است',
 				'description' => ' این طرح زمینه دیگر پشتیبانی نمی‌شود و در <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">آینده در دسترس نخواهد بود انتشار FreshRSS</a>',
-			),
-		),
+			],
+		],
 		'theme_not_available' => ' طرح زمینه "%s" دیگر در دسترس نیست. لطفا موضوع دیگری را انتخاب کنید.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => ' تصویر بند انگشتی',
 			'landscape' => ' منظره',
 			'none' => ' هیچ',
 			'portrait' => ' پرتره',
 			'square' => ' مربع',
-		),
+		],
 		'timezone' => ' منطقه زمانی',
 		'title' => ' نمایش',
-		'website' => array(
+		'website' => [
 			'full' => ' نماد و نام',
 			'icon' => ' فقط نماد',
 			'label' => ' وب سایت',
 			'name' => ' فقط نام',
 			'none' => ' هیچکدام',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => ' عرض محتوا',
 			'large' => ' عریض',
 			'medium' => ' متوسط',
 			'no_limit' => ' عرض کامل',
 			'thin' => ' باریک',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => ' سطح گزارش',
 			'message' => ' پیام ورود',
 			'timestamp' => ' مهر زمان',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => ' اول',
 			'last' => ' آخرین',
 			'next' => ' بعدی',
 			'previous' => ' قبلی',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => ' مدیریت پروفایل',
 		'api' => ' مدیریت API',
-		'delete' => array(
+		'delete' => [
 			'_' => ' حذف اکانت',
 			'warn' => ' حساب شما و تمام داده های مرتبط حذف خواهد شد.',
-		),
+		],
 		'email' => ' آدرس ایمیل',
 		'password_api' => ' رمز عبور API<br /><small>(مثلاً برای برنامه های تلفن همراه)</small>',
 		'password_form' => ' رمز عبور<br /><small>(برای روش ورود به فرم وب)</small>',
 		'password_format' => ' حداقل 7 کاراکتر',
 		'title' => ' نمایه',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => ' پرس و جوهای کاربر',
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
-		'filter' => array(
+		'filter' => [
 			'_' => ' فیلتر اعمال شده:',
 			'categories' => ' نمایش بر اساس دسته بندی',
 			'feeds' => ' نمایش با فید',
@@ -123,7 +123,7 @@ return array(
 			'state' => ' ایالت',
 			'tags' => ' نمایش بر اساس برچسب',
 			'type' => ' نوع',
-		),
+		],
 		'get_all' => ' نمایش همه مقالات',
 		'get_category' => ' دسته «%s» را نمایش دهید',
 		'get_favorite' => ' نمایش مقالات مورد علاقه',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => ' نمایش مقالات خوانده نشده',
 		'state_15' => ' نمایش همه مقالات',
 		'title' => ' پرس و جوهای کاربر',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => ' خواندن',
 		'after_onread' => ' بعد از "علامت گذاری همه به عنوان خوانده شده"',
 		'always_show_favorites' => ' نمایش همه مقالات در موارد دلخواه به طور پیش فرض',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => ' نویسندگان و تاریخ',
 				'both' => ' در سرصفحه و پاورقی',
 				'footer' => ' در پاورقی',
 				'header' => ' در سربرگ',
 				'none' => ' هیچکدام',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => ' بالای عنوان/برچسب ها',
 				'none' => ' هیچ',
 				'with_authors' => ' در نویسندگان و ردیف تاریخ',
-			),
+			],
 			'feed_title' => ' عنوان خوراک',
-			'tags' => array(
+			'tags' => [
 				'_' => ' برچسب ها',
 				'both' => ' در سرصفحه و پاورقی',
 				'footer' => ' در پاورقی',
 				'header' => ' در سربرگ',
 				'none' => ' هیچ',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
 				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
-			),
-		),
+			],
+		],
 		'articles_per_page' => ' تعداد مقاله در هر صفحه',
 		'auto_load_more' => ' مقالات بیشتری را در پایین صفحه بارگذاری کنید',
 		'auto_remove_article' => ' مخفی کردن مقالات پس از خواندن',
 		'confirm_enabled' => ' یک دیالوگ تأیید را روی اقدامات "علامت گذاری همه به عنوان خوانده شده" نمایش دهید',
 		'display_articles_unfolded' => ' نمایش مقالاتی که به طور پیش فرض باز شده اند',
 		'display_categories_unfolded' => ' دسته بندی هایی که باید آشکار شوند',
-		'headline' => array(
+		'headline' => [
 			'articles' => ' مقالات: باز/بستن',
 			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
 			'categories' => ' ناوبری چپ: دسته ها',
 			'mark_as_read' => ' مقاله را به عنوان خوانده شده علامت گذاری کنید',
 			'misc' => ' متفرقه',
 			'view' => ' مشاهده',
-		),
+		],
 		'hide_read_feeds' => ' دسته‌ها و فیدها را بدون مقاله خوانده نشده پنهان کنید (با پیکربندی «نمایش همه مقاله‌ها» کار نمی‌کند)',
 		'img_with_lazyload' => ' از حالت <em>بار تنبل</em> برای بارگیری تصاویر استفاده کنید',
 		'jump_next' => ' پرش به خواهر و برادر خوانده نشده بعدی (فید یا دسته)',
 		'mark_updated_article_unread' => ' مقالات به روز شده را به عنوان خوانده نشده علامت گذاری کنید',
 		'number_divided_when_reader' => ' در نمای خواندن بر 2 تقسیم کنید.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => ' هنگامی که مقاله در وب سایت اصلی خود باز می شود',
 			'article_viewed' => ' هنگام مشاهده مقاله',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',
 			'when_same_title' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => ' مقالات برای نمایش',
 			'active_category' => ' دسته فعال',
 			'adaptive' => ' نمایش را تنظیم کنید',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => ' بدون دسته',
 			'remember_categories' => ' دسته بندی های باز را به خاطر بسپارید',
 			'unread' => ' فقط خوانده نشده را نشان دهد',
-		),
+		],
 		'show_fav_unread_help' => ' روی برچسب ها نیز اعمال می شود',
 		'sides_close_article' => ' با کلیک کردن خارج از ناحیه متن مقاله',
-		'sort' => array(
+		'sort' => [
 			'_' => ' ترتیب مرتب سازی',
 			'newer_first' => ' ابتدا جدیدترین',
 			'older_first' => ' اول قدیمی ترین',
-		),
+		],
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
 		'title' => ' خواندن',
-		'view' => array(
+		'view' => [
 			'default' => ' نمای پیش فرض',
 			'global' => ' نمای جهانی',
 			'normal' => ' نمای عادی',
 			'reader' => ' مشاهده خواندن',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => ' اشتراک گذاری',
 		'add' => ' یک روش اشتراک گذاری اضافه کنید',
 		'blogotext' => ' وبلاگ متن',
@@ -256,8 +256,8 @@ return array(
 		'title' => ' اشتراک گذاری',
 		'twitter' => ' توییتر',
 		'wallabag' => 'والباگ',
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => ' میانبرها',
 		'article_action' => ' اقدامات ماده',
 		'auto_share' => ' اشتراک گذاری',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => ' به درخواست های کاربر دسترسی پیدا کنید',
 		'user_filter_help' => ' اگر فقط یک درخواست کاربر وجود داشته باشد',
 		'views' => ' بازدید',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s مقاله (%s)',
 		'current' => ' کاربر فعلی',
 		'is_admin' => ' مدیر است',
 		'users' => ' کاربران',
-	),
-);
+	],
+];

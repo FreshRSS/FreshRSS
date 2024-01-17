@@ -4,8 +4,8 @@ declare(strict_types=1);
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
 $extData = Minz_ExtensionManager::callHook('js_vars', []);
-echo htmlspecialchars(json_encode(array(
-	'context' => array(
+echo htmlspecialchars(json_encode([
+	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
 		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
 		'hide_posts' => !(FreshRSS_Context::userConf()->display_posts || Minz_Request::actionName() === 'reader'),
@@ -29,8 +29,8 @@ echo htmlspecialchars(json_encode(array(
 			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
 		],
 		'version' => FRESHRSS_VERSION,
-	),
-	'shortcuts' => array(
+	],
+	'shortcuts' => [
 		'actualize' => @$s['actualize'],
 		'mark_read' => @$s['mark_read'],
 		'mark_favorite' => @$s['mark_favorite'],
@@ -54,14 +54,14 @@ echo htmlspecialchars(json_encode(array(
 		'reading_view' => @$s['reading_view'],
 		'rss_view' => @$s['rss_view'],
 		'toggle_media' => @$s['toggle_media'],
-	),
-	'urls' => array(
+	],
+	'urls' => [
 		'index' => _url('index', 'index'),
-		'login' => Minz_Url::display(array('c' => 'auth', 'a' => 'login'), 'php'),
-		'logout' => Minz_Url::display(array('c' => 'auth', 'a' => 'logout'), 'php'),
+		'login' => Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'php'),
+		'logout' => Minz_Url::display(['c' => 'auth', 'a' => 'logout'], 'php'),
 		'help' => FRESHRSS_WIKI,
-	),
-	'i18n' => array(
+	],
+	'i18n' => [
 		'confirmation_default' => _t('gen.js.confirm_action'),
 		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
 		'notif_body_new_articles' => _t('gen.js.feedback.body_new_articles'),
@@ -70,10 +70,10 @@ echo htmlspecialchars(json_encode(array(
 		'category_empty' => _t('gen.js.category_empty'),
 		'labels_empty' => _t('gen.js.labels_empty'),
 		'language' => FreshRSS_Context::userConf()->language,
-	),
-	'icons' => array(
+	],
+	'icons' => [
 		'read' => rawurlencode(_i('read')),
 		'unread' => rawurlencode(_i('unread')),
-	),
+	],
 	'extensions' => $extData,
-), JSON_UNESCAPED_UNICODE) ?: '', ENT_NOQUOTES, 'UTF-8');
+], JSON_UNESCAPED_UNICODE) ?: '', ENT_NOQUOTES, 'UTF-8');
