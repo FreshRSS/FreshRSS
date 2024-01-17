@@ -304,7 +304,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays logs of FreshRSS for the current user.
-	 * @throws Minz_CurrentPagePaginationException
 	 */
 	public function logsAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {

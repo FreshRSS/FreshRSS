@@ -388,7 +388,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
 	 * @throws FreshRSS_BadUrl_Exception
 	 * @throws FreshRSS_Context_Exception
-	 * @throws JsonException
 	 */
 	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		if (function_exists('set_time_limit')) {

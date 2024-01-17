@@ -66,18 +66,25 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$feedByCategory = [];
 		$feedByCategory_calculated = $statsDAO->calculateFeedByCategory();
-		for ($i = 0, $iMax = count($feedByCategory_calculated); $i < $iMax; $i++) {
+
+		$iMax = count($feedByCategory_calculated);
+		for ($i = 0; $i < $iMax; $i++) {
 			$feedByCategory['label'][$i] = $feedByCategory_calculated[$i]['label'];
 			$feedByCategory['data'][$i] = $feedByCategory_calculated[$i]['data'];
 		}
+
 		$this->view->feedByCategory = $feedByCategory;
 
 		$entryByCategory = [];
 		$entryByCategory_calculated = $statsDAO->calculateEntryByCategory();
-		for ($i = 0, $iMax = count($entryByCategory_calculated); $i < $iMax; $i++) {
+
+		$iMax = count($entryByCategory_calculated);
+
+		for ($i = 0; $i < $iMax; $i++) {
 			$entryByCategory['label'][$i] = $entryByCategory_calculated[$i]['label'];
 			$entryByCategory['data'][$i] = $entryByCategory_calculated[$i]['data'];
 		}
+
 		$this->view->entryByCategory = $entryByCategory;
 
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
