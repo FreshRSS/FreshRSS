@@ -2,9 +2,7 @@
 <?php
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
-
-$parameters = [
-	'valid' => [
+	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
 		'language' => ':',
@@ -22,7 +20,9 @@ $parameters = [
 		'db-password' => ':',
 		'db-base' => ':',
 		'db-prefix' => '::',
-	], 'deprecated' => [
+	],
+	'short' => [],
+	'deprecated' => [
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',

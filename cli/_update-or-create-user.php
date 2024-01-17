@@ -5,7 +5,7 @@ require(__DIR__ . '/_cli.php');
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $parameters = [
-	'valid' => [
+	'long' => [
 		'user' => ':',
 		'password' => ':',
 		'api-password' => ':',
@@ -18,6 +18,7 @@ $parameters = [
 		'since-hours-posts-per-rss' => ':',
 		'max-posts-per-rss' => ':',
 	],
+	'short' => [],
 	'deprecated' => [
 		'api-password' => 'api_password',
 		'purge-after-months' => 'purge_after_months',
@@ -27,10 +28,11 @@ $parameters = [
 		'max-posts-per-rss' => 'max_posts_per_rss',
 	],
 ];
+
 if (!isset($isUpdate)) {
 	$isUpdate = false;
 } elseif (!$isUpdate) {
-	$parameters['valid']['no-default-feeds'] = '';	//Only for creating new users
+	$parameters['long']['no-default-feeds'] = '';	//Only for creating new users
 	$parameters['deprecated']['no-default-feeds'] = 'no_default_feeds';
 }
 

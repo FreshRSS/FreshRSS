@@ -1,28 +1,45 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
+require_once __DIR__ . '/../constants.php';
 
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-/** @var array<string,string>|false $options */
-$options = getopt('dhl:r');
+$parameters = [
+	'long' => [
+		'display-result' => '',
+		'help' => '',
+		'language' => ':',
+		'display-report' => '',
+	],
+	'short' => [
+		'display-result' => 'd',
+		'help' => 'h',
+		'language' => 'l',
+		'display-report' => 'r',
+	],
+	'deprecated' => [],
+];
 
-if (!is_array($options) || array_key_exists('h', $options)) {
+$options = parseCliParams($parameters);
+
+if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) {
 	checkHelp();
 }
 
-if (array_key_exists('l', $options)) {
-	$languages = [$options['l']];
+if (array_key_exists('language', $options['valid'])) {
+	$languages = [$options['valid']['language']];
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }
-$displayResults = array_key_exists('d', $options);
-$displayReport = array_key_exists('r', $options);
+$displayResults = array_key_exists('display-result', $options['valid']);
+$displayReport = array_key_exists('display-report', $options['valid']);
 
 $isValidated = true;
 $result = [];
@@ -99,10 +116,10 @@ SYNOPSIS
 DESCRIPTION
 	Check if translation files have missing keys or missing translations.
 
-	-d	display results.
-	-h	display this help and exit.
-	-l=LANG	filter by LANG.
-	-r	display completion report.
+	-d, --display-result	display results.
+	-h, --help		display this help and exit.
+	-l, --language=LANG	filter by LANG.
+	-r, --display-report	display completion report.
 
 HELP;
 	exit;

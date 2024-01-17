@@ -7,8 +7,7 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-$parameters = [
-	'valid' => [
+	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
 		'language' => ':',
@@ -26,7 +25,9 @@ $parameters = [
 		'db-password' => ':',
 		'db-base' => ':',
 		'db-prefix' => '::',
-	], 'deprecated' => [
+	],
+	'short' => [],
+	'deprecated' => [
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',
@@ -88,7 +89,8 @@ if (file_exists($customConfigPath)) {
 
 foreach ($configParams as $param => $configParam) {
 	if (isset($options['valid'][$param])) {
-		$config[$configParam] = $options['valid'][$param];
+		$isFlag = $parameters['long'][$param] === '';
+		$config[$configParam] = $isFlag ? true : $options['valid'][$param];
 	}
 }
 
