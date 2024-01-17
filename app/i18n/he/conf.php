@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'ארכוב',
 		'exception' => 'Purge exception',	// TODO
 		'help' => 'אפשרויות נוספות זמינות בזרמים ספציפיים',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'ניקוי עכשיו',
 		'title' => 'ארכוב',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'תצוגה',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'שורה תחתונה',
 			'display_authors' => 'Authors',	// TODO
 			'entry' => 'סמלילי מאמרים',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'שיתוף',
 			'summary' => 'Summary',	// TODO
 			'top_line' => 'שורה עליונה',
-		),
+		],
 		'language' => 'שפה',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'שניות (0 משמעותה ללא פג תוקף)',
 			'timeout' => 'HTML5 התראה פג תוקף',
-		),
+		],
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
-		'theme' => array(
+		'theme' => [
 			'_' => 'ערכת נושא',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Thumbnail',	// TODO
 			'landscape' => 'Landscape',	// TODO
 			'none' => 'None',	// TODO
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'תצוגה',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'רוחב התוכן',
 			'large' => 'גדול',
 			'medium' => 'בינוני',
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Log Level',	// TODO
 			'message' => 'Log Message',	// TODO
 			'timestamp' => 'Timestamp',	// TODO
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'הראשון',
 			'last' => 'אחרון',
 			'next' => 'הבא',
 			'previous' => 'הקודם',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profile management',	// TODO
 		'api' => 'API management',	// TODO
-		'delete' => array(
+		'delete' => [
 			'_' => 'Account deletion',	// TODO
 			'warn' => 'Your account and all related data will be deleted.',	// TODO
-		),
+		],
 		'email' => 'Email address',	// TODO
 		'password_api' => 'סיסמת API<br /><small>(לדוגמה ליישומים סלולריים)</small>',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	// TODO
 		'title' => 'Profile',	// TODO
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'מסננים בשימוש:',
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
@@ -123,7 +123,7 @@ return array(
 			'state' => 'State',	// TODO
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
-		),
+		],
 		'get_all' => 'הצגת כל המאמרים',
 		'get_category' => 'הצגת קטגוריה “%s”',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'הצגת מאמרים שלא נקראו',
 		'state_15' => 'הצגת	כל המאמרים',
 		'title' => 'שאילתות',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Authors and date',	// TODO
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Above title/tags',	// TODO
 				'none' => 'None',	// TODO
 				'with_authors' => 'In authors and date row',	// TODO
-			),
+			],
 			'feed_title' => 'Feed title',	// TODO
-			'tags' => array(
+			'tags' => [
 				'_' => 'Tags',	// TODO
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Max number of tags shown',	// TODO
 				'help' => '0 means: show all tags and do not collapse them',	// TODO
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
 		'confirm_enabled' => 'הצגת דו-שיח לאישור “סימון הכל כנקרא” ',
 		'display_articles_unfolded' => 'הצגת מאמרים בשלמותם כברירת מחדל',
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Articles: Open/Close',	// TODO
 			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
 			'view' => 'View',	// TODO
-		),
+		],
 		'hide_read_feeds' => 'הסתרת קטגוריות &amp; הזנות ללא מאמרים שלא נקראו (לא עובד יחד עם “הצגת כל המאמרים”)',
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
 		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'חלוקה ב2 במצב קריאה.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'כאשר מאמר נפתח באתר המקורי',
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'מאמרים להצגה',
 			'active_category' => 'Active category',	// TODO
 			'adaptive' => 'תצוגה מתעדכנת',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'No category',	// TODO
 			'remember_categories' => 'Remember open categories',	// TODO
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
-		),
+		],
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
+		'sort' => [
 			'_' => 'סדר המיון',
 			'newer_first' => 'חדשים בראש',
 			'older_first' => 'ישנים יותר בראש',
-		),
+		],
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
 		'title' => 'קריאה',
-		'view' => array(
+		'view' => [
 			'default' => 'תצוגת ברירת המחדל',
 			'global' => 'תצוגה גלובלית',
 			'normal' => 'תצוגה רגילה',
 			'reader' => 'תצוגת קריאה',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'שיתוף',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'קיצורי דרך',
 		'article_action' => 'פעולות על מאמרים',
 		'auto_share' => 'שיתוף',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',
 		'views' => 'Views',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s articles (%s)',	// TODO
 		'current' => 'משתמש נוכחי',
 		'is_admin' => 'מנהל',
 		'users' => 'משתמשים',
-	),
-);
+	],
+];

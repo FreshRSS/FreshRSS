@@ -5,11 +5,11 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-$params = array(
+$params = [
 	'user:',
 	'header',
 	'json',
-);
+];
 $options = getopt('h', $params);
 
 if (!validateOptions($argv, $params)) {
@@ -23,7 +23,7 @@ if (empty($options['user'])) {
 	$users = $options['user'];
 } else {
 	/** @var array<string> $users */
-	$users = array($options['user']);
+	$users = [$options['user']];
 }
 
 sort($users);
@@ -68,7 +68,7 @@ foreach ($users as $username) {
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 	$feedList = $feedDAO->listFeedsIds();
 
-	$data = array(
+	$data = [
 		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
 		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
@@ -83,7 +83,7 @@ foreach ($users as $username) {
 		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
-	);
+	];
 	if (isset($options['h'])) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);

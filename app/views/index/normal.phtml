@@ -79,8 +79,8 @@ $today = @strtotime('today');
 			}
 
 			$tags = null;
-			$firstTags = array();
-			$remainingTags = array();
+			$firstTags = [];
+			$remainingTags = [];
 
 			if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'f' || FreshRSS_Context::userConf()->show_tags === 'b') {
 				$tags = $this->entry->tags();

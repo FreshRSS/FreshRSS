@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Allows access to RSS output of the default user without authentication:',
 		'type' => 'Authentication method',
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on the cache directory are good.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category table is improperly configured.',
 			'ok' => 'Category table is okay.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Connection to the database cannot be established.',
 			'ok' => 'Connection to the database is okay.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Cannot find a required library for character type checking (php-ctype).',
 			'ok' => 'You have the required library for character type checking (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Cannot find the cURL library (php-curl package).',
 			'ok' => 'You have the cURL library.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
-		),
+		],
 		'database' => 'Database installation',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',
 			'ok' => 'You have the required library to browse the DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry table is improperly configured.',
 			'ok' => 'Entry table is okay.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',
 			'ok' => 'Permissions on the favicons directory are good.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed table is improperly configured.',
 			'ok' => 'Feed table is okay.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
 			'ok' => 'You have the fileinfo library.',
-		),
+		],
 		'files' => 'File installation',
-		'json' => array(
+		'json' => [
 			'nok' => 'Cannot find JSON (php-json package).',
 			'ok' => 'You have the JSON extension.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',
 			'ok' => 'You have the recommended mbstring library for Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installation',
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'There are one or more missing tables in the database.',
 			'ok' => 'The appropriate tables exist in the database.',
-		),
+		],
 		'title' => 'Installation check',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',
 			'ok' => 'Permissions on the tokens directory are good.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',
 			'ok' => 'Permissions on the users directory are good.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Cannot find the ZIP extension (php-zip package).',
 			'ok' => 'You have the ZIP extension.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Author',
 		'community' => 'Available community extensions',
 		'description' => 'Description',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
-		'system' => array(
+		'system' => [
 			'_' => 'System extensions',
 			'no_rights' => 'System extension (you do not have the required permissions)',
-		),
+		],
 		'title' => 'Extensions',
 		'update' => 'Update available',
 		'user' => 'User extensions',
 		'version' => 'Version',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'System configuration',
 		'auto-update-url' => 'Auto-update server URL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
-		),
+		],
 		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Max number of accounts',
-			'select' => array(
+			'select' => [
 				'label' => 'Registration form',
-				'option' => array(
+				'option' => [
 					'noform' => 'Disabled: No registration form',
 					'nolimit' => 'Enabled: No limit of accounts',
 					'setaccountsnumber' => 'Set max. number of accounts',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Form disabled',
 				'enabled' => 'Form enabled',
-			),
+			],
 			'title' => 'User registration form',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',
 			'enabled' => '<a href="./?a=tos">is enabled</a>',
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Update FreshRSS',
 		'apply' => 'Start update',
 		'changelog' => 'Changelog',
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Last check',
 		'loading' => 'Updating…',
 		'none' => 'No update available',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',
 			'edge' => 'Rolling release (“edge”)',
 			'latest' => 'Stable release (“latest”)',
-		),
+		],
 		'title' => 'Update FreshRSS',
 		'viaGit' => 'Update via git and Github.com started',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',
 		'article_count' => 'Articles',
 		'back_to_manage' => '← Return to user list',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'At least 7 characters',
 		'title' => 'Manage users',
 		'username' => 'Username',
-	),
-);
+	],
+];

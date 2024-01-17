@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'Nie masz uprawnień dostępu do tej strony',
 		'not_found' => 'Strona którą chcesz otworzyć nie istnieje',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optymizacja ukończona',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Nie można zmienić hasła',
 			'updated' => 'Hasło zostało zmienione',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Niepoprawne dane logowania',
 			'success' => 'Zalogowałeś się',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Zostałeś wylogowany',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Podczas zapisywania konfiguracji wystąpił błąd',
 		'query_created' => 'Zapytanie “%s” zostało utworzone.',
 		'shortcuts_updated' => 'Skróty zostały zaktualizowane',
 		'updated' => 'Ustawienia zostały zaktualizowane',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => 'Rozszerzenie %s jest już włączone',
 		'cannot_remove' => 'Rozszerzenie %s nie może zostać usunięte',
-		'disable' => array(
+		'disable' => [
 			'ko' => 'Rozszerzenie %s nie może zostać wyłączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
 			'ok' => 'Rozszerzenie %s zostało wyłączone',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => 'Rozszerzenie %s nie może zostać włączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
 			'ok' => 'Rozszerzenie %s zostało włączone',
-		),
+		],
 		'no_access' => 'Brak dostępu do %s',
 		'not_enabled' => 'Rozszerzenie %s nie jest włączone',
 		'not_found' => 'Rozszerzenie %s nie istnieje',
 		'removed' => 'Rozszerzenie %s zostało usunięte',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze. Spróbuj eksportować pliki pojedynczo.',
 		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
 		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Nie można modyfikować profilu',
 		'updated' => 'Profil został zmodyfikowany',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Aktualizacja',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Wiadomości zostały oznaczone jako przeczytane.',
 			'marked_unread' => 'Wiadomości zostały oznaczone jako nieprzeczytane.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Stworzono kategorię %s.',
 			'deleted' => 'Usunięto kategorię.',
 			'emptied' => 'Kategoria jest pusta',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'Kategoria nie istnieje!',
 			'over_max' => 'Osiągnięto ustawiony limit kategorii (%d)',
 			'updated' => 'Zaktualizowano kategorię.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => 'Zaktualizowano kanał <em>%s</em>',
 			'actualizeds' => 'Kanały RSS zostały zaktualizowane',
 			'added' => 'Kanał RSS <em>%s</em> został dodany',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Kanał nie może zostać znaleziony',
 			'over_max' => 'Osiągnięto ustawiony limit kanałów (%d)',
 			'reloaded' => 'Kanał <em>%s</em> został przeładowany',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Nie udało się załadować zawartości strony.',
 				'no_entries' => 'Nie ma wiadomości na tym kanale. Potrzeba przynajmniej jednej wiadomości aby podgląd był dostępny.',
 				'no_feed' => 'Błąd wewnętrzny (kanał nie został odnaleziony).',
 				'no_result' => 'Selektor nie pasuje do żadnego elementu. W zastępstwie zostanie pokazana pierwotna zawartość kanału.',
 				'selector_empty' => 'Selektor jest pusty. Aby podgląd był dostępny selektor musi być zdefiniowany.',
-			),
+			],
 			'updated' => 'Ustawienia kanału zostały zaktualizowane',
-		),
+		],
 		'purge_completed' => 'Oczyszczanie ukończone (liczba skasowanych wiadomości: %d)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Etykieta “%s” została stworzona.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
 		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',
 		'error' => 'Proces aktualizacji napotkał błąd: %s',
 		'file_is_nok' => 'Nowa <strong>wersja %s</strong> jest dostępna, ale należy sprawdzić uprawnienia katalogu <em>%s</em>. Serwer HTTP musi mieć możliwość zapisu',
 		'finished' => 'Aktualizacja ukończona!',
 		'none' => 'Brak dostępnych aktualizacji',
 		'server_not_found' => 'Serwer aktualizacji nie może zostać odnaleziony. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Stworzono konto użytkownika %s',
 			'error' => 'Konto użytkownika %s nie może zostać stworzone',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'Konto użytkownika %s zostało usunięte',
 			'error' => 'Nie można usunąć konta użytkownika %s',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Konto użytkownika %s zostało zaktualizowane',
 			'error' => 'Konto użytkownika %s nie zostało zaktualizowane',
-		),
-	),
-);
+		],
+	],
+];

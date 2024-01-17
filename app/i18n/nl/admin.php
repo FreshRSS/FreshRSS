@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
 		'allow_anonymous_refresh' => 'Sta bezoekers toe om de artikelen te vernieuwen',
 		'api_enabled' => 'Sta <abbr>API</abbr> toegang toe <small>(nodig voor mobiele apps)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Sta toegang toe tot de RSS uitvoer van de standaard gebruiker zonder authenticatie:',
 		'type' => 'Authenticatie methode',
 		'unsafe_autologin' => 'Sta onveilige automatische log in toe met het volgende formaat: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Controleer de permissies van de <em>./data/cache</em> map. HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies van de cache map zijn goed.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Categorie tabel is slecht geconfigureerd.',
 			'ok' => 'Categorie tabel is ok.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Verbinding met de database kan niet worden gemaakt.',
 			'ok' => 'Verbinding met de database is ok.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'U mist de benodigde bibliotheek voor character type checking (php-ctype).',
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'U mist de cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Controleer de permissies op de <em>./data</em> map. De HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies op de data map zijn in orde.',
-		),
+		],
 		'database' => 'Database installatie',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'U mist de benodigde bibliotheek voor het bladeren van DOM (php-xml package).',
 			'ok' => 'U hebt de benodigde bibliotheek voor het bladeren van DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Invoertabel is slecht geconfigureerd.',
 			'ok' => 'Invoertabel is ok.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Controleer de permissies op de <em>./data/favicons</em> map. HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies op de favicons map zijn goed.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feedtabel is slecht geconfigureerd.',
 			'ok' => 'Feedtabel is ok.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'U mist de PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
-		),
+		],
 		'files' => 'Bestanden installatie',
-		'json' => array(
+		'json' => [
 			'nok' => 'U mist JSON (php-json package).',
 			'ok' => 'U hebt JSON uitbreiding.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
 			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'U mist de benodigde bibliotheek voor regular expressions (php-pcre).',
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'U mist PDO of een van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installatie',
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Er zijn één of meer ontbrekende tabellen in de database.',
 			'ok' => 'Alle tabellen zijn aanwezig in de database.',
-		),
+		],
 		'title' => 'Installatie controle',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Controleer de permissies op de <em>./data/tokens</em> map. HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies op de tokens map zijn goed.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Controleer de permissies op de <em>./data/users</em> map. HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies op de users map zijn goed.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'U mist ZIP uitbreiding (php-zip package).',
 			'ok' => 'U hebt ZIP uitbreiding.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Auteur',
 		'community' => 'Gebruikersuitbreidingen beschikbaar',
 		'description' => 'Beschrijving',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
-		'system' => array(
+		'system' => [
 			'_' => 'Systeemuitbreidingen',
 			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
-		),
+		],
 		'title' => 'Uitbreidingen',
 		'update' => 'Update beschikbaar',
 		'user' => 'Gebruikersuitbreidingen',
 		'version' => 'Versie',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Basis-url',
 			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
-		),
+		],
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Maximum aantal accounts',
-			'select' => array(
+			'select' => [
 				'label' => 'Registratieformulier',
-				'option' => array(
+				'option' => [
 					'noform' => 'Uitgeschakeld: geen registratieformulier',
 					'nolimit' => 'Ingeschakeld: geen limiet op aantal accounts',
 					'setaccountsnumber' => 'Max. aantal accounts instellen',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formulier uitgeschakeld',
 				'enabled' => 'Form ingeschakeld',
-			),
+			],
 			'title' => 'Gebruikersregistratieformulier',
-		),
+		],
 		'sensitive-parameter' => 'Kwetsbare parameter. Handmatig te bewerken in <kbd>./data/config.php</kbd>',
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is niet ingegeven',
 			'enabled' => '<a href="./?a=tos">is ingeschakeld</a>',
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">algemene voorwaarden inschakelen</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Versie controle',
 		'apply' => 'Toepassen',
 		'changelog' => 'Changelog',	// IGNORE
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Laatste controle',
 		'loading' => 'Updaten…',
 		'none' => 'Geen nieuwe versie om toe te passen',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release-kanaal',
 			'edge' => 'Rollende release (“edge”)',
 			'latest' => 'Stabiele release (“latest”)',
-		),
+		],
 		'title' => 'Vernieuw systeem',
 		'viaGit' => 'Update via git and Github.com gestart',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Beheerder',
 		'article_count' => 'Artikelen',
 		'back_to_manage' => '← Terug naar gebruikerslijst',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Ten minste 7 tekens',
 		'title' => 'Beheer gebruikers',
 		'username' => 'Gebruikersnaam',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archiviazione',
 		'exception' => 'Eccezioni all’eliminazione automatica',
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Cancella ora',
 		'title' => 'Archiviazione',
 		'ttl' => 'Non effettuare aggiornamenti per più di',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Visualizzazione',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Barra in fondo',
 			'display_authors' => 'Autori',
 			'entry' => 'Icone degli articoli',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Condivisione',
 			'summary' => 'Sommario',
 			'top_line' => 'Barra in alto',
-		),
+		],
 		'language' => 'Lingua',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'secondi (0 significa nessun timeout)',
 			'timeout' => 'Notifica timeout HTML5',
-		),
+		],
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Tema',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Il tema “%s” non è più disponibile. Si prega di selezionarne un altro.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Miniatura',
 			'landscape' => 'Panoramica',
 			'none' => 'Nessuna',
 			'portrait' => 'Ritratto',
 			'square' => 'Squadrata',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Visualizzazione',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Larghezza contenuto',
 			'large' => 'Largo',
 			'medium' => 'Medio',
 			'no_limit' => 'Nessun limite',
 			'thin' => 'Stretto',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Livello di log',
 			'message' => 'Messaggio di log',
 			'timestamp' => 'Timestamp',	// IGNORE
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'Prima',
 			'last' => 'Ultima',
 			'next' => 'Successiva',
 			'previous' => 'Precedente',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Gestione profili',
 		'api' => 'Gestione API',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
-		),
+		],
 		'email' => 'Indirizzo email',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
 		'title' => 'Profilo',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filtro applicato:',
 			'categories' => 'Mostra per categoria',
 			'feeds' => 'Mostra per feed',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Stato',
 			'tags' => 'Mostra per tag',	// DIRTY
 			'type' => 'Tipo',
-		),
+		],
 		'get_all' => 'Mostra tutti gli articoli',
 		'get_category' => 'Mostra la categoria “%s” ',
 		'get_favorite' => 'Mostra articoli preferiti',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Mostra gli articoli non letti',
 		'state_15' => 'Mostra tutti gli articoli',
 		'title' => 'Ricerche personali',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Lettura',
 		'after_onread' => 'Dopo “segna tutto come letto”,',
 		'always_show_favorites' => 'Mostra tutti gli articoli nei preferiti di default',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Autori e data',
 				'both' => 'Nell’intestazione e nel fondo pagina',
 				'footer' => 'Nel fondo pagina',
 				'header' => 'Nell’intestazione',
 				'none' => 'Nessuno',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Sopra il titolo/tag',
 				'none' => 'Nessuno',
 				'with_authors' => 'Nella riga degli autori e data',
-			),
+			],
 			'feed_title' => 'Titolo del feed',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Tag',
 				'both' => 'Nell’intestazione e nel fondo pagina',
 				'footer' => 'Nel fondo pagina',
 				'header' => 'Nell’intestazione',
 				'none' => 'Nessuno',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Numero massimo di tag mostrati',
 				'help' => '0 significa: mostra tutti i tag e non raggrupparli',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Numero di articoli per pagina',
 		'auto_load_more' => 'Carica articoli successivi a fondo pagina',
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',
 		'confirm_enabled' => 'Mostra una conferma per “segna tutto come letto”',
 		'display_articles_unfolded' => 'Mostra articoli aperti di predefinito',
 		'display_categories_unfolded' => 'Categorie da aprire',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Articoli: Apri/Chiudi',
 			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 			'categories' => 'Navigazione di sinistra: Categorie',
 			'mark_as_read' => 'Segna gli articoli come letti',
 			'misc' => 'Varie',
 			'view' => 'Vista',
-		),
+		],
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità “caricamento ritardato” per le immagini',
 		'jump_next' => 'Salta al successivo feed o categoria non letto',
 		'mark_updated_article_unread' => 'Segna articoli aggiornati come non letti',
 		'number_divided_when_reader' => 'Diviso 2 nella modalità di lettura.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
 			'when_same_title' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Articoli da visualizzare',
 			'active_category' => 'Categoria attiva',
 			'adaptive' => 'Adatta visualizzazione',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Nessuna categoria',
 			'remember_categories' => 'Ricorda le categorie aperte',
 			'unread' => 'Mostra solo non letti',
-		),
+		],
 		'show_fav_unread_help' => 'Si applica anche alle etichette',
 		'sides_close_article' => 'Cliccare fuori dall’area di testo dell’articolo chiude l’articolo',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Ordinamento',
 			'newer_first' => 'Prima i più recenti',
 			'older_first' => 'Prima i più vecchi',
-		),
+		],
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
 		'title' => 'Lettura',
-		'view' => array(
+		'view' => [
 			'default' => 'Visualizzazione predefinita',
 			'global' => 'Vista globale per categorie',
 			'normal' => 'Vista elenco',
 			'reader' => 'Modalità di lettura',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Condivisione',
 		'add' => 'Aggiungi un metodo di condivisione',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Condividi',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Comandi tastiera',
 		'article_action' => 'Azioni sugli articoli',
 		'auto_share' => 'Condividi',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',
 		'views' => 'Viste',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s articoli (%s)',
 		'current' => 'Utente connesso',
 		'is_admin' => 'è amministratore',
 		'users' => 'Utenti',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Permitir a leitura anónima dos artigos pelo usuário padrão (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anónima dos artigos',
 		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Permitir acesso a saída RSS para o usuário padrão sem autenticação',
 		'type' => 'Método de autenticação',
 		'unsafe_autologin' => 'Permitir login automática insegura usando o seguinte formato: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Verifique as permissões no diretório <em>./data/cache</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório cache estão corretos.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Tabela Category está configurada incorretamente.',
 			'ok' => 'Tabela Category está ok.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Conexão ao banco de dados não pode ser estabelecida.',
 			'ok' => 'Conexão ao banco de dados está ok.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para verificação do tipo de caractere (php-ctype).',
 			'ok' => 'Você tem a biblioteca necessária para verificação do tipo de caractere (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Não foi possível encontrar a biblioteca cURL (php-curl).',
 			'ok' => 'Você tem a biblioteca cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Verifique as permissões no diretório <em>./data</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório data estão corretos.',
-		),
+		],
 		'database' => 'Instalação do banco de dados',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Tabela Entry está configurada incorretamente.',
 			'ok' => 'Tabela Entry está ok.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Verifique as permissões no diretório <em>./data/favicons</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório favicons estão corretos.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Tabela Feed está configurada incorretamente.',
 			'ok' => 'Tabela Feed está ok.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Não foi possível encontrar a biblioteca fileinfo do PHP (fileinfo).',
 			'ok' => 'Você tem a biblioteca fileinfo.',
-		),
+		],
 		'files' => 'Instalação de arquivos',
-		'json' => array(
+		'json' => [
 			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada para Unicode (mbstring).',
 			'ok' => 'Você tem a biblioteca recomendada para Unicode (mbstring).',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Não foi possível encontrar uma biblioteca necessário para expressões regulares (php-pcre).',
 			'ok' => 'Você tem a biblioteca necessária para expressões regulares (php-pcre).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Não foi encontrado o PDO ou um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Você tem o PDO e ao menos um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Instação do PHP',
 			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
 			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Há uma ou mais tabelas inexistentes no banco de dados.',
 			'ok' => 'As tabelas apropriadas existem no banco de dados.',
-		),
+		],
 		'title' => 'Verificação de instalação',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Verifique as permissões no diretório <em>./data/tokens</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório tokens estão corretos.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Verifiquei as permissões no diretório <em>./data/users</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório users estão corretos.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Não foi possível localizar a extensão ZIP (php-zip).',
 			'ok' => 'Você tem a extensão ZIP.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Autor',
 		'community' => 'Extensões da comunidade disponíveis',
 		'description' => 'Descrição',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Instalado',
 		'name' => 'Nome',
 		'no_configure_view' => 'Esta extensão não pode ser configurada.',
-		'system' => array(
+		'system' => [
 			'_' => 'Extensões do sistema',
 			'no_rights' => 'Extensões do sistema (Você não tem direitos para isto)',
-		),
+		],
 		'title' => 'Extensões',
 		'update' => 'Atualização disponível',
 		'user' => 'Extensões do usuário',
 		'version' => 'Versão',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Estatísticas',
 		'all_feeds' => 'Todos os feeds',
 		'category' => 'Categoria',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
 		'top_feed' => 'Top10 feeds',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',
-		),
+		],
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Máximo número de contas',
-			'select' => array(
+			'select' => [
 				'label' => 'Formulário de Registro',
-				'option' => array(
+				'option' => [
 					'noform' => 'Desativado: Sem formulário de registro',
 					'nolimit' => 'Atividado: Sem limites de contas',
 					'setaccountsnumber' => 'Definir o máximo de número de contas',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Formulário desabilitado',
 				'enabled' => 'Formulário habilitado',
-			),
+			],
 			'title' => 'Formulário de Cadastro de Usuário',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Atualização do sistema',
 		'apply' => 'Aplicar',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Última verificação',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nenhuma atualização para se aplicar',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Sistema de atualização',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrador',
 		'article_count' => 'Artigos',
 		'back_to_manage' => '← Voltar para à lista de usuários',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Ao menos 7 caracteres',
 		'title' => 'Gerenciar usuários',
 		'username' => 'Usuário',
-	),
-);
+	],
+];

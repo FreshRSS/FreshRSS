@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'Hakkında',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Hata raporu',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Proje sayfası',
 		'title' => 'Hakkında',
 		'version' => 'Sürüm',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => '%s kaynağına ait RSS akışı',
 		'title' => 'Ana akış',
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Evrensel görünüm',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Log Kayıtları',
 		'clear' => 'Log kayıt dosyasını temizle',
 		'empty' => 'Log kayır dosyası boş',
 		'title' => 'Log Kayıtları',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'FreshRSS hakkında',
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Abonelik yönetimi',
 		'tags' => 'Etiketlerim',
 		'unread' => 'Okunmamışları göster',
-	),
+	],
 	'share' => 'Paylaş',
-	'tag' => array(
+	'tag' => [
 		'related' => 'İlgili etiketler',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Hizmet Kullanım Şartları',
-	),
-);
+	],
+];

@@ -119,7 +119,7 @@ class Minz_Paginator {
 	 * @return array<Minz_Model>
 	 */
 	public function items(bool $all = false): array {
-		$array = array ();
+		$array = [];
 		$nbItems = $this->nbItems ();
 
 		if ($nbItems <= $this->nbItemsPerPage || $all) {

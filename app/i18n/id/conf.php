@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archiving',	// TODO
 		'exception' => 'Purge exception',	// TODO
 		'help' => 'More options are available in the individual feed’s settings',	// TODO
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Purge now',	// TODO
 		'title' => 'Archiving',	// TODO
 		'ttl' => 'Do not automatically refresh more often than',	// TODO
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Display',	// TODO
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Bottom line',	// TODO
 			'display_authors' => 'Authors',	// TODO
 			'entry' => 'Article icons',	// TODO
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Sharing',	// TODO
 			'summary' => 'Summary',	// TODO
 			'top_line' => 'Top line',	// TODO
-		),
+		],
 		'language' => 'Language',	// TODO
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'seconds (0 means no timeout)',	// TODO
 			'timeout' => 'HTML5 notification timeout',	// TODO
-		),
+		],
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
-		'theme' => array(
+		'theme' => [
 			'_' => 'Theme',	// TODO
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Thumbnail',	// TODO
 			'landscape' => 'Landscape',	// TODO
 			'none' => 'None',	// TODO
 			'portrait' => 'Portrait',	// TODO
 			'square' => 'Square',	// TODO
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Display',	// TODO
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Content width',	// TODO
 			'large' => 'Wide',	// TODO
 			'medium' => 'Medium',	// TODO
 			'no_limit' => 'Full Width',	// TODO
 			'thin' => 'Narrow',	// TODO
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Log Level',	// TODO
 			'message' => 'Log Message',	// TODO
 			'timestamp' => 'Timestamp',	// TODO
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'First',	// TODO
 			'last' => 'Last',	// TODO
 			'next' => 'Next',	// TODO
 			'previous' => 'Previous',	// TODO
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profile management',	// TODO
 		'api' => 'API management',	// TODO
-		'delete' => array(
+		'delete' => [
 			'_' => 'Account deletion',	// TODO
 			'warn' => 'Your account and all related data will be deleted.',	// TODO
-		),
+		],
 		'email' => 'Email address',	// TODO
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// TODO
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'password_format' => 'At least 7 characters',	// TODO
 		'title' => 'Profile',	// TODO
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'User queries',	// TODO
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filter applied:',	// TODO
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
@@ -123,7 +123,7 @@ return array(
 			'state' => 'State',	// TODO
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
-		),
+		],
 		'get_all' => 'Display all articles',	// TODO
 		'get_category' => 'Display “%s” category',	// TODO
 		'get_favorite' => 'Display favorite articles',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Display unread articles',	// TODO
 		'state_15' => 'Display all articles',	// TODO
 		'title' => 'User queries',	// TODO
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Reading',	// TODO
 		'after_onread' => 'After “mark all as read”,',	// TODO
 		'always_show_favorites' => 'Show all articles in favorites by default',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Authors and date',	// TODO
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Above title/tags',	// TODO
 				'none' => 'None',	// TODO
 				'with_authors' => 'In authors and date row',	// TODO
-			),
+			],
 			'feed_title' => 'Feed title',	// TODO
-			'tags' => array(
+			'tags' => [
 				'_' => 'Tags',	// TODO
 				'both' => 'In header and footer',	// TODO
 				'footer' => 'In footer',	// TODO
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Max number of tags shown',	// TODO
 				'help' => '0 means: show all tags and do not collapse them',	// TODO
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Number of articles per page',	// TODO
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// TODO
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	// TODO
 		'display_articles_unfolded' => 'Show articles unfolded by default',	// TODO
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Articles: Open/Close',	// TODO
 			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
 			'view' => 'View',	// TODO
-		),
+		],
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// TODO
 		'img_with_lazyload' => 'Use “lazy load” mode to load pictures',	// DIRTY
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'when the article is opened on its original website',	// TODO
 			'article_viewed' => 'when the article is viewed',	// TODO
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'upon receiving the article',	// TODO
 			'when' => 'Mark an article as read…',	// TODO
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Articles to display',	// TODO
 			'active_category' => 'Active category',	// TODO
 			'adaptive' => 'Adjust showing',	// TODO
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'No category',	// TODO
 			'remember_categories' => 'Remember open categories',	// TODO
 			'unread' => 'Show only unread',	// TODO
-		),
+		],
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
+		'sort' => [
 			'_' => 'Sort order',	// TODO
 			'newer_first' => 'Newest first',	// TODO
 			'older_first' => 'Oldest first',	// TODO
-		),
+		],
 		'sticky_post' => 'Stick the article to the top when opened',	// TODO
 		'title' => 'Reading',	// TODO
-		'view' => array(
+		'view' => [
 			'default' => 'Default view',	// TODO
 			'global' => 'Global view',	// TODO
 			'normal' => 'Normal view',	// TODO
 			'reader' => 'Reading view',	// TODO
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Sharing',	// TODO
 		'add' => 'Add a sharing method',	// TODO
 		'blogotext' => 'Blogotext',	// TODO
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Sharing',	// TODO
 		'twitter' => 'Twitter',	// TODO
 		'wallabag' => 'wallabag',	// TODO
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Shortcuts',	// TODO
 		'article_action' => 'Article actions',	// TODO
 		'auto_share' => 'Share',	// TODO
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Access user queries',	// TODO
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',	// TODO
 		'views' => 'Views',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s articles (%s)',	// TODO
 		'current' => 'Current user',	// TODO
 		'is_admin' => 'is administrator',	// TODO
 		'users' => 'Users',	// TODO
-	),
-);
+	],
+];

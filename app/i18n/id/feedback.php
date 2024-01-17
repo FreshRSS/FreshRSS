@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'You don’t have permission to access this page',	// TODO
 		'not_found' => 'You are looking for a page that doesn’t exist',	// TODO
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimization complete',	// TODO
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Your password cannot be modified',	// TODO
 			'updated' => 'Your password has been modified',	// TODO
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Login is invalid',	// TODO
 			'success' => 'You are connected',	// TODO
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'You are disconnected',	// TODO
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'An error occurred while saving configuration',	// TODO
 		'query_created' => 'Query “%s” has been created.',	// TODO
 		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO
 		'updated' => 'Configuration has been updated',	// TODO
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s is already enabled',	// TODO
 		'cannot_remove' => '%s cannot be removed',	// TODO
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
 			'ok' => '%s is now disabled',	// TODO
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
 			'ok' => '%s is now enabled',	// TODO
-		),
+		],
 		'no_access' => 'You have no access on %s',	// TODO
 		'not_enabled' => '%s is not enabled',	// TODO
 		'not_found' => '%s does not exist',	// TODO
 		'removed' => '%s removed',	// TODO
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// TODO
 		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// TODO
 		'zip_error' => 'An error occurred during ZIP processing.',	// TODO
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Your profile cannot be modified',	// TODO
 		'updated' => 'Your profile has been modified',	// TODO
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Updating',	// TODO
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'The selected articles have been marked as read.',	// TODO
 			'marked_unread' => 'The articles have been marked as unread.',	// TODO
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Category %s has been created.',	// TODO
 			'deleted' => 'Category has been deleted.',	// TODO
 			'emptied' => 'Category has been emptied',	// TODO
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'The category does not exist!',	// TODO
 			'over_max' => 'You have reached your limit of categories (%d)',	// TODO
 			'updated' => 'Category has been updated.',	// TODO
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> has been updated',	// TODO
 			'actualizeds' => 'RSS feeds have been updated',	// TODO
 			'added' => 'RSS feed <em>%s</em> has been added',	// TODO
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Feed cannot be found',	// TODO
 			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO
 			'reloaded' => '<em>%s</em> has been reloaded',	// TODO
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Failed to load website content.',	// TODO
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
 				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
 				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
-			),
+			],
 			'updated' => 'Feed has been updated',	// TODO
-		),
+		],
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Label “%s”has been created.',	// DIRTY
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Label name already exists.',	// TODO
 		'renamed' => 'Label “%s”has been renamed to “%s”.',	// DIRTY
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'An update of FreshRSS is available: <strong>Version %s</strong>.',	// TODO
 		'error' => 'The update process has encountered an error: %s',	// TODO
 		'file_is_nok' => 'An update of FreshRSS is available (<strong>Version %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// TODO
 		'finished' => 'Update complete!',	// TODO
 		'none' => 'No update available',	// TODO
 		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'User %s has been created',	// TODO
 			'error' => 'User %s cannot be created',	// TODO
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'User %s has been deleted',	// TODO
 			'error' => 'User %s cannot be deleted',	// TODO
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'User %s has been updated',	// TODO
 			'error' => 'User %s has not been updated',	// TODO
-		),
-	),
-);
+		],
+	],
+];

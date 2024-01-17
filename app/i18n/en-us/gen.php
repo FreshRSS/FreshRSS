@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Update feeds',	// IGNORE
 		'add' => 'Add',	// IGNORE
 		'back' => '← Go back',	// IGNORE
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Submit',	// IGNORE
 		'truncate' => 'Delete all articles',	// IGNORE
 		'update' => 'Update',	// IGNORE
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// IGNORE
 		'email' => 'Email address',	// IGNORE
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// IGNORE
 		'login' => 'Login',	// IGNORE
 		'logout' => 'Logout',	// IGNORE
-		'password' => array(
+		'password' => [
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>At least 7 characters</small>',	// IGNORE
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'New account',	// IGNORE
 			'ask' => 'Create an account?',	// IGNORE
 			'title' => 'Account creation',	// IGNORE
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Username',	// IGNORE
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// IGNORE
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// IGNORE
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Tue',	// IGNORE
 		'wed' => 'Wed',	// IGNORE
 		'yesterday' => 'Yesterday',	// IGNORE
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Empty category',	// IGNORE
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// IGNORE
 			'body_unread_articles' => '(unread: %%d)',	// IGNORE
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// IGNORE
 			'title_new_articles' => 'FreshRSS: new articles!',	// IGNORE
-		),
+		],
 		'labels_empty' => 'No labels',	// IGNORE
 		'new_article' => 'There are new articles available, click to refresh the page.',	// IGNORE
 		'should_be_activated' => 'JavaScript must be enabled',	// IGNORE
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'About',	// IGNORE
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Update',	// IGNORE
 		'user_management' => 'Manage users',	// IGNORE
 		'user_profile' => 'Profile',	// IGNORE
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'days',	// IGNORE
 		'hours' => 'hours',	// IGNORE
 		'months' => 'months',	// IGNORE
 		'weeks' => 'weeks',	// IGNORE
 		'years' => 'years',	// IGNORE
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known based sites',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',	// IGNORE
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Warning!',	// IGNORE
 		'blank_to_disable' => 'Leave blank to disable',	// IGNORE
 		'by_author' => 'By:',	// IGNORE
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Okay!',	// IGNORE
 		'or' => 'or',	// IGNORE
 		'yes' => 'Yes',	// IGNORE
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Load more articles',	// IGNORE
 		'mark_all_read' => 'Mark all as read',	// IGNORE
 		'nothing_to_load' => 'There are no more articles',	// IGNORE
-	),
-);
+	],
+];

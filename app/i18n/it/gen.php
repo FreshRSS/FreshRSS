@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Aggiorna feeds',
 		'add' => 'Aggiungi',
 		'back' => '← Torna indietro',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Conferma',
 		'truncate' => 'Cancella tutti gli articoli',
 		'update' => 'Aggiorna',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Accetto i <a href="%s">Termini e condizioni del servizio</a>.',
 		'email' => 'Indirizzo email',
 		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
 		'login' => 'Accedi',
 		'logout' => 'Esci',
-		'password' => array(
+		'password' => [
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>almeno 7 caratteri</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Nuovo profilo',
 			'ask' => 'Vuoi creare un nuovo profilo?',
 			'title' => 'Creazione profilo',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Nome utente',
 			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l\\e',
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
 		'Dec' => '\\D\\i\\c\\e\\m\\b\\r\\e',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Mar',
 		'wed' => 'Mer',
 		'yesterday' => 'Ieri',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Categoria vuota',
 		'confirm_action' => 'Sei sicuro di voler continuare?',
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
 			'body_unread_articles' => '(non letti: %%d)',
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Informazioni',
 		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Aggiornamento',
 		'user_management' => 'Gestione utenti',
 		'user_profile' => 'Profilo',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'giorni',
 		'hours' => 'ore',
 		'months' => 'mesi',
 		'weeks' => 'settimane',
 		'years' => 'anni',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Siti basati su Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Condivisione di sistema',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Attenzione!',
 		'blank_to_disable' => 'Lascia vuoto per disabilitare',
 		'by_author' => 'di:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'o',
 		'yes' => 'Si',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Carica altri articoli',
 		'mark_all_read' => 'Segna tutto come letto',
 		'nothing_to_load' => 'Non ci sono altri articoli',
-	),
-);
+	],
+];

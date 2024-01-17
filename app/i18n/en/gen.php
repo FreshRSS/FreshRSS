@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Update feeds',
 		'add' => 'Add',
 		'back' => '← Go back',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Submit',
 		'truncate' => 'Delete all articles',
 		'update' => 'Update',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',
 		'email' => 'Email address',
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',
 		'login' => 'Login',
 		'logout' => 'Logout',
-		'password' => array(
+		'password' => [
 			'_' => 'Password',
 			'format' => '<small>At least 7 characters</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'New account',
 			'ask' => 'Create an account?',
 			'title' => 'Account creation',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Username',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Tue',
 		'wed' => 'Wed',
 		'yesterday' => 'Yesterday',
-	),
+	],
 	'dir' => 'ltr',
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',
 		'about' => 'About FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
-		),
+		],
 		'labels_empty' => 'No labels',
 		'new_article' => 'There are new articles available, click to refresh the page.',
 		'should_be_activated' => 'JavaScript must be enabled',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'el' => 'Ελληνικά',
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 		'zh-tw' => '正體中文',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'About',
 		'account' => 'Account',
 		'admin' => 'Administration',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Update',
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'days',
 		'hours' => 'hours',
 		'months' => 'months',
 		'weeks' => 'weeks',
 		'years' => 'years',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known based sites',
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',
 		'whatsapp' => 'Whatsapp',
 		'xing' => 'Xing',
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Warning!',
 		'blank_to_disable' => 'Leave blank to disable',
 		'by_author' => 'By:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Load more articles',
 		'mark_all_read' => 'Mark all as read',
 		'nothing_to_load' => 'There are no more articles',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'הרשאה לאנונימיים לקרוא את מאמרי משתמש ברירת המחדל (%s)',
 		'allow_anonymous_refresh' => 'הרשאה לאנונימיים לרענן את רשימת המאמרים',
 		'api_enabled' => 'הרשאת גישה ל <abbr>API</abbr> <small>(נדרש ליישומים סלולריים)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Allows to access RSS output of the default user without authentication:',
 		'type' => 'שיטת אימות',
 		'unsafe_autologin' => 'הרשאה להתחברות אוטומטית בפורמט: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'יש לבדוק את ההרשאות בתיקייה <em>%s</em>. שרת הHTTP חייב להיות בעל הרשאות כתיבה.',
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category table is bad configured.',
 			'ok' => 'Category table is okay.',	// TODO
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Connection to the database cannot being established.',
 			'ok' => 'Connection to the database is okay.',	// TODO
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'הספרייה הנדרשת ל character type checking (php-ctype) אינה מותקנת',
 			'ok' => 'הספרייה הנדרשת ל character type checking (ctype) מותקנת',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'בURL לא מותקן (php-curl package)',
 			'ok' => 'You have cURL extension.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'יש לבדוק את ההרשאות בתיקייה <em>%s</em>. שרת הHTTP חייב להיות בעל הרשאות כתיבה.',
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
-		),
+		],
 		'database' => 'Database installation',	// TODO
-		'dom' => array(
+		'dom' => [
 			'nok' => 'הספרייה הנדרשת לסיור ב DOM אינה מותקנת	(php-xml package)',
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry table is improperly configured.',	// TODO
 			'ok' => 'Entry table is okay.',	// TODO
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed table is bad configured.',
 			'ok' => 'Feed table is okay.',	// TODO
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
 			'ok' => 'You have the fileinfo library.',	// TODO
-		),
+		],
 		'files' => 'File installation',	// TODO
-		'json' => array(
+		'json' => [
 			'nok' => 'You lack JSON (php-json package).',
 			'ok' => 'You have the JSON extension.',	// TODO
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
 			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
 			'ok' => 'הספרייה הנדרשת לביטויים רגולריים מותקנת (PCRE)',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP installation',	// TODO
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'There is one or more lacking tables in the database.',
 			'ok' => 'Tables are existing in the database.',
-		),
+		],
 		'title' => 'Installation check',	// TODO
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
 			'ok' => 'Permissions on the tokens directory are good.',	// TODO
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO
 			'ok' => 'Permissions on the users directory are good.',	// TODO
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'You lack ZIP extension (php-zip package).',
 			'ok' => 'You have the ZIP extension.',	// TODO
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Author',	// TODO
 		'community' => 'Available community extensions',	// TODO
 		'description' => 'Description',	// TODO
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Installed',	// TODO
 		'name' => 'Name',	// TODO
 		'no_configure_view' => 'This extension cannot be configured.',	// TODO
-		'system' => array(
+		'system' => [
 			'_' => 'System extensions',	// TODO
 			'no_rights' => 'System extension (you do not have the required permissions)',	// TODO
-		),
+		],
 		'title' => 'Extensions',	// TODO
 		'update' => 'Update available',	// TODO
 		'user' => 'User extensions',	// TODO
 		'version' => 'Version',	// TODO
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'סטטיסטיקות',
 		'all_feeds' => 'כל ההזנות',
 		'category' => 'קטגוריה',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'לא נקרא',
 		'title' => 'סטטיסטיקות',
 		'top_feed' => 'עשרת ההזנות המובילות',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'System configuration',	// TODO
 		'auto-update-url' => 'Auto-update server URL',	// TODO
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'in seconds',	// TODO
 			'number' => 'Duration to keep logged in',	// TODO
-		),
+		],
 		'force_email_validation' => 'Force email address validation',	// TODO
 		'instance-name' => 'Instance name',	// TODO
 		'max-categories' => 'Max number of categories per user',	// TODO
 		'max-feeds' => 'Max number of feeds per user',	// TODO
-		'registration' => array(
+		'registration' => [
 			'number' => 'Max number of accounts',	// TODO
-			'select' => array(
+			'select' => [
 				'label' => 'Registration form',	// TODO
-				'option' => array(
+				'option' => [
 					'noform' => 'Disabled: No registration form',	// TODO
 					'nolimit' => 'Enabled: No limit of accounts',	// TODO
 					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Form disabled',	// TODO
 				'enabled' => 'Form enabled',	// TODO
-			),
+			],
 			'title' => 'User registration form',	// TODO
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'מערכת העדכון',
 		'apply' => 'החלת העדכון',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'תאריך בדיקה אחרון',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'אין עדכון להחלה',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'מערכת העדכון',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrator',	// TODO
 		'article_count' => 'Articles',	// TODO
 		'back_to_manage' => '← Return to user list',	// TODO
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'At least 7 characters',	// TODO
 		'title' => 'Manage users',	// TODO
 		'username' => 'שם משתמש',
-	),
-);
+	],
+];

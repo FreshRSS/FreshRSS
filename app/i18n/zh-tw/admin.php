@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => '允許匿名閱讀預設使用者（%s）的文章',
 		'allow_anonymous_refresh' => '允許匿名刷新文章',
 		'api_enabled' => '允許 <abbr>API</abbr> 訪問 <small>（用於手機應用）</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => '用於不經認證訪問預設使用者的 RSS 輸出：',
 		'type' => '認證方式',
 		'unsafe_autologin' => '允許不安全的自動登入方式：',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => '請檢查 <em>./data/cache</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'cache 目錄權限正常',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category 表配置錯誤',
 			'ok' => 'Category 表正常',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => '資料庫連接失敗',
 			'ok' => '資料庫連接正常',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => '找不到字元類型檢測庫（php-ctype）',
 			'ok' => '已找到字元類型檢測庫 （php-ctype）',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => '找不到 cURL 庫(php-cURL)',
 			'ok' => '已找到 cURL 庫(php-cURL)',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => '請檢查 <em>./data</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'data 目錄權限正常',
-		),
+		],
 		'database' => '資料庫相關',
-		'dom' => array(
+		'dom' => [
 			'nok' => '找不到用於瀏覽 DOM 的庫（php-xml）',
 			'ok' => '已找到用於瀏覽 DOM 的庫(php-xml)',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry 表配置錯誤',
 			'ok' => 'Entry 表正常',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => '請檢查 <em>./data/favicons</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'favicons 目錄權限正常',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed 表配置錯誤',
 			'ok' => 'Feed 表正常',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => '找不到 fileinfo 庫（php-fileinfo）',
 			'ok' => '已找到 fileinfo 庫(php-fileinfo)',
-		),
+		],
 		'files' => '文件相關',
-		'json' => array(
+		'json' => [
 			'nok' => '找不到 JSON 擴展（php-json ）',
 			'ok' => '已找到 JSON 擴展(php-json)',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => '找不到推薦的 Unicode 解析庫（mbstring)',
 			'ok' => '已找到推薦的 Unicode 解析庫（mbstring)',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => '找不到正則表達式解析庫（php-pcre）',
 			'ok' => '已找到正則表達式解析庫（php-pcre）',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => '找不到 PDO 或支持的驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
 			'ok' => '已找到 PDO 和支持的至少一種驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP 相關',
 			'nok' => '你的 PHP 版本為 %s，但 FreshRSS 最低需要 %s',
 			'ok' => '你的 PHP 版本為 %s，與 FreshRSS 相容',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => '資料庫中缺少一個或多個表',
 			'ok' => '資料庫中相關表存在',
-		),
+		],
 		'title' => '環境檢查',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => '請檢查 <em>./data/tokens</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'tokens 目錄權限正常',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => '請檢查 <em>./data/users</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'users 目錄權限正常',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => '找不到 ZIP 擴展（php-zip）',
 			'ok' => '已找到 ZIP 擴展',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => '作者',
 		'community' => '可用的社群擴充功能',
 		'description' => '描述',
@@ -120,16 +120,16 @@ return array(
 		'latest' => '已安裝',
 		'name' => '名稱',
 		'no_configure_view' => '此擴充功能不能配置。',
-		'system' => array(
+		'system' => [
 			'_' => '系統擴充功能',
 			'no_rights' => '系統擴充功能（你無權修改）',
-		),
+		],
 		'title' => '擴充功能',
 		'update' => '更新可用',
 		'user' => '用戶擴充功能',
 		'version' => '版本',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => '統計',
 		'all_feeds' => '所有訂閱源',
 		'category' => '分類',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => '未讀',
 		'title' => '統計',
 		'top_feed' => '前十訂閱源',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器地址',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',
-		),
+		],
 		'force_email_validation' => '強制驗證郵箱地址',
 		'instance-name' => '實例名稱',
 		'max-categories' => '各使用者分類數限制',
 		'max-feeds' => '各使用者訂閱源數限制',
-		'registration' => array(
+		'registration' => [
 			'number' => '最大使用者數',
-			'select' => array(
+			'select' => [
 				'label' => '註冊表單',
-				'option' => array(
+				'option' => [
 					'noform' => '禁用，無註冊表單',
 					'nolimit' => '啟用，且無帳號限制',
 					'setaccountsnumber' => '設置用戶數的最大值',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => '註冊表單禁用',
 				'enabled' => '註冊表單啟用',
-			),
+			],
 			'title' => '使用者註冊表單',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => '更新系統',
 		'apply' => '應用',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => '上次檢查',
 		'loading' => 'Updating…',	// TODO
 		'none' => '沒有可用更新',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => '系統更新',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => '管理員',
 		'article_count' => '文章數',
 		'back_to_manage' => '← 返回用戶列表',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => '至少 7 個字元',
 		'title' => '使用者管理',
 		'username' => '使用者名稱',
-	),
-);
+	],
+];

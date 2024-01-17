@@ -464,6 +464,6 @@ class Minz_Request {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', $matches) > 0) {
 			return $matches['lang'];
 		}
-		return array('en');
+		return ['en'];
 	}
 }

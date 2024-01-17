@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'אודות',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'דיווח באגים',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'אתר',
 		'title' => 'אודות',
 		'version' => 'גרסה',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'אין מאמר להצגה.',
 		'rss_of' => 'הזנת RSS של %s',
 		'title' => 'הזנה ראשית',
 		'title_fav' => 'מועדפים',
 		'title_global' => 'תצוגה גלובלית',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'לוגים',
 		'clear' => 'ניקוי הלוגים',
 		'empty' => 'קובץ הלוג ריק',
 		'title' => 'לוגים',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'אודות FreshRSS',
 		'before_one_day' => 'אתמול',
 		'before_one_week' => 'לפני שבוע',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'ניהול הרשמות',
 		'tags' => 'My labels',	// TODO
 		'unread' => 'הצגת מאמרים שלא נקראו בלבד',
-	),
+	],
 	'share' => 'שיתוף',
-	'tag' => array(
+	'tag' => [
 		'related' => 'תגיות קשורות',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Terms of Service',	// TODO
-	),
-);
+	],
+];

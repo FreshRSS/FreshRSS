@@ -5,21 +5,21 @@ declare(strict_types=1);
 $categories = [];
 foreach ($this->categories as $category) {
 	$categories[] = [
-		'url' => Minz_Url::display(array('c' => 'category', 'a' => 'refreshOpml', 'params' => array('id' => $category->id(), 'ajax' => '1')), 'php'),
+		'url' => Minz_Url::display(['c' => 'category', 'a' => 'refreshOpml', 'params' => ['id' => $category->id(), 'ajax' => '1']], 'php'),
 		'title' => $category->name(),
 	];
 }
 
-$feeds = array();
+$feeds = [];
 foreach ($this->feeds as $feed) {
-	$feeds[] = array(
-		'url' => Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'),
+	$feeds[] = [
+		'url' => Minz_Url::display(['c' => 'feed', 'a' => 'actualize', 'params' => ['id' => $feed->id(), 'ajax' => '1']], 'php'),
 		'title' => $feed->name(),
-	);
+	];
 }
-echo json_encode(array(
+echo json_encode([
 	'categories' => $categories,
 	'feeds' => $feeds,
 	'feedback_no_refresh' => _t('feedback.sub.feed.no_refresh'),
 	'feedback_actualize' => _t('feedback.sub.actualize'),
-));
+]);

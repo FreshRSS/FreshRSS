@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Разрешает доступ к RSS-лентам пользователя по умолчанию без аутентификации:',
 		'type' => 'Способ аутентификации',
 		'unsafe_autologin' => 'Разрешить небезопасный автоматический вход с использованием следующего формата: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em>. Веб-сервер должен иметь право на запись в эту папку',
 			'ok' => 'Права на <em>./data/cache</em> в порядке.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Таблица категорий настроена неправильно.',
 			'ok' => 'Таблица категорий настроена правильно.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Подключение к базе данных не может быть установлено.',
 			'ok' => 'Подключение к базе данных в порядке.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'У вас не установлена библиотека для проверки типов символов (php-ctype).',
 			'ok' => 'У вас не установлена библиотека для проверки типов символов (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'У вас не установлено расширение cURL (пакет php-curl).',
 			'ok' => 'У вас установлено расширение cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Проверьте права доступа к папке <em>./data</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
-		),
+		],
 		'database' => 'Установка базы данных',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'У вас не установлена библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена библиотека для просмотра DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Таблица статей (entry) неправильно настроена.',
 			'ok' => 'Таблица статей (entry) настроена правильно.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Проверьте права доступа к папке <em>./data/favicons</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку значков в порядке.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Таблица подписок (feed) неправильно настроена.',
 			'ok' => 'Таблица подписок (feed) настроена правильно.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'У вас не установлено расширение PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
-		),
+		],
 		'files' => 'Установка файлов',
-		'json' => array(
+		'json' => [
 			'nok' => 'У вас не установлена библиотека для работы с JSON (пакет php-json).',
 			'ok' => 'У вас установлена библиотека для работы с JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'У вас не установлена рекомендуемая библиотека mbstring для Unicode.',
 			'ok' => 'У вас установлена рекомендуемая библиотека mbstring для Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Инсталляция PHP',
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'В базе данных отсуствует одна или больше таблица.',
 			'ok' => 'Все таблицы есть в базе данных.',
-		),
+		],
 		'title' => 'Проверка установки и настройки',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку tokens в порядке.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку users в порядке.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'У вас не установлено расширение ZIP (пакет php-zip).',
 			'ok' => 'У вас установлено расширение ZIP.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Автор',
 		'community' => 'Доступные расширения сообщества',
 		'description' => 'Описание',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Установлено',
 		'name' => 'Название',
 		'no_configure_view' => 'Это расширение не требует настройки.',
-		'system' => array(
+		'system' => [
 			'_' => 'Системные расширения',
 			'no_rights' => 'Системное расширение (у вас нет необходимых разрешений)',
-		),
+		],
 		'title' => 'Расширения',
 		'update' => 'Доступно обновление',
 		'user' => 'Расширения пользователя',
 		'version' => 'Версия',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших лент',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'URL сервера для автоматического обновления',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
-		),
+		],
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Максимальное количество аккаунтов',
-			'select' => array(
+			'select' => [
 				'label' => 'Форма регистрации',
-				'option' => array(
+				'option' => [
 					'noform' => 'Отключено: Нет формы регистрации',
 					'nolimit' => 'Включено: Нет ограничения аккаунтов',
 					'setaccountsnumber' => 'Установить максимальное количество аккаунтов',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Форма отключена',
 				'enabled' => 'Форма включена',
-			),
+			],
 			'title' => 'Форма регистрации пользователей',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Обновление системы',
 		'apply' => 'Применить',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Последняя проверка',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Нет обновлений',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Обновить систему',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Администратор',
 		'article_count' => 'Статей',
 		'back_to_manage' => '← Вернуться к списку пользователей',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Не менее 7 символов',
 		'title' => 'Управление пользователями',
 		'username' => 'Имя пользователя',
-	),
-);
+	],
+];

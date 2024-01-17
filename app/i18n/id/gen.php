@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Update feeds',	// TODO
 		'add' => 'Add',	// TODO
 		'back' => '← Go back',	// TODO
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Submit',	// TODO
 		'truncate' => 'Delete all articles',	// TODO
 		'update' => 'Update',	// TODO
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
 		'email' => 'Email address',	// TODO
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// DIRTY
 		'login' => 'Login',	// TODO
 		'logout' => 'Logout',	// TODO
-		'password' => array(
+		'password' => [
 			'_' => 'Password',	// TODO
 			'format' => '<small>At least 7 characters</small>',	// TODO
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'New account',	// TODO
 			'ask' => 'Create an account?',	// TODO
 			'title' => 'Account creation',	// TODO
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Username',	// TODO
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Tue',	// TODO
 		'wed' => 'Wed',	// TODO
 		'yesterday' => 'Yesterday',	// TODO
-	),
+	],
 	'dir' => 'ltr',	// TODO
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'About FreshRSS',	// TODO
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Empty category',	// TODO
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// TODO
 			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'About',	// TODO
 		'account' => 'Account',	// TODO
 		'admin' => 'Administration',	// TODO
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Update',	// TODO
 		'user_management' => 'Manage users',	// TODO
 		'user_profile' => 'Profile',	// TODO
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO
 		'months' => 'months',	// TODO
 		'weeks' => 'weeks',	// TODO
 		'years' => 'years',	// TODO
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known based sites',	// TODO
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// TODO
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',	// TODO
 		'whatsapp' => 'Whatsapp',	// TODO
 		'xing' => 'Xing',	// TODO
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Warning!',	// TODO
 		'blank_to_disable' => 'Leave blank to disable',	// TODO
 		'by_author' => 'By:',	// TODO
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Okay!',	// TODO
 		'or' => 'or',	// TODO
 		'yes' => 'Yes',	// TODO
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Load more articles',	// TODO
 		'mark_all_read' => 'Mark all as read',	// TODO
 		'nothing_to_load' => 'There are no more articles',	// TODO
-	),
-);
+	],
+];

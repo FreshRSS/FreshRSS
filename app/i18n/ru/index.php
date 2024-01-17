@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'О проекте',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Баг репорты',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Сайт проекта',
 		'title' => 'О проекте',
 		'version' => 'Версия',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Нет статей для отображения.',
 		'rss_of' => 'RSS-лента %s',
 		'title' => 'Основной поток',
 		'title_fav' => 'Избранное',
 		'title_global' => 'Глобальный вид',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Журнал',
 		'clear' => 'Очистить журнал',
 		'empty' => 'Файл журнала пуст',
 		'title' => 'Журнал',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'О FreshRSS',
 		'before_one_day' => 'Старше одного дня',
 		'before_one_week' => 'Старше одной недели',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Управление подписками',
 		'tags' => 'Мои метки',
 		'unread' => 'Показать непрочитанное',
-	),
+	],
 	'share' => 'Обмен',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Теги статьи',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Условия предоставления услуг',
-	),
-);
+	],
+];

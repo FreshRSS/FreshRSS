@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'Par vietni',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Ziņojumi par kļūdām',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Projekta mājaslapa',
 		'title' => 'Par vietni',
 		'version' => 'Versija',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Nav neviena raksta, ko parādīt.',
 		'rss_of' => 'RSS plūsma %s',
 		'title' => 'Galvenā plūsma',
 		'title_fav' => 'Mīļākie',
 		'title_global' => 'Globālais skats',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Žurnāli',
 		'clear' => 'Iztīrīt žurnālus',
 		'empty' => 'Žurnālu fails ir tukšs',
 		'title' => 'Žurnāli',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Par FreshRSS',
 		'before_one_day' => 'Vecāks par vienu dienu',
 		'before_one_week' => 'Vecāks par vienu nedēļu',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Abonementa pārvalde',
 		'tags' => 'Manas birkas',
 		'unread' => 'Rādīt neizlasītos',
-	),
+	],
 	'share' => 'Dalīties',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Raksta birkas',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Pakalpojumu sniegšanas noteikumi',
-	),
-);
+	],
+];

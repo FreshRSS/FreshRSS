@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'FreshRSSについて',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'バグレポート',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'プロジェクトのwebサイト',
 		'title' => 'FreshRSSについて',
 		'version' => 'バージョン',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => '表示できる記事がありません',
 		'rss_of' => '%s のRSSフィード',
 		'title' => 'メイン',
 		'title_fav' => 'お気に入り',
 		'title_global' => 'グローバルビュー',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'ログ',
 		'clear' => 'ログを消去する',
 		'empty' => 'ログファイルは空です',
 		'title' => 'ログ',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'FreshRSSについて',
 		'before_one_day' => '一日以上前',
 		'before_one_week' => '一週間以上前',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => '購読されたものの管理',
 		'tags' => 'ラベル',
 		'unread' => '未読のものを表示する',
-	),
+	],
 	'share' => '共有',
-	'tag' => array(
+	'tag' => [
 		'related' => '記事のタグ',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => '利用規約',
-	),
-);
+	],
+];

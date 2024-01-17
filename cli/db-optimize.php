@@ -5,9 +5,9 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
+$params = [
 	'user:',
-);
+];
 
 $options = getopt('', $params);
 

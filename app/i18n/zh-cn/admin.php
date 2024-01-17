@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => '允许匿名阅读默认用户（%s）的文章',
 		'allow_anonymous_refresh' => '允许匿名刷新文章',
 		'api_enabled' => '允许 <abbr>API</abbr> 访问 <small>（用于手机应用）</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => '用于不经认证访问默认用户的 RSS 输出：',
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => '请检查 <em>./data/cache</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'cache 目录权限正常',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Category 表配置错误',
 			'ok' => 'Category 表正常',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => '数据库连接失败',
 			'ok' => '数据库连接正常',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => '找不到字符类型检测库（php-ctype）',
 			'ok' => '已找到字符类型检测库（ctype）',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => '找不到 cURL 库（php-curl 包）',
 			'ok' => '已找到 cURL 库',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => '请检查 <em>./data</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'data 目录权限正常',
-		),
+		],
 		'database' => '数据库安装',
-		'dom' => array(
+		'dom' => [
 			'nok' => '找不到用于浏览 DOM 的库（php-xml 包）',
 			'ok' => '已找到用于浏览 DOM 的库',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Entry 表配置错误',
 			'ok' => 'Entry 表配置正常',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => '请检查 <em>./data/favicons</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'favicons 目录权限正常',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Feed 表配置错误',
 			'ok' => 'Feed 表正常',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => '找不到 PHP fileinfo 库（php-fileinfo 包）',
 			'ok' => '已找到 fileinfo 库',
-		),
+		],
 		'files' => '文件相关',
-		'json' => array(
+		'json' => [
 			'nok' => '找不到 JSON 扩展（php-json 包）',
 			'ok' => '已找到 JSON 扩展',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => '找不到推荐用于 Unicode 的 mbstring 库',
 			'ok' => '已找到推荐用于 Unicode 的 mbstring 库',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => '找不到正则表达式解析库（php-pcre）',
 			'ok' => '已找到正则表达式解析库（PCRE）',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => '找不到 PDO 或其中一种支持的驱动（pdo_mysql、pdo_sqlite、pdo_pgsql）',
 			'ok' => '已找到 PDO 和至少一种支持的驱动（pdo_mysql、pdo_sqlite、pdo_pgsql）',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP 安装',
 			'nok' => '你的 PHP 版本为 %s，但 FreshRSS 最低需要 %s',
 			'ok' => '你的 PHP 版本为 %s，与 FreshRSS 兼容',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => '数据库中缺少一个或多个表',
 			'ok' => '数据库中存在正确的表',
-		),
+		],
 		'title' => '环境检查',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => '请检查 <em>./data/tokens</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'tokens 目录权限正常',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => '请检查 <em>./data/users</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'users 目录权限正常',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => '找不到 ZIP 扩展（php-zip 包）',
 			'ok' => '已找到 ZIP 扩展',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => '作者',
 		'community' => '可用的社区扩展',
 		'description' => '描述',
@@ -120,16 +120,16 @@ return array(
 		'latest' => '已安装',
 		'name' => '名称',
 		'no_configure_view' => '此扩展无法配置。',
-		'system' => array(
+		'system' => [
 			'_' => '系统扩展',
 			'no_rights' => '系统扩展（你没有所需权限）',
-		),
+		],
 		'title' => '扩展',
 		'update' => '更新可用',
 		'user' => '用户扩展',
 		'version' => '版本',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => '统计数据',
 		'all_feeds' => '所有订阅源',
 		'category' => '分类',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => '未读',
 		'title' => '统计',
 		'top_feed' => '前十订阅源',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => '系统配置',
 		'auto-update-url' => '自动更新服务器 URL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => '基础 URL',
 			'recommendation' => '推荐: <kbd>%s</kbd>',
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => '单位：秒',
 			'number' => '保持登录的时长',
-		),
+		],
 		'force_email_validation' => '强制验证邮箱地址',
 		'instance-name' => '实例名称',
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
-		'registration' => array(
+		'registration' => [
 			'number' => '最大用户数',
-			'select' => array(
+			'select' => [
 				'label' => '注册表单',
-				'option' => array(
+				'option' => [
 					'noform' => '禁用，无注册表单',
 					'nolimit' => '启用，且无账户限制',
 					'setaccountsnumber' => '设置用户数的最大值',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => '注册表单已禁用',
 				'enabled' => '注册表单已启用',
-			),
+			],
 			'title' => '用户注册表单',
-		),
+		],
 		'sensitive-parameter' => '敏感参数。在 <kbd>./data/config.php</kbd> 中手动修改',
-		'tos' => array(
+		'tos' => [
 			'disabled' => '没有提供',
 			'enabled' => '<a href="./?a=tos">已启用</a>',
 			'help' => '如何<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">启用服务条款</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => '关于 <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => '更新系统',
 		'apply' => '应用',
 		'changelog' => '更新记录',
@@ -207,15 +207,15 @@ return array(
 		'last' => '上次检查',
 		'loading' => '更新中...',
 		'none' => '没有可用更新',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => '发布通道',
 			'edge' => '滚动发布 (“edge”)',
 			'latest' => '稳定版本 (“latest”)',
-		),
+		],
 		'title' => '更新系统',
 		'viaGit' => '开始通过 git and Github.com 更新',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => '管理员',
 		'article_count' => '文章数',
 		'back_to_manage' => '← 返回用户列表',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => '至少 7 个字符',
 		'title' => '用户管理',
 		'username' => '用户名',
-	),
-);
+	],
+];

@@ -17,6 +17,8 @@
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
 	<exclude-pattern>./vendor/</exclude-pattern>
 	<exclude-pattern>*.min.js$</exclude-pattern>
+	<!-- Allow short syntax arrays. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
 	<!-- Statements must not be empty -->

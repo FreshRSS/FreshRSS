@@ -5,18 +5,18 @@ $username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 
 $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
-$articles = array(
+$articles = [
 	'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
 	'title' => $this->list_title,
 	'author' => $username,
-	'items' => array(),
-);
+	'items' => [],
+];
 
 echo rtrim(json_encode($articles, $options) ?: '', " ]}\n\r\t"), "\n";
 $first = true;
 
 if (empty($this->entryIdsTagNames)) {
-	$this->entryIdsTagNames = array();
+	$this->entryIdsTagNames = [];
 }
 
 foreach ($this->entries as $entry) {

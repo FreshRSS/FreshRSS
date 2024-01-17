@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'מימוש',
 		'add' => 'Add',	// TODO
 		'back' => '← Go back',	// TODO
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',
 		'update' => 'Update',	// TODO
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
 		'email' => 'Email address',	// TODO
 		'keep_logged_in' => 'השאר מחובר <small>חודש</small>',
 		'login' => 'כניסה לחשבון',
 		'logout' => 'יציאה מהחשבון',
-		'password' => array(
+		'password' => [
 			'_' => 'סיסמה',
 			'format' => '<small>At least 7 characters</small>',	// TODO
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'New account',	// TODO
 			'ask' => 'Create an account?',	// TODO
 			'title' => 'Account creation',	// TODO
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'שם משתמש',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Tue',	// TODO
 		'wed' => 'Wed',	// TODO
 		'yesterday' => 'אתמול',
-	),
+	],
 	'dir' => 'rtl',
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'אודות FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Empty category',	// TODO
 		'confirm_action' => 'האם אתם בטוחים שברצונכם לבצע פעולה זו? אין אפשרות לבטל אותה!',
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
 		'should_be_activated' => 'חובה להפעיל JavaScript',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'אודות',
 		'account' => 'Account',	// TODO
 		'admin' => 'ניהול',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'עדכון',
 		'user_management' => 'Manage users',	// TODO
 		'user_profile' => 'Profile',	// TODO
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'days',	// TODO
 		'hours' => 'hours',	// TODO
 		'months' => 'months',	// TODO
 		'weeks' => 'weeks',	// TODO
 		'years' => 'years',	// TODO
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known based sites',	// TODO
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',	// TODO
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'זהירות!',
 		'blank_to_disable' => 'יש להשאיר ריק על מנת לנטרל',
 		'by_author' => 'מאת :',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'טעינת מאמרים נוספים',
 		'mark_all_read' => 'סימון הכל כנקרא',
 		'nothing_to_load' => 'אין מאמרים נוספים',
-	),
-);
+	],
+];

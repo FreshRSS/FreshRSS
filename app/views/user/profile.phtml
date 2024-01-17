@@ -60,8 +60,8 @@
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" data-leave-validation="<?= $token ?>"/>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
-				<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_User::name(),
-					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss)), 'html', true) ?></kbd>
+				<kbd><?= Minz_Url::display(['a' => 'rss', 'params' => ['user' => Minz_User::name(),
+					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss]], 'html', true) ?></kbd>
 			</div>
 		</div>
 		<?php } ?>
@@ -123,7 +123,7 @@
 			<div class="group-controls">
 				<?php
 					$redirect_url = urlencode(Minz_Url::display(
-						array('c' => 'user', 'a' => 'profile'),
+						['c' => 'user', 'a' => 'profile'],
 						'php', true
 					));
 				?>

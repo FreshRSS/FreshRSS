@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archivierung',
 		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Jetzt bereinigen',
 		'title' => 'Archivierung',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Anzeige',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatischer Dunkel-Modus (Beta)',
 			'auto' => 'Automatisch',
 			'no' => 'Nein',
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
 			'entry' => 'Artikel-Symbole',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Teilen',
 			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
-		),
+		],
 		'language' => 'Sprache',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'Sekunden (0 bedeutet keine Zeitüberschreitung)',
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
-		),
+		],
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Layout',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Veraltet',
 				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Das Erscheinungsbild „%s“ ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Vorschaubild',
 			'landscape' => 'Querformat',
 			'none' => 'Keins',
 			'portrait' => 'Hochformat',
 			'square' => 'Quadrat',
-		),
+		],
 		'timezone' => 'Zeitzone',
 		'title' => 'Anzeige',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon und Name',
 			'icon' => 'Nur Icon',
 			'label' => 'Webseite',
 			'name' => 'Nur Name',
 			'none' => 'Keine',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Inhaltsbreite',
 			'large' => 'Groß',
 			'medium' => 'Mittel',
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Log Stufe',
 			'message' => 'Log Nachricht',
 			'timestamp' => 'Zeitstempel',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'Erste',
 			'last' => 'Letzte',
 			'next' => 'Nächste',
 			'previous' => 'Vorherige',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profil-Verwaltung',
 		'api' => 'API-Verwaltung',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Accountlöschung',
 			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
-		),
+		],
 		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z.B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Profil',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Eigenschaft',
 			'tags' => 'Nach Labels filtern',
 			'type' => 'Filter-Typ',
-		),
+		],
 		'get_all' => 'Alle Artikel anzeigen',
 		'get_category' => 'Kategorie „%s“ anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Ungelesene Artikel anzeigen',
 		'state_15' => 'Alle Artikel anzeigen',
 		'title' => 'Benutzerabfragen',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Lesen',
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Favoriten immer anzeigen',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Autoren und Datum',
 				'both' => 'In Kopf- und Fußzeile',
 				'footer' => 'In Fußzeile',
 				'header' => 'In Kopfzeile',
 				'none' => 'Nicht anzeigen',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Oberhalb der Überschrit und Hashtags',
 				'none' => 'Nicht anzeigen',
 				'with_authors' => 'In der Zeile mit Autoren und Datum',
-			),
+			],
 			'feed_title' => 'Feed Titel',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Hashtags',
 				'both' => 'In Kopf- und Fußzeile',
 				'footer' => 'In Fußzeile',
 				'header' => 'In Kopfzeile',
 				'none' => 'Nicht anzeigen',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Max Anzahl von Hashtags',
 				'help' => '0 bedeutet: Zeige alle Hashtags und fasse sie nicht zusammen',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Artikel: Öffnen/Schließen',
 			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 			'categories' => 'Linke Navigation: Kategorien',
 			'mark_as_read' => 'Artikel als gelesen markieren',
 			'misc' => 'Sonstiges',
 			'view' => 'Ansicht',
-		),
+		],
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die „träges Laden“-Methode zum Laden von Bildern',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Artikel zum Anzeigen',
 			'active_category' => 'Aktive Kategorie',
 			'adaptive' => 'Anzeige anpassen',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Keine Kategorie',
 			'remember_categories' => 'Geöffnete Kategorien merken',
 			'unread' => 'Nur ungelesene zeigen',
-		),
+		],
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
-		),
+		],
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
-		'view' => array(
+		'view' => [
 			'default' => 'Standard-Ansicht',
 			'global' => 'Globale Ansicht',
 			'normal' => 'Normale Ansicht',
 			'reader' => 'Lese-Ansicht',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Teilen',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Tastenkombination',
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
 		'views' => 'Ansichten',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s Artikel (%s)',
 		'current' => 'Aktueller Benutzer',
 		'is_admin' => 'ist Administrator',
 		'users' => 'Benutzer',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Névtelen felhasználok frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobil alkalmazás szükséges)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Engedélyezi az alapértelmezett felhasználó RSS-ének olvasását hitelesítés nélkül:',
 		'type' => 'Hitelesítési módszer',
 		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Ellenőrizd a <em>./data/cache</em> könyvtárat. HTTP szervernek írási jogosultságra van szüksége.',
 			'ok' => 'Jogosultságok a gyorsítótár könyvtáron rendben vannak.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Kategória tábla nincs helyesen konfigurálva.',
 			'ok' => 'Kategória tábla rendben van.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Nem lehet kapcsolódni az adatbázishoz.',
 			'ok' => 'Kapcsolat az adatbázissal rendben van.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Nem található a karakter típus ellenőrző könyvtár (php-ctype).',
 			'ok' => 'Karakter típus ellenőrző könyvtár rendben (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Nem található a cURL könyvtár (php-curl csomag).',
 			'ok' => 'cURL könyvtár rendben van.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Ellenőrizd a <em>./data</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A data könyvtár jogosultságai megfelelőek.',
-		),
+		],
 		'database' => 'Adatbázis telepítés',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár. (php-xml csomag).',
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Belépési tábla nincs helyesen konfigurálva.',
 			'ok' => 'Belépési tábla rendben.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Ellenőrizd a <em>./data/favicons</em> könyvtár jogosultságait.A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A favicons könyvtár jogosultságai megfelelőek.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Hírforrás tábla nincs megfelelően konfigurálva.',
 			'ok' => 'Hírforrás tábla ok.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Fileinfo könyvtár nem található (fileinfo csomag).',
 			'ok' => 'Fileinfo könyvtár rendben van.',
-		),
+		],
 		'files' => 'Fájl telepítés',
-		'json' => array(
+		'json' => [
 			'nok' => 'JSON nem található (php-json csomag).',
 			'ok' => 'JSON kiegészítő telepítve.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Az ajánlott mbstring könyvtár nem található a Unicode kódoláshoz.',
 			'ok' => 'Az ajánlott mbstring könyvtár a Unicode kódoláshoz megvan.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'A reguláris kifejezésekhez használt könyvtár nem található (php-pcre).',
 			'ok' => 'A reguláris kifejezésekhez használt könyvtár megvan (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'PDO telepítve és legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP telepítés',
 			'nok' => 'A PHP verzió %s de a FreshRSS számára szükséges verzió %s.',
 			'ok' => 'A PHP verzió (%s) kompatibilis a FreshRSS-el.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Egy vagy több tábla hiányzik az adatbázisból.',
 			'ok' => 'A megfelelő táblák léteznek az adatbázisban.',
-		),
+		],
 		'title' => 'Telepítés ellenőrzése',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Ellenőrizd a <em>./data/tokens</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'Token könyvtár írási jogosultságai rendben.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Ellenőrizd a <em>./data/users</em> könyvtár írási jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'Users könyvtár írási jogosultságai rendben.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Nem található ZIP kiegészítő (php-zip csomag).',
 			'ok' => 'ZIP kiegészítő telepítve.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Szerző',
 		'community' => 'Elérhető közösségi kiegészítők',
 		'description' => 'Leírás',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Telepítve',
 		'name' => 'Név',
 		'no_configure_view' => 'Ezt a kiegészítőt nem lehet konfigurálni.',
-		'system' => array(
+		'system' => [
 			'_' => 'Rendszer kiegészítők',
 			'no_rights' => 'Rendszer kiegészítők (felhasználó nem jogosult a módosításhoz)',
-		),
+		],
 		'title' => 'Kiegészítők',
 		'update' => 'Frissítés elérhető',
 		'user' => 'Felhasználói kiegészítők',
 		'version' => 'Verzió',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Olvasatlan',
 		'title' => 'Statisztika',
 		'top_feed' => 'Top 10 hírforrás',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Rendszer konfiguráció',
 		'auto-update-url' => 'Szerver URL automata frissítése',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezési sütik megtartási ideje',
-		),
+		],
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
 		'max-categories' => 'Maximális kategóriák száma felhasználónkét',
 		'max-feeds' => 'Maximális hírforrások száma felhasználónként',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Max felhasználó szám',
-			'select' => array(
+			'select' => [
 				'label' => 'Regisztrációs űrlap',
-				'option' => array(
+				'option' => [
 					'noform' => 'Kikapcsolva: Nincs regisztrációs űrlap',
 					'nolimit' => 'Bekapcsolva: Korlátlan felhasználó szám',
 					'setaccountsnumber' => 'Max felhasználó szám beállítása',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Űrlap kikapcsolva',
 				'enabled' => 'Űrlap bekapcsolva',
-			),
+			],
 			'title' => 'Felhasználó regisztrációs űrlap',
-		),
+		],
 		'sensitive-parameter' => 'Érzékeny paraméter. Szerkessze manuálisan itt <kbd>./data/config.php</kbd>',
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'nincs elfogadva',
 			'enabled' => '<a href="./?a=tos">engedélyezve</a>',
 			'help' => 'Hogyan kapcsoljuk be a <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Szolgáltatási feltételeket</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'A <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>-ról',
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'FreshRSS Frissítése',
 		'apply' => 'Frissítés indítása',
 		'changelog' => 'Változások listája',
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Utolsó ellenőrzés',
 		'loading' => 'Frissítés…',
 		'none' => 'Nincs elérhető újabb frissítés',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
 			'latest' => 'Stable release (“latest”)',	// IGNORE
-		),
+		],
 		'title' => 'FreshRSS frissítése',
 		'viaGit' => 'Frissítés a git és GitHub.com-on keresztül elindult',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Adminisztrátor',
 		'article_count' => 'Cikkek',
 		'back_to_manage' => '← Vissza a felhasználók listájához',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Legalább 7 karakter',
 		'title' => 'Felhasználók kezelése',
 		'username' => 'Felhasználó név',
-	),
-);
+	],
+];

@@ -17,7 +17,7 @@ if (!is_array($options) || array_key_exists('h', $options)) {
 }
 
 if (array_key_exists('l', $options)) {
-	$languages = array($options['l']);
+	$languages = [$options['l']];
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }

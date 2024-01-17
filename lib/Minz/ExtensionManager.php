@@ -22,74 +22,74 @@ final class Minz_ExtensionManager {
 	 * @var array<string,array{'list':array<callable>,'signature':'NoneToNone'|'NoneToString'|'OneToOne'|'PassArguments'}>
 	 */
 	private static array $hook_list = [
-		'check_url_before_add' => array(	// function($url) -> Url | null
-			'list' => array(),
+		'check_url_before_add' => [	// function($url) -> Url | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'entry_auto_read' => array(	// function(FreshRSS_Entry $entry, string $why): void
-			'list' => array(),
+		],
+		'entry_auto_read' => [	// function(FreshRSS_Entry $entry, string $why): void
+			'list' => [],
 			'signature' => 'PassArguments',
-		),
-		'entry_auto_unread' => array(	// function(FreshRSS_Entry $entry, string $why): void
-			'list' => array(),
+		],
+		'entry_auto_unread' => [	// function(FreshRSS_Entry $entry, string $why): void
+			'list' => [],
 			'signature' => 'PassArguments',
-		),
-		'entry_before_display' => array(	// function($entry) -> Entry | null
-			'list' => array(),
+		],
+		'entry_before_display' => [	// function($entry) -> Entry | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'entry_before_insert' => array(	// function($entry) -> Entry | null
-			'list' => array(),
+		],
+		'entry_before_insert' => [	// function($entry) -> Entry | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'feed_before_actualize' => array(	// function($feed) -> Feed | null
-			'list' => array(),
+		],
+		'feed_before_actualize' => [	// function($feed) -> Feed | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'feed_before_insert' => array(	// function($feed) -> Feed | null
-			'list' => array(),
+		],
+		'feed_before_insert' => [	// function($feed) -> Feed | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'freshrss_init' => array(	// function() -> none
-			'list' => array(),
+		],
+		'freshrss_init' => [	// function() -> none
+			'list' => [],
 			'signature' => 'NoneToNone',
-		),
-		'freshrss_user_maintenance' => array(	// function() -> none
-			'list' => array(),
+		],
+		'freshrss_user_maintenance' => [	// function() -> none
+			'list' => [],
 			'signature' => 'NoneToNone',
-		),
-		'js_vars' => array(	// function($vars = array) -> array | null
-			'list' => array(),
+		],
+		'js_vars' => [	// function($vars = array) -> array | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'menu_admin_entry' => array(	// function() -> string
-			'list' => array(),
+		],
+		'menu_admin_entry' => [	// function() -> string
+			'list' => [],
 			'signature' => 'NoneToString',
-		),
-		'menu_configuration_entry' => array(	// function() -> string
-			'list' => array(),
+		],
+		'menu_configuration_entry' => [	// function() -> string
+			'list' => [],
 			'signature' => 'NoneToString',
-		),
-		'menu_other_entry' => array(	// function() -> string
-			'list' => array(),
+		],
+		'menu_other_entry' => [	// function() -> string
+			'list' => [],
 			'signature' => 'NoneToString',
-		),
-		'nav_menu' => array(	// function() -> string
-			'list' => array(),
+		],
+		'nav_menu' => [	// function() -> string
+			'list' => [],
 			'signature' => 'NoneToString',
-		),
-		'nav_reading_modes' => array(	// function($readingModes = array) -> array | null
-			'list' => array(),
+		],
+		'nav_reading_modes' => [	// function($readingModes = array) -> array | null
+			'list' => [],
 			'signature' => 'OneToOne',
-		),
-		'post_update' => array(	// function(none) -> none
-			'list' => array(),
+		],
+		'post_update' => [	// function(none) -> none
+			'list' => [],
 			'signature' => 'NoneToNone',
-		),
-		'simplepie_before_init' => array(	// function($simplePie, $feed) -> none
-			'list' => array(),
+		],
+		'simplepie_before_init' => [	// function($simplePie, $feed) -> none
+			'list' => [],
 			'signature' => 'PassArguments',
-		),
+		],
 	];
 
 	/** Remove extensions and hooks from a previous initialisation */
@@ -179,7 +179,7 @@ final class Minz_ExtensionManager {
 	 * @return bool true if the array is valid, false else.
 	 */
 	private static function isValidMetadata(array $meta): bool {
-		$valid_chars = array('_');
+		$valid_chars = ['_'];
 		return !(empty($meta['name']) || empty($meta['entrypoint']) || !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
 

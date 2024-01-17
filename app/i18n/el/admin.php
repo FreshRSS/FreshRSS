@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// TODO
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// TODO
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Επιτρέπει την πρόσβαση στα RSS αποτελέσματα του προεπιλεγμένου χρήστη χωρίς έλεγχο ταυτότητας:',
 		'type' => 'Μέθοδος Πιστοποίησης',
 		'unsafe_autologin' => 'Επιτρέψτε την μη ασφαλή αυτόματη σύνδεση με την χρήση της μορφής: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/cache</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο προσωρινής μνήμης (cache) είναι εντάξει.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Ο πίνακας κατηγορίας (Category) δεν έχει ρυθμιστεί σωστά.',
 			'ok' => 'Ο πίνακας κατηγορίας (Category) είναι εντάξει.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Δεν ήταν δυνατή η σύνδεση με την βάση δεδομένων.',
 			'ok' => 'Η σύνδεση με την βάση δεδομένων είναι εντάξει.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για τον έλεγχο τύπου χαρακτήρων (php-ctype).',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για τον έλεγχο τύπου χαρακτήρων (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη cURL (php-curl package).',
 			'ok' => 'Βρέθηκε η βιβλιοθήκη cURL.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (data) είναι εντάξει.',
-		),
+		],
 		'database' => 'Εγκατάσταση βάσης δεδομένων',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM (php-xml package).',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Ο πίνακας καταχώρισης (Entry) δεν έχει ρυθμιστεί σωστά..',
 			'ok' => 'Ο πίνακας καταχώρισης (Entry) είναι εντάξει.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/favicons</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (favicons) είναι εντάξει.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Ο πίνακας τροφοδοσίας (Feed) δεν έχει ρυθμιστεί σωστά..',
 			'ok' => 'Ο πίνακας τροφοδοσίας (Feed) είναι εντάξει.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη PHP fileinfo (fileinfo package).',
 			'ok' => 'Βρέθηκε η βιβλιοθήκη fileinfo.',
-		),
+		],
 		'files' => 'Εγκατάσταση αρχείων',
-		'json' => array(
+		'json' => [
 			'nok' => 'Δεν βρέθηκε η επέκταση JSON (php-json package).',
 			'ok' => 'Βρέθηκε η επέκταση JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη mbstring για Unicode.',
 			'ok' => 'Βρέθηκε η συνιστώμενη βιβλιοθήκη mbstring για Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'Εγκατάσταση PHP',
 			'nok' => 'Η έκδοση της PHP σας είναι %s, αλλά το FreshRSS απαιτεί τουλάχιστον έκδοση %s.',
 			'ok' => 'Η έκδοση της PHP σας, %s, είναι συμβατή με το FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Λείπουν ένας ή περισσότεροι πίνακες από την βάση δεδομένων.',
 			'ok' => 'Υπάρχουν οι κατάλληλοι φάκελοι στην βάση δεδομένων.',
-		),
+		],
 		'title' => 'Έλεγχος εγκατάστασης',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/tokens</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
 			'ok' => 'Τα δικαιώματα στον κατάλογο διακριτικών (tokens) είναι εντάξει.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/users</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
 			'ok' => 'Τα δικαιώματα στον κατάλογο χρηστών (users) είναι εντάξει.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Δεν βρέθηκε η επέκταση ZIP (php-zip package).',
 			'ok' => 'Βρέθηκε η επέκταση ZIP .',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Συντάκτης',
 		'community' => 'Διαθέσιμες επεκτάσεις κοινότητας',
 		'description' => 'Περιγραφή',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Εγκατεστημένες',
 		'name' => 'Όνομα',
 		'no_configure_view' => 'Αυτή η επέκταση δεν μπορεί να ρυθμιστεί.',
-		'system' => array(
+		'system' => [
 			'_' => 'Επεκτάσεις συστήματος',
 			'no_rights' => 'Επέκταση συστήματος (δεν έχετε τα απαραίτητα δικαιώματα)',
-		),
+		],
 		'title' => 'Επεκτάσεις',
 		'update' => 'Διαθέσιμη ενημέρωση',
 		'user' => 'Επεκτάσεις χρήστη',
 		'version' => 'Έκδοση',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Στατιστικά',
 		'all_feeds' => 'Όλες οι τροφοδοσίες',
 		'category' => 'Κατηγορία',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Μη αναγνωσμένα',
 		'title' => 'Στατιστικά',
 		'top_feed' => 'Κορυφαίες δέκα τροφοδοσίες',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Ρυθμίσεις συστήματος',
 		'auto-update-url' => 'Αυτόματη ενημέρωση URL διακομιστή',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'σε δευτερόλεπτα',
 			'number' => 'Διάρκεια παραμονής σε σύνδεση',
-		),
+		],
 		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
 		'instance-name' => 'Instance name',	// TODO
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
 		'max-feeds' => 'Μέγιστος αριθμός τροφοδοσιών ανά χρήστη',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Μέγιστος αριθμός λογαριασμών',
-			'select' => array(
+			'select' => [
 				'label' => 'Φόρμα εγγραφής',
-				'option' => array(
+				'option' => [
 					'noform' => 'Απενεργοποιημένη: Χωρίς φόρμα εγγραφής',
 					'nolimit' => 'Ενεργοποιημένη: Χωρίς όριο λογαριασμών',
 					'setaccountsnumber' => 'Ορίστε μέγιστο αριθμό λογαριασμών',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Η φόρμα είναι απενεργοποιημένη',
 				'enabled' => 'Η φόρμα είναι ενεργοποιημένη',
-			),
+			],
 			'title' => 'Φόρμα εγγραφής χρήστη',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Ενημέρωση συστήματος',
 		'apply' => 'Εφαρμογή',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Τελευταία επαλήθευση',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Ενημέρωση συστήματος',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Διαχειριστής',
 		'article_count' => 'Άρθρα',
 		'back_to_manage' => '← Επιστροφή στην λίστα χρηστών',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
 		'title' => 'Διαχείριση χρηστών',
 		'username' => 'Όνομα χρήστη',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'デフォルトのユーザーの記事がログインしていないときでも読めるようにします。 (%s)',
 		'allow_anonymous_refresh' => '未ログインユーザーでも記事を更新できるようにします。',
 		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'ユーザーが承認無しで、RSSを出力できるようにします。:',
 		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集権限を必要としています。',
 			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'カテゴリテーブルが不適切な設定をされています。',
 			'ok' => 'カテゴリテーブルは正しく設定されています。',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'データベースへの接続ができませんでした。',
 			'ok' => 'データベースへの接続が正しく行われました。',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',
 			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',
 			'ok' => 'cURLライブラリが見つかりました。',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
-		),
+		],
 		'database' => 'データベースインストール',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'DOMを検索するライブラリが見つかりませんでした。 (php-xml package).',
 			'ok' => 'DOMを検索するライブラリが見つかりました。',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'エントリテーブルが不適切な設定をされています。',
 			'ok' => 'エントリテーブルは正しく設定されています。',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => '<em>./data/favicons</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
 			'ok' => 'ファビコンディレクトリのパーミッションは正しく設定されています。',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'フィードテーブルが不適切な設定をされています。',
 			'ok' => 'フィードテーブルは正しく設定されています。',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
 			'ok' => 'fileinfoライブラリは正しく設定されています。',
-		),
+		],
 		'files' => 'ファイルインストール',
-		'json' => array(
+		'json' => [
 			'nok' => 'JSONをパースするライブラリが見つかりませんでした。 (php-json package).',
 			'ok' => 'JSONをパースするライブラリはインストールされています。',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'mbstringライブラリが見つかりませんでした。',
 			'ok' => 'mbstringライブラリはインストールされています。',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',
 			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHPインストール',
 			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
 			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'データベースには1つ以上の失われたテーブルが存在します。',
 			'ok' => '適切なテーブルがデータベースに存在します。',
-		),
+		],
 		'title' => 'インストールチェック',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
 			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => '<em>./data/users</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
 			'ok' => 'usersディレクトリのパーミッションは正しく設定されています。',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',
 			'ok' => 'ZIP拡張はインストールされています。',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => '作者',
 		'community' => 'コミュニティ製の拡張機能',
 		'description' => '説明',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'インストール済み',
 		'name' => '名前',
 		'no_configure_view' => 'この拡張機能は設定できません.',
-		'system' => array(
+		'system' => [
 			'_' => 'システムの拡張機能',
 			'no_rights' => 'システムの拡張機能 (あなたは権限を所持していません',
-		),
+		],
 		'title' => '拡張機能',
 		'update' => 'アップデート可能',
 		'user' => 'ユーザー拡張機能',
 		'version' => 'バージョン',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => '未読',
 		'title' => '仕切り',
 		'top_feed' => '上位10位のフィード',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
-		),
+		],
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
 		'max-feeds' => '1ユーザーごとのフィードの最大値',
-		'registration' => array(
+		'registration' => [
 			'number' => 'アカウントの最大値',
-			'select' => array(
+			'select' => [
 				'label' => '登録フォーム',
-				'option' => array(
+				'option' => [
 					'noform' => '無効: 登録されたフォームはありません',
 					'nolimit' => '有効: アカウントの上限はありません',
 					'setaccountsnumber' => 'アカウントの上限数に達しました',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'フォームは無効です',
 				'enabled' => 'フォームは有効です',
-			),
+			],
 			'title' => 'ユーザー登録',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'システムアップデート',
 		'apply' => '適用',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => '最近の検証',
 		'loading' => 'Updating…',	// TODO
 		'none' => '更新を適用できません',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'アップデートシステム',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => '管理者',
 		'article_count' => '記事',
 		'back_to_manage' => '← ユーザーリストに戻る',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => '最低限7文字必要です',
 		'title' => '管理するユーザー',
 		'username' => 'ユーザー名',
-	),
-);
+	],
+];

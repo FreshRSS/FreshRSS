@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Arhivēšana',
 		'exception' => 'Iztīrīt izņēmumu',
 		'help' => 'Vairākas opcijas ir pieejamas atsevišķas barotnes iestatījumos.',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Iztīrīt tagad',
 		'title' => 'Arhivēšana',
 		'ttl' => 'Automātiski neatjaunināt biežāk nekā',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Ekrāns',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automātiskais tumšais režīms (beta versija)',
 			'auto' => 'Auto',	// IGNORE
 			'no' => 'Nē',
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Apakšējā līnija',
 			'display_authors' => 'Autori',
 			'entry' => 'Raksta ikonas',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Dalīšanās',
 			'summary' => 'Kopsavilkums',
 			'top_line' => 'Augšējā līnija',
-		),
+		],
 		'language' => 'Valoda',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'sekundes (0 nozīmē, ka nav laika ierobežojuma)',
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
-		),
+		],
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Tēma',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Novecojis',
 				'description' => 'Šī tēma vairs netiek atbalstīta un vairs nebūs pieejama <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">nākamajā FreshRSS versijā</a>.',
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Tēma "%s" vairs nav pieejama. Lūdzu, izvēlieties citu tēmu.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Sīktēls',
 			'landscape' => 'Ainavas',
 			'none' => 'Nekāds',
 			'portrait' => 'Portreta',
 			'square' => 'Kvadrāta',
-		),
+		],
 		'timezone' => 'Laika josla',
 		'title' => 'Ekrāns',
-		'website' => array(
+		'website' => [
 			'full' => 'Ikona un vārds',
 			'icon' => 'Tikai ikona',
 			'label' => 'Mājaslapa',
 			'name' => 'Tikai vārds',
 			'none' => 'Nekāds',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Satura platums',
 			'large' => 'Plats',
 			'medium' => 'Vidējs',
 			'no_limit' => 'Pilna platuma',
 			'thin' => 'Šaurs',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Žurnāla līmenis',
 			'message' => 'Žurnāla ziņa',
 			'timestamp' => 'Laika zīmogs',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'Pirmais',
 			'last' => 'Pēdējais',
 			'next' => 'Nākamais',
 			'previous' => 'Iepriekšējais',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profila pārvalde',
 		'api' => 'API pārvalde',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Konta dzēšana',
 			'warn' => 'Jūsu konts un visi saistītie dati tiks dzēsti..',
-		),
+		],
 		'email' => 'E-pasta adrese',
 		'password_api' => 'API parole<br /><small>(piem., priekš mobilajām lietotnēm)</small>',
 		'password_form' => 'Parole<br /><small>(Web-formas pieteikšanās metodei)</small>',
 		'password_format' => 'Vismaz 7 rakstzīmes',
 		'title' => 'Profils',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Lietotāja pieprasījumi',
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
-		),
+		],
 		'get_all' => 'Rādīt visus rakstus',
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Rādīt nelasītos rakstus',
 		'state_15' => 'Rādīt visus rakstus',
 		'title' => 'Lietotāja pieprasījumi',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Lasīšana',
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Autori un datums',
 				'both' => 'Virsrakstā un kājenē',
 				'footer' => 'Kājienē',
 				'header' => 'Virsrakstā',
 				'none' => 'Nekāds',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Virs titula/birkām',
 				'none' => 'Nekāds',
 				'with_authors' => 'Autoru un datuma rindā',
-			),
+			],
 			'feed_title' => 'Barotnes tituls',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Birkas',
 				'both' => 'Virsrakstā un kājenē',
 				'footer' => 'Kājienē',
 				'header' => 'Virsrakstā',
 				'none' => 'Nekāds',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Maksimālais rādīto birku skaits',
 				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Rakstu skaits lapā',
 		'auto_load_more' => 'Ielādēt vairāk rakstu lapas apakšā',
 		'auto_remove_article' => 'Paslēpt rakstus pēc izlasīšanas',
 		'confirm_enabled' => 'Parādīt apstiprinājuma dialoglodziņu darbībai "atzīmēt visus kā izlasītus"',
 		'display_articles_unfolded' => 'Pēc noklusējuma rādīt nesalocītus rakstus',
 		'display_categories_unfolded' => 'Nesalocītās kategorijas',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Raksti: Atvērt/Aizvērt',
 			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 			'categories' => 'Kreisā navigācija: Kategorijas',
 			'mark_as_read' => 'Atzīmēt rakstu kā izlasītu',
 			'misc' => 'Citi',
 			'view' => 'Skatīt',
-		),
+		],
 		'hide_read_feeds' => 'Paslēpt kategorijas un barotnes, kurās nav nelasītu rakstu (nedarbojas ar konfigurāciju "Rādīt visus rakstus")',
 		'img_with_lazyload' => 'Izmantot <em>slinkās ielādes</em> režīmu, lai ielādētu attēlus',
 		'jump_next' => 'pāriet uz nākamo nelasīto radinieku (barotni vai kategoriju)',
 		'mark_updated_article_unread' => 'Atjauninātos rakstus atzīmēt kā nelasītus',
 		'number_divided_when_reader' => 'Dalīt ar 2 lasīšanas skatā.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'kad raksts tiek atvērts tā sākotnējā mājaslapā',
 			'article_viewed' => 'kad raksts tiek skatīts',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',
 			'when_same_title' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Rādāmie raksti',
 			'active_category' => 'Aktīvā kategorija',
 			'adaptive' => 'Pielāgot rādīšanu',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Bez kategorijas',
 			'remember_categories' => 'Iegaumēt atvērtās kategorijas',
 			'unread' => 'Rādīt tikai nelasītos',
-		),
+		],
 		'show_fav_unread_help' => 'Attiecas arī uz birkām',
 		'sides_close_article' => 'Spiežot ārpus raksta teksta apgabala, raksts tiek aizvērts',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Kārtošanas kārtība',
 			'newer_first' => 'Sākumā jaunākos',
 			'older_first' => 'Sākumā vecākos',
-		),
+		],
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',
-		'view' => array(
+		'view' => [
 			'default' => 'Noklusējuma skats',
 			'global' => 'Globālais skats',
 			'normal' => 'Parastais skats',
 			'reader' => 'Lasīšanas skats',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Dalīšanās',
 		'add' => 'Pievienojat dalīšanās metodi',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Dalīšanās',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Saīsnes',
 		'article_action' => 'Raksta darbības',
 		'auto_share' => 'Dalīties',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Piekļuve lietotāju pieprasījumiem',
 		'user_filter_help' => 'Ja ir tikai viens lietotāja pieprasījums, tiek izmantots tas. Pretējā gadījumā pieprasījumi ir pieejami pēc to numura.',
 		'views' => 'Skati',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s raksti (%s)',
 		'current' => 'Pašreizējais lietotājs',
 		'is_admin' => 'ir administrators',
 		'users' => 'Lietotāji',
-	),
-);
+	],
+];

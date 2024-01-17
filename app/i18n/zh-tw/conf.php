@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => '歸檔',
 		'exception' => '高級清理策略',
 		'help' => '具體選項位於各訂閱源的設置',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => '立即清除',
 		'title' => '存檔',
 		'ttl' => '最小自動刷新間隔',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => '顯示',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',
 			'entry' => '文章圖示',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => '分享',
 			'summary' => '摘要',
 			'top_line' => '頂欄',
-		),
+		],
 		'language' => '語言',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => '秒（0 表示不超時）',
 			'timeout' => 'HTML5 通知超時時間',
-		),
+		],
 		'show_nav_buttons' => '顯示導航按鈕',
-		'theme' => array(
+		'theme' => [
 			'_' => '主題',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => '“%s” 主題不再可用，請選擇其他主題。',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => '縮圖',
 			'landscape' => '風景',
 			'none' => '無',
 			'portrait' => '肖像',
 			'square' => '方塊',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => '顯示',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => '內容寬度',
 			'large' => '寬',
 			'medium' => '中',
 			'no_limit' => '無限制',
 			'thin' => '窄',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => '日誌等級',
 			'message' => '信息',
 			'timestamp' => '時間',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => '首頁',
 			'last' => '末頁',
 			'next' => '下一頁',
 			'previous' => '上一頁',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => '使用者管理',
 		'api' => 'API 管理',
-		'delete' => array(
+		'delete' => [
 			'_' => '帳號刪除',
 			'warn' => '將刪除你的帳號以及所有相關數據！',
-		),
+		],
 		'email' => '郵箱地址',
 		'password_api' => 'API 密碼<br /><small>（例如用於手機應用）</small>',
 		'password_form' => '密碼<br /><small>(用於 Web-form 登入方式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '用戶帳號',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => '自定義查詢',
 		'deprecated' => '此查詢不再有效。相關的分類或訂閱源已被刪除。',
-		'filter' => array(
+		'filter' => [
 			'_' => '生效的過濾器：',
 			'categories' => '按分類顯示',
 			'feeds' => '按訂閱源顯示',
@@ -123,7 +123,7 @@ return array(
 			'state' => '狀態',
 			'tags' => '按標簽顯示',
 			'type' => '類型',
-		),
+		],
 		'get_all' => '顯示所有文章',
 		'get_category' => '顯示分類 “%s”',
 		'get_favorite' => '顯示收藏文章',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => '顯示未讀文章',
 		'state_15' => '顯示所有文章',
 		'title' => '自定義查詢',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => '閱讀',
 		'after_onread' => '「全部標記為已讀」後',
 		'always_show_favorites' => '預設顯示收藏夾中所有的文章',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => '作者和日期',
 				'both' => '兩者都顯示',
 				'footer' => '僅頁腳顯示',
 				'header' => '僅頁眉顯示',
 				'none' => '不顯示',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => '在文章標題和標簽上方',
 				'none' => '不顯示',
 				'with_authors' => '與作者和日期一行',
-			),
+			],
 			'feed_title' => '訂閱源標題',
-			'tags' => array(
+			'tags' => [
 				'_' => '文章標簽',
 				'both' => '兩者都顯示',
 				'footer' => '僅頁腳顯示',
 				'header' => '僅頁眉顯示',
 				'none' => '不顯示',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => '標簽最多顯示個數',
 				'help' => '0 標識顯示所有標簽',
-			),
-		),
+			],
+		],
 		'articles_per_page' => '每頁文章數',
 		'auto_load_more' => '在頁面底部載入更多文章',
 		'auto_remove_article' => '閱讀後隱藏文章',
 		'confirm_enabled' => '「全部標記為已讀」時顯示確認對話框',
 		'display_articles_unfolded' => '預設展開顯示文章',
 		'display_categories_unfolded' => '要展開的分類',
-		'headline' => array(
+		'headline' => [
 			'articles' => '文章：打開/關閉',
 			'articles_header_footer' => '文章: 頁眉/頁腳',
 			'categories' => '左側導航：分類',
 			'mark_as_read' => '標為已讀選項',
 			'misc' => '其它',
 			'view' => '瀏覽',
-		),
+		],
 		'hide_read_feeds' => '隱藏沒有未讀文章的分類和訂閱源 (啟用「顯示所有文章」後不生效)',
 		'img_with_lazyload' => '延遲加載圖片',
 		'jump_next' => '跳轉到下一未讀項（訂閱源或分類）',
 		'mark_updated_article_unread' => '將更新的文章設為未讀',
 		'number_divided_when_reader' => '閱讀視圖中顯示一半',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => '在打開原文章後',
 			'article_viewed' => '在文章被瀏覽後',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',
 			'when_same_title' => '已存在 n 條相同標題文章',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => '文章顯示',
 			'active_category' => '啟用的分類',
 			'adaptive' => '智能顯示',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => '無分類',
 			'remember_categories' => '記住打開的分類',
 			'unread' => '只顯示未讀',
-		),
+		],
 		'show_fav_unread_help' => '同樣適用於標簽',
 		'sides_close_article' => '點擊文章區域外以關閉',
-		'sort' => array(
+		'sort' => [
 			'_' => '排列順序',
 			'newer_first' => '由新至舊',
 			'older_first' => '由舊至新',
-		),
+		],
 		'sticky_post' => '打開文章時將其置於頁首',
 		'title' => '閱讀',
-		'view' => array(
+		'view' => [
 			'default' => '預設視圖',
 			'global' => '全屏視圖',
 			'normal' => '普通視圖',
 			'reader' => '閱讀視圖',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => '分享',
 		'add' => '添加分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => '分享',
 		'twitter' => '推特',	// IGNORE
 		'wallabag' => 'Wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => '快捷鍵',
 		'article_action' => '文章操作',
 		'auto_share' => '分享',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => '顯示自定義查詢',
 		'user_filter_help' => '如果有多個自定義過濾器，則會按照它們的序號依次訪問。',
 		'views' => '視圖',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'current' => '當前使用者',
 		'is_admin' => '該使用者為管理員',
 		'users' => '用戶',
-	),
-);
+	],
+];

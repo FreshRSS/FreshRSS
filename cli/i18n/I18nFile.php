@@ -8,7 +8,7 @@ class I18nFile {
 	 * @return array<string,array<string,array<string,I18nValue>>>
 	 */
 	public function load(): array {
-		$i18n = array();
+		$i18n = [];
 		$dirs = new DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
@@ -86,7 +86,7 @@ class I18nFile {
 	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {
-		$a = array();
+		$a = [];
 
 		if ('' !== $prefix) {
 			$prefix .= '.';
@@ -113,7 +113,7 @@ class I18nFile {
 	 * @return array<string,array<string,I18nValue>>
 	 */
 	private function unflatten(array $translation): array {
-		$a = array();
+		$a = [];
 
 		ksort($translation, SORT_NATURAL);
 		foreach ($translation as $compoundKey => $value) {
@@ -136,7 +136,7 @@ class I18nFile {
 	 */
 	private function format(array $translation): string {
 		$translation = var_export($this->unflatten($translation), true);
-		$patterns = array(
+		$patterns = [
 			'/ -> todo\',/',
 			'/ -> dirty\',/',
 			'/ -> ignore\',/',
@@ -144,8 +144,8 @@ class I18nFile {
 			'/=>\s*array/',
 			'/(\w) {2}/',
 			'/ {2}/',
-		);
-		$replacements = array(
+		];
+		$replacements = [
 			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
@@ -153,7 +153,7 @@ class I18nFile {
 			'=> array',
 			'$1 ',
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
-		);
+		];
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		return <<<OUTPUT

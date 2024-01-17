@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archius',
 		'exception' => 'Excepcion de purga',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Purgar ara',
 		'title' => 'Archius',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Afichatge',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Linha enbàs',
 			'display_authors' => 'Autors',
 			'entry' => 'Icònas d’article',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Partatge',
 			'summary' => 'Resumit',
 			'top_line' => 'Linha amont',
-		),
+		],
 		'language' => 'Lenga',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'segondas (0 significa cap de timeout)',
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
-		),
+		],
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Tèma',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'Lo tèma « %s » es pas pus disponible. Causissètz un autre tèma.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Vinheta',
 			'landscape' => 'Païsatge',
 			'none' => 'Cap',
 			'portrait' => 'Retrach',
 			'square' => 'Carrat',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Afichatge',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',	// TODO
 			'icon' => 'Icon only',	// TODO
 			'label' => 'Website',	// TODO
 			'name' => 'Name only',	// TODO
 			'none' => 'None',	// TODO
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Largor del contengut',
 			'large' => 'Larga',
 			'medium' => 'Mejana',
 			'no_limit' => 'Cap de limit',
 			'thin' => 'Fina',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Nivèl de log',
 			'message' => 'Messatge de log',
 			'timestamp' => 'Orodatatge',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'Debuta',
 			'last' => 'Fin',
 			'next' => 'Seguent',
 			'previous' => 'Precedent',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Gestion del perfil',
 		'api' => 'Gestion API',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Supression del compte',
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
-		),
+		],
 		'email' => 'Adreça de corrièl',
 		'password_api' => 'Senhal API<br /><small>(ex. : per las aplicacions mobil)</small>',
 		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
 		'password_format' => 'Almens 7 caractèrs',
 		'title' => 'Pefil',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Estat',
 			'tags' => 'Afichatge per etiqueta',
 			'type' => 'Tipe',
-		),
+		],
 		'get_all' => 'Mostrar totes los articles',
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Mostrar los articles pas legits',
 		'state_15' => 'Mostrar totes los articles',
 		'title' => 'Filtres utilizaire',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Lectura',
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Autors e data',
 				'both' => 'Dins l’entèsta e lo bas de pagina',
 				'footer' => 'Al pè de pagina',
 				'header' => 'Dins l’entèsta',
 				'none' => 'Cap',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Al dessús títol/etiquetas',
 				'none' => 'Cap',
 				'with_authors' => 'Dins la linha autors e data',
-			),
+			],
 			'feed_title' => 'Títol del flux',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Etiquetas',
 				'both' => 'Dins l’entèsta e lo bas de pagina',
 				'footer' => 'Al pè de pagina',
 				'header' => 'Dins l’entèsta',
 				'none' => 'Cap',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Nombre max d’etiquetas afichadas',
 				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
 		'confirm_enabled' => 'Mostrar una confirmacion per las accions del tipe « o marcar tot coma legit »',
 		'display_articles_unfolded' => 'Mostrar los articles desplegats per defaut',
 		'display_categories_unfolded' => 'Categorias a desplegar',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Articles : Dobrir/Tampar',
 			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 			'categories' => 'Navegacion esquèrra : categorias',
 			'mark_as_read' => 'Marcar los articles coma legits',
 			'misc' => 'Divèrs',
 			'view' => 'Vista',
-		),
+		],
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
 		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
 		'mark_updated_article_unread' => 'Marcar los articles actualizats coma pas legits',
 		'number_divided_when_reader' => 'Devisat per 2 dins la vista de lectura.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Articles de mostrar',
 			'active_category' => 'Activar categoria',
 			'adaptive' => 'Adaptar l’afichatge',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Cap de categoria',
 			'remember_categories' => 'Se remembrar de las categorias dobèrtas',
 			'unread' => 'Mostrar pas que los pas legits',
-		),
+		],
 		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Òrdre de tria',
 			'newer_first' => 'Mai recents en primièr',
 			'older_first' => 'Mai ancians en primièr',
-		),
+		],
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',
-		'view' => array(
+		'view' => [
 			'default' => 'Vista per defaut',
 			'global' => 'Vista generala',
 			'normal' => 'Vista normala',
 			'reader' => 'Vista lectura',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Partatge',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Acorchis',
 		'article_action' => 'Accions ligadas a l’article',
 		'auto_share' => 'Partejar',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Accedir als filtres utilizaire',
 		'user_filter_help' => 'S’i a pas qu’un filtre utilizaire, aquel serà utilizat. Autrament los filtres son accessibles per lor numèro.',
 		'views' => 'Vistas',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s articles (%s)',	// IGNORE
 		'current' => 'Utilizaire actual',
 		'is_admin' => 'es administrator',
 		'users' => 'Utilizaires',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'auth' => array(
+return [
+	'auth' => [
 		'allow_anonymous' => 'Ļaut anonīmi lasīt noklusējuma lietotāja rakstus (%s)',
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
 		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm)</small>',
@@ -23,94 +23,94 @@ return array(
 		'token_help' => 'Ļauj piekļūt noklusējuma lietotāja RSS izvadei bez autentifikācijas:',
 		'type' => 'Autentifikācijas metode',
 		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
-	),
-	'check_install' => array(
-		'cache' => array(
+	],
+	'check_install' => [
+		'cache' => [
 			'nok' => 'Pārbaudiet atļaujas <em>./data/cache</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Kešatmiņas mapes atļaujas ir pareizas.',
-		),
-		'categories' => array(
+		],
+		'categories' => [
 			'nok' => 'Kategoriju tabula ir nepareizi konfigurēta.',
 			'ok' => 'Kategoriju tabulai viss ir kārtībā.',
-		),
-		'connection' => array(
+		],
+		'connection' => [
 			'nok' => 'Nevar izveidot savienojumu ar datubāzi.',
 			'ok' => 'Savienojumam ar datubāzi viss ir kārtībā.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku rakstzīmju tipa pārbaudei (php-ctype).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka rakstzīmju tipa pārbaudei (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Nevar atrast cURL bibliotēku (php-curl pakotne).',
 			'ok' => 'Jums ir cURL bibliotēka.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Pārbaudiet atļaujas <em>./data</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
-		),
+		],
 		'database' => 'Datubāzes instalācija',
-		'dom' => array(
+		'dom' => [
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku, lai pārlūkotu DOM (php-xml pakete).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',
-		),
-		'entries' => array(
+		],
+		'entries' => [
 			'nok' => 'Ierakstu tabula ir nepareizi konfigurēta.',
 			'ok' => 'Ar ierakstu tabulu viss ir kārtībā.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Pārbaudiet atļaujas <em>./data/favicons</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar favikonu mapes atļaujām viss ir kārtībā.',
-		),
-		'feeds' => array(
+		],
+		'feeds' => [
 			'nok' => 'Nepareizi konfigurēta padeves tabula.',
 			'ok' => 'Ar padeves tabulu viss ir kārtībā.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Nevar atrast PHP fileinfo bibliotēku (fileinfo pakotne).',
 			'ok' => 'Jums ir fileinfo bibliotēka.',
-		),
+		],
 		'files' => 'Failu instalācija',
-		'json' => array(
+		'json' => [
 			'nok' => 'Nevar atrast JSON (php-json pakete).',
 			'ok' => 'Jums ir JSON paplašinājums.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Nevar atrast ieteikto mbstring bibliotēku priekš Unicode.',
 			'ok' => 'Jums ir ieteiktā mbstring bibliotēka priekš Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku regulārajām izteiksmēm (php-pcre).',
 			'ok' => 'Jums ir nepieciešamā regulāro izteiksmju bibliotēka (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'_' => 'PHP instalācija',
 			'nok' => 'Jūsu PHP versija ir %s, bet FreshRSS nepieciešama vismaz %s versija.',
 			'ok' => 'Jūsu PHP versija (%s) ir saderīga ar FreshRSS.',
-		),
-		'tables' => array(
+		],
+		'tables' => [
 			'nok' => 'Datubāzē trūkst vienas vai vairāku tabulu.',
 			'ok' => 'Datubāzē eksistē atbilstošas tabulas.',
-		),
+		],
 		'title' => 'Instalācijas pārbaude',
-		'tokens' => array(
+		'tokens' => [
 			'nok' => 'Pārbaudiet atļaujas <em>./data/tokens</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar žetonu mapes atļaujām viss ir kārtībā.',
-		),
-		'users' => array(
+		],
+		'users' => [
 			'nok' => 'Pārbaudiet atļaujas <em>./data/users</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',
-		),
-		'zip' => array(
+		],
+		'zip' => [
 			'nok' => 'Nevar atrast ZIP paplašinājumu (php-zip pakete).',
 			'ok' => 'Jums ir ZIP paplašinājums.',
-		),
-	),
-	'extensions' => array(
+		],
+	],
+	'extensions' => [
 		'author' => 'Autors',
 		'community' => 'Pieejamie sabiedrības paplašinājumi',
 		'description' => 'Apraksts',
@@ -120,16 +120,16 @@ return array(
 		'latest' => 'Instalēts',
 		'name' => 'Vārds',
 		'no_configure_view' => 'Šo paplašinājumu nevar konfigurēt.',
-		'system' => array(
+		'system' => [
 			'_' => 'Sistēmas paplašinājumi',
 			'no_rights' => 'Sistēmas paplašinājums (jums nav vajadzīgo atļauju)',
-		),
+		],
 		'title' => 'Paplašinājumi',
 		'update' => 'Pieejams atjauninājums',
 		'user' => 'Lietotāja paplašinājumi',
 		'version' => 'Versija',
-	),
-	'stats' => array(
+	],
+	'stats' => [
 		'_' => 'Statistika',
 		'all_feeds' => 'Visas barotnes',
 		'category' => 'Kategorija',
@@ -155,49 +155,49 @@ return array(
 		'status_unread' => 'Neizlasīti',
 		'title' => 'Statistika',
 		'top_feed' => 'Top 10 barotnes',
-	),
-	'system' => array(
+	],
+	'system' => [
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
-		'base-url' => array(
+		'base-url' => [
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
-		),
-		'cookie-duration' => array(
+		],
+		'cookie-duration' => [
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',
-		),
+		],
 		'force_email_validation' => 'Piespiedu e-pasta adreses validēšana',
 		'instance-name' => 'Instances nosaukums',
 		'max-categories' => 'Maksimālais kategoriju skaits vienam lietotājam',
 		'max-feeds' => 'Maksimālais barotņu skaits vienam lietotājam',
-		'registration' => array(
+		'registration' => [
 			'number' => 'Maksimālais kontu skaits',
-			'select' => array(
+			'select' => [
 				'label' => 'Reģistrācijas veidlapa',
-				'option' => array(
+				'option' => [
 					'noform' => 'Atspējots: Nav reģistrācijas veidlapas',
 					'nolimit' => 'Ieslēgts: Kontu skaits nav ierobežots',
 					'setaccountsnumber' => 'Maksimālā kontu skaita iestatīšana',
-				),
-			),
-			'status' => array(
+				],
+			],
+			'status' => [
 				'disabled' => 'Veidlapa atspējota',
 				'enabled' => 'Veidlapa ieslēgta',
-			),
+			],
 			'title' => 'Lietotāja reģistrācijas veidlapa',
-		),
+		],
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
-		'tos' => array(
+		'tos' => [
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
 			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
-		),
-		'websub' => array(
+		],
+		'websub' => [
 			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
-		),
-	),
-	'update' => array(
+		],
+	],
+	'update' => [
 		'_' => 'Atjaunināt sistēmu',
 		'apply' => 'Pieteikties',
 		'changelog' => 'Changelog',	// TODO
@@ -207,15 +207,15 @@ return array(
 		'last' => 'Pēdējā verifikācija',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
-		'releaseChannel' => array(
+		'releaseChannel' => [
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
 			'latest' => 'Stable release (“latest”)',	// TODO
-		),
+		],
 		'title' => 'Atjaunināt sistēmu',
 		'viaGit' => 'Update via git and Github.com started',	// TODO
-	),
-	'user' => array(
+	],
+	'user' => [
 		'admin' => 'Administrators',
 		'article_count' => 'Raksti',
 		'back_to_manage' => '← Atgriezties lietotāju sarakstā',
@@ -234,5 +234,5 @@ return array(
 		'password_format' => 'Vismaz 7 rakstzīmes',
 		'title' => 'Pārvaldīt lietotājus',
 		'username' => 'Lietotājvārds',
-	),
-);
+	],
+];

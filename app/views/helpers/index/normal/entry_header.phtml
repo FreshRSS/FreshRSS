@@ -17,7 +17,7 @@
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
-				$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $this->entry->id()));
+				$arUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
@@ -27,7 +27,7 @@
 		}
 		if ($topline_favorite) {
 			?><li class="item manage"><?php
-				$arUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $this->entry->id()));
+				$arUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}

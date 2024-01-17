@@ -3,7 +3,7 @@
 # Do not modify this file, which defines default values, but create a
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
-return array (
+return  [
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
@@ -54,7 +54,7 @@ return array (
 
 	'sort_order' => 'DESC',
 	'anon_access' => false,
-	'mark_when' => array (
+	'mark_when' => [
 		'article' => true,
 		'gone' => false,
 		'max_n_unread' => false,
@@ -63,12 +63,12 @@ return array (
 		'scroll' => false,
 		'focus' => false,
 		'site' => true,
-	),
+	],
 	'filters' => [],
 	'theme' => 'Origine',
 	'darkMode' => 'no',
 	'content_width' => 'thin',
-	'shortcuts' => array (
+	'shortcuts' => [
 		'actualize' => 'q',
 		'mark_read' => 'r',
 		'mark_favorite' => 'f',
@@ -92,7 +92,7 @@ return array (
 		'reading_view' => '3',
 		'rss_view' => '4',
 		'toggle_media' => 'v',
-	),
+	],
 
 	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds
 	'show_favicons' => true,
@@ -115,14 +115,14 @@ return array (
 	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
-	'sharing' => array (
-	),
-	'queries' => array (
-	),
+	'sharing' => [
+	],
+	'queries' => [
+	],
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
 	# Extensions configurations
 	'extensions' => [],
-);
+];

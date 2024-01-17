@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Arşiv',
 		'exception' => 'Temizlik ifadeleri',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Şimdi temizle',
 		'title' => 'Arşiv',
 		'ttl' => 'Şu süreden sık otomatik yenileme yapma',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Görünüm',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',	// TODO
 			'auto' => 'Auto',	// TODO
 			'no' => 'No',	// TODO
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',
 			'entry' => 'Makale ikonları',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Paylaşım',
 			'summary' => 'Özet',
 			'top_line' => 'Üst çizgi',
-		),
+		],
 		'language' => 'Dil',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'saniye (0 zaman aşımı yok demektir)',
 			'timeout' => 'HTML5 bildirim zaman aşımı',
-		),
+		],
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Tema',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',	// TODO
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
-			),
-		),
+			],
+		],
 		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Önizleme',
 			'landscape' => 'Manzara',
 			'none' => 'Hiçbiri',
 			'portrait' => 'Portre',
 			'square' => 'Kare',
-		),
+		],
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'Görünüm',
-		'website' => array(
+		'website' => [
 			'full' => 'simgesi and adı',
 			'icon' => 'Sadece simgesi',
 			'label' => 'Site',
 			'name' => 'Sadece adı',
 			'none' => 'Hiçbiri',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'İçerik genişliği',
 			'large' => 'Geniş',
 			'medium' => 'Orta',
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Log Seviyesi',
 			'message' => 'Log Mesajı',
 			'timestamp' => 'Zaman Damgası',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'İlk',
 			'last' => 'Son',
 			'next' => 'Sonraki',
 			'previous' => 'Önceki',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profil yönetimi',
 		'api' => 'API yönetimi',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',
-		),
+		],
 		'email' => 'Email adresleri',
 		'password_api' => 'API Şifresi<br /><small>(ör. mobil uygulamalar için)</small>',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Profil',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Akışa göre göster',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',
-		),
+		],
 		'get_all' => 'Tüm makaleleri göster',
 		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Okunmamış makaleleri göster',
 		'state_15' => 'Tüm makaleleri göster',
 		'title' => 'Kullanıcı sorguları',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Okuma',
 		'after_onread' => '“Hepsini okundu say” dedinten sonra,',
 		'always_show_favorites' => 'Öntanımlı olarak favori tüm makaleleri göster',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Yazarlar ve Tarih',
 				'both' => 'Üst Bilgi ve Alt Bilgide',
 				'footer' => 'Alt Bilgi',
 				'header' => 'Üst Bilgi',
 				'none' => 'Hiçbiri',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Başlıklar/Etiklerin Üstünde',
 				'none' => 'Hiçbiri',
 				'with_authors' => 'Yazarlar ve tarihler satırında',
-			),
+			],
 			'feed_title' => 'Akış Başlığı',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Etiketler',
 				'both' => 'Üst Bilgi ve Alt Bilgide',
 				'footer' => 'Alt Bilgide',
 				'header' => 'Üst Bilgide',
 				'none' => 'Hiçbiri',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Gösterilecek maksimum etiket sayısı',
 				'help' => '0: Tüm etiketleri göster ve daraltma',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Sayfa başına makale sayısı',
 		'auto_load_more' => 'Sayfa sonunda yeni makaleleri yükle',
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
 		'confirm_enabled' => '“Hepsini okundu say” eylemi için onay iste',
 		'display_articles_unfolded' => 'Katlaması açılmış makaleleri öntanımlı olarak göster',
 		'display_categories_unfolded' => 'Katlaması açılacak kategoriler',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Metinler: Açık/Kapalı',
 			'articles_header_footer' => 'Metinler: üst bilgi/alt bilgi',
 			'categories' => 'Sol navigasyon: Kategoriler',
 			'mark_as_read' => 'Metini okundu olarak işaretle',
 			'misc' => 'Çeşitli',
 			'view' => 'Görünüm',
-		),
+		],
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle (“Tüm makaleleri göster” komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için “tembel modu” kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okundu olarak işaretle',
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
 			'focus' => 'when focused (except for important feeds)',	// TODO
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
 			'when_same_title' => 'Aynı başlığa sahip daha yeni bir makale en popüler <i>n</i> yeni metinlerdeyse',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Gösterilecek makaleler',
 			'active_category' => 'Mevcut kategori',
 			'adaptive' => 'Ayarlanmış gösterim',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'Hiçbir kategori',
 			'remember_categories' => 'Açık kategorileri hatırla',
 			'unread' => 'Sadece okunmamış makaleleri göster',
-		),
+		],
 		'show_fav_unread_help' => 'Etiketlerde de uygula',
 		'sides_close_article' => 'Makale dışında bir alana tıklamak makaleyi kapatır',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Sıralama',
 			'newer_first' => 'Önce yeniler',
 			'older_first' => 'Önce eskiler',
-		),
+		],
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',
-		'view' => array(
+		'view' => [
 			'default' => 'Öntanımlı görünüm',
 			'global' => 'Evrensel görünüm',
 			'normal' => 'Normal görünüm',
 			'reader' => 'Okuma görünümü',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
 		'blogotext' => 'Blogotext',	// IGNORE
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Paylaşım',
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Kısayollar',
 		'article_action' => 'Makale eylemleri',
 		'auto_share' => 'Paylaş',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Kullanıcı filtrelerine eriş',
 		'user_filter_help' => 'Eğer tek filtre varsa o kullanılır. Yoksa filtrelerin kendi numaralarıyla kullanılır.',
 		'views' => 'Görüntülenme',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s makale (%s)',
 		'current' => 'Mevcut kullanıcı',
 		'is_admin' => 'yöneticidir',
 		'users' => 'Kullanıcılar',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'archiving' => array(
+return [
+	'archiving' => [
 		'_' => 'Archiving',
 		'exception' => 'Purge exception',
 		'help' => 'More options are available in the individual feed’s settings',
@@ -29,15 +29,15 @@ return array(
 		'purge_now' => 'Purge now',
 		'title' => 'Archiving',
 		'ttl' => 'Do not automatically refresh more often than',
-	),
-	'display' => array(
+	],
+	'display' => [
 		'_' => 'Display',
-		'darkMode' => array(
+		'darkMode' => [
 			'_' => 'Automatic dark mode (beta)',
 			'auto' => 'Auto',
 			'no' => 'No',
-		),
-		'icon' => array(
+		],
+		'icon' => [
 			'bottom_line' => 'Bottom line',
 			'display_authors' => 'Authors',
 			'entry' => 'Article icons',
@@ -46,75 +46,75 @@ return array(
 			'sharing' => 'Sharing',
 			'summary' => 'Summary',
 			'top_line' => 'Top line',
-		),
+		],
 		'language' => 'Language',
-		'notif_html5' => array(
+		'notif_html5' => [
 			'seconds' => 'seconds (0 means no timeout)',
 			'timeout' => 'HTML5 notification timeout',
-		),
+		],
 		'show_nav_buttons' => 'Show the navigation buttons',
-		'theme' => array(
+		'theme' => [
 			'_' => 'Theme',
-			'deprecated' => array(
+			'deprecated' => [
 				'_' => 'Deprecated',
 				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',
-			),
-		),
+			],
+		],
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',
-		'thumbnail' => array(
+		'thumbnail' => [
 			'label' => 'Thumbnail',
 			'landscape' => 'Landscape',
 			'none' => 'None',
 			'portrait' => 'Portrait',
 			'square' => 'Square',
-		),
+		],
 		'timezone' => 'Time zone',
 		'title' => 'Display',
-		'website' => array(
+		'website' => [
 			'full' => 'Icon and name',
 			'icon' => 'Icon only',
 			'label' => 'Website',
 			'name' => 'Name only',
 			'none' => 'None',
-		),
-		'width' => array(
+		],
+		'width' => [
 			'content' => 'Content width',
 			'large' => 'Wide',
 			'medium' => 'Medium',
 			'no_limit' => 'Full Width',
 			'thin' => 'Narrow',
-		),
-	),
-	'logs' => array(
-		'loglist' => array(
+		],
+	],
+	'logs' => [
+		'loglist' => [
 			'level' => 'Log Level',
 			'message' => 'Log Message',
 			'timestamp' => 'Timestamp',
-		),
-		'pagination' => array(
+		],
+		'pagination' => [
 			'first' => 'First',
 			'last' => 'Last',
 			'next' => 'Next',
 			'previous' => 'Previous',
-		),
-	),
-	'profile' => array(
+		],
+	],
+	'profile' => [
 		'_' => 'Profile management',
 		'api' => 'API management',
-		'delete' => array(
+		'delete' => [
 			'_' => 'Account deletion',
 			'warn' => 'Your account and all related data will be deleted.',
-		),
+		],
 		'email' => 'Email address',
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Profile',
-	),
-	'query' => array(
+	],
+	'query' => [
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
-		'filter' => array(
+		'filter' => [
 			'_' => 'Filter applied:',
 			'categories' => 'Display by category',
 			'feeds' => 'Display by feed',
@@ -123,7 +123,7 @@ return array(
 			'state' => 'State',
 			'tags' => 'Display by label',
 			'type' => 'Type',
-		),
+		],
 		'get_all' => 'Display all articles',
 		'get_category' => 'Display “%s” category',
 		'get_favorite' => 'Display favourite articles',
@@ -151,57 +151,57 @@ return array(
 		'state_14' => 'Display unread articles',
 		'state_15' => 'Display all articles',
 		'title' => 'User queries',
-	),
-	'reading' => array(
+	],
+	'reading' => [
 		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
-		'article' => array(
-			'authors_date' => array(
+		'article' => [
+			'authors_date' => [
 				'_' => 'Authors and date',
 				'both' => 'In header and footer',
 				'footer' => 'In footer',
 				'header' => 'In header',
 				'none' => 'None',
-			),
-			'feed_name' => array(
+			],
+			'feed_name' => [
 				'above_title' => 'Above title/tags',
 				'none' => 'None',
 				'with_authors' => 'In authors and date row',
-			),
+			],
 			'feed_title' => 'Feed title',
-			'tags' => array(
+			'tags' => [
 				'_' => 'Tags',
 				'both' => 'In header and footer',
 				'footer' => 'In footer',
 				'header' => 'In header',
 				'none' => 'None',
-			),
-			'tags_max' => array(
+			],
+			'tags_max' => [
 				'_' => 'Max number of tags shown',
 				'help' => '0 means: show all tags and do not collapse them',
-			),
-		),
+			],
+		],
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the bottom of the page',
 		'auto_remove_article' => 'Hide articles after reading',
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Categories to unfold',
-		'headline' => array(
+		'headline' => [
 			'articles' => 'Articles: Open/Close',
 			'articles_header_footer' => 'Articles: header/footer',
 			'categories' => 'Left navigation: Categories',
 			'mark_as_read' => 'Mark article as read',
 			'misc' => 'Miscellaneous',
 			'view' => 'View',
-		),
+		],
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',
-		'read' => array(
+		'read' => [
 			'article_open_on_website' => 'when the article is opened on its original website',
 			'article_viewed' => 'when the article is viewed',
 			'focus' => 'when focused (except for important feeds)',
@@ -211,8 +211,8 @@ return array(
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'_' => 'Articles to display',
 			'active_category' => 'Active category',
 			'adaptive' => 'Adjust showing',
@@ -221,24 +221,24 @@ return array(
 			'no_category' => 'No category',
 			'remember_categories' => 'Remember open categories',
 			'unread' => 'Show only unread',
-		),
+		],
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
+		'sort' => [
 			'_' => 'Sort order',
 			'newer_first' => 'Newest first',
 			'older_first' => 'Oldest first',
-		),
+		],
 		'sticky_post' => 'Stick the article to the top when opened',
 		'title' => 'Reading',
-		'view' => array(
+		'view' => [
 			'default' => 'Default view',
 			'global' => 'Global view',
 			'normal' => 'Normal view',
 			'reader' => 'Reading view',
-		),
-	),
-	'sharing' => array(
+		],
+	],
+	'sharing' => [
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
@@ -256,8 +256,8 @@ return array(
 		'title' => 'Sharing',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
-	),
-	'shortcut' => array(
+	],
+	'shortcut' => [
 		'_' => 'Shortcuts',
 		'article_action' => 'Article actions',
 		'auto_share' => 'Share',
@@ -293,11 +293,11 @@ return array(
 		'user_filter' => 'Access user queries',
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',
 		'views' => 'Views',
-	),
-	'user' => array(
+	],
+	'user' => [
 		'articles_and_size' => '%s articles (%s)',
 		'current' => 'Current user',
 		'is_admin' => 'is administrator',
 		'users' => 'Users',
-	),
-);
+	],
+];

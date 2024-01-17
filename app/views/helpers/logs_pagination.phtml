@@ -13,14 +13,14 @@
 			$params[$getteur] = 1;
 		?>
 		<li class="item pager-first">
-			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
+			<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
 		</li>
 
 		<?php $params[$getteur] = $this->currentPage - 1; ?>
 
 		<li class="item pager-previous">
 			<?php if ($this->currentPage > 1) { ?>
-			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
+			<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
 			<?php } ?>
 		</li>
 
@@ -39,7 +39,7 @@
 					$class = ' active';
 					$aria = 'true';
 				} ?>
-				<li class="item<?= $class ?>"><a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>" aria-current="<?= $aria ?>"><?= $i ?></a></li>
+				<li class="item<?= $class ?>"><a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>" aria-current="<?= $aria ?>"><?= $i ?></a></li>
 			<?php
 			}
 		} ?>
@@ -52,13 +52,13 @@
 
 		<li class="item pager-next">
 			<?php if ($this->currentPage < $this->nbPage) { ?>
-			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
+			<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
 			<?php } ?>
 		</li>
 
 		<?php $params[$getteur] = $this->nbPage; ?>
 		<li class="item pager-last">
-			<a href="<?= Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
+			<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
 		</li>
 	</ul>
 </nav>
