@@ -13,15 +13,15 @@ $params = [
 $options = getopt('', $params);
 
 if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
-$parameters = [
-	'long' => [
-		'user' => ':',
-		'max-feed-entries' => ':',
-	],
-	'short' => [],
-	'deprecated' => [],
-];
-
+	$parameters = [
+		'long' => [
+			'user' => ':',
+			'max-feed-entries' => ':',
+		],
+		'short' => [],
+		'deprecated' => [],
+	];
+}
 $options = parseCliParams($parameters);
 
 if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
@@ -38,7 +38,7 @@ fwrite(STDERR, 'FreshRSS exporting ZIP for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
 
-$number_entries = empty($options['valid']['max-feed-entries']) ? 100 : intval($options['valid']['max-feed-entries']);
+$number_entries = empty($options['valid']['max-feed-entries']) ? 100 : (int) $options['valid']['max-feed-entries'];
 $exported_files = [];
 
 // First, we generate the OPML file
