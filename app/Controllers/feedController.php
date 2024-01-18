@@ -30,8 +30,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @param array<string,mixed> $attributes
 	 * @throws FreshRSS_AlreadySubscribed_Exception
-	 * @throws FreshRSS_FeedNotAdded_Exception
+	 * @throws FreshRSS_BadUrl_Exception
 	 * @throws FreshRSS_Feed_Exception
+	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws Minz_FileNotExistException
 	 */
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
@@ -874,7 +875,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws JsonException
 	 * @throws Minz_PDOConnectionException
 	 */
 	public static function renameFeed(int $feed_id, string $feed_name): bool {

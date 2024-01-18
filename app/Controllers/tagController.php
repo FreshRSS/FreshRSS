@@ -160,7 +160,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException|JsonException
+	 * @throws Minz_PDOConnectionException
 	 */
 	public function renameAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {

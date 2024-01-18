@@ -3,8 +3,8 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$parameters = array(
-	'valid' => array(
+$parameters = [
+	'long' => [
 		'environment' => ':',
 		'base-url' => ':',
 		'language' => ':',
@@ -22,8 +22,9 @@ $parameters = array(
 		'db-password' => ':',
 		'db-base' => ':',
 		'db-prefix' => '::',
-	),
-	'deprecated' => array(
+	],
+	'short' => [],
+	'deprecated' => [
 		'base-url' => 'base_url',
 		'default-user' => 'default_user',
 		'allow-anonymous' => 'allow_anonymous',
@@ -32,10 +33,10 @@ $parameters = array(
 		'api-enabled' => 'api_enabled',
 		'allow-robots' => 'allow_robots',
 		'disable-update' => 'disable_update',
-	),
-);
+	],
+];
 
-$configParams = array(
+$configParams = [
 	'environment',
 	'base-url',
 	'language',
@@ -47,16 +48,16 @@ $configParams = array(
 	'api-enabled',
 	'allow-robots',
 	'disable-update',
-);
+];
 
-$dBconfigParams = array(
+$dBconfigParams = [
 	'db-type' => 'type',
 	'db-host' => 'host',
 	'db-user' => 'user',
 	'db-password' => 'password',
 	'db-base' => 'base',
 	'db-prefix' => 'prefix',
-);
+];
 
 $options = parseCliParams($parameters);
 

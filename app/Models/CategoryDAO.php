@@ -101,7 +101,6 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	/**
 	 * @param array{'name':string,'id'?:int,'kind'?:int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string|array<string,mixed>} $valuesTmp
 	 * @return int|false
-	 * @throws JsonException
 	 */
 	public function addCategory(array $valuesTmp) {
 		// TRIM() to provide a type hint as text
@@ -155,7 +154,6 @@ SQL;
 	/**
 	 * @param array{'name':string,'kind':int,'attributes'?:array<string,mixed>|mixed|null} $valuesTmp
 	 * @return int|false
-	 * @throws JsonException
 	 */
 	public function updateCategory(int $id, array $valuesTmp) {
 		// No tag of the same name
@@ -430,7 +428,7 @@ SQL;
 	 * 	'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category>
 	 */
-	private static function daoToCategoryPrepopulated(array $listDAO) {
+	private static function daoToCategoryPrepopulated(array $listDAO): array {
 		$list = [];
 		$previousLine = [];
 		$feedsDao = [];

@@ -508,7 +508,10 @@ function printStep1(): void {
 <?php
 }
 
-/* Select database & configuration */
+/**
+ * Select database & configuration
+ * @throws Minz_ConfigurationNamespaceException
+ */
 function printStep2(): void {
 	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
 	$s2 = checkStep2();

@@ -65,7 +65,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *
 	 * It forwards to the correct login page (form) or main page if
 	 * the user is already connected.
-	 * @throws Minz_ConfigurationParamException
 	 */
 	public function loginAction(): void {
 		if (FreshRSS_Auth::hasAccess() && Minz_Request::paramString('u') === '') {

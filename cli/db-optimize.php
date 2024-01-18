@@ -5,17 +5,21 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
-	'user:',
-);
+$parameters = [
+	'long' => [
+		'user' => ':',
+	],
+	'short' => [],
+	'deprecated' => [],
+];
 
-$options = getopt('', $params);
+$options = parseCliParams($parameters);
 
-if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
+if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username");
 }
 
-$username = cliInitUser($options['user']);
+$username = cliInitUser($options['valid']['user']);
 
 echo 'FreshRSS optimizing database for user “', $username, "”…\n";
 

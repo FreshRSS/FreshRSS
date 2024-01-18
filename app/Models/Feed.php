@@ -65,6 +65,9 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $hubUrl = '';
 	private string $selfUrl = '';
 
+	/**
+	 * @throws FreshRSS_BadUrl_Exception
+	 */
 	public function __construct(string $url, bool $validate = true) {
 		if ($validate) {
 			$this->_url($url);
@@ -248,6 +251,9 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->id = $value;
 	}
 
+	/**
+	 * @throws FreshRSS_BadUrl_Exception
+	 */
 	public function _url(string $value, bool $validate = true): void {
 		$this->hash = '';
 		$url = $value;
@@ -323,9 +329,16 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbEntries = $value;
 	}
 
+	/**
+	 * @throws Minz_FileNotExistException
+	 * @throws FreshRSS_Feed_Exception
+	 */
 	public function load(bool $loadDetails = false, bool $noCache = false): ?SimplePie {
 		if ($this->url != '') {
-			// @phpstan-ignore-next-line
+			/**
+			 * @phpstan-ignore-next-line
+			 * @throws Minz_FileNotExistException
+			 */
 			if (CACHE_PATH == '') {
 				throw new Minz_FileNotExistException(
 					'CACHE_PATH',
@@ -615,9 +628,6 @@ class FreshRSS_Feed extends Minz_Model {
 		];
 	}
 
-	/**
-	 * @throws FreshRSS_Context_Exception
-	 */
 	public function loadJson(): ?SimplePie {
 		if ($this->url == '') {
 			return null;
@@ -654,9 +664,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->simplePieFromContent($feedContent);
 	}
 
-	/**
-	 * @throws FreshRSS_Context_Exception
-	 */
 	public function loadHtmlXpath(): ?SimplePie {
 		if ($this->url == '') {
 			return null;
@@ -799,7 +806,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * @return int|null The max number of unread articles to keep, or null if disabled.
-	 * @throws JsonException
 	 */
 	public function keepMaxUnread() {
 		$keepMaxUnread = $this->attributeInt('keep_max_n_unread');
@@ -881,7 +887,10 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	/** @param array<string,mixed> $attributes */
+	/**
+	 * @param array<string,mixed> $attributes
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
 		$simplePie = customSimplePie($attributes);
 		$filename = $simplePie->get_cache_filename($url);
