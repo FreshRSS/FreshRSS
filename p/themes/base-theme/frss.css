@@ -1097,23 +1097,9 @@ li.drag-hover {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-	display: table-cell;
-	vertical-align: top;
-	width: 4rem;
-}
-
 a:hover .logo {
 	filter: brightness(1.4);
 	transition: filter 0.1s linear;
-}
-
-.header .logo {
-	display: none;
-}
-
-.header .group {
-	flex-direction: column;
 }
 
 #aside_feed .logo {
@@ -1121,21 +1107,34 @@ a:hover .logo {
 	width: 120px;
 }
 
-.header > .item.configure {
-	width: 100px;
-}
+@media (min-width: 841px) {
+	.header {
+		display: table-cell;
+		vertical-align: top;
+		width: 4rem;
+	}
 
-.header .nav-header {
-	padding: 1rem 0.5rem 2rem 0.5rem;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	box-sizing: border-box;
-	justify-content: space-between;
-}
+	.header .logo {
+		display: none;
+	}
 
-.header #header_menu_configs .dropdown {
-	margin-top: 1rem;
+	.header .group {
+		flex-direction: column;
+	}
+
+	.header .nav-header {
+		padding: 1rem 0.5rem 2rem 0.5rem;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		box-sizing: border-box;
+		justify-content: space-between;
+	}
+
+	.header #header_menu_configs .dropdown {
+		margin-top: 1rem;
+	}
+
 }
 
 input[type="search"] {
@@ -2139,7 +2138,7 @@ html.slider-active {
 .nav_menu {
 	position: sticky;
 	top: 0;
-	z-index: 1000;
+	z-index: 98;
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
 	background: inherit;
@@ -2220,19 +2219,25 @@ html.slider-active {
 
 	.header {
 		display: block;
-		width: auto;
-		height: 55px;
+		height: 3.5rem;
 	}
 
 	.header .nav-header {
-		padding: 0.5rem 2rem 0.5rem 1rem ;
+		padding: 0.5rem 2rem 0.5rem 1rem;
+		display: flex;
 		flex-direction: row;
 		width: auto;
-		height: 55px;
+		height: 3.5rem;
+		box-sizing: border-box;
+		justify-content: space-between;
 	}
 
 	.header .group {
 		flex-direction: row;
+	}
+
+	header.header .dropdown-menu {
+		left: 0;
 	}
 
 	.header #header_menu_configs .dropdown {
@@ -2240,7 +2245,7 @@ html.slider-active {
 	}
 
 	#maincolumn-inner {
-		height: calc(100vh - 55px);
+		height: calc(100vh - 3.5rem);
 	}
 
 	.aside,

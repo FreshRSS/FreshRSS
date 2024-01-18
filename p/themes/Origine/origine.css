@@ -1141,6 +1141,12 @@ a:hover .icon {
 		text-align: right;
 	}
 
+	header.header .group .btn,
+	header.header #header_menu_configs.group .btn {
+		width: auto;
+		height: 100%;
+	}
+
 	main#maincolumn {
 		display: block;
 	}
