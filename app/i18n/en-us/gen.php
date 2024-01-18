@@ -174,7 +174,7 @@ return array(
 		'configuration' => 'Configuration',	// IGNORE
 		'display' => 'Display',	// IGNORE
 		'extensions' => 'Extensions',	// IGNORE
-		'help' => 'Help',
+		'help' => 'Help',	// IGNORE
 		'logs' => 'Logs',	// IGNORE
 		'queries' => 'User queries',	// IGNORE
 		'reading' => 'Reading',	// IGNORE
