@@ -159,7 +159,6 @@
 						<a class="btn dropdown-toggle" href="#dropdown-configure" title="<?= _t('gen.menu.admin') ?>"><?= _i('configure') ?></a>
 						<ul class="dropdown-menu scrollbar-thin">
 							<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
-							<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 							<li class="item dropdown-section">
 								<div class="dropdown-section-title">
 									<?= _t('gen.menu.admin') ?>
@@ -175,7 +174,6 @@
 									<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
 								</ul>
 							</li>
-							<?php } ?>
 						</ul>
 						<a class="dropdown-close" href="#close">❌</a>
 					</div>
