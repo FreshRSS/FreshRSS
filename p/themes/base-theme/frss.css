@@ -479,8 +479,7 @@ td.numeric {
 }
 
 .stick > input {
-	margin-top: 0;
-	margin-bottom: 0;
+	margin: 0;
 }
 
 .stick > input.long {
