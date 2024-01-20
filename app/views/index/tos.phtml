@@ -5,7 +5,7 @@
 		$this->partial('aside_configure');
 	}
 ?>
-<main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
+<main id="maincolumn" class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
 	<div id="maincolumn-inner">
 		<?php if (FreshRSS_Auth::hasAccess()) {?>
 			<div class="link-back-wrapper">
@@ -27,11 +27,11 @@
 
 		<h1><?= _t('index.tos.title')?></h1>
 		<?= $this->terms_of_service ?>
+
+		<?php if (!FreshRSS_Auth::hasAccess()) { ?>
+			<nav class="main-footer">
+				<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+			</nav>
+		<?php } ?>
 	</div>
 </main>
-
-<?php if (!FreshRSS_Auth::hasAccess()) { ?>
-<footer class="main-footer">
-	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
-</footer>
-<?php } ?>

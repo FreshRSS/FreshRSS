@@ -103,9 +103,12 @@ main#maincolumn {
 	height: 100%;
 }
 
-footer.main-footer {
-	margin: 0 2rem 2rem;
-	padding: 1rem;
+.content-max500px {
+	max-width: 500px;
+}
+
+.main-footer {
+	padding: 4rem;
 	text-align: center;
 }
 
