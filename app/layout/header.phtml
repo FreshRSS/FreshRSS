@@ -10,6 +10,14 @@
 		<?php
 		}
 
+		if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
+			<div id="header_menu_login" class="group">
+				<a class="signin btn btn-important" href="<?= _url('auth', 'login') ?>">
+					<?= _i('login') ?><span class="label"><?= _t('gen.auth.login') ?></span>
+				</a>
+			</div>
+		<?php }
+
 		if (FreshRSS_Auth::hasAccess()) { ?>
 			<div id="header_menu_feedsmgmt" class="group">
 				<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'index') ?>" title="<?= _t('index.menu.subscription') ?>">
@@ -178,11 +186,7 @@
 						<a class="dropdown-close" href="#close">❌</a>
 					</div>
 				<?php }
-			} elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
-			<div class="item configure">
-				<a class="signin" href="<?= _url('auth', 'login') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
-			</div>
-			<?php } ?>
+			} ?>
 		</div>
 	</nav>
 </header>
