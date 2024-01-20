@@ -1049,7 +1049,6 @@ li.drag-hover {
 .tree {
 	margin: 0;
 	list-style: none;
-	text-align: right;
 	overflow-x: hidden;
 }
 
@@ -1102,11 +1101,6 @@ li.drag-hover {
 a:hover .logo {
 	filter: brightness(1.4);
 	transition: filter 0.1s linear;
-}
-
-#aside_feed .logo {
-	margin: 0.5rem 3rem;
-	width: 120px;
 }
 
 @media (min-width: 841px) {
@@ -1171,9 +1165,15 @@ input[type="search"] {
 	width: 300px;
 }
 
-.aside .logo {
+.aside .logo-wrapper {
+	text-align: center;
+	padding: 0.5rem 1rem;
+}
+
+.aside .logo-wrapper .logo {
+	padding: 0.5rem;
 	display: inline-block;
-	height: 2.5rem;
+	height: 1.5rem;
 	vertical-align: middle;
 }
 
