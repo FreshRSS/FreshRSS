@@ -460,8 +460,8 @@ a:hover .icon {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 5px 0 0;
-	padding: 5px 0;
+	margin: 0.5rem 0 0;
+	padding: 0.5rem 0;
 	background-color: var(--background-color-light);
 	font-size: 0.8rem;
 	border: 1px solid var(--border-color);
@@ -1126,20 +1126,6 @@ a:hover .icon {
 		width: 100%;
 	}
 
-	.header > .item {
-		padding: 0.5rem 1rem;
-	}
-
-	.header > .item.title {
-		width: 75%;
-		text-align: left;
-	}
-
-	.header > .item.configure {
-		width: 25%;
-		text-align: right;
-	}
-
 	header.header .group .btn,
 	header.header #header_menu_configs.group .btn {
 		width: auto;
@@ -1174,10 +1160,16 @@ a:hover .icon {
 		padding: 0;
 	}
 
+	.header .group,
+	.nav_menu .group {
+		margin: 0.25rem 0.5rem;
+	}
+
+	.header .btn,
 	.nav_menu .btn {
-		margin: 5px 10px;
-		padding: 3px 5px;
+		padding: 0.25rem 0.25rem;
 		min-height: 0;
+		line-height: 1.25em;
 	}
 
 	.nav_menu .stick,
@@ -1185,8 +1177,7 @@ a:hover .icon {
 		margin: 0 10px;
 	}
 
-	.nav_menu .stick .btn,
-	.nav_menu .group .btn {
+	.nav_menu .group {
 		margin: 5px 0;
 	}
 

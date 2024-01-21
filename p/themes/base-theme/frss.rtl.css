@@ -706,36 +706,6 @@ input[type="checkbox"]:focus-visible {
 	transform: rotate(-45deg);
 }
 
-.dropdown-open-right-to-top .dropdown-menu::after {
-	border-width: 0 1px 1px 0;
-	top: auto;
-	left: auto;
-	right: -6px;
-	bottom: 22px;
-}
-
-.dropdown-open-right-to-top .dropdown-menu {
-	right: 45px;
-	bottom: -12px;
-}
-
-header.header .dropdown-menu {
-	right: 56px;
-}
-
-.dropdown-open-right-to-bottom .dropdown-menu::after {
-	border-width: 0 1px 1px 0;
-	top: 16px;
-	left: auto;
-	right: -6px;
-	bottom: auto;
-}
-
-.dropdown-open-right-to-bottom .dropdown-menu {
-	right: 45px;
-	top: -10px;
-}
-
 .dropdown-menu-scrollable {
 	max-height: min(75vh, 50em);
 	overflow-x: hidden;
@@ -1133,6 +1103,35 @@ a:hover .logo {
 
 	.header .btn .label {
 		display: block;
+		font-size: 0.6rem;
+	}
+
+	header.header .dropdown-open-right-to-top .dropdown-menu::after {
+		border-width: 0 1px 1px 0;
+		top: auto;
+		left: auto;
+		right: -6px;
+		bottom: 22px;
+	}
+
+	header.header .dropdown-open-right-to-top .dropdown-menu {
+		bottom: -12px;
+	}
+
+	header.header .dropdown-menu {
+		right: calc(100% + 0.5rem);
+	}
+
+	header.header .dropdown-open-right-to-bottom .dropdown-menu::after {
+		border-width: 0 1px 1px 0;
+		top: 16px;
+		left: auto;
+		right: -6px;
+		bottom: auto;
+	}
+
+	header.header .dropdown-open-right-to-bottom .dropdown-menu {
+		top: -10px;
 	}
 
 }
@@ -2230,25 +2229,21 @@ html.slider-active {
 
 	.header {
 		display: block;
-		height: 3.5rem;
+		height: auto;
 	}
 
 	.header .nav-header {
-		padding: 0.5rem 1rem 0.5rem 2rem;
+		padding: var(--frss-padding-top-bottom) 1rem var(--frss-padding-top-bottom) 2rem;
 		display: flex;
 		flex-direction: row;
 		width: auto;
-		height: 3.5rem;
+		height: auto;
 		box-sizing: border-box;
 		justify-content: space-between;
 	}
 
 	.header .group {
 		flex-direction: row;
-	}
-
-	header.header .dropdown-menu {
-		right: 0;
 	}
 
 	.header #header_menu_configs .dropdown {
@@ -2327,7 +2322,8 @@ html.slider-active {
 	}
 
 	.dropdown .dropdown-menu {
-		width: 94%;
+		width: calc(100% - 3rem);
+		box-sizing: border-box;
 		border-radius: 0;
 		right: 3%;
 		left: 3%;
@@ -2371,8 +2367,8 @@ html.slider-active {
 		height: 10px;
 		content: "";
 		position: absolute;
-		left: 8px;
-		bottom: -17px;
+		left: 33%;
+		bottom: -1rem;
 		transform: rotate(-45deg);
 		z-index: 9999;
 		cursor: default;
@@ -2380,32 +2376,6 @@ html.slider-active {
 
 	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
 		margin-top: 10px;
-	}
-
-	.configure .dropdown .dropdown-menu {
-		width: 90%;
-		height: 100vh;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: auto;
-		position: fixed;
-		padding-top: 0;
-		margin-top: 0;
-		overflow: auto;
-		box-shadow: 3px 0 3px var(--frss-box-shadow-color-transparent);
-	}
-
-	.dropdown-open-right-to-top .dropdown-menu,
-	.dropdown-open-right-to-bottom .dropdown-menu {
-		right: 3%;
-		left: 3%;
-		bottom: auto;
-		top: 51px;
-	}
-
-	.configure .dropdown-target:target ~ .dropdown-toggle::after {
-		content: none;
 	}
 
 	.dropdown-target:target ~ .dropdown-menu {
