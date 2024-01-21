@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'すべての著者を表示する',
 		'get_category' => '“%s”カテゴリを表示する',
-		'get_favorite' => 'お気に入りの著者を表示する',
 		'get_feed' => '“%s”フィードを表示する',
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => '古い著者を最初に表示する',
 		'order_desc' => '新しい著者を最初に表示する',
 		'search' => '“%s”で検索する',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'すべての記事を表示する',
 		'state_1' => '既読の記事を表示する',
 		'state_2' => '未読の記事を表示する',

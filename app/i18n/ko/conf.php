@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => '모든 글 표시',
 		'get_category' => '“%s” 카테고리 표시',
-		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '“%s” 피드 표시',
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
 		'search' => '“%s”의 검색 결과',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
 		'state_2' => '읽지 않은 글 표시',

@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => '顯示所有文章',
 		'get_category' => '顯示分類 “%s”',
-		'get_favorite' => '顯示收藏文章',
 		'get_feed' => '顯示訂閱源 “%s”',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => '由舊至新顯示文章',
 		'order_desc' => '由新至舊顯示文章',
 		'search' => '搜尋 “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '顯示所有文章',
 		'state_1' => '顯示已讀文章',
 		'state_2' => '顯示未讀文章',

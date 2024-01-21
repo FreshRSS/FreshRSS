@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Mostrar totes los articles',
 		'get_category' => 'Mostrar la categoria « %s »',
-		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Mostrar los articles mai ancians en primièr',
 		'order_desc' => 'Mostrar los articles mai recents en primièr',
 		'search' => 'Recèrca de « %s »',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostrar totes los articles',
 		'state_1' => 'Mostrar los articles pas legits',
 		'state_2' => 'Mostrar los articles pas legits',

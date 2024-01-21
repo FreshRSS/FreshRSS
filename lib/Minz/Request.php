@@ -187,6 +187,7 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init(): void {
+		self::_params($_GET);
 		self::initJSON();
 	}
 

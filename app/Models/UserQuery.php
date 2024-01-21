@@ -18,12 +18,25 @@ class FreshRSS_UserQuery {
 	private FreshRSS_BooleanSearch $search;
 	private int $state = 0;
 	private string $url = '';
+	private string $token = '';
 	private ?FreshRSS_FeedDAO $feed_dao;
 	private ?FreshRSS_CategoryDAO $category_dao;
 	private ?FreshRSS_TagDAO $tag_dao;
 
+	public static function generateToken(string $salt): string {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			return '';
+		}
+		$hash = md5(FreshRSS_Context::systemConf()->salt . $salt . random_bytes(16));
+		if (function_exists('gmp_init')) {
+			// Shorten the hash if possible by converting from base 16 to base 62
+			$hash = gmp_strval(gmp_init($hash, 16), 62);
+		}
+		return $hash;
+	}
+
 	/**
-	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string} $query
+	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string} $query
 	 */
 	public function __construct(array $query, FreshRSS_FeedDAO $feed_dao = null, FreshRSS_CategoryDAO $category_dao = null, FreshRSS_TagDAO $tag_dao = null) {
 		$this->category_dao = $category_dao;
@@ -49,6 +62,11 @@ class FreshRSS_UserQuery {
 		if (!isset($query['search'])) {
 			$query['search'] = '';
 		}
+		if (empty($query['token'])) {
+			$this->token = self::generateToken($this->name);
+		} else {
+			$this->token = $query['token'];
+		}
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search']);
 		if (!empty($query['state'])) {
@@ -59,7 +77,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}
+	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
@@ -69,6 +87,7 @@ class FreshRSS_UserQuery {
 			'search' => $this->search->__toString(),
 			'state' => $this->state,
 			'url' => $this->url,
+			'token' => $this->token,
 		]);
 	}
 
@@ -77,7 +96,7 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet(string $get): void {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfst])(_(?P<id>\d+))?/', $get, $matches)) {
+		if (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
@@ -234,4 +253,20 @@ class FreshRSS_UserQuery {
 		return $this->url;
 	}
 
+	public function getToken(): string {
+		return $this->token;
+	}
+
+	protected function sharedUrl(): string {
+		$currentUser = Minz_User::name() ?? '';
+		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}");
+	}
+
+	public function sharedUrlRss(): string {
+		return $this->sharedUrl() . '&f=rss';
+	}
+
+	public function sharedUrlHtml(): string {
+		return $this->sharedUrl() . '&f=html';
+	}
 }

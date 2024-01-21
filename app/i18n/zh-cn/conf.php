@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => '显示所有文章',
 		'get_category' => '显示分类 “%s”',
-		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 “%s”',
 		'name' => '名称',
 		'no_filter' => '无过滤器',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => '由旧至新显示文章',
 		'order_desc' => '由新至旧显示文章',
 		'search' => '搜索 “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
 		'state_2' => '显示未读文章',

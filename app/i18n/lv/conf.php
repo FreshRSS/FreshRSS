@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Rādīt visus rakstus',
 		'get_category' => 'Rādīt kategoriju “%s”',
-		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
 		'state_2' => 'Rādīt nelasītos rakstus',

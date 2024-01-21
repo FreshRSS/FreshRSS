@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Display all articles',	// IGNORE
 		'get_category' => 'Display “%s” category',	// IGNORE
-		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display “%s” feed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Display oldest articles first',	// IGNORE
 		'order_desc' => 'Display newest articles first',	// IGNORE
 		'search' => 'Search for “%s”',	// IGNORE
+		'share' => array(
+			'_' => 'Share this query by link',	// IGNORE
+			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
+			'html' => 'Shareable link to the HTML page',	// IGNORE
+			'rss' => 'Shareable link to the RSS feed',	// IGNORE
+		),
 		'state_0' => 'Display all articles',	// IGNORE
 		'state_1' => 'Display read articles',	// IGNORE
 		'state_2' => 'Display unread articles',	// IGNORE

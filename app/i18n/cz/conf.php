@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit kategorii „%s“',
-		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit kanál „%s“',
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
 		'search' => 'Hledat „%s“',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
 		'state_2' => 'Zobrazit nepřečtené články',

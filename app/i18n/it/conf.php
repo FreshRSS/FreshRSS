@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Mostra tutti gli articoli',
 		'get_category' => 'Mostra la categoria “%s” ',
-		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed “%s” ',
 		'name' => 'Nome',
 		'no_filter' => 'Nessun filtro',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
 		'search' => 'Cerca per “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
 		'state_2' => 'Mostra gli articoli non letti',

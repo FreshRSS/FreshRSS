@@ -21,8 +21,19 @@
 				<input type="text" name="name" id="name" value="<?= $this->query->getName()  ?>" />
 			</div>
 		</div>
-		<legend><?= _t('conf.query.filter') ?></legend>
 
+		<legend><?= _t('conf.query.share') ?></legend>
+		<div class="form-group">
+			<div class="group-controls">
+				<ul>
+					<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
+					<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
+				</ul>
+				<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+			</div>
+		</div>
+
+		<legend><?= _t('conf.query.filter') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 			<div class="group-controls">
@@ -58,22 +69,24 @@
 			<label class="group-name" for="query_get"><?= _t('conf.query.filter.type') ?></label>
 			<div class="group-controls">
 				<select name="query[get]" id="query_get" size="10">
-					<option value=""></option>
-					<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('conf.query.get_favorite') ?></option>
+					<option value="a" <?= in_array($this->query->getGet(), ['', 'a'], true) ? 'selected="selected"' : '' ?>><?= _t('index.feed.title') ?></option>
+					<option value="i" <?= 'i' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.important') ?></option>
+					<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.feed.title_fav') ?></option>
+					<option value="T" <?= 'T' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.tags') ?></option>
+					<optgroup label="<?= _t('conf.query.filter.tags') ?>">
+						<?php foreach ($this->tags as $tag): ?>
+							<option value="t_<?= $tag->id() ?>" <?= "t_{$tag->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $tag->name() ?></option>
+						<?php endforeach?>
+					</optgroup>
 					<optgroup label="<?= _t('conf.query.filter.categories') ?>">
 						<?php foreach ($this->categories as $category): ?>
 							<option value="c_<?= $category->id() ?>" <?= "c_{$category->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $category->name() ?></option>
 						<?php endforeach?>
 					</optgroup>
 					<optgroup label="<?= _t('conf.query.filter.feeds') ?>">
-					<?php foreach ($this->feeds as $feed): ?>
-						<option value="f_<?= $feed->id() ?>" <?= "f_{$feed->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $feed->name() ?></option>
-					<?php endforeach?>
-					</optgroup>
-					<optgroup label="<?= _t('conf.query.filter.tags') ?>">
-					<?php foreach ($this->tags as $tag): ?>
-						<option value="t_<?= $tag->id() ?>" <?= "t_{$tag->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $tag->name() ?></option>
-					<?php endforeach?>
+						<?php foreach ($this->feeds as $feed): ?>
+							<option value="f_<?= $feed->id() ?>" <?= "f_{$feed->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $feed->name() ?></option>
+						<?php endforeach?>
 					</optgroup>
 				</select>
 			</div>

@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Minden cikk megjelenítése',
 		'get_category' => 'Listáz “%s” kategóriát',
-		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Régebbi cikkek előre',
 		'order_desc' => 'Újabb cikkek előre',
 		'search' => 'Keresse a “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Minden cikk',
 		'state_1' => 'Olvasott cikkek',
 		'state_2' => 'Olvasatlan cikkek',

@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => ' نمایش همه مقالات',
 		'get_category' => ' دسته «%s» را نمایش دهید',
-		'get_favorite' => ' نمایش مقالات مورد علاقه',
 		'get_feed' => ' فید "%s" را نمایش دهید',
 		'name' => ' نام',
 		'no_filter' => ' بدون فیلتر',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => ' ابتدا قدیمی ترین مقالات را نمایش دهید',
 		'order_desc' => ' ابتدا جدیدترین مقالات را نمایش دهید',
 		'search' => ' «%s» را جستجو کنید',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'نمایش همه مقالات',
 		'state_1' => 'نمایش مقالات خوانده شده',
 		'state_2' => 'نمایش مقالات خوانده نشده',

@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Показать все статьи',
 		'get_category' => 'Показать категорию “%s”',
-		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту “%s”',
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
 		'search' => 'Искать “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
 		'state_2' => 'Показать непрочитанные статьи',

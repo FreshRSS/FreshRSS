@@ -126,7 +126,6 @@ return array(
 		),
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon „%s” categorie',
-		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon „%s” feed',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
@@ -134,6 +133,12 @@ return array(
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
 		'search' => 'Zoek naar „%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
 		'state_2' => 'Toon ongelezen artikelen',

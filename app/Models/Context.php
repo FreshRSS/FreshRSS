@@ -187,17 +187,19 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function updateUsingRequest(): void {
-		if (empty(self::$categories)) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
-			self::$categories = $catDAO->listSortedCategories();
-		}
+	public static function updateUsingRequest(bool $computeStats = true): void {
+		if ($computeStats) {
+			if (empty(self::$categories)) {
+				$catDAO = FreshRSS_Factory::createCategoryDao();
+				self::$categories = $catDAO->listSortedCategories();
+			}
 
-		// Update number of read / unread variables.
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		self::$total_starred = $entryDAO->countUnreadReadFavorites();
-		self::$total_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_MAIN_STREAM);
-		self::$total_important_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_IMPORTANT);
+			// Update number of read / unread variables.
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			self::$total_starred = $entryDAO->countUnreadReadFavorites();
+			self::$total_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_MAIN_STREAM);
+			self::$total_important_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_IMPORTANT);
+		}
 
 		self::_get(Minz_Request::paramString('get') ?: 'a');
 
