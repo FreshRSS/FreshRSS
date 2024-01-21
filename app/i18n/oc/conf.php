@@ -17,7 +17,7 @@ return array(
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_favourites' => 'Jamai suprimir los favorits',
 		'keep_labels' => 'Jamai suprimir las etiquetas',
-		'keep_max' => 'Nombre maximum d’articles de gardar',
+		'keep_max' => 'Nombre maximum d’articles de gardar per flux',
 		'keep_min_by_feed' => 'Nombre minimum d’articles de servar per flux',
 		'keep_period' => 'Atge maximum dels articles de gardar',
 		'keep_unreads' => 'Jamai suprimir los pas legits',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Afichatge',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
 			'display_authors' => 'Autors',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
-		'theme' => 'Tèma',
+		'theme' => array(
+			'_' => 'Tèma',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Lo tèma « %s » es pas pus disponible. Causissètz un autre tèma.',
 		'thumbnail' => array(
 			'label' => 'Vinheta',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Retrach',
 			'square' => 'Carrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Afichatge',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Largor del contengut',
 			'large' => 'Larga',
@@ -185,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
-			'scroll' => 'en davalant la pagina',
+			'scroll' => 'en davalant la pagina (except for important feeds)',	// DIRTY
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',

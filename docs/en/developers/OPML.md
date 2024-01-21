@@ -17,17 +17,19 @@ FreshRSS uses the XML namespace <https://freshrss.org/opml> to export/import ext
 
 The list of the custom FreshRSS attributes can be seen in [the source code](https://github.com/FreshRSS/FreshRSS/blob/edge/app/views/helpers/export/opml.phtml), and here is an overview:
 
-### HTML+XPath
+### HTML+XPath or XML+XPath
 
 * `<outline type="HTML+XPath" ...`: Additional type of source, which is not RSS/Atom, but HTML Web Scraping using [XPath](https://www.w3.org/TR/xpath-10/) 1.0.
 
 > ℹ️ [XPath 1.0](https://en.wikipedia.org/wiki/XPath) is a standard query language, which FreshRSS supports to enable [Web scraping](https://en.wikipedia.org/wiki/Web_scraping).
 
+* `<outline type="XML+XPath" ...`: Same than `HTML+XPath` but using an XML parser.
+
 The following attributes are using similar naming conventions than [RSS-Bridge](https://rss-bridge.github.io/rss-bridge/Bridge_API/XPathAbstract.html).
 
 * `frss:xPathItem`: XPath expression for extracting the feed items from the source page.
 	* Example: `//div[@class="news-item"]`
-* `frss:xPathItemTitle`: XPath expression for extracting the feed title from the source page.
+* `frss:xPathItemTitle`: XPath expression for extracting the item’s title from the item context.
 	* Example: `descendant::h2`
 * `frss:xPathItemContent`: XPath expression for extracting an item’s content from the item context.
 	* Example: `.`
@@ -36,10 +38,49 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:xPathItemAuthor`: XPath expression for extracting an item author from the item context.
 	* Example: `"Anonymous"`
 * `frss:xPathItemTimestamp`: XPath expression for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
+* `frss:xPathItemTimeFormat`: Date/Time format to parse the timestamp, according to [`DateTime::createFromFormat()`](https://php.net/datetime.createfromformat).
 * `frss:xPathItemThumbnail`: XPath expression for extracting an item’s thumbnail (image) URL from the item context.
 	* Example: `descendant::img/@src`
 * `frss:xPathItemCategories`: XPath expression for extracting a list of categories (tags) from the item context.
 * `frss:xPathItemUid`: XPath expression for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
+
+### JSON+DotPath
+
+* `<outline type="JSON+DotPath" ...`: Similar to `HTML+XPath` but for JSON and using a dot/bracket syntax such as `object.object.array[2].property`.
+
+* `frss:jsonItem`: JSON dot path for extracting the feed items from the source page.
+	* Example: `data.items`
+* `frss:jsonItemTitle`: JSON dot path for extracting the item’s title from the item context.
+	* Example: `meta.title`
+* `frss:jsonItemContent`: JSON dot path for extracting an item’s content from the item context.
+	* Example: `content`
+* `frss:jsonItemUri`: JSON dot path for extracting an item link from the item context.
+	* Example: `meta.links[0]`
+* `frss:jsonItemAuthor`: JSON dot path for extracting an item author from the item context.
+* `frss:jsonItemTimestamp`: JSON dot path for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
+* `frss:jsonItemTimeFormat`: Date/Time format to parse the timestamp, according to [`DateTime::createFromFormat()`](https://php.net/datetime.createfromformat).
+* `frss:jsonItemThumbnail`: JSON dot path for extracting an item’s thumbnail (image) URL from the item context.
+* `frss:jsonItemCategories`: JSON dot path for extracting a list of categories (tags) from the item context.
+* `frss:jsonItemUid`: JSON dot path for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
+
+### JSON Feed
+
+* `<outline type="JSONFeed" ...`: Uses `JSON+DotPath` behind the scenes to parse a [JSON Feed](https://www.jsonfeed.org/).
+
+### cURL
+
+A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are supported:
+
+* `frss:CURLOPT_COOKIE`
+* `frss:CURLOPT_COOKIEFILE`
+* `frss:CURLOPT_FOLLOWLOCATION`
+* `frss:CURLOPT_HTTPHEADER`
+* `frss:CURLOPT_MAXREDIRS`
+* `frss:CURLOPT_POST`
+* `frss:CURLOPT_POSTFIELDS`
+* `frss:CURLOPT_PROXY`
+* `frss:CURLOPT_PROXYTYPE`
+* `frss:CURLOPT_USERAGENT`
 
 ### Miscellaneous
 

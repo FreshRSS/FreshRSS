@@ -11,19 +11,23 @@
 
 	@include mixins.transition(all, 0.15s, ease-in-out);
 
-	&:hover {
-		background: variables.$grey-lighter;
-
-		&:not(.current):hover .item.title {
+	.flux_header {
+		&:hover {
 			background: variables.$grey-lighter;
 
-
+			&:not(.current):hover .item.title {
+				background: variables.$grey-lighter;
+			}
 		}
 	}
 
 	&.current {
 		background: variables.$white;
 		border-left-color: variables.$main-first;
+
+		&:not(.active) {
+			background: variables.$grey-lighter;
+		}
 	}
 
 	&.not_read:not(.current) {
@@ -70,10 +74,6 @@
 		a {
 			color: variables.$main-font-color;
 			opacity: 0.75;
-		}
-
-		.favicon {
-			padding: 5px;
 		}
 	}
 

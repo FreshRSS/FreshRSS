@@ -17,7 +17,7 @@ return array(
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
 		'keep_favourites' => '즐겨찾기 삭제 안 함',
 		'keep_labels' => '라벨 삭제 안 함',
-		'keep_max' => '보관할 글 최대 개수',
+		'keep_max' => '보관할 글 최대 개수',	// DIRTY
 		'keep_min_by_feed' => '피드별 보관할 글 최소 개수',
 		'keep_period' => '보관할 글 최대 기간',
 		'keep_unreads' => '읽지 않은 글 삭제 안 함',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '표시',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '하단',
 			'display_authors' => '저자',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
-		'theme' => '테마',
+		'theme' => array(
+			'_' => '테마',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” 테마는 더이상 사용할 수 없습니다. 다른 테마를 선택해 주세요.',
 		'thumbnail' => array(
 			'label' => '섬네일',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => '세로 방향',
 			'square' => '정사각형',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '표시',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => '내용 표시 너비',
 			'large' => '넓게',
@@ -106,15 +125,15 @@ return array(
 			'type' => '유형',
 		),
 		'get_all' => '모든 글 표시',
-		'get_category' => '"%s" 카테고리 표시',
+		'get_category' => '“%s” 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
-		'get_feed' => '"%s" 피드 표시',
+		'get_feed' => '“%s” 피드 표시',
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
-		'search' => '"%s"의 검색 결과',
+		'search' => '“%s”의 검색 결과',
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
 		'state_2' => '읽지 않은 글 표시',
@@ -178,15 +197,16 @@ return array(
 			'view' => '보기',
 		),
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
-		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
+		'img_with_lazyload' => '그림을 불러오는 데에 <em>lazy load</em> 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
 		'mark_updated_article_unread' => '갱신 된 글을 읽지 않음으로 표시',
 		'number_divided_when_reader' => '읽기 모드에서는 절반만 표시됩니다.',
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
-			'scroll' => '스크롤을 하며 지나갈 때',
+			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',

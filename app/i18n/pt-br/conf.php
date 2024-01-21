@@ -17,7 +17,7 @@ return array(
 		'help' => 'Mais opções estão disponíveis nas configurações individuais do Feed',
 		'keep_favourites' => 'Nunca deletar os favoritos',
 		'keep_labels' => 'Nunca deletar etiquetas',
-		'keep_max' => 'Número máximo de artigos para manter',
+		'keep_max' => 'Número máximo de artigos para manter no feed',
 		'keep_min_by_feed' => 'Número mínimo de artigos para deixar no feed',
 		'keep_period' => 'Idade máxima dos artigos a serem mantidos',
 		'keep_unreads' => 'Nunca apagar os não lidos',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Exibição',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
 			'display_authors' => 'Autores',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Notificação em HTML5 de timeout',
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
-		'theme' => 'Tema',
+		'theme' => array(
+			'_' => 'Tema',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'O tema “%s” não está mais disponível. Por favor escolha outro tema.',
 		'thumbnail' => array(
 			'label' => 'Miniatura',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Modo retrato',
 			'square' => 'Modo quadrado',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Exibição',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Largura do conteúdo',
 			'large' => 'Largo',
@@ -68,9 +87,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Nivel de Registro',
+			'message' => 'Mensagem de Registro',
+			'timestamp' => 'Data e Hora',
 		),
 		'pagination' => array(
 			'first' => 'Primeiro',
@@ -102,19 +121,19 @@ return array(
 			'order' => 'Ordenar por data',
 			'search' => 'Expressão',
 			'state' => 'Estado',
-			'tags' => 'Exibir por tag',
+			'tags' => 'Exibir por tag',	// DIRTY
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostrar todos os artigos',
-		'get_category' => 'Visualizar "%s" categoria',
+		'get_category' => 'Visualizar “%s” categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
-		'get_feed' => 'Visualizar "%s" feed',
+		'get_feed' => 'Visualizar “%s” feed',
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
 		'order_desc' => 'Exibir artigos mais novos primeiro',
-		'search' => 'Busca por "%s"',
+		'search' => 'Busca por “%s”',
 		'state_0' => 'Exibir todos os artigos',
 		'state_1' => 'Exibir artigos lidos',
 		'state_2' => 'Exibir artigos não lidos',
@@ -135,59 +154,60 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Leitura',
-		'after_onread' => 'Depois de "marcar todos como lido",',
+		'after_onread' => 'Depois de “marcar todos como lido”,',
 		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autores e Data',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Acima do titulo/etiqueta',
+				'none' => 'Nenhum',
+				'with_authors' => 'Com autores e data',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Titulo do Feed',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Etiqueta',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Número máximo de etiquetas exibidas',
+				'help' => '0 significa: mostrar todas as etiquetas e não recolhê-las',
 			),
 		),
 		'articles_per_page' => 'Número de artigos por página',
 		'auto_load_more' => 'Carregar mais artigos no final da página',
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
-		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
+		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar “marcar todos como lido”',
 		'display_articles_unfolded' => 'Mostrar artigos abertos por padrão',
 		'display_categories_unfolded' => 'Categorias abertas',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Artigos: Abrir/Fechar',
+			'articles_header_footer' => 'Artigos: cabeçalho/rodapé',
+			'categories' => 'Navegação à esquerda: Categoria',
+			'mark_as_read' => 'Marcar artigo como lido',
+			'misc' => 'Diversos',
+			'view' => 'Visualização',
 		),
-		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
-		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
+		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração “Mostrar todos os artigos”)',
+		'img_with_lazyload' => 'Utilizar o modo <em>lazy load</em> para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',
 		'mark_updated_article_unread' => 'Marcar artigos atualizados como não lidos',
 		'number_divided_when_reader' => 'Dividido por 2 no modo de leitura .',
 		'read' => array(
 			'article_open_on_website' => 'quando o artigo é aberto no site original',
 			'article_viewed' => 'Quando o artigo é visualizado',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
-			'scroll' => 'enquanto scrolling',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'scroll' => 'enquanto scrolling (except for important feeds)',	// DIRTY
+			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
 			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',
@@ -222,7 +242,7 @@ return array(
 		'_' => 'Compartilhando',
 		'add' => 'Adicionar um método de compartilhamento',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Este serviço está obceloeto e será removido do FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abra este documento para mais informações" target="_blank">em versões futuras</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

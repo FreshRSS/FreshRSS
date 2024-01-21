@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Um erro ocorreu durante o salvamento das configurações',
-		'query_created' => 'A query "%s" foi criada.',
+		'query_created' => 'A Query “%s” foi criada.',
 		'shortcuts_updated' => 'Atalhos foram criados',
 		'updated' => 'Configuração foi atualizada',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
-		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora',
-		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram',
+		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Arquivo não pôde ser enviado',
 		'no_zip_extension' => 'extensão ZIP não está presente em seu servidor.',
-		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
+		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Seu perfil não pode ser editado',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
 	'tag' => array(
-		'created' => 'A tag "%s" foi criada.',
-		'name_exists' => 'O nome da tag já existe.',
-		'renamed' => 'A tag "%s" foi renomeada para "%s".',
+		'created' => 'A Tag “%s” foi criada.',	// DIRTY
+		'error' => 'Label could not be updated!',	// TODO
+		'name_exists' => 'O nome da tag já existe.',	// DIRTY
+		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',	// DIRTY
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',

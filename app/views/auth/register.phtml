@@ -1,4 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
 
@@ -12,6 +15,18 @@
 			<?php foreach ($languages as $lang) { ?>
 			<option value="<?= $lang ?>"<?= $this->preferred_language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 			<?php } ?>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="new_user_timezone"><?= _t('conf.display.timezone') ?></label>
+			<select name="new_user_timezone" id="new_user_timezone">
+			<?php $timezones = array_merge([''], DateTimeZone::listIdentifiers()); ?>
+			<?php foreach ($timezones as $timezone): ?>
+			<option value="<?= $timezone ?>"<?= $timezone === '' ? ' selected="selected"' : '' ?>>
+				<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . FreshRSS_Context::defaultTimeZone() . ')' : $timezone ?>
+			</option>
+			<?php endforeach; ?>
 			</select>
 		</div>
 
@@ -65,6 +80,11 @@
 			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.cancel') ?></a>
 		</div>
 	</form>
-
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
 </main>
+
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>

@@ -16,9 +16,9 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => '拖动此书签到你的书签栏或者右键选择「收藏此链接」，然后在你想要订阅的页面上点击「订阅」按钮',
+		'documentation' => '拖动此书签到你的书签栏或者右键选择「收藏此链接」，然后在你想要订阅的页面上点击「订阅」按钮。',
 		'label' => '订阅',
-		'title' => '书签应用',
+		'title' => '书签',
 	),
 	'category' => array(
 		'_' => '分类',
@@ -26,18 +26,18 @@ return array(
 		'archiving' => '归档',
 		'dynamic_opml' => array(
 			'_' => '动态订阅',
-			'help' => '使用地址上的 <a href=http://opml.org/ target=_blank>OPML 文件</a> 中的订阅源填充这一分类',
+			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'information' => '信息',
-		'opml_url' => 'OPML 地址',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
 	),
 	'feed' => array(
 		'accept_cookies' => '接受 Cookies',
-		'accept_cookies_help' => '允许提要服务器设置 Cookies（仅在请求期间存储在内存中）',
+		'accept_cookies_help' => '允许订阅源服务器设置 Cookies（仅在请求期间存储在内存中）',
 		'add' => '添加订阅源',
 		'advanced' => '高级',
 		'archiving' => '归档',
@@ -68,7 +68,7 @@ return array(
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
 		'filteractions' => array(
 			'_' => '过滤动作',
-			'help' => '每行写一条过滤搜索',
+			'help' => '每行写一条过滤搜索，过滤条件可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 		),
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
@@ -77,8 +77,8 @@ return array(
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
-					'_' => '提要标题',
-					'help' => '如 <code>//title</code> 或是静态字符串如 <code>"My custom feed"</code>',
+					'_' => '订阅源标题',
+					'help' => '如 <code>//title</code> 或是静态字符串如： <code>"My custom feed"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是为资深用户准备的标准查询语言，FreshRSS 用以实现 Web 抓取.',
 				'item' => array(
@@ -98,6 +98,10 @@ return array(
 					'_' => '文章缩略图',
 					'help' => '例如 <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => '自定义日期/时间格式',
+					'help' => '可选项， 格式参见 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
 					'help' => '结果将被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
@@ -107,7 +111,7 @@ return array(
 					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => '文章唯一标识',
+					'_' => '文章唯一 ID',
 					'help' => '可选，例如: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
@@ -117,7 +121,47 @@ return array(
 				'relative' => 'XPath（文章）：',
 				'xpath' => 'XPath 定位：',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+				),
+				'item_author' => 'item author',	// TODO
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => 'item title',	// TODO
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (默认)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
@@ -128,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => '最大 HTTP 重定向',
 		'max_http_redir_help' => '设置为 0 或留空以禁用，-1 表示无限重定向',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
 		'no_selected' => '未选择订阅源',
@@ -135,11 +184,12 @@ return array(
 		'priority' => array(
 			'_' => '可见性',
 			'archived' => '不显示（归档）',
+			'category' => '在分类中显示',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => '在首页中显示',
-			'normal' => '在分类中显示',
 		),
 		'proxy' => '获取订阅源时的代理',
-		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd>）',
+		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> 或者 <kbd>username:password@127.0.0.1:1080</kbd>）',
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
 			'show_rendered' => '显示内容',
@@ -171,8 +221,8 @@ return array(
 		'export_opml' => '导出订阅源列表（OPML）',
 		'export_starred' => '导出你的收藏',
 		'feed_list' => '%s 文章列表',
-		'file_to_import' => '需要导入的文件<br />（OPML、JSON 或 ZIP）',
-		'file_to_import_no_zip' => '需要导入的文件<br />（OPML 或 JSON）',
+		'file_to_import' => '需要导入的文件 <br />（OPML、JSON 或 ZIP）',
+		'file_to_import_no_zip' => '需要导入的文件 <br />（OPML 或 JSON）',
 		'import' => '导入',
 		'starred_list' => '收藏文章列表',
 		'title' => '导入/导出',
@@ -190,6 +240,7 @@ return array(
 		'subscription_tools' => '订阅工具',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => '名称',
 		'new_name' => '新名称',
 		'old_name' => '旧名称',

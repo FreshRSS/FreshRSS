@@ -20,8 +20,6 @@ AddDefaultCharset	UTF-8
 <IfModule mod_expires.c>
 	ExpiresActive	on
 	ExpiresDefault	"access plus 1 month"
-	ExpiresByType	application/font-woff	"access plus 1 month"
-	ExpiresByType	application/font-woff2	"access plus 1 month"
 	ExpiresByType	application/javascript	"access plus 1 month"
 	ExpiresByType	application/xhtml+xml	"access plus 1 month"
 	ExpiresByType	image/x-icon	"access plus 1 month"
@@ -36,4 +34,16 @@ AddDefaultCharset	UTF-8
 		Header	merge Cache-Control "public"
 	</FilesMatch>
 	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
+</IfModule>
+
+# Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteRule .* - [E=CONN_REMOTE_ADDR:%{CONN_REMOTE_ADDR}]
+</IfModule>
+<IfModule !mod_rewrite.c>
+	<IfModule mod_setenvif.c>
+		# If you run an old Apache 2.2-, disable mod_setenvif and enable mod_rewrite, or comment out next line
+		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
+	</IfModule>
 </IfModule>

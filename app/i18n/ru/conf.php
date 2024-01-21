@@ -17,7 +17,7 @@ return array(
 		'help' => 'В индивидуальных настройках лент есть больше опций',
 		'keep_favourites' => 'Никогда не удалять избранное',
 		'keep_labels' => 'Никогда не удалять метки',
-		'keep_max' => 'Максимальное количество статей',
+		'keep_max' => 'Максимальное количество статей',	// DIRTY
 		'keep_min_by_feed' => 'Минимальное количество статей в ленте',
 		'keep_period' => 'Максимальный возраст статей',
 		'keep_unreads' => 'Никогда не удалять непрочитанные статьи',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Отображение',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
-		'theme' => 'Тема',
+		'theme' => array(
+			'_' => 'Тема',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
 		'thumbnail' => array(
 			'label' => 'Эскиз',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Вертикальный',
 			'square' => 'Квадратный',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Отображение',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Ширина содержимого',
 			'large' => 'Широкое',
@@ -106,15 +125,15 @@ return array(
 			'type' => 'Тип',
 		),
 		'get_all' => 'Показать все статьи',
-		'get_category' => 'Показать категорию "%s"',
+		'get_category' => 'Показать категорию “%s”',
 		'get_favorite' => 'Показать избранные статьи',
-		'get_feed' => 'Показать ленту "%s"',
+		'get_feed' => 'Показать ленту “%s”',
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
 		'number' => 'Запрос №%d',
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
-		'search' => 'Искать "%s"',
+		'search' => 'Искать “%s”',
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
 		'state_2' => 'Показать непрочитанные статьи',
@@ -139,28 +158,28 @@ return array(
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Авторы и дата',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Над титулом и метками',
+				'none' => 'Нигде',
+				'with_authors' => 'В строке с автором и датой',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Титул ленты',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Метки',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Максимальное количество отображающих меток',
+				'help' => '0 означает: показать все метки и не сжимать их',
 			),
 		),
 		'articles_per_page' => 'Количество статей на странице',
@@ -171,23 +190,24 @@ return array(
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
 			'articles' => 'Статьи: открыть/закрыть',
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
+			'articles_header_footer' => 'Статьи: верхний/нижний колонтитул',
 			'categories' => 'Левая панель: категории',
 			'mark_as_read' => 'Пометить статью прочитанной',
 			'misc' => 'Разное',
 			'view' => 'Вид',
 		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
-		'img_with_lazyload' => 'Использовать режим "ленивой загрузки" для загрузки картинок',
+		'img_with_lazyload' => 'Использовать режим «ленивой загрузки» для загрузки картинок',
 		'jump_next' => 'перейти к следующей ленте или категории',
 		'mark_updated_article_unread' => 'Отмечать обновлённые статьи непрочитанными',
 		'number_divided_when_reader' => 'Делится на 2 в виде для чтения.',
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
-			'scroll' => 'во время прокрутки',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'scroll' => 'во время прокрутки (except for important feeds)',	// DIRTY
+			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
 			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '설정을 저장하는 동안 문제가 발생했습니다',
-		'query_created' => '쿼리 "%s" 가 생성되었습니다.',
+		'query_created' => '쿼리 “%s” 가 생성되었습니다.',
 		'shortcuts_updated' => '단축키가 갱신되었습니다',
 		'updated' => '설정이 저장되었습니다',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
-		'feeds_imported' => '피드를 성공적으로 불러왔습니다',
-		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다',
+		'feeds_imported' => '피드를 성공적으로 불러왔습니다 / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다 / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => '파일을 업로드할 수 없습니다!',
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
-		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
+		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => '프로필을 변경할 수 없습니다',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => '삭제 완료 (%d 개의 글을 삭제했습니다)',
 	),
 	'tag' => array(
-		'created' => '"%s" 태그가 생성되었습니다.',
+		'created' => '“%s” 태그가 생성되었습니다.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => '같은 이름의 태그가 이미 존재합니다.',
-		'renamed' => '"%s" 태그가 "%s" (으)로 이름이 변경되었습니다.',
+		'renamed' => '“%s” 태그가 “%s” (으)로 이름이 변경되었습니다.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS가 <strong>%s</strong> 버전으로 업데이트됩니다.',

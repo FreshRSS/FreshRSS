@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -11,18 +13,23 @@ class Minz_ModelArray {
 	/**
 	 * $filename est le nom du fichier
 	 */
-	protected $filename;
+	protected string $filename;
 
 	/**
 	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename
 	 * @param string $filename le nom du fichier à ouvrir contenant un tableau
 	 * Remarque : $array sera obligatoirement un tableau
 	 */
-	public function __construct ($filename) {
+	public function __construct(string $filename) {
 		$this->filename = $filename;
 	}
 
-	protected function loadArray() {
+	/**
+	 * @return array<string,mixed>
+	 * @throws Minz_FileNotExistException
+	 * @throws Minz_PermissionDeniedException
+	 */
+	protected function loadArray(): array {
 		if (!file_exists($this->filename)) {
 			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
 		} elseif (($handle = $this->getLock()) === false) {
@@ -42,8 +49,10 @@ class Minz_ModelArray {
 
 	/**
 	 * Sauve le tableau $array dans le fichier $filename
-	 **/
-	protected function writeArray($array) {
+	 * @param array<string,mixed> $array
+	 * @throws Minz_PermissionDeniedException
+	 */
+	protected function writeArray(array $array): bool {
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
@@ -53,6 +62,7 @@ class Minz_ModelArray {
 		return true;
 	}
 
+	/** @return resource|false */
 	private function getLock() {
 		$handle = fopen($this->filename, 'r');
 		if ($handle === false) {
@@ -73,7 +83,8 @@ class Minz_ModelArray {
 		}
 	}
 
-	private function releaseLock($handle) {
+	/** @param resource $handle */
+	private function releaseLock($handle): void {
 		flock($handle, LOCK_UN);
 		fclose($handle);
 	}

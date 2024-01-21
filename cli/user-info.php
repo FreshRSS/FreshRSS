@@ -1,38 +1,49 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-$params = array(
-	'user:',
-	'header',
-	'json',
-);
-$options = getopt('h', $params);
+$parameters = [
+	'long' => [
+		'user' => ':',
+		'header' => '',
+		'json' => '',
+		'human-readable' => '',
+	],
+	'short' => [
+		'human-readable' => 'h',
+	],
+	'deprecated' => [],
+];
 
-if (!validateOptions($argv, $params)) {
-	fail('Usage: ' . basename(__FILE__) . ' (-h --header --json --user username --user username …)');
+$options = parseCliParams($parameters);
+
+if (!empty($options['invalid'])) {
+	fail('Usage: ' . basename(__FILE__) . ' (--human-readable --header --json --user username --user username …)');
 }
 
-if (empty($options['user'])) {
+if (empty($options['valid']['user'])) {
 	$users = listUsers();
-} elseif (is_array($options['user'])) {
-	$users = $options['user'];
+} elseif (is_array($options['valid']['user'])) {
+	/** @var array<string> $users */
+	$users = $options['valid']['user'];
 } else {
-	$users = array($options['user']);
+	/** @var array<string> $users */
+	$users = [$options['valid']['user']];
 }
 
 sort($users);
 
-$formatJson = isset($options['json']);
+$formatJson = isset($options['valid']['json']);
 $jsonOutput = [];
 if ($formatJson) {
-	unset($options['header']);
-	unset($options['h']);
+	unset($options['valid']['header']);
+	unset($options['valid']['human-readable']);
 }
 
-if (array_key_exists('header', $options)) {
+if (array_key_exists('header', $options['valid'])) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -63,32 +74,34 @@ foreach ($users as $username) {
 
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
+	$feedList = $feedDAO->listFeedsIds();
 
 	$data = array(
-		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
+		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
-		'admin' => FreshRSS_Context::$user_conf->is_admin ? '*' : '',
-		'enabled' => FreshRSS_Context::$user_conf->enabled ? '*' : '',
+		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
+		'enabled' => FreshRSS_Context::userConf()->enabled ? '*' : '',
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
-		'categories' => (int) $catDAO->count(),
-		'feeds' => (int) count($feedDAO->listFeedsIds()),
-		'reads' => (int) $nbEntries['read'],
-		'unreads' => (int) $nbEntries['unread'],
-		'favourites' => (int) $nbFavorites['all'],
-		'tags' => (int) $tagDAO->count(),
-		'lang' => FreshRSS_Context::$user_conf->language,
-		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
+		'categories' => $catDAO->count(),
+		'feeds' => count($feedList),
+		'reads' => (int)$nbEntries['read'],
+		'unreads' => (int)$nbEntries['unread'],
+		'favourites' => (int)$nbFavorites['all'],
+		'tags' => $tagDAO->count(),
+		'lang' => FreshRSS_Context::userConf()->language,
+		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if (isset($options['h'])) {	//Human format
+	if (isset($options['valid']['human-readable'])) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}
+
 	if ($formatJson) {
 		$data['default'] = !empty($data['default']);
 		$data['admin'] = !empty($data['admin']);
 		$data['enabled'] = !empty($data['enabled']);
-		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', $data['last_user_activity']);
+		$data['last_user_activity'] = gmdate('Y-m-d\TH:i:s\Z', (int)$data['last_user_activity']);
 		$jsonOutput[] = $data;
 	} else {
 		vprintf(DATA_FORMAT, $data);

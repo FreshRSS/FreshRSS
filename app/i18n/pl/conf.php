@@ -17,7 +17,7 @@ return array(
 		'help' => 'Więcej opcji dostępne jest w ustawieniach konkretnych kanałów',
 		'keep_favourites' => 'Nigdy nie usuwaj ulubionych',
 		'keep_labels' => 'Nigdy nie usuwaj oznaczonych etykietą',
-		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania',
+		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_min_by_feed' => 'Minimalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_period' => 'Maksymalny wiek wiadomości do przechowywania',
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Wyświetlanie',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
-		'theme' => 'Motyw',
+		'theme' => array(
+			'_' => 'Motyw',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => 'Motyw “%s” nie jest już dostępny. Wybierz inny motyw.',
 		'thumbnail' => array(
 			'label' => 'Miniaturka',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => 'Wyświetlanie',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'Rozmiar treści',
 			'large' => 'Szeroka',
@@ -106,15 +125,15 @@ return array(
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
-		'get_category' => 'Wyświetlenie kategorii "%s"',
+		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
-		'get_feed' => 'Wyświetlenie kanału "%s"',
+		'get_feed' => 'Wyświetlenie kanału “%s”',
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
 		'order_asc' => 'Wyświetl najpierw najstarsze wiadomości',
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
-		'search' => 'Szukaj "%s"',
+		'search' => 'Szukaj “%s”',
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',
 		'state_2' => 'Wyświetl nieprzeczytane wiadomości',
@@ -185,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'gdy wiadomość jest otworzona na pierwotnej stronie',
 			'article_viewed' => 'gdy wiadomość jest otworzona',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
-			'scroll' => 'podczas przewijania',
+			'scroll' => 'podczas przewijania (except for important feeds)',	// DIRTY
 			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',

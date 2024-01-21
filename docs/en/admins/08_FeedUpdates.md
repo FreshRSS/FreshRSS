@@ -6,7 +6,7 @@ FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we
 
 **Note:** the following examples assume that FreshRSS is installed to `/usr/share/FreshRSS`. You’ll need to modify the FreshRSS path to reflect your own system.
 
-**Note:** If you cannot configure a local Cronjob, [see an alternative using online cron](../users/03_Main_view.md#online-cron).
+**Note:** If you cannot configure a local Cronjob, [see an alternative using online cron](../users/09_refreshing_feeds.md#online-cron).
 
 ## Cron as a trigger
 

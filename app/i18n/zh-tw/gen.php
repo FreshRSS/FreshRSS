@@ -134,20 +134,26 @@ return array(
 			'request_failed' => '請求失敗，這可能是因為網絡連接問題。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '發現新文章，點擊刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -172,6 +178,7 @@ return array(
 		'queries' => '自定義查詢',
 		'reading' => '閱讀',
 		'search' => '搜尋內容或#標簽',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => '分享',
 		'shortcuts' => '快捷鍵',
 		'stats' => '統計',
@@ -189,18 +196,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基於 Known 的站點',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪貼板',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '郵箱',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => '臉書',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE

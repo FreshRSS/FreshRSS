@@ -22,6 +22,12 @@
 }
 
 /*=== Dropdown */
+.dropdown {
+	.dropdown-target:target + .btn {
+		background-color: variables.$grey-medium-light;
+	}
+}
+
 .dropdown-menu {
 	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
@@ -37,38 +43,56 @@
 		right: 18px;
 	}
 
-	.dropdown-header {
-		margin: 1rem 0.5rem 1rem 1rem;
+	.dropdown-header,
+	.dropdown-section .dropdown-section-title {
+		padding: 1rem 1.5rem;
 		font-weight: bold;
 		text-align: left;
 		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-
 	}
 
 	.item {
 
 		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		a, span, .as-link {
+		> a,
+		> span,
+		> .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
-			font-size: 1rem;
+			font-size: inherit;
 			line-height: 2.5em;
+
+			span.icon {
+				padding: 0 0.25rem !important;
+			}
 		}
 
-		&:not(.addItem):hover {
-			background: variables.$main-first;
-			color: variables.$white;
+		> a,
+		> .as-link {
+			&:not(.addItem):hover {
+				background: variables.$main-first;
+				color: variables.$white;
 
-			.icon {
-				filter: brightness(3);
+				.icon {
+					filter: brightness(3);
+				}
+			}
+		}
+
+		&.dropdown-section {
+			margin-top: 0.75rem;
+
+			~ .dropdown-section {
+				border-top-color: variables.$grey-light;
 			}
 
-			a, button, label {
-				text-decoration: none;
-				color: variables.$white;
+			.item {
+				a, .as-link {
+					padding-left: 2rem;
+				}
 			}
 		}
 
@@ -77,6 +101,17 @@
 				margin: 0 0 0 -14px;
 				font-weight: bold;
 			}
+		}
+
+		~ .dropdown-header {
+			margin-top: 0.75rem;
+			padding-top: 1.75rem;
+			border-top-color: variables.$grey-light;
+		}
+
+		&.separator {
+			margin-top: 0.75rem;
+			border-top-color: variables.$grey-light;
 		}
 	}
 
@@ -87,12 +122,6 @@
 			border-radius: 3px;
 		}
 	}
-
-	.separator {
-		margin: 0.75rem 0;
-		border-bottom: 1px solid variables.$grey-light;
-	}
-
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
@@ -120,8 +149,6 @@
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	padding: 1rem;
 	background: variables.$grey-lighter;
 	color: variables.$grey-dark;
 	font-size: 1rem;

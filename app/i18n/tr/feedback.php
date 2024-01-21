@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',
-		'query_created' => 'Sorgu "%s" oluşturuldu.',
+		'query_created' => 'Sorgu “%s” oluşturuldu.',
 		'shortcuts_updated' => 'Kısayollar yenilendi',
 		'updated' => 'Yapılandırm ayarları yenilendi',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
-		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek',
-		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi',
+		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
+		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Profiliniz düzenlenemedi',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Temizleme tamamlandı (%d makale silindi)',
 	),
 	'tag' => array(
-		'created' => '"%s" etiketi oluşturuldu.',
+		'created' => '“%s” etiketi oluşturuldu.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Etiket zaten mevcut.',
-		'renamed' => '"%s" isimli etiketin ismi "%s" olarak değiştirildi.',
+		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',

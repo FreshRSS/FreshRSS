@@ -17,7 +17,8 @@ return array(
 		'bugs_reports' => 'Hlášení chyb',
 		'credits' => 'Poděkování',
 		'credits_content' => 'Některé designové prvky pocházejí z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, FreshRSS ale tuto platformu nevyužívá. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikony</a> pocházejí z <a href="https://www.gnome.org/">projektu GNOME</a>. Písmo <em>Open Sans</em> vytvořil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založeno na PHP framework <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
-		'freshrss_description' => 'FreshRSS je čtečka kanálů RSS určená k provozu na vlastním serveru, podobná <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> nebo <a href="https://github.com/LeedRSS/Leed">Leed</a>. Je to nenáročný a jednoduchý, zároveň ale mocný a konfigurovatelný nástroj.',
+		'documentation' => 'Documentation',	// TODO
+		'freshrss_description' => 'FreshRSS je čtečka kanálů RSS určená k provozu na vlastním serveru. Je to nenáročný a jednoduchý, zároveň ale mocný a konfigurovatelný nástroj.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na Github</a>',
 		'license' => 'Licence',
 		'project_website' => 'Webová stránka projektu',
@@ -25,7 +26,6 @@ return array(
 		'version' => 'Verze',
 	),
 	'feed' => array(
-		'add' => 'Přidejte nějaké kanály.',
 		'empty' => 'Nejsou žádné články k zobrazení.',
 		'rss_of' => 'Kanál RSS %s',
 		'title' => 'Hlavní kanál',
@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Uložit aktuální dotaz do záložek',
 		'favorites' => 'Oblíbené (%s)',
 		'global_view' => 'Zobrazení přehledu',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Hlavní kanál',
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'mark_cat_read' => 'Označit kategorii jako přečtenou',

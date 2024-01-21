@@ -140,14 +140,14 @@ return array(
 		'entry_per_hour' => 'Per ora (media: %.2f articoli)',
 		'entry_per_month' => 'Per mese (media: %.2f articoli)',
 		'entry_repartition' => 'Ripartizione contenuti',
-		'feed' => 'Feed',	// TODO
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds per categoria',
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
 		'main_stream' => 'Flusso principale',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
-		'percent_of_total' => '%% del totale',
+		'percent_of_total' => '% del totale',
 		'repartition' => 'Ripartizione articoli',
 		'status_favorites' => 'Preferiti',
 		'status_read' => 'Letti',
@@ -158,54 +158,76 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',
-		'auto-update-url' => 'Auto-update server URL',	// TODO
-		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO
-			'number' => 'Duration to keep logged in',	// TODO
+		'auto-update-url' => 'Aggiorna automaticamente l’URL del server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO
+		'cookie-duration' => array(
+			'help' => 'in secondi',
+			'number' => 'Tempo in cui rimanere loggati',
+		),
+		'force_email_validation' => 'Forza la validazione dell’indirizzo mail',
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
 		'registration' => array(
 			'number' => 'Numero massimo di profili',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Form di registrazione',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Disabilitato: Nessun form di registrazione',
+					'nolimit' => 'Abilitato: Nessun limite agli account',
+					'setaccountsnumber' => 'Imposta il numero massimo di account',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Form disabilitato',
+				'enabled' => 'Form abilitato',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Form di registrazione utente',
+		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
 		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
-		'current_version' => 'FreshRSS versione %s.',
-		'last' => 'Ultima verifica: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Versione',
+		'last' => 'Ultima verifica',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Nessun aggiornamento da applicare',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aggiorna sistema',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Amministratore',
 		'article_count' => 'Articoli',
-		'back_to_manage' => '← Return to user list',	// TODO
+		'back_to_manage' => '← Ritorna alla lista utenti',
 		'create' => 'Crea nuovo utente',
-		'database_size' => 'Database size',	// TODO
+		'database_size' => 'Dimensione del database',
 		'email' => 'Indirizzo e-mail',
-		'enabled' => 'Enabled',	// TODO
-		'feed_count' => 'Feeds',	// TODO
-		'is_admin' => 'Is admin',	// TODO
+		'enabled' => 'Abilitato',
+		'feed_count' => 'Feed',
+		'is_admin' => 'Amministratore',
 		'language' => 'Lingua',
 		'last_user_activity' => 'Ultime attività degli utenti',
-		'list' => 'User list',	// TODO
+		'list' => 'Lista utenti',
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',

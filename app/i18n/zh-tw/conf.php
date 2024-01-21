@@ -17,7 +17,7 @@ return array(
 		'help' => '具體選項位於各訂閱源的設置',
 		'keep_favourites' => '不清理已收藏的文章',
 		'keep_labels' => '不清理標簽',
-		'keep_max' => '最多保留的文章數',
+		'keep_max' => '最多保留的文章數',	// DIRTY
 		'keep_min_by_feed' => '至少保留的文章數',
 		'keep_period' => '文章最多保留',
 		'keep_unreads' => '不清理未讀文章',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'HTML5 通知超時時間',
 		),
 		'show_nav_buttons' => '顯示導航按鈕',
-		'theme' => '主題',
+		'theme' => array(
+			'_' => '主題',
+			'deprecated' => array(
+				'_' => 'Deprecated',	// TODO
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+			),
+		),
 		'theme_not_available' => '“%s” 主題不再可用，請選擇其他主題。',
 		'thumbnail' => array(
 			'label' => '縮圖',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => '肖像',
 			'square' => '方塊',
 		),
+		'timezone' => 'Time zone',	// TODO
 		'title' => '顯示',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => '內容寬度',
 			'large' => '寬',
@@ -106,15 +125,15 @@ return array(
 			'type' => '類型',
 		),
 		'get_all' => '顯示所有文章',
-		'get_category' => '顯示分類 "%s"',
+		'get_category' => '顯示分類 “%s”',
 		'get_favorite' => '顯示收藏文章',
-		'get_feed' => '顯示訂閱源 "%s"',
+		'get_feed' => '顯示訂閱源 “%s”',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'number' => '查詢 n°%d',
 		'order_asc' => '由舊至新顯示文章',
 		'order_desc' => '由新至舊顯示文章',
-		'search' => '搜尋 "%s"',
+		'search' => '搜尋 “%s”',
 		'state_0' => '顯示所有文章',
 		'state_1' => '顯示已讀文章',
 		'state_2' => '顯示未讀文章',
@@ -185,8 +204,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打開原文章後',
 			'article_viewed' => '在文章被瀏覽後',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '未讀最多保留 n 條',
-			'scroll' => '在滾動瀏覽後',
+			'scroll' => '在滾動瀏覽後 (except for important feeds)',	// DIRTY
 			'upon_gone' => '在被原訂閱源移除後',
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',

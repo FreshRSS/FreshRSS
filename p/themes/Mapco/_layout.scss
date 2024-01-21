@@ -6,36 +6,30 @@
 /*===============*/
 /*=== Header */
 .header {
-	padding: 0.5rem 1.35rem;
 	background: variables.$sid-bg;
-	display: block;
-	width: auto;
-	height: 3.5rem;
-	table-layout: none;
-
-	.logo {
-		margin: 11px 0 5px;
-		filter: grayscale(100%) brightness(100);
-	}
 
 	.item {
 		vertical-align: middle;
 
 		&.title {
-			width: 280px;
-
-			font-weight: 400;
-
 			a {
-				img {
-					margin-right: 0.5rem;
+				padding: 0.5rem 1rem;
+
+				.logo {
+					filter: grayscale(100%) brightness(3);
+				}
+
+				&:hover {
+					.logo {
+						filter: grayscale(100%) brightness(2.2);
+					}
 				}
 			}
 		}
 
 		&.search {
 			input {
-				width: 230px;
+				width: 350px;
 				color: variables.$sid-font-color;
 				border: none;
 				border-radius: 2px 0 0 2px;
@@ -48,9 +42,7 @@
 				}
 
 				&:focus {
-					width: 350px;
 					color: variables.$grey-dark;
-
 					background-color: variables.$white;
 				}
 			}
@@ -82,10 +74,6 @@
 		}
 
 		&.configure {
-			width: 3rem;
-			position: absolute;
-			right: 1rem;
-			top: 1rem;
 			text-align: center;
 
 			.btn .icon,
@@ -107,7 +95,7 @@
 
 /*=== Body */
 #global {
-	height: calc(100% - 3.5rem);
+	height: calc(100vh - (calc(3rem + 2 * var(--frss-padding-top-bottom))));
 }
 
 /*=== Prompt (centered) */
@@ -124,7 +112,7 @@ main.prompt {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: calc(0.75rem + var(--frss-padding-top-bottom)) 1rem;
 	font-weight: bold;
 	color: variables.$white;
 }
@@ -193,7 +181,8 @@ main.prompt {
 		}
 	}
 
-	.stick {
+	.stick,
+	.group {
 		.btn {
 			border-left-width: 0;
 			padding: 0.5rem 1rem;
@@ -238,7 +227,7 @@ main.prompt {
 			}
 		}
 
-		.dropdown {
+		.dropdown:not(#dropdown-search-wrapper) {
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -246,6 +235,12 @@ main.prompt {
 				.icon {
 					display: none;
 				}
+			}
+		}
+
+		#dropdown-search-wrapper.dropdown {
+			a.dropdown-toggle {
+				border-left-width: 0;
 			}
 		}
 	}
@@ -307,20 +302,21 @@ main.prompt {
 
 	code {
 		padding: 2px 5px;
-		background: variables.$grey-lighter;
-		border: 1px solid variables.$grey-light;
+		background: variables.$code-bg;
+		color: variables.$code-text;
+		font-size: 1rem;
+		// border: 1px solid variables.$alert-light;
 		border-radius: 3px;
 	}
 
 
 	blockquote {
 		margin: 0;
-		padding: 5px 20px;
+		padding: 0.5rem 1.5rem;
 		background: variables.$grey-lighter;
 		display: block;
-		color: variables.$main-font-color;
-		border-top: 1px solid variables.$grey-medium-light;
-		border-bottom: 1px solid variables.$grey-medium-light;
+		color: variables.$light-font-color;
+		border-left: 4px solid variables.$grey-medium-light;
 
 		p {
 			margin: 0;
@@ -365,9 +361,7 @@ main.prompt {
 	}
 
 	a.close {
-		padding: 0 15px;
 		border-radius: 0 3px 3px 0;
-		line-height: 3em;
 	}
 
 	&.good a.close:hover {
@@ -379,10 +373,12 @@ main.prompt {
 	}
 
 	&#actualizeProgress {
-		line-height: 2em;
-
 		br {
 			display: none;
+		}
+
+		.title {
+			margin: 0 2rem;
 		}
 	}
 }

@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Eliminar feeds silenciados',
 		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Vaciar',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_read' => 'Marcar como leído',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Abrir URL',
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Actualizar OPML',
 		'remove' => 'Borrar',
 		'rename' => 'Cambiar el nombre a',
 		'see_website' => 'Ver web',
@@ -130,24 +130,30 @@ return array(
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las peticiones de usuario. ¡Y no hay marcha atrás!',
 		'feedback' => array(
 			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(No leídos: %%d)',
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡Nuevos artículos!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Hay nuevos artículos disponibles. Pincha para refrescar la página.',
 		'should_be_activated' => 'JavaScript debe estar activado',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -172,6 +178,7 @@ return array(
 		'queries' => 'Peticiones de usuario',
 		'reading' => 'Lectura',
 		'search' => 'Buscar palabras o #etiquetas',
+		'search_help' => 'Consulte la documentación sobre <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parámetros de búsqueda</a>',
 		'sharing' => 'Compartir',
 		'shortcuts' => 'Atajos',
 		'stats' => 'Estadísticas',
@@ -189,18 +196,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sitios basados en conocidos',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Portapapeles',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (Email Web - corrección para Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -211,7 +223,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sistema de intercambio',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

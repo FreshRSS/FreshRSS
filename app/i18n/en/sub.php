@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',
 		'label' => 'Subscribe',
 		'title' => 'Bookmarklet',
 	),
@@ -25,12 +25,12 @@ return array(
 		'add' => 'Add a category',
 		'archiving' => 'Archiving',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Dynamic OPML',
+			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',
 		),
 		'empty' => 'Empty category',
 		'information' => 'Information',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',
@@ -61,14 +61,14 @@ return array(
 		'css_path' => 'Article CSS selector on original website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'filteractions' => array(
 			'_' => 'Filter actions',
-			'help' => 'Write one search filter per line.',
+			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
 		),
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
@@ -98,6 +98,10 @@ return array(
 					'_' => 'item thumbnail',
 					'help' => 'Example: <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'item date',
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
@@ -107,8 +111,8 @@ return array(
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'item unique ID',
+					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'item link (URL)',
@@ -117,7 +121,47 @@ return array(
 				'relative' => 'XPath (relative to item) for:',
 				'xpath' => 'XPath for:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted paths)',
+				'feed_title' => array(
+					'_' => 'feed title',
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',
+				),
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',
+				),
+				'item_author' => 'item author',
+				'item_categories' => 'item tags',
+				'item_content' => array(
+					'_' => 'item content',
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',
+					'help' => 'Example: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item title',
+				'item_uid' => 'item unique ID',
+				'item_uri' => array(
+					'_' => 'item link (URL)',
+					'help' => 'Example: <code>permalink</code>',
+				),
+				'json' => 'Dotted Path for:',
+				'relative' => 'Dotted Path (relative to item) for:',
+			),
+			'jsonfeed' => 'JSON Feed',
 			'rss' => 'RSS / Atom (default)',
+			'xml_xpath' => 'XML + XPath',
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',
@@ -128,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
+		'method' => array(
+			'_' => 'HTTP Method',
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',
+		'method_postparams' => 'Payload for POST',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',
@@ -135,11 +184,12 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',
 			'archived' => 'Do not show (archived)',
+			'category' => 'Show in its category',
+			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
-			'normal' => 'Show in its category',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
 			'show_rendered' => 'Show content',
@@ -163,7 +213,7 @@ return array(
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
-		'websub' => 'Instant notification with WebSub',
+		'websub' => 'Instant notifications with WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Export',
@@ -190,6 +240,7 @@ return array(
 		'subscription_tools' => 'Subscription tools',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',
 		'name' => 'Name',
 		'new_name' => 'New name',
 		'old_name' => 'Old name',
@@ -198,7 +249,7 @@ return array(
 		'_' => 'Subscription management',
 		'add' => 'Add a feed or category',
 		'add_category' => 'Add a category',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Add dynamic OPML',
 		'add_feed' => 'Add a feed',
 		'add_label' => 'Add a label',
 		'delete_label' => 'Delete a label',

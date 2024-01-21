@@ -25,19 +25,19 @@ return array(
 		'add' => 'Добавить категория',
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Динамичный OPML',
+			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
 		'information' => 'Информация',
-		'opml_url' => 'OPML URL',	// TODO
+		'opml_url' => 'OPML ссылка',
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
 		'title' => 'Заголовок',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies' => 'Разрешить файлы cookies',
+		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
 		'add' => 'Добавить RSS-ленту',
 		'advanced' => 'Дополнительно',
 		'archiving' => 'Архивирование',
@@ -60,15 +60,15 @@ return array(
 		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
 		'css_path' => 'CSS селектор статьи на сайте',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => 'CSS селектор элемента для удаления',
+			'help' => 'CSS селектор может быть списком как: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
 		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
-			'help' => 'Введите по одному поисковому фильтру в строке.',
+			'help' => 'Введите по одному поисковому фильтру в строке. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
@@ -98,6 +98,10 @@ return array(
 					'_' => 'эскиза элемента',
 					'help' => 'Пример: <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Пользовательский формат даты/времени',
+					'help' => 'Выборочно. Формат поддерживается <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> как <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'даты элемента',
 					'help' => 'Результат будет распарсен с <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
@@ -107,8 +111,8 @@ return array(
 					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'уникальный ID элемента',
+					'help' => 'Выборочно. Пример: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'ссылки элемента (URL)',
@@ -117,7 +121,47 @@ return array(
 				'relative' => 'XPath (относительно элемента) для:',
 				'xpath' => 'XPath для:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+				),
+				'item_author' => 'item author',	// TODO
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => 'item title',	// TODO
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (по умолчанию)',
+			'xml_xpath' => 'XML + XPath',	// TODO
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
@@ -126,8 +170,13 @@ return array(
 			'reload_articles_help' => 'Перезагрузить столько статей и извлечь полное содержимое, если задан селектор.',
 			'title' => 'Обслуживание',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'max_http_redir' => 'Максимум HTTP переводов',
+		'max_http_redir_help' => 'Установите 0 или оставьте пустым, чтобы отключить, -1 для бесконечных переводов',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
 		'mute' => 'заглушить',
 		'no_selected' => 'Ленты не выбраны.',
@@ -135,11 +184,12 @@ return array(
 		'priority' => array(
 			'_' => 'Видимость',
 			'archived' => 'Не показывать (архивировано)',
+			'category' => 'Показывать в категории ленты',
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Показывать в основном потоке',
-			'normal' => 'Показывать в категории ленты',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
-		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',
 			'show_rendered' => 'Показать содержимое',
@@ -190,6 +240,7 @@ return array(
 		'subscription_tools' => 'Инструменты подписки',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Название',
 		'new_name' => 'Новое название',
 		'old_name' => 'Старое название',
@@ -198,7 +249,7 @@ return array(
 		'_' => 'Управление подписками',
 		'add' => 'Добавить ленту или категорию',
 		'add_category' => 'Добавить категорию',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Добавить динамичный OPML',
 		'add_feed' => 'Добавить ленту',
 		'add_label' => 'Добавить метку',
 		'delete_label' => 'Удалить метку',

@@ -134,20 +134,26 @@ return array(
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '새 글이 있습니다. 여기를 클릭하면 페이지를 다시 불러옵니다.',
 		'should_be_activated' => '자바스크립트를 사용하도록 설정해야합니다',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -172,6 +178,7 @@ return array(
 		'queries' => '사용자 쿼리',
 		'reading' => '읽기',
 		'search' => '단어 또는 #태그 검색',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => '공유',
 		'shortcuts' => '단축키',
 		'stats' => '통계',
@@ -189,18 +196,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '클립보드',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE

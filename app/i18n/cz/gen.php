@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
 		'create' => 'Vytvořit',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Odstranění ztlumených zdrojů',
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
 		'empty' => 'Vyprázdnit',
@@ -29,10 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
-		'open_url' => 'Open URL',	// TODO
+		'open_url' => 'Otevřít adresu URL',
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Aktualizovat OPML',
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
 		'see_website' => 'Zobrazit webovou stránku',
@@ -130,24 +130,30 @@ return array(
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'feedback' => array(
 			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(nepřečtené: %%d)',
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Jsou dostupné nové články, klikněte pro obnovení stránky.',
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -172,6 +178,7 @@ return array(
 		'queries' => 'Uživatelské dotazy',
 		'reading' => 'Čtení',
 		'search' => 'Hledat slova nebo #štítky',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
@@ -189,18 +196,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Známé základní stránky',
+		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -211,7 +223,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sdílení systému',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
