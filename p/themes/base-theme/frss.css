@@ -1131,7 +1131,7 @@ a:hover .logo {
 		text-align: center;
 	}
 
-	.header #header_menu_login .signin span {
+	.header .btn .label {
 		display: block;
 	}
 

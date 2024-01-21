@@ -97,7 +97,12 @@
 		<div id="header_menu_configs" class="group">
 			<div class="dropdown dropdown-open-right-to-top">
 				<div id="dropdown-help" class="dropdown-target"></div>
-				<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>"><?= _i('help') ?></a>
+				<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
+					<?= _i('help') ?>
+					<?php if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
+						<span class="label"><?= _t('gen.menu.help') ?></span>
+					<?php } ?>
+				</a>
 				<ul class="dropdown-menu scrollbar-thin">
 					<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
 					<li class="item dropdown-section">
