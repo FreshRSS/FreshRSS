@@ -253,10 +253,6 @@ class FreshRSS_UserQuery {
 		return $this->url;
 	}
 
-	public function getToken(): string {
-		return $this->token;
-	}
-
 	protected function sharedUrl(): string {
 		$currentUser = Minz_User::name() ?? '';
 		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}");
