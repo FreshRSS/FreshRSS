@@ -68,21 +68,7 @@ body {
 	height: 100vh;
 }
 
-main.prompt {
-	margin: 3rem auto 0;
-	padding: 2rem;
-	max-width: 400px;
-	min-width: 300px;
-	width: 33%;
-	text-align: center;
-}
-
-main.prompt .link-registration {
-	padding: 1rem 0 0;
-	margin-bottom: 3rem;
-}
-
-main#maincolumn {
+#maincolumn {
 	display: table-cell;
 	box-sizing: border-box;
 	vertical-align: top;
@@ -108,7 +94,7 @@ main#maincolumn {
 }
 
 .main-footer {
-	padding: 4rem;
+	padding: 4rem 0;
 	text-align: center;
 }
 
@@ -409,12 +395,22 @@ td.numeric {
 
 /* prompt: login + register form + alert message banner */
 .prompt {
+	margin: 3rem auto 0;
+	padding: 2rem;
+	max-width: 400px;
+	min-width: 300px;
+	width: 33%;
 	text-align: center;
 }
 
 .prompt form {
 	margin-top: 2rem;
 	text-align: right;
+}
+
+.prompt .link-registration {
+	padding: 1rem 0 0;
+	margin-bottom: 3rem;
 }
 
 .prompt label,
@@ -1183,6 +1179,11 @@ input[type="search"] {
 	display: inline-block;
 	height: 1.5rem;
 	vertical-align: middle;
+}
+
+.prompt .logo-wrapper .logo {
+	margin: 2rem;
+	height: 1.5rem;
 }
 
 .aside .nav-inner {
