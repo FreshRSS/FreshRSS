@@ -41,25 +41,7 @@
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-	/* search bar and config button height = 2.1rem */
-	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
-}
-
-.header > .item.title a {
-	padding: 0 1rem;
-}
-
-.header > .item.title .logo {
-	/* logo is smaller than needed */
-	height: 1.5rem;
-}
-
 /*=== Body */
-#global {
-	height: calc(100vh - (calc(2.1rem + 2 * var(--frss-padding-top-bottom))))
-}
-
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
@@ -152,6 +134,14 @@
 /*===========*/
 
 @media (max-width: 840px) {
+	.header .nav-header {
+		height: 2.75rem;
+	}
+
+	#maincolumn-inner {
+		height: calc(100vh - 2.75rem);
+	}
+
 	.nav_menu .search input {
 		padding: 1px 5px;
 	}
