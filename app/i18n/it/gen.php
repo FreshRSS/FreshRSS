@@ -122,7 +122,7 @@ return array(
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
 		'_' => 'Feed RSS Reader',
-		'about' => 'Informazioni',
+		'about' => 'Informazioni FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
@@ -165,7 +165,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Informazioni',
+		'about' => 'Informazioni FreshRSS',
 		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
 		'archiving' => 'Archiviazione',

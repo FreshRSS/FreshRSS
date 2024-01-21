@@ -165,7 +165,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'A prepaus',
+		'about' => 'A prepaus de FreshRSS',
 		'account' => 'Compte',
 		'admin' => 'Administracion',	// IGNORE
 		'archiving' => 'Archivar',

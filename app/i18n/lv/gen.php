@@ -165,7 +165,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Par',
+		'about' => 'Par FreshRSS',
 		'account' => 'Konts',
 		'admin' => 'Administrācija',
 		'archiving' => 'Arhivēšana',

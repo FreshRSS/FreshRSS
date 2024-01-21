@@ -106,6 +106,9 @@
 				<ul class="dropdown-menu scrollbar-thin">
 					<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
 					<li class="item dropdown-section">
+						<div class="dropdown-section-title">
+							<?= _t('gen.menu.help') ?>
+						</div>
 						<ul>
 							<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
 							<?php if (file_exists(TOS_FILENAME)) { ?>

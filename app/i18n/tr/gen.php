@@ -165,7 +165,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Hakkında',
+		'about' => 'FreshRSS hakkında',
 		'account' => 'Hesap',
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',

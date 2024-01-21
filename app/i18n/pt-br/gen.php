@@ -165,7 +165,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Sobre',
+		'about' => 'Sobre FreshRSS',
 		'account' => 'Conta',
 		'admin' => 'Administração',
 		'archiving' => 'Arquivar',
