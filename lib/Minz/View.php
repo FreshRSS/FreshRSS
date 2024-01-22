@@ -30,6 +30,7 @@ class Minz_View {
 
 	/**
 	 * Determines if a layout is used or not
+	 * @throws Minz_ConfigurationException
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);

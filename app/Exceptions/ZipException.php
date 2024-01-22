@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Zip_Exception extends Exception {
+class FreshRSS_Zip_Exception extends Minz_Exception {
 
 	private int $zipErrorCode = 0;
 

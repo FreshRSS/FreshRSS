@@ -75,6 +75,9 @@ final class FreshRSS_Context {
 		}
 	}
 
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public static function &systemConf(): FreshRSS_SystemConfiguration {
 		if (FreshRSS_Context::$system_conf === null) {
 			throw new FreshRSS_Context_Exception('System configuration not initialised!');
@@ -88,7 +91,6 @@ final class FreshRSS_Context {
 
 	/**
 	 * Initialize the context for the current user.
-	 * @throws Minz_ConfigurationParamException
 	 */
 	public static function initUser(string $username = '', bool $userMustExist = true): void {
 		FreshRSS_Context::$user_conf = null;
@@ -153,6 +155,9 @@ final class FreshRSS_Context {
 		}
 	}
 
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public static function &userConf(): FreshRSS_UserConfiguration {
 		if (FreshRSS_Context::$user_conf === null) {
 			throw new FreshRSS_Context_Exception('User configuration not initialised!');

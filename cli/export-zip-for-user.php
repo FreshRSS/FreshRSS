@@ -5,14 +5,18 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
-	'user:',
-	'max-feed-entries:',
-);
+$parameters = [
+	'long' => [
+		'user' => ':',
+		'max-feed-entries' => ':',
+	],
+	'short' => [],
+	'deprecated' => [],
+];
 
-$options = getopt('', $params);
+$options = parseCliParams($parameters);
 
-if (!validateOptions($argv, $params) || empty($options['user']) || !is_string($options['user'])) {
+if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username ( --max-feed-entries 100 ) > /path/to/file.zip");
 }
 
@@ -20,12 +24,12 @@ if (!extension_loaded('zip')) {
 	fail('FreshRSS error: Lacking php-zip extension!');
 }
 
-$username = cliInitUser($options['user']);
+$username = cliInitUser($options['valid']['user']);
 
 fwrite(STDERR, 'FreshRSS exporting ZIP for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
-$number_entries = empty($options['max-feed-entries']) ? 100 : intval($options['max-feed-entries']);
+$number_entries = empty($options['valid']['max-feed-entries']) ? 100 : intval($options['valid']['max-feed-entries']);
 $exported_files = [];
 
 // First, we generate the OPML file

@@ -580,6 +580,7 @@ function max_registrations_reached(): bool {
  *
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
+ * @throws Minz_ConfigurationNamespaceException
  */
 function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -590,9 +591,6 @@ function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
-		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 		return null;
@@ -706,13 +704,8 @@ function httpAuthUser(bool $onlyTrusted = true): string {
 }
 
 function cryptAvailable(): bool {
-	try {
-		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-		return $hash === @crypt('password', $hash);
-	} catch (Exception $e) {
-		Minz_Log::warning($e->getMessage());
-	}
-	return false;
+	$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+	return $hash === @crypt('password', $hash);
 }
 
 
