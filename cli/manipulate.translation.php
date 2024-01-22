@@ -6,41 +6,65 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-$parameters = [
-	'long' => [
-		'action' => ':',
-		'help' => '',
-		'key' => ':',
-		'language' => ':',
-		'origin-language' => ':',
-		'revert' => '',
-		'value' => ':',
-	],
-	'short' => [
-		'action' => 'a',
-		'help' => 'h',
-		'key' => 'k',
-		'language' => 'l',
-		'origin-language' => 'o',
-		'revert' => 'r',
-		'value' => 'v',
-	],
-	'deprecated' => [],
-];
-
-$options = parseCliParams($parameters);
-
-if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) {
-	manipulateHelp();
-	exit();
-}
-
-if (!array_key_exists('action', $options['valid'])) {
-	error('You need to specify the action to perform.');
-}
-
 $data = new I18nFile();
 $i18nData = new I18nData($data->load());
+
+/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
+ * 'validators':array<callable>}> $parameters */
+$parameters = [
+	'action' => [
+		'getopt' => ':',
+		'required' => true,
+		'short' => 'a',
+		'validators' => [
+			validateOneOf(['add', 'delete', 'exist', 'format', 'ignore', 'ignore_unmodified'], 'translation action'),
+		]
+	],
+	'help' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'h',
+	],
+	'key' => [
+		'getopt' => ':',
+		'required' => false,
+		'short' => 'k',
+	],
+	'language' => [
+		'getopt' => ':',
+		'required' => false,
+		'short' => 'l',
+		'validators' => [
+			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+		],
+	],
+	'origin-language' => [
+		'getopt' => ':',
+		'required' => false,
+		'short' => 'o',
+		'validators' => [
+			validateOneOf($i18nData->getAvailableLanguages(), 'origin language', 'an iso 639-1 code for a supported language')
+		],
+	],
+	'revert' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'r',
+	],
+	'value' => [
+		'getopt' => ':',
+		'required' => false,
+		'short' => 'v',
+	],
+];
+
+$options = parseAndValidateCliParams($parameters);
+
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	manipulateHelp($error);
+}
 
 switch ($options['valid']['action']) {
 	case 'add' :
@@ -114,14 +138,15 @@ WARNING
 	%s\n\n
 ERROR;
 	echo sprintf($error, $message);
-	manipulateHelp();
+	manipulateHelp(1);
 }
 
 /**
  * Output help message.
  */
-function manipulateHelp(): void {
+function manipulateHelp(int $exitCode = 0): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
+	
 	echo <<<HELP
 NAME
 	$file
@@ -132,29 +157,48 @@ SYNOPSIS
 DESCRIPTION
 	Manipulate translation files.
 
-	-a, --action=ACTION
-				select the action to perform. Available actions are add, delete,
-				exist, format, ignore, and ignore_unmodified. This option is mandatory.
-	-k, --key=KEY		select the key to work on.
-	-v, --value=VAL		select the value to set.
-	-l, --language=LANG	select the language to work on.
-	-h, --help		display this help and exit.
-	-r, --revert		revert the action (only for ignore action)
-	-o, origin-language=LANG
-				select the origin language (only for add language action)
+	-a, --action=<action>
+		sets the action to perform.
+		---
+		options:
+			- add
+			- delete
+			- exist
+			- format
+			- ignore
+			- ignore_unmodified
+		---
+
+	[-k, --key=<key>]
+		sets the key to work on.
+
+	[-v, --value=<value>]
+		sets the value to use.
+
+	[-l, --language=<language>]
+		sets the language to work on.
+
+	[-h, --help]
+		display this help and exit.
+
+	[-r, --revert]
+		revert the action (only used with the ignore action)
+
+	[-o, --origin-language=<language>]
+		sets the origin language (only used with the add language action)
 
 EXAMPLES
-Example 1:	add a language. It adds a new language by duplicating the referential.
+Example 1:	add a language. Adds a new language by duplicating the reference language.
 	php $file -a add -l my_lang
 	php $file -a add -l my_lang -o ref_lang
 
-Example 2:	add a new key. It adds the key for all supported languages.
+Example 2:	add a new key. Adds a key to all supported languages.
 	php $file -a add -k my_key -v my_value
 
-Example 3:	add a new value. It adds a new value for the selected key in the selected language.
+Example 3:	add a new value. Sets a new value for the selected key in the selected language.
 	php $file -a add -k my_key -v my_value -l my_lang
 
-Example 4:	delete a key. It deletes the selected key from all supported languages.
+Example 4:	delete a key. Deletes the selected key from all supported languages.
 	php $file -a delete -k my_key
 
 Example 5:	format i18n files.
@@ -170,11 +214,12 @@ Example 8:	ignore all unmodified keys. Adds IGNORE comments to all unmodified ke
 	php $file -a ignore_unmodified -l my_lang
 
 Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from all unmodified keys in the selected language.
-		Warning: will also revert individually added unmodified keys.
+		Warning: will also revert individually added IGNOREs on unmodified keys.
 	php $file -a ignore_unmodified -r -l my_lang
 
 Example 10:	check if a key exist.
 	php $file -a exist -k my_key\n\n
 
 HELP;
+	exit($exitCode);
 }
