@@ -7,36 +7,129 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
+$i18nFile = new I18nFile();
+$i18nData = new I18nData($i18nFile->load());
+
+/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
+ * 'validators':array<callable>}> $parameters */
 $parameters = [
-	'long' => [
-		'environment' => ':',
-		'base-url' => ':',
-		'language' => ':',
-		'title' => ':',
-		'default-user' => ':',
-		'allow-anonymous' => '',
-		'allow-anonymous-refresh' => '',
-		'auth-type' => ':',
-		'api-enabled' => '',
-		'allow-robots' => '',
-		'disable-update' => '',
-		'db-type' => ':',
-		'db-host' => ':',
-		'db-user' => ':',
-		'db-password' => ':',
-		'db-base' => ':',
-		'db-prefix' => '::',
+	'environment' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+		'validators' => [
+			validateOneOf(['development', 'production', 'silent'], 'environment setting')
+		],
 	],
-	'short' => [],
-	'deprecated' => [
-		'base-url' => 'base_url',
-		'default-user' => 'default_user',
-		'allow-anonymous' => 'allow_anonymous',
-		'allow-anonymous-refresh' => 'allow_anonymous_refresh',
-		'auth-type' => 'auth_type',
-		'api-enabled' => 'api_enabled',
-		'allow-robots' => 'allow_robots',
-		'disable-update' => 'disable_update',
+	'base-url' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+		'deprecated' => 'base_url',
+	],
+	'language' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+		'validators' => [
+			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+		],
+	],
+	'title' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'default-user' => [
+		'getopt' => ':',
+		'required' => true,
+		'read' => readAsString(),
+		'deprecated' => 'default_user',
+		'validators' => [
+			validateRegex(FreshRSS_user_Controller::USERNAME_PATTERN, 'default username', 'ASCII alphanumeric')
+		],
+	],
+	'allow-anonymous' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsBool(),
+		'deprecated' => 'allow_anonymous',
+		'validators' => [validateOneOf(['true', 'false'], 'value')],
+	],
+	'allow-anonymous-refresh' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsBool(),
+		'deprecated' => 'allow_anonymous_refresh',
+		'validators' => [validateOneOf(['true', 'false'], 'value')],
+	],
+	'auth-type' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+		'deprecated' => 'auth_type',
+		'validators' => [
+			validateOneOf(['form', 'http_auth', 'none'], 'authentication method')
+		],
+	],
+	'api-enabled' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsBool(),
+		'deprecated' => 'api_enabled',
+		'validators' => [validateOneOf(['true', 'false'], 'value')],
+	],
+	'allow-robots' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsBool(),
+		'deprecated' => 'allow_robots',
+		'validators' => [validateOneOf(['true', 'false'], 'value')],
+	],
+	'disable-update' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsBool(),
+		'deprecated' => 'disable_update',
+		'validators' => [validateOneOf(['true', 'false'], 'value')],
+	],
+	'help' => [
+		'getopt' => '',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'db-type' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+		'validators' => [
+			validateOneOf(['sqlite', 'mysql', 'pgsql'], 'database type')
+		],
+	],
+	'db-host' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'db-user' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'db-password' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'db-base' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsString(),
+	],
+	'db-prefix' => [
+		'getopt' => '::',
+		'required' => false,
+		'read' => readAsString(),
 	],
 ];
 
@@ -63,14 +156,12 @@ $dBconfigParams = [
 	'db-prefix' => 'prefix',
 ];
 
-$options = parseCliParams($parameters);
+$options = parseAndValidateCliParams($parameters);
+$error = empty($options['invalid']) ? '' : current($options['invalid']);
 
-if (!empty($options['invalid']) || empty($options['valid']['default-user']) || !is_string($options['valid']['default-user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --default-user admin ( --auth-type form" .
-		" --environment production --base-url https://rss.example.net --allow-robots" .
-		" --language en --title FreshRSS --allow-anonymous --allow-anonymous-refresh --api-enabled" .
-		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
-		" --db-base freshrss --db-prefix freshrss_ --disable-update )");
+if (key_exists('help', $options['valid']) || !empty($error)) {
+	!empty($error) ? fwrite(STDERR, "\nFreshRSS error: $error\n\n") : '';
+	exit();
 }
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
@@ -89,9 +180,9 @@ if (file_exists($customConfigPath)) {
 }
 
 foreach ($configParams as $param => $configParam) {
-	if (isset($options['valid'][$param])) {
-		$isFlag = $parameters['long'][$param] === '';
-		$config[$configParam] = $isFlag ? true : $options['valid'][$param];
+	$configValue = $parameters[$param]['read']($param, $options['valid']);
+	if ($configValue) {
+		$config[$configParam] = $configValue;
 	}
 }
 
@@ -100,21 +191,13 @@ if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Requ
 }
 
 foreach ($dBconfigParams as $dBparam => $configDbParam) {
-	if (isset($options['valid'][$dBparam])) {
-		$config['db'][$configDbParam] = $options['valid'][$dBparam];
+	$configValue = $parameters[$dBparam]['read']($dBparam, $options['valid']);
+	if ($configValue) {
+		$config['db'][$configDbParam] = $configValue;
 	}
 }
 
 performRequirementCheck($config['db']['type']);
-
-if (!FreshRSS_user_Controller::checkUsername($options['valid']['default-user'])) {
-	fail('FreshRSS error: invalid default username “' . $options['valid']['default-user']
-		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
-}
-
-if (isset($options['valid']['auth-type']) && !in_array($options['valid']['auth-type'], ['form', 'http_auth', 'none'], true)) {
-	fail('FreshRSS invalid authentication method (auth-type must be one of { form, http_auth, none })');
-}
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
 	"<?php\n return " . var_export($config, true) . ";\n") === false) {
