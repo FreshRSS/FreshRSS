@@ -157,11 +157,11 @@ $dBconfigParams = [
 ];
 
 $options = parseAndValidateCliParams($parameters);
-$error = empty($options['invalid']) ? '' : current($options['invalid']);
 
-if (key_exists('help', $options['valid']) || !empty($error)) {
-	!empty($error) ? fwrite(STDERR, "\nFreshRSS error: $error\n\n") : '';
-	exit();
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	installHelp($error);
 }
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
@@ -238,3 +238,124 @@ if (!setupMigrations()) {
 }
 
 done();
+
+function installHelp(int $exitCode): void {
+	$file = str_replace(__DIR__ . '/', '', __FILE__);
+	
+	echo <<<HELP
+NAME
+	$file
+
+SYNOPSIS
+	php $file [OPTION]...
+
+DESCRIPTION
+	Installs a new FreshRSS instance.
+
+	--default-user=<defaultuser>
+		sets the default user of this FreshRSS instance.
+
+	[--auth-type=<authtype>]
+		sets method used for user login.
+		---
+		default: form
+		options:
+			- form
+			- http_auth
+			- none
+		---
+
+	[--environment=<environment>]
+		sets log messaging behavior.
+		---
+		default: production
+		options:
+			- production
+			- development
+			- silent
+		---
+
+	[--base-url=<baseurl>]
+		address of the FreshRSS instance, used when building absolute URLs.
+		---
+		default: http://localhost:8080/
+		---
+
+	[--language=<language>]
+		sets instance language.
+		---
+		default: en
+		---
+
+	[--title=<title>]
+		web interface title for this instance.
+		---
+		default: FreshRSS
+		---
+
+	[--allow-anonymous=<true|false>]
+		sets whether non logged-in visitors are permitted to see the default user's feeds.
+		---
+		default: false
+		---
+
+	[--allow-anonymous-refresh=<true|false>]
+		sets whether to allow anonymous users to start the refresh process.
+		---
+		default: false
+		---
+
+	[--api-enabled=<true|false>]
+		sets whether the API may be used for mobile apps.
+		---
+		default: false
+		---
+
+	[--allow-robots=<true|false>]
+		sets permissions on robots (e.g. search engines) in HTML headers.
+		---
+		default: false
+		---
+
+	[--disable-update=<true|false>]
+		sets whether updating is disabled.
+		---
+		default: false
+		---
+	
+	[--help] 
+		displays this help text.
+
+	[--db-type=<dbtype>]
+		sets type of database used.
+		---
+		default: sqlite
+		options:
+			- sqlite
+			- mysql
+			- pgsql
+		---
+
+	[--db-host=<dburl>]
+		sets URL of the database server.
+		---
+		default: 'localhost'
+		---
+
+	[--db-user=<dbuser>]
+		sets database user.
+
+	[--db-password=<password>]
+		sets database password.
+
+	[--db-base=<dbname>]
+		sets database name.
+
+	[--db-prefix=<dbprefix>]
+		sets a prefix used in the names of database tables.
+		---
+		default: freshrss_
+		---\n
+HELP;
+	exit($exitCode);
+}
