@@ -18,6 +18,7 @@
 				<div class="box-title">
 					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
 					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_token" name="queries[<?= $key ?>][token]" value="<?= $query->getToken() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->getRawInput()) ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
@@ -51,7 +52,7 @@
 					<?php } ?>
 
 					<?php if ($query->getGet()) { ?>
-					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li><!-- TODO: Fix i18n -->
 					<?php } ?>
 					<?php } ?>
 					</ul>

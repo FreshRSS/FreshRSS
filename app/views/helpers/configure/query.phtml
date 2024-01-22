@@ -7,7 +7,6 @@
 ?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>
-
 	<div>
 		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
@@ -18,7 +17,8 @@
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('conf.query.name') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->query->getName()  ?>" />
+				<input type="text" name="name" id="name" value="<?= $this->query->getName() ?>" />
+				<input type="hidden" name="query[token]" id="query_token" value="<?= $this->query->getToken() ?>" />
 			</div>
 		</div>
 

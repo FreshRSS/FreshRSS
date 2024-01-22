@@ -306,7 +306,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$tag_dao = FreshRSS_Factory::createTagDao();
 
 		if (Minz_Request::isPost()) {
-			/** @var array<int,array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $params */
+			/** @var array<int,array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
 			$queries = [];
@@ -377,6 +377,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$params = array_filter(Minz_Request::paramArray('query'));
 			$queryParams = [];
+			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
+			if ('' === $name) {
+				$name = _t('conf.query.number', $id + 1);
+			}
+			$queryParams['name'] = $name;
 			if (!empty($params['get']) && is_string($params['get'])) {
 				$queryParams['get'] = htmlspecialchars_decode($params['get'], ENT_QUOTES);
 			}
@@ -389,11 +394,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['state']) && is_array($params['state'])) {
 				$queryParams['state'] = (int)(array_sum($params['state']));
 			}
-			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
-			if ('' === $name) {
-				$name = _t('conf.query.number', $id + 1);
+			if (empty($params['token']) || !is_string($params['token'])) {
+				$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
+			} else {
+				$queryParams['token'] = $params['token'];
 			}
-			$queryParams['name'] = $name;
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 
 			$queries = FreshRSS_Context::userConf()->queries;

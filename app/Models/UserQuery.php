@@ -62,9 +62,7 @@ class FreshRSS_UserQuery {
 		if (!isset($query['search'])) {
 			$query['search'] = '';
 		}
-		if (empty($query['token'])) {
-			$this->token = self::generateToken($this->name);
-		} else {
+		if (!empty($query['token'])) {
 			$this->token = $query['token'];
 		}
 		// linked too deeply with the search object, need to use dependency injection
@@ -251,6 +249,14 @@ class FreshRSS_UserQuery {
 
 	public function getUrl(): string {
 		return $this->url;
+	}
+
+	public function getToken(): string {
+		return $this->token;
+	}
+
+	public function setToken(string $token): void {
+		$this->token = $token;
 	}
 
 	protected function sharedUrl(): string {
