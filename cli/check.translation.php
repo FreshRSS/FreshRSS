@@ -11,26 +11,40 @@ require_once __DIR__ . '/../constants.php';
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
+/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
+ * 'validators':array<callable>}> $parameters */
 $parameters = [
-	'long' => [
-		'display-result' => '',
-		'help' => '',
-		'language' => ':',
-		'display-report' => '',
+	'display-result' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'd',
 	],
-	'short' => [
-		'display-result' => 'd',
-		'help' => 'h',
-		'language' => 'l',
-		'display-report' => 'r',
+	'help' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'h',
 	],
-	'deprecated' => [],
+	'language' => [
+		'getopt' => ':',
+		'required' => false,
+		'short' => 'l',
+		'validators' => [
+			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+		],
+	],
+	'display-report' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'r',
+	],
 ];
 
-$options = parseCliParams($parameters);
+$options = parseAndValidateCliParams($parameters);
 
-if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) {
-	checkHelp();
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	checkHelp($error);
 }
 
 if (array_key_exists('language', $options['valid'])) {
@@ -103,7 +117,7 @@ function findUsedTranslations(): array {
  * Output help message.
  * @return never
  */
-function checkHelp() {
+function checkHelp(int $errorCode) {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP
@@ -116,11 +130,18 @@ SYNOPSIS
 DESCRIPTION
 	Check if translation files have missing keys or missing translations.
 
-	-d, --display-result	display results.
-	-h, --help		display this help and exit.
-	-l, --language=LANG	filter by LANG.
-	-r, --display-report	display completion report.
+	-d, --display-result
+		displays results.
+
+	-h, --help
+		displays this help text.
+
+	-l, --language=<language>
+		filters by <language>.
+
+	-r, --display-report
+		displays completion report.
 
 HELP;
-	exit;
+	exit($errorCode);
 }
