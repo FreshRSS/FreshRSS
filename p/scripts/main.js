@@ -439,7 +439,7 @@ function toggleContent(new_active, old_active, skipping) {
 		const nav_menu = document.querySelector('.nav_menu');
 		let nav_menu_height = 0;
 
-		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+		if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
 			nav_menu_height = nav_menu.offsetHeight;
 		}
 
@@ -1941,11 +1941,14 @@ function init_main_afterDOM() {
 	if (stream) {
 		init_load_more(stream);
 		init_posts();
-		init_nav_entries();
-		init_notifs_html5();
-		toggle_bigMarkAsRead_button();
-		setTimeout(faviconNbUnread, 1000);
-		setInterval(refreshUnreads, 120000);
+		if (document.getElementById('new-article')) {
+			// Only relevant for interactive views
+			init_nav_entries();
+			init_notifs_html5();
+			toggle_bigMarkAsRead_button();
+			setTimeout(faviconNbUnread, 1000);
+			setInterval(refreshUnreads, 120000);
+		}
 	}
 
 	if (window.console) {

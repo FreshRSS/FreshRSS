@@ -18,7 +18,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var iterable<FreshRSS_Entry> */
 	public $entries;
 	public FreshRSS_Entry $entry;
-	public ?FreshRSS_Feed $feed;
+	public FreshRSS_Feed $feed;
 	/** @var array<FreshRSS_Feed> */
 	public array $feeds;
 	public int $nbUnreadTags;
@@ -100,6 +100,7 @@ class FreshRSS_View extends Minz_View {
 	public int $nbPage;
 
 	// RSS view
+	public string $html_url = '';
 	public string $rss_title = '';
 	public string $rss_url = '';
 	public string $rss_base = '';

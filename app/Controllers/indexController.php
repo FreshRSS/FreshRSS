@@ -141,6 +141,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the RSS feed of FreshRSS.
+	 * @deprecated See user query RSS sharing instead
 	 */
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
@@ -168,9 +169,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		// No layout for RSS output.
-		$this->view->rss_url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
+		$this->view->html_url = Minz_Url::display('', 'html', true);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
+		$this->view->rss_url = htmlspecialchars(
+			PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']), ENT_COMPAT, 'UTF-8');
+
+		// No layout for RSS output.
 		$this->view->_layout(null);
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}

@@ -259,16 +259,16 @@ class FreshRSS_UserQuery {
 		$this->token = $token;
 	}
 
-	protected function sharedUrl(): string {
+	protected function sharedUrl(bool $xmlEscaped = true): string {
 		$currentUser = Minz_User::name() ?? '';
-		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}");
+		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
 	}
 
-	public function sharedUrlRss(): string {
+	public function sharedUrlRss(bool $xmlEscaped = true): string {
 		return $this->sharedUrl() . '&f=rss';
 	}
 
-	public function sharedUrlHtml(): string {
+	public function sharedUrlHtml(bool $xmlEscaped = true): string {
 		return $this->sharedUrl() . '&f=html';
 	}
 }

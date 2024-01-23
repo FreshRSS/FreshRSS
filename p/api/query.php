@@ -13,7 +13,7 @@ if (!ctype_alnum($token)) {
 }
 
 $format = Minz_Request::paramString('f');
-if (!in_array($format, ['atom', 'html', 'rss'], true)) {
+if (!in_array($format, ['atom', 'html', 'opml', 'rss'], true)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid format `f`!');
@@ -25,6 +25,8 @@ if (!FreshRSS_user_Controller::checkUsername($user)) {
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid user!');
 }
+
+Minz_Session::init('FreshRSS', true);
 
 FreshRSS_Context::initSystem();
 if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_enabled) {
@@ -47,18 +49,18 @@ Minz_Translate::init(FreshRSS_Context::userConf()->language);
 Minz_ExtensionManager::init();
 Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_enabled, 'user');
 
-$found = false;
+$query = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
-		Minz_Request::_param('a', $raw_query['get'] ?? '');
-		Minz_Request::_param('order', $raw_query['order'] ?? '');
-		Minz_Request::_param('search', $raw_query['search'] ?? '');
-		Minz_Request::_param('state', $raw_query['state'] ?? 0);
-		$found = true;
+		$query = new FreshRSS_UserQuery($raw_query);
+		Minz_Request::_param('a', $query->getGet());
+		Minz_Request::_param('order', $query->getOrder());
+		Minz_Request::_param('search', $query->getSearch());
+		Minz_Request::_param('state', $query->getState());
 		break;
 	}
 }
-if (!$found) {
+if ($query === null) {
 	usleep(rand(100, 10000));
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -66,8 +68,6 @@ if (!$found) {
 }
 
 $view = new FreshRSS_View();
-$view->_layout(null);
-$view->internal_rendering = true;
 
 try {
 	FreshRSS_Context::updateUsingRequest(false);
@@ -78,12 +78,25 @@ try {
 	die('Bad user query!');
 }
 
+$view->categories = FreshRSS_Context::$categories;
+$view->disable_aside = true;
+$view->internal_rendering = true;
+$view->html_url = $query->sharedUrlHtml();
+$view->rss_url = $query->sharedUrlRss();
+$view->rss_title = $query->getName();
+
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
+	$view->_layout(null);
 	$view->_path('index/rss.phtml');
-} elseif ($format === 'html') {
+// } elseif ($format === 'opml') {
+// 	// TODO
+} else {
+	if ($query->getName() != '') {
+		FreshRSS_View::prependTitle($query->getName() . ' · ');
+	}
+	$view->_layout('simple');
 	$view->_path('index/html.phtml');
-	// TODO
 }
 
-echo $view->renderToString();
+$view->build();
