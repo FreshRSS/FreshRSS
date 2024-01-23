@@ -134,7 +134,7 @@ return array(
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Nessun tag',
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
 	),
@@ -178,7 +178,7 @@ return array(
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Vedi la documentazione per <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametri di ricerca avanzati</a>',
 		'sharing' => 'Condivisione',
 		'shortcuts' => 'Comandi tastiera',
 		'stats' => 'Statistiche',
@@ -203,7 +203,7 @@ return array(
 		'clipboard' => 'Appunti',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - fix per Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
