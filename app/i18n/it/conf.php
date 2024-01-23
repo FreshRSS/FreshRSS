@@ -34,8 +34,8 @@ return array(
 		'_' => 'Visualizzazione',
 		'darkMode' => array(
 			'_' => 'Modalità scura automatica (beta)',
-			'auto' => 'Auto',
-			'no' => 'No',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
@@ -204,7 +204,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
-			'focus' => 'quando l\'articolo è in primo piano (eccetto per feed importanti)',
+			'focus' => 'quando l’articolo è in primo piano (eccetto per feed importanti)',
 			'keep_max_n_unread' => 'Massimo numero di articoli da mantenere come non letti',
 			'scroll' => 'Scorrendo la pagina (eccetto per feed importanti)',
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',

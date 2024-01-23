@@ -130,7 +130,7 @@ return array(
 				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array (es. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
-					'help' => 'percorso JSON per l\'array contenente gli elementi, es. <code>newsItems</code>',
+					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
 				),
 				'item_author' => 'autore elemento',
 				'item_categories' => 'tag elemento',
@@ -157,11 +157,11 @@ return array(
 					'help' => 'Esempio: <code>permalink</code>',
 				),
 				'json' => 'Percorso con i punti per:',
-				'relative' => 'Percorso con i punti (relativo all\'elemento) per:',
+				'relative' => 'Percorso con i punti (relativo all’elemento) per:',
 			),
 			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',
-			'xml_xpath' => 'XML + XPath',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
