@@ -127,7 +127,7 @@ return array(
 					'_' => 'titolo feed',
 					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
 				),
-				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array (es. <code>data.items[0].title</code>)',
+				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array. (es. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
 					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
