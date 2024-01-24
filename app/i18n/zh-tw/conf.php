@@ -125,9 +125,12 @@ return array(
 			'type' => '類型',
 		),
 		'get_all' => '顯示所有文章',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '顯示分類 “%s”',
 		'get_favorite' => '顯示收藏文章',
 		'get_feed' => '顯示訂閱源 “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'number' => '查詢 n°%d',

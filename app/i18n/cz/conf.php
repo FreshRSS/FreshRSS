@@ -125,9 +125,12 @@ return array(
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobrazit všechny články',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Zobrazit kategorii „%s“',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit kanál „%s“',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',

@@ -125,9 +125,12 @@ return array(
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',

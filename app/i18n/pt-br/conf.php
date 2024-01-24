@@ -125,9 +125,12 @@ return array(
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostrar todos os artigos',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Visualizar “%s” categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar “%s” feed',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',
 		'number' => 'Query n°%d',	// IGNORE

@@ -98,7 +98,7 @@ class FreshRSS_UserQuery {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
-					$this->parseAll();
+					$this->get_type = 'all';
 					break;
 				case 'c':
 					$this->parseCategory($id);
@@ -106,22 +106,20 @@ class FreshRSS_UserQuery {
 				case 'f':
 					$this->parseFeed($id);
 					break;
+				case 'i':
+					$this->get_type = 'important';
+					break;
 				case 's':
-					$this->parseFavorite();
+					$this->get_type = 'favorite';
 					break;
 				case 't':
-					$this->parseTag($id);
+					$this->parseLabel($id);
+					break;
+				case 'T':
+					$this->get_type = 'all_labels';
 					break;
 			}
 		}
-	}
-
-	/**
-	 * Parse the query string when it is an "all" query
-	 */
-	private function parseAll(): void {
-		$this->get_name = 'all';
-		$this->get_type = 'all';
 	}
 
 	/**
@@ -157,9 +155,9 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
-	 * Parse the query string when it is a "tag" query
+	 * Parse the query string when it is a "label" query
 	 */
-	private function parseTag(int $id): void {
+	private function parseLabel(int $id): void {
 		if ($this->tag_dao === null) {
 			$this->tag_dao = FreshRSS_Factory::createTagDao();
 		}
@@ -169,15 +167,7 @@ class FreshRSS_UserQuery {
 		} else {
 			$this->deprecated = true;
 		}
-		$this->get_type = 'tag';
-	}
-
-	/**
-	 * Parse the query string when it is a "favorite" query
-	 */
-	private function parseFavorite(): void {
-		$this->get_name = 'favorite';
-		$this->get_type = 'favorite';
+		$this->get_type = 'label';
 	}
 
 	/**
@@ -265,10 +255,10 @@ class FreshRSS_UserQuery {
 	}
 
 	public function sharedUrlRss(bool $xmlEscaped = true): string {
-		return $this->sharedUrl() . '&f=rss';
+		return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=rss';
 	}
 
 	public function sharedUrlHtml(bool $xmlEscaped = true): string {
-		return $this->sharedUrl() . '&f=html';
+		return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
 	}
 }

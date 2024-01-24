@@ -125,9 +125,12 @@ return array(
 			'type' => 'Típus',
 		),
 		'get_all' => 'Minden cikk megjelenítése',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Listáz “%s” kategóriát',
 		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
 		'number' => 'Lekérdezés %d',

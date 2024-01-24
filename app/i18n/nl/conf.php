@@ -125,9 +125,12 @@ return array(
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Toon „%s” categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon „%s” feed',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'number' => 'Query n°%d',	// IGNORE

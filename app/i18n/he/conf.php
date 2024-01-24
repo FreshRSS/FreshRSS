@@ -125,9 +125,12 @@ return array(
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'הצגת כל המאמרים',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'הצגת קטגוריה “%s”',
 		'get_favorite' => 'הצגת מאמרים מועדפים',
 		'get_feed' => 'הצגת הזנה %s',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'ללא סינון',
 		'number' => 'שאילתה מספר °%d',

@@ -125,9 +125,12 @@ return array(
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Display all articles',	// IGNORE
+		'get_all_labels' => 'Display articles with any label',	// IGNORE
 		'get_category' => 'Display “%s” category',	// IGNORE
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display “%s” feed',	// IGNORE
+		'get_important' => 'Display articles from important feeds',	// IGNORE
+		'get_label' => 'Display articles with “%s” label',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE

@@ -125,9 +125,12 @@ return array(
 			'type' => '유형',
 		),
 		'get_all' => '모든 글 표시',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s” 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '“%s” 피드 표시',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',

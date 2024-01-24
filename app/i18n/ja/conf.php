@@ -125,9 +125,12 @@ return array(
 			'type' => 'タイプ',
 		),
 		'get_all' => 'すべての著者を表示する',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s”カテゴリを表示する',
 		'get_favorite' => 'お気に入りの著者を表示する',
 		'get_feed' => '“%s”フィードを表示する',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',

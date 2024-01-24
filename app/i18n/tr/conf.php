@@ -125,9 +125,12 @@ return array(
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '“%s” akışını göster',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',

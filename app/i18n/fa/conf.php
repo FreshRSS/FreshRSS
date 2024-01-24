@@ -125,9 +125,12 @@ return array(
 			'type' => ' نوع',
 		),
 		'get_all' => ' نمایش همه مقالات',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => ' دسته «%s» را نمایش دهید',
 		'get_favorite' => ' نمایش مقالات مورد علاقه',
 		'get_feed' => ' فید "%s" را نمایش دهید',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => ' نام',
 		'no_filter' => ' بدون فیلتر',
 		'number' => ' پرس و جو n°%d',

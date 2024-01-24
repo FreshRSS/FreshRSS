@@ -125,9 +125,12 @@ return array(
 			'type' => 'Filter-Typ',
 		),
 		'get_all' => 'Alle Artikel anzeigen',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Kategorie „%s“ anzeigen',
 		'get_favorite' => 'Lieblingsartikel anzeigen',
 		'get_feed' => 'Feed „%s“ anzeigen',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',

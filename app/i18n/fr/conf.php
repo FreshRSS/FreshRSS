@@ -125,9 +125,12 @@ return array(
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
+		'get_all_labels' => 'Afficher les articles avec une étiquette',
 		'get_category' => 'Afficher la catégorie <em>%s<em>',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux <em>%s</em>',
+		'get_important' => 'Afficher les articles des flux importants',
+		'get_label' => 'Afficher les articles avec l’étiquette “%s”',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',

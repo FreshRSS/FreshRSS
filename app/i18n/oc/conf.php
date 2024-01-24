@@ -125,9 +125,12 @@ return array(
 			'type' => 'Tipe',
 		),
 		'get_all' => 'Mostrar totes los articles',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
 		'number' => 'Filtre n°%d',

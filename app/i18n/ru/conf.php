@@ -125,9 +125,12 @@ return array(
 			'type' => 'Тип',
 		),
 		'get_all' => 'Показать все статьи',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Показать категорию “%s”',
 		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
 		'number' => 'Запрос №%d',

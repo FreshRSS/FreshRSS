@@ -125,9 +125,12 @@ return array(
 			'type' => 'Type',	// TODO
 		),
 		'get_all' => 'Display all articles',	// TODO
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Display “%s” category',	// TODO
 		'get_favorite' => 'Display favourite articles',	// TODO
 		'get_feed' => 'Display “%s” feed',	// TODO
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO
 		'number' => 'Query n°%d',	// TODO

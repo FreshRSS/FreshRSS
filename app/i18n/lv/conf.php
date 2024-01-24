@@ -125,9 +125,12 @@ return array(
 			'type' => 'Veids',
 		),
 		'get_all' => 'Rādīt visus rakstus',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'number' => 'Pieprasījums nr. %d',
