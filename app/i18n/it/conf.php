@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Visualizzazione',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Modalità scura automatica (beta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Deprecato',
+				'description' => 'Questo tema non è più supportato e non sarà più disponibile in un <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">futuro rilascio di FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'Il tema “%s” non è più disponibile. Si prega di selezionarne un altro.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Ritratto',
 			'square' => 'Squadrata',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Fuso orario',
 		'title' => 'Visualizzazione',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icona e nome',
+			'icon' => 'Solo icona',
+			'label' => 'Sito web',
+			'name' => 'Solo nome',
+			'none' => 'Nessuno',
 		),
 		'width' => array(
 			'content' => 'Larghezza contenuto',
@@ -209,9 +209,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'quando l’articolo è in primo piano (eccetto per feed importanti)',
 			'keep_max_n_unread' => 'Massimo numero di articoli da mantenere come non letti',
-			'scroll' => 'Scorrendo la pagina (except for important feeds)',	// DIRTY
+			'scroll' => 'Scorrendo la pagina (eccetto per feed importanti)',
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
