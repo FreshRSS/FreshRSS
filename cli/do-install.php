@@ -177,9 +177,8 @@ if (file_exists($customConfigPath)) {
 }
 
 foreach ($configParams as $param => $configParam) {
-	$configValue = $parameters[$param]['read']($param, $options['valid']);
-	if ($configValue) {
-		$config[$configParam] = $configValue;
+	if ($options['valid'][$param] ?? 0) {
+		$config[$configParam] = $parameters[$param]['read']($options['valid'][$param]);
 	}
 }
 
@@ -188,9 +187,8 @@ if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Requ
 }
 
 foreach ($dBconfigParams as $dBparam => $configDbParam) {
-	$configValue = $parameters[$dBparam]['read']($dBparam, $options['valid']);
-	if ($configValue) {
-		$config['db'][$configDbParam] = $configValue;
+	if ($options['valid'][$dBparam] ?? 0) {
+		$config['db'][$configDbParam] = $parameters[$dBparam]['read']($options['valid'][$dBparam]);
 	}
 }
 

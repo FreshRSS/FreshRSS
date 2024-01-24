@@ -66,18 +66,23 @@ if (key_exists('help', $options['valid']) || $error) {
 $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
-switch ($options['valid']['action']) {
+switch ($parameters['action']['read']($options['valid']['action'])) {
 	case 'add' :
 		if (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid']) && array_key_exists('language', $options['valid'])) {
-			$i18nData->addValue($options['valid']['key'], $options['valid']['value'], $options['valid']['language']);
+			$i18nData->addValue($parameters['action']['read']($options['valid']['key']),
+								$parameters['action']['read']($options['valid']['value']),
+								$parameters['action']['read']($options['valid']['language'])
+			);
 		} elseif (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid'])) {
-			$i18nData->addKey($options['valid']['key'], $options['valid']['value']);
+			$i18nData->addKey($parameters['action']['read']($options['valid']['key']),
+							  $parameters['action']['read']($options['valid']['value']),
+			);
 		} elseif (array_key_exists('language', $options['valid'])) {
 			$reference = null;
 			if (array_key_exists('origin-language', $options['valid'])) {
-				$reference = $options['valid']['origin-language'];
+				$reference = $parameters['action']['read']($options['valid']['origin-language']);
 			}
-			$i18nData->addLanguage($options['valid']['language'], $reference);
+			$i18nData->addLanguage($parameters['action']['read']($options['valid']['language']), $reference);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -85,7 +90,7 @@ switch ($options['valid']['action']) {
 		break;
 	case 'delete' :
 		if (array_key_exists('key', $options['valid'])) {
-			$i18nData->removeKey($options['valid']['key']);
+			$i18nData->removeKey($parameters['action']['read']($options['valid']['key']));
 		} else {
 			error('You need to specify the key to delete.');
 			exit;
@@ -93,7 +98,7 @@ switch ($options['valid']['action']) {
 		break;
 	case 'exist':
 		if (array_key_exists('key', $options['valid'])) {
-			$key = $options['valid']['key'];
+			$key = $parameters['action']['read']($options['valid']['key']);
 			if ($i18nData->isKnown($key)) {
 				echo "The '{$key}' key is known.\n\n";
 			} else {
@@ -108,7 +113,9 @@ switch ($options['valid']['action']) {
 		break;
 	case 'ignore' :
 		if (array_key_exists('language', $options['valid']) && array_key_exists('key', $options['valid'])) {
-			$i18nData->ignore($options['valid']['key'], $options['valid']['language'], array_key_exists('revert', $options['valid']));
+			$i18nData->ignore($parameters['action']['read']($options['valid']['key']),
+							  $parameters['action']['read']($options['valid']['language']),
+							  array_key_exists('revert', $options['valid']));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -116,7 +123,8 @@ switch ($options['valid']['action']) {
 		break;
 	case 'ignore_unmodified' :
 		if (array_key_exists('language', $options['valid'])) {
-			$i18nData->ignore_unmodified($options['valid']['language'], array_key_exists('revert', $options['valid']));
+			$i18nData->ignore_unmodified($parameters['action']['read']($options['valid']['language']),
+										 array_key_exists('revert', $options['valid']));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;

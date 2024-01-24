@@ -49,7 +49,7 @@ $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
 if (array_key_exists('language', $options['valid'])) {
-	$languages = [$options['valid']['language']];
+	$languages = $options['valid']['language'];
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }

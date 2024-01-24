@@ -160,9 +160,8 @@ if (key_exists('help', $options['valid']) || $error) {
 /** @var stdClass $systemConf */
 $systemConf = FreshRSS_Context::systemConf();
 foreach ($configParams as $param => $configParam) {
-	$readAsValue = $parameters[$param]['read']($param, $options['valid']);
-	if ($readAsValue) {
-		$systemConf->$configParam = $readAsValue;
+	if ($options['valid'][$param] ?? 0) {
+		$systemConf->$configParam = $parameters[$param]['read']($options['valid'][$param]);
 	}
 }
 
@@ -170,9 +169,8 @@ foreach ($configParams as $param => $configParam) {
  *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db */
 $db = FreshRSS_Context::systemConf()->db;
 foreach ($dBconfigParams as $dBparam => $configDbParam) {
-	$readAsValue = $parameters[$dBparam]['read']($dBparam, $options['valid']);
-	if ($readAsValue) {
-		$db[$configDbParam] = $readAsValue;
+	if ($options['valid'][$dBparam] ?? 0) {
+		$db[$configDbParam] = $parameters[$dBparam]['read']($options['valid'][$dBparam]);
 	}
 }
 
