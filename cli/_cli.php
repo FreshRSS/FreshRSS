@@ -257,8 +257,21 @@ function validateRegex(string $regex, string $errorMessageName, string $errorMes
 }
 
 /**
- * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- * 'read':callable,'validators':array<callable>}> $parameters
+ * @param array<string> $validValues
+ */
+function validateFileExtension(array $validValues, string $errorMessageName, ?string $errorMessagePrompt = null): callable {
+	$errorMessagePrompt = $errorMessagePrompt ? $errorMessagePrompt : 'a path to a file ending in one of { .' . implode(', .', $validValues) . ' }';
+
+	return function (string $name, string $value) use ($validValues, $errorMessageName, $errorMessagePrompt): ?string {
+		return !in_array(pathinfo($value, PATHINFO_EXTENSION), $validValues, true)
+		? 'invalid ' . $errorMessageName . '. ' . $name . ' must be ' . $errorMessagePrompt
+		: null;
+	};
+}
+
+/**
+ * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
+ * 'validators':array<callable>}> $parameters
  * @return array<string>
  * */
 function returnGetoptLongOptions(array $parameters): array {
