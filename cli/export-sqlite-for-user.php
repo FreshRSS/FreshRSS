@@ -5,30 +5,37 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
+/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ *  'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
-	'long' => [
-		'user' => ':',
-		'filename' => ':',
+	'user' => [
+		'getopt' => ':',
+		'required' => true,
+		'read' => readAsString(),
+		'validators' => [
+			validateOneOf(listUsers(), 'username', 'the name of an existing user')
+		],
 	],
-	'short' => [],
-	'deprecated' => [],
+	'filename' => [
+		'getopt' => ':',
+		'required' => true,
+		'read' => readAsString(),
+		'validators' => [
+			validateFileExtension(['sqlite'], 'file extension', 'a path to a .sqlite file')
+		]
+	]
 ];
 
-$options = parseCliParams($parameters);
+$options = parseAndValidateCliParams($parameters);
 
-if (!empty($options['invalid'])
-	|| empty($options['valid']['user']) || empty($options['valid']['filename'])
-	|| !is_string($options['valid']['user']) || !is_string($options['valid']['filename'])
-) {
-	fail('Usage: ' . basename(__FILE__) . ' --user username --filename /path/to/db.sqlite');
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	exit($error);
 }
 
-$username = cliInitUser($options['valid']['user']);
-$filename = $options['valid']['filename'];
-
-if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
-	fail('Only *.sqlite files are supported!');
-}
+$username = cliInitUser($parameters['user']['read']($options['valid']['user']));
+$filename = $parameters['user']['read']($options['valid']['filename']);
 
 echo 'FreshRSS exporting database to SQLite for user “', $username, "”…\n";
 

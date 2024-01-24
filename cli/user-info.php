@@ -5,34 +5,41 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
+/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ *  'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
-	'long' => [
-		'user' => ':',
-		'header' => '',
-		'json' => '',
-		'human-readable' => '',
+	'user' => [
+		'getopt' => ':',
+		'required' => false,
+		'read' => readAsArrayOfString(),
+		'validators' => [
+			validateOneOf(listUsers(), 'username', 'the name of an existing user')
+		],
 	],
-	'short' => [
-		'human-readable' => 'h',
+	'header' => [
+		'getopt' => '',
+		'required' => false,
 	],
-	'deprecated' => [],
+	'json' => [
+		'getopt' => '',
+		'required' => false,
+	],
+	'human-readable' => [
+		'getopt' => '',
+		'required' => false,
+		'short' => 'h',
+	],
 ];
 
-$options = parseCliParams($parameters);
+$options = parseAndValidateCliParams($parameters);
 
-if (!empty($options['invalid'])) {
-	fail('Usage: ' . basename(__FILE__) . ' (--human-readable --header --json --user username --user username …)');
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	exit($error);
 }
 
-if (empty($options['valid']['user'])) {
-	$users = listUsers();
-} elseif (is_array($options['valid']['user'])) {
-	/** @var array<string> $users */
-	$users = $options['valid']['user'];
-} else {
-	/** @var array<string> $users */
-	$users = [$options['valid']['user']];
-}
+$users = isset($options['valid']['user']) ? $parameters['user']['read']($options['valid']['user']) : listUsers();
 
 sort($users);
 

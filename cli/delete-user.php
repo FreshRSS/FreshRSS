@@ -5,29 +5,28 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
+/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ *  'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
-	'long' => [
-		'user' => ':',
+	'user' => [
+		'getopt' => ':',
+		'required' => true,
+		'read' => readAsString(),
+		'validators' => [
+			validateOneOf(listUsers(), 'username', 'the name of an existing user')
+		],
 	],
-	'short' => [],
-	'deprecated' => [],
 ];
 
-$options = parseCliParams($parameters);
+$options = parseAndValidateCliParams($parameters);
 
-if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username");
-}
-$username = $options['valid']['user'];
-if (!FreshRSS_user_Controller::checkUsername($username)) {
-	fail('FreshRSS error: invalid username “' . $username . '”');
+$error = empty($options['invalid']) ? 0 : 1;
+if (key_exists('help', $options['valid']) || $error) {
+	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
+	exit($error);
 }
 
-$usernames = listUsers();
-if (!preg_grep("/^$username$/i", $usernames)) {
-	fail('FreshRSS error: username not found “' . $username . '”');
-}
-
+$username = cliInitUser($parameters['user']['read']($options['valid']['user']));
 if (strcasecmp($username, FreshRSS_Context::systemConf()->default_user) === 0) {
 	fail('FreshRSS error: default user must not be deleted: “' . $username . '”');
 }
