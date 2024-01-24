@@ -39,7 +39,7 @@ $parameters = [
 		'read' => readAsString(),
 		'deprecated' => 'default_user',
 		'validators' => [
-			validateRegex(FreshRSS_user_Controller::USERNAME_PATTERN, 'default username', 'ASCII alphanumeric')
+			validateRegex('/^' . FreshRSS_user_Controller::USERNAME_PATTERN . '$/', 'default username', 'ASCII alphanumeric')
 		],
 	],
 	'allow-anonymous' => [
