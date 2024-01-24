@@ -223,6 +223,9 @@ function validateCliParams(array $input, array $validations): array {
 		if ($checks['required'] && !key_exists($key, $input)) {
 			$invalid[$key] = $key . ' cannot be empty';
 		}
+		if (key_exists('default', $checks) && !key_exists($key, $input)) {
+			$valid[$key] = $validations[$key]['default'];
+		}
 	}
 
 	return [
