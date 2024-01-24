@@ -250,7 +250,7 @@ function validateOneOf(array $validValues, string $errorMessageName, ?string $er
 function validateRegex(string $regex, string $errorMessageName, string $errorMessagePrompt): callable {
 
 	return function (string $name, string $value) use ($regex, $errorMessageName, $errorMessagePrompt): ?string {
-		return preg_match('/^' . $regex . '$/', $value) !== 1
+		return preg_match($regex, $value) !== 1
 			? 'invalid ' . $errorMessageName . '. ' . $name . ' must be ' . $errorMessagePrompt
 			: null;
 	};
