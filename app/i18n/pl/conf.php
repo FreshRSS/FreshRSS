@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
 		'get_category' => 'Wyświetlenie kategorii “%s”',
+		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału “%s”',
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',

@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Minden cikk megjelenítése',
 		'get_category' => 'Listáz “%s” kategóriát',
+		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',

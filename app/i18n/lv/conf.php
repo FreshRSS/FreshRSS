@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Rādīt visus rakstus',
 		'get_category' => 'Rādīt kategoriju “%s”',
+		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',

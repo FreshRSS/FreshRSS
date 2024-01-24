@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => '모든 글 표시',
 		'get_category' => '“%s” 카테고리 표시',
+		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '“%s” 피드 표시',
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',

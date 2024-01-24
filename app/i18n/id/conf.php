@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Display all articles',	// TODO
 		'get_category' => 'Display “%s” category',	// TODO
+		'get_favorite' => 'Display favourite articles',	// TODO
 		'get_feed' => 'Display “%s” feed',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO

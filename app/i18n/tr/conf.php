@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Tüm makaleleri göster',
 		'get_category' => '“%s” kategorisini göster',
+		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '“%s” akışını göster',
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',

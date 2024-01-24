@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Zobraziť všetky články',
 		'get_category' => 'Zobraziť kategóriu “%s”',
+		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál “%s”',
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',

@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon „%s” categorie',
+		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon „%s” feed',
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',

@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Display all articles',	// IGNORE
 		'get_category' => 'Display “%s” category',	// IGNORE
+		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display “%s” feed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE

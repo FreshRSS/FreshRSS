@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => '顯示所有文章',
 		'get_category' => '顯示分類 “%s”',
+		'get_favorite' => '顯示收藏文章',
 		'get_feed' => '顯示訂閱源 “%s”',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',

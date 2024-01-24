@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'Mostrar todos os artigos',
 		'get_category' => 'Visualizar “%s” categoria',
+		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar “%s” feed',
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',

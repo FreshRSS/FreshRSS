@@ -126,6 +126,7 @@ return array(
 		),
 		'get_all' => 'すべての著者を表示する',
 		'get_category' => '“%s”カテゴリを表示する',
+		'get_favorite' => 'お気に入りの著者を表示する',
 		'get_feed' => '“%s”フィードを表示する',
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
