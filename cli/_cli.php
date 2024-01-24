@@ -250,6 +250,19 @@ function validateOneOf(array $validValues, string $errorMessageName, ?string $er
 	};
 }
 
+/**
+ * @param array<string> $validValues
+ */
+function validateNotOneOf(array $validValues, string $errorMessageName, ?string $errorMessagePrompt = null): callable {
+	$errorMessagePrompt = $errorMessagePrompt ? $errorMessagePrompt : 'one of { ' . implode(', ', $validValues) . ' }';
+
+	return function (string $name, string $value) use ($validValues, $errorMessageName, $errorMessagePrompt): ?string {
+		return in_array($value, $validValues, true)
+		? 'invalid ' . $errorMessageName . ': \'' . $value . '\'. ' . $name . ' must not be ' . $errorMessagePrompt
+		: null;
+	};
+}
+
 function validateRegex(string $regex, string $errorMessageName, string $errorMessagePrompt): callable {
 
 	return function (string $name, string $value) use ($regex, $errorMessageName, $errorMessagePrompt): ?string {
