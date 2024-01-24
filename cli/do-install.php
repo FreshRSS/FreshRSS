@@ -7,9 +7,6 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-$i18nFile = new I18nFile();
-$i18nData = new I18nData($i18nFile->load());
-
 /** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
  * 'validators':array<callable>}> $parameters */
 $parameters = [
@@ -32,7 +29,7 @@ $parameters = [
 		'required' => false,
 		'read' => readAsString(),
 		'validators' => [
-			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
 		],
 	],
 	'title' => [

@@ -9,8 +9,6 @@ const EXIT_CODE_ALREADY_EXISTS = 3;
 const REGEX_INPUT_OPTIONS = "/^--(?'long'\w.+)|^-(?'short'\w+)/";
 
 require(__DIR__ . '/../constants.php');
-require_once __DIR__ . '/i18n/I18nData.php';
-require_once __DIR__ . '/i18n/I18nFile.php';
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
@@ -356,4 +354,11 @@ function readAsBool(): callable {
 			? filter_var($options[$name], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE)
 			: null;
 	};
+}
+
+/**
+ * @return array<string>
+ */
+function listLanguages(): array {
+	return array_values(array_diff(scandir(I18N_PATH) ? : [], ['..', '.']));
 }

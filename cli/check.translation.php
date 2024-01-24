@@ -1,15 +1,13 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
 require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
-
-$i18nFile = new I18nFile();
-$i18nData = new I18nData($i18nFile->load());
 
 /** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
  * 'validators':array<callable>}> $parameters */
@@ -29,7 +27,7 @@ $parameters = [
 		'required' => false,
 		'short' => 'l',
 		'validators' => [
-			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
 		],
 	],
 	'display-report' => [
@@ -46,6 +44,9 @@ if (key_exists('help', $options['valid']) || $error) {
 	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
 	checkHelp($error);
 }
+
+$i18nFile = new I18nFile();
+$i18nData = new I18nData($i18nFile->load());
 
 if (array_key_exists('language', $options['valid'])) {
 	$languages = [$options['valid']['language']];

@@ -6,9 +6,6 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-$data = new I18nFile();
-$i18nData = new I18nData($data->load());
-
 /** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
  * 'validators':array<callable>}> $parameters */
 $parameters = [
@@ -35,7 +32,7 @@ $parameters = [
 		'required' => false,
 		'short' => 'l',
 		'validators' => [
-			validateOneOf($i18nData->getAvailableLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
+			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
 		],
 	],
 	'origin-language' => [
@@ -43,7 +40,7 @@ $parameters = [
 		'required' => false,
 		'short' => 'o',
 		'validators' => [
-			validateOneOf($i18nData->getAvailableLanguages(), 'origin language', 'an iso 639-1 code for a supported language')
+			validateOneOf(listLanguages(), 'origin language', 'an iso 639-1 code for a supported language')
 		],
 	],
 	'revert' => [
@@ -65,6 +62,9 @@ if (key_exists('help', $options['valid']) || $error) {
 	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
 	manipulateHelp($error);
 }
+
+$data = new I18nFile();
+$i18nData = new I18nData($data->load());
 
 switch ($options['valid']['action']) {
 	case 'add' :
