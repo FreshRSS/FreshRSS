@@ -338,24 +338,22 @@ function parseAndValidateCliParams(array $parameters): array {
 
 function readAsString(): callable {
 
-	return function (string $name, array $options): ?string {
-		return isset($options[$name]) ? strval($options[$name]) : null;
+	return function (string $value): string {
+		return strval($value);
 	};
 }
 
 function readAsInt(): callable {
 
-	return function (string $name, array $options): ?int {
-		return isset($options[$name]) && ctype_digit($options[$name]) ? intval($options[$name]) : null;
+	return function (string $value): int {
+		return intval($value);
 	};
 }
 
 function readAsBool(): callable {
 
-	return function (string $name, array $options): ?bool {
-		return isset($options[$name]) && preg_match('/^true$|^false$/', $options[$name],)
-			? filter_var($options[$name], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE)
-			: null;
+	return function (string $value): bool {
+		return filter_var($value, FILTER_VALIDATE_BOOL);
 	};
 }
 
