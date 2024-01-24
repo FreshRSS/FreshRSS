@@ -78,7 +78,7 @@ function performRequirementCheck(string $databaseType): void {
  * Parses parameters used with FreshRSS' CLI commands.
  * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
  * 'read':callable,'validators':array<callable>}> $parameters
- * @return array{'valid':array<string,string>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
+ * @return array{'valid':array<string,array<string>>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
  * option names used and their respective values and 'invalid': map of all unknown options used and their respective
  * error messages.
  */
@@ -91,9 +91,9 @@ function parseCliParams(array $parameters): array {
 
 	$valid = is_array($options) ? $options : [];
 
-	array_walk($valid, static fn(&$option) => $option = $option === false ? '' : $option);
+	array_walk($valid, static fn(&$opt) => $opt = $opt === false ? [''] : (is_string($opt) ? [$opt] : $opt));
 
-	/** @var array<string,string> $valid */
+	/** @var array<string,array<string>> $valid */
 	checkForDeprecatedOptions(array_keys($valid), returnMapOfStrings('deprecated', $parameters));
 
 	$valid = replaceOptions($valid, returnMapOfStrings('short', $parameters));
@@ -174,32 +174,32 @@ function checkForDeprecatedOptions(array $optionNames, array $params): bool {
 
 /**
  * Switches items in a list to their provided replacements.
- * @param array<string,string> $options Map with items to check for replacement as keys.
+ * @param array<string,array<string>> $options Map with items to check for replacement as keys.
  * @param array<string,string> $replacements Map of replacement items as keys and the item they replace as their values.
- * @return array<string,string> Returns $options with replacements.
+ * @return array<string,array<string>> Returns $options with replacements.
  */
 function replaceOptions(array $options, array $replacements): array {
 	$updatedOptions = [];
 
-	foreach ($options as $name => $value) {
+	foreach ($options as $name => $values) {
 		$replacement = array_search($name, $replacements, true);
-		$updatedOptions[$replacement ? $replacement : $name] = $value;
+		$updatedOptions[$replacement ? $replacement : $name] = $values;
 	}
 
 	return $updatedOptions;
 }
 
 /**
- * @param array<string,string> $input
+ * @param array<string,array<string>> $input
  * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
  * 'read':callable,'validators':array<callable>}> $validations
- * @return array{'valid':array<string,string>,'invalid':array<string,string>}
+ * @return array{'valid':array<string,array<string>>,'invalid':array<string,string>}
  */
 function validateCliParams(array $input, array $validations): array {
 	$valid = [];
 	$invalid = [];
 
-	foreach ($input as $key => $value) {
+	foreach ($input as $key => $values) {
 		$isValid = true;
 
 		if (!key_exists($key, $validations)) {
@@ -208,14 +208,17 @@ function validateCliParams(array $input, array $validations): array {
 		}
 
 		foreach ($validations[$key]['validators'] ?? [] as $validator) {
-			if ($validator($key, $value)) {
-				$invalid[$key] = $validator($key, $value);
-				$isValid = false;
+			foreach ($values as $value) {
+				if ($validator($key, $value)) {
+					$invalid[$key] = $validator($key, $value);
+					$isValid = false;
+					break;
+				}
 			}
 		}
 
 		if ($isValid) {
-			$valid[$key] = $value;
+			$valid[$key] = $values;
 		}
 	}
 
@@ -224,7 +227,7 @@ function validateCliParams(array $input, array $validations): array {
 			$invalid[$key] = $key . ' cannot be empty';
 		}
 		if (key_exists('default', $checks) && !key_exists($key, $input)) {
-			$valid[$key] = $validations[$key]['default'];
+			$valid[$key] = [$validations[$key]['default']];
 		}
 	}
 
@@ -242,7 +245,7 @@ function validateOneOf(array $validValues, string $errorMessageName, ?string $er
 
 	return function (string $name, string $value) use ($validValues, $errorMessageName, $errorMessagePrompt): ?string {
 		return !in_array($value, $validValues, true)
-		? 'invalid ' . $errorMessageName . '. ' . $name . ' must be ' . $errorMessagePrompt
+		? 'invalid ' . $errorMessageName . ': \'' . $value . '\'. ' . $name . ' must be ' . $errorMessagePrompt
 		: null;
 	};
 }
@@ -251,8 +254,8 @@ function validateRegex(string $regex, string $errorMessageName, string $errorMes
 
 	return function (string $name, string $value) use ($regex, $errorMessageName, $errorMessagePrompt): ?string {
 		return preg_match($regex, $value) !== 1
-			? 'invalid ' . $errorMessageName . '. ' . $name . ' must be ' . $errorMessagePrompt
-			: null;
+		? 'invalid ' . $errorMessageName . ': \'' . $value . '\'. ' . $name . ' must be ' . $errorMessagePrompt
+		: null;
 	};
 }
 
@@ -264,7 +267,7 @@ function validateFileExtension(array $validValues, string $errorMessageName, ?st
 
 	return function (string $name, string $value) use ($validValues, $errorMessageName, $errorMessagePrompt): ?string {
 		return !in_array(pathinfo($value, PATHINFO_EXTENSION), $validValues, true)
-		? 'invalid ' . $errorMessageName . '. ' . $name . ' must be ' . $errorMessagePrompt
+		? 'invalid ' . $errorMessageName . ': \'' . $value . '\'. ' . $name . ' must be ' . $errorMessagePrompt
 		: null;
 	};
 }
@@ -335,7 +338,7 @@ function returnAllOptions(array $parameters): array {
  * Parses parameters used with FreshRSS' CLI commands.
  * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
  * 'read':callable,'validators':array<callable>}> $parameters
- * @return array{'valid':array<string,string>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
+ * @return array{'valid':array<string,array<string>>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
  * option names used and their respective values and 'invalid': map of all unknown options used and their respective
  * error messages.
  */
@@ -351,22 +354,22 @@ function parseAndValidateCliParams(array $parameters): array {
 
 function readAsString(): callable {
 
-	return function (string $value): string {
-		return strval($value);
+	return function (array $values): string {
+		return strval(array_pop($values));
 	};
 }
 
 function readAsInt(): callable {
 
-	return function (string $value): int {
-		return intval($value);
+	return function (array $values): int {
+		return intval(array_pop($values));
 	};
 }
 
 function readAsBool(): callable {
 
-	return function (string $value): bool {
-		return filter_var($value, FILTER_VALIDATE_BOOL);
+	return function (array $values): bool {
+		return filter_var(array_pop($values), FILTER_VALIDATE_BOOL);
 	};
 }
 
