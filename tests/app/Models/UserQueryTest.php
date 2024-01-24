@@ -9,14 +9,12 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	public function test__construct_whenAllQuery_storesAllParameters(): void {
 		$query = array('get' => 'a');
 		$user_query = new FreshRSS_UserQuery($query);
-		self::assertEquals('all', $user_query->getGetName());
 		self::assertEquals('all', $user_query->getGetType());
 	}
 
 	public function test__construct_whenFavoriteQuery_storesFavoriteParameters(): void {
 		$query = array('get' => 's');
 		$user_query = new FreshRSS_UserQuery($query);
-		self::assertEquals('favorite', $user_query->getGetName());
 		self::assertEquals('favorite', $user_query->getGetType());
 	}
 
