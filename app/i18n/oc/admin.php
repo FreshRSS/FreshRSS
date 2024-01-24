@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
-		'token' => 'Geton d’autentificacion',
-		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Mòde d’autentification',
 		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
 	),
