@@ -386,6 +386,13 @@ function readAsBool(): callable {
 	};
 }
 
+function readAsArrayOfString(): callable {
+
+	return function (array $values): array {
+		return array_map(static fn(&$value) => $value = strval($value), $values);
+	};
+}
+
 /**
  * @return array<string>
  */
