@@ -53,7 +53,7 @@ $query = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
 		$query = new FreshRSS_UserQuery($raw_query);
-		Minz_Request::_param('a', $query->getGet());
+		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());
 		Minz_Request::_param('search', $query->getSearch());
 		Minz_Request::_param('state', $query->getState());
