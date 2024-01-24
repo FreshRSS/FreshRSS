@@ -93,7 +93,7 @@ if (in_array($format, ['rss', 'atom'], true)) {
 // 	// TODO
 } else {
 	if ($query->getName() != '') {
-		FreshRSS_View::prependTitle($query->getName() . ' · ');
+		FreshRSS_View::_title($query->getName());
 	}
 	$view->_layout('simple');
 	$view->_path('index/html.phtml');

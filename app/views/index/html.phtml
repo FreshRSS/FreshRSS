@@ -7,7 +7,12 @@
 ?>
 <!-- TODO: <nav> with pagination -->
 <main id="stream" class="reader api">
-	<h2><?= FreshRSS_View::title() ?></h2>
+	<h2>
+		<?= FreshRSS_View::title() ?> ·
+		<a class="view-rss" href="<?= $this->rss_url ?>" title="<?= _t('index.menu.rss_view') ?>">
+			<?= _i('rss') ?>
+		</a>
+	</h2>
 	<?php
 		foreach ($this->entries as $entry):
 			$this->entry = $entry;
