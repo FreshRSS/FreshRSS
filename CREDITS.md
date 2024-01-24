@@ -245,3 +245,4 @@ People are sorted by name so please keep this order.
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
+* [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)
