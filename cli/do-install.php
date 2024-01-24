@@ -7,8 +7,8 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
-/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters */
+/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ *  'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
 	'environment' => [
 		'getopt' => ':',

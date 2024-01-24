@@ -76,8 +76,8 @@ function performRequirementCheck(string $databaseType): void {
 
 /**
  * Parses parameters used with FreshRSS' CLI commands.
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters
  * @return array{'valid':array<string,string>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
  * option names used and their respective values and 'invalid': map of all unknown options used and their respective
  * error messages.
@@ -191,8 +191,8 @@ function replaceOptions(array $options, array $replacements): array {
 
 /**
  * @param array<string,string> $input
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $validations
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $validations
  * @return array{'valid':array<string,string>,'invalid':array<string,string>}
  */
 function validateCliParams(array $input, array $validations): array {
@@ -257,8 +257,8 @@ function validateRegex(string $regex, string $errorMessageName, string $errorMes
 }
 
 /**
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters
  * @return array<string>
  * */
 function returnGetoptLongOptions(array $parameters): array {
@@ -273,8 +273,8 @@ function returnGetoptLongOptions(array $parameters): array {
 }
 
 /**
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters
  */
 function returnGetoptShortOptions(array $parameters): string {
 	$output = '';
@@ -302,8 +302,8 @@ function returnMapOfStrings(string $needle, array $haystack): array {
 }
 
 /**
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters
  * @return array<string>
  */
 function returnAllOptions(array $parameters): array {
@@ -320,8 +320,8 @@ function returnAllOptions(array $parameters): array {
 
 /**
  * Parses parameters used with FreshRSS' CLI commands.
- * @param array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters
+ * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters
  * @return array{'valid':array<string,string>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
  * option names used and their respective values and 'invalid': map of all unknown options used and their respective
  * error messages.

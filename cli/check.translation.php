@@ -9,8 +9,8 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
-/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters */
+ /** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ * 'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
 	'display-result' => [
 		'getopt' => '',

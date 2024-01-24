@@ -3,8 +3,8 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-/** @var array<string,array{'getopt':string,'required':bool,'short':string,'deprecated':string,'read':callable,
- * 'validators':array<callable>}> $parameters */
+/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+ *  'read':callable,'validators':array<callable>}> $parameters */
 $parameters = [
 	'environment' => [
 		'getopt' => ':',
