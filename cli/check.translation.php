@@ -117,7 +117,7 @@ function findUsedTranslations(): array {
  * Output help message.
  * @return never
  */
-function checkHelp(int $errorCode) {
+function checkHelp(int $exitCode = 0) {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP
@@ -130,18 +130,18 @@ SYNOPSIS
 DESCRIPTION
 	Check if translation files have missing keys or missing translations.
 
-	-d, --display-result
+	[-d, --display-result]
 		displays results.
 
-	-h, --help
+	[-h, --help]
 		displays this help text.
 
-	-l, --language=<language>
+	[-l, --language=<language>]
 		filters by <language>.
 
-	-r, --display-report
+	[-r, --display-report]
 		displays completion report.
 
 HELP;
-	exit($errorCode);
+	exit($exitCode);
 }

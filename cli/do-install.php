@@ -239,9 +239,9 @@ if (!setupMigrations()) {
 
 done();
 
-function installHelp(int $exitCode): void {
+function installHelp(int $exitCode = 0): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
-	
+
 	echo <<<HELP
 NAME
 	$file
@@ -322,8 +322,8 @@ DESCRIPTION
 		---
 		default: false
 		---
-	
-	[--help] 
+
+	[--help]
 		displays this help text.
 
 	[--db-type=<dbtype>]
@@ -355,7 +355,8 @@ DESCRIPTION
 		sets a prefix used in the names of database tables.
 		---
 		default: freshrss_
-		---\n
+		---
+
 HELP;
 	exit($exitCode);
 }

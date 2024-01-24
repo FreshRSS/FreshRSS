@@ -146,7 +146,7 @@ ERROR;
  */
 function manipulateHelp(int $exitCode = 0): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
-	
+
 	echo <<<HELP
 NAME
 	$file
@@ -218,7 +218,7 @@ Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from al
 	php $file -a ignore_unmodified -r -l my_lang
 
 Example 10:	check if a key exist.
-	php $file -a exist -k my_key\n\n
+	php $file -a exist -k my_key
 
 HELP;
 	exit($exitCode);

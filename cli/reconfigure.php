@@ -169,6 +169,8 @@ foreach ($configParams as $param => $configParam) {
 	}
 }
 
+/** @var array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
+ *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db */
 $db = FreshRSS_Context::systemConf()->db;
 foreach ($dBconfigParams as $dBparam => $configDbParam) {
 	$readAsValue = $parameters[$dBparam]['read']($dBparam, $options['valid']);
@@ -176,17 +178,16 @@ foreach ($dBconfigParams as $dBparam => $configDbParam) {
 		$db[$configDbParam] = $readAsValue;
 	}
 }
-/** @var array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
- *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db */
+
 FreshRSS_Context::systemConf()->db = $db;
 
 FreshRSS_Context::systemConf()->save();
 
 done();
 
-function reconfigureHelp(int $exitCode): void {
+function reconfigureHelp(int $exitCode = 0): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
-	
+
 	echo <<<HELP
 NAME
 	$file
@@ -267,8 +268,8 @@ DESCRIPTION
 		---
 		default: false
 		---
-	
-	[--help] 
+
+	[--help]
 		displays this help text.
 
 	[--db-type=<dbtype>]
@@ -300,7 +301,8 @@ DESCRIPTION
 		sets a prefix used in the names of database tables.
 		---
 		default: freshrss_
-		---\n
+		---
+
 HELP;
 	exit($exitCode);
 }
