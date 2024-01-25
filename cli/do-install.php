@@ -153,7 +153,9 @@ $dBconfigParams = [
 	'db-prefix' => 'prefix',
 ];
 
-$options = parseAndValidateCliParams($parameters);
+$parser = new CommandLineParser();
+
+$options = $parser->parseAndValidateParams($parameters);
 
 $error = empty($options['invalid']) ? 0 : 1;
 if (key_exists('help', $options['valid']) || $error) {

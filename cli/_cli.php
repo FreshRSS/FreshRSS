@@ -19,6 +19,22 @@ Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
 
+class CommandLineParser {
+
+	/**
+	 * Parses parameters used with FreshRSS' CLI commands.
+	 * @param array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
+	 * 'read':callable,'validators':array<callable>}> $parameters
+	 * @return array{'valid':array<string,array<string>>,'invalid':array<string,string>} Matrix of 'valid': map of of all known
+	 * option names used and their respective values and 'invalid': map of all unknown options used and their respective
+	 * error messages.
+	 */
+	public function parseAndValidateParams(array $parameters): array {
+
+		return parseAndValidateCliParams($parameters);
+	}
+}
+
 /** @return never */
 function fail(string $message, int $exitCode = 1) {
 	fwrite(STDERR, $message . "\n");
