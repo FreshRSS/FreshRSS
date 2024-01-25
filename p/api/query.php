@@ -55,7 +55,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		$query = new FreshRSS_UserQuery($raw_query);
 		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());
-		Minz_Request::_param('search', $query->getSearch()->__toString());
+		Minz_Request::_param('search', $query->getSearch()->getRawInput());
 		Minz_Request::_param('state', $query->getState() ?: FreshRSS_Entry::STATE_ALL);
 		break;
 	}
