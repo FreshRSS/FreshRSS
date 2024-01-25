@@ -80,7 +80,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function test__construct_whenState_storesState(): void {
-		$state = FreshRSS_Entry::STATE_ALL;
+		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
 		$query = array('state' => $state);
 		$user_query = new FreshRSS_UserQuery($query);
 		self::assertEquals($state, $user_query->getState());
