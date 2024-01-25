@@ -226,7 +226,7 @@ class FreshRSS_UserQuery {
 	}
 
 	public function getOrder(): string {
-		return $this->order;
+		return $this->order ?: FreshRSS_Context::userConf()->sort_order;
 	}
 
 	public function getSearch(): FreshRSS_BooleanSearch {
@@ -234,7 +234,14 @@ class FreshRSS_UserQuery {
 	}
 
 	public function getState(): int {
-		return $this->state;
+		$state = $this->state;
+		if (!($state & FreshRSS_Entry::STATE_READ) && !($state & FreshRSS_Entry::STATE_NOT_READ)) {
+			$state |= FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ;
+		}
+		if (!($state & FreshRSS_Entry::STATE_FAVORITE) && !($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+			$state |= FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE;
+		}
+		return $state;
 	}
 
 	public function getUrl(): string {
