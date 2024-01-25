@@ -101,6 +101,7 @@ class FreshRSS_View extends Minz_View {
 
 	// RSS view
 	public string $html_url = '';
+	public string $opml_url = '';
 	public string $rss_title = '';
 	public string $rss_url = '';
 	public string $rss_base = '';

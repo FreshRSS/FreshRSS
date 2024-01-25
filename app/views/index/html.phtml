@@ -16,8 +16,9 @@
 	<?php
 		foreach ($this->entries as $entry):
 			$this->entry = $entry;
-			//We most likely already have the feed object in cache, otherwise make a request
-			$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId()) ?? $entry->feed() ?? FreshRSS_Feed::default();
+			$this->feed = $this->feeds[$entry->feedId()] ??
+				FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId()) ??
+				FreshRSS_Feed::default();
 	?>
 		<div class="flux">
 			<?php $this->renderHelper('index/article'); ?>

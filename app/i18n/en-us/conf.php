@@ -141,6 +141,7 @@ return array(
 			'_' => 'Share this query by link',	// IGNORE
 			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
 			'html' => 'Shareable link to the HTML page',	// IGNORE
+			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
 			'rss' => 'Shareable link to the RSS feed',	// IGNORE
 		),
 		'state_0' => 'Display all articles',	// IGNORE

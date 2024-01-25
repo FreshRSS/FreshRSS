@@ -101,9 +101,11 @@ class FreshRSS_UserQuery {
 					$this->get_type = 'all';
 					break;
 				case 'c':
+					$this->get_type = 'category';
 					$this->parseCategory($id);
 					break;
 				case 'f':
+					$this->get_type = 'feed';
 					$this->parseFeed($id);
 					break;
 				case 'i':
@@ -113,6 +115,7 @@ class FreshRSS_UserQuery {
 					$this->get_type = 'favorite';
 					break;
 				case 't':
+					$this->get_type = 'label';
 					$this->parseLabel($id);
 					break;
 				case 'T':
@@ -135,7 +138,6 @@ class FreshRSS_UserQuery {
 		} else {
 			$this->deprecated = true;
 		}
-		$this->get_type = 'category';
 	}
 
 	/**
@@ -151,7 +153,6 @@ class FreshRSS_UserQuery {
 		} else {
 			$this->deprecated = true;
 		}
-		$this->get_type = 'feed';
 	}
 
 	/**
@@ -167,7 +168,6 @@ class FreshRSS_UserQuery {
 		} else {
 			$this->deprecated = true;
 		}
-		$this->get_type = 'label';
 	}
 
 	/**
@@ -267,5 +267,13 @@ class FreshRSS_UserQuery {
 
 	public function sharedUrlHtml(bool $xmlEscaped = true): string {
 		return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
+	}
+
+	public function sharedUrlOpml(bool $xmlEscaped = true): string {
+		// OPML is only safe for some query types
+		if (in_array($this->get_type, ['all', 'category', 'feed'])) {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
+		}
+		return '';
 	}
 }

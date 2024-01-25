@@ -141,6 +141,7 @@ return array(
 			'_' => 'Partager ce filtre par lien',
 			'help' => 'Donner ce lien pour partager le contenu du filtre avec d’autres personnes',
 			'html' => 'Lien partageable de la page HTML',
+			'opml' => 'Lien partageable de la liste des flux au format OPML',
 			'rss' => 'Lien partageable du flux RSS',
 		),
 		'state_0' => 'Afficher tous les articles',

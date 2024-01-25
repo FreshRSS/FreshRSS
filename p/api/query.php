@@ -56,7 +56,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());
 		Minz_Request::_param('search', $query->getSearch()->getRawInput());
-		Minz_Request::_param('state', $query->getState() ?: FreshRSS_Entry::STATE_ALL);
+		Minz_Request::_param('state', $query->getState());
 		break;
 	}
 }
@@ -73,28 +73,62 @@ try {
 	FreshRSS_Context::updateUsingRequest(false);
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 } catch (FreshRSS_Context_Exception $e) {
-	header('HTTP/1.1 400 Bad Request');
-	header('Content-Type: text/plain; charset=UTF-8');
-	die('Bad user query!');
+	Minz_Error::error(400, 'Bad user query!');
+	die();
 }
 
-$view->categories = FreshRSS_Context::$categories;
+$get = FreshRSS_Context::currentGet(true);
+$type = (string)$get[0];
+$id = (int)$get[1];
+
+switch ($type) {
+	case 'c':	// Category
+		$cat = FreshRSS_Context::$categories[$id] ?? null;
+		if ($cat === null) {
+			Minz_Error::error(404, "Category {$id} not found!");
+			die();
+		}
+		$view->categories = [ $cat->id() => $cat ];
+		break;
+	case 'f':	// Feed
+		$feed = FreshRSS_CategoryDAO::findFeed(FreshRSS_Context::$categories, $id);
+		if ($feed === null) {
+			Minz_Error::error(404, "Feed {$id} not found!");
+			die();
+		}
+		$view->feeds = [ $feed->id() => $feed ];
+		$view->categories = [];
+		break;
+	default:
+		$view->categories = FreshRSS_Context::$categories;
+		break;
+}
+
 $view->disable_aside = true;
+$view->excludeMutedFeeds = true;
 $view->internal_rendering = true;
 $view->html_url = $query->sharedUrlHtml();
+$view->opml_url = $query->sharedUrlOpml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
+if ($query->getName() != '') {
+	FreshRSS_View::_title($query->getName());
+}
 
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
-// } elseif ($format === 'opml') {
-// 	// TODO
-} else {
-	if ($query->getName() != '') {
-		FreshRSS_View::_title($query->getName());
+} elseif ($format === 'opml') {
+	if ($view->opml_url == '') {
+		Minz_Error::error(404, 'OPML not allowed for this user query!');
+		die();
+	} else {
+		header('Content-Type: application/xml; charset=utf-8');
+		$view->_layout(null);
+		$view->_path('index/opml.phtml');
 	}
+} else {
 	$view->_layout('simple');
 	$view->_path('index/html.phtml');
 }
