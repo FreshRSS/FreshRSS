@@ -10,11 +10,11 @@ final class FreshRSS_Context {
 	/**
 	 * @var array<int,FreshRSS_Category>
 	 */
-	public static array $categories = [];
+	private static array $categories = [];
 	/**
 	 * @var array<int,FreshRSS_Tag>
 	 */
-	public static array $tags = [];
+	private static array $tags = [];
 	public static string $name = '';
 	public static string $description = '';
 	public static int $total_unread = 0;
@@ -173,10 +173,33 @@ final class FreshRSS_Context {
 		FreshRSS_Context::$user_conf = null;
 	}
 
+	/** @return array<int,FreshRSS_Category> */
+	public static function categories(): array {
+		if (empty(self::$categories)) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			self::$categories = $catDAO->listSortedCategories(true, false);
+		}
+		return self::$categories;
+	}
+
+	/** @return array<int,FreshRSS_Feed> */
+	public static function feeds(): array {
+		return FreshRSS_Category::findFeeds(self::categories());
+	}
+
+	/** @return array<int,FreshRSS_Tag> */
+	public static function labels(bool $precounts = false): array {
+		if (empty(self::$tags) || $precounts) {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			self::$tags = $tagDAO->listTags($precounts) ?: [];
+		}
+		return self::$tags;
+	}
+
 	/**
 	 * This action updates the Context object by using request parameters.
 	 *
-	 * Parameters are:
+	 * HTTP GET request parameters are:
 	 *   - state (default: conf->default_view)
 	 *   - search (default: empty string)
 	 *   - order (default: conf->sort_order)
@@ -187,18 +210,13 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function updateUsingRequest(bool $computeStats = true): void {
-		if ($computeStats) {
-			if (empty(self::$categories)) {
-				$catDAO = FreshRSS_Factory::createCategoryDao();
-				self::$categories = $catDAO->listSortedCategories();
-			}
-
+	public static function updateUsingRequest(bool $computeStatistics): void {
+		if ($computeStatistics && self::$total_unread === 0) {
 			// Update number of read / unread variables.
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			self::$total_starred = $entryDAO->countUnreadReadFavorites();
-			self::$total_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_MAIN_STREAM);
-			self::$total_important_unread = FreshRSS_CategoryDAO::countUnread(self::$categories, FreshRSS_Feed::PRIORITY_IMPORTANT);
+			self::$total_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_MAIN_STREAM);
+			self::$total_important_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_IMPORTANT);
 		}
 
 		self::_get(Minz_Request::paramString('get') ?: 'a');
@@ -396,7 +414,7 @@ final class FreshRSS_Context {
 			break;
 		case 'f':
 			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
-			$feed = FreshRSS_Context::systemConf()->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			$feed = FreshRSS_Context::systemConf()->allow_robots ? null : FreshRSS_Category::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
@@ -419,7 +437,7 @@ final class FreshRSS_Context {
 				if ($cat === null) {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
-				//self::$categories[$id] = $cat;
+				self::$categories[$id] = $cat;
 			} else {
 				$cat = self::$categories[$id];
 			}
@@ -435,7 +453,7 @@ final class FreshRSS_Context {
 				if ($tag === null) {
 					throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
 				}
-				//self::$tags[$id] = $tag;
+				self::$tags[$id] = $tag;
 			} else {
 				$tag = self::$tags[$id];
 			}

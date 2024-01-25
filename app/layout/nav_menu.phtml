@@ -89,7 +89,7 @@
 						<?php if (!empty($raw_query['url'])): ?>
 							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
 						<?php else: ?>
-						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
+						<?php $query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels()); ?>
 							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
 						<?php endif; ?>
 					</li>

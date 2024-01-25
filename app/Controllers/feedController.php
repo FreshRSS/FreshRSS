@@ -775,7 +775,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	private static function applyLabelActions(int $nbNewEntries) {
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$labels = $tagDAO->listTags() ?: [];
+		$labels = FreshRSS_Context::labels();
 		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
 			return !empty($label->filtersAction('label'));
 		});

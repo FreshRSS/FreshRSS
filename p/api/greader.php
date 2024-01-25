@@ -572,7 +572,7 @@ final class GReaderAPI {
 				continue;
 			}
 
-			$feed = FreshRSS_CategoryDAO::findFeed($categories, $entry->feedId());
+			$feed = FreshRSS_Category::findFeed($categories, $entry->feedId());
 			if ($feed === null) {
 				continue;
 			}

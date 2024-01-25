@@ -29,7 +29,7 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 		$this->entry = $entry;
 
 		//We most likely already have the feed object in cache, otherwise make a request
-		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId()) ?? $entry->feed() ?? FreshRSS_Feed::default();
+		$this->feed = FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ?? $entry->feed() ?? FreshRSS_Feed::default();
 	?><div class="flux<?= !$entry->isRead() ? ' not_read' : '' ?><?= $entry->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $entry->id() ?>" data-priority="<?= $this->feed->priority() ?>">
 		<?php $this->renderHelper('index/article'); ?>
 	</div><?php

@@ -36,7 +36,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			FreshRSS_Context::updateUsingRequest();
+			FreshRSS_Context::updateUsingRequest(true);
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -48,7 +48,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'media-src' => '*',
 		]);
 
-		$this->view->categories = FreshRSS_Context::$categories;
+		$this->view->categories = FreshRSS_Context::categories();
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
@@ -62,7 +62,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				$view->tags = $tagDAO->listTags(true) ?: [];
+				$view->tags = FreshRSS_Context::labels(true);
 				$view->nbUnreadTags = 0;
 				foreach ($view->tags as $tag) {
 					$view->nbUnreadTags += $tag->nbUnread();
@@ -117,12 +117,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		try {
-			FreshRSS_Context::updateUsingRequest();
+			FreshRSS_Context::updateUsingRequest(true);
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
 
-		$this->view->categories = FreshRSS_Context::$categories;
+		$this->view->categories = FreshRSS_Context::categories();
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
@@ -157,7 +157,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			FreshRSS_Context::updateUsingRequest();
+			FreshRSS_Context::updateUsingRequest(false);
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -194,7 +194,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		try {
-			FreshRSS_Context::updateUsingRequest();
+			FreshRSS_Context::updateUsingRequest(false);
 		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
@@ -203,16 +203,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$type = (string)$get[0];
 		$id = (int)$get[1];
 
-		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$categories = $catDAO->listCategories(true, true);
 		$this->view->excludeMutedFeeds = true;
 
 		switch ($type) {
 			case 'a':
-				$this->view->categories = $categories;
+				$this->view->categories = FreshRSS_Context::categories();
 				break;
 			case 'c':
-				$cat = $categories[$id] ?? null;
+				$cat = FreshRSS_Context::categories()[$id] ?? null;
 				if ($cat == null) {
 					Minz_Error::error(404);
 					return;
@@ -221,7 +219,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				break;
 			case 'f':
 				// We most likely already have the feed object in cache
-				$feed = FreshRSS_CategoryDAO::findFeed($categories, $id);
+				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
 				if ($feed === null) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);

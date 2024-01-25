@@ -60,7 +60,7 @@ class FreshRSS_BooleanSearch {
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query);
+				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 				$queries[$query->getName()] = $query;
 			}
 
@@ -95,14 +95,10 @@ class FreshRSS_BooleanSearch {
 		}
 
 		if (!empty($all_matches)) {
-			$category_dao = FreshRSS_Factory::createCategoryDao();
-			$feed_dao = FreshRSS_Factory::createFeedDao();
-			$tag_dao = FreshRSS_Factory::createTagDao();
-
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query, $feed_dao, $category_dao, $tag_dao);
+				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 				$queries[] = $query;
 			}
 

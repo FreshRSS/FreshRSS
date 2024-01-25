@@ -52,7 +52,7 @@ Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_ena
 $query = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
-		$query = new FreshRSS_UserQuery($raw_query);
+		$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());
 		Minz_Request::_param('search', $query->getSearch()->getRawInput());
@@ -72,7 +72,7 @@ $view = new FreshRSS_View();
 try {
 	FreshRSS_Context::updateUsingRequest(false);
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
-} catch (FreshRSS_Context_Exception $e) {
+} catch (Minz_Exception $e) {
 	Minz_Error::error(400, 'Bad user query!');
 	die();
 }
@@ -83,7 +83,7 @@ $id = (int)$get[1];
 
 switch ($type) {
 	case 'c':	// Category
-		$cat = FreshRSS_Context::$categories[$id] ?? null;
+		$cat = FreshRSS_Context::categories()[$id] ?? null;
 		if ($cat === null) {
 			Minz_Error::error(404, "Category {$id} not found!");
 			die();
@@ -91,7 +91,7 @@ switch ($type) {
 		$view->categories = [ $cat->id() => $cat ];
 		break;
 	case 'f':	// Feed
-		$feed = FreshRSS_CategoryDAO::findFeed(FreshRSS_Context::$categories, $id);
+		$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
 		if ($feed === null) {
 			Minz_Error::error(404, "Feed {$id} not found!");
 			die();
@@ -100,7 +100,7 @@ switch ($type) {
 		$view->categories = [];
 		break;
 	default:
-		$view->categories = FreshRSS_Context::$categories;
+		$view->categories = FreshRSS_Context::categories();
 		break;
 }
 

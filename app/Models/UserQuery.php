@@ -19,9 +19,10 @@ class FreshRSS_UserQuery {
 	private int $state = 0;
 	private string $url = '';
 	private string $token = '';
-	private ?FreshRSS_FeedDAO $feed_dao;
-	private ?FreshRSS_CategoryDAO $category_dao;
-	private ?FreshRSS_TagDAO $tag_dao;
+	/** @var array<int,FreshRSS_Category> $categories */
+	private array $categories;
+	/** @var array<int,FreshRSS_Tag> $labels */
+	private array $labels;
 
 	public static function generateToken(string $salt): string {
 		if (!FreshRSS_Context::hasSystemConf()) {
@@ -37,11 +38,12 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string} $query
+	 * @param array<int,FreshRSS_Category> $categories
+	 * @param array<int,FreshRSS_Tag> $labels
 	 */
-	public function __construct(array $query, FreshRSS_FeedDAO $feed_dao = null, FreshRSS_CategoryDAO $category_dao = null, FreshRSS_TagDAO $tag_dao = null) {
-		$this->category_dao = $category_dao;
-		$this->feed_dao = $feed_dao;
-		$this->tag_dao = $tag_dao;
+	public function __construct(array $query, array $categories, array $labels) {
+		$this->categories = $categories;
+		$this->labels = $labels;
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
 		}
@@ -102,11 +104,13 @@ class FreshRSS_UserQuery {
 					break;
 				case 'c':
 					$this->get_type = 'category';
-					$this->parseCategory($id);
+					$c = $this->categories[$id] ?? null;
+					$this->get_name = $c === null ? '' : $c->name();
 					break;
 				case 'f':
 					$this->get_type = 'feed';
-					$this->parseFeed($id);
+					$f = FreshRSS_Category::findFeed($this->categories, $id);
+					$this->get_name = $f === null ? '' : $f->name();
 					break;
 				case 'i':
 					$this->get_type = 'important';
@@ -116,57 +120,16 @@ class FreshRSS_UserQuery {
 					break;
 				case 't':
 					$this->get_type = 'label';
-					$this->parseLabel($id);
+					$l = $this->labels[$id] ?? null;
+					$this->get_name = $l === null ? '' : $l->name();
 					break;
 				case 'T':
 					$this->get_type = 'all_labels';
 					break;
 			}
-		}
-	}
-
-	/**
-	 * Parse the query string when it is a "category" query
-	 */
-	private function parseCategory(int $id): void {
-		if ($this->category_dao === null) {
-			$this->category_dao = FreshRSS_Factory::createCategoryDao();
-		}
-		$category = $this->category_dao->searchById($id);
-		if ($category !== null) {
-			$this->get_name = $category->name();
-		} else {
-			$this->deprecated = true;
-		}
-	}
-
-	/**
-	 * Parse the query string when it is a "feed" query
-	 */
-	private function parseFeed(int $id): void {
-		if ($this->feed_dao === null) {
-			$this->feed_dao = FreshRSS_Factory::createFeedDao();
-		}
-		$feed = $this->feed_dao->searchById($id);
-		if ($feed !== null) {
-			$this->get_name = $feed->name();
-		} else {
-			$this->deprecated = true;
-		}
-	}
-
-	/**
-	 * Parse the query string when it is a "label" query
-	 */
-	private function parseLabel(int $id): void {
-		if ($this->tag_dao === null) {
-			$this->tag_dao = FreshRSS_Factory::createTagDao();
-		}
-		$tag = $this->tag_dao->searchById($id);
-		if ($tag !== null) {
-			$this->get_name = $tag->name();
-		} else {
-			$this->deprecated = true;
+			if ($this->get_name === '' && in_array($matches['type'], ['c', 'f', 't'], true)) {
+				$this->deprecated = true;
+			}
 		}
 	}
 
@@ -271,7 +234,7 @@ class FreshRSS_UserQuery {
 
 	public function sharedUrlOpml(bool $xmlEscaped = true): string {
 		// OPML is only safe for some query types
-		if (in_array($this->get_type, ['all', 'category', 'feed'])) {
+		if (in_array($this->get_type, ['all', 'category', 'feed'], true)) {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
 		}
 		return '';
