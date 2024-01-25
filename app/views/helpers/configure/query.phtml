@@ -96,8 +96,8 @@
 			<div class="group-controls">
 				<select name="query[order]" id="query_order">
 					<option value=""></option>
-					<option value="ASC" <?= 'ASC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>
-					<option value="DESC" <?= 'DESC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
+					<option value="DESC" <?= 'DESC' === ($this->query->getOrder() ?: FreshRSS_Context::userConf()->sort_order) ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
+					<option value="ASC" <?= 'ASC' === ($this->query->getOrder() ?: FreshRSS_Context::userConf()->sort_order) ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>
 				</select>
 			</div>
 		</div>
