@@ -70,6 +70,7 @@ People are sorted by name so please keep this order.
 * [equinoxmatt](https://github.com/equinoxmatt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:equinoxmatt)
 * [Exerra](https://github.com/Exerra): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Exerra), [Web](https://exerra.xyz)
 * [fabianski7](https://github.com/fabianski7): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:fabianski7)
+* [Fabio Lovato](https://github.com/loviuz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:loviuz)
 * [Fake4d](https://github.com/Fake4d): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Fake4d)
 * [Felix2yu 石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
 * [FireFingers21](https://github.com/firefingers21): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:firefingers21)
