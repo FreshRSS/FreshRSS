@@ -207,10 +207,10 @@ return array(
 			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
 			'scroll' => 'enquanto scrolling (except for important feeds)',	// DIRTY
-			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
+			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
-			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',
+			'when_same_title' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos',
 		),
 		'show' => array(
 			'_' => 'Artigos para exibir',
