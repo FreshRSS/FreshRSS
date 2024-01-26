@@ -82,6 +82,7 @@ People are sorted by name so please keep this order.
 * [Gianni Scolaro](https://github.com/giannidsp): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:giannidsp)
 * [Gregor Nathanael Meyer](https://github.com/spackmat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spackmat), [Web](https://der-meyer.de)
 * [gsongsong](https://github.com/gsongsong): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gsongsong)
+* [Guilherme Gall](https://github.com/gmgall): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gmgall), [Web](https://gmgall.net/)
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [Guillaume Pugnet](https://github.com/GuillaumePugnet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:GuillaumePugnet)
