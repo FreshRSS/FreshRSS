@@ -1056,11 +1056,6 @@ li.drag-hover {
 	position: relative;
 }
 
-.tree-bottom {
-	visibility: hidden;
-	margin-bottom: 18em;
-}
-
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -1158,12 +1153,6 @@ input[type="search"] {
 	display: none;
 }
 
-.aside,
-.aside .nav-inner,
-#sidebar {
-	width: 300px;
-}
-
 .aside .logo-wrapper {
 	text-align: center;
 	padding: 0.5rem 1rem;
@@ -1182,7 +1171,8 @@ input[type="search"] {
 }
 
 .aside .nav-inner {
-	padding-bottom: 3rem;
+	padding-bottom: 10rem;
+	width: 300px;
 	height: 100vh;
 	overflow-x: hidden;
 	overflow-y: auto;
