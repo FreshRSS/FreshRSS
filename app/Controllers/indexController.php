@@ -6,6 +6,10 @@ declare(strict_types=1);
  */
 class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
+	public function firstAction(): void {
+		$this->view->html_url = Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root');
+	}
+
 	/**
 	 * This action only redirect on the default view mode (normal or global)
 	 */

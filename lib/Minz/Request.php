@@ -162,11 +162,11 @@ class Minz_Request {
 	 * Setteurs
 	 */
 	public static function _controllerName(string $controller_name): void {
-		self::$controller_name = $controller_name;
+		self::$controller_name = ctype_alnum($controller_name) ? $controller_name : '';
 	}
 
 	public static function _actionName(string $action_name): void {
-		self::$action_name = $action_name;
+		self::$action_name = ctype_alnum($action_name) ? $action_name : '';
 	}
 
 	/** @param array<string,string> $params */

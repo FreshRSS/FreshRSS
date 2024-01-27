@@ -34,6 +34,7 @@ class FreshRSS_BooleanSearch {
 
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
+			$input = trim($input);
 		}
 		$this->raw_input = $input;
 

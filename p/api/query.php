@@ -50,6 +50,7 @@ Minz_ExtensionManager::init();
 Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_enabled, 'user');
 
 $query = null;
+$userSearch = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
 		$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
@@ -61,13 +62,17 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
 		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'), 0, 'AND', false);
 		if ($userSearch->getRawInput() !== '') {
-			$search .= ' (' . $userSearch->getRawInput() . ')';
+			if ($search === '') {
+				$search = $userSearch->getRawInput();
+			} else {
+				$search .= ' (' . $userSearch->getRawInput() . ')';
+			}
 		}
 		Minz_Request::_param('search', $search);
 		break;
 	}
 }
-if ($query === null) {
+if ($query === null || $userSearch === null) {
 	usleep(rand(100, 10000));
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -78,6 +83,7 @@ $view = new FreshRSS_View();
 
 try {
 	FreshRSS_Context::updateUsingRequest(false);
+	Minz_Request::_param('search', $userSearch->getRawInput());	// Restore user search
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 } catch (Minz_Exception $e) {
 	Minz_Error::error(400, 'Bad user query!');
@@ -121,6 +127,7 @@ $view->rss_title = $query->getName();
 if ($query->getName() != '') {
 	FreshRSS_View::_title($query->getName());
 }
+FreshRSS_Context::systemConf()->allow_anonymous = true;
 
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
@@ -136,7 +143,7 @@ if (in_array($format, ['rss', 'atom'], true)) {
 		$view->_path('index/opml.phtml');
 	}
 } else {
-	$view->_layout('simple');
+	$view->_layout('layout');
 	$view->_path('index/html.phtml');
 }
 
