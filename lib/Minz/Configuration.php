@@ -113,7 +113,7 @@ class Minz_Configuration {
 		$this->default_filename = $default_filename;
 		$this->_configurationSetter($configuration_setter);
 
-		if ($this->default_filename != null) {
+		if ($this->default_filename != '') {
 			$this->data = self::load($this->default_filename);
 		}
 
