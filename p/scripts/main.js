@@ -192,7 +192,7 @@ function removeArticle(div) {
 	let dirty = false;
 	const p = div.previousElementSibling;
 	const n = div.nextElementSibling;
-	if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
+	if (p && p.classList.contains('stream-day-headline') && n && n.classList.contains('stream-day-headline')) {
 		scrollTop -= p.offsetHeight;
 		dirty = true;
 		p.remove();
@@ -1774,7 +1774,7 @@ function load_more_posts() {
 		const streamFooter = document.getElementById('stream-footer');
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
-		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
+		streamAdopted.querySelectorAll('.flux, .stream-day-headline').forEach(function (div) {
 			box_load_more.insertBefore(div, streamFooter);
 		});
 
