@@ -16,7 +16,7 @@ class FreshRSS_BooleanSearch {
 	private string $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
-	public function __construct(string $input, int $level = 0, string $operator = 'AND') {
+	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
 		$this->operator = $operator;
 		$input = trim($input);
 		if ($input === '') {
@@ -34,8 +34,8 @@ class FreshRSS_BooleanSearch {
 				return;
 			}
 
-			$input = $this->parseUserQueryNames($input);
-			$input = $this->parseUserQueryIds($input);
+			$input = $this->parseUserQueryNames($input, $allowUserQueries);
+			$input = $this->parseUserQueryIds($input, $allowUserQueries);
 		}
 
 		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
@@ -46,7 +46,7 @@ class FreshRSS_BooleanSearch {
 	/**
 	 * Parse the user queries (saved searches) by name and expand them in the input string.
 	 */
-	private function parseUserQueryNames(string $input): string {
+	private function parseUserQueryNames(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
@@ -74,7 +74,11 @@ class FreshRSS_BooleanSearch {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
+						if ($allowUserQueries) {
+							$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
+						} else {
+							$toS[] = '';
+						}
 					}
 				}
 			}
@@ -87,7 +91,7 @@ class FreshRSS_BooleanSearch {
 	/**
 	 * Parse the user queries (saved searches) by ID and expand them in the input string.
 	 */
-	private function parseUserQueryIds(string $input): string {
+	private function parseUserQueryIds(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 
 		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matchesFound)) {
@@ -113,7 +117,11 @@ class FreshRSS_BooleanSearch {
 					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
+						if ($allowUserQueries) {
+							$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
+						} else {
+							$toS[] = '';
+						}
 					}
 				}
 			}

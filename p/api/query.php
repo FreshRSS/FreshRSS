@@ -55,8 +55,15 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());
-		Minz_Request::_param('search', $query->getSearch()->getRawInput());
 		Minz_Request::_param('state', $query->getState());
+
+		$search = $query->getSearch()->getRawInput();
+		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
+		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'), 0, 'AND', false);
+		if ($userSearch !== '') {
+			$search .= ' (' . $userSearch . ')';
+		}
+		Minz_Request::_param('search', $search);
 		break;
 	}
 }
