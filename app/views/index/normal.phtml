@@ -44,26 +44,27 @@ $today = @strtotime('today');
 			$this->entry->feed() ?? FreshRSS_Feed::example();
 
 		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
-			?><div class="day" id="day_today"><?php
-				echo _t('gen.date.today');
-				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
+			?><div class="stream-day-headline" id="day_today">
+				<span class="day"><?= _t('gen.date.today') ?></span>
+				<span class="category"><?= FreshRSS_Context::$name ?></span>
+				<span class="date"><?= timestamptodate(time(), false) ?></span>
+			</div><?php
 			$display_today = false;
 		}
 		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
-			?><div class="day" id="day_yesterday"><?php
-				echo _t('gen.date.yesterday');
-				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
+			?><div class="stream-day-headline" id="day_yesterday">
+				<span class="day"><?= _t('gen.date.yesterday') ?></span>
+				<span class="category"><?= FreshRSS_Context::$name ?></span>
+				<span class="date"><?= timestamptodate(time() - 86400, false) ?></span>
+			</div><?php
 			$display_yesterday = false;
 		}
 		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
-			?><div class="day" id="day_before_yesterday"><?php
-				echo _t('gen.date.before_yesterday');
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
+			?><div class="stream-day-headline" id="day_before_yesterday">
+				<span class="day"><?= _t('gen.date.before_yesterday') ?></span>
+				<span class="category"><?= FreshRSS_Context::$name ?></span>
+				<span class="date"></span>
+			</div><?php
 			$display_others = false;
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
