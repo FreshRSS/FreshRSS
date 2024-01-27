@@ -493,20 +493,20 @@ form th {
 }
 
 /*=== Day indication */
-.day {
+.stream-day-headline {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
 }
 
-.day span {
+.stream-day-headline span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .stream-day-headline {
 }
 
-.day .name {
+.stream-day-headline .name {
 	padding: 0 0 0 10px;
 	font-size: 1.8em;
 	opacity: 0.3;
@@ -769,7 +769,7 @@ form th {
 		width: 400px;
 	}
 
-	.day .name {
+	.stream-day-headline .name {
 		font-size: 1.1rem;
 	}
 

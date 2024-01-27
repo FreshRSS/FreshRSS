@@ -684,31 +684,24 @@ kbd {
 }
 
 /*=== Day indication */
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 1rem 0;
 	font-weight: bold;
-	line-height: 3;
 	background: var(--background-color-dark);
 	color: var(--font-color-light);
 	border-top: 1px solid var(--border-color-dark);
 }
 
-.day span {
-	line-height: 1.5;
-}
-
-#new-article + .day {
+#new-article + .stream-day-headline {
 	border-top: none;
 }
 
-.day .name {
-	padding: 0 0 0 10px;
+.stream-day-headline .category {
+	padding: 0 0.5rem;
 	color: var(--font-color-light);
-	font-size: 1.8em;
 	opacity: 0.3;
 	text-shadow: 0px -1px 0px var(--font-color-dark);
 	font-style: italic;
-	text-align: left;
 }
 
 /*=== Index menu */
@@ -1117,7 +1110,7 @@ kbd {
 		border-right: 2px solid var(--background-color-light);
 	}
 
-	.day .name {
+	.stream-day-headline .name {
 		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;

@@ -75,14 +75,8 @@
 }
 
 /*=== Day indication */
-.day {
-	font-size: 0.9rem;
-	line-height: 2;
-}
-
-.day .name {
-	font-size: 1em;
-	opacity: 0.6;
+.stream-day-headline {
+	padding: 0.5rem 0;
 }
 
 /*=== Index menu */

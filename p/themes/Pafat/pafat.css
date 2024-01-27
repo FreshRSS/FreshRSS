@@ -756,31 +756,24 @@ a.signin {
 }
 
 /*=== Day indication */
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 1rem 0;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
 	border-top: 1px solid var(--border-color-grey-dark);
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	font-weight: bold;
-	line-height: 3;
 }
 
-.day span {
-	line-height: 1.5;
-}
-
-#new-article + .day {
+#new-article + .stream-day-headline {
 	border-top: none;
 }
 
-.day .name {
-	padding: 0 10px 0 0;
+.stream-day-headline .category {
 	color: var(--font-color-grey);
-	font-size: 1.8em;
-	opacity: 0.3;
 	font-style: italic;
 	text-align: right;
+	opacity: 0.5;
 }
 
 /*=== Index menu */
@@ -1090,7 +1083,7 @@ a.signin {
 		border-left: 1px solid var(--border-color-grey-dark);
 	}
 
-	.day .name {
+	.stream-day-headline .name {
 		font-size: 1.1rem;
 		text-shadow: none;
 	}

@@ -780,22 +780,16 @@ main.prompt {
 }
 
 /*=== Day indication */
-.day {
-	padding: 1rem 0 0 1.25rem;
+.stream-day-headline {
+	padding: 1.5rem 0 0.5rem 0;
 	color: #5b6871;
 	font-size: 0.875rem;
 	font-weight: 700;
-	line-height: 3em;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
-.day .name {
-	padding: 0 1rem 0 1rem;
+.stream-day-headline .category {
 	color: #303136;
-	font-size: 0.875rem;
-	position: relative;
-	left: 0;
-	text-transform: uppercase;
 }
 
 .btn {
@@ -1301,17 +1295,6 @@ main.prompt {
 	}
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
-	}
-	.day {
-		text-align: center;
-		padding: 1rem 0;
-	}
-	.day .name {
-		padding: 0;
-		display: block;
-		width: 100%;
-		line-height: 1.5rem;
-		margin-bottom: 1rem;
 	}
 	#nav_entries {
 		line-height: 4.5rem;

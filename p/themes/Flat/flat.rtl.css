@@ -658,20 +658,15 @@ form th {
 }
 
 /*=== Day indication */
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 1rem 0;
 	font-weight: bold;
-	line-height: 3em;
 	border-right: 2px solid #ecf0f1;
 }
 
-.day .name {
-	padding: 0 0 0 10px;
+.stream-day-headline .category {
 	color: #aab;
-	font-size: 1.8em;
-	opacity: 0.3;
 	font-style: italic;
-	text-align: left;
 }
 
 /*=== Index menu */
@@ -995,7 +990,7 @@ form th {
 		bottom: -19px;
 	}
 
-	.day .name {
+	.stream-day-headline .name {
 		font-size: 1.1rem;
 	}
 

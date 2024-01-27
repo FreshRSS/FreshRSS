@@ -700,14 +700,9 @@ form th {
 	background-color: var(--color-background-nav-darker);
 }
 
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 0.5rem 0;
 	font-weight: bold;
-	line-height: 3;
-	text-align: center;
-}
-.day .name {
-	display: none;
 }
 
 .nav a {
@@ -1031,7 +1026,7 @@ a.signin {
 		left: 3%;
 		right: auto;
 	}
-	.day .name {
+	.stream-day-headline .name {
 		font-size: 1.1rem;
 	}
 	.notification {

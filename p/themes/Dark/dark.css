@@ -425,7 +425,7 @@ button.as-link[disabled] {
 }
 
 /*=== Day indication */
-.day {
+.stream-day-headline {
 	border-top: 1px solid var(--dark-border-color3);
 	border-bottom: 1px solid var(--dark-border-color3);
 }

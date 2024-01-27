@@ -753,22 +753,15 @@ li.item.active {
 }
 
 /*=== Day indication */
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 1rem 0;
 	font-weight: bold;
-	line-height: 3em;
 }
 
-.day .name {
-	padding: 0 0 0 10px;
-	font-size: 1.8em;
+.stream-day-headline .category {
 	opacity: 0.3;
 	font-style: italic;
 	text-align: left;
-}
-
-.name {
-	display: none;
 }
 
 
@@ -1013,7 +1006,7 @@ li.item.active {
 
 @media print {
 	.header, .aside,
-	.nav_menu, .day,
+	.nav_menu, .stream-day-headline,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
@@ -1307,7 +1300,7 @@ optgroup::before {
 		padding: 1rem;
 	}
 
-	.day .name {
+	.stream-day-headline .name {
 		font-size: 1.1rem;
 	}
 

@@ -789,30 +789,25 @@ a:hover .icon {
 }
 
 /*=== Day indication */
-.day {
-	padding: 0 10px;
+.stream-day-headline {
+	padding: 1rem 0;
 	font-weight: bold;
-	line-height: 3;
 	background-color: var(--background-color-light);
 	border-top: 1px solid var(--border-color);
 }
 
-.day span {
+.stream-day-headline span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .stream-day-headline {
 	border-top: none;
 }
 
-.day .name {
-	padding: 0 10px 0 0;
+.stream-day-headline .category {
+	padding: 0 0.5rem;
 	color: var(--font-color-light-shadowed);
-	font-size: 1.8em;
-	opacity: 0.3;
-	text-shadow: 0px -1px 0px var(--text-shadow-color-dark);
 	font-style: italic;
-	text-align: right;
 }
 
 /*=== Index menu */
@@ -1166,8 +1161,7 @@ a:hover .icon {
 		padding-right: 15px;
 	}
 
-	.day .name {
-		font-size: 1.1rem;
+	.stream-day-headline .category {
 		text-shadow: none;
 	}
 

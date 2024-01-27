@@ -1194,14 +1194,34 @@ input[type="search"] {
 }
 
 /*=== Day indication */
-.day {
+.stream-day-headline {
 	background: inherit;
+	display: flex;
+	font-size: 0.9rem;
+	justify-content: space-between;
 }
 
-.day .name {
-	position: absolute;
-	left: 0;
-	width: 50%;
+.stream-day-headline .day {
+	padding-right: 0.75rem;
+	width: 20%;
+	min-width: 150px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.stream-day-headline .category {
+	max-width: 40%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.stream-day-headline .date {
+	padding-left: 40px;
+	text-align: left;
+	width: 20%;
+	min-width: 195px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -2154,7 +2174,7 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item.date, .day .date,
+	.item.date, .stream-day-headline .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
@@ -2199,6 +2219,10 @@ html.slider-active {
 
 	#overlay .close {
 		position: relative;
+	}
+
+	.stream-day-headline .category {
+		padding-left: 0.75rem;
 	}
 
 	.form-group {
@@ -2430,7 +2454,7 @@ html.slider-active {
 
 @media print {
 	.header, .aside,
-	.nav_menu, .day,
+	.nav_menu, .stream-day-headline,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,

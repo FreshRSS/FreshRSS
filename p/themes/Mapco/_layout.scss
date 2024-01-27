@@ -123,22 +123,16 @@ main.prompt {
 }
 
 /*=== Day indication */
-.day {
-	padding: 1rem 0 0 1.25rem;
+.stream-day-headline {
+	padding: 1.5rem 0 0.5rem 0;
 	color: variables.$light-font-color;
 	font-size: 0.875rem;
 	font-weight: 700;
-	line-height: 3em;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 
-	.name {
-		padding: 0 1rem 0 1rem;
+	.category {
 		color: variables.$main-font-color;
-		font-size: 0.875rem;
-		position: relative;
-		left: 0;
-		text-transform: uppercase;
 	}
 }
 
