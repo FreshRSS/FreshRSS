@@ -6,9 +6,15 @@
 <div class="tags">
 <?php if (!empty($firstTags)): ?>
 	<?= _i('tag') ?><ul class="list-tags">
-	<?php foreach ($firstTags as $tag): ?>
-		<li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
-	<?php endforeach; ?>
+	<?php if (FreshRSS_Auth::hasAccess()): ?>
+		<?php foreach ($firstTags as $tag): ?>
+			<li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<?php foreach ($firstTags as $tag): ?>
+			<li class="item tag">#<?= $tag ?></a>
+		<?php endforeach; ?>
+	<?php endif; ?>
 
 	<?php if (!empty($remainingTags)): // more than 7 tags: show dropdown menu ?>
 		<li class="item tag">
@@ -17,9 +23,15 @@
 				<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
-					<?php foreach ($remainingTags as $tag): ?>
-					<li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li>
-					<?php endforeach; ?>
+					<?php if (FreshRSS_Auth::hasAccess()): ?>
+						<?php foreach ($remainingTags as $tag): ?>
+						<li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<?php foreach ($remainingTags as $tag): ?>
+						<li class="item">#<?= $tag ?></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</ul>
 				<a class="dropdown-close" href="#close">❌</a>
 			</div>
