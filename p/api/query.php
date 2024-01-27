@@ -60,8 +60,8 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		$search = $query->getSearch()->getRawInput();
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
 		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'), 0, 'AND', false);
-		if ($userSearch !== '') {
-			$search .= ' (' . $userSearch . ')';
+		if ($userSearch->getRawInput() !== '') {
+			$search .= ' (' . $userSearch->getRawInput() . ')';
 		}
 		Minz_Request::_param('search', $search);
 		break;

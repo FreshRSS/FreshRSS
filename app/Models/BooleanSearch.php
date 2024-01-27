@@ -22,8 +22,6 @@ class FreshRSS_BooleanSearch {
 		if ($input === '') {
 			return;
 		}
-		$this->raw_input = $input;
-
 		if ($level === 0) {
 			$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
 			if (!is_string($input)) {
@@ -37,6 +35,7 @@ class FreshRSS_BooleanSearch {
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
 		}
+		$this->raw_input = $input;
 
 		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
 		// or parse everything as a series of Search’s combined by explicit OR
