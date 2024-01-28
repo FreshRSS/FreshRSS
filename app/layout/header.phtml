@@ -34,7 +34,7 @@
 				<input type="hidden" name="t" value="<?= Minz_Request::paramString('t') ?>" />
 				<?php } if (ctype_upper(Minz_Request::paramString('order'))) { ?>
 				<input type="hidden" name="order" value="<?= FreshRSS_Context::$order ?>" />
-				<?php } if (ctype_alpha(Minz_Request::paramString('f'))) { ?>
+				<?php } if (ctype_lower(Minz_Request::paramString('f'))) { ?>
 				<input type="hidden" name="f" value="<?= Minz_Request::paramString('f') ?>" />
 				<?php } ?>
 				<input type="search" name="search" id="search"
