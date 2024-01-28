@@ -1846,6 +1846,10 @@ html.slider-active {
 	filter: grayscale(100%) brightness(2.5);
 }
 
+#slider-content {
+	padding: 2rem;
+}
+
 #slider-content .loader {
 	height: 90vh;
 	background-image: url('loader.gif');
