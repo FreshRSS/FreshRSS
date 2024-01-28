@@ -47,7 +47,6 @@ $today = @strtotime('today');
 			?><div class="stream-day-headline" id="day_today">
 				<span class="day"><?= _t('gen.date.today') ?></span>
 				<span class="category"><?= FreshRSS_Context::$name ?></span>
-				<span class="date"><?= timestamptodate(time(), false) ?></span>
 			</div><?php
 			$display_today = false;
 		}
@@ -55,7 +54,6 @@ $today = @strtotime('today');
 			?><div class="stream-day-headline" id="day_yesterday">
 				<span class="day"><?= _t('gen.date.yesterday') ?></span>
 				<span class="category"><?= FreshRSS_Context::$name ?></span>
-				<span class="date"><?= timestamptodate(time() - 86400, false) ?></span>
 			</div><?php
 			$display_yesterday = false;
 		}
@@ -63,7 +61,6 @@ $today = @strtotime('today');
 			?><div class="stream-day-headline" id="day_before_yesterday">
 				<span class="day"><?= _t('gen.date.before_yesterday') ?></span>
 				<span class="category"><?= FreshRSS_Context::$name ?></span>
-				<span class="date"></span>
 			</div><?php
 			$display_others = false;
 		}

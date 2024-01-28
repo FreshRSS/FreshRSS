@@ -1211,20 +1211,11 @@ input[type="search"] {
 }
 
 .stream-day-headline .category {
-	max-width: 40%;
+	width: 70%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-}
-
-.stream-day-headline .date {
-	padding-right: 40px;
-	text-align: right;
-	width: 20%;
-	min-width: 195px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+	text-align: center;
 }
 
 /*=== Feed article header and footer */
@@ -2174,7 +2165,7 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item.date, .stream-day-headline .date,
+	.item.date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
@@ -2223,6 +2214,7 @@ html.slider-active {
 
 	.stream-day-headline .category {
 		padding-right: 0.75rem;
+		text-align: right;
 	}
 
 	.form-group {
