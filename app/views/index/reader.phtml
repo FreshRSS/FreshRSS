@@ -224,20 +224,16 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
-?></div></div></div><?php
+?></div></div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
-<div id="maincolumn">
-	<div id="maincolumn-inner" class="feedstream">
-		<div id="stream" class="reader">
 			<div id="new-article">
 				<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 			</div>
 			<div class="prompt alert alert-warn">
 				<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
 			</div>
-		</div>
 	</div>
-</div>
+</main>
 <?php endif; ?>
