@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Rādīt pēc barotnes',
 			'order' => 'Kārtot pēc datuma',
 			'search' => 'Izteiksme',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',

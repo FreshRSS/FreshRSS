@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
 			'search' => '式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '状態',
 			'tags' => 'タグごとに表示する',
 			'type' => 'タイプ',

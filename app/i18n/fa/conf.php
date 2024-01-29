@@ -120,6 +120,8 @@ return array(
 			'feeds' => ' نمایش با فید',
 			'order' => ' مرتب سازی بر اساس تاریخ',
 			'search' => ' بیان',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => ' ایالت',
 			'tags' => ' نمایش بر اساس برچسب',
 			'type' => ' نوع',

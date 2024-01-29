@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Отображение по ленте',
 			'order' => 'Сортировать по дате',
 			'search' => 'Выражение',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Состояние',
 			'tags' => 'Отображение по метке',
 			'type' => 'Тип',

@@ -391,6 +391,12 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			} else {
 				$queryParams['token'] = $params['token'];
 			}
+			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
+				$queryParams['shareRss'] = (bool)$params['shareRss'];
+			}
+			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
+				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
+			}
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 
 			$queries = FreshRSS_Context::userConf()->queries;

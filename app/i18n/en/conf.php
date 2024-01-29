@@ -120,17 +120,19 @@ return array(
 			'feeds' => 'Display by feed',
 			'order' => 'Sort by date',
 			'search' => 'Expression',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',
 			'state' => 'State',
 			'tags' => 'Display by label',
 			'type' => 'Type',
 		),
 		'get_all' => 'Display all articles',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Display articles with any label',
 		'get_category' => 'Display “%s” category',
 		'get_favorite' => 'Display favourite articles',
 		'get_feed' => 'Display “%s” feed',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
+		'get_important' => 'Display articles from important feeds',
+		'get_label' => 'Display articles with “%s” label',
 		'name' => 'Name',
 		'no_filter' => 'No filter',
 		'number' => 'Query n°%d',
@@ -141,7 +143,7 @@ return array(
 			'_' => 'Share this query by link',
 			'help' => 'Give this link if you want to share this query with anyone',
 			'html' => 'Shareable link to the HTML page',
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',
 			'rss' => 'Shareable link to the RSS feed',
 		),
 		'state_0' => 'Display all articles',

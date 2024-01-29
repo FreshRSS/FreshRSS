@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
 			'search' => 'Kifejezés',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Státusz',
 			'tags' => 'Rendezés címke szerint',
 			'type' => 'Típus',

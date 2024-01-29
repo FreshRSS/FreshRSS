@@ -19,6 +19,8 @@ class FreshRSS_UserQuery {
 	private int $state = 0;
 	private string $url = '';
 	private string $token = '';
+	private bool $shareRss = false;
+	private bool $shareOpml = false;
 	/** @var array<int,FreshRSS_Category> $categories */
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels */
@@ -37,7 +39,7 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
-	 * @param array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string} $query
+	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool} $query
 	 * @param array<int,FreshRSS_Category> $categories
 	 * @param array<int,FreshRSS_Tag> $labels
 	 */
@@ -67,6 +69,13 @@ class FreshRSS_UserQuery {
 		if (!empty($query['token'])) {
 			$this->token = $query['token'];
 		}
+		if (isset($query['shareRss'])) {
+			$this->shareRss = $query['shareRss'];
+		}
+		if (isset($query['shareOpml'])) {
+			$this->shareOpml = $query['shareOpml'];
+		}
+		syslog(LOG_DEBUG, __METHOD__ . ' ' . json_encode($query));
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search']);
 		if (!empty($query['state'])) {
@@ -84,10 +93,12 @@ class FreshRSS_UserQuery {
 			'get' => $this->get,
 			'name' => $this->name,
 			'order' => $this->order,
-			'search' => $this->search->__toString(),
+			'search' => $this->search->getRawInput(),
 			'state' => $this->state,
 			'url' => $this->url,
 			'token' => $this->token,
+			'shareRss' => $this->shareRss,
+			'shareOpml' => $this->shareOpml,
 		]);
 	}
 
@@ -219,22 +230,44 @@ class FreshRSS_UserQuery {
 		$this->token = $token;
 	}
 
+	public function setShareRss(bool $shareRss): void {
+		$this->shareRss = $shareRss;
+	}
+
+	public function shareRss(): bool {
+		return $this->shareRss;
+	}
+
+	public function setShareOpml(bool $shareOpml): void {
+		$this->shareOpml = $shareOpml;
+	}
+
+	public function shareOpml(): bool {
+		return $this->shareOpml;
+	}
+
 	protected function sharedUrl(bool $xmlEscaped = true): string {
 		$currentUser = Minz_User::name() ?? '';
 		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
 	}
 
 	public function sharedUrlRss(bool $xmlEscaped = true): string {
-		return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=rss';
+		if ($this->shareRss) {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=rss';
+		}
+		return '';
 	}
 
 	public function sharedUrlHtml(bool $xmlEscaped = true): string {
-		return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
+		if ($this->shareRss) {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
+		}
+		return '';
 	}
 
 	public function sharedUrlOpml(bool $xmlEscaped = true): string {
 		// OPML is only safe for some query types
-		if (in_array($this->get_type, ['all', 'category', 'feed'], true)) {
+		if ($this->shareOpml && in_array($this->get_type, ['all', 'category', 'feed'], true)) {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
 		}
 		return '';

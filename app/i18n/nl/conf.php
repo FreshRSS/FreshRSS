@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Weergeven op feed',
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Status',
 			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE

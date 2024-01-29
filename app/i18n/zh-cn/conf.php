@@ -120,6 +120,8 @@ return array(
 			'feeds' => '按订阅源显示',
 			'order' => '按日期排序',
 			'search' => '表达式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '状态',
 			'tags' => '按标签显示',
 			'type' => '类型',

@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
+			'shareRss' => 'Active le partage par HTML &amp; RSS',
 			'state' => 'État',
 			'tags' => 'Afficher par étiquette',
 			'type' => 'Type',	// IGNORE

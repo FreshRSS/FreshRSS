@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Akışa göre göster',
 			'order' => 'Tarihe göre göster',
 			'search' => 'İfade',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',

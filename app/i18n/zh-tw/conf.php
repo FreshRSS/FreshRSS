@@ -120,6 +120,8 @@ return array(
 			'feeds' => '按訂閱源顯示',
 			'order' => '按日期排序',
 			'search' => '表達式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '狀態',
 			'tags' => '按標簽顯示',
 			'type' => '類型',

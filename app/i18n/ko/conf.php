@@ -120,6 +120,8 @@ return array(
 			'feeds' => '피드별로 표시',
 			'order' => '날짜순으로 정렬',
 			'search' => '정규 표현식',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '상태',
 			'tags' => '태그별로 표시',
 			'type' => '유형',

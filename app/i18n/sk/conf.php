@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Zobraziť podľa kanála',
 			'order' => 'Zobraziť podľa dátumu',
 			'search' => 'Výraz',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Štát',
 			'tags' => 'Zobraziť podľa štítku',
 			'type' => 'Typ',

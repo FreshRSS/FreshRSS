@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Display by feed',	// TODO
 			'order' => 'Sort by date',	// TODO
 			'search' => 'Expression',	// TODO
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'State',	// TODO
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO

@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Display by feed',	// IGNORE
 			'order' => 'Sort by date',	// IGNORE
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE
 			'state' => 'State',	// IGNORE
 			'tags' => 'Display by label',	// IGNORE
 			'type' => 'Type',	// IGNORE

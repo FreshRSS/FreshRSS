@@ -25,14 +25,34 @@
 		<legend><?= _t('conf.query.share') ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
-				<ul>
-					<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
-					<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
-					<?php if ($this->query->sharedUrlOpml() != ''): ?>
-					<li><a href="<?= $this->query->sharedUrlOpml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.opml') ?></a></li>
+				<label class="checkbox" for="shareRss">
+					<input type="checkbox" name="query[shareRss]" id="shareRss" value="1" <?= $this->query->shareRss() ? 'checked="checked"' : ''?> />
+					<?= _t('conf.query.filter.shareRss') ?>
+					<?php if ($this->query->sharedUrlRss() !== ''): ?>
+					<ul>
+						<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
+						<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
+					</ul>
 					<?php endif; ?>
+				</label>
+			</div>
+			<div class="group-controls">
+				<label class="checkbox" for="shareOpml">
+					<input type="checkbox" name="query[shareOpml]" id="shareOpml" value="1" <?= $this->query->shareOpml() ? 'checked="checked"' : ''?> />
+					<?= _t('conf.query.filter.shareOpml') ?>
+				</label>
+				<?php if ($this->query->sharedUrlOpml() !== ''): ?>
+				<ul>
+					<li><a href="<?= $this->query->sharedUrlOpml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.opml') ?></a></li>
 				</ul>
-				<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+				<?php endif; ?>
+			</div>
+			<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 			</div>
 		</div>
 

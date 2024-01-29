@@ -53,6 +53,22 @@ $query = null;
 $userSearch = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
+		switch ($format) {
+			case 'atom':
+			case 'html':
+			case 'rss':
+				if (empty($raw_query['shareRss'])) {
+					continue 2;
+				}
+				break;
+			case 'opml':
+				if (empty($raw_query['shareOpml'])) {
+					continue 2;
+				}
+				break;
+			default:
+				continue 2;
+		}
 		$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 		Minz_Request::_param('get', $query->getGet());
 		Minz_Request::_param('order', $query->getOrder());

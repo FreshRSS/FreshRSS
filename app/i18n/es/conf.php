@@ -120,6 +120,8 @@ return array(
 			'feeds' => 'Mostrar por feed',
 			'order' => 'Ordenar por fecha',
 			'search' => 'Expresión',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Estado',
 			'tags' => 'Mostrar por etiqueta',
 			'type' => 'Tipo',
