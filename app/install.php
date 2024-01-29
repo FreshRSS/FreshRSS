@@ -751,7 +751,7 @@ if (_t('gen.dir') === 'rtl') {
 	<header class="header">
 		<nav class="nav-header">
 			<div id="toggle_aside" class="nav_mobile group">
-				<a class="btn" href="#aside_feed"><?= _i('category') ?></a>
+				<a class="btn" href="#aside"><?= _i('category') ?></a>
 			</div>
 			<div id="header_menu_configs" class="group">
 				<div class="dropdown dropdown-open-right-to-top">
