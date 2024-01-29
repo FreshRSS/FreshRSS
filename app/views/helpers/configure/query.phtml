@@ -28,13 +28,13 @@
 				<label class="checkbox" for="shareRss">
 					<input type="checkbox" name="query[shareRss]" id="shareRss" value="1" <?= $this->query->shareRss() ? 'checked="checked"' : ''?> />
 					<?= _t('conf.query.filter.shareRss') ?>
-					<?php if ($this->query->sharedUrlRss() !== ''): ?>
-					<ul>
-						<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
-						<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
-					</ul>
-					<?php endif; ?>
 				</label>
+				<?php if ($this->query->sharedUrlRss() !== ''): ?>
+				<ul>
+					<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
+					<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
+				</ul>
+				<?php endif; ?>
 			</div>
 			<div class="group-controls">
 				<label class="checkbox" for="shareOpml">
