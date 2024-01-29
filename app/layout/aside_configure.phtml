@@ -100,7 +100,7 @@
 				<ul>
 					<li class="item<?= Minz_Request::actionName() === 'about' ? ' active' : '' ?>">
 						<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
-          </li>
+		  </li>
 					<?php if (file_exists(TOS_FILENAME)) { ?>
 						<li class="item<?= Minz_Request::actionName() === 'tos' ? ' active' : '' ?>">
 							<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
