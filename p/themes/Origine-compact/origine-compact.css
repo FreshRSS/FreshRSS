@@ -152,9 +152,4 @@
 	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
 		margin-top: 5px;
 	}
-
-	.post {
-		padding-left: 1rem;
-		padding-right: 1rem;
-	}
 }
