@@ -252,22 +252,28 @@ class FreshRSS_UserQuery {
 	}
 
 	public function sharedUrlRss(bool $xmlEscaped = true): string {
-		if ($this->shareRss) {
+		if ($this->shareRss && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=rss';
 		}
 		return '';
 	}
 
 	public function sharedUrlHtml(bool $xmlEscaped = true): string {
-		if ($this->shareRss) {
+		if ($this->shareRss && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
 		}
 		return '';
 	}
 
+	/**
+	 * OPML is only safe for some query types, otherwise it risks leaking unwanted feed information.
+	 */
+	public function safeForOpml(): bool {
+		return in_array($this->get_type, ['all', 'category', 'feed'], true);
+	}
+
 	public function sharedUrlOpml(bool $xmlEscaped = true): string {
-		// OPML is only safe for some query types
-		if ($this->shareOpml && in_array($this->get_type, ['all', 'category', 'feed'], true)) {
+		if ($this->shareOpml && $this->token !== '' && $this->safeForOpml()) {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
 		}
 		return '';

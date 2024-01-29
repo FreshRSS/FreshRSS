@@ -38,7 +38,8 @@
 			</div>
 			<div class="group-controls">
 				<label class="checkbox" for="shareOpml">
-					<input type="checkbox" name="query[shareOpml]" id="shareOpml" value="1" <?= $this->query->shareOpml() ? 'checked="checked"' : ''?> />
+					<input type="checkbox" name="query[shareOpml]" id="shareOpml" value="1" <?= $this->query->shareOpml() && $this->query->safeForOpml() ? 'checked="checked"' : '' ?>
+						<?= $this->query->safeForOpml() ? '' : 'disabled="disabled"' ?> />
 					<?= _t('conf.query.filter.shareOpml') ?>
 				</label>
 				<?php if ($this->query->sharedUrlOpml() !== ''): ?>
