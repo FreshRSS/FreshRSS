@@ -1000,7 +1000,7 @@ SQL;
 	 */
 	protected function sqlListEntriesWhere(string $alias = '', ?FreshRSS_BooleanSearch $filters = null,
 			int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', string $firstId = '', int $date_min = 0) {
+			string $order = 'DESC', string $firstId = '', int $date_min = 0): array {
 		$search = ' ';
 		$values = [];
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
@@ -1053,7 +1053,7 @@ SQL;
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 			string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
-			int $date_min = 0) {
+			int $date_min = 0): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
