@@ -748,20 +748,6 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body>
 
-<header class="header">
-	<div class="item title">
-		<div id="logo-wrapper">
-			<a href="./">
-				<img class="logo" src="../themes/icons/FreshRSS-logo.svg" alt="" loading="lazy">
-			</a>
-		</div>
-	</div>
-	<div class="item"></div>
-	<div class="item configure">
-		<a class="btn only-mobile" href="#aside"><?= _i('view-normal') ?></a>
-	</div>
-</header>
-
 <div id="global">
 	<nav class="nav nav-list aside" id="aside">
 		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
