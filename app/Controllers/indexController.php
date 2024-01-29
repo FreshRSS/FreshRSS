@@ -64,15 +64,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::$id_max = time() . '000000';
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
-			try {
-				$tagDAO = FreshRSS_Factory::createTagDao();
-				$view->tags = FreshRSS_Context::labels(true);
-				$view->nbUnreadTags = 0;
-				foreach ($view->tags as $tag) {
-					$view->nbUnreadTags += $tag->nbUnread();
-				}
-			} catch (Exception $e) {
-				Minz_Log::notice($e->getMessage());
+			$view->tags = FreshRSS_Context::labels(true);
+			$view->nbUnreadTags = 0;
+			foreach ($view->tags as $tag) {
+				$view->nbUnreadTags += $tag->nbUnread();
 			}
 		};
 

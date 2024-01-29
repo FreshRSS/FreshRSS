@@ -200,8 +200,7 @@ SQL;
 SELECT t.id, t.name, count(e.id) AS unreads
 FROM `_tag` t
 LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id
-LEFT OUTER JOIN `_entry` e ON et.id_entry = e.id
-WHERE e.is_read = 0
+LEFT OUTER JOIN `_entry` e ON et.id_entry = e.id AND e.is_read = 0
 GROUP BY t.id
 ORDER BY t.name
 SQL;
