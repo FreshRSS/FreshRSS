@@ -1505,7 +1505,7 @@ a.website:hover .favicon {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0.75rem 3.5rem 0.75rem 0.75rem;
+	padding: 1rem 3.5rem 1rem 1rem;
 	position: absolute;
 	top: 1rem;
 	left: 25%; right: 25%;
