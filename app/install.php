@@ -748,6 +748,34 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body>
 
+	<header class="header">
+		<nav class="nav-header">
+			<div id="toggle_aside" class="nav_mobile group">
+				<a class="btn" href="#aside_feed"><?= _i('category') ?></a>
+			</div>
+			<div id="header_menu_configs" class="group">
+				<div class="dropdown dropdown-open-right-to-top">
+					<div id="dropdown-help" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
+						<?= _i('help') ?>
+						<span class="label"><?= _t('gen.menu.help') ?></span>
+					</a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title">
+								<?= _t('gen.menu.help') ?>
+							</div>
+							<ul>
+								<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
+							</ul>
+						</li>
+					</ul>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
+			</div>
+		</nav>
+	</header>
 	<nav class="nav nav-list aside" id="aside">
 		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<div class="logo-wrapper">
