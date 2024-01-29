@@ -753,6 +753,13 @@ if (_t('gen.dir') === 'rtl') {
 			<div id="toggle_aside" class="nav_mobile group">
 				<a class="btn" href="#aside"><?= _i('category') ?></a>
 			</div>
+
+			<div id="header_menu_logo" class="logo-wrapper">
+				<a href="<?= _url('index', 'index') ?>">
+						<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
+				</a>
+			</div>
+			
 			<div id="header_menu_configs" class="group">
 				<div class="dropdown dropdown-open-right-to-top">
 					<div id="dropdown-help" class="dropdown-target"></div>

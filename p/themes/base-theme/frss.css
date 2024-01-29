@@ -1071,7 +1071,7 @@ a:hover .logo {
 		width: 4rem;
 	}
 
-	.header .logo {
+	.header .logo-wrapper a {
 		display: none;
 	}
 
@@ -2208,6 +2208,11 @@ html.slider-active {
 		height: 3.5rem;
 		box-sizing: border-box;
 		justify-content: space-between;
+	}
+
+	.header .logo-wrapper .logo {
+		height: 20px;
+		margin-top: 0.5rem;
 	}
 
 	.header .group {
