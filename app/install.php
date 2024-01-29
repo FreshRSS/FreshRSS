@@ -748,9 +748,13 @@ if (_t('gen.dir') === 'rtl') {
 	</head>
 	<body>
 
-<div id="global">
 	<nav class="nav nav-list aside" id="aside">
-		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+		<div class="logo-wrapper">
+			<a href="<?= _url('index', 'index') ?>">
+					<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
+			</a>
+		</div>
 		<ul>
 			<li class="item nav-section">
 				<div class="nav-header"><?= _t('install.steps') ?></div>
@@ -793,32 +797,33 @@ if (_t('gen.dir') === 'rtl') {
 	<a class="close-aside" href="#close">❌</a>
 
 	<main id="maincolumn" class="post">
-		<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
-		<?php
-		switch (STEP) {
-		case 0:
-		default:
-			printStep0();
-			break;
-		case 1:
-			printStep1();
-			break;
-		case 2:
-			printStep2();
-			break;
-		case 3:
-			printStep3();
-			break;
-		case 4:
-			printStep4();
-			break;
-		case 5:
-			printStep5();
-			break;
-		}
-		?>
+		<div id="maincolumn-inner">
+			<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
+			<?php
+			switch (STEP) {
+			case 0:
+			default:
+				printStep0();
+				break;
+			case 1:
+				printStep1();
+				break;
+			case 2:
+				printStep2();
+				break;
+			case 3:
+				printStep3();
+				break;
+			case 4:
+				printStep4();
+				break;
+			case 5:
+				printStep5();
+				break;
+			}
+			?>
+		</div>
 	</main>
-</div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>
