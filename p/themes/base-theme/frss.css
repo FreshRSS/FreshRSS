@@ -1105,6 +1105,7 @@ a:hover .logo {
 
 	header.header .dropdown-menu {
 		left: calc(100% + 0.5rem);
+		right: auto;
 	}
 
 	header.header .dropdown-open-right-to-bottom .dropdown-menu::after {
