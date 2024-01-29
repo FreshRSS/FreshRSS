@@ -122,7 +122,7 @@ class FreshRSS_Category extends Minz_Model {
 	public function _id(int $id): void {
 		$this->id = $id;
 		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
-			$this->_name(_t('gen.short.default_category'));
+			$this->name = _t('gen.short.default_category');
 		}
 	}
 
@@ -131,7 +131,9 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _name(string $value): void {
-		$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		if ($this->id !== FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		}
 	}
 
 	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
