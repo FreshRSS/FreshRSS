@@ -199,20 +199,6 @@
 			<?php
 		}
 		?>
-
-		<?php
-			$url_output['a'] = 'rss';
-			if (FreshRSS_Context::userConf()->token) {
-				$url_output['params']['user'] = Minz_User::name();
-				$url_output['params']['token'] = FreshRSS_Context::userConf()->token;
-			}
-			if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
-				$url_output['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
-			}
-		?>
-		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz_Url::display($url_output) ?>">
-			<?= _i('rss') ?>
-		</a>
 	</div>
 
 	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
