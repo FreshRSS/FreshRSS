@@ -45,6 +45,14 @@ if (!FreshRSS_Context::hasUserConf()) {
 	usleep(rand(20, 200));
 }
 
+if (!file_exists(DATA_PATH . '/no-cache.txt')) {
+	require(LIB_PATH . '/http-conditional.php');
+	// TODO: Take advantage of $feedMode
+	if (httpConditional(FreshRSS_UserDAO::mtime($user), 0, 0, false, PHP_COMPRESSION, false)) {
+		exit();	//No need to send anything
+	}
+}
+
 Minz_Translate::init(FreshRSS_Context::userConf()->language);
 Minz_ExtensionManager::init();
 Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_enabled, 'user');
