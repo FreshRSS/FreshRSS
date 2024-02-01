@@ -75,9 +75,9 @@ class FreshRSS_UserQuery {
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
 		}
-		syslog(LOG_DEBUG, __METHOD__ . ' ' . json_encode($query));
+
 		// linked too deeply with the search object, need to use dependency injection
-		$this->search = new FreshRSS_BooleanSearch($query['search']);
+		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', false);
 		if (!empty($query['state'])) {
 			$this->state = intval($query['state']);
 		}
