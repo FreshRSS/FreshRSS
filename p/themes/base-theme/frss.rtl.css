@@ -64,14 +64,14 @@ html, body {
 
 #body-inner {
 	display: grid;
-	grid-template-columns: 4rem 300px calc(100vw - 4rem - 300px);
+	grid-template-columns: [header-start] 4rem [sidenav-start] 300px [maincolumn-start] calc(100vw - 4rem - 300px) [maincolumn-end];
 	grid-template-rows: 100vh;
 	width: 100vw;
 	height: 100vh;
 }
 
-.global #body-inner {
-	grid-template-columns: 4rem calc(100vw - 4rem);
+#maincolumn.main-wide-content {
+	grid-area: 1 / sidenav-start / 1 / maincolumn-end;
 }
 
 #maincolumn-inner {
@@ -1851,7 +1851,8 @@ html.slider-active {
 	margin: 1rem 0;
 }
 
-.post.content.centered {
+.post.centered {
+	margin: auto;
 	max-width: 550px;
 }
 
@@ -2183,6 +2184,10 @@ html.slider-active {
 	#body-inner {
 		grid-template-columns: 100vw;
 		grid-template-rows: 3.5rem 400px;
+	}
+
+	#maincolumn.main-wide-content {
+		grid-area: 2 / 1 / 2 / 1;
 	}
 
 	.header .nav-header {
