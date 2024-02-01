@@ -2130,8 +2130,7 @@ html.slider-active {
 	position: sticky;
 	top: 0;
 	z-index: 98;
-	padding-top: var(--frss-padding-top-bottom);
-	padding-bottom: var(--frss-padding-top-bottom);
+	padding: var(--frss-padding-top-bottom) 0.125rem;
 	background: inherit;
 	text-align: center;
 }
@@ -2183,7 +2182,7 @@ html.slider-active {
 
 	#body-inner {
 		grid-template-columns: 100vw;
-		grid-template-rows: 3.5rem 400px;
+		grid-template-rows: 2.5rem auto;
 	}
 
 	#maincolumn.main-wide-content {
@@ -2212,7 +2211,7 @@ html.slider-active {
 	}
 
 	#maincolumn-inner {
-		height: calc(100vh - 3.5rem);
+		height: calc(100vh - 2.5rem);
 	}
 
 	.aside,
@@ -2235,6 +2234,12 @@ html.slider-active {
 
 	.logo {
 		height: 24px;
+	}
+
+	.nav_menu {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
 
 	.nav_menu .group.search {

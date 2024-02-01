@@ -1156,14 +1156,19 @@ a:hover .icon {
 		padding: 0;
 	}
 
+	.header .nav-header,
+	.nav_menu {
+		padding: 0.25rem 0.125rem;
+	}
+
 	.header .group,
 	.nav_menu .group {
-		margin: 0.25rem 0.5rem;
+		margin: 0 0.5rem;
 	}
 
 	.header .btn,
 	.nav_menu .btn {
-		padding: 0.25rem 0.25rem;
+		padding: 0.25rem 1vw;
 		min-height: 0;
 		line-height: 1.25em;
 	}
@@ -1174,7 +1179,7 @@ a:hover .icon {
 	}
 
 	.nav_menu .group {
-		margin: 5px 0;
+		margin: 5px 1vw;
 	}
 
 	header.header .group .btn {
