@@ -2294,8 +2294,8 @@ html.slider-active {
 		width: calc(100% - 3rem);
 		box-sizing: border-box;
 		border-radius: 0;
-		right: 3%;
-		left: 3%;
+		right: 1.5rem;
+		left: 1.5rem;
 		position: absolute;
 	}
 
