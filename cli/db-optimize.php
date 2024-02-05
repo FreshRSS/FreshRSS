@@ -5,28 +5,17 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- *  'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'user' => [
-		'getopt' => ':',
-		'required' => true,
-		'read' => readAsString(),
-		'validators' => [
-			validateOneOf(listUsers(), 'username', 'the name of an existing user')
-		],
-	],
-];
+$parser = new CommandLineParser();
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	exit($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$username = cliInitUser($parameters['user']['read']($options['valid']['user']));
+$username = cliInitUser($options->user);
 
 echo 'FreshRSS optimizing database for user “', $username, "”…\n";
 

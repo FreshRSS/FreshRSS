@@ -3,131 +3,80 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- *  'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'user' => [
-		'getopt' => ':',
-		'required' => true,
-		'read' => readAsString(),
-		'validators' => [
-			validateOneOf(listUsers(), 'username', 'the name of an existing user')
-		],
-	],
-	'password' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsString(),
-	],
-	'api-password' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsString(),
-		'deprecated' => 'api_password',
-	],
-	'language' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsString(),
-		'validators' => [
-			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language'),
-		]
-	],
-	'email' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsString(),
-	],
-	'token' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsString(),
-	],
-	'purge-after-months' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsInt(),
-		'deprecated' => 'purge_after_months',
-	],
-	'feed-min-articles-default' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsInt(),
-		'deprecated' => 'feed_min_articles_default',
-	],
-	'feed-ttl-default' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsInt(),
-		'deprecated' => 'feed_ttl_default',
-	],
-	'since-hours-posts-per-rss' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsInt(),
-		'deprecated' => 'since_hours_posts_per_rss',
-	],
-	'max-posts-per-rss' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsInt(),
-		'deprecated' => 'max_posts_per_rss',
-	],
-];
+$parser = new CommandLineParser();
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
+$parser->addOption('password', (new Option('password')));
+$parser->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
+$parser->addOption('language', (new Option('language'))->typeOfString(validateIsLanguage()));
+$parser->addOption('email', (new Option('email')));
+$parser->addOption('token', (new Option('token')));
+$parser->addOption(
+	'purgeAfterMonths',
+	(new Option('purge-after-months'))
+	   ->typeOfInt()
+	   ->deprecatedAs('purge_after_months')
+);
+$parser->addOption(
+	'feedMinimumArticles',
+	(new Option('feed-min-articles-default'))
+	   ->typeOfInt()
+	   ->deprecatedAs('feed_min_articles_default')
+);
+$parser->addOption(
+	'feedTtl',
+	(new Option('feed-ttl-default'))
+	   ->typeOfInt()
+	   ->deprecatedAs('feed_ttl_default')
+);
+$parser->addOption(
+	'sinceHoursPostsPerRss',
+	(new Option('since-hours-posts-per-rss'))
+	   ->typeOfInt()
+	   ->deprecatedAs('since_hours_posts_per_rss')
+);
+$parser->addOption(
+	'maxPostsPerRss',
+	(new Option('max-posts-per-rss'))
+	   ->typeOfInt()
+	   ->deprecatedAs('max_posts_per_rss')
+);
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	exit($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$username = $parameters['user']['read']($options['valid']['user']);
+$username = cliInitUser($options->user);
 
 echo 'FreshRSS updating user “', $username, "”…\n";
 
 $values = [
-	'language' => $options['valid']['language'] ?? 0
-		? $parameters['language']['read']($options['valid']['language'])
-		: null,
-	'mail_login' => $options['valid']['email'] ?? 0
-		? $parameters['email']['read']($options['valid']['email'])
-		: null,
-	'token' => $options['valid']['token'] ?? 0
-		? $parameters['token']['read']($options['valid']['token'])
-		: null,
-	'old_entries' => $options['valid']['purge-after-months'] ?? 0
-		? $parameters['purge-after-months']['read']($options['valid']['purge-after-months'])	//TODO: Update with new mechanism
-		: null,
-	'keep_history_default' => $options['valid']['feed-min-articles-default'] ?? 0
-		? $parameters['feed-min-articles-default']['read']($options['valid']['feed-min-articles-default'])	//TODO: Update with new mechanism
-		: null,
-	'ttl_default' => $options['valid']['feed-ttl-default'] ?? 0
-		? $parameters['feed-ttl-default']['read']($options['valid']['feed-ttl-default'])
-		: null,
-	'since_hours_posts_per_rss' => $options['valid']['since-hours-posts-per-rss'] ?? 0
-		? $parameters['since-hours-posts-per-rss']['read']($options['valid']['since-hours-posts-per-rss'])
-		: null,
-	'max_posts_per_rss' => $options['valid']['max-posts-per-rss'] ?? 0
-		? $parameters['max-posts-per-rss']['read']($options['valid']['max-posts-per-rss'])
-		: null,
+	'language' => $options->language ?? null,
+	'mail_login' => $options->email ?? null,
+	'token' => $options->token ?? null,
+	'old_entries' => $options->purgeAfterMonths ?? null,
+	'keep_history_default' => $options->feedMinimumArticles ?? null,
+	'ttl_default' => $options->feedTtl ?? null,
+	'since_hours_posts_per_rss' => $options->sinceHoursPostsPerRss ?? null,
+	'max_posts_per_rss' => $options->maxPostsPerRss ?? null,
 ];
 
 $values = array_filter($values);
 
 $ok = FreshRSS_user_Controller::updateUser(
 	$username,
-	empty($options['valid']['email']) ? '' : $parameters['email']['read']($options['valid']['email']),
-	empty($options['valid']['password']) ? '' : $parameters['password']['read']($options['valid']['password']),
+	$options->setEmail ?? '',
+	$options->setPassword ?? '',
 	$values);
 
 if (!$ok) {
 	fail('FreshRSS could not update user!');
 }
 
-if (!empty($options['valid']['api_password'])) {
-	$error = FreshRSS_api_Controller::updatePassword($parameters['api-password']['read']($options['valid']['api-password']));
+if ($options->setApiPassword ?? 0) {
+	$error = FreshRSS_api_Controller::updatePassword($options->setApiPassword);
 	if ($error) {
 		fail($error);
 	}

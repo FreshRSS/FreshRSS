@@ -5,37 +5,23 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- *  'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'user' => [
-		'getopt' => ':',
-		'required' => true,
-		'read' => readAsString(),
-		'validators' => [
-			validateOneOf(listUsers(), 'username', 'the name of an existing user')
-		],
-	],
-	'filename' => [
-		'getopt' => ':',
-		'required' => true,
-		'read' => readAsString(),
-		'validators' => [
-			validateFileExtension(['json', 'opml', 'xml', 'zip'], 'file extension')
-		]
-	]
-];
+$parser = new CommandLineParser();
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
+$parser->addRequiredOption(
+	'filename',
+	(new Option('filename'))
+	   	->typeOfString(validateFileExtension(['json', 'opml', 'xml', 'zip']))
+);
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	exit($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$username = cliInitUser($parameters['user']['read']($options['valid']['user']));
-$filename = $parameters['user']['read']($options['valid']['filename']);
+$username = cliInitUser($options->user);
+$filename = $options->filename;
 
 if (!is_readable($filename)) {
 	fail('FreshRSS error: file is not readable “' . $filename . '”');

@@ -5,52 +5,31 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- *  'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'user' => [
-		'getopt' => ':',
-		'required' => false,
-		'read' => readAsArrayOfString(),
-		'validators' => [
-			validateOneOf(listUsers(), 'username', 'the name of an existing user')
-		],
-	],
-	'header' => [
-		'getopt' => '',
-		'required' => false,
-	],
-	'json' => [
-		'getopt' => '',
-		'required' => false,
-	],
-	'human-readable' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'h',
-	],
-];
+$parser = new CommandLineParser();
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addOption('user', (new Option('user'))->typeOfArrayOfString(validateIsUser()));
+$parser->addOption('header', (new Option('header'))->withValueNone());
+$parser->addOption('json', (new Option('json'))->withValueNone());
+$parser->addOption('humanReadable', (new Option('human-readable'))->withValueNone());
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	exit($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$users = isset($options['valid']['user']) ? $parameters['user']['read']($options['valid']['user']) : listUsers();
+$users = $options->user ?? 0 ? $options->user : listUsers();
 
 sort($users);
 
-$formatJson = isset($options['valid']['json']);
+$formatJson = isset($options->json);
 $jsonOutput = [];
 if ($formatJson) {
-	unset($options['valid']['header']);
-	unset($options['valid']['human-readable']);
+	unset($options->header);
+	unset($options->humanReadable);
 }
 
-if (array_key_exists('header', $options['valid'])) {
+if ($options->humanReadable ?? 0) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -99,7 +78,7 @@ foreach ($users as $username) {
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if (isset($options['valid']['human-readable'])) {	//Human format
+	if ($options->humanReadable ?? 0) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}

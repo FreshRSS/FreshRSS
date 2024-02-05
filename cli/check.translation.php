@@ -9,52 +9,32 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
- /** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- * 'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'display-result' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'd',
-	],
-	'help' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'h',
-	],
-	'language' => [
-		'getopt' => ':',
-		'required' => false,
-		'short' => 'l',
-		'validators' => [
-			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
-		],
-	],
-	'display-report' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'r',
-	],
-];
+$parser = new CommandLineParser;
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addOption('language', (new Option('language', 'l'))->typeOfString(validateIsLanguage()));
+$parser->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
+$parser->addOption('help', (new Option('help', 'h'))->withValueNone());
+$parser->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	checkHelp($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
+}
+if ($options->help ?? 0) {
+	checkHelp();
 }
 
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-if (array_key_exists('language', $options['valid'])) {
-	$languages = $options['valid']['language'];
+if ($options->setLanguage ?? false) {
+	$languages = $options->setLanguage;
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }
-$displayResults = array_key_exists('display-result', $options['valid']);
-$displayReport = array_key_exists('display-report', $options['valid']);
+$displayResults = isset($options->displayResult);
+$displayReport = isset($options->displayReport);
 
 $isValidated = true;
 $result = [];
@@ -118,7 +98,7 @@ function findUsedTranslations(): array {
  * Output help message.
  * @return never
  */
-function checkHelp(int $exitCode = 0) {
+function checkHelp() {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP
@@ -144,5 +124,5 @@ DESCRIPTION
 		displays completion report.
 
 HELP;
-	exit($exitCode);
+	exit();
 }

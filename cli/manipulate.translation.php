@@ -6,99 +6,65 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-/** @var array<string,array{'getopt':string,'required':bool,'default':string,'short':string,'deprecated':string,
- *  'read':callable,'validators':array<callable>}> $parameters */
-$parameters = [
-	'action' => [
-		'getopt' => ':',
-		'required' => true,
-		'short' => 'a',
-		'validators' => [
-			validateOneOf(['add', 'delete', 'exist', 'format', 'ignore', 'ignore_unmodified'], 'translation action'),
-		]
-	],
-	'help' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'h',
-	],
-	'key' => [
-		'getopt' => ':',
-		'required' => false,
-		'short' => 'k',
-	],
-	'language' => [
-		'getopt' => ':',
-		'required' => false,
-		'short' => 'l',
-		'validators' => [
-			validateOneOf(listLanguages(), 'language setting', 'an iso 639-1 code for a supported language')
-		],
-	],
-	'origin-language' => [
-		'getopt' => ':',
-		'required' => false,
-		'short' => 'o',
-		'validators' => [
-			validateOneOf(listLanguages(), 'origin language', 'an iso 639-1 code for a supported language')
-		],
-	],
-	'revert' => [
-		'getopt' => '',
-		'required' => false,
-		'short' => 'r',
-	],
-	'value' => [
-		'getopt' => ':',
-		'required' => false,
-		'short' => 'v',
-	],
-];
+$parser = new CommandLineParser;
 
-$options = parseAndValidateCliParams($parameters);
+$parser->addRequiredOption(
+	'action',
+	(new Option('action', 'a'))
+	   ->typeOfString(validateOneOf(['add', 'delete', 'exist', 'format', 'ignore', 'ignore_unmodified']))
+);
+$parser->addOption('key', (new Option('key', 'k')));
+$parser->addOption('value', (new Option('value', 'v')));
+$parser->addOption('language', (new Option('language', 'l'))->typeOfString(validateIsLanguage()));
+$parser->addOption('originLanguage', (new Option('origin-language', 'o'))->typeOfString(validateIsLanguage()));
+$parser->addOption('revert', (new Option('revert', 'r'))->withValueNone());
+$parser->addOption('help', (new Option('help', 'h'))->withValueNone());
 
-$error = empty($options['invalid']) ? 0 : 1;
-if (key_exists('help', $options['valid']) || $error) {
-	$error ? fwrite(STDERR, "\nFreshRSS error: " . current($options['invalid']) . "\n\n") : '';
-	manipulateHelp($error);
+$options = $parser->parse(stdClass::class);
+
+if (!empty($options->errors)) {
+	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
+}
+if ($options->help ?? 0) {
+	manipulateHelp();
 }
 
 $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
-switch ($parameters['action']['read']($options['valid']['action'])) {
+switch ($options->action) {
 	case 'add' :
-		if (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid']) && array_key_exists('language', $options['valid'])) {
-			$i18nData->addValue($parameters['action']['read']($options['valid']['key']),
-								$parameters['action']['read']($options['valid']['value']),
-								$parameters['action']['read']($options['valid']['language'])
+		if (isset($options->key) && isset($options->value) && isset($options->language)) {
+			$i18nData->addValue($options->key,
+								$options->value,
+								$options->language
 			);
-		} elseif (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid'])) {
-			$i18nData->addKey($parameters['action']['read']($options['valid']['key']),
-							  $parameters['action']['read']($options['valid']['value']),
+		} elseif (isset($options->key) && isset($options->value)) {
+			$i18nData->addKey($options->key,
+							  $options->value,
 			);
-		} elseif (array_key_exists('language', $options['valid'])) {
+		} elseif (isset($options->language)) {
 			$reference = null;
-			if (array_key_exists('origin-language', $options['valid'])) {
-				$reference = $parameters['action']['read']($options['valid']['origin-language']);
+			if (isset($options->originLanguage)) {
+				$reference = $options->originLanguage;
 			}
-			$i18nData->addLanguage($parameters['action']['read']($options['valid']['language']), $reference);
+			$i18nData->addLanguage($options->language, $reference);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'delete' :
-		if (array_key_exists('key', $options['valid'])) {
-			$i18nData->removeKey($parameters['action']['read']($options['valid']['key']));
+		if (isset($options->key)) {
+			$i18nData->removeKey($options->key);
 		} else {
 			error('You need to specify the key to delete.');
 			exit;
 		}
 		break;
 	case 'exist':
-		if (array_key_exists('key', $options['valid'])) {
-			$key = $parameters['action']['read']($options['valid']['key']);
+		if (isset($options->key)) {
+			$key = $options->key;
 			if ($i18nData->isKnown($key)) {
 				echo "The '{$key}' key is known.\n\n";
 			} else {
@@ -112,19 +78,19 @@ switch ($parameters['action']['read']($options['valid']['action'])) {
 	case 'format' :
 		break;
 	case 'ignore' :
-		if (array_key_exists('language', $options['valid']) && array_key_exists('key', $options['valid'])) {
-			$i18nData->ignore($parameters['action']['read']($options['valid']['key']),
-							  $parameters['action']['read']($options['valid']['language']),
-							  array_key_exists('revert', $options['valid']));
+		if (isset($options->language) && isset($options->key)) {
+			$i18nData->ignore($options->key,
+							  $options->language,
+							  isset($options->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'ignore_unmodified' :
-		if (array_key_exists('language', $options['valid'])) {
-			$i18nData->ignore_unmodified($parameters['action']['read']($options['valid']['language']),
-										 array_key_exists('revert', $options['valid']));
+		if (isset($options->language)) {
+			$i18nData->ignore_unmodified($options->language,
+										 isset($options->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -146,13 +112,13 @@ WARNING
 	%s\n\n
 ERROR;
 	echo sprintf($error, $message);
-	manipulateHelp(1);
+	manipulateHelp();
 }
 
 /**
  * Output help message.
  */
-function manipulateHelp(int $exitCode = 0): void {
+function manipulateHelp(): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP
@@ -229,5 +195,5 @@ Example 10:	check if a key exist.
 	php $file -a exist -k my_key
 
 HELP;
-	exit($exitCode);
+	exit();
 }
