@@ -888,7 +888,6 @@ li.item.active {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 1rem 1rem 1rem 3rem;
 	background: var(--dropdown-bg);
 	color: var(--text-default);
 	font-size: 0.9rem;
