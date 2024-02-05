@@ -842,7 +842,7 @@ function getNonStandardShortcuts(array $shortcuts): array {
 
 	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
-		return $shortcut !== '' & stripos($standard, $shortcut) === false;
+		return $shortcut !== '' && stripos($standard, $shortcut) === false;
 	});
 
 	return $nonStandard;

@@ -428,7 +428,7 @@ SQL;
 	 * 	'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category>
 	 */
-	private static function daoToCategoryPrepopulated(array $listDAO) {
+	private static function daoToCategoryPrepopulated(array $listDAO): array {
 		$list = [];
 		$previousLine = [];
 		$feedsDao = [];
