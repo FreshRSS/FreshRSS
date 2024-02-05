@@ -6,8 +6,8 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 }
 ?>
-<main id="maincolumn" class="feedstream">
-<div id="maincolumn-inner">
+<main id="main-wrapper" class="feedstream">
+<div id="main">
 <?php
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
@@ -106,7 +106,7 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
 												} ?>
 											</ul>
-											<a class="dropdown-close" href="#close">❌</a>
+											<a class="dropdown-close" href="#main">❌</a>
 										</div>
 									</li>
 									<?php
@@ -204,7 +204,7 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
 													} ?>
 												</ul>
-												<a class="dropdown-close" href="#close">❌</a>
+												<a class="dropdown-close" href="#main">❌</a>
 											</div>
 										</li>
 										<?php

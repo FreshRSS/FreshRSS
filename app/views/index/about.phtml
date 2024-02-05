@@ -5,8 +5,8 @@
 		$this->partial('aside_configure');
 	}
 ?>
-<main id="maincolumn" class="post <?= !FreshRSS_Auth::hasAccess() ? ' centered main-wide-content' : ''?>">
-	<div id="maincolumn-inner">
+<main id="main-wrapper" class="post <?= !FreshRSS_Auth::hasAccess() ? ' centered main-wide-content' : ''?>">
+	<div id="main">
 		<div class="content-max500px">
 			<?php if (FreshRSS_Auth::hasAccess()) {?>
 			<div class="link-back-wrapper">

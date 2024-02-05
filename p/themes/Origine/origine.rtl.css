@@ -258,26 +258,26 @@ form th {
 	border-radius: 3px 0 0 3px;
 }
 
-#maincolumn .nav_menu .group .btn {
+#main-wrapper .nav_menu .group .btn {
 	border-radius: 0;
 }
 
-#maincolumn .nav_menu .group .btn:first-child {
+#main-wrapper .nav_menu .group .btn:first-child {
 	border-radius: 0 3px 3px 0;
 }
 
-#maincolumn .nav_menu .group .btn:last-child {
+#main-wrapper .nav_menu .group .btn:last-child {
 	border-radius: 3px 0 0 3px;
 }
 
-#maincolumn .nav_menu .group .btn + .btn,
-#maincolumn .nav_menu .group .btn + .dropdown > .btn,
-#maincolumn .nav_menu .group .dropdown + .btn,
-#maincolumn .nav_menu .group .dropdown + .dropdown > .btn {
+#main-wrapper .nav_menu .group .btn + .btn,
+#main-wrapper .nav_menu .group .btn + .dropdown > .btn,
+#main-wrapper .nav_menu .group .dropdown + .btn,
+#main-wrapper .nav_menu .group .dropdown + .dropdown > .btn {
 	border-right-width: 0;
 }
 
-#maincolumn .nav_menu .group .dropdown:last-child > .btn {
+#main-wrapper .nav_menu .group .dropdown:last-child > .btn {
 	border-right-width: 0;
 	border-radius: 3px 0 0 3px;
 }
@@ -1128,7 +1128,7 @@ a:hover .icon {
 		height: 100%;
 	}
 
-	main#maincolumn {
+	main#main-wrapper {
 		display: block;
 	}
 

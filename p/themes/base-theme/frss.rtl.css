@@ -70,22 +70,22 @@ html, body {
 	height: 100vh;
 }
 
-#maincolumn.main-wide-content {
+#main-wrapper.main-wide-content {
 	grid-area: 1 / sidenav-start / 1 / maincolumn-end;
 }
 
-#maincolumn-inner {
+#main {
 	height: 100vh;
 	font-size: 0.9em;
 	box-sizing: border-box;
 	overflow-y: auto;
 }
 
-.post #maincolumn-inner {
+.post #main {
 	padding: 1rem 2rem;
 }
 
-.feedstream #maincolumn-inner #stream {
+.feedstream #main #stream {
 	height: 100%;
 }
 
@@ -2192,7 +2192,7 @@ html.slider-active {
 		grid-template-rows: 2.5rem auto;
 	}
 
-	#maincolumn.main-wide-content {
+	#main-wrapper.main-wide-content {
 		grid-area: 2 / 1 / 2 / 1;
 	}
 
@@ -2217,7 +2217,7 @@ html.slider-active {
 		margin-top: 0;
 	}
 
-	#maincolumn-inner {
+	#main {
 		height: calc(100vh - 2.5rem);
 	}
 

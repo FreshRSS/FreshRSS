@@ -35,7 +35,7 @@
 	?><li class="item labels">
 		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
+			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>" id="dt-<?= $this->entry->id() ?>">
 				<?= _i('label') ?><?= _t('index.menu.tags') ?>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
@@ -47,7 +47,7 @@
 				</li>
 				<!-- Ajax -->
 			</ul>
-			<a class="dropdown-close" href="#close">❌</a>
+			<a class="dropdown-close" href="#main">❌</a>
 		</div>
 	</li><?php
 	}
@@ -65,7 +65,7 @@
 					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>"><?= $tag ?></a></li><?php
 				} ?>
 			</ul>
-			<a class="dropdown-close" href="#close">❌</a>
+			<a class="dropdown-close" href="#main">❌</a>
 		</div>
 	</li><?php
 	}
@@ -109,7 +109,7 @@
 				</li><?php
 					}
 			?></ul>
-			<a class="dropdown-close" href="#close">❌</a>
+			<a class="dropdown-close" href="#main">❌</a>
 		</div>
 		<?php } ?>
 	</li><?php
