@@ -9,7 +9,7 @@
 	FreshRSS_Context::userConf()->show_tags = FreshRSS_UserConfiguration::default()->show_tags;
 	FreshRSS_Context::userConf()->show_tags_max = FreshRSS_UserConfiguration::default()->show_tags_max;
 ?>
-<!-- TODO: <nav> with pagination -->
+<?php $this->renderHelper('htmlPagination'); ?>
 <main id="stream" class="reader api">
 	<h2>
 		<a href="<?= $this->html_url ?>"><?= FreshRSS_View::title() ?></a> ·
@@ -29,3 +29,4 @@
 		</div>
 	<?php endforeach; ?>
 </main>
+<?php $this->renderHelper('htmlPagination'); ?>

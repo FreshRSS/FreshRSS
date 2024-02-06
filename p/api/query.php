@@ -144,8 +144,8 @@ switch ($type) {
 $view->disable_aside = true;
 $view->excludeMutedFeeds = true;
 $view->internal_rendering = true;
+$view->userQuery = $query;
 $view->html_url = $query->sharedUrlHtml();
-$view->opml_url = $query->sharedUrlOpml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
 if ($query->getName() != '') {
@@ -158,14 +158,13 @@ if (in_array($format, ['rss', 'atom'], true)) {
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
 } elseif ($format === 'opml') {
-	if ($view->opml_url == '') {
+	if (!$query->safeForOpml()) {
 		Minz_Error::error(404, 'OPML not allowed for this user query!');
 		die();
-	} else {
-		header('Content-Type: application/xml; charset=utf-8');
-		$view->_layout(null);
-		$view->_path('index/opml.phtml');
 	}
+	header('Content-Type: application/xml; charset=utf-8');
+	$view->_layout(null);
+	$view->_path('index/opml.phtml');
 } else {
 	$view->_layout('layout');
 	$view->_path('index/html.phtml');
