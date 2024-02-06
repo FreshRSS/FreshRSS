@@ -163,7 +163,7 @@ return [
 		'base-url' => [
 			'_' => 'URL base',
 			'recommendation' => 'Suggerimento automatico: <kbd>%s</kbd>',
-		),
+		],
 		'cookie-duration' => [
 			'help' => 'in secondi',
 			'number' => 'Tempo in cui rimanere loggati',
@@ -210,8 +210,8 @@ return [
 		'none' => 'Nessun aggiornamento da applicare',
 		'releaseChannel' => [
 			'_' => 'Canale di rilascio',
-			'edge' => 'Rilascio continuo (“edge”)',
-			'latest' => 'Stabile (“latest”)',
+			'edge' => 'Rilascio continuo “edge”)',
+			'latest' => 'Stabile “latest”)',
 		],
 		'title' => 'Aggiorna sistema',
 		'viaGit' => 'Aggiornamento tramite git e Github.com avviato',
@@ -231,7 +231,7 @@ return [
 		'list' => 'Lista utenti',
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
-		'password_form' => 'Password<br /><small>(per il login classico)</small>',
+		'password_form' => 'Password<br /><small>per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
 		'title' => 'Gestione utenti',
 		'username' => 'Nome utente',
