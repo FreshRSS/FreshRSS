@@ -10,7 +10,7 @@ $parser = new CommandLineParser();
 $parser->addOption('user', (new Option('user'))->typeOfArrayOfString(validateIsUser()));
 $parser->addOption('header', (new Option('header'))->withValueNone());
 $parser->addOption('json', (new Option('json'))->withValueNone());
-$parser->addOption('humanReadable', (new Option('human-readable'))->withValueNone());
+$parser->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
 
 $options = $parser->parse(stdClass::class);
 
@@ -18,7 +18,7 @@ if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$users = $options->user ?? 0 ? $options->user : listUsers();
+$users = $options->user ?? listUsers();
 
 sort($users);
 
@@ -29,7 +29,7 @@ if ($formatJson) {
 	unset($options->humanReadable);
 }
 
-if ($options->humanReadable ?? 0) {
+if ($options->header) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -78,7 +78,7 @@ foreach ($users as $username) {
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if ($options->humanReadable ?? 0) {	//Human format
+	if ($options->humanReadable) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}

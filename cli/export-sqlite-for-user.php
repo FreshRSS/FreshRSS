@@ -11,7 +11,7 @@ $parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIs
 $parser->addRequiredOption(
 	'filename',
 	(new Option('filename', 'f'))
-	   	->typeOfString(validateFileExtension(['sqlite'], 'file extension', 'a path to a .sqlite file'))
+		->typeOfString(validateFileExtension(['sqlite'], 'a path to a .sqlite file'))
 );
 
 $options = $parser->parse(stdClass::class);

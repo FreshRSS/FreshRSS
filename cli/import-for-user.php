@@ -11,7 +11,7 @@ $parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIs
 $parser->addRequiredOption(
 	'filename',
 	(new Option('filename'))
-	   	->typeOfString(validateFileExtension(['json', 'opml', 'xml', 'zip']))
+		->typeOfString(validateFileExtension(['json', 'opml', 'xml', 'zip']))
 );
 
 $options = $parser->parse(stdClass::class);

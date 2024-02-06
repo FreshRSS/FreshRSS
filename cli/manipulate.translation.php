@@ -25,7 +25,7 @@ $options = $parser->parse(stdClass::class);
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
-if ($options->help ?? 0) {
+if (isset($options->help)) {
 	manipulateHelp();
 }
 
