@@ -120,7 +120,7 @@ return [
 				],
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
-			),
+			],
 			'json_dotpath' => [
 				'_' => 'JSON (path con i punti)',
 				'feed_title' => [
