@@ -211,7 +211,7 @@ return [
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
 			'when_same_title' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos',
-		),
+		],
 		'show' => [
 			'_' => 'Artigos para exibir',
 			'active_category' => 'Categoria ativa',
