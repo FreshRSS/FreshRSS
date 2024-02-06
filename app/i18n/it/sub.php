@@ -238,7 +238,7 @@ return [
 		],
 		'subscription_management' => 'Gestione sottoscrizioni',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
-	),
+	],
 	'tag' => [
 		'auto_label' => 'Aggiungi questo tag ai nuovi articoli',
 		'name' => 'Nome',
