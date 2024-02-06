@@ -602,15 +602,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					} else {
 						$id = uTimeString();
 						$entry->_id($id);
-						$entry->applyFilterActions($titlesAsRead);
-						if ($readWhenSameTitleInFeed > 0) {
-							$titlesAsRead[$entry->title()] = true;
-						}
 
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if (!($entry instanceof FreshRSS_Entry)) {
 							// An extension has returned a null value, there is nothing to insert.
 							continue;
+						}
+
+						$entry->applyFilterActions($titlesAsRead);
+						if ($readWhenSameTitleInFeed > 0) {
+							$titlesAsRead[$entry->title()] = true;
 						}
 
 						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
