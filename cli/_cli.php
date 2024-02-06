@@ -260,7 +260,7 @@ class CommandLineParser {
 	}
 
 	/**
-	 * @param array<string> $options
+	 * @param array<string> $userInputs
 	 * @return array<string>
 	 */
 	private function getAliasesUsed(array $userInputs, string $regex): array {
@@ -270,10 +270,10 @@ class CommandLineParser {
 			preg_match($regex, $input, $matches);
 
 			if(!empty($matches['short'])) {
-				$foundAliases = str_split($matches['short']);
+				$foundAliases = array_merge($foundAliases, str_split($matches['short']));
 			}
 			if(!empty($matches['long'])) {
-				$foundAliases = array_merge($foundAliases, $matches['short']);
+				$foundAliases[] = $matches['long'];
 			}
 		}
 
@@ -355,11 +355,11 @@ class CommandLineParser {
 			if ($this->inputs[$name]['required']) {
 				$required[] = ($option->getShortAlias() ? '-' . $option->getShortAlias() : '') .
 				' --' . $option->getLongAlias() .
-				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>': '');
+				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>' : '');
 			} else {
 				$optional[] = ($option->getShortAlias() ? '[-' . $option->getShortAlias() . ' ' : '[') .
 				'--' . $option->getLongAlias() .
-				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>': '') . ']';
+				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>' : '') . ']';
 			}
 		}
 
