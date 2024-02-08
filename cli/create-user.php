@@ -5,35 +5,42 @@ require(__DIR__ . '/_cli.php');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption(
-	'user',
-	(new Option('user'))
-		->typeOfString(
-			validateRegex('/^' . FreshRSS_user_Controller::USERNAME_PATTERN . '$/', 'only ASCII alphanumeric input'),
-			validateNotOneOf(listUsers(), 'the name of an existing user')
-	)
-);
+$parser->addRequiredOption('user', (new Option('user')));
 $parser->addOption('password', (new Option('password')));
 $parser->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
-$parser->addOption('language', (new Option('language'))->typeOfString(validateIsLanguage()));
+$parser->addOption('language', (new Option('language')));
 $parser->addOption('email', (new Option('email')));
 $parser->addOption('token', (new Option('token')));
-$parser->addOption('purgeAfterMonths', (new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months'));
-$parser->addOption(
-	'feedMinimumArticles',
+$parser->addOption('purgeAfterMonths',
+	(new Option('purge-after-months'))
+		->typeOfInt()
+		->deprecatedAs('purge_after_months')
+);
+$parser->addOption('feedMinArticles',
 	(new Option('feed-min-articles-default'))
-	   ->typeOfInt()
-	   ->deprecatedAs('feed_min_articles_default')
+		->typeOfInt()
+		->deprecatedAs('feed_min_articles_default')
 );
-$parser->addOption('feedTtl', (new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default'));
-$parser->addOption(
-	'sinceHoursPostsPerRss',
+$parser->addOption('feedTtl',
+	(new Option('feed-ttl-default'))
+		->typeOfInt()
+		->deprecatedAs('feed_ttl_default')
+);
+$parser->addOption('sinceHoursPostsPerRss',
 	(new Option('since-hours-posts-per-rss'))
-	   ->typeOfInt()
-	   ->deprecatedAs('since_hours_posts_per_rss')
+		->typeOfInt()
+		->deprecatedAs('since_hours_posts_per_rss')
 );
-$parser->addOption('maxPostsPerRss', (new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss'));
-$parser->addOption('noDefaultFeeds', (new Option('no-default-feeds')) ->withValueNone()->deprecatedAs('no_default_feeds'));
+$parser->addOption('maxPostsPerRss',
+	(new Option('max-posts-per-rss'))
+		->typeOfInt()
+		->deprecatedAs('max_posts_per_rss')
+);
+$parser->addOption('noDefaultFeeds',
+	(new Option('no-default-feeds'))
+		->withValueNone()
+		->deprecatedAs('no_default_feeds')
+);
 
 $options = $parser->parse(stdClass::class);
 
@@ -60,7 +67,7 @@ $values = array_filter($values);
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
-	$options->email ?? '',
+	isset($options->email) ? $options->email : null,
 	$options->password ?? '',
 	$values,
 	!isset($options->noDefaultFeeds)

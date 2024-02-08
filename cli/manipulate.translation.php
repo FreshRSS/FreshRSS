@@ -8,15 +8,11 @@ require_once __DIR__ . '/../constants.php';
 
 $parser = new CommandLineParser;
 
-$parser->addRequiredOption(
-	'action',
-	(new Option('action', 'a'))
-	   ->typeOfString(validateOneOf(['add', 'delete', 'exist', 'format', 'ignore', 'ignore_unmodified']))
-);
+$parser->addRequiredOption('action', (new Option('action', 'a')));
 $parser->addOption('key', (new Option('key', 'k')));
 $parser->addOption('value', (new Option('value', 'v')));
-$parser->addOption('language', (new Option('language', 'l'))->typeOfString(validateIsLanguage()));
-$parser->addOption('originLanguage', (new Option('origin-language', 'o'))->typeOfString(validateIsLanguage()));
+$parser->addOption('language', (new Option('language', 'l')));
+$parser->addOption('originLanguage', (new Option('origin-language', 'o')));
 $parser->addOption('revert', (new Option('revert', 'r'))->withValueNone());
 $parser->addOption('help', (new Option('help', 'h'))->withValueNone());
 
@@ -35,14 +31,9 @@ $i18nData = new I18nData($data->load());
 switch ($options->action) {
 	case 'add' :
 		if (isset($options->key) && isset($options->value) && isset($options->language)) {
-			$i18nData->addValue($options->key,
-								$options->value,
-								$options->language
-			);
+			$i18nData->addValue($options->key, $options->value, $options->language);
 		} elseif (isset($options->key) && isset($options->value)) {
-			$i18nData->addKey($options->key,
-							  $options->value,
-			);
+			$i18nData->addKey($options->key, $options->value,);
 		} elseif (isset($options->language)) {
 			$reference = null;
 			if (isset($options->originLanguage)) {
@@ -79,9 +70,7 @@ switch ($options->action) {
 		break;
 	case 'ignore' :
 		if (isset($options->language) && isset($options->key)) {
-			$i18nData->ignore($options->key,
-							  $options->language,
-							  isset($options->revert));
+			$i18nData->ignore($options->key, $options->language, isset($options->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -89,8 +78,7 @@ switch ($options->action) {
 		break;
 	case 'ignore_unmodified' :
 		if (isset($options->language)) {
-			$i18nData->ignore_unmodified($options->language,
-										 isset($options->revert));
+			$i18nData->ignore_unmodified($options->language, isset($options->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -131,35 +119,16 @@ SYNOPSIS
 DESCRIPTION
 	Manipulate translation files.
 
-	-a, --action=<action>
-		sets the action to perform.
-		---
-		options:
-			- add
-			- delete
-			- exist
-			- format
-			- ignore
-			- ignore_unmodified
-		---
-
-	[-k, --key=<key>]
-		sets the key to work on.
-
-	[-v, --value=<value>]
-		sets the value to use.
-
-	[-l, --language=<language>]
-		sets the language to work on.
-
-	[-h, --help]
-		display this help and exit.
-
-	[-r, --revert]
-		revert the action (only used with the ignore action)
-
-	[-o, --origin-language=<language>]
-		sets the origin language (only used with the add language action)
+	-a, --action=ACTION
+				select the action to perform. Available actions are add, delete,
+				exist, format, ignore, and ignore_unmodified. This option is mandatory.
+	-k, --key=KEY		select the key to work on.
+	-v, --value=VAL		select the value to set.
+	-l, --language=LANG	select the language to work on.
+	-h, --help		display this help and exit.
+	-r, --revert		revert the action (only for ignore action)
+	-o, origin-language=LANG
+				select the origin language (only for add language action)
 
 EXAMPLES
 Example 1:	add a language. Adds a new language by duplicating the reference language.

@@ -7,7 +7,7 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
+$parser->addRequiredOption('user', (new Option('user')));
 
 $options = $parser->parse(stdClass::class);
 
@@ -15,8 +15,14 @@ if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-$username = cliInitUser($options->user);
+$username = $options->user;
 
+if (!FreshRSS_user_Controller::checkUsername($username)) {
+	fail('FreshRSS error: invalid username: ' . $username . "\n");
+}
+if (!FreshRSS_user_Controller::userExists($username)) {
+	fail('FreshRSS error: user not found: ' . $username . "\n");
+}
 if (strcasecmp($username, FreshRSS_Context::systemConf()->default_user) === 0) {
 	fail('FreshRSS error: default user must not be deleted: “' . $username . '”');
 }

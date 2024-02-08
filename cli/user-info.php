@@ -7,7 +7,7 @@ const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s 
 
 $parser = new CommandLineParser();
 
-$parser->addOption('user', (new Option('user'))->typeOfArrayOfString(validateIsUser()));
+$parser->addOption('user', (new Option('user'))->typeOfArrayOfString());
 $parser->addOption('header', (new Option('header'))->withValueNone());
 $parser->addOption('json', (new Option('json'))->withValueNone());
 $parser->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
@@ -29,7 +29,7 @@ if ($formatJson) {
 	unset($options->humanReadable);
 }
 
-if ($options->header) {
+if (isset($options->header)) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -78,7 +78,7 @@ foreach ($users as $username) {
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if ($options->humanReadable) {	//Human format
+	if (isset($options->humanReadable)) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}

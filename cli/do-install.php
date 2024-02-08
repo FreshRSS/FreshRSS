@@ -9,58 +9,43 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption(
-	'defaultUser',
-	(new Option('default-user'))
-	   ->deprecatedAs('default_user')
-	   ->typeOfString(validateRegex('/^' . FreshRSS_user_Controller::USERNAME_PATTERN . '$/', 'ASCII alphanumeric input'))
-);
-$parser->addOption('environment', (new Option('environment'))->typeOfString(validateOneOf(['development', 'production', 'silent'])));
+$parser->addRequiredOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
+$parser->addOption('environment', (new Option('environment')));
 $parser->addOption('baseUrl', (new Option('base-url'))->deprecatedAs('base_url'));
-$parser->addOption('language', (new Option('language'))->typeOfString(validateIsLanguage()));
+$parser->addOption('language', (new Option('language')));
 $parser->addOption('title', (new Option('title')));
-$parser->addOption(
-	'allowAnonymous',
+$parser->addOption('allowAnonymous',
 	(new Option('allow-anonymous'))
 	   ->withValueOptional('true')
 	   ->deprecatedAs('allow_anonymous')
-	   ->typeOfBool(validateBool())
+	   ->typeOfBool()
 );
-$parser->addOption(
-	'allowAnonymousRefresh',
+$parser->addOption('allowAnonymousRefresh',
 	(new Option('allow-anonymous-refresh'))
 	   ->withValueOptional('true')
 	   ->deprecatedAs('allow_anonymous_refresh')
-	   ->typeOfBool(validateBool())
+	   ->typeOfBool()
 );
-$parser->addOption(
-	'authType',
-	(new Option('auth-type'))
-	   ->deprecatedAs('auth_type')
-	   ->typeOfString(validateOneOf(['form', 'http_auth', 'none']))
-);
-$parser->addOption(
-	'apiEnabled',
+$parser->addOption('authType', (new Option('auth-type'))->deprecatedAs('auth_type'));
+$parser->addOption('apiEnabled',
 	(new Option('api-enabled'))
 	   ->withValueOptional('true')
 	   ->deprecatedAs('api_enabled')
-	   ->typeOfBool(validateBool())
+	   ->typeOfBool()
 );
-$parser->addOption(
-	'allowRobots',
+$parser->addOption('allowRobots',
 	(new Option('allow-robots'))
 	   ->withValueOptional('true')
 	   ->deprecatedAs('allow_robots')
-	   ->typeOfBool(validateBool())
+	   ->typeOfBool()
 );
-$parser->addOption(
-	'disableUpdate',
+$parser->addOption('disableUpdate',
 	(new Option('disable-update'))
 	   ->withValueOptional('true')
 	   ->deprecatedAs('disable_update')
-	   ->typeOfBool(validateBool())
+	   ->typeOfBool()
 );
-$parser->addOption('dbType', (new Option('db-type'))->typeOfString(validateOneOf(['sqlite', 'mysql', 'pgsql'])));
+$parser->addOption('dbType', (new Option('db-type')));
 $parser->addOption('dbHost', (new Option('db-host')));
 $parser->addOption('dbUser', (new Option('db-user')));
 $parser->addOption('dbPassword', (new Option('db-password')));
@@ -111,7 +96,29 @@ if (file_exists($customConfigPath)) {
 	}
 }
 
-$config = array_merge($config, array_filter($values));
+foreach ($values as $name => $value) {
+	if ($value !== null) {
+		switch ($name) {
+			case 'default_user':
+				if (!FreshRSS_user_Controller::checkUsername($value)) {
+					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
+				}
+				break;
+			case 'environment':
+				if (!in_array($value, ['development', 'production', 'silent'], true)) {
+					fail('FreshRSS invalid environment! environment must be one of { development, production, silent }');
+				}
+				break;
+			case 'auth_type':
+				if (!in_array($value, ['form', 'http_auth', 'none'], true)) {
+					fail('FreshRSS invalid authentication method! auth_type must be one of { form, http_auth, none }');
+				}
+				break;
+		}
+
+		$config[$name] = $value;
+	}
+}
 
 if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;

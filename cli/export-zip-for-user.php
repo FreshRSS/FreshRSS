@@ -7,12 +7,8 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
-$parser->addOption(
-	'maxFeedEntries',
-	(new Option('max-feed-entries'))->typeOfInt(validateRegex('/^[0-9]+$/', 'only numerals')),
-	'100'
-);
+$parser->addRequiredOption('user', (new Option('user')));
+$parser->addOption('maxFeedEntries', (new Option('max-feed-entries'))->typeOfInt(), '100');
 
 $options = $parser->parse(stdClass::class);
 

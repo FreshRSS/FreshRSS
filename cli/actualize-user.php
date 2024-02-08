@@ -7,7 +7,7 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
+$parser->addRequiredOption('user', (new Option('user')));
 
 $options = $parser->parse(stdClass::class);
 

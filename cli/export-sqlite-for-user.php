@@ -7,12 +7,8 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption('user', (new Option('user'))->typeOfString(validateIsUser()));
-$parser->addRequiredOption(
-	'filename',
-	(new Option('filename', 'f'))
-		->typeOfString(validateFileExtension(['sqlite'], 'a path to a .sqlite file'))
-);
+$parser->addRequiredOption('user', (new Option('user')));
+$parser->addRequiredOption('filename', (new Option('filename', 'f')));
 
 $options = $parser->parse(stdClass::class);
 
@@ -22,6 +18,10 @@ if (!empty($options->errors)) {
 
 $username = cliInitUser($options->user);
 $filename = $options->filename;
+
+if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
+	fail('Only *.sqlite files are supported!');
+}
 
 echo 'FreshRSS exporting database to SQLite for user “', $username, "”…\n";
 

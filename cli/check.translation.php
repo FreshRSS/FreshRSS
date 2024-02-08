@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-
 require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
@@ -11,7 +10,7 @@ require_once __DIR__ . '/../constants.php';
 
 $parser = new CommandLineParser;
 
-$parser->addOption('language', (new Option('language', 'l'))->typeOfString(validateIsLanguage()));
+$parser->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
 $parser->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
 $parser->addOption('help', (new Option('help', 'h'))->withValueNone());
 $parser->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
@@ -28,8 +27,8 @@ if (isset($options->help)) {
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-if ($options->setLanguage ?? false) {
-	$languages = $options->setLanguage;
+if (isset($options->language)) {
+	$languages = $options->language;
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }
@@ -111,17 +110,10 @@ SYNOPSIS
 DESCRIPTION
 	Check if translation files have missing keys or missing translations.
 
-	[-d, --display-result]
-		displays results.
-
-	[-h, --help]
-		displays this help text.
-
-	[-l, --language=<language>]
-		filters by <language>.
-
-	[-r, --display-report]
-		displays completion report.
+	-d, --display-result	display results.
+	-h, --help		display this help and exit.
+	-l, --language=LANG	filter by LANG.
+	-r, --display-report	display completion report.
 
 HELP;
 	exit();

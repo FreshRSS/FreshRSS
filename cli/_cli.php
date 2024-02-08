@@ -19,15 +19,13 @@ Minz_Translate::init('en');
 FreshRSS_Context::$isCli = true;
 
 class Option {
-	public const VALUE_NONE = '';
-	public const VALUE_REQUIRED = ':';
-	public const VALUE_OPTIONAL = '::';
+	public const VALUE_NONE = 'none';
+	public const VALUE_REQUIRED = 'required';
+	public const VALUE_OPTIONAL = 'optional';
 
 	private string $valueTaken = self::VALUE_REQUIRED;
 	/** @var array{type:string,isArray:bool} $types */
 	private array $types = ['type' => 'string', 'isArray' => false];
-	/** @var callable[] $validators */
-	private array $validators = [];
 	private string $optionalValueDefault = '';
 	private ?string $deprecatedAlias = null;
 
@@ -36,83 +34,47 @@ class Option {
 
 	public function withValueNone(): static {
 		$this->valueTaken = static::VALUE_NONE;
-
 		return $this;
 	}
 
 	public function withValueRequired(): static {
 		$this->valueTaken = static::VALUE_REQUIRED;
-
 		return $this;
 	}
 
 	public function withValueOptional(string $optionalValueDefault = ''): static {
 		$this->valueTaken = static::VALUE_OPTIONAL;
 		$this->optionalValueDefault = $optionalValueDefault;
-
 		return $this;
 	}
 
-	public function typeOfString(callable ...$validators): static {
+	public function typeOfString(): static {
 		$this->types = ['type' => 'string', 'isArray' => false];
-		$this->validators = $validators;
-
 		return $this;
 	}
 
-	public function typeOfInt(callable ...$validators): static {
+	public function typeOfInt(): static {
 		$this->types = ['type' => 'int', 'isArray' => false];
-		$this->validators = $validators;
-
 		return $this;
 	}
 
-	public function typeOfBool(callable ...$validators): static {
+	public function typeOfBool(): static {
 		$this->types = ['type' => 'bool', 'isArray' => false];
-		$this->validators = $validators;
-
 		return $this;
 	}
 
-	public function typeOfArrayOfString(callable ...$validators): static {
+	public function typeOfArrayOfString(): static {
 		$this->types = ['type' => 'string', 'isArray' => true];
-		$this->validators = $validators;
-
 		return $this;
 	}
 
 	public function deprecatedAs(string $deprecated): static {
 		$this->deprecatedAlias = $deprecated;
-
 		return $this;
 	}
 
 	public function getValueTaken(): string {
 		return $this->valueTaken;
-	}
-
-	/** @param string[] $values*/
-	public function castToType($values): mixed {
-		$typedValues = [];
-
-		switch ($this->types['type']) {
-			case 'string' :
-				$typedValues = $values;
-				break;
-			case 'int' :
-				$typedValues = array_map(static fn(&$value) => $value = (int) $value, $values);
-				break;
-			case 'bool' :
-				$typedValues = array_map(static fn(&$value) => $value = (bool) filter_var($value, FILTER_VALIDATE_BOOL), $values);
-			break;
-		}
-
-		return $this->types['isArray'] ? $typedValues : array_pop($typedValues);
-	}
-
-	/** @return array<callable> */
-	public function getValidators(): array {
-		return $this->validators;
 	}
 
 	public function getOptionalValueDefault(): string {
@@ -131,6 +93,11 @@ class Option {
 		return $this->shortAlias;
 	}
 
+	/** @return array{type:string,isArray:bool} */
+	public function getTypes(): array {
+		return $this->types;
+	}
+
 	/** @return string[] */
 	public function getAliases(): array {
 		$aliases = [
@@ -144,8 +111,6 @@ class Option {
 }
 
 class CommandLineParser {
-	private const REGEX_INPUT_ALIASES = "/^--(?'long'\w.+)=|^-(?'short'\w+)/";
-
 	/** @var array<string,Option> */
 	private array $options;
 	/** @var array<string,array{default:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
@@ -185,33 +150,22 @@ class CommandLineParser {
 
 		$output = new $target();
 		$output->errors = [];
+		$output->usage = $this->getUsageMessage($argv[0]);
 
-		$this->parseOptions();
+		$this->parseInput();
 		$output = $this->appendUnknownAliases($argv, $output);
 		$output = $this->appendInvalidValues($output);
+		$output = $this->appendTypedValues($output);
 
-		if (!empty($output->errors)) {
-			$output->usage = $this->getUsage($argv[0]);
-			return $output;
-		}
-
-		foreach ($this->inputs as $name => $input) {
-			$values = $input['values'] ?? $input['default'] ?? null;
-			if ($values !== null) {
-				/** @var stdClass $output */
-				$output->$name = $this->options[$name]->castToType($values);
-			}
-		}
-		/** @var T $output */
 		return $output;
 	}
 
-	private function parseOptions(): void {
+	private function parseInput(): void {
 		$getoptInputs = $this->getGetoptInputs();
 
 		$this->getoptOutputTransformer(getopt($getoptInputs['short'], $getoptInputs['long']));
 
-		$this->checkForDeprecatedAliases();
+		$this->checkForDeprecatedAliasUse();
 	}
 
 	/**
@@ -222,22 +176,58 @@ class CommandLineParser {
 	private function appendInvalidValues($output) {
 		foreach ($this->options as $name => $option) {
 			if ($this->inputs[$name]['required'] && $this->inputs[$name]['values'] === null) {
-				$output->errors[$name] = $option->getLongAlias() . ' cannot be empty';
+				$output->errors[$name] = 'invalid input: ' . $option->getLongAlias() . ' cannot be empty';
 			}
 		}
 
 		foreach ($this->inputs as $name => $input) {
-			foreach ($this->options[$name]->getValidators() as $validator) {
-				foreach ($input['values'] ?? $input['default'] ?? [] as $value) {
-					$isInvalid = $validator($input['aliasUsed'] ?? $this->options[$name]->getLongAlias(), $value);
-					if ($isInvalid) {
-						$output->errors[$name] = $isInvalid;
-						break;
-					}
+			foreach ($input['values'] ?? $input['default'] ?? [] as $value) {
+				switch ($this->options[$name]->getTypes()['type']) {
+					case 'int':
+						if (!ctype_digit($value)) {
+							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must consist only of digits';
+						}
+					case 'bool':
+						if (!in_array($value, ['true', 'false'], true)) {
+							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be one of { true, false }';
+						}
 				}
 			}
 		}
 
+		return $output;
+	}
+
+	/**
+	 * @template T
+	 * @param T $output
+	 * @return T
+	 */
+	private function appendTypedValues($output) {
+		foreach ($this->inputs as $name => $input) {
+			$values = $input['values'] ?? $input['default'] ?? null;
+			$types = $this->options[$name]->getTypes();
+			if ($values) {
+				$typedValues = [];
+
+				switch ($types['type']) {
+					case 'string':
+						$typedValues = $values;
+						break;
+					case 'int':
+						$typedValues = array_map(static fn($value) => (int) $value, $values);
+						break;
+					case 'bool':
+						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOL), $values);
+						break;
+				}
+
+				/** @var stdClass $output */
+				$output->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
+			}
+		}
+
+		/** @var T $output */
 		return $output;
 	}
 
@@ -292,7 +282,7 @@ class CommandLineParser {
 			$valid = array_merge($valid, $option->getAliases());
 		}
 
-		$sanitizeInput = $this->getAliasesUsed($input, self::REGEX_INPUT_ALIASES);
+		$sanitizeInput = $this->getAliasesUsed($input, $this->makeInputRegex());
 		$unknownAliases = array_diff($sanitizeInput, $valid);
 		if (empty($unknownAliases)) {
 			return $output;
@@ -309,7 +299,7 @@ class CommandLineParser {
 	 * Checks for presence of deprecated aliases.
 	 * @return bool Returns TRUE and generates a deprecation warning if deprecated aliases are present, FALSE otherwise.
 	 */
-	private function checkForDeprecatedAliases(): bool {
+	private function checkForDeprecatedAliasUse(): bool {
 		$deprecated = [];
 		$replacements = [];
 
@@ -332,13 +322,19 @@ class CommandLineParser {
 
 	/** @return array{long:array<string>,short:string}*/
 	private function getGetoptInputs(): array {
+		$getoptNotation = [
+			'none' => '',
+			'required' => ':',
+			'optional' => '::',
+		];
+
 		$long = [];
 		$short = '';
 
 		foreach ($this->options as $option) {
-			$long[] = $option->getLongAlias() . $option->getValueTaken();
-			$long[] = $option->getDeprecatedAlias() ? $option->getDeprecatedAlias() . $option->getValueTaken() : '';
-			$short .= $option->getShortAlias() ? $option->getShortAlias() . $option->getValueTaken() : '';
+			$long[] = $option->getLongAlias() . $getoptNotation[$option->getValueTaken()];
+			$long[] = $option->getDeprecatedAlias() ? $option->getDeprecatedAlias() . $getoptNotation[$option->getValueTaken()] : '';
+			$short .= $option->getShortAlias() ? $option->getShortAlias() . $getoptNotation[$option->getValueTaken()] : '';
 		}
 
 		return [
@@ -347,7 +343,7 @@ class CommandLineParser {
 		];
 	}
 
-	private function getUsage(string $command): string {
+	private function getUsageMessage(string $command): string {
 		$required = ['Usage: ' . basename($command)];
 		$optional = [];
 
@@ -355,15 +351,28 @@ class CommandLineParser {
 			if ($this->inputs[$name]['required']) {
 				$required[] = ($option->getShortAlias() ? '-' . $option->getShortAlias() : '') .
 				' --' . $option->getLongAlias() .
-				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>' : '');
+				($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '');
 			} else {
 				$optional[] = ($option->getShortAlias() ? '[-' . $option->getShortAlias() . ' ' : '[') .
 				'--' . $option->getLongAlias() .
-				($option->getValueTaken() === ':' ? '=<' . strtolower($name) . '>' : '') . ']';
+				($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '') . ']';
 			}
 		}
 
 		return implode(' ', $required) . ' ' . implode(' ', $optional);
+	}
+
+	private function makeInputRegex() : string {
+		$shortWithValues = '';
+		foreach ($this->options as $option) {
+			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias()) {
+				$shortWithValues .= $option->getShortAlias();
+			}
+		}
+
+		return $shortWithValues === ''
+			? "/^--(?'long'[^=]+)|^-(?<short>\w+)/"
+			: "/^--(?'long'[^=]+)|^-(?<short>(?(?=\w*[$shortWithValues])[^$shortWithValues]*[$shortWithValues]|\w+))/";
 	}
 }
 
@@ -420,77 +429,4 @@ function performRequirementCheck(string $databaseType): void {
 		}
 		fail($message);
 	}
-}
-
-/** @param array<string> $validValues */
-function validateOneOf(array $validValues, ?string $prompt = null): callable {
-	$prompt = $prompt ? $prompt : 'one of { ' . implode(', ', $validValues) . ' }';
-
-	return function (string $name, string $value) use ($validValues, $prompt): ?string {
-		return !in_array($value, $validValues, true)
-		? '\'' . $name . '\' given: ' . $value . '. expected ' . $prompt
-		: null;
-	};
-}
-
-/** @param array<string> $validValues */
-function validateNotOneOf(array $validValues, ?string $prompt = null): callable {
-	$prompt = $prompt ? $prompt : 'one of { ' . implode(', ', $validValues) . ' }';
-
-	return function (string $name, string $value) use ($validValues, $prompt): ?string {
-		return in_array($value, $validValues, true)
-		? '\'' . $name . '\' given: ' . $value . '. must not be ' . $prompt
-		: null;
-	};
-}
-
-function validateRegex(string $regex, string $prompt): callable {
-
-	return function (string $name, string $value) use ($regex, $prompt): ?string {
-		return preg_match($regex, $value) !== 1
-		? '\'' . $name . '\' given: \'' . $value . '\'. expected  ' . $prompt
-		: null;
-	};
-}
-
-/** @param array<string> $validValues */
-function validateFileExtension(array $validValues, ?string $prompt = null): callable {
-	$prompt = $prompt ? $prompt : 'a path to a file ending in one of { .' . implode(', .', $validValues) . ' }';
-
-	return function (string $name, string $value) use ($validValues, $prompt): ?string {
-		return !in_array(pathinfo($value, PATHINFO_EXTENSION), $validValues, true)
-		? '\'' . $name . '\' given: ' . $value . '. expected ' . $prompt
-		: null;
-	};
-}
-
-function validateBool(): callable {
-	return function (string $name, string $value): ?string {
-		return !in_array($value, ['true', 'false'], true)
-		? '\'' . $name . '\' given: ' . $value . '. expected either \'true\' or \'false\''
-		: null;
-	};
-}
-
-function validateIsUser(): callable {
-	return function (string $name, string $value): ?string {
-		return !in_array($value, listUsers(), true)
-		? '\'' . $name . '\' given: ' . $value . '. expected the name of an existing user'
-		: null;
-	};
-}
-
-function validateIsLanguage(): callable {
-	return function (string $name, string $value): ?string {
-		return !in_array($value, listLanguages(), true)
-		? '\'' . $name . '\' given: ' . $value . '. expected an iso 639-1 code for a supported language'
-		: null;
-	};
-}
-
-/**
- * @return array<string>
- */
-function listLanguages(): array {
-	return array_values(array_diff(scandir(I18N_PATH) ? : [], ['..', '.']));
 }
