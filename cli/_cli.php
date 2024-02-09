@@ -185,11 +185,11 @@ class CommandLineParser {
 				switch ($this->options[$name]->getTypes()['type']) {
 					case 'int':
 						if (!ctype_digit($value)) {
-							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must consist only of digits';
+							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be an integer';
 						}
 					case 'bool':
-						if (!in_array($value, ['true', 'false'], true)) {
-							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be one of { true, false }';
+						if (filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === null) {
+							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be a boolean';
 						}
 				}
 			}
