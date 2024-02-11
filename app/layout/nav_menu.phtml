@@ -109,7 +109,7 @@
 			<div class="stick">
 				<input type="search" name="search" id="search"
 					value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
-					placeholder="<?= _t('gen.menu.search') ?>" />
+					placeholder="<?= _t('index.menu.search_short') ?>" title="<?= _t('gen.menu.search') ?>" />
 
 				<?php $param_a = Minz_Request::actionName(); ?>
 				<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
@@ -131,7 +131,7 @@
 				<input type="hidden" name="state" value="<?= $state ?>" />
 				<?php } ?>
 
-				<button class="btn" type="submit"><?= _i('search') ?></button>
+				<button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
 			</div>
 		</form>
 	</div>

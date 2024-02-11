@@ -1176,6 +1176,12 @@ input[type="search"] {
 	-webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
 }
 
+.nav_menu .group.search input#search {
+	min-width: 100px;
+	max-width: 250px;
+	width: calc(100vw - 1000px);
+}
+
 /*=== Body */
 #global {
 	background: inherit;
