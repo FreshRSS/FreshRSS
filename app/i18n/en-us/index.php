@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Share',	// IGNORE
 	'tag' => array(
+		'more' => 'More article tags',	// IGNORE
 		'related' => 'Article tags',	// IGNORE
 	),
 	'tos' => array(

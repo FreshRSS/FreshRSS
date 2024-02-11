@@ -17,6 +17,7 @@ return array(
 		'back' => '← Torna indietro',
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
+		'close' => 'Close',	// TODO
 		'create' => 'Crea',
 		'delete_muted_feeds' => 'Cancella i feed mutati',
 		'demote' => 'Retrocedi',

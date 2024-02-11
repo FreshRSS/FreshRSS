@@ -17,6 +17,7 @@ return array(
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
+		'close' => 'Close',	// TODO
 		'create' => '创建',
 		'delete_muted_feeds' => '删除已暂停的订阅源',
 		'demote' => '撤销管理员',

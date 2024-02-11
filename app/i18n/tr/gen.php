@@ -17,6 +17,7 @@ return array(
 		'back' => '← Geri dön',
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
+		'close' => 'Close',	// TODO
 		'create' => 'Oluştur',
 		'delete_muted_feeds' => 'Sessize alınmış akışları sil',
 		'demote' => 'Yöneticilikten al',

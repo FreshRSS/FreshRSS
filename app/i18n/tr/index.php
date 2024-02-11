@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Paylaş',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'İlgili etiketler',
 	),
 	'tos' => array(

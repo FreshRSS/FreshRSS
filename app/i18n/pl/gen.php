@@ -17,6 +17,7 @@ return array(
 		'back' => '← Wróć',
 		'back_to_rss_feeds' => '← Wróć do subskrybowanych kanałów RSS',
 		'cancel' => 'Anuluj',
+		'close' => 'Close',	// TODO
 		'create' => 'Stwórz',
 		'delete_muted_feeds' => 'Usuń wyciszone kanały',
 		'demote' => 'Zdegraduj',

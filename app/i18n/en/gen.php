@@ -17,6 +17,7 @@ return array(
 		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
+		'close' => 'Close',	// TODO
 		'create' => 'Create',
 		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',

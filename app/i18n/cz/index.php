@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Sdílet',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Štítky článků',
 	),
 	'tos' => array(

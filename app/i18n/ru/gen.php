@@ -17,6 +17,7 @@ return array(
 		'back' => '← Вернуться',
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
+		'close' => 'Close',	// TODO
 		'create' => 'Создать',
 		'delete_muted_feeds' => 'Удалить заглушенные ленты',
 		'demote' => 'Понизить',

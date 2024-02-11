@@ -743,6 +743,19 @@ input[type="checkbox"]:focus-visible {
 	max-width: 95%;
 }
 
+.dropdown-target:target ~ .dropdown-toggle.state1 {
+	display: none;
+}
+
+.dropdown-target ~ .dropdown-toggle-close {
+	display: none;
+}
+
+
+.dropdown-target:target ~ .dropdown-toggle-close {
+	display: inline-block;
+}
+
 .dropdown-target:target ~ .dropdown-menu {
 	display: block;
 	z-index: 1000;
@@ -760,6 +773,36 @@ input[type="checkbox"]:focus-visible {
 	left: 0; right: 0;
 	z-index: 999;
 	cursor: default;
+}
+
+.dropdown .item.close a {
+	padding: 0.5rem 0 0.5rem 0;
+	position: absolute;
+	left: 0;
+	bottom: -2.25rem;
+	width: 100%;
+	text-align: center;
+}
+
+.dropdown .item.close a .icon {
+	background-color: var(--frss-background-color);
+	border-radius: 1rem;
+	box-shadow: 0 0 1rem var(--frss-background-color);
+}
+
+.dropdown .item.close a:hover .icon {
+	height: 1.5rem;
+	box-shadow: 0 0 0.25rem var(--frss-background-color);
+}
+
+.dropdown.dropdown-open-bottom-fix-left .dropdown-menu {
+	right: auto;
+	left: -4px;
+}
+
+.dropdown.dropdown-open-bottom-fix-left .dropdown-menu::after {
+	right: auto;
+	left: 6px;
 }
 
 .item ~ .dropdown-header,
@@ -1232,7 +1275,7 @@ input[type="search"] {
 
 .aside .toggle_aside:hover,
 #slider .toggle_aside:hover,
-#overlay .close:hover,
+#overlay > .close:hover,
 .dropdown-menu .toggle_aside:hover {
 	background-color: var(--frss-darken-background-hover-transparent);
 }
@@ -1421,7 +1464,8 @@ a.website:hover .favicon {
 	list-style-type: decimal;
 }
 
-.flux_content .bottom .dropdown-toggle .icon {
+.flux_content .bottom .dropdown-toggle .icon,
+.flux_content .bottom .dropdown-toggle-close .icon {
 	margin-right: 0.25rem;
 }
 
@@ -1761,6 +1805,7 @@ a.website:hover .favicon {
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
+	z-index: 99;
 }
 
 #overlay.visible {
@@ -1784,7 +1829,7 @@ a.website:hover .favicon {
 	visibility: visible;
 }
 
-#overlay .close {
+#overlay > .close {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;

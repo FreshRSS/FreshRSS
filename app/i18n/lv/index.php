@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Dalīties',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Raksta birkas',
 	),
 	'tos' => array(

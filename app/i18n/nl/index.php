@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Delen',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Verwante labels',
 	),
 	'tos' => array(

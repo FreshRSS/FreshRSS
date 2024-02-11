@@ -17,6 +17,7 @@ return array(
 		'back' => '← Atgriezties',
 		'back_to_rss_feeds' => '← Atgriezieties pie RSS barotnēm',
 		'cancel' => 'Atcelt',
+		'close' => 'Close',	// TODO
 		'create' => 'Uztaisīt',
 		'delete_muted_feeds' => 'Izdzēst izslēgtās barotnes',
 		'demote' => 'Pazemināt amatu',

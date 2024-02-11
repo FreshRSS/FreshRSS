@@ -17,6 +17,7 @@ return array(
 		'back' => '← Retour',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
+		'close' => 'Close',	// TODO
 		'create' => 'Créer',
 		'delete_muted_feeds' => 'Supprimer les flux désactivés',
 		'demote' => 'Rétrograder',

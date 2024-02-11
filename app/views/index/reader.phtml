@@ -98,15 +98,16 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 									<li class="item tag">
 										<div class="dropdown">
 											<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-											<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<a class="dropdown-toggle state1" href="#dropdown-tags-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+											<a class="dropdown-toggle-close state2" href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('up') ?></a>
 											<ul class="dropdown-menu">
 												<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 												<?php
 												foreach ($remainingTags as $tag) {
 													?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
 												} ?>
+												<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 											</ul>
-											<a class="dropdown-close" href="#main">❌</a>
 										</div>
 									</li>
 									<?php
@@ -196,15 +197,16 @@ $MAX_TAGS_DISPLAYED = (int)FreshRSS_Context::userConf()->show_tags_max;
 										<li class="item tag">
 											<div class="dropdown">
 												<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-												<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+												<a class="dropdown-toggle state1" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+												<a class="dropdown-toggle-close state2" href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('up') ?></a>
 												<ul class="dropdown-menu">
 													<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 													<?php
 													foreach ($remainingTags as $tag) {
 														?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>"><?= $tag ?></a></li><?php
 													} ?>
+													<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 												</ul>
-												<a class="dropdown-close" href="#main">❌</a>
 											</div>
 										</li>
 										<?php

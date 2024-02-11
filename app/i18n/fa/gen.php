@@ -17,6 +17,7 @@ return array(
 		'back' => '← به عقب برگرد',
 		'back_to_rss_feeds' => '← به فیدهای RSS خود برگردید',
 		'cancel' => ' لغو',
+		'close' => 'Close',	// TODO
 		'create' => ' ایجاد کنید',
 		'delete_muted_feeds' => ' فیدهای خاموش را حذف کنید',
 		'demote' => ' تنزل دادن',
