@@ -78,10 +78,12 @@ class CommandLineParser {
 						if (!ctype_digit($value)) {
 							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be an integer';
 						}
+						break;
 					case 'bool':
 						if (filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === null) {
 							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be a boolean';
 						}
+						break;
 				}
 			}
 		}
