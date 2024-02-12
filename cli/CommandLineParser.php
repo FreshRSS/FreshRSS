@@ -4,12 +4,12 @@ declare(strict_types=1);
 class CommandLineParser {
 	/** @var array<string,Option> */
 	private array $options;
-	/** @var array<string,array{default:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
+	/** @var array<string,array{defaultInput:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
 	private array $inputs;
 
 	public function addRequiredOption(string $name, Option $option): static {
 		$this->inputs[$name] = [
-			'default' => null,
+			'defaultInput' => null,
 			'required' => true,
 			'aliasUsed' => null,
 			'values' => null,
@@ -19,9 +19,9 @@ class CommandLineParser {
 		return $this;
 	}
 
-	public function addOption(string $name, Option $option, string $default = null) :static {
+	public function addOption(string $name, Option $option, string $defaultInput = null) :static {
 		$this->inputs[$name] = [
-			'default' => is_string($default) ? [$default] : $default,
+			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
 			'aliasUsed' => null,
 			'values' => null,
@@ -72,7 +72,7 @@ class CommandLineParser {
 		}
 
 		foreach ($this->inputs as $name => $input) {
-			foreach ($input['values'] ?? $input['default'] ?? [] as $value) {
+			foreach ($input['values'] ?? $input['defaultInput'] ?? [] as $value) {
 				switch ($this->options[$name]->getTypes()['type']) {
 					case 'int':
 						if (!ctype_digit($value)) {
@@ -98,7 +98,7 @@ class CommandLineParser {
 	 */
 	private function appendTypedValidValues($output) {
 		foreach ($this->inputs as $name => $input) {
-			$values = $input['values'] ?? $input['default'] ?? null;
+			$values = $input['values'] ?? $input['defaultInput'] ?? null;
 			$types = $this->options[$name]->getTypes();
 			if ($values) {
 				$validValues = [];
