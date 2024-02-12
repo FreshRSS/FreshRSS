@@ -46,7 +46,7 @@ class CommandLineParser {
 		$this->parseInput();
 		$output = $this->appendUnknownAliases($argv, $output);
 		$output = $this->appendInvalidValues($output);
-		$output = $this->appendTypedValues($output);
+		$output = $this->appendTypedValidValues($output);
 
 		return $output;
 	}
@@ -96,11 +96,12 @@ class CommandLineParser {
 	 * @param T $output
 	 * @return T
 	 */
-	private function appendTypedValues($output) {
+	private function appendTypedValidValues($output) {
 		foreach ($this->inputs as $name => $input) {
 			$values = $input['values'] ?? $input['default'] ?? null;
 			$types = $this->options[$name]->getTypes();
 			if ($values) {
+				$validValues = [];
 				$typedValues = [];
 
 				switch ($types['type']) {
@@ -108,10 +109,12 @@ class CommandLineParser {
 						$typedValues = $values;
 						break;
 					case 'int':
-						$typedValues = array_map(static fn($value) => (int) $value, $values);
+						$validValues = array_filter($values, static fn($value) => ctype_digit($value));
+						$typedValues = array_map(static fn($value) => (int) $value, $validValues);
 						break;
 					case 'bool':
-						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOL), $values);
+						$validValues = array_filter($values, static fn($value) => filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) !== null);
+						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE), $validValues);
 						break;
 				}
 
