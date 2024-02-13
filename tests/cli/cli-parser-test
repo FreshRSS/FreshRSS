@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+require(__DIR__ . '/../../vendor/autoload.php');
+require(__DIR__ . '/CommandLineParserTest.php');
+
+$static_method = getenv('CLI_PARSER_TEST_STATIC_METHOD');
+
+echo serialize(CommandLineParserTest::$static_method());
+ 
