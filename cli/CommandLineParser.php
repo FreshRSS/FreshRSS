@@ -250,12 +250,12 @@ class CommandLineParser {
 		$optional = [];
 
 		foreach ($this->options as $name => $option) {
+			$shortAlias = $option->getShortAlias() ? '-' . $option->getShortAlias() . ' ' : '';
+			$longAlias = '--' . $option->getLongAlias() . ($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '');
 			if ($this->inputs[$name]['required']) {
-				$required[] = ($option->getShortAlias() ? '-' . $option->getShortAlias() . ' ' : '--') .
-				$option->getLongAlias() . ($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '');
+				$required[] = $shortAlias . $longAlias;
 			} else {
-				$optional[] = ($option->getShortAlias() ? '[-' . $option->getShortAlias() . ' ' : '[--') .
-				$option->getLongAlias() . ($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '') . ']';
+				$optional[] = '[' . $shortAlias . $longAlias . ']';
 			}
 		}
 
