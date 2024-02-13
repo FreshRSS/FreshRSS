@@ -7,6 +7,7 @@ class CommandLineParser {
 	/** @var array<string,array{defaultInput:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
 	private array $inputs;
 
+	/** Adds an option that produces an error message if not set. */
 	public function addRequiredOption(string $name, Option $option): static {
 		$this->inputs[$name] = [
 			'defaultInput' => null,
@@ -19,6 +20,11 @@ class CommandLineParser {
 		return $this;
 	}
 
+	/**
+	 * Adds an optional option.
+	 * @param string $defaultInput If not null this value is received as input in all cases where no
+	 *  user input is present. e.g. set this if you want an option to always return a value.
+	 */
 	public function addOption(string $name, Option $option, string $defaultInput = null) :static {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,

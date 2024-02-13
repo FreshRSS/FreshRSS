@@ -15,16 +15,22 @@ class Option {
 	public function __construct(private readonly string $longAlias, private readonly ?string $shortAlias = null) {
 	}
 
+	/** Sets this option to be treated as a flag. */
 	public function withValueNone(): static {
 		$this->valueTaken = static::VALUE_NONE;
 		return $this;
 	}
 
+	/** Sets this option to always require a value when used. */
 	public function withValueRequired(): static {
 		$this->valueTaken = static::VALUE_REQUIRED;
 		return $this;
 	}
 
+	/**
+	 * Sets this option to accept both values and flag behavior.
+	 * @param string $optionalValueDefault When this option is used as a flag it receives this value as input.
+	 */
 	public function withValueOptional(string $optionalValueDefault = ''): static {
 		$this->valueTaken = static::VALUE_OPTIONAL;
 		$this->optionalValueDefault = $optionalValueDefault;
