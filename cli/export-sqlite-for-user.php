@@ -8,7 +8,7 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 $parser = new CommandLineParser();
 
 $parser->addRequiredOption('user', (new Option('user')));
-$parser->addRequiredOption('filename', (new Option('filename', 'f')));
+$parser->addRequiredOption('filename', (new Option('filename')));
 
 $options = $parser->parse(stdClass::class);
 

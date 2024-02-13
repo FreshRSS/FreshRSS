@@ -11,30 +11,25 @@ $parser->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('ap
 $parser->addOption('language', (new Option('language')));
 $parser->addOption('email', (new Option('email')));
 $parser->addOption('token', (new Option('token')));
-$parser->addOption('purgeAfterMonths',
-	(new Option('purge-after-months'))
-		->typeOfInt()
-		->deprecatedAs('purge_after_months')
+$parser->addOption(
+	'purgeAfterMonths',
+	(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
 );
-$parser->addOption('feedMinArticles',
-	(new Option('feed-min-articles-default'))
-		->typeOfInt()
-		->deprecatedAs('feed_min_articles_default')
+$parser->addOption(
+	'feedMinArticles',
+	(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
 );
-$parser->addOption('feedTtl',
-	(new Option('feed-ttl-default'))
-		->typeOfInt()
-		->deprecatedAs('feed_ttl_default')
+$parser->addOption(
+	'feedTtl',
+	(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
 );
-$parser->addOption('sinceHoursPostsPerRss',
-	(new Option('since-hours-posts-per-rss'))
-		->typeOfInt()
-		->deprecatedAs('since_hours_posts_per_rss')
+$parser->addOption(
+	'sinceHoursPostsPerRss',
+	(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
 );
-$parser->addOption('maxPostsPerRss',
-	(new Option('max-posts-per-rss'))
-		->typeOfInt()
-		->deprecatedAs('max_posts_per_rss')
+$parser->addOption(
+	'maxPostsPerRss',
+	(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
 );
 
 $options = $parser->parse(stdClass::class);

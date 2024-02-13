@@ -10,36 +10,26 @@ $parser->addOption('environment', (new Option('environment')));
 $parser->addOption('baseUrl', (new Option('base-url'))->deprecatedAs('base_url'));
 $parser->addOption('language', (new Option('language')));
 $parser->addOption('title', (new Option('title')));
-$parser->addOption('allowAnonymous',
-	(new Option('allow-anonymous'))
-	   ->withValueOptional('true')
-	   ->deprecatedAs('allow_anonymous')
-	   ->typeOfBool()
+$parser->addOption(
+	'allowAnonymous',
+	(new Option('allow-anonymous'))->withValueOptional('true')->deprecatedAs('allow_anonymous')->typeOfBool()
 );
-$parser->addOption('allowAnonymousRefresh',
-	(new Option('allow-anonymous-refresh'))
-	   ->withValueOptional('true')
-	   ->deprecatedAs('allow_anonymous_refresh')
-	   ->typeOfBool()
+$parser->addOption(
+	'allowAnonymousRefresh',
+	(new Option('allow-anonymous-refresh'))->withValueOptional('true')->deprecatedAs('allow_anonymous_refresh')->typeOfBool()
 );
 $parser->addOption('authType', (new Option('auth-type'))->deprecatedAs('auth_type'));
-$parser->addOption('apiEnabled',
-	(new Option('api-enabled'))
-	   ->withValueOptional('true')
-	   ->deprecatedAs('api_enabled')
-	   ->typeOfBool()
+$parser->addOption(
+	'apiEnabled',
+	(new Option('api-enabled'))->withValueOptional('true')->deprecatedAs('api_enabled')->typeOfBool()
 );
-$parser->addOption('allowRobots',
-	(new Option('allow-robots'))
-	   ->withValueOptional('true')
-	   ->deprecatedAs('allow_robots')
-	   ->typeOfBool()
+$parser->addOption(
+	'allowRobots',
+	(new Option('allow-robots'))->withValueOptional('true')->deprecatedAs('allow_robots')->typeOfBool()
 );
-$parser->addOption('disableUpdate',
-	(new Option('disable-update'))
-	   ->withValueOptional('true')
-	   ->deprecatedAs('disable_update')
-	   ->typeOfBool()
+$parser->addOption(
+	'disableUpdate',
+	(new Option('disable-update'))->withValueOptional('true')->deprecatedAs('disable_update')->typeOfBool()
 );
 $parser->addOption('dbType', (new Option('db-type')));
 $parser->addOption('dbHost', (new Option('db-host')));
@@ -54,7 +44,7 @@ if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
-fwrite(STDERR, 'FreshRSS install…' . "\n");
+fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
 $values = [
 	'default_user' => $options->defaultUser ?? null,
