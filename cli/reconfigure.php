@@ -87,7 +87,7 @@ foreach ($values as $name => $value) {
 					fail('FreshRSS invalid authentication method! auth_type must be one of { form, http_auth, none }');
 				}
 			default:
-				$config[$name] = $value;
+			$systemConf->$name = $value;
 		}
 	}
 }
