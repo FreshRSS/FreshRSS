@@ -47,8 +47,8 @@ if (!FreshRSS_Context::hasUserConf()) {
 
 if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 	require(LIB_PATH . '/http-conditional.php');
-	// TODO: Take advantage of $feedMode
-	if (httpConditional(FreshRSS_UserDAO::mtime($user), 0, 0, false, PHP_COMPRESSION, false)) {
+	// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
+	if (httpConditional(FreshRSS_UserDAO::mtime($user) ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
 		exit();	//No need to send anything
 	}
 }
