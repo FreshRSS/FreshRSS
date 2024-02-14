@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-require_once '/workspaces/FreshRSS/cli/Option.php';
-require_once '/workspaces/FreshRSS/cli/CommandLineParser.php';
+require_once __DIR__ . '/../../cli/Option.php';
+require_once __DIR__ . '/../../cli/CommandLineParser.php';
 
 class CommandLineParserTest extends TestCase {
 
