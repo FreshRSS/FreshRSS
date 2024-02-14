@@ -74,6 +74,18 @@ class CommandLineParserTest extends TestCase {
 		self::assertEquals(['first', 'second'], $result->arrayOfString);
 	}
 
+	public function testOptionWithValueTypeOfIntSetWithInvalidValueReturnsAnError(): void {
+		$result = $this->runCommand('optionalOptions', '--int=one');
+
+		self::assertEquals(['int' => 'invalid input: int must be an integer'], $result->errors);
+	}
+
+	public function testOptionWithValueTypeOfBoolSetWithInvalidValuesReturnsAnError(): void {
+		$result = $this->runCommand('optionalOptions', '--bool=bad');
+
+		self::assertEquals(['bool' => 'invalid input: bool must be a boolean'], $result->errors);
+	}
+
 	public function testOptionWithValueTypeOfIntSetMultipleTimesWithValidAndInvalidValuesReturnsLastValidValueSetAsIntAndError(): void {
 		$result = $this->runCommand('optionalOptions', '--int=111 --int=one --int=222 --int=two');
 
