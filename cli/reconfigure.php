@@ -5,7 +5,7 @@ require(__DIR__ . '/_cli.php');
 
 $parser = new CommandLineParser();
 
-$parser->addRequiredOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
+$parser->addOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
 $parser->addOption('environment', (new Option('environment')));
 $parser->addOption('baseUrl', (new Option('base-url'))->deprecatedAs('base_url'));
 $parser->addOption('language', (new Option('language')));
@@ -93,7 +93,8 @@ foreach ($values as $name => $value) {
 }
 
 $db = array_merge(FreshRSS_Context::systemConf()->db, array_filter($dbValues));
-checkRequirements($db['type']);
+
+performRequirementCheck($db['type']);
 
 FreshRSS_Context::systemConf()->db = $db;
 
