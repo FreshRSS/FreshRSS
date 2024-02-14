@@ -105,7 +105,6 @@ foreach ($values as $name => $value) {
 				}
 				break;
 		}
-
 		$config[$name] = $value;
 	}
 }

@@ -78,17 +78,19 @@ foreach ($values as $name => $value) {
 				if (!FreshRSS_user_Controller::checkUsername($value)) {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
+				break;
 			case 'environment':
 				if (!in_array($value, ['development', 'production', 'silent'], true)) {
 					fail('FreshRSS invalid environment! environment must be one of { development, production, silent }');
 				}
+				break;
 			case 'auth_type':
 				if (!in_array($value, ['form', 'http_auth', 'none'], true)) {
 					fail('FreshRSS invalid authentication method! auth_type must be one of { form, http_auth, none }');
 				}
-			default:
-			$systemConf->$name = $value;
+				break;
 		}
+		$systemConf->$name = $value;
 	}
 }
 
