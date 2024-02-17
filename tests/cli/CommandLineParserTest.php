@@ -158,7 +158,7 @@ class CommandLineParserTest extends TestCase {
 	public function testAlwaysReturnUsageMessageWithUsageInfoForAllOptions(): void {
 		$result = $this->runCommand('optionalAndRequiredOptions', '');
 
-		self::assertEquals('Usage: cli-parser-test --required=<required> [-s --string=<string>] [-i --int=<int>] [-b --bool=<bool>] [-f --flag]',
+		self::assertEquals('Usage: cli-parser-test.php --required=<required> [-s --string=<string>] [-i --int=<int>] [-b --bool=<bool>] [-f --flag]',
 			$result->usage,
 		);
 	}
@@ -193,7 +193,7 @@ class CommandLineParserTest extends TestCase {
 	}
 
 	private function runCommand(string $static_method, string $options = ''): stdClass {
-		$command = __DIR__ . '/cli-parser-test';
+		$command = __DIR__ . '/cli-parser-test.php';
 
 		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='$static_method' $command $options 2>/dev/null");
 		$result = is_string($result) ? unserialize($result) : '';
@@ -203,7 +203,7 @@ class CommandLineParserTest extends TestCase {
 	}
 
 	private function runCommandReadingStandardError(string $static_method, string $options = ''): string {
-		$command = __DIR__ . '/cli-parser-test';
+		$command = __DIR__ . '/cli-parser-test.php';
 
 		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='$static_method' $command $options 2>&1");
 		$result = is_string($result) ? explode("\n", $result) : '';
