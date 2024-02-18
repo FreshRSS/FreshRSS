@@ -369,8 +369,17 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
+ * Remove the charset meta information of an HTML document, e.g.:
+ * `<meta charset="..." />`
+ * `<meta http-equiv="Content-Type" content="text/html; charset=...">`
+ */
+function stripHtmlMetaCharset(string $html): string {
+	return preg_replace('/<meta\s[^>]*charset\s*=\s*[^>]+>/i', '', $html, 1) ?? '';
+}
+
+/**
  * Set an XML preamble to enforce the HTML content type charset received by HTTP.
- * @param string $html the row downloaded HTML content
+ * @param string $html the raw downloaded HTML content
  * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
@@ -381,7 +390,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		return $html;
 	}
 	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
-	if ($httpCharsetNormalized === 'windows-1252') {
+	if (in_array($httpCharsetNormalized, ['windows-1252', 'US-ASCII'], true)) {
 		// Default charset for HTTP, do nothing
 		return $html;
 	}
@@ -397,7 +406,20 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		// Existing XML declaration, do nothing
 		return $html;
 	}
-	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	if ($httpCharsetNormalized !== 'UTF-8') {
+		// Try to change encoding to UTF-8 using mbstring or iconv or intl
+		$utf8 = SimplePie_Misc::change_encoding($html, $httpCharsetNormalized, 'UTF-8');
+		if (is_string($utf8)) {
+			$html = stripHtmlMetaCharset($utf8);
+			$httpCharsetNormalized = 'UTF-8';
+		}
+	}
+	if ($httpCharsetNormalized === 'UTF-8') {
+		// Save encoding information as XML declaration
+		return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	}
+	// Give up
+	return $html;
 }
 
 /**
