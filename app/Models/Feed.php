@@ -189,6 +189,9 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 			return $ttl * ($this->mute ? -1 : 1);
 		}
+		if ($this->mute && $this->ttl === FreshRSS_Context::userConf()->ttl_default) {
+			return FreshRSS_Feed::TTL_DEFAULT;
+		}
 		return $this->ttl;
 	}
 
