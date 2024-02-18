@@ -379,7 +379,7 @@ function stripHtmlMetaCharset(string $html): string {
 
 /**
  * Set an XML preamble to enforce the HTML content type charset received by HTTP.
- * @param string $html the row downloaded HTML content
+ * @param string $html the raw downloaded HTML content
  * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
