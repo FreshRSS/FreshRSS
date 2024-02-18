@@ -694,7 +694,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		$entries = iterator_to_array($entries);	//TODO: Improve
 
 		$items = self::entriesToArray($entries);
@@ -746,7 +746,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		if ($ids === null) {
 			self::internalServerError();
 		}

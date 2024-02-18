@@ -259,17 +259,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$id = 0;
 		}
 
-		$limit = FreshRSS_Context::$number;
-
 		$date_min = 0;
-		if (FreshRSS_Context::$sinceHours) {
+		if (FreshRSS_Context::$sinceHours > 0) {
 			$date_min = time() - (FreshRSS_Context::$sinceHours * 3600);
-			$limit = FreshRSS_Context::userConf()->max_posts_per_rss;
 		}
 
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-					$limit, FreshRSS_Context::$first_id,
+					FreshRSS_Context::$number, FreshRSS_Context::$offset, FreshRSS_Context::$first_id,
 					FreshRSS_Context::$search, $date_min)
 				as $entry) {
 			yield $entry;

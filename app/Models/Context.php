@@ -47,6 +47,7 @@ final class FreshRSS_Context {
 	 */
 	public static string $order = 'DESC';
 	public static int $number = 0;
+	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
 	public static string $first_id = '';
 	public static string $next_id = '';
@@ -244,6 +245,7 @@ final class FreshRSS_Context {
 				FreshRSS_Context::userConf()->max_posts_per_rss,
 				FreshRSS_Context::userConf()->posts_per_page);
 		}
+		self::$offset = Minz_Request::paramInt('offset');
 		self::$first_id = Minz_Request::paramString('next');
 		self::$sinceHours = Minz_Request::paramInt('hours');
 	}
