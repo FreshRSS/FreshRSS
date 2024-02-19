@@ -5,12 +5,20 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
+class ExportZipForUserDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	public string $user;
+	public int $maxFeedEntries;
+}
+
 $parser = new CommandLineParser();
 
 $parser->addRequiredOption('user', (new Option('user')));
 $parser->addOption('maxFeedEntries', (new Option('max-feed-entries'))->typeOfInt(), '100');
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(ExportZipForUserDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

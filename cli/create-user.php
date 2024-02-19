@@ -3,6 +3,24 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
+class CreateUserDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	public string $user;
+	public string $password;
+	public string $apiPassword;
+	public string $language;
+	public string $email;
+	public string $token;
+	public int $purgeAfterMonths;
+	public int $feedMinArticles;
+	public int $feedTtl;
+	public int $sinceHoursPostsPerRss;
+	public int $maxPostsPerRss;
+	public bool $noDefaultFeeds;
+}
+
 $parser = new CommandLineParser();
 
 $parser->addRequiredOption('user', (new Option('user')));
@@ -36,7 +54,7 @@ $parser->addOption(
 	(new Option('no-default-feeds'))->withValueNone()->deprecatedAs('no_default_feeds')
 );
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(CreateUserDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

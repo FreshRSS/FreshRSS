@@ -7,6 +7,29 @@ if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
 }
 
+class DoInstallDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	public string $defaultUser;
+	public string $environment;
+	public string $baseUrl;
+	public string $language;
+	public string $title;
+	public bool $allowAnonymous;
+	public bool $allowAnonymousRefresh;
+	public string $authType;
+	public bool $apiEnabled;
+	public bool $allowRobots;
+	public bool $disableUpdate;
+	public string $dbType;
+	public string $dbHost;
+	public string $dbUser;
+	public string $dbPassword;
+	public string $dbBase;
+	public string $dbPrefix;
+}
+
 $parser = new CommandLineParser();
 
 $parser->addRequiredOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
@@ -42,7 +65,7 @@ $parser->addOption('dbPassword', (new Option('db-password')));
 $parser->addOption('dbBase', (new Option('db-base')));
 $parser->addOption('dbPrefix', (new Option('db-prefix'))->withValueOptional());
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(DoInstallDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

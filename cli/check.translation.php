@@ -8,6 +8,17 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
+class CheckTranslationDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	/** @var array<int,string> $language */
+	public array $language;
+	public string $displayResult;
+	public string $help;
+	public string $displayReport;
+}
+
 $parser = new CommandLineParser;
 
 $parser->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
@@ -15,7 +26,7 @@ $parser->addOption('displayResult', (new Option('display-result', 'd'))->withVal
 $parser->addOption('help', (new Option('help', 'h'))->withValueNone());
 $parser->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(CheckTranslationDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

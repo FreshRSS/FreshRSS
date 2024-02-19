@@ -5,6 +5,17 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
+class UserInfoDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	/** @var array<int,string> $user */
+	public array $user;
+	public string $header;
+	public string $json;
+	public string $humanReadable;
+}
+
 $parser = new CommandLineParser();
 
 $parser->addOption('user', (new Option('user'))->typeOfArrayOfString());
@@ -12,7 +23,7 @@ $parser->addOption('header', (new Option('header'))->withValueNone());
 $parser->addOption('json', (new Option('json'))->withValueNone());
 $parser->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(UserInfoDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

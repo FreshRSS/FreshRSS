@@ -6,6 +6,19 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
+class ManipulateTranslationDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	public string $action;
+	public string $key;
+	public string $value;
+	public string $language;
+	public string $originLanguage;
+	public string $revert;
+	public string $help;
+}
+
 $parser = new CommandLineParser;
 
 $parser->addRequiredOption('action', (new Option('action', 'a')));
@@ -16,7 +29,7 @@ $parser->addOption('originLanguage', (new Option('origin-language', 'o')));
 $parser->addOption('revert', (new Option('revert', 'r'))->withValueNone());
 $parser->addOption('help', (new Option('help', 'h'))->withValueNone());
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(ManipulateTranslationDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

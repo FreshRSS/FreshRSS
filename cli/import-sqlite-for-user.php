@@ -5,13 +5,22 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
+class ImportSqliteForUserDefinition {
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage;
+	public string $user;
+	public string $filename;
+	public string $forceOverwrite;
+}
+
 $parser = new CommandLineParser();
 
 $parser->addRequiredOption('user', (new Option('user')));
 $parser->addRequiredOption('filename', (new Option('filename')));
 $parser->addOption('forceOverwrite', (new Option('force-overwrite'))->withValueNone());
 
-$options = $parser->parse(stdClass::class);
+$options = $parser->parse(ImportSqliteForUserDefinition::class);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
