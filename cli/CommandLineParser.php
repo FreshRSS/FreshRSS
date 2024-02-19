@@ -8,7 +8,7 @@ class CommandLineParser {
 	private array $inputs;
 
 	/** Adds an option that produces an error message if not set. */
-	public function addRequiredOption(string $name, Option $option): static {
+	public function addRequiredOption(string $name, Option $option): self {
 		$this->inputs[$name] = [
 			'defaultInput' => null,
 			'required' => true,
@@ -25,7 +25,7 @@ class CommandLineParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	public function addOption(string $name, Option $option, string $defaultInput = null) :static {
+	public function addOption(string $name, Option $option, string $defaultInput = null): self {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
@@ -86,7 +86,7 @@ class CommandLineParser {
 						}
 						break;
 					case 'bool':
-						if (filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) === null) {
+						if (filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === null) {
 							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be a boolean';
 						}
 						break;
@@ -119,8 +119,8 @@ class CommandLineParser {
 						$typedValues = array_map(static fn($value) => (int) $value, $validValues);
 						break;
 					case 'bool':
-						$validValues = array_filter($values, static fn($value) => filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) !== null);
-						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE), $validValues);
+						$validValues = array_filter($values, static fn($value) => filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== null);
+						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE), $validValues);
 						break;
 				}
 
@@ -134,7 +134,7 @@ class CommandLineParser {
 	}
 
 	/** @param array<string,string|false>|false $getoptOutput */
-	private function getoptOutputTransformer(false|array $getoptOutput): void {
+	private function getoptOutputTransformer($getoptOutput): void {
 		$getoptOutput = is_array($getoptOutput) ? $getoptOutput : [];
 
 		foreach ($getoptOutput as $alias => $value) {

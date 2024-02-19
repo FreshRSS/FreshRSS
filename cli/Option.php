@@ -6,23 +6,27 @@ class Option {
 	public const VALUE_REQUIRED = 'required';
 	public const VALUE_OPTIONAL = 'optional';
 
+	private string $longAlias;
+	private ?string $shortAlias;
 	private string $valueTaken = self::VALUE_REQUIRED;
 	/** @var array{type:string,isArray:bool} $types */
 	private array $types = ['type' => 'string', 'isArray' => false];
 	private string $optionalValueDefault = '';
 	private ?string $deprecatedAlias = null;
 
-	public function __construct(private readonly string $longAlias, private readonly ?string $shortAlias = null) {
+	public function __construct(string $longAlias, ?string $shortAlias = null) {
+		$this->longAlias = $longAlias;
+		$this->shortAlias = $shortAlias;
 	}
 
 	/** Sets this option to be treated as a flag. */
-	public function withValueNone(): static {
+	public function withValueNone(): self {
 		$this->valueTaken = static::VALUE_NONE;
 		return $this;
 	}
 
 	/** Sets this option to always require a value when used. */
-	public function withValueRequired(): static {
+	public function withValueRequired(): self {
 		$this->valueTaken = static::VALUE_REQUIRED;
 		return $this;
 	}
@@ -31,33 +35,33 @@ class Option {
 	 * Sets this option to accept both values and flag behavior.
 	 * @param string $optionalValueDefault When this option is used as a flag it receives this value as input.
 	 */
-	public function withValueOptional(string $optionalValueDefault = ''): static {
+	public function withValueOptional(string $optionalValueDefault = ''): self {
 		$this->valueTaken = static::VALUE_OPTIONAL;
 		$this->optionalValueDefault = $optionalValueDefault;
 		return $this;
 	}
 
-	public function typeOfString(): static {
+	public function typeOfString(): self {
 		$this->types = ['type' => 'string', 'isArray' => false];
 		return $this;
 	}
 
-	public function typeOfInt(): static {
+	public function typeOfInt(): self {
 		$this->types = ['type' => 'int', 'isArray' => false];
 		return $this;
 	}
 
-	public function typeOfBool(): static {
+	public function typeOfBool(): self {
 		$this->types = ['type' => 'bool', 'isArray' => false];
 		return $this;
 	}
 
-	public function typeOfArrayOfString(): static {
+	public function typeOfArrayOfString(): self {
 		$this->types = ['type' => 'string', 'isArray' => true];
 		return $this;
 	}
 
-	public function deprecatedAs(string $deprecated): static {
+	public function deprecatedAs(string $deprecated): self {
 		$this->deprecatedAlias = $deprecated;
 		return $this;
 	}
