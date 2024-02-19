@@ -123,8 +123,9 @@ class CommandLineParser {
 						break;
 				}
 
-				/** @var stdClass $output */
-				$output->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
+				if (!empty($typedValues)) {
+					$output->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
+				}
 			}
 		}
 
