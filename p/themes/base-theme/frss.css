@@ -2347,11 +2347,9 @@ html.slider-active {
 		width: calc(100% - 3rem);
 		box-sizing: border-box;
 		border-radius: 0;
+		position: absolute;
 		left: 1.5rem;
 		right: 1.5rem;
-		position: absolute;
-		left: 3%;
-		right: 3%;
 	}
 
 	.dropdown.dropdown-open-bottom-fix-left .dropdown-menu {
