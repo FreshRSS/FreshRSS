@@ -1540,6 +1540,7 @@ a.website:hover .favicon {
 .content > footer .tags {
 	display: flex;
 	line-height: 1;
+	position: relative;
 }
 
 .content > header .tags .icon,
