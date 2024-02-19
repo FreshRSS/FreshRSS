@@ -175,7 +175,8 @@
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-read" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-read"><?= _i('down') ?></a>
+			<a class="dropdown-toggle state1 btn" href="#dropdown-read"><?= _i('down') ?></a>
+			<a class="dropdown-toggle-close state2 btn" href="#dropdown-read"><?= _i('up') ?></a>
 			<ul class="dropdown-menu">
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
