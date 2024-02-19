@@ -39,14 +39,13 @@ class CommandLineParser {
 
 	/**
 	 * @template T
-	 * @param class-string<T> $target
+	 * @param class-string<T> $definition
 	 * @return T
 	 */
-	public function parse(string $target) {
+	public function parse(string $definition) {
 		global $argv;
 
-		$output = new $target();
-		$output->errors = [];
+		$output = new $definition();
 		$output->usage = $this->getUsageMessage($argv[0]);
 
 		$this->parseInput();
