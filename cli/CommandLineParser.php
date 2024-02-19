@@ -124,12 +124,12 @@ class CommandLineParser {
 				}
 
 				if (!empty($typedValues)) {
+					// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
 					$output->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
 				}
 			}
 		}
 
-		/** @var T $output */
 		return $output;
 	}
 
