@@ -494,7 +494,7 @@ td.numeric {
 .btn {
 	display: inline-block;
 	cursor: pointer;
-	overflow: hidden;
+	position: relative;
 }
 
 .btn-important {
@@ -775,24 +775,19 @@ input[type="checkbox"]:focus-visible {
 	cursor: default;
 }
 
+.dropdown .item.close {
+	text-align: center;
+}
+
 .dropdown .item.close a {
 	padding: 0.5rem 0 0.5rem 0;
-	position: absolute;
-	left: 0;
-	bottom: -2.25rem;
-	width: 100%;
-	text-align: center;
+	display: block;
 }
 
 .dropdown .item.close a .icon {
 	background-color: var(--frss-background-color);
 	border-radius: 1rem;
 	box-shadow: 0 0 1rem var(--frss-background-color);
-}
-
-.dropdown .item.close a:hover .icon {
-	height: 1.5rem;
-	box-shadow: 0 0 0.25rem var(--frss-background-color);
 }
 
 .dropdown.dropdown-open-bottom-fix-left .dropdown-menu {
@@ -2355,6 +2350,13 @@ html.slider-active {
 		left: 1.5rem;
 		right: 1.5rem;
 		position: absolute;
+		left: 3%;
+		right: 3%;
+	}
+
+	.dropdown.dropdown-open-bottom-fix-left .dropdown-menu {
+		left: 3%;
+		right: 3%;
 	}
 
 	.dropdown .dropdown-menu .item {
@@ -2383,12 +2385,13 @@ html.slider-active {
 		width: 100%;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle {
+	.dropdown-target:target ~ .dropdown-toggle-close {
 		position: relative;
 		overflow: visible;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle::after {
+	.dropdown-target:target ~ .dropdown-toggle::after,
+	.dropdown-target:target ~ .dropdown-toggle-close::after {
 		background-color: var(--frss-background-color);
 		width: 10px;
 		height: 10px;
@@ -2401,7 +2404,12 @@ html.slider-active {
 		cursor: default;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle:not(.btn) ~ .dropdown-menu {
+	.dropdown-open-bottom-fix-left .dropdown-target:target ~ .dropdown-toggle-close::after {
+		right: auto;
+		left: 3px;
+	}
+
+	.dropdown-target:target ~ .dropdown-toggle-close:not(.btn) ~ .dropdown-menu {
 		margin-top: 10px;
 	}
 
@@ -2518,6 +2526,10 @@ html.slider-active {
 
 	.stat.half {
 		grid-column: 1 / span 2;
+	}
+
+	.flux_content footer .horizontal-list.bottom {
+		position: relative;
 	}
 }
 

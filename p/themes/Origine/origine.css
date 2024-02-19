@@ -1205,7 +1205,8 @@ a:hover .icon {
 		border-bottom-right-radius: 3px;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle::after {
+	.dropdown-target:target ~ .dropdown-toggle::after,
+	.dropdown-target:target ~ .dropdown-toggle-close::after {
 		background-color: var(--background-color-light);
 		border-top: 1px solid var(--border-color);
 		border-left: 1px solid var(--border-color);
