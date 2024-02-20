@@ -844,6 +844,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			self::commitNewEntries();
 		} else {
 			if ($id === 0 && $url === '') {
+				// Case of a batch refresh (e.g. cron)
+				$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+				$databaseDAO->minorDbMaintenance();
+				Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
+				FreshRSS_feed_Controller::commitNewEntries();
 				FreshRSS_category_Controller::refreshDynamicOpmls();
 			}
 			[$updated_feeds, $feed, $nbNewArticles] = self::actualizeFeeds($id, $url, $maxFeeds);
