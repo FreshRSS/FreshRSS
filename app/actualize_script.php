@@ -103,6 +103,8 @@ foreach ($users as $user) {
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
+	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+	$databaseDAO->minorDbMaintenance();
 	Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 	$app->run();
 
