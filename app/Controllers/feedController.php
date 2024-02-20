@@ -809,9 +809,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if (!$entryDAO->inTransaction()) {
 				$entryDAO->beginTransaction();
 			}
-			if ($entryDAO->commitNewEntries() && $nbNewUnreadEntries > 0) {
-				self::keepMaxUnreads();
+			if ($entryDAO->commitNewEntries()) {
 				self::applyLabelActions($nbNewEntries);
+				if ($nbNewUnreadEntries > 0) {
+					self::keepMaxUnreads();
+				}
 			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
