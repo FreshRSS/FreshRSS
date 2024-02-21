@@ -758,7 +758,7 @@ input[type="checkbox"]:focus-visible {
 
 .dropdown-target:target ~ .dropdown-menu {
 	display: block;
-	z-index: 1000;
+	z-index: 50;
 }
 
 .dropdown-menu + .dropdown-close {
@@ -771,7 +771,7 @@ input[type="checkbox"]:focus-visible {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
-	z-index: 999;
+	z-index: 40;
 	cursor: default;
 }
 
@@ -1599,7 +1599,7 @@ a.website:hover .favicon {
 	position: absolute;
 	top: 1rem;
 	left: 25%; right: 25%;
-	z-index: 9999;
+	z-index: 100;
 	background-color: var(--frss-background-color);
 	font-weight: bold;
 	font-size: 0.9rem;
@@ -1651,7 +1651,7 @@ a.website:hover .favicon {
 #popup {
 	display: none;
 	position: fixed;
-	z-index: 200;
+	z-index: 20;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -1807,7 +1807,7 @@ a.website:hover .favicon {
 	opacity: 0;
 	transition: visibility .3s, opacity .3s;
 	visibility: hidden;
-	z-index: 99;
+	z-index: 90;
 }
 
 #overlay.visible {
@@ -1850,7 +1850,7 @@ html.slider-active {
 	top: 0; bottom: 0;
 	right: 0;
 	overflow: auto;
-	z-index: 100;
+	z-index: 90;
 }
 
 #slider.active:target {
@@ -1873,7 +1873,7 @@ html.slider-active {
 	background-color: var(--frss-modal-background-color-transparent);
 	font-size: 0;
 	left: 0;
-	z-index: 99;
+	z-index: 90;
 }
 
 #close-slider img {
@@ -2183,7 +2183,7 @@ html.slider-active {
 .nav_menu {
 	position: sticky;
 	top: 0;
-	z-index: 98;
+	z-index: 85;
 	padding: var(--frss-padding-top-bottom) 0.125rem;
 	background: inherit;
 	text-align: center;
@@ -2249,6 +2249,14 @@ html.slider-active {
 		flex-direction: row;
 		box-sizing: border-box;
 		justify-content: space-between;
+	}
+
+	.header .dropdown-target:target ~ .dropdown-toggle::after {
+		z-index: 87;
+	}
+
+	.header .dropdown-target:target ~ .dropdown-menu {
+		z-index: 86;
 	}
 
 	.header .logo-wrapper .logo {
@@ -2399,7 +2407,7 @@ html.slider-active {
 		right: 33%;
 		bottom: -1rem;
 		transform: rotate(45deg);
-		z-index: 9999;
+		z-index: 51;
 		cursor: default;
 	}
 
@@ -2414,7 +2422,7 @@ html.slider-active {
 
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;
-		z-index: 1000;
+		z-index: 50;
 
 	}
 
@@ -2440,7 +2448,7 @@ html.slider-active {
 		left: 0;
 		right: 0;
 		cursor: default;
-		z-index: 99;
+		z-index: 90;
 	}
 
 	.nav_mobile {
@@ -2453,7 +2461,7 @@ html.slider-active {
 		left: -1px;
 		width: 0;
 		overflow: hidden;
-		z-index: 100;
+		z-index: 95;
 	}
 
 	.aside_feed .tree-folder-items .feed .favicon {
