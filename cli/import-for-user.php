@@ -5,20 +5,14 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-class ImportForUserDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class ImportForUserDefinition extends CommandLineParser {
 	public string $user;
 	public string $filename;
 }
 
-$parser = new CommandLineParser();
-
-$parser->addRequiredOption('user', (new Option('user')));
-$parser->addRequiredOption('filename', (new Option('filename')));
-
-$options = $parser->parse(ImportForUserDefinition::class);
+$options = new ImportForUserDefinition();
+$options->addRequiredOption('user', (new Option('user')));
+$options->addRequiredOption('filename', (new Option('filename')));
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

@@ -5,18 +5,12 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-class ExportOpmlForUserDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class ExportOpmlForUserDefinition extends CommandLineParser {
 	public string $user;
 }
 
-$parser = new CommandLineParser();
-
-$parser->addRequiredOption('user', (new Option('user')));
-
-$options = $parser->parse(ExportOpmlForUserDefinition::class);
+$options = new ExportOpmlForUserDefinition();
+$options->addRequiredOption('user', (new Option('user')));
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

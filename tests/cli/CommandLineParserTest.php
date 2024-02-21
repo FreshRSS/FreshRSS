@@ -5,30 +5,24 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../../cli/Option.php';
 require_once __DIR__ . '/../../cli/CommandLineParser.php';
 
-class OptionalOptionsDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
-	public string $string;
-	public int $int;
-	public bool $bool;
+final class OptionalOptionsDefinition extends CommandLineParser {
+	public string $string = '';
+	public int $int = 0;
+	public bool $bool = false;
 	/** @var array<int,string> $arrayOfString */
-	public array $arrayOfString;
-	public string $defaultInput;
-	public string $optionalValue;
-	public bool $optionalValueWithDefault;
-	public string $defaultInputAndOptionalValueWithDefault;
+	public array $arrayOfString = [];
+	public string $defaultInput = '';
+	public string $optionalValue = '';
+	public bool $optionalValueWithDefault = false;
+	public string $defaultInputAndOptionalValueWithDefault = '';
 }
 
-class OptionalAndRequiredOptionsDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
-	public string $required;
-	public string $string;
-	public int $int;
-	public bool $bool;
-	public string $flag;
+final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
+	public string $required = '';
+	public string $string = '';
+	public int $int = 0;
+	public bool $bool = false;
+	public string $flag = '';
 }
 
 class CommandLineParserTest extends TestCase {
@@ -190,7 +184,7 @@ class CommandLineParserTest extends TestCase {
 	}
 
 	public static function optionalOptions(): OptionalOptionsDefinition {
-		$parser = new CommandLineParser();
+		$parser = new OptionalOptionsDefinition();
 		$parser->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
 		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
 		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
@@ -203,19 +197,17 @@ class CommandLineParserTest extends TestCase {
 			'default'
 		);
 		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-
-		return $parser->parse(OptionalOptionsDefinition::class);
+		return $parser;
 	}
 
 	public static function optionalAndRequiredOptions(): OptionalAndRequiredOptionsDefinition {
-		$parser = new CommandLineParser();
+		$parser = new OptionalAndRequiredOptionsDefinition();
 		$parser->addRequiredOption('required', new Option('required'));
 		$parser->addOption('string', new Option('string', 's'));
 		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
 		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
 		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-
-		return $parser->parse(OptionalAndRequiredOptionsDefinition::class);
+		return $parser;
 	}
 
 	private function runOptionalOptions(string $options = ''): OptionalOptionsDefinition {
