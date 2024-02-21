@@ -5,7 +5,20 @@ declare(strict_types=1);
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/CommandLineParserTest.php');
 
-$static_method = getenv('CLI_PARSER_TEST_STATIC_METHOD');
+$optionsClass = getenv('CLI_PARSER_TEST_OPTIONS_CLASS');
+if (!is_string($optionsClass) || !class_exists($optionsClass)) {
+	die('Invalid test static method!');
+}
 
-// @phpstan-ignore-next-line
-echo serialize(CommandLineParserTest::$static_method());
+switch ($optionsClass) {
+	case 'OptionalOptionsDefinition':
+		$options = new OptionalOptionsDefinition();
+		break;
+	case 'OptionalAndRequiredOptionsDefinition':
+		$options = new OptionalAndRequiredOptionsDefinition();
+		break;
+	default:
+		die('Unknown test static method!');
+}
+
+echo serialize($options);

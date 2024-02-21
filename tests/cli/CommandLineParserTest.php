@@ -208,18 +208,11 @@ class CommandLineParserTest extends TestCase {
 		);
 	}
 
-	public static function optionalOptions(): OptionalOptionsDefinition {
-		return new OptionalOptionsDefinition();
-	}
-
-	public static function optionalAndRequiredOptions(): OptionalAndRequiredOptionsDefinition {
-		return new OptionalAndRequiredOptionsDefinition();
-	}
-
 	private function runOptionalOptions(string $options = ''): OptionalOptionsDefinition {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalOptions' $command $options 2>/dev/null");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
 		$result = is_string($result) ? unserialize($result) : new OptionalOptionsDefinition();
 
 		/** @var OptionalOptionsDefinition $result */
@@ -228,8 +221,9 @@ class CommandLineParserTest extends TestCase {
 
 	private function runOptionalAndRequiredOptions(string $options = ''): OptionalAndRequiredOptionsDefinition {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalAndRequiredOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalAndRequiredOptions' $command $options 2>/dev/null");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
 		$result = is_string($result) ? unserialize($result) : new OptionalAndRequiredOptionsDefinition();
 
 		/** @var OptionalAndRequiredOptionsDefinition $result */
@@ -238,8 +232,9 @@ class CommandLineParserTest extends TestCase {
 
 	private function runCommandReadingStandardError(string $options = ''): string {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalOptions' $command $options 2>&1");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>&1");
 		$result = is_string($result) ? explode("\n", $result) : '';
 
 		return is_array($result) ? $result[0] : '';
