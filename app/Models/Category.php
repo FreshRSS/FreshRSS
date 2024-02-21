@@ -40,7 +40,7 @@ class FreshRSS_Category extends Minz_Model {
 				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
 		}
 	}
@@ -108,7 +108,7 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($this->feeds as $feed) {
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
 			$this->sortFeeds();
 		}
