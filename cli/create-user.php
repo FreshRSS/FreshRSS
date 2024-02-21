@@ -16,39 +16,43 @@ final class CreateUserDefinition extends CommandLineParser {
 	public int $sinceHoursPostsPerRss;
 	public int $maxPostsPerRss;
 	public bool $noDefaultFeeds;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		$this->addOption('password', (new Option('password')));
+		$this->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
+		$this->addOption('language', (new Option('language')));
+		$this->addOption('email', (new Option('email')));
+		$this->addOption('token', (new Option('token')));
+		$this->addOption(
+			'purgeAfterMonths',
+			(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
+		);
+		$this->addOption(
+			'feedMinArticles',
+			(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
+		);
+		$this->addOption(
+			'feedTtl',
+			(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
+		);
+		$this->addOption(
+			'sinceHoursPostsPerRss',
+			(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
+		);
+		$this->addOption(
+			'maxPostsPerRss',
+			(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
+		);
+		$this->addOption(
+			'noDefaultFeeds',
+			(new Option('no-default-feeds'))->withValueNone()->deprecatedAs('no_default_feeds')
+		);
+		parent::__construct();
+	}
 }
 
 $options = new CreateUserDefinition();
-$options->addRequiredOption('user', (new Option('user')));
-$options->addOption('password', (new Option('password')));
-$options->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
-$options->addOption('language', (new Option('language')));
-$options->addOption('email', (new Option('email')));
-$options->addOption('token', (new Option('token')));
-$options->addOption(
-	'purgeAfterMonths',
-	(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
-);
-$options->addOption(
-	'feedMinArticles',
-	(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
-);
-$options->addOption(
-	'feedTtl',
-	(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
-);
-$options->addOption(
-	'sinceHoursPostsPerRss',
-	(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
-);
-$options->addOption(
-	'maxPostsPerRss',
-	(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
-);
-$options->addOption(
-	'noDefaultFeeds',
-	(new Option('no-default-feeds'))->withValueNone()->deprecatedAs('no_default_feeds')
-);
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

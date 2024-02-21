@@ -15,6 +15,22 @@ final class OptionalOptionsDefinition extends CommandLineParser {
 	public string $optionalValue = '';
 	public bool $optionalValueWithDefault = false;
 	public string $defaultInputAndOptionalValueWithDefault = '';
+
+	public function __construct() {
+		$this->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
+		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
+		$this->addOption('arrayOfString', (new Option('array-of-string', 'a'))->typeOfArrayOfString());
+		$this->addOption('defaultInput', (new Option('default-input', 'i')), 'default');
+		$this->addOption('optionalValue', (new Option('optional-value', 'o'))->withValueOptional());
+		$this->addOption('optionalValueWithDefault', (new Option('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
+		$this->addOption('defaultInputAndOptionalValueWithDefault',
+			(new Option('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
+			'default'
+		);
+		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
@@ -23,6 +39,15 @@ final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
 	public int $int = 0;
 	public bool $bool = false;
 	public string $flag = '';
+
+	public function __construct() {
+		$this->addRequiredOption('required', new Option('required'));
+		$this->addOption('string', new Option('string', 's'));
+		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
+		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 class CommandLineParserTest extends TestCase {
@@ -184,30 +209,11 @@ class CommandLineParserTest extends TestCase {
 	}
 
 	public static function optionalOptions(): OptionalOptionsDefinition {
-		$parser = new OptionalOptionsDefinition();
-		$parser->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
-		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$parser->addOption('arrayOfString', (new Option('array-of-string', 'a'))->typeOfArrayOfString());
-		$parser->addOption('defaultInput', (new Option('default-input', 'i')), 'default');
-		$parser->addOption('optionalValue', (new Option('optional-value', 'o'))->withValueOptional());
-		$parser->addOption('optionalValueWithDefault', (new Option('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
-		$parser->addOption('defaultInputAndOptionalValueWithDefault',
-			(new Option('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
-			'default'
-		);
-		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-		return $parser;
+		return new OptionalOptionsDefinition();
 	}
 
 	public static function optionalAndRequiredOptions(): OptionalAndRequiredOptionsDefinition {
-		$parser = new OptionalAndRequiredOptionsDefinition();
-		$parser->addRequiredOption('required', new Option('required'));
-		$parser->addOption('string', new Option('string', 's'));
-		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-		return $parser;
+		return new OptionalAndRequiredOptionsDefinition();
 	}
 
 	private function runOptionalOptions(string $options = ''): OptionalOptionsDefinition {

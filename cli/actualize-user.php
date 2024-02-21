@@ -7,10 +7,14 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 final class ActualizeUserDefinition extends CommandLineParser {
 	public string $user;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		parent::__construct();
+	}
 }
 
 $options = new ActualizeUserDefinition();
-$options->addRequiredOption('user', (new Option('user')));
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

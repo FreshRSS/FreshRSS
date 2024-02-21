@@ -9,12 +9,16 @@ final class ImportSqliteForUserDefinition extends CommandLineParser {
 	public string $user;
 	public string $filename;
 	public string $forceOverwrite;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		$this->addRequiredOption('filename', (new Option('filename')));
+		$this->addOption('forceOverwrite', (new Option('force-overwrite'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 $options = new ImportSqliteForUserDefinition();
-$options->addRequiredOption('user', (new Option('user')));
-$options->addRequiredOption('filename', (new Option('filename')));
-$options->addOption('forceOverwrite', (new Option('force-overwrite'))->withValueNone());
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

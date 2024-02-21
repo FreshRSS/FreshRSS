@@ -11,13 +11,17 @@ final class UserInfoDefinition extends CommandLineParser {
 	public string $header;
 	public string $json;
 	public string $humanReadable;
+
+	public function __construct() {
+		$this->addOption('user', (new Option('user'))->typeOfArrayOfString());
+		$this->addOption('header', (new Option('header'))->withValueNone());
+		$this->addOption('json', (new Option('json'))->withValueNone());
+		$this->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 $options = new UserInfoDefinition();
-$options->addOption('user', (new Option('user'))->typeOfArrayOfString());
-$options->addOption('header', (new Option('header'))->withValueNone());
-$options->addOption('json', (new Option('json'))->withValueNone());
-$options->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

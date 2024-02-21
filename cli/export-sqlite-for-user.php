@@ -8,11 +8,15 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 final class ExportSqliteForUserDefinition extends CommandLineParser {
 	public string $user;
 	public string $filename;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		$this->addRequiredOption('filename', (new Option('filename')));
+		parent::__construct();
+	}
 }
 
 $options = new ExportSqliteForUserDefinition();
-$options->addRequiredOption('user', (new Option('user')));
-$options->addRequiredOption('filename', (new Option('filename')));
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

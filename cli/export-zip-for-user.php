@@ -8,11 +8,15 @@ performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 final class ExportZipForUserDefinition extends CommandLineParser {
 	public string $user;
 	public int $maxFeedEntries;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		$this->addOption('maxFeedEntries', (new Option('max-feed-entries'))->typeOfInt(), '100');
+		parent::__construct();
+	}
 }
 
 $options = new ExportZipForUserDefinition();
-$options->addRequiredOption('user', (new Option('user')));
-$options->addOption('maxFeedEntries', (new Option('max-feed-entries'))->typeOfInt(), '100');
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

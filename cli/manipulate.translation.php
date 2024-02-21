@@ -14,16 +14,20 @@ final class ManipulateTranslationDefinition extends CommandLineParser {
 	public string $originLanguage;
 	public string $revert;
 	public string $help;
+
+	public function __construct() {
+		$this->addRequiredOption('action', (new Option('action', 'a')));
+		$this->addOption('key', (new Option('key', 'k')));
+		$this->addOption('value', (new Option('value', 'v')));
+		$this->addOption('language', (new Option('language', 'l')));
+		$this->addOption('originLanguage', (new Option('origin-language', 'o')));
+		$this->addOption('revert', (new Option('revert', 'r'))->withValueNone());
+		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 $options = new ManipulateTranslationDefinition();
-$options->addRequiredOption('action', (new Option('action', 'a')));
-$options->addOption('key', (new Option('key', 'k')));
-$options->addOption('value', (new Option('value', 'v')));
-$options->addOption('language', (new Option('language', 'l')));
-$options->addOption('originLanguage', (new Option('origin-language', 'o')));
-$options->addOption('revert', (new Option('revert', 'r'))->withValueNone());
-$options->addOption('help', (new Option('help', 'h'))->withValueNone());
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

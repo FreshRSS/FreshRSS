@@ -14,13 +14,17 @@ final class CheckTranslationDefinition extends CommandLineParser {
 	public string $displayResult;
 	public string $help;
 	public string $displayReport;
+
+	public function __construct() {
+		$this->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
+		$this->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
+		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
+		$this->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 $options = new CheckTranslationDefinition();
-$options->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
-$options->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
-$options->addOption('help', (new Option('help', 'h'))->withValueNone());
-$options->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
