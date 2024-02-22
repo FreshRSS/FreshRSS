@@ -1294,6 +1294,7 @@ input[type="search"] {
 /*=== Day indication */
 .day {
 	background: inherit;
+	position: relative;
 }
 
 .day .name {
