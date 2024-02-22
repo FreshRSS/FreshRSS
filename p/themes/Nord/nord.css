@@ -889,7 +889,6 @@ li.item.active {
 	font-size: 0.9rem;
 	border-radius: 6px;
 	border-color: var(--border-elements);
-	z-index: 9999;
 	font-weight: bold;
 	box-shadow: 0px 0px 10px var(--frss-box-shadow-color-transparent);
 }

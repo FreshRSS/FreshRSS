@@ -206,16 +206,6 @@ form th {
 	text-align: right;
 }
 
-.dropdown-menu::after {
-	position: absolute;
-	top: -6px;
-	left: 13px;
-	width: 10px;
-	height: 10px;
-	z-index: -10;
-	transform: rotate(-45deg);
-}
-
 .dropdown-header {
 	padding: 0 5px 5px;
 	font-weight: bold;
