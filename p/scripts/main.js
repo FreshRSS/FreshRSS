@@ -1293,12 +1293,15 @@ function init_nav_entries() {
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
 			const nav_menu = document.querySelector('.nav_menu');
+			const header_menu_height = window.innerWidth < 841 ? document.querySelector('header.header').offsetHeight : 0;
+
 			let nav_menu_height = 0;
 
 			if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
 				nav_menu_height = nav_menu.offsetHeight;
 			}
-			scrollStream.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
+
+			scrollStream.scrollTop = windowTop > item_top ? item_top - nav_menu_height - header_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}
