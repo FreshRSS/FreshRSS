@@ -1450,6 +1450,7 @@ a.website:hover .favicon {
 	width: 155px;
 	text-align: left;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .flux .item > a {
@@ -2228,6 +2229,28 @@ html.slider-active {
 
 /*=== MOBILE */
 /*===========*/
+
+@media (max-width: 1200px) {
+	:root {
+		--frss-padding-flux-items: 0.5rem;
+	}
+
+	#body-inner {
+		grid-template-columns: [header-start] 3.5rem [sidenav-start] 200px [maincolumn-start] calc(-200px - 3.5rem + 100vw) [maincolumn-end];
+	}
+
+	.aside .nav-inner {
+		width: 200px;
+	}
+
+	.flux .item.website {
+		width: 100px;
+	}
+
+	.flux .item.date {
+		width: 75px;
+	}
+}
 
 @media (max-width: 840px) {
 	:root {
