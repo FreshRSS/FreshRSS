@@ -283,12 +283,6 @@ form th {
 }
 
 @media (min-width: 841px) {
-	header.header .group .btn {
-		width: 100%;
-		box-sizing: border-box;
-		text-align: center;
-	}
-
 	header.header .group .btn:first-child {
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;

@@ -487,7 +487,7 @@ td.numeric {
 	flex-shrink: 0;
 }
 
-#nav_menu_read_all form {
+.stick > form {
 	display: inline-flex;
 }
 
@@ -1103,6 +1103,12 @@ a:hover .logo {
 }
 
 @media (min-width: 841px) {
+	header.header .group .btn {
+		width: 100%;
+		box-sizing: border-box;
+		text-align: center;
+	}
+
 	.header .logo-wrapper a {
 		display: none;
 	}
@@ -2250,6 +2256,10 @@ html.slider-active {
 
 	.flux .item.date {
 		width: 75px;
+	}
+
+	.dropdown-menu {
+		min-width: 170px;
 	}
 }
 
