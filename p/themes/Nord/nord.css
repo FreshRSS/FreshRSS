@@ -321,14 +321,15 @@ svg:hover {
 }
 
 .nav_menu .stick #mark-read-menu .read_all.btn,
-.nav_menu .dropdown-menu .stick.search input {
+.nav_menu .stick.group.search input {
 	margin-right: 0;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 
 .nav_menu .stick #mark-read-menu .dropdown-toggle.btn,
-.nav_menu .dropdown-menu .stick.search .btn {
+.nav_menu .stick #mark-read-menu .dropdown-toggle-close.btn,
+.nav_menu .stick.search .btn {
 	margin-left: 0;
 	border-left: 0;
 	border-top-left-radius: 0;
@@ -345,11 +346,6 @@ svg:hover {
 .stick .btn {
 	margin-top: 0;
 	margin-bottom: 0;
-}
-
-.header .stick,
-.header .btn {
-	margin: 0
 }
 
 /*=== Navigation */
@@ -600,43 +596,20 @@ img.favicon {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header > .item {
-	vertical-align: middle;
-	text-align: center;
-}
 
-.header > .item.title h1 {
-	margin: 0.5em 0;
-}
-
-.header > .item.title h1 a {
-	text-decoration: none;
-}
-
-.header > .item.search input {
-	width: 350px;
-}
-
-.header > .item.title .logo {
-	filter: grayscale(100%) brightness(2.5);
-}
-
-.header > .item.title a:hover .logo {
-	filter: grayscale(85%) brightness(2.5);
+@media (min-width: 841px) {
+	.header .group .btn,
+	.header .group .dropdown {
+		margin: 0.125rem 0;
+	}
 }
 
 /*=== Body */
 .aside {
 	background-color: var(--accent-bg);
-	border-top-right-radius: 12px;
 }
 
 /*=== Aside main page */
-.aside.aside_feed {
-	padding: 10px 0;
-	text-align: center;
-}
-
 .aside.nav-list .nav-section .item.active a {
 	color: var(--highlight);
 	font-weight: bold;
@@ -972,9 +945,14 @@ li.item.active {
 .nav_menu {
 	padding: 5px 0;
 	text-align: center;
+	background: var(--main-background);
 }
 
-.header .configure .btn.dropdown-toggle,
+.nav_menu .group.search input#search {
+	width: calc(-1050px + 100vw);
+}
+
+.nav_menu .stick.search input,
 .nav_menu .btn {
 	margin: .125rem;
 }
@@ -1140,6 +1118,21 @@ optgroup::before {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
+.logo {
+	filter: grayscale(100%) brightness(2.5);
+}
+
+a:hover .logo {
+	filter: grayscale(85%) brightness(2.5);
+}
+
+#header_menu_feedsmgmt .dropdown-toggle .icon {
+	filter: grayscale(85%) brightness(2.5);
+}
+
+#header_menu_feedsmgmt .dropdown-toggle:hover .icon {
+	filter: grayscale(87%) brightness(2.7);
+}
 
 /*=== Body */
 /*=== Aside main page (categories) */
@@ -1354,10 +1347,6 @@ optgroup::before {
 	#overlay .close:hover {
 		background-color: var(--main-background) !important;
 		border-color: var(--highlight) !important;
-	}
-
-	.header .configure .dropdown .dropdown-menu {
-		border-radius: 0;
 	}
 
 	.form-group .group-name {
