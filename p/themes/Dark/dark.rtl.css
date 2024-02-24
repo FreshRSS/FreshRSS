@@ -376,16 +376,16 @@ button.as-link[disabled] {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header > .item {
-	border-bottom: 1px solid var(--dark-border-color3);
-}
-
-.header > .item.title .logo {
+.logo {
 	filter: grayscale(60%) brightness(1.1);
 }
 
-.header > .item.title a:hover .logo {
+a:hover .logo {
 	filter: grayscale(60%) brightness(1.5);
+}
+
+#header_menu_feedsmgmt .dropdown-toggle .icon {
+	filter: grayscale(60%) brightness(1.1);
 }
 
 .aside {
@@ -433,6 +433,7 @@ button.as-link[disabled] {
 /*=== Index menu */
 .nav_menu {
 	border-bottom: 1px solid var(--dark-border-color);
+	background-color: var(--background-color-light);
 }
 
 /*=== Feed articles */
