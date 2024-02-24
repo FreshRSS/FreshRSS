@@ -1448,7 +1448,7 @@ function refreshFeeds(json) {
 		}));
 	} else {
 		const feeds_count = json.feeds.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshFeed(json.feeds, feeds_count);
 		}
 	}
