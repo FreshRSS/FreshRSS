@@ -86,18 +86,24 @@ input:focus {
 }
 
 /*=== Change icon colors */
-.header > .item.title .logo {
-	/* Color FreshRSS logo */
+.logo {
+	filter: sepia(62%) brightness(70%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
+}
+
+a:hover .logo {
 	filter: sepia(62%) brightness(107%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
 }
 
-.header > .item.title a:hover .logo {
+#header_menu_feedsmgmt .dropdown-toggle .icon {
 	filter: sepia(62%) brightness(70%) hue-rotate(315deg) saturate(248%) contrast(104%) invert(100%);
+}
+
+#header_menu_feedsmgmt .dropdown-toggle:hover .icon {
+	filter: grayscale(100%) brightness(2.5);
 }
 
 .icon[src*="/all"],
 .icon[src*="/down"],
-.icon[src*="/help"],
 .icon[src*="/link"],
 .icon[src*="/login"],
 .icon[src*="/logout"],
@@ -113,8 +119,10 @@ input:focus {
 .icon[src*="/view-normal"],
 .icon[src*="/view-global"],
 .icon[src*="/view-reader"],
+.icon[src*="/help"],
 .icon[src*="/bookmark-tag"],
 .icon[src*="/view-rss"],
+.icon[src*="/person"],
 .icon[src*="/refresh"],
 .icon[src*="/search"],
 .icon[src*="/rss"],
