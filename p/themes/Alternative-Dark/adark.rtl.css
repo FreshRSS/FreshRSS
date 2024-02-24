@@ -159,15 +159,13 @@ form th {
 
 /*=== Buttons */
 .stick input,
-.group .btn,
 .stick .btn {
 	border-radius: 0;
 }
 
 .stick .btn:first-child,
-.group .btn:first-child,
 .stick input:first-child,
-.group input:first-child {
+.stick select:first-child {
 	border-radius: 0 3px 3px 0;
 }
 
@@ -176,32 +174,73 @@ form th {
 }
 
 .stick .btn:last-child,
-.group .btn:last-child,
-.stick input:last-child,
-.group input:last-child {
+.stick input:last-child {
 	border-radius: 3px 0 0 3px;
 }
 
 .stick .btn + .btn,
-.group .btn + .btn,
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
-.group .btn + .dropdown > .btn,
 .stick input + .btn,
+.stick select + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
-.group .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn,
-.group .dropdown + .dropdown > .btn {
-	border-right: none;
+.stick .dropdown + .dropdown > .btn {
+	border-right-width: 0;
 }
 
-.stick .btn + .dropdown > .btn,
-.group .dropdown + .dropdown > .btn {
-	border-right: none;
+.stick input + .btn {
+	border-top: 1px solid var(--border-color-middle);
+}
+
+.stick .dropdown:last-child > .btn {
+	border-right-width: 0;
 	border-radius: 3px 0 0 3px;
+}
+
+#main-wrapper .nav_menu .group .btn {
+	border-radius: 0;
+}
+
+#main-wrapper .nav_menu .group .btn:first-child {
+	border-radius: 0 3px 3px 0;
+}
+
+#main-wrapper .nav_menu .group .btn:last-child {
+	border-radius: 3px 0 0 3px;
+}
+
+#main-wrapper .nav_menu .group .btn + .btn,
+#main-wrapper .nav_menu .group .btn + .dropdown > .btn,
+#main-wrapper .nav_menu .group .dropdown + .btn,
+#main-wrapper .nav_menu .group .dropdown + .dropdown > .btn {
+	border-right-width: 0;
+}
+
+#main-wrapper .nav_menu .group .dropdown:last-child > .btn {
+	border-right-width: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+@media (min-width: 841px) {
+	header.header .group .btn:first-child {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	header.header .group .btn + .btn,
+	header.header .group .btn + .dropdown .btn {
+		border-top-width: 0;
+		border-radius: 0;
+	}
+
+	header.header .group .dropdown:last-child > .btn,
+	header.header .group .btn:last-child {
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
 }
 
 .btn {
@@ -327,7 +366,7 @@ form th {
 
 /*=== Dropdown */
 .dropdown-menu {
-	margin: 5px 0 0;
+	margin: 4px 0 0;
 	padding: 0.5rem 0 0.25rem 0;
 	background: var(--background-color-active);
 	font-size: 0.8rem;
@@ -551,22 +590,22 @@ kbd {
 	background: var(--background-color-dark);
 }
 
-.header > .item {
-	border-bottom: 1px solid var(--border-color-dark);
-	vertical-align: middle;
-	text-align: center;
+
+
+.logo {
+	filter: grayscale(100%) brightness(2);
 }
 
-.header > .item.title .logo {
-	filter: grayscale(100%) brightness(2.5);
-}
-
-.header > .item.title a:hover .logo {
+a:hover .logo {
 	filter: grayscale(100%) brightness(2.8);
 }
 
-.header > .item.search input {
-	width: 350px;
+#header_menu_feedsmgmt .dropdown-toggle .icon {
+	filter: grayscale(100%) brightness(0.7);
+}
+
+#header_menu_feedsmgmt .dropdown-toggle:hover .icon {
+	filter: grayscale(100%) brightness(3);
 }
 
 /*=== Body */
@@ -575,8 +614,6 @@ kbd {
 }
 
 .aside.aside_feed {
-	padding: 10px 0;
-	text-align: center;
 	background: var(--background-color-light);
 }
 
@@ -1082,17 +1119,52 @@ kbd {
 		filter: brightness(2);
 	}
 
-	.aside:target + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
-		background-color: var(--background-color-slider-shadow);
-	}
-
 	.aside.aside_feed {
 		padding: 0;
 	}
 
-	.configure .dropdown .dropdown-menu {
-		border-width: 0;
-		box-shadow: 3px 0 3px var(--background-color-active);
+	.header .nav-header,
+	.nav_menu {
+		padding: 0.25rem 0.5rem;
+	}
+
+	.header .group,
+	.nav_menu .group {
+		margin: 0 0.5rem;
+	}
+
+	.header .btn,
+	.nav_menu .btn {
+		padding: 0.25rem 1vw;
+		min-height: 0;
+		line-height: 1.25em;
+	}
+
+	.header .dropdown-menu {
+		margin-top: 0.5rem;
+	}
+
+	header.header .group .btn {
+		box-sizing: border-box;
+	}
+
+	header.header .group .dropdown:first-child .btn,
+	header.header .group .btn:first-child {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	header.header .group .btn + .btn,
+	header.header .group .dropdown + .dropdown .btn,
+	header.header .group .btn + .dropdown .btn {
+		border-right-width: 0;
+		border-radius: 0;
+	}
+
+	header.header .group .dropdown:last-child > .btn,
+	header.header .group .btn:last-child {
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
 	}
 
 	.nav_menu .btn {
@@ -1111,7 +1183,8 @@ kbd {
 		margin: 5px 0;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle::after {
+	.dropdown-target:target ~ .dropdown-toggle::after,
+	.dropdown-target:target ~ .dropdown-toggle-close::after {
 		background-color: var(--background-color-active);
 		border-top: 2px solid var(--background-color-light);
 		border-right: 2px solid var(--background-color-light);
