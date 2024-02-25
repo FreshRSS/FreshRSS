@@ -133,6 +133,7 @@ return array(
 		'get_feed' => 'Display “%s” feed',	// IGNORE
 		'get_important' => 'Display articles from important feeds',	// IGNORE
 		'get_label' => 'Display articles with “%s” label',	// IGNORE
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE

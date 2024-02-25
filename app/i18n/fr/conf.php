@@ -133,6 +133,7 @@ return array(
 		'get_feed' => 'Afficher le flux <em>%s</em>',
 		'get_important' => 'Afficher les articles des flux importants',
 		'get_label' => 'Afficher les articles avec l’étiquette “%s”',
+		'help' => 'Voir la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation pour les filtres utilisateurs et repartage par HTML / RSS / OPML</a>.',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',
