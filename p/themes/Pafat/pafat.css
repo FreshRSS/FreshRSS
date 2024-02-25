@@ -574,20 +574,6 @@ form th {
 	background-color: var(--background-color-dark);
 }
 
-.header > .item {
-	border-bottom: 1px solid var(--border-color-grey-dark);
-	vertical-align: middle;
-	text-align: center;
-}
-
-.header > .item.title .logo {
-	filter: grayscale(100%) brightness(2.5);
-}
-
-.header > .item.title a:hover .logo {
-	filter: grayscale(100%) brightness(4);
-}
-
 a.signin {
 	text-decoration: none;
 	color: var(--font-color-grey-light);
@@ -612,11 +598,6 @@ a.signin {
 .aside {
 	background-color: var(--background-color-white);
 	border-right: 1px solid var(--border-color-grey-dark);
-}
-
-.aside.aside_feed {
-	padding: 10px 0;
-	text-align: center;
 }
 
 .aside.aside_feed .tree {
@@ -1081,7 +1062,8 @@ a.signin {
 		margin: 5px 0;
 	}
 
-	.dropdown-target:target ~ .dropdown-toggle::after {
+	.dropdown-target:target ~ .dropdown-toggle::after,
+	.dropdown-target:target ~ .dropdown-toggle-close::after {
 		border-top: 1px solid var(--border-color-grey-dark);
 		border-left: 1px solid var(--border-color-grey-dark);
 	}
