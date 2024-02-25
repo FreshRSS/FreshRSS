@@ -695,24 +695,6 @@ a:hover .icon {
 	background-color: var(--background-color-grey);
 }
 
-.header > .item {
-	border-bottom: 1px solid var(--border-color);
-	vertical-align: middle;
-	text-align: center;
-}
-
-.header > .item.title {
-	width: 300px;
-}
-
-.header > .item.title a:hover .logo {
-	filter: brightness(1.4);
-}
-
-.header > .item.search input {
-	width: 350px;
-}
-
 /*=== Body */
 .aside {
 	background-color: var(--background-color-light);
