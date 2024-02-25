@@ -702,7 +702,7 @@ input[type="checkbox"]:focus-visible {
 	position: absolute;
 	top: -6px;
 	right: 13px;
-	z-index: -10;
+	z-index: 1;
 	transform: rotate(45deg);
 }
 
@@ -2285,7 +2285,8 @@ html.slider-active {
 		justify-content: space-between;
 	}
 
-	.header .dropdown-target:target ~ .dropdown-toggle::after {
+	.header .dropdown-target:target ~ .dropdown-toggle::after,
+	.header .dropdown-target:target ~ .dropdown-toggle-close::after {
 		z-index: 87;
 	}
 
@@ -2456,8 +2457,6 @@ html.slider-active {
 
 	.dropdown-target:target ~ .dropdown-menu {
 		display: table-cell;
-		z-index: 86;
-
 	}
 
 	.dropdown-menu::after {
