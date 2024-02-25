@@ -1487,7 +1487,7 @@ function refreshDynamicOpmls(json, next) {
 	categories_processed = 0;
 	if (json.categories && json.categories.length > 0) {
 		const categories_count = json.categories.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshDynamicOpml(json.categories, categories_count, next);
 		}
 	} else {
