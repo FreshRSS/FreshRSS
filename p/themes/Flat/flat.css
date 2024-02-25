@@ -219,6 +219,7 @@ form th {
 	border-bottom: 3px solid #2980b9;
 	border-left-color: #2980b9;
 	border-left-style: solid;
+	border-left-width: 0;
 	border-radius: 5px;
 	min-height: 25px;
 	min-width: 15px;
@@ -707,7 +708,7 @@ a:hover .logo {
 .nav_menu {
 	text-align: center;
 	padding: 5px 0;
-	background-color: #ffffff;
+	background-color: #fff;
 }
 
 .dropdown-menu .dropdown-header .icon {
@@ -975,6 +976,7 @@ a:hover .logo {
 	#main {
 		height: calc(100vh - 3rem);
 	}
+
 	.form-group .group-name {
 		padding-bottom: 0;
 	}
@@ -1026,13 +1028,6 @@ a:hover .logo {
 	header.header .group .btn:last-child {
 		border-top-right-radius: 3px;
 		border-bottom-right-radius: 3px;
-	}
-
-	.dropdown-target:target ~ .dropdown-toggle::after,
-	.dropdown-target:target ~ .dropdown-toggle-close::after {
-		background-color: var(--background-color-light);
-		border-top: 1px solid var(--border-color);
-		border-left: 1px solid var(--border-color);
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after,
