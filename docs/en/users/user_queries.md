@@ -44,6 +44,7 @@ in the formats HTML, RSS, and OPML:
 
 Some parameters can be manually added to the URL:
 
+* `f`: Format of output. Can be `html`, `rss` (`atom` is an alias), or `opml`.
 * `hours`: Show only the articles newer than this number of hours.
 * `nb`: Number of articles to return. Limited by `max_posts_per_rss` in the user configuration. Can be used in combination with `offset` for pagination.
 * `offset`: Skip a number of articles. Used in particular by the HTML view for pagination.
