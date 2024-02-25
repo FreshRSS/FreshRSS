@@ -59,4 +59,4 @@ This was mostly intended for sharing between systems controlled by the same user
 This method **is not advised anymore** as it is not safe to use the same master token for multiple outputs,
 especially not when shared with other persons.
 
-Now, sharing RSS ouputs via user queries is the recommended approach for all scenarios.
+Now, sharing RSS outputs via user queries is the recommended approach for all scenarios.
