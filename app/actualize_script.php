@@ -103,7 +103,6 @@ foreach ($users as $user) {
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
-	Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 	$app->run();
 
 	if (!invalidateHttpCache()) {

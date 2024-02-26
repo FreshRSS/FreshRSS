@@ -274,7 +274,29 @@ SQL;
 	}
 
 	/**
-	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by feed ID.
+	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by read / unread.
+	 * @return array{'all':int,'unread':int,'read':int}
+	 */
+	public function countNewEntries(): array {
+		$sql = <<<'SQL'
+		SELECT is_read, COUNT(id) AS nb_entries FROM `_entrytmp`
+		GROUP BY is_read
+		SQL;
+		$lines = $this->fetchAssoc($sql) ?? [];
+		$nbRead = 0;
+		$nbUnread = 0;
+		foreach ($lines as $line) {
+			if (empty($line['is_read'])) {
+				$nbUnread = (int)($line['nb_entries'] ?? 0);
+			} else {
+				$nbRead = (int)($line['nb_entries'] ?? 0);
+			}
+		}
+		return ['all' => $nbRead + $nbUnread, 'unread' => $nbUnread, 'read' => $nbRead];
+	}
+
+	/**
+	 * Count the number of new unread entries in the temporary table (which have not yet been committed), grouped by feed ID.
 	 * @return array<int,int>
 	 */
 	public function newUnreadEntriesPerFeed(): array {
