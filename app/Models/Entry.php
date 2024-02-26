@@ -314,7 +314,7 @@ HTML;
 	}
 
 	/**
-	 * @return array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}|null
+	 * @return array{'url':string,'height'?:int,'width'?:int,'time'?:string}|null
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
@@ -813,6 +813,28 @@ HTML;
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
 		];
+	}
+
+	/**
+	 * @return array{array<string>,array<string>} Array of first tags to show, then array of remaining tags
+	 */
+	public function tagsFormattingHelper(): array {
+		$firstTags = [];
+		$remainingTags = [];
+
+		if (FreshRSS_Context::hasUserConf() && in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'f', 'h'], true)) {
+			$maxTagsDisplayed = (int)FreshRSS_Context::userConf()->show_tags_max;
+			$tags = $this->tags();
+			if (!empty($tags)) {
+				if ($maxTagsDisplayed > 0) {
+					$firstTags = array_slice($tags, 0, $maxTagsDisplayed);
+					$remainingTags = array_slice($tags, $maxTagsDisplayed);
+				} else {
+					$firstTags = $tags;
+				}
+			}
+		}
+		return [$firstTags,$remainingTags];
 	}
 
 	/**

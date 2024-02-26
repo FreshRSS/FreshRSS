@@ -107,7 +107,8 @@ final class FreshRSS_dotpath_Util
 		$view = new FreshRSS_View();
 		$view->_path('index/rss.phtml');
 		$view->internal_rendering = true;
-		$view->rss_url = $feedSourceUrl;
+		$view->rss_url = htmlspecialchars($feedSourceUrl, ENT_COMPAT, 'UTF-8');
+		$view->html_url = $view->rss_url;
 		$view->entries = [];
 
 		$view->rss_title = isset($dotPaths['feedTitle'])
