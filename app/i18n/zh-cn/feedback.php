@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => '服务器未启用 ZIP 扩展，请尝试逐个导出文件。',
-		'feeds_imported' => '你的订阅源已导入，即将刷新 / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误 / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => '你的订阅源已导入，你可以点击 <i>更新订阅</i> 按钮以完成导入。',
+		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误。你可以点击 <i>更新订阅</i> 按钮以完成导入。',
 		'file_cannot_be_uploaded' => '文件未能上传！',
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
 		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '标签 “%s” 已创建。',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => '标签名已存在。',
 		'renamed' => '标签 “%s” 已被重命名为 “%s”。',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',

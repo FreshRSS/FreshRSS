@@ -16,7 +16,7 @@ return array(
 		'not_found' => 'A kért oldal nem található',
 	),
 	'admin' => array(
-		'optimization_complete' => 'Optimizáció kész',
+		'optimization_complete' => 'Optimalizáció kész',
 	),
 	'api' => array(
 		'password' => array(
@@ -43,11 +43,11 @@ return array(
 		'already_enabled' => '%s már be van kapcsolva',
 		'cannot_remove' => '%s nem távolítható el',
 		'disable' => array(
-			'ko' => '%s nem kapcsolható ki. <a href="%s">nézd meg a FreshRSS logokat</a> a részletekért.',
+			'ko' => '%s nem kapcsolható ki. <a href="%s">nézd meg a FreshRSS log-okat</a> a részletekért.',
 			'ok' => '%s kikapcsolása sikeres',
 		),
 		'enable' => array(
-			'ko' => '%s nem kapcsolható be. <a href="%s">nézd meg a FreshRSS logokat</a> a részletekért.',
+			'ko' => '%s nem kapcsolható be. <a href="%s">nézd meg a FreshRSS log-okat</a> a részletekért.',
 			'ok' => '%s bekapcsolása sikeres',
 		),
 		'no_access' => 'Nincs hozzáférésed a %s',
@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'A ZIP kiterjesztés nem létezik a szerveren. Exportáld a fájlokat egyesével.',
-		'feeds_imported' => 'A hírlisták importálása megtörtént és most frissítésre kerülnek / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'A hírlisták importálása megtörtént, de néhány hiba történt / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'A hírlisták importálása megtörtént és most frissítésre kerülnek / A hírlistáit importáltuk. Ha végzett az importálással, most rákattinthat a <i>Hírlisták frissítése</i> gombra.',
+		'feeds_imported_with_errors' => 'A hírlisták importálása megtörtént, de néhány hiba történt / A hírlistáit importáltuk, de néhány hiba történt. Ha végzett az importálással, most rákattinthat a <i>Hírlisták frissítése</i> gombra.',
 		'file_cannot_be_uploaded' => 'Fájl nem feltölthető!',
 		'no_zip_extension' => 'A ZIP kiterjesztés nem létezik a szerveren.',
 		'zip_error' => 'Hiba történt a ZIP feldolgozása közben.',
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Címke “%s” létrehozva.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Címke név már létezik.',
 		'renamed' => 'Címke “%s” átnevezve “%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'Egy FreshRSS frissítés elérhető : <strong>Verzió %s</strong>.',

@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Etykieta “%s” została stworzona.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
 		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',

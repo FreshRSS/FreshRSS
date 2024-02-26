@@ -30,8 +30,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
-				/** @var array<array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
-				 * 	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'ttl':int,'attributes':string}> $feeds */
+				/** @var array<array{'id':int,'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
+				 * 	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'keep_history':?int,'ttl':int,'attributes':string}> $feeds */
 				$feeds = $this->fetchAssoc('SELECT * FROM `_feed`') ?? [];
 
 				$stm = $this->pdo->prepare('UPDATE `_feed` SET attributes = :attributes WHERE id = :id');
@@ -101,7 +101,6 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	/**
 	 * @param array{'name':string,'id'?:int,'kind'?:int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string|array<string,mixed>} $valuesTmp
 	 * @return int|false
-	 * @throws JsonException
 	 */
 	public function addCategory(array $valuesTmp) {
 		// TRIM() to provide a type hint as text
@@ -153,9 +152,8 @@ SQL;
 	}
 
 	/**
-	 * @param array{'name':string,'kind':int,'attributes'?:string|array<string,mixed>} $valuesTmp
+	 * @param array{'name':string,'kind':int,'attributes'?:array<string,mixed>|mixed|null} $valuesTmp
 	 * @return int|false
-	 * @throws JsonException
 	 */
 	public function updateCategory(int $id, array $valuesTmp) {
 		// No tag of the same name
@@ -230,6 +228,7 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				/** @var array{'id':int,'name':string,'kind':int,'lastUpdate':int,'error':int,'attributes'?:array<string,mixed>} $row */
 				yield $row;
 			}
 		} else {
@@ -245,26 +244,26 @@ SQL;
 	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$res = $this->fetchAssoc($sql, ['id' => $id]) ?? [];
-		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
-		$cat = self::daoToCategory($res);
-		return $cat[0] ?? null;
+		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate':int,'error':int|bool,'attributes':string}> $res */
+		$categories = self::daoToCategories($res);
+		return reset($categories) ?: null;
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE name=:name';
 		$res = $this->fetchAssoc($sql, ['name' => $name]) ?? [];
-		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
-		$cat = self::daoToCategory($res);
-		return $cat[0] ?? null;
+		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate':int,'error':int|bool,'attributes':string}> $res */
+		$categories = self::daoToCategories($res);
+		return reset($categories) ?: null;
 	}
 
-	/** @return array<FreshRSS_Category> */
+	/** @return array<int,FreshRSS_Category> */
 	public function listSortedCategories(bool $prePopulateFeeds = true, bool $details = false): array {
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
 		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
-			$aPosition = $a->attributes('position');
-			$bPosition = $b->attributes('position');
+			$aPosition = $a->attributeInt('position');
+			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
 				return ($a->name() < $b->name()) ? -1 : 1;
 			} elseif (null === $aPosition) {
@@ -278,7 +277,7 @@ SQL;
 		return $categories;
 	}
 
-	/** @return array<FreshRSS_Category> */
+	/** @return array<int,FreshRSS_Category> */
 	public function listCategories(bool $prePopulateFeeds = true, bool $details = false): array {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes, '
@@ -294,7 +293,7 @@ SQL;
 				$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
 				/** @var array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,
 				 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'category'?:int,'website'?:string,'priority'?:int,'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $res */
-				return self::daoToCategoryPrepopulated($res);
+				return self::daoToCategoriesPrepopulated($res);
 			} else {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				if ($this->autoUpdateDb($info)) {
@@ -306,11 +305,11 @@ SQL;
 		} else {
 			$res = $this->fetchAssoc('SELECT * FROM `_category` ORDER BY name');
 			/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
-			return $res == null ? [] : self::daoToCategory($res);
+			return empty($res) ? [] : self::daoToCategories($res);
 		}
 	}
 
-	/** @return array<FreshRSS_Category> */
+	/** @return array<int,FreshRSS_Category> */
 	public function listCategoriesOrderUpdate(int $defaultCacheDuration = 86400, int $limit = 0): array {
 		$sql = 'SELECT * FROM `_category` WHERE kind = :kind AND `lastUpdate` < :lu ORDER BY `lastUpdate`'
 			. ($limit < 1 ? '' : ' LIMIT ' . $limit);
@@ -319,7 +318,7 @@ SQL;
 			$stm->bindValue(':kind', FreshRSS_Category::KIND_DYNAMIC_OPML, PDO::PARAM_INT) &&
 			$stm->bindValue(':lu', time() - $defaultCacheDuration, PDO::PARAM_INT) &&
 			$stm->execute()) {
-			return self::daoToCategory($stm->fetchAll(PDO::FETCH_ASSOC));
+			return self::daoToCategories($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
 			$info = $stm ? $stm->errorInfo() : $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -332,11 +331,11 @@ SQL;
 
 	public function getDefault(): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
-		$res = $this->fetchAssoc($sql, [':id' => self::DEFAULTCATEGORYID]);
+		$res = $this->fetchAssoc($sql, [':id' => self::DEFAULTCATEGORYID]) ?? [];
 		/** @var array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $res */
-		$cat = self::daoToCategory($res ?? []);
-		if (isset($cat[0])) {
-			return $cat[0];
+		$categories = self::daoToCategories($res);
+		if (isset($categories[self::DEFAULTCATEGORYID])) {
+			return $categories[self::DEFAULTCATEGORYID];
 		} else {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS database error: Default category not found!' . "\n");
@@ -351,8 +350,7 @@ SQL;
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {
-			$cat = new FreshRSS_Category(_t('gen.short.default_category'));
-			$cat->_id(self::DEFAULTCATEGORYID);
+			$cat = new FreshRSS_Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
 
 			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
 			if ($this->pdo->dbType() === 'pgsql') {
@@ -396,40 +394,13 @@ SQL;
 		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
-	/** @param array<FreshRSS_Category> $categories */
-	public static function findFeed(array $categories, int $feed_id): ?FreshRSS_Feed {
-		foreach ($categories as $category) {
-			foreach ($category->feeds() as $feed) {
-				if ($feed->id() === $feed_id) {
-					return $feed;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @param array<FreshRSS_Category> $categories
-	 */
-	public static function countUnread(array $categories, int $minPriority = 0): int {
-		$n = 0;
-		foreach ($categories as $category) {
-			foreach ($category->feeds() as $feed) {
-				if ($feed->priority() >= $minPriority) {
-					$n += $feed->nbNotRead();
-				}
-			}
-		}
-		return $n;
-	}
-
 	/**
 	 * @param array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,
 	 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'website'?:string,'priority'?:int,
 	 * 	'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category>
 	 */
-	private static function daoToCategoryPrepopulated(array $listDAO) {
+	private static function daoToCategoriesPrepopulated(array $listDAO): array {
 		$list = [];
 		$previousLine = [];
 		$feedsDao = [];
@@ -441,12 +412,12 @@ SQL;
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
-					$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
+					$previousLine['c_id'],
+					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
 				);
-				$cat->_id($previousLine['c_id']);
 				$cat->_kind($previousLine['c_kind']);
-				$cat->_attributes('', $previousLine['c_attributes'] ?? '[]');
-				$list[(int)$previousLine['c_id']] = $cat;
+				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
+				$list[$cat->id()] = $cat;
 
 				$feedsDao = [];	//Prepare for next category
 			}
@@ -459,14 +430,14 @@ SQL;
 		if ($previousLine != null) {
 			$cat = new FreshRSS_Category(
 				$previousLine['c_name'],
-				$feedDao::daoToFeed($feedsDao, $previousLine['c_id'])
+				$previousLine['c_id'],
+				$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
 			);
-			$cat->_id($previousLine['c_id']);
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
 			$cat->_error($previousLine['c_error'] ?? 0);
-			$cat->_attributes('', $previousLine['c_attributes'] ?? []);
-			$list[(int)$previousLine['c_id']] = $cat;
+			$cat->_attributes($previousLine['c_attributes'] ?? []);
+			$list[$cat->id()] = $cat;
 		}
 
 		return $list;
@@ -474,24 +445,22 @@ SQL;
 
 	/**
 	 * @param array<array{'name':string,'id':int,'kind':int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string}> $listDAO
-	 * @return array<FreshRSS_Category>
+	 * @return array<int,FreshRSS_Category>
 	 */
-	private static function daoToCategory(array $listDAO): array {
+	private static function daoToCategories(array $listDAO): array {
 		$list = [];
-
 		foreach ($listDAO as $dao) {
 			FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'kind', 'lastUpdate', 'error']);
 			$cat = new FreshRSS_Category(
-				$dao['name']
+				$dao['name'],
+				$dao['id']
 			);
-			$cat->_id($dao['id']);
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
 			$cat->_error($dao['error'] ?? 0);
-			$cat->_attributes('', $dao['attributes'] ?? '');
-			$list[] = $cat;
+			$cat->_attributes($dao['attributes'] ?? '');
+			$list[$cat->id()] = $cat;
 		}
-
 		return $list;
 	}
 }

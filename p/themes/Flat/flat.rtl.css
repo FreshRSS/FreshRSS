@@ -5,7 +5,7 @@
 html, body {
 	background: #fafafa;
 	color: black;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -176,7 +176,6 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: #3498db;
-	display: inline-block;
 	color: #fff;
 	font-size: 0.9rem;
 	border: none;
@@ -187,8 +186,6 @@ form th {
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .btn:hover {

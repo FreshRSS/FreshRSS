@@ -49,7 +49,7 @@
 html, body {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -208,7 +208,6 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: var(--background-color-dark);
-	display: inline-block;
 	color: var(--font-color-middle);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-middle);
@@ -217,8 +216,6 @@ form th {
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .btn:hover {

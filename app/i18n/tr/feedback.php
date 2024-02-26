@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '“%s” etiketi oluşturuldu.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Etiket zaten mevcut.',
 		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',

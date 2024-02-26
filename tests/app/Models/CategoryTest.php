@@ -51,7 +51,7 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 			->method('name')
 			->willReturn('lll');
 
-		$category = new FreshRSS_Category('test', [
+		$category = new FreshRSS_Category('test', 0, [
 			$feed_1,
 			$feed_2,
 			$feed_3,
@@ -59,9 +59,12 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		$feeds = $category->feeds();
 
 		self::assertCount(3, $feeds);
-		self::assertEquals('AAA', $feeds[0]->name());
-		self::assertEquals('lll', $feeds[1]->name());
-		self::assertEquals('ZZZ', $feeds[2]->name());
+		$feed = reset($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('AAA', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('lll', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('ZZZ', $feed->name());
 
 		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject */
 		$feed_4 = $this->getMockBuilder(FreshRSS_Feed::class)
@@ -75,9 +78,13 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		$feeds = $category->feeds();
 
 		self::assertCount(4, $feeds);
-		self::assertEquals('AAA', $feeds[0]->name());
-		self::assertEquals('BBB', $feeds[1]->name());
-		self::assertEquals('lll', $feeds[2]->name());
-		self::assertEquals('ZZZ', $feeds[3]->name());
+		$feed = reset($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('AAA', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('BBB', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('lll', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('ZZZ', $feed->name());
 	}
 }

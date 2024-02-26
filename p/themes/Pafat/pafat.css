@@ -90,7 +90,7 @@
 html, body {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-grey);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -234,7 +234,6 @@ form th {
 	margin: 0;
 	padding: 1px 5px;
 	background-color: var(--background-color-white);
-	display: inline-block;
 	color: var(--font-color-grey);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-grey-dark);
@@ -243,8 +242,6 @@ form th {
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .read_all.btn {

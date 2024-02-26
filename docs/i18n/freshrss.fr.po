@@ -8387,14 +8387,6 @@ msgstr ""
 "simultanément : »"
 
 #. type: Plain text
-#: en/./users/09_refreshing_feeds.md:64
-msgid ""
-"- Parameter \"force\" <https://freshrss.example.net/i/?"
-"c=feed&a=actualize&force=1> If *force* is set to 1 all feeds will be "
-"refreshed at once."
-msgstr ""
-
-#. type: Plain text
 #: en/./users/09_refreshing_feeds.md:68
 msgid ""
 "- Parameter \"ajax\" <https://freshrss.example.net/i/?"
@@ -8826,7 +8818,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./users/10_filter.md:93
 msgid "by free-text: `keyword` or `'composed keyword'`"
-msgstr "par texte libre : `mot` or `'mot composé'`"
+msgstr "par texte libre : `mot` ou `'mot composé'`"
 
 #. type: Bullet: '* '
 #: en/./users/10_filter.md:93

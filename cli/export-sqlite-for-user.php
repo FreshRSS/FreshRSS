@@ -3,21 +3,28 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type'] ?? '');
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = [
-	'user:',
-	'filename:',
+$parameters = [
+	'long' => [
+		'user' => ':',
+		'filename' => ':',
+	],
+	'short' => [],
+	'deprecated' => [],
 ];
 
-$options = getopt('', $params);
+$options = parseCliParams($parameters);
 
-if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename']) || !is_string($options['user']) || !is_string($options['filename'])) {
+if (!empty($options['invalid'])
+	|| empty($options['valid']['user']) || empty($options['valid']['filename'])
+	|| !is_string($options['valid']['user']) || !is_string($options['valid']['filename'])
+) {
 	fail('Usage: ' . basename(__FILE__) . ' --user username --filename /path/to/db.sqlite');
 }
 
-$username = cliInitUser($options['user']);
-$filename = $options['filename'];
+$username = cliInitUser($options['valid']['user']);
+$filename = $options['valid']['filename'];
 
 if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 	fail('Only *.sqlite files are supported!');

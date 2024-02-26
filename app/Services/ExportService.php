@@ -20,6 +20,8 @@ class FreshRSS_Export_Service {
 	public const TYPE_HTML_XPATH = 'HTML+XPath';
 	public const TYPE_XML_XPATH = 'XML+XPath';
 	public const TYPE_RSS_ATOM = 'rss';
+	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';
+	public const TYPE_JSONFEED = 'JSONFeed';
 
 	/**
 	 * Initialize the service for the given user.
@@ -90,14 +92,15 @@ class FreshRSS_Export_Service {
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
-		$feed = $this->feed_dao->searchById($feed_id);
+		$view = new FreshRSS_View();
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
+
+		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
 			return null;
 		}
-
-		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$view->feed = $feed;
+
 		$day = date('Y-m-d');
 		$filename = "feed_{$day}_" . $feed->categoryId() . '_' . $feed->id() . '.json';
 

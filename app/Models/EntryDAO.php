@@ -95,7 +95,7 @@ SQL;
 	private $addEntryPrepared = false;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
-	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
+	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
 			$sql = static::sqlIgnoreConflict(
@@ -274,6 +274,48 @@ SQL;
 	}
 
 	/**
+	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by read / unread.
+	 * @return array{'all':int,'unread':int,'read':int}
+	 */
+	public function countNewEntries(): array {
+		$sql = <<<'SQL'
+		SELECT is_read, COUNT(id) AS nb_entries FROM `_entrytmp`
+		GROUP BY is_read
+		SQL;
+		$lines = $this->fetchAssoc($sql) ?? [];
+		$nbRead = 0;
+		$nbUnread = 0;
+		foreach ($lines as $line) {
+			if (empty($line['is_read'])) {
+				$nbUnread = (int)($line['nb_entries'] ?? 0);
+			} else {
+				$nbRead = (int)($line['nb_entries'] ?? 0);
+			}
+		}
+		return ['all' => $nbRead + $nbUnread, 'unread' => $nbUnread, 'read' => $nbRead];
+	}
+
+	/**
+	 * Count the number of new unread entries in the temporary table (which have not yet been committed), grouped by feed ID.
+	 * @return array<int,int>
+	 */
+	public function newUnreadEntriesPerFeed(): array {
+		$sql = <<<'SQL'
+		SELECT id_feed, COUNT(id) AS nb_entries FROM `_entrytmp`
+		WHERE is_read = 0
+		GROUP BY id_feed
+		SQL;
+		$lines = $this->fetchAssoc($sql) ?? [];
+		$result = [];
+		foreach ($lines as $line) {
+			if (!empty($line['id_feed'])) {
+				$result[(int)$line['id_feed']] = (int)($line['nb_entries'] ?? 0);
+			}
+		}
+		return $result;
+	}
+
+	/**
 	 * Toggle favorite marker on one or more article
 	 *
 	 * @todo simplify the query by removing the str_repeat. I am pretty sure
@@ -295,7 +337,7 @@ SQL;
 			$affected = 0;
 			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
-				$affected += $this->markFavorite($idsChunk, $is_favorite);
+				$affected += ($this->markFavorite($idsChunk, $is_favorite) ?: 0);
 			}
 			return $affected;
 		}
@@ -367,7 +409,7 @@ SQL;
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
 				foreach ($ids as $id) {
-					$affected += $this->markRead($id, $is_read);
+					$affected += ($this->markRead($id, $is_read) ?: 0);
 				}
 				return $affected;
 			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
@@ -375,7 +417,7 @@ SQL;
 				$affected = 0;
 				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
-					$affected += $this->markRead($idsChunk, $is_read);
+					$affected += ($this->markRead($idsChunk, $is_read) ?: 0);
 				}
 				return $affected;
 			}
@@ -610,7 +652,7 @@ SQL;
 
 	/**
 	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
-	 * @param array<string,int|bool|string> $options
+	 * @param array<string,bool|int|string> $options
 	 * @return int|false
 	 */
 	public function cleanOldEntries(int $id_feed, array $options = []) {
@@ -673,17 +715,22 @@ SQL;
 	}
 
 	/** @return Traversable<array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
-	 *		'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}> */
-	public function selectAll(): Traversable {
+	 *		'hash':string,'is_read':bool,'is_favorite':bool,'id_feed':int,'tags':string,'attributes':?string}> */
+	public function selectAll(?int $limit = null): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
 SQL;
+		if (is_int($limit) && $limit >= 0) {
+			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
+		}
 		$stm = $this->pdo->query($sql);
 		if ($stm != false) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+				/** @var array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
+				 *	'hash':string,'is_read':bool,'is_favorite':bool,'id_feed':int,'tags':string,'attributes':?string} $row */
 				yield $row;
 			}
 		} else {
@@ -705,7 +752,7 @@ FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
 		/** @var array<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string}> $res */
+		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes':?string}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -718,7 +765,7 @@ FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
 		/** @var array<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string}> $res */
+		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes':?string}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -757,7 +804,7 @@ SQL;
 			}
 			// Searches are combined by OR and are not recursive
 			$sub_search = '';
-			if ($filter->getEntryIds()) {
+			if ($filter->getEntryIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id IN (';
 				foreach ($filter->getEntryIds() as $entry_id) {
 					$sub_search .= '?,';
@@ -766,7 +813,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotEntryIds()) {
+			if ($filter->getNotEntryIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id NOT IN (';
 				foreach ($filter->getNotEntryIds() as $entry_id) {
 					$sub_search .= '?,';
@@ -776,56 +823,56 @@ SQL;
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getMinDate()) {
+			if ($filter->getMinDate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id >= ? ';
 				$values[] = "{$filter->getMinDate()}000000";
 			}
-			if ($filter->getMaxDate()) {
+			if ($filter->getMaxDate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id <= ? ';
 				$values[] = "{$filter->getMaxDate()}000000";
 			}
-			if ($filter->getMinPubdate()) {
+			if ($filter->getMinPubdate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'date >= ? ';
 				$values[] = $filter->getMinPubdate();
 			}
-			if ($filter->getMaxPubdate()) {
+			if ($filter->getMaxPubdate() !== null) {
 				$sub_search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
 
 			//Negation of date intervals must be combined by OR
-			if ($filter->getNotMinDate() || $filter->getNotMaxDate()) {
+			if ($filter->getNotMinDate() !== null || $filter->getNotMaxDate() !== null) {
 				$sub_search .= 'AND (';
-				if ($filter->getNotMinDate()) {
+				if ($filter->getNotMinDate() !== null) {
 					$sub_search .= $alias . 'id < ?';
 					$values[] = "{$filter->getNotMinDate()}000000";
 					if ($filter->getNotMaxDate()) {
 						$sub_search .= ' OR ';
 					}
 				}
-				if ($filter->getNotMaxDate()) {
+				if ($filter->getNotMaxDate() !== null) {
 					$sub_search .= $alias . 'id > ?';
 					$values[] = "{$filter->getNotMaxDate()}000000";
 				}
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotMinPubdate() || $filter->getNotMaxPubdate()) {
+			if ($filter->getNotMinPubdate() !== null || $filter->getNotMaxPubdate() !== null) {
 				$sub_search .= 'AND (';
-				if ($filter->getNotMinPubdate()) {
+				if ($filter->getNotMinPubdate() !== null) {
 					$sub_search .= $alias . 'date < ?';
 					$values[] = $filter->getNotMinPubdate();
 					if ($filter->getNotMaxPubdate()) {
 						$sub_search .= ' OR ';
 					}
 				}
-				if ($filter->getNotMaxPubdate()) {
+				if ($filter->getNotMaxPubdate() !== null) {
 					$sub_search .= $alias . 'date > ?';
 					$values[] = $filter->getNotMaxPubdate();
 				}
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getFeedIds()) {
+			if ($filter->getFeedIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id_feed IN (';
 				foreach ($filter->getFeedIds() as $feed_id) {
 					$sub_search .= '?,';
@@ -834,7 +881,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ') ';
 			}
-			if ($filter->getNotFeedIds()) {
+			if ($filter->getNotFeedIds() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id_feed NOT IN (';
 				foreach ($filter->getNotFeedIds() as $feed_id) {
 					$sub_search .= '?,';
@@ -844,7 +891,7 @@ SQL;
 				$sub_search .= ') ';
 			}
 
-			if ($filter->getLabelIds()) {
+			if ($filter->getLabelIds() !== null) {
 				if ($filter->getLabelIds() === '*') {
 					$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
 				} else {
@@ -857,7 +904,7 @@ SQL;
 					$sub_search .= ')) ';
 				}
 			}
-			if ($filter->getNotLabelIds()) {
+			if ($filter->getNotLabelIds() !== null) {
 				if ($filter->getNotLabelIds() === '*') {
 					$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
 				} else {
@@ -871,7 +918,7 @@ SQL;
 				}
 			}
 
-			if ($filter->getLabelNames()) {
+			if ($filter->getLabelNames() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
 				foreach ($filter->getLabelNames() as $label_name) {
 					$sub_search .= '?,';
@@ -880,7 +927,7 @@ SQL;
 				$sub_search = rtrim($sub_search, ',');
 				$sub_search .= ')) ';
 			}
-			if ($filter->getNotLabelNames()) {
+			if ($filter->getNotLabelNames() !== null) {
 				$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
 				foreach ($filter->getNotLabelNames() as $label_name) {
 					$sub_search .= '?,';
@@ -890,57 +937,57 @@ SQL;
 				$sub_search .= ')) ';
 			}
 
-			if ($filter->getAuthor()) {
+			if ($filter->getAuthor() !== null) {
 				foreach ($filter->getAuthor() as $author) {
 					$sub_search .= 'AND ' . $alias . 'author LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
-			if ($filter->getIntitle()) {
+			if ($filter->getIntitle() !== null) {
 				foreach ($filter->getIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
-			if ($filter->getTags()) {
+			if ($filter->getTags() !== null) {
 				foreach ($filter->getTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' LIKE ? ';
 					$values[] = "%{$tag} #%";
 				}
 			}
-			if ($filter->getInurl()) {
+			if ($filter->getInurl() !== null) {
 				foreach ($filter->getInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
-			if ($filter->getNotAuthor()) {
+			if ($filter->getNotAuthor() !== null) {
 				foreach ($filter->getNotAuthor() as $author) {
 					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
 					$values[] = "%{$author}%";
 				}
 			}
-			if ($filter->getNotIntitle()) {
+			if ($filter->getNotIntitle() !== null) {
 				foreach ($filter->getNotIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
 				}
 			}
-			if ($filter->getNotTags()) {
+			if ($filter->getNotTags() !== null) {
 				foreach ($filter->getNotTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' NOT LIKE ? ';
 					$values[] = "%{$tag} #%";
 				}
 			}
-			if ($filter->getNotInurl()) {
+			if ($filter->getNotInurl() !== null) {
 				foreach ($filter->getNotInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
 
-			if ($filter->getSearch()) {
+			if ($filter->getSearch() !== null) {
 				foreach ($filter->getSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
@@ -952,7 +999,7 @@ SQL;
 					}
 				}
 			}
-			if ($filter->getNotSearch()) {
+			if ($filter->getNotSearch() !== null) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ? ';
@@ -982,10 +1029,11 @@ SQL;
 	/**
 	 * @param 'ASC'|'DESC' $order
 	 * @return array{0:array<int|string>,1:string}
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	protected function sqlListEntriesWhere(string $alias = '', ?FreshRSS_BooleanSearch $filters = null,
 			int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', string $firstId = '', int $date_min = 0) {
+			string $order = 'DESC', string $firstId = '', int $date_min = 0): array {
 		$search = ' ';
 		$values = [];
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
@@ -1034,10 +1082,11 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param 'ASC'|'DESC' $order
 	 * @return array{0:array<int|string>,1:string}
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
-			int $date_min = 0) {
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
+			int $date_min = 0): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -1093,7 +1142,9 @@ SQL;
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
-			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($offset > 0 ? ' OFFSET ' . $offset : '')
+		];
 	}
 
 	/**
@@ -1101,11 +1152,12 @@ SQL;
 	 * @param 'ASC'|'DESC' $order
 	 * @param int $id category/feed/tag ID
 	 * @return PDOStatement|false
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
 			int $date_min = 0) {
-		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 
 		if ($order !== 'DESC' && $order !== 'ASC') {
 			$order = 'DESC';
@@ -1124,7 +1176,7 @@ SQL;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+				return $this->listWhereRaw($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
@@ -1136,16 +1188,19 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param 'ASC'|'DESC' $order
 	 * @return Traversable<FreshRSS_Entry>
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '',
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '',
 			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0): Traversable {
-		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
-				yield FreshRSS_Entry::fromArray($row);
+				if (is_array($row)) {
+					/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+					 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:?string} $row */
+					yield FreshRSS_Entry::fromArray($row);
+				}
 			}
 		}
 	}
@@ -1186,9 +1241,11 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-			 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:string} $row */
-			yield FreshRSS_Entry::fromArray($row);
+			if (is_array($row)) {
+				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
+				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes':?string} $row */
+				yield FreshRSS_Entry::fromArray($row);
+			}
 		}
 	}
 
@@ -1197,11 +1254,12 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param 'ASC'|'DESC' $order
 	 * @return array<numeric-string>|null
+	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
+		string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
 
-		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
+		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $offset, $firstId, $filters);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values) && ($res = $stm->fetchAll(PDO::FETCH_COLUMN, 0)) !== false) {
 			/** @var array<numeric-string> $res */
@@ -1263,7 +1321,7 @@ SQL;
 			$affected = 0;
 			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
-				$affected += $this->updateLastSeen($id_feed, $guidsChunk, $mtime);
+				$affected += ($this->updateLastSeen($id_feed, $guidsChunk, $mtime) ?: 0);
 			}
 			return $affected;
 		}

@@ -178,7 +178,7 @@ return array(
 		'queries' => '自定义查询',
 		'reading' => '阅读',
 		'search' => '搜索内容或#标签',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => '查阅文档获取支持的 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜索参数</a>',
 		'sharing' => '分享',
 		'shortcuts' => '快捷键',
 		'stats' => '统计',

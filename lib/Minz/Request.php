@@ -58,7 +58,7 @@ class Minz_Request {
 		}
 	}
 
-	/** @return array<string|int,string|array<string,string>> */
+	/** @return array<string|int,string|array<string,string|int>> */
 	public static function paramArray(string $key, bool $specialchars = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];
@@ -89,8 +89,8 @@ class Minz_Request {
 	}
 
 	public static function paramInt(string $key): int {
-		if (!empty(self::$params[$key])) {
-			return intval(self::$params[$key]);
+		if (!empty(self::$params[$key]) && is_numeric(self::$params[$key])) {
+			return (int)self::$params[$key];
 		}
 		return 0;
 	}
@@ -119,7 +119,7 @@ class Minz_Request {
 	 * @return array<string>
 	 */
 	public static function paramTextToArray(string $key, array $default = []): array {
-		if (isset(self::$params[$key])) {
+		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
 			return preg_split('/\R/', self::$params[$key]) ?: [];
 		}
 		return $default;
@@ -162,11 +162,11 @@ class Minz_Request {
 	 * Setteurs
 	 */
 	public static function _controllerName(string $controller_name): void {
-		self::$controller_name = $controller_name;
+		self::$controller_name = ctype_alnum($controller_name) ? $controller_name : '';
 	}
 
 	public static function _actionName(string $action_name): void {
-		self::$action_name = $action_name;
+		self::$action_name = ctype_alnum($action_name) ? $action_name : '';
 	}
 
 	/** @param array<string,string> $params */
@@ -187,6 +187,7 @@ class Minz_Request {
 	 * Initialise la Request
 	 */
 	public static function init(): void {
+		self::_params($_GET);
 		self::initJSON();
 	}
 
@@ -283,6 +284,7 @@ class Minz_Request {
 
 	/**
 	 * Return the base_url from configuration
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function getBaseUrl(): string {
 		$conf = Minz_Configuration::get('system');
@@ -352,8 +354,11 @@ class Minz_Request {
 		self::setNotification('bad', $content);
 	}
 
-	/** @return array{type:string,content:string}|null */
-	public static function getNotification(): ?array {
+	/**
+	 * @param $pop true (default) to remove the notification, false to keep it.
+	 * @return array{type:string,content:string}|null
+	 */
+	public static function getNotification(bool $pop = true): ?array {
 		$notif = null;
 		Minz_Session::lock();
 		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
@@ -365,7 +370,9 @@ class Minz_Request {
 			$requestId = self::requestId();
 			if (!empty($requests[$requestId]['notification'])) {
 				$notif = $requests[$requestId]['notification'];
-				unset($requests[$requestId]);
+				if ($pop) {
+					unset($requests[$requestId]);
+				}
 			}
 			Minz_Session::_param('requests', $requests);
 		}
@@ -377,6 +384,7 @@ class Minz_Request {
 	 * Restart a request
 	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url an array presentation of the URL to route to
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function forward($url = [], bool $redirect = false): void {
 		if (empty(Minz_Request::originalRequest())) {
@@ -431,7 +439,7 @@ class Minz_Request {
 		if ($ORIGINAL_INPUT == false) {
 			return;
 		}
-		if (null === $json = json_decode($ORIGINAL_INPUT, true)) {
+		if (!is_array($json = json_decode($ORIGINAL_INPUT, true))) {
 			return;
 		}
 

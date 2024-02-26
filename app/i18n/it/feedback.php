@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',
 	),
 	'tag' => array(
-		'created' => 'Il Tag “%s” è stato creato.',	// DIRTY
-		'name_exists' => 'Il nome del tag è già presente.',	// DIRTY
-		'renamed' => 'Il Tag “%s” è stato rinominato in “%s”.',	// DIRTY
+		'created' => 'Il tag “%s” è stato creato.',
+		'error' => 'Il tag non può essere aggiornato!',
+		'name_exists' => 'Il nome del tag è già presente.',
+		'renamed' => 'Il tag “%s” è stato rinominato in “%s”.',
+		'updated' => 'Il tag è stato aggiornato.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',

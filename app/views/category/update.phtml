@@ -5,6 +5,6 @@ declare(strict_types=1);
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_subscription');
 }
-if ($this->category) {
+if ($this->category !== null) {
 	$this->renderHelper('category/update');
 }

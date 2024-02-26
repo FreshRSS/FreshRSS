@@ -39,10 +39,19 @@ class Minz_Mailer {
 	private int $debug_level;
 
 	/**
-	 * Constructor.
+	 * @phpstan-param class-string|'' $viewType
+	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
+	 * @throws Minz_ConfigurationException
 	 */
-	public function __construct () {
-		$this->view = new Minz_View();
+	public function __construct(string $viewType = '') {
+		$view = null;
+		if ($viewType !== '' && class_exists($viewType)) {
+			$view = new $viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
+		}
+		$this->view = $view ?? new Minz_View();
 		$this->view->_layout(null);
 		$this->view->attributeParams();
 
