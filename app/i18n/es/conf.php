@@ -120,20 +120,33 @@ return [
 			'feeds' => 'Mostrar por feed',
 			'order' => 'Ordenar por fecha',
 			'search' => 'Expresión',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Estado',
 			'tags' => 'Mostrar por etiqueta',
 			'type' => 'Tipo',
 		],
 		'get_all' => 'Mostrar todos los artículos',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostrar la categoría “%s”',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nombre',
 		'no_filter' => 'Sin filtro',
 		'number' => 'Consulta n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
 		'search' => 'Buscar “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
 		'state_2' => 'Mostrar artículos pendientes',

@@ -41,7 +41,7 @@ declare(strict_types=1);
  * @property bool $onread_jump_next
  * @property string $passwordHash
  * @property int $posts_per_page
- * @property array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $queries
+ * @property array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}> $queries
  * @property bool $reading_confirm
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread
@@ -75,10 +75,28 @@ declare(strict_types=1);
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
 
-	/** @throws Minz_ConfigurationNamespaceException */
+	/** @throws Minz_FileNotExistException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
-		return parent::get('user');
+		try {
+			return parent::get('user');
+		} catch (Minz_ConfigurationNamespaceException $ex) {
+			FreshRSS::killApp($ex->getMessage());
+		}
+	}
+
+	/**
+	 * Access the default configuration for users.
+	 * @throws Minz_FileNotExistException
+	 */
+	public static function default(): FreshRSS_UserConfiguration {
+		static $default_user_conf = null;
+		if ($default_user_conf == null) {
+			$namespace = 'user_default';
+			FreshRSS_UserConfiguration::register($namespace, '_', FRESHRSS_PATH . '/config-user.default.php');
+			$default_user_conf = FreshRSS_UserConfiguration::get($namespace);
+		}
+		return $default_user_conf;
 	}
 
 	/**

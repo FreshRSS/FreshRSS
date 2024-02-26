@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP (для опытных пользователей с HTTPS)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
-		'token' => 'Токен аутентификации',
-		'token_help' => 'Разрешает доступ к RSS-лентам пользователя по умолчанию без аутентификации:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Способ аутентификации',
 		'unsafe_autologin' => 'Разрешить небезопасный автоматический вход с использованием следующего формата: ',
 	],

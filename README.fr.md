@@ -15,7 +15,11 @@ Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de
 Grâce au standard [WebSub](https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html),
 FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, Medium, etc.
 
-FreshRSS supporte nativement le moissonnage du Web (Web Scraping) basique, basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
+FreshRSS supporte nativement le [moissonnage du Web (Web Scraping)](https://freshrss.github.io/FreshRSS/en/users/11_website_scraping.html) basique,
+basé sur [XPath](https://www.w3.org/TR/xpath-10/), pour les sites Web sans flux RSS / Atom.
+Supporte aussi les documents JSON.
+
+FreshRSS permet de [repartager des sélections d’articles par HTML, RSS, et OPML](https://freshrss.github.io/FreshRSS/en/users/user_queries.html).
 
 Plusieurs [méthodes de connexion](https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html) sont supportées : formulaire Web (avec un mode anonyme), Authentification HTTP (compatible avec proxy), OpenID Connect.
 

@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
-		'token' => 'Ověřovací token',
-		'token_help' => 'Umožňuje přístup k výstupu RSS výchozího uživatele bez ověřování:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Metoda ověřování',
 		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
 	],

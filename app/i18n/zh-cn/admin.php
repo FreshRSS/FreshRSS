@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP（面向启用 HTTPS 的高级用户)',
 		'none' => '无（危险）',
 		'title' => '认证',
-		'token' => '认证口令',
-		'token_help' => '用于不经认证访问默认用户的 RSS 输出：',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
 	],

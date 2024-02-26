@@ -120,20 +120,33 @@ return [
 			'feeds' => '按订阅源显示',
 			'order' => '按日期排序',
 			'search' => '表达式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '状态',
 			'tags' => '按标签显示',
 			'type' => '类型',
 		],
 		'get_all' => '显示所有文章',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '显示分类 “%s”',
 		'get_favorite' => '显示收藏文章',
 		'get_feed' => '显示订阅源 “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => '名称',
 		'no_filter' => '无过滤器',
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧至新显示文章',
 		'order_desc' => '由新至旧显示文章',
 		'search' => '搜索 “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
 		'state_2' => '显示未读文章',

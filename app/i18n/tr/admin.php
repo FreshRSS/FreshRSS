@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'title' => 'Kimlik doğrulama',
-		'token' => 'Kimlik doğrulama işareti',
-		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Kimlik doğrulama yöntemi',
 		'unsafe_autologin' => 'Güvensiz otomatik girişe izin ver: ',
 	],

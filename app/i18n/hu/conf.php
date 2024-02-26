@@ -120,20 +120,33 @@ return [
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
 			'search' => 'Kifejezés',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Státusz',
 			'tags' => 'Rendezés címke szerint',
 			'type' => 'Típus',
 		],
 		'get_all' => 'Minden cikk megjelenítése',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Listáz “%s” kategóriát',
 		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
 		'number' => 'Lekérdezés %d',
 		'order_asc' => 'Régebbi cikkek előre',
 		'order_desc' => 'Újabb cikkek előre',
 		'search' => 'Keresse a “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Minden cikk',
 		'state_1' => 'Olvasott cikkek',
 		'state_2' => 'Olvasatlan cikkek',

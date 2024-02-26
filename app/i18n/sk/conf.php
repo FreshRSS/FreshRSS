@@ -120,20 +120,33 @@ return [
 			'feeds' => 'Zobraziť podľa kanála',
 			'order' => 'Zobraziť podľa dátumu',
 			'search' => 'Výraz',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Štát',
 			'tags' => 'Zobraziť podľa štítku',
 			'type' => 'Typ',
 		],
 		'get_all' => 'Zobraziť všetky články',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Zobraziť kategóriu “%s”',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
 		'search' => 'Vyhľadáva sa: “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Zobraziť všetky články',
 		'state_1' => 'Zobraziť prečítané články',
 		'state_2' => 'Zobraziť neprečítané články',

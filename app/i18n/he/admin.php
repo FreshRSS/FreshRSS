@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
-		'token' => 'מחרוזת אימות',
-		'token_help' => 'Allows to access RSS output of the default user without authentication:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'שיטת אימות',
 		'unsafe_autologin' => 'הרשאה להתחברות אוטומטית בפורמט: ',
 	],

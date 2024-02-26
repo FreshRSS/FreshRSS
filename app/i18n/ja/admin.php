@@ -19,8 +19,8 @@ return [
 		'http' => 'HTTP (上級者はHTTPSでも)',
 		'none' => 'なし (危険)',
 		'title' => '認証',
-		'token' => '認証トークン',
-		'token_help' => 'ユーザーが承認無しで、RSSを出力できるようにします。:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	],

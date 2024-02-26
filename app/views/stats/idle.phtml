@@ -29,7 +29,7 @@
 
 						$error_class = '';
 						$error_title = '';
-						if ($feed == null || $feed->inError()) {
+						if ($feed === null || $feed->inError()) {
 							$error_class = ' error';
 							$error_title = _t('sub.feed.error');
 						}
