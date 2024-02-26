@@ -20,6 +20,7 @@ declare(strict_types=1);
  * @property array<string,int> $limits
  * @property-read string $logo_html
  * @property-read string $meta_description
+ * @property-read int $nb_parallel_refresh
  * @property-read bool $pubsubhubbub_enabled
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled

@@ -12,23 +12,25 @@
 		<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<h1><?= _t('conf.query') ?></h1>
-
-			<?php foreach ($this->queries as $key => $query) { ?>
-			<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
-				<div class="box">
-					<div class="box-title">
-						<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
-						<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
-						<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
-						<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->getRawInput()) ?>"/>
-						<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
-						<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
-						<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
-					</div>
-					<?php if (!$query->hasParameters()) { ?>
-					<div class="box-content">
-						<div class="alert alert-warn">
-							<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+		<?php foreach ($this->queries as $key => $query) { ?>
+		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
+			<div class="box">
+				<div class="box-title">
+					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
+					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_token" name="queries[<?= $key ?>][token]" value="<?= $query->getToken() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_shareRss" name="queries[<?= $key ?>][token]" value="<?= $query->shareRss() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_shareOpml" name="queries[<?= $key ?>][token]" value="<?= $query->shareOpml() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->getRawInput()) ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
+				</div>
+				<?php if (!$query->hasParameters()) { ?>
+				<div class="box-content">
+					<div class="alert alert-warn">
+						<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
 						</div>
 					</div>
 					<?php } elseif ($query->isDeprecated()) { ?>

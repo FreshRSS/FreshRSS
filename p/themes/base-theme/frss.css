@@ -126,6 +126,10 @@ h2 {
 	line-height: 1.5;
 }
 
+.api > h2 {
+	text-align: center;
+}
+
 h2 .icon,
 legend .icon {
 	height: 0.8em;
