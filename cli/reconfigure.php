@@ -3,10 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-class ReconfigureDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class ReconfigureDefinition extends CommandLineParser {
 	public string $defaultUser;
 	public string $environment;
 	public string $baseUrl;
@@ -24,44 +21,45 @@ class ReconfigureDefinition {
 	public string $dbPassword;
 	public string $dbBase;
 	public string $dbPrefix;
+
+	public function __construct() {
+		$this->addOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
+		$this->addOption('environment', (new Option('environment')));
+		$this->addOption('baseUrl', (new Option('base-url'))->deprecatedAs('base_url'));
+		$this->addOption('language', (new Option('language')));
+		$this->addOption('title', (new Option('title')));
+		$this->addOption(
+			'allowAnonymous',
+			(new Option('allow-anonymous'))->withValueOptional('true')->deprecatedAs('allow_anonymous')->typeOfBool()
+		);
+		$this->addOption(
+			'allowAnonymousRefresh',
+			(new Option('allow-anonymous-refresh'))->withValueOptional('true')->deprecatedAs('allow_anonymous_refresh')->typeOfBool()
+		);
+		$this->addOption('authType', (new Option('auth-type'))->deprecatedAs('auth_type'));
+		$this->addOption(
+			'apiEnabled',
+			(new Option('api-enabled'))->withValueOptional('true')->deprecatedAs('api_enabled')->typeOfBool()
+		);
+		$this->addOption(
+			'allowRobots',
+			(new Option('allow-robots'))->withValueOptional('true')->deprecatedAs('allow_robots')->typeOfBool()
+		);
+		$this->addOption(
+			'disableUpdate',
+			(new Option('disable-update'))->withValueOptional('true')->deprecatedAs('disable_update')->typeOfBool()
+		);
+		$this->addOption('dbType', (new Option('db-type')));
+		$this->addOption('dbHost', (new Option('db-host')));
+		$this->addOption('dbUser', (new Option('db-user')));
+		$this->addOption('dbPassword', (new Option('db-password')));
+		$this->addOption('dbBase', (new Option('db-base')));
+		$this->addOption('dbPrefix', (new Option('db-prefix'))->withValueOptional());
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser();
-
-$parser->addOption('defaultUser', (new Option('default-user'))->deprecatedAs('default_user'));
-$parser->addOption('environment', (new Option('environment')));
-$parser->addOption('baseUrl', (new Option('base-url'))->deprecatedAs('base_url'));
-$parser->addOption('language', (new Option('language')));
-$parser->addOption('title', (new Option('title')));
-$parser->addOption(
-	'allowAnonymous',
-	(new Option('allow-anonymous'))->withValueOptional('true')->deprecatedAs('allow_anonymous')->typeOfBool()
-);
-$parser->addOption(
-	'allowAnonymousRefresh',
-	(new Option('allow-anonymous-refresh'))->withValueOptional('true')->deprecatedAs('allow_anonymous_refresh')->typeOfBool()
-);
-$parser->addOption('authType', (new Option('auth-type'))->deprecatedAs('auth_type'));
-$parser->addOption(
-	'apiEnabled',
-	(new Option('api-enabled'))->withValueOptional('true')->deprecatedAs('api_enabled')->typeOfBool()
-);
-$parser->addOption(
-	'allowRobots',
-	(new Option('allow-robots'))->withValueOptional('true')->deprecatedAs('allow_robots')->typeOfBool()
-);
-$parser->addOption(
-	'disableUpdate',
-	(new Option('disable-update'))->withValueOptional('true')->deprecatedAs('disable_update')->typeOfBool()
-);
-$parser->addOption('dbType', (new Option('db-type')));
-$parser->addOption('dbHost', (new Option('db-host')));
-$parser->addOption('dbUser', (new Option('db-user')));
-$parser->addOption('dbPassword', (new Option('db-password')));
-$parser->addOption('dbBase', (new Option('db-base')));
-$parser->addOption('dbPrefix', (new Option('db-prefix'))->withValueOptional());
-
-$options = $parser->parse(ReconfigureDefinition::class);
+$options = new ReconfigureDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

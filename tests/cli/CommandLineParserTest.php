@@ -5,30 +5,49 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../../cli/Option.php';
 require_once __DIR__ . '/../../cli/CommandLineParser.php';
 
-class OptionalOptionsDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
-	public string $string;
-	public int $int;
-	public bool $bool;
+final class OptionalOptionsDefinition extends CommandLineParser {
+	public string $string = '';
+	public int $int = 0;
+	public bool $bool = false;
 	/** @var array<int,string> $arrayOfString */
-	public array $arrayOfString;
-	public string $defaultInput;
-	public string $optionalValue;
-	public bool $optionalValueWithDefault;
-	public string $defaultInputAndOptionalValueWithDefault;
+	public array $arrayOfString = [];
+	public string $defaultInput = '';
+	public string $optionalValue = '';
+	public bool $optionalValueWithDefault = false;
+	public string $defaultInputAndOptionalValueWithDefault = '';
+
+	public function __construct() {
+		$this->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
+		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
+		$this->addOption('arrayOfString', (new Option('array-of-string', 'a'))->typeOfArrayOfString());
+		$this->addOption('defaultInput', (new Option('default-input', 'i')), 'default');
+		$this->addOption('optionalValue', (new Option('optional-value', 'o'))->withValueOptional());
+		$this->addOption('optionalValueWithDefault', (new Option('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
+		$this->addOption('defaultInputAndOptionalValueWithDefault',
+			(new Option('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
+			'default'
+		);
+		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		parent::__construct();
+	}
 }
 
-class OptionalAndRequiredOptionsDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
-	public string $required;
-	public string $string;
-	public int $int;
-	public bool $bool;
-	public string $flag;
+final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
+	public string $required = '';
+	public string $string = '';
+	public int $int = 0;
+	public bool $bool = false;
+	public string $flag = '';
+
+	public function __construct() {
+		$this->addRequiredOption('required', new Option('required'));
+		$this->addOption('string', new Option('string', 's'));
+		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
+		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		parent::__construct();
+	}
 }
 
 class CommandLineParserTest extends TestCase {
@@ -189,39 +208,11 @@ class CommandLineParserTest extends TestCase {
 		);
 	}
 
-	public static function optionalOptions(): OptionalOptionsDefinition {
-		$parser = new CommandLineParser();
-		$parser->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
-		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$parser->addOption('arrayOfString', (new Option('array-of-string', 'a'))->typeOfArrayOfString());
-		$parser->addOption('defaultInput', (new Option('default-input', 'i')), 'default');
-		$parser->addOption('optionalValue', (new Option('optional-value', 'o'))->withValueOptional());
-		$parser->addOption('optionalValueWithDefault', (new Option('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
-		$parser->addOption('defaultInputAndOptionalValueWithDefault',
-			(new Option('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
-			'default'
-		);
-		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-
-		return $parser->parse(OptionalOptionsDefinition::class);
-	}
-
-	public static function optionalAndRequiredOptions(): OptionalAndRequiredOptionsDefinition {
-		$parser = new CommandLineParser();
-		$parser->addRequiredOption('required', new Option('required'));
-		$parser->addOption('string', new Option('string', 's'));
-		$parser->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$parser->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$parser->addOption('flag', (new Option('flag', 'f'))->withValueNone());
-
-		return $parser->parse(OptionalAndRequiredOptionsDefinition::class);
-	}
-
 	private function runOptionalOptions(string $options = ''): OptionalOptionsDefinition {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalOptions' $command $options 2>/dev/null");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
 		$result = is_string($result) ? unserialize($result) : new OptionalOptionsDefinition();
 
 		/** @var OptionalOptionsDefinition $result */
@@ -230,8 +221,9 @@ class CommandLineParserTest extends TestCase {
 
 	private function runOptionalAndRequiredOptions(string $options = ''): OptionalAndRequiredOptionsDefinition {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalAndRequiredOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalAndRequiredOptions' $command $options 2>/dev/null");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
 		$result = is_string($result) ? unserialize($result) : new OptionalAndRequiredOptionsDefinition();
 
 		/** @var OptionalAndRequiredOptionsDefinition $result */
@@ -240,8 +232,9 @@ class CommandLineParserTest extends TestCase {
 
 	private function runCommandReadingStandardError(string $options = ''): string {
 		$command = __DIR__ . '/cli-parser-test.php';
+		$className = OptionalOptionsDefinition::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_STATIC_METHOD='optionalOptions' $command $options 2>&1");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>&1");
 		$result = is_string($result) ? explode("\n", $result) : '';
 
 		return is_array($result) ? $result[0] : '';

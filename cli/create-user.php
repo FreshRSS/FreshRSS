@@ -3,10 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-class CreateUserDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class CreateUserDefinition extends CommandLineParser {
 	public string $user;
 	public string $password;
 	public string $apiPassword;
@@ -19,42 +16,43 @@ class CreateUserDefinition {
 	public int $sinceHoursPostsPerRss;
 	public int $maxPostsPerRss;
 	public bool $noDefaultFeeds;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		$this->addOption('password', (new Option('password')));
+		$this->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
+		$this->addOption('language', (new Option('language')));
+		$this->addOption('email', (new Option('email')));
+		$this->addOption('token', (new Option('token')));
+		$this->addOption(
+			'purgeAfterMonths',
+			(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
+		);
+		$this->addOption(
+			'feedMinArticles',
+			(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
+		);
+		$this->addOption(
+			'feedTtl',
+			(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
+		);
+		$this->addOption(
+			'sinceHoursPostsPerRss',
+			(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
+		);
+		$this->addOption(
+			'maxPostsPerRss',
+			(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
+		);
+		$this->addOption(
+			'noDefaultFeeds',
+			(new Option('no-default-feeds'))->withValueNone()->deprecatedAs('no_default_feeds')
+		);
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser();
-
-$parser->addRequiredOption('user', (new Option('user')));
-$parser->addOption('password', (new Option('password')));
-$parser->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
-$parser->addOption('language', (new Option('language')));
-$parser->addOption('email', (new Option('email')));
-$parser->addOption('token', (new Option('token')));
-$parser->addOption(
-	'purgeAfterMonths',
-	(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
-);
-$parser->addOption(
-	'feedMinArticles',
-	(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
-);
-$parser->addOption(
-	'feedTtl',
-	(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
-);
-$parser->addOption(
-	'sinceHoursPostsPerRss',
-	(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
-);
-$parser->addOption(
-	'maxPostsPerRss',
-	(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
-);
-$parser->addOption(
-	'noDefaultFeeds',
-	(new Option('no-default-feeds'))->withValueNone()->deprecatedAs('no_default_feeds')
-);
-
-$options = $parser->parse(CreateUserDefinition::class);
+$options = new CreateUserDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

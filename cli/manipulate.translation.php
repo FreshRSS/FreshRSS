@@ -6,10 +6,7 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-class ManipulateTranslationDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class ManipulateTranslationDefinition extends CommandLineParser {
 	public string $action;
 	public string $key;
 	public string $value;
@@ -17,19 +14,20 @@ class ManipulateTranslationDefinition {
 	public string $originLanguage;
 	public string $revert;
 	public string $help;
+
+	public function __construct() {
+		$this->addRequiredOption('action', (new Option('action', 'a')));
+		$this->addOption('key', (new Option('key', 'k')));
+		$this->addOption('value', (new Option('value', 'v')));
+		$this->addOption('language', (new Option('language', 'l')));
+		$this->addOption('originLanguage', (new Option('origin-language', 'o')));
+		$this->addOption('revert', (new Option('revert', 'r'))->withValueNone());
+		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser;
-
-$parser->addRequiredOption('action', (new Option('action', 'a')));
-$parser->addOption('key', (new Option('key', 'k')));
-$parser->addOption('value', (new Option('value', 'v')));
-$parser->addOption('language', (new Option('language', 'l')));
-$parser->addOption('originLanguage', (new Option('origin-language', 'o')));
-$parser->addOption('revert', (new Option('revert', 'r'))->withValueNone());
-$parser->addOption('help', (new Option('help', 'h'))->withValueNone());
-
-$options = $parser->parse(ManipulateTranslationDefinition::class);
+$options = new ManipulateTranslationDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

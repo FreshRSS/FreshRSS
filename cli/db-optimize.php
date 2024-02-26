@@ -5,18 +5,16 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-class DbOptimizeDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class DbOptimizeDefinition extends CommandLineParser {
 	public string $user;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser();
-
-$parser->addRequiredOption('user', (new Option('user')));
-
-$options = $parser->parse(DbOptimizeDefinition::class);
+$options = new DbOptimizeDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);

@@ -1,14 +1,34 @@
 <?php
 declare(strict_types=1);
 
-class CommandLineParser {
+abstract class CommandLineParser {
 	/** @var array<string,Option> */
-	private array $options;
+	private array $options = [];
 	/** @var array<string,array{defaultInput:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
-	private array $inputs;
+	private array $inputs = [];
+	/** @var array<string,string> $errors */
+	public array $errors = [];
+	public string $usage = '';
+
+	public function __construct() {
+		global $argv;
+
+		$this->usage = $this->getUsageMessage($argv[0]);
+
+		$this->parseInput();
+		$this->appendUnknownAliases($argv);
+		$this->appendInvalidValues();
+		$this->appendTypedValidValues();
+	}
+
+	private function parseInput(): void {
+		$getoptInputs = $this->getGetoptInputs();
+		$this->getoptOutputTransformer(getopt($getoptInputs['short'], $getoptInputs['long']));
+		$this->checkForDeprecatedAliasUse();
+	}
 
 	/** Adds an option that produces an error message if not set. */
-	public function addRequiredOption(string $name, Option $option): self {
+	protected function addRequiredOption(string $name, Option $option): void {
 		$this->inputs[$name] = [
 			'defaultInput' => null,
 			'required' => true,
@@ -16,8 +36,6 @@ class CommandLineParser {
 			'values' => null,
 		];
 		$this->options[$name] = $option;
-
-		return $this;
 	}
 
 	/**
@@ -25,7 +43,7 @@ class CommandLineParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	public function addOption(string $name, Option $option, string $defaultInput = null): self {
+	protected function addOption(string $name, Option $option, string $defaultInput = null): void {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
@@ -33,46 +51,12 @@ class CommandLineParser {
 			'values' => null,
 		];
 		$this->options[$name] = $option;
-
-		return $this;
 	}
 
-	/**
-	 * @template T
-	 * @param class-string<T> $definition
-	 * @return T
-	 */
-	public function parse(string $definition) {
-		global $argv;
-
-		$output = new $definition();
-		$output->usage = $this->getUsageMessage($argv[0]);
-
-		$this->parseInput();
-		$output = $this->appendUnknownAliases($argv, $output);
-		$output = $this->appendInvalidValues($output);
-		$output = $this->appendTypedValidValues($output);
-
-		return $output;
-	}
-
-	private function parseInput(): void {
-		$getoptInputs = $this->getGetoptInputs();
-
-		$this->getoptOutputTransformer(getopt($getoptInputs['short'], $getoptInputs['long']));
-
-		$this->checkForDeprecatedAliasUse();
-	}
-
-	/**
-	 * @template T
-	 * @param T $output
-	 * @return T
-	 */
-	private function appendInvalidValues($output) {
+	private function appendInvalidValues(): void {
 		foreach ($this->options as $name => $option) {
 			if ($this->inputs[$name]['required'] && $this->inputs[$name]['values'] === null) {
-				$output->errors[$name] = 'invalid input: ' . $option->getLongAlias() . ' cannot be empty';
+				$this->errors[$name] = 'invalid input: ' . $option->getLongAlias() . ' cannot be empty';
 			}
 		}
 
@@ -81,27 +65,20 @@ class CommandLineParser {
 				switch ($this->options[$name]->getTypes()['type']) {
 					case 'int':
 						if (!ctype_digit($value)) {
-							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be an integer';
+							$this->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be an integer';
 						}
 						break;
 					case 'bool':
 						if (filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === null) {
-							$output->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be a boolean';
+							$this->errors[$name] = 'invalid input: ' . $input['aliasUsed'] . ' must be a boolean';
 						}
 						break;
 				}
 			}
 		}
-
-		return $output;
 	}
 
-	/**
-	 * @template T
-	 * @param T $output
-	 * @return T
-	 */
-	private function appendTypedValidValues($output) {
+	private function appendTypedValidValues(): void {
 		foreach ($this->inputs as $name => $input) {
 			$values = $input['values'] ?? $input['defaultInput'] ?? null;
 			$types = $this->options[$name]->getTypes();
@@ -125,12 +102,10 @@ class CommandLineParser {
 
 				if (!empty($typedValues)) {
 					// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
-					$output->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
+					$this->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
 				}
 			}
 		}
-
-		return $output;
 	}
 
 	/** @param array<string,string|false>|false $getoptOutput */
@@ -173,12 +148,9 @@ class CommandLineParser {
 	}
 
 	/**
-	 * @template T
 	 * @param array<string> $input List of user command-line inputs.
-	 * @param T $output
-	 * @return T
 	 */
-	private function appendUnknownAliases(array $input, $output) {
+	private function appendUnknownAliases(array $input): void {
 		$valid = [];
 		foreach ($this->options as $option) {
 			$valid = array_merge($valid, $option->getAliases());
@@ -187,14 +159,12 @@ class CommandLineParser {
 		$sanitizeInput = $this->getAliasesUsed($input, $this->makeInputRegex());
 		$unknownAliases = array_diff($sanitizeInput, $valid);
 		if (empty($unknownAliases)) {
-			return $output;
+			return;
 		}
 
 		foreach ($unknownAliases as $unknownAlias) {
-			$output->errors[$unknownAlias] = 'unknown option: ' . $unknownAlias;
+			$this->errors[$unknownAlias] = 'unknown option: ' . $unknownAlias;
 		}
-
-		return $output;
 	}
 
 	/**

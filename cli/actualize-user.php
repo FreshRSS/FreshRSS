@@ -5,24 +5,25 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-class ActualizeUserDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class ActualizeUserDefinition extends CommandLineParser {
 	public string $user;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new Option('user')));
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser();
-
-$parser->addRequiredOption('user', (new Option('user')));
-
-$options = $parser->parse(ActualizeUserDefinition::class);
+$options = new ActualizeUserDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
 }
 
 $username = cliInitUser($options->user);
+
+Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
 $databaseDAO = FreshRSS_Factory::createDatabaseDAO();

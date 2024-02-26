@@ -8,25 +8,23 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
-class CheckTranslationDefinition {
-	/** @var array<string,string> $errors */
-	public array $errors = [];
-	public string $usage;
+final class CheckTranslationDefinition extends CommandLineParser {
 	/** @var array<int,string> $language */
 	public array $language;
 	public string $displayResult;
 	public string $help;
 	public string $displayReport;
+
+	public function __construct() {
+		$this->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
+		$this->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
+		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
+		$this->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
+		parent::__construct();
+	}
 }
 
-$parser = new CommandLineParser;
-
-$parser->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
-$parser->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
-$parser->addOption('help', (new Option('help', 'h'))->withValueNone());
-$parser->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
-
-$options = $parser->parse(CheckTranslationDefinition::class);
+$options = new CheckTranslationDefinition();
 
 if (!empty($options->errors)) {
 	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
