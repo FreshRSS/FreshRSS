@@ -10,19 +10,19 @@ class FreshRSS_View extends Minz_View {
 	public $callbackBeforeFeeds;
 	/** @var callable */
 	public $callbackBeforePagination;
-	/** @var array<FreshRSS_Category> */
+	/** @var array<int,FreshRSS_Category> */
 	public array $categories;
-	public ?FreshRSS_Category $category = null;
-	public ?FreshRSS_Tag $tag = null;
+	public ?FreshRSS_Category $category;
+	public ?FreshRSS_Tag $tag;
 	public string $current_user;
 	/** @var iterable<FreshRSS_Entry> */
 	public $entries;
 	public FreshRSS_Entry $entry;
-	public ?FreshRSS_Feed $feed = null;
-	/** @var array<FreshRSS_Feed> */
+	public FreshRSS_Feed $feed;
+	/** @var array<int,FreshRSS_Feed> */
 	public array $feeds;
 	public int $nbUnreadTags;
-	/** @var array<FreshRSS_Tag> */
+	/** @var array<int,FreshRSS_Tag> */
 	public array $tags;
 	/** @var array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}> */
 	public array $tagsForEntry;
@@ -100,6 +100,8 @@ class FreshRSS_View extends Minz_View {
 	public int $nbPage;
 
 	// RSS view
+	public FreshRSS_UserQuery $userQuery;
+	public string $html_url = '';
 	public string $rss_title = '';
 	public string $rss_url = '';
 	public string $rss_base = '';
@@ -113,10 +115,10 @@ class FreshRSS_View extends Minz_View {
 	// Extensions
 	/** @var array<array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
 	public array $available_extensions;
-	public ?Minz_Extension $ext_details = null;
+	public ?Minz_Extension $ext_details;
 	/** @var array{'system':array<Minz_Extension>,'user':array<Minz_Extension>} */
 	public array $extension_list;
-	public ?Minz_Extension $extension = null;
+	public ?Minz_Extension $extension;
 	/** @var array<string,string> */
 	public array $extensions_installed;
 

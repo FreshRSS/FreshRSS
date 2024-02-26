@@ -119,34 +119,18 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 
 You can change the sort order by clicking the toggle button available in the header.
 
-## Store your filters
+## Bookmark the current query
 
-Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
+Once you came up with your perfect filter, it would be a shame if you had to recreate it every time you need to use it.
 
-Hopefully, there is a way to bookmark them for later use.
-We call them *user queries*.
+Luckily, there is a way to bookmark them for later use.
+We call them [*user queries*](./user_queries.md).
 You can create as many as you want, the only limit is how they will be displayed on your screen.
 
-### Bookmark the current query
-
-Display the user queries drop-down by clicking the button next to the state buttons.
-![User queries drop-down](../img/users/user.queries.drop-down.empty.png)
-
-Then click on the bookmark action.
-
-Congratulations, you’re done!
-
-### Using a bookmarked query
-
-Display the user queries drop-down by clicking the button next to the state buttons.
-![User queries drop-down](../img/users/user.queries.drop-down.not.empty.png)
-
-Then click on the bookmarked query, the previously stored query will be applied.
-
-> Note that only the query is stored, not the articles.
-> The results you are seeing now could be different from the results on the day you've created the query.
+Read more about [*user queries*](./user_queries.md) to learn how to create them, use them, and even reshare them via HTML / RSS / OPML.
 
 ---
 Read more:
 * [Normal, Global and Reader view](./03_Main_view.md)
 * [Refreshing the feeds](./09_refreshing_feeds.md)
+* [User queries](./user_queries.md)

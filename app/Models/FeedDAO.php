@@ -225,7 +225,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/** @return int|false */
 	public function mute(int $id, bool $value = true) {
-		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . $id;
+		$sql = 'UPDATE `_feed` SET ttl=' . ($value ? '-' : '') . 'ABS(ttl) WHERE id=' . intval($id);
 		return $this->pdo->exec($sql);
 	}
 
@@ -322,7 +322,7 @@ SQL;
 		}
 		/** @var array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
 		 *	'priority'?:int,'pathEntries'?:string,'httpAuth':string,'error':int,'ttl'?:int,'attributes'?:string}> $res */
-		$feeds = self::daoToFeed($res);
+		$feeds = self::daoToFeeds($res);
 		return $feeds[$id] ?? null;
 	}
 
@@ -331,7 +331,7 @@ SQL;
 		$res = $this->fetchAssoc($sql, [':url' => $url]);
 		/** @var array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
 		 *	'priority'?:int,'pathEntries'?:string,'httpAuth':string,'error':int,'ttl'?:int,'attributes'?:string}> $res */
-		return empty($res[0]) ? null : (current(self::daoToFeed($res)) ?: null);
+		return empty($res[0]) ? null : (current(self::daoToFeeds($res)) ?: null);
 	}
 
 	/** @return array<int> */
@@ -343,14 +343,14 @@ SQL;
 	}
 
 	/**
-	 * @return array<FreshRSS_Feed>
+	 * @return array<int,FreshRSS_Feed>
 	 */
 	public function listFeeds(): array {
 		$sql = 'SELECT * FROM `_feed` ORDER BY name';
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
 		 *	'priority':int,'pathEntries':string,'httpAuth':string,'error':int,'ttl':int,'attributes':string}>|null $res */
-		return $res == null ? [] : self::daoToFeed($res);
+		return $res == null ? [] : self::daoToFeeds($res);
 	}
 
 	/** @return array<string,string> */
@@ -359,7 +359,7 @@ SQL;
 		if ($id_feed === null) {
 			$sql .= 'GROUP BY id_feed';
 		} else {
-			$sql .= 'WHERE id_feed=' . $id_feed;
+			$sql .= 'WHERE id_feed=' . intval($id_feed);
 		}
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id_feed':int,'newest_item_us':string}>|null $res */
@@ -375,19 +375,19 @@ SQL;
 
 	/**
 	 * @param int $defaultCacheDuration Use -1 to return all feeds, without filtering them by TTL.
-	 * @return array<FreshRSS_Feed>
+	 * @return array<int,FreshRSS_Feed>
 	 */
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
 		$sql = 'SELECT id, url, kind, category, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, ttl, attributes, `cache_nbEntries`, `cache_nbUnreads` '
 			. 'FROM `_feed` '
 			. ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 				. ' AND `lastUpdate` < (' . (time() + 60)
-				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . $defaultCacheDuration . ' ELSE ttl END)) ')
+				. '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
 			. 'ORDER BY `lastUpdate` '
-			. ($limit < 1 ? '' : 'LIMIT ' . $limit);
+			. ($limit < 1 ? '' : 'LIMIT ' . intval($limit));
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
+			return self::daoToFeeds($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
 			$info = $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -401,7 +401,7 @@ SQL;
 	/** @return array<int,string> */
 	public function listTitles(int $id, int $limit = 0): array {
 		$sql = 'SELECT title FROM `_entry` WHERE id_feed=:id_feed ORDER BY id DESC'
-			. ($limit < 1 ? '' : ' LIMIT ' . $limit);
+			. ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
 		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id]) ?? [];
 		/** @var array<int,string> $res */
 		return $res;
@@ -409,7 +409,7 @@ SQL;
 
 	/**
 	 * @param bool|null $muted to include only muted feeds
-	 * @return array<FreshRSS_Feed>
+	 * @return array<int,FreshRSS_Feed>
 	 */
 	public function listByCategory(int $cat, ?bool $muted = null): array {
 		$sql = 'SELECT * FROM `_feed` WHERE category=:category';
@@ -425,9 +425,11 @@ SQL;
 		 * @var array<int,array{'url':string,'kind':int,'category':int,'name':string,'website':string,'lastUpdate':int,
 		 *	'priority'?:int,'pathEntries'?:string,'httpAuth':string,'error':int,'ttl'?:int,'attributes'?:string}> $res
 		 */
-		$feeds = self::daoToFeed($res);
+		$feeds = self::daoToFeeds($res);
 
-		usort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		uasort($feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
+			return strnatcasecmp($a->name(), $b->name());
+		});
 
 		return $feeds;
 	}
@@ -583,7 +585,7 @@ SQL;
 	 * 	'pathEntries'?:string,'httpAuth'?:string,'error'?:int|bool,'ttl'?:int,'attributes'?:string,'cache_nbUnreads'?:int,'cache_nbEntries'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Feed>
 	 */
-	public static function daoToFeed(array $listDAO, ?int $catID = null): array {
+	public static function daoToFeeds(array $listDAO, ?int $catID = null): array {
 		$list = [];
 
 		foreach ($listDAO as $key => $dao) {

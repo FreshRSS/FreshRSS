@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
-		'token' => 'Token di autenticazione',
-		'token_help' => 'Consenti accesso agli RSS dell utente predefinito senza autenticazione:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Metodo di autenticazione',
 		'unsafe_autologin' => 'Consenti accesso automatico non sicuro usando il formato: ',
 	),

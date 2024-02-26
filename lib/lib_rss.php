@@ -5,6 +5,24 @@ if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
+if (!function_exists('array_is_list')) {
+	/**
+	 * Polyfill for PHP <8.1
+	 * https://php.net/array-is-list#127044
+	 * @param array<mixed> $array
+	 */
+	function array_is_list(array $array): bool {
+		$i = -1;
+		foreach ($array as $k => $v) {
+			++$i;
+			if ($k !== $i) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -88,6 +106,45 @@ function classAutoloader(string $class): void {
 
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
+
+/**
+ * Memory efficient replacement of `echo json_encode(...)`
+ * @param array<mixed>|mixed $json
+ * @param int $optimisationDepth Number of levels for which to perform memory optimisation
+ * before calling the faster native JSON serialisation.
+ * Set to negative value for infinite depth.
+ */
+function echoJson($json, int $optimisationDepth = -1): void {
+	if ($optimisationDepth === 0 || !is_array($json)) {
+		echo json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		return;
+	}
+	$first = true;
+	if (array_is_list($json)) {
+		echo '[';
+		foreach ($json as $item) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echoJson($item, $optimisationDepth - 1);
+		}
+		echo ']';
+	} else {
+		echo '{';
+		foreach ($json as $key => $value) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echo json_encode($key, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ':';
+			echoJson($value, $optimisationDepth - 1);
+		}
+		echo '}';
+	}
+}
 
 function idn_to_puny(string $url): string {
 	if (function_exists('idn_to_ascii')) {
@@ -369,8 +426,17 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
+ * Remove the charset meta information of an HTML document, e.g.:
+ * `<meta charset="..." />`
+ * `<meta http-equiv="Content-Type" content="text/html; charset=...">`
+ */
+function stripHtmlMetaCharset(string $html): string {
+	return preg_replace('/<meta\s[^>]*charset\s*=\s*[^>]+>/i', '', $html, 1) ?? '';
+}
+
+/**
  * Set an XML preamble to enforce the HTML content type charset received by HTTP.
- * @param string $html the row downloaded HTML content
+ * @param string $html the raw downloaded HTML content
  * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
@@ -381,7 +447,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		return $html;
 	}
 	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
-	if ($httpCharsetNormalized === 'windows-1252') {
+	if (in_array($httpCharsetNormalized, ['windows-1252', 'US-ASCII'], true)) {
 		// Default charset for HTTP, do nothing
 		return $html;
 	}
@@ -397,7 +463,20 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		// Existing XML declaration, do nothing
 		return $html;
 	}
-	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	if ($httpCharsetNormalized !== 'UTF-8') {
+		// Try to change encoding to UTF-8 using mbstring or iconv or intl
+		$utf8 = SimplePie_Misc::change_encoding($html, $httpCharsetNormalized, 'UTF-8');
+		if (is_string($utf8)) {
+			$html = stripHtmlMetaCharset($utf8);
+			$httpCharsetNormalized = 'UTF-8';
+		}
+	}
+	if ($httpCharsetNormalized === 'UTF-8') {
+		// Save encoding information as XML declaration
+		return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	}
+	// Give up
+	return $html;
 }
 
 /**

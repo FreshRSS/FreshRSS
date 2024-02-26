@@ -76,7 +76,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	public static function example(): FreshRSS_Feed {
+	public static function default(): FreshRSS_Feed {
 		$f = new FreshRSS_Feed('http://example.net/', false);
 		$f->faviconPrepare();
 		return $f;
@@ -188,6 +188,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
 			return $ttl * ($this->mute ? -1 : 1);
+		}
+		if ($this->mute && $this->ttl === FreshRSS_Context::userConf()->ttl_default) {
+			return FreshRSS_Feed::TTL_DEFAULT;
 		}
 		return $this->ttl;
 	}
@@ -705,7 +708,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$view = new FreshRSS_View();
 		$view->_path('index/rss.phtml');
 		$view->internal_rendering = true;
-		$view->rss_url = $feedSourceUrl;
+		$view->rss_url = htmlspecialchars($feedSourceUrl, ENT_COMPAT, 'UTF-8');
+		$view->html_url = $view->rss_url;
 		$view->entries = [];
 
 		try {

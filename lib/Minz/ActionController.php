@@ -9,7 +9,7 @@ declare(strict_types=1);
 /**
  * The Minz_ActionController class is a controller in the MVC paradigm
  */
-class Minz_ActionController {
+abstract class Minz_ActionController {
 
 	/** @var array<string,string> */
 	private static array $csp_default = [

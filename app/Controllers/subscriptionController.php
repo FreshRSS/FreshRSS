@@ -59,7 +59,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					break;
 				default:
 					$feedDAO = FreshRSS_Factory::createFeedDao();
-					$this->view->feed = $feedDAO->searchById($id);
+					$this->view->feed = $feedDAO->searchById($id) ?? FreshRSS_Feed::default();
 					break;
 			}
 		}

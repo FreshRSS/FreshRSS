@@ -95,7 +95,7 @@ class FreshRSS_Export_Service {
 		$view = new FreshRSS_View();
 		$view->categories = $this->category_dao->listCategories(true) ?: [];
 
-		$feed = FreshRSS_CategoryDAO::findFeed($view->categories, $feed_id);
+		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
 			return null;
 		}
