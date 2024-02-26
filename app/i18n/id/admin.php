@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (untuk pengguna tingkat lanjut HTTPS)',
 		'none' => 'None (dangerous)',	// TODO
 		'title' => 'Authentication',	// TODO
-		'token' => 'Authentication token',	// TODO
-		'token_help' => 'Memungkinkan akses ke output RSS dari pengguna default tanpa otentikasi:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Authentication method',	// TODO
 		'unsafe_autologin' => 'Izinkan login otomatis yang tidak aman menggunakan format: ',
 	),

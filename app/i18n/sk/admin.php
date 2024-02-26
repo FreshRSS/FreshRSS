@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
-		'token' => 'Token prihlásenia',
-		'token_help' => 'Povoliť prístup k výstupu RSS prednastaveného používateľa bez prihlásenia:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Spôsob prihlásenia',
 		'unsafe_autologin' => 'Povoliť nebezpečné automatické prihlásenie pomocou webového formulára: ',
 	),

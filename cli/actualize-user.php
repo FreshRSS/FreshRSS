@@ -26,6 +26,11 @@ Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
+$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+$databaseDAO->minorDbMaintenance();
+Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
+FreshRSS_feed_Controller::commitNewEntries();
 $result = FreshRSS_category_Controller::refreshDynamicOpmls();
 if (!empty($result['errors'])) {
 	$errors = $result['errors'];
