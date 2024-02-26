@@ -32,24 +32,7 @@
 						</label>
 					</div>
 				</div>
-				<p class="help"><?= _i('help') ?> <?= _t('conf.profile.password_format') ?></p>
-				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
-			</div>
-		</div>
-
-		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
-		<div class="form-group">
-			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
-			<?php $token = FreshRSS_Context::userConf()->token; ?>
-			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" data-leave-validation="<?= $token ?>"/>
-				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
-				<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_User::name(),
-					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss)), 'html', true) ?></kbd>
-				<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
-			</div>
-		</div>
-		<?php } ?>
+			<?php } ?>
 
 			<div class="form-group">
 				<label class="group-name" for="email"><?= _t('conf.profile.email') ?></label>
@@ -80,6 +63,7 @@
 					<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
 					<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_User::name(),
 						'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss)), 'html', true) ?></kbd>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
 				</div>
 			</div>
 			<?php } ?>
