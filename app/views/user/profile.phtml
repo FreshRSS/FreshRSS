@@ -62,6 +62,7 @@
 				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
 				<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_User::name(),
 					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss)), 'html', true) ?></kbd>
+				<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
 			</div>
 		</div>
 		<?php } ?>
