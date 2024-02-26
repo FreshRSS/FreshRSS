@@ -9,7 +9,7 @@ final class DbOptimizeDefinition extends CommandLineParser {
 	public string $user;
 
 	public function __construct() {
-		$this->addRequiredOption('user', (new Option('user')));
+		$this->addRequiredOption('user', (new CliOption('user')));
 		parent::__construct();
 	}
 }

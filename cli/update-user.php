@@ -17,31 +17,31 @@ final class UpdateUserDefinition extends CommandLineParser {
 	public int $maxPostsPerRss;
 
 	public function __construct() {
-		$this->addRequiredOption('user', (new Option('user')));
-		$this->addOption('password', (new Option('password')));
-		$this->addOption('apiPassword', (new Option('api-password'))->deprecatedAs('api_password'));
-		$this->addOption('language', (new Option('language')));
-		$this->addOption('email', (new Option('email')));
-		$this->addOption('token', (new Option('token')));
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addOption('password', (new CliOption('password')));
+		$this->addOption('apiPassword', (new CliOption('api-password'))->deprecatedAs('api_password'));
+		$this->addOption('language', (new CliOption('language')));
+		$this->addOption('email', (new CliOption('email')));
+		$this->addOption('token', (new CliOption('token')));
 		$this->addOption(
 			'purgeAfterMonths',
-			(new Option('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
+			(new CliOption('purge-after-months'))->typeOfInt()->deprecatedAs('purge_after_months')
 		);
 		$this->addOption(
 			'feedMinArticles',
-			(new Option('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
+			(new CliOption('feed-min-articles-default'))->typeOfInt()->deprecatedAs('feed_min_articles_default')
 		);
 		$this->addOption(
 			'feedTtl',
-			(new Option('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
+			(new CliOption('feed-ttl-default'))->typeOfInt()->deprecatedAs('feed_ttl_default')
 		);
 		$this->addOption(
 			'sinceHoursPostsPerRss',
-			(new Option('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
+			(new CliOption('since-hours-posts-per-rss'))->typeOfInt()->deprecatedAs('since_hours_posts_per_rss')
 		);
 		$this->addOption(
 			'maxPostsPerRss',
-			(new Option('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
+			(new CliOption('max-posts-per-rss'))->typeOfInt()->deprecatedAs('max_posts_per_rss')
 		);
 		parent::__construct();
 	}

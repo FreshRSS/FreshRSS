@@ -13,10 +13,10 @@ final class UserInfoDefinition extends CommandLineParser {
 	public string $humanReadable;
 
 	public function __construct() {
-		$this->addOption('user', (new Option('user'))->typeOfArrayOfString());
-		$this->addOption('header', (new Option('header'))->withValueNone());
-		$this->addOption('json', (new Option('json'))->withValueNone());
-		$this->addOption('humanReadable', (new Option('human-readable', 'h'))->withValueNone());
+		$this->addOption('user', (new CliOption('user'))->typeOfArrayOfString());
+		$this->addOption('header', (new CliOption('header'))->withValueNone());
+		$this->addOption('json', (new CliOption('json'))->withValueNone());
+		$this->addOption('humanReadable', (new CliOption('human-readable', 'h'))->withValueNone());
 		parent::__construct();
 	}
 }

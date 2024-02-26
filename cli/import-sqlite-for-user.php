@@ -11,9 +11,9 @@ final class ImportSqliteForUserDefinition extends CommandLineParser {
 	public string $forceOverwrite;
 
 	public function __construct() {
-		$this->addRequiredOption('user', (new Option('user')));
-		$this->addRequiredOption('filename', (new Option('filename')));
-		$this->addOption('forceOverwrite', (new Option('force-overwrite'))->withValueNone());
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addRequiredOption('filename', (new CliOption('filename')));
+		$this->addOption('forceOverwrite', (new CliOption('force-overwrite'))->withValueNone());
 		parent::__construct();
 	}
 }

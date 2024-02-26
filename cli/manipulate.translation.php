@@ -16,13 +16,13 @@ final class ManipulateTranslationDefinition extends CommandLineParser {
 	public string $help;
 
 	public function __construct() {
-		$this->addRequiredOption('action', (new Option('action', 'a')));
-		$this->addOption('key', (new Option('key', 'k')));
-		$this->addOption('value', (new Option('value', 'v')));
-		$this->addOption('language', (new Option('language', 'l')));
-		$this->addOption('originLanguage', (new Option('origin-language', 'o')));
-		$this->addOption('revert', (new Option('revert', 'r'))->withValueNone());
-		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
+		$this->addRequiredOption('action', (new CliOption('action', 'a')));
+		$this->addOption('key', (new CliOption('key', 'k')));
+		$this->addOption('value', (new CliOption('value', 'v')));
+		$this->addOption('language', (new CliOption('language', 'l')));
+		$this->addOption('originLanguage', (new CliOption('origin-language', 'o')));
+		$this->addOption('revert', (new CliOption('revert', 'r'))->withValueNone());
+		$this->addOption('help', (new CliOption('help', 'h'))->withValueNone());
 		parent::__construct();
 	}
 }
@@ -44,7 +44,7 @@ switch ($options->action) {
 		if (isset($options->key) && isset($options->value) && isset($options->language)) {
 			$i18nData->addValue($options->key, $options->value, $options->language);
 		} elseif (isset($options->key) && isset($options->value)) {
-			$i18nData->addKey($options->key, $options->value,);
+			$i18nData->addKey($options->key, $options->value);
 		} elseif (isset($options->language)) {
 			$reference = null;
 			if (isset($options->originLanguage)) {

@@ -10,8 +10,8 @@ final class ImportForUserDefinition extends CommandLineParser {
 	public string $filename;
 
 	public function __construct() {
-		$this->addRequiredOption('user', (new Option('user')));
-		$this->addRequiredOption('filename', (new Option('filename')));
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addRequiredOption('filename', (new CliOption('filename')));
 		parent::__construct();
 	}
 }

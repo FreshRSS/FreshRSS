@@ -10,8 +10,8 @@ final class ExportZipForUserDefinition extends CommandLineParser {
 	public int $maxFeedEntries;
 
 	public function __construct() {
-		$this->addRequiredOption('user', (new Option('user')));
-		$this->addOption('maxFeedEntries', (new Option('max-feed-entries'))->typeOfInt(), '100');
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addOption('maxFeedEntries', (new CliOption('max-feed-entries'))->typeOfInt(), '100');
 		parent::__construct();
 	}
 }

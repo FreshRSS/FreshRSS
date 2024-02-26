@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-require_once __DIR__ . '/../../cli/Option.php';
+require_once __DIR__ . '/../../cli/CliOption.php';
 require_once __DIR__ . '/../../cli/CommandLineParser.php';
 
 final class OptionalOptionsDefinition extends CommandLineParser {
@@ -17,18 +17,18 @@ final class OptionalOptionsDefinition extends CommandLineParser {
 	public string $defaultInputAndOptionalValueWithDefault = '';
 
 	public function __construct() {
-		$this->addOption('string', (new Option('string', 's'))->deprecatedAs('deprecated-string'));
-		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$this->addOption('arrayOfString', (new Option('array-of-string', 'a'))->typeOfArrayOfString());
-		$this->addOption('defaultInput', (new Option('default-input', 'i')), 'default');
-		$this->addOption('optionalValue', (new Option('optional-value', 'o'))->withValueOptional());
-		$this->addOption('optionalValueWithDefault', (new Option('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
+		$this->addOption('string', (new CliOption('string', 's'))->deprecatedAs('deprecated-string'));
+		$this->addOption('int', (new CliOption('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new CliOption('bool', 'b'))->typeOfBool());
+		$this->addOption('arrayOfString', (new CliOption('array-of-string', 'a'))->typeOfArrayOfString());
+		$this->addOption('defaultInput', (new CliOption('default-input', 'i')), 'default');
+		$this->addOption('optionalValue', (new CliOption('optional-value', 'o'))->withValueOptional());
+		$this->addOption('optionalValueWithDefault', (new CliOption('optional-value-with-default', 'd'))->withValueOptional('true')->typeOfBool());
 		$this->addOption('defaultInputAndOptionalValueWithDefault',
-			(new Option('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
+			(new CliOption('default-input-and-optional-value-with-default', 'e'))->withValueOptional('optional'),
 			'default'
 		);
-		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		$this->addOption('flag', (new CliOption('flag', 'f'))->withValueNone());
 		parent::__construct();
 	}
 }
@@ -41,11 +41,11 @@ final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
 	public string $flag = '';
 
 	public function __construct() {
-		$this->addRequiredOption('required', new Option('required'));
-		$this->addOption('string', new Option('string', 's'));
-		$this->addOption('int', (new Option('int', 'i'))->typeOfInt());
-		$this->addOption('bool', (new Option('bool', 'b'))->typeOfBool());
-		$this->addOption('flag', (new Option('flag', 'f'))->withValueNone());
+		$this->addRequiredOption('required', new CliOption('required'));
+		$this->addOption('string', new CliOption('string', 's'));
+		$this->addOption('int', (new CliOption('int', 'i'))->typeOfInt());
+		$this->addOption('bool', (new CliOption('bool', 'b'))->typeOfBool());
+		$this->addOption('flag', (new CliOption('flag', 'f'))->withValueNone());
 		parent::__construct();
 	}
 }

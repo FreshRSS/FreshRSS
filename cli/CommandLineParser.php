@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 abstract class CommandLineParser {
-	/** @var array<string,Option> */
+	/** @var array<string,CliOption> */
 	private array $options = [];
 	/** @var array<string,array{defaultInput:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */
 	private array $inputs = [];
@@ -28,7 +28,7 @@ abstract class CommandLineParser {
 	}
 
 	/** Adds an option that produces an error message if not set. */
-	protected function addRequiredOption(string $name, Option $option): void {
+	protected function addRequiredOption(string $name, CliOption $option): void {
 		$this->inputs[$name] = [
 			'defaultInput' => null,
 			'required' => true,
@@ -43,7 +43,7 @@ abstract class CommandLineParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	protected function addOption(string $name, Option $option, string $defaultInput = null): void {
+	protected function addOption(string $name, CliOption $option, string $defaultInput = null): void {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,

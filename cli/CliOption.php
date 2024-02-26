@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Option {
+class CliOption {
 	public const VALUE_NONE = 'none';
 	public const VALUE_REQUIRED = 'required';
 	public const VALUE_OPTIONAL = 'optional';

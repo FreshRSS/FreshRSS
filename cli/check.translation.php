@@ -16,10 +16,10 @@ final class CheckTranslationDefinition extends CommandLineParser {
 	public string $displayReport;
 
 	public function __construct() {
-		$this->addOption('language', (new Option('language', 'l'))->typeOfArrayOfString());
-		$this->addOption('displayResult', (new Option('display-result', 'd'))->withValueNone());
-		$this->addOption('help', (new Option('help', 'h'))->withValueNone());
-		$this->addOption('displayReport', (new Option('display-report', 'r'))->withValueNone());
+		$this->addOption('language', (new CliOption('language', 'l'))->typeOfArrayOfString());
+		$this->addOption('displayResult', (new CliOption('display-result', 'd'))->withValueNone());
+		$this->addOption('help', (new CliOption('help', 'h'))->withValueNone());
+		$this->addOption('displayReport', (new CliOption('display-report', 'r'))->withValueNone());
 		parent::__construct();
 	}
 }
