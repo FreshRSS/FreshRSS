@@ -747,118 +747,119 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
+		<div id="body-inner">
+		<header class="header">
+			<nav class="nav-header">
+				<div id="toggle_aside" class="nav_mobile group">
+					<a class="btn" href="#aside"><?= _i('category') ?></a>
+				</div>
 
-	<header class="header">
-		<nav class="nav-header">
-			<div id="toggle_aside" class="nav_mobile group">
-				<a class="btn" href="#aside"><?= _i('category') ?></a>
-			</div>
-
-			<div id="header_menu_logo" class="logo-wrapper">
+				<div id="header_menu_logo" class="logo-wrapper">
+					<a href="<?= _url('index', 'index') ?>">
+							<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
+					</a>
+				</div>
+				
+				<div id="header_menu_configs" class="group">
+					<div class="dropdown dropdown-open-right-to-top">
+						<div id="dropdown-help" class="dropdown-target"></div>
+						<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
+							<?= _i('help') ?>
+							<span class="label"><?= _t('gen.menu.help') ?></span>
+						</a>
+						<ul class="dropdown-menu scrollbar-thin">
+							<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+							<li class="item dropdown-section">
+								<div class="dropdown-section-title">
+									<?= _t('gen.menu.help') ?>
+								</div>
+								<ul>
+									<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
+								</ul>
+							</li>
+						</ul>
+						<a class="dropdown-close" href="#close">❌</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<nav class="nav nav-list aside" id="aside">
+			<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+			<div class="logo-wrapper">
 				<a href="<?= _url('index', 'index') ?>">
 						<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
 				</a>
 			</div>
-			
-			<div id="header_menu_configs" class="group">
-				<div class="dropdown dropdown-open-right-to-top">
-					<div id="dropdown-help" class="dropdown-target"></div>
-					<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
-						<?= _i('help') ?>
-						<span class="label"><?= _t('gen.menu.help') ?></span>
-					</a>
-					<ul class="dropdown-menu scrollbar-thin">
-						<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
-						<li class="item dropdown-section">
-							<div class="dropdown-section-title">
-								<?= _t('gen.menu.help') ?>
-							</div>
-							<ul>
-								<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
-							</ul>
+			<ul>
+				<li class="item nav-section">
+					<div class="nav-header"><?= _t('install.steps') ?></div>
+					<ol>
+						<li class="item<?= STEP == 0 ? ' active' : '' ?>">
+							<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
 						</li>
-					</ul>
-					<a class="dropdown-close" href="#close">❌</a>
-				</div>
-			</div>
+						<li class="item<?= STEP == 1 ? ' active' : '' ?>">
+							<?php if (STEP > 0) {?>
+							<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
+							<?php } else { ?>
+							<span><?= _t('install.check') ?></span>
+							<?php } ?>
+						</li>
+						<li class="item<?= STEP == 2 ? ' active' : '' ?>">
+							<?php if (STEP > 1) {?>
+							<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
+							<?php } else { ?>
+							<span><?= _t('install.bdd.conf') ?></span>
+							<?php } ?>
+						</li>
+						<li class="item<?= STEP == 3 ? ' active' : '' ?>">
+							<?php if (STEP > 2) {?>
+							<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
+							<?php } else { ?>
+							<span><?= _t('install.conf') ?></span>
+							<?php } ?>
+						</li>
+						<li class="item<?= STEP == 4 ? ' active' : '' ?>">
+							<?php if (STEP > 3) {?>
+							<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
+							<?php } else { ?>
+							<span><?= _t('install.this_is_the_end') ?></span>
+							<?php } ?>
+						</li>
+					</ol>
+				</li>
+			</ul>
 		</nav>
-	</header>
-	<nav class="nav nav-list aside" id="aside">
-		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
-		<div class="logo-wrapper">
-			<a href="<?= _url('index', 'index') ?>">
-					<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
-			</a>
-		</div>
-		<ul>
-			<li class="item nav-section">
-				<div class="nav-header"><?= _t('install.steps') ?></div>
-				<ol>
-					<li class="item<?= STEP == 0 ? ' active' : '' ?>">
-						<a href="?step=0" title="<?= _t('install.step', 0) ?>: <?= _t('install.language') ?>"><?= _t('install.language') ?></a>
-					</li>
-					<li class="item<?= STEP == 1 ? ' active' : '' ?>">
-						<?php if (STEP > 0) {?>
-						<a href="?step=1" title="<?= _t('install.step', 1) ?>: <?= _t('install.check') ?>"><?= _t('install.check') ?></a>
-						<?php } else { ?>
-						<span><?= _t('install.check') ?></span>
-						<?php } ?>
-					</li>
-					<li class="item<?= STEP == 2 ? ' active' : '' ?>">
-						<?php if (STEP > 1) {?>
-						<a href="?step=2" title="<?= _t('install.step', 2) ?>: <?= _t('install.bdd.conf') ?>"><?= _t('install.bdd.conf') ?></a>
-						<?php } else { ?>
-						<span><?= _t('install.bdd.conf') ?></span>
-						<?php } ?>
-					</li>
-					<li class="item<?= STEP == 3 ? ' active' : '' ?>">
-						<?php if (STEP > 2) {?>
-						<a href="?step=3" title="<?= _t('install.step', 3) ?>: <?= _t('install.conf') ?>"><?= _t('install.conf') ?></a>
-						<?php } else { ?>
-						<span><?= _t('install.conf') ?></span>
-						<?php } ?>
-					</li>
-					<li class="item<?= STEP == 4 ? ' active' : '' ?>">
-						<?php if (STEP > 3) {?>
-						<a href="?step=4" title="<?= _t('install.step', 4) ?>: <?= _t('install.this_is_the_end') ?>"><?= _t('install.this_is_the_end') ?></a>
-						<?php } else { ?>
-						<span><?= _t('install.this_is_the_end') ?></span>
-						<?php } ?>
-					</li>
-				</ol>
-			</li>
-		</ul>
-	</nav>
-	<a class="close-aside" href="#close">❌</a>
+		<a class="close-aside" href="#close">❌</a>
 
-	<main id="maincolumn" class="post">
-		<div id="maincolumn-inner">
-			<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
-			<?php
-			switch (STEP) {
-			case 0:
-			default:
-				printStep0();
-				break;
-			case 1:
-				printStep1();
-				break;
-			case 2:
-				printStep2();
-				break;
-			case 3:
-				printStep3();
-				break;
-			case 4:
-				printStep4();
-				break;
-			case 5:
-				printStep5();
-				break;
-			}
-			?>
+		<main id="main-wrapper" class="post">
+			<div id="main">
+				<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
+				<?php
+				switch (STEP) {
+				case 0:
+				default:
+					printStep0();
+					break;
+				case 1:
+					printStep1();
+					break;
+				case 2:
+					printStep2();
+					break;
+				case 3:
+					printStep3();
+					break;
+				case 4:
+					printStep4();
+					break;
+				case 5:
+					printStep5();
+					break;
+				}
+				?>
+			</div>
+		</main>
 		</div>
-	</main>
-	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
+		<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>
