@@ -1054,10 +1054,10 @@ function init_shortcuts() {
 		if (k === s.close_dropdown) { location.hash = null; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
-		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
-		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
-		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); ev.preventDefault(); return; }
+		if (k === s.normal_view) { delayedClick(document.querySelector('#header_menu_views .view-normal')); ev.preventDefault(); return; }
+		if (k === s.reading_view) { delayedClick(document.querySelector('#header_menu_views .view-reader')); ev.preventDefault(); return; }
+		if (k === s.global_view) { delayedClick(document.querySelector('#header_menu_views .view-global')); ev.preventDefault(); return; }
+		if (k === s.rss_view) { delayedClick(document.querySelector('#header_menu_views .view-rss')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 	});
 }
