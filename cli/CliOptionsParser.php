@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-abstract class CommandLineParser {
+abstract class CliOptionsParser {
 	/** @var array<string,CliOption> */
 	private array $options = [];
 	/** @var array<string,array{defaultInput:?string[],required:?bool,aliasUsed:?string,values:?string[]}> */

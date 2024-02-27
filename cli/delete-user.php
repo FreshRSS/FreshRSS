@@ -5,22 +5,20 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-final class DeleteUserDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	public string $user;
 
 	public function __construct() {
 		$this->addRequiredOption('user', (new CliOption('user')));
 		parent::__construct();
 	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$options = new DeleteUserDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
-}
-
-$username = $options->user;
+$username = $cliOptions->user;
 
 if (!FreshRSS_user_Controller::checkUsername($username)) {
 	fail('FreshRSS error: invalid username: ' . $username . "\n");

@@ -6,7 +6,7 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-final class ManipulateTranslationDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	public string $action;
 	public string $key;
 	public string $value;
@@ -25,48 +25,46 @@ final class ManipulateTranslationDefinition extends CommandLineParser {
 		$this->addOption('help', (new CliOption('help', 'h'))->withValueNone());
 		parent::__construct();
 	}
-}
+};
 
-$options = new ManipulateTranslationDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-if (isset($options->help)) {
+if (isset($cliOptions->help)) {
 	manipulateHelp();
 }
 
 $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
-switch ($options->action) {
+switch ($cliOptions->action) {
 	case 'add' :
-		if (isset($options->key) && isset($options->value) && isset($options->language)) {
-			$i18nData->addValue($options->key, $options->value, $options->language);
-		} elseif (isset($options->key) && isset($options->value)) {
-			$i18nData->addKey($options->key, $options->value);
-		} elseif (isset($options->language)) {
+		if (isset($cliOptions->key) && isset($cliOptions->value) && isset($cliOptions->language)) {
+			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
+		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
+			$i18nData->addKey($cliOptions->key, $cliOptions->value);
+		} elseif (isset($cliOptions->language)) {
 			$reference = null;
-			if (isset($options->originLanguage)) {
-				$reference = $options->originLanguage;
+			if (isset($cliOptions->originLanguage)) {
+				$reference = $cliOptions->originLanguage;
 			}
-			$i18nData->addLanguage($options->language, $reference);
+			$i18nData->addLanguage($cliOptions->language, $reference);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'delete' :
-		if (isset($options->key)) {
-			$i18nData->removeKey($options->key);
+		if (isset($cliOptions->key)) {
+			$i18nData->removeKey($cliOptions->key);
 		} else {
 			error('You need to specify the key to delete.');
 			exit;
 		}
 		break;
 	case 'exist':
-		if (isset($options->key)) {
-			$key = $options->key;
+		if (isset($cliOptions->key)) {
+			$key = $cliOptions->key;
 			if ($i18nData->isKnown($key)) {
 				echo "The '{$key}' key is known.\n\n";
 			} else {
@@ -80,16 +78,16 @@ switch ($options->action) {
 	case 'format' :
 		break;
 	case 'ignore' :
-		if (isset($options->language) && isset($options->key)) {
-			$i18nData->ignore($options->key, $options->language, isset($options->revert));
+		if (isset($cliOptions->language) && isset($cliOptions->key)) {
+			$i18nData->ignore($cliOptions->key, $cliOptions->language, isset($cliOptions->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'ignore_unmodified' :
-		if (isset($options->language)) {
-			$i18nData->ignore_unmodified($options->language, isset($options->revert));
+		if (isset($cliOptions->language)) {
+			$i18nData->ignore_unmodified($cliOptions->language, isset($cliOptions->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;

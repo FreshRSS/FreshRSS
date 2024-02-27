@@ -11,7 +11,7 @@ require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 require_once(__DIR__ . '/CliOption.php');
-require_once(__DIR__ . '/CommandLineParser.php');
+require_once(__DIR__ . '/CliOptionsParser.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();

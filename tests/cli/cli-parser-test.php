@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require(__DIR__ . '/../../vendor/autoload.php');
-require(__DIR__ . '/CommandLineParserTest.php');
+require(__DIR__ . '/CliOptionsParserTest.php');
 
 $optionsClass = getenv('CLI_PARSER_TEST_OPTIONS_CLASS');
 if (!is_string($optionsClass) || !class_exists($optionsClass)) {
@@ -11,11 +11,11 @@ if (!is_string($optionsClass) || !class_exists($optionsClass)) {
 }
 
 switch ($optionsClass) {
-	case 'OptionalOptionsDefinition':
-		$options = new OptionalOptionsDefinition();
+	case CliOptionsOptionalTest::class:
+		$options = new CliOptionsOptionalTest();
 		break;
-	case 'OptionalAndRequiredOptionsDefinition':
-		$options = new OptionalAndRequiredOptionsDefinition();
+	case CliOptionsOptionalAndRequiredTest::class:
+		$options = new CliOptionsOptionalAndRequiredTest();
 		break;
 	default:
 		die('Unknown test static method!');

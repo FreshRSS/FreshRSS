@@ -5,7 +5,7 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-final class UserInfoDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	/** @var array<int,string> $user */
 	public array $user;
 	public string $header;
@@ -19,26 +19,24 @@ final class UserInfoDefinition extends CommandLineParser {
 		$this->addOption('humanReadable', (new CliOption('human-readable', 'h'))->withValueNone());
 		parent::__construct();
 	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$options = new UserInfoDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
-}
-
-$users = $options->user ?? listUsers();
+$users = $cliOptions->user ?? listUsers();
 
 sort($users);
 
-$formatJson = isset($options->json);
+$formatJson = isset($cliOptions->json);
 $jsonOutput = [];
 if ($formatJson) {
-	unset($options->header);
-	unset($options->humanReadable);
+	unset($cliOptions->header);
+	unset($cliOptions->humanReadable);
 }
 
-if (isset($options->header)) {
+if (isset($cliOptions->header)) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -87,7 +85,7 @@ foreach ($users as $username) {
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if (isset($options->humanReadable)) {	//Human format
+	if (isset($cliOptions->humanReadable)) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}

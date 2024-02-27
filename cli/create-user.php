@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-final class CreateUserDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	public string $user;
 	public string $password;
 	public string $apiPassword;
@@ -50,46 +50,44 @@ final class CreateUserDefinition extends CommandLineParser {
 		);
 		parent::__construct();
 	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$options = new CreateUserDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
-}
-
-$username = $options->user;
+$username = $cliOptions->user;
 
 echo 'FreshRSS creating user “', $username, "”…\n";
 
 $values = [
-	'language' => $options->language ?? null,
-	'mail_login' => $options->email ?? null,
-	'token' => $options->token ?? null,
-	'old_entries' => $options->purgeAfterMonths ?? null,
-	'keep_history_default' => $options->feedMinArticles ?? null,
-	'ttl_default' => $options->feedTtl ?? null,
-	'since_hours_posts_per_rss' => $options->sinceHoursPostsPerRss ?? null,
-	'max_posts_per_rss' => $options->maxPostsPerRss ?? null,
+	'language' => $cliOptions->language ?? null,
+	'mail_login' => $cliOptions->email ?? null,
+	'token' => $cliOptions->token ?? null,
+	'old_entries' => $cliOptions->purgeAfterMonths ?? null,
+	'keep_history_default' => $cliOptions->feedMinArticles ?? null,
+	'ttl_default' => $cliOptions->feedTtl ?? null,
+	'since_hours_posts_per_rss' => $cliOptions->sinceHoursPostsPerRss ?? null,
+	'max_posts_per_rss' => $cliOptions->maxPostsPerRss ?? null,
 ];
 
 $values = array_filter($values);
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
-	isset($options->email) ? $options->email : null,
-	$options->password ?? '',
+	isset($cliOptions->email) ? $cliOptions->email : null,
+	$cliOptions->password ?? '',
 	$values,
-	!isset($options->noDefaultFeeds)
+	!isset($cliOptions->noDefaultFeeds)
 );
 
 if (!$ok) {
 	fail('FreshRSS could not create user!');
 }
 
-if (isset($options->apiPassword)) {
+if (isset($cliOptions->apiPassword)) {
 	$username = cliInitUser($username);
-	$error = FreshRSS_api_Controller::updatePassword($options->apiPassword);
+	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {
 		fail($error);
 	}

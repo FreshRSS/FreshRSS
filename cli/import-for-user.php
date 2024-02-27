@@ -5,7 +5,7 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-final class ImportForUserDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	public string $user;
 	public string $filename;
 
@@ -14,16 +14,14 @@ final class ImportForUserDefinition extends CommandLineParser {
 		$this->addRequiredOption('filename', (new CliOption('filename')));
 		parent::__construct();
 	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$options = new ImportForUserDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
-}
-
-$username = cliInitUser($options->user);
-$filename = $options->filename;
+$username = cliInitUser($cliOptions->user);
+$filename = $cliOptions->filename;
 
 if (!is_readable($filename)) {
 	fail('FreshRSS error: file is not readable “' . $filename . '”');

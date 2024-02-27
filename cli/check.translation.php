@@ -8,7 +8,7 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
-final class CheckTranslationDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	/** @var array<int,string> $language */
 	public array $language;
 	public string $displayResult;
@@ -22,27 +22,25 @@ final class CheckTranslationDefinition extends CommandLineParser {
 		$this->addOption('displayReport', (new CliOption('display-report', 'r'))->withValueNone());
 		parent::__construct();
 	}
-}
+};
 
-$options = new CheckTranslationDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-if (isset($options->help)) {
+if (isset($cliOptions->help)) {
 	checkHelp();
 }
 
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-if (isset($options->language)) {
-	$languages = $options->language;
+if (isset($cliOptions->language)) {
+	$languages = $cliOptions->language;
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }
-$displayResults = isset($options->displayResult);
-$displayReport = isset($options->displayReport);
+$displayResults = isset($cliOptions->displayResult);
+$displayReport = isset($cliOptions->displayReport);
 
 $isValidated = true;
 $result = [];

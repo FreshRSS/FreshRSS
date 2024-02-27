@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-final class ReconfigureDefinition extends CommandLineParser {
+$cliOptions = new class extends CliOptionsParser {
 	public string $defaultUser;
 	public string $environment;
 	public string $baseUrl;
@@ -57,37 +57,35 @@ final class ReconfigureDefinition extends CommandLineParser {
 		$this->addOption('dbPrefix', (new CliOption('db-prefix'))->withValueOptional());
 		parent::__construct();
 	}
-}
+};
 
-$options = new ReconfigureDefinition();
-
-if (!empty($options->errors)) {
-	fail('FreshRSS error: ' . array_shift($options->errors) . "\n" . $options->usage);
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
 fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
 $values = [
-	'default_user' => $options->defaultUser ?? null,
-	'environment' => $options->environment ?? null,
-	'base_url' => $options->baseUrl ?? null,
-	'language' => $options->language ?? null,
-	'title' => $options->title ?? null,
-	'allow_anonymous' => $options->allowAnonymous ?? null,
-	'allow_anonymous_refresh' => $options->allowAnonymousRefresh ?? null,
-	'auth_type' => $options->authType ?? null,
-	'api_enabled' => $options->apiEnabled ?? null,
-	'allow_robots' => $options->allowRobots ?? null,
-	'disable_update' => $options->disableUpdate ?? null,
+	'default_user' => $cliOptions->defaultUser ?? null,
+	'environment' => $cliOptions->environment ?? null,
+	'base_url' => $cliOptions->baseUrl ?? null,
+	'language' => $cliOptions->language ?? null,
+	'title' => $cliOptions->title ?? null,
+	'allow_anonymous' => $cliOptions->allowAnonymous ?? null,
+	'allow_anonymous_refresh' => $cliOptions->allowAnonymousRefresh ?? null,
+	'auth_type' => $cliOptions->authType ?? null,
+	'api_enabled' => $cliOptions->apiEnabled ?? null,
+	'allow_robots' => $cliOptions->allowRobots ?? null,
+	'disable_update' => $cliOptions->disableUpdate ?? null,
 ];
 
 $dbValues = [
-	'type' => $options->dbType ?? null,
-	'host' => $options->dbHost ?? null,
-	'user' => $options->dbUser ?? null,
-	'password' => $options->dbPassword ?? null,
-	'base' => $options->dbBase ?? null,
-	'prefix' => $options->dbPrefix ?? null,
+	'type' => $cliOptions->dbType ?? null,
+	'host' => $cliOptions->dbHost ?? null,
+	'user' => $cliOptions->dbUser ?? null,
+	'password' => $cliOptions->dbPassword ?? null,
+	'base' => $cliOptions->dbBase ?? null,
+	'prefix' => $cliOptions->dbPrefix ?? null,
 ];
 
 $systemConf = FreshRSS_Context::systemConf();

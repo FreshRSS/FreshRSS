@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../../cli/CliOption.php';
-require_once __DIR__ . '/../../cli/CommandLineParser.php';
+require_once __DIR__ . '/../../cli/CliOptionsParser.php';
 
-final class OptionalOptionsDefinition extends CommandLineParser {
+final class CliOptionsOptionalTest extends CliOptionsParser {
 	public string $string = '';
 	public int $int = 0;
 	public bool $bool = false;
@@ -33,7 +33,7 @@ final class OptionalOptionsDefinition extends CommandLineParser {
 	}
 }
 
-final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
+final class CliOptionsOptionalAndRequiredTest extends CliOptionsParser {
 	public string $required = '';
 	public string $string = '';
 	public int $int = 0;
@@ -50,7 +50,7 @@ final class OptionalAndRequiredOptionsDefinition extends CommandLineParser {
 	}
 }
 
-class CommandLineParserTest extends TestCase {
+class CliOptionsParserTest extends TestCase {
 
 	public function testInvalidOptionSetWithValueReturnsError(): void {
 		$result = $this->runOptionalOptions('--invalid=invalid');
@@ -208,33 +208,33 @@ class CommandLineParserTest extends TestCase {
 		);
 	}
 
-	private function runOptionalOptions(string $options = ''): OptionalOptionsDefinition {
+	private function runOptionalOptions(string $cliOptions = ''): CliOptionsOptionalTest {
 		$command = __DIR__ . '/cli-parser-test.php';
-		$className = OptionalOptionsDefinition::class;
+		$className = CliOptionsOptionalTest::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
-		$result = is_string($result) ? unserialize($result) : new OptionalOptionsDefinition();
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $cliOptions 2>/dev/null");
+		$result = is_string($result) ? unserialize($result) : new CliOptionsOptionalTest();
 
-		/** @var OptionalOptionsDefinition $result */
+		/** @var CliOptionsOptionalTest $result */
 		return $result;
 	}
 
-	private function runOptionalAndRequiredOptions(string $options = ''): OptionalAndRequiredOptionsDefinition {
+	private function runOptionalAndRequiredOptions(string $cliOptions = ''): CliOptionsOptionalAndRequiredTest {
 		$command = __DIR__ . '/cli-parser-test.php';
-		$className = OptionalAndRequiredOptionsDefinition::class;
+		$className = CliOptionsOptionalAndRequiredTest::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>/dev/null");
-		$result = is_string($result) ? unserialize($result) : new OptionalAndRequiredOptionsDefinition();
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $cliOptions 2>/dev/null");
+		$result = is_string($result) ? unserialize($result) : new CliOptionsOptionalAndRequiredTest();
 
-		/** @var OptionalAndRequiredOptionsDefinition $result */
+		/** @var CliOptionsOptionalAndRequiredTest $result */
 		return $result;
 	}
 
-	private function runCommandReadingStandardError(string $options = ''): string {
+	private function runCommandReadingStandardError(string $cliOptions = ''): string {
 		$command = __DIR__ . '/cli-parser-test.php';
-		$className = OptionalOptionsDefinition::class;
+		$className = CliOptionsOptionalTest::class;
 
-		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $options 2>&1");
+		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $cliOptions 2>&1");
 		$result = is_string($result) ? explode("\n", $result) : '';
 
 		return is_array($result) ? $result[0] : '';
