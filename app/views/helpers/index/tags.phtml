@@ -32,8 +32,8 @@
 						<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=%23' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 						<?php endforeach; ?>
 					<?php endif; ?>
+					<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 				</ul>
-				<a class="dropdown-close" href="#close">❌</a>
 			</div>
 		</li>
 	<?php endif; ?>
