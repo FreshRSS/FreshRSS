@@ -4,6 +4,14 @@
 
 @use "variables";
 
+.logo {
+	filter: invert(80%);
+}
+
+a:hover .logo {
+	filter: invert(90%) brightness(0.7);
+}
+
 /*=== Tree */
 .tree {
 	margin: 10px 0;

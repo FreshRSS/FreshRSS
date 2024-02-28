@@ -451,6 +451,14 @@ form th {
 	left: 33px;
 }
 
+.logo {
+	filter: invert(80%);
+}
+
+a:hover .logo {
+	filter: invert(80%) opacity(80%);
+}
+
 /*=== Tree */
 .tree {
 	margin: 10px 0;
