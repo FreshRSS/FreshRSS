@@ -204,32 +204,14 @@
 	</div>
 	<?php } ?>
 
-	<div class="group" id="nav_menu_views">
-		<?php
-		$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
-		if (!is_iterable($readingModes)) {
-			$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		}
-
-		/** @var FreshRSS_ReadingMode $mode */
-		foreach ($readingModes as $mode) {
-			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
-				$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
-				<?= $mode->getName() ?>
-			</a>
-			<?php
-		}
-		?>
-	</div>
-
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
-	<?php if ($nav_menu_hooks != '') { ?>
-	<div class="group" id="nav_menu_hooks">
-		<?= $nav_menu_hooks ?>
-	</div>
-	<?php } ?>
+	<?php 
+	$nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); 
+	if ($nav_menu_hooks != '') { ?>
+		<div class="group" id="nav_menu_hooks">
+			<?= $nav_menu_hooks ?>
+		</div>
+		<?php 
+	} ?>
 
 	<?php
 		if (FreshRSS_Context::$order === 'DESC') {
