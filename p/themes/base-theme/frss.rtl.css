@@ -1862,7 +1862,7 @@ html.slider-active {
 	top: 0; bottom: 0;
 	left: 0;
 	overflow: auto;
-	z-index: 90;
+	z-index: 91;
 }
 
 #slider.active:target {
