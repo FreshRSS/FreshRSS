@@ -204,13 +204,13 @@
 	</div>
 	<?php } ?>
 
-	<?php 
-	$nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); 
+	<?php
+	$nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu');
 	if ($nav_menu_hooks != '') { ?>
 		<div class="group" id="nav_menu_hooks">
 			<?= $nav_menu_hooks ?>
 		</div>
-		<?php 
+		<?php
 	} ?>
 
 	<?php
