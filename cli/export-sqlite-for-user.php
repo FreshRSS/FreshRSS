@@ -5,26 +5,23 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = [
-	'long' => [
-		'user' => ':',
-		'filename' => ':',
-	],
-	'short' => [],
-	'deprecated' => [],
-];
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
+	public string $filename;
 
-$options = parseCliParams($parameters);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addRequiredOption('filename', (new CliOption('filename')));
+		parent::__construct();
+	}
+};
 
-if (!empty($options['invalid'])
-	|| empty($options['valid']['user']) || empty($options['valid']['filename'])
-	|| !is_string($options['valid']['user']) || !is_string($options['valid']['filename'])
-) {
-	fail('Usage: ' . basename(__FILE__) . ' --user username --filename /path/to/db.sqlite');
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['valid']['user']);
-$filename = $options['valid']['filename'];
+$username = cliInitUser($cliOptions->user);
+$filename = $cliOptions->filename;
 
 if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 	fail('Only *.sqlite files are supported!');
