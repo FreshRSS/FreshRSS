@@ -5,21 +5,20 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = [
-	'long' => [
-		'user' => ':',
-	],
-	'short' => [],
-	'deprecated' => [],
-];
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
 
-$options = parseCliParams($parameters);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		parent::__construct();
+	}
+};
 
-if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username > /path/to/file.opml.xml");
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['valid']['user']);
+$username = cliInitUser($cliOptions->user);
 
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
