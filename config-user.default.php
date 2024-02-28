@@ -90,7 +90,6 @@ return array (
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',
-		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
 
