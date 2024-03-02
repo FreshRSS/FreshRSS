@@ -794,6 +794,16 @@ input[type="checkbox"]:focus-visible {
 	box-shadow: 0 0 1rem var(--frss-background-color);
 }
 
+#dropdown-query-wrapper .dropdown-menu {
+	right: -150px;
+	left: auto;
+}
+
+#dropdown-query-wrapper .dropdown-menu::after {
+	right: 162px;
+	left: auto;
+}
+
 .dropdown.dropdown-open-bottom-fix-left .dropdown-menu {
 	left: auto;
 	right: -4px;
@@ -2391,6 +2401,7 @@ html.slider-active {
 		line-height: 2;
 	}
 
+	#dropdown-query-wrapper .dropdown-menu,
 	.dropdown .dropdown-menu {
 		width: calc(100% - 3rem);
 		box-sizing: border-box;
