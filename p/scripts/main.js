@@ -728,7 +728,11 @@ function onScroll() {
 		return;
 	}
 	if (context.auto_mark_scroll) {
-		const hidden_px = -5; // negative = pixels over the edge
+		let hidden_px = document.querySelector('.nav_menu').offsetHeight; // negative = pixels over the edge
+		const hidden_px_header = document.querySelector('header.header').offsetHeight;
+		if (hidden_px_header < 200) { // if header's height is <200 px than it is on top in mobile view. If >200px: header is on the left side
+			hidden_px = hidden_px + hidden_px_header;
+		}
 		const minTop = hidden_px + box_to_follow.scrollTop;
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 			if (div.offsetHeight > 0 &&
