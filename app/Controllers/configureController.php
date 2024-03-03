@@ -331,8 +331,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->feeds = FreshRSS_Context::feeds();
 		$this->view->tags = FreshRSS_Context::labels();
 
-		if (Minz_Request::paramTernary('id') !== null) {
-			$id = Minz_Request::paramInt('id');
+		if (Minz_Request::paramTernary('queryId') !== null) {
+			$id = Minz_Request::paramInt('queryId');
 			$this->view->query = $this->view->queries[$id];
 			$this->view->queryId = $id;
 			$this->view->displaySlider = true;
@@ -353,8 +353,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			$this->view->_layout(null);
 		}
 
-		$id = Minz_Request::paramInt('id');
-		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
+		$id = Minz_Request::paramInt('queryId');
+		if (Minz_Request::paramTernary('queryId') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
@@ -404,7 +404,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ]);
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['queryId' => (string)$id] ]);
 		}
 
 		FreshRSS_View::prependTitle($query->getName() . ' · ' . _t('conf.query.title') . ' · ');
@@ -414,8 +414,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * Handles query deletion
 	 */
 	public function deleteQueryAction(): void {
-		$id = Minz_Request::paramInt('id');
-		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
+		$id = Minz_Request::paramInt('iqueryIdd');
+		if (Minz_Request::paramTernary('queryId') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
