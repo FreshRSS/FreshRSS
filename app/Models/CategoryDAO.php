@@ -281,7 +281,7 @@ SQL;
 	public function listCategories(bool $prePopulateFeeds = true, bool $details = false): array {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes, '
-				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.kind, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
+				. ($details ? 'f.* ' : 'f.id, f.name, f.url, f.kind, f.website, f.priority, f.error, f.attributes, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 				. 'FROM `_category` c '
 				. 'LEFT OUTER JOIN `_feed` f ON f.category=c.id '
 				. 'WHERE f.priority >= :priority '
@@ -292,7 +292,7 @@ SQL;
 			if ($stm !== false && $stm->execute($values)) {
 				$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
 				/** @var array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,
-				 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'category'?:int,'website'?:string,'priority'?:int,'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $res */
+				 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'category'?:int,'website'?:string,'priority'?:int,'error'?:int|bool,'attributes'?:string,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $res */
 				return self::daoToCategoriesPrepopulated($res);
 			} else {
 				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -397,7 +397,7 @@ SQL;
 	/**
 	 * @param array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,
 	 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'website'?:string,'priority'?:int,
-	 * 	'error'?:int|bool,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $listDAO
+	 * 	'error'?:int|bool,'attributes'?:string,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category>
 	 */
 	private static function daoToCategoriesPrepopulated(array $listDAO): array {

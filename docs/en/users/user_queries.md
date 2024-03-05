@@ -53,7 +53,7 @@ Some parameters can be manually added to the URL:
 ## Sharing with a master token (deprecated)
 
 Before FreshRSS 1.24, the only option to reshare an RSS output was by using a master token,
-like `https://freshrss.example.net/?a=rss&user=alice&token1234`
+like `https://freshrss.example.net/?a=rss&user=alice&token=abc123`
 
 This was mostly intended for sharing between systems controlled by the same user, and not for sharing publicly.
 
