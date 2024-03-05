@@ -134,7 +134,7 @@ return array(
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Nincsenek címkék',
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
 	),
@@ -188,11 +188,11 @@ return array(
 		'user_profile' => 'Profil',
 	),
 	'period' => array(
-		'days' => 'napok',
-		'hours' => 'órák',
-		'months' => 'hónapok',
-		'weeks' => 'hetek',
-		'years' => 'évek',
+		'days' => 'nap',
+		'hours' => 'óra',
+		'months' => 'hónap',
+		'weeks' => 'hét',
+		'years' => 'év',
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',

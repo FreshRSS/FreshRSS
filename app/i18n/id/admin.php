@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (untuk pengguna tingkat lanjut HTTPS)',
 		'none' => 'None (dangerous)',	// TODO
 		'title' => 'Authentication',	// TODO
-		'token' => 'Authentication token',	// TODO
-		'token_help' => 'Memungkinkan akses ke output RSS dari pengguna default tanpa otentikasi:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Authentication method',	// TODO
 		'unsafe_autologin' => 'Izinkan login otomatis yang tidak aman menggunakan format: ',
 	),
@@ -192,6 +192,9 @@ return array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (για έμπειρους χρήστες με )',
 		'none' => 'Καμία (ριψοκίνδυνο)',
 		'title' => 'Πιστοποίηση',
-		'token' => 'Διακριτικό Πιστοποίησης (token)',
-		'token_help' => 'Επιτρέπει την πρόσβαση στα RSS αποτελέσματα του προεπιλεγμένου χρήστη χωρίς έλεγχο ταυτότητας:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Μέθοδος Πιστοποίησης',
 		'unsafe_autologin' => 'Επιτρέψτε την μη ασφαλή αυτόματη σύνδεση με την χρήση της μορφής: ',
 	),
@@ -192,6 +192,9 @@ return array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

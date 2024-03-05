@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Manage configuration for the application.
  * @property string $base_url
  * @property array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
  *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db
- * @property-read string $disable_update
- * @property-read string $environment
+ * @property bool $disable_update
+ * @property string $environment
  * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
  * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} $smtp
@@ -17,7 +18,7 @@ class Minz_Configuration {
 	 * The list of configurations.
 	 * @var array<string,static>
 	 */
-	private static $config_list = array();
+	private static array $config_list = array();
 
 	/**
 	 * Add a new configuration to the list of configuration.
@@ -26,6 +27,7 @@ class Minz_Configuration {
 	 * @param string $config_filename the filename of the configuration
 	 * @param string $default_filename a filename containing default values for the configuration
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @throws Minz_FileNotExistException
 	 */
 	public static function register(string $namespace, string $config_filename, string $default_filename = null,
 		Minz_ConfigurationSetterInterface $configuration_setter = null): void {
@@ -72,31 +74,28 @@ class Minz_Configuration {
 	 * Unused.
 	 * @phpstan-ignore-next-line
 	 */
-	private $namespace = '';
+	private string $namespace = '';
 
 	/**
 	 * The filename for the current configuration.
-	 * @var string
 	 */
-	private $config_filename = '';
+	private string $config_filename = '';
 
 	/**
 	 * The filename for the current default values, null by default.
-	 * @var string|null
 	 */
-	private $default_filename = null;
+	private ?string $default_filename = null;
 
 	/**
 	 * The configuration values, an empty array by default.
 	 * @var array<string,mixed>
 	 */
-	private $data = array();
+	private array $data = [];
 
 	/**
 	 * An object which help to set good values in configuration.
-	 * @var Minz_ConfigurationSetterInterface|null
 	 */
-	private $configuration_setter;
+	private ?Minz_ConfigurationSetterInterface $configuration_setter = null;
 
 	/**
 	 * Create a new Minz_Configuration object.
@@ -105,6 +104,7 @@ class Minz_Configuration {
 	 * @param string $config_filename the file containing configuration values.
 	 * @param string $default_filename the file containing default values, null by default.
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @throws Minz_FileNotExistException
 	 */
 	private final function __construct(string $namespace, string $config_filename, string $default_filename = null,
 		Minz_ConfigurationSetterInterface $configuration_setter = null) {
@@ -155,7 +155,6 @@ class Minz_Configuration {
 	 * @param string $key the name of the param.
 	 * @param mixed $default default value to return if key does not exist.
 	 * @return array|mixed value corresponding to the key.
-	 * @throws Minz_ConfigurationParamException if the param does not exist
 	 */
 	public function param(string $key, $default = null) {
 		if (isset($this->data[$key])) {

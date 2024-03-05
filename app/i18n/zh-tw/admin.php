@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP（面向啟用 HTTPS 的高級用戶)',
 		'none' => '無認證（危險）',
 		'title' => '認證',
-		'token' => '認證口令',
-		'token_help' => '用於不經認證訪問預設使用者的 RSS 輸出：',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => '認證方式',
 		'unsafe_autologin' => '允許不安全的自動登入方式：',
 	),
@@ -192,6 +192,9 @@ return array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

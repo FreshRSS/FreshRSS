@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 /**
  * @param array<FreshRSS_Feed> $feeds
- * @return array<array<string,string|null>>
+ * @return array<array<string,string|bool|int>>
  */
 function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 	$outlines = [];
@@ -19,17 +20,24 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			'description' => htmlspecialchars_decode($feed->description(), ENT_QUOTES),
 		];
 
+		switch ($feed->kind()) {
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
+				break;
+			case FreshRSS_Feed::KIND_XML_XPATH:
+				$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
+				break;
+			case FreshRSS_Feed::KIND_JSON_DOTPATH:
+				$outline['type'] = FreshRSS_Export_Service::TYPE_JSON_DOTPATH;
+				break;
+			case FreshRSS_Feed::KIND_JSONFEED:
+				$outline['type'] = FreshRSS_Export_Service::TYPE_JSONFEED;
+				break;
+		}
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
-			switch ($feed->kind()) {
-				case FreshRSS_Feed::KIND_HTML_XPATH:
-					$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH;
-					break;
-				case FreshRSS_Feed::KIND_XML_XPATH:
-					$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
-					break;
-			}
 			/** @var array<string,string> */
-			$xPathSettings = $feed->attributes('xpath');
+			$xPathSettings = $feed->attributeArray('xpath') ?? [];
 			$outline['frss:xPathItem'] = $xPathSettings['item'] ?? null;
 			$outline['frss:xPathItemTitle'] = $xPathSettings['itemTitle'] ?? null;
 			$outline['frss:xPathItemContent'] = $xPathSettings['itemContent'] ?? null;
@@ -40,6 +48,19 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:xPathItemThumbnail'] = $xPathSettings['itemThumbnail'] ?? null;
 			$outline['frss:xPathItemCategories'] = $xPathSettings['itemCategories'] ?? null;
 			$outline['frss:xPathItemUid'] = $xPathSettings['itemUid'] ?? null;
+		} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+			/** @var array<string,string> */
+			$jsonSettings = $feed->attributeArray('json_dotpath') ?? [];
+			$outline['frss:jsonItem'] = $jsonSettings['item'] ?? null;
+			$outline['frss:jsonItemTitle'] = $jsonSettings['itemTitle'] ?? null;
+			$outline['frss:jsonItemContent'] = $jsonSettings['itemContent'] ?? null;
+			$outline['frss:jsonItemUri'] = $jsonSettings['itemUri'] ?? null;
+			$outline['frss:jsonItemAuthor'] = $jsonSettings['itemAuthor'] ?? null;
+			$outline['frss:jsonItemTimestamp'] = $jsonSettings['itemTimestamp'] ?? null;
+			$outline['frss:jsonItemTimeformat'] = $jsonSettings['itemTimeformat'] ?? null;
+			$outline['frss:jsonItemThumbnail'] = $jsonSettings['itemThumbnail'] ?? null;
+			$outline['frss:jsonItemCategories'] = $jsonSettings['itemCategories'] ?? null;
+			$outline['frss:jsonItemUid'] = $jsonSettings['itemUid'] ?? null;
 		}
 
 		if (!empty($feed->filtersAction('read'))) {
@@ -55,12 +76,34 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssFullContent'] = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 		}
 
-		if ($feed->attributes('path_entries_filter') != '') {
-			$outline['frss:cssFullContentFilter'] = $feed->attributes('path_entries_filter');
+		if ($feed->attributeString('path_entries_filter') != '') {
+			$outline['frss:cssFullContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
-		// Remove null attributes
-		$outline = array_filter($outline, static function (?string $value) { return $value !== null; });
+		$curl_params = $feed->attributeArray('curl_params');
+		if (!empty($curl_params)) {
+			$outline['frss:CURLOPT_COOKIE'] = $curl_params[CURLOPT_COOKIE] ?? null;
+			$outline['frss:CURLOPT_COOKIEFILE'] = $curl_params[CURLOPT_COOKIEFILE] ?? null;
+			$outline['frss:CURLOPT_FOLLOWLOCATION'] = $curl_params[CURLOPT_FOLLOWLOCATION] ?? null;
+			$outline['frss:CURLOPT_MAXREDIRS'] = $curl_params[CURLOPT_MAXREDIRS] ?? null;
+			$outline['frss:CURLOPT_POST'] = $curl_params[CURLOPT_POST] ?? null;
+			$outline['frss:CURLOPT_POSTFIELDS'] = $curl_params[CURLOPT_POSTFIELDS] ?? null;
+			$outline['frss:CURLOPT_PROXY'] = $curl_params[CURLOPT_PROXY] ?? null;
+			$outline['frss:CURLOPT_PROXYTYPE'] = $curl_params[CURLOPT_PROXYTYPE] ?? null;
+			$outline['frss:CURLOPT_USERAGENT'] = $curl_params[CURLOPT_USERAGENT] ?? null;
+
+			if (!empty($curl_params[CURLOPT_HTTPHEADER]) && is_array($curl_params[CURLOPT_HTTPHEADER])) {
+				$headers = '';
+				foreach ($curl_params[CURLOPT_HTTPHEADER] as $header) {
+					$headers .= $header . "\n";
+				}
+				$headers = trim($headers);
+				$outline['frss:CURLOPT_HTTPHEADER'] = $headers;
+			}
+		}
+
+		// Remove null or invalid attributes
+		$outline = array_filter($outline, static function ($value) { return (is_string($value) || is_int($value) || is_bool($value)) && $value !== ''; });
 
 		$outlines[] = $outline;
 	}
@@ -75,7 +118,7 @@ $opml_array = [
 		'frss' => FreshRSS_Export_Service::FRSS_NAMESPACE,
 	],
 	'head' => [
-		'title' => FreshRSS_Context::$system_conf->title,
+		'title' => FreshRSS_Context::systemConf()->title,
 		'dateCreated' => new DateTime(),
 	],
 	'body' => [],
@@ -89,7 +132,7 @@ if (!empty($this->categories)) {
 		];
 
 		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
-			$outline['frss:opmlUrl'] = $cat->attributes('opml_url');
+			$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
 		}
 
 		$opml_array['body'][] = $outline;

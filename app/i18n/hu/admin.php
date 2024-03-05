@@ -12,15 +12,15 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Anoním felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
-		'allow_anonymous_refresh' => 'Anoním felhasználok frissíthetik a cikkeket',
+		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
+		'allow_anonymous_refresh' => 'Névtelen felhasználok frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobil alkalmazás szükséges)</small>',
-		'form' => 'Web form (hagyományos, JavaScript szükséges hozzá)',
+		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
 		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',
-		'token' => 'Hitelesítő token',
-		'token_help' => 'Engedélyezi az alapértelmezett felhasználó RSS-ének olvasását hitelesítés nélkül:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Hitelesítési módszer',
 		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Rendszer konfiguráció',
 		'auto-update-url' => 'Szerver URL automata frissítése',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Alap URL',
+			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
@@ -187,11 +187,14 @@ return array(
 			),
 			'title' => 'Felhasználó regisztrációs űrlap',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Érzékeny paraméter. Szerkessze manuálisan itt <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nincs elfogadva',
 			'enabled' => '<a href="./?a=tos">engedélyezve</a>',
 			'help' => 'Hogyan kapcsoljuk be a <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Szolgáltatási feltételeket</a>',
+		),
+		'websub' => array(
+			'help' => 'A <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>-ról',
 		),
 	),
 	'update' => array(
@@ -210,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// IGNORE
 		),
 		'title' => 'FreshRSS frissítése',
-		'viaGit' => 'Frissítés a git és Github.com-on keresztül elindult',
+		'viaGit' => 'Frissítés a git és GitHub.com-on keresztül elindult',
 	),
 	'user' => array(
 		'admin' => 'Adminisztrátor',
@@ -227,7 +230,7 @@ return array(
 		'list' => 'Felhasználói lista',
 		'number' => ' %d fiók létrehozva',
 		'numbers' => ' %d fiók van létrehozva',
-		'password_form' => 'Jelszó<br /><small>(a Web-form belépési módszerhez)</small>',
+		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
 		'password_format' => 'Legalább 7 karakter',
 		'title' => 'Felhasználók kezelése',
 		'username' => 'Felhasználó név',

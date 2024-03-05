@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
-		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati',
-		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori',
+		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
 		'zip_error' => 'Si è verificato un errore importando il file ZIP',	// DIRTY
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',
 	),
 	'tag' => array(
-		'created' => 'Il Tag “%s” è stato creato.',	// DIRTY
-		'name_exists' => 'Il nome del tag è già presente.',	// DIRTY
-		'renamed' => 'Il Tag “%s” è stato rinominato in “%s”.',	// DIRTY
+		'created' => 'Il tag “%s” è stato creato.',
+		'error' => 'Il tag non può essere aggiornato!',
+		'name_exists' => 'Il nome del tag è già presente.',
+		'renamed' => 'Il tag “%s” è stato rinominato in “%s”.',
+		'updated' => 'Il tag è stato aggiornato.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',

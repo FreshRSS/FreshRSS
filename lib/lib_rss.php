@@ -1,6 +1,26 @@
 <?php
+declare(strict_types=1);
+
 if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
+}
+
+if (!function_exists('array_is_list')) {
+	/**
+	 * Polyfill for PHP <8.1
+	 * https://php.net/array-is-list#127044
+	 * @param array<mixed> $array
+	 */
+	function array_is_list(array $array): bool {
+		$i = -1;
+		foreach ($array as $k => $v) {
+			++$i;
+			if ($k !== $i) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 if (!function_exists('mb_strcut')) {
@@ -87,6 +107,45 @@ function classAutoloader(string $class): void {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+/**
+ * Memory efficient replacement of `echo json_encode(...)`
+ * @param array<mixed>|mixed $json
+ * @param int $optimisationDepth Number of levels for which to perform memory optimisation
+ * before calling the faster native JSON serialisation.
+ * Set to negative value for infinite depth.
+ */
+function echoJson($json, int $optimisationDepth = -1): void {
+	if ($optimisationDepth === 0 || !is_array($json)) {
+		echo json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		return;
+	}
+	$first = true;
+	if (array_is_list($json)) {
+		echo '[';
+		foreach ($json as $item) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echoJson($item, $optimisationDepth - 1);
+		}
+		echo ']';
+	} else {
+		echo '{';
+		foreach ($json as $key => $value) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echo json_encode($key, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ':';
+			echoJson($value, $optimisationDepth - 1);
+		}
+		echo '}';
+	}
+}
+
 function idn_to_puny(string $url): string {
 	if (function_exists('idn_to_ascii')) {
 		$idn = parse_url($url, PHP_URL_HOST);
@@ -169,7 +228,7 @@ function escapeToUnicodeAlternative(string $text, bool $extended = true): string
 function format_number($n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',	// Thin non-breaking space
-		number_format($n, $precision, '.', ' ')
+		number_format((float)$n, $precision, '.', ' ')
 	);
 }
 
@@ -247,22 +306,19 @@ function sensitive_log($log) {
  * @throws FreshRSS_Context_Exception
  */
 function customSimplePie(array $attributes = array()): SimplePie {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limits = FreshRSS_Context::$system_conf->limits;
+	$limits = FreshRSS_Context::systemConf()->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
+	$simplePie->set_syslog(FreshRSS_Context::systemConf()->simplepie_syslog_enabled);
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->enable_order_by_date(false);
 
-	$feed_timeout = empty($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
+	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = FreshRSS_Context::$system_conf->curl_options;
+	$curl_options = FreshRSS_Context::systemConf()->curl_options;
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
@@ -370,8 +426,17 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
+ * Remove the charset meta information of an HTML document, e.g.:
+ * `<meta charset="..." />`
+ * `<meta http-equiv="Content-Type" content="text/html; charset=...">`
+ */
+function stripHtmlMetaCharset(string $html): string {
+	return preg_replace('/<meta\s[^>]*charset\s*=\s*[^>]+>/i', '', $html, 1) ?? '';
+}
+
+/**
  * Set an XML preamble to enforce the HTML content type charset received by HTTP.
- * @param string $html the row downloaded HTML content
+ * @param string $html the raw downloaded HTML content
  * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
@@ -382,7 +447,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		return $html;
 	}
 	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
-	if ($httpCharsetNormalized === 'windows-1252') {
+	if (in_array($httpCharsetNormalized, ['windows-1252', 'US-ASCII'], true)) {
 		// Default charset for HTTP, do nothing
 		return $html;
 	}
@@ -398,7 +463,20 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		// Existing XML declaration, do nothing
 		return $html;
 	}
-	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	if ($httpCharsetNormalized !== 'UTF-8') {
+		// Try to change encoding to UTF-8 using mbstring or iconv or intl
+		$utf8 = SimplePie_Misc::change_encoding($html, $httpCharsetNormalized, 'UTF-8');
+		if (is_string($utf8)) {
+			$html = stripHtmlMetaCharset($utf8);
+			$httpCharsetNormalized = 'UTF-8';
+		}
+	}
+	if ($httpCharsetNormalized === 'UTF-8') {
+		// Save encoding information as XML declaration
+		return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	}
+	// Give up
+	return $html;
 }
 
 /**
@@ -406,11 +484,8 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
  * @param array<string,mixed> $attributes
  */
 function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limits = FreshRSS_Context::$system_conf->limits;
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$limits = FreshRSS_Context::systemConf()->limits;
+	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
 	$cacheMtime = @filemtime($cachePath);
 	if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
@@ -425,14 +500,14 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		cleanCache(CLEANCACHE_HOURS);
 	}
 
-	if (FreshRSS_Context::$system_conf->simplepie_syslog_enabled) {
+	if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . SimplePie_Misc::url_remove_credentials($url));
 	}
 
 	$accept = '*/*;q=0.8';
 	switch ($type) {
 		case 'json':
-			$accept = 'application/json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
+			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
 			break;
 		case 'opml':
 			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
@@ -460,7 +535,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_ENCODING => '',	//Enable all encodings
 	]);
 
-	curl_setopt_array($ch, FreshRSS_Context::$system_conf->curl_options);
+	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
 	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 		curl_setopt_array($ch, $attributes['curl_params']);
@@ -485,7 +560,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		// TODO: Implement HTTP 410 Gone
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
-	} else {
+	} elseif ($type !== 'json') {
 		$body = enforceHttpEncoding($body, $c_content_type);
 	}
 
@@ -569,10 +644,7 @@ function listUsers(): array {
  * @return bool true if number of users >= max registrations, false else.
  */
 function max_registrations_reached(): bool {
-	if (FreshRSS_Context::$system_conf === null) {
-		throw new FreshRSS_Context_Exception('System configuration not initialised!');
-	}
-	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
+	$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];
 	$number_accounts = count(listUsers());
 
 	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
@@ -587,6 +659,7 @@ function max_registrations_reached(): bool {
  *
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
+ * @throws Minz_ConfigurationNamespaceException
  */
 function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -597,9 +670,6 @@ function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
-		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 		return null;
@@ -669,10 +739,10 @@ function connectionRemoteAddress(): string {
  * Check if the client (e.g. last proxy) is allowed to send unsafe headers.
  * This uses the `TRUSTED_PROXY` environment variable or the `trusted_sources` configuration option to get an array of the authorized ranges,
  * The connection IP is obtained from the `CONN_REMOTE_ADDR` (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
- * @return bool, true if the sender’s IP is in one of the ranges defined in the configuration, else false
+ * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
  */
 function checkTrustedIP(): bool {
-	if (FreshRSS_Context::$system_conf === null) {
+	if (!FreshRSS_Context::hasSystemConf()) {
 		return false;
 	}
 	$remoteIp = connectionRemoteAddress();
@@ -683,10 +753,10 @@ function checkTrustedIP(): bool {
 	if ($trusted != 0 && is_string($trusted)) {
 		$trusted = preg_split('/\s+/', $trusted, -1, PREG_SPLIT_NO_EMPTY);
 	}
-	if (empty($trusted)) {
-		$trusted = FreshRSS_Context::$system_conf->trusted_sources;
+	if (!is_array($trusted) || empty($trusted)) {
+		$trusted = FreshRSS_Context::systemConf()->trusted_sources;
 	}
-	foreach (FreshRSS_Context::$system_conf->trusted_sources as $cidr) {
+	foreach ($trusted as $cidr) {
 		if (checkCIDR($remoteIp, $cidr)) {
 			return true;
 		}
@@ -713,13 +783,8 @@ function httpAuthUser(bool $onlyTrusted = true): string {
 }
 
 function cryptAvailable(): bool {
-	try {
-		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-		return $hash === @crypt('password', $hash);
-	} catch (Exception $e) {
-		Minz_Log::warning($e->getMessage());
-	}
-	return false;
+	$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+	return $hash === @crypt('password', $hash);
 }
 
 
@@ -856,7 +921,7 @@ function getNonStandardShortcuts(array $shortcuts): array {
 
 	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
-		return $shortcut !== '' & stripos($standard, $shortcut) === false;
+		return $shortcut !== '' && stripos($standard, $shortcut) === false;
 	});
 
 	return $nonStandard;

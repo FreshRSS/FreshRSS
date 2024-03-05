@@ -1,11 +1,11 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nDataTest extends PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
-	private $referenceData;
+	private array $referenceData;
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
@@ -679,9 +679,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
-			->method('unmarkAsIgnore');
 		$value->expects(self::once())
+			->method('unmarkAsIgnore');
+		$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$rawData = array_merge($this->referenceData, [
@@ -701,9 +701,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
+		$value->expects(self::once())
 			->method('unmarkAsIgnore');
-			$value->expects(self::once())
+			$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$this->value->expects(self::atLeast(2))

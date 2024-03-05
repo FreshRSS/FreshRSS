@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Display by feed',	// IGNORE
 			'order' => 'Sort by date',	// IGNORE
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE
 			'state' => 'State',	// IGNORE
 			'tags' => 'Display by label',	// IGNORE
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Display all articles',	// IGNORE
+		'get_all_labels' => 'Display articles with any label',	// IGNORE
 		'get_category' => 'Display “%s” category',	// IGNORE
 		'get_favorite' => 'Display favorite articles',
 		'get_feed' => 'Display “%s” feed',	// IGNORE
+		'get_important' => 'Display articles from important feeds',	// IGNORE
+		'get_label' => 'Display articles with “%s” label',	// IGNORE
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Display oldest articles first',	// IGNORE
 		'order_desc' => 'Display newest articles first',	// IGNORE
 		'search' => 'Search for “%s”',	// IGNORE
+		'share' => array(
+			'_' => 'Share this query by link',	// IGNORE
+			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
+			'html' => 'Shareable link to the HTML page',	// IGNORE
+			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
+			'rss' => 'Shareable link to the RSS feed',	// IGNORE
+		),
 		'state_0' => 'Display all articles',	// IGNORE
 		'state_1' => 'Display read articles',	// IGNORE
 		'state_2' => 'Display unread articles',	// IGNORE
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',	// IGNORE
 			'article_viewed' => 'when the article is viewed',	// IGNORE
+			'focus' => 'when focused (except for important feeds)',	// IGNORE
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// IGNORE
-			'scroll' => 'while scrolling',	// IGNORE
+			'scroll' => 'while scrolling (except for important feeds)',	// IGNORE
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// IGNORE
 			'upon_reception' => 'upon receiving the article',	// IGNORE
 			'when' => 'Mark an article as read…',	// IGNORE

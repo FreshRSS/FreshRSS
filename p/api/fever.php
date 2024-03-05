@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Fever API for FreshRSS
  * Version 0.1
@@ -17,7 +19,7 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
-if (FreshRSS_Context::$system_conf == null || !FreshRSS_Context::$system_conf->api_enabled) {
+if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_enabled) {
 	Minz_Log::warning('Fever API: service unavailable!');
 	Minz_Log::debug('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
@@ -136,11 +138,9 @@ final class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
-	/** @var FreshRSS_EntryDAO */
-	private $entryDAO;
+	private FreshRSS_EntryDAO $entryDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_FeedDAO $feedDAO;
 
 	/**
 	 * Authenticate the user
@@ -149,20 +149,17 @@ final class FeverAPI
 	 * your FreshRSS "username:your-api-password" combination
 	 */
 	private function authenticate(): bool {
-		if (FreshRSS_Context::$system_conf === null) {
-			throw new FreshRSS_Context_Exception('System configuration not initialised!');
-		}
-		FreshRSS_Context::$user_conf = null;
+		FreshRSS_Context::clearUserConf();
 		Minz_User::change();
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
-			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
+			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::systemConf()->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
-				FreshRSS_Context::$user_conf = FreshRSS_Context::initUser($username);	// Assignment to help PHPStan
-				if (FreshRSS_Context::$user_conf != null && $feverKey === FreshRSS_Context::$user_conf->feverKey && FreshRSS_Context::$user_conf->enabled) {
-					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+				FreshRSS_Context::initUser($username);
+				if ($feverKey === FreshRSS_Context::userConf()->feverKey && FreshRSS_Context::userConf()->enabled) {
+					Minz_Translate::init(FreshRSS_Context::userConf()->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();
 					return true;
@@ -180,7 +177,7 @@ final class FeverAPI
 
 	public function isAuthenticatedApiUser(): bool {
 		$this->authenticate();
-		return FreshRSS_Context::$user_conf !== null;
+		return FreshRSS_Context::hasUserConf();
 	}
 
 	/**
@@ -350,11 +347,11 @@ final class FeverAPI
 
 	/** @return array<array<string,int|string>> */
 	private function getFavicons(): array {
-		if (FreshRSS_Context::$system_conf == null) {
+		if (!FreshRSS_Context::hasSystemConf()) {
 			return [];
 		}
 		$favicons = array();
-		$salt = FreshRSS_Context::$system_conf->salt;
+		$salt = FreshRSS_Context::systemConf()->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {

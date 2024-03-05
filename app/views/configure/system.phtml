@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -16,17 +16,27 @@
 		<div class="form-group">
 			<label class="group-name" for="instance-name"><?= _t('admin.system.instance-name') ?></label>
 			<div class="group-controls">
-				<input type="text" id="instance-name" name="instance-name" value="<?= FreshRSS_Context::$system_conf->title ?>"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->title ?>"/>
+				<input type="text" id="instance-name" name="instance-name" value="<?= FreshRSS_Context::systemConf()->title ?>"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->title ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base-url"><?= _t('admin.system.base-url') ?></label>
 			<div class="group-controls">
-				<input type="text" id="base-url" name="base-url" value="<?= FreshRSS_Context::$system_conf->base_url ?>"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->base_url ?>" disabled="disabled" />
+				<input type="text" id="base-url" name="base-url" value="<?= FreshRSS_Context::systemConf()->base_url ?>"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->base_url ?>" readonly="readonly" />
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.base-url.recommendation', dirname(Minz_Request::guessBaseUrl())) ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="websub"><?= _t('sub.feed.websub') ?></label>
+			<div class="group-controls">
+				<input type="checkbox" id="websub" name="websub" disabled="disabled" <?=
+					FreshRSS_Context::systemConf()->pubsubhubbub_enabled && Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) ? 'checked="checked"' : '' ?> />
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.websub.help') ?></p>
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
 			</div>
 		</div>
@@ -34,32 +44,32 @@
 		<div class="form-group">
 			<label class="group-name" for="auto-update-url"><?= _t('admin.system.auto-update-url') ?></label>
 			<div class="group-controls">
-				<input type="text" id="auto-update-url" name="auto-update-url" value="<?= FreshRSS_Context::$system_conf->auto_update_url ?>"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->auto_update_url ?>"/>
+				<input type="text" id="auto-update-url" name="auto-update-url" value="<?= FreshRSS_Context::systemConf()->auto_update_url ?>"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->auto_update_url ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="max-feeds"><?= _t('admin.system.max-feeds') ?></label>
 			<div class="group-controls">
-				<input type="number" id="max-feeds" name="max-feeds" value="<?= FreshRSS_Context::$system_conf->limits['max_feeds'] ?>" min="1"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_feeds'] ?>"/>
+				<input type="number" id="max-feeds" name="max-feeds" value="<?= FreshRSS_Context::systemConf()->limits['max_feeds'] ?>" min="1"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->limits['max_feeds'] ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="max-categories"><?= _t('admin.system.max-categories') ?></label>
 			<div class="group-controls">
-				<input type="number" id="max-categories" name="max-categories" value="<?= FreshRSS_Context::$system_conf->limits['max_categories'] ?>" min="1"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_categories'] ?>"/>
+				<input type="number" id="max-categories" name="max-categories" value="<?= FreshRSS_Context::systemConf()->limits['max_categories'] ?>" min="1"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->limits['max_categories'] ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="cookie-duration"><?= _t('admin.system.cookie-duration.number') ?></label>
 			<div class="group-controls">
-				<input type="number" id="cookie-duration" name="cookie-duration" value="<?= FreshRSS_Context::$system_conf->limits['cookie_duration'] ?>" min="0"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['cookie_duration'] ?>"/>
+				<input type="number" id="cookie-duration" name="cookie-duration" value="<?= FreshRSS_Context::systemConf()->limits['cookie_duration'] ?>" min="0"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->limits['cookie_duration'] ?>"/>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.system.cookie-duration.help') ?></p>
 			</div>
 		</div>
@@ -70,9 +80,9 @@
 			<label class="group-name" for="max-registrations-select"><?= _t('admin.system.registration.select.label') ?></label>
 			<div class="group-controls">
 				<select class="select-input-changer" name="" data-name="max-registrations">
-					<option value="1" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.noform') ?></option>
-					<option value="0" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] == 0 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.nolimit') ?></option>
-					<option value="2" <?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? 'selected = "selected"' : ''; ?> data-input-visible="true"><?= _t('admin.system.registration.select.option.setaccountsnumber') ?></option>
+					<option value="1" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.noform') ?></option>
+					<option value="0" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] == 0 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.nolimit') ?></option>
+					<option value="2" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? 'selected = "selected"' : ''; ?> data-input-visible="true"><?= _t('admin.system.registration.select.option.setaccountsnumber') ?></option>
 				</select>
 			</div>
 		</div>
@@ -81,8 +91,8 @@
 			<label class="group-name" for="max-registrations-input"><?= _t('admin.system.registration.number') ?></label>
 			<div class="group-controls">
 				<?php $number = count(listUsers()); ?>
-				<input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" min="2"
-					data-leave-validation="<?= FreshRSS_Context::$system_conf->limits['max_registrations'] > 1 ? FreshRSS_Context::$system_conf->limits['max_registrations'] : $number + 1; ?>" data-number="<?= $number ?>"/>
+				<input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? FreshRSS_Context::systemConf()->limits['max_registrations'] : $number + 1; ?>" min="2"
+					data-leave-validation="<?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? FreshRSS_Context::systemConf()->limits['max_registrations'] : $number + 1; ?>" data-number="<?= $number ?>"/>
 				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.enabled') ?>)</span>
 			</div>
 		</div>
@@ -114,8 +124,8 @@
 						name="force-email-validation"
 						id="force-email-validation"
 						value="1"
-						<?= FreshRSS_Context::$system_conf->force_email_validation ? 'checked="checked"' : '' ?>
-						data-leave-validation="<?= FreshRSS_Context::$system_conf->force_email_validation ?>"
+						<?= FreshRSS_Context::systemConf()->force_email_validation ? 'checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::systemConf()->force_email_validation ?>"
 					/>
 					<?= _t('admin.system.force_email_validation') ?>
 				</label>

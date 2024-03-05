@@ -82,7 +82,7 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> egy szabványos lekérdezési nyelv haladó felhasználóknak, amit a FreshRSS támogat (Web scraping).',
 				'item' => array(
-					'_' => 'hírek keresése <strong>items</strong><br /><small>(most important)</small>',
+					'_' => 'hírek keresése <strong>elemek</strong><br /><small>(legfontosabb)</small>',
 					'help' => 'Példa: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
@@ -121,6 +121,45 @@ return array(
 				'relative' => 'XPath (az elemhez viszonyítva) ehhez:',
 				'xpath' => 'XPath ehhez:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (Dotted paths)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+				),
+				'item_author' => 'item author',	// TODO
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => 'item title',	// TODO
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'Dotted Path for:',	// TODO
+				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP átirányítás',
 		'max_http_redir_help' => '0 vagy üresen hagyva kikapcsolt, -1 a végtelen átirányításhoz',
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Ha kitörölsz egy kategóriát, az alá tartozó hírforrások automatikusan ide kerülnek <em>%s</em>.',
 		'mute' => 'némítás',
 		'no_selected' => 'Nincsen hírforrás kiválasztva.',
@@ -140,11 +184,12 @@ return array(
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'archived' => 'Ne jelenjen meg (archivált)',
+			'category' => 'Jelenjen meg a saját kategóriájában',
+			'important' => 'Megjelenítés a fontos hírforrásokban',
 			'main_stream' => 'Megjelenítés a Minden cikk között',
-			'normal' => 'Jelenjen meg a saját kategóriájában',
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
-		'proxy_help' => 'Válassz egy protokolt (pl: SOCKS5) és add meg a proxy címét (pl: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Forráskód mutatása',
 			'show_rendered' => 'Tartalom mutatása',
@@ -176,8 +221,8 @@ return array(
 		'export_opml' => 'Hírforrások listájának exportálása (OPML)',
 		'export_starred' => 'Kedvencek exportálása',
 		'feed_list' => 'Cikkek %s listája',
-		'file_to_import' => 'Állomány importálása<br />(OPML, JSON or ZIP)',
-		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML or JSON)',
+		'file_to_import' => 'Állomány importálása<br />(OPML, JSON vagy ZIP)',
+		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML vagy JSON)',
 		'import' => 'Importálás',
 		'starred_list' => 'Kedvenc cikkek listája',
 		'title' => 'Importálás / exportálás',
@@ -195,6 +240,7 @@ return array(
 		'subscription_tools' => 'Hírforrás eszközök',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Név',
 		'new_name' => 'Új név',
 		'old_name' => 'Régi név',

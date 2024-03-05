@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
-		'token' => 'Autentifikācijas žetons',
-		'token_help' => 'Ļauj piekļūt noklusējuma lietotāja RSS izvadei bez autentifikācijas:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Autentifikācijas metode',
 		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
 	),
@@ -192,6 +192,9 @@ return array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
 			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

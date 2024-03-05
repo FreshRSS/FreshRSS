@@ -7,7 +7,7 @@ volumes:
 services:
 
   traefik:
-    image: traefik:2.10
+    image: traefik:2.11
     container_name: traefik
     restart: unless-stopped
     logging:
@@ -16,8 +16,6 @@ services:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik-tmp:/tmp
@@ -53,7 +51,12 @@ services:
       - traefik.http.middlewares.freshrssM2.headers.referrerPolicy=no-referrer-when-downgrade
       - traefik.http.middlewares.freshrssM2.headers.stsSeconds=31536000
       - traefik.http.routers.freshrss.entryPoints=https
-      - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
-      - traefik.http.routers.freshrss.rule=Host(`${SERVER_DNS}`)
       - traefik.http.routers.freshrss.tls.certResolver=letsEncrypt
       - traefik.http.routers.freshrss.tls=true
+      ## Option 1: server FreshRSS as sub-domain
+      - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
+      - traefik.http.routers.freshrss.rule=Host(`${SERVER_DNS}`)
+      ## Option 2: serve FreshRSS as sub-path
+      # - traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+      # - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2,freshrssM3
+      # - traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)

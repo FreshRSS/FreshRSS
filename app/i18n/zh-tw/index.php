@@ -26,7 +26,6 @@ return array(
 		'version' => '版本',
 	),
 	'feed' => array(
-		'add' => '你可以添加一些訂閱源。',
 		'empty' => '暫時沒有文章可顯示。',
 		'rss_of' => '%s 的訂閱源',
 		'title' => '首頁',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => '收藏當前查詢',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局視圖',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => '首頁',
 		'mark_all_read' => '全部設為已讀',
 		'mark_cat_read' => '此分類設為已讀',

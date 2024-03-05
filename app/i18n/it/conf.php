@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Visualizzazione',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Modalità scura automatica (beta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Deprecato',
+				'description' => 'Questo tema non è più supportato e non sarà più disponibile in un <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">futuro rilascio di FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'Il tema “%s” non è più disponibile. Si prega di selezionarne un altro.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Ritratto',
 			'square' => 'Squadrata',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Fuso orario',
 		'title' => 'Visualizzazione',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Icona e nome',
+			'icon' => 'Solo icona',
+			'label' => 'Sito web',
+			'name' => 'Solo nome',
+			'none' => 'Nessuno',
 		),
 		'width' => array(
 			'content' => 'Larghezza contenuto',
@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Mostra per feed',
 			'order' => 'Ordina per data',
 			'search' => 'Espressione',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Stato',
 			'tags' => 'Mostra per tag',	// DIRTY
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostra tutti gli articoli',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostra la categoria “%s” ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed “%s” ',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nome',
 		'no_filter' => 'Nessun filtro',
 		'number' => 'Ricerca n°%d',
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
 		'search' => 'Cerca per “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
 		'state_2' => 'Mostra gli articoli non letti',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'Quando un articolo è aperto nel suo sito di origine',
 			'article_viewed' => 'Quando un articolo viene letto',
+			'focus' => 'quando l’articolo è in primo piano (eccetto per feed importanti)',
 			'keep_max_n_unread' => 'Massimo numero di articoli da mantenere come non letti',
-			'scroll' => 'Scorrendo la pagina',
+			'scroll' => 'Scorrendo la pagina (eccetto per feed importanti)',
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',

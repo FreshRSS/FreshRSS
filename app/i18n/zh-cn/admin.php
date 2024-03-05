@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP（面向启用 HTTPS 的高级用户)',
 		'none' => '无（危险）',
 		'title' => '认证',
-		'token' => '认证口令',
-		'token_help' => '用于不经认证访问默认用户的 RSS 输出：',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => '系统配置',
 		'auto-update-url' => '自动更新服务器 URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => '基础 URL',
+			'recommendation' => '推荐: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => '单位：秒',
@@ -187,30 +187,33 @@ return array(
 			),
 			'title' => '用户注册表单',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => '敏感参数。在 <kbd>./data/config.php</kbd> 中手动修改',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => '没有提供',
+			'enabled' => '<a href="./?a=tos">已启用</a>',
+			'help' => '如何<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">启用服务条款</a>',
+		),
+		'websub' => array(
+			'help' => '关于 <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => '更新系统',
 		'apply' => '应用',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => '更新记录',
 		'check' => '检查更新',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => '从 %s 复制 update.php 到 ./data',
 		'current_version' => '当前 版本为',
 		'last' => '上次检查',
-		'loading' => 'Updating…',	// TODO
+		'loading' => '更新中...',
 		'none' => '没有可用更新',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => '发布通道',
+			'edge' => '滚动发布 (“edge”)',
+			'latest' => '稳定版本 (“latest”)',
 		),
 		'title' => '更新系统',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => '开始通过 git and Github.com 更新',
 	),
 	'user' => array(
 		'admin' => '管理员',

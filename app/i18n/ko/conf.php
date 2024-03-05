@@ -120,20 +120,33 @@ return array(
 			'feeds' => '피드별로 표시',
 			'order' => '날짜순으로 정렬',
 			'search' => '정규 표현식',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '상태',
 			'tags' => '태그별로 표시',
 			'type' => '유형',
 		),
 		'get_all' => '모든 글 표시',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s” 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '“%s” 피드 표시',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
 		'search' => '“%s”의 검색 결과',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
 		'state_2' => '읽지 않은 글 표시',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
-			'scroll' => '스크롤을 하며 지나갈 때',
+			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',

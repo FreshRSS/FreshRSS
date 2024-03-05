@@ -92,6 +92,10 @@ return array(
 	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
 	'allow_referrer' => false,
 
+	# Number of feeds to refresh in parallel from the Web user interface.
+	# Faster with higher values. Reduce for server with little memory or database issues.
+	'nb_parallel_refresh' => 10,
+
 	'limits' => array(
 
 		# Duration in seconds of the login cookie.
@@ -190,6 +194,8 @@ return array(
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
 	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,

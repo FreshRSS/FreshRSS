@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Na serveru není přítomno rozšíření ZIP. Zkuste exportovat soubory jeden po druhém.',
-		'feeds_imported' => 'Vaše kanály byly naimportovány a budou nyní aktualizovány',
-		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám',
+		'feeds_imported' => 'Vaše kanály byly naimportovány a budou nyní aktualizovány / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Soubor nelze nahrát!',
 		'no_zip_extension' => 'Na serveru není přítomno rozšíření ZIP.',
 		'zip_error' => 'Během importu ZIP došlo k chybě.',	// DIRTY
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Štítek „%s“ byl vytvořen.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Název štítku již existuje.',
 		'renamed' => 'Štítek „%s“ byl přejmenován na „%s“.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní aktualizováno na <strong>verzi %s</strong>.',

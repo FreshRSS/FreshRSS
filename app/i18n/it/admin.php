@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
-		'token' => 'Token di autenticazione',
-		'token_help' => 'Consenti accesso agli RSS dell utente predefinito senza autenticazione:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Metodo di autenticazione',
 		'unsafe_autologin' => 'Consenti accesso automatico non sicuro usando il formato: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Configurazione di sistema',
 		'auto-update-url' => 'Aggiorna automaticamente l’URL del server',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'URL base',
+			'recommendation' => 'Suggerimento automatico: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'in secondi',
@@ -187,30 +187,33 @@ return array(
 			),
 			'title' => 'Form di registrazione utente',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Parametro sensibile. Modificalo manualmente in <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'non fornito',
+			'enabled' => '<a href="./?a=tos">è abilitato</a>',
+			'help' => 'Come <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">abilitare i termini e condizioni</a>',
+		),
+		'websub' => array(
+			'help' => 'Riguardo <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Aggiornamento sistema',
 		'apply' => 'Applica',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Lista dei cambiamenti',
 		'check' => 'Controlla la presenza di nuovi aggiornamenti',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php copiato da %s a ./data',
 		'current_version' => 'Versione',
 		'last' => 'Ultima verifica',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Aggiornamentose…',
 		'none' => 'Nessun aggiornamento da applicare',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Canale di rilascio',
+			'edge' => 'Rilascio continuo (“edge”)',
+			'latest' => 'Stabile (“latest”)',
 		),
 		'title' => 'Aggiorna sistema',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Aggiornamento tramite git e Github.com avviato',
 	),
 	'user' => array(
 		'admin' => 'Amministratore',
