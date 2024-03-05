@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class is used to test database is well-constructed (SQLite).
@@ -64,12 +65,12 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		$sum = 0;
 		if ($all) {
 			foreach (glob(DATA_PATH . '/users/*/db.sqlite') ?: [] as $filename) {
-				$sum += @filesize($filename);
+				$sum += (@filesize($filename) ?: 0);
 			}
 		} else {
-			$sum = @filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite');
+			$sum = (@filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite') ?: 0);
 		}
-		return intval($sum);
+		return $sum;
 	}
 
 	public function optimize(): bool {

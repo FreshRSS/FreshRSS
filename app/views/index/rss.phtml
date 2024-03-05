@@ -1,18 +1,19 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/"
 	<?= $this->rss_base == '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>
 >
 	<channel>
 		<title><?= $this->rss_title ?></title>
-		<link><?= $this->internal_rendering ? $this->rss_url : Minz_Url::display('', 'html', true) ?></link>
+		<link><?= $this->html_url ?></link>
 		<description><?= _t('index.feed.rss_of', $this->rss_title) ?></description>
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
-		<atom:link href="<?= $this->internal_rendering ? $this->rss_url :
-			Minz_Url::display($this->rss_url, 'html', true) ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?= $this->rss_url ?>" rel="self" type="application/rss+xml" />
 <?php
-/** @var FreshRSS_Entry */
 foreach ($this->entries as $item) {
 	if (!$this->internal_rendering) {
 		/** @var FreshRSS_Entry */
@@ -38,6 +39,8 @@ foreach ($this->entries as $item) {
 						echo "\t\t\t", '<category>', $category, '</category>', "\n";
 					}
 				}
+
+				$enclosures = iterator_to_array($item->enclosures(false));
 				$thumbnail = $item->thumbnail(false);
 				if (!empty($thumbnail['url'])) {
 					// https://www.rssboard.org/media-rss#media-thumbnails
@@ -46,20 +49,28 @@ foreach ($this->entries as $item) {
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
 						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
 						. '" />', "\n";
+					// Mostly for MailChimp + Feedbro which do not support <media:thumbnail> https://mailchimp.com/help/rss-merge-tags/
+					$thumbnail['medium'] ??= 'image';
+					array_unshift($enclosures, $thumbnail);
 				}
-				$enclosures = $item->enclosures(false);
-				if (is_iterable($enclosures)) {
-					foreach ($enclosures as $enclosure) {
-						// https://www.rssboard.org/media-rss
-						echo "\t\t\t", '<media:content url="' . $enclosure['url']
-							. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
-							. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
-							. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
-							. '">'
-							. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
-							. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
-							. '</media:content>', "\n";
+
+				$urls = [];
+				foreach ($enclosures as $enclosure) {
+					if (empty($enclosure['url']) || isset($urls[$enclosure['url']])) {
+						continue;
 					}
+					$urls[$enclosure['url']] = true;
+					// https://www.rssboard.org/media-rss
+					echo "\t\t\t", '<media:content url="' . $enclosure['url']
+						. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
+						. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
+						. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
+						. (empty($enclosure['height']) ? '' : '" height="' . $enclosure['height'])
+						. (empty($enclosure['width']) ? '' : '" width="' . $enclosure['width'])
+						. '">'
+						. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
+						. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
+						. '</media:content>', "\n";
 				}
 			?>
 			<description><![CDATA[<?php

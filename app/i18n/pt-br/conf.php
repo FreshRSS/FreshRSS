@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Exibir por feed',
 			'order' => 'Ordenar por data',
 			'search' => 'Expressão',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Estado',
 			'tags' => 'Exibir por tag',	// DIRTY
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostrar todos os artigos',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Visualizar “%s” categoria',
 		'get_favorite' => 'Visualizar artigos favoritos',
 		'get_feed' => 'Visualizar “%s” feed',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
 		'order_desc' => 'Exibir artigos mais novos primeiro',
 		'search' => 'Busca por “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Exibir todos os artigos',
 		'state_1' => 'Exibir artigos lidos',
 		'state_2' => 'Exibir artigos não lidos',
@@ -204,12 +217,13 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quando o artigo é aberto no site original',
 			'article_viewed' => 'Quando o artigo é visualizado',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Número máximo de artigos para manter como não lido',
-			'scroll' => 'enquanto scrolling',
-			'upon_gone' => 'QUuando não estiver mais no feed de noticiais principais',
+			'scroll' => 'enquanto scrolling (except for important feeds)',	// DIRTY
+			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
-			'when_same_title' => 'Se um título idêntico já existir nos últimos<i>n</i> artigos mais novos',
+			'when_same_title' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos',
 		),
 		'show' => array(
 			'_' => 'Artigos para exibir',

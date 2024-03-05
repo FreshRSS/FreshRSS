@@ -26,7 +26,6 @@ return array(
 		'version' => 'Version',
 	),
 	'feed' => array(
-		'add' => 'Please add some feeds.',
 		'empty' => 'There are no articles to show.',
 		'rss_of' => 'RSS feed of %s',
 		'title' => 'Main stream',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Bookmark current query',
 		'favorites' => 'Favourites (%s)',
 		'global_view' => 'Global view',
+		'important' => 'Important feeds',
 		'main_stream' => 'Main stream',
 		'mark_all_read' => 'Mark all as read',
 		'mark_cat_read' => 'Mark category as read',

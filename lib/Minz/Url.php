@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_Url class handles URLs across the MINZ framework
@@ -14,6 +15,7 @@ class Minz_Url {
 	 * @param string $encoding how to encode & (& ou &amp; pour html)
 	 * @param bool|string $absolute
 	 * @return string Formatted URL
+	 * @throws Minz_ConfigurationException
 	 */
 	public static function display($url = [], string $encoding = 'html', $absolute = false): string {
 		$isArray = is_array($url);
@@ -71,7 +73,7 @@ class Minz_Url {
 			$and = '&';
 		}
 
-		if (!empty($url['params']['#'])) {
+		if (!empty($url['params']) && is_array($url['params']) && !empty($url['params']['#'])) {
 			$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
 			unset($url['params']['#']);
 		}
@@ -88,7 +90,7 @@ class Minz_Url {
 			$separator = $and;
 		}
 
-		if (isset($url['params'])) {
+		if (isset($url['params']) && is_array($url['params'])) {
 			unset($url['params']['c']);
 			unset($url['params']['a']);
 			foreach ($url['params'] as $key => $param) {
@@ -100,7 +102,7 @@ class Minz_Url {
 			}
 		}
 
-		if (!empty($url['#'])) {
+		if (!empty($url['#']) && is_string($url['#'])) {
 			$uri .= '#' . ($encodage === 'html' ? htmlspecialchars($url['#'], ENT_QUOTES, 'UTF-8') : $url['#']);
 		}
 
@@ -139,11 +141,9 @@ class Minz_Url {
 	 * @return array<string,string|array<string,string>>
 	 */
 	public static function unserialize(string $url = ''): array {
-		try {
-			return json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
-		} catch (\Throwable $exception) {
-			return [];
-		}
+		$result = json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
+		/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $result */
+		return $result;
 	}
 
 	/**

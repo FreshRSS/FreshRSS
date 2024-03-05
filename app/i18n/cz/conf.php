@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Zobrazit podle kanálu',
 			'order' => 'Seřadit podle data',
 			'search' => 'Výraz',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Stav',
 			'tags' => 'Zobrazit podle štítku',
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobrazit všechny články',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Zobrazit kategorii „%s“',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit kanál „%s“',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
 		'search' => 'Hledat „%s“',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
 		'state_2' => 'Zobrazit nepřečtené články',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je článek otevřen na své původní webové stránce',
 			'article_viewed' => 'když je článek zobrazen',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
-			'scroll' => 'během posouvání',
+			'scroll' => 'během posouvání (except for important feeds)',	// DIRTY
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',

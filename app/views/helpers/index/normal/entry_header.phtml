@@ -1,14 +1,15 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	$topline_read = FreshRSS_Context::$user_conf->topline_read;
-	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
-	$topline_website = FreshRSS_Context::$user_conf->topline_website;
-	$topline_thumbnail = FreshRSS_Context::$user_conf->topline_thumbnail;
-	$topline_summary = FreshRSS_Context::$user_conf->topline_summary;
-	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
-	$topline_date = FreshRSS_Context::$user_conf->topline_date;
-	$topline_link = FreshRSS_Context::$user_conf->topline_link;
-	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$topline_read = FreshRSS_Context::userConf()->topline_read;
+	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
+	$topline_website = FreshRSS_Context::userConf()->topline_website;
+	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
+	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
+	$topline_display_authors = FreshRSS_Context::userConf()->topline_display_authors;
+	$topline_date = FreshRSS_Context::userConf()->topline_date;
+	$topline_link = FreshRSS_Context::userConf()->topline_link;
+	$lazyload = FreshRSS_Context::userConf()->lazyload;
 ?><ul class="horizontal-list flux_header website<?= $topline_website ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
@@ -36,7 +37,7 @@
 	if ($topline_website !== 'none'):
 	?><li class="item website <?= $topline_website ?>">
 		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
-			<?php if (FreshRSS_Context::$user_conf->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
+			<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
 		</a>
 		</li><?php
 	endif; ?>

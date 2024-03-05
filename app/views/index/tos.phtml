@@ -1,10 +1,10 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if (FreshRSS_Auth::hasAccess()) {
 		$this->partial('aside_configure');
 	}
 ?>
-
 <main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 		<div class="link-back-wrapper">

@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
 		'none' => 'Aucune (dangereux)',
 		'title' => 'Authentification',
-		'token' => 'Jeton d’identification',
-		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier :',
+		'token' => 'Jeton d’identification maître',
+		'token_help' => 'Permet d’accéder à toutes les sorties RSS de l’utilisateur et au rafraîchissement des flux sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
 		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'base-url' => array(
+			'_' => 'URL de la racine',
+			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Formulaire d’inscription utilisateur',
 		),
+		'sensitive-parameter' => 'Paramètre sensible. Éditez manuellement <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'non renseigné',
 			'enabled' => '<a href="./?a=tos">activées</a>',
 			'help' => 'Comment <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activer les conditions d’utilisation</a>',
+		),
+		'websub' => array(
+			'help' => 'À propos de <a href="https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
@@ -195,8 +203,8 @@ return array(
 		'changelog' => 'Journal des modifications',
 		'check' => 'Vérifier les mises à jour',
 		'copiedFromURL' => 'update.php copié depuis %s vers ./data',
-		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
-		'last' => 'Dernière vérification : %s',
+		'current_version' => 'Votre version actuelle',
+		'last' => 'Dernière vérification',
 		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
 		'releaseChannel' => array(

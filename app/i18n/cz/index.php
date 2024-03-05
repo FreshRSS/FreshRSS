@@ -26,7 +26,6 @@ return array(
 		'version' => 'Verze',
 	),
 	'feed' => array(
-		'add' => 'Přidejte nějaké kanály.',
 		'empty' => 'Nejsou žádné články k zobrazení.',
 		'rss_of' => 'Kanál RSS %s',
 		'title' => 'Hlavní kanál',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Uložit aktuální dotaz do záložek',
 		'favorites' => 'Oblíbené (%s)',
 		'global_view' => 'Zobrazení přehledu',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Hlavní kanál',
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'mark_cat_read' => 'Označit kategorii jako přečtenou',

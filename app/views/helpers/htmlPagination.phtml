@@ -1,0 +1,21 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<nav class="nav-pagination nav-list">
+	<ul class="pagination">
+		<?php if (FreshRSS_Context::$offset > 0): ?>
+		<li class="item pager-first">
+			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number ?>">« <?= _t('conf.logs.pagination.first') ?></a>
+		</li>
+		<li class="item pager-previous">
+			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number .
+				'&offset=' . max(0, FreshRSS_Context::$offset - FreshRSS_Context::$number) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
+		</li>
+		<?php endif; ?>
+		<li class="item pager-next">
+			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number .
+				'&offset=' . (FreshRSS_Context::$offset + FreshRSS_Context::$number) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
+		</li>
+	</ul>
+</nav>

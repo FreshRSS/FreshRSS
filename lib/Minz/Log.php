@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -100,16 +102,20 @@ class Minz_Log {
 	/**
 	 * Some helpers to Minz_Log::record() method
 	 * Parameters are the same of those of the record() method.
+	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function debug(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_DEBUG, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function notice(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_NOTICE, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function warning(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_WARNING, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function error(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_ERR, $file_name);
 	}

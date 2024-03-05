@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
-		'token' => 'מחרוזת אימות',
-		'token_help' => 'Allows to access RSS output of the default user without authentication:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'שיטת אימות',
 		'unsafe_autologin' => 'הרשאה להתחברות אוטומטית בפורמט: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'System configuration',	// TODO
 		'auto-update-url' => 'Auto-update server URL',	// TODO
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// TODO
 			'number' => 'Duration to keep logged in',	// TODO
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'User registration form',	// TODO
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
@@ -195,8 +203,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'בדיקת עדכונים חדשים',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Your current version of FreshRSS is the %s.',
-		'last' => 'תאריך בדיקה אחרון: %s',
+		'current_version' => 'Current installed version',	// TODO
+		'last' => 'תאריך בדיקה אחרון',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'אין עדכון להחלה',
 		'releaseChannel' => array(

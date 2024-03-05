@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
-class FreshRSS_Zip_Exception extends Exception {
+class FreshRSS_Zip_Exception extends Minz_Exception {
 
-	/** @var int */
-	private $zipErrorCode = 0;
+	private int $zipErrorCode = 0;
 
 	public function __construct(int $zipErrorCode) {
 		parent::__construct('ZIP error!', 2141);

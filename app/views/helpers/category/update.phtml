@@ -1,4 +1,10 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	if ($this->category === null) {
+		throw new FreshRSS_Context_Exception('Category not initialised!');
+	}
+?>
 <div class="post">
 	<h2>
 		<?= $this->category->name() ?>
@@ -9,23 +15,23 @@
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('subscription', 'category', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<legend><?= _t('sub.category.information') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('sub.category.title') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->category->name()  ?>" <?php
+				<input type="text" name="name" id="name" value="<?= $this->category->name()  ?>" <?=
 					//Disallow changing the name of the default category
-					echo $this->category->id() == FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'disabled="disabled"' : '';
+					$this->category->id() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'readonly="readonly"' : ''
 				?> />
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
 			<div class="group-controls">
-				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributes('position') ?>" />
+				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributeInt('position') ?>" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
 			</div>
 		</div>
@@ -43,7 +49,7 @@
 			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributes('opml_url') ?>" />
+					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributeString('opml_url') ?>" />
 					<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
 					</button>
@@ -65,9 +71,30 @@
 		</div>
 		<?php endif; ?>
 
+		<legend><?= _t('sub.feed.filteractions') ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
+			<div class="group-controls">
+				<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
+					foreach ($this->category->filtersAction('read') as $filterRead) {
+						echo $filterRead->getRawInput(), PHP_EOL;
+					}
+				?></textarea>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+
 		<legend><?= _t('sub.category.archiving') ?></legend>
 		<?php
-			$archiving = $this->category->attributes('archiving');
+			$archiving = $this->category->attributeArray('archiving');
+			/** @var array<'default'?:bool,'keep_period'?:string,'keep_max'?:int,'keep_min'?:int,'keep_favourites'?:bool,'keep_labels'?:bool,'keep_unreads'?:bool>|null $archiving */
 			if (empty($archiving)) {
 				$archiving = [ 'default' => true ];
 			} else {
@@ -78,7 +105,7 @@
 				'keep_period_count' => '3',
 				'keep_period_unit' => 'P1M',
 			];
-			if (!empty($archiving['keep_period'])) {
+			if (!empty($archiving['keep_period']) && is_string($archiving['keep_period'])) {
 				if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
 					$volatile['enable_keep_period'] = true;
 					$volatile['keep_period_count'] = $matches['count'];
@@ -86,20 +113,20 @@
 				}
 			}
 			//Defaults
-			if (!isset($archiving['keep_max'])) {
-				$archiving['keep_max'] = false;
+			if (!isset($archiving['keep_max']) || !is_int($archiving['keep_max'])) {
+				$archiving['keep_max'] = 0;
 			}
-			if (!isset($archiving['keep_favourites'])) {
+			if (!isset($archiving['keep_min']) || !is_int($archiving['keep_min'])) {
+				$archiving['keep_min'] = 50;
+			}
+			if (!isset($archiving['keep_favourites']) || !is_bool($archiving['keep_favourites'])) {
 				$archiving['keep_favourites'] = true;
 			}
-			if (!isset($archiving['keep_labels'])) {
+			if (!isset($archiving['keep_labels']) || !is_bool($archiving['keep_labels'])) {
 				$archiving['keep_labels'] = true;
 			}
-			if (!isset($archiving['keep_unreads'])) {
+			if (!isset($archiving['keep_unreads']) || !is_bool($archiving['keep_unreads'])) {
 				$archiving['keep_unreads'] = false;
-			}
-			if (!isset($archiving['keep_min'])) {
-				$archiving['keep_min'] = 50;
 			}
 		?>
 
@@ -192,7 +219,7 @@
 
 		<?php if (!$this->category->isDefault()): ?>
 		<p class="alert alert-warn">
-			<?= _t('sub.feed.moved_category_deleted', $this->default_category->name()) ?>
+			<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
 		</p>
 		<?php endif;?>
 		<div class="form-group form-actions">

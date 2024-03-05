@@ -120,20 +120,33 @@ return array(
 			'feeds' => '按訂閱源顯示',
 			'order' => '按日期排序',
 			'search' => '表達式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '狀態',
 			'tags' => '按標簽顯示',
 			'type' => '類型',
 		),
 		'get_all' => '顯示所有文章',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '顯示分類 “%s”',
 		'get_favorite' => '顯示收藏文章',
 		'get_feed' => '顯示訂閱源 “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'number' => '查詢 n°%d',
 		'order_asc' => '由舊至新顯示文章',
 		'order_desc' => '由新至舊顯示文章',
 		'search' => '搜尋 “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => '顯示所有文章',
 		'state_1' => '顯示已讀文章',
 		'state_2' => '顯示未讀文章',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打開原文章後',
 			'article_viewed' => '在文章被瀏覽後',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '未讀最多保留 n 條',
-			'scroll' => '在滾動瀏覽後',
+			'scroll' => '在滾動瀏覽後 (except for important feeds)',	// DIRTY
 			'upon_gone' => '在被原訂閱源移除後',
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',

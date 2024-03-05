@@ -90,7 +90,7 @@
 html, body {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-grey);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -185,11 +185,13 @@ form th {
 
 /*=== Buttons */
 .stick input,
-.stick .btn {
+.stick .btn,
+.group .btn {
 	border-radius: 0;
 }
 
 .stick .btn:first-child,
+.group .btn:first-child,
 .stick input:first-child {
 	border-radius: 3px 0 0 3px;
 }
@@ -199,24 +201,31 @@ form th {
 }
 
 .stick .btn:last-child,
+.group .btn:last-child,
 .stick input:last-child {
 	border-radius: 0 3px 3px 0;
 }
 
 .stick .btn + .btn,
+.group .btn + .btn,
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
+.group .btn + .dropdown > .btn,
 .stick input + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
+.group .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn {
+.stick .dropdown + .dropdown > .btn,
+.group .dropdown + .dropdown > .btn {
 	border-left: none;
 
 }
 
-.stick .btn + .dropdown > .btn {
+.stick .btn + .dropdown > .btn,
+.group .btn + .dropdown > .btn,
+.group .dropdown + .dropdown > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
 }
@@ -225,7 +234,6 @@ form th {
 	margin: 0;
 	padding: 1px 5px;
 	background-color: var(--background-color-white);
-	display: inline-block;
 	color: var(--font-color-grey);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-grey-dark);
@@ -234,8 +242,6 @@ form th {
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .read_all.btn {
@@ -544,8 +550,8 @@ form th {
 	padding: 0.125rem 0.75rem;
 }
 
-
 .aside_feed .tree-folder-items > .item.feed {
+	padding-left: 0.5rem;
 	font-size: 0.8rem;
 }
 
@@ -1068,12 +1074,14 @@ a.signin {
 		margin: 5px 10px;
 	}
 
-	.nav_menu .stick {
+	.nav_menu .stick,
+	.nav_menu .group {
 		margin: 0 10px;
 		min-width: 0;
 	}
 
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+	.nav_menu .group .btn {
 		margin: 5px 0;
 	}
 

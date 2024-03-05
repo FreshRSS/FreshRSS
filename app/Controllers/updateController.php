@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
@@ -10,18 +11,19 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0.
+	 * @throws Minz_Exception
 	 */
 	public static function migrateToGitEdge(): bool {
 		$errorMessage = 'Error during git checkout to edge branch. Please change branch manually!';
 
 		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception($errorMessage);
 		}
 
 		//Note `git branch --show-current` requires git 2.22+
 		exec('git symbolic-ref --short HEAD', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception($errorMessage);
 		}
 		$line = implode('', $output);
 		if ($line !== 'master' && $line !== 'dev') {
@@ -32,13 +34,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		unset($output);
 		exec('git checkout edge --guess -f', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception($errorMessage);
 		}
 
 		unset($output);
 		exec('git reset --hard FETCH_HEAD', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception($errorMessage);
 		}
 
 		return true;
@@ -63,6 +65,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		chdir(FRESHRSS_PATH);
 		$output = [];
 		try {
+			/** @throws ValueError */
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
 				$output = [];
@@ -71,7 +74,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$line = implode('; ', $output);
 				Minz_Log::warning('git fetch warning: ' . $line);
 			}
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('git fetch error: ' . $e->getMessage());
 		}
 		chdir($cwd);
@@ -100,11 +103,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			$output = [];
 			self::migrateToGitEdge();
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('Git error: ' . $e->getMessage());
-			if (empty($output)) {
-				$output = $e->getMessage();
-			}
+			$output = $e->getMessage();
 			$return = 1;
 		}
 		chdir($cwd);
@@ -193,7 +194,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 		} else {
-			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '/?v=' . FRESHRSS_VERSION;
+			$auto_update_url = FreshRSS_Context::systemConf()->auto_update_url . '/?v=' . FRESHRSS_VERSION;
 			Minz_Log::debug('HTTP GET ' . $auto_update_url);
 			$curlResource = curl_init($auto_update_url);
 
@@ -256,7 +257,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public function applyAction(): void {
-		if (FreshRSS_Context::$system_conf->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
+		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);
 		}
 
@@ -269,7 +270,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$res = do_post_update();
 			}
 
-			Minz_ExtensionManager::callHook('post_update');
+			Minz_ExtensionManager::callHookVoid('post_update');
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);

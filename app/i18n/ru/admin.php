@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (для опытных пользователей с HTTPS)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
-		'token' => 'Токен аутентификации',
-		'token_help' => 'Разрешает доступ к RSS-лентам пользователя по умолчанию без аутентификации:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Способ аутентификации',
 		'unsafe_autologin' => 'Разрешить небезопасный автоматический вход с использованием следующего формата: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'URL сервера для автоматического обновления',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Форма регистрации пользователей',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
@@ -195,8 +203,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Проверить обновления',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
-		'last' => 'Последняя проверка: %s',
+		'current_version' => 'Ваша текущая версия',
+		'last' => 'Последняя проверка',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Нет обновлений',
 		'releaseChannel' => array(

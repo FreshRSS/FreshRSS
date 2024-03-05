@@ -84,7 +84,7 @@
 html, body {
 	background-color: var(--background-color-light);
 	color: var(--font-color);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -217,11 +217,13 @@ form th {
 
 /*=== Buttons */
 .stick input,
-.stick .btn {
+.stick .btn,
+.group .btn {
 	border-radius: 0;
 }
 
 .stick .btn:first-child,
+.group .btn:first-child,
 .stick input:first-child,
 .stick select:first-child {
 	border-radius: 0 3px 3px 0;
@@ -232,20 +234,25 @@ form th {
 }
 
 .stick .btn:last-child,
+.group .btn:last-child,
 .stick input:last-child {
 	border-radius: 3px 0 0 3px;
 }
 
 .stick .btn + .btn,
+.group .btn + .btn,
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
+.group .btn + .dropdown > .btn,
 .stick input + .btn,
 .stick select + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
+.group .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn {
+.stick .dropdown + .dropdown > .btn,
+.group .dropdown + .dropdown > .btn {
 	border-right: none;
 }
 
@@ -253,7 +260,8 @@ form th {
 	border-top: 1px solid var(--border-color);
 }
 
-.stick .btn + .dropdown > .btn {
+.stick .dropdown:last-child > .btn,
+.group .dropdown:last-child > .btn {
 	border-right: none;
 	border-radius: 3px 0 0 3px;
 }
@@ -262,7 +270,6 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background-image: linear-gradient(to bottom, var(--background-color-light-gradient1) 0%, var(--background-color-light-gradient2) 100%);
-	display: inline-block;
 	color: var(--font-color-grey);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color);
@@ -273,32 +280,12 @@ form th {
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .btn:hover {
 	background-image: none;
 	background-color: var(--background-color-hover);
 	text-decoration: none;
-}
-
-.btn-state1.hide {
-	display: none;
-}
-
-.btn-state2 {
-	display: none;
-}
-
-.btn-state2.show {
-	display: inline-block;
-}
-
-#button-update-loading {
-	background: var(--frss-loading-image) 0.5rem center no-repeat;
-	background-size: 1rem;
-	padding-right: 2rem;
 }
 
 a:hover .icon {
@@ -496,6 +483,15 @@ a:hover .icon {
 	border-radius: 3px;
 }
 
+.dropdown-menu input[type="checkbox"] {
+	margin-right: 1rem;
+}
+
+.dropdown-menu .item .emptyLabels {
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
 .item ~ .dropdown-header,
 .dropdown-section ~ .dropdown-section,
 .item.separator {
@@ -538,6 +534,11 @@ a:hover .icon {
 	background-color: var(--alert-error-background-color);
 	color: var(--alert-error-font-color);
 	border: 1px solid var(--alert-error-boder-color);
+}
+
+.alert-error a {
+	color: var(--alert-error-font-color);
+	font-weight: bold;
 }
 
 /*=== Pagination */
@@ -1134,11 +1135,13 @@ a:hover .icon {
 		min-height: 0;
 	}
 
-	.nav_menu .stick {
+	.nav_menu .stick,
+	.nav_menu .group {
 		margin: 0 10px;
 	}
 
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+	.nav_menu .group .btn {
 		margin: 5px 0;
 	}
 
@@ -1236,7 +1239,7 @@ a:hover .icon {
 		--alert-success-font-color: #96c196;
 		--alert-success-border-color: #cec;
 		--alert-error-background-color: #fdda;
-		--alert-error-font-color: #693a3a;
+		--alert-error-font-color: #512b2b;
 		--alert-error-boder-color: #ecc;
 
 		--notification-good-background-color: #ffe;
@@ -1271,21 +1274,21 @@ a:hover .icon {
 		--form-element-invalid-box-shadow-color-inset: none;
 	}
 
-	:root .darkMode_auto .nav_menu .btn {
+	:root.darkMode_auto .nav_menu .btn {
 		color: #777;
 	}
 
-	:root .darkMode_auto .nav_menu .btn:hover {
+	:root.darkMode_auto .nav_menu .btn:hover {
 		color: var(--font-color-grey);
 	}
 
-	:root .darkMode_auto .nav_menu .btn.active,
-	:root .darkMode_auto .nav_menu .btn:active,
-	:root .darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
+	:root.darkMode_auto .nav_menu .btn.active,
+	:root.darkMode_auto .nav_menu .btn:active,
+	:root.darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
 		background: var(--border-color);
 	}
 
-	:root .darkMode_auto .dropdown-menu {
+	:root.darkMode_auto .dropdown-menu {
 		background-color: #0a0a0a;
 	}
 }

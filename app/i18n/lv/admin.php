@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
-		'token' => 'Autentifikācijas žetons',
-		'token_help' => 'Ļauj piekļūt noklusējuma lietotāja RSS izvadei bez autentifikācijas:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Autentifikācijas metode',
 		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
 			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
@@ -195,8 +203,8 @@ return array(
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Jaunu atjauninājumu pārbaude',
 		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Jūsu pašreizējā FreshRSS versija ir %s.',
-		'last' => 'Pēdējā verifikācija: %s',
+		'current_version' => 'Jūsu pašreizējā versija',
+		'last' => 'Pēdējā verifikācija',
 		'loading' => 'Updating…',	// TODO
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(
