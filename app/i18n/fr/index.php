@@ -17,7 +17,8 @@ return array(
 		'bugs_reports' => 'Rapports de bugs',
 		'credits' => 'Crédits',
 		'credits_content' => 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS repose sur <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
-		'freshrss_description' => 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> ou <a href="https://github.com/LeedRSS/Leed">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
+		'documentation' => 'Documentation',	// IGNORE
+		'freshrss_description' => 'FreshRSS est un agrégateur de flux RSS à auto-héberger. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">sur Github</a>',
 		'license' => 'Licence',
 		'project_website' => 'Site du projet',
@@ -25,7 +26,6 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Vous pouvez ajouter des flux.',
 		'empty' => 'Il n’y a aucun article à afficher.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux principal',
@@ -43,9 +43,10 @@ return array(
 		'before_one_day' => 'Antérieurs à 1 jour',
 		'before_one_week' => 'Antérieurs à 1 semaine',
 		'bookmark_query' => 'Enregistrer la recherche courante',
-		'favorites' => 'Favoris (%s)',
+		'favorites' => 'Articles favoris (%s)',
 		'global_view' => 'Vue globale',
-		'main_stream' => 'Flux principal',
+		'important' => 'Flux importants',	// DIRTY
+		'main_stream' => 'Flux principaux',
 		'mark_all_read' => 'Tout marquer comme lu',
 		'mark_cat_read' => 'Marquer la catégorie comme lue',
 		'mark_feed_read' => 'Marquer le flux comme lu',

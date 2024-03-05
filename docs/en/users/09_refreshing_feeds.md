@@ -58,19 +58,15 @@ To do so, you need to create a scheduled task, which need to call a specific URL
 
 Special parameters to configure the script - all parameters can be combined:
 
-- Parameter "force"
-<https://freshrss.example.net/i/?c=feed&a=actualize&force=1>
-If *force* is set to 1 all feeds will be refreshed at once.
-
-- Parameter "ajax"
+- Parameter `ajax`
 <https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
 Only a status site is returned and not a complete website. Example: "OK"
 
-- Parameter "maxFeeds"
+- Parameter `maxFeeds`
 <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30>
-If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is "10".
+If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is `10`.
 
-- Parameter "token"
+- Parameter `token`
 <https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
 Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
@@ -114,7 +110,7 @@ If your FreshRSS instance uses no authentication (public instance, default user)
 
 ### Background
 
-FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports instant push (WebSub).
+FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports [instant push (WebSub)](WebSub.md).
 
 FreshRSS is part of an RSS ecosystem. A typical reaction that we have seen from several servers is to simply ban by, IP, user-agent, or to remove their RSS feed altogether. Bad user behaviours affect the larger community.
 

@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
-		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.',
-		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.',
+		'feeds_imported' => 'Vos flux ont été importés.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
+		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
-		'zip_error' => 'Une erreur est survenue durant l’import du fichier ZIP.',
+		'zip_error' => 'Une erreur est survenue durant le traitement du fichier ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'L’étiquette <em>%s</em> a été créée.',
-		'name_exists' => 'L’étiquette existe déjà.',
+		'error' => 'L’étiquette n’a pas pu être modifiée',
+		'name_exists' => 'L’étiquette existe déjà!',
 		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
+		'updated' => 'L’étiquette a été mise à jour.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',

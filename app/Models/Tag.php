@@ -1,79 +1,64 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Tag extends Minz_Model {
-	/**
-	 * @var int
-	 */
-	private $id = 0;
-	private $name;
-	private $attributes = [];
-	private $nbEntries = -1;
-	private $nbUnread = -1;
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
-	public function __construct($name = '') {
+	private int $id = 0;
+	private string $name;
+	private int $nbEntries = -1;
+	private int $nbUnread = -1;
+
+	public function __construct(string $name = '') {
 		$this->_name($name);
 	}
 
-	public function id() {
+	public function id(): int {
 		return $this->id;
 	}
 
-	public function _id($value) {
+	/**
+	 * @param int|string $value
+	 */
+	public function _id($value): void {
 		$this->id = (int)$value;
 	}
 
-	public function name() {
+	public function name(): string {
 		return $this->name;
 	}
 
-	public function _name($value) {
+	public function _name(string $value): void {
 		$this->name = trim($value);
 	}
 
-	public function attributes($key = '') {
-		if ($key == '') {
-			return $this->attributes;
-		} else {
-			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
-		}
-	}
-
-	public function _attributes($key, $value) {
-		if ($key == '') {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif ($value === null) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
-	}
-
-	public function nbEntries() {
+	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$this->nbEntries = $tagDAO->countEntries($this->id());
+			$this->nbEntries = $tagDAO->countEntries($this->id()) ?: 0;
 		}
 		return $this->nbEntries;
 	}
 
-	public function _nbEntries($value) {
+	/**
+	 * @param string|int $value
+	 */
+	public function _nbEntries($value): void {
 		$this->nbEntries = (int)$value;
 	}
 
-	public function nbUnread() {
+	public function nbUnread(): int {
 		if ($this->nbUnread < 0) {
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$this->nbUnread = $tagDAO->countNotRead($this->id());
+			$this->nbUnread = $tagDAO->countNotRead($this->id()) ?: 0;
 		}
 		return $this->nbUnread;
 	}
 
-	public function _nbUnread($value) {
+	/**
+	 * @param string|int $value
+	 */
+	public function _nbUnread($value): void {
 		$this->nbUnread = (int)$value;
 	}
 }

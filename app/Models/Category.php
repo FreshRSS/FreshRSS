@@ -1,49 +1,46 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Category extends Minz_Model {
+	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
 
 	/**
 	 * Normal
-	 * @var int
 	 */
-	const KIND_NORMAL = 0;
+	public const KIND_NORMAL = 0;
 
 	/**
 	 * Category tracking a third-party Dynamic OPML
-	 * @var int
 	 */
-	const KIND_DYNAMIC_OPML = 2;
+	public const KIND_DYNAMIC_OPML = 2;
 
-	const TTL_DEFAULT = 0;
+	private int $id = 0;
+	private int $kind = 0;
+	private string $name;
+	private int $nbFeeds = -1;
+	private int $nbNotRead = -1;
+	/** @var array<FreshRSS_Feed>|null */
+	private ?array $feeds = null;
+	/** @var bool|int */
+	private $hasFeedsWithError = false;
+	private int $lastUpdate = 0;
+	private bool $error = false;
 
 	/**
-	 * @var int
+	 * @param array<FreshRSS_Feed>|null $feeds
 	 */
-	private $id = 0;
-	/** @var int */
-	private $kind = 0;
-	private $name;
-	private $nbFeeds = -1;
-	private $nbNotRead = -1;
-	/** @var array<FreshRSS_Feed>|null */
-	private $feeds = null;
-	private $hasFeedsWithError = false;
-	private $attributes = [];
-	/** @var int */
-	private $lastUpdate = 0;
-	/** @var bool */
-	private $error = false;
-
-	public function __construct(string $name = '', $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+		$this->_id($id);
 		$this->_name($name);
-		if (isset($feeds)) {
+		if ($feeds !== null) {
 			$this->_feeds($feeds);
 			$this->nbFeeds = 0;
 			$this->nbNotRead = 0;
 			foreach ($feeds as $feed) {
+				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
 		}
 	}
@@ -61,13 +58,15 @@ class FreshRSS_Category extends Minz_Model {
 	public function lastUpdate(): int {
 		return $this->lastUpdate;
 	}
-	public function _lastUpdate(int $value) {
+	public function _lastUpdate(int $value): void {
 		$this->lastUpdate = $value;
 	}
 	public function inError(): bool {
 		return $this->error;
 	}
-	public function _error($value) {
+
+	/** @param bool|int $value */
+	public function _error($value): void {
 		$this->error = (bool)$value;
 	}
 	public function isDefault(): bool {
@@ -81,6 +80,11 @@ class FreshRSS_Category extends Minz_Model {
 
 		return $this->nbFeeds;
 	}
+
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
 	public function nbNotRead(): int {
 		if ($this->nbNotRead < 0) {
 			$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -90,7 +94,11 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->nbNotRead;
 	}
 
-	/** @return array<FreshRSS_Feed> */
+	/**
+	 * @return array<int,FreshRSS_Feed>
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
 	public function feeds(): array {
 		if ($this->feeds === null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -100,79 +108,59 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($this->feeds as $feed) {
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
-
 			$this->sortFeeds();
 		}
-
-		return $this->feeds;
+		return $this->feeds ?? [];
 	}
 
-	public function hasFeedsWithError() {
-		return $this->hasFeedsWithError;
+	public function hasFeedsWithError(): bool {
+		return (bool)($this->hasFeedsWithError);
 	}
 
-	public function attributes($key = '') {
-		if ($key == '') {
-			return $this->attributes;
-		} else {
-			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+	public function _id(int $id): void {
+		$this->id = $id;
+		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->name = _t('gen.short.default_category');
 		}
 	}
 
-	public function _id($id) {
-		$this->id = intval($id);
-		if ($id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
-			$this->_name(_t('gen.short.default_category'));
-		}
-	}
-
-	public function _kind(int $kind) {
+	public function _kind(int $kind): void {
 		$this->kind = $kind;
 	}
 
-	public function _name($value) {
-		$this->name = mb_strcut(trim($value), 0, 255, 'UTF-8');
-	}
-	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
-	public function _feeds($values) {
-		if (!is_array($values)) {
-			$values = array($values);
+	public function _name(string $value): void {
+		if ($this->id !== FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		}
+	}
 
+	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
+	public function _feeds($values): void {
+		if (!is_array($values)) {
+			$values = [$values];
+		}
 		$this->feeds = $values;
 		$this->sortFeeds();
 	}
 
 	/**
 	 * To manually add feeds to this category (not committing to database).
-	 * @param FreshRSS_Feed $feed
 	 */
-	public function addFeed($feed) {
+	public function addFeed(FreshRSS_Feed $feed): void {
 		if ($this->feeds === null) {
 			$this->feeds = [];
 		}
+		$feed->_category($this);
 		$this->feeds[] = $feed;
-
 		$this->sortFeeds();
 	}
 
-	public function _attributes($key, $value) {
-		if ('' == $key) {
-			if (is_string($value)) {
-				$value = json_decode($value, true);
-			}
-			if (is_array($value)) {
-				$this->attributes = $value;
-			}
-		} elseif (null === $value) {
-			unset($this->attributes[$key]);
-		} else {
-			$this->attributes[$key] = $value;
-		}
-	}
-
+	/**
+	 * @param array<string> $attributes
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public static function cacheFilename(string $url, array $attributes): string {
 		$simplePie = customSimplePie($attributes);
 		$filename = $simplePie->get_cache_filename($url);
@@ -180,8 +168,8 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function refreshDynamicOpml(): bool {
-		$url = $this->attributes('opml_url');
-		if ($url == '') {
+		$url = $this->attributeString('opml_url');
+		if ($url == null) {
 			return false;
 		}
 		$ok = true;
@@ -221,7 +209,7 @@ class FreshRSS_Category extends Minz_Model {
 				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
 					if (empty($existingFeeds[$dryRunFeed->url()])) {
 						// The feed does not exist in the current category, so add that feed
-						$dryRunFeed->_categoryId($this->id());
+						$dryRunFeed->_category($this);
 						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
 					} else {
 						$existingFeed = $existingFeeds[$dryRunFeed->url()];
@@ -244,12 +232,61 @@ class FreshRSS_Category extends Minz_Model {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->updateLastUpdate($this->id(), !$ok);
 
-		return $ok;
+		return (bool)$ok;
 	}
 
-	private function sortFeeds() {
-		usort($this->feeds, static function ($a, $b) {
+	private function sortFeeds(): void {
+		if ($this->feeds === null) {
+			return;
+		}
+		uasort($this->feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
 			return strnatcasecmp($a->name(), $b->name());
 		});
+	}
+
+	/**
+	 * Access cached feed
+	 * @param array<FreshRSS_Category> $categories
+	 */
+	public static function findFeed(array $categories, int $feed_id): ?FreshRSS_Feed {
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				if ($feed->id() === $feed_id) {
+					$feed->_category($category);	// Should already be done; just to be safe
+					return $feed;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Access cached feeds
+	 * @param array<FreshRSS_Category> $categories
+	 * @return array<int,FreshRSS_Feed>
+	 */
+	public static function findFeeds(array $categories): array {
+		$result = [];
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				$result[$feed->id()] = $feed;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * @param array<FreshRSS_Category> $categories
+	 */
+	public static function countUnread(array $categories, int $minPriority = 0): int {
+		$n = 0;
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				if ($feed->priority() >= $minPriority) {
+					$n += $feed->nbNotRead();
+				}
+			}
+		}
+		return $n;
 	}
 }

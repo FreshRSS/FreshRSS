@@ -81,20 +81,16 @@ Change to the new FreshRSS directory, and set the permissions so that your Web s
 
 ```sh
 cd FreshRSS
-chown -R :www-data .
-sudo chmod -R g+r .
+sudo cli/access-permissions.sh
 ```
 
-We’ll also need to allow the data folder to be written to, like so:
+Optional: If you would like to allow updates from the Web interface, set write permissions (reduces slightly the security)
 
 ```sh
-chmod -R g+w ./data/
-```
-
-Optional: If you would like to allow updates from the Web interface, set write permissions
-
-```sh
-chmod -R g+w .
+# Debian
+chown www-data:www-data -R .
+# Alpine
+chown apache:www-data -R .
 ```
 
 Finally, symlink the public folder to the root of your web directory

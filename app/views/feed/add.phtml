@@ -1,5 +1,8 @@
-<?php /** @var FreshRSS_View $this */ ?>
-<?php if ($this->feed) { ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	if ($this->feed !== null) {
+?>
 <main class="post">
 	<h1><?= _t('sub.feed.add') ?></h1>
 
@@ -67,7 +70,7 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?= $auth['username'] ?>" autocomplete="off" />
+				<input type="text" name="http_user" id="http_user" value="<?= $auth['username'] ?>" autocomplete="off" />
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
 			</div>
 

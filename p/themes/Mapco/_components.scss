@@ -22,6 +22,12 @@
 }
 
 /*=== Dropdown */
+.dropdown {
+	.dropdown-target:target + .btn {
+		background-color: variables.$grey-medium-light;
+	}
+}
+
 .dropdown-menu {
 	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
@@ -51,7 +57,9 @@
 
 		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		a, .as-link {
+		> a,
+		> span,
+		> .as-link {
 			padding: 0 2rem;
 			color: variables.$main-font-color;
 			font-size: inherit;
@@ -60,7 +68,10 @@
 			span.icon {
 				padding: 0 0.25rem !important;
 			}
+		}
 
+		> a,
+		> .as-link {
 			&:not(.addItem):hover {
 				background: variables.$main-first;
 				color: variables.$white;

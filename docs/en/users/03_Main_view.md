@@ -38,3 +38,4 @@ Reader view will display a feed will all articles already open for reading. Feed
 Read more:
 * [Refreshing the feeds](./09_refreshing_feeds.md)
 * [Filter the feeds and search](./10_filter.md)
+* [User queries](./user_queries.md)

@@ -5,10 +5,11 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
 	tzdata \
-	apache2 php82-apache2 \
-	php82 php82-curl php82-gmp php82-intl php82-mbstring php82-xml php82-zip \
-	php82-ctype php82-dom php82-fileinfo php82-iconv php82-json php82-opcache php82-openssl php82-phar php82-session php82-simplexml php82-xmlreader php82-xmlwriter php82-xml php82-tokenizer php82-zlib \
-	php82-pdo_sqlite php82-pdo_mysql php82-pdo_pgsql
+	apache2 php83-apache2 \
+	apache-mod-auth-openidc \
+	php83 php83-curl php83-gmp php83-intl php83-mbstring php83-xml php83-zip \
+	php83-ctype php83-dom php83-fileinfo php83-iconv php83-json php83-opcache php83-openssl php83-phar php83-session php83-simplexml php83-xmlreader php83-xmlwriter php83-xml php83-tokenizer php83-zlib \
+	php83-pdo_sqlite php83-pdo_mysql php83-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -17,7 +18,6 @@ COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
-ARG SOURCE_BRANCH
 ARG SOURCE_COMMIT
 
 LABEL \
@@ -25,7 +25,7 @@ LABEL \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
-	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
 	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
 	org.opencontainers.image.title="FreshRSS" \
 	org.opencontainers.image.url="https://freshrss.org/" \
@@ -40,8 +40,9 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php82 /usr/bin/php; else true; fi && \
-	echo 'memory_limit = 256M' > /etc/php82/conf.d/10_memory.ini && \
+	mv /etc/apache2/conf.d/mod-auth-openidc.conf /etc/apache2/conf.d/mod-auth-openidc.conf.bak && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php83 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php83/conf.d/10_memory.ini && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
@@ -52,12 +53,15 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
+ENV OIDC_ENABLED ''
+ENV TRUSTED_PROXY ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')

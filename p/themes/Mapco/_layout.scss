@@ -29,7 +29,7 @@
 
 		&.search {
 			input {
-				width: 230px;
+				width: 350px;
 				color: variables.$sid-font-color;
 				border: none;
 				border-radius: 2px 0 0 2px;
@@ -42,9 +42,7 @@
 				}
 
 				&:focus {
-					width: 350px;
 					color: variables.$grey-dark;
-
 					background-color: variables.$white;
 				}
 			}
@@ -114,7 +112,7 @@ main.prompt {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: calc(0.75rem + var(--frss-padding-top-bottom)) 1rem;
 	font-weight: bold;
 	color: variables.$white;
 }
@@ -183,7 +181,8 @@ main.prompt {
 		}
 	}
 
-	.stick {
+	.stick,
+	.group {
 		.btn {
 			border-left-width: 0;
 			padding: 0.5rem 1rem;
@@ -228,7 +227,7 @@ main.prompt {
 			}
 		}
 
-		.dropdown {
+		.dropdown:not(#dropdown-search-wrapper) {
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -236,6 +235,12 @@ main.prompt {
 				.icon {
 					display: none;
 				}
+			}
+		}
+
+		#dropdown-search-wrapper.dropdown {
+			a.dropdown-toggle {
+				border-left-width: 0;
 			}
 		}
 	}

@@ -2,16 +2,7 @@
 
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
-
-	form {
-		margin: 1rem 0;
-	}
-
-	&.content {
-		max-width: 550px;
-	}
 
 	h1, h2 {
 		color: variables.$main-font-color;
@@ -57,16 +48,18 @@
 	box-shadow: 0px 6px 8px 0px rgba(0,0,0,0.35);
 }
 
-.slide-container {
-	.properties {
-		padding: 1rem;
-		background: rgba(0, 0, 0, 0.75);
-		color: white;
-		border: 0;
+.theme-preview-list {
+	.preview-container {
+		.properties {
+			padding: 1rem;
+			background: rgba(0, 0, 0, 0.75);
+			color: white;
+			border: 0;
 
-		.page-number {
-			right: 1rem;
-			top: 1rem;
+			.page-number {
+				right: 1rem;
+				top: 1rem;
+			}
 		}
 	}
 }

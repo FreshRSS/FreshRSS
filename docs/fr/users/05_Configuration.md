@@ -15,8 +15,32 @@ vocation à l’être. Pour le moment, les logs visibles dans l’application
 ainsi que celle générées par le script de mise à jour automatique en font
 partie.
 
-Les langues disponibles sont : cz, de, en, es, fr, he, it, ko, nl, oc,
-pt-br, ru, tr, zh-cn.
+Les langues disponibles sont:
+
+| Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
+|:------------------------|:-----------------------|:-------------------------------------|
+| Tchèque                 | Čeština                | cz                                   |
+| Allemand                | Deutsch                | de                                   |
+| Grec                    | Ελληνικά               | el                                   |
+| Anglais                 | English                | en                                   |
+| Anglais (États-Unis)    | English (United States) | en-us                               |
+| Espagnol                | Español                | es                                   |
+| Français                | Français               | fr                                   |
+| Hébreu                  | עברית                  | he                                   |
+| Indonésien              | Bahasa Indonesia       | id                                   |
+| Italien                 | Italiano               | it                                   |
+| Japonais                | 日本語                  | ja                                   |
+| Coréen                  | 한국어                  | ko                                   |
+| Letton                  | Latviešu               | lv                                   |
+| Néerlandais             | Nederlands             | nl                                   |
+| Occitan                 | Occitan                | oc                                   |
+| Polonais                | Polski                 | pl                                   |
+| Portugais brésilien     | Português (Brasil)     | pt-br                                |
+| Russe                   | Русский                | ru                                   |
+| Slovaque                | Slovenčina             | sk                                   |
+| Turc                    | Türkçe                 | tr                                   |
+| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-cn               |
+| Chinois (traditionnel, Taïwan) | 正體中文          | zh-tw                               |
 
 ## Thème
 
@@ -27,16 +51,14 @@ propose 13 thèmes officiels :
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
-| Flat design | Marien Fressinaud | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
+| Flat design | Marien Fressinaud | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Mapco | Thomas Guesnon  | |
 | Nord theme | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | N'est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
 Si aucun de ceux proposés ne convient, il est toujours possible de [créer

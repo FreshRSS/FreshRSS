@@ -1,9 +1,17 @@
-![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/freshrss/freshrss.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/freshrss/freshrss.svg)
+[![Liberapay donations](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 # Deploy FreshRSS with Docker
 
-Our official images are available on [Docker Hub](https://hub.docker.com/r/freshrss/freshrss/).
+FreshRSS is a self-hosted RSS feed aggregator.
+
+* Official website: [`freshrss.org`](https://freshrss.org/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
+* Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
+* Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
+* License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
+
+![FreshRSS logo](https://github.com/FreshRSS/FreshRSS/raw/edge/docs/img/FreshRSS-logo.png)
 
 ## Install Docker
 
@@ -66,13 +74,15 @@ The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshR
 
 * `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
-* `:x.y.z` are [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases)
-* `:arm` or `:*-arm` are the ARM `arm32v7` versions (e.g., for Raspberry Pi).
+* `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `*-alpine` use Linux Alpine as base-image instead of Debian
+* Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
 
 ### Linux: Debian vs. Alpine
 
-Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `:alpine` or `*-alpine` tag suffix).
+Our default image is based on [Debian](https://www.debian.org/). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
 In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205) (2019), Alpine was slower,
 while Alpine is smaller on disk (and much faster to build),
 and with newer packages in general (Apache, PHP).
@@ -83,10 +93,11 @@ and with newer packages in general (Apache, PHP).
 
 * `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones)
 * `CRON_MIN`: (default is disabled) Define minutes for the built-in cron job to automatically refresh feeds (see below for more advanced options)
+* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writeable data.
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `0.0.0.0:80`) Modifies the internal Apache listening port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -107,16 +118,17 @@ docker rm freshrss_old
 ## Build custom Docker image
 
 Building your own Docker image is especially relevant for platforms not available on our Docker Hub,
-which is currently limited to `x64` (Intel, AMD) and `arm32v7`.
+which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
+
+> ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
+
+Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
 
 ```sh
-# First time only
-git clone https://github.com/FreshRSS/FreshRSS.git
-
-cd FreshRSS/
-git pull --ff-only --prune
-docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile .
+docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
+
+> ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
 
 ## Development mode
 
@@ -197,10 +209,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -e MYSQL_PASSWORD=freshrss \
   --net freshrss-network \
   --name freshrss-db mysql \
-  --default-authentication-plugin=mysql_native_password
 ```
-
-> ℹ️ The parameter `--default-authentication-plugin` is not needed if using PHP 8+ (which is the case for our Alpine images but not yet for our Debian images).
 
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
 
@@ -256,7 +265,7 @@ sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 
 ## Docker Compose
 
-First, put variables such as passwords in your `.env` file (see [`example.env`](./freshrss/example.env)):
+First, put variables such as passwords in your `.env` file, which can live where your `docker-compose.yml` should be. See [`example.env`](./freshrss/example.env).
 
 ```ini
 ADMIN_EMAIL=admin@example.net
@@ -297,6 +306,11 @@ volumes:
 services:
   freshrss:
     image: freshrss/freshrss:edge
+    # Optional build section if you want to build the image locally:
+    build:
+      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      context: https://github.com/FreshRSS/FreshRSS.git#edge
+      dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
     restart: unless-stopped
     logging:
@@ -323,6 +337,16 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+      # Optional parameter, remove for automatic settings, set to 0 to disable,
+      # or (if you use a proxy) to a space-separated list of trusted IP ranges
+      # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
+      # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
+      # This also impacts external authentication methods;
+      # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+      TRUSTED_PROXY: 172.16.0.1/12 192.168.0.1/16
+      # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
+      # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
+      OIDC_ENABLED: 0
       # Optional auto-install parameters (the Web interface install is recommended instead):
       # ⚠️ Parameters below are only used at the very first run (so far).
       # So if changes are made (or in .env file), first delete the service and volumes.
@@ -394,6 +418,26 @@ SERVER_DNS=freshrss.example.net
 ```
 
 ### Use [Træfik](https://traefik.io/traefik/) reverse proxy
+
+#### Option 1: server FreshRSS as a sub-domain
+
+Use [`Host()` rule](https://doc.traefik.io/traefik/routing/routers/#rule), like:
+
+```yml
+- traefik.http.routers.freshrss.rule=Host(`freshrss.example.net`)
+```
+
+#### Option 2: serve FreshRSS as a sub-path
+
+Use [`PathPrefix()` rules](https://doc.traefik.io/traefik/routing/routers/#rule) and [`StripPrefix` middleware](https://doc.traefik.io/traefik/middlewares/http/stripprefix/#stripprefix), like:
+
+```yml
+- traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+- traefik.http.routers.freshrss.middlewares=freshrssM3
+- traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)
+```
+
+#### Full example
 
 Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS.
 
@@ -467,7 +511,7 @@ server {
 	}
 
 	location /freshrss/ {
-		proxy_pass http://freshrss;
+		proxy_pass http://freshrss/;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;

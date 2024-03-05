@@ -17,7 +17,7 @@ return array(
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
 		'keep_favourites' => 'Nunca elimines favoritos',
 		'keep_labels' => 'Nunca elimine etiquetas',
-		'keep_max' => 'Número máximo de artículos a conservar',
+		'keep_max' => 'Número máximo de artículos a conservar por fuente',
 		'keep_min_by_feed' => 'Número mínimo de artículos a conservar por fuente',
 		'keep_period' => 'Edad máxima de los artículos a conservar',
 		'keep_unreads' => 'Nunca elimine artículos no leídos',
@@ -32,10 +32,14 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Visualización',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Modo oscuro automatico (beta)',
+			'auto' => 'Automatico',
+			'no' => 'No',	// IGNORE
+		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
-			'display_authors' => 'Autores/Autoras',
+			'display_authors' => 'Autores',
 			'entry' => 'Iconos de artículos',
 			'publication_date' => 'Fecha de publicación',
 			'related_tags' => 'Etiquetas relacionadas',
@@ -53,7 +57,7 @@ return array(
 			'_' => 'Tema',
 			'deprecated' => array(
 				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'description' => 'Este tema no tiene soporte y no volvera a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'El tema “%s” ya no está disponible. Por favor, elija otro tema.',
@@ -64,8 +68,15 @@ return array(
 			'portrait' => 'Retrato',
 			'square' => 'Cuadrado',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Zona Horaria',
 		'title' => 'Visualización',
+		'website' => array(
+			'full' => 'Icono y nombre',
+			'icon' => 'Solo icono',
+			'label' => 'Sitio web',
+			'name' => 'Solo nombre',
+			'none' => 'Ninguno',
+		),
 		'width' => array(
 			'content' => 'Ancho de contenido',
 			'large' => 'Grande',
@@ -109,20 +120,33 @@ return array(
 			'feeds' => 'Mostrar por feed',
 			'order' => 'Ordenar por fecha',
 			'search' => 'Expresión',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Estado',
 			'tags' => 'Mostrar por etiqueta',
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostrar todos los artículos',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostrar la categoría “%s”',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nombre',
 		'no_filter' => 'Sin filtro',
 		'number' => 'Consulta n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
 		'search' => 'Buscar “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
 		'state_2' => 'Mostrar artículos pendientes',
@@ -193,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'cuando el artículo se abra en su web original',
 			'article_viewed' => 'cuando se muestre el artículo',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
-			'scroll' => 'durante el desplazamiento',
+			'scroll' => 'durante el desplazamiento (except for important feeds)',	// DIRTY
 			'upon_gone' => 'cuando ya no está disponible en el feed de noticias previo',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',

@@ -17,7 +17,7 @@ return array(
 		'help' => '個々のフィード設定内で、より多くの設定をしていただけます。',
 		'keep_favourites' => 'お気に入りを消去しない',
 		'keep_labels' => 'ラベルを消去しない',
-		'keep_max' => '記事を保存する最大数',
+		'keep_max' => '記事を保存する最大数',	// DIRTY
 		'keep_min_by_feed' => '記事をフィードに残す最小数',
 		'keep_period' => '記事を保存する最大時間',
 		'keep_unreads' => '未読の記事を消去しない',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => '表示',
-		'darkMode' => 'Automatic dark mode (beta)',	// TODO
+		'darkMode' => array(
+			'_' => 'Automatic dark mode (beta)',	// TODO
+			'auto' => 'Auto',	// TODO
+			'no' => 'No',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Time zone',	// TODO
 		'title' => 'ディスプレイ',
+		'website' => array(
+			'full' => 'Icon and name',	// TODO
+			'icon' => 'Icon only',	// TODO
+			'label' => 'Website',	// TODO
+			'name' => 'Name only',	// TODO
+			'none' => 'None',	// TODO
+		),
 		'width' => array(
 			'content' => 'コンテンツ幅',
 			'large' => '広い',
@@ -109,20 +120,33 @@ return array(
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
 			'search' => '式',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => '状態',
 			'tags' => 'タグごとに表示する',
 			'type' => 'タイプ',
 		),
 		'get_all' => 'すべての著者を表示する',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s”カテゴリを表示する',
 		'get_favorite' => 'お気に入りの著者を表示する',
 		'get_feed' => '“%s”フィードを表示する',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',
 		'order_asc' => '古い著者を最初に表示する',
 		'order_desc' => '新しい著者を最初に表示する',
 		'search' => '“%s”で検索する',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'すべての記事を表示する',
 		'state_1' => '既読の記事を表示する',
 		'state_2' => '未読の記事を表示する',
@@ -193,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '記事を元のwebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => '未読の記事として残す最大数',
-			'scroll' => 'スクロールしているとき',
+			'scroll' => 'スクロールしているとき (except for important feeds)',	// DIRTY
 			'upon_gone' => 'ニュースフィードの提供元がなくなったとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',

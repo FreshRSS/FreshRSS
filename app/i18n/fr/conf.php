@@ -17,7 +17,7 @@ return array(
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_favourites' => 'Ne jamais supprimer les articles favoris',
 		'keep_labels' => 'Ne jamais supprimer les articles étiquetés',
-		'keep_max' => 'Nombre maximum d’articles à conserver',
+		'keep_max' => 'Nombre maximum d’articles à conserver par flux',
 		'keep_min_by_feed' => 'Nombre minimum d’articles à conserver par flux',
 		'keep_period' => 'Âge maximum des articles à conserver',
 		'keep_unreads' => 'Ne jamais supprimer les articles non lus',
@@ -32,7 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
-		'darkMode' => 'Mode sombre automatique (bêta)',
+		'darkMode' => array(
+			'_' => 'Mode sombre automatique (bêta)',
+			'auto' => 'Auto',	// IGNORE
+			'no' => 'Non',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -66,6 +70,13 @@ return array(
 		),
 		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site Web',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
 			'large' => 'Large',	// IGNORE
@@ -109,20 +120,33 @@ return array(
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
+			'shareRss' => 'Active le partage par HTML &amp; RSS',
 			'state' => 'État',
 			'tags' => 'Afficher par étiquette',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
+		'get_all_labels' => 'Afficher les articles avec une étiquette',
 		'get_category' => 'Afficher la catégorie <em>%s<em>',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux <em>%s</em>',
+		'get_important' => 'Afficher les articles des flux importants',
+		'get_label' => 'Afficher les articles avec l’étiquette “%s”',
+		'help' => 'Voir la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation pour les filtres utilisateurs et repartage par HTML / RSS / OPML</a>.',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
 		'search' => 'Recherche de « %s »',
+		'share' => array(
+			'_' => 'Partager ce filtre par lien',
+			'help' => 'Donner ce lien pour partager le contenu du filtre avec d’autres personnes',
+			'html' => 'Lien partageable de la page HTML',
+			'opml' => 'Lien partageable de la liste des flux au format OPML',
+			'rss' => 'Lien partageable du flux RSS',
+		),
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',
@@ -193,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',
 			'article_viewed' => 'lorsque l’article est affiché',
+			'focus' => 'lorsque l’article est sélectionné (sauf pour les flux importants)',
 			'keep_max_n_unread' => 'Nombre maximum d’articles conservés non lus',
-			'scroll' => 'au défilement de la page',
+			'scroll' => 'au défilement de la page (sauf pour les flux importants)',
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',

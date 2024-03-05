@@ -84,7 +84,8 @@
 }
 
 /*=== Buttons */
-.stick {
+.stick,
+.group {
 	input, .btn {
 		border-radius: 0;
 	}
@@ -93,7 +94,7 @@
 		border-radius: 5px 0 0 5px;
 	}
 
-	.btn:last-child, input:last-child, .btn + .dropdown > .btn {
+	.btn:last-child, input:last-child, .dropdown:last-child > .btn {
 		border-radius: 0 5px 5px 0;
 	}
 

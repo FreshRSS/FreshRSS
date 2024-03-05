@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle error page.
@@ -13,9 +14,10 @@ class FreshRSS_error_Controller extends FreshRSS_ActionController {
 	 *   - error_code (default: 404)
 	 *   - error_logs (default: array())
 	 */
-	public function indexAction() {
-		$code_int = Minz_Session::param('error_code', 404);
-		$error_logs = Minz_Session::param('error_logs', array());
+	public function indexAction(): void {
+		$code_int = Minz_Session::paramInt('error_code') ?: 404;
+		/** @var array<string> */
+		$error_logs = Minz_Session::paramArray('error_logs');
 		Minz_Session::_params([
 			'error_code' => false,
 			'error_logs' => false,

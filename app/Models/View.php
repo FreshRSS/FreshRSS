@@ -1,147 +1,131 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_View extends Minz_View {
 
 	// Main views
+	/** @var callable */
 	public $callbackBeforeEntries;
+	/** @var callable|null */
 	public $callbackBeforeFeeds;
+	/** @var callable */
 	public $callbackBeforePagination;
-	/** @var array<FreshRSS_Category> */
-	public $categories;
-	/** @var FreshRSS_Category|null */
-	public $category;
-	/** @var string */
-	public $current_user;
-	/** @var array<FreshRSS_Entry> */
+	/** @var array<int,FreshRSS_Category> */
+	public array $categories;
+	public ?FreshRSS_Category $category;
+	public ?FreshRSS_Tag $tag;
+	public string $current_user;
+	/** @var iterable<FreshRSS_Entry> */
 	public $entries;
-	/** @var FreshRSS_Entry */
-	public $entry;
-	/** @var FreshRSS_Feed|null */
-	public $feed;
-	/** @var array<FreshRSS_Feed> */
-	public $feeds;
-	/** @var int */
-	public $nbUnreadTags;
-	public $tags;
-	/** @var array<string,string> */
-	public $notification;
-	/** @var bool */
-	public $excludeMutedFeeds;
+	public FreshRSS_Entry $entry;
+	public FreshRSS_Feed $feed;
+	/** @var array<int,FreshRSS_Feed> */
+	public array $feeds;
+	public int $nbUnreadTags;
+	/** @var array<int,FreshRSS_Tag> */
+	public array $tags;
+	/** @var array<int,array{'id':int,'name':string,'id_entry':string,'checked':bool}> */
+	public array $tagsForEntry;
+	/** @var array<string,array<string>> */
+	public array $tagsForEntries;
+	public bool $excludeMutedFeeds;
 
 	// Substriptions
-	public $default_category;
-	public $displaySlider;
-	public $load_ok;
-	public $onlyFeedsWithError;
-	public $signalError;
+	public bool $displaySlider = false;
+	public bool $load_ok;
+	public bool $onlyFeedsWithError;
+	public bool $signalError;
 
 	// Manage users
-	public $details;
-	public $disable_aside;
-	public $show_email_field;
-	public $username;
-	public $users;
+	/** @var array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	public array $details;
+	public bool $disable_aside;
+	public bool $show_email_field;
+	public string $username;
+	/** @var array<array{'language':string,'enabled':bool,'is_admin':bool,'enabled':bool,'article_count':int,'database_size':int,'last_user_activity':string,'mail_login':string,'feed_count':int,'is_default':bool}> */
+	public array $users;
 
 	// Updates
-	public $last_update_time;
-	public $status_files;
-	public $status_php;
-	public $update_to_apply;
-	public $status_database;
+	public string $last_update_time;
+	/** @var array<string,bool> */
+	public array $status_files;
+	/** @var array<string,bool> */
+	public array $status_php;
+	public bool $update_to_apply;
+	/** @var array<string,bool> */
+	public array $status_database;
+	public bool $is_release_channel_stable;
 
 	// Archiving
-	public $nb_total;
-	public $size_total;
-	public $size_user;
+	public int $nb_total;
+	public int $size_total;
+	public int $size_user;
 
 	// Display
-	public $themes;
+	/** @var array<string,array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}> */
+	public array $themes;
 
 	// Shortcuts
-	public $list_keys;
+	/** @var array<int, string> */
+	public array $list_keys;
 
 	// User queries
-	/**
-	 * @var array<int,FreshRSS_UserQuery>
-	 */
-	public $queries;
-	/**
-	 * @var FreshRSS_UserQuery|null
-	 */
-	public $query;
+	/** @var array<int,FreshRSS_UserQuery> */
+	public array $queries;
+	/**  @var FreshRSS_UserQuery|null */
+	public ?FreshRSS_UserQuery $query = null;
 
 	// Export / Import
-	public $content;
-	public $entryIdsTagNames;
-	public $list_title;
-	public $queryId;
-	public $type;
+	public string $content;
+	/** @var array<string,array<string>> */
+	public array $entryIdsTagNames;
+	public string $list_title;
+	public int $queryId;
+	public string $type;
 
 	// Form login
-	public $cookie_days;
-	public $nonce;
-	public $salt1;
+	public int $cookie_days;
 
 	// Registration
-	public $can_register;
-	public $preferred_language;
-	public $show_tos_checkbox;
-	public $terms_of_service;
-
-	// Email validation
-	public $site_title;
-	public $validation_url;
+	public bool $can_register;
+	public string $preferred_language;
+	public bool $show_tos_checkbox;
+	public string $terms_of_service;
+	public string $site_title;
+	public string $validation_url;
 
 	// Logs
-	public $currentPage;
-	public $logsPaginator;
-	public $nbPage;
+	public int $currentPage;
+	public Minz_Paginator $logsPaginator;
+	public int $nbPage;
 
 	// RSS view
-	/** @var string */
-	public $rss_title = '';
-	/** @var string */
-	public $rss_url = '';
-	/** @var string */
-	public $rss_base = '';
-	/** @var boolean */
-	public $internal_rendering = false;
+	public FreshRSS_UserQuery $userQuery;
+	public string $html_url = '';
+	public string $rss_title = '';
+	public string $rss_url = '';
+	public string $rss_base = '';
+	public bool $internal_rendering = false;
 
 	// Content preview
-	public $fatalError;
-	public $htmlContent;
-	public $selectorSuccess;
+	public string $fatalError;
+	public string $htmlContent;
+	public bool $selectorSuccess;
 
 	// Extensions
-	public $available_extensions;
-	public $ext_details;
-	public $extension_list;
-	public $extension;
-	public $extensions_installed;
+	/** @var array<array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
+	public array $available_extensions;
+	public ?Minz_Extension $ext_details;
+	/** @var array{'system':array<Minz_Extension>,'user':array<Minz_Extension>} */
+	public array $extension_list;
+	public ?Minz_Extension $extension;
+	/** @var array<string,string> */
+	public array $extensions_installed;
 
 	// Errors
-	public $code;
-	public $errorMessage;
-	public $message;
-
-	// Statistics
-	public $average;
-	public $averageDayOfWeek;
-	public $averageHour;
-	public $averageMonth;
-	public $days;
-	public $entryByCategory;
-	public $entryCount;
-	public $feedByCategory;
-	public $hours24Labels;
-	public $idleFeeds;
-	public $last30DaysLabel;
-	public $last30DaysLabels;
-	public $months;
-	public $repartition;
-	public $repartitionDayOfWeek;
-	public $repartitionHour;
-	public $repartitionMonth;
-	public $topFeed;
+	public string $code;
+	public string $errorMessage;
+	/** @var array<string,string> */
+	public array $message;
 
 }
