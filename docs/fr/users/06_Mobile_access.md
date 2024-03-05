@@ -59,6 +59,7 @@ possibilité.
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 		* [Readrops](https://github.com/readrops/Readrops) (Libre)
 		* [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) (Libre)
+		* [Read You](https://github.com/Ashinch/ReadYou/) (Libre)
 		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)

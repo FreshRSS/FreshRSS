@@ -78,10 +78,6 @@ class SimplePie_File
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
-			if ($syslog_enabled)
-			{
-				syslog(LOG_INFO, 'SimplePie GET ' . SimplePie_Misc::url_remove_credentials($url));	//FreshRSS
-			}
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');
@@ -124,6 +120,10 @@ class SimplePie_File
 					$this->headers = curl_exec($fp);
 				}
 				$this->status_code = curl_getinfo($fp, CURLINFO_HTTP_CODE);
+				if ($syslog_enabled)
+				{
+					syslog(LOG_INFO, 'SimplePie GET ' . $this->status_code . ' ' . SimplePie_Misc::url_remove_credentials($url));   //FreshRSS
+				}
 				if (curl_errno($fp))
 				{
 					$this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp);
@@ -228,6 +228,10 @@ class SimplePie_File
 							$this->headers = $parser->headers;
 							$this->body = $parser->body;
 							$this->status_code = $parser->status_code;
+							if ($syslog_enabled)
+							{
+								syslog(LOG_INFO, 'SimplePie fsock GET ' . $this->status_code . ' ' . SimplePie_Misc::url_remove_credentials($url));   //FreshRSS
+							}
 							if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects)
 							{
 								$this->redirects++;
@@ -289,6 +293,10 @@ class SimplePie_File
 						$this->success = false;
 					}
 					fclose($fp);
+					if ($syslog_enabled && $this->status_code === 0)
+					{
+						syslog(LOG_INFO, 'SimplePie fsock GET ' . $this->status_code . ' ' . SimplePie_Misc::url_remove_credentials($url));   //FreshRSS
+					}
 				}
 			}
 		}

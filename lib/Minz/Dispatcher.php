@@ -10,7 +10,7 @@ declare(strict_types=1);
  * The Dispatcher is in charge of initialising the Controller and exectue the action as specified in the Request object.
  * It is a singleton.
  */
-class Minz_Dispatcher {
+final class Minz_Dispatcher {
 
 	/**
 	 * Singleton

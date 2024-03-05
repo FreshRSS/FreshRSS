@@ -40,7 +40,7 @@ class FreshRSS_Category extends Minz_Model {
 				$feed->_category($this);
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
 		}
 	}
@@ -95,7 +95,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	/**
-	 * @return array<FreshRSS_Feed>
+	 * @return array<int,FreshRSS_Feed>
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
@@ -108,12 +108,10 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($this->feeds as $feed) {
 				$this->nbFeeds++;
 				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= $feed->inError();
+				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 			}
-
 			$this->sortFeeds();
 		}
-
 		return $this->feeds ?? [];
 	}
 
@@ -124,7 +122,7 @@ class FreshRSS_Category extends Minz_Model {
 	public function _id(int $id): void {
 		$this->id = $id;
 		if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
-			$this->_name(_t('gen.short.default_category'));
+			$this->name = _t('gen.short.default_category');
 		}
 	}
 
@@ -133,7 +131,9 @@ class FreshRSS_Category extends Minz_Model {
 	}
 
 	public function _name(string $value): void {
-		$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		if ($this->id !== FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->name = mb_strcut(trim($value), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		}
 	}
 
 	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
@@ -141,7 +141,6 @@ class FreshRSS_Category extends Minz_Model {
 		if (!is_array($values)) {
 			$values = [$values];
 		}
-
 		$this->feeds = $values;
 		$this->sortFeeds();
 	}
@@ -155,7 +154,6 @@ class FreshRSS_Category extends Minz_Model {
 		}
 		$feed->_category($this);
 		$this->feeds[] = $feed;
-
 		$this->sortFeeds();
 	}
 
@@ -241,8 +239,54 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		usort($this->feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
+		uasort($this->feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
 			return strnatcasecmp($a->name(), $b->name());
 		});
+	}
+
+	/**
+	 * Access cached feed
+	 * @param array<FreshRSS_Category> $categories
+	 */
+	public static function findFeed(array $categories, int $feed_id): ?FreshRSS_Feed {
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				if ($feed->id() === $feed_id) {
+					$feed->_category($category);	// Should already be done; just to be safe
+					return $feed;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Access cached feeds
+	 * @param array<FreshRSS_Category> $categories
+	 * @return array<int,FreshRSS_Feed>
+	 */
+	public static function findFeeds(array $categories): array {
+		$result = [];
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				$result[$feed->id()] = $feed;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * @param array<FreshRSS_Category> $categories
+	 */
+	public static function countUnread(array $categories, int $minPriority = 0): int {
+		$n = 0;
+		foreach ($categories as $category) {
+			foreach ($category->feeds() as $feed) {
+				if ($feed->priority() >= $minPriority) {
+					$n += $feed->nbNotRead();
+				}
+			}
+		}
+		return $n;
 	}
 }

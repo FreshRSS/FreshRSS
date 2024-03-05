@@ -109,7 +109,7 @@
 
 		$error_class = '';
 		$error_title = '';
-		if ($feed->inError()) {
+		if ($feed->inError() && !$feed->mute()) {
 			$error_class = ' error';
 			$error_title = _t('sub.feed.error');
 		}
@@ -153,9 +153,7 @@
 <script id="tag_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="item">
-			<button class="as-link confirm" disabled="disabled"
-				form="mark-read-aside" formaction="<?= _url('tag', 'delete', 'id_tag', '------') ?>"
-				type="submit"><?= _t('gen.action.remove') ?></button>
+			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>

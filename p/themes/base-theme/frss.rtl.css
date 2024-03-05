@@ -110,6 +110,10 @@ h2 {
 	line-height: 1.5;
 }
 
+.api > h2 {
+	text-align: center;
+}
+
 h2 .icon,
 legend .icon {
 	height: 0.8em;
@@ -1495,7 +1499,7 @@ a.website:hover .favicon {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 0.75rem 0.75rem 0.75rem 3.5rem;
+	padding: 1rem 1rem 1rem 3.5rem;
 	position: absolute;
 	top: 1rem;
 	right: 25%; left: 25%;

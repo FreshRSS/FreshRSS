@@ -121,8 +121,47 @@ return array(
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			),
+			'json_dotpath' => array(
+				'_' => 'JSON (path con i punti)',
+				'feed_title' => array(
+					'_' => 'titolo feed',
+					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
+				),
+				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array. (es. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
+					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
+				),
+				'item_author' => 'autore elemento',
+				'item_categories' => 'tag elemento',
+				'item_content' => array(
+					'_' => 'contenuto elemento',
+					'help' => 'Chiave sotto la quale trovare il contenuto, es. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatura elemento',
+					'help' => 'Esempio: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Formato data/ora personalizzato',
+					'help' => 'Facoltativo. Un formato supportato da <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> come <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'data elemento',
+					'help' => 'Il risultato sarà interpretato da <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'titolo elemento',
+				'item_uid' => 'ID univoco elemento',
+				'item_uri' => array(
+					'_' => 'link elemento (URL)',
+					'help' => 'Esempio: <code>permalink</code>',
+				),
+				'json' => 'Percorso con i punti per:',
+				'relative' => 'Percorso con i punti (relativo all’elemento) per:',
+			),
+			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
@@ -133,6 +172,11 @@ return array(
 		),
 		'max_http_redir' => 'Numero massimo di redirect HTTP',
 		'max_http_redir_help' => 'Imposta a 0 o lascia in bianco per disabilitare, -1 per impostare un numero illimitato di redirect',
+		'method' => array(
+			'_' => 'Metodo HTTP',
+		),
+		'method_help' => 'Il payload POST ha il supporto automatico per <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
+		'method_postparams' => 'Payload per POST',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
 		'mute' => 'muta',
 		'no_selected' => 'Nessun feed selezionato.',
@@ -141,7 +185,7 @@ return array(
 			'_' => 'Visibilità',
 			'archived' => 'Non mostrare (archiviato)',
 			'category' => 'Mostra nella sua categoria',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Mostra nei feed importanti',
 			'main_stream' => 'Mostra in homepage',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
@@ -196,6 +240,7 @@ return array(
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 	'tag' => array(
+		'auto_label' => 'Aggiungi questo tag ai nuovi articoli',
 		'name' => 'Nome',
 		'new_name' => 'Nuovo nome',
 		'old_name' => 'Vecchio nome',

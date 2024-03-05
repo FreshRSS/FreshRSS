@@ -439,7 +439,7 @@ function toggleContent(new_active, old_active, skipping) {
 		const nav_menu = document.querySelector('.nav_menu');
 		let nav_menu_height = 0;
 
-		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+		if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
 			nav_menu_height = nav_menu.offsetHeight;
 		}
 
@@ -1057,7 +1057,6 @@ function init_shortcuts() {
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
 		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
 		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 	});
 }
@@ -1448,7 +1447,7 @@ function refreshFeeds(json) {
 		}));
 	} else {
 		const feeds_count = json.feeds.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshFeed(json.feeds, feeds_count);
 		}
 	}
@@ -1487,7 +1486,7 @@ function refreshDynamicOpmls(json, next) {
 	categories_processed = 0;
 	if (json.categories && json.categories.length > 0) {
 		const categories_count = json.categories.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshDynamicOpml(json.categories, categories_count, next);
 		}
 	} else {
@@ -1941,11 +1940,14 @@ function init_main_afterDOM() {
 	if (stream) {
 		init_load_more(stream);
 		init_posts();
-		init_nav_entries();
-		init_notifs_html5();
-		toggle_bigMarkAsRead_button();
-		setTimeout(faviconNbUnread, 1000);
-		setInterval(refreshUnreads, 120000);
+		if (document.getElementById('new-article')) {
+			// Only relevant for interactive views
+			init_nav_entries();
+			init_notifs_html5();
+			toggle_bigMarkAsRead_button();
+			setTimeout(faviconNbUnread, 1000);
+			setInterval(refreshUnreads, 120000);
+		}
 	}
 
 	if (window.console) {

@@ -13,7 +13,7 @@
     "require": {
         "marienfressinaud/lib_opml": "0.5.1",
         "phpgt/cssxpath": "dev-master#d99d35f7194bac19fb3f8726b70c1bc83de3e931",
-        "phpmailer/phpmailer": "6.8.1"
+        "phpmailer/phpmailer": "6.9.1"
     },
     "config": {
         "sort-packages": true,

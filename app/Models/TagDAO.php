@@ -184,16 +184,16 @@ SQL;
 	public function searchById(int $id): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE id=:id', [':id' => $id]);
 		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
-		return $res === null ? null : self::daoToTag($res)[0] ?? null;
+		return $res === null ? null : (current(self::daoToTags($res)) ?: null);
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE name=:name', [':name' => $name]);
 		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
-		return $res === null ? null : self::daoToTag($res)[0] ?? null;
+		return $res === null ? null : (current(self::daoToTags($res)) ?: null);
 	}
 
-	/** @return array<FreshRSS_Tag>|false */
+	/** @return array<int,FreshRSS_Tag>|false */
 	public function listTags(bool $precounts = false) {
 		if ($precounts) {
 			$sql = <<<'SQL'
@@ -211,7 +211,7 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
-			return self::daoToTag($res);
+			return self::daoToTags($res);
 		} else {
 			$info = $this->pdo->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
@@ -296,6 +296,35 @@ SQL;
 			return true;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		return false;
+	}
+
+	/**
+	 * @param array<array{id_tag:int,id_entry:string}> $addLabels Labels to insert as batch
+	 * @return int|false Number of new entries or false in case of error
+	 */
+	public function tagEntries(array $addLabels) {
+		$hasValues = false;
+		$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES ';
+		foreach ($addLabels as $addLabel) {
+			$id_tag = (int)($addLabel['id_tag'] ?? 0);
+			$id_entry = $addLabel['id_entry'] ?? '';
+			if ($id_tag > 0 && ctype_digit($id_entry)) {
+				$sql .= "({$id_tag},{$id_entry}),";
+				$hasValues = true;
+			}
+		}
+		$sql = rtrim($sql, ',');
+		if (!$hasValues) {
+			return false;
+		}
+
+		$affected = $this->pdo->exec($sql);
+		if ($affected !== false) {
+			return $affected;
+		}
+		$info = $this->pdo->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -401,9 +430,9 @@ SQL;
 
 	/**
 	 * @param iterable<array{'id':int,'name':string,'attributes'?:string}> $listDAO
-	 * @return array<FreshRSS_Tag>
+	 * @return array<int,FreshRSS_Tag>
 	 */
-	private static function daoToTag(iterable $listDAO): array {
+	private static function daoToTags(iterable $listDAO): array {
 		$list = [];
 		foreach ($listDAO as $dao) {
 			if (empty($dao['id']) || empty($dao['name'])) {
@@ -417,7 +446,7 @@ SQL;
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);
 			}
-			$list[] = $tag;
+			$list[$tag->id()] = $tag;
 		}
 		return $list;
 	}

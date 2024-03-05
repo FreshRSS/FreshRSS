@@ -7,7 +7,10 @@ declare(strict_types=1);
  */
 
 abstract class Minz_Pdo extends PDO {
-	/** @param array<int,int|string|bool>|null $options */
+	/**
+	 * @param array<int,int|string|bool>|null $options
+	 * @throws PDOException
+	 */
 	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -38,6 +41,7 @@ abstract class Minz_Pdo extends PDO {
 	/**
 	 * @param string|null $name
 	 * @return string|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\ReturnTypeWillChange]
 	public function lastInsertId($name = null) {
@@ -52,6 +56,7 @@ abstract class Minz_Pdo extends PDO {
 	 * @param string $query
 	 * @param array<int,string> $options
 	 * @return PDOStatement|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 * @phpstan-ignore-next-line
 	 */
 	#[\ReturnTypeWillChange]
@@ -64,6 +69,8 @@ abstract class Minz_Pdo extends PDO {
 	/**
 	 * @param string $statement
 	 * @return int|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @phpstan-ignore-next-line
 	 */
 	#[\ReturnTypeWillChange]
 	public function exec($statement) {
@@ -71,7 +78,11 @@ abstract class Minz_Pdo extends PDO {
 		return parent::exec($statement);
 	}
 
-	/** @return PDOStatement|false */
+	/**
+	 * @return PDOStatement|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @phpstan-ignore-next-line
+	 */
 	#[\ReturnTypeWillChange]
 	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args) {
 		$query = $this->preSql($query);
