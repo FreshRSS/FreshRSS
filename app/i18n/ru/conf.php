@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Отображение по ленте',
 			'order' => 'Сортировать по дате',
 			'search' => 'Выражение',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Состояние',
 			'tags' => 'Отображение по метке',
 			'type' => 'Тип',
 		),
 		'get_all' => 'Показать все статьи',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Показать категорию “%s”',
 		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
 		'number' => 'Запрос №%d',
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
 		'search' => 'Искать “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
 		'state_2' => 'Показать непрочитанные статьи',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
-			'scroll' => 'во время прокрутки',
+			'scroll' => 'во время прокрутки (except for important feeds)',	// DIRTY
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',

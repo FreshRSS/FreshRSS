@@ -1,5 +1,6 @@
-<?php /** @var FreshRSS_View $this */ ?>
 <?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
 	if (!$this->disable_aside) {
 		$this->partial('aside_configure');
 	}
@@ -35,7 +36,7 @@
 		<div class="form-group">
 			<label class="group-name" for="email"><?= _t('conf.profile.email') ?></label>
 			<div class="group-controls">
-				<input id="email" name="email" type="email" value="<?= FreshRSS_Context::$user_conf->mail_login ?>" />
+				<input id="email" name="email" type="email" value="<?= FreshRSS_Context::userConf()->mail_login ?>" />
 			</div>
 		</div>
 
@@ -55,12 +56,13 @@
 		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
 		<div class="form-group">
 			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
-			<?php $token = FreshRSS_Context::$user_conf->token; ?>
+			<?php $token = FreshRSS_Context::userConf()->token; ?>
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" data-leave-validation="<?= $token ?>"/>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
 				<kbd><?= Minz_Url::display(array('a' => 'rss', 'params' => array('user' => Minz_User::name(),
-					'token' => $token, 'hours' => FreshRSS_Context::$user_conf->since_hours_posts_per_rss)), 'html', true) ?></kbd>
+					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss)), 'html', true) ?></kbd>
+				<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
 			</div>
 		</div>
 		<?php } ?>
@@ -73,7 +75,7 @@
 		</div>
 	</form>
 
-	<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
+	<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
 		<form method="post" action="<?= _url('api', 'updatePassword') ?>">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<legend><?= _t('conf.profile.api') ?></legend>

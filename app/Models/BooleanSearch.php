@@ -1,37 +1,42 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Contains Boolean search from the search form.
  */
 class FreshRSS_BooleanSearch {
 
-	/** @var string */
-	private $raw_input = '';
+	private string $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
-	private $searches = [];
+	private array $searches = [];
 
 	/**
 	 * @phpstan-var 'AND'|'OR'|'AND NOT'
-	 * @var string
 	 */
-	private $operator;
+	private string $operator;
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
-	public function __construct(string $input, int $level = 0, string $operator = 'AND') {
+	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
 		$this->operator = $operator;
 		$input = trim($input);
-		if ($input == '') {
+		if ($input === '') {
 			return;
 		}
-		$this->raw_input = $input;
-
 		if ($level === 0) {
 			$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
+			if (!is_string($input)) {
+				return;
+			}
 			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
+			if (!is_string($input)) {
+				return;
+			}
 
-			$input = $this->parseUserQueryNames($input);
-			$input = $this->parseUserQueryIds($input);
+			$input = $this->parseUserQueryNames($input, $allowUserQueries);
+			$input = $this->parseUserQueryIds($input, $allowUserQueries);
+			$input = trim($input);
 		}
+		$this->raw_input = $input;
 
 		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
 		// or parse everything as a series of Search’s combined by explicit OR
@@ -41,7 +46,7 @@ class FreshRSS_BooleanSearch {
 	/**
 	 * Parse the user queries (saved searches) by name and expand them in the input string.
 	 */
-	private function parseUserQueryNames(string $input): string {
+	private function parseUserQueryNames(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
@@ -54,8 +59,8 @@ class FreshRSS_BooleanSearch {
 		if (!empty($all_matches)) {
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
-			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query);
+			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
+				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 				$queries[$query->getName()] = $query;
 			}
 
@@ -69,7 +74,11 @@ class FreshRSS_BooleanSearch {
 					$name = trim($matches['search'][$i]);
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$name]->getSearch()) . ')';
+						if ($allowUserQueries) {
+							$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
+						} else {
+							$toS[] = '';
+						}
 					}
 				}
 			}
@@ -82,7 +91,7 @@ class FreshRSS_BooleanSearch {
 	/**
 	 * Parse the user queries (saved searches) by ID and expand them in the input string.
 	 */
-	private function parseUserQueryIds(string $input): string {
+	private function parseUserQueryIds(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 
 		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matchesFound)) {
@@ -92,8 +101,8 @@ class FreshRSS_BooleanSearch {
 		if (!empty($all_matches)) {
 			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
-			foreach (FreshRSS_Context::$user_conf->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query);
+			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
+				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 				$queries[] = $query;
 			}
 
@@ -108,7 +117,11 @@ class FreshRSS_BooleanSearch {
 					$id = (int)(trim($matches['search'][$i])) - 1;
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
-						$toS[] = '(' . trim($queries[$id]->getSearch()) . ')';
+						if ($allowUserQueries) {
+							$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
+						} else {
+							$toS[] = '';
+						}
 					}
 				}
 			}

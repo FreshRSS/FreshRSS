@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // > Error: FreshRSS requires PHP, which does not seem to be installed or configured correctly! <!--
 
 # ***** BEGIN LICENSE BLOCK *****

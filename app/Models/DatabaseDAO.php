@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class is used to test database is well-constructed.
@@ -20,8 +21,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		$db = FreshRSS_Context::$system_conf->db;
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
 			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
@@ -173,11 +174,21 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function size(bool $all = false): int {
-		$db = FreshRSS_Context::$system_conf->db;
+		$db = FreshRSS_Context::systemConf()->db;
+
+		// MariaDB does not refresh size information automatically
+		$sql = <<<'SQL'
+ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
+SQL;
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$stm->fetchAll();
+		}
+
 		//MySQL:
 		$sql = <<<'SQL'
-SELECT SUM(data_length + index_length)
-FROM information_schema.TABLES WHERE table_schema=:table_schema
+SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
+FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
 SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
@@ -204,27 +215,14 @@ SQL;
 		return $ok;
 	}
 
-	public function ensureCaseInsensitiveGuids(): bool {
-		$ok = true;
-		if ($this->pdo->dbType() === 'mysql') {
-			include(APP_PATH . '/SQL/install.sql.mysql.php');
-
-			$ok = false;
-			try {
-				$ok = $this->pdo->exec($GLOBALS['SQL_UPDATE_GUID_LATIN1_BIN']) !== false;	//FreshRSS 1.12
-			} catch (Exception $e) {
-				$ok = false;
-				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
-			}
-		}
-		return $ok;
-	}
-
 	public function minorDbMaintenance(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		$this->ensureCaseInsensitiveGuids();
+		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		}
 	}
 
 	private static function stdError(string $error): bool {
@@ -394,5 +392,32 @@ SQL;
 		$tagTo->commit();
 
 		return true;
+	}
+
+	/**
+	 * Ensure that some PDO columns are `int` and not `string`.
+	 * Compatibility with PHP 7.
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
+	 */
+	public static function pdoInt(array &$table, array $columns): void {
+		foreach ($columns as $column) {
+			if (isset($table[$column]) && is_string($table[$column])) {
+				$table[$column] = (int)$table[$column];
+			}
+		}
+	}
+
+	/**
+	 * Ensure that some PDO columns are `string` and not `bigint`.
+	 * @param array<string|int|null> $table
+	 * @param array<string> $columns
+	 */
+	public static function pdoString(array &$table, array $columns): void {
+		foreach ($columns as $column) {
+			if (isset($table[$column])) {
+				$table[$column] = (string)$table[$column];
+			}
+		}
 	}
 }

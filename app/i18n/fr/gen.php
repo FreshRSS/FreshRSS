@@ -134,6 +134,7 @@ return array(
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
+		'labels_empty' => 'Pas d’étiquettes',	// DIRTY
 		'new_article' => 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),

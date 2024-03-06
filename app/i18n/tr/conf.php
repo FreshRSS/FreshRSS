@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Akışa göre göster',
 			'order' => 'Tarihe göre göster',
 			'search' => 'İfade',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '“%s” akışını göster',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
 		'search' => '“%s” için arama',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
 		'state_2' => 'Okunmamış makaleleri göster',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Okunmadı tutulacak maksimum metin sayısı',
-			'scroll' => 'kaydırma yapılırken',
+			'scroll' => 'kaydırma yapılırken (except for important feeds)',	// DIRTY
 			'upon_gone' => 'Yeni akışta üst sıralarda değilken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',

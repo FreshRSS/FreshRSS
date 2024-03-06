@@ -1,28 +1,27 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Provide useful methods to generate files to export.
  */
 class FreshRSS_Export_Service {
-	/** @var string */
-	private $username;
 
-	/** @var FreshRSS_CategoryDAO */
-	private $category_dao;
+	private string $username;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feed_dao;
+	private FreshRSS_CategoryDAO $category_dao;
 
-	/** @var FreshRSS_EntryDAO */
-	private $entry_dao;
+	private FreshRSS_FeedDAO $feed_dao;
 
-	/** @var FreshRSS_TagDAO */
-	private $tag_dao;
+	private FreshRSS_EntryDAO $entry_dao;
+
+	private FreshRSS_TagDAO $tag_dao;
 
 	public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	public const TYPE_HTML_XPATH = 'HTML+XPath';
 	public const TYPE_XML_XPATH = 'XML+XPath';
 	public const TYPE_RSS_ATOM = 'rss';
+	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';
+	public const TYPE_JSONFEED = 'JSONFeed';
 
 	/**
 	 * Initialize the service for the given user.
@@ -93,14 +92,15 @@ class FreshRSS_Export_Service {
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
-		$feed = $this->feed_dao->searchById($feed_id);
+		$view = new FreshRSS_View();
+		$view->categories = $this->category_dao->listCategories(true) ?: [];
+
+		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
 			return null;
 		}
-
-		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true) ?: [];
 		$view->feed = $feed;
+
 		$day = date('Y-m-d');
 		$filename = "feed_{$day}_" . $feed->categoryId() . '_' . $feed->id() . '.json';
 

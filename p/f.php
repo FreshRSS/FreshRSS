@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/favicons.php');

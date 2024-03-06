@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @var FreshRSS_ViewJavascript
-	 * @phpstan-ignore-next-line
 	 */
 	protected $view;
 
@@ -20,11 +20,15 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+		Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::$user_conf->dynamic_opml_ttl_default);
+		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
+		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::userConf()->ttl_default);
 	}
 
 	public function nbUnreadsPerFeedAction(): void {
@@ -48,10 +52,11 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Pragma: no-cache');
 
 		$user = $_GET['user'] ?? '';
-		if (FreshRSS_Context::initUser($user)) {
+		FreshRSS_Context::initUser($user);
+		if (FreshRSS_Context::hasUserConf()) {
 			try {
-				$salt = FreshRSS_Context::$system_conf->salt;
-				$s = FreshRSS_Context::$user_conf->passwordHash;
+				$salt = FreshRSS_Context::systemConf()->salt;
+				$s = FreshRSS_Context::userConf()->passwordHash;
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);
@@ -63,7 +68,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
 			}
 		} else {
-			Minz_Log::notice('Nonce failure due to invalid username!');
+			Minz_Log::notice('Nonce failure due to invalid username! ' . $user);
 		}
 		//Failure: Return random data.
 		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);

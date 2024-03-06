@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -57,8 +57,11 @@
 		</template>
 
 		<?php
-			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
+			foreach (FreshRSS_Context::userConf()->sharing as $key => $share_options) {
 				$share = FreshRSS_Share::get($share_options['type']);
+				if ($share === null) {
+					continue;
+				}
 				$share->update($share_options);
 		?>
 		<formgroup class="group-share dragbox" id="group-share-<?= $key ?>">
@@ -66,7 +69,7 @@
 			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
-			
+
 			<?php if ($share->isDeprecated()) { ?>
 			<div class="prompt alert alert-warn">
 				<p><?= _t('conf.sharing.deprecated') ?></p>
@@ -82,13 +85,13 @@
 							data-leave-validation="<?= $share->name() ?>" />
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<?php if ($share->formType() === 'advanced') { ?>
 					<label class="group-name" for="share_<?= $key ?>_url">
 						<?= _t('conf.sharing.share_url') ?>
 					</label>
-					
+
 					<div class="group-controls">
 						<div class="stick">
 							<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="long" value="<?= $share->baseUrl() ?>"
@@ -99,7 +102,7 @@
 					</div>
 				<?php } ?>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="group-controls">
 					<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>

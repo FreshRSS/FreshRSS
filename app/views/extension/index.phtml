@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -45,7 +45,7 @@
 
 	<?php if (!empty($this->available_extensions)) { ?>
 		<h2><?= _t('admin.extensions.community') ?></h2>
-		<div class="table-wrapper">
+		<div class="table-wrapper scrollbar-thin">
 			<table>
 				<tr>
 					<th><?= _t('admin.extensions.name') ?></th>
@@ -61,11 +61,11 @@
 						<td>
 							<?= $ext['description'] ?>
 							<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-								<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+								<?php if (version_compare(strval($this->extensions_installed[$ext['name']]), strval($ext['version'])) >= 0) { ?>
 									<span class="alert alert-success">
 										<?= _t('admin.extensions.latest') ?>
 									</span>
-								<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+								<?php } elseif (strval($this->extensions_installed[$ext['name']]) !== strval($ext['version'])) { ?>
 									<span class="alert alert-warn">
 										<?= _t('admin.extensions.update') ?>
 									</span>

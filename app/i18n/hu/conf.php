@@ -49,7 +49,7 @@ return array(
 		),
 		'language' => 'Nyelv',
 		'notif_html5' => array(
-			'seconds' => 'másodpercek (0 means no timeout)',
+			'seconds' => 'másodpercek (A 0 azt jelenti, hogy nincs időkorlát)',
 			'timeout' => 'HTML5 értesítés hossza',
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
 			'search' => 'Kifejezés',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Státusz',
 			'tags' => 'Rendezés címke szerint',
 			'type' => 'Típus',
 		),
 		'get_all' => 'Minden cikk megjelenítése',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Listáz “%s” kategóriát',
 		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
 		'number' => 'Lekérdezés %d',
 		'order_asc' => 'Régebbi cikkek előre',
 		'order_desc' => 'Újabb cikkek előre',
 		'search' => 'Keresse a “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Minden cikk',
 		'state_1' => 'Olvasott cikkek',
 		'state_2' => 'Olvasatlan cikkek',
@@ -183,7 +196,7 @@ return array(
 			),
 		),
 		'articles_per_page' => 'Cikkek száma oldalanként',
-		'auto_load_more' => 'Mégtöbb cikk betöltése, ha a lap aljához ért',
+		'auto_load_more' => 'Még több cikk betöltése, ha a lap aljához ért',
 		'auto_remove_article' => 'Cikkek elrejtése elolvasás után',
 		'confirm_enabled' => 'Megerősítő jóváhagyás a "jelölje mindet olvasottként" végrehajtása előtt',
 		'display_articles_unfolded' => 'Legyenek a cikkek kibontva alapértelmezésben',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'ha a cikk megnyitásra került az eredeti weblapon',
 			'article_viewed' => 'ha a cikk megtekintésre került',
+			'focus' => 'amikor fókuszált (kivéve a fontos hírforrásokat)',
 			'keep_max_n_unread' => 'Cikkek maximális száma olvasatlanként tartva',
-			'scroll' => 'görgetés közben',
+			'scroll' => 'görgetés közben (kivéve a fontos hírforrásokat)',
 			'upon_gone' => 'ha már nincs benne a hírforrásban',
 			'upon_reception' => 'a cikk beérkezésekor',
 			'when' => 'Jelölje a cikket olvasottként…',

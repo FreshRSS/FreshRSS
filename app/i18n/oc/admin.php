@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
-		'token' => 'Geton d’autentificacion',
-		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Mòde d’autentification',
 		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Formulari d’inscripcion utilizaire',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

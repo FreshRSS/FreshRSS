@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 
@@ -6,7 +7,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$sql = $GLOBALS['SQL_CREATE_TABLES'] . $GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] . $GLOBALS['SQL_CREATE_TABLE_TAGS'];
+			$sql = $GLOBALS['SQL_CREATE_TABLES'];
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 		} catch (Exception $e) {
 			$ok = false;

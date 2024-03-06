@@ -120,20 +120,33 @@ return array(
 			'feeds' => ' نمایش با فید',
 			'order' => ' مرتب سازی بر اساس تاریخ',
 			'search' => ' بیان',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => ' ایالت',
 			'tags' => ' نمایش بر اساس برچسب',
 			'type' => ' نوع',
 		),
 		'get_all' => ' نمایش همه مقالات',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => ' دسته «%s» را نمایش دهید',
 		'get_favorite' => ' نمایش مقالات مورد علاقه',
 		'get_feed' => ' فید "%s" را نمایش دهید',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => ' نام',
 		'no_filter' => ' بدون فیلتر',
 		'number' => ' پرس و جو n°%d',
 		'order_asc' => ' ابتدا قدیمی ترین مقالات را نمایش دهید',
 		'order_desc' => ' ابتدا جدیدترین مقالات را نمایش دهید',
 		'search' => ' «%s» را جستجو کنید',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'نمایش همه مقالات',
 		'state_1' => 'نمایش مقالات خوانده شده',
 		'state_2' => 'نمایش مقالات خوانده نشده',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => ' هنگامی که مقاله در وب سایت اصلی خود باز می شود',
 			'article_viewed' => ' هنگام مشاهده مقاله',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => ' حداکثر تعداد مقالات خوانده نشده',
-			'scroll' => ' در حین پیمایش',
+			'scroll' => '(except for important feeds) در حین پیمایش',	// DIRTY
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',

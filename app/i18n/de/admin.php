@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'token' => 'Authentifizierungs-Token',
-		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Authentifizierungsmethode',
 		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
 			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

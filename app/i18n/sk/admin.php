@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
-		'token' => 'Token prihlásenia',
-		'token_help' => 'Povoliť prístup k výstupu RSS prednastaveného používateľa bez prihlásenia:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Spôsob prihlásenia',
 		'unsafe_autologin' => 'Povoliť nebezpečné automatické prihlásenie pomocou webového formulára: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavenia systému',
 		'auto-update-url' => 'Odkaz na aktualizačný server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
@@ -183,10 +187,14 @@ return array(
 			),
 			'title' => 'Registračný formulár používateľa',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(

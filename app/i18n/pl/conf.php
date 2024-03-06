@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
 			'search' => 'Wyrażenie',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Stan',
 			'tags' => 'Według tagu',
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
 		'order_asc' => 'Wyświetl najpierw najstarsze wiadomości',
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
 		'search' => 'Szukaj “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',
 		'state_2' => 'Wyświetl nieprzeczytane wiadomości',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'gdy wiadomość jest otworzona na pierwotnej stronie',
 			'article_viewed' => 'gdy wiadomość jest otworzona',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
-			'scroll' => 'podczas przewijania',
+			'scroll' => 'podczas przewijania (except for important feeds)',	// DIRTY
 			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',

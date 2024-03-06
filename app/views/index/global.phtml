@@ -1,18 +1,18 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('nav_menu');
 
 	$class = '';
 	$state_unread = false;
 
-	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
+	if (FreshRSS_Context::userConf()->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
 			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 		$class = ' state_unread';
 		$state_unread = true;
 	}
 ?>
-
 <main id="stream" class="global<?= $class ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php
@@ -45,7 +45,7 @@
 
 					$error_class = '';
 					$error_title = '';
-					if ($feed->inError()) {
+					if ($feed->inError() && !$feed->mute()) {
 						$error_class = ' error';
 						$error_title = _t('sub.feed.error');
 					}
@@ -62,7 +62,7 @@
 			?>
 			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
 				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
-				<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+				<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 				<a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
 			</li>
 			<?php } ?>
@@ -76,15 +76,12 @@
 		?>
 	<div id="noArticlesToShow" class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<p><a href="<?= _url('subscription', 'add') ?>"><?= _t('index.feed.add') ?></a></p>
-		<?php } ?>
 	</div>
 	<?php } ?>
 </main>
 
 <div id="overlay">
 	<a class="close" href="#"><?= _i('close') ?></a>
-	<div id="panel"<?= FreshRSS_Context::$user_conf->display_posts ? '' : ' class="hide_posts"' ?>>
+	<div id="panel"<?= FreshRSS_Context::userConf()->display_posts ? '' : ' class="hide_posts"' ?>>
 </div>
 </div>

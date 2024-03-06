@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
@@ -48,8 +49,13 @@ WHERE e.id_feed = f.id
 {$filter}
 SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}>|null $res */
-		return $res[0] ?? false;
+		if (!empty($res[0])) {
+			$dao = $res[0];
+			/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}> $res */
+			FreshRSS_DatabaseDAO::pdoInt($dao, ['total', 'count_unreads', 'count_reads', 'count_favorites']);
+			return $dao;
+		}
+		return false;
 	}
 
 	/**
@@ -242,8 +248,8 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'label':string,'data':int}>|null @res */
+		$res = $this->fetchAssoc($sql);
 		return $res == null ? [] : $res;
 	}
 
@@ -285,7 +291,13 @@ LIMIT 10
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'count']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
@@ -305,7 +317,13 @@ ORDER BY name
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'last_date', 'nb_articles']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
