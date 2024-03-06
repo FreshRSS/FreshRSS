@@ -303,9 +303,10 @@ function sensitive_log($log) {
 
 /**
  * @param array<string,mixed> $attributes
+ * @param array<int,mixed> $curl_options
  * @throws FreshRSS_Context_Exception
  */
-function customSimplePie(array $attributes = array()): SimplePie {
+function customSimplePie(array $attributes = [], array $curl_options = []): SimplePie {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -318,7 +319,7 @@ function customSimplePie(array $attributes = array()): SimplePie {
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = FreshRSS_Context::systemConf()->curl_options;
+	$curl_options = array_merge(FreshRSS_Context::systemConf()->curl_options, $curl_options);
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
@@ -482,8 +483,9 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 /**
  * @param string $type {html,json,opml,xml}
  * @param array<string,mixed> $attributes
+ * @param array<int,mixed> $curl_options
  */
-function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
+function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): string {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -548,6 +550,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
 	}
+
+	curl_setopt_array($ch, $curl_options);
+
 	$body = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
