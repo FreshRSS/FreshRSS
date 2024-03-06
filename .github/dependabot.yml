@@ -6,6 +6,15 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
