@@ -319,7 +319,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = array_merge(FreshRSS_Context::systemConf()->curl_options, $curl_options);
+	$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options, $curl_options);
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];

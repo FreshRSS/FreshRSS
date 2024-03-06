@@ -179,7 +179,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function curlOptions(): array {
 		$curl_options = [];
 		if ($this->httpAuth !== '') {
-			$curl_options[CURLOPT_USERPWD] = $this->httpAuth;
+			$curl_options[CURLOPT_USERPWD] = htmlspecialchars_decode($this->httpAuth, ENT_QUOTES);
 		}
 		return $curl_options;
 	}
