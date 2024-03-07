@@ -63,24 +63,20 @@
 <?php } ?>
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
-	<div id="body-inner">
+		<div id="body-inner">
 <?php
 	if (!Minz_Request::paramBoolean('ajax')) {
 		flush();
 		$this->partial('header');
 	}
-?>
 
-	<?php
-		flush();
-		if (isset($this->callbackBeforeFeeds)) {
-			call_user_func($this->callbackBeforeFeeds, $this);
-		}
-		$this->render();
-	?>
+	flush();
 
+	if (isset($this->callbackBeforeFeeds)) {
+		call_user_func($this->callbackBeforeFeeds, $this);
+	}
+	$this->render();
 
-<?php
 	$msg = '';
 	$status = 'closed';
 	$notif = Minz_Request::getNotification();
@@ -90,10 +86,10 @@
 		invalidateHttpCache();
 	}
 ?>
-<div id="notification" class="notification <?= $status ?>">
-	<span class="msg"><?= $msg ?></span>
-	<a class="close" href=""><?= _i('close') ?></a>
-</div>
-	</div>
+			<div id="notification" class="notification <?= $status ?>">
+				<span class="msg"><?= $msg ?></span>
+				<a class="close" href=""><?= _i('close') ?></a>
+			</div>
+		</div>
 	</body>
 </html>
