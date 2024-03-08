@@ -86,7 +86,7 @@
 
 			$keepAllURLParameters = true;
 			$href = '';
-			if (!in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], false)) {
+			if (!in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) {
 				$keepAllURLParameters = false;
 			}
 
