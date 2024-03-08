@@ -84,11 +84,26 @@
 				$readingModes = FreshRSS_ReadingMode::getReadingModes();
 			}
 
+			$keepAllURLParameters = true;
+			$href = '';
+			if (!in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'])) {
+				$keepAllURLParameters = false;
+
+			}
+
 			/** @var FreshRSS_ReadingMode $mode */
 			foreach ($readingModes as $mode) {
+				if ($keepAllURLParameters) {
+					// keep all URL parameters if the current page is a view
+					$href = Minz_Url::display($mode->getUrlParams());
+				} else {
+					$params = $mode->getUrlParams();
+					$href = Minz_Url::display(['c' => $params['c'], 'a' => $params['a']]);
+				}
 				?>
+				
 				<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
-					$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
+					$mode->getTitle() ?>" href="<?= $href ?>">
 					<?= $mode->getName() ?>
 				</a>
 				<?php
