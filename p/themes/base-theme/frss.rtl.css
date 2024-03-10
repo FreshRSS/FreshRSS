@@ -773,21 +773,6 @@ input[type="checkbox"]:focus-visible {
 	cursor: default;
 }
 
-.dropdown .item.close {
-	text-align: center;
-}
-
-.dropdown .item.close a {
-	padding: 0.5rem 0 0.5rem 0;
-	display: block;
-}
-
-.dropdown .item.close a .icon {
-	background-color: var(--frss-background-color);
-	border-radius: 1rem;
-	box-shadow: 0 0 1rem var(--frss-background-color);
-}
-
 #dropdown-query-wrapper .dropdown-menu {
 	right: -150px;
 	left: auto;
