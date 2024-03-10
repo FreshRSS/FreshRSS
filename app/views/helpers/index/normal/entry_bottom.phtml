@@ -38,7 +38,7 @@
 			<a class="dropdown-toggle state1" href="#dropdown-labels-<?= $this->entry->id() ?>" id="dt-<?= $this->entry->id() ?>">
 				<?= _i('label') ?><?= _t('index.menu.tags') ?>
 			</a>
-			<a class="dropdown-toggle-close state2" href="#main" title="<?= _t('gen.action.close') ?>">
+			<a class="dropdown-toggle-close state2" href="#close" title="<?= _t('gen.action.close') ?>">
 				<?= _i('up') ?><?= _t('index.menu.tags') ?>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
@@ -49,8 +49,8 @@
 					<?php } ?>
 				</li>
 				<!-- Ajax -->
-				<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</li><?php
 	}
@@ -62,7 +62,7 @@
 			<a class="dropdown-toggle state1" href="#dropdown-tags-<?= $this->entry->id() ?>">
 				<?= _i('tag') ?><?= _t('index.tag.related') ?>
 			</a>
-			<a class="dropdown-toggle-close state2" href="#main" title="<?= _t('gen.action.close') ?>">
+			<a class="dropdown-toggle-close state2" href="#close" title="<?= _t('gen.action.close') ?>">
 				<?= _i('up') ?><?= _t('index.tag.related') ?>
 			</a>
 			<ul class="dropdown-menu">
@@ -70,8 +70,8 @@
 				foreach ($tags as $tag) {
 					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>"><?= $tag ?></a></li><?php
 				} ?>
-				<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</li><?php
 	}
@@ -82,7 +82,7 @@
 			<a class="dropdown-toggle state1" href="#dropdown-share-<?= $this->entry->id() ?>">
 				<?= _i('share') ?><?= _t('index.share') ?>
 			</a>
-			<a class="dropdown-toggle-close state2" href="#main" title="<?= _t('gen.action.close') ?>">
+			<a class="dropdown-toggle-close state2" href="#close" title="<?= _t('gen.action.close') ?>">
 				<?= _i('up') ?><?= _t('index.share') ?>
 			</a>
 
@@ -118,8 +118,8 @@
 				</li><?php
 					}
 				?>
-				<li class="item close separator"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 		<?php } ?>
 	</li><?php

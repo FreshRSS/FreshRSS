@@ -20,7 +20,8 @@
 		<li class="item tag">
 			<div class="dropdown">
 				<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-				<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+				<a class="dropdown-toggle state1" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+				<a class="dropdown-toggle-close state2" href="#close" title="<?= _t('gen.action.close') ?>"><?= _i('up') ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 					<?php if (Minz_Request::controllerName() === 'index'): ?>
@@ -32,8 +33,8 @@
 						<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=%23' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<li class="item close"><div><a href="#main" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></a></div></li>
 				</ul>
+				<a class="dropdown-close" href="#close">❌</a>
 			</div>
 		</li>
 	<?php endif; ?>
