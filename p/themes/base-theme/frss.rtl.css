@@ -57,28 +57,22 @@ html, body {
 	margin: 0;
 	padding: 0;
 	background-color: var(--frss-background-color);
-	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
 
-#body-inner {
-	display: grid;
-	grid-template-columns: [header-start] 4rem [sidenav-start] 300px [maincolumn-start] calc(100vw - 4rem - 300px) [maincolumn-end];
-	grid-template-rows: 100vh;
-	width: 100vw;
-	height: 100vh;
-}
-
-#main-wrapper.main-wide-content {
-	grid-area: 1 / sidenav-start / 1 / maincolumn-end;
+header.header {
+	z-index: 1;
 }
 
 #main {
-	height: 100vh;
+	margin-right: calc(4rem + 300px);
 	font-size: 0.9em;
 	box-sizing: border-box;
-	overflow-y: auto;
+}
+
+#main-wrapper.main-wide-content #main {
+	margin-right: 4rem;
 }
 
 .post #main {
@@ -1117,6 +1111,13 @@ a:hover .logo {
 }
 
 @media (min-width: 841px) {
+	header.header {
+		width: 4rem;
+		position: fixed;
+		right: 0;
+		top: 0;
+	}
+
 	header.header .group .btn {
 		width: 100%;
 		box-sizing: border-box;
@@ -1208,6 +1209,14 @@ input[type="search"] {
 
 #stream:not(.alert-warn) {
 	background: inherit;
+}
+
+.aside {
+	width: 300px;
+	position: fixed;
+	margin-right: 4rem;
+	top: 0;
+	right: 0;
 }
 
 .aside + .close-aside {
@@ -2256,12 +2265,21 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
-	#body-inner {
-		grid-template-columns: [header-start] 3.5rem [sidenav-start] 200px [maincolumn-start] calc(-200px - 3.5rem + 100vw) [maincolumn-end];
+	header.header {
+		width: 3.5rem;
 	}
 
+	.aside {
+		margin-right: 3.5rem;
+	}
+
+	.aside,
 	.aside .nav-inner {
 		width: 200px;
+	}
+
+	#main {
+		margin-right: calc(3.5rem + 200px);
 	}
 
 	.flux .item.website {
@@ -2282,18 +2300,18 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
-	#body-inner {
-		grid-template-columns: 100vw;
-		grid-template-rows: 2.5rem auto;
+	.post.centered {
+		max-width: none;
 	}
 
-	#main-wrapper.main-wide-content {
-		grid-area: 2 / 1 / 2 / 1;
+	header.header {
+		width: 100vw;
 	}
 
 	.header .nav-header {
 		padding: var(--frss-padding-top-bottom) 1rem var(--frss-padding-top-bottom) 2rem;
 		display: flex;
+		height: 2.5rem;
 		flex-direction: row;
 		box-sizing: border-box;
 		justify-content: space-between;
@@ -2323,6 +2341,12 @@ html.slider-active {
 
 	#main {
 		height: calc(100vh - 2.5rem);
+		margin-right: 0;
+		overflow: auto;
+	}
+
+	#main-wrapper.main-wide-content #main {
+		margin-right: 0;
 	}
 
 	.aside,
@@ -2504,6 +2528,7 @@ html.slider-active {
 	}
 
 	.aside {
+		margin-right: 0;
 		position: fixed;
 		top: 0; bottom: 0;
 		right: -1px;
