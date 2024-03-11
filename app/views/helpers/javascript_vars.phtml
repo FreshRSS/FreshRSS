@@ -17,6 +17,7 @@ echo htmlspecialchars(json_encode(array(
 		'auto_mark_focus' => !!$mark['focus'],
 		'auto_load_more' => !!FreshRSS_Context::userConf()->auto_load_more,
 		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
+		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
 		'does_lazyload' => !!FreshRSS_Context::userConf()->lazyload ,
 		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),

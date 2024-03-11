@@ -45,7 +45,7 @@
 
 					$error_class = '';
 					$error_title = '';
-					if ($feed->inError()) {
+					if ($feed->inError() && !$feed->mute()) {
 						$error_class = ' error';
 						$error_title = _t('sub.feed.error');
 					}

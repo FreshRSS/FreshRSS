@@ -274,7 +274,29 @@ SQL;
 	}
 
 	/**
-	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by feed ID.
+	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by read / unread.
+	 * @return array{'all':int,'unread':int,'read':int}
+	 */
+	public function countNewEntries(): array {
+		$sql = <<<'SQL'
+		SELECT is_read, COUNT(id) AS nb_entries FROM `_entrytmp`
+		GROUP BY is_read
+		SQL;
+		$lines = $this->fetchAssoc($sql) ?? [];
+		$nbRead = 0;
+		$nbUnread = 0;
+		foreach ($lines as $line) {
+			if (empty($line['is_read'])) {
+				$nbUnread = (int)($line['nb_entries'] ?? 0);
+			} else {
+				$nbRead = (int)($line['nb_entries'] ?? 0);
+			}
+		}
+		return ['all' => $nbRead + $nbUnread, 'unread' => $nbUnread, 'read' => $nbRead];
+	}
+
+	/**
+	 * Count the number of new unread entries in the temporary table (which have not yet been committed), grouped by feed ID.
 	 * @return array<int,int>
 	 */
 	public function newUnreadEntriesPerFeed(): array {
@@ -1063,7 +1085,7 @@ SQL;
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
 			int $date_min = 0): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
@@ -1120,7 +1142,9 @@ SQL;
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
-			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '')];	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($offset > 0 ? ' OFFSET ' . $offset : '')
+		];
 	}
 
 	/**
@@ -1131,9 +1155,9 @@ SQL;
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
 			int $date_min = 0) {
-		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 
 		if ($order !== 'DESC' && $order !== 'ASC') {
 			$order = 'DESC';
@@ -1152,7 +1176,7 @@ SQL;
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+				return $this->listWhereRaw($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
@@ -1167,9 +1191,9 @@ SQL;
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-			string $order = 'DESC', int $limit = 1, string $firstId = '',
+			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '',
 			?FreshRSS_BooleanSearch $filters = null, int $date_min = 0): Traversable {
-		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 		if ($stm) {
 			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 				if (is_array($row)) {
@@ -1233,9 +1257,9 @@ SQL;
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
-		string $order = 'DESC', int $limit = 1, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
+		string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null): ?array {
 
-		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
+		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $offset, $firstId, $filters);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values) && ($res = $stm->fetchAll(PDO::FETCH_COLUMN, 0)) !== false) {
 			/** @var array<numeric-string> $res */

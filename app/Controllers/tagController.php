@@ -199,6 +199,6 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags() ?: [];
+		$this->view->tags = $tagDAO->listTags(true) ?: [];
 	}
 }
