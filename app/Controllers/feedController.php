@@ -1139,16 +1139,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
-		$attributes = $feed->attributes();
-		$attributes['path_entries_filter'] = Minz_Request::paramString('selector_filter', true);
-
 		//Fetch & select content.
 		try {
-			$fullContent = FreshRSS_Entry::getContentByParsing(
-				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
-				htmlspecialchars_decode($content_selector, ENT_QUOTES),
-				$attributes
-			);
+			$fullContent = $entry->getContentByParsing();
 
 			if ($fullContent != '') {
 				$this->view->selectorSuccess = true;

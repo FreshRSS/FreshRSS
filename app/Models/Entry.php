@@ -690,12 +690,18 @@ HTML;
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
+	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception
 	 */
-	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
-		$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
-		$html = httpGet($url, $cachePath, 'html', $attributes);
+	public function getContentByParsing(string $url = '', int $maxRedirs = 3): string {
+		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
+		$feed = $this->feed();
+		if ($url === '' || $feed === null || $feed->pathEntries() === '') {
+			return '';
+		}
+
+		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
+		$html = httpGet($url, $cachePath, 'html');
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
@@ -709,7 +715,7 @@ HTML;
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
+							return $this->getContentByParsing($refresh, $maxRedirs - 1);
 						}
 					}
 				}
@@ -724,11 +730,12 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($path))->asXPath());
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($feed->pathEntries()))->asXPath());
 			if ($nodes != false) {
+				$path_entries_filter = $feed->attributeString('path_entries_filter');
 				foreach ($nodes as $node) {
-					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
+					if ($path_entries_filter != null) {
+						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							if ($filterednode->parentNode === null) {
 								continue;
@@ -760,11 +767,7 @@ HTML;
 			} else {
 				try {
 					// The article is not yet in the database, so let’s fetch it
-					$fullContent = self::getContentByParsing(
-						htmlspecialchars_decode($this->link(), ENT_QUOTES),
-						htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES),
-						$feed->attributes()
-					);
+					$fullContent = $this->getContentByParsing();
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
