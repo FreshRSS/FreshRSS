@@ -830,33 +830,31 @@ if (_t('gen.dir') === 'rtl') {
 		</nav>
 		<a class="close-aside" href="#close">❌</a>
 
-		<main id="main-wrapper" class="post">
-			<div id="main">
-				<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
-				<?php
-				switch (STEP) {
-				case 0:
-				default:
-					printStep0();
-					break;
-				case 1:
-					printStep1();
-					break;
-				case 2:
-					printStep2();
-					break;
-				case 3:
-					printStep3();
-					break;
-				case 4:
-					printStep4();
-					break;
-				case 5:
-					printStep5();
-					break;
-				}
-				?>
-			</div>
+		<main class="post">
+			<h1><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></h1>
+			<?php
+			switch (STEP) {
+			case 0:
+			default:
+				printStep0();
+				break;
+			case 1:
+				printStep1();
+				break;
+			case 2:
+				printStep2();
+				break;
+			case 3:
+				printStep3();
+				break;
+			case 4:
+				printStep4();
+				break;
+			case 5:
+				printStep5();
+				break;
+			}
+			?>
 		</main>
 		<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>

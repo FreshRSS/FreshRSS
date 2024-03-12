@@ -141,7 +141,7 @@
 		height: 2.75rem;
 	}
 
-	#main {
+	main {
 		height: calc(100vh - 2.75rem);
 	}
 

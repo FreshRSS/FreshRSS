@@ -65,21 +65,21 @@ header.header {
 	z-index: 1;
 }
 
-#main {
+main {
 	margin-left: calc(4rem + 300px);
 	font-size: 0.9em;
 	box-sizing: border-box;
 }
 
-#main-wrapper.main-wide-content #main {
+main.main-wide-content {
 	margin-left: 4rem;
 }
 
-.post #main {
+main.post {
 	padding: 1rem 2rem;
 }
 
-.feedstream #main #stream {
+main.feedstream #stream {
 	height: 100%;
 }
 
@@ -2263,7 +2263,7 @@ html.slider-active {
 		width: 200px;
 	}
 
-	#main {
+	main {
 		margin-left: calc(3.5rem + 200px);
 	}
 
@@ -2324,14 +2324,10 @@ html.slider-active {
 		margin-top: 0;
 	}
 
-	#main {
+	main {
 		height: calc(100vh - 2.5rem);
 		margin-left: 0;
 		overflow: auto;
-	}
-
-	#main-wrapper.main-wide-content #main {
-		margin-left: 0;
 	}
 
 	.aside,

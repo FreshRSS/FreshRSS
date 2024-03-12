@@ -2,7 +2,7 @@
 'use strict';
 
 // <Polyfills>
-if (!document.scrollingElement) document.scrollingElement = document.getElementById('maincolumn');
+if (!document.scrollingElement) document.scrollingElement = document.documentElement;
 if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
 if (!Element.prototype.matches) {
 	Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
@@ -432,7 +432,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	const relative_move = context.current_view === 'global';
-	const box_to_move = relative_move ? document.getElementById('panel') : document.getElementById('main');
+	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
 
 	if (context.sticky_post) {	// Stick the article to the top when opened
 		const prev_article = new_active.previousElementSibling;
@@ -771,7 +771,7 @@ function debouncedOnScroll() {
 
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
-		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.getElementById('main');
+		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
 		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnScroll;
 		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
@@ -1290,9 +1290,8 @@ function init_nav_entries() {
 			return false;
 		};
 		nav_entries.querySelector('.up').onclick = function (e) {
-			const scrollStream = document.getElementById('main');
 			const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux'));
-			const windowTop = scrollStream.scrollTop;
+			const windowTop = document.scrollingElement.scrollTop;
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
 			const nav_menu = document.querySelector('.nav_menu');
@@ -1304,7 +1303,7 @@ function init_nav_entries() {
 				nav_menu_height = nav_menu.offsetHeight;
 			}
 
-			scrollStream.scrollTop = windowTop > item_top ? item_top - nav_menu_height - header_menu_height : 0 - nav_menu_height;
+			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height - header_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}

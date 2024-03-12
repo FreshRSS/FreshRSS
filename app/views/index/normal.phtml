@@ -4,8 +4,7 @@ declare(strict_types=1);
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 } ?>
-<main id="main-wrapper" class="feedstream">
-<div id="main">
+<main class="feedstream">
 <?php if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
@@ -175,7 +174,6 @@ $today = @strtotime('today');
 <?php if (FreshRSS_Context::userConf()->show_nav_buttons)
 	$this->partial('nav_entries');
 ?>
-</div>
 </main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles

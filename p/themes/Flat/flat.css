@@ -191,21 +191,21 @@ form th {
 	border-left-style: solid;
 }
 
-#main-wrapper .nav_menu .group .btn {
+main .nav_menu .group .btn {
 	border-radius: 0;
 	border-left-width: 1px;
 }
 
-#main-wrapper .nav_menu .group .btn:first-child {
+main .nav_menu .group .btn:first-child {
 	border-radius: 3px 0 0 3px;
 	border-left-width: 0;
 }
 
-#main-wrapper .nav_menu .group .btn:last-child {
+main .nav_menu .group .btn:last-child {
 	border-radius: 0 3px 3px 0;
 }
 
-#main-wrapper .nav_menu .group .dropdown:last-child > .btn {
+main .nav_menu .group .dropdown:last-child > .btn {
 	border-radius: 0 3px 3px 0;
 }
 

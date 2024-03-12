@@ -3,46 +3,45 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-<main id="main-wrapper" class="post">
-	<div id="main">
-		<div class="link-back-wrapper">
-			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-		</div>
+<main class="post">
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+	</div>
 
-		<h1><?= _t('admin.extensions.title') ?></h1>
-		<form id="form-extension" method="post">
+	<h1><?= _t('admin.extensions.title') ?></h1>
+	<form id="form-extension" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<?php if (!empty($this->extension_list['system'])) { ?>
-		<h2><?= _t('admin.extensions.system') ?></h2>
-		<ul class="manage-list">
-		<?php
-			foreach ($this->extension_list['system'] as $ext) {
-				$this->ext_details = $ext; ?>
-				<li>
-				<?php $this->renderHelper('extension/details'); ?>
-				</li>
-			<?php } ?>
-		</ul>
+			<h2><?= _t('admin.extensions.system') ?></h2>
+			<ul class="manage-list">
+				<?php
+				foreach ($this->extension_list['system'] as $ext) {
+					$this->ext_details = $ext; ?>
+					<li>
+					<?php $this->renderHelper('extension/details'); ?>
+					</li>
+				<?php } ?>
+			</ul>
 		<?php } ?>
 
 		<?php if (!empty($this->extension_list['user'])) { ?>
-		<h2><?= _t('admin.extensions.user') ?></h2>
-		<ul class="manage-list">
-		<?php
-			foreach ($this->extension_list['user'] as $ext) {
-				$this->ext_details = $ext; ?>
-				<li>
-				<?php $this->renderHelper('extension/details'); ?>
-				</li>
-			<?php } ?>
-			</ul>
+			<h2><?= _t('admin.extensions.user') ?></h2>
+			<ul class="manage-list">
+				<?php
+				foreach ($this->extension_list['user'] as $ext) {
+					$this->ext_details = $ext; ?>
+					<li>
+					<?php $this->renderHelper('extension/details'); ?>
+					</li>
+				<?php } ?>
+				</ul>
 		<?php }
 
 		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 		?>
-		<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
+			<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
 		<?php } ?>
-		</form>
+	</form>
 
 	<?php if (!empty($this->available_extensions)) { ?>
 		<h2><?= _t('admin.extensions.community') ?></h2>

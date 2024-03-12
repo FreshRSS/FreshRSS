@@ -1,0 +1,130 @@
+/* stylelint-disable property-no-vendor-prefix */
+/* FUNCTIONS */
+/*=== MOBILE */
+/*===========*/
+@media (max-width: 840px) {
+	main {
+		height: calc(100vh - 3.5rem);
+	}
+	.aside {
+		transition: all 0.2s ease-in-out;
+	}
+	.aside.aside_feed {
+		padding: 0;
+	}
+	.aside .tree .tree-folder .tree-folder-items .item a {
+		padding: 0.5rem 1rem;
+	}
+	.aside .toggle_aside,
+#overlay .close,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside {
+		background-color: #ca7227;
+	}
+	.aside .toggle_aside:hover,
+#overlay .close:hover,
+.dropdown-menu .toggle_aside:hover,
+#slider .toggle_aside:hover {
+		background-color: #b7641d;
+	}
+	.aside .toggle_aside .icon,
+#overlay .close .icon,
+.dropdown-menu .toggle_aside .icon,
+#slider .toggle_aside .icon {
+		filter: grayscale(100%) brightness(2.5);
+	}
+	#global {
+		height: calc(100% - 8rem);
+	}
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+	header.header .nav-header {
+		height: 3.5rem;
+	}
+	header.header .group .btn {
+		box-sizing: border-box;
+		border-radius: 5px;
+	}
+	header.header .group .dropdown:first-child .btn,
+header.header .group .btn:first-child {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	header.header .group .btn + .btn,
+header.header .group .dropdown + .dropdown .btn,
+header.header .group .btn + .dropdown .btn {
+		border-left-width: 0;
+		border-radius: 0;
+	}
+	header.header .group .dropdown:last-child > .btn,
+header.header .group .btn:last-child {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+	header.header .btn,
+.nav_menu .btn {
+		margin: 0;
+		padding: 0.5rem;
+	}
+	header.header .stick .btn,
+header.header .group .btn,
+.nav_menu .stick .btn,
+.nav_menu .group .btn {
+		margin: 0;
+		padding: 0.5rem;
+	}
+	header.header .stick .btn.read_all,
+header.header .group .btn.read_all,
+.nav_menu .stick .btn.read_all,
+.nav_menu .group .btn.read_all {
+		padding: 0.5rem;
+	}
+	#stream .flux .flux_header {
+		padding: 0.5rem 0;
+	}
+	.dropdown-target:target ~ .dropdown-toggle::after {
+		background-color: #fcfaf8;
+		border-top: 1px solid #f5f0ec;
+		border-left: 1px solid #f5f0ec;
+		right: 10px;
+		bottom: -14px;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn) ~ .dropdown-menu {
+		margin-top: 0;
+	}
+	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
+		bottom: -17px;
+	}
+	.day {
+		text-align: center;
+		padding: 1rem 0;
+	}
+	.day .name {
+		padding: 0;
+		display: block;
+		width: 100%;
+		line-height: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	#nav_entries {
+		line-height: 4.5rem;
+	}
+	.notification {
+		border-radius: 0;
+	}
+	.notification a.close {
+		background: transparent;
+		display: block;
+		left: 0;
+	}
+	.notification a.close:hover {
+		opacity: 0.5;
+	}
+	.notification a.close .icon {
+		display: none;
+	}
+}

@@ -3,43 +3,41 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-<main id="main-wrapper" class="post">
-	<div id="main">
-		<div class="link-back-wrapper">
-			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-		</div>
-
-		<h1><?= _t('gen.menu.check_install') ?></h1>
-		<h2><?= _t('admin.check_install.php') ?></h2>
-
-		<?php foreach ($this->status_php as $key => $status) { ?>
-		<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
-			<?php
-				if ($key === 'php') {
-					echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, FRESHRSS_MIN_PHP_VERSION);
-				} else {
-					echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'));
-				}
-			?>
-		</p>
-		<?php } ?>
-
-		<h2><?= _t('admin.check_install.files') ?></h2>
-
-		<?php foreach ($this->status_files as $key => $status) { ?>
-		<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
-			<?= _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')) ?>
-		</p>
-		<?php } ?>
-
-		<?php /*
-		<h2><?= _t('admin.check_install.database') ?></h2>
-
-		<?php foreach ($this->status_database as $key => $status) { ?>
-		<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
-			<?= _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')) ?>
-		</p>
-		<?php } ?>
-		*/ ?>
+<main class="post">
+	<div class="link-back-wrapper">
+		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 	</div>
+
+	<h1><?= _t('gen.menu.check_install') ?></h1>
+	<h2><?= _t('admin.check_install.php') ?></h2>
+
+	<?php foreach ($this->status_php as $key => $status) { ?>
+	<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
+		<?php
+			if ($key === 'php') {
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, FRESHRSS_MIN_PHP_VERSION);
+			} else {
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'));
+			}
+		?>
+	</p>
+	<?php } ?>
+
+	<h2><?= _t('admin.check_install.files') ?></h2>
+
+	<?php foreach ($this->status_files as $key => $status) { ?>
+	<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
+		<?= _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')) ?>
+	</p>
+	<?php } ?>
+
+	<?php /*
+	<h2><?= _t('admin.check_install.database') ?></h2>
+
+	<?php foreach ($this->status_database as $key => $status) { ?>
+	<p class="alert <?= $status ? 'alert-success' : 'alert-error' ?>">
+		<?= _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')) ?>
+	</p>
+	<?php } ?>
+	*/ ?>
 </main>

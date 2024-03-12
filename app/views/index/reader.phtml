@@ -6,8 +6,7 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 }
 ?>
-<main id="main-wrapper" class="feedstream">
-<div id="main">
+<main class="feedstream">
 <?php
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
@@ -46,7 +45,7 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
 		$this->renderHelper('stream-footer');
-?></div></div></main><?php
+?></div></main><?php
 	else:
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
@@ -56,6 +55,5 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 			<div class="prompt alert alert-warn">
 				<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
 			</div>
-	</div>
 </main>
 <?php endif; ?>
