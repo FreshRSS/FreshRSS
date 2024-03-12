@@ -174,6 +174,16 @@ class FreshRSS_Feed extends Minz_Model {
 				];
 		}
 	}
+
+	/** @return array<int,mixed> */
+	public function curlOptions(): array {
+		$curl_options = [];
+		if ($this->httpAuth !== '') {
+			$curl_options[CURLOPT_USERPWD] = htmlspecialchars_decode($this->httpAuth, ENT_QUOTES);
+		}
+		return $curl_options;
+	}
+
 	public function inError(): bool {
 		return $this->error;
 	}
@@ -348,11 +358,8 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
+				$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
-				if ($this->httpAuth != '') {
-					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url) ?? '';
-				}
-				$simplePie = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
 					$simplePie->force_feed(true);
 					$url = substr($url, 0, -11);
@@ -636,16 +643,12 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
-		if ($this->httpAuth != '') {
-			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
-		}
 		if ($feedSourceUrl == null) {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
 		$httpAccept = 'json';
-		$json = httpGet($feedSourceUrl, $cachePath, $httpAccept, $this->attributes());
+		$json = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
 		if (strlen($json) <= 0) {
 			return null;
 		}
@@ -672,9 +675,6 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
-		if ($this->httpAuth != '') {
-			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
-		}
 		if ($feedSourceUrl == null) {
 			return null;
 		}
@@ -698,9 +698,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
-		$html = httpGet($feedSourceUrl, $cachePath,
-			$this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html', $this->attributes());
+		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html';
+		$html = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -892,15 +891,16 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
+	 * @param string $url Overridden URL. Will default to the feed URL.
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
-		$simplePie = customSimplePie($attributes);
+	public function cacheFilename(string $url = ''): string {
+		$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
+		$url = $url ?: htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($kind === FreshRSS_Feed::KIND_HTML_XPATH) {
+		if ($this->kind === FreshRSS_Feed::KIND_HTML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.html';
-		} elseif ($kind === FreshRSS_Feed::KIND_XML_XPATH) {
+		} elseif ($this->kind === FreshRSS_Feed::KIND_XML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.xml';
 		} else {
 			return CACHE_PATH . '/' . $filename . '.spc';
@@ -908,12 +908,12 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function clearCache(): bool {
-		return @unlink(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
+		return @unlink($this->cacheFilename());
 	}
 
 	/** @return int|false */
 	public function cacheModifiedTime() {
-		$filename = FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind);
+		$filename = $this->cacheFilename();
 		clearstatcache(true, $filename);
 		return @filemtime($filename);
 	}
