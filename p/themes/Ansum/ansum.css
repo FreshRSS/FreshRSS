@@ -456,7 +456,7 @@ form th {
 }
 
 a:hover .logo {
-	filter: invert(80%) opacity(80%);
+	filter: invert(90%) brightness(0.7);
 }
 
 /*=== Tree */
@@ -1169,9 +1169,6 @@ main.prompt {
 /*=== MOBILE */
 /*===========*/
 @media (max-width: 840px) {
-	#body-inner {
-		grid-template-rows: 3.5rem auto;
-	}
 	#main {
 		height: calc(100vh - 3.5rem);
 	}
@@ -1210,6 +1207,9 @@ main.prompt {
 		right: 0;
 		bottom: 0;
 		left: 0;
+	}
+	header.header .nav-header {
+		height: 3.5rem;
 	}
 	header.header .group .btn {
 		box-sizing: border-box;

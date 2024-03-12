@@ -1171,9 +1171,6 @@ main.prompt {
 /*=== MOBILE */
 /*===========*/
 @media (max-width: 840px) {
-	#body-inner {
-		grid-template-rows: 3.5rem auto;
-	}
 	#main {
 		height: calc(100vh - 3.5rem);
 	}
@@ -1217,6 +1214,9 @@ main.prompt {
 		max-width: 100%;
 		min-width: auto;
 		width: 75%;
+	}
+	header.header .nav-header {
+		height: 3.5rem;
 	}
 	header.header .group .btn {
 		box-sizing: border-box;

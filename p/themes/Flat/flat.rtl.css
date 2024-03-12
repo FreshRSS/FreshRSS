@@ -969,8 +969,8 @@ a:hover .logo {
 /*===========*/
 
 @media (max-width: 840px) {
-	#body-inner {
-		grid-template-rows: 3rem auto;
+	header.header .nav-header {
+		height: 3rem;
 	}
 
 	#main {
@@ -1062,11 +1062,6 @@ a:hover .logo {
 
 	.notification a.close .icon {
 		display: none;
-	}
-
-	.post {
-		padding-right: 15px;
-		padding-left: 15px;
 	}
 
 	#close-slider.active {

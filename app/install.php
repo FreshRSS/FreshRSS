@@ -747,7 +747,6 @@ if (_t('gen.dir') === 'rtl') {
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
-		<div id="body-inner">
 		<header class="header">
 			<nav class="nav-header">
 				<div id="toggle_aside" class="nav_mobile group">
@@ -859,7 +858,6 @@ if (_t('gen.dir') === 'rtl') {
 				?>
 			</div>
 		</main>
-		</div>
 		<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
 	</body>
 </html>

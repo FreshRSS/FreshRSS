@@ -6,10 +6,6 @@
 /*===========*/
 
 @media (max-width: 840px) {
-	#body-inner {
-		grid-template-rows: 3.5rem auto;
-	}
-
 	#main {
 		height: calc(100vh - 3.5rem);
 	}
@@ -59,29 +55,35 @@
 		width: 75%;
 	}
 
-	header.header .group {
-		.btn {
-			box-sizing: border-box;
-			border-radius: 5px;
+	header.header {
+		.nav-header{
+			height: 3.5rem;
 		}
 
-		.dropdown:first-child .btn,
-		.btn:first-child {
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
-		}
+		.group {
+			.btn {
+				box-sizing: border-box;
+				border-radius: 5px;
+			}
 
-		.btn + .btn,
-		.dropdown + .dropdown .btn,
-		.btn + .dropdown .btn {
-			border-left-width: 0;
-			border-radius: 0;
-		}
+			.dropdown:first-child .btn,
+			.btn:first-child {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
 
-		.dropdown:last-child > .btn,
-		.btn:last-child {
-			border-top-right-radius: 5px;
-			border-bottom-right-radius: 5px;
+			.btn + .btn,
+			.dropdown + .dropdown .btn,
+			.btn + .dropdown .btn {
+				border-left-width: 0;
+				border-radius: 0;
+			}
+
+			.dropdown:last-child > .btn,
+			.btn:last-child {
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
 		}
 	}
 

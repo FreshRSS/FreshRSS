@@ -63,7 +63,6 @@
 <?php } ?>
 	</head>
 	<body class="<?= Minz_Request::actionName() ?>">
-		<div id="body-inner">
 <?php
 	if (!Minz_Request::paramBoolean('ajax')) {
 		flush();
@@ -90,6 +89,5 @@
 				<span class="msg"><?= $msg ?></span>
 				<a class="close" href=""><?= _i('close') ?></a>
 			</div>
-		</div>
 	</body>
 </html>
