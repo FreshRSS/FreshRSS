@@ -126,7 +126,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				$email,
 				$passwordPlain,
 				[
-					'token' => Minz_Request::paramString('token') ?: null,
+					'token' => Minz_Request::paramString('token'),
 				]
 			);
 
