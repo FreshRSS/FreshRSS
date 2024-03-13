@@ -815,8 +815,8 @@ a.signin {
 	border-right: 2px solid var(--border-left-article-unread);
 }
 
-.flux .item.title a,
-.flux.not_read:not(.current):hover .item.title {
+.flux .flux_header .item.title a,
+.flux.not_read:not(.current):hover .flux_header .item.title {
 	color: var(--font-color-link-title);
 }
 
