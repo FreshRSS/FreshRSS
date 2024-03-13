@@ -640,6 +640,7 @@ input[type="checkbox"]:focus-visible {
 	display: block;
 }
 
+.nav-list .nav-header,
 .nav-list .item,
 .nav-list .item > a,
 .nav-list .item > span {
