@@ -1124,10 +1124,6 @@ a:hover .icon {
 		border-bottom: 1px solid var(--border-color);
 	}
 
-	.aside.aside_feed {
-		padding: 0;
-	}
-
 	.header .nav-header,
 	.nav_menu {
 		padding: 0.25rem 0.5rem;

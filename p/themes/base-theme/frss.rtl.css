@@ -1197,11 +1197,16 @@ input[type="search"] {
 }
 
 .aside {
+	padding-bottom: 10rem;
 	width: 300px;
+	height: 100vh;
 	position: fixed;
 	margin-right: 4rem;
 	top: 0;
 	right: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-sizing: border-box;
 }
 
 .aside + .close-aside {
@@ -1223,15 +1228,6 @@ input[type="search"] {
 .prompt .logo-wrapper .logo {
 	margin: 2rem;
 	height: 1.5rem;
-}
-
-.aside .nav-inner {
-	padding-bottom: 10rem;
-	width: 300px;
-	height: 100vh;
-	overflow-x: hidden;
-	overflow-y: auto;
-	box-sizing: border-box;
 }
 
 /*=== Aside main page */
@@ -2252,10 +2248,6 @@ html.slider-active {
 
 	.aside {
 		margin-right: 3.5rem;
-	}
-
-	.aside,
-	.aside .nav-inner {
 		width: 200px;
 	}
 
@@ -2327,7 +2319,6 @@ html.slider-active {
 	}
 
 	.aside,
-	.aside .nav-inner,
 	#sidebar {
 		width: auto;
 	}
@@ -2510,7 +2501,6 @@ html.slider-active {
 		top: 0; bottom: 0;
 		right: -1px;
 		width: 0;
-		overflow: hidden;
 		z-index: 95;
 	}
 

@@ -14,8 +14,7 @@
 		$state_filter_manual = '&state=' . $state_filter_manual;
 	}
 ?>
-<nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
-<div class="nav-inner scrollbar-thin">
+<nav class="nav aside aside_feed scrollbar-thin<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div class="logo-wrapper">
 		<a href="<?= Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root') ?>">
@@ -146,7 +145,6 @@
 		?>
 	</ul>
 	</form>
-	<div>
 </nav>
 <a class="close-aside" href="#close">❌</a>
 
