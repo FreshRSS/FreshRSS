@@ -4,6 +4,9 @@
 
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_subscription');
+		?>
+		<main>
+		<?php
 	}
 	if ($this->tag === null) {
 		throw new FreshRSS_Context_Exception('Tag not initialised!');
@@ -67,3 +70,9 @@
 		</div>
 	</form>
 </div>
+<?php
+if (!Minz_Request::paramBoolean('ajax')) {
+	?>
+	</main>
+	<?php
+}

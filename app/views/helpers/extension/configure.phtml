@@ -3,6 +3,9 @@
 	/** @var FreshRSS_View $this */
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
+		?>
+		<main>
+		<?php
 	}
 	if ($this->extension === null) {
 		throw new FreshRSS_Context_Exception('Extension not initialised!');
@@ -37,3 +40,10 @@
 	<p class="alert alert-warn"><?= _t('admin.extensions.no_configure_view') ?></p>
 	<?php } ?>
 </div>
+<?php
+	/** @var FreshRSS_View $this */
+	if (!Minz_Request::paramBoolean('ajax')) {
+		?>
+		<main>
+		<?php
+	}

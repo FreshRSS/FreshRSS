@@ -4,7 +4,15 @@ declare(strict_types=1);
 
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_configure');
+	?>
+	<main>
+	<?php
 }
 if ($this->query) {
 	$this->renderHelper('configure/query');
+	if (!Minz_Request::paramBoolean('ajax')) {
+		?>
+		</main>
+		<?php
+	}
 }
