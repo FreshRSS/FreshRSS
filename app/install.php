@@ -293,7 +293,7 @@ function freshrss_already_installed(): bool {
 	$system_conf = null;
 	try {
 		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
-	} catch (Minz_ConfigurationNamespaceException $e) {
+	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
 
@@ -301,7 +301,7 @@ function freshrss_already_installed(): bool {
 	$current_user = $system_conf->default_user;
 	try {
 		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
+	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
 
