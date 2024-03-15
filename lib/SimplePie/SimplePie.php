@@ -1405,6 +1405,45 @@ class SimplePie
 	}
 
 	/**
+	 * Removes invalid xml 1.0 characters.
+	 *
+	 * link: https://stackoverflow.com/questions/730133/what-are-invalid-characters-in-xml
+	 * xml 1.0 valid charsets: https://www.w3.org/TR/xml/#charsets
+	 * @access public
+	 * @param string $value
+	 * @return string all valid utf-8 characters
+	 */
+	public static function stripInvalidXmlCharaters($value)
+	{
+		$ret = "";
+		if (empty($value))
+		{
+			return $ret;
+		}
+
+		$length = strlen($value);
+		for ($i=0; $i < $length; $i++)
+		{
+			$current = ord($value[$i]);
+			if (($current == 0x9) ||
+				($current == 0xA) ||
+				($current == 0xD) ||
+				(($current >= 0x20) && ($current <= 0xD7FF)) ||
+				(($current >= 0xE000) && ($current <= 0xFFFD)) ||
+				(($current >= 0x10000) && ($current <= 0x10FFFF)))
+			{
+				$ret .= chr($current);
+			}
+			else
+			{
+				$ret .= sprintf('U+%06X', $current);
+			}
+		}
+		return $ret;
+	}
+
+
+	/**
 	 * Initialize the feed object
 	 *
 	 * This is what makes everything happen. Period. This is where all of the
@@ -1581,9 +1620,10 @@ class SimplePie
 			{
 				// Create new parser
 				$parser = $this->registry->create('Parser');
+				$validXml = self::stripInvalidXmlCharaters($utf8_data);
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
+				if ($parser->parse($validXml, empty($encoding) ? '' : 'UTF-8', $this->permanent_url))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))

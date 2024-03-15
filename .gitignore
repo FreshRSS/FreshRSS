@@ -5,6 +5,7 @@
 /vendor/
 /data.back/
 /constants.local.php
+/.idea
 
 .vscode/
 
