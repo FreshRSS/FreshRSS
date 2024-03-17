@@ -171,8 +171,8 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 }
 
