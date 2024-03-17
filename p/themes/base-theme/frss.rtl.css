@@ -97,6 +97,15 @@ ul, ol, dd {
 	padding: 0;
 }
 
+ul.listInColumns {
+	column-count: auto;
+	column-width: 150px;
+}
+
+#tagsList {
+	list-style: none;
+}
+
 /*=== Titles */
 h1 {
 	margin: 1rem 0 0.5rem;
