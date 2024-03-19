@@ -98,8 +98,15 @@ ul, ol, dd {
 }
 
 ul.listInColumns {
-	column-count: auto;
-	column-width: 150px;
+	column-count: 5;
+	column-width: 250px;
+	max-width: 1700px;
+}
+
+ul.listInColumns li {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #tagsList {
