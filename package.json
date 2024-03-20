@@ -41,8 +41,8 @@
     "markdownlint-cli": "^0.39.0",
     "rtlcss": "^4.1.1",
     "sass": "^1.71.1",
-    "stylelint": "^15.11.0",
-    "stylelint-config-recommended-scss": "^13.1.0",
+    "stylelint": "^16.2.1",
+    "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
     "stylelint-stylistic": "^0.4.5"
   },
