@@ -23,6 +23,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the normal view of FreshRSS.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function normalAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
@@ -77,7 +78,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
 				ob_start();	//Buffer "one entry at a time"
-			} catch (FreshRSS_EntriesGetter_Exception $e) {
+			} catch (Throwable $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
 			}
@@ -96,6 +97,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action displays the reader view of FreshRSS.
 	 *
+	 * @throws FreshRSS_Context_Exception
 	 * @todo: change this view into specific CSS rules?
 	 */
 	public function readerAction(): void {
@@ -104,6 +106,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the global view of FreshRSS.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function globalAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
@@ -163,7 +166,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
-		} catch (FreshRSS_EntriesGetter_Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
 		}

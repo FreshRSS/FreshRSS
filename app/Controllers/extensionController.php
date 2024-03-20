@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	public function firstAction(): void {
@@ -52,7 +52,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		}
 
 		// fetch the list as an array
-		/** @var array<string,mixed> $list*/
+		/** @var array<string,mixed> $list */
 		$list = json_decode($json, true);
 		if (!is_array($list) || empty($list['extensions']) || !is_array($list['extensions'])) {
 			Minz_Log::warning('Failed to convert extension file list');
@@ -87,7 +87,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 *
 	 * Parameters are:
 	 * - e: the extension name (urlencoded)
-	 * - additional parameters which should be handle by the extension
+	 * - additional parameters which should be handled by the extension
 	 *   handleConfigureAction() method (POST request).
 	 */
 	public function configureAction(): void {

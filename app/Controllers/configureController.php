@@ -41,6 +41,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - display of open action in footer
 	 *   - html5 notification timeout (default: 0)
 	 * Default values are false unless specified.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function displayAction(): void {
 		if (Minz_Request::isPost()) {
@@ -108,6 +109,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *       - received
 	 *       - focus
 	 * Default values are false unless specified.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function readingAction(): void {
 		if (Minz_Request::isPost()) {
@@ -165,6 +167,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *
 	 * Before v1.16, we used sharing instead of integration. This has
 	 * some unwanted behavior when the end-user was using an ad-blocker.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function integrationAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/integration.js?' . @filemtime(PUBLIC_PATH . '/scripts/integration.js')));
@@ -193,6 +196,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * to 9), function keys (f1 to f12), backspace, delete, down, end, enter,
 	 * escape, home, insert, left, page down, page up, return, right, space,
 	 * tab and up.
+	 * @throws FreshRSS_Context_Exception|Minz_FileNotExistException
 	 */
 	public function shortcutAction(): void {
 		$this->view->list_keys = SHORTCUT_KEYS;

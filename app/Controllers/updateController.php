@@ -167,6 +167,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		via Git, if available.
 		Else via system configuration  auto_update_url
 	*/
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public function checkAction(): void {
 		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
@@ -256,6 +259,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 */
 	public function applyAction(): void {
 		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);

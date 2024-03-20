@@ -136,6 +136,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * If no category is given, feed is added to the default one.
 	 *
 	 * If url_rss is false, nothing happened.
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function addAction(): void {
 		$url = Minz_Request::paramString('url_rss');
@@ -344,7 +345,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feed = $feedDAO->searchByUrl($this->view->feed->url());
 			if ($feed) {
-				// Already subscribe so we redirect to the feed configuration page.
+				// Already subscribe, so we redirect to the feed configuration page.
 				$url_redirect['a'] = 'feed';
 				$url_redirect['params']['id'] = $feed->id();
 				Minz_Request::good(_t('feedback.sub.feed.already_subscribed', $feed->name()), $url_redirect);
@@ -386,6 +387,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
 	 * @throws FreshRSS_BadUrl_Exception
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		if (function_exists('set_time_limit')) {
@@ -514,13 +516,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					// Feed is cached and unchanged
 					$newGuids = [];
 					$entries = [];
-					$feedIsEmpty = false;	// We do not know
 					$feedIsUnchanged = true;
 				} else {
 					$newGuids = $feed->loadGuids($simplePie);
 					$entries = $feed->loadEntries($simplePie);
 					$feedIsEmpty = $simplePiePush !== null && empty($newGuids);
-					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
 			} catch (FreshRSS_Feed_Exception $e) {
@@ -944,6 +944,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	/**
+	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
 	public static function deleteFeed(int $feed_id): bool {
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -1031,6 +1036,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (mandatory - no default): Feed ID
 	 *
 	 * @throws FreshRSS_BadUrl_Exception
+	 * @throws FreshRSS_Context_Exception
 	 */
 	public function reloadAction(): void {
 		if (function_exists('set_time_limit')) {
