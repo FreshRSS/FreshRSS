@@ -18,7 +18,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
@@ -78,7 +78,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']);
 				break;
 			case 'http_auth':
-				Minz_Error::error(403, [
+				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN, [
 					'error' => [
 						_t('feedback.access.denied'),
 						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
@@ -88,10 +88,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				break;
 			case 'none':
 				// It should not happen!
-				Minz_Error::error(404);
+				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			default:
 				// TODO load plugin instead
-				Minz_Error::error(404);
+				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 	}
 
@@ -248,7 +248,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		if (max_registrations_reached()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);

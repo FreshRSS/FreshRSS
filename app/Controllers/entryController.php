@@ -19,7 +19,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		// If ajax request, we do not print layout

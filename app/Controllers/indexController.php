@@ -43,7 +43,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		try {
 			FreshRSS_Context::updateUsingRequest(true);
 		} catch (FreshRSS_Context_Exception $e) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		$this->_csp([
@@ -79,7 +79,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				ob_start();	//Buffer "one entry at a time"
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
-				Minz_Error::error(404);
+				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			}
 		};
 
@@ -118,7 +118,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		try {
 			FreshRSS_Context::updateUsingRequest(true);
 		} catch (FreshRSS_Context_Exception $e) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		$this->view->categories = FreshRSS_Context::categories();
@@ -152,20 +152,20 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if (!FreshRSS_Auth::hasAccess() &&
 				!$allow_anonymous &&
 				!$token_is_ok) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		try {
 			FreshRSS_Context::updateUsingRequest(false);
 		} catch (FreshRSS_Context_Exception $e) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		$this->view->html_url = Minz_Url::display('', 'html', true);
@@ -189,13 +189,13 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		// Check if user has access.
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !$token_is_ok) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		try {
 			FreshRSS_Context::updateUsingRequest(false);
 		} catch (FreshRSS_Context_Exception $e) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		$get = FreshRSS_Context::currentGet(true);
@@ -211,7 +211,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 'c':
 				$cat = FreshRSS_Context::categories()[$id] ?? null;
 				if ($cat == null) {
-					Minz_Error::error(404);
+					Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 					return;
 				}
 				$this->view->categories = [ $cat->id() => $cat ];
@@ -223,7 +223,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);
 					if ($feed == null) {
-						Minz_Error::error(404);
+						Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 						return;
 					}
 				}
@@ -233,7 +233,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 't':
 			case 'T':
 			default:
-				Minz_Error::error(404);
+				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 				return;
 		}
 
@@ -290,7 +290,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	public function tosAction(): void {
 		$terms_of_service = file_get_contents(TOS_FILENAME);
 		if ($terms_of_service === false) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 
@@ -304,7 +304,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function logsAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		FreshRSS_View::prependTitle(_t('index.log.title') . ' · ');

@@ -124,7 +124,7 @@ switch ($type) {
 	case 'c':	// Category
 		$cat = FreshRSS_Context::categories()[$id] ?? null;
 		if ($cat === null) {
-			Minz_Error::error(404, "Category {$id} not found!");
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND, "Category {$id} not found!");
 			die();
 		}
 		$view->categories = [ $cat->id() => $cat ];
@@ -132,7 +132,7 @@ switch ($type) {
 	case 'f':	// Feed
 		$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
 		if ($feed === null) {
-			Minz_Error::error(404, "Feed {$id} not found!");
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND, "Feed {$id} not found!");
 			die();
 		}
 		$view->feeds = [ $feed->id() => $feed ];
@@ -161,7 +161,7 @@ if (in_array($format, ['rss', 'atom'], true)) {
 	$view->_path('index/rss.phtml');
 } elseif ($format === 'opml') {
 	if (!$query->safeForOpml()) {
-		Minz_Error::error(404, 'OPML not allowed for this user query!');
+		Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND, 'OPML not allowed for this user query!');
 		die();
 	}
 	header('Content-Type: application/xml; charset=utf-8');
