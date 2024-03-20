@@ -12,7 +12,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 */
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -97,7 +97,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$id = Minz_Request::paramInt('id');
 		if ($id === 0 || !isset($this->view->feeds[$id])) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 

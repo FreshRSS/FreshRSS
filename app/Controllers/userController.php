@@ -54,7 +54,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	public function updateAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		if (Minz_Request::isPost()) {
@@ -85,7 +85,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function profileAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$email_not_verified = FreshRSS_Context::userConf()->email_validation_token != '';
@@ -148,14 +148,14 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	public function purgeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		if (Minz_Request::isPost()) {
 			$username = Minz_Request::paramString('username');
 
 			if (!FreshRSS_UserDAO::exists($username)) {
-				Minz_Error::error(404);
+				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			}
 
 			$feedDAO = FreshRSS_Factory::createFeedDao($username);
@@ -168,7 +168,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function manageAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		FreshRSS_View::prependTitle(_t('admin.user.title') . ' · ');
@@ -284,7 +284,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		if (Minz_Request::isPost()) {
@@ -420,7 +420,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function validateEmailAction(): void {
 		if (!FreshRSS_Context::systemConf()->force_email_validation) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		FreshRSS_View::prependTitle(_t('user.email.validation.title') . ' · ');
@@ -434,12 +434,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		} elseif (FreshRSS_Auth::hasAccess()) {
 			$user_config = FreshRSS_Context::userConf();
 		} else {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 			return;
 		}
 
 		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 
@@ -485,11 +485,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function sendValidationEmailAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		if (!Minz_Request::isPost()) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		$username = Minz_User::name();
@@ -531,7 +531,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$self_deletion = Minz_User::name() === $username;
 
 		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$redirect_url = ['c' => 'user', 'a' => 'manage'];
@@ -585,20 +585,20 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	private function toggleAction(string $field, bool $value): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		if (!Minz_Request::isPost()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$username = Minz_Request::paramString('username');
 		if (!FreshRSS_UserDAO::exists($username)) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		if (null === $userConfig = get_user_configuration($username)) {
-			Minz_Error::error(500);
+			Minz_Error::error(FreshRSS_HttpResponseCode::INTERNAL_SERVER_ERROR);
 			return;
 		}
 
@@ -619,12 +619,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	public function detailsAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		$username = Minz_Request::paramString('username');
 		if (!FreshRSS_UserDAO::exists($username)) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 		}
 
 		if (Minz_Request::paramBoolean('ajax')) {

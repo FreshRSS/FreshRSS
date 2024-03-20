@@ -29,7 +29,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 */
 	public function tagEntryAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::paramInt('id_tag');
@@ -52,7 +52,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			Minz_Error::error(405);
+			Minz_Error::error(FreshRSS_HttpResponseCode::METHOD_NOT_ALLOWED);
 		}
 		if (!$this->ajax) {
 			Minz_Request::forward([
@@ -64,7 +64,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	public function deleteAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		if (Minz_Request::isPost()) {
 			$id_tag = Minz_Request::paramInt('id_tag');
@@ -73,7 +73,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 				$tagDAO->deleteTag($id_tag);
 			}
 		} else {
-			Minz_Error::error(405);
+			Minz_Error::error(FreshRSS_HttpResponseCode::METHOD_NOT_ALLOWED);
 		}
 		if (!$this->ajax) {
 			Minz_Request::forward([
@@ -97,7 +97,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		$id = Minz_Request::paramInt('id');
 		$tag = $tagDAO->searchById($id);
 		if ($id === 0 || $tag === null) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 		$this->view->tag = $tag;
@@ -130,7 +130,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	public function getTagsForEntryAction(): void {
 		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		$this->view->_layout(null);
 		header('Content-Type: application/json; charset=UTF-8');
@@ -142,10 +142,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	public function addAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		if (!Minz_Request::isPost()) {
-			Minz_Error::error(405);
+			Minz_Error::error(FreshRSS_HttpResponseCode::METHOD_NOT_ALLOWED);
 		}
 
 		$name = Minz_Request::paramString('name');
@@ -164,17 +164,17 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 */
 	public function renameAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		if (!Minz_Request::isPost()) {
-			Minz_Error::error(405);
+			Minz_Error::error(FreshRSS_HttpResponseCode::METHOD_NOT_ALLOWED);
 		}
 
 		$targetName = Minz_Request::paramString('name');
 		$sourceId = Minz_Request::paramInt('id_tag');
 
 		if ($targetName == '' || $sourceId == 0) {
-			Minz_Error::error(400);
+			Minz_Error::error(FreshRSS_HttpResponseCode::BAD_REQUEST);
 			return;
 		}
 
@@ -196,7 +196,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags(true) ?: [];

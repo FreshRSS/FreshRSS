@@ -12,7 +12,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 	}
 
@@ -102,11 +102,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 		if ($ext === null) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 			return;
 		}
 
@@ -250,7 +250,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	public function removeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		$url_redirect = ['c' => 'extension', 'a' => 'index'];

@@ -12,7 +12,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 	}
 
@@ -355,7 +355,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 		$id = Minz_Request::paramInt('id');
 		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 
@@ -416,7 +416,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function deleteQueryAction(): void {
 		$id = Minz_Request::paramInt('id');
 		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
-			Minz_Error::error(404);
+			Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND);
 			return;
 		}
 
@@ -472,7 +472,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(403);
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
 		}
 
 		if (Minz_Request::isPost()) {
