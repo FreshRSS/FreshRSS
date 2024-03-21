@@ -80,7 +80,7 @@ foreach ($users as $username) {
 		'feeds' => count($feedList),
 		'reads' => (int)$nbEntries['read'],
 		'unreads' => (int)$nbEntries['unread'],
-		'favourites' => (int)$nbFavorites,
+		'favourites' => $nbFavorites,
 		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
