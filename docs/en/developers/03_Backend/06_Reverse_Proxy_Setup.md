@@ -74,7 +74,7 @@ yourdomain.com {
 }
 ```
 
-Replace `yourdomain.com` with your actual domain and `freshrss` with the subfolder name where FreshRSS is hosted.
+Replace `example.net` with your actual domain and `freshrss` with the subfolder name where FreshRSS is hosted.
 
 ### Note
 
