@@ -1424,7 +1424,7 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	/** @return array{'all':int,'read':int,'unread':int} */
+	/** @return array{'unread':int} */
 	public function countUnreadReadFavorites(): array {
 		$sql = <<<'SQL'
 SELECT c FROM (
