@@ -22,8 +22,6 @@ final class FreshRSS_Context {
 
 	/** @var array{'all':int,'read':int,'unread':int} */
 	public static array $total_starred = [
-		'all' => 0,
-		'read' => 0,
 		'unread' => 0,
 	];
 
