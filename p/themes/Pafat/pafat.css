@@ -153,8 +153,8 @@ th {
 	background-color: var(--background-color-grey);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -815,8 +815,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article-unread);
 }
 
-.flux .item.title a,
-.flux.not_read:not(.current):hover .item.title {
+.flux .flux_header .item.title a,
+.flux.not_read:not(.current):hover .flux_header .item.title {
 	color: var(--font-color-link-title);
 }
 
