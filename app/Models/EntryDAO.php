@@ -1440,7 +1440,7 @@ SQL;
 			':priority_category' => FreshRSS_Feed::PRIORITY_CATEGORY,
 		]);
 		if ($res === null) {
-			return ['unread' => -1];
+			return -1;
 		}
 
 		rsort($res);
