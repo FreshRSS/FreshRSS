@@ -109,8 +109,8 @@ th {
 	background: #f6f6f6;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }

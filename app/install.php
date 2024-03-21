@@ -293,7 +293,7 @@ function freshrss_already_installed(): bool {
 	$system_conf = null;
 	try {
 		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
-	} catch (Minz_ConfigurationNamespaceException $e) {
+	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
 
@@ -301,7 +301,7 @@ function freshrss_already_installed(): bool {
 	$current_user = $system_conf->default_user;
 	try {
 		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
+	} catch (Minz_FileNotExistException $e) {
 		return false;
 	}
 
@@ -385,8 +385,8 @@ function printStep0(): void {
 		</div>
 	</div>
 
+	<h2><?= _t('install.language.choose') ?></h2>
 	<form action="index.php?step=0" method="post">
-		<legend><?= _t('install.language.choose') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="language"><?= _t('install.language') ?></label>
 			<div class="group-controls">
@@ -522,8 +522,8 @@ function printStep2(): void {
 		(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
+	<h2><?= _t('install.bdd.conf') ?></h2>
 	<form action="index.php?step=2" method="post" autocomplete="off">
-		<legend><?= _t('install.bdd.conf') ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="type"><?= _t('install.bdd.type') ?></label>
 			<div class="group-controls">
@@ -622,9 +622,8 @@ function printStep3(): void {
 	<p class="alert alert-error"><?= _t('install.fix_errors_before') ?></p>
 	<?php } ?>
 
+	<h2><?= _t('install.conf') ?></h2>
 	<form action="index.php?step=3" method="post">
-		<legend><?= _t('install.conf') ?></legend>
-
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?= _t('install.default_user') ?></label>
 			<div class="group-controls">

@@ -453,7 +453,7 @@ a:hover .logo {
 	background-color: var(--dark-background-color1);
 }
 
-.flux_header .item.title a {
+.flux .flux_header .item.title a {
 	color: var(--dark-font-color8);
 }
 

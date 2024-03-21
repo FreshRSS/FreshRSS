@@ -129,8 +129,8 @@ th {
 	background: var(--background-color-light);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -796,11 +796,11 @@ a:hover .logo {
 	background: var(--background-color-hover);
 }
 
-.flux .item.title a {
+.flux .flux_header .item.title a {
 	color: var(--font-color-light);
 }
 
-.flux .item.title .author {
+.flux .flux_header .item.title .author {
 	color: var(--font-color-dark);
 }
 
