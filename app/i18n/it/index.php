@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Giorno precedente',
 		'before_one_week' => 'Settimana precedente',
 		'bookmark_query' => 'Inserisci la ricerca corrente nei segnalibri',
-		'favorites' => 'Preferiti (%s)',
+		'favorites' => 'Preferiti',
 		'global_view' => 'Vista globale per categorie',
 		'important' => 'Feed importanti',
 		'main_stream' => 'Flusso principale',

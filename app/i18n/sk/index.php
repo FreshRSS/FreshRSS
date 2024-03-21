@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
 		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
-		'favorites' => 'Obľúbené (%s)',
+		'favorites' => 'Obľúbené',
 		'global_view' => 'Prehľad',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Všetky kanály',

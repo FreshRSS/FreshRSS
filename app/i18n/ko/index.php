@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => '하루 전',
 		'before_one_week' => '일주일 전',
 		'bookmark_query' => '현재 쿼리 북마크',
-		'favorites' => '즐겨찾기 (%s)',
+		'favorites' => '즐겨찾기',
 		'global_view' => '전체 모드',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => '메인 스트림',

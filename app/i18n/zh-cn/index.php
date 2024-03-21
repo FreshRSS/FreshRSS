@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => '一天前',
 		'before_one_week' => '一周前',
 		'bookmark_query' => '收藏当前查询',
-		'favorites' => '收藏（%s）',
+		'favorites' => '收藏',
 		'global_view' => '全局视图',
 		'important' => '重要的订阅',
 		'main_stream' => '首页',

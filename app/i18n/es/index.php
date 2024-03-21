@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Con más de 1 día',
 		'before_one_week' => 'Con más de una semana',
 		'bookmark_query' => 'Marcar consulta actual',
-		'favorites' => 'Favoritos (%s)',
+		'favorites' => 'Favoritos',
 		'global_view' => 'Vista Global',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Salida Principal',
