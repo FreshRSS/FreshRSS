@@ -20,7 +20,7 @@ final class FreshRSS_Context {
 	public static int $total_unread = 0;
 	public static int $total_important_unread = 0;
 
-	/** @var array{'all':int,'read':int,'unread':int} */
+	/** @var array{'unread':int} */
 	public static array $total_starred = [
 		'unread' => 0,
 	];
