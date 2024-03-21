@@ -1937,6 +1937,7 @@ class SimplePie_Misc
 					return SIMPLEPIE_CONSTRUCT_TEXT;
 
 				case 'html':
+				case 'cdata':	//FreshRSS: for some invalid feeds
 					return SIMPLEPIE_CONSTRUCT_HTML;
 
 				case 'xhtml':
