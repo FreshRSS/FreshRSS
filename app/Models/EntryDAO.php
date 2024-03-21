@@ -1424,17 +1424,16 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	/** @return array{'unread':int} */
-	public function countUnreadReadFavorites(): array {
+	/** @return int */
+	public function countUnreadFavorites(): int {
 		$sql = <<<'SQL'
 SELECT c FROM (
-	SELECT COUNT(e2.id) AS c, 2 AS o
-		FROM `_entry` AS e2
-		JOIN `_feed` AS f2 ON e2.id_feed = f2.id
-		WHERE e2.is_favorite = 1
-		AND e2.is_read = 0 AND f2.priority >= :priority_category
+	SELECT COUNT(e.id) AS c
+		FROM `_entry` AS e
+		JOIN `_feed` AS f ON e.id_feed = f.id
+		WHERE e.is_favorite = 1
+		AND e.is_read = 0 AND f.priority >= :priority_category
 	) u
-ORDER BY o
 SQL;
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$res = $this->fetchColumn($sql, 0, [
@@ -1446,6 +1445,30 @@ SQL;
 
 		rsort($res);
 		$unread = (int)($res[0] ?? 0);
-		return ['unread' => $unread];
+		return $unread;
+	}
+
+	/** @return int */
+	public function countFavorites(): int {
+		$sql = <<<'SQL'
+SELECT c FROM (
+	SELECT COUNT(e.id) AS c
+		FROM `_entry` AS e
+		JOIN `_feed` AS f ON e.id_feed = f.id
+		WHERE e.is_favorite = 1
+		AND f.priority >= :priority_category
+	) u
+SQL;
+		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
+		$res = $this->fetchColumn($sql, 0, [
+			':priority_category' => FreshRSS_Feed::PRIORITY_CATEGORY,
+		]);
+		if ($res === null) {
+			return -1;
+		}
+
+		rsort($res);
+		$all = (int)($res[0] ?? 0);
+		return $all;
 	}
 }

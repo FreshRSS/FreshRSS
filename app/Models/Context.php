@@ -19,11 +19,7 @@ final class FreshRSS_Context {
 	public static string $description = '';
 	public static int $total_unread = 0;
 	public static int $total_important_unread = 0;
-
-	/** @var array{'unread':int} */
-	public static array $total_starred = [
-		'unread' => 0,
-	];
+	public static int $unread_favorites;
 
 	public static int $get_unread = 0;
 
@@ -213,7 +209,7 @@ final class FreshRSS_Context {
 		if ($computeStatistics && self::$total_unread === 0) {
 			// Update number of read / unread variables.
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			self::$total_starred = $entryDAO->countUnreadReadFavorites();
+			self::$unread_favorites = $entryDAO->countUnreadFavorites();
 			self::$total_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_MAIN_STREAM);
 			self::$total_important_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_IMPORTANT);
 		}
@@ -407,7 +403,7 @@ final class FreshRSS_Context {
 			self::$current_get['starred'] = true;
 			self::$name = _t('index.feed.title_fav');
 			self::$description = FreshRSS_Context::systemConf()->meta_description;
-			self::$get_unread = self::$total_starred['unread'];
+			self::$get_unread = self::$unread_favorites;
 
 			// Update state if favorite is not yet enabled.
 			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
