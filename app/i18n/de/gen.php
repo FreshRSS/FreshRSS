@@ -198,7 +198,6 @@ return array(
 		'Known' => 'Known-Seite (https://withknown.com)',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',	// IGNORE

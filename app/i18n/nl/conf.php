@@ -254,7 +254,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

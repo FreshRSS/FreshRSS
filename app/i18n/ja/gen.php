@@ -198,7 +198,6 @@ return array(
 		'Known' => 'よく使われるサイト',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE

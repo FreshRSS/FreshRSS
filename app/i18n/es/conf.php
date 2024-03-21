@@ -254,7 +254,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Este servicio está obsoleto y será removido de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futuro lanzamiento</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Correo electrónico',

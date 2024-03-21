@@ -198,7 +198,6 @@ return array(
 		'Known' => 'Zināmas vietnes',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Starpliktuve',
 		'diaspora' => 'Diaspora*',	// IGNORE

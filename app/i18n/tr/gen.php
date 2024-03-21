@@ -198,7 +198,6 @@ return array(
 		'Known' => 'Bilinen siteler',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',	// IGNORE

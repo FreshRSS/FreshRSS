@@ -198,7 +198,6 @@ return array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
-		'blogotext' => ' وبلاگ متن',
 		'buffer' => ' بافر',
 		'clipboard' => ' کلیپ بورد',
 		'diaspora' => ' دیاسپورا*',
