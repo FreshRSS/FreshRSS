@@ -1,32 +1,15 @@
-# List of files, which are not yet passing PHPStan level 7 https://phpstan.org/user-guide/rule-levels
+# List of files, which are not yet passing PHPStan level 9 https://phpstan.org/user-guide/rule-levels
 # Used for automated tests to avoid regressions in files already passing that level.
 # Can be regenerated with something like:
-# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 7 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
+# find . -type d -name 'vendor' -prune -o -name '*.php' -exec sh -c 'vendor/bin/phpstan analyse --level 9 --memory-limit 512M {} >/dev/null 2>/dev/null || echo {}' \;
 
-./app/Controllers/feedController.php
+./app/Controllers/configureController.php
 ./app/Controllers/importExportController.php
-./app/Controllers/indexController.php
-./app/Controllers/updateController.php
-./app/Controllers/userController.php
-./app/Models/CategoryDAO.php
-./app/Models/Context.php
 ./app/Models/DatabaseDAO.php
-./app/Models/DatabaseDAOPGSQL.php
 ./app/Models/Entry.php
-./app/Models/EntryDAO.php
 ./app/Models/Feed.php
-./app/Models/FeedDAO.php
-./app/Models/Search.php
-./app/Models/Share.php
-./app/Models/StatsDAO.php
-./app/Models/TagDAO.php
-./app/views/helpers/logs_pagination.phtml
-./app/views/stats/index.phtml
-./app/views/stats/repartition.phtml
-./cli/check.translation.php
-./cli/manipulate.translation.php
-./lib/Minz/Error.php
-./lib/Minz/Mailer.php
-./lib/Minz/Migrator.php
-./lib/Minz/ModelPdo.php
+./app/Services/ImportService.php
+./app/views/configure/archiving.phtml
+./app/views/helpers/feed/update.phtml
+./lib/Minz/Helper.php
 ./lib/Minz/Request.php

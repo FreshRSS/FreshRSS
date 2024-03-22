@@ -88,14 +88,6 @@ a {
 	color: var(--color-text-nav);
 	outline: none;
 }
-a.btn {
-	min-height: 25px;
-	line-height: 1.5;
-	text-decoration: none;
-}
-a.btn .icon {
-	filter: brightness(3);
-}
 a#btn-subscription {
 	width: 76%;
 }
@@ -165,8 +157,8 @@ th {
 	background-color: var(--color-background-light);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -214,15 +206,14 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
-	display: inline-block;
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
-	min-height: 35px;
+	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
+	line-height: 1.5;
+	text-decoration: none;
 }
 .btn.active, .btn:active, .btn:hover {
 	background-color: var(--color-background-nav-darker);
@@ -999,10 +990,12 @@ a.signin {
 	.nav_menu .btn {
 		margin: 0;
 	}
-	.nav_menu .stick {
+	.nav_menu .stick,
+.nav_menu .group {
 		margin: 0;
 	}
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+.nav_menu .group .btn {
 		margin: 0;
 	}
 	.nav_menu .item.search {
@@ -1188,5 +1181,3 @@ button.as-link {
 #slider label {
 	min-height: initial;
 }
-
-/*# sourceMappingURL=swage.css.map */

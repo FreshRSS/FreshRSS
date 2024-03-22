@@ -18,7 +18,7 @@ return array(
 		'credits' => 'Tanıtım',
 		'credits_content' => 'Bu frameworkü kullanmamasına rağmen FreshRSS bazı tasarım ögelerini <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> dan almıştır. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">İkonlar</a> <a href="https://www.gnome.org/">GNOME projesinden</a> alınmıştır. <em>Open Sans</em> yazı tipi <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> tarafından oluşturulmuştur. FreshRSS bir PHP framework olan <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a> i temel alır.',
 		'documentation' => 'Documentation',	// TODO
-		'freshrss_description' => 'FreshRSS <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> veya <a href="https://github.com/LeedRSS/Leed">Leed</a> gibi kendi hostunuzda çalışan bir RSS akış toplayıcısıdır. Güçlü ve yapılandırılabilir araçlarıyla basit ve kullanımı kolay bir uygulamadır.',
+		'freshrss_description' => 'FreshRSS kendi hostunuzda çalışan bir RSS akış toplayıcısıdır. Güçlü ve yapılandırılabilir araçlarıyla basit ve kullanımı kolay bir uygulamadır.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Github sayfası</a>',
 		'license' => 'Lisans',
 		'project_website' => 'Proje sayfası',
@@ -26,7 +26,6 @@ return array(
 		'version' => 'Sürüm',
 	),
 	'feed' => array(
-		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
 		'rss_of' => '%s kaynağına ait RSS akışı',
 		'title' => 'Ana akış',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => 'Şuana ait yer imi sorgusu',
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Evrensel görünüm',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Ana akış',
 		'mark_all_read' => 'Hepsini okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',

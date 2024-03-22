@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_FilterAction {
 
-	/** @var FreshRSS_BooleanSearch */
-	private $booleanSearch = null;
+	private FreshRSS_BooleanSearch $booleanSearch;
 	/** @var array<string>|null */
-	private $actions = null;
+	private ?array $actions = null;
 
 	/** @param array<string> $actions */
 	private function __construct(FreshRSS_BooleanSearch $booleanSearch, array $actions) {
@@ -34,17 +34,17 @@ class FreshRSS_FilterAction {
 	/** @return array{'search'?:string,'actions'?:array<string>} */
 	public function toJSON(): array {
 		if (is_array($this->actions) && $this->booleanSearch != null) {
-			return array(
-					'search' => $this->booleanSearch->getRawInput(),
-					'actions' => $this->actions,
-				);
+			return [
+				'search' => $this->booleanSearch->getRawInput(),
+				'actions' => $this->actions,
+			];
 		}
 		return [];
 	}
 
 	/** @param array|mixed|null $json */
 	public static function fromJSON($json): ?FreshRSS_FilterAction {
-		if (!empty($json['search']) && !empty($json['actions']) && is_array($json['actions'])) {
+		if (is_array($json) && !empty($json['search']) && !empty($json['actions']) && is_array($json['actions'])) {
 			return new FreshRSS_FilterAction(new FreshRSS_BooleanSearch($json['search']), $json['actions']);
 		}
 		return null;

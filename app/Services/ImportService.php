@@ -1,17 +1,17 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Provide methods to import files.
  */
 class FreshRSS_Import_Service {
-	/** @var FreshRSS_CategoryDAO */
-	private $catDAO;
 
-	/** @var FreshRSS_FeedDAO */
-	private $feedDAO;
+	private FreshRSS_CategoryDAO $catDAO;
 
-	/** @var bool true if success, false otherwise */
-	private $lastStatus;
+	private FreshRSS_FeedDAO $feedDAO;
+
+	/** true if success, false otherwise */
+	private bool $lastStatus;
 
 	/**
 	 * Initialize the service for the given user.
@@ -34,9 +34,11 @@ class FreshRSS_Import_Service {
 	 * @param bool $dry_run true to not create categories and feeds in database.
 	 */
 	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false): void {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 		$this->lastStatus = true;
-		$opml_array = array();
+		$opml_array = [];
 		try {
 			$libopml = new \marienfressinaud\LibOpml\LibOpml(false);
 			$opml_array = $libopml->parseString($opml_file);
@@ -48,7 +50,7 @@ class FreshRSS_Import_Service {
 
 		$this->catDAO->checkDefault();
 		$default_category = $this->catDAO->getDefault();
-		if (!$default_category) {
+		if ($default_category === null) {
 			self::log('Cannot get the default category');
 			$this->lastStatus = false;
 			return;
@@ -66,14 +68,11 @@ class FreshRSS_Import_Service {
 		// verify the user can import its categories/feeds.
 		$nb_categories = count($categories);
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.
-		list (
-			$categories_elements,
-			$categories_to_feeds,
-		) = $this->loadFromOutlines($opml_array['body'], '');
+		[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($opml_array['body'], '');
 
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
 			$category_element = $categories_elements[$category_name] ?? null;
@@ -150,7 +149,6 @@ class FreshRSS_Import_Service {
 		try {
 			// Create a Feed object and add it in DB
 			$feed = new FreshRSS_Feed($url);
-			$feed->_categoryId($category->id());
 			$category->addFeed($feed);
 			$feed->_name($name);
 			$feed->_website($website);
@@ -163,7 +161,12 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_RSS_ATOM):
+				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
+					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTPATH);
+					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
+					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
+					break;
 				default:
 					$feed->_kind(FreshRSS_Feed::KIND_RSS);
 					break;
@@ -174,13 +177,13 @@ class FreshRSS_Import_Service {
 			}
 
 			if (isset($feed_elt['frss:cssFullContentFilter'])) {
-				$feed->_attributes('path_entries_filter', $feed_elt['frss:cssFullContentFilter']);
+				$feed->_attribute('path_entries_filter', $feed_elt['frss:cssFullContentFilter']);
 			}
 
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/[\n\r]+/', $feed_elt['frss:filtersActionRead']) ?: []
+					preg_split('/\R/', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 
@@ -215,9 +218,78 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:xPathItemUid'])) {
 				$xPathSettings['itemUid'] = $feed_elt['frss:xPathItemUid'];
 			}
-
 			if (!empty($xPathSettings)) {
-				$feed->_attributes('xpath', $xPathSettings);
+				$feed->_attribute('xpath', $xPathSettings);
+			}
+
+			$jsonSettings = [];
+			if (isset($feed_elt['frss:jsonItem'])) {
+				$jsonSettings['item'] = $feed_elt['frss:jsonItem'];
+			}
+			if (isset($feed_elt['frss:jsonItemTitle'])) {
+				$jsonSettings['itemTitle'] = $feed_elt['frss:jsonItemTitle'];
+			}
+			if (isset($feed_elt['frss:jsonItemContent'])) {
+				$jsonSettings['itemContent'] = $feed_elt['frss:jsonItemContent'];
+			}
+			if (isset($feed_elt['frss:jsonItemUri'])) {
+				$jsonSettings['itemUri'] = $feed_elt['frss:jsonItemUri'];
+			}
+			if (isset($feed_elt['frss:jsonItemAuthor'])) {
+				$jsonSettings['itemAuthor'] = $feed_elt['frss:jsonItemAuthor'];
+			}
+			if (isset($feed_elt['frss:jsonItemTimestamp'])) {
+				$jsonSettings['itemTimestamp'] = $feed_elt['frss:jsonItemTimestamp'];
+			}
+			if (isset($feed_elt['frss:jsonItemTimeFormat'])) {
+				$jsonSettings['itemTimeFormat'] = $feed_elt['frss:jsonItemTimeFormat'];
+			}
+			if (isset($feed_elt['frss:jsonItemThumbnail'])) {
+				$jsonSettings['itemThumbnail'] = $feed_elt['frss:jsonItemThumbnail'];
+			}
+			if (isset($feed_elt['frss:jsonItemCategories'])) {
+				$jsonSettings['itemCategories'] = $feed_elt['frss:jsonItemCategories'];
+			}
+			if (isset($feed_elt['frss:jsonItemUid'])) {
+				$jsonSettings['itemUid'] = $feed_elt['frss:jsonItemUid'];
+			}
+			if (!empty($jsonSettings)) {
+				$feed->_attribute('json_dotpath', $jsonSettings);
+			}
+
+			$curl_params = [];
+			if (isset($feed_elt['frss:CURLOPT_COOKIE'])) {
+				$curl_params[CURLOPT_COOKIE] = $feed_elt['frss:CURLOPT_COOKIE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_COOKIEFILE'])) {
+				$curl_params[CURLOPT_COOKIEFILE] = $feed_elt['frss:CURLOPT_COOKIEFILE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_FOLLOWLOCATION'])) {
+				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_HTTPHEADER'])) {
+				$curl_params[CURLOPT_HTTPHEADER] = preg_split('/\R/', $feed_elt['frss:CURLOPT_HTTPHEADER']) ?: [];
+			}
+			if (isset($feed_elt['frss:CURLOPT_MAXREDIRS'])) {
+				$curl_params[CURLOPT_MAXREDIRS] = (int)$feed_elt['frss:CURLOPT_MAXREDIRS'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_POST'])) {
+				$curl_params[CURLOPT_POST] = (bool)$feed_elt['frss:CURLOPT_POST'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_POSTFIELDS'])) {
+				$curl_params[CURLOPT_POSTFIELDS] = $feed_elt['frss:CURLOPT_POSTFIELDS'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_PROXY'])) {
+				$curl_params[CURLOPT_PROXY] = $feed_elt['frss:CURLOPT_PROXY'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_PROXYTYPE'])) {
+				$curl_params[CURLOPT_PROXYTYPE] = $feed_elt['frss:CURLOPT_PROXYTYPE'];
+			}
+			if (isset($feed_elt['frss:CURLOPT_USERAGENT'])) {
+				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
+			}
+			if (!empty($curl_params)) {
+				$feed->_attribute('curl_params', $curl_params);
 			}
 
 			// Call the extension hook
@@ -264,7 +336,7 @@ class FreshRSS_Import_Service {
 			$opml_url = checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
-				$category->_attributes('opml_url', $opml_url);
+				$category->_attribute('opml_url', $opml_url);
 			}
 		}
 
@@ -302,10 +374,7 @@ class FreshRSS_Import_Service {
 		foreach ($outlines as $outline) {
 			// Get the categories and feeds from the child outline (it may
 			// return several categories and feeds if the outline is a category).
-			list (
-				$outline_categories,
-				$outline_categories_to_feeds,
-			) = $this->loadFromOutline($outline, $parent_category_name);
+			[$outline_categories, $outline_categories_to_feeds] = $this->loadFromOutline($outline, $parent_category_name);
 
 			// Then, we merge the initial arrays with the arrays returned by
 			// the outline.
@@ -358,7 +427,7 @@ class FreshRSS_Import_Service {
 		}
 
 		if (isset($outline['@outlines'])) {
-			// The outline has children, it's probably a category
+			// The outline has children, it’s probably a category
 			if (!empty($outline['text'])) {
 				$category_name = $outline['text'];
 			} elseif (!empty($outline['title'])) {
@@ -367,17 +436,13 @@ class FreshRSS_Import_Service {
 				$category_name = $parent_category_name;
 			}
 
-			list (
-				$categories_elements,
-				$categories_to_feeds,
-			) = $this->loadFromOutlines($outline['@outlines'], $category_name);
+			[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($outline['@outlines'], $category_name);
 
 			unset($outline['@outlines']);
 			$categories_elements[$category_name] = $outline;
 		}
 
-		// The xmlUrl means it's a feed URL: add the outline to the array if it
-		// exists.
+		// The xmlUrl means it’s a feed URL: add the outline to the array if it exists.
 		if (isset($outline['xmlUrl'])) {
 			if (!isset($categories_to_feeds[$parent_category_name])) {
 				$categories_to_feeds[$parent_category_name] = [];

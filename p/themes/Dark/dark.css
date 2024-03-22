@@ -110,7 +110,8 @@ img.favicon {
 
 body img,
 body video,
-p.help .icon {
+p.help .icon,
+.icon {
 	filter: brightness(.6) contrast(1.2);
 }
 
@@ -451,7 +452,7 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color1);
 }
 
-.flux_header .item.title a {
+.flux .flux_header .item.title a {
 	color: var(--dark-font-color8);
 }
 

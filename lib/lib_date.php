@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01
@@ -63,6 +65,7 @@ function _dateCeiling(string $isoDate): string {
 	return $x[0] . 'T' . $t;
 }
 
+/** @phpstan-return ($isoDate is null ? null : ($isoDate is '' ? null : string)) */
 function _noDelimit(?string $isoDate): ?string {
 	return $isoDate === null || $isoDate === '' ? null : str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
 }
@@ -70,7 +73,8 @@ function _noDelimit(?string $isoDate): ?string {
 function _dateRelative(?string $d1, ?string $d2): ?string {
 	if ($d2 === null) {
 		return $d1 !== null && $d1[0] !== 'P' ? $d1 : null;
-	} elseif ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
+	}
+	if ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
 		$y2 = substr($d2, 0, 4);
 		if (strlen($y2) < 4 || !ctype_digit($y2)) {	//Does not start by a year
 			$d2 = _noDelimit($d2);

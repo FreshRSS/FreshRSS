@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.18
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -26,7 +26,9 @@ RUN adduser --ingroup www-data --disabled-password developer && \
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV 'development'
 ENV LISTEN '0.0.0.0:8080'
+ENV TRUSTED_PROXY 0
 
 EXPOSE 8080

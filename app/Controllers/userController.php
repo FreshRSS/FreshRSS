@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle user actions.
@@ -8,7 +9,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
 	 */
-	const USERNAME_PATTERN = '([0-9a-zA-Z_][0-9a-zA-Z_.@-]{1,38}|[0-9a-zA-Z])';
+	public const USERNAME_PATTERN = '([0-9a-zA-Z_][0-9a-zA-Z_.@\-]{1,38}|[0-9a-zA-Z])';
 
 	public static function checkUsername(string $username): bool {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
@@ -28,8 +29,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($email !== null && $userConfig->mail_login !== $email) {
 			$userConfig->mail_login = $email;
 
-			if (FreshRSS_Context::$system_conf->force_email_validation) {
-				$salt = FreshRSS_Context::$system_conf->salt;
+			if (FreshRSS_Context::systemConf()->force_email_validation) {
+				$salt = FreshRSS_Context::systemConf()->salt;
 				$userConfig->email_validation_token = sha1($salt . uniqid('' . mt_rand(), true));
 				$mailer = new FreshRSS_User_Mailer();
 				$mailer->send_email_need_validation($user, $userConfig);
@@ -41,11 +42,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$userConfig->passwordHash = $passwordHash;
 		}
 
-		if (is_array($userConfigUpdated)) {
-			foreach ($userConfigUpdated as $configName => $configValue) {
-				if ($configValue !== null) {
-					$userConfig->_param($configName, $configValue);
-				}
+		foreach ($userConfigUpdated as $configName => $configValue) {
+			if ($configValue !== null) {
+				$userConfig->_param($configName, $configValue);
 			}
 		}
 
@@ -71,12 +70,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok) {
 				$isSelfUpdate = Minz_User::name() === $username;
 				if ($passwordPlain == '' || !$isSelfUpdate) {
-					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+					Minz_Request::good(_t('feedback.user.updated', $username), ['c' => 'user', 'a' => 'manage']);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.user.updated.error', $username), [ 'c' => 'user', 'a' => 'manage' ]);
+				Minz_Request::bad(_t('feedback.user.updated.error', $username), ['c' => 'user', 'a' => 'manage']);
 			}
 		}
 	}
@@ -89,7 +88,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$email_not_verified = FreshRSS_Context::$user_conf->email_validation_token != '';
+		$email_not_verified = FreshRSS_Context::userConf()->email_validation_token != '';
 		$this->view->disable_aside = false;
 		if ($email_not_verified) {
 			$this->view->_layout('simple');
@@ -100,27 +99,25 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
-		if (Minz_Request::isPost()) {
-			$system_conf = FreshRSS_Context::$system_conf;
-			$user_config = FreshRSS_Context::$user_conf;
-			$old_email = $user_config->mail_login;
+		if (Minz_Request::isPost() && Minz_User::name() != null) {
+			$old_email = FreshRSS_Context::userConf()->mail_login;
 
 			$email = Minz_Request::paramString('email');
 			$passwordPlain = Minz_Request::paramString('newPasswordPlain', true);
 			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
-			if ($system_conf->force_email_validation && empty($email)) {
+			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.required'),
-					array('c' => 'user', 'a' => 'profile')
+					['c' => 'user', 'a' => 'profile']
 				);
 			}
 
 			if (!empty($email) && !validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
-					array('c' => 'user', 'a' => 'profile')
+					['c' => 'user', 'a' => 'profile']
 				);
 			}
 
@@ -129,22 +126,22 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				$email,
 				$passwordPlain,
 				[
-					'token' => Minz_Request::paramString('token') ?: null,
+					'token' => Minz_Request::paramString('token'),
 				]
 			);
 
-			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
+			Minz_Session::_param('passwordHash', FreshRSS_Context::userConf()->passwordHash);
 
 			if ($ok) {
-				if ($system_conf->force_email_validation && $email !== $old_email) {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'validateEmail'));
+				if (FreshRSS_Context::systemConf()->force_email_validation && $email !== $old_email) {
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'validateEmail']);
 				} elseif ($passwordPlain == '') {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
 				}
 			} else {
-				Minz_Request::bad(_t('feedback.profile.error'), [ 'c' => 'user', 'a' => 'profile' ]);
+				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);
 			}
 		}
 	}
@@ -203,7 +200,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
+		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;
 		$this->view->current_user = Minz_Request::paramString('u');
 
 		foreach (listUsers() as $user) {
@@ -211,8 +208,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 	}
 
-	/** @param array<string,mixed> $userConfigOverride */
-	public static function createUser(string $new_user_name, string $email, string $passwordPlain,
+	/**
+	 * @param array<string,mixed> $userConfigOverride
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
+	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 
@@ -224,9 +225,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		if (is_array($userConfigOverride)) {
-			$userConfig = array_merge($userConfig, $userConfigOverride);
-		}
+		$userConfig = array_merge($userConfig, $userConfigOverride);
 
 		$ok = self::checkUsername($new_user_name);
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
@@ -234,11 +233,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
-			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
+			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages, true)) {
 				$userConfig['language'] = 'en';
 			}
 
-			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
+			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()), true);	//Not an existing user, case-insensitive
 
 			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);
@@ -282,7 +281,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
-	 * @todo handle r redirection in Minz_Request::forward directly?
 	 */
 	public function createAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
@@ -290,8 +288,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		if (Minz_Request::isPost()) {
-			$system_conf = FreshRSS_Context::$system_conf;
-
 			$new_user_name = Minz_Request::paramString('new_user_name');
 			$email = Minz_Request::paramString('new_user_email');
 			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', true);
@@ -324,7 +320,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$tos_enabled = file_exists(TOS_FILENAME);
 			$accept_tos = Minz_Request::paramBoolean('accept_tos');
 
-			if ($system_conf->force_email_validation && empty($email)) {
+			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.required'),
 					$badRedirectUrl
@@ -346,7 +342,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, [
-				'language' => Minz_Request::paramString('new_user_language') ?: FreshRSS_Context::$user_conf->language,
+				'language' => Minz_Request::paramString('new_user_language') ?: FreshRSS_Context::userConf()->language,
 				'timezone' => Minz_Request::paramString('new_user_timezone'),
 				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
 				'enabled' => true,
@@ -361,12 +357,16 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = get_user_configuration($new_user_name);
-				Minz_Session::_params([
-					Minz_User::CURRENT_USER => $new_user_name,
-					'passwordHash' => $user_conf->passwordHash,
-					'csrf' => false,
-				]);
-				FreshRSS_Auth::giveAccess();
+				if ($user_conf !== null) {
+					Minz_Session::_params([
+						Minz_User::CURRENT_USER => $new_user_name,
+						'passwordHash' => $user_conf->passwordHash,
+						'csrf' => false,
+					]);
+					FreshRSS_Auth::giveAccess();
+				} else {
+					$ok = false;
+				}
 			}
 
 			if ($ok) {
@@ -376,17 +376,14 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 		Minz_Request::forward($redirect_url, true);
 	}
 
 	public static function deleteUser(string $username): bool {
 		$ok = self::checkUsername($username);
 		if ($ok) {
-			$default_user = FreshRSS_Context::$system_conf->default_user;
+			$default_user = FreshRSS_Context::systemConf()->default_user;
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
 		}
 		$user_data = join_path(DATA_PATH, 'users', $username);
@@ -396,7 +393,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
 			$ok &= $oldUserDAO->deleteUser();
 			$ok &= recursive_unlink($user_data);
-			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
+			$filenames = glob(PSHB_PATH . '/feeds/*/' . $username . '.txt');
+			if (!empty($filenames)) {
+				array_map('unlink', $filenames);
+			}
 		}
 		return (bool)$ok;
 	}
@@ -419,7 +419,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * It returns 403 if user isn’t logged in and `username` param isn’t passed.
 	 */
 	public function validateEmailAction(): void {
-		if (!FreshRSS_Context::$system_conf->force_email_validation) {
+		if (!FreshRSS_Context::systemConf()->force_email_validation) {
 			Minz_Error::error(404);
 		}
 
@@ -432,7 +432,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($username !== '') {
 			$user_config = get_user_configuration($username);
 		} elseif (FreshRSS_Auth::hasAccess()) {
-			$user_config = FreshRSS_Context::$user_conf;
+			$user_config = FreshRSS_Context::userConf();
 		} else {
 			Minz_Error::error(403);
 			return;
@@ -446,7 +446,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($user_config->email_validation_token === '') {
 			Minz_Request::good(
 				_t('user.email.validation.feedback.unnecessary'),
-				array('c' => 'index', 'a' => 'index')
+				['c' => 'index', 'a' => 'index']
 			);
 		}
 
@@ -454,7 +454,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($user_config->email_validation_token !== $token) {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.wrong_token'),
-					array('c' => 'user', 'a' => 'validateEmail')
+					['c' => 'user', 'a' => 'validateEmail']
 				);
 			}
 
@@ -462,12 +462,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($user_config->save()) {
 				Minz_Request::good(
 					_t('user.email.validation.feedback.ok'),
-					array('c' => 'index', 'a' => 'index')
+					['c' => 'index', 'a' => 'index']
 				);
 			} else {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.error'),
-					array('c' => 'user', 'a' => 'validateEmail')
+					['c' => 'user', 'a' => 'validateEmail']
 				);
 			}
 		}
@@ -493,19 +493,18 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		$username = Minz_User::name();
-		$user_config = FreshRSS_Context::$user_conf;
 
-		if ($user_config->email_validation_token === '') {
-			Minz_Request::forward(array(
+		if (FreshRSS_Context::userConf()->email_validation_token === '') {
+			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-			), true);
+			], true);
 		}
 
 		$mailer = new FreshRSS_User_Mailer();
-		$ok = $mailer->send_email_need_validation($username, $user_config);
+		$ok = $username != null && $mailer->send_email_need_validation($username, FreshRSS_Context::userConf());
 
-		$redirect_url = array('c' => 'user', 'a' => 'validateEmail');
+		$redirect_url = ['c' => 'user', 'a' => 'validateEmail'];
 		if ($ok) {
 			Minz_Request::good(
 				_t('user.email.validation.feedback.email_sent'),
@@ -535,20 +534,17 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$redirect_url = urldecode(Minz_Request::paramString('r', true));
-		if ($redirect_url === '') {
-			$redirect_url = ['c' => 'user', 'a' => 'manage'];
-		}
+		$redirect_url = ['c' => 'user', 'a' => 'manage'];
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
 			if ($self_deletion) {
 				// We check the password if it’s a self-destruction
-				$nonce = Minz_Session::param('nonce', '');
+				$nonce = Minz_Session::paramString('nonce');
 				$challenge = Minz_Request::paramString('challenge');
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(
-					$username, FreshRSS_Context::$user_conf->passwordHash,
+					$username, FreshRSS_Context::userConf()->passwordHash,
 					$nonce, $challenge
 				);
 			}
@@ -557,7 +553,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
-				$redirect_url = array('c' => 'index', 'a' => 'index');
+				$redirect_url = ['c' => 'index', 'a' => 'index'];
 			}
 			invalidateHttpCache();
 
@@ -603,6 +599,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		if (null === $userConfig = get_user_configuration($username)) {
 			Minz_Error::error(500);
+			return;
 		}
 
 		$userConfig->_param($field, $value);
@@ -611,10 +608,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		FreshRSS_UserDAO::touch($username);
 
 		if ($ok) {
-			Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+			Minz_Request::good(_t('feedback.user.updated', $username), ['c' => 'user', 'a' => 'manage']);
 		} else {
-			Minz_Request::bad(_t('feedback.user.updated.error', $username),
-							  array('c' => 'user', 'a' => 'manage'));
+			Minz_Request::bad(
+				_t('feedback.user.updated.error', $username),
+				['c' => 'user', 'a' => 'manage']
+			);
 		}
 	}
 
@@ -628,19 +627,27 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
+
 		$this->view->username = $username;
 		$this->view->details = $this->retrieveUserDetails($username);
+		FreshRSS_View::prependTitle($username . ' · ' . _t('gen.menu.user_management') . ' · ');
 	}
 
-	/** @return array{'feed_count':int|false,'article_count':int|false,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
 	private function retrieveUserDetails(string $username): array {
 		$feedDAO = FreshRSS_Factory::createFeedDao($username);
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
 		$userConfiguration = get_user_configuration($username);
+		if ($userConfiguration === null) {
+			throw new Exception('Error loading user configuration!');
+		}
 
-		return array(
+		return [
 			'feed_count' => $feedDAO->count(),
 			'article_count' => $entryDAO->count(),
 			'database_size' => $databaseDAO->size(),
@@ -648,8 +655,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			'mail_login' => $userConfiguration->mail_login,
 			'enabled' => $userConfiguration->enabled,
 			'is_admin' => $userConfiguration->is_admin,
-			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)),
-			'is_default' => FreshRSS_Context::$system_conf->default_user === $username,
-		);
+			'last_user_activity' => date('c', FreshRSS_UserDAO::mtime($username)) ?: '',
+			'is_default' => FreshRSS_Context::systemConf()->default_user === $username,
+		];
 	}
 }

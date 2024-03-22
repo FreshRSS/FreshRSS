@@ -1,8 +1,8 @@
 <?php
-	/** @var FreshRSS_View $this */
+	declare(strict_types=1);
+	/** @var FreshRSS_ViewStats $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post ">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -37,7 +37,7 @@
 	<?php }?>
 
 	<div class="stat-grid">
-		<div class="stat">
+		<div class="stat table-wrapper scrollbar-thin">
 			<table>
 			<tr>
 				<th><?= _t('admin.stats.status_total') ?></th>
@@ -46,10 +46,10 @@
 				<th><?= _t('admin.stats.status_favorites') ?></th>
 			</tr>
 			<tr>
-				<td class="numeric"><?= $this->repartition['total'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_reads'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_unreads'] ?></td>
-				<td class="numeric"><?= $this->repartition['count_favorites'] ?></td>
+				<td class="numeric"><?= $this->repartition['total'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_reads'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_unreads'] ?? -1 ?></td>
+				<td class="numeric"><?= $this->repartition['count_favorites'] ?? -1 ?></td>
 			</tr>
 			</table>
 		</div>

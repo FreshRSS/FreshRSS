@@ -12,7 +12,7 @@ function load_panel(link) {
 	panel_loading = true;
 
 	const req = new XMLHttpRequest();
-	req.open('GET', link, true);
+	req.open('GET', link + '&ajax=1', true);
 	req.responseType = 'document';
 	req.onload = function (e) {
 		if (this.status != 200) {

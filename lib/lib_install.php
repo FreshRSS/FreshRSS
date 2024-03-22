@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
 FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
@@ -40,15 +41,11 @@ function checkRequirements(string $dbType = ''): array {
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
 	$mbstring = extension_loaded('mbstring');
-	// @phpstan-ignore-next-line
-	$data = DATA_PATH && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
-	// @phpstan-ignore-next-line
-	$cache = CACHE_PATH && touch(CACHE_PATH . '/index.html');
-	// @phpstan-ignore-next-line
-	$tmp = TMP_PATH && is_writable(TMP_PATH);
-	// @phpstan-ignore-next-line
-	$users = USERS_PATH && touch(USERS_PATH . '/index.html');
-	$favicons = touch(DATA_PATH . '/favicons/index.html');
+	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
+	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
+	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
+	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
+	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
@@ -79,14 +76,16 @@ function generateSalt(): string {
 	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
 }
 
+/**
+ * @throws FreshRSS_Context_Exception
+ */
 function initDb(): string {
-	$conf = FreshRSS_Context::$system_conf;
-	$db = $conf->db;
+	$db = FreshRSS_Context::systemConf()->db;
 	if (empty($db['pdo_options'])) {
 		$db['pdo_options'] = [];
 	}
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	$conf->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
+	FreshRSS_Context::systemConf()->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
 	if (empty($db['type'])) {
 		$db['type'] = 'sqlite';
@@ -98,7 +97,7 @@ function initDb(): string {
 		$dbBase = $db['base'] ?? '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
-		$conf->db = $db;
+		FreshRSS_Context::systemConf()->db = $db;
 		try {
 			//First connection without database name to create the database
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
@@ -107,7 +106,7 @@ function initDb(): string {
 		}
 		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
-		$conf->db = $db;
+		FreshRSS_Context::systemConf()->db = $db;
 		if ($databaseDAO != null) {
 			//Perform database auto-creation
 			$databaseDAO->create();

@@ -1,0 +1,73 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_subscription');
+	}
+	if ($this->tag === null) {
+		throw new FreshRSS_Context_Exception('Tag not initialised!');
+	}
+?>
+<div class="post">
+	<h2>
+		<?= $this->tag->name() ?>
+	</h2>
+
+	<div>
+		<a href="<?= _url('index', 'index', 'get', 't_' . $this->tag->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
+	</div>
+
+	<form method="post" action="<?= _url('tag', 'update', 'id', $this->tag->id(), '#', 'slider') ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<fieldset>
+			<legend><?= _t('sub.category.information') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="name"><?= _t('sub.tag.name') ?></label>
+				<div class="group-controls">
+					<input type="text" name="name" id="name" value="<?= $this->tag->name() ?>" />
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.feed.filteractions') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="filteractions_label"><?= _t('sub.tag.auto_label') ?></label>
+				<div class="group-controls">
+					<textarea name="filteractions_label" id="filteractions_label" class="w100"><?php
+						foreach ($this->tag->filtersAction('label') as $filterRead) {
+							echo $filterRead->getRawInput(), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+	</form>
+
+	<h2><?= _t('sub.title.delete_label') ?></h2>
+	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete', 'id_tag', $this->tag->id()) ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
+			</div>
+		</div>
+	</form>
+</div>

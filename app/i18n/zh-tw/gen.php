@@ -134,6 +134,7 @@ return array(
 			'request_failed' => '請求失敗，這可能是因為網絡連接問題。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '發現新文章，點擊刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
 	),
@@ -144,8 +145,10 @@ return array(
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
 		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
@@ -209,6 +212,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE

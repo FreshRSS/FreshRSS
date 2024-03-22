@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every entry actions.
@@ -7,9 +8,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
-	 * @var bool
 	 */
-	private $ajax = false;
+	private bool $ajax = false;
 
 	/**
 	 * This action is called before every other action in that class. It is
@@ -66,13 +66,13 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		if ($id == false) {
 			// id is false? It MUST be a POST request!
 			if (!Minz_Request::isPost()) {
-				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
+				Minz_Request::bad(_t('feedback.access.not_found'), ['c' => 'index', 'a' => 'index']);
 				return;
 			}
 
 			if (!$get) {
 				// No get? Mark all entries as read (from $id_max)
-				$entryDAO->markReadEntries($id_max, false, 0, null, 0, $is_read);
+				$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
 				$get = (int)substr($get, 2);
@@ -84,10 +84,16 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 's':
-					$entryDAO->markReadEntries($id_max, true, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadEntries($id_max, true, null, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 'a':
-					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
+				case 'i':
+					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_IMPORTANT, null,
+						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
 				case 't':
 					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
@@ -104,11 +110,11 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			$ids = is_array($id) ? $id : array($id);
+			$ids = is_array($id) ? $id : [$id];
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?: [];
-			$tags = array();
+			$tags = [];
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
 			}
@@ -116,12 +122,14 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good($is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
-			array(
-				'c' => 'index',
-				'a' => 'index',
-				'params' => $params,
-			));
+			Minz_Request::good(
+				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
+				[
+					'c' => 'index',
+					'a' => 'index',
+					'params' => $params,
+				]
+			);
 		}
 	}
 
@@ -142,10 +150,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'index',
 				'a' => 'index',
-			), true);
+			], true);
 		}
 	}
 
@@ -158,16 +166,18 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo call this action through web-cron when available
 	 */
 	public function optimizeAction(): void {
-		$url_redirect = array(
+		$url_redirect = [
 			'c' => 'configure',
 			'a' => 'archiving',
-		);
+		];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($url_redirect, true);
 		}
 
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->optimize();
@@ -186,7 +196,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
@@ -197,7 +209,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->beginTransaction();
 
 		foreach ($feeds as $feed) {
-			$nb_total += $feed->cleanOldEntries();
+			$nb_total += ($feed->cleanOldEntries() ?: 0);
 		}
 
 		$feedDAO->updateCachedValues();
@@ -207,9 +219,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
+		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
 			'c' => 'configure',
-			'a' => 'archiving'
-		));
+			'a' => 'archiving',
+		]);
 	}
 }

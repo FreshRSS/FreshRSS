@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -13,31 +15,30 @@ class Minz_Translate {
 	 * $path_list is the list of registered base path to search translations.
 	 * @var array<string>
 	 */
-	private static $path_list = array();
+	private static array $path_list = [];
 
 	/**
 	 * $lang_name is the name of the current language to use.
-	 * @var string
 	 */
-	private static $lang_name;
+	private static string $lang_name = '';
 
 	/**
 	 * $lang_files is a list of registered i18n files.
 	 * @var array<string,array<string>>
 	 */
-	private static $lang_files = array();
+	private static array $lang_files = [];
 
 	/**
 	 * $translates is a cache for i18n translation.
 	 * @var array<string,mixed>
 	 */
-	private static $translates = array();
+	private static array $translates = [];
 
 	/**
 	 * Init the translation object.
 	 * @param string $lang_name the lang to show.
 	 */
-	public static function init(?string $lang_name = null): void {
+	public static function init(string $lang_name = ''): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
@@ -76,9 +77,7 @@ class Minz_Translate {
 					$scan,
 					array('..', '.')
 				));
-				if (is_array($path_langs)) {
-					$list_langs = array_merge($list_langs, $path_langs);
-				}
+				$list_langs = array_merge($list_langs, $path_langs);
 			}
 		}
 
@@ -107,7 +106,7 @@ class Minz_Translate {
 			}
 		}
 
-		return $default ? $default : 'en';
+		return $default == null ? 'en' : $default;
 	}
 
 	/**
@@ -115,7 +114,7 @@ class Minz_Translate {
 	 * @param string $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath(string $path): void {
-		if (!in_array($path, self::$path_list) && is_dir($path)) {
+		if (!in_array($path, self::$path_list, true) && is_dir($path)) {
 			self::$path_list[] = $path;
 			self::loadLang($path);
 		}
@@ -127,9 +126,13 @@ class Minz_Translate {
 	 */
 	private static function loadLang(string $path): void {
 		$lang_path = $path . '/' . self::$lang_name;
-		if (!file_exists($lang_path) || self::$lang_name == '') {
-			// The lang path does not exist, nothing more to do.
-			return;
+		if (self::$lang_name === '' || !is_dir($lang_path)) {
+			// The lang path does not exist, fallback to English ('en')
+			$lang_path = $path . '/en';
+			if (!is_dir($lang_path)) {
+				// English ('en') i18n files not provided. Stop here. The keys will be shown.
+				return;
+			}
 		}
 
 		$list_i18n_files = array_values(array_diff(
@@ -183,7 +186,7 @@ class Minz_Translate {
 	/**
 	 * Translate a key into its corresponding value based on selected language.
 	 * @param string $key the key to translate.
-	 * @param mixed ...$args additional parameters for variable keys.
+	 * @param bool|float|int|string ...$args additional parameters for variable keys.
 	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
@@ -208,6 +211,9 @@ class Minz_Translate {
 
 		// Go through the i18n keys to get the correct translation value.
 		$translates = self::$translates[$top_level];
+		if (!is_array($translates)) {
+			$translates = [];
+		}
 		$size_group = count($group);
 		$level_processed = 0;
 		$translation_value = $key;
@@ -250,7 +256,7 @@ class Minz_Translate {
 /**
  * Alias for Minz_Translate::t()
  * @param string $key
- * @param mixed ...$args
+ * @param bool|float|int|string ...$args
  */
 function _t(string $key, ...$args): string {
 	return Minz_Translate::t($key, ...$args);

@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP（面向啟用 HTTPS 的高級用戶)',
 		'none' => '無認證（危險）',
 		'title' => '認證',
-		'token' => '認證口令',
-		'token_help' => '用於不經認證訪問預設使用者的 RSS 輸出：',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => '認證方式',
 		'unsafe_autologin' => '允許不安全的自動登入方式：',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器地址',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',
@@ -183,20 +187,33 @@ return array(
 			),
 			'title' => '使用者註冊表單',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => '更新系統',
 		'apply' => '應用',
+		'changelog' => 'Changelog',	// TODO
 		'check' => '檢查更新',
-		'current_version' => '當前 FreshRSS 版本為 %s。',
-		'last' => '上次檢查：%s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => '當前 版本為',
+		'last' => '上次檢查',
+		'loading' => 'Updating…',	// TODO
 		'none' => '沒有可用更新',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => '系統更新',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => '管理員',

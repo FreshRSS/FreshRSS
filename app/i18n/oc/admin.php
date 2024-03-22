@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
-		'token' => 'Geton d’autentificacion',
-		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Mòde d’autentification',
 		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
@@ -183,20 +187,33 @@ return array(
 			),
 			'title' => 'Formulari d’inscripcion utilizaire',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
 		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Sistèma de mesa a jorn',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Verificar las mesas a jorn',
-		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
-		'last' => 'Darrièra verificacion : %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Vòstra version actuala',
+		'last' => 'Darrièra verificacion',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Cap d’actualizacion d’aplicar',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Sistèma de mesa a jorn',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

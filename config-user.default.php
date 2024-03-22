@@ -36,10 +36,10 @@ return array (
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
-	'show_tags' => '0',
-	'show_tags_max' => '7',
-	'show_author_date' => 'h',
-	'show_feed_name' => 'a',
+	'show_tags' => 'f',	// {0 => none, b => both, f => footer, h => header}
+	'show_tags_max' => 7,
+	'show_author_date' => 'h',	// {0 => none, b => both, f => footer, h => header}
+	'show_feed_name' => 'a',	// {0 => none, a => with authors, t => above title}
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
@@ -61,8 +61,10 @@ return array (
 		'reception' => false,
 		'same_title_in_feed' => false,
 		'scroll' => false,
+		'focus' => false,
 		'site' => true,
 	),
+	'filters' => [],
 	'theme' => 'Origine',
 	'darkMode' => 'no',
 	'content_width' => 'thin',
@@ -88,7 +90,6 @@ return array (
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',
-		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
 
@@ -110,6 +111,7 @@ return array (
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,
 	'bottomline_tags' => true,
+	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
 	'sharing' => array (
@@ -118,5 +120,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
-	'extensions_enabled' => array(),
+	# List of enabled FreshRSS extensions.
+	'extensions_enabled' => [],
+	# Extensions configurations
+	'extensions' => [],
 );

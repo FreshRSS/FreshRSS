@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This controller manage API-related features.
@@ -12,18 +13,20 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 */
 	public static function updatePassword(string $apiPasswordPlain) {
 		$username = Minz_User::name();
-		$userConfig = FreshRSS_Context::$user_conf;
+		if ($username == null) {
+			return _t('feedback.api.password.failed');
+		}
 
 		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
-		$userConfig->apiPasswordHash = $apiPasswordHash;
+		FreshRSS_Context::userConf()->apiPasswordHash = $apiPasswordHash;
 
 		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
 		if (!$feverKey) {
 			return _t('feedback.api.password.failed');
 		}
 
-		$userConfig->feverKey = $feverKey;
-		if ($userConfig->save()) {
+		FreshRSS_Context::userConf()->feverKey = $feverKey;
+		if (FreshRSS_Context::userConf()->save()) {
 			return false;
 		} else {
 			return _t('feedback.api.password.failed');

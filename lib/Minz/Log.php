@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -56,7 +58,6 @@ class Minz_Log {
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
 
-			// @phpstan-ignore-next-line
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));
 			}
@@ -73,48 +74,48 @@ class Minz_Log {
 	 * Make sure we do not waste a huge amount of disk space with old log messages.
 	 *
 	 * This method can be called multiple times for one script execution, but its result will not change unless
-	 * you call clearstatcache() in between. We won't due do that for performance reasons.
+	 * you call clearstatcache() in between. We won’t do do that for performance reasons.
 	 *
 	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize(string $file_name): void {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
-		// @phpstan-ignore-next-line
 		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
 			$fp = fopen($file_name, 'c+');
-			if ($fp && flock($fp, LOCK_EX)) {
-				fseek($fp, -intval($maxSize / 2), SEEK_END);
+			if (is_resource($fp) && flock($fp, LOCK_EX)) {
+				fseek($fp, -(int)($maxSize / 2), SEEK_END);
 				$content = fread($fp, $maxSize);
 				rewind($fp);
 				ftruncate($fp, 0);
-				fwrite($fp, $content ? $content : '');
+				fwrite($fp, $content ?: '');
 				fwrite($fp, sprintf("[%s] [notice] --- Log rotate.\n", date('r')));
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
-			// @phpstan-ignore-next-line
-			if ($fp) {
-				fclose($fp);
-			}
+			fclose($fp);
 		}
 	}
 
 	/**
 	 * Some helpers to Minz_Log::record() method
 	 * Parameters are the same of those of the record() method.
+	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function debug(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_DEBUG, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function notice(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_NOTICE, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function warning(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_WARNING, $file_name);
 	}
+	/** @throws Minz_PermissionDeniedException */
 	public static function error(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_ERR, $file_name);
 	}
