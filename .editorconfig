@@ -25,10 +25,14 @@ indent_style = tab
 [*.svg]
 indent_style = tab
 
+[*.tpl]
+indent_size = 2
+indent_style = space
+
 [*.xml]
 indent_style = tab
 
-[*.yml]
+[*.{yaml,yml}]
 indent_size = 2
 indent_style = space
 
