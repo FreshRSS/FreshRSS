@@ -116,7 +116,29 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title(): string {
-		return $this->title == '' ? $this->guid() : $this->title;
+		if ($this->title == '') {
+			$title = $this->guid();
+		} else {
+			if ($this->title != '' && $this->title != $this->guid) {
+				$title = $this->title;
+			} else {
+				if (FreshRSS_Context::userConf()->empty_article_title === 'GUID') {
+					$title = $this->guid() ?? 'No GUID';
+				} else {
+					// first Words
+					$content = trim(strip_tags($this->content(false)));
+					$title = trim(mb_substr($content, 0, 75, 'UTF-8'));
+					if (strlen($content) > strlen($title)) {
+						$title .= '…';
+					}
+
+					if ($title === '') {
+						$title = 'no text';
+					}
+				}
+			}
+		}
+		return $title;
 	}
 	/** @deprecated */
 	public function author(): string {

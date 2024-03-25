@@ -36,6 +36,7 @@ return array (
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
+	'empty_article_title' => 'GUID', // { GUID, firstWords }
 	'show_tags' => 'f',	// {0 => none, b => both, f => footer, h => header}
 	'show_tags_max' => 7,
 	'show_author_date' => 'h',	// {0 => none, b => both, f => footer, h => header}

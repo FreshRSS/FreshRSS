@@ -115,6 +115,15 @@
 		<fieldset>
 			<legend><?= _t('conf.reading.headline.articles_header_footer') ?></legend>
 			<div class="form-group">
+				<label class="group-name" for="empty_article_title"><?= _t('conf.reading.article.empty_article_title.label') ?></label>
+				<div class="group-controls">
+					<select name="empty_article_title" id="empty_article_title" data-leave-validation="<?= FreshRSS_Context::userConf()->empty_article_title ?>">
+						<option value="GUID"<?= FreshRSS_Context::userConf()->empty_article_title === 'GUID' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.empty_article_title.guid') ?></option>
+						<option value="firstWords"<?= FreshRSS_Context::userConf()->empty_article_title === 'firstWords' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.empty_article_title.firstWords') ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="group-name" for="show_feed_name"><?= _t('conf.reading.article.feed_title') ?></label>
 				<div class="group-controls">
 					<select name="show_feed_name" id="show_feed_name" data-leave-validation="<?= FreshRSS_Context::userConf()->show_feed_name ?>">

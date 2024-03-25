@@ -118,6 +118,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
 			FreshRSS_Context::userConf()->display_posts = Minz_Request::paramBoolean('display_posts');
 			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramString('display_categories') ?: 'active';
+			FreshRSS_Context::userConf()->empty_article_title = Minz_Request::paramString('empty_article_title') ?: 'GUID';
 			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramString('show_tags') ?: '0';
 			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
 			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramString('show_author_date') ?: '0';
