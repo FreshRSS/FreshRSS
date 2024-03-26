@@ -117,8 +117,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function title(): string {
 		if ($this->title == '') {
+			// used while fetching the article from feed and store it in the database
 			$title = $this->guid();
 		} else {
+			// used while fetching from the database
 			if ($this->title != '' && $this->title != $this->guid) {
 				$title = $this->title;
 			} else {
