@@ -992,7 +992,7 @@ final class GReaderAPI {
 		}
 		$pathInfo = urldecode($pathInfo);
 		$pathInfo = '' . preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
-		if ($pathInfo == '') {
+		if ($pathInfo == '' && empty($_SERVER['QUERY_STRING'])) {
 			exit('OK');
 		}
 		$pathInfos = explode('/', $pathInfo);
