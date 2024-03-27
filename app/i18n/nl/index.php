@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Ouder dan een dag',
 		'before_one_week' => 'Ouder dan een week',
 		'bookmark_query' => 'Huidige query opslaan',
-		'favorites' => 'Favorieten (%s)',
+		'favorites' => 'Favorieten',
 		'global_view' => 'Globale weergave',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Overzicht',

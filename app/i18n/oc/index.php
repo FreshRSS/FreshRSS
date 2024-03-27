@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => '1 jorn en arrièr',
 		'before_one_week' => '1 setmana en arrièr',
 		'bookmark_query' => 'Marcar aquesta requèsta',
-		'favorites' => 'Favorits (%s)',
+		'favorites' => 'Favorits',
 		'global_view' => 'Vista generala',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Flux màger',

@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'אתמול',
 		'before_one_week' => 'לפני שבוע',
 		'bookmark_query' => 'Bookmark current query',	// TODO
-		'favorites' => 'מועדפים (%s)',
+		'favorites' => 'מועדפים',
 		'global_view' => 'תצוגה גלובלית',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'הזנה ראשית',

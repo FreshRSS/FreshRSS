@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Старше одного дня',
 		'before_one_week' => 'Старше одной недели',
 		'bookmark_query' => 'Сохранить текущий запрос',
-		'favorites' => 'Избранное (%s)',
+		'favorites' => 'Избранное',
 		'global_view' => 'Глобальный вид',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Основной поток',

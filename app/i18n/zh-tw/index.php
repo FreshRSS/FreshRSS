@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => '一天前',
 		'before_one_week' => '一週前',
 		'bookmark_query' => '收藏當前查詢',
-		'favorites' => '收藏（%s）',
+		'favorites' => '收藏',
 		'global_view' => '全局視圖',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => '首頁',

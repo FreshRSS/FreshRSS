@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Older than one day',	// IGNORE
 		'before_one_week' => 'Older than one week',	// IGNORE
 		'bookmark_query' => 'Bookmark current query',	// IGNORE
-		'favorites' => 'Favorites (%s)',
+		'favorites' => 'Favorites',
 		'global_view' => 'Global view',	// IGNORE
 		'important' => 'Important feeds',	// IGNORE
 		'main_stream' => 'Main stream',	// IGNORE

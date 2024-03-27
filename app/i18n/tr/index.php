@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Bir gün önce',
 		'before_one_week' => 'Bir hafta önce',
 		'bookmark_query' => 'Şuana ait yer imi sorgusu',
-		'favorites' => 'Favoriler (%s)',
+		'favorites' => 'Favoriler',
 		'global_view' => 'Evrensel görünüm',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Ana akış',

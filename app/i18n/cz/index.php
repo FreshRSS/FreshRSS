@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Starší než jeden den',
 		'before_one_week' => 'Starší než jeden týden',
 		'bookmark_query' => 'Uložit aktuální dotaz do záložek',
-		'favorites' => 'Oblíbené (%s)',
+		'favorites' => 'Oblíbené',
 		'global_view' => 'Zobrazení přehledu',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Hlavní kanál',

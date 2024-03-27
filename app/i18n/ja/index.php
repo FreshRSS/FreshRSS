@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => '一日以上前',
 		'before_one_week' => '一週間以上前',
 		'bookmark_query' => '現在のブックマーククエリ',
-		'favorites' => 'お気に入り (%s)',
+		'favorites' => 'お気に入り',
 		'global_view' => 'グローバルビュー',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'メイン',
