@@ -116,6 +116,8 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title(): string {
+		$title = '';
+
 		if ($this->title == '') {
 			// used while fetching the article from feed and store it in the database
 			$title = $this->guid();
@@ -124,19 +126,25 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($this->title != '' && $this->title != $this->guid) {
 				$title = $this->title;
 			} else {
-				if (FreshRSS_Context::userConf()->empty_article_title === 'GUID') {
-					$title = $this->guid() ?? 'No GUID';
-				} else {
-					// first Words
-					$content = trim(strip_tags($this->content(false)));
-					$title = trim(mb_substr($content, 0, 75, 'UTF-8'));
-					if (strlen($content) > strlen($title)) {
-						$title .= '…';
-					}
+				switch (FreshRSS_Context::userConf()->empty_article_title) {
+					case 'firstWords':
+						$content = trim(strip_tags($this->content(false)));
+						$title = trim(mb_substr($content, 0, 75, 'UTF-8'));
+						
+						if (strlen($content) > strlen($title)) {
+							$title .= '…';
+						}
 
-					if ($title === '') {
-						$title = 'no text';
-					}
+						if ($title === '') {
+							$title = _t('conf.reading.article.empty_article_title.noText');
+						}
+						break;
+					case 'noTitle':
+						$title = _t('conf.reading.article.empty_article_title.noTitle');
+						break;
+					case 'GUID':
+					default:
+						$title = $this->guid() ?? _t('conf.reading.article.empty_article_title.noGUID');
 				}
 			}
 		}
