@@ -177,14 +177,6 @@ return array(
 				'header' => '僅頁眉顯示',
 				'none' => '不顯示',
 			),
-			'empty_article_title' => array(
-				'firstWords' => 'first words',	// TODO
-				'guid' => 'GUID',	// TODO
-				'label' => 'If feed title is empty, show',	// TODO
-				'noGUID' => '(no GUID)',	// TODO
-				'noText' => '(no text)',	// TODO
-				'noTitle' => '(no title)',	// TODO
-			),
 			'feed_name' => array(
 				'above_title' => '在文章標題和標簽上方',
 				'none' => '不顯示',

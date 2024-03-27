@@ -177,14 +177,6 @@ return array(
 				'header' => 'Fejlécben',
 				'none' => 'Sehol',
 			),
-			'empty_article_title' => array(
-				'firstWords' => 'first words',	// TODO
-				'guid' => 'GUID',	// TODO
-				'label' => 'If feed title is empty, show',	// TODO
-				'noGUID' => '(no GUID)',	// TODO
-				'noText' => '(no text)',	// TODO
-				'noTitle' => '(no title)',	// TODO
-			),
 			'feed_name' => array(
 				'above_title' => 'Cím/Tag felett',
 				'none' => 'Sehol',
