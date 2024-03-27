@@ -180,7 +180,7 @@ return array(
 			'empty_article_title' => array(
 				'firstWords' => 'first words',	// IGNORE
 				'guid' => 'GUID',	// IGNORE
-				'label' => 'if feed title is empty, show…',	// IGNORE
+				'label' => 'If feed title is empty, show',	// TODO
 				'noGUID' => '(no GUID)',	// IGNORE
 				'noText' => '(no text)',	// IGNORE
 				'noTitle' => '(no title)',	// IGNORE
