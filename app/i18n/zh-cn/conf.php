@@ -177,6 +177,14 @@ return array(
 				'header' => '页眉',
 				'none' => '不显示',
 			),
+			'empty_article_title' => array(
+				'firstWords' => 'first words',	// TODO
+				'guid' => 'GUID',	// TODO
+				'label' => 'if feed title is empty, show…',	// TODO
+				'noGUID' => '(no GUID)',	// TODO
+				'noText' => '(no text)',	// TODO
+				'noTitle' => '(no title)',	// TODO
+			),
 			'feed_name' => array(
 				'above_title' => '在标题/标签上方',
 				'none' => '不显示',

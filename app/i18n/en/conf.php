@@ -177,6 +177,14 @@ return array(
 				'header' => 'In header',
 				'none' => 'None',
 			),
+			'empty_article_title' => array(
+				'firstWords' => 'first words',	// TODO
+				'guid' => 'GUID',	// TODO
+				'label' => 'if feed title is empty, show…',	// TODO
+				'noGUID' => '(no GUID)',	// TODO
+				'noText' => '(no text)',	// TODO
+				'noTitle' => '(no title)',	// TODO
+			),
 			'feed_name' => array(
 				'above_title' => 'Above title/tags',
 				'none' => 'None',
