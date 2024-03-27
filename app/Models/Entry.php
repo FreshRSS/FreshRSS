@@ -133,7 +133,7 @@ class FreshRSS_Entry extends Minz_Model {
 					$title .= '…';
 				}
 
-				if ($title === '') {	
+				if ($title === '') {
 					$title = $this->guid() ?? _t('conf.reading.article.empty_article_title.noGUID');
 				}
 			}
