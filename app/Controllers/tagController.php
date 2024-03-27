@@ -195,6 +195,8 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function indexAction(): void {
+		FreshRSS_View::prependTitle(_t('sub.menu.label_management') . ' · ');
+
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
