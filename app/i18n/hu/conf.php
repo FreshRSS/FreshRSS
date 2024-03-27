@@ -254,7 +254,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Megosztás',
 		'add' => 'Megosztási mód hozzáadása',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ez a szolgáltatás elavult, és el lesz távolítva a FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dokumentáció további információkért" target="_blank">következő kiadásában.</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

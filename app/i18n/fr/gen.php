@@ -198,7 +198,6 @@ return array(
 		'Known' => 'Sites basés sur Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Presse-papier',
 		'diaspora' => 'Diaspora*',	// IGNORE

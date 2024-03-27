@@ -254,7 +254,6 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'このサービスは非推奨でFreshRSSから削除される予定です<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',

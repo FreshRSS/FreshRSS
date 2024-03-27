@@ -254,7 +254,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ta usługa jest przestarzała i zostanie usunięta w <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dodatkowe informacje znajdują się w dokumentacji" target="_blank">przyszłych wydaniach</a> FreshRSS.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',

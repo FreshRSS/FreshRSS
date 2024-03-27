@@ -198,7 +198,6 @@ return array(
 		'Known' => '基於 Known 的站點',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪貼板',
 		'diaspora' => 'Diaspora*',	// IGNORE

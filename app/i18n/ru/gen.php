@@ -198,7 +198,6 @@ return array(
 		'Known' => 'Сайты на Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
