@@ -40,6 +40,9 @@ defined('COPY_SYSLOG_TO_STDERR') or define('COPY_SYSLOG_TO_STDERR', filter_var(g
 // Maximum log file size in Bytes, before it will be divided by two
 defined('MAX_LOG_SIZE') or define('MAX_LOG_SIZE', 1048576);
 
+// amount of characters of text shown if feed has no title (option: firstWords)
+defined('MAX_CHARS_EMPTY_FEED_TITLE') or define('MAX_CHARS_EMPTY_FEED_TITLE', 75);
+
 //This directory must be writable
 $dataPath = getenv('DATA_PATH');
 if (is_string($dataPath) && $dataPath !== '') {

@@ -129,7 +129,7 @@ class FreshRSS_Entry extends Minz_Model {
 				switch (FreshRSS_Context::userConf()->empty_article_title) {
 					case 'firstWords':
 						$content = trim(strip_tags($this->content(false)));
-						$title = trim(mb_substr($content, 0, 75, 'UTF-8'));
+						$title = trim(mb_substr($content, 0, MAX_CHARS_EMPTY_FEED_TITLE, 'UTF-8'));
 						
 						if (strlen($content) > strlen($title)) {
 							$title .= '…';
