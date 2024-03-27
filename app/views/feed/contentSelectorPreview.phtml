@@ -6,14 +6,14 @@
 	$dir = '';
 	if (_t('gen.dir') === 'rtl') {
 		$dir = ' dir="rtl"';
-		$class = 'rtl ';
+		$class = ' rtl ';
 	}
 	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
-		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+		$class .= ' darkMode_' . FreshRSS_Context::userConf()->darkMode;
 	}
 ?>
 <!DOCTYPE html>
-<html class="preview_background" lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= $class ?>">
+<html class="preview_background<?= $class ?>" lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>">
 	<head>
 		<?= FreshRSS_View::headStyle() ?>
 		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
