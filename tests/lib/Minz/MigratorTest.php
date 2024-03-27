@@ -7,9 +7,7 @@ class MigratorTest extends TestCase
 	public function testAddMigration(): void {
 		$migrator = new Minz_Migrator();
 
-		$migrator->addMigration('foo', function () {
-			return true;
-		});
+		$migrator->addMigration('foo', fn() => true);
 
 		$migrations = $migrator->migrations();
 		self::assertArrayHasKey('foo', $migrations);
@@ -19,15 +17,9 @@ class MigratorTest extends TestCase
 
 	public function testMigrationsIsSorted(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('2_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('10_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('1_foo', function () {
-			return true;
-		});
+		$migrator->addMigration('2_foo', fn() => true);
+		$migrator->addMigration('10_foo', fn() => true);
+		$migrator->addMigration('1_foo', fn() => true);
 		$expected_versions = ['1_foo', '2_foo', '10_foo'];
 
 		$migrations = $migrator->migrations();
@@ -37,9 +29,7 @@ class MigratorTest extends TestCase
 
 	public function testSetAppliedVersions(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('foo', function () {
-			return true;
-		});
+		$migrator->addMigration('foo', fn() => true);
 
 		$migrator->setAppliedVersions(['foo']);
 
@@ -48,9 +38,7 @@ class MigratorTest extends TestCase
 
 	public function testSetAppliedVersionsTrimArgument(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('foo', function () {
-			return true;
-		});
+		$migrator->addMigration('foo', fn() => true);
 
 		$migrator->setAppliedVersions(["foo\n"]);
 
@@ -68,12 +56,8 @@ class MigratorTest extends TestCase
 
 	public function testVersions(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('foo', function () {
-			return true;
-		});
-		$migrator->addMigration('bar', function () {
-			return true;
-		});
+		$migrator->addMigration('foo', fn() => true);
+		$migrator->addMigration('bar', fn() => true);
 
 		$versions = $migrator->versions();
 
@@ -135,15 +119,9 @@ class MigratorTest extends TestCase
 
 	public function testMigrateCallNonAppliedBetweenTwoApplied(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('1_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('2_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('3_foo', function () {
-			return true;
-		});
+		$migrator->addMigration('1_foo', fn() => true);
+		$migrator->addMigration('2_foo', fn() => true);
+		$migrator->addMigration('3_foo', fn() => true);
 		$migrator->setAppliedVersions(['1_foo', '3_foo']);
 
 		$result = $migrator->migrate();
@@ -156,12 +134,8 @@ class MigratorTest extends TestCase
 
 	public function testMigrateWithMigrationReturningFalseDoesNotApplyVersion(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('1_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('2_foo', function () {
-			return false;
-		});
+		$migrator->addMigration('1_foo', fn() => true);
+		$migrator->addMigration('2_foo', fn() => false);
 
 		$result = $migrator->migrate();
 
@@ -174,9 +148,7 @@ class MigratorTest extends TestCase
 
 	public function testMigrateWithMigrationReturningFalseDoesNotExecuteNextMigrations(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('1_foo', function () {
-			return false;
-		});
+		$migrator->addMigration('1_foo', fn() => false);
 		$spy = false;
 		$migrator->addMigration('2_foo', function () use (&$spy) {
 			$spy = true;
@@ -208,9 +180,7 @@ class MigratorTest extends TestCase
 
 	public function testUpToDate(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('foo', function () {
-			return true;
-		});
+		$migrator->addMigration('foo', fn() => true);
 		$migrator->setAppliedVersions(['foo']);
 
 		$upToDate = $migrator->upToDate();
@@ -220,12 +190,8 @@ class MigratorTest extends TestCase
 
 	public function testUpToDateIfRemainingMigration(): void {
 		$migrator = new Minz_Migrator();
-		$migrator->addMigration('1_foo', function () {
-			return true;
-		});
-		$migrator->addMigration('2_foo', function () {
-			return true;
-		});
+		$migrator->addMigration('1_foo', fn() => true);
+		$migrator->addMigration('2_foo', fn() => true);
 		$migrator->setAppliedVersions(['2_foo']);
 
 		$upToDate = $migrator->upToDate();

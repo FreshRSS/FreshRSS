@@ -32,9 +32,7 @@ trait FreshRSS_FilterActionsTrait {
 	private function _filterActions(?array $filterActions): void {
 		$this->filterActions = $filterActions;
 		if ($this->filterActions !== null && !empty($this->filterActions)) {
-			$this->_attribute('filters', array_map(static function (?FreshRSS_FilterAction $af) {
-					return $af == null ? null : $af->toJSON();
-				}, $this->filterActions));
+			$this->_attribute('filters', array_map(static fn(?FreshRSS_FilterAction $af) => $af == null ? null : $af->toJSON(), $this->filterActions));
 		} else {
 			$this->_attribute('filters', null);
 		}

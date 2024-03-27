@@ -234,9 +234,7 @@ class FreshRSS_Search {
 	 * @return array<string>
 	 */
 	private static function removeEmptyValues(?array $anArray): array {
-		return empty($anArray) ? [] : array_filter($anArray, static function(string $value) {
-			return $value !== '';
-		});
+		return empty($anArray) ? [] : array_filter($anArray, static fn(string $value) => $value !== '');
 	}
 
 	/**

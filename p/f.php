@@ -14,7 +14,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 	}
 }
 
-$id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
+$id = $_SERVER['QUERY_STRING'] ?? '0';
 if (!ctype_xdigit($id)) {
 	$id = '0';
 }

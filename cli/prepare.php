@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$dirs = array(
+$dirs = [
 	'/',
 	'/cache',
 	'/extensions-data',
@@ -15,7 +15,7 @@ $dirs = array(
 	'/tokens',
 	'/users',
 	'/users/_',
-);
+];
 
 $ok = true;
 
@@ -25,17 +25,17 @@ foreach ($dirs as $dir) {
 }
 
 file_put_contents(DATA_PATH . '/.htaccess',
-"# Apache 2.2\n" .
-"<IfModule !mod_authz_core.c>\n" .
-"	Order	Allow,Deny\n" .
-"	Deny	from all\n" .
-"	Satisfy	all\n" .
-"</IfModule>\n" .
-"\n" .
-"# Apache 2.4\n" .
-"<IfModule mod_authz_core.c>\n" .
-"	Require all denied\n" .
-"</IfModule>\n"
+	"# Apache 2.2\n" .
+	"<IfModule !mod_authz_core.c>\n" .
+	"	Order	Allow,Deny\n" .
+	"	Deny	from all\n" .
+	"	Satisfy	all\n" .
+	"</IfModule>\n" .
+	"\n" .
+	"# Apache 2.4\n" .
+	"<IfModule mod_authz_core.c>\n" .
+	"	Require all denied\n" .
+	"</IfModule>\n"
 );
 
 accessRights();
