@@ -118,12 +118,12 @@ class FreshRSS_Entry extends Minz_Model {
 	public function title(): string {
 		$title = '';
 
-		if ($this->title == '') {
+		if ($this->title === '') {
 			// used while fetching the article from feed and store it in the database
 			$title = $this->guid();
 		} else {
 			// used while fetching from the database
-			if ($this->title != '' && $this->title != $this->guid) {
+			if ($this->title != $this->guid) {
 				$title = $this->title;
 			} else {
 				$content = trim(strip_tags($this->content(false)));
@@ -134,7 +134,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 
 				if ($title === '') {
-					$title = $this->guid() ?? _t('conf.reading.article.empty_article_title.noGUID');
+					$title = $this->guid();
 				}
 			}
 		}
