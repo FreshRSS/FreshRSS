@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Actualizar flux',
 		'add' => 'Ajustar',
 		'back' => '← Tornar',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Mandar',
 		'truncate' => 'Suprimir totes los articles',
 		'update' => 'Actualizar',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Accepti las <a href="%s">condicions d’utilizacion</a>.',
 		'email' => 'Adreça de corrièl',
 		'keep_logged_in' => 'Demorar connectat <small>(%s jorns) </small>',
 		'login' => 'Connexion',
 		'logout' => 'Se desconnectar',
-		'password' => array(
+		'password' => [
 			'_' => 'Senhal',
 			'format' => '<small>Almens 7 caractèrs</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Compte nòu',
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Nom d’utilizaire',
 			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\a\\b\\r\\i\\a\\l',
 		'Aug' => '\\a\\g\\o\\s\\t',
 		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'dm',
 		'wed' => 'Dc',
 		'yesterday' => 'Ièr',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'A prepaus de FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Categoria voida',
 		'confirm_action' => 'Volètz vertadièrament contunhar ? Aquesta accion se pòt pas anullar !',
 		'confirm_action_feed_cat' => 'Volètz vertadièrament contunhar ? Perdretz los favorits e filtres ligats. Aquesta accion se pòt pas anullar !',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'I a %%d nòus articles per legir sus FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',	// TODO
 			'request_failed' => 'Una requèsta a fach meuca, aquò pòt venir d’un problèma de connexion Internet.',
 			'title_new_articles' => 'FreshRSS : nòus articles !',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'I a d’articles nòus disponibles, clicatz per actualizar la pagina.',
 		'should_be_activated' => 'JavaScript deu èsser activat',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'A prepaus',
 		'account' => 'Compte',
 		'admin' => 'Administracion',	// IGNORE
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Mesa a jorn',
 		'user_management' => 'Gestion dels utilizaires',
 		'user_profile' => 'Perfil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'jorns',
 		'hours' => 'oras',
 		'months' => 'meses',
 		'weeks' => 'setmanas',
 		'years' => 'ans',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Sites basats sus Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',	// TODO
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Atencion !',
 		'blank_to_disable' => 'Daissar void per desactivar',
 		'by_author' => 'Per : ',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Òc-ben !',
 		'or' => 'o',
 		'yes' => 'Òc',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Cargar mai d’articles',
 		'mark_all_read' => 'O marcar tot coma legit',
 		'nothing_to_load' => 'I a pas mai d’articles',
-	),
-);
+	],
+];

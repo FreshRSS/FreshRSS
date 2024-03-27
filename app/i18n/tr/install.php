@@ -10,127 +10,127 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'finish' => 'Kurulumu tamamla',
 		'fix_errors_before' => 'Lütfen sonraki adıma geçmek için hataları düzeltin.',
 		'keep_install' => 'Önceki kuruluma devam et',
 		'next_step' => 'Sonraki adım',
 		'reinstall' => 'FreshRSS i yeniden yükle',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'type' => 'Kimlik doğrulama yöntemi',
-	),
-	'bdd' => array(
+	],
+	'bdd' => [
 		'_' => 'Veritabanı',
-		'conf' => array(
+		'conf' => [
 			'_' => 'Veritabanı yapılandırılması',
 			'ko' => 'Veritabanı bilginizi doğrulayın.',
 			'ok' => 'Veritabanı yapılandırılması kayıt edildi.',
-		),
+		],
 		'host' => 'Sunucu',
 		'password' => 'Veritabanı şifresi',
 		'prefix' => 'Tablo ön eki',
 		'type' => 'Veritabanı türü',
 		'username' => 'Veritabanı kullanıcı adı',
-	),
-	'check' => array(
+	],
+	'check' => [
 		'_' => 'Kontroller',
 		'already_installed' => 'FreshRSS zaten yüklü!',
-		'cache' => array(
+		'cache' => [
 			'nok' => '<em>%s/em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Karakter yazım kontrolü için kütüphane eksik (php-ctype).',
 			'ok' => 'Karakter yazım kontrolü için kütüphane sorunsuz (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'cURL eksik (php-curl package).',
 			'ok' => 'cURL eklentisi sorunsuz.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
-		),
-		'dom' => array(
+		],
+		'dom' => [
 			'nok' => 'DOM kütüpbanesi eksik.',
 			'ok' => 'DOM kütüphanesi sorunsuz.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'PHP fileinfo eksik (fileinfo package).',
 			'ok' => 'fileinfo eklentisi sorunsuz.',
-		),
-		'json' => array(
+		],
+		'json' => [
 			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
 			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Unicode için tavsiye edilen mbstring kütüphanesi bulunamadı.',
 			'ok' => 'Unicode için tavsiye edilen mbstring kütüphaneniz mevcut.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
 			'ok' => 'Düzenli ifadeler kütüphanesi sorunsuz (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'nok' => 'PHP sürümünüz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
 			'ok' => 'PHP Sürümünüz %s, FreshRSS ile tam uyumlu.',
-		),
+		],
 		'reload' => 'Tekrar kontrol et',
-		'tmp' => array(
+		'tmp' => [
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Geçici klasör izinleri sorunsuz.',
-		),
+		],
 		'unknown_process_username' => 'bilinmeyen',
-		'users' => array(
+		'users' => [
 			'nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı.',
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
-		),
-		'xml' => array(
+		],
+		'xml' => [
 			'nok' => 'XML ayrıştırmak için gerekli kütüphaneye sahip değilsiniz.',
 			'ok' => 'XML ayrıştırmak için gerekli kütüphaneye sahipsiniz.',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'_' => 'Genel yapılandırma',
 		'ok' => 'Genel yapılandırma ayarları kayıt edildi.',
-	),
+	],
 	'congratulations' => 'Tebrikler!',
-	'default_user' => array(
+	'default_user' => [
 		'_' => 'Öntanımlı kullanıcı adı',
 		'max_char' => 'en fazla 16 alfanümerik karakter',
-	),
+	],
 	'fix_errors_before' => 'Lütfen sonraki adıma geçmek için hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS JavaScript ile daha işlevseldir',
-	'js' => array(
+	'js' => [
 		'confirm_reinstall' => 'FreshRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
-	),
-	'language' => array(
+	],
+	'language' => [
 		'_' => 'Dil',
 		'choose' => 'FreshRSS için bir dil seçin',
 		'defined' => 'Dil belirlendi.',
-	),
+	],
 	'missing_applied_migrations' => 'Birşeyler ters gitti; <em>%s</em> boş dosyasını elle oluşturmalısınız.',
 	'ok' => 'Kurulum başarıyla tamamlandı.',
-	'session' => array(
+	'session' => [
 		'nok' => 'Sunucu PHP çerez ayarları hatalı yapılmış görünüyor!',
-	),
+	],
 	'step' => 'adım %d',
 	'steps' => 'Adımlar',
 	'this_is_the_end' => 'Son Adım',
 	'title' => 'Kurulum · FreshRSS',
-);
+];

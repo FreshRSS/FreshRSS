@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Hírforrások frissítése',
 		'add' => 'Hozzáad',
 		'back' => '← Vissza',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Mentés',
 		'truncate' => 'Minden cikk törlése',
 		'update' => 'Frissít',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Elfogadom a <a href="%s">Szolgáltatási Feltételeket</a>.',
 		'email' => 'Email cím',
 		'keep_logged_in' => 'Tarts bejelentkezve <small>(%s napig)</small>',
 		'login' => 'Bejelentkezés',
 		'logout' => 'Kijelentkezés',
-		'password' => array(
+		'password' => [
 			'_' => 'Jelszó',
 			'format' => '<small>Legalább 7 karakter hosszú</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Új fiók',
 			'ask' => 'Létrehoz egy új fiókot?',
 			'title' => 'Fiók létrehozása',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Felhasználó név',
 			'format' => '<small>Maximum 16 alfanumerikus karakter</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\Á\\p\\r\\i\\l\\i\\s',
 		'Aug' => '\\A\\u\\g\\u\\s\\z\\t\\u\\s',
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Kedd',
 		'wed' => 'Szerda',
 		'yesterday' => 'Tegnap',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => ' %%d db új cikk olvasható a FreshRSS-ben.',
 			'body_unread_articles' => '(olvasatlan: %%d)',
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
-		),
+		],
 		'labels_empty' => 'Nincsenek címkék',
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Névjegy',
 		'account' => 'Adatlap',
 		'admin' => 'Adminisztráció',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Frissítés',
 		'user_management' => 'Felhasználók kezelése',
 		'user_profile' => 'Profil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'nap',
 		'hours' => 'óra',
 		'months' => 'hónap',
 		'weeks' => 'hét',
 		'years' => 'év',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Ismert weboldalak',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'System sharing',	// IGNORE
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Figyelmeztetés!',
 		'blank_to_disable' => 'Hagyd üresen a kikapcsoláshoz',
 		'by_author' => 'Készítette:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Oké!',
 		'or' => 'vagy',
 		'yes' => 'Igen',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Több cikk betöltése',
 		'mark_all_read' => 'Legyen mind olvasott',
 		'nothing_to_load' => 'Nincs több cikk',
-	),
-);
+	],
+];

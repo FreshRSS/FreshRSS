@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'O FreshRSS',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Nahlásiť chybu',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Webová stránka projektu',
 		'title' => 'O FreshRSS',
 		'version' => 'Verzia',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Žiadne články.',
 		'rss_of' => 'RSS kanál pre %s',
 		'title' => 'Všetky kanály',
 		'title_fav' => 'Obľúbené',
 		'title_global' => 'Prehľad',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Záznamy',
 		'clear' => 'Vymazať záznamy',
 		'empty' => 'Súbor záznamu je prázdny',
 		'title' => 'Záznamy',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Pred 1 dňom',
 		'before_one_week' => 'Pred 1 týždňom',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Správca odberov',
 		'tags' => 'Moje nálepky',
 		'unread' => 'Zobraziť neprečítané',
-	),
+	],
 	'share' => 'Zdieľať',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Značky článku',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Podmienky služby',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Aktualizovat kanály',
 		'add' => 'Přidat',
 		'back' => '← Jít zpět',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Odeslat',
 		'truncate' => 'Odstranit všechny články',
 		'update' => 'Aktualizovat',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Přijímám <a href="%s">Podmínky služby</a>.',
 		'email' => 'E-mail',
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dní)</small>',
 		'login' => 'Přihlásit se',
 		'logout' => 'Odhlásit se',
-		'password' => array(
+		'password' => [
 			'_' => 'Heslo',
 			'format' => '<small>Alespoň 7 znaků</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Nový účet',
 			'ask' => 'Vytvořit účet?',
 			'title' => 'Vytvoření účtu',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Uživatelské jméno',
 			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\D\\u\\b\\e\\n',
 		'Aug' => '\\S\\r\\p\\e\\n',
 		'Dec' => '\\P\\r\\o\\s\\i\\n\\e\\c',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Út',
 		'wed' => 'St',
 		'yesterday' => 'Včera',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Prázdná kategorie',
 		'confirm_action' => 'Opravdu chcete provést tuto akci? Toto nelze zrušit!',
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
 			'body_unread_articles' => '(nepřečtené: %%d)',
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Jsou dostupné nové články, klikněte pro obnovení stránky.',
 		'should_be_activated' => 'JavaScript musí být povolen',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'O aplikaci',
 		'account' => 'Účet',
 		'admin' => 'Administrace',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'dní',
 		'hours' => 'hodin',
 		'months' => 'měsíců',
 		'weeks' => 'týdnů',
 		'years' => 'let',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Známé základní stránky',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Sdílení systému',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Upozornění!',
 		'blank_to_disable' => 'Ponechte prázdné pro zakázání',
 		'by_author' => 'Od:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Dobře!',
 		'or' => 'nebo',
 		'yes' => 'Ano',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Načíst více článků',
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'nothing_to_load' => 'Nejsou zde žádné další články',
-	),
-);
+	],
+];

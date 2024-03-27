@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => ' در مورد',
 		'agpl3' => ' <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => ' گزارش اشکال',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => ' وب سایت پروژه',
 		'title' => ' در مورد',
 		'version' => ' نسخه',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'rss_of' => ' فید RSS %s',
 		'title' => ' جریان اصلی',
 		'title_fav' => ' موارد دلخواه',
 		'title_global' => ' نمای جهانی',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => ' سیاهههای مربوط',
 		'clear' => ' سیاهههای مربوط را پاک کنید',
 		'empty' => ' فایل لاگ خالی است',
 		'title' => ' سیاهههای مربوط',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => ' درباره FreshRSS',
 		'before_one_day' => ' بزرگتر از یک روز',
 		'before_one_week' => ' بزرگتر از یک هفته',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => ' مدیریت اشتراک',
 		'tags' => ' برچسب های من',
 		'unread' => ' نمایش خوانده نشده',
-	),
+	],
 	'share' => ' به اشتراک بگذارید',
-	'tag' => array(
+	'tag' => [
 		'related' => ' برچسب های مقاله',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => ' شرایط خدمات',
-	),
-);
+	],
+];

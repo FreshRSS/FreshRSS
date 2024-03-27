@@ -40,8 +40,8 @@ class Minz_Translate {
 	 */
 	public static function init(string $lang_name = ''): void {
 		self::$lang_name = $lang_name;
-		self::$lang_files = array();
-		self::$translates = array();
+		self::$lang_files = [];
+		self::$translates = [];
 		self::registerPath(APP_PATH . '/i18n');
 		foreach (self::$path_list as $path) {
 			self::loadLang($path);
@@ -54,8 +54,8 @@ class Minz_Translate {
 	 */
 	public static function reset(string $lang_name): void {
 		self::$lang_name = $lang_name;
-		self::$lang_files = array();
-		self::$translates = array();
+		self::$lang_files = [];
+		self::$translates = [];
 		foreach (self::$path_list as $path) {
 			self::loadLang($path);
 		}
@@ -66,7 +66,7 @@ class Minz_Translate {
 	 * @return array<string> containing langs found in different registered paths.
 	 */
 	public static function availableLanguages(): array {
-		$list_langs = array();
+		$list_langs = [];
 
 		self::registerPath(APP_PATH . '/i18n');
 
@@ -75,7 +75,7 @@ class Minz_Translate {
 			if (is_array($scan)) {
 				$path_langs = array_values(array_diff(
 					$scan,
-					array('..', '.')
+					['..', '.']
 				));
 				$list_langs = array_merge($list_langs, $path_langs);
 			}
@@ -146,7 +146,7 @@ class Minz_Translate {
 		foreach ($list_i18n_files as $i18n_filename) {
 			$i18n_key = basename($i18n_filename, '.php');
 			if (!isset(self::$lang_files[$i18n_key])) {
-				self::$lang_files[$i18n_key] = array();
+				self::$lang_files[$i18n_key] = [];
 			}
 			self::$lang_files[$i18n_key][] = $lang_path . '/' . $i18n_filename;
 			self::$translates[$i18n_key] = null;
@@ -164,7 +164,7 @@ class Minz_Translate {
 			return false;
 		}
 
-		self::$translates[$key] = array();
+		self::$translates[$key] = [];
 
 		foreach (self::$lang_files[$key] as $lang_pathname) {
 			$i18n_array = include($lang_pathname);

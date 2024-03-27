@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'Jums nav tiesību piekļūt šai lapai',
 		'not_found' => 'Jūs meklējat lapu, kas neeksistē',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimizācija pabeigta',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Jūsu paroli nevar mainīt',
 			'updated' => 'Jūsu parole tika mainīta',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Pieteikšanās ir nederīga',
 			'success' => 'Jūs esat savienots',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Jūs esat atvienots',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Konfigurācijas saglabāšanas laikā notika kļūda',
 		'query_created' => 'Ir izveidots pieprasījums "%s".',
 		'shortcuts_updated' => 'Ir atjaunināti īsceļi',
 		'updated' => 'Konfigurācija tikai atjaunināta',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s ir jau iespējots',
 		'cannot_remove' => '%s nevar būt izņemts',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s nevar būt atspējots. <a href="%s">Pārbaudiet FreshRSS žurnālu</a> priekš papildu informācijas.',
 			'ok' => '%s ir tagad atspējots',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s nevar būt ieslēgts. <a href="%s">Pārbaudiet FreshRSS žurnālu</a> priekš papildu informācijas.',
 			'ok' => '%s ir tagad ieslēgts',
-		),
+		],
 		'no_access' => 'Jums nav piekļuves %s',
 		'not_enabled' => '%s nav ieslēgts',
 		'not_found' => '%s nēeksistē',
 		'removed' => '%s izņemts',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma. Lūdzu, mēģiniet eksportēt failus pa vienam.',
 		'feeds_imported' => 'Jūsu barotnes tika importētas un tagad tiks atjauninātas.	/ Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Failu nevar augšupielādēt!',
 		'no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma.',
 		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Jūsu profilu nevar mainīt',
 		'updated' => 'Jūsu profils tika mainīts',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Atjaunina',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Atlasītie raksti tika atzīmēti kā lasīti.',
 			'marked_unread' => 'Atlasītie raksti tika atzīmēti kā nelasīti.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Tika izveidota kategorija %s.',
 			'deleted' => 'Kategorija tika izdzēsta.',
 			'emptied' => 'Kategorija tika iztukšota',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'Kategorija neeksistē!',
 			'over_max' => 'Jūs esat sasniedzis savu kategoriju limitu (%d)',
 			'updated' => 'Kategorija tika atjaunināta.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> tika atjaunota',
 			'actualizeds' => 'RSS barotnes tika atjaunotas',
 			'added' => 'RSS barotne <em>%s</em> tika pievienota',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Barotni nevarēja atrast',
 			'over_max' => 'Jūs esat sasniedzis barotņu limitu (%d)',
 			'reloaded' => '<em>%s</em> tika pārlādēts',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Neizdevās ielādēt vietnes saturu.',
 				'no_entries' => 'Šajā barotnē nav neviena raksta. Jums ir nepieciešams vismaz viens raksts, lai izveidotu priekšskatījumu.',
 				'no_feed' => 'Iekšēja kļūda (barotni nevarēja atrast).',
 				'no_result' => 'Selektors nekam neatbilda. Kā rezerves variants tā vietā tiks parādīts sākotnējais barotnes teksts.',
 				'selector_empty' => 'Atlasītājs ir tukšs. Lai izveidotu priekšskatījumu, ir jādefinē kāds no tiem.',
-			),
+			],
 			'updated' => 'Barotne tika atjaunota',
-		),
+		],
 		'purge_completed' => 'Tīrīšana pabeigta (%d raksti dzēsti)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Birka “%s” tika uztaisīta.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Birkas nosaukums jau pastāv.',
 		'renamed' => 'Birka “%s” tika pārdēvēts par “%s”.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS tagad būs atjaunots uz <strong>%s versiju</strong>.',
 		'error' => 'Atjaunināšanas process ir saskāries ar kļūdu: %s',
 		'file_is_nok' => 'Jauna <strong>versija %s</strong> ir pieejama, bet pārbaudiet atļaujas uz <em>%s</em> mapi. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām',
 		'finished' => 'Atjauninājums ir pabeigts!',
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'server_not_found' => 'Atjaunināšanas serveri nevar atrast. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Lietotājs %s tika uztaisīts',
 			'error' => 'Lietotāju %s nevarēja uztaisīt',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'Lietotājs %s tika izdzēsts',
 			'error' => 'Lietotāju %s nevarēja izdzēst',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Lietotājs %s tika atjaunots',
 			'error' => 'Lietotāju %s nevarēja atjaunot',
-		),
-	),
-);
+		],
+	],
+];

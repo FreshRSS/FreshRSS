@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => '更新订阅源',
 		'add' => '添加',
 		'back' => '← 返回',
@@ -39,28 +39,28 @@ return array(
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
 		'update' => '更新',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => '我接受 <a href="%s">服务条款</a>',
 		'email' => 'Email 地址',
 		'keep_logged_in' => '<small>%s</small> 天内保持登录',
 		'login' => '登录',
 		'logout' => '登出',
-		'password' => array(
+		'password' => [
 			'_' => '密码',
 			'format' => '<small>至少 7 个字符</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => '新用户',
 			'ask' => '创建新用户？',
 			'title' => '用户创建',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => '用户名',
 			'format' => '<small>最多 16 个数字或字母</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\四\\月',
 		'Aug' => '\\八\\月',
 		'Dec' => '\\十\\二\\月',
@@ -118,27 +118,27 @@ return array(
 		'tue' => '周二',
 		'wed' => '周三',
 		'yesterday' => '昨天',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '关于 FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
 			'body_unread_articles' => '(未读: %%d)',
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => '发现新文章，点击刷新页面。',
 		'should_be_activated' => '必须启用 JavaScript',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => '关于',
 		'account' => '账户',
 		'admin' => '管理',
@@ -186,15 +186,15 @@ return array(
 		'update' => '更新',
 		'user_management' => '用户管理',
 		'user_profile' => '帐户',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => '天',
 		'hours' => '时',
 		'months' => '月',
 		'weeks' => '周',
 		'years' => '年',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => '基于 Known 的站点',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => '系统分享',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => '警告!',
 		'blank_to_disable' => '留空以禁用',
 		'by_author' => '作者',
@@ -239,10 +239,10 @@ return array(
 		'ok' => '正常！',
 		'or' => '或',
 		'yes' => '是',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => '载入更多文章',
 		'mark_all_read' => '全部设为已读',
 		'nothing_to_load' => '没有更多文章',
-	),
-);
+	],
+];

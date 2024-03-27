@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'Acerca de',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Informe de fallos',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Web del proyecto',
 		'title' => 'Acerca de',
 		'version' => 'Versión',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
 		'title' => 'Salida Principal',
 		'title_fav' => 'Favoritos',
 		'title_global' => 'Vista global',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Registros',
 		'clear' => 'Limpiar registros',
 		'empty' => 'El archivo de registro está vacío',
 		'title' => 'Registros',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Acerca de FreshRSS',
 		'before_one_day' => 'Con más de 1 día',
 		'before_one_week' => 'Con más de una semana',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Administración de suscripciones',
 		'tags' => 'Mis etiquetas',
 		'unread' => 'Mostar solo no leídos',
-	),
+	],
 	'share' => 'Compartir',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Etiquetas relacionadas',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Términos de servicio',
-	),
-);
+	],
+];

@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'Nemáte oprávnění přistupovat na tuto stránku',
 		'not_found' => 'Hledáte stránku, která neexistuje',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimalizace dokončena',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Vaše heslo nemůže být změněno',
 			'updated' => 'Vaše heslo bylo změněno',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Přihlašovací údaje jsou neplatné',
 			'success' => 'Jste přihlášeni',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'Jste odhlášeni',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Během ukládání nastavení došlo k chybě',
 		'query_created' => 'Dotaz „%s“ byl vytvořen.',
 		'shortcuts_updated' => 'Zkratky byly aktualizovány',
 		'updated' => 'Nastavení bylo aktualizováno',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s je již povoleno',
 		'cannot_remove' => '%s nelze odebrat',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s nelze zakázat. Pro podrobnosti <a href="%s">zkontrolujte protokoly FreshRSS</a>.',
 			'ok' => '%s je nyní zakázáno',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s nelze povolit. Pro podrobnosti <a href="%s">zkontrolujte protokoly FreshRSS</a>.',
 			'ok' => '%s je nyní povoleno',
-		),
+		],
 		'no_access' => 'Nemáte přístup k %s',
 		'not_enabled' => '%s není povoleno',
 		'not_found' => '%s neexistuje',
 		'removed' => '%s odebráno',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'Na serveru není přítomno rozšíření ZIP. Zkuste exportovat soubory jeden po druhém.',
 		'feeds_imported' => 'Vaše kanály byly naimportovány a budou nyní aktualizovány / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Soubor nelze nahrát!',
 		'no_zip_extension' => 'Na serveru není přítomno rozšíření ZIP.',
 		'zip_error' => 'Během importu ZIP došlo k chybě.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Váš profil nelze změnit',
 		'updated' => 'Váš profil byl změněn',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Aktualizace',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'Vybrané články byly označeny jako přečtené.',
 			'marked_unread' => 'Články byly označeny jako nepřečtené.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Kategorie %s byla vytvořena.',
 			'deleted' => 'Kategorie byla odstraněna.',
 			'emptied' => 'Kategorie byla vyprázdněna',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'Tato kategorie neexistuje!',
 			'over_max' => 'Dosáhli jste maximálního počtu kategorií (%d)',
 			'updated' => 'Kategorie byla aktualizována.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> bylo aktualizováno',
 			'actualizeds' => 'Kanály RSS byly aktualizovány',
 			'added' => 'Kanál RSS <em>%s</em> byl přidán',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Kanál nelze nalézt',
 			'over_max' => 'Dosáhli jste maximálního počtu kanálů (%d)',
 			'reloaded' => '<em>%s</em> byl znovu načten',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Nepodařilo se načíst obsah webové stránky.',
 				'no_entries' => 'V tomto kanále nejsou žádné články. Pro vytvoření náhledu potřebujete alespoň jeden článek.',
 				'no_feed' => 'Interní chyba (kanál nelze nalézt).',
 				'no_result' => 'Přepínač ničemu neodpovídá. Jako záložní akce bude namísto toho zobrazen původní text kanálu.',
 				'selector_empty' => 'Přepínač je prázdný. Pro vytvoření náhledu potřebujete alespoň jeden definovat.',
-			),
+			],
 			'updated' => 'Kanál byl aktualizován',
-		),
+		],
 		'purge_completed' => 'Vymazání dokončeno (odstraněno %d článků)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Štítek „%s“ byl vytvořen.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Název štítku již existuje.',
 		'renamed' => 'Štítek „%s“ byl přejmenován na „%s“.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS bude nyní aktualizováno na <strong>verzi %s</strong>.',
 		'error' => 'Během procesu aktualizace došlo k chybě: %s',
 		'file_is_nok' => 'Je dostupná nová <strong>verze %s</strong>, ale zkontrolujte oprávnění adresáře <em>%s</em>. Server HTTP musí mít oprávnění pro zápis',
 		'finished' => 'Aktualizace dokončena!',
 		'none' => 'Není dostupná žádná aktualizace',
 		'server_not_found' => 'Nelze nalézt server s aktualizací. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Uživatel %s byl vytvořen',
 			'error' => 'Uživatele %s nelze vytvořit',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'Uživatel %s byl odstraněn',
 			'error' => 'Uživatele %s nelze odstranit',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Uživatel %s byl aktualizován',
 			'error' => 'Uživatel %s nelze aktualizovat',
-		),
-	),
-);
+		],
+	],
+];

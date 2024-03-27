@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'Informazioni',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Bugs',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Sito del progetto',
 		'title' => 'Informazioni',
 		'version' => 'Versione',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Non ci sono articoli da mostrare.',
 		'rss_of' => 'RSS feed di %s',
 		'title' => 'Flusso principale',
 		'title_fav' => 'Preferiti',
 		'title_global' => 'Vista globale per categorie',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Log',
 		'clear' => 'Svuota logs',
 		'empty' => 'File di log vuoto',
 		'title' => 'Log',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Informazioni',
 		'before_one_day' => 'Giorno precedente',
 		'before_one_week' => 'Settimana precedente',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Gestione sottoscrizioni',
 		'tags' => 'Le mie etichette',
 		'unread' => 'Mostra solo non letti',
-	),
+	],
 	'share' => 'Condividi',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Tags correlati',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Termini e condizioni del servizio',
-	),
-);
+	],
+];

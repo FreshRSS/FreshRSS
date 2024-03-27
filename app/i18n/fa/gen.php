@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => ' فیدها را به روز کنید',
 		'add' => ' اضافه کنید',
 		'back' => '← به عقب برگرد',
@@ -39,28 +39,28 @@ return array(
 		'submit' => ' ارسال کنید',
 		'truncate' => ' تمام مقالات را حذف کنید',
 		'update' => ' به روز رسانی',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => ' من <a href="%s">شرایط خدمات</a> را می پذیرم.',
 		'email' => ' آدرس ایمیل',
 		'keep_logged_in' => ' مرا به سیستم <small>(%s روز)</small> نگه دارید',
 		'login' => ' ورود',
 		'logout' => ' خروج',
-		'password' => array(
+		'password' => [
 			'_' => ' رمز عبور',
 			'format' => '<small>حداقل 7 نویسه</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => ' حساب جدید',
 			'ask' => ' یک حساب کاربری ایجاد کنید؟',
 			'title' => ' ایجاد حساب',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => ' نام کاربری',
 			'format' => '<small>حداکثر 16 نویسه الفبای عددی</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
@@ -118,27 +118,27 @@ return array(
 		'tue' => ' سه شنبه',
 		'wed' => ' چهارشنبه',
 		'yesterday' => ' دیروز',
-	),
+	],
 	'dir' => 'rtl',
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => ' FreshRSS',
 		'about' => 'درباره FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => ' دسته خالی',
 		'confirm_action' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ نمی توان آن را لغو کرد!',
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
 			'body_unread_articles' => ' (خوانده نشده: %%d)',
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'مقالات جدیدی موجود است',
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => ' در مورد',
 		'account' => ' حساب',
 		'admin' => ' اداره',
@@ -186,15 +186,15 @@ return array(
 		'update' => ' به روز رسانی',
 		'user_management' => ' مدیریت کاربران',
 		'user_profile' => ' نمایه',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => ' روز',
 		'hours' => ' ساعت',
 		'months' => ' ماه',
 		'weeks' => ' هفته',
 		'years' => ' سال',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => ' سایت های مبتنی بر شناخته شده',
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => ' اشتراک گذاری سیستم',
 		'whatsapp' => ' واتساپ',
 		'xing' => ' زینگ',
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => ' هشدار!',
 		'blank_to_disable' => ' برای غیرفعال کردن',
 		'by_author' => ' توسط:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => ' باشه!',
 		'or' => ' یا',
 		'yes' => ' بله',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => ' بارگذاری مقالات بیشتر',
 		'mark_all_read' => ' همه را به عنوان خوانده شده علامت گذاری کنید',
 		'nothing_to_load' => ' مقاله دیگری وجود ندارد',
-	),
-);
+	],
+];

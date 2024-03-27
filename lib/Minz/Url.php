@@ -178,11 +178,11 @@ function _url(string $controller, string $action, ...$args) {
 		return false;
 	}
 
-	$params = array ();
+	$params = [];
 	for ($i = 0; $i < $nb_args; $i += 2) {
 		$arg = '' . $args[$i];
 		$params[$arg] = '' . $args[$i + 1];
 	}
 
-	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
+	return Minz_Url::display ( ['c' => $controller, 'a' => $action, 'params' => $params]);
 }

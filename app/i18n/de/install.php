@@ -10,127 +10,127 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'finish' => 'Installation fertigstellen',
 		'fix_errors_before' => 'Bitte Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 		'keep_install' => 'Vorherige Konfiguration beibehalten',
 		'next_step' => 'Zum nächsten Schritt springen',
 		'reinstall' => 'Neuinstallation von FreshRSS',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'form' => 'Webformular (traditionell, benötigt JavaScript)',
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'type' => 'Authentifizierungsmethode',
-	),
-	'bdd' => array(
+	],
+	'bdd' => [
 		'_' => 'Datenbank',
-		'conf' => array(
+		'conf' => [
 			'_' => 'Datenbank-Konfiguration',
 			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
-		),
+		],
 		'host' => 'Host',	// IGNORE
 		'password' => 'Datenbank-Password',
 		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
 		'username' => 'Datenbank-Benutzername',
-	),
-	'check' => array(
+	],
+	'check' => [
 		'_' => 'Überprüfungen',
 		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
-		'cache' => array(
+		'cache' => [
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
-		),
-		'dom' => array(
+		],
+		'dom' => [
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern.',
 			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
 			'ok' => 'Sie haben die fileinfo-Erweiterung.',
-		),
-		'json' => array(
+		],
+		'json' => [
 			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
 			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Es fehlt die empfohlene mbstring-Bibliothek für Unicode.',
 			'ok' => 'Sie haben die empfohlene mbstring-Bibliothek für Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
-		),
+		],
 		'reload' => 'Nochmal prüfen',
-		'tmp' => array(
+		'tmp' => [
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
-		),
+		],
 		'unknown_process_username' => 'unbekannt',
-		'users' => array(
+		'users' => [
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
-		),
-		'xml' => array(
+		],
+		'xml' => [
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
 			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'_' => 'Allgemeine Konfiguration',
 		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
-	),
+	],
 	'congratulations' => 'Glückwunsch!',
-	'default_user' => array(
+	'default_user' => [
 		'_' => 'Benutzername des Standardbenutzers',
 		'max_char' => 'maximal 16 alphanumerische Zeichen',
-	),
+	],
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
-	'js' => array(
+	'js' => [
 		'confirm_reinstall' => 'Die vorherige Konfiguration (Daten) geht verloren während FreshRSS neu installiert wird. Sind Sie sich sicher fortzufahren?',
-	),
-	'language' => array(
+	],
+	'language' => [
 		'_' => 'Sprache',
 		'choose' => 'Wählen Sie eine Sprache für FreshRSS',
 		'defined' => 'Die Sprache wurde festgelegt.',
-	),
+	],
 	'missing_applied_migrations' => 'Etwas ist schief gelaufen. Bitte erstellen Sie eine leere <em>%s</em> Datei manuell.',
 	'ok' => 'Der Installationsvorgang war erfolgreich.',
-	'session' => array(
+	'session' => [
 		'nok' => 'Der Webserver scheint nicht korrekt konfiguriert zu sein, damit notwendige PHP-Session-Cookies verwendet werden können.',
-	),
+	],
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
 	'this_is_the_end' => 'Das ist das Ende',
 	'title' => 'Installation · FreshRSS',	// IGNORE
-);
+];

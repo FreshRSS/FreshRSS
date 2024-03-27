@@ -22,6 +22,6 @@ class Minz_PdoPgsql extends Minz_Pdo {
 
 	protected function preSql(string $statement): string {
 		$statement = parent::preSql($statement);
-		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);
+		return str_replace(['`', ' LIKE '], ['"', ' ILIKE '], $statement);
 	}
 }

@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => '你無權訪問此頁面',
 		'not_found' => '你尋找的頁面不存在',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => '優化完成',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => '您的密碼無法修改',
 			'updated' => '您的密碼已修改',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => '用戶名或密碼無效',
 			'success' => '登入成功',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => '已登出',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => '保存配置時出錯',
 		'query_created' => '查詢 “%s” 已創建。',
 		'shortcuts_updated' => '快捷鍵已更新',
 		'updated' => '配置已更新',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s 已啟用',
 		'cannot_remove' => '無法刪除 %s',
-		'disable' => array(
+		'disable' => [
 			'ko' => '禁用 %s 失敗。<a href="%s">檢查 FreshRSS 日誌</a> 查看詳情。',
 			'ok' => '%s 現已禁用',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s 啟用失敗。<a href="%s">檢查 FreshRSS 日誌</a> 查看詳情。',
 			'ok' => '%s 現已啟用',
-		),
+		],
 		'no_access' => '你無權訪問 %s',
 		'not_enabled' => '%s 未啟用',
 		'not_found' => '%s 不存在',
 		'removed' => '%s 已刪除',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => '伺服器未啟用 ZIP 擴展。請嘗試逐個導出文件。',
 		'feeds_imported' => '你的訂閱已導入，即將刷新 / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',
 		'feeds_imported_with_errors' => '你的訂閱源已導入，但發生錯誤 / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',
 		'file_cannot_be_uploaded' => '文件未能上傳！',
 		'no_zip_extension' => '伺服器未啟用 ZIP 擴展。',
 		'zip_error' => '導入 ZIP 文件時出錯',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => '你的帳戶修改失敗',
 		'updated' => '你的帳戶已修改',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => '獲取',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => '文章已標記為已讀',
 			'marked_unread' => '文章已標記為未讀',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => '已創建分類 %s',
 			'deleted' => '已刪除分類',
 			'emptied' => '已清空分類',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => '分類不存在！',
 			'over_max' => '你已達到分類數上限（%d）',
 			'updated' => '已更新分類',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '已更新 <em>%s</em>',
 			'actualizeds' => '已更新訂閱源',
 			'added' => '訂閱源 <em>%s</em> 已添加',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => '無法找到訂閱',
 			'over_max' => '你已達到訂閱源數上限（%d）',
 			'reloaded' => '<em>%s</em> 已重置',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => '無法加載網站內容。',
 				'no_entries' => '您的訂閱中沒有任何條目。您至少需要一個條目來創建一個預覽。',
 				'no_feed' => '網絡錯誤（訂閱源不存在）',
 				'no_result' => '選擇器沒有匹配到任何東西。作為備用，原始的feed文本將被顯示出來。',
 				'selector_empty' => '選擇器是空的。你需要一個來創建預覽。',
-			),
+			],
 			'updated' => '已更新訂閱源',
-		),
+		],
 		'purge_completed' => '清除完成（已刪除 %d 篇文章）',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => '標簽 “%s” 已創建。',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => '標簽名已存在。',
 		'renamed' => '標簽 “%s” 已被重命名為 “%s”。',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS 將更新到 <strong>版本 %s</strong>。',
 		'error' => '更新出錯：%s',
 		'file_is_nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 		'finished' => '更新完成！',
 		'none' => '沒有可用更新',
 		'server_not_found' => '找不到更新伺服器 [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => '已創建用戶 %s',
 			'error' => '創建用戶 %s 失敗',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => '已刪除用戶 %s',
 			'error' => '刪除用戶 %s 失敗',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => '已更新用戶 %s',
 			'error' => '更新用戶 %s 失敗',
-		),
-	),
-);
+		],
+	],
+];

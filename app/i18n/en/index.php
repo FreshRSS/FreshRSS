@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'About',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Bug reports',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Project website',
 		'title' => 'About',
 		'version' => 'Version',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'There are no articles to show.',
 		'rss_of' => 'RSS feed of %s',
 		'title' => 'Main stream',
 		'title_fav' => 'Favourites',
 		'title_global' => 'Global view',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Logs',
 		'clear' => 'Clear the logs',
 		'empty' => 'Log file is empty',
 		'title' => 'Logs',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'About FreshRSS',
 		'before_one_day' => 'Older than one day',
 		'before_one_week' => 'Older than one week',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Subscription management',
 		'tags' => 'My labels',
 		'unread' => 'Show unread',
-	),
+	],
 	'share' => 'Share',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Article tags',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Terms of Service',
-	),
-);
+	],
+];

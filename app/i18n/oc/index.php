@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'A prepaus',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Senhalament de problèmas',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Site del projècte',
 		'title' => 'A prepaus',
 		'version' => 'Version',	// IGNORE
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'I a pas cap de flux de mostrar.',
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux màger',
 		'title_fav' => 'Favorits',
 		'title_global' => 'Vista generala',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Jornals d’audit',	// IGNORE
 		'clear' => 'Escafar los jornals',
 		'empty' => 'Los jornals son voids',
 		'title' => 'Jornals d’audit',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'A prepaus de FreshRSS',
 		'before_one_day' => '1 jorn en arrièr',
 		'before_one_week' => '1 setmana en arrièr',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Gestion dels abonaments',
 		'tags' => 'Mas etiquetas',
 		'unread' => 'Mostar los pas legits',
-	),
+	],
 	'share' => 'Partejar',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Etiquetas ligadas',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Condicions d’utilizacion',
-	),
-);
+	],
+];

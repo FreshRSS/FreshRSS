@@ -84,7 +84,7 @@
 				<canvas id="statsEntriesPerDay"></canvas>
 				<script class="jsonData-stats" type="application/json">
 				<?php
-				echo json_encode(array(
+				echo json_encode([
 					'canvasID' 		=> 'statsEntriesPerDay',
 					'charttype' 	=> 'barWithAverage',
 					'labelBarChart' => _t('admin.stats.entry_count'),
@@ -92,7 +92,7 @@
 					'labelAverage' 	=> 'Average ('.$this->average.')',
 					'dataAverage' 	=> $this->average,
 					'xAxisLabels' 	=> $this->last30DaysLabels,
-				), JSON_UNESCAPED_UNICODE);
+				], JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
 		</div>
@@ -103,12 +103,12 @@
 				<canvas id="statsFeedsPerCategory"></canvas>
 				<script class="jsonData-stats" type="application/json">
 				<?php
-				echo json_encode(array(
+				echo json_encode([
 					'canvasID' 		=> 'statsFeedsPerCategory',
 					'charttype' 	=> 'doughnut',
 					'data' 			=> $this->feedByCategory['data'],
 					'labels' 		=> $this->feedByCategory['label'],
-				), JSON_UNESCAPED_UNICODE);
+				], JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
 		</div>
@@ -119,12 +119,12 @@
 				<canvas id="statsEntriesPerCategory"></canvas>
 				<script class="jsonData-stats" type="application/json">
 				<?php
-				echo json_encode(array(
+				echo json_encode([
 					'canvasID' 		=> 'statsEntriesPerCategory',
 					'charttype' 	=> 'doughnut',
 					'data' 			=> $this->entryByCategory['data'],
 					'labels' 		=> $this->entryByCategory['label'],
-				), JSON_UNESCAPED_UNICODE);
+				], JSON_UNESCAPED_UNICODE);
 				?></script>
 			</div>
 		</div>

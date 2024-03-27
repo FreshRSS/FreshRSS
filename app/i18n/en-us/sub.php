@@ -10,197 +10,197 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'api' => array(
+return [
+	'api' => [
 		'documentation' => 'Copy the following URL to use it within an external tool.',	// IGNORE
 		'title' => 'API',	// IGNORE
-	),
-	'bookmarklet' => array(
+	],
+	'bookmarklet' => [
 		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',	// IGNORE
 		'label' => 'Subscribe',	// IGNORE
 		'title' => 'Bookmarklet',	// IGNORE
-	),
-	'category' => array(
+	],
+	'category' => [
 		'_' => 'Category',	// IGNORE
 		'add' => 'Add a category',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
-		'dynamic_opml' => array(
+		'dynamic_opml' => [
 			'_' => 'Dynamic OPML',	// IGNORE
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
-		),
+		],
 		'empty' => 'Empty category',	// IGNORE
 		'information' => 'Information',	// IGNORE
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
 		'title' => 'Title',	// IGNORE
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'accept_cookies' => 'Accept cookies',	// IGNORE
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// IGNORE
 		'add' => 'Add an RSS feed',	// IGNORE
 		'advanced' => 'Advanced',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
-		'auth' => array(
+		'auth' => [
 			'configuration' => 'Login',	// IGNORE
 			'help' => 'Allows access to HTTP protected RSS feeds',	// IGNORE
 			'http' => 'HTTP Authentication',	// IGNORE
 			'password' => 'HTTP password',	// IGNORE
 			'username' => 'HTTP username',	// IGNORE
-		),
+		],
 		'clear_cache' => 'Always clear cache',	// IGNORE
-		'content_action' => array(
+		'content_action' => [
 			'_' => 'Content action when fetching the article content',	// IGNORE
 			'append' => 'Add after existing content',	// IGNORE
 			'prepend' => 'Add before existing content',	// IGNORE
 			'replace' => 'Replace existing content',	// IGNORE
-		),
+		],
 		'css_cookie' => 'Use Cookies when fetching the article content',	// IGNORE
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// IGNORE
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// IGNORE
 		'css_path' => 'Article CSS selector on original website',	// IGNORE
-		'css_path_filter' => array(
+		'css_path_filter' => [
 			'_' => 'CSS selector of the elements to remove',	// IGNORE
 			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// IGNORE
-		),
+		],
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
-		'filteractions' => array(
+		'filteractions' => [
 			'_' => 'Filter actions',	// IGNORE
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
-		),
+		],
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
-		'kind' => array(
+		'kind' => [
 			'_' => 'Type of feed source',	// IGNORE
-			'html_xpath' => array(
+			'html_xpath' => [
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'feed title',	// IGNORE
 					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
-				),
+				],
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// IGNORE
-				'item' => array(
+				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
 					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// IGNORE
-				),
-				'item_author' => array(
+				],
+				'item_author' => [
 					'_' => 'item author',	// IGNORE
 					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// IGNORE
-				),
+				],
 				'item_categories' => 'item tags',	// IGNORE
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item content',	// IGNORE
 					'help' => 'Example to take the full item: <code>.</code>',	// IGNORE
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item thumbnail',	// IGNORE
 					'help' => 'Example: <code>descendant::img/@src</code>',	// IGNORE
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// IGNORE
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item date',	// IGNORE
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
-				),
-				'item_title' => array(
+				],
+				'item_title' => [
 					'_' => 'item title',	// IGNORE
 					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
-				),
-				'item_uid' => array(
+				],
+				'item_uid' => [
 					'_' => 'item unique ID',	// IGNORE
 					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// IGNORE
-				),
-				'item_uri' => array(
+				],
+				'item_uri' => [
 					'_' => 'item link (URL)',	// IGNORE
 					'help' => 'Example: <code>descendant::a/@href</code>',	// IGNORE
-				),
+				],
 				'relative' => 'XPath (relative to item) for:',	// IGNORE
 				'xpath' => 'XPath for:',	// IGNORE
-			),
-			'json_dotpath' => array(
+			],
+			'json_dotpath' => [
 				'_' => 'JSON (Dotted paths)',	// IGNORE
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'feed title',	// IGNORE
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
-				),
+				],
 				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
-				'item' => array(
+				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// IGNORE
-				),
+				],
 				'item_author' => 'item author',	// IGNORE
 				'item_categories' => 'item tags',	// IGNORE
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item content',	// IGNORE
 					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// IGNORE
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item thumbnail',	// IGNORE
 					'help' => 'Example: <code>image</code>',	// IGNORE
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// IGNORE
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item date',	// IGNORE
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
-				),
+				],
 				'item_title' => 'item title',	// IGNORE
 				'item_uid' => 'item unique ID',	// IGNORE
-				'item_uri' => array(
+				'item_uri' => [
 					'_' => 'item link (URL)',	// IGNORE
 					'help' => 'Example: <code>permalink</code>',	// IGNORE
-				),
+				],
 				'json' => 'Dotted Path for:',	// IGNORE
 				'relative' => 'Dotted Path (relative to item) for:',	// IGNORE
-			),
+			],
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
-		),
-		'maintenance' => array(
+		],
+		'maintenance' => [
 			'clear_cache' => 'Clear cache',	// IGNORE
 			'clear_cache_help' => 'Clear the cache for this feed.',	// IGNORE
 			'reload_articles' => 'Reload articles',	// IGNORE
 			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// IGNORE
 			'title' => 'Maintenance',	// IGNORE
-		),
+		],
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// IGNORE
-		'method' => array(
+		'method' => [
 			'_' => 'HTTP Method',	// IGNORE
-		),
+		],
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// IGNORE
 		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
 		'mute' => 'mute',	// IGNORE
 		'no_selected' => 'No feed selected.',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
-		'priority' => array(
+		'priority' => [
 			'_' => 'Visibility',	// IGNORE
 			'archived' => 'Do not show (archived)',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
 			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
-		),
+		],
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
-		'selector_preview' => array(
+		'selector_preview' => [
 			'show_raw' => 'Show source code',	// IGNORE
 			'show_rendered' => 'Show content',	// IGNORE
-		),
-		'show' => array(
+		],
+		'show' => [
 			'all' => 'Show all feeds',	// IGNORE
 			'error' => 'Show only feeds with errors',	// IGNORE
-		),
-		'showing' => array(
+		],
+		'showing' => [
 			'error' => 'Showing only feeds with errors',	// IGNORE
-		),
+		],
 		'ssl_verify' => 'Verify SSL security',	// IGNORE
 		'stats' => 'Statistics',	// IGNORE
 		'think_to_add' => 'You may add some feeds.',	// IGNORE
@@ -214,8 +214,8 @@ return array(
 		'validator' => 'Check the validity of the feed',	// IGNORE
 		'website' => 'Website URL',	// IGNORE
 		'websub' => 'Instant notifications with WebSub',	// IGNORE
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export' => 'Export',	// IGNORE
 		'export_labelled' => 'Export your labeled articles',
 		'export_opml' => 'Export list of feeds (OPML)',	// IGNORE
@@ -226,26 +226,26 @@ return array(
 		'import' => 'Import',	// IGNORE
 		'starred_list' => 'List of favorite articles',
 		'title' => 'Import / export',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'add' => 'Add a feed or category',	// IGNORE
 		'import_export' => 'Import / export',	// IGNORE
 		'label_management' => 'Label management',	// IGNORE
-		'stats' => array(
+		'stats' => [
 			'idle' => 'Idle feeds',	// IGNORE
 			'main' => 'Main statistics',	// IGNORE
 			'repartition' => 'Articles repartition',	// IGNORE
-		),
+		],
 		'subscription_management' => 'Subscription management',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'auto_label' => 'Add this label to new articles',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'new_name' => 'New name',	// IGNORE
 		'old_name' => 'Old name',	// IGNORE
-	),
-	'title' => array(
+	],
+	'title' => [
 		'_' => 'Subscription management',	// IGNORE
 		'add' => 'Add a feed or category',	// IGNORE
 		'add_category' => 'Add a category',	// IGNORE
@@ -256,5 +256,5 @@ return array(
 		'feed_management' => 'RSS feeds management',	// IGNORE
 		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
-	),
-);
+	],
+];

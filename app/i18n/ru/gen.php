@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Обновить ленту',
 		'add' => 'Добавить',
 		'back' => '← Вернуться',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Отправить',
 		'truncate' => 'Удалить все статьи',
 		'update' => 'Изменить',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Я принимаю <a href="%s">Условия предоставления услуг</a>.',
 		'email' => 'Адрес электронной почты',
 		'keep_logged_in' => 'Не выходить из системы <small>(%s дней)</small>',
 		'login' => 'Войти',
 		'logout' => 'Выйти',
-		'password' => array(
+		'password' => [
 			'_' => 'Пароль',
 			'format' => '<small>Не менее 7 символов</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Новый аккаунт',
 			'ask' => 'Создать аккаунт?',
 			'title' => 'Создание аккаунта',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Имя пользователя',
 			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\а\\п\\р\\е\\л\\я',
 		'Aug' => '\\а\\в\\г\\у\\с\\т\\а',
 		'Dec' => '\\д\\е\\к\\а\\б\\р\\я',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Вт',
 		'wed' => 'Ср',
 		'yesterday' => 'Вчера',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'О FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Пустая категория',
 		'confirm_action' => 'Вы уверены, что хотите выполнить это действие? Это нельзя отменить!',
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => '%%d новых статей в FreshRSS.',
 			'body_unread_articles' => '(Непрочитанные: %%d)',
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'О проекте',
 		'account' => 'Аккаунт',
 		'admin' => 'Администрирование',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Обновление системы',
 		'user_management' => 'Управление пользователями',
 		'user_profile' => 'Профиль',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'дней',
 		'hours' => 'часов',
 		'months' => 'месяцев',
 		'weeks' => 'недель',
 		'years' => 'лет',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Сайты на Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Системный обмен',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Предупреждение!',
 		'blank_to_disable' => 'Оставьте поле пустым, чтобы отключить',
 		'by_author' => 'От:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Отлично!',
 		'or' => 'или',
 		'yes' => 'Да',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Загрузить больше статей',
 		'mark_all_read' => 'Отметить всё прочитанным',
 		'nothing_to_load' => 'Больше нет статей',
-	),
-);
+	],
+];

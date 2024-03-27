@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'U hebt geen rechten om deze pagina te bekijken.',
 		'not_found' => 'Deze pagina bestaat niet',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimalisatie compleet',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Het wachtwoord kan niet worden gewijzigd',
 			'updated' => 'Het wachtwoord is gewijzigd',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Login is ongeldig',
 			'success' => 'U bent ingelogd',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'U bent uitgelogd',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',
 		'query_created' => 'Query „%s” is gemaakt.',
 		'shortcuts_updated' => 'Verwijzingen zijn vernieuwd',
 		'updated' => 'Configuratie is vernieuwd',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s is al ingeschakeld',
 		'cannot_remove' => '%s kan niet worden verwijderd',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s kan niet worden uitgeschakeld. <a href="%s">Controleer FreshRSS log bestanden</a> voor details.',
 			'ok' => '%s is nu uitgeschakeld',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s kan niet worden ingeschakeld. <a href="%s">Controleer FreshRSS log bestanden</a> voor details.',
 			'ok' => '%s is nn ingeschakeld',
-		),
+		],
 		'no_access' => 'U hebt geen toegang voor %s',
 		'not_enabled' => '%s is nog niet ingeschakeld',
 		'not_found' => '%s bestaat niet',
 		'removed' => '%s verwijderd',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
 		'feeds_imported' => 'Uw feeds zijn geimporteerd en worden nu vernieuwd / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
 		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',	// DIRTY
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Uw profiel kan niet worden aangepast',
 		'updated' => 'Uw profiel is aangepast',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Actualiseren',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'De geselecteerde artikelen zijn als gelezen gemarkeerd.',
 			'marked_unread' => 'De geselecteerde artikelen zijn als ongelezen gemarkeerd.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Categorie %s is gemaakt.',
 			'deleted' => 'Categorie is verwijderd.',
 			'emptied' => 'Categorie is leeg gemaakt',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'De categorie bestaat niet!',
 			'over_max' => 'Maximum aantal categorieën bereikt (%d)',
 			'updated' => 'Categorie vernieuwd.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> vernieuwd',
 			'actualizeds' => 'RSS-feeds vernieuwd',
 			'added' => 'RSS feed <em>%s</em> toegevoegd',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Feed niet gevonden',
 			'over_max' => 'Maximum aantal feeds bereikt (%d)',
 			'reloaded' => '<em>%s</em> is herladen',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Website-inhoud laden mislukt.',
 				'no_entries' => 'Er zijn geen artikels in deze feed. Er moet ten minste een artikel zijn om een voorbeeld te tonen.',
 				'no_feed' => 'Interne fout (feed kan niet worden gevonden).',
 				'no_result' => 'De selector komt met niets overeen. Als een terugval zal de originele feedtekst worden weergegeven.',
 				'selector_empty' => 'De selector is leeg. Er moet een selector worden gedefinieerd om een voorbeeld te tonen.',
-			),
+			],
 			'updated' => 'Feed is vernieuwd',
-		),
+		],
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Label „%s” aangemaakt.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Label bestaat al.',
 		'renamed' => 'Label „%s” hernoemd naar „%s”.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS word nu bijgewerkt naar <strong>versie %s</strong>.',
 		'error' => 'Het vernieuwingsproces kwam een fout tegen: %s',
 		'file_is_nok' => '<strong>Versie %s</strong>. Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
 		'finished' => 'Vernieuwing compleet!',
 		'none' => 'Geen vernieuwing om toe te passen',
 		'server_not_found' => 'Vernieuwings server kan niet worden gevonden. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'Gebruiker %s is aangemaakt',
 			'error' => 'Gebruiker %s kan niet worden aangemaakt',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'Gebruiker %s is verwijderd',
 			'error' => 'Gebruiker %s kan niet worden verwijderd',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'Gebruiker %s is bijgewerkt',
 			'error' => 'Gebruiker %s kan niet worden bijgewerkt',
-		),
-	),
-);
+		],
+	],
+];

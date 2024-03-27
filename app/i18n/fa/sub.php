@@ -10,197 +10,197 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'api' => array(
+return [
+	'api' => [
 		'documentation' => ' URL زیر را برای استفاده از آن در یک ابزار خارجی کپی کنید.',
 		'title' => ' API',
-	),
-	'bookmarklet' => array(
+	],
+	'bookmarklet' => [
 		'documentation' => ' این دکمه را به نوار ابزار نشانک‌های خود بکشید یا روی آن راست کلیک کرده و «Bookmark This Link» را انتخاب کنید. سپس روی دکمه "اشتراک" در هر صفحه ای که می خواهید مشترک شوید کلیک کنید.',
 		'label' => ' مشترک شوید',
 		'title' => ' Bookmarklet',
-	),
-	'category' => array(
+	],
+	'category' => [
 		'_' => ' دسته',
 		'add' => ' یک دسته اضافه کنید',
 		'archiving' => ' بایگانی',
-		'dynamic_opml' => array(
+		'dynamic_opml' => [
 			'_' => ' OPML پویا',
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
-		),
+		],
 		'empty' => ' دسته خالی',
 		'information' => ' اطلاعات',
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
 		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
 		'title' => ' عنوان',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'accept_cookies' => ' کوکی ها را بپذیرید',
 		'accept_cookies_help' => ' به سرور فید اجازه دهید تا کوکی ها را تنظیم کند (فقط برای مدت زمان درخواست در حافظه ذخیره می شود)',
 		'add' => ' یک فید RSS اضافه کنید',
 		'advanced' => ' پیشرفته',
 		'archiving' => ' بایگانی',
-		'auth' => array(
+		'auth' => [
 			'configuration' => ' ورود',
 			'help' => ' دسترسی به فیدهای RSS محافظت شده HTTP را می دهد',
 			'http' => ' احراز هویت HTTP',
 			'password' => ' رمز عبور HTTP',
 			'username' => ' نام کاربری HTTP',
-		),
+		],
 		'clear_cache' => ' همیشه حافظه پنهان را پاک کنید',
-		'content_action' => array(
+		'content_action' => [
 			'_' => ' اقدام محتوا هنگام واکشی محتوای مقاله',
 			'append' => ' پس از محتوای موجود اضافه کنید',
 			'prepend' => ' قبل از محتوای موجود اضافه کنید',
 			'replace' => ' محتوای موجود را جایگزین کنید',
-		),
+		],
 		'css_cookie' => ' هنگام واکشی محتوای مقاله از کوکی ها استفاده کنید',
 		'css_cookie_help' => ' مثال: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => ' فیدهای RSS کوتاه شده را بازیابی می کند (احتیاط',
 		'css_path' => ' انتخاب کننده CSS مقاله در وب سایت اصلی',
-		'css_path_filter' => array(
+		'css_path_filter' => [
 			'_' => ' انتخابگر CSS از عناصر برای حذف',
 			'help' => ' یک انتخابگر CSS ممکن است لیستی باشد مانند: <kbd>.footer',
-		),
+		],
 		'description' => ' توضیحات',
 		'empty' => ' این فید خالی است. لطفاً بررسی کنید که هنوز نگهداری می شود.',
 		'error' => ' این فید با مشکل مواجه شده است. لطفاً بررسی کنید که همیشه در دسترس است و سپس آن را به روز کنید.',
-		'filteractions' => array(
+		'filteractions' => [
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
-		),
+		],
 		'information' => ' اطلاعات',
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
-		'kind' => array(
+		'kind' => [
 			'_' => ' نوع منبع خوراک',
-			'html_xpath' => array(
+			'html_xpath' => [
 				'_' => ' HTML + XPath (خراش دادن وب)',
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => ' عنوان خوراک',
 					'help' => ' مثال: <code>//title</code> یا یک رشته ثابت: <code>"فید سفارشی من"</code>',
-				),
+				],
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> یک زبان جستجوی استاندارد برای پیشرفته است کاربران',
-				'item' => array(
+				'item' => [
 					'_' => ' یافتن اخبار <strong>اقلام</strong><br /><small>(مهمترین)</small>',
 					'help' => ' مثال: <code>//div[@class="news-item"]</code>',
-				),
-				'item_author' => array(
+				],
+				'item_author' => [
 					'_' => ' نویسنده مورد',
 					'help' => ' همچنین می تواند یک رشته ثابت باشد. مثال: <code>"ناشناس"</code>',
-				),
+				],
 				'item_categories' => ' برچسب های آیتم',
-				'item_content' => array(
+				'item_content' => [
 					'_' => ' محتوای مورد',
 					'help' => ' مثالی برای گرفتن کامل مورد: <code>.</code>',
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => ' تصویر کوچک مورد',
 					'help' => ' مثال: <code>فرزند::img/@src</code>',
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => ' فرمت تاریخ/زمان سفارشی',
 					'help' => ' اختیاری. قالبی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود',
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => ' تاریخ مورد',
 					'help' => ' نتیجه با <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه خواهد شد',
-				),
-				'item_title' => array(
+				],
+				'item_title' => [
 					'_' => ' عنوان مورد',
 					'help' => ' به طور خاص از <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">محور XPath</a> <code>فرزند::</code استفاده کنید > مانند <code>فرزند::h2</code>',
-				),
-				'item_uid' => array(
+				],
+				'item_uid' => [
 					'_' => ' شناسه منحصر به فرد مورد',
 					'help' => ' اختیاری. مثال: <code>فرزند::div/@data-uri</code>',
-				),
-				'item_uri' => array(
+				],
+				'item_uri' => [
 					'_' => ' پیوند مورد (URL)',
 					'help' => ' مثال: <code>فرزند::a/@href</code>',
-				),
+				],
 				'relative' => 'XPath (نسبت به مورد) برای:',
 				'xpath' => ' XPath برای:',
-			),
-			'json_dotpath' => array(
+			],
+			'json_dotpath' => [
 				'_' => 'JSON (Dotted paths)',	// TODO
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
-				),
+				],
 				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
-				'item' => array(
+				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
-				),
+				],
 				'item_author' => 'item author',	// TODO
 				'item_categories' => 'item tags',	// TODO
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item content',	// TODO
 					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item thumbnail',	// TODO
 					'help' => 'Example: <code>image</code>',	// TODO
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// TODO
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item date',	// TODO
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
-				),
+				],
 				'item_title' => 'item title',	// TODO
 				'item_uid' => 'item unique ID',	// TODO
-				'item_uri' => array(
+				'item_uri' => [
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
-				),
+				],
 				'json' => 'Dotted Path for:',	// TODO
 				'relative' => 'Dotted Path (relative to item) for:',	// TODO
-			),
+			],
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
-		),
-		'maintenance' => array(
+		],
+		'maintenance' => [
 			'clear_cache' => ' کش را پاک کنید',
 			'clear_cache_help' => ' کش این فید را پاک کنید.',
 			'reload_articles' => ' بارگذاری مجدد مقالات',
 			'reload_articles_help' => ' تعداد زیادی مقاله را بارگیری مجدد کنید و در صورت تعریف انتخابگر',
 			'title' => ' تعمیر و نگهداری',
-		),
+		],
 		'max_http_redir' => ' حداکثر تغییر مسیر HTTP',
 		'max_http_redir_help' => ' روی 0 تنظیم کنید یا برای غیرفعال کردن آن را خالی بگذارید',
-		'method' => array(
+		'method' => [
 			'_' => 'HTTP Method',	// TODO
-		),
+		],
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
 		'mute' => ' بی صدا',
 		'no_selected' => ' هیچ خوراکی انتخاب نشده است.',
 		'number_entries' => ' %d مقاله',
-		'priority' => array(
+		'priority' => [
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',
 			'category' => ' نمایش در دسته بندی خود',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => ' نمایش در جریان اصلی',
-		),
+		],
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
 		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'selector_preview' => array(
+		'selector_preview' => [
 			'show_raw' => ' نمایش کد منبع',
 			'show_rendered' => 'نمایش محتوا',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'all' => ' نمایش همه فیدها',
 			'error' => ' نمایش فقط فیدهای دارای خطا',
-		),
-		'showing' => array(
+		],
+		'showing' => [
 			'error' => ' نمایش فقط فیدهای دارای خطا',
-		),
+		],
 		'ssl_verify' => ' امنیت SSL را تأیید کنید',
 		'stats' => ' آمار',
 		'think_to_add' => ' می توانید چند فید اضافه کنید.',
@@ -214,8 +214,8 @@ return array(
 		'validator' => ' اعتبار خوراک را بررسی کنید',
 		'website' => ' آدرس وب سایت',
 		'websub' => ' اطلاع رسانی فوری با WebSub',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export' => ' صادرات',
 		'export_labelled' => ' مقالات برچسب دار خود را صادر کنید',
 		'export_opml' => ' لیست صادرات فیدها (OPML)',
@@ -226,26 +226,26 @@ return array(
 		'import' => 'واردات',
 		'starred_list' => ' فهرست مقالات مورد علاقه',
 		'title' => ' واردات / صادرات',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'add' => ' یک فید یا دسته اضافه کنید',
 		'import_export' => ' واردات / صادرات',
 		'label_management' => ' مدیریت برچسب',
-		'stats' => array(
+		'stats' => [
 			'idle' => ' تغذیه بیکار',
 			'main' => ' آمار اصلی',
 			'repartition' => ' تقسیم مجدد مقالات',
-		),
+		],
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => ' نام',
 		'new_name' => ' نام جدید',
 		'old_name' => ' نام قدیمی',
-	),
-	'title' => array(
+	],
+	'title' => [
 		'_' => ' مدیریت اشتراک',
 		'add' => ' یک فید یا دسته اضافه کنید',
 		'add_category' => ' یک دسته اضافه کنید',
@@ -256,5 +256,5 @@ return array(
 		'feed_management' => ' فیدهای RSS را مدیریت می کندment',
 		'rename_label' => ' نام یک برچسب را تغییر دهید',
 		'subscription_tools' => 'ابزارهای اشتراک',
-	),
-);
+	],
+];

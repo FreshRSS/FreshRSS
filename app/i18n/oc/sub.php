@@ -10,197 +10,197 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'api' => array(
+return [
+	'api' => [
 		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',	// IGNORE
-	),
-	'bookmarklet' => array(
+	],
+	'bookmarklet' => [
 		'documentation' => 'Depausatz aqueste boton per la barra de marcapaginas o clicatz-lo a drecha e causissètz « Enregistrar aqueste ligam». Puèi clicatz «S’abonar» sus las paginas que volètz seguir.',
 		'label' => 'S’abonar',
 		'title' => 'Bookmarklet',	// IGNORE
-	),
-	'category' => array(
+	],
+	'category' => [
 		'_' => 'Categoria',
 		'add' => 'Ajustar categoria',
 		'archiving' => 'Archivar',
-		'dynamic_opml' => array(
+		'dynamic_opml' => [
 			'_' => 'OPML dinamic',
 			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
-		),
+		],
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'accept_cookies' => 'Acceptar los cookies',
 		'accept_cookies_help' => 'Permetre al servidor del flux de definir de cookies (gardatz en memòria pendent la durada de la requèsta sonque)',
 		'add' => 'Ajustar un flux RSS',
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
-		'auth' => array(
+		'auth' => [
 			'configuration' => 'Identificacion',
 			'help' => 'Permet l’accès als fluxes protegits per una autentificacion HTTP',
 			'http' => 'Autentificacion HTTP',
 			'password' => 'Senhal HTTP',
 			'username' => 'Identificant HTTP',
-		),
+		],
 		'clear_cache' => 'Totjorn escafar lo cache',
-		'content_action' => array(
+		'content_action' => [
 			'_' => 'Accion sul contengut en recuperant lo contengut de l’article',
 			'append' => 'Apondre aprèp lo contengut existent',
 			'prepend' => 'Apondre abans lo contengut existent',
 			'replace' => 'Remplaçar lo contengut existent',
-		),
+		],
 		'css_cookie' => 'Utilizar los cookies en recuperant lo contengut de l’article',
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
-		'css_path_filter' => array(
+		'css_path_filter' => [
 			'_' => 'Selector CSS de l’element de tirar',
 			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside</kbd>',
-		),
+		],
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
-		'filteractions' => array(
+		'filteractions' => [
 			'_' => 'Filtre d’accion',
 			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
-		),
+		],
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
-		'kind' => array(
+		'kind' => [
 			'_' => 'Tipe de font de flux',
-			'html_xpath' => array(
+			'html_xpath' => [
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'títol del flux',
 					'help' => 'Exemple : <code>//title</code> o una cadena de tèxt estatica : <code>"Mon flux personalizat"</code>',
-				),
+				],
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lengatge de requèsta estandard pels utilizaires avançats, e que FreshRSS prend en carga pel Web scraping.',
-				'item' => array(
+				'item' => [
 					'_' => 'trobar de novèlas <strong>items</strong><br /><small>(mai important)</small>',
 					'help' => 'Exemple : <code>//div[@class="news-item"]</code>',
-				),
-				'item_author' => array(
+				],
+				'item_author' => [
 					'_' => 'item autor',
 					'help' => 'Pòt èsser una cadena de tèxt estatica. Exemple : <code>"Anonymous"</code>',
-				),
+				],
 				'item_categories' => 'item etiqueta',
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item contengut',
 					'help' => 'Exemple per prendre tot l’item : <code>.</code>',
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item vinheta',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// TODO
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item data',
 					'help' => 'Lo resultats serà formatat per la foncion <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
-				),
-				'item_title' => array(
+				],
+				'item_title' => [
 					'_' => 'item títol',
 					'help' => 'Utilizatz en particular lo <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> coma <code>descendant::h2</code>',
-				),
-				'item_uid' => array(
+				],
+				'item_uid' => [
 					'_' => 'item ID unic',
 					'help' => 'Opcional. Exemple : <code>descendant::div/@data-uri</code>',
-				),
-				'item_uri' => array(
+				],
+				'item_uri' => [
 					'_' => 'item ligam (URL)',
 					'help' => 'Exemple : <code>descendant::a/@href</code>',
-				),
+				],
 				'relative' => 'XPath (relatiu a l’element) per :',
 				'xpath' => 'XPath per :',
-			),
-			'json_dotpath' => array(
+			],
+			'json_dotpath' => [
 				'_' => 'JSON (Dotted paths)',	// TODO
-				'feed_title' => array(
+				'feed_title' => [
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
-				),
+				],
 				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
-				'item' => array(
+				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
-				),
+				],
 				'item_author' => 'item author',	// TODO
 				'item_categories' => 'item tags',	// TODO
-				'item_content' => array(
+				'item_content' => [
 					'_' => 'item content',	// TODO
 					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
-				),
-				'item_thumbnail' => array(
+				],
+				'item_thumbnail' => [
 					'_' => 'item thumbnail',	// TODO
 					'help' => 'Example: <code>image</code>',	// TODO
-				),
-				'item_timeFormat' => array(
+				],
+				'item_timeFormat' => [
 					'_' => 'Custom date/time format',	// TODO
 					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
-				),
-				'item_timestamp' => array(
+				],
+				'item_timestamp' => [
 					'_' => 'item date',	// TODO
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
-				),
+				],
 				'item_title' => 'item title',	// TODO
 				'item_uid' => 'item unique ID',	// TODO
-				'item_uri' => array(
+				'item_uri' => [
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
-				),
+				],
 				'json' => 'Dotted Path for:',	// TODO
 				'relative' => 'Dotted Path (relative to item) for:',	// TODO
-			),
+			],
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (defaut)',
 			'xml_xpath' => 'XML + XPath',	// TODO
-		),
-		'maintenance' => array(
+		],
+		'maintenance' => [
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
 			'reload_articles' => 'Recargar los articles',
 			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY
 			'title' => 'Mantenença',
-		),
+		],
 		'max_http_redir' => 'Max HTTP redireccions',
 		'max_http_redir_help' => 'Definir a 0 o daissar void per lo desactivar, -1 per de redireccions illimitadas',
-		'method' => array(
+		'method' => [
 			'_' => 'HTTP Method',	// TODO
-		),
+		],
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',	// IGNORE
-		'priority' => array(
+		'priority' => [
 			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',
 			'category' => 'Mostar dins sa categoria',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostar al flux màger',
-		),
+		],
 		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
 		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'selector_preview' => array(
+		'selector_preview' => [
 			'show_raw' => 'Veire lo còdi font',
 			'show_rendered' => 'Veire lo contengut',
-		),
-		'show' => array(
+		],
+		'show' => [
 			'all' => 'Mostrar totes los fluxes',
 			'error' => 'Mostrar pas que los fluxes amb errors',
-		),
-		'showing' => array(
+		],
+		'showing' => [
 			'error' => 'Afichatge dels articles amb errors solament',
-		),
+		],
 		'ssl_verify' => 'Verificacion de la seguretat SSL',
 		'stats' => 'Estatisticas',
 		'think_to_add' => 'Podètz ajustar de fluxes.',
@@ -214,8 +214,8 @@ return array(
 		'validator' => 'Verificar la validitat del flux',
 		'website' => 'URL del site',
 		'websub' => 'Notificacions instantanèas amb WebSub',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export' => 'Exportar',
 		'export_labelled' => 'Exportar los articles etiquetats',
 		'export_opml' => 'Exportar la lista de fluxes (OPML)',
@@ -226,26 +226,26 @@ return array(
 		'import' => 'Importar',
 		'starred_list' => 'Lista dels articles favorits',
 		'title' => 'Importar / Exportar',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'add' => 'Ajustar un flux o una categoria',
 		'import_export' => 'Importar / Exportar',
 		'label_management' => 'Gestion de las etiquetas',
-		'stats' => array(
+		'stats' => [
 			'idle' => 'Fluxes inactius',
 			'main' => 'Estatisticas principalas',
 			'repartition' => 'Reparticion dels articles',
-		),
+		],
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Nom',
 		'new_name' => 'Nom novèl',
 		'old_name' => 'Nom ancian',
-	),
-	'title' => array(
+	],
+	'title' => [
 		'_' => 'Gestion dels abonaments',
 		'add' => 'Apondon de flux o categoria',
 		'add_category' => 'Ajustar una categoria',
@@ -256,5 +256,5 @@ return array(
 		'feed_management' => 'Gestion dels fluxes RSS',
 		'rename_label' => 'Renomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
-	),
-);
+	],
+];

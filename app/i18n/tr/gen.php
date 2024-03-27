@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Yenile akışlarınız',
 		'add' => 'Ekle',
 		'back' => '← Geri dön',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',
 		'update' => 'Güncelle',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => '<a href="%s">Kullanım koşullarını</a> kabul ediyorum.',
 		'email' => 'Email adresleri',
 		'keep_logged_in' => '<small>(%s günler)</small> oturumu açık tut',
 		'login' => 'Giriş',
 		'logout' => 'Çıkış',
-		'password' => array(
+		'password' => [
 			'_' => 'Şifre',
 			'format' => '<small>En az 7 karakter</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Yeni hesap',
 			'ask' => 'Yeni bir hesap oluştur',
 			'title' => 'Hesap oluşturma',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Kullancı adı',
 			'format' => '<small>En fazla 16 alfanümerik karakter</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\N\\i\\s\\a\\n',
 		'Aug' => '\\A\\ğ\\u\\s\\t\\o\\s',
 		'Dec' => '\\A\\r\\a\\l\\ı\\k',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Sal',
 		'wed' => 'Çar',
 		'yesterday' => 'Dün',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS hakkında',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Boş kategori',
 		'confirm_action' => 'Bunu yapmak istediğinize emin misiniz ? Daha sonra iptal edilemez!',
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
 			'body_unread_articles' => '(unread: %%d)',	// IGNORE
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Yeni makaleler mevcut. Sayfayı yenilemek için tıklayın.',
 		'should_be_activated' => 'JavaScript aktif olmalıdır.',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Hakkında',
 		'account' => 'Hesap',
 		'admin' => 'Yönetim',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Güncelleme',
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'gün',
 		'hours' => 'saat',
 		'months' => 'ay',
 		'weeks' => 'hafta',
 		'years' => 'yıl',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Bilinen siteler',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Sistem paylaşımı',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Tehlike!',
 		'blank_to_disable' => 'Devredışı bırakmak için boş bırakın',
 		'by_author' => 'Tarafından:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Tamam!',
 		'or' => 'ya da',
 		'yes' => 'Evet',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Daha fazla makale yükle',
 		'mark_all_read' => 'Tümünü okundu say',
 		'nothing_to_load' => 'Başka makale yok',
-	),
-);
+	],
+];

@@ -164,7 +164,7 @@ class Minz_Session {
 		if (!self::$volatile) {
 			session_destroy();
 		}
-		$_SESSION = array();
+		$_SESSION = [];
 
 		if (!$force) {
 			self::_param('language', $language);

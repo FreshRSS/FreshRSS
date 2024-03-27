@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => 'You don’t have permission to access this page',	// IGNORE
 		'not_found' => 'You are looking for a page that doesn’t exist',	// IGNORE
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => 'Optimization complete',	// IGNORE
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => 'Your password cannot be modified',	// IGNORE
 			'updated' => 'Your password has been modified',	// IGNORE
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => 'Login is invalid',	// IGNORE
 			'success' => 'You are connected',	// IGNORE
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => 'You are disconnected',	// IGNORE
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => 'An error occurred while saving configuration',	// IGNORE
 		'query_created' => 'Query “%s” has been created.',	// IGNORE
 		'shortcuts_updated' => 'Shortcuts have been updated',	// IGNORE
 		'updated' => 'Configuration has been updated',	// IGNORE
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s is already enabled',	// IGNORE
 		'cannot_remove' => '%s cannot be removed',	// IGNORE
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// IGNORE
 			'ok' => '%s is now disabled',	// IGNORE
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// IGNORE
 			'ok' => '%s is now enabled',	// IGNORE
-		),
+		],
 		'no_access' => 'You have no access on %s',	// IGNORE
 		'not_enabled' => '%s is not enabled',	// IGNORE
 		'not_found' => '%s does not exist',	// IGNORE
 		'removed' => '%s removed',	// IGNORE
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// IGNORE
 		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// IGNORE
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// IGNORE
 		'zip_error' => 'An error occurred during ZIP processing.',	// IGNORE
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => 'Your profile cannot be modified',	// IGNORE
 		'updated' => 'Your profile has been modified',	// IGNORE
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => 'Updating',	// IGNORE
-		'articles' => array(
+		'articles' => [
 			'marked_read' => 'The selected articles have been marked as read.',	// IGNORE
 			'marked_unread' => 'The articles have been marked as unread.',	// IGNORE
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => 'Category %s has been created.',	// IGNORE
 			'deleted' => 'Category has been deleted.',	// IGNORE
 			'emptied' => 'Category has been emptied',	// IGNORE
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => 'The category does not exist!',	// IGNORE
 			'over_max' => 'You have reached your limit of categories (%d)',	// IGNORE
 			'updated' => 'Category has been updated.',	// IGNORE
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> has been updated',	// IGNORE
 			'actualizeds' => 'RSS feeds have been updated',	// IGNORE
 			'added' => 'RSS feed <em>%s</em> has been added',	// IGNORE
@@ -103,44 +103,44 @@ return array(
 			'not_found' => 'Feed cannot be found',	// IGNORE
 			'over_max' => 'You have reached your limit of feeds (%d)',	// IGNORE
 			'reloaded' => '<em>%s</em> has been reloaded',	// IGNORE
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => 'Failed to load website content.',	// IGNORE
 				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// IGNORE
 				'no_feed' => 'Internal error (feed cannot be found).',	// IGNORE
 				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// IGNORE
 				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// IGNORE
-			),
+			],
 			'updated' => 'Feed has been updated',	// IGNORE
-		),
+		],
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// IGNORE
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => 'Label “%s” has been created.',	// IGNORE
 		'error' => 'Label could not be updated!',	// IGNORE
 		'name_exists' => 'Label name already exists.',	// IGNORE
 		'renamed' => 'Label “%s” has been renamed to “%s”.',	// IGNORE
 		'updated' => 'Label has been updated.',	// IGNORE
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// IGNORE
 		'error' => 'The update process has encountered an error: %s',	// IGNORE
 		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// IGNORE
 		'finished' => 'Update complete!',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
 		'server_not_found' => 'Update server cannot be found. [%s]',	// IGNORE
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => 'User %s has been created',	// IGNORE
 			'error' => 'User %s cannot be created',	// IGNORE
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => 'User %s has been deleted',	// IGNORE
 			'error' => 'User %s cannot be deleted',	// IGNORE
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => 'User %s has been updated',	// IGNORE
 			'error' => 'User %s has not been updated',	// IGNORE
-		),
-	),
-);
+		],
+	],
+];

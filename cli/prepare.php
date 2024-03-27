@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$dirs = array(
+$dirs = [
 	'/',
 	'/cache',
 	'/extensions-data',
@@ -15,7 +15,7 @@ $dirs = array(
 	'/tokens',
 	'/users',
 	'/users/_',
-);
+];
 
 $ok = true;
 

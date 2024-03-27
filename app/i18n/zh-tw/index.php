@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => '關於',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => '報告錯誤',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => '項目網站',
 		'title' => '關於',
 		'version' => '版本',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => '暫時沒有文章可顯示。',
 		'rss_of' => '%s 的訂閱源',
 		'title' => '首頁',
 		'title_fav' => '收藏',
 		'title_global' => '全局視圖',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => '日誌',
 		'clear' => '清除日誌',
 		'empty' => '日誌文件為空',
 		'title' => '日誌',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => '關於 FreshRSS',
 		'before_one_day' => '一天前',
 		'before_one_week' => '一週前',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => '訂閱管理',
 		'tags' => '我的標簽',
 		'unread' => '顯示未讀',
-	),
+	],
 	'share' => '分享',
-	'tag' => array(
+	'tag' => [
 		'related' => '文章標簽',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => '服務條款',
-	),
-);
+	],
+];

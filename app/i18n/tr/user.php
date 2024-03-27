@@ -10,45 +10,45 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'email' => array(
-		'feedback' => array(
+return [
+	'email' => [
+		'feedback' => [
 			'invalid' => 'Bu email adresi geçersiz.',
 			'required' => 'Bir email adresi gerekmektedir.',
-		),
-		'validation' => array(
+		],
+		'validation' => [
 			'change_email' => '<a href="%s">Profil sayfasından</a> email adresinizi değiştirebilirsiniz.',
 			'email_sent_to' => '<strong>%s</strong> adresine doğrulama postası gönderdik. Lütfen yönergelere uyarak email adresinizi doğrulayın.',
-			'feedback' => array(
+			'feedback' => [
 				'email_failed' => 'Sunucu hatasından dolayı email adresinize posta gönderilemedi.',
 				'email_sent' => 'Email adresinize posta gönderildi.',
 				'error' => 'Email adresi doğrulaması başarısız.',
 				'ok' => 'Bu email adresi doğrulandı.',
 				'unnecessary' => 'Bu email adresi zaten doğrulandı.',
 				'wrong_token' => 'Email doğrulaması yanlış anahtar sebebi ile başarısız oldu.',
-			),
+			],
 			'need_to' => '%s kullanımından önce email doğrulaması yapmalısınız.',
 			'resend_email' => 'Emaili yeniden gönder',
 			'title' => 'Email adres doğrulaması',
-		),
-	),
-	'mailer' => array(
-		'email_need_validation' => array(
+		],
+	],
+	'mailer' => [
+		'email_need_validation' => [
 			'body' => '%s kaydınız yapıldı, fakat email dğrulaması yapmanız gerekmektedir. Aşağıdaki bağlantıyı takip edin:',
 			'title' => 'Hesabınızı doğrulamanız gerekmektedir',
 			'welcome' => 'Hoşgeldin %s,',
-		),
-	),
-	'password' => array(
+		],
+	],
+	'password' => [
 		'invalid' => 'Parola geçersiz.',
-	),
-	'tos' => array(
-		'feedback' => array(
+	],
+	'tos' => [
+		'feedback' => [
 			'invalid' => 'Kayıt için Hizmet Kullanım Koşullarını kabul etmek durumundasınız.',
-		),
-	),
-	'username' => array(
+		],
+	],
+	'username' => [
 		'invalid' => 'Kullanıcı adı geçersiz.',
 		'taken' => 'Kullanıcı adı %s alınmış.',
-	),
-);
+	],
+];

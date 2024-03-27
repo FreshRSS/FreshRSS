@@ -69,7 +69,7 @@ foreach ($users as $username) {
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 	$feedList = $feedDAO->listFeedsIds();
 
-	$data = array(
+	$data = [
 		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
 		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
@@ -84,7 +84,7 @@ foreach ($users as $username) {
 		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
-	);
+	];
 	if (isset($cliOptions->humanReadable)) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);

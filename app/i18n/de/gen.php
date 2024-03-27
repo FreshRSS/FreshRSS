@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Feeds aktualisieren',
 		'add' => 'Hinzufügen',
 		'back' => '← Zurück',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Speichern',
 		'truncate' => 'Alle Artikel löschen',
 		'update' => 'Aktualisieren',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Ich akzeptiere die <a href="%s">Nutzungsbedingungen</a>.',
 		'email' => 'E-Mail-Adresse',
 		'keep_logged_in' => 'Eingeloggt bleiben <small>(%s Tage)</small>',
 		'login' => 'Anmelden',
 		'logout' => 'Abmelden',
-		'password' => array(
+		'password' => [
 			'_' => 'Passwort',
 			'format' => '<small>mindestens 7 Zeichen</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Neuer Account',
 			'ask' => 'Erstelle einen Account?',
 			'title' => 'Accounterstellung',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Nutzername',
 			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
 		'Aug' => '\\A\\u\\g\\u\\s\\t',	// IGNORE
 		'Dec' => '\\D\\e\\z\\e\\m\\b\\e\\r',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Di',
 		'wed' => 'Mi',
 		'yesterday' => 'Gestern',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Kategorie leeren',
 		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
 			'body_unread_articles' => '(Ungelesen: %%d)',
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
-		),
+		],
 		'labels_empty' => 'Keine Labels',
 		'new_article' => 'Es gibt neue verfügbare Artikel. Klicken Sie, um die Seite zu aktualisieren.',
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Über',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'Tage',
 		'hours' => 'Stunden',
 		'months' => 'Monate',
 		'weeks' => 'Wochen',
 		'years' => 'Jahre',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known-Seite (https://withknown.com)',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Teilen (Systemstandard)',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Achtung!',
 		'blank_to_disable' => 'Zum Deaktivieren frei lassen',
 		'by_author' => 'Von:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'OK!',
 		'or' => 'oder',
 		'yes' => 'Ja',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Weitere Artikel laden',
 		'mark_all_read' => 'Alle als gelesen markieren',
 		'nothing_to_load' => 'Es gibt keine weiteren Artikel',
-	),
-);
+	],
+];

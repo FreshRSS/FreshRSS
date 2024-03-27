@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'Névjegy',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Hiba jelentések',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Projekt weboldal',
 		'title' => 'Névjegy',
 		'version' => 'Verzió',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Nincs megjeleníthető cikk.',
 		'rss_of' => 'RSS hírforrás %s',
 		'title' => 'Minden cikk',
 		'title_fav' => 'Kedvencek',
 		'title_global' => 'Globális nézet',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Log-ok',
 		'clear' => 'Log-ok törlése',
 		'empty' => 'Log fájl üres',
 		'title' => 'Log-ok',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'FreshRSS névjegy',
 		'before_one_day' => 'Egy napnál régebbiek',
 		'before_one_week' => 'Egy hétnél régebbiek',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Hírforrások kezelése',
 		'tags' => 'Címkék',
 		'unread' => 'Olvasatlanok megjelenítése',
-	),
+	],
 	'share' => 'Megosztás',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Cikk címkék',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Szolgáltatási feltételek',
-	),
-);
+	],
+];

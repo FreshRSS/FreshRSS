@@ -10,45 +10,45 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'email' => array(
-		'feedback' => array(
+return [
+	'email' => [
+		'feedback' => [
 			'invalid' => 'Tato e-mailová adresa je neplatná.',
 			'required' => 'Je vyžadována e-mailová adresa.',
-		),
-		'validation' => array(
+		],
+		'validation' => [
 			'change_email' => 'Svou e-mailovou adresu můžete změnit <a href="%s">na stránce profilu</a>.',
 			'email_sent_to' => 'Odeslali jsme vám e-mail na <strong>%s</strong>. Postupujte podle jeho pokynů pro ověření vaší adresy.',
-			'feedback' => array(
+			'feedback' => [
 				'email_failed' => 'Nemohli jsme vám odeslat e-mail kvůli chybně nastavenému serveru.',
 				'email_sent' => 'Na vaši adresu byl odeslán e-mail.',
 				'error' => 'Ověření e-mailové adresy selhalo.',
 				'ok' => 'Tato e-mailová adresa byla ověřena.',
 				'unnecessary' => 'Tato e-mailová adresa již byla ověřena.',
 				'wrong_token' => 'Tuto e-mailovou adresu se nepodařilo ověřit kvůli špatnému tokenu.',
-			),
+			],
 			'need_to' => 'Než budete moci používat %s, musíte ověřit svou e-mailovou adresu.',
 			'resend_email' => 'Znovu odeslat e-mail',
 			'title' => 'Ověření e-mailové adresy',
-		),
-	),
-	'mailer' => array(
-		'email_need_validation' => array(
+		],
+	],
+	'mailer' => [
+		'email_need_validation' => [
 			'body' => 'Právě jste se zaregistrovali na %s, ale ještě musíte ověřit svou e-mailovou adresu. Přejděte na následující odkaz:',
 			'title' => 'Musíte ověřit svůj účet',
 			'welcome' => 'Vítejt, %s,',
-		),
-	),
-	'password' => array(
+		],
+	],
+	'password' => [
 		'invalid' => 'Heslo je neplatné.',
-	),
-	'tos' => array(
-		'feedback' => array(
+	],
+	'tos' => [
+		'feedback' => [
 			'invalid' => 'Musíte přijmout Podmínky služby, abyste se mohli zaregistrovat.',
-		),
-	),
-	'username' => array(
+		],
+	],
+	'username' => [
 		'invalid' => 'Toto uživatelské jméno je neplatné.',
 		'taken' => 'Toto uživatelské jméno, %s, je zabráno.',
-	),
-);
+	],
+];

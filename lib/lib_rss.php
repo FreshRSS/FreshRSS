@@ -211,14 +211,14 @@ function escapeToUnicodeAlternative(string $text, bool $extended = true): string
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
 	//Problematic characters
-	$problem = array('&', '<', '>');
+	$problem = ['&', '<', '>'];
 	//Use their fullwidth Unicode form instead:
-	$replace = array('＆', '＜', '＞');
+	$replace = ['＆', '＜', '＞'];
 
 	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
 	if ($extended) {
-		$problem += array("'", '"', '^', '?', '\\', '/', ',', ';');
-		$replace += array("’", '＂', '＾', '？', '＼', '／', '，', '；');
+		$problem += ["'", '"', '^', '?', '\\', '/', ',', ';'];
+		$replace += ["’", '＂', '＾', '？', '＼', '／', '，', '；'];
 	}
 
 	return trim(str_replace($problem, $replace, $text));
@@ -235,10 +235,10 @@ function format_number($n, int $precision = 0): string {
 function format_bytes(int $bytes, int $precision = 2, string $system = 'IEC'): string {
 	if ($system === 'IEC') {
 		$base = 1024;
-		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
+		$units = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
 	} elseif ($system === 'SI') {
 		$base = 1000;
-		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+		$units = ['B', 'KB', 'MB', 'GB', 'TB'];
 	} else {
 		return format_number($bytes, $precision);
 	}
@@ -335,24 +335,24 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
-	$simplePie->strip_htmltags(array(
+	$simplePie->strip_htmltags([
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
-	));
-	$simplePie->rename_attributes(array('id', 'class'));
-	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
+	]);
+	$simplePie->rename_attributes(['id', 'class']);
+	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
-	$simplePie->add_attributes(array(
-		'audio' => array('controls' => 'controls', 'preload' => 'none'),
-		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('controls' => 'controls', 'preload' => 'none'),
-	));
-	$simplePie->set_url_replacements(array(
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset']));
+	$simplePie->add_attributes([
+		'audio' => ['controls' => 'controls', 'preload' => 'none'],
+		'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'],
+		'video' => ['controls' => 'controls', 'preload' => 'none'],
+	]);
+	$simplePie->set_url_replacements([
 		'a' => 'href',
 		'area' => 'href',
 		'audio' => 'src',
@@ -360,21 +360,21 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 		'del' => 'cite',
 		'form' => 'action',
 		'iframe' => 'src',
-		'img' => array(
+		'img' => [
 			'longdesc',
 			'src'
-		),
+		],
 		'input' => 'src',
 		'ins' => 'cite',
 		'q' => 'cite',
 		'source' => 'src',
 		'track' => 'src',
-		'video' => array(
+		'video' => [
 			'poster',
 			'src',
-		),
-	));
-	$https_domains = array();
+		],
+	]);
+	$https_domains = [];
 	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);
@@ -527,7 +527,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$ch = curl_init();
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
-		CURLOPT_HTTPHEADER => array('Accept: ' . $accept),
+		CURLOPT_HTTPHEADER => ['Accept: ' . $accept],
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
@@ -627,7 +627,7 @@ function invalidateHttpCache(string $username = ''): bool {
  * @return array<string>
  */
 function listUsers(): array {
-	$final_list = array();
+	$final_list = [];
 	$base_path = join_path(DATA_PATH, 'users');
 	$dir_list = array_values(array_diff(
 		scandir($base_path) ?: [],
@@ -802,7 +802,7 @@ function check_install_php(): array {
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	return array(
+	return [
 		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
@@ -813,7 +813,7 @@ function check_install_php(): array {
 		'json' => extension_loaded('json'),
 		'mbstring' => extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
-	);
+	];
 }
 
 /**
@@ -836,7 +836,7 @@ function check_install_files(): array {
  * @return array<string,bool> of tested values.
  */
 function check_install_database(): array {
-	$status = array(
+	$status = [
 		'connection' => true,
 		'tables' => false,
 		'categories' => false,
@@ -845,7 +845,7 @@ function check_install_database(): array {
 		'entrytmp' => false,
 		'tag' => false,
 		'entrytag' => false,
-	);
+	];
 
 	try {
 		$dbDAO = FreshRSS_Factory::createDatabaseDAO();
@@ -894,7 +894,7 @@ function recursive_unlink(string $dir): bool {
  * @return array<int,array<string,string|int>> without queries where $get is appearing.
  */
 function remove_query_by_get(string $get, array $queries): array {
-	$final_queries = array();
+	$final_queries = [];
 	foreach ($queries as $key => $query) {
 		if (empty($query['get']) || $query['get'] !== $get) {
 			$final_queries[$key] = $query;

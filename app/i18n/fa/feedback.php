@@ -10,70 +10,70 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'access' => array(
+return [
+	'access' => [
 		'denied' => ' شما اجازه دسترسی به این صفحه را ندارید',
 		'not_found' => ' شما به دنبال صفحه ای هستید که وجود ندارد',
-	),
-	'admin' => array(
+	],
+	'admin' => [
 		'optimization_complete' => ' بهینه سازی کامل شد',
-	),
-	'api' => array(
-		'password' => array(
+	],
+	'api' => [
+		'password' => [
 			'failed' => ' رمز عبور شما قابل تغییر نیست',
 			'updated' => ' رمز عبور شما اصلاح شده است',
-		),
-	),
-	'auth' => array(
-		'login' => array(
+		],
+	],
+	'auth' => [
+		'login' => [
 			'invalid' => ' ورود نامعتبر است',
 			'success' => ' شما متصل هستید',
-		),
-		'logout' => array(
+		],
+		'logout' => [
 			'success' => ' شما قطع شده اید',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'error' => ' هنگام ذخیره پیکربندی خطایی روی داد',
 		'query_created' => ' پرس و جو "%s" ایجاد شده است.',
 		'shortcuts_updated' => ' میانبرها به روز شده اند',
 		'updated' => ' پیکربندی به روز شده است',
-	),
-	'extensions' => array(
+	],
+	'extensions' => [
 		'already_enabled' => '%s قبلاً فعال شده است',
 		'cannot_remove' => ' %s قابل حذف نیست',
-		'disable' => array(
+		'disable' => [
 			'ko' => '%s را نمی توان غیرفعال کرد. برای جزئیات <a href="%s">گزارش‌های FreshRSS</a> را بررسی کنید.',
 			'ok' => ' %s اکنون غیرفعال است',
-		),
-		'enable' => array(
+		],
+		'enable' => [
 			'ko' => ' %s را نمی توان فعال کرد. برای جزئیات <a href="%s">گزارش‌های FreshRSS</a> را بررسی کنید.',
 			'ok' => ' %s اکنون فعال است',
-		),
+		],
 		'no_access' => ' شما به %s دسترسی ندارید',
 		'not_enabled' => '%s فعال نیست',
 		'not_found' => '%s وجود ندارد',
 		'removed' => '%s حذف شد',
-	),
-	'import_export' => array(
+	],
+	'import_export' => [
 		'export_no_zip_extension' => ' پسوند ZIP در سرور شما وجود ندارد. لطفا سعی کنید فایل ها را یکی یکی صادر کنید.',
 		'feeds_imported' => ' فیدهای شما وارد شده اند و اکنون به روز خواهند شد / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'feeds_imported_with_errors' => ' فیدهای شما وارد شده است / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => ' فایل قابل آپلود نیست!',
 		'no_zip_extension' => ' پسوند ZIP در سرور شما وجود ندارد.',
 		'zip_error' => ' در حین پردازش ZIP خطایی روی داد.',
-	),
-	'profile' => array(
+	],
+	'profile' => [
 		'error' => ' نمایه شما قابل تغییر نیست',
 		'updated' => ' نمایه شما اصلاح شده است',
-	),
-	'sub' => array(
+	],
+	'sub' => [
 		'actualize' => ' به روز رسانی',
-		'articles' => array(
+		'articles' => [
 			'marked_read' => ' مقالات انتخاب شده به عنوان خوانده شده علامت گذاری شده اند.',
 			'marked_unread' => ' مقالات به عنوان خوانده نشده علامت گذاری شده اند.',
-		),
-		'category' => array(
+		],
+		'category' => [
 			'created' => ' رده %s ایجاد شده است.',
 			'deleted' => ' دسته حذف شده است.',
 			'emptied' => ' رده خالی شده است',
@@ -85,8 +85,8 @@ return array(
 			'not_exist' => ' دسته بندی وجود ندارد!',
 			'over_max' => ' شما به حد مجاز دسته بندی خود رسیده اید (%d)',
 			'updated' => ' رده به روز شده است.',
-		),
-		'feed' => array(
+		],
+		'feed' => [
 			'actualized' => '<em>%s</em> به روز شده است',
 			'actualizeds' => ' فیدهای RSS به روز شده اند',
 			'added' => ' فید RSS <em>%s</em> اضافه شده است',
@@ -103,44 +103,44 @@ return array(
 			'not_found' => ' فید یافت نمی شود',
 			'over_max' => ' شما به حد مجاز فید خود رسیده اید (%d)',
 			'reloaded' => '<em>%s</em> دوباره بارگیری شده است',
-			'selector_preview' => array(
+			'selector_preview' => [
 				'http_error' => ' محتوای وب سایت بارگیری نشد.',
 				'no_entries' => ' هیچ مقاله ای در این فید وجود ندارد. برای ایجاد پیش نمایش به حداقل یک مقاله نیاز دارید.',
 				'no_feed' => ' خطای داخلی (فید یافت نمی شود).',
 				'no_result' => ' انتخابگر با چیزی مطابقت نداشت. به عنوان یک بازگشت',
 				'selector_empty' => ' انتخابگر خالی است. برای ایجاد پیش نمایش باید یکی را تعریف کنید.',
-			),
+			],
 			'updated' => ' فید به روز شده است',
-		),
+		],
 		'purge_completed' => ' پاکسازی کامل شد (%d مقاله حذف شد)',
-	),
-	'tag' => array(
+	],
+	'tag' => [
 		'created' => ' برچسب "%s" ایجاد شده است.',
 		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => ' نام برچسب از قبل وجود دارد.',
 		'renamed' => ' برچسب "%s" به "%s" تغییر نام داده است.',
 		'updated' => 'Label has been updated.',	// TODO
-	),
-	'update' => array(
+	],
+	'update' => [
 		'can_apply' => ' به‌روزرسانی FreshRSS موجود است: <strong>نسخه %s</strong>.',
 		'error' => ' فرآیند به روز رسانی با خطا مواجه شده است: %s',
 		'file_is_nok' => ' به‌روزرسانی FreshRSS موجود است (<strong>نسخه %s</strong>)',
 		'finished' => ' به روز رسانی کامل شد!',
 		'none' => ' به روز رسانی در دسترس نیست',
 		'server_not_found' => ' سرور به روز رسانی یافت نمی شود. [%s]',
-	),
-	'user' => array(
-		'created' => array(
+	],
+	'user' => [
+		'created' => [
 			'_' => ' کاربر %s ایجاد شده است',
 			'error' => ' کاربر %s نمی تواند ایجاد شود',
-		),
-		'deleted' => array(
+		],
+		'deleted' => [
 			'_' => ' کاربر %s حذف شده است',
 			'error' => ' کاربر %s قابل حذف نیست',
-		),
-		'updated' => array(
+		],
+		'updated' => [
 			'_' => ' کاربر %s به روز شده است',
 			'error' => ' کاربر %s به روز نشده است',
-		),
-	),
-);
+		],
+	],
+];

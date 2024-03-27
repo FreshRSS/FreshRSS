@@ -10,127 +10,127 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'finish' => 'Complete installation',
 		'fix_errors_before' => 'Please all fix errors before continuing to the next step.',
 		'keep_install' => 'Keep previous configuration',
 		'next_step' => 'Go to the next step',
 		'reinstall' => 'Reinstall FreshRSS',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'type' => 'Authentication method',
-	),
-	'bdd' => array(
+	],
+	'bdd' => [
 		'_' => 'Database',
-		'conf' => array(
+		'conf' => [
 			'_' => 'Database configuration',
 			'ko' => 'Verify your database configuration.',
 			'ok' => 'Database configuration has been saved.',
-		),
+		],
 		'host' => 'Host',
 		'password' => 'Database password',
 		'prefix' => 'Table prefix',
 		'type' => 'Type of database',
 		'username' => 'Database username',
-	),
-	'check' => array(
+	],
+	'check' => [
 		'_' => 'Checks',
 		'already_installed' => 'We have detected that FreshRSS is already installed!',
-		'cache' => array(
+		'cache' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the cache directory are good.',
-		),
-		'ctype' => array(
+		],
+		'ctype' => [
 			'nok' => 'Cannot find the required library for character type checking (php-ctype).',
 			'ok' => 'You have the required library for character type checking (ctype).',
-		),
-		'curl' => array(
+		],
+		'curl' => [
 			'nok' => 'Cannot find the cURL library (php-curl package).',
 			'ok' => 'You have the cURL library.',
-		),
-		'data' => array(
+		],
+		'data' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
-		),
-		'dom' => array(
+		],
+		'dom' => [
 			'nok' => 'Cannot find the required library to browse the DOM.',
 			'ok' => 'You have the required library to browse the DOM.',
-		),
-		'favicons' => array(
+		],
+		'favicons' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the favicons directory are good.',
-		),
-		'fileinfo' => array(
+		],
+		'fileinfo' => [
 			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
 			'ok' => 'You have the fileinfo library.',
-		),
-		'json' => array(
+		],
+		'json' => [
 			'nok' => 'Cannot find the recommended library to parse JSON.',
 			'ok' => 'You have the recommended library to parse JSON.',
-		),
-		'mbstring' => array(
+		],
+		'mbstring' => [
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
 			'ok' => 'You have the recommended library mbstring for Unicode.',
-		),
-		'pcre' => array(
+		],
+		'pcre' => [
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
-		),
-		'pdo' => array(
+		],
+		'pdo' => [
 			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
+		],
+		'php' => [
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
-		),
+		],
 		'reload' => 'Check again',
-		'tmp' => array(
+		'tmp' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the temp directory are good.',
-		),
+		],
 		'unknown_process_username' => 'unknown',
-		'users' => array(
+		'users' => [
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the users directory are good.',
-		),
-		'xml' => array(
+		],
+		'xml' => [
 			'nok' => 'Cannot find the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',
-		),
-	),
-	'conf' => array(
+		],
+	],
+	'conf' => [
 		'_' => 'General configuration',
 		'ok' => 'General configuration has been saved.',
-	),
+	],
 	'congratulations' => 'Congratulations!',
-	'default_user' => array(
+	'default_user' => [
 		'_' => 'Username of the default user',
 		'max_char' => 'maximum 16 alphanumeric characters',
-	),
+	],
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
-	'js' => array(
+	'js' => [
 		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
-	),
-	'language' => array(
+	],
+	'language' => [
 		'_' => 'Language',
 		'choose' => 'Choose a language for FreshRSS',
 		'defined' => 'Language has been defined.',
-	),
+	],
 	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
-	'session' => array(
+	'session' => [
 		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',
-	),
+	],
 	'step' => 'step %d',
 	'steps' => 'Steps',
 	'this_is_the_end' => 'This is the end',
 	'title' => 'Installation · FreshRSS',
-);
+];

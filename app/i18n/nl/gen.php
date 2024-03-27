@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Feeds actualiseren',
 		'add' => 'Toevoegen',
 		'back' => '← Terug',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',
 		'update' => 'Updaten',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Ik accepteer de <a href="%s">gebruiksvoorwaarden</a>.',
 		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
 		'logout' => 'Log uit',
-		'password' => array(
+		'password' => [
 			'_' => 'Wachtwoord',
 			'format' => '<small>Ten minste 7 tekens</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Nieuw account',
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Gebruikersnaam',
 			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
 		'Aug' => '\\A\\u\\g\\u\\s\\t\\u\\s',
 		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Di',
 		'wed' => 'Wo',
 		'yesterday' => 'Gisteren',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
 			'body_unread_articles' => '(ongelezen: %%d)',
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
-		),
+		],
 		'labels_empty' => 'Geen labels',
 		'new_article' => 'Er zijn nieuwe artikelen beschikbaar. Klik om de pagina te vernieuwen.',
 		'should_be_activated' => 'JavaScript moet aanstaan',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Over',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administratie',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Versiecontrole',
 		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'dagen',
 		'hours' => 'uren',
 		'months' => 'maanden',
 		'weeks' => 'weken',
 		'years' => 'jaren',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Known-gebaseerde sites',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Delen van systeem',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Attentie!',
 		'blank_to_disable' => 'Laat leeg om uit te zetten',
 		'by_author' => 'Door:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'of',
 		'yes' => 'Ja',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Laad meer artikelen',
 		'mark_all_read' => 'Markeer alle als gelezen',
 		'nothing_to_load' => 'Er zijn geen artikelen meer',
-	),
-);
+	],
+];

@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'about' => array(
+return [
+	'about' => [
 		'_' => 'O aplikaci',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Hlášení chyb',
@@ -24,21 +24,21 @@ return array(
 		'project_website' => 'Webová stránka projektu',
 		'title' => 'O aplikaci',
 		'version' => 'Verze',
-	),
-	'feed' => array(
+	],
+	'feed' => [
 		'empty' => 'Nejsou žádné články k zobrazení.',
 		'rss_of' => 'Kanál RSS %s',
 		'title' => 'Hlavní kanál',
 		'title_fav' => 'Oblíbené',
 		'title_global' => 'Zobrazení přehledu',
-	),
-	'log' => array(
+	],
+	'log' => [
 		'_' => 'Protokoly',
 		'clear' => 'Vymazat protokoly',
 		'empty' => 'Soubor protokolu je prázdný',
 		'title' => 'Protokoly',
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Starší než jeden den',
 		'before_one_week' => 'Starší než jeden týden',
@@ -65,12 +65,12 @@ return array(
 		'subscription' => 'Správa odběrů',
 		'tags' => 'Mé popisky',
 		'unread' => 'Zobrazit nepřečtené',
-	),
+	],
 	'share' => 'Sdílet',
-	'tag' => array(
+	'tag' => [
 		'related' => 'Štítky článků',
-	),
-	'tos' => array(
+	],
+	'tos' => [
 		'title' => 'Podmínky služby',
-	),
-);
+	],
+];

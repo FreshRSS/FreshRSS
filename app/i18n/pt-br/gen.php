@@ -10,8 +10,8 @@
 /* When a comment is not recognized, it is discarded.                         */
 /******************************************************************************/
 
-return array(
-	'action' => array(
+return [
+	'action' => [
 		'actualize' => 'Atualizar feeds',
 		'add' => 'Adicionar',
 		'back' => '← Voltar',
@@ -39,28 +39,28 @@ return array(
 		'submit' => 'Enviar',
 		'truncate' => 'Deletar todos os artigos',
 		'update' => 'Atualizar',
-	),
-	'auth' => array(
+	],
+	'auth' => [
 		'accept_tos' => 'Eu aceito os <a href="%s">Termos de serviço</a>.',
 		'email' => 'Endereço de e-mail',
 		'keep_logged_in' => 'Mantenha logado por <small>(%s days)</small>',
 		'login' => 'Entrar',
 		'logout' => 'Sair',
-		'password' => array(
+		'password' => [
 			'_' => 'Senha',
 			'format' => '<small>Ao menos 7 caracteres</small>',
-		),
-		'registration' => array(
+		],
+		'registration' => [
 			'_' => 'Nova conta',
 			'ask' => 'Criar novoa conta?',
 			'title' => 'Criação de conta',
-		),
-		'username' => array(
+		],
+		'username' => [
 			'_' => 'Usuário',
 			'format' => '<small>Máximo 16 caracteres alphanumericos</small>',
-		),
-	),
-	'date' => array(
+		],
+	],
+	'date' => [
 		'Apr' => '\\A\\b\\r\\i\\l',
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
 		'Dec' => '\\D\\e\\z\\e\\m\\b\\r\\o',
@@ -118,27 +118,27 @@ return array(
 		'tue' => 'Ter',
 		'wed' => 'Qua',
 		'yesterday' => 'Ontem',
-	),
+	],
 	'dir' => 'ltr',	// IGNORE
-	'freshrss' => array(
+	'freshrss' => [
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Sobre FreshRSS',
-	),
-	'js' => array(
+	],
+	'js' => [
 		'category_empty' => 'Categoria vazia',
 		'confirm_action' => 'Você tem certeza que deseja efetuar esta ação? Ela não poderá ser cancelada!',
 		'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
-		'feedback' => array(
+		'feedback' => [
 			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
 			'body_unread_articles' => '(não lido: %%d)',
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
-		),
+		],
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Há novos artigos disponíveis, clique para atualizar a página.',
 		'should_be_activated' => 'O JavaScript precisa estar ativo',
-	),
-	'lang' => array(
+	],
+	'lang' => [
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -163,8 +163,8 @@ return array(
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
-	),
-	'menu' => array(
+	],
+	'menu' => [
 		'about' => 'Sobre',
 		'account' => 'Conta',
 		'admin' => 'Administração',
@@ -186,15 +186,15 @@ return array(
 		'update' => 'Atualização',
 		'user_management' => 'Gerenciamento de usuários',
 		'user_profile' => 'Perfil',
-	),
-	'period' => array(
+	],
+	'period' => [
 		'days' => 'dias',
 		'hours' => 'horas',
 		'months' => 'meses',
 		'weeks' => 'semanas',
 		'years' => 'anos',
-	),
-	'share' => array(
+	],
+	'share' => [
 		'Known' => 'Sites no Known',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -226,8 +226,8 @@ return array(
 		'web-sharing-api' => 'Sistemas-compartilhados (API)',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
-	),
-	'short' => array(
+	],
+	'short' => [
 		'attention' => 'Atenção!',
 		'blank_to_disable' => 'Deixe em branco para desativar',
 		'by_author' => 'Por:',
@@ -239,10 +239,10 @@ return array(
 		'ok' => 'Ok!',	// IGNORE
 		'or' => 'ou',
 		'yes' => 'Sim',
-	),
-	'stream' => array(
+	],
+	'stream' => [
 		'load_more' => 'Carregar mais artigos',
 		'mark_all_read' => 'Marcar todos como lidos',
 		'nothing_to_load' => 'Não há mais artigos',
-	),
-);
+	],
+];
