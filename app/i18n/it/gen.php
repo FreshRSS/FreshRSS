@@ -17,6 +17,7 @@ return array(
 		'back' => '← Torna indietro',
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
+		'close' => 'Close',	// TODO
 		'create' => 'Crea',
 		'delete_muted_feeds' => 'Cancella i feed mutati',
 		'demote' => 'Retrocedi',
@@ -122,7 +123,7 @@ return array(
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
 		'_' => 'Feed RSS Reader',
-		'about' => 'Informazioni',
+		'about' => 'Informazioni FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
@@ -165,7 +166,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Informazioni',
+		'about' => 'Informazioni FreshRSS',
 		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
 		'archiving' => 'Archiviazione',
@@ -174,6 +175,7 @@ return array(
 		'configuration' => 'Configurazione',
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log',
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',

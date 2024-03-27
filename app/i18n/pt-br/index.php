@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Compartilhar',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Tags relacionadas',
 	),
 	'tos' => array(

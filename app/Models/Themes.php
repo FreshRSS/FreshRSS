@@ -114,6 +114,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'non-starred' => '☆',
 			'notice' => 'ℹ️',	//ⓘ
 			'opml-dyn' => '⚡',
+			'person' => '👤',
 			'prev' => '⏪',
 			'read' => '☑️',	//☑
 			'rss' => '📣',	//☄

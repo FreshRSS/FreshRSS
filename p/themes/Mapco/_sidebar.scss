@@ -4,6 +4,14 @@
 
 @use "variables";
 
+.logo {
+	filter: grayscale(100%) brightness(3);
+}
+
+a:hover .logo {
+	filter: grayscale(100%) brightness(2.2);
+}
+
 /*=== Tree */
 .tree {
 	margin: 10px 0;
@@ -116,8 +124,6 @@
 	background: variables.$sid-bg;
 
 	&.aside_feed {
-		padding: 10px 0;
-		text-align: center;
 		background: variables.$sid-bg;
 	}
 

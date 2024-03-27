@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => '共有',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => '記事のタグ',
 	),
 	'tos' => array(

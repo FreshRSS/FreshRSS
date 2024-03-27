@@ -10,37 +10,37 @@
 
 	<h1><?= _t('admin.extensions.title') ?></h1>
 	<form id="form-extension" method="post">
-	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<?php if (!empty($this->extension_list['system'])) { ?>
-	<h2><?= _t('admin.extensions.system') ?></h2>
-	<ul class="manage-list">
-	<?php
-		foreach ($this->extension_list['system'] as $ext) {
-			$this->ext_details = $ext; ?>
-			<li>
-			<?php $this->renderHelper('extension/details'); ?>
-			</li>
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<?php if (!empty($this->extension_list['system'])) { ?>
+			<h2><?= _t('admin.extensions.system') ?></h2>
+			<ul class="manage-list">
+				<?php
+				foreach ($this->extension_list['system'] as $ext) {
+					$this->ext_details = $ext; ?>
+					<li>
+					<?php $this->renderHelper('extension/details'); ?>
+					</li>
+				<?php } ?>
+			</ul>
 		<?php } ?>
-	</ul>
-	<?php } ?>
 
-	<?php if (!empty($this->extension_list['user'])) { ?>
-	<h2><?= _t('admin.extensions.user') ?></h2>
-	<ul class="manage-list">
-	<?php
-		foreach ($this->extension_list['user'] as $ext) {
-			$this->ext_details = $ext; ?>
-			<li>
-			<?php $this->renderHelper('extension/details'); ?>
-			</li>
+		<?php if (!empty($this->extension_list['user'])) { ?>
+			<h2><?= _t('admin.extensions.user') ?></h2>
+			<ul class="manage-list">
+				<?php
+				foreach ($this->extension_list['user'] as $ext) {
+					$this->ext_details = $ext; ?>
+					<li>
+					<?php $this->renderHelper('extension/details'); ?>
+					</li>
+				<?php } ?>
+				</ul>
+		<?php }
+
+		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
+		?>
+			<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
 		<?php } ?>
-		</ul>
-	<?php }
-
-	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
-	?>
-	<p class="alert alert-warn"><?= _t('admin.extensions.empty_list') ?></p>
-	<?php } ?>
 	</form>
 
 	<?php if (!empty($this->available_extensions)) { ?>

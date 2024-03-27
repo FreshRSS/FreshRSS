@@ -17,6 +17,7 @@ return array(
 		'back' => '← Go back',	// TODO
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
+		'close' => 'Close',	// TODO
 		'create' => 'יצירה',
 		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
@@ -165,7 +166,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'אודות',
+		'about' => 'אודות FreshRSS',
 		'account' => 'Account',	// TODO
 		'admin' => 'ניהול',
 		'archiving' => 'ארכוב',
@@ -174,6 +175,7 @@ return array(
 		'configuration' => 'הגדרות',
 		'display' => 'תצוגה',
 		'extensions' => 'Extensions',	// TODO
+		'help' => 'Help',	// TODO
 		'logs' => 'לוגים',
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',

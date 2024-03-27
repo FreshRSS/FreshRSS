@@ -17,6 +17,7 @@ return array(
 		'back' => '← Atgriezties',
 		'back_to_rss_feeds' => '← Atgriezieties pie RSS barotnēm',
 		'cancel' => 'Atcelt',
+		'close' => 'Close',	// TODO
 		'create' => 'Uztaisīt',
 		'delete_muted_feeds' => 'Izdzēst izslēgtās barotnes',
 		'demote' => 'Pazemināt amatu',
@@ -165,7 +166,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Par',
+		'about' => 'Par FreshRSS',
 		'account' => 'Konts',
 		'admin' => 'Administrācija',
 		'archiving' => 'Arhivēšana',
@@ -174,6 +175,7 @@ return array(
 		'configuration' => 'Konfigurācija',
 		'display' => 'Display',	// TODO
 		'extensions' => 'Paplašinājumi',
+		'help' => 'Help',	// TODO
 		'logs' => 'Žurnāls',
 		'queries' => 'Lietotāja pieprasījumi',
 		'reading' => 'Lasīšana',
