@@ -643,6 +643,11 @@ input[type="checkbox"]:focus-visible {
 	padding: var(--frss-padding-top-bottom) 0;
 }
 
+.horizontal-list .item .item-element.dropdown .dropdown-toggle,
+.horizontal-list .item .item-element.dropdown .dropdown-toggle-close {
+	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
+}
+
 /*=== manage-list */
 .manage-list {
 	list-style: none;
