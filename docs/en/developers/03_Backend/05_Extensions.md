@@ -164,6 +164,19 @@ The following events are available:
 * `post_update` (`function(none) -> none`): **TODO** add documentation.
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
 
+### Injecting CDN content
+
+When using the `init` method, it is possible to inject scripts from CDN using the `Minz_View::appendScript` directive.
+FreshRSS will include the script in the page but will not load it since it will be blocked by the default content security policy (**CSP**).
+To amend the existing CSP, you need to define the extension CSP policies:
+```php
+// in the extension.php file
+protected array $csp_policies = [
+	'default-src' => 'example.org',
+];
+```
+This will only amend the extension CSP to FreshRSS CSP.
+
 ### Writing your own configure.phtml
 
 When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file.
