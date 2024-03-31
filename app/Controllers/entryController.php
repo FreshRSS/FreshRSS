@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle every entry actions.
  */
-class FreshRSS_entry_Controller extends FreshRSS_ActionController {
+class FreshRSS_entry_Controller extends FreshRSS_action_Controller {
 
 	/**
 	 * JavaScript request or not.

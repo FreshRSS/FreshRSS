@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_update_Controller extends FreshRSS_ActionController {
+class FreshRSS_update_Controller extends FreshRSS_action_Controller {
 
 	private const LASTUPDATEFILE = 'last_update.txt';
 

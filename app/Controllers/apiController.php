@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * This controller manage API-related features.
  */
-class FreshRSS_api_Controller extends FreshRSS_ActionController {
+class FreshRSS_api_Controller extends FreshRSS_action_Controller {
 
 	/**
 	 * Update the user API password.

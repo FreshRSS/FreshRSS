@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle every tag actions.
  */
-class FreshRSS_tag_Controller extends FreshRSS_ActionController {
+class FreshRSS_tag_Controller extends FreshRSS_action_Controller {
 
 	/**
 	 * JavaScript request or not.

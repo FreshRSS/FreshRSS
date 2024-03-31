@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * This controller handles action about authentication.
  */
-class FreshRSS_auth_Controller extends FreshRSS_ActionController {
+class FreshRSS_auth_Controller extends FreshRSS_action_Controller {
 	/**
 	 * This action handles authentication management page.
 	 *

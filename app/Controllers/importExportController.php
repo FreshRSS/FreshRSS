@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle every import and export actions.
  */
-class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
+class FreshRSS_importExport_Controller extends FreshRSS_action_Controller {
 
 	private FreshRSS_EntryDAO $entryDAO;
 

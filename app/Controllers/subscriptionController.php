@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle subscription actions.
  */
-class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
+class FreshRSS_subscription_Controller extends FreshRSS_action_Controller {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the

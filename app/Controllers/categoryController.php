@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Controller to handle actions relative to categories.
  * User needs to be connected.
  */
-class FreshRSS_category_Controller extends FreshRSS_ActionController {
+class FreshRSS_category_Controller extends FreshRSS_action_Controller {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

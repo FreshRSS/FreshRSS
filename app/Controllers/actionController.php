@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-abstract class FreshRSS_ActionController extends Minz_ActionController {
+abstract class FreshRSS_action_Controller extends Minz_ActionController {
 
 	/**
 	 * @var FreshRSS_View

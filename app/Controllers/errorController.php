@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle error page.
  */
-class FreshRSS_error_Controller extends FreshRSS_ActionController {
+class FreshRSS_error_Controller extends FreshRSS_action_Controller {
 	/**
 	 * This action is the default one for the controller.
 	 *

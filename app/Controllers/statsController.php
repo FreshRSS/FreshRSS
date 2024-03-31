@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends FreshRSS_ActionController {
+class FreshRSS_stats_Controller extends FreshRSS_action_Controller {
 
 	/**
 	 * @var FreshRSS_ViewStats

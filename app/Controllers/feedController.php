@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Controller to handle every feed actions.
  */
-class FreshRSS_feed_Controller extends FreshRSS_ActionController {
+class FreshRSS_feed_Controller extends FreshRSS_action_Controller {
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boiler plate for every action. It is triggered by the

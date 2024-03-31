@@ -47,7 +47,7 @@ Exemple de code :
 ```php
 <?php
 
-class FreshRSS_hello_Controller extends FreshRSS_ActionController {
+class FreshRSS_hello_Controller extends FreshRSS_action_Controller {
 	public function indexAction() {
 		$this->view->a_variable = 'FooBar';
 	}
