@@ -194,8 +194,8 @@ th {
 	background: #f9fafb;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
