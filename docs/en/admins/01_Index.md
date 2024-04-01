@@ -25,4 +25,5 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 * [Database configuration](DatabaseConfig.md)
 * [Using the command line interface (CLI)](https://github.com/FreshRSS/FreshRSS/tree/edge/cli)
 * [Configuring the email address validation](05_Configuring_email_validation.md)
+* [Reverse proxy with Caddy](Caddy.md)
 * [Frequently asked questions](04_Frequently_Asked_Questions.md)
