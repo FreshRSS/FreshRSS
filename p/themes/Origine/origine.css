@@ -165,8 +165,8 @@ th {
 	background-color: var(--background-color-light-shadowed);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }

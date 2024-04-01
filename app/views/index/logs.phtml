@@ -10,56 +10,54 @@
 
 	<h1><?= _t('index.log') ?></h1>
 
-
 	<?php
 		/** @var array<FreshRSS_Log> $items */
 		$items = $this->logsPaginator->items();
 	?>
 
 	<?php if (!empty($items)) { ?>
-	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-	<div id="loglist-wrapper" class="table-wrapper scrollbar-thin">
-		<table id="loglist">
-			<thead>
-				<th><?= _t('conf.logs.loglist.level') ?></th>
-				<th><?= _t('conf.logs.loglist.timestamp') ?></th>
-				<th><?= _t('conf.logs.loglist.message') ?></th>
-			</thead>
-			<tbody>
-		<?php foreach ($items as $log) { ?>
-		<tr class="log-item log-<?= $log->level() ?>">
-			<td class="log-level">
-				<?= _i($log->level()) ?>
-			</td>
-			<td class="log-date">
-				<time datetime="<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>">
-					<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>
-				</time>
-			</td>
-			<td class="log-message">
-				<?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?>
-			</td>
-			</tr>
-		<?php } ?>
-		</tbody>
-		</table>
-	</div>
-	<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+		<form method="post" action="<?= _url('index', 'logs') ?>">
+			<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+			
+			<div id="loglist-wrapper" class="table-wrapper scrollbar-thin">
+				<table id="loglist">
+					<thead>
+						<th><?= _t('conf.logs.loglist.level') ?></th>
+						<th><?= _t('conf.logs.loglist.timestamp') ?></th>
+						<th><?= _t('conf.logs.loglist.message') ?></th>
+					</thead>
+					<tbody>
+				<?php foreach ($items as $log) { ?>
+				<tr class="log-item log-<?= $log->level() ?>">
+					<td class="log-level">
+						<?= _i($log->level()) ?>
+					</td>
+					<td class="log-date">
+						<time datetime="<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>">
+							<?= date('Y-m-d H:i:s', @strtotime($log->date()) ?: 0) ?>
+						</time>
+					</td>
+					<td class="log-message">
+						<?= htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8') ?>
+					</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+				</table>
+			</div>
+			<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
+			
+			<div class="form-group form-actions">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="clearLogs" />
+				<div class="group-controls">
+				<button type="submit" class="btn btn-attention"><?= _t('index.log.clear') ?></button>
+				</div>
+			</div>
+		</form>
 
-
-
-	<form method="post" action="<?= _url('index', 'logs') ?>">
-	<div class="form-group form-actions">
-	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<input type="hidden" name="clearLogs" />
-		<div class="group-controls">
-		<button type="submit" class="btn btn-attention"><?= _t('index.log.clear') ?></button>
-		</div>
-	</div>
-	</form>
-
-	<?php } else { ?>
-	<p class="alert alert-warn"><?= _t('index.log.empty') ?></p>
+	<?php
+	} else { ?>
+		<p class="alert alert-warn"><?= _t('index.log.empty') ?></p>
 	<?php } ?>
-
 </main>

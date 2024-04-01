@@ -132,7 +132,7 @@ if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Requ
 	$config['pubsubhubbub_enabled'] = true;
 }
 
-$config['db'] = array_merge($config['db'], array_filter($dbValues));
+$config['db'] = array_merge($config['db'], array_filter($dbValues, static fn($value) => $value !== null));
 
 performRequirementCheck($config['db']['type']);
 
