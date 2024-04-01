@@ -1,4 +1,5 @@
 .git/
+extensions/
 lib/marienfressinaud/
 lib/phpgt/
 lib/phpmailer/

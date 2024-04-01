@@ -20,7 +20,7 @@
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background-color: variables.$main-first;
@@ -52,6 +52,13 @@
 		height: calc(100% - 8rem);
 	}
 
+	#panel {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
 	.post {
 		padding-left: 1rem;
 		padding-right: 1rem;
@@ -63,7 +70,8 @@
 			padding: 0.85rem 1.25rem;
 		}
 
-		.stick {
+		.stick,
+		.group {
 			margin: 0.5rem 0.5rem;
 
 			.btn {

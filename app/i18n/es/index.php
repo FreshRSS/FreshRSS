@@ -17,7 +17,8 @@ return array(
 		'bugs_reports' => 'Informe de fallos',
 		'credits' => 'Créditos',
 		'credits_content' => 'Aunque FreshRSS no usa ese entorno, algunos elementos del diseño están obtenidos de <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>. Los <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Iconos</a> han sido obtenidos del <a href="https://www.gnome.org/">proyecto GNOME</a>. La fuente <em>Open Sans</em> es una creación de <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS usa el entorno PHP <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
-		'freshrss_description' => 'FreshRSS es un agregador de fuentes RSS de alojamiento privado al estilo de <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> o <a href="https://github.com/LeedRSS/Leed">Leed</a>. Es una herramienta potente, pero ligera y fácil de usar y configurar.',
+		'documentation' => 'Documentacion',
+		'freshrss_description' => 'FreshRSS es un agregador de fuentes RSS de alojamiento privado. Es una herramienta potente, pero ligera y fácil de usar y configurar.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">en Github</a>',
 		'license' => 'Licencia',
 		'project_website' => 'Web del proyecto',
@@ -25,7 +26,6 @@ return array(
 		'version' => 'Versión',
 	),
 	'feed' => array(
-		'add' => 'Puedes añadir fuentes.',
 		'empty' => 'No hay artículos a mostrar.',
 		'rss_of' => 'Fuente RSS de %s',
 		'title' => 'Salida Principal',
@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Marcar consulta actual',
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Vista Global',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Salida Principal',
 		'mark_all_read' => 'Marcar todo como leído',
 		'mark_cat_read' => 'Marcar categoría como leída',

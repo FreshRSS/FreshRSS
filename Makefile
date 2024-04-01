@@ -21,8 +21,6 @@ endif
 
 ifeq ($(findstring alpine,$(TAG)),alpine)
 	DOCKERFILE=Dockerfile-Alpine
-else ifeq ($(findstring arm,$(TAG)),arm)
-	DOCKERFILE=Dockerfile-QEMU-ARM
 else
 	DOCKERFILE=Dockerfile
 endif
@@ -42,6 +40,7 @@ start: ## Start the development environment (use Docker)
 	docker network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
+		-it \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
@@ -73,7 +72,7 @@ lint-fix: vendor/bin/phpcbf ## Fix the errors detected by the linter
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/b5dbe5ebdec95ce71b3128b359bd5a85cb0a722d/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/8af47a6fd4910073ea7580378d6252c708f83a06/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
 vendor/bin/phpunit: bin/composer
 	bin/composer install --prefer-dist --no-progress
@@ -90,7 +89,7 @@ vendor/bin/phpcbf: bin/composer
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.13.6/typos-v1.13.6-x86_64-unknown-linux-musl.tar.gz' && \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.17.0/typos-v1.17.0-x86_64-unknown-linux-musl.tar.gz' && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \

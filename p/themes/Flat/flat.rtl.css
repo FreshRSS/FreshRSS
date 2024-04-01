@@ -5,7 +5,7 @@
 html, body {
 	background: #fafafa;
 	color: black;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -83,8 +83,8 @@ th {
 	background: #f6f6f6;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -136,30 +136,38 @@ form th {
 
 /*=== Buttons */
 .stick input,
-.stick .btn {
+.stick .btn,
+.group .btn {
 	border-radius: 0;
 }
 
 .stick .btn:first-child,
+.group .btn:first-child,
 .stick input:first-child {
 	border-radius: 0 5px 5px 0;
 }
 
 .stick .btn:last-child,
+.group .btn:last-child,
 .stick input:last-child,
-.stick .dropdown:last-child > .btn {
+.stick .dropdown:last-child > .btn,
+.group .dropdown:last-child > .btn {
 	border-radius: 5px 0 0 5px;
 }
 
 .stick .btn + .btn,
+.group .btn + .btn,
 .stick .btn + input,
 .stick .btn + .dropdown > .btn,
+.group .btn + .dropdown > .btn,
 .stick input + .btn,
 .stick input + input,
 .stick input + .dropdown > .btn,
 .stick .dropdown + .btn,
+.group .dropdown + .btn,
 .stick .dropdown + input,
-.stick .dropdown + .dropdown > .btn {
+.stick .dropdown + .dropdown > .btn,
+.group .dropdown + .dropdown > .btn {
 	border-right-width: 1px;
 	border-right-style: solid;
 }
@@ -168,24 +176,16 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: #3498db;
-	display: inline-block;
 	color: #fff;
 	font-size: 0.9rem;
 	border: none;
 	border-bottom: 3px solid #2980b9;
 	border-right-color: #2980b9;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 .btn:hover {
@@ -617,20 +617,6 @@ a.btn {
 	border-radius: 3px;
 }
 
-/*=== Configuration pages */
-.post {
-	padding: 10px 50px;
-	font-size: 0.9em;
-}
-
-.post form {
-	margin: 10px 0;
-}
-
-.post.content {
-	max-width: 550px;
-}
-
 /*=== Prompt (centered) */
 .prompt .form-group {
 	margin-bottom: 1rem;
@@ -961,7 +947,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
 	}

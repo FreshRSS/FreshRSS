@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
-		'token' => 'Ověřovací token',
-		'token_help' => 'Umožňuje přístup k výstupu RSS výchozího uživatele bez ověřování:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Metoda ověřování',
 		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
 	),
@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Všechny kanály',
 		'no_idle' => 'Nejsou žádné nečinné kanály!',
 		'number_entries' => '%d článků',
-		'percent_of_total' => '%% ze všech',
+		'percent_of_total' => '% ze všech',
 		'repartition' => 'Přerozdělení článků',
 		'status_favorites' => 'Oblíbené',
 		'status_read' => 'Přečtené',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavení systému',
 		'auto-update-url' => 'Adresa URL serveru pro automatické aktualizace',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
@@ -183,15 +187,33 @@ return array(
 			),
 			'title' => 'Registrační formulář uživatele',
 		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+		),
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
-		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
-		'last' => 'Poslední kontrola: %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Vaše aktuální verze',
+		'last' => 'Poslední kontrola',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Žádné nové aktualizace',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Aktualizovat systém',
+		'viaGit' => 'Update via git and Github.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrátor',

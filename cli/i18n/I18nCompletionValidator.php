@@ -1,21 +1,28 @@
 <?php
+declare(strict_types=1);
 
 require_once __DIR__ . '/I18nValidatorInterface.php';
 
 class I18nCompletionValidator implements I18nValidatorInterface {
 
-	private $reference;
-	private $language;
-	private $totalEntries = 0;
-	private $passEntries = 0;
-	private $result = '';
+	/** @var array<string,array<string,I18nValue>> */
+	private array $reference;
+	/** @var array<string,array<string,I18nValue>> */
+	private array $language;
+	private int $totalEntries = 0;
+	private int $passEntries = 0;
+	private string $result = '';
 
-	public function __construct($reference, $language) {
+	/**
+	 * @param array<string,array<string,I18nValue>> $reference
+	 * @param array<string,array<string,I18nValue>> $language
+	 */
+	public function __construct(array $reference, array $language) {
 		$this->reference = $reference;
 		$this->language = $language;
 	}
 
-	public function displayReport() {
+	public function displayReport(): string {
 		if ($this->passEntries > $this->totalEntries) {
 			throw new \RuntimeException('The number of translated strings cannot be higher than the number of strings');
 		}
@@ -25,11 +32,11 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		return sprintf('Translation is %5.1f%% complete.', $this->passEntries / $this->totalEntries * 100) . PHP_EOL;
 	}
 
-	public function displayResult() {
+	public function displayResult(): string {
 		return $this->result;
 	}
 
-	public function validate() {
+	public function validate(): bool {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $refKey => $refValue) {
 				$this->totalEntries++;

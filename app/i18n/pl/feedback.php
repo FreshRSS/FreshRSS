@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze. Spróbuj eksportować pliki pojedynczo.',
-		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane',
-		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów',
+		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
-		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',
+		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Nie można modyfikować profilu',
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Etykieta “%s” została stworzona.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
 		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',

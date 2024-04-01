@@ -1,4 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
 
@@ -77,6 +80,11 @@
 			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.cancel') ?></a>
 		</div>
 	</form>
-
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
 </main>
+
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>

@@ -97,7 +97,7 @@ l’aide de la classe `Minz_Request`. Exemple de code :
 <?php
 
 $default_value = 'foo';
-$param = Minz_Request::param('bar', $default_value);
+$param = Minz_Request::paramString('bar') ?: $default_value;
 
 // Affichera la valeur du paramètre `bar` (passé via GET ou POST)
 // ou "foo" si le paramètre n’existe pas.
@@ -108,7 +108,7 @@ Minz_Request::_param('bar', 'baz');
 
 // Affichera forcément "baz" puisque nous venons de forcer sa valeur.
 // Notez que le second paramètre (valeur par défaut) est facultatif.
-echo Minz_Request::param('bar');
+echo Minz_Request::paramString('bar');
 
 ?>
 ```
