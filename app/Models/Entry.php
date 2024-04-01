@@ -123,7 +123,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$title = $this->guid();
 		} else {
 			// used while fetching from the database
-			if ($this->title != $this->guid) {
+			if ($this->title !== $this->guid) {
 				$title = $this->title;
 			} else {
 				$content = trim(strip_tags($this->content(false)));
