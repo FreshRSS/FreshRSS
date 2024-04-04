@@ -177,6 +177,12 @@ return array(
 				'header' => 'No cabeçalho',
 				'none' => 'Nenhum',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Acima do titulo/etiqueta',
+				'with_authors' => 'Com autores e data',
+				'header' => 'No cabeçalho',
+			),
 			'feed_name' => array(
 				'above_title' => 'Acima do titulo/etiqueta',
 				'none' => 'Nenhum',

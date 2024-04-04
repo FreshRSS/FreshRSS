@@ -177,6 +177,12 @@ return array(
 				'header' => 'V záhlaví',
 				'none' => 'Žiadne',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'O zápise/značky',
+				'with_authors' => 'V riadku autori a dátum',
+				'header' => 'V záhlaví',
+			),
 			'feed_name' => array(
 				'above_title' => 'O zápise/značky',
 				'none' => 'Žiadne',

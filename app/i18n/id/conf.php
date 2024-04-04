@@ -177,6 +177,12 @@ return array(
 				'header' => 'In header',	// TODO
 				'none' => 'None',	// TODO
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Above title/tags', // TODO
+				'with_authors' => 'In authors and date row', // TODO
+				'header' => 'In Header', // TODO
+			),
 			'feed_name' => array(
 				'above_title' => 'Above title/tags',	// TODO
 				'none' => 'None',	// TODO

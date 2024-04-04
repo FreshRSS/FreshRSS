@@ -177,6 +177,12 @@ return array(
 				'header' => 'Dins l’entèsta',
 				'none' => 'Cap',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Al dessús títol/etiquetas',
+				'with_authors' => 'Dins la linha autors e data',
+				'header' => 'Dins l’entèsta',
+			),
 			'feed_name' => array(
 				'above_title' => 'Al dessús títol/etiquetas',
 				'none' => 'Cap',

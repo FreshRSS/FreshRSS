@@ -177,6 +177,12 @@ return array(
 				'header' => 'Virsrakstā',
 				'none' => 'Nekāds',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Virs titula/birkām',
+				'with_authors' => 'Autoru un datuma rindā',
+				'header' => 'Virsrakstā',
+			),
 			'feed_name' => array(
 				'above_title' => 'Virs titula/birkām',
 				'none' => 'Nekāds',

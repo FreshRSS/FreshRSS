@@ -177,6 +177,12 @@ return array(
 				'header' => ' در سربرگ',
 				'none' => ' هیچکدام',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => ' بالای عنوان/برچسب ها',
+				'with_authors' => ' در نویسندگان و ردیف تاریخ',
+				'header' => ' در سربرگ',
+			),
 			'feed_name' => array(
 				'above_title' => ' بالای عنوان/برچسب ها',
 				'none' => ' هیچ',

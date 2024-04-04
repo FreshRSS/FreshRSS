@@ -177,6 +177,12 @@ return array(
 				'header' => '머리말에',
 				'none' => '숨김',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => '제목/태그 위에',
+				'with_authors' => '작성자, 작성일과 같은 줄에',
+				'header' => '머리말에',
+			),
 			'feed_name' => array(
 				'above_title' => '제목/태그 위에',
 				'none' => '숨김',

@@ -177,6 +177,12 @@ return array(
 				'header' => 'Üst Bilgi',
 				'none' => 'Hiçbiri',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Başlıklar/Etiklerin Üstünde',
+				'with_authors' => 'Yazarlar ve tarihler satırında',
+				'header' => 'Üst Bilgide',
+			),
 			'feed_name' => array(
 				'above_title' => 'Başlıklar/Etiklerin Üstünde',
 				'none' => 'Hiçbiri',

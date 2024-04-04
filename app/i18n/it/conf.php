@@ -177,6 +177,12 @@ return array(
 				'header' => 'Nell’intestazione',
 				'none' => 'Nessuno',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Sopra il titolo/tag',
+				'with_authors' => 'Nella riga degli autori e data',
+				'header' => 'Nell’intestazione',
+			),
 			'feed_name' => array(
 				'above_title' => 'Sopra il titolo/tag',
 				'none' => 'Nessuno',

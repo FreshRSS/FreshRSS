@@ -177,6 +177,12 @@ return array(
 				'header' => '页眉',
 				'none' => '不显示',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => '在标题/标签上方',
+				'with_authors' => '与作者和日期一行',
+				'header' => '页眉',
+			),
 			'feed_name' => array(
 				'above_title' => '在标题/标签上方',
 				'none' => '不显示',

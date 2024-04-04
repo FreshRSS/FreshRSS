@@ -177,6 +177,12 @@ return array(
 				'header' => 'In kop',
 				'none' => 'Geen',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Boven titel/tags',
+				'with_authors' => 'In lijn met auteurs en datum',
+				'header' => 'In kop',
+			),
 			'feed_name' => array(
 				'above_title' => 'Boven titel/tags',
 				'none' => 'Geen',

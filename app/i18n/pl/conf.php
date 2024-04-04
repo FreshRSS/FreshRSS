@@ -177,6 +177,12 @@ return array(
 				'header' => 'W nagłówku',
 				'none' => 'Brak',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Ponad tytułem/tagami',
+				'with_authors' => 'W tej samej linii co autor i data',
+				'header' => 'W nagłówku',
+			),
 			'feed_name' => array(
 				'above_title' => 'Ponad tytułem/tagami',
 				'none' => 'Brak',

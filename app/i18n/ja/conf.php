@@ -177,6 +177,12 @@ return array(
 				'header' => 'ヘッダー',
 				'none' => 'なし',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => '上のタイトル/タグ',
+				'with_authors' => '著者と日付の行',
+				'header' => 'ヘッダー',
+			),
 			'feed_name' => array(
 				'above_title' => '上のタイトル/タグ',
 				'none' => 'なし',

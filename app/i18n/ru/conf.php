@@ -177,6 +177,12 @@ return array(
 				'header' => 'В верхнем колонтитуле',
 				'none' => 'Нигде',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Над титулом и метками',
+				'with_authors' => 'В строке с автором и датой',
+				'header' => 'В верхнем колонтитуле',
+			),
 			'feed_name' => array(
 				'above_title' => 'Над титулом и метками',
 				'none' => 'Нигде',

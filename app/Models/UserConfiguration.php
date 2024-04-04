@@ -20,6 +20,7 @@ declare(strict_types=1);
  * @property string $show_tags
  * @property int $show_tags_max
  * @property string $show_author_date
+ * @property string $show_icons
  * @property string $show_feed_name
  * @property bool $display_posts
  * @property string $email_validation_token

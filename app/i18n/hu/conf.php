@@ -177,6 +177,12 @@ return array(
 				'header' => 'Fejlécben',
 				'none' => 'Sehol',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Cím/Tag felett',
+				'with_authors' => 'A szerzők és dátum sorban',
+				'header' => 'Fejlécben',
+			),
 			'feed_name' => array(
 				'above_title' => 'Cím/Tag felett',
 				'none' => 'Sehol',

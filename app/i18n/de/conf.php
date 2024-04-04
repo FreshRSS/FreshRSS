@@ -177,6 +177,12 @@ return array(
 				'header' => 'In Kopfzeile',
 				'none' => 'Nicht anzeigen',
 			),
+			'icons' => array(
+				'_' => 'Icons', // TODO
+				'above_title' => 'Oberhalb der Überschrit und Hashtags',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
+				'header' => 'In Kopfzeile',
+			),
 			'feed_name' => array(
 				'above_title' => 'Oberhalb der Überschrit und Hashtags',
 				'none' => 'Nicht anzeigen',
