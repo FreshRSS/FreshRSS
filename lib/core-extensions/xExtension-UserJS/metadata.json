@@ -1,8 +1,8 @@
 {
-	"name": "Custom JS",
-	"author": "Frans de Jonge",
-	"description": "Apply custom JS.",
-	"version": "0.5",
-	"entrypoint": "CustomJS",
+	"name": "UserJS",
+	"author": "hkcomori, Frans de Jonge",
+	"description": "Apply user JS.",
+	"version": "0.0.1",
+	"entrypoint": "UserJS",
 	"type": "user"
 }

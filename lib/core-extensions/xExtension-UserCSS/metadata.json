@@ -1,8 +1,8 @@
 {
-	"name": "Custom CSS",
-	"author": "Marien Fressinaud",
+	"name": "UserCSS",
+	"author": "hkcomori, Marien Fressinaud",
 	"description": "Give possibility to overwrite the CSS with a user-specific rules.",
-	"version": "0.5",
-	"entrypoint": "CustomCSS",
+	"version": "0.0.1",
+	"entrypoint": "UserCSS",
 	"type": "user"
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class CustomCSSExtension extends Minz_Extension {
+class UserCSSExtension extends Minz_Extension {
 	public string $css_rules;
 	public string $permission_problem = '';
 

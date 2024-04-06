@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class CustomJSExtension extends Minz_Extension {
+class UserJSExtension extends Minz_Extension {
 	public string $js_rules;
 	public string $permission_problem = '';
 
