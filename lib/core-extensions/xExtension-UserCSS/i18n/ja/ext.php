@@ -2,6 +2,6 @@
 
 return array(
 	'user_css' => array(
-		'write_css' => 'Règles CSS supplémentaires',
+		'write_css' => '追加のCSSルール',
 	),
 );

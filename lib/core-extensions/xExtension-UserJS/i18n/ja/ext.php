@@ -2,6 +2,6 @@
 
 return array(
 	'user_js' => array(
-		'write_js' => 'Additional JS',
+		'write_js' => '追加のJS',
 	),
 );
