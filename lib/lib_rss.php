@@ -572,7 +572,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
-		$body = trim($body, " \n\r\t");
+		$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
 		if ($type !== 'json') {
 			$body = enforceHttpEncoding($body, $c_content_type);
 		}
