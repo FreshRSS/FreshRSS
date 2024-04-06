@@ -9,32 +9,27 @@ class UserJSExtension extends Minz_Extension {
 	public function init(): void {
 		$this->registerTranslates();
 
-		$current_user = Minz_Session::paramString('currentUser');
-		$filename = 'script.' . $current_user . '.js';
-		$filepath = join_path($this->getPath(), 'static', $filename);
+		$username = Minz_User::name();
+		$dirpath = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+		$filename = 'script.js';
+		$filepath = "{$dirpath}/{$filename}";
 
 		if (file_exists($filepath)) {
-			Minz_View::appendScript($this->getFileUrl($filename, 'js'));
+			Minz_View::appendScript($this->getFileUrl($filename, 'js', false));
 		}
 	}
 
 	public function handleConfigureAction(): void {
 		$this->registerTranslates();
 
-		$current_user = Minz_Session::paramString('currentUser');
-		$filename = 'script.' . $current_user . '.js';
-		$staticPath = join_path($this->getPath(), 'static');
-		$filepath = join_path($staticPath, $filename);
+		$username = Minz_User::name();
+		$dirpath = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+		$filename = 'script.js';
+		$filepath = "{$dirpath}/{$filename}";
 
-		if (!file_exists($filepath) && !is_writable($staticPath)) {
-			$tmpPath = explode(EXTENSIONS_PATH . '/', $staticPath);
-			$this->permission_problem = $tmpPath[1] . '/';
-		} elseif (file_exists($filepath) && !is_writable($filepath)) {
-			$tmpPath = explode(EXTENSIONS_PATH . '/', $filepath);
-			$this->permission_problem = $tmpPath[1];
-		} elseif (Minz_Request::isPost()) {
+		if (Minz_Request::isPost()) {
 			$js_rules = html_entity_decode(Minz_Request::paramString('js-rules'));
-			file_put_contents($filepath, $js_rules);
+			$this->saveFile($filename, $js_rules);
 		}
 
 		$this->js_rules = '';
