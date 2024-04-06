@@ -346,7 +346,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes')));
 	$simplePie->add_attributes(array(
 		'audio' => array('controls' => 'controls', 'preload' => 'none'),
 		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
