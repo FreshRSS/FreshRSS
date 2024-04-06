@@ -247,7 +247,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * @return Traversable<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
-	public static function listEntriesByContext(int $postsPerPage = null): Traversable {
+	public static function listEntriesByContext(?int $postsPerPage = null): Traversable {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
