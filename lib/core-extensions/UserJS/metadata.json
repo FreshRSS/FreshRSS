@@ -2,7 +2,7 @@
 	"name": "UserJS",
 	"author": "hkcomori, Frans de Jonge",
 	"description": "Apply user JS.",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"entrypoint": "UserJS",
 	"type": "user"
 }
