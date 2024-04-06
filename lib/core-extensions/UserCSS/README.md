@@ -6,6 +6,7 @@ To use it, enable it on the extension panel in FreshRSS. You can add CSS rules b
 
 ## Changelog
 
+- 1.0.0 change rules location to user data folder; promoted to core extension
 - 0.0.1 initial version
 
 ## Examples
