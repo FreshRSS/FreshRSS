@@ -446,7 +446,7 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 	if ($httpCharset == '') {
 		// No charset defined by HTTP
 		if (preg_match('/<meta\s[^>]*charset\s*=[\s\'"]*UTF-?8\b/i', substr($html, 0, 2048))) {
-			// Favour UTF-8 even if defined too deep in HTML for DOMDocument
+			// Detect UTF-8 even if declared too deep in HTML for DOMDocument
 			$httpCharset = 'UTF-8';
 		} else {
 			// Do nothing
