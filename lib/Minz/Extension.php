@@ -179,7 +179,7 @@ abstract class Minz_Extension {
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
-	protected final function getFileUrl(string $filename, string $type, bool $isStatic = true): string {
+	public final function getFileUrl(string $filename, string $type, bool $isStatic = true): string {
 		if ($isStatic) {
 			$dir = basename($this->path);
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
