@@ -287,7 +287,7 @@ abstract class Minz_Extension {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	protected final function getSystemConfigurationValue(string $key, $default = null) {
+	public final function getSystemConfigurationValue(string $key, $default = null) {
 		if (!is_array($this->system_configuration)) {
 			$this->system_configuration = $this->getSystemConfiguration();
 		}
@@ -302,7 +302,7 @@ abstract class Minz_Extension {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	protected final function getUserConfigurationValue(string $key, $default = null) {
+	public final function getUserConfigurationValue(string $key, $default = null) {
 		if (!is_array($this->user_configuration)) {
 			$this->user_configuration = $this->getUserConfiguration();
 		}
