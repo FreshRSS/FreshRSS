@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 final class UserCSSExtension extends Minz_Extension {
 	public string $css_rules = '';
-	public string $permission_problem = '';
 	private const FILENAME = 'style.css';
 
 	public function init(): void {
