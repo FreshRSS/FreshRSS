@@ -291,6 +291,7 @@ class FreshRSS_BooleanSearch {
 		$this->searches[] = $search;
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		return $this->getRawInput();
 	}
