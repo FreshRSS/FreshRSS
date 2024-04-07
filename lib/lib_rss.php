@@ -444,8 +444,14 @@ function stripHtmlMetaCharset(string $html): string {
 function enforceHttpEncoding(string $html, string $contentType = ''): string {
 	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
 	if ($httpCharset == '') {
-		// No charset defined by HTTP, do nothing
-		return $html;
+		// No charset defined by HTTP
+		if (preg_match('/<meta\s[^>]*charset\s*=[\s\'"]*UTF-?8\b/i', substr($html, 0, 2048))) {
+			// Detect UTF-8 even if declared too deep in HTML for DOMDocument
+			$httpCharset = 'UTF-8';
+		} else {
+			// Do nothing
+			return $html;
+		}
 	}
 	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
 	if (in_array($httpCharsetNormalized, ['windows-1252', 'US-ASCII'], true)) {
@@ -565,8 +571,11 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		// TODO: Implement HTTP 410 Gone
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
-	} elseif ($type !== 'json') {
-		$body = enforceHttpEncoding($body, $c_content_type);
+	} else {
+		$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+		if ($type !== 'json') {
+			$body = enforceHttpEncoding($body, $c_content_type);
+		}
 	}
 
 	if (file_put_contents($cachePath, $body) === false) {
