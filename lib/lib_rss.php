@@ -344,13 +344,15 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	]);
 	$simplePie->rename_attributes(['id', 'class']);
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
-		'allow', 'allowfullscreen',
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset']));
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
-		'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'],
+		'iframe' => [
+			'allow' => 'fullscreen web-share',
+			'sandbox' => 'allow-scripts allow-same-origin',
+		],
 		'video' => ['controls' => 'controls', 'preload' => 'none'],
 	]);
 	$simplePie->set_url_replacements([
