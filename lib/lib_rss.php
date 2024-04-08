@@ -350,7 +350,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
 		'iframe' => [
-			'allow' => 'fullscreen web-share',
+			'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
 			'sandbox' => 'allow-scripts allow-same-origin',
 		],
 		'video' => ['controls' => 'controls', 'preload' => 'none'],
