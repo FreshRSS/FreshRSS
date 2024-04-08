@@ -73,9 +73,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->callbackBeforeEntries = static function (FreshRSS_View $view) {
 			try {
-				FreshRSS_Context::$number++;	//+1 for articles' page
-				$view->entries = FreshRSS_index_Controller::listEntriesByContext();
-				FreshRSS_Context::$number--;
+				// +1 to account for paging logic
+				$view->entries = FreshRSS_index_Controller::listEntriesByContext(FreshRSS_Context::$number + 1);
 				ob_start();	//Buffer "one entry at a time"
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
@@ -244,10 +243,11 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This method returns a list of entries based on the Context object.
+	 * @param int $postsPerPage override `FreshRSS_Context::$number`
 	 * @return Traversable<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
-	public static function listEntriesByContext(): Traversable {
+	public static function listEntriesByContext(?int $postsPerPage = null): Traversable {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
@@ -266,7 +266,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-					FreshRSS_Context::$number, FreshRSS_Context::$offset, FreshRSS_Context::$first_id,
+					$postsPerPage ?? FreshRSS_Context::$number, FreshRSS_Context::$offset, FreshRSS_Context::$first_id,
 					FreshRSS_Context::$search, $date_min)
 				as $entry) {
 			yield $entry;
