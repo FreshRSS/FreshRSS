@@ -157,7 +157,7 @@ abstract class Minz_Extension {
 	/** Return the user-specific, extension-specific, folder where this extension can save user-specific data */
 	protected final function getExtensionUserPath(): string {
 		$username = Minz_User::name() ?: '_';
-		return USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+		return USERS_PATH . "/{$username}/extensions/{$this->getEntrypoint()}";
 	}
 
 	/** Return whether a user-specific, extension-specific, file exists */
@@ -190,7 +190,7 @@ abstract class Minz_Extension {
 				return '';
 			}
 			$path = $this->getExtensionUserPath() . "/{$filename}";
-			$file_name_url = urlencode("{$username}/extensions/{$this->getName()}/{$filename}");
+			$file_name_url = urlencode("{$username}/extensions/{$this->getEntrypoint()}/{$filename}");
 			$mtime = @filemtime($path);
 		}
 
