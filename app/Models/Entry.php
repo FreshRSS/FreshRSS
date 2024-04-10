@@ -223,7 +223,7 @@ HTML;
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 				continue;
 			}
-			$credit = $enclosure['credit'] ?? '';
+			$credits = $enclosure['credit'] ?? '';
 			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
@@ -260,8 +260,13 @@ HTML;
 					. '" title="' . $etitle . '">💾</a></p>';
 			}
 
-			if ($credit != '') {
-				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+			if ($credits != '') {
+				if (!is_array($credits)) {
+					$credits = [$credits];
+				}
+				foreach ($credits as $credit) {
+					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+				}
 			}
 			if ($description != '') {
 				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
@@ -272,7 +277,7 @@ HTML;
 		return $content;
 	}
 
-	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
+	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
