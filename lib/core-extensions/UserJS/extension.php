@@ -5,6 +5,7 @@ final class UserJSExtension extends Minz_Extension {
 	public string $js_rules = '';
 	private const FILENAME = 'script.js';
 
+	#[\Override]
 	public function init(): void {
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
@@ -12,6 +13,7 @@ final class UserJSExtension extends Minz_Extension {
 		}
 	}
 
+	#[\Override]
 	public function handleConfigureAction(): void {
 		$this->registerTranslates();
 
