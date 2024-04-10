@@ -1167,7 +1167,7 @@ function init_stream(stream) {
 			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
+			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}
