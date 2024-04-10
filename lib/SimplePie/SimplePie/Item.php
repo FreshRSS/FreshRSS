@@ -152,8 +152,26 @@ class SimplePie_Item
 	}
 
 	/**
+     * Get base URL of the item itself.
+     * Returns `<xml:base>` or feed base URL.
+     * Similar to `get_base()` but can safely be used during initialisation methods
+     * such as `get_links()` (`get_base()` and `get_links()` call each-other)
+     * and is not affected by enclosures.
+     *
+     * @param array<string, mixed> $element
+     * @see get_base
+     */
+    protected function get_own_base(array $element = []): string
+    {
+        if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
+            return $element['xml_base'];
+        }
+        return $this->feed->get_base();
+    }
+
+	/**
 	 * Get the base URL value.
-	 * Uses `<xml:base>`, or item link, or feed base URL.
+	 * Uses `<xml:base>`, or item link, or enclosure link, or feed base URL.
 	 *
 	 * @param array $element
 	 * @return string
@@ -1000,7 +1018,7 @@ class SimplePie_Item
 				if (isset($link['attribs']['']['href']))
 				{
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
-					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
+					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($link));
 
 				}
 			}
@@ -1009,26 +1027,26 @@ class SimplePie_Item
 				if (isset($link['attribs']['']['href']))
 				{
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
-					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
+					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($link));
 				}
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link'))
 			{
-				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($links[0]));
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link'))
 			{
-				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($links[0]));
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
 			{
-				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($links[0]));
 			}
 			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid'))
 			{
 				if (!isset($links[0]['attribs']['']['isPermaLink']) || strtolower(trim($links[0]['attribs']['']['isPermaLink'])) === 'true')
 				{
-					$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
+					$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_own_base($links[0]));
 				}
 			}
 
@@ -1505,14 +1523,14 @@ class SimplePie_Item
 			{
 				if (isset($player_parent[0]['attribs']['']['url']))
 				{
-					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($player_parent[0]));
 				}
 			}
 			elseif ($player_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'player'))
 			{
 				if (isset($player_parent[0]['attribs']['']['url']))
 				{
-					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($player_parent[0]));
 				}
 			}
 
@@ -1679,7 +1697,7 @@ class SimplePie_Item
 				{
 					if (isset($thumbnail['attribs']['']['url']))
 					{
-						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($thumbnail));
 					}
 				}
 			}
@@ -1689,7 +1707,7 @@ class SimplePie_Item
 				{
 					if (isset($thumbnail['attribs']['']['url']))
 					{
-						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($thumbnail));
 					}
 				}
 			}
@@ -1836,7 +1854,7 @@ class SimplePie_Item
 							{
 								$width = $this->sanitize($content['attribs']['']['width'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($content));
 
 							// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
@@ -2195,11 +2213,11 @@ class SimplePie_Item
 							// PLAYER
 							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
 							{
-								$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+								$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']));
 							}
 							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
 							{
-								$player = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+								$player = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']));
 							}
 							else
 							{
@@ -2325,7 +2343,7 @@ class SimplePie_Item
 							{
 								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
 								{
-									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($thumbnail));
 								}
 								if (is_array($thumbnails))
 								{
@@ -2336,7 +2354,7 @@ class SimplePie_Item
 							{
 								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
 								{
-									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($thumbnail));
 								}
 								if (is_array($thumbnails))
 								{
@@ -2460,7 +2478,7 @@ class SimplePie_Item
 						}
 						if (isset($content['attribs']['']['url']))
 						{
-							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($content));
 						}
 						// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
@@ -2673,7 +2691,7 @@ class SimplePie_Item
 						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
 						{
 							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'])) {
-								$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+								$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]));
 							}
 						}
 						else
@@ -2750,7 +2768,7 @@ class SimplePie_Item
 							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
 							{
 								if (isset($thumbnail['attribs']['']['url'])) {
-									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($thumbnail));
 								}
 							}
 							if (is_array($thumbnails))
