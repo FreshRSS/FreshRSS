@@ -6,6 +6,7 @@ declare(strict_types=1);
  */
 class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
+	#[\Override]
 	public function tablesAreCorrect(): bool {
 		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
 		$stm = $this->pdo->query($sql);
@@ -30,18 +31,21 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	/** @return array<array<string,string|int|bool|null>> */
+	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
 		return $stm ? $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC) ?: []) : [];
 	}
 
+	#[\Override]
 	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', [
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags',
 		]);
 	}
 
+	#[\Override]
 	public function entrytmpIsCorrect(): bool {
 		return $this->checkTable('entrytmp', [
 			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
@@ -52,6 +56,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	 * @param array<string,string|int|bool|null> $dao
 	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
+	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
 			'name'    => (string)$dao['name'],
@@ -61,6 +66,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		];
 	}
 
+	#[\Override]
 	public function size(bool $all = false): int {
 		$sum = 0;
 		if ($all) {
@@ -73,6 +79,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		return $sum;
 	}
 
+	#[\Override]
 	public function optimize(): bool {
 		$ok = $this->pdo->exec('VACUUM') !== false;
 		if (!$ok) {
