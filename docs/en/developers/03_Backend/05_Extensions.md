@@ -56,8 +56,11 @@ If you want to write a `HelloWorld` extension, the directory name should be `xEx
 
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you need the structure:
 ```php
-class HelloWorldExtension extends Minz_Extension {
-	public function init() {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
+	public function init(): void {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -136,6 +139,8 @@ final class HelloWorldExtension extends Minz_Extension
 {
 	#[\Override]
 	public function init(): void {
+		parent::init();
+
 		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
 		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}

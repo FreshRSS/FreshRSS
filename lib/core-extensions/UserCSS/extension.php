@@ -7,6 +7,8 @@ final class UserCSSExtension extends Minz_Extension {
 
 	#[\Override]
 	public function init(): void {
+		parent::init();
+
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
 			Minz_View::appendStyle($this->getFileUrl(self::FILENAME, 'css', false));
@@ -15,6 +17,8 @@ final class UserCSSExtension extends Minz_Extension {
 
 	#[\Override]
 	public function handleConfigureAction(): void {
+		parent::init();
+
 		$this->registerTranslates();
 
 		if (Minz_Request::isPost()) {

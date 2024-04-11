@@ -80,7 +80,9 @@ abstract class Minz_Extension {
 	 * enabled by the extension manager).
 	 * @return void
 	 */
-	abstract public function init();
+	public function init() {
+		$this->migrateExtensionUserPath();
+	}
 
 	/**
 	 * Set the current extension to enable.
@@ -118,7 +120,9 @@ abstract class Minz_Extension {
 	 * Handle the configure action.
 	 * @return void
 	 */
-	public function handleConfigureAction() {}
+	public function handleConfigureAction() {
+		$this->migrateExtensionUserPath();
+	}
 
 	/**
 	 * Getters and setters.
@@ -158,6 +162,15 @@ abstract class Minz_Extension {
 	protected final function getExtensionUserPath(): string {
 		$username = Minz_User::name() ?: '_';
 		return USERS_PATH . "/{$username}/extensions/{$this->getEntrypoint()}";
+	}
+
+	private function migrateExtensionUserPath(): void {
+		$username = Minz_User::name() ?: '_';
+		$old_extension_user_path = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+		$new_extension_user_path = $this->getExtensionUserPath();
+		if (is_dir($old_extension_user_path)) {
+			rename($old_extension_user_path, $new_extension_user_path);
+		}
 	}
 
 	/** Return whether a user-specific, extension-specific, file exists */

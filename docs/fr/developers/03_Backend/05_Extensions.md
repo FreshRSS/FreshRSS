@@ -81,8 +81,11 @@ class name `HelloWorldExtension`.
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
 need the structure:
 ```html
-class HelloWorldExtension extends Minz_Extension {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
 	public function init() {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -192,6 +195,8 @@ final class HelloWorldExtension extends Minz_Extension
 {
 	#[\Override]
 	public function init(): void {
+		parent::init();
+
 		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
 		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}
