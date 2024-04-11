@@ -155,6 +155,12 @@ class Minz_ModelPdo {
 		self::$sharedCurrentUser = '';
 	}
 
+	public function close(): void {
+		$this->current_user = '';
+		unset($this->pdo);
+		gc_collect_cycles();
+	}
+
 	/**
 	 * @param array<string,int|string|null> $values
 	 * @phpstan-return ($mode is PDO::FETCH_ASSOC ? array<array<string,int|string|null>>|null : array<int|string|null>|null)
