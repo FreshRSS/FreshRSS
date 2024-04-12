@@ -318,7 +318,7 @@ function mark_read(div, only_not_read, asBatch) {
 	if (asRead && asBatch) {
 		mark_read_queue.push(entryId);
 		if (send_mark_read_queue_timeout == 0) {
-			send_mark_read_queue_timeout = setTimeout(function () { send_mark_queue_tick(null); }, 1000);
+			send_mark_read_queue_timeout = setTimeout(function () { send_mark_queue_tick(null); }, 0);
 		}
 	} else {
 		const queue = [entryId];
