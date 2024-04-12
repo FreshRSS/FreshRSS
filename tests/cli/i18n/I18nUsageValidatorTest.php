@@ -7,6 +7,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 
 	private I18nValue $value;
 
+	#[\Override]
 	public function setUp(): void {
 		$this->value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()

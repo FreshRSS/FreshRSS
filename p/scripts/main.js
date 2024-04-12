@@ -697,7 +697,7 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item a');
+	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
 		// Display the share div
 		location.hash = share.id;

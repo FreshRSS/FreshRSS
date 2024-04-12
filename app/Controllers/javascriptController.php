@@ -12,6 +12,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		parent::__construct(FreshRSS_ViewJavascript::class);
 	}
 
+	#[\Override]
 	public function firstAction(): void {
 		$this->view->_layout(null);
 	}
