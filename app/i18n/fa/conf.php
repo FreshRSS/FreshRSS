@@ -183,6 +183,11 @@ return array(
 				'with_authors' => ' در نویسندگان و ردیف تاریخ',
 			),
 			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => ' برچسب ها',
 				'both' => ' در سرصفحه و پاورقی',

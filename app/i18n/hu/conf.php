@@ -183,6 +183,11 @@ return array(
 				'with_authors' => 'A szerzők és dátum sorban',
 			),
 			'feed_title' => 'Hírforrás címe',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Címkék',
 				'both' => 'Fejlécben és láblécben',

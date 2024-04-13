@@ -183,6 +183,11 @@ return array(
 				'with_authors' => '著者と日付の行',
 			),
 			'feed_title' => 'フィードのタイトル',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'タグ',
 				'both' => 'ヘッダーとフッター',

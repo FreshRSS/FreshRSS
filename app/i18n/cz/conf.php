@@ -183,6 +183,11 @@ return array(
 				'with_authors' => 'V řádku s autory a datem',
 			),
 			'feed_title' => 'Název feedu',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Štítky',
 				'both' => 'V záhlaví a zápatí',

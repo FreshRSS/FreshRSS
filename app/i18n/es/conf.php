@@ -183,6 +183,11 @@ return array(
 				'with_authors' => 'En la fila de autores y fecha',
 			),
 			'feed_title' => 'Título del Feed',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiquetas',
 				'both' => 'En el encabezado y pie de página',

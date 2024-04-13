@@ -183,6 +183,11 @@ return array(
 				'with_authors' => 'Dins la linha autors e data',
 			),
 			'feed_title' => 'Títol del flux',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiquetas',
 				'both' => 'Dins l’entèsta e lo bas de pagina',

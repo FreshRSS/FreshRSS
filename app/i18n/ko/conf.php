@@ -183,6 +183,11 @@ return array(
 				'with_authors' => '작성자, 작성일과 같은 줄에',
 			),
 			'feed_title' => '피드 제목',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '태그',
 				'both' => '머리말과 꼬리말에',

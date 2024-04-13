@@ -183,6 +183,11 @@ return array(
 				'with_authors' => 'Nella riga degli autori e data',
 			),
 			'feed_title' => 'Titolo del feed',
+			'icons' => array(
+				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'Nell’intestazione e nel fondo pagina',
