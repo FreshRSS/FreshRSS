@@ -53,7 +53,7 @@
 			}
 		?>
 		<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $entry->link() ?>"><?= $entry->title() ?></a></h1>
-		<?php if (in_array(FreshRSS_Context::userConf()->show_author_date, ['h','b'])) { ?>
+		<?php if (in_array(FreshRSS_Context::userConf()->show_author_date, ['h','b'], true)) { ?>
 			<div class="subtitle horizontal-list">
 				<?php if (FreshRSS_Auth::hasAccess()) { ?>
 					<?php if (FreshRSS_Context::userConf()->topline_read && FreshRSS_Context::userConf()->show_articleicons == 'a') { ?>
