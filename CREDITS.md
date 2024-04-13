@@ -106,6 +106,7 @@ People are sorted by name so please keep this order.
 * [Joe Stump](https://github.com/joestump): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joestump), [Web](http://stu.mp)
 * [Joel Garcia](https://github.com/joelchrono12): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joelchrono12), [Web](https://joelchrono12.xyz)
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cez81)
+* [Josh McKinney](https://github.com/joshka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joshka)
 * [Joris Kinable](https://github.com/jkinable): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jkinable)
 * [Jules Bertholet](https://github.com/Jules-Bertholet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jules-Bertholet)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:j8r), [Web](https://blog.jrei.ch/)
