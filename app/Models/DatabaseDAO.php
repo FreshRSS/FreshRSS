@@ -224,11 +224,10 @@ SQL;
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 
 			$dbVersion = $this->fetchValue('SELECT version()') ?? '';
-			Minz_Log::warning(json_encode($dbVersion));
-			$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;
+			Minz_Log::warning($dbVersion);
+			$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;	// MariaDB includes its name in version, but not MySQL
 			if (!$isMariaDB) {
-				// MySQL does not support `DROP INDEX IF EXISTS` yet
-				// https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
+				// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
 				// but MariaDB does https://mariadb.com/kb/en/drop-index/
 				$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
 			}
