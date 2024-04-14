@@ -451,6 +451,12 @@ td.numeric {
 	display: block;
 }
 
+.form-group.form-actions {
+	position: sticky;
+	bottom: 0;
+	  backdrop-filter: blur(2px);
+}
+
 .form-advanced-title {
 	padding: 15px 0;
 	width: 200px;
