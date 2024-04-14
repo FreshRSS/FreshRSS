@@ -9,6 +9,7 @@
 	--background-color-light-gradient2: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
+	--background-color-light-shadowed-transparent: #f0f0f099;
 	--background-color-grey: #f0f0f0;
 	--background-color-hover: #f6f6f6;
 
@@ -177,7 +178,7 @@ th {
 .form-group.form-actions {
 	margin-bottom: 40px;
 	padding: 5px 0;
-	background-color: var(--background-color-light-shadowed);
+	background-color: var(--background-color-light-shadowed-transparent);
 	border-top: 1px solid var(--border-color);
 }
 
