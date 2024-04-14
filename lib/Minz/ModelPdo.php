@@ -225,4 +225,19 @@ class Minz_ModelPdo {
 	public function fetchColumn(string $sql, int $column, array $values = []): ?array {
 		return $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, $column);
 	}
+
+	/** For retrieving a single value without prepared statement such as `SELECT version()` */
+	public function fetchValue(string $sql): ?string {
+		$stm = $this->pdo->query($sql);
+		if ($stm === false) {
+			Minz_Log::error('SQL error ' . json_encode($this->pdo->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		$columns = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if ($columns === false) {
+			Minz_Log::error('SQL error ' . json_encode($stm->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		return isset($columns[0]) ? (string)$columns[0] : null;
+	}
 }
