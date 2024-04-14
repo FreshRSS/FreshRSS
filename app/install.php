@@ -5,6 +5,7 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 header("Content-Security-Policy: default-src 'self'");
+header("X-Frame-Options 'SAMEORIGIN'");
 
 require(LIB_PATH . '/lib_install.php');
 

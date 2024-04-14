@@ -115,6 +115,7 @@ if (!is_valid_path($absolute_filename)) {
 $content_type = SUPPORTED_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
+header("X-Frame-Options 'SAMEORIGIN'");
 
 $mtime = @filemtime($absolute_filename);
 if ($mtime === false) {

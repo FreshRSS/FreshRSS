@@ -962,6 +962,7 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 	}
 
 	header("Content-Security-Policy: default-src 'self'");
+	header("X-Frame-Options 'SAMEORIGIN'");
 
 	return <<<MSG
 	<!DOCTYPE html><html><header><title>HTTP 500: {$errorTitle}</title></header><body>
