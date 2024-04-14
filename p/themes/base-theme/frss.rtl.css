@@ -431,6 +431,9 @@ td.numeric {
 }
 
 .form-group.form-actions {
+	position: sticky;
+	bottom: 0;
+	backdrop-filter: blur(2px);
 	min-width: 250px;
 }
 
@@ -449,12 +452,6 @@ td.numeric {
 
 .form-group .group-controls .control {
 	display: block;
-}
-
-.form-group.form-actions {
-	position: sticky;
-	bottom: 0;
-	  backdrop-filter: blur(2px);
 }
 
 .form-advanced-title {
