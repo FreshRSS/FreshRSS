@@ -435,6 +435,7 @@ td.numeric {
 	bottom: 0;
 	backdrop-filter: blur(2px);
 	min-width: 250px;
+	z-index: 80;
 }
 
 .form-group .group-name {

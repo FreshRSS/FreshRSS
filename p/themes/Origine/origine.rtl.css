@@ -178,8 +178,12 @@ th {
 .form-group.form-actions {
 	margin-bottom: 40px;
 	padding: 5px 0;
-	background-color: var(--background-color-light-shadowed-transparent);
+	background-color: var(--background-color-light-shadowed);
 	border-top: 1px solid var(--border-color);
+}
+
+.stickyButtons .form-group.form-actions {
+	background-color: var(--background-color-light-shadowed-transparent);
 }
 
 .form-group.form-actions .btn {
