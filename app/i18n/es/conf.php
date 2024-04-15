@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(

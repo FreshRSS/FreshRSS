@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Tèma',
 			'deprecated' => array(

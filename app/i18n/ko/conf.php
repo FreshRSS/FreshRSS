@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => '테마',
 			'deprecated' => array(

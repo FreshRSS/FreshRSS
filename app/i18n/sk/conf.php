@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(

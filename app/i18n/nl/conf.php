@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 notificatie stop',
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(

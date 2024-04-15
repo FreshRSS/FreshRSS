@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'ערכת נושא',
 			'deprecated' => array(

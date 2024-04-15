@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 通知超时时间',
 		),
 		'show_nav_buttons' => '显示导航按钮',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => '主题',
 			'deprecated' => array(

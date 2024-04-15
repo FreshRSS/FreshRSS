@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Thème',
 			'deprecated' => array(

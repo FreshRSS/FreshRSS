@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(

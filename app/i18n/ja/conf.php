@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 の通知タイムアウト時間',
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// TODO
+			'label' => 'Configuration pages',	// TODO
+		),
 		'theme' => array(
 			'_' => 'テーマ',
 			'deprecated' => array(

@@ -53,6 +53,10 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// IGNORE
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// IGNORE
+		'stickyButtons' => array(
+			'checkbox' => 'Sticky buttons',	// IGNORE
+			'label' => 'Configuration pages',	// IGNORE
+		),
 		'theme' => array(
 			'_' => 'Theme',	// IGNORE
 			'deprecated' => array(
