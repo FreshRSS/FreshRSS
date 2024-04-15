@@ -49,6 +49,7 @@ declare(strict_types=1);
  * @property bool $icons_as_emojis
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
+ * @property bool $stickyButtons
  * @property 'ASC'|'DESC' $sort_order
  * @property array<string,array<string>> $sharing
  * @property array<string,string> $shortcuts

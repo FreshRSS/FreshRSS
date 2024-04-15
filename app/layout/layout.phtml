@@ -9,7 +9,10 @@
 		$class = 'rtl ';
 	}
 	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
-		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode.' ';
+	}
+	if (FreshRSS_Context::userConf()->stickyButtons) {
+		$class .= 'stickyButtons';
 	}
 ?>
 <!DOCTYPE html>
