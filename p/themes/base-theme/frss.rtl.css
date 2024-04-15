@@ -1427,6 +1427,7 @@ a.website:hover .favicon {
 
 .content header {
 	padding-top: calc(2 * var(--frss-padding-top-bottom));
+	padding-bottom: calc(var(--frss-padding-top-bottom));
 }
 
 .content footer {
