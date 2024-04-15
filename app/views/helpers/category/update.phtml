@@ -222,7 +222,9 @@
 					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				</div>
 			</div>
+		</fieldset>
 
+		<fieldset>
 			<?php if (!$this->category->isDefault()): ?>
 			<p class="alert alert-warn">
 				<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
