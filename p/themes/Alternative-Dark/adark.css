@@ -956,9 +956,7 @@ kbd {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-dark);
-	font-size: 90%;
 }
 
 #stream-footer {
