@@ -117,6 +117,10 @@ th {
 	border-radius: 5px 5px 0 0;
 }
 
+.stickyButtons .form-group.form-actions {
+	background-color: #e6ecedaa;
+}
+
 .form-group.form-actions .btn {
 	margin: 0 10px;
 }

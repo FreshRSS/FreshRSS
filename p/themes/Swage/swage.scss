@@ -11,6 +11,7 @@ $color_alert:	#fa8052;
 $color_good:	#5eaabf;
 $color_bad:		#b0425b;
 $color_grey:	#e3e3e3;
+$color_grey_transparent: #d9d9d9bb;
 $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
@@ -37,6 +38,7 @@ $color_hover:	#fff;
 
 	--color-background-light: #{$color_light};
 	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-light-darker-transparent: #{$color_grey_transparent};
 	--color-background-dark: #{$color_text};
 	--color-background-nav: #{$color_nav};
 	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
@@ -244,6 +246,10 @@ form {
 			line-height: 2.0;
 		}
 	}
+}
+
+.stickyButtons .form-group.form-actions {
+	background-color: var(--color-background-light-darker-transparent);
 }
 
 .form-group::after {

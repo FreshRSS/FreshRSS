@@ -168,6 +168,10 @@ th {
 	border-top: 1px solid var(--border-color-grey-light);
 }
 
+.stickyButtons .form-group.form-actions {
+	background-color: #f3f3f3bb;
+}
+
 .form-group.form-actions .btn {
 	margin: 0 10px;
 }

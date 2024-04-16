@@ -17,6 +17,7 @@
 	--color-border-bad: #b0425b;
 	--color-background-light: #fcfcfc;
 	--color-background-light-darker: #e3e3e3;
+	--color-background-light-darker-transparent: rgba(217, 217, 217, 0.7333333333);
 	--color-background-dark: #181621;
 	--color-background-nav: #0062be;
 	--color-background-nav-darker: #00488b;
@@ -197,6 +198,10 @@ form th {
 }
 .form-group .group-controls .control {
 	line-height: 2;
+}
+
+.stickyButtons .form-group.form-actions {
+	background-color: var(--color-background-light-darker-transparent);
 }
 
 .stick select {

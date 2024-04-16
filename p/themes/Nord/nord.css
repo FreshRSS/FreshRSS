@@ -31,6 +31,7 @@
 	--nord15-aurora: #b48ead;
 
 	--main-background: var(--nordX-background);
+	--main-background-transparent: #242933cc;
 	--accent-bg: var(--nord0-polarnight);
 	--accent-border: var(--nord0-polarnight);
 	--light-bg: var(--nord1-polarnight);
@@ -199,6 +200,10 @@ table th, table td {
 .form-group .group-controls {
 	padding: 5px 0;
 	min-height: 25px;
+}
+
+.stickyButtons .form-group.form-actions {
+	background-color: var(--main-background-transparent);
 }
 
 /*=== Buttons */
