@@ -330,8 +330,14 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			$tos_enabled = file_exists(TOS_FILENAME);
-			$accept_tos = Minz_Request::paramBoolean('accept_tos');
+			if (!FreshRSS_Auth::hasAccess('admin')) {
+				// TODO: We may want to ask the user to accept TOS before first login
+				$tos_enabled = file_exists(TOS_FILENAME);
+				$accept_tos = Minz_Request::paramBoolean('accept_tos');
+				if ($tos_enabled && !$accept_tos) {
+					Minz_Request::bad(_t('user.tos.feedback.invalid'), $badRedirectUrl);
+				}
+			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
 				Minz_Request::bad(
@@ -343,13 +349,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if (!empty($email) && !validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
-					$badRedirectUrl
-				);
-			}
-
-			if ($tos_enabled && !$accept_tos) {
-				Minz_Request::bad(
-					_t('user.tos.feedback.invalid'),
 					$badRedirectUrl
 				);
 			}

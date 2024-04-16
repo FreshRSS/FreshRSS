@@ -12,6 +12,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * underlying framework.
 	 *
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
