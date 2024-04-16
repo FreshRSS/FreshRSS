@@ -67,9 +67,9 @@ return array(
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'download' => 'Download',
+			'help' => 'XML file',
+			'label' => 'Export as OPML',
 		),
 		'filteractions' => array(
 			'_' => 'Filter actions',
