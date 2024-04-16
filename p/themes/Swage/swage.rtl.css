@@ -152,8 +152,8 @@ th {
 	background-color: var(--color-background-light);
 }
 
-.config-articleicons td,
-.config-articleicons th {
+form td,
+form th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -1018,9 +1018,7 @@ button.as-link {
 	border-color: var(--color-border-grey);
 }
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--color-text-light-darker);
-	font-size: 90%;
 }
 
 #slider label {

@@ -1092,7 +1092,6 @@ main.prompt {
 	border: none;
 }
 #stream.reader .flux .content .author {
-	margin: 0 0 10px;
 	color: #ba9;
 }
 

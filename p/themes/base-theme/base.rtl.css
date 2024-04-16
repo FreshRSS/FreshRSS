@@ -642,11 +642,6 @@ th {
 	border-color: #ddd;
 }
 
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
-}
-
 /*=== GLOBAL VIEW */
 /*================*/
 .box.category .box-title .title {
