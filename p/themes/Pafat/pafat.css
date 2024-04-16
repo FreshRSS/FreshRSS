@@ -982,9 +982,7 @@ a.signin {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-grey);
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

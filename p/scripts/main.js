@@ -697,7 +697,7 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item a');
+	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
 		// Display the share div
 		location.hash = share.id;
@@ -1114,7 +1114,7 @@ function init_stream(stream) {
 			if (navigator.clipboard) {
 				navigator.clipboard.writeText(el.dataset.url)
 					.then(() => {
-						toggleClass(el, 'error');
+						toggleClass(el, 'ok');
 					})
 					.catch(e => {
 						console.log(e);
@@ -1167,7 +1167,7 @@ function init_stream(stream) {
 			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
+			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}

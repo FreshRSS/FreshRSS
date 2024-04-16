@@ -107,6 +107,7 @@ class FreshRSS_Search {
 		$this->parseSearch($input);
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		return $this->getRawInput();
 	}

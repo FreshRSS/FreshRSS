@@ -183,7 +183,7 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:filtersActionRead'])) {
 				$feed->_filtersAction(
 					'read',
-					preg_split('/\R/', $feed_elt['frss:filtersActionRead']) ?: []
+					preg_split('/\R/u', $feed_elt['frss:filtersActionRead']) ?: []
 				);
 			}
 
@@ -268,7 +268,7 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_HTTPHEADER'])) {
-				$curl_params[CURLOPT_HTTPHEADER] = preg_split('/\R/', $feed_elt['frss:CURLOPT_HTTPHEADER']) ?: [];
+				$curl_params[CURLOPT_HTTPHEADER] = preg_split('/\R/u', $feed_elt['frss:CURLOPT_HTTPHEADER']) ?: [];
 			}
 			if (isset($feed_elt['frss:CURLOPT_MAXREDIRS'])) {
 				$curl_params[CURLOPT_MAXREDIRS] = (int)$feed_elt['frss:CURLOPT_MAXREDIRS'];
