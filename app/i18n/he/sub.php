@@ -66,6 +66,11 @@ return array(
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO

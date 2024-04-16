@@ -1,4 +1,4 @@
-# Installation on Debian 9/Ubuntu 16.04
+# Installation on Debian/Ubuntu
 
 This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. It’s always recommended that you [backup your installation](05_Backup.md) before updating
 
@@ -93,10 +93,10 @@ chown www-data:www-data -R .
 chown apache:www-data -R .
 ```
 
-Finally, symlink the public folder to the root of your web directory
+Finally, symlink the public folder to your FreshRSS directory
 
 ```sh
-ln -s /usr/share/FreshRSS/p /var/www/html/
+[ ! -e "/var/www/html/FreshRSS" ] && ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS already exists"
 ```
 
 ## Part 3: Creating a Database for FreshRSS

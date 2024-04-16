@@ -40,27 +40,28 @@
 		<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
 			<div class="subtitle">
 				<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
-					<div class="website"><a href="<?= $this->internal_rendering ? $feed->website() : _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-						<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-							<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-						endif; ?><span><?= $feed->name() ?></span></a></div>
+					<div class="website">
+						<a href="<?= $this->internal_rendering ? $feed->website() : _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+								<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+							endif; ?><span><?= $feed->name() ?></span>
+						</a>
+					</div>
+				<?php }
+
+				$authors = $entry->authors();
+				if (!empty($authors) && is_array($authors)) {
+					?>
+					<div class="author">
+						<?= _t('gen.short.by_author') ?>
+						<?php
+						foreach ($authors as $author) {
+							$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+							?>
+							<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+						<?php } ?>
+					</div>
 				<?php } ?>
-				<div class="author"><?php
-					$authors = $entry->authors();
-					if (is_array($authors)) {
-						if ($this->internal_rendering):
-							foreach ($authors as $author): ?>
-								<?= $author ?>
-							<?php endforeach;
-						else:
-							foreach ($authors as $author): ?>
-								<a href="<?= Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))])) ?>">
-									<?= $author ?>
-								</a>
-							<?php endforeach;
-						endif;
-					} ?>
-				</div>
 				<div class="date">
 					<time datetime="<?= $entry->machineReadableDate() ?>"><?= $entry->date() ?></time>
 				</div>

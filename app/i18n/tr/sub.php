@@ -66,6 +66,11 @@ return array(
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => array(
 			'_' => 'Eylemi filtrele',
 			'help' => 'Her satıra tek arama filtresi yaz. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
