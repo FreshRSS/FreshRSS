@@ -787,6 +787,17 @@
 		</div>
 	</div>
 
+	<h2><?= _t('sub.import_export.export') ?></h2>
+	<div class="form-group">
+		<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
+		<div class="group-controls">
+			<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'f_'.$this->feed->id()) ?>" download="<?= 'f_'.$this->feed->id()?> <?= $this->feed->name(true) ?>">
+				<?= _t('sub.feed.export-as-opml.download') ?>
+			</a>
+			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.export-as-opml.help') ?></p>
+		</div>
+	</div>
+
 </div>
 
 <div id="popup">
