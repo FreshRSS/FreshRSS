@@ -66,6 +66,11 @@ return [
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => [
 			'_' => 'Azioni di filtro',
 			'help' => 'Scrivi un filtro di ricerca per riga. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -121,13 +126,13 @@ return [
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			],
-			'json_dotpath' => [
-				'_' => 'JSON (path con i punti)',
+			'json_dotnotation' => [
+				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => [
 					'_' => 'titolo feed',
 					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
 				],
-				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array. (es. <code>data.items[0].title</code>)',
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => [
 					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
 					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
@@ -156,8 +161,8 @@ return [
 					'_' => 'link elemento (URL)',
 					'help' => 'Esempio: <code>permalink</code>',
 				],
-				'json' => 'Percorso con i punti per:',
-				'relative' => 'Percorso con i punti (relativo all’elemento) per:',
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			],
 			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',

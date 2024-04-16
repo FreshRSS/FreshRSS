@@ -520,7 +520,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';
-						$credit = $enclosure->get_credit() ?? null;
+						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
@@ -534,8 +534,11 @@ class FreshRSS_Feed extends Minz_Model {
 						if ($etitle != '') {
 							$attributeEnclosure['title'] = $etitle;
 						}
-						if ($credit != null) {
-							$attributeEnclosure['credit'] = $credit->get_name();
+						if (is_array($credits)) {
+							$attributeEnclosure['credit'] = [];
+							foreach ($credits as $credit) {
+								$attributeEnclosure['credit'][] = $credit->get_name();
+							}
 						}
 						if ($description != '') {
 							$attributeEnclosure['description'] = $description;
@@ -663,7 +666,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
 		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
 
-		$feedContent = FreshRSS_dotpath_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}

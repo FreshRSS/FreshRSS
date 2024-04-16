@@ -66,6 +66,11 @@ return [
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => [
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
@@ -121,13 +126,13 @@ return [
 				'relative' => 'XPath (relative to item) for:',	// TODO
 				'xpath' => 'XPath for:',	// TODO
 			],
-			'json_dotpath' => [
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => [
+				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => [
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				],
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
@@ -156,8 +161,8 @@ return [
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				],
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			],
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (default)',	// TODO

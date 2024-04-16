@@ -97,6 +97,22 @@ ul, ol, dd {
 	padding: 0;
 }
 
+ul.listInColumns {
+	column-count: 5;
+	column-width: 250px;
+	max-width: 1700px;
+}
+
+ul.listInColumns li {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#tagsList {
+	list-style: none;
+}
+
 /*=== Titles */
 h1 {
 	margin: 1rem 0 0.5rem;
@@ -641,6 +657,11 @@ input[type="checkbox"]:focus-visible {
 
 .horizontal-list .item .item-element {
 	padding: var(--frss-padding-top-bottom) 0;
+}
+
+.horizontal-list .item .item-element.dropdown .dropdown-toggle,
+.horizontal-list .item .item-element.dropdown .dropdown-toggle-close {
+	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
 }
 
 /*=== manage-list */
@@ -1403,6 +1424,7 @@ a.website:hover .favicon {
 
 .content header {
 	padding-top: calc(2 * var(--frss-padding-top-bottom));
+	padding-bottom: calc(var(--frss-padding-top-bottom));
 }
 
 .content footer {

@@ -120,7 +120,7 @@ class Minz_Request {
 	 */
 	public static function paramTextToArray(string $key, array $default = []): array {
 		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
-			return preg_split('/\R/', self::$params[$key]) ?: [];
+			return preg_split('/\R/u', self::$params[$key]) ?: [];
 		}
 		return $default;
 	}

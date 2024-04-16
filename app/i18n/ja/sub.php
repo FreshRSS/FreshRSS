@@ -57,15 +57,20 @@ return [
 		],
 		'css_cookie' => '記事のコンテンツを読み出したとき、クッキーを使用する',
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '失敗したRSSフィードを再取得します (ただし、多くの時間が必要になります!)',
-		'css_path' => '元のwebサイトのCSS',
+		'css_help' => '省略されたRSSフィードを復元します (ただし、時間がかかります)',
+		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => [
-			'_' => '削除される要素をCSSで選ぶ',
-			'help' => 'CSSセレクタは: <kbd> フッターやアサイド要素をリストにできます</kbd>',
+			'_' => '要素を削除するCSSセレクタ',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
 		],
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => [
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -121,13 +126,13 @@ return [
 				'relative' => 'XPath (関連する項目):',
 				'xpath' => 'XPathは:',
 			],
-			'json_dotpath' => [
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => [
+				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => [
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				],
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => [
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
@@ -156,8 +161,8 @@ return [
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				],
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			],
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (標準)',
