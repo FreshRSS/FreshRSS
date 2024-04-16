@@ -67,9 +67,9 @@ return array(
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'download' => 'Télécharger',
+			'help' => 'Fichier XML',
+			'label' => 'Exporter en OPML',
 		),
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
