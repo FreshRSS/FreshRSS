@@ -1154,9 +1154,7 @@ button.as-link {
 	border-color: var(--color-border-grey);
 }
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--color-text-light-darker);
-	font-size: 90%;
 }
 
 #nav_menu_actions ul.dropdown-menu {

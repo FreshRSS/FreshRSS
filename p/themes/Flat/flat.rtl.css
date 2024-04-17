@@ -83,8 +83,8 @@ th {
 	background: #f6f6f6;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -866,9 +866,7 @@ form th {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: #999;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

@@ -63,8 +63,8 @@ th, td {
 th {
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -650,11 +650,6 @@ form th {
 #stream.reader .flux .content {
 	background-color: #fff;
 	border-color: #ddd;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

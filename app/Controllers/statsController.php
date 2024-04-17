@@ -20,6 +20,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -193,7 +194,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		if ($id !== 0) {
 			$this->view->displaySlider = true;
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$this->view->feed = $feedDAO->searchById($id);
+			$this->view->feed = $feedDAO->searchById($id) ?? FreshRSS_Feed::default();
 		}
 	}
 
@@ -222,7 +223,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->categories 	= $categoryDAO->listCategories(true) ?: [];
-		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
+		$this->view->feed 			= $id === null ? FreshRSS_Feed::default() : ($feedDAO->searchById($id) ?? FreshRSS_Feed::default());
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();
 

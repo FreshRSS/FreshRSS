@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
+		'export-as-opml' => array(
+			'download' => 'Download',	// IGNORE
+			'help' => 'XML file',	// IGNORE
+			'label' => 'Export as OPML',	// IGNORE
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',	// IGNORE
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE

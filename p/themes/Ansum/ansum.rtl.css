@@ -195,8 +195,8 @@ th {
 	background: #fcfaf8;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -1111,9 +1111,7 @@ main.prompt {
 	border: none;
 }
 #stream.reader .flux .content .author {
-	margin: 0 0 10px;
 	color: #ba9;
-	font-size: 90%;
 }
 
 /*=== Configuration pages */

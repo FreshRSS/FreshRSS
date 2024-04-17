@@ -12,6 +12,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		parent::__construct(FreshRSS_ViewJavascript::class);
 	}
 
+	#[\Override]
 	public function firstAction(): void {
 		$this->view->_layout(null);
 	}
@@ -19,6 +20,10 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	public function actualizeAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+		Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);

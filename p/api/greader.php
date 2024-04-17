@@ -572,7 +572,7 @@ final class GReaderAPI {
 				continue;
 			}
 
-			$feed = FreshRSS_CategoryDAO::findFeed($categories, $entry->feedId());
+			$feed = FreshRSS_Category::findFeed($categories, $entry->feedId());
 			if ($feed === null) {
 				continue;
 			}
@@ -694,7 +694,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		$entries = iterator_to_array($entries);	//TODO: Improve
 
 		$items = self::entriesToArray($entries);
@@ -715,8 +715,9 @@ final class GReaderAPI {
 				$response['continuation'] = '' . $entry->id();
 			}
 		}
-
-		echo json_encode($response, JSON_OPTIONS), "\n";
+		unset($entries, $entryDAO, $items);
+		gc_collect_cycles();
+		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
 		exit();
 	}
 
@@ -746,7 +747,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		if ($ids === null) {
 			self::internalServerError();
 		}
@@ -805,8 +806,9 @@ final class GReaderAPI {
 			'updated' => time(),
 			'items' => $items,
 		);
-
-		echo json_encode($response, JSON_OPTIONS), "\n";
+		unset($entries, $entryDAO, $items);
+		gc_collect_cycles();
+		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
 		exit();
 	}
 
@@ -990,7 +992,7 @@ final class GReaderAPI {
 		}
 		$pathInfo = urldecode($pathInfo);
 		$pathInfo = '' . preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
-		if ($pathInfo == '') {
+		if ($pathInfo == '' && empty($_SERVER['QUERY_STRING'])) {
 			exit('OK');
 		}
 		$pathInfos = explode('/', $pathInfo);

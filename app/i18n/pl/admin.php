@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (dla zaawansowanych użytkowników, z wykorzystaniem HTTPS)',
 		'none' => 'Brak (niebezpieczna)',
 		'title' => 'Uwierzytelnianie',
-		'token' => 'Token uwierzytelniania',
-		'token_help' => 'Pozwala na dostęp do treści RSS domyślnego użytkownika bez uwierzytelnienia:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Metoda uwierzytelniania',
 		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem:	-> todo',
 	),

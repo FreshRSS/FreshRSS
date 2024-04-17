@@ -57,15 +57,20 @@ return array(
 		),
 		'css_cookie' => '記事のコンテンツを読み出したとき、クッキーを使用する',
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '失敗したRSSフィードを再取得します (ただし、多くの時間が必要になります!)',
-		'css_path' => '元のwebサイトのCSS',
+		'css_help' => '省略されたRSSフィードを復元します (ただし、時間がかかります)',
+		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => array(
-			'_' => '削除される要素をCSSで選ぶ',
-			'help' => 'CSSセレクタは: <kbd> フッターやアサイド要素をリストにできます</kbd>',
+			'_' => '要素を削除するCSSセレクタ',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -228,7 +233,7 @@ return array(
 		'title' => 'インポート / エクスポート',
 	),
 	'menu' => array(
-		'add' => 'フィード化カテゴリを追加します',
+		'add' => 'フィードあるいはカテゴリを追加します',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
 		'stats' => array(

@@ -165,8 +165,8 @@ th {
 	background-color: var(--background-color-light-shadowed);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -1007,9 +1007,7 @@ a:hover .icon {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-grey);
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

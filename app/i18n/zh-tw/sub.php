@@ -66,6 +66,11 @@ return array(
 		'description' => '描述',
 		'empty' => '此源為空。請確認它是否正常更新。',
 		'error' => '此源遇到一些問題。請在確認是否能正常訪問後重試。',
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => array(
 			'_' => '過濾動作',
 			'help' => '每行寫一條過濾搜尋 Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY

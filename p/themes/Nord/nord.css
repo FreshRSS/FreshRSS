@@ -171,8 +171,8 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 }
 
@@ -814,18 +814,18 @@ li.item.active {
 	transition: .3s;
 }
 
-.flux .item.title a {
+.flux .flux_header .item.title a {
 	color: var(--text-default);
 }
 
-.flux .item.title .summary {
+.flux .flux_header .item.title .summary {
 	color: var(--text-accent);
 	font-size: 0.8rem;
 	font-style: italic;
 	opacity: 0.8;
 }
 
-.flux .item.title .author {
+.flux .flux_header .item.title .author {
 	color: var(--text-accent);
 	opacity: 0.8;
 }
@@ -1198,11 +1198,6 @@ optgroup::before {
 	background-color: var(--accent-bg);
 	border: none;
 	border-radius: 12px;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

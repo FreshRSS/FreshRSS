@@ -15,6 +15,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -364,7 +365,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$labels = $tagDAO->listTags() ?: [];
+		$labels = FreshRSS_Context::labels();
 		$knownLabels = [];
 		foreach ($labels as $label) {
 			$knownLabels[$label->name()]['id'] = $label->id();

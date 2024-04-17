@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Weergeven op feed',
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Status',
 			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Toon „%s” categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
 		'get_feed' => 'Toon „%s” feed',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
 		'search' => 'Zoek naar „%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
 		'state_2' => 'Toon ongelezen artikelen',
