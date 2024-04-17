@@ -130,7 +130,7 @@ return array(
 				'_' => 'JSON (Dotted paths)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'akış başlığı',
-					'help' => 'Örnek: <code>meta.title</code> ya da sabit bir  dizgi: <code>"Benim özel akışım"</code>',
+					'help' => 'Örnek: <code>meta.title</code> ya da sabit bir dizgi: <code>"Benim özel akışım"</code>',
 				),
 				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
 				'item' => array(
