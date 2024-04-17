@@ -127,12 +127,12 @@ return array(
 				'xpath' => 'XPathは:',
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+				'_' => 'JSON (dot-notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'A JSON dot-notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
@@ -161,8 +161,8 @@ return array(
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Dot-notation for:',	// TODO
+				'relative' => 'Dot-notated path (relative to item) for:',	// TODO
 			),
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (標準)',

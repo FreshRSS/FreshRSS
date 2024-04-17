@@ -127,12 +127,12 @@ return array(
 				'xpath' => 'XPath per:',
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (path con i punti)',
+				'_' => 'JSON (dot-notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'titolo feed',
 					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
 				),
-				'help' => 'Un JSON con le path divise da punti usa dei punti fra gli oggetti e le parentesi per gli array. (es. <code>data.items[0].title</code>)',
+				'help' => 'A JSON dot-notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
 					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'link elemento (URL)',
 					'help' => 'Esempio: <code>permalink</code>',
 				),
-				'json' => 'Percorso con i punti per:',
-				'relative' => 'Percorso con i punti (relativo all’elemento) per:',
+				'json' => 'Dot-notation for:',	// TODO
+				'relative' => 'Dot-notated path (relative to item) for:',	// TODO
 			),
 			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',
