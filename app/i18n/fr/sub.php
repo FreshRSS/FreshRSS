@@ -161,8 +161,8 @@ return array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'notation point pour :',
+				'relative' => 'notation point relative à l’article pour :',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',
