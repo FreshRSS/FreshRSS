@@ -162,7 +162,7 @@ return array(
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				),
 				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'relative' => 'puntnotatiepad (relatief aan item) voor:',
 			),
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (standaard)',
