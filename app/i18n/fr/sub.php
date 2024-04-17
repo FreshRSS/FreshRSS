@@ -127,7 +127,7 @@ return array(
 				'xpath' => 'XPath pour :',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (notation point)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
 					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
