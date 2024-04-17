@@ -127,12 +127,12 @@ return array(
 				'xpath' => 'XPath for:',	// IGNORE
 			),
 			'json_dotpath' => array(
-				'_' => 'JSON (dot-notation)',	// IGNORE
+				'_' => 'JSON (dot notation)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'feed title',	// IGNORE
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
 				),
-				'help' => 'A JSON dot-notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// IGNORE
@@ -161,8 +161,8 @@ return array(
 					'_' => 'item link (URL)',	// IGNORE
 					'help' => 'Example: <code>permalink</code>',	// IGNORE
 				),
-				'json' => 'Dot-notation for:',	// IGNORE
-				'relative' => 'Dot-notated path (relative to item) for:',	// IGNORE
+				'json' => 'dot notation for:',	// IGNORE
+				'relative' => 'dot notated path (relative to item) for:',	// IGNORE
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE
