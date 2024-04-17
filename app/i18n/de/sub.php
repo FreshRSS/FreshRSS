@@ -67,7 +67,7 @@ return array(
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
 		'export-as-opml' => array(
-			'download' => 'Download',	// INGORE
+			'download' => 'Download',	// IGNORE
 			'help' => 'XML Datei',
 			'label' => 'Export als OPML',
 		),
