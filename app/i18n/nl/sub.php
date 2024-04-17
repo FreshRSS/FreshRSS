@@ -161,7 +161,7 @@ return array(
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				),
-				'json' => 'dot notation for:',	// TODO
+				'json' => 'puntnotatie voor:',
 				'relative' => 'puntnotatiepad (relatief aan item) voor:',
 			),
 			'jsonfeed' => 'JSON Feed',	// TODO
