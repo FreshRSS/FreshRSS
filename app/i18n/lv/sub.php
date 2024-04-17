@@ -126,7 +126,7 @@ return array(
 				'relative' => 'XPath (relatīvs rakstam) priekš:',
 				'xpath' => 'XPath priekš:',
 			),
-			'json_dotpath' => array(
+			'json_dotnotation' => array(
 				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO

@@ -126,7 +126,7 @@ return array(
 				'relative' => '다음의 (기사와 관련된) XPath:',
 				'xpath' => '다음의 XPath:',
 			),
-			'json_dotpath' => array(
+			'json_dotnotation' => array(
 				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO

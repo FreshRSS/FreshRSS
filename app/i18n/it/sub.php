@@ -126,7 +126,7 @@ return array(
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			),
-			'json_dotpath' => array(
+			'json_dotnotation' => array(
 				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'titolo feed',
