@@ -17,7 +17,7 @@ return array(
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
 		'keep_labels' => 'Etiketleri asla silme',
-		'keep_max' => 'Bellekte tutulacak en fazla makale sayısı',	// DIRTY
+		'keep_max' => 'Bellekte tutulacak maksimum makale sayısı',
 		'keep_min_by_feed' => 'Akışta en az tutulacak makale sayısı',
 		'keep_period' => 'Bellekte tutulacak en eski makale tarihi',
 		'keep_unreads' => 'Okunmamaış makaleleri asla silme',
@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Görünüm',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Otomatik karanlık mod (beta)',
+			'auto' => 'Otomatik',
+			'no' => 'Kapalı',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Kullanımdan kalkanlar',
+				'description' => 'Bu tema artık desteklenmiyor ve <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSS in yeni sürümlerinde </a> kullanılamayacak',
 			),
 		),
 		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
@@ -68,7 +68,7 @@ return array(
 			'portrait' => 'Portre',
 			'square' => 'Kare',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Saat dilimi',
 		'title' => 'Görünüm',
 		'website' => array(
 			'full' => 'simgesi and adı',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Akışa göre göster',
 			'order' => 'Tarihe göre göster',
 			'search' => 'İfade',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'İlgili kategorilerin ve yayınların OPML ile paylaşılmasını etkinleştir',
+			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Herhangi etikete sahip makaleleri göster ',
 		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '“%s” akışını göster',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Önemli akışındaki makaleleri göster',
+		'get_label' => '“%s” etiketine sahip makaleleri göster',
+		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Kullanıcı aramaları ve HTML / RSS / OPML ile paylaşım hakkında dökümantasyonu</a> görüntüleyin.',
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',
@@ -141,12 +141,11 @@ return array(
 		'order_desc' => 'Önce yeni makaleleri göster',
 		'search' => '“%s” için arama',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+			'_' => 'Bu aramayı linkle paylaşın',
+			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
+			'html' => 'HTML sayfasına paylaşılabilir bağlantı',	
+			'opml' => 'OMPL listesine paylaşılabilir bağlantı',
+			'rss' => 'RSS akışına paylaşılabilir bağlantı',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
 		'state_2' => 'Okunmamış makaleleri göster',
@@ -217,9 +216,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'Odaklanıldığında (önemli akışı hariç)',
 			'keep_max_n_unread' => 'Okunmadı tutulacak maksimum metin sayısı',
-			'scroll' => 'kaydırma yapılırken (except for important feeds)',	// DIRTY
+			'scroll' => 'kaydırma yapılırken (önemli akışı hariç)',
 			'upon_gone' => 'Yeni akışta üst sıralarda değilken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
