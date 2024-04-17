@@ -119,7 +119,7 @@ return array(
 		'error' => 'Etiket güncellenemedi!',
 		'name_exists' => 'Etiket zaten mevcut.',
 		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
-		'updated' => 'Etiket güncellendi.',	
+		'updated' => 'Etiket güncellendi.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',
