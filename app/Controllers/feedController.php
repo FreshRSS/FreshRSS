@@ -573,6 +573,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$existingHash = $existingHashForGuids[$entry->guid()];
 						if (strcasecmp($existingHash, $entry->hash()) !== 0) {
 							//This entry already exists but has been updated
+							$entry->_isUpdated(true);
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isFavorite(null);	// Do not change favourite state
@@ -585,6 +586,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							if (!($entry instanceof FreshRSS_Entry)) {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
+							}
+
+							$entry->applyFilterActions($titlesAsRead);
+							if ($readWhenSameTitleInFeed > 0) {
+								$titlesAsRead[$entry->title()] = true;
 							}
 
 							if (!$entry->isRead()) {
@@ -601,6 +607,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$entryDAO->updateEntry($entry->toArray());
 						}
 					} else {
+						$entry->_isUpdated(false);
 						$id = uTimeString();
 						$entry->_id($id);
 
