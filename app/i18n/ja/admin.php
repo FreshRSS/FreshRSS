@@ -160,7 +160,7 @@ return array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
 		'base-url' => array(
-			'_' => 'Base URL',	// IGNORE
+			'_' => 'ベースURL',
 			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
@@ -189,8 +189,8 @@ return array(
 		),
 		'sensitive-parameter' => 'センシティブなパラメーターです。<kbd>./data/config.php</kbd> を手動で編集',
 		'tos' => array(
-			'disabled' => 'disabled',	// IGNORE
-			'enabled' => '<a href="./?a=tos">enabled</a>',	// IGNORE
+			'disabled' => '無効化',
+			'enabled' => '<a href="./?a=tos">有効化</a>',
 			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">利用規約を有効にする方法</a>',
 		),
 		'websub' => array(
@@ -205,12 +205,12 @@ return array(
 		'copiedFromURL' => 'update.php が %s から ./data にコピーされました。',
 		'current_version' => '現在のバージョンは',
 		'last' => '最近の検証',
-		'loading' => '更新中...',
+		'loading' => '更新中…',
 		'none' => '更新を適用できません',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// IGNORE
-			'edge' => 'Rolling release (“edge”)',	// IGNORE
-			'latest' => 'Stable release (“latest”)',	// IGNORE
+			'_' => 'リリースチャンネル',
+			'edge' => 'ローリングリリース (“edge”)',
+			'latest' => '安定版リリース (“latest”)',
 		),
 		'title' => 'アップデートシステム',
 		'viaGit' => 'gitとGithub.comによるアップデートを開始',
