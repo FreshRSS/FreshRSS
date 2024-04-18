@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'Hlavní ověřovací token',	// TODO
+		'token_help' => 'Umožňuje přístup ke všem výstupům RSS uživatele i obnovování kanálů bez ověřování:',	// TODO
 		'type' => 'Metoda ověřování',
 		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Nastavení systému',
 		'auto-update-url' => 'Adresa URL serveru pro automatické aktualizace',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Základní adresa URL',	// TODO
+			'recommendation' => 'Automatické doporučení: <kbd>%s</kbd>',	// TODO
 		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'Registrační formulář uživatele',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Citlivý parametr. Upravte ručně v souboru <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'není uveden',	// TODO
+			'enabled' => '<a href="./?a=tos">je povolen</a>',	// TODO
+			'help' => 'Jak povolit <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">podmínky služby</a>',	// TODO
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'O <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Seznam změn',	// TODO
 		'check' => 'Zkontrolovat aktualizace',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php zkopírováno z %s do ./data',	// TODO
 		'current_version' => 'Vaše aktuální verze',
 		'last' => 'Poslední kontrola',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Aktualizuje se...',	// TODO
 		'none' => 'Žádné nové aktualizace',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Kanál pro vydání',	// TODO
+			'edge' => 'Vydání "Rolling" / Nepřetržitě aktualizované vydání (“edge”)',	// TODO
+			'latest' => 'Stabilní vydání (“latest”)',	// TODO
 		),
 		'title' => 'Aktualizovat systém',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Aktualizace přes git a Github.com začala',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrátor',
