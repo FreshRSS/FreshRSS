@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
+		'export-as-opml' => array(
+			'download' => 'Download',
+			'help' => 'XML file',
+			'label' => 'Export as OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
