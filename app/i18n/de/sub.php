@@ -127,14 +127,14 @@ return array(
 				'xpath' => 'XPath für:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (Punktnotation)',
 				'feed_title' => array(
 					'_' => 'Feed Name',
 					'help' => 'Beispiel: <code>meta.title</code> oder ein statischer String: <code>"Mein Feed"</code>',
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
 					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>newsItems</code>',
 				),
 				'item_author' => 'Item Autor',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'Item Link (URL)',
 					'help' => 'Beispiel: <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'Punktnotation für:',
+				'relative' => 'Punktnotierter Pfad (relativ zum Item) für:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (Standard)',
@@ -180,8 +180,8 @@ return array(
 		'method' => array(
 			'_' => 'HTTP Methode',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
+		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => 'Stumm schalten',
 		'no_selected' => 'Kein Feed ausgewählt.',
@@ -190,7 +190,7 @@ return array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
 			'category' => 'Zeige in eigener Kategorie',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
@@ -245,7 +245,7 @@ return array(
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Dieses Label zu neuen Artikeln hinzufügen',
 		'name' => 'Name',	// IGNORE
 		'new_name' => 'Neuer Name',
 		'old_name' => 'Alter Name',
