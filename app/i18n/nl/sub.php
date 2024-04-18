@@ -126,13 +126,13 @@ return array(
 				'relative' => 'XPath (relatief naar bericht) voor:',
 				'xpath' => 'XPath voor:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (puntnotatie)',
 				'feed_title' => array(
 					'_' => 'feed title',	// TODO
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON-puntnotatie gebruikt punten tussen objecten en vierkante haakjes voor arrays (bv. <code>data.items[0].titel</code>)',
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
@@ -161,8 +161,8 @@ return array(
 					'_' => 'item link (URL)',	// TODO
 					'help' => 'Example: <code>permalink</code>',	// TODO
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'puntnotatie voor:',
+				'relative' => 'puntnotatiepad (relatief aan item) voor:',
 			),
 			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (standaard)',
