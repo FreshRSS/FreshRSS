@@ -132,7 +132,7 @@ return array(
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed “%s” ',
 		'get_important' => 'Mostra articoli dai feed importanti',
-		'get_label' => 'Mostra articoli con l\'etichetta “%s”',
+		'get_label' => 'Mostra articoli con l’etichetta “%s”',
 		'help' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentazione per le query utente e ricondivisioine tramite HTML / RSS / OPML</a>.',
 		'name' => 'Nome',
 		'no_filter' => 'Nessun filtro',

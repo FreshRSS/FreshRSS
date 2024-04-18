@@ -20,7 +20,7 @@ return array(
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
 		'token' => 'Token di autenticazione principale',
-		'token_help' => 'Consente l\'accesso a tutti gli output RSS dell\'utente e di aggiornare i feed senza autenticazione:',
+		'token_help' => 'Consente l’accesso a tutti gli output RSS dell’utente e di aggiornare i feed senza autenticazione:',
 		'type' => 'Metodo di autenticazione',
 		'unsafe_autologin' => 'Consenti accesso automatico non sicuro usando il formato: ',
 	),

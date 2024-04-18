@@ -57,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
-		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati. Se hai completato l\'importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
-		'feeds_imported_with_errors' => 'I tuoi feed sono stati importati ma si sono verificati alcuni errori. Se hai completato l\'importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
+		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
+		'feeds_imported_with_errors' => 'I tuoi feed sono stati importati ma si sono verificati alcuni errori. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
 		'zip_error' => 'Si è verificato un errore importando il file ZIP',
