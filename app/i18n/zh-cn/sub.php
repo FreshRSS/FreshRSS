@@ -166,7 +166,7 @@ return array(
 			),
 			'jsonfeed' => 'JSON 订阅源',
 			'rss' => 'RSS / Atom (默认)',
-			'xml_xpath' => 'XML + XPath', // IGNORE
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
