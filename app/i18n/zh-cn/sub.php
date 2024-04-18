@@ -180,7 +180,7 @@ return array(
 		'method' => array(
 			'_' => 'HTTP 方式',
 		),
-		'method_help' => 'POST 荷载自动支持 <code>application/x-www-form-urlencoded</code> 和 <code>application/json</code>',
+		'method_help' => '如果荷载非空且是合法的 JSON，HTTP 请求标头将被自动设为 <code>application/json</code>，否则使用 <code>application/x-www-form-urlencoded</code>',
 		'method_postparams' => 'POST 荷载',
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',
