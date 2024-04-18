@@ -245,7 +245,7 @@ return array(
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'tag' => array(
-		'auto_label' => 'Adicione esta etiqueta par novos artigos',
+		'auto_label' => 'Adicione esta etiqueta para novos artigos',
 		'name' => 'Nome',
 		'new_name' => 'Nome novo',
 		'old_name' => 'Nome antigo',
