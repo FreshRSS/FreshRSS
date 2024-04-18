@@ -72,9 +72,9 @@ return array(
 		'title' => 'Exibição',
 		'website' => array(
 			'full' => 'Ícone e nome',
-			'icon' => 'Ícone apenas',
+			'icon' => 'Apenas ícone',
 			'label' => 'Site',
-			'name' => 'Nome apenas',
+			'name' => 'Apenas nome',
 			'none' => 'Nenhum',
 		),
 		'width' => array(

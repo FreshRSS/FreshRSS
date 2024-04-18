@@ -161,7 +161,7 @@ return array(
 		'auto-update-url' => 'URL do servidor para atualização automática',
 		'base-url' => array(
 			'_' => 'URL Base',
-			'recommendation' => 'Recomendação automárica: <kbd>%s</kbd>',
+			'recommendation' => 'Recomendação automática: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
