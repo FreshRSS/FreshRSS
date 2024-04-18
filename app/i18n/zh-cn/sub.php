@@ -127,12 +127,12 @@ return array(
 				'xpath' => 'XPath 定位：',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (点分割路径)',
+				'_' => 'JSON (点表示法)',
 				'feed_title' => array(
 					'_' => '订阅源标题',
 					'help' => '例如：<code>meta.title</code> 或一个静态字符串： <code>"My custom feed"</code>',
 				),
-				'help' => 'JSON 点分割路径，在对象之间用点，在数组上用中括号 (如 <code>data.items[0].title</code>)',
+				'help' => 'JSON 点表示法，在对象之间用点，在数组上用中括号 (如 <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => '以寻找 <strong>文章</strong><br /><small>(最重要)</small>',
 					'help' => '项目列表在 JSON 中的路径, 如 <code>newsItems</code>',
