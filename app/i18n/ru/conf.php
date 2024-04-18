@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
 		'search' => 'Искать “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
 		'state_2' => 'Показать непрочитанные статьи',

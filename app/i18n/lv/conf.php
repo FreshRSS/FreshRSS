@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
 		'state_2' => 'Rādīt nelasītos rakstus',

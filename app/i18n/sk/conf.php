@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
 		'search' => 'Vyhľadáva sa: “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Zobraziť všetky články',
 		'state_1' => 'Zobraziť prečítané články',
 		'state_2' => 'Zobraziť neprečítané články',

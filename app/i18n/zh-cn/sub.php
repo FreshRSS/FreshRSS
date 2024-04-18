@@ -66,11 +66,11 @@ return [
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
-		'export-as-opml' => array(
+		'export-as-opml' => [
 			'download' => 'Download',	// TODO
 			'help' => 'XML file',	// TODO
 			'label' => 'Export as OPML',	// TODO
-		),
+		],
 		'filteractions' => [
 			'_' => '过滤动作',
 			'help' => '每行写一条过滤搜索，过滤条件可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',

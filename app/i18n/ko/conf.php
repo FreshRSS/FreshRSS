@@ -140,13 +140,13 @@ return [
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
 		'search' => '“%s”의 검색 결과',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
 		'state_2' => '읽지 않은 글 표시',

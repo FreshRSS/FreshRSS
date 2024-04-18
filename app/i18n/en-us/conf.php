@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Display oldest articles first',	// IGNORE
 		'order_desc' => 'Display newest articles first',	// IGNORE
 		'search' => 'Search for “%s”',	// IGNORE
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// IGNORE
 			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
 			'html' => 'Shareable link to the HTML page',	// IGNORE
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
 			'rss' => 'Shareable link to the RSS feed',	// IGNORE
-		),
+		],
 		'state_0' => 'Display all articles',	// IGNORE
 		'state_1' => 'Display read articles',	// IGNORE
 		'state_2' => 'Display unread articles',	// IGNORE

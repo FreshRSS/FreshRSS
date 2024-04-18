@@ -66,11 +66,11 @@ return [
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
-		'export-as-opml' => array(
+		'export-as-opml' => [
 			'download' => 'Download',	// TODO
 			'help' => 'XML file',	// TODO
 			'label' => 'Export as OPML',	// TODO
-		),
+		],
 		'filteractions' => [
 			'_' => 'Filteracties',
 			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY

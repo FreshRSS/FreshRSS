@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
 		'search' => 'Suche nach „%s“',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',
 		'state_2' => 'Ungelesene Artikel anzeigen',

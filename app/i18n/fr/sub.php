@@ -66,11 +66,11 @@ return [
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
-		'export-as-opml' => array(
+		'export-as-opml' => [
 			'download' => 'Télécharger',
 			'help' => 'Fichier XML',
 			'label' => 'Exporter en OPML',
-		),
+		],
 		'filteractions' => [
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',

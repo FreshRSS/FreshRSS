@@ -66,11 +66,11 @@ return [
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
-		'export-as-opml' => array(
+		'export-as-opml' => [
 			'download' => 'Download',	// TODO
 			'help' => 'XML file',	// TODO
 			'label' => 'Export as OPML',	// TODO
-		),
+		],
 		'filteractions' => [
 			'_' => 'Ações do filtro',
 			'help' => 'Escreva um filtro de pesquisa por linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY

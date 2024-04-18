@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Régebbi cikkek előre',
 		'order_desc' => 'Újabb cikkek előre',
 		'search' => 'Keresse a “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Minden cikk',
 		'state_1' => 'Olvasott cikkek',
 		'state_2' => 'Olvasatlan cikkek',

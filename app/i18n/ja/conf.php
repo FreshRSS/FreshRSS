@@ -140,13 +140,13 @@ return [
 		'order_asc' => '古い著者を最初に表示する',
 		'order_desc' => '新しい著者を最初に表示する',
 		'search' => '“%s”で検索する',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'すべての記事を表示する',
 		'state_1' => '既読の記事を表示する',
 		'state_2' => '未読の記事を表示する',

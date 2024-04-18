@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
 		'search' => 'חיפוש “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'הצגת כל המאמרים',
 		'state_1' => 'הצגת מאמרים שנקראו',
 		'state_2' => 'הצגת מאמרים שלא נקראו',

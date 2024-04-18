@@ -36,7 +36,7 @@ return [
 			'_' => 'Modalità scura automatica (beta)',
 			'auto' => 'Auto',	// IGNORE
 			'no' => 'No',	// IGNORE
-    ],
+	],
 		'icon' => [
 			'bottom_line' => 'Barra in fondo',
 			'display_authors' => 'Autori',
@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
 		'search' => 'Cerca per “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
 		'state_2' => 'Mostra gli articoli non letti',

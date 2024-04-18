@@ -13,7 +13,7 @@
 return [
 	'api' => [
 		'documentation' => 'Zkopírujte následující adresu URL pro její použití v externím nástroji.',
-		'title' => 'API',	// IGNORE
+		'title' => 'API',    // IGNORE
 	],
 	'bookmarklet' => [
 		'documentation' => 'Přetáhněte toto tlačítko do svého panelu nástrojů záložek nebo na něj klikněte pravým tlačítkem myši a zvolte „Uložit tento odkaz do záložek“. Pak klikněte na tlačítko „Přihlásit se k odběru“ na kterékoliv stránce, kde se chcete přihlásit k odběru.',
@@ -66,21 +66,21 @@ return [
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
-		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
-			'label' => 'Export as OPML',	// TODO
-		),
+		'export-as-opml' => [
+			'download' => 'Download',    // TODO
+			'help' => 'XML file',    // TODO
+			'label' => 'Export as OPML',    // TODO
+		],
 		'filteractions' => [
 			'_' => 'Akce filtrování',
-			'help' => 'Zapište jeden filtr hledání na řádek. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Zapište jeden filtr hledání na řádek. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',    // DIRTY
 		],
 		'information' => 'Informace',
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => [
 			'_' => 'Typ zdroje feedu',
 			'html_xpath' => [
-				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'_' => 'HTML + XPath (Web scraping)',    // IGNORE
 				'feed_title' => [
 					'_' => 'název zdroje',
 					'help' => 'Příklad: <code>//title</code> nebo statický řetězec: <code>"Můj vlastní zdroj"</code>',
@@ -104,8 +104,8 @@ return [
 					'help' => 'Příklad: <code>descendant::img/@src</code>',
 				],
 				'item_timeFormat' => [
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Custom date/time format',    // TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',    // TODO
 				],
 				'item_timestamp' => [
 					'_' => 'datum položky',
@@ -127,46 +127,46 @@ return [
 				'xpath' => 'XPath pro:',
 			],
 			'json_dotnotation' => [
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (dot notation)',    // TODO
 				'feed_title' => [
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'feed title',    // TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',    // TODO
 				],
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',    // TODO
 				'item' => [
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',    // TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',    // TODO
 				],
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'item author',    // TODO
+				'item_categories' => 'item tags',    // TODO
 				'item_content' => [
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'item content',    // TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',    // TODO
 				],
 				'item_thumbnail' => [
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'item thumbnail',    // TODO
+					'help' => 'Example: <code>image</code>',    // TODO
 				],
 				'item_timeFormat' => [
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Custom date/time format',    // TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',    // TODO
 				],
 				'item_timestamp' => [
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'item date',    // TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',    // TODO
 				],
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'item title',    // TODO
+				'item_uid' => 'item unique ID',    // TODO
 				'item_uri' => [
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'item link (URL)',    // TODO
+					'help' => 'Example: <code>permalink</code>',    // TODO
 				],
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'dot notation for:',    // TODO
+				'relative' => 'dot notated path (relative to item) for:',    // TODO
 			],
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Feed',    // TODO
 			'rss' => 'RSS / Atom (výchozí)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',    // TODO
 		],
 		'maintenance' => [
 			'clear_cache' => 'Vymazat mezipaměť',
@@ -178,10 +178,10 @@ return [
 		'max_http_redir' => 'Maximální počet přesměrování HTTP',
 		'max_http_redir_help' => 'Nastavte na 0 nebo nechte prázdné pro zakázání, -1 pro neomezené přesměrování.',
 		'method' => [
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Method',    // TODO
 		],
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',    // TODO
+		'method_postparams' => 'Payload for POST',    // TODO
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'ztlumit',
 		'no_selected' => 'Nejsou vybrány žádné kanály.',
@@ -190,11 +190,11 @@ return [
 			'_' => 'Viditelnost',
 			'archived' => 'Nezobrazovat (archivováno)',
 			'category' => 'Zobrazit v jeho kategorii',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Show in important feeds',    // TODO
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
 		],
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
-		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',    // DIRTY
 		'selector_preview' => [
 			'show_raw' => 'Zobrazit zdrojový kód',
 			'show_rendered' => 'Zobrazit obsah',
@@ -245,7 +245,7 @@ return [
 		'subscription_tools' => 'Nástroje odběrů',
 	],
 	'tag' => [
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Add this label to new articles',    // TODO
 		'name' => 'Název',
 		'new_name' => 'Nový název',
 		'old_name' => 'Starý název',

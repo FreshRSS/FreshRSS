@@ -140,13 +140,13 @@ return [
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
 		'search' => 'Recherche de « %s »',
-		'share' => array(
+		'share' => [
 			'_' => 'Partager ce filtre par lien',
 			'help' => 'Donner ce lien pour partager le contenu du filtre avec d’autres personnes',
 			'html' => 'Lien partageable de la page HTML',
 			'opml' => 'Lien partageable de la liste des flux au format OPML',
 			'rss' => 'Lien partageable du flux RSS',
-		),
+		],
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',

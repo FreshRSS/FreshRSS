@@ -140,13 +140,13 @@ return [
 		'order_asc' => '由旧至新显示文章',
 		'order_desc' => '由新至旧显示文章',
 		'search' => '搜索 “%s”',
-		'share' => array(
+		'share' => [
 			'_' => 'Share this query by link',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
-		),
+		],
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
 		'state_2' => '显示未读文章',
