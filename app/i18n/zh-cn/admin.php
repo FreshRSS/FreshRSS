@@ -20,7 +20,7 @@ return array(
 		'none' => '无（危险）',
 		'title' => '认证',
 		'token' => '主验证 token',
-		'token_help' => '允许不登录而访问用户的全部 RSS 输出以及刷新订阅源：',
+		'token_help' => '允许不验证而访问用户的全部 RSS 输出以及刷新订阅源：',
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
 	),
