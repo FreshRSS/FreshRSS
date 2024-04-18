@@ -164,9 +164,9 @@ return array(
 				'json' => 'JSON 点表达式：',
 				'relative' => 'JSON 点表达式（相对于文章）：',
 			),
-			'jsonfeed' => 'JSON Feed',
+			'jsonfeed' => 'JSON 订阅源',
 			'rss' => 'RSS / Atom (默认)',
-			'xml_xpath' => 'XML + XPath',
+			'xml_xpath' => 'XML + XPath', // IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
