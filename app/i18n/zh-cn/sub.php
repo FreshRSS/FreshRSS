@@ -126,7 +126,7 @@ return array(
 				'relative' => 'XPath（文章）：',
 				'xpath' => 'XPath 定位：',
 			),
-			'json_dotpath' => array(
+			'json_dotnotation' => array(
 				'_' => 'JSON (点分割路径)',
 				'feed_title' => array(
 					'_' => '订阅源标题',
