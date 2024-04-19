@@ -205,7 +205,7 @@ return array(
 		'copiedFromURL' => 'update.php %s lokasyonundan ./data lokasyonuna kopyalandı',
 		'current_version' => 'Mevcut sürümünüz',
 		'last' => 'Son kontrol',
-		'loading' => 'Güncelleniyor...',
+		'loading' => 'Güncelleniyor…',
 		'none' => 'Yeni güncelleme yok',
 		'releaseChannel' => array(
 			'_' => 'Sürüm kanalı',
