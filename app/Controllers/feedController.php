@@ -23,7 +23,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$allow_anonymous_refresh = FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 			if ($action !== 'actualize' ||
 					!($allow_anonymous_refresh || $token_is_ok)) {
-				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 			}
 		}
 	}

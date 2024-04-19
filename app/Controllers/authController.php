@@ -18,7 +18,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
@@ -142,13 +142,13 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			if (!FreshRSS_Context::hasUserConf()) {
 				// Initialise the default user to be able to display the error page
 				FreshRSS_Context::initUser(FreshRSS_Context::systemConf()->default_user);
-				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
+				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN, _t('feedback.auth.login.invalid'), false);
 				return;
 			}
 
 			if (!FreshRSS_Context::userConf()->enabled || FreshRSS_Context::userConf()->passwordHash == '') {
 				usleep(random_int(100, 5000));	//Primitive mitigation of timing attacks, in μs
-				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
+				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN, _t('feedback.auth.login.invalid'), false);
 				return;
 			}
 
@@ -248,7 +248,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		if (max_registrations_reached()) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);

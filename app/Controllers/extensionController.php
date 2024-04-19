@@ -13,7 +13,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 	}
 
@@ -107,7 +107,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			return;
 		}
 		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 			return;
 		}
 
@@ -251,7 +251,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	public function removeAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		$url_redirect = ['c' => 'extension', 'a' => 'index'];

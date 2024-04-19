@@ -13,7 +13,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();

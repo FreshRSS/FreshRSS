@@ -13,7 +13,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 	}
 
@@ -473,7 +473,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);;
+			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
 		}
 
 		if (Minz_Request::isPost()) {

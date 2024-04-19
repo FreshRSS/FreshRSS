@@ -26,7 +26,7 @@ class FreshRSS extends Minz_FrontController {
 		FreshRSS_Context::initSystem();
 		if (!FreshRSS_Context::hasSystemConf()) {
 			$message = 'Error during context system init!';
-			Minz_Error::error(500, $message, false);
+			Minz_Error::error(FreshRSS_HttpResponseCode::INTERNAL_SERVER_ERROR, $message, false);
 			die($message);
 		}
 
@@ -49,7 +49,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		if (!FreshRSS_Context::hasUserConf()) {
 			$message = 'Error during context user init!';
-			Minz_Error::error(500, $message, false);
+			Minz_Error::error(FreshRSS_HttpResponseCode::INTERNAL_SERVER_ERROR, $message, false);
 			die($message);
 		}
 
@@ -81,7 +81,7 @@ class FreshRSS extends Minz_FrontController {
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();
-				Minz_Error::error(403, ['error' => [_t('feedback.access.denied'), ' [CSRF]']]);
+				Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN, ['error' => [_t('feedback.access.denied'), ' [CSRF]']]);
 			}
 		}
 	}
