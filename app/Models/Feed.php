@@ -666,7 +666,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
 		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
 
-		$feedContent = FreshRSS_dotpath_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}
