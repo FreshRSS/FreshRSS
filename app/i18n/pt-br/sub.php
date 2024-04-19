@@ -67,9 +67,9 @@ return array(
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'download' => 'Download',	// IGNORE
+			'help' => 'Arquivo XML',
+			'label' => 'Exportar como OPML',
 		),
 		'filteractions' => array(
 			'_' => 'Ações do filtro',
@@ -127,61 +127,61 @@ return array(
 				'xpath' => 'XPath para:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (notação de ponto)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'título do feed',
+					'help' => 'Exemplo: <code>meta.title</code> ou uma string estática: <code>"Meu feed customizado"</code>',
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'Um JSON na notação de ponto usa pontos entre os objetos e colchetes para arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'encontrando novidades <strong>itens</strong><br /><small>(mais importante)</small>',
+					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>newsItems</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'autor do item',
+				'item_categories' => 'tags dos itens',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'conteúdo do item',
+					'help' => 'Chave sob na qual o conteúdo é encontrado, e.g. <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'miniatura do item',
+					'help' => 'Exemplo: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Formato de data/hora customizado',
+					'help' => 'Opcional. Um formato suportado por <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
+					'_' => 'data do item',
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'título do item',
+				'item_uid' => 'ID único do item',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'Link do item (URL)',
+					'help' => 'Exemplo: <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'notação de ponto para:',
+				'relative' => 'notação de ponto (relativa ao item) para:',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (padrão)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',
 			'reload_articles' => 'Recarregar artigos',
-			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',	// DIRTY
+			'reload_articles_help' => 'Recarregar artigos e buscar conteúdo completo',
 			'title' => 'Manutenção',
 		),
 		'max_http_redir' => 'Quantidade máxima de redirecionamentos HTTP',
 		'max_http_redir_help' => 'Defina como 0 ou deixe em branco para desabilitar, -1 para redirecionamentos ilimitados',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'Método HTTP',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'O conteúdo do POST tem suporte automático para <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
+		'method_postparams' => 'Conteúdo do POST',
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
 		'mute' => 'silenciar',
 		'no_selected' => 'Nenhum feed selecionado.',
@@ -190,11 +190,11 @@ return array(
 			'_' => 'Visibilidade',
 			'archived' => 'Não exibir (arquivado)',
 			'category' => 'Mostrar na sua categoria',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Mostrar feeds importantes',
 			'main_stream' => 'Mostrar na tela principal',
 		),
 		'proxy' => 'Defina um proxy para buscar esse feed',
-		'proxy_help' => 'Selecione um protocolo (e.g: SOCKS5) e digite o endereço do proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Selecione um protocolo (e.g: SOCKS5) e digite o endereço do proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar fonte',
 			'show_rendered' => 'Mostrar conteúdo',
@@ -245,7 +245,7 @@ return array(
 		'subscription_tools' => 'Ferramentas de inscrição',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Adicione esta etiqueta para novos artigos',
 		'name' => 'Nome',
 		'new_name' => 'Nome novo',
 		'old_name' => 'Nome antigo',
