@@ -126,13 +126,13 @@ return array(
 				'relative' => 'XPath (relatif à l’article) pour :',
 				'xpath' => 'XPath pour :',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Chemin)',
+			'json_dotnotation' => array(
+				'_' => 'JSON (notation point)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
 					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
-				'help' => 'Un chemin JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
+				'help' => 'La notation point pour JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
 					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>permalink</code>',
 				),
-				'json' => 'Chemin JSON pour :',
-				'relative' => 'Chemin relatif à l’article pour :',
+				'json' => 'notation point pour :',
+				'relative' => 'notation point relative à l’article pour :',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',

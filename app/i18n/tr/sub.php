@@ -126,13 +126,13 @@ return array(
 				'relative' => 'XPath (nesneye ait):',
 				'xpath' => 'XPath:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// IGNORE
+			'json_dotnotation' => array(
+				'_' => 'JSON (Dotted notation)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'akış başlığı',
 					'help' => 'Örnek: <code>meta.title</code> ya da sabit bir dizgi: <code>"Benim özel akışım"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'yeni akışlar bulunuyor <strong>çğeler</strong><br /><small>(en önemli)</small>',
 					'help' => 'Öğeleri içeren dizinin JSON yolu, e.g. <code>yeniAkışÖğeleri</code>',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'nesne linkı (URL)',
 					'help' => 'Örnek: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// IGNORE
-				'relative' => 'Dotted Path (relative to item) for:',	// IGNORE
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			),
 			'jsonfeed' => 'JSON Akışı',
 			'rss' => 'RSS / Atom (varsayılan)',
