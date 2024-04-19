@@ -178,6 +178,7 @@ People are sorted by name so please keep this order.
 * [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [Paweł Kalemba](https://github.com/pkalemba): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pkalemba)
+* [PedroPMS](https://github.com/PedroPMS): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:PedroPMS)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
 * [Peter Stoinov](https://github.com/stoinov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stoinov), [Web](https://stoinov.com)
 * [Petra Lamborn](https://github.com/petraoleum): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:petraoleum), [Web](https://petras.space)
@@ -248,4 +249,3 @@ People are sorted by name so please keep this order.
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
 * [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
-* [PedroPMS](https://github.com/PedroPMS): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:PedroPMS)
