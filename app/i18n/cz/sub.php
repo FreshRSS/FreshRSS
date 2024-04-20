@@ -127,7 +127,7 @@ return array(
 				'xpath' => 'XPath pro:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// DIRTY
+				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'název kanálu',
 					'help' => 'Příklad: <code>meta.title</code> nebo statický řetězec: <code>"Můj vlastní kanál"</code>',
@@ -149,7 +149,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Vlastní formát data a času',
-					'help' => 'Volitelně. Formát podporovaný funkcí  <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
+					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',
@@ -166,7 +166,7 @@ return array(
 			),
 			'jsonfeed' => 'Zdroj JSON',
 			'rss' => 'RSS / Atom (výchozí)',
-			'xml_xpath' => 'XML + XPath', // IGNORE
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazat mezipaměť',
