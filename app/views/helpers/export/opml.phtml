@@ -27,7 +27,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			case FreshRSS_Feed::KIND_XML_XPATH:
 				$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
 				break;
-			case FreshRSS_Feed::KIND_JSON_DOTPATH:
+			case FreshRSS_Feed::KIND_JSON_DOTNOTATION:
 				$outline['type'] = FreshRSS_Export_Service::TYPE_JSON_DOTPATH;
 				break;
 			case FreshRSS_Feed::KIND_JSONFEED:
@@ -48,7 +48,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:xPathItemThumbnail'] = $xPathSettings['itemThumbnail'] ?? null;
 			$outline['frss:xPathItemCategories'] = $xPathSettings['itemCategories'] ?? null;
 			$outline['frss:xPathItemUid'] = $xPathSettings['itemUid'] ?? null;
-		} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+		} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
 			/** @var array<string,string> */
 			$jsonSettings = $feed->attributeArray('json_dotpath') ?? [];
 			$outline['frss:jsonItem'] = $jsonSettings['item'] ?? null;

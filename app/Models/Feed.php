@@ -31,7 +31,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_JSON_XPATH = 20;
 
 	public const KIND_JSONFEED = 25;
-	public const KIND_JSON_DOTPATH = 30;
+	public const KIND_JSON_DOTNOTATION = 30;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
