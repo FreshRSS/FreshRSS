@@ -28,7 +28,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 				$outline['type'] = FreshRSS_Export_Service::TYPE_XML_XPATH;
 				break;
 			case FreshRSS_Feed::KIND_JSON_DOTNOTATION:
-				$outline['type'] = FreshRSS_Export_Service::TYPE_JSON_DOTPATH;
+				$outline['type'] = FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION;
 				break;
 			case FreshRSS_Feed::KIND_JSONFEED:
 				$outline['type'] = FreshRSS_Export_Service::TYPE_JSONFEED;
