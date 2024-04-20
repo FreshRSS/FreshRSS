@@ -149,7 +149,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂 日期/時間 格式',
-					'help' => '選用項目。 支援以<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>'表達的格式,
+					'help' => '選用項目。 支援以<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 表達的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
