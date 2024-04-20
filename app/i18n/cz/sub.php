@@ -73,7 +73,7 @@ return array(
 		),
 		'filteractions' => array(
 			'_' => 'Akce filtrování',
-			'help' => 'Zapište jeden filtr hledání na řádek. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Zapište jeden filtr hledání na řádek. Operátoři <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">viz dokumentace</a>.',
 		),
 		'information' => 'Informace',
 		'keep_min' => 'Minimální počet článků pro ponechání',
@@ -127,12 +127,12 @@ return array(
 				'xpath' => 'XPath pro:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON s tečkovým zápisem (dot notation)',
 				'feed_title' => array(
 					'_' => 'název kanálu',
 					'help' => 'Příklad: <code>meta.title</code> nebo statický řetězec: <code>"Můj vlastní kanál"</code>',
 				),
-				'help' => 'Dot notated JSON používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',	// DIRTY
+				'help' => 'JSON s tečkovým zápisem používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'vyhledávání nových <strong>položek</strong><br /><small>(nejdůležitější)</small>',
 					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>newsItems</code>',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'odkaz na položku (adresa URL)',
 					'help' => 'Příklad: <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relativní k položce) pro:',	// DIRTY
+				'json' => 'tečkový zápis pro:',
+				'relative' => 'cesta s tečkovým zápisem (relativní k položce) pro:',
 			),
 			'jsonfeed' => 'Zdroj JSON',
 			'rss' => 'RSS / Atom (výchozí)',
