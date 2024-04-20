@@ -178,7 +178,7 @@ return array(
 		'queries' => 'Uživatelské dotazy',
 		'reading' => 'Čtení',
 		'search' => 'Hledat slova nebo #štítky',
-		'search_help' => 'Podívejte se na dokumentaci pro pokročilé parametry  <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametry vyhledávání</a>',
+		'search_help' => 'Podívejte se na dokumentaci pro pokročilé parametry <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametry vyhledávání</a>',
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
