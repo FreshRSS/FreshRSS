@@ -203,7 +203,7 @@ return array(
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
-		'email-webmail-firefox-fix' => 'Email (webmail - oprava pre Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - oprava pre Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
