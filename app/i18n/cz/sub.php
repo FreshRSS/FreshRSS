@@ -126,13 +126,13 @@ return array(
 				'relative' => 'XPath (vzhledem k položce) pro:',
 				'xpath' => 'XPath pro:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Tečkované cesty)',
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
 					'_' => 'název kanálu',
 					'help' => 'Příklad: <code>meta.title</code> nebo statický řetězec: <code>"Můj vlastní kanál"</code>',
 				),
-				'help' => 'Tečkovaná cesta JSON používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',
+				'help' => 'Dot notated JSON používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'vyhledávání nových <strong>položek</strong><br /><small>(nejdůležitější)</small>',
 					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>newsItems</code>',
@@ -161,8 +161,8 @@ return array(
 					'_' => 'odkaz na položku (adresa URL)',
 					'help' => 'Příklad: <code>permalink</code>',
 				),
-				'json' => 'Tečkovaná cesta pro:',
-				'relative' => 'Tečkovaná cesta (relativní k položce) pro:',
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relativní k položce) pro:',	// TODO
 			),
 			'jsonfeed' => 'Zdroj JSON',
 			'rss' => 'RSS / Atom (výchozí)',

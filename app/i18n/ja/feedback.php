@@ -116,10 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '“%s” タグが作成されました',
-		'error' => 'Label could not be updated!',	// TODO
+		'error' => 'ラベルを更新できませんでした',
 		'name_exists' => 'このタグ名は既に存在します',
 		'renamed' => '“%s”タグは“%s”に改名されました',
-		'updated' => 'Label has been updated.',	// TODO
+		'updated' => 'ラベルが更新されました',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSSは<strong>バージョン %s</strong>に更新されます。',

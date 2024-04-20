@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Mostra per feed',
 			'order' => 'Ordina per data',
 			'search' => 'Espressione',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Abilita la condivisione di OPML di categorie e feed corrispondenti',
+			'shareRss' => 'Abilita la condivisione di HTML &amp; RSS',
 			'state' => 'Stato',
-			'tags' => 'Mostra per tag',	// DIRTY
+			'tags' => 'Tag',
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostra tutti gli articoli',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Mostra gli articoli con qualsiasi etichetta',
 		'get_category' => 'Mostra la categoria “%s” ',
 		'get_favorite' => 'Mostra articoli preferiti',
 		'get_feed' => 'Mostra feed “%s” ',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Mostra articoli dai feed importanti',
+		'get_label' => 'Mostra articoli con l’etichetta “%s”',
+		'help' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentazione per le query utente e ricondivisioine tramite HTML / RSS / OPML</a>.',
 		'name' => 'Nome',
 		'no_filter' => 'Nessun filtro',
 		'number' => 'Ricerca n°%d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
 		'search' => 'Cerca per “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Condividi questa query tramite un link',
+			'help' => 'Fornisci questo link se vuoi condividere questa query con altre persone',
+			'html' => 'Link condivisibile alla pagina HTML',
+			'opml' => 'Link condivisibile alla lista OPML dei feed',
+			'rss' => 'Link condivisibile al feed RSS',
 		),
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
@@ -209,7 +209,7 @@ return array(
 			'misc' => 'Varie',
 			'view' => 'Vista',
 		),
-		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
+		'hide_read_feeds' => 'Nascondi categorie e feed con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità “caricamento ritardato” per le immagini',
 		'jump_next' => 'Salta al successivo feed o categoria non letto',
 		'mark_updated_article_unread' => 'Segna articoli aggiornati come non letti',
@@ -287,7 +287,7 @@ return array(
 		'mark_favorite' => 'Segna come preferito',
 		'mark_read' => 'Segna come letto',
 		'navigation' => 'Navigazione',
-		'navigation_help' => 'Con il tasto <kbd>⇧ Shift</kbd> i comandi di navigazione verranno applicati ai feeds.<br/>Con il tasto <kbd>Alt ⎇</kbd> i comandi di navigazione verranno applicati alle categorie.',
+		'navigation_help' => 'Con il tasto <kbd>⇧ Shift</kbd> i comandi di navigazione verranno applicati ai feed.<br/>Con il tasto <kbd>Alt ⎇</kbd> i comandi di navigazione verranno applicati alle categorie.',
 		'navigation_no_mod_help' => 'Le seguenti scorciatoie di navigazione non supportano i modificatori.',
 		'next_article' => 'Salta al contenuto successivo',
 		'next_unread_article' => 'Apri il prossimo articolo non letto',
