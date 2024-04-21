@@ -389,8 +389,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$ok &= is_dir($user_data);
 		if ($ok) {
 			FreshRSS_fever_Util::deleteKey($username);
+			Minz_ModelPdo::$usesSharedPdo = false;
 			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
 			$ok &= $oldUserDAO->deleteUser();
+			Minz_ModelPdo::$usesSharedPdo = true;
 			$ok &= recursive_unlink($user_data);
 			$filenames = glob(PSHB_PATH . '/feeds/*/' . $username . '.txt');
 			if (!empty($filenames)) {
