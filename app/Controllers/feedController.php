@@ -500,7 +500,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
 					$simplePie = $feed->loadJson();
 					if ($simplePie === null) {
-						throw new FreshRSS_Feed_Exception('JSON dotpath parsing failed for [' . $feed->url(false) . ']');
+						throw new FreshRSS_Feed_Exception('JSON dot notation parsing failed for [' . $feed->url(false) . ']');
 					}
 				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSONFEED) {
 					$simplePie = $feed->loadJson();
