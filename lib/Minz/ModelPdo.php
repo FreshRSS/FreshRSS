@@ -78,7 +78,9 @@ class Minz_ModelPdo {
 					$db['user'], Minz_Exception::ERROR
 				);
 		}
-		self::$sharedPdo = $this->pdo;
+		if (self::$usesSharedPdo) {
+			self::$sharedPdo = $this->pdo;
+		}
 	}
 
 	/**
@@ -106,7 +108,9 @@ class Minz_ModelPdo {
 			return;
 		}
 		$this->current_user = $currentUser;
-		self::$sharedCurrentUser = $currentUser;
+		if (self::$usesSharedPdo) {
+			self::$sharedCurrentUser = $currentUser;
+		}
 
 		$ex = null;
 		//Attempt a few times to connect to database
