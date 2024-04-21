@@ -621,7 +621,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return array<string,string> */
-	private function dotPathsForStandardJsonFeed(): array {
+	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
 			'item' => 'items',
@@ -664,7 +664,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		/** @var array<string,string> $json_dotnotation */
 		$json_dotnotation = $this->attributeArray('json_dotnotation') ?? [];
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotnotation;
+		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotNotationForStandardJsonFeed() : $json_dotnotation;
 
 		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
 		if ($feedContent == null) {
