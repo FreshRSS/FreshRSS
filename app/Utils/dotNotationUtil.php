@@ -98,7 +98,7 @@ final class FreshRSS_dotNotation_Util
 	 * @param array<string> $jf json feed
 	 * @param string $feedSourceUrl the source URL for the feed
 	 * @param array<string,string> $dotNotation dot notation to map JSON into RSS
-	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotPath `feedTitle`
+	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotNotation `feedTitle`
 	 */
 	public static function convertJsonToRss(array $jf, string $feedSourceUrl, array $dotNotation, string $defaultRssTitle = ''): ?string {
 		if (!isset($dotNotation['item']) || $dotNotation['item'] === '') {
