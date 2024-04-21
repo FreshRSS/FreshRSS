@@ -18,7 +18,7 @@ class Minz_ModelPdo {
 
 	private static ?Minz_Pdo $sharedPdo = null;
 
-	private static ?string $sharedCurrentUser;
+	private static string $sharedCurrentUser = '';
 
 	protected Minz_Pdo $pdo;
 
@@ -160,6 +160,9 @@ class Minz_ModelPdo {
 	}
 
 	public function close(): void {
+		if ($this->current_user === self::$sharedCurrentUser) {
+			self::clean();
+		}
 		$this->current_user = '';
 		unset($this->pdo);
 		gc_collect_cycles();
