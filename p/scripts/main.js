@@ -1114,7 +1114,7 @@ function init_stream(stream) {
 			if (navigator.clipboard) {
 				navigator.clipboard.writeText(el.dataset.url)
 					.then(() => {
-						toggleClass(el, 'error');
+						toggleClass(el, 'ok');
 					})
 					.catch(e => {
 						console.log(e);
