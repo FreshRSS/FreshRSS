@@ -50,7 +50,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:xPathItemUid'] = $xPathSettings['itemUid'] ?? null;
 		} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
 			/** @var array<string,string> */
-			$jsonSettings = $feed->attributeArray('json_dotpath') ?? [];
+			$jsonSettings = $feed->attributeArray('json_dotnotation') ?? [];
 			$outline['frss:jsonItem'] = $jsonSettings['item'] ?? null;
 			$outline['frss:jsonItemTitle'] = $jsonSettings['itemTitle'] ?? null;
 			$outline['frss:jsonItemContent'] = $jsonSettings['itemContent'] ?? null;

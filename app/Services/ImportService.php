@@ -254,7 +254,7 @@ class FreshRSS_Import_Service {
 				$jsonSettings['itemUid'] = $feed_elt['frss:jsonItemUid'];
 			}
 			if (!empty($jsonSettings)) {
-				$feed->_attribute('json_dotpath', $jsonSettings);
+				$feed->_attribute('json_dotnotation', $jsonSettings);
 			}
 
 			$curl_params = [];

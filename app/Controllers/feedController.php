@@ -295,7 +295,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$jsonSettings['itemUid'] = Minz_Request::paramString('jsonItemUid', true);
 				}
 				if (!empty($jsonSettings)) {
-					$attributes['json_dotpath'] = $jsonSettings;
+					$attributes['json_dotnotation'] = $jsonSettings;
 				}
 			}
 

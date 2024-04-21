@@ -413,7 +413,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSONFEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?> data-show="json_dotpath"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?> data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
 					</select>
 				</div>
 			</div>
@@ -514,9 +514,9 @@
 			</div>
 		</fieldset>
 
-		<fieldset id="json_dotpath">
+		<fieldset id="json_dotnotation">
 			<?php
-				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotpath') ?? []);
+				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.help') ?></p>
 			<div class="form-group">
