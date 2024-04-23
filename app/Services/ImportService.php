@@ -162,6 +162,7 @@ class FreshRSS_Import_Service {
 					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;
 				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION):
+				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTNOTATION);
 					break;
 				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
