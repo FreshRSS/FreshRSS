@@ -14,7 +14,7 @@
 		&:hover {
 			background: variables.$grey-lighter;
 
-			&:not(.current):hover .item.title {
+			&:not(.current):hover .item .title {
 				background: variables.$grey-lighter;
 			}
 		}
@@ -28,13 +28,13 @@
 	&.not_read:not(.current) {
 		background: variables.$unread-bg;
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background: variables.$unread-bg;
 		}
 	}
 
 	&.not_read {
-		.item.title {
+		.item .title {
 			a {
 				color: variables.$unread-font-color;
 			}
@@ -61,7 +61,7 @@
 	&.favorite:not(.current) {
 		background: variables.$fav-light;
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background: variables.$fav-light;
 		}
 	}
