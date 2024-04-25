@@ -116,10 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Címke “%s” létrehozva.',
-		'error' => 'Label could not be updated!',	// TODO
+		'error' => 'Nem sikerült a címke frissítése!',
 		'name_exists' => 'Címke név már létezik.',
 		'renamed' => 'Címke “%s” átnevezve “%s”.',
-		'updated' => 'Label has been updated.',	// TODO
+		'updated' => 'Címke frissítése megtörtént.',
 	),
 	'update' => array(
 		'can_apply' => 'Egy FreshRSS frissítés elérhető : <strong>Verzió %s</strong>.',
