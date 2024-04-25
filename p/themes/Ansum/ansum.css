@@ -989,7 +989,7 @@ main.prompt {
 .flux .flux_header:hover {
 	background: #fcfaf8;
 }
-.flux .flux_header:hover:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item .title {
 	background: #fcfaf8;
 }
 .flux.current {
@@ -1002,10 +1002,10 @@ main.prompt {
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current):hover .item .title {
 	background: #f2f6f8;
 }
-.flux.not_read .item.title a {
+.flux.not_read .item .title a {
 	color: #161a38;
 }
 .flux.not_read .item.website a {
@@ -1021,7 +1021,7 @@ main.prompt {
 .flux.favorite:not(.current) {
 	background: #fff6da;
 }
-.flux.favorite:not(.current):hover .item.title {
+.flux.favorite:not(.current):hover .item .title {
 	background: #fff6da;
 }
 .flux .website a {

@@ -747,11 +747,11 @@ kbd {
 	background: var(--background-color-dark);
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
+.flux.not_read:not(.current):hover .item .title {
+	background: var(--background-color-hover);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--background-color-hover);
 }
 
@@ -759,11 +759,11 @@ kbd {
 	background: var(--background-color-hover);
 }
 
-.flux .flux_header .item.title a {
+.flux .flux_header .item .title a {
 	color: var(--font-color-light);
 }
 
-.flux .flux_header .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--font-color-dark);
 }
 

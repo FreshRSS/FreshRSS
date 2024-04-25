@@ -809,23 +809,23 @@ li.item.active {
 	background: var(--accent-bg);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--accent-bg);
 	transition: .3s;
 }
 
-.flux .flux_header .item.title a {
+.flux .flux_header .item .title a {
 	color: var(--text-default);
 }
 
-.flux .flux_header .item.title .summary {
+.flux .flux_header .item .title .summary {
 	color: var(--text-accent);
 	font-size: 0.8rem;
 	font-style: italic;
 	opacity: 0.8;
 }
 
-.flux .flux_header .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--text-accent);
 	opacity: 0.8;
 }
