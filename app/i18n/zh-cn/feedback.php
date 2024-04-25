@@ -115,11 +115,11 @@ return array(
 		'purge_completed' => '清除完成（已删除 %d 篇文章）',
 	),
 	'tag' => array(
-		'created' => '标签 “%s” 已创建。',
-		'error' => 'Label could not be updated!',	// TODO
+		'created' => '标签“%s”已创建。',
+		'error' => '标签无法被更新！',
 		'name_exists' => '标签名已存在。',
-		'renamed' => '标签 “%s” 已被重命名为 “%s”。',
-		'updated' => 'Label has been updated.',	// TODO
+		'renamed' => '标签“%s”已被重命名为“%s”。',
+		'updated' => '标签已更新。',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 将更新到 <strong>版本 %s</strong>。',
