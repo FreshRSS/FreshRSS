@@ -452,7 +452,7 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color1);
 }
 
-.flux .flux_header .item.title a {
+.flux .flux_header .item .title a {
 	color: var(--dark-font-color8);
 }
 
@@ -460,7 +460,7 @@ button.as-link[disabled] {
 	color: var(--dark-font-color6);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background-color: var(--dark-background-color1);
 }
 
