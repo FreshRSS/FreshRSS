@@ -2210,7 +2210,7 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item.date, .day .date,
+	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
