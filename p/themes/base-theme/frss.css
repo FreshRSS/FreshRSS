@@ -2253,6 +2253,10 @@ html.slider-active {
 		text-align: center;
 	}
 
+	.flux .flux_header .item .title:has(~.date) {
+		padding-right: 1rem;
+	}
+
 	#overlay .close {
 		position: relative;
 	}
