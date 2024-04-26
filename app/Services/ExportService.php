@@ -20,7 +20,8 @@ class FreshRSS_Export_Service {
 	public const TYPE_HTML_XPATH = 'HTML+XPath';
 	public const TYPE_XML_XPATH = 'XML+XPath';
 	public const TYPE_RSS_ATOM = 'rss';
-	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';
+	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';	// Legacy 1.24.0-dev
+	public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
 	public const TYPE_JSONFEED = 'JSONFeed';
 
 	/**

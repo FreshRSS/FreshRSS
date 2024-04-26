@@ -24,6 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $hash = '';
 	private ?bool $is_read;
 	private ?bool $is_favorite;
+	private bool $is_updated = false;
 	private int $feedId;
 	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
@@ -392,6 +393,18 @@ HTML;
 	}
 	public function isFavorite(): ?bool {
 		return $this->is_favorite;
+	}
+
+	/**
+	 * Returns whether the entry has been modified since it was inserted in database.
+	 * @returns bool `true` if the entry already existed (and has been modified), `false` if the entry is new (or unmodified).
+	 */
+	public function isUpdated(): ?bool {
+		return $this->is_updated;
+	}
+
+	public function _isUpdated(bool $value): void {
+		$this->is_updated = $value;
 	}
 
 	public function feed(): ?FreshRSS_Feed {

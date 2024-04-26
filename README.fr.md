@@ -126,7 +126,7 @@ sudo cli/access-permissions.sh
 sudo chown www-data:www-data -R .
 
 # Publier FreshRSS dans votre répertoire HTML public
-sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
+[ ! -e "/var/www/html/FreshRSS" ] && sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS existe déjà"
 # Naviguez vers http://example.net/FreshRSS pour terminer l’installation
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
 # ou utilisez l’interface en ligne de commande
