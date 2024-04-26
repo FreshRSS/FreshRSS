@@ -1011,7 +1011,7 @@ main.prompt {
 .flux.not_read .item.website a {
 	color: #161a38;
 }
-.flux.not_read .item.date {
+.flux.not_read .item .date {
 	color: rgba(22, 26, 56, 0.5);
 }
 .flux.favorite {
@@ -1028,7 +1028,8 @@ main.prompt {
 	color: #363330;
 	opacity: 0.75;
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: rgba(54, 51, 48, 0.5);
 	font-size: 0.85rem;
 }

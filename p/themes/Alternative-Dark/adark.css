@@ -794,9 +794,9 @@ kbd {
 	filter: grayscale(0.8) brightness(1.7);
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-light);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {
