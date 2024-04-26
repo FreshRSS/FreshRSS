@@ -796,7 +796,6 @@ kbd {
 
 .flux .item.date {
 	color: var(--font-color-light);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {

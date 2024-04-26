@@ -769,7 +769,6 @@ form th {
 }
 .flux .item.date {
 	color: var(--color-text-light-darker);
-	font-size: 0.7rem;
 }
 .flux .bottom {
 	font-size: 0.8rem;

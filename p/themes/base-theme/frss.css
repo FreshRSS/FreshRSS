@@ -1411,6 +1411,11 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
+	font-size: 0.7rem;
+}
+
 .item.query > a {
 	display: list-item;
 	list-style-position: inside;
