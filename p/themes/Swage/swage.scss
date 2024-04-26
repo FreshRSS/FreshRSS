@@ -990,10 +990,9 @@ form {
 		}
 	}
 
-	.item {
-		&.date {
-			color: var(--color-text-light-darker);
-		}
+	.flux_header .date,
+	.flux_content .bottom .date {
+		color: var(--color-text-light-darker);
 	}
 
 	.bottom {

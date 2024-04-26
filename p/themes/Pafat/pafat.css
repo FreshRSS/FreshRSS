@@ -849,7 +849,8 @@ a.signin {
 	padding: 0.425rem;
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-grey);
 }
 
