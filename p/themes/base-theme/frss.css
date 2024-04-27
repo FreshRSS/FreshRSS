@@ -1249,12 +1249,14 @@ input[type="search"] {
 
 .flux .flux_header .item.manage .item-element,
 .flux .flux_header .item.website .item-element,
+.flux .flux_header .item.share .dropdown-toggle,
 .flux .flux_header .item.link .item-element {
 	padding-left: var(--frss-padding-flux-items);
 	padding-right: var(--frss-padding-flux-items);
 }
 
 .flux .item.manage,
+.flux .flux_header > .item.share,
 .flux .item.link {
 	width: calc(1rem + 2 * var(--frss-padding-flux-items));
 }
