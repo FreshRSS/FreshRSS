@@ -1287,7 +1287,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .flux_header .item .date {
-	opacity: 0.3;
+	opacity: 0.5;
 }
 
 .flux:not(.current):hover .item .title {
