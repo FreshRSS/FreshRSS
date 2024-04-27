@@ -75,7 +75,7 @@
 							endif; ?><span><?= $feed->name() ?></span></a></span>
 					<?php }
 					$authors = $entry->authors();
-				  	if (!empty($authors) && is_array($authors)) { ?>
+					if (!empty($authors) && is_array($authors)) { ?>
 						<div class="author">
 						<?= _t('gen.short.by_author') ?>
 						<?php
