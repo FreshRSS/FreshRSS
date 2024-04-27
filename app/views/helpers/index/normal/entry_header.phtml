@@ -3,6 +3,7 @@
 	/** @var FreshRSS_View $this */
 	$topline_read = FreshRSS_Context::userConf()->topline_read;
 	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
+	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing;
 	$topline_website = FreshRSS_Context::userConf()->topline_website;
 	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
 	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
@@ -52,26 +53,72 @@
 	?></li><?php
 	endif; ?>
 	<li class="item titleAuthorSummaryDate">
-	<span class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
-		if ($topline_display_authors):
-			?><span class="author"><?php
-			$authors = $this->entry->authors();
-			if (is_array($authors)) {
-				$first = true;
-				foreach ($authors as $author) {
-					echo $first ? $author : ', ' . $author;
-					$first = false;
+		<span class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
+			if ($topline_display_authors):
+				?><span class="author"><?php
+				$authors = $this->entry->authors();
+				if (is_array($authors)) {
+					$first = true;
+					foreach ($authors as $author) {
+						echo $first ? $author : ', ' . $author;
+						$first = false;
+					}
 				}
-			}
-			?></span><?php
+				?></span><?php
+			endif;
+			?>
+		</a></span>
+		<?php
+		if ($topline_summary):
+			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
 		endif;
-	?></a></span>
-	<?php
-	if ($topline_summary):
-		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
-	endif; ?>
+	?>
 	<?php if ($topline_date) { ?><span class="item-element date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</span><?php } ?>
 	</li>
+	<?php if ($topline_sharing) { ?>
+		<li class="item share">
+			<div class="item-element dropdown">
+				<div id="dropdown-share2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+				<a class="dropdown-toggle" href="#dropdown-share2-<?= $this->entry->id() ?>" title="<?= _t('index.share') ?>">
+					<?= _i('share') ?>
+				</a>
+
+				<ul class="dropdown-menu">
+					<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
+						$id = $this->entry->id();
+						$link = $this->entry->link();
+						$title = $this->entry->title() . ' · ' . ($this->feed === null ? '' : $this->feed->name());
+						foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
+							$share = FreshRSS_Share::get($share_options['type']);
+							if ($share === null) {
+								continue;
+							}
+							$cssClass = $share->isDeprecated() ? ' error' : '';
+							$share_options['id'] = $id;
+							$share_options['link'] = $link;
+							$share_options['title'] = $title;
+							$share->update($share_options);
+					?><li class="item share<?= $cssClass ?>">
+						<?php if ('GET' === $share->method()) {
+							if ($share->HTMLtag() !== 'button') {?>
+							<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
+							<?php } else { ?>
+							<button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button>
+							<?php
+							}
+						} else {?>
+							<a href="POST"><?= $share->name() ?></a>
+							<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
+								<input type="hidden" value="<?= $link ?>" name="<?= $share->field() ?>"/>
+							</form>
+						<?php } ?>
+					</li><?php
+						}
+				?></ul>
+				<a class="dropdown-close" href="#close">❌</a>
+			</div>
+		</li>
+	<?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>
