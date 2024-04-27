@@ -402,6 +402,13 @@ function mark_favorite(div) {
 const freshrssOpenArticleEvent = document.createEvent('Event');
 freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
 
+function load_allLazyImages(rootElement) {
+	rootElement.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
+		el.src = el.getAttribute('data-original');
+		el.removeAttribute('data-original');
+	});
+}
+
 function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
 	if (!new_active) {
@@ -409,10 +416,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	if (context.does_lazyload && !skipping) {
-		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
-			el.src = el.getAttribute('data-original');
-			el.removeAttribute('data-original');
-		});
+		load_allLazyImages(new_active);
 	}
 
 	if (old_active !== new_active) {
@@ -1101,7 +1105,16 @@ function init_stream(stream) {
 			for (let i = 0; i < document.styleSheets.length; i++) {
 				tmp_window.document.writeln('<link href="' + document.styleSheets[i].href + '" rel="stylesheet" type="text/css" />');
 			}
-			tmp_window.document.writeln(el.closest('.flux_content').querySelector('.content').innerHTML);
+			const flux_content = el.closest('.flux_content');
+			let content_el = null;
+			if (flux_content) {
+				content_el = el.closest('.flux_content').querySelector('.content');
+			}
+			if (content_el === null) {
+				content_el = el.closest('.flux').querySelector('.flux_content .content');
+			}
+			load_allLazyImages(content_el);
+			tmp_window.document.writeln(content_el.innerHTML);
 			tmp_window.document.close();
 			tmp_window.focus();
 			tmp_window.print();
