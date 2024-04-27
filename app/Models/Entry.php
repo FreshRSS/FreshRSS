@@ -24,6 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $hash = '';
 	private ?bool $is_read;
 	private ?bool $is_favorite;
+	private bool $is_updated = false;
 	private int $feedId;
 	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
@@ -201,7 +202,7 @@ HTML;
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 				continue;
 			}
-			$credit = $enclosure['credit'] ?? '';
+			$credits = $enclosure['credit'] ?? '';
 			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
@@ -238,8 +239,13 @@ HTML;
 					. '" title="' . $etitle . '">💾</a></p>';
 			}
 
-			if ($credit != '') {
-				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+			if ($credits != '') {
+				if (!is_array($credits)) {
+					$credits = [$credits];
+				}
+				foreach ($credits as $credit) {
+					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+				}
 			}
 			if ($description != '') {
 				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
@@ -250,7 +256,7 @@ HTML;
 		return $content;
 	}
 
-	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
+	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
@@ -387,6 +393,18 @@ HTML;
 	}
 	public function isFavorite(): ?bool {
 		return $this->is_favorite;
+	}
+
+	/**
+	 * Returns whether the entry has been modified since it was inserted in database.
+	 * @returns bool `true` if the entry already existed (and has been modified), `false` if the entry is new (or unmodified).
+	 */
+	public function isUpdated(): ?bool {
+		return $this->is_updated;
+	}
+
+	public function _isUpdated(bool $value): void {
+		$this->is_updated = $value;
 	}
 
 	public function feed(): ?FreshRSS_Feed {

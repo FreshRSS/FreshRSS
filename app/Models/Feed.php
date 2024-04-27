@@ -31,7 +31,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_JSON_XPATH = 20;
 
 	public const KIND_JSONFEED = 25;
-	public const KIND_JSON_DOTPATH = 30;
+	public const KIND_JSON_DOTNOTATION = 30;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -520,7 +520,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';
-						$credit = $enclosure->get_credit() ?? null;
+						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
@@ -534,8 +534,11 @@ class FreshRSS_Feed extends Minz_Model {
 						if ($etitle != '') {
 							$attributeEnclosure['title'] = $etitle;
 						}
-						if ($credit != null) {
-							$attributeEnclosure['credit'] = $credit->get_name();
+						if (is_array($credits)) {
+							$attributeEnclosure['credit'] = [];
+							foreach ($credits as $credit) {
+								$attributeEnclosure['credit'][] = $credit->get_name();
+							}
 						}
 						if ($description != '') {
 							$attributeEnclosure['description'] = $description;
@@ -618,7 +621,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return array<string,string> */
-	private function dotPathsForStandardJsonFeed(): array {
+	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
 			'item' => 'items',
@@ -659,11 +662,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		/** @var array<string,string> $json_dotpath */
-		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
+		/** @var array<string,string> $json_dotnotation */
+		$json_dotnotation = $this->attributeArray('json_dotnotation') ?? [];
+		$dotnotations = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotNotationForStandardJsonFeed() : $json_dotnotation;
 
-		$feedContent = FreshRSS_dotpath_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotnotations, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}

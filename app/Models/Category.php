@@ -214,6 +214,7 @@ class FreshRSS_Category extends Minz_Model {
 						// The feed does not exist in the current category, so add that feed
 						$dryRunFeed->_category($this);
 						$ok &= ($feedDAO->addFeedObject($dryRunFeed) !== false);
+						$existingFeeds[$dryRunFeed->url()] = $dryRunFeed;
 					} else {
 						$existingFeed = $existingFeeds[$dryRunFeed->url()];
 						if ($existingFeed->mute()) {
