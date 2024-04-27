@@ -134,7 +134,7 @@ return array(
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => '无标签',
 		'new_article' => '发现新文章，点击刷新页面。',
 		'should_be_activated' => '必须启用 JavaScript',
 	),
@@ -177,7 +177,7 @@ return array(
 		'logs' => '日志',
 		'queries' => '自定义查询',
 		'reading' => '阅读',
-		'search' => '搜索内容或#标签',
+		'search' => '搜索内容或#文章标签',
 		'search_help' => '查阅文档获取支持的 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜索参数</a>',
 		'sharing' => '分享',
 		'shortcuts' => '快捷键',

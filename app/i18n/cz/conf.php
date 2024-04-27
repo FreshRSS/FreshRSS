@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazení',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Automatický tmavý režim (beta)',
+			'auto' => 'Automatický',
+			'no' => 'Ne',
 		),
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Motiv',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Zastaralý',
+				'description' => 'Tento motiv již není podporován a v <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">budoucí verzi FreshRSS</a> již nebude dostupný.',
 			),
 		),
 		'theme_not_available' => 'Motiv „%s“ již není dostupný. Zvolte jiný motiv, prosím.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Na výšku',
 			'square' => 'Čtverec',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Časové pásmo',
 		'title' => 'Zobrazení',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Ikona a název',
+			'icon' => 'Pouze ikona',
+			'label' => 'Webová stránka',
+			'name' => 'Pouze název',
+			'none' => 'Žádné',
 		),
 		'width' => array(
 			'content' => 'Šířka obsahu',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Zobrazit podle kanálu',
 			'order' => 'Seřadit podle data',
 			'search' => 'Výraz',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
+			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',
 			'state' => 'Stav',
 			'tags' => 'Zobrazit podle štítku',
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobrazit všechny články',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Zobrazit články s libovolným štítkem',
 		'get_category' => 'Zobrazit kategorii „%s“',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit kanál „%s“',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Zobrazit články z důležitých kanálů',
+		'get_label' => 'Zobrazit články se štítkem “%s”',
+		'help' => 'Viz <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentace pro uživatelské dotazy a další sdílení pomocí HTML / RSS / OPML</a>.',
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
 		'search' => 'Hledat „%s“',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Sdílet tento dotaz pomocí odkazu',
+			'help' => 'Pokud chcete tento dotaz s někým sdílet, uveďte tento odkaz.',
+			'html' => 'Odkaz na stránku HTML, který lze sdílet',
+			'opml' => 'Odkaz na seznam kanálů OPML, který lze sdílet',
+			'rss' => 'Odkaz na kanál RSS, který lze sdílet',
 		),
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je článek otevřen na své původní webové stránce',
 			'article_viewed' => 'když je článek zobrazen',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'při zaměření (kromě důležitých kanálů)',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
-			'scroll' => 'během posouvání (except for important feeds)',	// DIRTY
+			'scroll' => 'během posouvání (kromě důležitých kanálů)',	// DIRTY
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',

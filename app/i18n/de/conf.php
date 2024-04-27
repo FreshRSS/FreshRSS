@@ -106,7 +106,7 @@ return array(
 			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
-		'password_api' => 'Passwort-API<br /><small>(z.B. für mobile Anwendungen)</small>',
+		'password_api' => 'API-Passwort<br /><small>(z.B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Profil',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Nach Feed filtern',
 			'order' => 'Nach Datum sortieren',
 			'search' => 'Suchbegriff',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
+			'shareRss' => 'Teilen via HTML &amp; RSS aktivieren',
 			'state' => 'Eigenschaft',
 			'tags' => 'Nach Labels filtern',
 			'type' => 'Filter-Typ',
 		),
 		'get_all' => 'Alle Artikel anzeigen',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Alle Artikle mit beliebigem Label anzeigen',
 		'get_category' => 'Kategorie „%s“ anzeigen',
-		'get_favorite' => 'Lieblingsartikel anzeigen',
+		'get_favorite' => 'Favoriten-Artikel anzeigen',
 		'get_feed' => 'Feed „%s“ anzeigen',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Alle Artikel von den "Wichtige Feeds" anzeigen',
+		'get_label' => 'Artikel mit dem Label “%s” anzeigen',
+		'help' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Dokumentation für Benutzerabfragen und Teilen via HTML / RSS / OPML</a>.',
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
 		'search' => 'Suche nach „%s“',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Diese Benutzerabfrage per Link teilen',
+			'help' => 'Diesen Link verteilen, um in mit Jedem zu teilen',
+			'html' => 'Verteilbarer Link zur HTML-Seite',
+			'opml' => 'Verteilbarer Link zur OPML Liste der Feeds',
+			'rss' => 'Verteilbarer Link zum RSS-Feed',
 		),
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'wenn angewählt (außer für "Wichtige Feeds")',
 			'keep_max_n_unread' => 'Max. Anzahl von ungelesenen Artikeln',
-			'scroll' => 'beim Scrollen bzw. Überspringen (except for important feeds)',	// DIRTY
+			'scroll' => 'beim Scrollen bzw. Überspringen (außer für "Wichtige Feeds")',
 			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
