@@ -1413,6 +1413,11 @@ a.website:hover .favicon {
 	overflow: hidden;
 }
 
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
+	font-size: 0.7rem;
+}
+
 .item.query > a {
 	display: list-item;
 	list-style-position: inside;
@@ -2207,7 +2212,7 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item.date, .day .date,
+	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
@@ -2248,6 +2253,10 @@ html.slider-active {
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
 		text-align: center;
+	}
+
+	.flux .flux_header .item .title:has(~.date) {
+		padding-right: 1rem;
 	}
 
 	#overlay .close {

@@ -729,9 +729,9 @@ th {
 	font-size: 0.9rem;
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: #666;
-	font-size: 0.7rem;
 }
 
 .flux .bottom {

@@ -767,9 +767,9 @@ form th {
 .flux.not_read:not(.current):hover .item .title {
 	background-color: var(--color-background-unread);
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--color-text-light-darker);
-	font-size: 0.7rem;
 }
 .flux .bottom {
 	font-size: 0.8rem;
