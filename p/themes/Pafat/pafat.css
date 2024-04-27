@@ -802,6 +802,7 @@ a.signin {
 }
 
 .flux .flux_header:hover,
+.flux:not(.current):hover .flux_header .title,
 .flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
@@ -819,8 +820,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article-unread);
 }
 
-.flux .flux_header .item.title a,
-.flux.not_read:not(.current):hover .flux_header .item.title {
+.flux .flux_header .item .title a,
+.flux.not_read:not(.current):hover .flux_header .item .title {
 	color: var(--font-color-link-title);
 }
 
@@ -832,6 +833,7 @@ a.signin {
 	background-color: var(--background-color-favorite);
 }
 
+.flux.favorite:not(.current):hover .flux_header .title,
 .flux.favorite:not(.current) .flux_header:hover,
 .flux.favorite.current .flux_header {
 	background-color: var(--background-color-favorite-hover);
@@ -851,9 +853,9 @@ a.signin {
 	padding: 0.425rem;
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-grey);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {

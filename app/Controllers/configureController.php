@@ -375,7 +375,6 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if ('' === $name) {
 				$name = _t('conf.query.number', $id + 1);
 			}
-			$queryParams['name'] = $name;
 			if (!empty($params['get']) && is_string($params['get'])) {
 				$queryParams['get'] = htmlspecialchars_decode($params['get'], ENT_QUOTES);
 			}
@@ -400,6 +399,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 			}
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+			$queryParams['name'] = $name;
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
@@ -443,6 +443,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
 		}
 		$params = $_GET;
+		unset($params['name']);
 		unset($params['rid']);
 		$params['url'] = Minz_Url::display(['params' => $params]);
 		$params['name'] = _t('conf.query.number', count($queries) + 1);

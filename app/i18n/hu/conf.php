@@ -124,20 +124,20 @@ return array(
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
 			'search' => 'Kifejezés',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Engedélyezze a megfelelő kategóriák és hírcsatornák OPML-alapú megosztását',
+			'shareRss' => 'Engedélyezze a HTML &amp; RSS megosztást',
 			'state' => 'Státusz',
 			'tags' => 'Rendezés címke szerint',
 			'type' => 'Típus',
 		),
 		'get_all' => 'Minden cikk megjelenítése',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Cikkek megjelenítése bármilyen címkével',
 		'get_category' => 'Listáz “%s” kategóriát',
 		'get_favorite' => 'Kedvenc cikkek megjelenítése',
 		'get_feed' => 'Listáz “%s” hírforrást',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Cikkek megjelenítése fontos hírforrásokból',
+		'get_label' => ' “%s” címkével rendelkező cikkek megjelenítése',
+		'help' => 'Lásd a <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank"> dokumentációt a felhasználói lekérdezések és HTML/RSS/OPML megosztás témákban</a>.',
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
 		'number' => 'Lekérdezés %d',
@@ -145,11 +145,11 @@ return array(
 		'order_desc' => 'Újabb cikkek előre',
 		'search' => 'Keresse a “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Lekérdezés megosztása linkkel',
+			'help' => 'Ezt a linket küldd el hogy megoszd a lekérdezést',
+			'html' => 'Megosztható link a HTML oldalhoz',
+			'opml' => 'Megosztható link az OPML hírforrás listához',
+			'rss' => 'Megosztható link az RSS hírforráshoz',
 		),
 		'state_0' => 'Minden cikk',
 		'state_1' => 'Olvasott cikkek',
