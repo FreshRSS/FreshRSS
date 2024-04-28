@@ -21,7 +21,7 @@ Example for Linux Debian / Ubuntu:
 
 ```sh
 # Install default Docker Compose and automatically the corresponding version of Docker
-apt install docker-compose
+apt install docker-compose-v2
 ```
 
 ## Quick run
@@ -285,13 +285,13 @@ See [`docker-compose.yml`](./freshrss/docker-compose.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose logs -f --timestamps
+docker compose logs -f --timestamps
 # Stop
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
 ```
 
 Detailed (partial) example of Docker Compose for FreshRSS:
@@ -378,11 +378,11 @@ See [`docker-compose-db.yml`](./freshrss/docker-compose-db.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-db.yml pull
+docker compose -f docker-compose.yml -f docker-compose-db.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 ```
 
 ### Docker Compose for development
@@ -396,11 +396,11 @@ See [`docker-compose-development.yml`](./freshrss/docker-compose-development.yml
 cd ./FreshRSS/Docker/freshrss/
 # Update
 git pull --ff-only --prune
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
+docker compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
 # Stop with [Control]+[C] and purge
-docker-compose down --remove-orphans --volumes
+docker compose down --remove-orphans --volumes
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
@@ -446,13 +446,13 @@ See [`docker-compose-proxy.yml`](./freshrss/docker-compose-proxy.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml pull
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
 # Stop
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
