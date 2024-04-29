@@ -64,6 +64,8 @@ rm FreshRSS-backup.tgz
 
 ### Restore a database backup
 
+> ℹ️ It is safer to stop your Web server and cron during maintenance operations.
+
 Restore all users respective database from `data/users/*/backup.sqlite`
 
 ```sh
@@ -89,6 +91,8 @@ Restore all the user databases from the SQLite files:
 ```sh
 ./cli/db-restore.php --delete-backup --force-overwrite
 ```
+
+See also our [Docker documentation to migrate database](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#migrate-database).
 
 ## Backing up selected content
 
