@@ -20,7 +20,8 @@ class FreshRSS_Export_Service {
 	public const TYPE_HTML_XPATH = 'HTML+XPath';
 	public const TYPE_XML_XPATH = 'XML+XPath';
 	public const TYPE_RSS_ATOM = 'rss';
-	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';
+	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';	// Legacy 1.24.0-dev
+	public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
 	public const TYPE_JSONFEED = 'JSONFeed';
 
 	/**
@@ -153,7 +154,7 @@ class FreshRSS_Export_Service {
 		$zip_filename = 'freshrss_' . $this->username . '_' . $day . '_export.zip';
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = tempnam('/tmp', 'zip');
+		$zip_file = tempnam(TMP_PATH, 'zip');
 		if ($zip_file == false) {
 			return [$zip_filename, false];
 		}

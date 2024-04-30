@@ -31,7 +31,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_JSON_XPATH = 20;
 
 	public const KIND_JSONFEED = 25;
-	public const KIND_JSON_DOTPATH = 30;
+	public const KIND_JSON_DOTNOTATION = 30;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -621,7 +621,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return array<string,string> */
-	private function dotPathsForStandardJsonFeed(): array {
+	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
 			'item' => 'items',
@@ -662,11 +662,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		/** @var array<string,string> $json_dotpath */
-		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
+		/** @var array<string,string> $json_dotnotation */
+		$json_dotnotation = $this->attributeArray('json_dotnotation') ?? [];
+		$dotnotations = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotNotationForStandardJsonFeed() : $json_dotnotation;
 
-		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotnotations, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}
