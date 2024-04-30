@@ -81,12 +81,12 @@ FreshRSS keeps feeds and fetched websites as `.spc` or `.html` file in `./data/c
 `'CLEANCACHE_HOURS'` default value `720` (hours = 30 days)
 
 
-### User wide configuration
+## User wide configuration
 
 Available for each user in `config.php` in `./data/users/username`. Edit there. Do not edit `./config-user.default.php` (it will be overwritten by the next system update and overruled by the user config file).
 
 
-#### User: simplify_over_n_feeds
+### User: simplify_over_n_feeds
 
 Advanced property to automatically simplify the layout when there are many (1k+) feeds so that FreshRSS works out of the box with 20k+ feeds scenarios
 
