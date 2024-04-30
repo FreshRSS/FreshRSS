@@ -693,6 +693,7 @@ th {
 	border-right: 2px solid #ecf0f1;
 }
 
+.flux:not(.current):hover .flux_header .title,
 .flux .flux_header:hover {
 	background: #fff;
 }
@@ -728,9 +729,9 @@ th {
 	font-size: 0.9rem;
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: #666;
-	font-size: 0.7rem;
 }
 
 .flux .bottom {
