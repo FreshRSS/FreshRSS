@@ -121,6 +121,14 @@ cd /usr/share/FreshRSS
 ```sh
 cd /usr/share/FreshRSS
 
+./cli/db-backup.php
+# Back-up all users respective database to `data/users/*/backup.sqlite`
+
+./cli/db-restore.php --delete-backup --force-overwrite
+# Restore all users respective database from `data/users/*/backup.sqlite`
+# --delete-backup:	delete `data/users/*/backup.sqlite` after successful import
+# --force-overwrite:	will clear the users respective database before import
+
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
 ```
