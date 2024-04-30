@@ -20,6 +20,8 @@ or edit `./data/config.custom.php` before the install process.
 
 `'development'`: Displays PHP error messages within the application not just in the error log. Useful for code writing and testing. Use it on your secure development environment. Do not use it on production systems.
 
+It does not have any effect for chosing the release channels.
+
 `'environment'` default value `'production'`
 
 #### System config: base_url
