@@ -799,7 +799,7 @@ function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
 	if (!category_element) return;
 	category_element.querySelector('.tree-folder-items').classList.add('active');
-	const img = category_element.querySelector('a.dropdown-toggle img');
+	const img = category_element.querySelector('button.dropdown-toggle img');
 	if (!img) return;
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '🔼';
@@ -833,7 +833,7 @@ function init_column_categories() {
 	}
 
 	document.getElementById('aside_feed').onclick = function (ev) {
-		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
+		let a = ev.target.closest('.tree-folder > .tree-folder-title > button.dropdown-toggle');
 		if (a) {
 			const icon = a.querySelector('.icon');
 			const category_id = a.closest('.category').id;

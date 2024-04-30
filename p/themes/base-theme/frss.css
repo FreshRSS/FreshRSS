@@ -1038,6 +1038,7 @@ li.drag-hover {
 }
 
 .tree-folder-title {
+	display: block;
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
 }
@@ -1161,13 +1162,19 @@ input[type="search"] {
 	padding: 0;
 }
 
-.aside_feed .tree-folder-title .icon,
-.aside_feed .tree-folder-items .feed .icon {
+.aside_feed .tree-folder-title button.dropdown-toggle {
+	border: 0;
+	background-color: inherit;
+	padding: 0;
+	cursor: pointer;
+}
+
+.aside_feed .tree-folder-items .feed .dropdown-toggle {
 	margin: 0 0.5rem 0 0;
 }
 
-.aside_feed .tree-folder-items .feed .favicon {
-	padding: 0;
+.aside_feed .tree-folder-title .icon {
+	margin: 0 0.25rem 0 0;
 }
 
 .aside_feed .tree-folder-items .item.feed {

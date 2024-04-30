@@ -57,9 +57,9 @@
 			$t_show = ($t_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true)) || FreshRSS_Context::userConf()->display_categories === 'all';
 		?>
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>">
-			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($t_show ? 'up' : 'down') ?></a><a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>"><?= _t('index.menu.tags') ?></a>
-			</div>
+			<a href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>" class="tree-folder-title">
+				<button class="dropdown-toggle" title="expand TODO"><?= _i($t_show ? 'up' : 'down') ?></button><span class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>"><?= _t('index.menu.tags') ?></span>
+			</a>
 			<ul class="tree-folder-items<?= $t_show ? ' active' : '' ?>">
 				<?php
 					foreach ($this->tags as $tag):
@@ -93,12 +93,12 @@
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
 			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
-			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a><a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?=
+			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
+				<button class="dropdown-toggle" title="expand TODO"><?= _i($c_show ? 'up' : 'down') ?></button><span class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
+					format_number($cat->nbNotRead()) ?>" ><?=
 						$cat->name()
-					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></a>
-			</div>
+					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></span>
+			</a>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
 <?php
