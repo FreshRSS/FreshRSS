@@ -8,13 +8,14 @@ Here is an overview of not available configs
 
 see `./config.default.php` for all options. This file is very well documented.
 
-Do not modify this file, which defines default values, 
-but instead edit `./data/config.php` after the install process is completed, 
+Do not modify this file, which defines default values,
+but instead edit `./data/config.php` after the install process is completed,
 or edit `./data/config.custom.php` before the install process.
 
-### Some selected options:
+### Some selected options
 
 #### System config: environment
+
 (recommended) `'production'`: Does not PHP error messages within the application, just in the error log.
 
 `'development'`: Displays PHP error messages within the application not just in the error log. Useful for code writing and testing. Use it on your secure development environment. Do not use it on production systems.
@@ -62,7 +63,7 @@ File name: `constants.local.php`
 
 Location: root directory of FreshRSS
 
-### Some selected constants:
+### Some selected constants
 
 #### Application constant: FRESHRSS_USERAGENT
 
