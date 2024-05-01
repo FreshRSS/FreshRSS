@@ -40,7 +40,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "markdownlint-cli": "^0.40.0",
     "rtlcss": "^4.1.1",
-    "sass": "^1.74.1",
+    "sass": "^1.76.0",
     "stylelint": "^16.4.0",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
