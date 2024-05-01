@@ -17,7 +17,7 @@ return array(
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
 		'keep_favourites' => '즐겨찾기 삭제 안 함',
 		'keep_labels' => '라벨 삭제 안 함',
-		'keep_max' => '보관할 글 최대 개수',	// DIRTY
+		'keep_max' => '피드별 보관할 글 최대 개수',
 		'keep_min_by_feed' => '피드별 보관할 글 최소 개수',
 		'keep_period' => '보관할 글 최대 기간',
 		'keep_unreads' => '읽지 않은 글 삭제 안 함',
@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => '표시',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => '자동 다크 모드 (베타)',
+			'auto' => '자동',
+			'no' => '끄기',
 		),
 		'icon' => array(
 			'bottom_line' => '하단',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => '테마',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => '더 이상 사용되지 않음',
+				'description' => '이 테마는 더이상 지원되지 않으며 <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSS 이후 릴리즈</a>에서 사용할 수 없습니다.',
 			),
 		),
 		'theme_not_available' => '“%s” 테마는 더이상 사용할 수 없습니다. 다른 테마를 선택해 주세요.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => '세로 방향',
 			'square' => '정사각형',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => '시간대',
 		'title' => '표시',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => '아이콘 및 이름',
+			'icon' => '아이콘',
+			'label' => '웹사이트',
+			'name' => '이름',
+			'none' => '없음',
 		),
 		'width' => array(
 			'content' => '내용 표시 너비',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => '피드별로 표시',
 			'order' => '날짜순으로 정렬',
 			'search' => '정규 표현식',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',
+			'shareRss' => 'HTML 및 RSS 공유 활성화',
 			'state' => '상태',
 			'tags' => '태그별로 표시',
 			'type' => '유형',
 		),
 		'get_all' => '모든 글 표시',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => '라벨이 있는 글 표시',
 		'get_category' => '“%s” 카테고리 표시',
 		'get_favorite' => '즐겨찾기에 등록된 글 표시',
 		'get_feed' => '“%s” 피드 표시',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => '중요 피드의 글 표시',
+		'get_label' => '“%s” 라벨을 가진 글 표시',
+		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">유저 쿼리 및 HTML / RSS / OPML을 사용한 재공유 방법 문서</a> 살펴보기.',
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => '최근 글 먼저 표시',
 		'search' => '“%s”의 검색 결과',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => '링크로 쿼리 공유',
+			'help' => '링크를 사용해서 쿼리를 공유하세요',
+			'html' => 'HTML 공유 링크',
+			'opml' => 'OPML 피드 목록 공유 링크',
+			'rss' => 'RSS 피드 공유 링크',
 		),
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
@@ -217,7 +217,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
 			'article_viewed' => '글을 읽었을 때',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => '포커스 됐을 때 (중요 피드 제외)',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
 			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',

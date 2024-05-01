@@ -135,10 +135,16 @@ trait FreshRSS_FilterActionsTrait {
 							}
 							break;
 						case 'star':
-							$entry->_isFavorite(true);
+							if (!$entry->isUpdated()) {
+								// Do not apply to updated articles, to avoid overruling a user manual action
+								$entry->_isFavorite(true);
+							}
 							break;
 						case 'label':
-							$applyLabel = true;
+							if (!$entry->isUpdated()) {
+								// Do not apply to updated articles, to avoid overruling a user manual action
+								$applyLabel = true;
+							}
 							break;
 					}
 				}

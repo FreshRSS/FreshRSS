@@ -335,24 +335,27 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
-	$simplePie->strip_htmltags(array(
+	$simplePie->strip_htmltags([
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
-	));
-	$simplePie->rename_attributes(array('id', 'class'));
-	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
+	]);
+	$simplePie->rename_attributes(['id', 'class']);
+	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
-	$simplePie->add_attributes(array(
-		'audio' => array('controls' => 'controls', 'preload' => 'none'),
-		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('controls' => 'controls', 'preload' => 'none'),
-	));
-	$simplePie->set_url_replacements(array(
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset']));
+	$simplePie->add_attributes([
+		'audio' => ['controls' => 'controls', 'preload' => 'none'],
+		'iframe' => [
+			'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+			'sandbox' => 'allow-scripts allow-same-origin',
+		],
+		'video' => ['controls' => 'controls', 'preload' => 'none'],
+	]);
+	$simplePie->set_url_replacements([
 		'a' => 'href',
 		'area' => 'href',
 		'audio' => 'src',
@@ -360,21 +363,21 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 		'del' => 'cite',
 		'form' => 'action',
 		'iframe' => 'src',
-		'img' => array(
+		'img' => [
 			'longdesc',
 			'src'
-		),
+		],
 		'input' => 'src',
 		'ins' => 'cite',
 		'q' => 'cite',
 		'source' => 'src',
 		'track' => 'src',
-		'video' => array(
+		'video' => [
 			'poster',
 			'src',
-		),
-	));
-	$https_domains = array();
+		],
+	]);
+	$https_domains = [];
 	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);

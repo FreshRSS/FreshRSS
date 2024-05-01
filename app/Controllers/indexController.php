@@ -6,6 +6,7 @@ declare(strict_types=1);
  */
 class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
+	#[\Override]
 	public function firstAction(): void {
 		$this->view->html_url = Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root');
 	}

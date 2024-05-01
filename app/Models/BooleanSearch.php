@@ -50,7 +50,6 @@ class FreshRSS_BooleanSearch {
 		$all_matches = [];
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
-
 		}
 		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
@@ -291,6 +290,7 @@ class FreshRSS_BooleanSearch {
 		$this->searches[] = $search;
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		return $this->getRawInput();
 	}
