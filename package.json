@@ -44,7 +44,7 @@
     "stylelint": "^16.4.0",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
-    "@stylistic/stylelint-plugin": "^2.1.1"
+    "@stylistic/stylelint-plugin": "^2.1.2"
   },
   "rtlcssConfig": {}
 }
