@@ -103,6 +103,8 @@
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
 <?php
 	// NB: Reduce whitespace in that loop
+	$show_favicon = FreshRSS_Context::userConf()->show_favicons && $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds;
+
 	foreach ($feeds as $feed):
 		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 		$f_active_class = $f_active ? ' active' : '';
@@ -125,13 +127,15 @@
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>"
 		data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
-	?><div class="dropdown no-mobile">
-		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
-	</div><?php
-			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
-		endif;
-	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
-		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
+			?><div class="dropdown no-mobile">
+				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="TODO Open menu" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
+			</div><?php
+		endif;?><a class="item-title" title="TODO Open feed: <?= $feed->name() ?>"
+		data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
+		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>">
+		<?php
+		if ($show_favicon || $f_active) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php } ?>
+		<?= $feed->name() ?></a></li>
 <?php
 	endforeach;
 ?>

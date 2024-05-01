@@ -881,8 +881,6 @@ function init_column_categories() {
 			const template = document.getElementById(templateId)
 				.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 			if (!dropdownMenu) {
-				a.href = '#dropdown-' + id;
-				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
