@@ -155,22 +155,22 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Check if the user query has parameters.
-	 * If the type is 'all', it is considered equal to no parameters
 	 */
 	public function hasParameters(): bool {
-		if ($this->get_type === 'all') {
-			return false;
+		if ($this->get_type !== 'all') {
+			return true;
 		}
 		if ($this->hasSearch()) {
 			return true;
 		}
-		if ($this->state) {
+		if (!in_array($this->state, [
+				0,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE
+			], true)) {
 			return true;
 		}
-		if ($this->order) {
-			return true;
-		}
-		if ($this->get) {
+		if ($this->order !== '' && $this->order !== FreshRSS_Context::userConf()->sort_order) {
 			return true;
 		}
 		return false;
