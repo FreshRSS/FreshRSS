@@ -48,6 +48,8 @@ class FreshRSS_UserQuery {
 		$this->labels = $labels;
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
+		} else {
+			$this->get_type = 'all';
 		}
 		if (isset($query['name'])) {
 			$this->name = trim($query['name']);
@@ -107,7 +109,9 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet(string $get): void {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
+		if ($this->get === '') {
+			$this->get_type = 'all';
+		} elseif (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
