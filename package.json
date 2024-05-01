@@ -41,7 +41,7 @@
     "markdownlint-cli": "^0.39.0",
     "rtlcss": "^4.1.1",
     "sass": "^1.74.1",
-    "stylelint": "^16.3.1",
+    "stylelint": "^16.4.0",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
     "@stylistic/stylelint-plugin": "^2.1.1"
