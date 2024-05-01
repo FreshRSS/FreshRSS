@@ -354,8 +354,8 @@ services:
       # So if changes are made (or in .env file), first delete the service and volumes.
       # ℹ️ All the --db-* parameters can be omitted if using built-in SQLite database.
       FRESHRSS_INSTALL: |-
-        --api-enabled
-        --base-url ${BASE_URL}
+        --api_enabled
+        --base_url ${BASE_URL}
         --db-base ${DB_BASE}
         --db-host ${DB_HOST}
         --db-password ${DB_PASSWORD}
@@ -364,7 +364,7 @@ services:
         --default_user admin
         --language en
       FRESHRSS_USER: |-
-        --api-password ${ADMIN_API_PASSWORD}
+        --api_password ${ADMIN_API_PASSWORD}
         --email ${ADMIN_EMAIL}
         --language en
         --password ${ADMIN_PASSWORD}
