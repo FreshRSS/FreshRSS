@@ -116,7 +116,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
-			Minz_Error::error(FreshRSS_HttpResponseCode::FORBIDDEN);
+			Minz_Error::error(FreshRSS_HttpResponseCode::HTTP_403_FORBIDDEN);
 		}
 
 		include_once(LIB_PATH . '/lib_install.php');
@@ -216,7 +216,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$curlError = curl_error($curlResource);
 			curl_close($curlResource);
 
-			if ($curlGetinfo !== FreshRSS_HttpResponseCode::OK) {
+			if ($curlGetinfo !== FreshRSS_HttpResponseCode::HTTP_200_OK) {
 				Minz_Log::warning(
 					'Error during update (HTTP code ' . $curlGetinfo . '): ' . $curlError
 				);

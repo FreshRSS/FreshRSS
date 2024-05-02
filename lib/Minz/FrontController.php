@@ -70,7 +70,7 @@ class Minz_FrontController {
 					$e instanceof Minz_ControllerNotExistException ||
 					$e instanceof Minz_ControllerNotActionControllerException ||
 					$e instanceof Minz_ActionException) {
-				Minz_Error::error(FreshRSS_HttpResponseCode::NOT_FOUND, ['error' => [$e->getMessage()]], true);
+				Minz_Error::error(FreshRSS_HttpResponseCode::HTTP_404_NOT_FOUND, ['error' => [$e->getMessage()]], true);
 			} else {
 				self::killApp($e->getMessage());
 			}
