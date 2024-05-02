@@ -49,7 +49,7 @@ To set up FreshRSS behind a reverse proxy with Caddy and using a subfolder, foll
     Restart FreshRSS to ensure that it recognizes the new base URL:
 
     ```bash
-    docker-compose restart freshrss
+    docker compose restart freshrss
     ```
 
 4. **Access FreshRSS:**

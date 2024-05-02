@@ -48,6 +48,18 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function exits(): bool {
+		$sql = 'SELECT * FROM `_entry` LIMIT 1';
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			if ($res !== false) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function tablesAreCorrect(): bool {
 		$res = $this->fetchAssoc('SHOW TABLES');
 		if ($res == null) {
@@ -242,6 +254,7 @@ SQL;
 		}
 		$error = '';
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$userDAO = FreshRSS_Factory::createUserDao();
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -259,15 +272,18 @@ SQL;
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
+					$userDAO = FreshRSS_Factory::createUserDao();
 					if ($this->pdo->dbType() === 'sqlite') {
 						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
 				} else {
-					$nbEntries = $entryDAO->countUnreadRead();
-					if (!empty($nbEntries['all'])) {
-						$error = 'Error: Destination database already contains some entries!';
+					if ($databaseDAO->exits()) {
+						$nbEntries = $entryDAO->countUnreadRead();
+						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
+							$error = 'Error: Destination database already contains some entries!';
+						}
 					}
 				}
 				break;

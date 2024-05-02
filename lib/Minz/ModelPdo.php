@@ -18,7 +18,7 @@ class Minz_ModelPdo {
 
 	private static ?Minz_Pdo $sharedPdo = null;
 
-	private static ?string $sharedCurrentUser;
+	private static string $sharedCurrentUser = '';
 
 	protected Minz_Pdo $pdo;
 
@@ -78,7 +78,9 @@ class Minz_ModelPdo {
 					$db['user'], Minz_Exception::ERROR
 				);
 		}
-		self::$sharedPdo = $this->pdo;
+		if (self::$usesSharedPdo) {
+			self::$sharedPdo = $this->pdo;
+		}
 	}
 
 	/**
@@ -97,7 +99,7 @@ class Minz_ModelPdo {
 			$this->pdo = $currentPdo;
 			return;
 		}
-		if ($currentUser == '') {
+		if ($currentUser == null) {
 			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo !== null && $currentUser === self::$sharedCurrentUser) {
@@ -106,7 +108,9 @@ class Minz_ModelPdo {
 			return;
 		}
 		$this->current_user = $currentUser;
-		self::$sharedCurrentUser = $currentUser;
+		if (self::$usesSharedPdo) {
+			self::$sharedCurrentUser = $currentUser;
+		}
 
 		$ex = null;
 		//Attempt a few times to connect to database
@@ -153,6 +157,15 @@ class Minz_ModelPdo {
 	public static function clean(): void {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
+	}
+
+	public function close(): void {
+		if ($this->current_user === self::$sharedCurrentUser) {
+			self::clean();
+		}
+		$this->current_user = '';
+		unset($this->pdo);
+		gc_collect_cycles();
 	}
 
 	/**
