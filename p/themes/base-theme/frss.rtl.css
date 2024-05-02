@@ -204,8 +204,8 @@ img.favicon {
 	font-style: italic;
 }
 
-.feed.mute::before {
-	content: '🔇';
+.feed.mute .item-title .title::before {
+	content: '🔇 ';
 }
 
 /*=== Videos */
@@ -1057,10 +1057,10 @@ li.drag-hover {
 	white-space: nowrap;
 }
 
-.tree-folder-items > .item > a {
+.tree-folder-items > .item > .item-title {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 32px);
+	width: calc(100% - 2.5rem);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1983,7 +1983,7 @@ html.slider-active {
 
 .item.share.error a::after,
 .category .title.error::before,
-.item.feed.error .item-title::before,
+.item.feed.error .item-title .title::before,
 .theme-preview-list .properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
@@ -2056,7 +2056,7 @@ html.slider-active {
 	padding: var(--frss-padding-top-bottom) 0 var(--frss-padding-top-bottom) 3.5rem;
 }
 
-.aside .category .title:not([data-unread="0"])::after,
+.aside .category .tree-folder-title .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
 	margin: var(--frss-padding-top-bottom) 0 0 0;
 	padding: 0.25rem 0.5rem;
@@ -2274,6 +2274,10 @@ html.slider-active {
 		display: block;
 		width: 100%;
 		box-sizing: border-box;
+	}
+
+	.aside .feed .item-title[data-unread="0"] {
+		padding-left: 1rem;
 	}
 
 	.flux .flux_header .item .title:has(~.date) {
