@@ -748,7 +748,8 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($feed->pathEntries()))->asXPath());
+			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector))->asXPath());
 			if ($nodes != false) {
 				$path_entries_filter = $feed->attributeString('path_entries_filter');
 				foreach ($nodes as $node) {
