@@ -1204,6 +1204,11 @@ input[type="search"] {
 .aside_feed .tree-folder-items .item .dropdown-toggle > .icon {
 	visibility: hidden;
 	cursor: pointer;
+	opacity: 0.4;
+}
+
+.aside_feed .tree-folder-items .item .dropdown-toggle > .icon:hover {
+	opacity: 1;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
