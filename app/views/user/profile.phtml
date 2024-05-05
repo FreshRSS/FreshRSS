@@ -76,9 +76,9 @@
 	</form>
 
 	<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+		<h2><?= _t('conf.profile.api') ?></h2>
 		<form method="post" action="<?= _url('api', 'updatePassword') ?>">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-			<legend><?= _t('conf.profile.api') ?></legend>
 
 			<div class="form-group">
 				<label class="group-name" for="apiPasswordPlain"><?= _t('conf.profile.password_api') ?></label>

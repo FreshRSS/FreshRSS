@@ -9,6 +9,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
+	#[\Override]
 	public function setUp(): void {
 		$this->value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()

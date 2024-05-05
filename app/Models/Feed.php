@@ -31,7 +31,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_JSON_XPATH = 20;
 
 	public const KIND_JSONFEED = 25;
-	public const KIND_JSON_DOTPATH = 30;
+	public const KIND_JSON_DOTNOTATION = 30;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -174,6 +174,16 @@ class FreshRSS_Feed extends Minz_Model {
 				];
 		}
 	}
+
+	/** @return array<int,mixed> */
+	public function curlOptions(): array {
+		$curl_options = [];
+		if ($this->httpAuth !== '') {
+			$curl_options[CURLOPT_USERPWD] = htmlspecialchars_decode($this->httpAuth, ENT_QUOTES);
+		}
+		return $curl_options;
+	}
+
 	public function inError(): bool {
 		return $this->error;
 	}
@@ -348,11 +358,8 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
+				$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
-				if ($this->httpAuth != '') {
-					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url) ?? '';
-				}
-				$simplePie = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
 					$simplePie->force_feed(true);
 					$url = substr($url, 0, -11);
@@ -513,7 +520,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';
-						$credit = $enclosure->get_credit() ?? null;
+						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
 						$mime = strtolower($enclosure->get_type() ?? '');
 						$medium = strtolower($enclosure->get_medium() ?? '');
@@ -527,8 +534,11 @@ class FreshRSS_Feed extends Minz_Model {
 						if ($etitle != '') {
 							$attributeEnclosure['title'] = $etitle;
 						}
-						if ($credit != null) {
-							$attributeEnclosure['credit'] = $credit->get_name();
+						if (is_array($credits)) {
+							$attributeEnclosure['credit'] = [];
+							foreach ($credits as $credit) {
+								$attributeEnclosure['credit'][] = $credit->get_name();
+							}
 						}
 						if ($description != '') {
 							$attributeEnclosure['description'] = $description;
@@ -611,7 +621,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return array<string,string> */
-	private function dotPathsForStandardJsonFeed(): array {
+	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
 			'item' => 'items',
@@ -636,16 +646,12 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
-		if ($this->httpAuth != '') {
-			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
-		}
 		if ($feedSourceUrl == null) {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
 		$httpAccept = 'json';
-		$json = httpGet($feedSourceUrl, $cachePath, $httpAccept, $this->attributes());
+		$json = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
 		if (strlen($json) <= 0) {
 			return null;
 		}
@@ -656,11 +662,11 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		/** @var array<string,string> $json_dotpath */
-		$json_dotpath = $this->attributeArray('json_dotpath') ?? [];
-		$dotPaths = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotPathsForStandardJsonFeed() : $json_dotpath;
+		/** @var array<string,string> $json_dotnotation */
+		$json_dotnotation = $this->attributeArray('json_dotnotation') ?? [];
+		$dotnotations = $this->kind() === FreshRSS_Feed::KIND_JSONFEED ? $this->dotNotationForStandardJsonFeed() : $json_dotnotation;
 
-		$feedContent = FreshRSS_dotpath_Util::convertJsonToRss($jf, $feedSourceUrl, $dotPaths, $this->name());
+		$feedContent = FreshRSS_dotNotation_Util::convertJsonToRss($jf, $feedSourceUrl, $dotnotations, $this->name());
 		if ($feedContent == null) {
 			return null;
 		}
@@ -672,9 +678,6 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
-		if ($this->httpAuth != '') {
-			$feedSourceUrl = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $feedSourceUrl);
-		}
 		if ($feedSourceUrl == null) {
 			return null;
 		}
@@ -698,9 +701,8 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$cachePath = FreshRSS_Feed::cacheFilename($feedSourceUrl, $this->attributes(), $this->kind());
-		$html = httpGet($feedSourceUrl, $cachePath,
-			$this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html', $this->attributes());
+		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html';
+		$html = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -892,15 +894,16 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
+	 * @param string $url Overridden URL. Will default to the feed URL.
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function cacheFilename(string $url, array $attributes, int $kind = FreshRSS_Feed::KIND_RSS): string {
-		$simplePie = customSimplePie($attributes);
+	public function cacheFilename(string $url = ''): string {
+		$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
+		$url = $url ?: htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($kind === FreshRSS_Feed::KIND_HTML_XPATH) {
+		if ($this->kind === FreshRSS_Feed::KIND_HTML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.html';
-		} elseif ($kind === FreshRSS_Feed::KIND_XML_XPATH) {
+		} elseif ($this->kind === FreshRSS_Feed::KIND_XML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.xml';
 		} else {
 			return CACHE_PATH . '/' . $filename . '.spc';
@@ -908,12 +911,12 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function clearCache(): bool {
-		return @unlink(FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind));
+		return @unlink($this->cacheFilename());
 	}
 
 	/** @return int|false */
 	public function cacheModifiedTime() {
-		$filename = FreshRSS_Feed::cacheFilename($this->url, $this->attributes(), $this->kind);
+		$filename = $this->cacheFilename();
 		clearstatcache(true, $filename);
 		return @filemtime($filename);
 	}

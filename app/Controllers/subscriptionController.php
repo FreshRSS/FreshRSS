@@ -10,6 +10,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -237,7 +238,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
 				if (!empty($xPathSettings))
 					$feed->_attribute('xpath', $xPathSettings);
-			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTPATH) {
+			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
 				$jsonSettings = [];
 				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
 					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
@@ -273,7 +274,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$jsonSettings['itemUid'] = Minz_Request::paramString('jsonItemUid', true);
 				}
 				if (!empty($jsonSettings)) {
-					$feed->_attribute('json_dotpath', $jsonSettings);
+					$feed->_attribute('json_dotnotation', $jsonSettings);
 				}
 			}
 

@@ -26,6 +26,9 @@ abstract class Minz_Extension {
 
 	private bool $is_enabled;
 
+	/** @var string[] */
+	protected array $csp_policies = [];
+
 	/**
 	 * The constructor to assign specific information to the extension.
 	 *
@@ -388,6 +391,19 @@ abstract class Minz_Extension {
 
 		if (file_exists($path)) {
 			unlink($path);
+		}
+	}
+
+	/**
+	 * @param string[] $policies
+	 */
+	public function amendCsp(array &$policies): void {
+		foreach ($this->csp_policies as $policy => $source) {
+			if (array_key_exists($policy, $policies)) {
+				$policies[$policy] .= ' ' . $source;
+			} else {
+				$policies[$policy] = $source;
+			}
 		}
 	}
 }

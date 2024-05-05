@@ -75,10 +75,14 @@ declare(strict_types=1);
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
 
-	/** @throws Minz_ConfigurationNamespaceException */
+	/** @throws Minz_FileNotExistException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
-		return parent::get('user');
+		try {
+			return parent::get('user');
+		} catch (Minz_ConfigurationNamespaceException $ex) {
+			FreshRSS::killApp($ex->getMessage());
+		}
 	}
 
 	/**

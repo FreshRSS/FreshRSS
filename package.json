@@ -38,13 +38,13 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "markdownlint-cli": "^0.39.0",
+    "markdownlint-cli": "^0.40.0",
     "rtlcss": "^4.1.1",
-    "sass": "^1.71.1",
-    "stylelint": "^15.11.0",
-    "stylelint-config-recommended-scss": "^13.1.0",
+    "sass": "^1.76.0",
+    "stylelint": "^16.4.0",
+    "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-stylistic": "^0.4.5"
+    "@stylistic/stylelint-plugin": "^2.1.2"
   },
   "rtlcssConfig": {}
 }

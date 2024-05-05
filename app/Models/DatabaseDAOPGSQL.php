@@ -10,6 +10,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	public const UNDEFINED_COLUMN = '42703';
 	public const UNDEFINED_TABLE = '42P01';
 
+	#[\Override]
 	public function tablesAreCorrect(): bool {
 		$db = FreshRSS_Context::systemConf()->db;
 		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=:tableowner';
@@ -34,6 +35,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	}
 
 	/** @return array<array<string,string|int|bool|null>> */
+	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
 SELECT column_name AS field, data_type AS type, column_default AS default, is_nullable AS null
@@ -47,6 +49,7 @@ SQL;
 	 * @param array<string,string|int|bool|null> $dao
 	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
+	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
 			'name' => (string)($dao['field']),
@@ -56,6 +59,7 @@ SQL;
 		];
 	}
 
+	#[\Override]
 	public function size(bool $all = false): int {
 		if ($all) {
 			$db = FreshRSS_Context::systemConf()->db;
@@ -75,7 +79,7 @@ SQL;
 		return (int)($res[0] ?? -1);
 	}
 
-
+	#[\Override]
 	public function optimize(): bool {
 		$ok = true;
 		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];

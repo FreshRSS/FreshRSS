@@ -22,6 +22,7 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		$this->language = $language;
 	}
 
+	#[\Override]
 	public function displayReport(): string {
 		if ($this->passEntries > $this->totalEntries) {
 			throw new \RuntimeException('The number of translated strings cannot be higher than the number of strings');
@@ -32,10 +33,12 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 		return sprintf('Translation is %5.1f%% complete.', $this->passEntries / $this->totalEntries * 100) . PHP_EOL;
 	}
 
+	#[\Override]
 	public function displayResult(): string {
 		return $this->result;
 	}
 
+	#[\Override]
 	public function validate(): bool {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $refKey => $refValue) {

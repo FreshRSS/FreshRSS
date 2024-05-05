@@ -751,25 +751,25 @@ form th {
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux .flux_header:hover:not(.current):hover .item.title,
-.flux .current:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item .title,
+.flux .current:not(.current):hover .item .title {
 	background-color: var(--color-background-hover);
 }
 .flux.favorite:not(.current) {
 	background-color: var(--color-background-stared);
 }
-.flux.favorite:not(.current):hover .item.title {
+.flux.favorite:not(.current):hover .item .title {
 	background-color: var(--color-background-stared);
 }
 .flux.not_read:not(.current) {
 	background-color: var(--color-background-unread);
 }
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current):hover .item .title {
 	background-color: var(--color-background-unread);
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--color-text-light-darker);
-	font-size: 0.7rem;
 }
 .flux .bottom {
 	font-size: 0.8rem;
@@ -909,7 +909,7 @@ a.signin {
 }
 
 @media (max-width: 840px) {
-	body:not(.formLogin, .register) .header .item.title {
+	body:not(.formLogin, .register) .header .item .title {
 		display: none;
 	}
 	.form-group .group-name {
@@ -948,7 +948,7 @@ a.signin {
 		width: 35px;
 		text-align: center;
 	}
-	.flux:not(.current):hover .item.title {
+	.flux:not(.current):hover .item .title {
 		top: auto !important;
 	}
 	.aside {
@@ -1154,9 +1154,7 @@ button.as-link {
 	border-color: var(--color-border-grey);
 }
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--color-text-light-darker);
-	font-size: 90%;
 }
 
 #nav_menu_actions ul.dropdown-menu {

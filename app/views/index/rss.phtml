@@ -60,6 +60,16 @@ foreach ($this->entries as $item) {
 						continue;
 					}
 					$urls[$enclosure['url']] = true;
+
+					$credits = $enclosure['credit'] ?? [];
+					if (!is_array($credits)) {	// For entries < FreshRSS 1.24
+						$credits = [$credits];
+					}
+					$mediaCredits = '';
+					foreach ($credits as $credit) {
+						$mediaCredits = '<media:credit>' . $credit . '</media:credit>';
+					}
+
 					// https://www.rssboard.org/media-rss
 					echo "\t\t\t", '<media:content url="' . $enclosure['url']
 						. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
@@ -69,7 +79,7 @@ foreach ($this->entries as $item) {
 						. (empty($enclosure['width']) ? '' : '" width="' . $enclosure['width'])
 						. '">'
 						. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
-						. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
+						. $mediaCredits
 						. '</media:content>', "\n";
 				}
 			?>
