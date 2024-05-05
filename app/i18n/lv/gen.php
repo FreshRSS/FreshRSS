@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Ielādēt noklusējuma saīsnes',
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
 		'purge' => 'Iztīrīt',

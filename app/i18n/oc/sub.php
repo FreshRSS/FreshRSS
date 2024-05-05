@@ -29,7 +29,9 @@ return array(
 			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informacions',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
-		'mute' => 'mut',
+		'mute' => array(
+			'_' => 'mut',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',

@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Carica le scorciatoie di default',
 		'manage' => 'Gestisci',
 		'mark_read' => 'Segna come letto',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => 'Apri URL',
 		'promote' => 'Promuovi',
 		'purge' => 'Elimina',

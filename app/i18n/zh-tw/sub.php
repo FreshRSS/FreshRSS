@@ -29,7 +29,9 @@ return array(
 			'help' => '使用地址上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的訂閱源填充這一分類',
 		),
 		'empty' => '空分類',
+		'expand' => 'Expand category',	// TODO
 		'information' => '信息',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML 地址',
 		'position' => '顯示位置',
 		'position_help' => '控制分類排列順序',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => '刪除分類時，其中的訂閱源會自動歸類到 <em>%s</em>',
-		'mute' => '暫停',
+		'mute' => array(
+			'_' => '暫停',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => '未選擇訂閱源',
 		'number_entries' => '%d 篇文章',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '可見性',
 			'archived' => '不顯示（歸檔）',

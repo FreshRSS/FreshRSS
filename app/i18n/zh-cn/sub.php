@@ -29,7 +29,9 @@ return array(
 			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
+		'expand' => 'Expand category',	// TODO
 		'information' => '信息',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => '如果荷载非空且是合法的 JSON，HTTP 请求标头将被自动设为 <code>application/json</code>，否则使用 <code>application/x-www-form-urlencoded</code>',
 		'method_postparams' => 'POST 荷载',
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
-		'mute' => '暂停',
+		'mute' => array(
+			'_' => '暂停',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '可见性',
 			'archived' => '不显示（归档）',

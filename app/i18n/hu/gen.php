@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Alapértelmezett gyorsgombok visszaállítása',
 		'manage' => 'Beállítás',
 		'mark_read' => 'Megjelölés olvasottként',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',

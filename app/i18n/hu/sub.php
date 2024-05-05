@@ -29,7 +29,9 @@ return array(
 			'help' => 'Adj meg egy URL-t <a href="http://opml.org/" target="_blank">OPML fájl</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Információ',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Megjelenítési pozíció',
 		'position_help' => 'Kategória rendezési sorrend',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'A POST metódus hasznos adattartalma automatikusan támogatja az <code>application/x-www-form-urlencoded</code> és <code>application/json</code>',
 		'method_postparams' => 'POST metódus adattartalma',
 		'moved_category_deleted' => 'Ha kitörölsz egy kategóriát, az alá tartozó hírforrások automatikusan ide kerülnek <em>%s</em>.',
-		'mute' => 'némítás',
+		'mute' => array(
+			'_' => 'némítás',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nincsen hírforrás kiválasztva.',
 		'number_entries' => '%d cikkek',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'archived' => 'Ne jelenjen meg (archivált)',

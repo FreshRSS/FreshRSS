@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => '加载默认快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',

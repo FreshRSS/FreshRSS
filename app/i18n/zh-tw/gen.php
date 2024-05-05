@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => '重置快捷鍵',
 		'manage' => '管理',
 		'mark_read' => '標記已讀',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => '打開連結',
 		'promote' => '設為管理員',
 		'purge' => '清理',

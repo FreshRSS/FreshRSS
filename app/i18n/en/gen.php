@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'menu' => array(
+			'open' => 'Open menu',
+		),
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',

@@ -29,7 +29,9 @@ return array(
 			'help' => 'Zadajte URL adresu k <a href="http://opml.org/" target="_blank">OPML súboru</a>, z ktorého sa táto kategória automaticky naplní kanálmi.',
 		),
 		'empty' => 'Prázdna kategória',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informácia',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'Ako parametre metódy POST sú podporované <code>application/x-www-form-urlencoded</code> a <code>application/json</code>',
 		'method_postparams' => 'Parametre metódy POST',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
-		'mute' => 'stíšiť',
+		'mute' => array(
+			'_' => 'stíšiť',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nevybrali ste kanál.',
 		'number_entries' => 'Počet článkov: %d',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',

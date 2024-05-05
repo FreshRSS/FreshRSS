@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'open_url' => 'Dobrir l’URL',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
