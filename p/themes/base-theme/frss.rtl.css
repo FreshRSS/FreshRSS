@@ -1199,15 +1199,15 @@ input[type="search"] {
 	padding: var(--frss-padding-top-bottom) 0.75rem var(--frss-padding-top-bottom) 0.25rem;
 	display: inline-block;
 	text-align: left;
+	opacity: 0.4;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-toggle > .icon {
 	visibility: hidden;
 	cursor: pointer;
-	opacity: 0.4;
 }
 
-.aside_feed .tree-folder-items .item .dropdown-toggle > .icon:hover {
+.aside_feed .tree-folder-items .item .dropdown-toggle:hover {
 	opacity: 1;
 }
 
