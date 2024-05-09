@@ -810,7 +810,7 @@ li.item.active {
 	transition: .3s;
 }
 
-.flux .flux_header .item .title a {
+.flux .flux_header .item .title {
 	color: var(--text-default);
 }
 

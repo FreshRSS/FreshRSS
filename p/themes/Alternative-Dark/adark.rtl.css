@@ -759,7 +759,7 @@ kbd {
 	background: var(--background-color-hover);
 }
 
-.flux .flux_header .item .title a {
+.flux .flux_header .item .title {
 	color: var(--font-color-light);
 }
 

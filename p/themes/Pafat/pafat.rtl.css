@@ -803,7 +803,7 @@ a.signin {
 	background-color: var(--background-color-grey-hover);
 }
 
-.flux .flux_header:hover .title a {
+.flux .flux_header:hover .title {
 	color: var(--font-color-hover);
 }
 
