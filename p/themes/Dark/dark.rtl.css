@@ -267,7 +267,6 @@ button.as-link[disabled] {
 
 .nav-list .nav-header {
 	background-color: var(--dark-background-color1);
-	border-bottom: 1px solid var(--dark-border-color3);
 }
 
 /*=== Dropdown */
