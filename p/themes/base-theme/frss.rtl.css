@@ -641,6 +641,10 @@ input[type="checkbox"]:focus-visible {
 	text-overflow: ellipsis;
 }
 
+.nav-list .item.nav-section .item:last-child {
+	margin-bottom: 1rem;
+}
+
 /*=== Horizontal-list */
 .horizontal-list {
 	margin: 0;
