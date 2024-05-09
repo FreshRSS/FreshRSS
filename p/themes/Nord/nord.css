@@ -661,7 +661,7 @@ img.favicon {
 }
 
 .aside_feed .tree-folder-items.active {
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
 	background-color: var(--main-background);
 }
 
