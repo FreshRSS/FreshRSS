@@ -641,7 +641,7 @@ input[type="checkbox"]:focus-visible {
 	text-overflow: ellipsis;
 }
 
-.nav-list .item.nav-section .item:last-child {
+.nav-list .item.nav-section > ul {
 	margin-bottom: 1rem;
 }
 
