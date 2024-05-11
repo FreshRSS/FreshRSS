@@ -328,7 +328,6 @@ th {
 	padding: 0 1rem;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
-	border-bottom: 1px solid var(--border-color-grey-light);
 	font-weight: bold;
 }
 
