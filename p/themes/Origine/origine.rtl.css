@@ -404,7 +404,6 @@ a:hover .icon {
 .nav-list .nav-header {
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
-	border-bottom: 1px solid var(--border-color);
 	font-weight: bold;
 }
 

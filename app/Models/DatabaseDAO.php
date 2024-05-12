@@ -318,6 +318,7 @@ SQL;
 
 		try {
 			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
+			$sqlite->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
