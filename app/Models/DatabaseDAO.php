@@ -249,7 +249,7 @@ SQL;
 			if ($this->pdo->exec($sql) === false) {
 				$info = $this->pdo->errorInfo();
 				if ($this->pdo->dbType() === 'mysql' &&
-					!$isMariaDB && !empty($info[2]) && (stripos($info[2], 'Can\'t DROP ') !== false)) {
+					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
 					// Too bad for MySQL, but ignore error
 					return;
 				}
