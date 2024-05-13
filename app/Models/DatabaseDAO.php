@@ -232,8 +232,29 @@ SQL;
 		$catDAO->resetDefaultCategoryName();
 
 		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR'])) {
+			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
+			$isMariaDB = false;
+
+			if ($this->pdo->dbType() === 'mysql') {
+				$dbVersion = $this->fetchValue('SELECT version()') ?? '';
+				$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;	// MariaDB includes its name in version, but not MySQL
+				if (!$isMariaDB) {
+					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
+					// but MariaDB does https://mariadb.com/kb/en/drop-index/
+					$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
+				}
+			}
+
+			if ($this->pdo->exec($sql) === false) {
+				$info = $this->pdo->errorInfo();
+				if ($this->pdo->dbType() === 'mysql' &&
+					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
+					// Too bad for MySQL, but ignore error
+					return;
+				}
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+			}
 		}
 	}
 
