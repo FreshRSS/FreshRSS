@@ -205,7 +205,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$type = (string)$get[0];
 		$id = (int)$get[1];
 
-		$this->view->excludeMutedFeeds = true;
+		$this->view->excludeMutedFeeds = $type !== 'f';	// Exclude muted feeds except when we focus on a feed
 
 		switch ($type) {
 			case 'a':

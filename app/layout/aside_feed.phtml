@@ -128,7 +128,7 @@
 	?><div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
 	</div><?php
-			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon test" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
+			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
 		endif;
 	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
 		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
