@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'Обновить систему',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Update via git and GitHub.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Администратор',
