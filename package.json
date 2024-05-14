@@ -19,7 +19,7 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "scripts": {
     "eslint": "eslint --ext .js .",
