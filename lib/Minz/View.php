@@ -346,7 +346,7 @@ class Minz_View {
 
 	public function attributeParams(): void {
 		foreach (Minz_View::$params as $key => $value) {
-			/** @phpstan-ignore property.dynamicName */
+			// @phpstan-ignore property.dynamicName
 			$this->$key = $value;
 		}
 	}
