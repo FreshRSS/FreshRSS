@@ -68,7 +68,7 @@ return array(
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
-			'help' => 'XML Datei',
+			'help' => 'XML Datei (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Export als OPML',
 		),
 		'filteractions' => array(

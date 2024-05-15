@@ -68,7 +68,7 @@ return array(
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'export-as-opml' => array(
 			'download' => 'Download',
-			'help' => 'XML file (restricted data. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',
 			'label' => 'Export as OPML',
 		),
 		'filteractions' => array(

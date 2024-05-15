@@ -68,7 +68,7 @@ return array(
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 		'export-as-opml' => array(
 			'download' => 'Télécharger',
-			'help' => 'Fichier XML',
+			'help' => 'Fichier XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exporter en OPML',
 		),
 		'filteractions' => array(
