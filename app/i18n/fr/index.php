@@ -45,7 +45,7 @@ return array(
 		'bookmark_query' => 'Enregistrer la recherche courante',
 		'favorites' => 'Articles favoris (%s)',
 		'global_view' => 'Vue globale',
-		'important' => 'Flux importants',	// DIRTY
+		'important' => 'Flux importants',
 		'main_stream' => 'Flux principaux',
 		'mark_all_read' => 'Tout marquer comme lu',
 		'mark_cat_read' => 'Marquer la catégorie comme lue',

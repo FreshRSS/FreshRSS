@@ -3,7 +3,7 @@
 ## 2024-05-XX FreshRSS 1.23.2-dev
 
 * Features
-	* New *shareable user query* mechanism to share searches by HTML, RSS, OPML [#6052](https://github.com/FreshRSS/FreshRSS/pull/6052)
+	* New *shareable user query* mechanism to share list of articles by HTML, RSS, OPML [#6052](https://github.com/FreshRSS/FreshRSS/pull/6052)
 		* Deprecates RSS sharing with master token
 	* New JSON scraping mode to consume JSON data [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662), [#6317](https://github.com/FreshRSS/FreshRSS/pull/6317), [#6369](https://github.com/FreshRSS/FreshRSS/pull/6369)
 	* New support for JSON Feeds [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662)
@@ -12,7 +12,7 @@
 	* New button to download a feed configuration as OPML [#6312](https://github.com/FreshRSS/FreshRSS/pull/6312)
 	* Web scraping support more encodings such as EUC-JP [#6112](https://github.com/FreshRSS/FreshRSS/pull/6112)
 	* Web scraping support password-protected queries (refactor some cURL options and use `CURLOPT_USERPWD`) [#6177](https://github.com/FreshRSS/FreshRSS/pull/6177)
-	* Web scraping HTTP Get allow UTF-8 even when charset is far from top [#6271](https://github.com/FreshRSS/FreshRSS/pull/6271)
+	* Web scraping HTTP GET allow UTF-8 even when charset is far from top [#6271](https://github.com/FreshRSS/FreshRSS/pull/6271)
 	* Allow manual refresh of disabled feeds [#6408](https://github.com/FreshRSS/FreshRSS/pull/6408)
 	* Allow multiple authors on enclosures [#6272](https://github.com/FreshRSS/FreshRSS/pull/6272)
 	* New system option in `data/config.php` for number of feeds to refresh in parallel from UI [#6124](https://github.com/FreshRSS/FreshRSS/pull/6124)
@@ -79,6 +79,7 @@
 	* Improve Slovakian [#6356](https://github.com/FreshRSS/FreshRSS/issues/6356)
 	* Improve Traditional Chinese [#6350](https://github.com/FreshRSS/FreshRSS/pull/6350)
 	* Improve Turkish [#6328](https://github.com/FreshRSS/FreshRSS/pull/6328)
+	* Misc. [#6460](https://github.com/FreshRSS/FreshRSS/pull/6460)
 * Extensions
 	* Sanitize parsing list of extensions names and version number [#6016](https://github.com/FreshRSS/FreshRSS/pull/6016),
 		[#6155](https://github.com/FreshRSS/FreshRSS/pull/6155), [Extensions#214](https://github.com/FreshRSS/Extensions/pull/214), [#6186](https://github.com/FreshRSS/FreshRSS/pull/6186)
@@ -92,7 +93,7 @@
 	* Fix PHP 8.2+ compatibility for e-mails [#6130](https://github.com/FreshRSS/FreshRSS/pull/6130)
 	* Use PHP 8.3+ `#[\Override]` [#6273](https://github.com/FreshRSS/FreshRSS/pull/6273)
 * Misc.
-	* Improve PHPStan [#6037](https://github.com/FreshRSS/FreshRSS/pull/6037)
+	* Improve PHPStan [#6037](https://github.com/FreshRSS/FreshRSS/pull/6037), [#6459](https://github.com/FreshRSS/FreshRSS/pull/6459)
 	* Update *PHPMailer* [#6022](https://github.com/FreshRSS/FreshRSS/pull/6022)
 	* Remove noisy `name` parameters in user-query URL [#6371](https://github.com/FreshRSS/FreshRSS/pull/6371)
 	* Code improvements [#6046](https://github.com/FreshRSS/FreshRSS/pull/6046), [#6075](https://github.com/FreshRSS/FreshRSS/pull/6075),
