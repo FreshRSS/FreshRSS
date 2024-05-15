@@ -274,7 +274,7 @@ return array(
 		'_' => 'Gyorsgombok',
 		'article_action' => 'Cikk műveletek',
 		'auto_share' => 'Megosztás',
-		'auto_share_help' => 'Ha csak egy megosztási mód van, az lesz használva. Egyébként, a megosztási módok a számokkal elérhetőek.',
+		'auto_share_help' => 'Ha csak egy megosztási mód van, az lesz használva. Egyébként, a megosztási módok a számukkal elérhetőek.',
 		'close_dropdown' => 'Menük bezárása',
 		'collapse_article' => 'Összecsuk',
 		'first_article' => 'Első cikk megnyitása',
