@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'На вашем сервере нет расширения ZIP. Пожалуйста, попробуйте экспортировать файлы один за другим.',
-		'feeds_imported' => 'Ваши ленты импортированы и теперь будут обновлены / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Ваши ленты импортированы и теперь будут обновлены. Если вы завершили импортирование, можете нажать на кнопку <i>Обновить ленты</i>.',
+		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки. Если вы завершили импортирование, можете нажать на кнопку <i>Обновить ленты</i>.',
 		'file_cannot_be_uploaded' => 'Файл не может быть загружен!',
 		'no_zip_extension' => 'На вашем сервере нет расширения ZIP.',
-		'zip_error' => 'Ошибка возникла при импорте ZIP.',	// DIRTY
+		'zip_error' => 'Ошибка возникла при импорте ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Ваш профиль не может быть изменён',
@@ -116,10 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Метка “%s” создана.',
-		'error' => 'Label could not be updated!',	// TODO
+		'error' => 'Метка не может быть изменена!',
 		'name_exists' => 'Метка с таким названием уже существует.',
 		'renamed' => 'Метка “%s” переименована в “%s”.',
-		'updated' => 'Label has been updated.',	// TODO
+		'updated' => 'Метка изменена.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS будет обновлён до <strong>версии %s</strong>.',
