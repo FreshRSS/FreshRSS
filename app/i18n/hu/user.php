@@ -13,12 +13,12 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'Érvénytelen email cím.',
-			'required' => 'Email cím megadása kötelező.',
+			'invalid' => 'Ez az email cím érvénytelen.',
+			'required' => 'Egy email cím megadása kötelező.',
 		),
 		'validation' => array(
-			'change_email' => 'Megváltoztathatod az email címed <a href="%s">a profil lapon</a>.',
-			'email_sent_to' => 'Email-t küldtünk neked a <strong>%s</strong> címre. Kövesd a leírást hogy visszaigazolhasd a címedet.',
+			'change_email' => 'Megváltoztathatod az email címed <a href="%s">a profil oldalon</a>.',
+			'email_sent_to' => 'Email-t küldtünk neked a(z) <strong>%s</strong> címre. Kövesd a leírást hogy visszaigazolhasd a címedet.',
 			'feedback' => array(
 				'email_failed' => 'Nem tudtunk email-t küldeni neked egy szerver konfigurációs hiba miatt.',
 				'email_sent' => 'Egy email lett elküldve a címedre.',
@@ -34,13 +34,13 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'Épp most regisztráltál a %s -re, de még vissza kell igazolnod az email címed. Ehhez csak kövesd a linket:',
+			'body' => 'Épp most regisztráltál a %s -re/ra, de még vissza kell igazolnod az email címed. Ehhez csak kövesd a linket:',
 			'title' => 'Vissza kell igazolnod a fiókod',
 			'welcome' => 'Üdv %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'Érvénytelen jelszó.',
+		'invalid' => 'A jelszó érvénytelen.',
 	),
 	'tos' => array(
 		'feedback' => array(
@@ -48,7 +48,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => 'Érvénytelen felhasználónév.',
+		'invalid' => 'Ez a felhasználónév érvénytelen.',
 		'taken' => 'Ez a felhasználónév, %s, már foglalt.',
 	),
 );
