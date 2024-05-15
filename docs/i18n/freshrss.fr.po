@@ -289,7 +289,7 @@ msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/01_Index.md:16
-msgid "[Github Branching and Pushing](02_Github.md)"
+msgid "[GitHub Branching and Pushing](02_GitHub.md)"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -1311,19 +1311,19 @@ msgstr ""
 "];\n"
 
 #. type: Title #
-#: en/./developers/02_Github.md:1
+#: en/./developers/02_GitHub.md:1
 #, no-wrap
 msgid "Branching"
 msgstr "Système de branches"
 
 #. type: Title ##
-#: en/./developers/02_Github.md:3
+#: en/./developers/02_GitHub.md:3
 #, no-wrap
 msgid "Basic"
 msgstr "Élémentaire"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:6
+#: en/./developers/02_GitHub.md:6
 msgid ""
 "If you are new to Git, here are some of the resources you might find useful:"
 msgstr ""
@@ -1331,63 +1331,63 @@ msgstr ""
 "être utiles :"
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 msgid "[GitHub’s blog post](https://github.com/blog/120-new-to-git)"
 msgstr "[Article du blog de GitHub](https://github.com/blog/120-new-to-git)"
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 msgid "<http://try.github.com/>"
 msgstr "<http://try.github.com/>"
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 msgid "<http://sixrevisions.com/resources/git-tutorials-beginners/>"
 msgstr "<http://sixrevisions.com/resources/git-tutorials-beginners/>"
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 msgid "<http://rogerdudler.github.io/git-guide/>"
 msgstr "<http://rogerdudler.github.io/git-guide/>"
 
 #. type: Title ##
-#: en/./developers/02_Github.md:12
+#: en/./developers/02_GitHub.md:12
 #, no-wrap
 msgid "Getting the latest code from the FreshRSS repository"
 msgstr "Obtenir le dernier code du répertoire FreshRSS"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:15
+#: en/./developers/02_GitHub.md:15
 msgid "First you need to add the official repo to your remote repo list:"
 msgstr ""
 "Vous devez avant tout ajouter le repo officiel à votre liste de repo remote :"
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:16
+#: en/./developers/02_GitHub.md:16
 #, no-wrap
 msgid "git remote add upstream git@github.com:FreshRSS/FreshRSS.git\n"
 msgstr "git remote add upstream git@github.com:FreshRSS/FreshRSS.git\n"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:21
+#: en/./developers/02_GitHub.md:21
 msgid "You can verify the remote repo is successfully added by using:"
 msgstr ""
 "Vous pouvez vérifier que le repo remote a été ajouté avec succès en "
 "utilisant :"
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:22
+#: en/./developers/02_GitHub.md:22
 #, no-wrap
 msgid "git remote -v show\n"
 msgstr "git remote -v show\n"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:27
+#: en/./developers/02_GitHub.md:27
 msgid "Now you can pull the latest development code:"
 msgstr "Vous pouvez maintenant pull le dernier code de développement :"
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:28
+#: en/./developers/02_GitHub.md:28
 #, no-wrap
 msgid ""
 "git checkout edge\n"
@@ -1397,25 +1397,25 @@ msgstr ""
 "git pull upstream edge\n"
 
 #. type: Title ##
-#: en/./developers/02_Github.md:33
+#: en/./developers/02_GitHub.md:33
 #, no-wrap
 msgid "Starting a new development branch"
 msgstr "Lancer une nouvelle branche de développement"
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:35
+#: en/./developers/02_GitHub.md:35
 #, no-wrap
 msgid "git checkout -b my-development-branch\n"
 msgstr "git checkout -b mon-branch-developpement\n"
 
 #. type: Title ##
-#: en/./developers/02_Github.md:39
+#: en/./developers/02_GitHub.md:39
 #, no-wrap
 msgid "Sending a patch"
 msgstr "Proposer un patch"
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:41
+#: en/./developers/02_GitHub.md:41
 #, no-wrap
 msgid ""
 "# Add the changed file, here actualize_script.php\n"
@@ -1437,18 +1437,18 @@ msgstr ""
 "git push\n"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:53
+#: en/./developers/02_GitHub.md:53
 msgid "Now you can create a PR based on your branch."
 msgstr "Vous pouvez maintenant créer une PR en fonction de votre branche."
 
 #. type: Title ##
-#: en/./developers/02_Github.md:54
+#: en/./developers/02_GitHub.md:54
 #, no-wrap
 msgid "How to write a commit message"
 msgstr "Comment écrire un message de commit"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:57
+#: en/./developers/02_GitHub.md:57
 #, fuzzy
 #| msgid ""
 #| "A commit message should succintly describe the changes on the first line. "
@@ -1461,13 +1461,13 @@ msgstr ""
 "première ligne. Par exemple :"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:59
+#: en/./developers/02_GitHub.md:59
 #, no-wrap
 msgid "> Fix broken icon\n"
 msgstr "> Fixe une icône cassée\n"
 
 #. type: Plain text
-#: en/./developers/02_Github.md:61
+#: en/./developers/02_GitHub.md:61
 msgid ""
 "If necessary, this can be followed by a blank line and a longer explanation."
 msgstr ""
@@ -1475,7 +1475,7 @@ msgstr ""
 "suivre."
 
 #. type: Plain text
-#: en/./developers/02_Github.md:62
+#: en/./developers/02_GitHub.md:62
 msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
 msgstr ""
 "Pour d’autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
@@ -1533,12 +1533,12 @@ msgstr "Présentation de FreshRSS"
 msgid ""
 "FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to "
 "October 2012. The official site is located at [freshrss.org](https://"
-"freshrss.org) and the official repository is hosted on Github: [github.com/"
+"freshrss.org) and the official repository is hosted on GitHub: [github.com/"
 "FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS)."
 msgstr ""
 "FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre "
 "2012. Le site officiel est situé à l’adresse [freshrss.org](https://freshrss."
-"org) et son dépot Git est hébergé par Github : [github.com/FreshRSS/FreshRSS]"
+"org) et son dépot Git est hébergé par GitHub : [github.com/FreshRSS/FreshRSS]"
 "(https://github.com/FreshRSS/FreshRSS)."
 
 #. type: Title ##
@@ -7811,13 +7811,13 @@ msgstr ""
 msgid ""
 "__Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "
 "\"FreshRSS official demo\"). If it’s not working, you need to [create an "
-"issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
+"issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
 "issue for FreshRSS\") so we can have a look at it. If it’s working, there’s "
 "probably something fishy with the hosting server."
 msgstr ""
 "__Vérifier l’intégration dans FreshRSS__ grâce à la [démo](https://demo."
 "freshrss.org \"Démo officielle de FreshRSS\"). Si ça ne fonctionne pas, il "
-"faut [créer un ticket sur Github](https://github.com/FreshRSS/FreshRSS/"
+"faut [créer un ticket sur GitHub](https://github.com/FreshRSS/FreshRSS/"
 "issues/new \"Créer un ticket pour FreshRSS\") pour que l’on puisse regarder "
 "ce qui se passe. Si ça fonctionne, il y a probablement un problème avec "
 "l’hébergement."

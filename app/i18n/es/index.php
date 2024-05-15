@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Aunque FreshRSS no usa ese entorno, algunos elementos del diseño están obtenidos de <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>. Los <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Iconos</a> han sido obtenidos del <a href="https://www.gnome.org/">proyecto GNOME</a>. La fuente <em>Open Sans</em> es una creación de <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS usa el entorno PHP <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
 		'documentation' => 'Documentacion',
 		'freshrss_description' => 'FreshRSS es un agregador de fuentes RSS de alojamiento privado. Es una herramienta potente, pero ligera y fácil de usar y configurar.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">en Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">en GitHub</a>',
 		'license' => 'Licencia',
 		'project_website' => 'Web del proyecto',
 		'title' => 'Acerca de',

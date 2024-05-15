@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',
 		),
 		'title' => 'Update FreshRSS',
-		'viaGit' => 'Update via git and Github.com started',
+		'viaGit' => 'Update via git and GitHub.com started',
 	),
 	'user' => array(
 		'admin' => 'Administrator',
