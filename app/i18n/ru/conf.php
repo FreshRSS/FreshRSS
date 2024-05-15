@@ -56,7 +56,7 @@ return array(
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
-				'_' => 'Deprecated',
+				'_' => 'Deprecated',	// TODO
 				'description' => 'Эта тема устарела и будет недоступна в FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">в будущем релизе</a>',
 			),
 		),

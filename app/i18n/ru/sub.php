@@ -166,7 +166,7 @@ return array(
 			),
 			'jsonfeed' => 'JSON Лента',
 			'rss' => 'RSS / Atom (по умолчанию)',
-			'xml_xpath' => 'XML + XPath',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
