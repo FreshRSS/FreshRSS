@@ -17,7 +17,7 @@
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('conf.query.name') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->query->getName() ?>" />
+				<input type="text" class="w100" name="name" id="name" value="<?= $this->query->getName() ?>" />
 				<input type="hidden" name="query[token]" id="query_token" value="<?= $this->query->getToken() ?>" />
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 			<div class="form-group">
 				<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 				<div class="group-controls">
-					<input type="text" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->getRawInput(), ENT_COMPAT, 'UTF-8') ?>"/>
+					<input type="text" class="w100" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->getRawInput(), ENT_COMPAT, 'UTF-8') ?>"/>
 					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 			<div class="form-group">
 				<label class="group-name" for="query_get"><?= _t('conf.query.filter.type') ?></label>
 				<div class="group-controls">
-					<select name="query[get]" id="query_get" size="10">
+					<select name="query[get]" class="w100" id="query_get" size="10">
 						<option value="a" <?= in_array($this->query->getGet(), ['', 'a'], true) ? 'selected="selected"' : '' ?>><?= _t('index.feed.title') ?></option>
 						<option value="i" <?= 'i' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.important') ?></option>
 						<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.feed.title_fav') ?></option>
@@ -123,7 +123,7 @@
 			<div class="form-group">
 				<label class="group-name" for=""><?= _t('conf.query.filter.order') ?></label>
 				<div class="group-controls">
-					<select name="query[order]" id="query_order">
+					<select name="query[order]" class="w100" id="query_order">
 						<option value=""></option>
 						<option value="DESC" <?= 'DESC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
 						<option value="ASC" <?= 'ASC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>

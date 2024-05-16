@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'Token di autenticazione principale',
+		'token_help' => 'Consente l’accesso a tutti gli output RSS dell’utente e di aggiornare i feed senza autenticazione:',
 		'type' => 'Metodo di autenticazione',
 		'unsafe_autologin' => 'Consenti accesso automatico non sicuro usando il formato: ',
 	),
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabile (“latest”)',
 		),
 		'title' => 'Aggiorna sistema',
-		'viaGit' => 'Aggiornamento tramite git e Github.com avviato',
+		'viaGit' => 'Aggiornamento tramite git e GitHub.com avviato',
 	),
 	'user' => array(
 		'admin' => 'Amministratore',

@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazenie',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Automatický tmavý režim (beta)',
+			'auto' => 'Automaticky',
+			'no' => 'Nie',
 		),
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Nepodporované',
+				'description' => 'Táto téma už nie je podporovaná a nebude viac dostupná v <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">budúdich verziách FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'Vzhľad “%s” už nie je dostupný. Prosím, vyberte si iný vzhľad.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Nastojato',
 			'square' => 'Štvorec',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Časová zóna',
 		'title' => 'Zobraziť',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Ikona a názov',
+			'icon' => 'Iba ikona',
+			'label' => 'Webová stránka',
+			'name' => 'Iba názov',
+			'none' => 'Nič',
 		),
 		'width' => array(
 			'content' => 'Šírka obsahu',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Zobraziť podľa kanála',
 			'order' => 'Zobraziť podľa dátumu',
 			'search' => 'Výraz',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Povoliť zdieľanie prostredníctvom OPML zodpovedajúdich kategórií a kanálov',
+			'shareRss' => 'Povoliť zdieľanie prostredníctvom HTML &amp; RSS',
 			'state' => 'Štát',
 			'tags' => 'Zobraziť podľa štítku',
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobraziť všetky články',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Zobraziť články so všetkými štítkami',
 		'get_category' => 'Zobraziť kategóriu “%s”',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Zobraziť články z dôležitých kanálov',
+		'get_label' => 'Zobraziť články so štítkom “%s”',
+		'help' => 'Prečítajte si <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentáciu pre dopyt používateľov a zdieľanie prostredníctvom HTML / RSS / OPML</a>.',
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
 		'number' => 'Dopyt číslo %d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Zobraziť novšie články hore',
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
+			'html' => 'Zdielateľný odkaz na HTML stránku',
+			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
+			'rss' => 'Zdielateľný odkaz na RSS kanále',
 		),
 		'state_0' => 'Zobraziť všetky články',
 		'state_1' => 'Zobraziť prečítané články',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'keď je článok otvorený na svojej webovej stránke',
 			'article_viewed' => 'keď je článok zobrazený',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'počas prezeranie (okrem dôležitých kanálov)',
 			'keep_max_n_unread' => 'Maximálny počet článkov ponechať ako neprečítané',
-			'scroll' => 'počas skrolovania (except for important feeds)',	// DIRTY
+			'scroll' => 'počas skrolovania (okrem dôležitých kanálov)',
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
@@ -255,7 +255,7 @@ return array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

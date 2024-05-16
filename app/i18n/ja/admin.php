@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (上級者はHTTPSでも)',
 		'none' => 'なし (危険)',
 		'title' => '認証',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'マスター認証用のトークン',
+		'token_help' => 'ユーザーのすべての RSS 出力へのアクセスと、認証なしのフィードの更新を許可します',
 		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'ベースURL',
+			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => '秒',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'センシティブなパラメーターです。<kbd>./data/config.php</kbd> を手動で編集',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => '無効化',
+			'enabled' => '<a href="./?a=tos">有効化</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">利用規約を有効にする方法</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSubについて</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'システムアップデート',
 		'apply' => '適用',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => '変更履歴',
 		'check' => 'アップデートを確認する',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php が %s から ./data にコピーされました。',
 		'current_version' => '現在のバージョンは',
 		'last' => '最近の検証',
-		'loading' => 'Updating…',	// TODO
+		'loading' => '更新中…',
 		'none' => '更新を適用できません',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'リリースチャンネル',
+			'edge' => 'ローリングリリース (“edge”)',
+			'latest' => '安定版リリース (“latest”)',
 		),
 		'title' => 'アップデートシステム',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'gitとGitHub.comによるアップデートを開始',
 	),
 	'user' => array(
 		'admin' => '管理者',

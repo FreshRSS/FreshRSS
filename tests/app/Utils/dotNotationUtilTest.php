@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class dotpathUtilTest extends PHPUnit\Framework\TestCase {
+class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
 
 	/**
 	 * @return Traversable<array{array<string,mixed>,string,string}>
@@ -38,7 +38,7 @@ class dotpathUtilTest extends PHPUnit\Framework\TestCase {
 	 * @param array<string,mixed> $array
 	 */
 	public function testJsonDots(array $array, string $key, string $expected): void {
-		$value = FreshRSS_dotpath_Util::get($array, $key);
+		$value = FreshRSS_dotNotation_Util::get($array, $key);
 		self::assertEquals($expected, $value);
 	}
 }

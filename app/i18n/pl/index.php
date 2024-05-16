@@ -17,9 +17,9 @@ return array(
 		'bugs_reports' => 'Zgłaszanie problemów',
 		'credits' => 'Uznanie autorstwa',
 		'credits_content' => 'Niektóre elementy designu pochodzą z <a href="http://twitter.github.io/bootstrap/">Bootstrapa</a>, przy czym FreshRSS nie używa tego frameworku. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikony</a> zostały pierwotnie stworzone dla <a href="https://www.gnome.org/">projektu GNOME</a>. Font <em>Open Sans</em> jest autorstwa <a href="https://fonts.google.com/specimen/Open+Sans">Steve’a Mattesona</a>. FreshRSS opiera się na <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, frameworku PHP.',
-		'documentation' => 'Documentation',	// TODO
+		'documentation' => 'Dokumentacja',
 		'freshrss_description' => 'FreshRSS jest agregatorem kanałów RSS przeznaczonym do zainstalowania na własnym serwerze. Jest lekki i łatwy do schowania w kieszeni, pozostając przy tym potężnym i konfigurowalnym narzędziem.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na Githubie</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na GitHubie</a>',
 		'license' => 'Licencja',
 		'project_website' => 'Strona projektu',
 		'title' => 'O serwisie',
@@ -45,7 +45,7 @@ return array(
 		'bookmark_query' => 'Zapisz bieżące zapytanie',
 		'favorites' => 'Ulubione (%s)',
 		'global_view' => 'Widok globalny',
-		'important' => 'Important feeds',	// TODO
+		'important' => 'Ważne kanały',
 		'main_stream' => 'Kanał główny',
 		'mark_all_read' => 'Oznacz wszystkie jako przeczytane',
 		'mark_cat_read' => 'Oznacz kategorię jako przeczytaną',
