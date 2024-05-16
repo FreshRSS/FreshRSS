@@ -101,7 +101,7 @@ abstract class CliOptionsParser {
 				}
 
 				if (!empty($typedValues)) {
-					// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
+					// @phpstan-ignore property.dynamicName
 					$this->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
 				}
 			}

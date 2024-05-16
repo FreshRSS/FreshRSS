@@ -108,7 +108,7 @@ foreach ($values as $name => $value) {
 				}
 				break;
 		}
-		// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
+		// @phpstan-ignore assign.propertyType, property.dynamicName
 		$systemConf->$name = $value;
 	}
 }
