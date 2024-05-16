@@ -48,6 +48,8 @@ class FreshRSS_UserQuery {
 		$this->labels = $labels;
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
+		} else {
+			$this->get_type = 'all';
 		}
 		if (isset($query['name'])) {
 			$this->name = trim($query['name']);
@@ -107,7 +109,9 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet(string $get): void {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
+		if ($this->get === '') {
+			$this->get_type = 'all';
+		} elseif (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
@@ -155,22 +159,22 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Check if the user query has parameters.
-	 * If the type is 'all', it is considered equal to no parameters
 	 */
 	public function hasParameters(): bool {
-		if ($this->get_type === 'all') {
-			return false;
+		if ($this->get_type !== 'all') {
+			return true;
 		}
 		if ($this->hasSearch()) {
 			return true;
 		}
-		if ($this->state) {
+		if (!in_array($this->state, [
+				0,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE
+			], true)) {
 			return true;
 		}
-		if ($this->order) {
-			return true;
-		}
-		if ($this->get) {
+		if ($this->order !== '' && $this->order !== FreshRSS_Context::userConf()->sort_order) {
 			return true;
 		}
 		return false;
