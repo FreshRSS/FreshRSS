@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabilní vydání (“latest”)',
 		),
 		'title' => 'Aktualizovat systém',
-		'viaGit' => 'Aktualizace přes git a Github.com začala',
+		'viaGit' => 'Aktualizace přes git a GitHub.com začala',
 	),
 	'user' => array(
 		'admin' => 'Administrátor',

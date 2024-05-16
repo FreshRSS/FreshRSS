@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Niektoré časti vzhľadu pochádzajú z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>u, aj keď FreshRSS tento framework nepoužíva. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikony</a> sú z <a href="https://www.gnome.org/">GNOME project</a>. Font <em>Open Sans</em> zabezpečil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založený na PHP frameworku <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
 		'documentation' => 'Dokumentácia',
 		'freshrss_description' => 'FreshRSS je čítačka RSS kanálov, ktorú môžete nasadiť na vlastný server. Ide o jednoduchý a zároveň dobre nastaviteľný nástroj.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na Github</a>e',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na GitHub</a>e',
 		'license' => 'Licencia',
 		'project_website' => 'Webová stránka projektu',
 		'title' => 'O FreshRSS',

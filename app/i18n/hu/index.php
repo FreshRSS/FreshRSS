@@ -16,7 +16,7 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Hiba jelentések',
 		'credits' => 'Credits',	// IGNORE
-		'credits_content' => 'Néhány dizájn elem a <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> segítségével működik, habár a FreshRSS nem használja ezt a framework-öt. Az <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikonok</a> a <a href="https://www.gnome.org/">GNOME projekt-ből származnak</a>. <em>Open Sans</em> betűtípust készítette <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS a <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a> PHP keretrendszeren alapul.',
+		'credits_content' => 'Néhány dizájn elem a <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> segítségével működik, habár a FreshRSS nem használja ezt a framework-öt. Az <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikonok</a> a <a href="https://www.gnome.org/">GNOME projekt-ből származnak</a>. <em>Open Sans</em> betűtípust készítette <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. A FreshRSS a <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a> PHP keretrendszeren alapul.',
 		'documentation' => 'Dokumentáció',
 		'freshrss_description' => 'A FreshRSS egy saját magunk által host-olható RSS hírgyűjtő és olvasó. Lehetővé teszi hogy kövess és olvass sok híroldalt egy pillantás alatt anélkül hogy mindegyiket meglátogatnád egyesével. A FreshRSS könnyű, gyors, jól konfigurálható, és könnyen használható.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub-on</a>',
@@ -47,7 +47,7 @@ return array(
 		'global_view' => 'Globális nézet',
 		'important' => 'Fontos hírforrások',
 		'main_stream' => 'Minden cikk',
-		'mark_all_read' => 'Legyen mind olvasott',
+		'mark_all_read' => 'Minden megjelölése olvasottként',
 		'mark_cat_read' => 'Kategória megjelölése olvasottként',
 		'mark_feed_read' => 'Hírforrás megjelölése olvasottként',
 		'mark_selection_unread' => 'Kijelöltek olvasatlanná tétele',
@@ -58,7 +58,7 @@ return array(
 		'queries' => 'Felhasználói lekérdezések',
 		'read' => 'Olvasottak megjelenítése',
 		'reader_view' => 'Olvasó nézet',
-		'rss_view' => 'RSS hírforrás megnyitása',
+		'rss_view' => 'RSS hírforrás',
 		'search_short' => 'Keresés',
 		'starred' => 'Kedvencek megjelenítése',
 		'stats' => 'Statisztika',

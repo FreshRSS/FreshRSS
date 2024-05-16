@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Bu frameworkü kullanmamasına rağmen FreshRSS bazı tasarım ögelerini <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> dan almıştır. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">İkonlar</a> <a href="https://www.gnome.org/">GNOME projesinden</a> alınmıştır. <em>Open Sans</em> yazı tipi <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> tarafından oluşturulmuştur. FreshRSS bir PHP framework olan <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a> i temel alır.',
 		'documentation' => 'Dökümantasyon',
 		'freshrss_description' => 'FreshRSS kendi hostunuzda çalışan bir RSS akış toplayıcısıdır. Güçlü ve yapılandırılabilir araçlarıyla basit ve kullanımı kolay bir uygulamadır.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Github sayfası</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub sayfası</a>',
 		'license' => 'Lisans',
 		'project_website' => 'Proje sayfası',
 		'title' => 'Hakkında',
