@@ -2,7 +2,7 @@
 
 ## About FreshRSS
 
-FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on Github: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on GitHub: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## The problem
 
