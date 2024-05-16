@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabil sürüm (“latest”)',
 		),
 		'title' => 'Sistem güncelleme',
-		'viaGit' => 'git ve Github.com ile gğncelleme başladı',
+		'viaGit' => 'git ve GitHub.com ile gğncelleme başladı',
 	),
 	'user' => array(
 		'admin' => 'Yönetici',
