@@ -213,7 +213,7 @@ return array(
 			'latest' => '稳定版本 (“latest”)',
 		),
 		'title' => '更新系统',
-		'viaGit' => '开始通过 git and Github.com 更新',
+		'viaGit' => '开始通过 git and GitHub.com 更新',
 	),
 	'user' => array(
 		'admin' => '管理员',

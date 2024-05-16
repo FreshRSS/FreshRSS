@@ -72,7 +72,7 @@ class Minz_Configuration {
 	/**
 	 * The namespace of the current configuration.
 	 * Unused.
-	 * @phpstan-ignore-next-line
+	 * @phpstan-ignore property.onlyWritten
 	 */
 	private string $namespace = '';
 
