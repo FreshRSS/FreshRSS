@@ -194,7 +194,7 @@ return array(
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',
 		),
 		'title' => 'Update FreshRSS',
-		'viaGit' => 'Update via git and Github.com started',
+		'viaGit' => 'Update via git and GitHub.com started',
 	),
 	'user' => array(
 		'admin' => 'Administrator',

@@ -213,7 +213,7 @@ return array(
 			'latest' => '穩定式發佈(“latest”)',
 		),
 		'title' => '系統更新',
-		'viaGit' => '從git並由Github.com開始',
+		'viaGit' => '從git並由GitHub.com開始',
 	),
 	'user' => array(
 		'admin' => '管理員',
