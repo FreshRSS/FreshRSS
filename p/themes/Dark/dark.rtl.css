@@ -267,7 +267,6 @@ button.as-link[disabled] {
 
 .nav-list .nav-header {
 	background-color: var(--dark-background-color1);
-	border-bottom: 1px solid var(--dark-border-color3);
 }
 
 /*=== Dropdown */
@@ -452,7 +451,7 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color1);
 }
 
-.flux .flux_header .item .title a {
+.flux .flux_header .item .title {
 	color: var(--dark-font-color8);
 }
 

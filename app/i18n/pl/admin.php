@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Wersja stabilna (“latest”)',
 		),
 		'title' => 'Aktualizacja',
-		'viaGit' => 'Rozpoczęto aktualizację gitem do najnowszej wersji z Githuba',
+		'viaGit' => 'Rozpoczęto aktualizację gitem do najnowszej wersji z GitHuba',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Некоторые элементы дизайна взяты из <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, хотя FreshRSS не использует этот фреймворк. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Иконки</a> взяты из <a href="https://www.gnome.org/">проекта GNOME</a>. Шрифт <em>Open Sans</em> создан <a href="https://fonts.google.com/specimen/Open+Sans">Стивом Мэттесоном</a>. FreshRSS основан на <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, PHP-фреймворке.',
 		'documentation' => 'Документация',
 		'freshrss_description' => 'FreshRSS — агрегатор RSS-лент для размещения на своём сервере. Лёгкий и простой в использовании, будучи при этом мощным и настраиваемым инструментом.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">в Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">в GitHub</a>',
 		'license' => 'Лицензия',
 		'project_website' => 'Сайт проекта',
 		'title' => 'О проекте',
@@ -45,7 +45,7 @@ return array(
 		'bookmark_query' => 'Сохранить текущий запрос',
 		'favorites' => 'Избранное (%s)',
 		'global_view' => 'Глобальный вид',
-		'important' => 'Important feeds',	// TODO
+		'important' => 'Важные ленты',
 		'main_stream' => 'Основной поток',
 		'mark_all_read' => 'Отметить всё прочитанным',
 		'mark_cat_read' => 'Отметить категорию прочитанной',

@@ -32,6 +32,6 @@ It could happen that we make two releases in a short span of time if we have a r
 
 As its name suggests, the development version is the working codebase, intended for developers. **This release may be unstable!**
 
-If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on Github (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom), for instance), and manually pull new commits.
+If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on GitHub (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom), for instance), and manually pull new commits.
 
 Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing…

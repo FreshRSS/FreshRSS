@@ -641,6 +641,10 @@ input[type="checkbox"]:focus-visible {
 	text-overflow: ellipsis;
 }
 
+.nav-list .item.nav-section > ul {
+	margin-bottom: 1rem;
+}
+
 /*=== Horizontal-list */
 .horizontal-list {
 	margin: 0;
@@ -1310,11 +1314,6 @@ a.website:hover .favicon {
 	vertical-align: top;
 }
 
-.flux .flux_header .item .title a {
-	color: var(--frss-font-color-dark);
-	text-decoration: none;
-}
-
 .flux .flux_header .item.thumbnail {
 	line-height: 0;
 	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
@@ -1369,13 +1368,16 @@ a.website:hover .favicon {
 }
 
 .flux .flux_header .item .title {
+	display: inline-block;
+	max-width: 100%;
+	min-width: calc(100% - 155px);
+	color: var(--frss-font-color-dark);
 	position: absolute;
 	top: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	display: inline-block;
 	box-sizing: border-box;
-	max-width: 100%;
+	text-decoration: none;
 }
 
 .flux .flux_header .item .title:has(~.date) {
