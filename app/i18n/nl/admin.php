@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabiele release (“latest”)',
 		),
 		'title' => 'Vernieuw systeem',
-		'viaGit' => 'Update via git and Github.com gestart',
+		'viaGit' => 'Update via git and GitHub.com gestart',
 	),
 	'user' => array(
 		'admin' => 'Beheerder',
