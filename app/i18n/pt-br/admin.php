@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Release estável (“latest”)',
 		),
 		'title' => 'Sistema de atualização',
-		'viaGit' => 'Atualização via git e Github.com iniciada',
+		'viaGit' => 'Atualização via git e GitHub.com iniciada',
 	),
 	'user' => array(
 		'admin' => 'Administrador',
