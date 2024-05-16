@@ -661,7 +661,7 @@ img.favicon {
 }
 
 .aside_feed .tree-folder-items.active {
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
 	background-color: var(--main-background);
 }
 
@@ -810,7 +810,7 @@ li.item.active {
 	transition: .3s;
 }
 
-.flux .flux_header .item .title a {
+.flux .flux_header .item .title {
 	color: var(--text-default);
 }
 
@@ -1114,7 +1114,7 @@ optgroup::before {
 }
 
 .nav-list .nav-header {
-	padding: 1rem 1rem 0 1rem;
+	padding: 0 1rem;
 	font-weight: bold;
 }
 

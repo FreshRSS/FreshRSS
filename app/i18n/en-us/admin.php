@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// IGNORE
 		),
 		'title' => 'Update system',	// IGNORE
-		'viaGit' => 'Update via git and Github.com started',	// IGNORE
+		'viaGit' => 'Update via git and GitHub.com started',	// IGNORE
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE
