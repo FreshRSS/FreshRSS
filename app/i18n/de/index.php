@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
 		'documentation' => 'Handbuch',
 		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf GitHub</a>',
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
 		'title' => 'Über',
@@ -45,7 +45,7 @@ return array(
 		'bookmark_query' => 'Aktuelle Abfrage speichern',
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',
-		'important' => 'Important feeds',	// TODO
+		'important' => 'Wichtige Feeds',
 		'main_stream' => 'Haupt-Feeds',
 		'mark_all_read' => 'Alle als gelesen markieren',
 		'mark_cat_read' => 'Kategorie als gelesen markieren',

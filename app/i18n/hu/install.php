@@ -20,7 +20,7 @@ return array(
 	),
 	'auth' => array(
 		'form' => 'Webes űrlap (hagyományos, JavaScript-et igényel)',
-		'http' => 'HTTP (haladó felhasználóknak HTTPSel)',
+		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
 		'none' => 'Egyik sem (veszélyes)',
 		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
 		'password_format' => 'Legalább 7 karakter',
@@ -41,9 +41,9 @@ return array(
 	),
 	'check' => array(
 		'_' => 'Ellenőrzés',
-		'already_installed' => 'FreshRSS már telepítve van!',
+		'already_installed' => 'Azt észleltük, hogy a FreshRSS már telepítve van!',
 		'cache' => array(
-			'nok' => 'Ellenőrizd a jogosultságokat a <em>%1$s</em> könyvtáron a <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
+			'nok' => 'Ellenőrizd a jogosultságokat a(z) <em>%1$s</em> könyvtáron a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A cache könyvtár jogosultságai rendben vannak.',
 		),
 		'ctype' => array(
@@ -55,7 +55,7 @@ return array(
 			'ok' => 'A cURL könyvtár telepítve van.',
 		),
 		'data' => array(
-			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtáron a <em>%2$s</em> felhasználónak.	A HTTP szervernek szüksége van írási jogosultságra.',
+			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtáron a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A data könyvtár jogosultságai rendben vannak.',
 		),
 		'dom' => array(
@@ -63,16 +63,16 @@ return array(
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
 		),
 		'favicons' => array(
-			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtár jogosultságait a <em>%2$s</em> felhasználónak.	A HTTP szervernek szüksége van írási jogosultságra.',
+			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtár jogosultságait a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A favicons könyvtár jogosultságai rendben vannak.',
 		),
 		'fileinfo' => array(
-			'nok' => 'PHP fileinfo könyvtár nem található (fileinfo csomag).',
+			'nok' => 'A PHP fileinfo könyvtár nem található (fileinfo csomag).',
 			'ok' => 'A fileinfo könyvtár telepítve van.',
 		),
 		'json' => array(
-			'nok' => 'Nem található a JSON elemző könyvtár (JSON parse).',
-			'ok' => 'A JSON parse könyvtár telepítve van.',
+			'nok' => 'Nem található a JSON elemző könyvtár.',
+			'ok' => 'A JSON elemző könyvtár telepítve van.',
 		),
 		'mbstring' => array(
 			'nok' => 'Az ajánlott mbstring könyvtár nem található a Unicode kódoláshoz',
@@ -84,25 +84,25 @@ return array(
 		),
 		'pdo' => array(
 			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO telepítve és legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'A PDO telepítve és van legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'A PHP verzió	%s, de a FreshRSS számára szükséges verzió %s.',
+			'nok' => 'A PHP verzió %s, de a FreshRSS számára szükséges verzió %s.',
 			'ok' => 'A PHP verzió, %s, kompatibilis a FreshRSS-el.',
 		),
 		'reload' => 'Újra ellenőrzés',
 		'tmp' => array(
-			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtár jogosultságait a <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'Temp könyvtár jogosultságai rendben vannak.',
+			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtár jogosultságait a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
+			'ok' => 'A temp könyvtár jogosultságai rendben vannak.',
 		),
 		'unknown_process_username' => 'ismeretlen',
 		'users' => array(
-			'nok' => 'Ellenőrizd a <em>%1$s</em> könyvtár jogosultságait a <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'Users könyvtár jogosultságai rendben vannak.',
+			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtár jogosultságait a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
+			'ok' => 'A users könyvtár jogosultságai rendben vannak.',
 		),
 		'xml' => array(
-			'nok' => 'Nem található az XML elemző könyvtár (parse XML).',
-			'ok' => 'XML elemző könyvtár telepítve van.',
+			'nok' => 'Nem található az XML elemző könyvtár.',
+			'ok' => 'Az XML elemző könyvtár telepítve van.',
 		),
 	),
 	'conf' => array(

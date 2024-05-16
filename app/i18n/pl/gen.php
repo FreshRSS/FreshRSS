@@ -12,7 +12,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Aktualizuj kanałów',
+		'actualize' => 'Aktualizuj kanały',
 		'add' => 'Dodaj',
 		'back' => '← Wróć',
 		'back_to_rss_feeds' => '← Wróć do subskrybowanych kanałów RSS',
@@ -119,7 +119,7 @@ return array(
 		'wed' => 'Śr.',
 		'yesterday' => 'Wczorajsze',
 	),
-	'dir' => 'ltr',	// TODO
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O serwisie FreshRSS',
@@ -134,7 +134,7 @@ return array(
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Brak tagów',
 		'new_article' => 'Dostępne są nowe wiadomości. Kliknij, aby odświeżyć stronę.',
 		'should_be_activated' => 'JavaScript musi być włączony',
 	),
@@ -178,7 +178,7 @@ return array(
 		'queries' => 'Zapisane zapytania',
 		'reading' => 'Czytanie',
 		'search' => 'Wyszukaj wyrazy lub #tagi',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Zaawansowane <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametry wyszukiwania</a> opisane są w dokumentacji',
 		'sharing' => 'Podawanie dalej',
 		'shortcuts' => 'Skróty klawiszowe',
 		'stats' => 'Statystyki',
@@ -203,7 +203,7 @@ return array(
 		'clipboard' => 'Schowek',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - poprawka dla Firefoksa)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
