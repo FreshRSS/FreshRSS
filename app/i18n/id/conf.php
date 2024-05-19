@@ -261,7 +261,7 @@ return array(
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'More information',	// TODO
 		'print' => 'Print',	// TODO
-		'raindrop' => 'Raindrop.io',	// TOIGNOREDO
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Remove sharing method',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Share name to display',	// TODO
