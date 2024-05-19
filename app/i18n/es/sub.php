@@ -127,7 +127,7 @@ return array(
 				'xpath' => 'XPath para:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (sin notación)',
+				'_' => 'JSON (notación de punto)',
 				'feed_title' => array(
 					'_' => 'título del feed',
 					'help' => 'Ejemplo: <code>meta.title</code> o texto estático: <code>"Feed personalizado"</code>',
