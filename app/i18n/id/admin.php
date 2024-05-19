@@ -140,7 +140,7 @@ return array(
 		'entry_per_hour' => 'Per jam (rata-rata %.2f pesan)',
 		'entry_per_month' => 'Per bulan (rata -rata: %.2f pesan)',
 		'entry_repartition' => 'Mengembalikan entri',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// TODO
 		'feed_per_category' => 'Feed per kategori',
 		'idle' => 'Feed idle',
 		'main' => 'Statistik utama',
@@ -151,7 +151,7 @@ return array(
 		'repartition' => 'Mengembalikan artikel',
 		'status_favorites' => 'Favorites',
 		'status_read' => 'Terbaca',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// TODO
 		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh feed teratas',
@@ -160,7 +160,7 @@ return array(
 		'_' => 'Sistem konfigurasi',
 		'auto-update-url' => 'Otomatis perbarui URL Server',
 		'base-url' => array(
-			'_' => 'Base URL',
+			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
@@ -208,23 +208,23 @@ return array(
 		'loading' => 'Memperbarui…',
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
 		'releaseChannel' => array(
-			'_' => 'Release channel',
-			'edge' => 'Rolling release (“edge”)',
-			'latest' => 'Stable release (“latest”)',
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'Perbarui Sistem',
 		'viaGit' => 'Pembaruan via Git dan Github.com dimulai',
 	),
 	'user' => array(
-		'admin' => 'Administrator',
+		'admin' => 'Administrator',	// TODO
 		'article_count' => 'Artikel',
 		'back_to_manage' => '← Kembali ke Daftar Pengguna',
 		'create' => 'Buat pengguna baru',
 		'database_size' => 'Ukuran database',
 		'email' => 'Alamat email',
 		'enabled' => 'Diaktifkan',
-		'feed_count' => 'Feeds',
-		'is_admin' => 'Is admin',
+		'feed_count' => 'Feeds',	// TODO
+		'is_admin' => 'Is admin',	// TODO
 		'language' => 'Bahasa',
 		'last_user_activity' => 'Aktivitas pengguna terakhir',
 		'list' => 'Daftar pengguna',
@@ -233,6 +233,6 @@ return array(
 		'password_form' => 'Password<br /><small>(Untuk metode login bentuk web)</small>',
 		'password_format' => 'Setidaknya 7 karakter',
 		'title' => 'Kelola pengguna',
-		'username' => 'Username',
+		'username' => 'Username',	// TODO
 	),
 );

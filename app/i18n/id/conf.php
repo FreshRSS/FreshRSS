@@ -16,6 +16,7 @@ return array(
 		'exception' => 'Pengecualian Pembersihan',
 		'help' => 'Lebih banyak opsi tersedia di pengaturan umpan individu',
 		'keep_favourites' => 'Jangan pernah hapus favorit',
+		'keep_labels' => 'Never delete labels',	// TODO
 		'keep_max' => 'Jumlah maksimum artikel yang disimpan per umpan',
 		'keep_min_by_feed' => 'Jumlah minimum artikel yang harus disimpan per feed',
 		'keep_period' => 'Maksimal umur artikel yang harus disimpan',
@@ -61,7 +62,7 @@ return array(
 		),
 		'theme_not_available' => 'Tema "%s" tidak lagi tersedia. Silakan pilih tema lain.',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',
+			'label' => 'Thumbnail',	// TODO
 			'landscape' => 'Lanskap',
 			'none' => 'Tidak ada',
 			'portrait' => 'Potret',
@@ -88,7 +89,7 @@ return array(
 		'loglist' => array(
 			'level' => 'Level Log',
 			'message' => 'Pesan Log',
-			'timestamp' => 'Timestamp',
+			'timestamp' => 'Timestamp',	// TODO
 		),
 		'pagination' => array(
 			'first' => 'Pertama',
@@ -249,67 +250,67 @@ return array(
 			'normal' => 'Tampilan normal',
 			'reader' => 'Tampilan membaca',
 		),
-		'sharing' => array(
-			'_' => 'Berbagi',
-			'add' => 'Tambahkan metode berbagi',
-			'blogotext' => 'Blogotext',
-			'deprecated' => 'Layanan ini sudah tidak didukung dan akan dihapus dari FreshRSS pada <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Buka dokumentasi untuk informasi lebih lanjut" target="_blank">rilis mendatang</a>.',
-			'diaspora' => 'Diaspora*',
-			'email' => 'Email',
-			'facebook' => 'Facebook',
-			'more_information' => 'Informasi lebih lanjut',
-			'print' => 'Cetak',
-			'raindrop' => 'Raindrop.io',
-			'remove' => 'Hapus metode berbagi',
-			'shaarli' => 'Shaarli',
-			'share_name' => 'Nama berbagi untuk ditampilkan',
-			'share_url' => 'URL berbagi yang digunakan',
-			'title' => 'Berbagi',
-			'twitter' => 'Twitter',
-			'wallabag' => 'wallabag',
-			),
-		),
-		'shortcut' => array(
-			'_' => 'Pintasan',
-			'article_action' => 'Tindakan artikel',
-			'auto_share' => 'Bagikan',
-			'auto_share_help' => 'Jika hanya ada satu mode berbagi, itu akan digunakan. Jika tidak, mode dapat diakses dengan nomornya.',
-			'close_dropdown' => 'Tutup menu',
-			'collapse_article' => 'Ciutkan',
-			'first_article' => 'Buka artikel pertama',
-			'focus_search' => 'Akses kotak pencarian',
-			'global_view' => 'Beralih ke tampilan global',
-			'help' => 'Tampilkan dokumentasi',
-			'javascript' => 'JavaScript harus diaktifkan untuk menggunakan pintasan',
-			'last_article' => 'Buka artikel terakhir',
-			'load_more' => 'Muat lebih banyak artikel',
-			'mark_favorite' => 'Toggle favorit',
-			'mark_read' => 'Toggle baca',
-			'navigation' => 'Navigasi',
-			'navigation_help' => 'Dengan modifikasi <kbd>⇧ Shift</kbd>, pintasan navigasi berlaku pada feed.<br/>Dengan modifikasi <kbd>Alt ⎇</kbd>, pintasan navigasi berlaku pada kategori.',
-			'navigation_no_mod_help' => 'Pintasan navigasi berikut tidak mendukung modifikasi.',
-			'next_article' => 'Buka artikel berikutnya',
-			'next_unread_article' => 'Buka artikel berikutnya yang belum dibaca',
-			'non_standard' => 'Beberapa tombol (<kbd>%s</kbd>) mungkin tidak berfungsi sebagai pintasan.',
-			'normal_view' => 'Beralih ke tampilan normal',
-			'other_action' => 'Tindakan lainnya',
-			'previous_article' => 'Buka artikel sebelumnya',
-			'reading_view' => 'Beralih ke tampilan membaca',
-			'rss_view' => 'Buka sebagai umpan RSS',
-			'see_on_website' => 'Lihat di situs web asli',
-			'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> untuk menandai artikel sebelumnya sebagai telah dibaca<br />+ <kbd>⇧ Shift</kbd> untuk menandai semua artikel sebagai telah dibaca',
-			'skip_next_article' => 'Fokus berikutnya tanpa membuka',
-			'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
-			'title' => 'Pintasan',
-			'toggle_media' => 'Putar/jeda media',
-			'user_filter' => 'Akses kueri pengguna',
-			'user_filter_help' => 'Jika hanya ada satu kueri pengguna, itu akan digunakan. Jika tidak, kueri dapat diakses dengan nomornya.',
-			'views' => 'Tampilan',
-		),
-		'user' => array(
-			'articles_and_size' => '%s artikel (%s)',
-			'current' => 'Pengguna saat ini',
-			'is_admin' => 'adalah administrator',
-			'users' => 'Pengguna',
-		),
-	);
+	),
+	'sharing' => array(
+		'_' => 'Sharing',	// TODO
+		'add' => 'Add a sharing method',	// TODO
+		'blogotext' => 'Blogotext',	// IGNORE
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// TODO
+		'facebook' => 'Facebook',	// IGNORE
+		'more_information' => 'More information',	// TODO
+		'print' => 'Print',	// TODO
+		'raindrop' => 'Raindrop.io',	// TOIGNOREDO
+		'remove' => 'Remove sharing method',	// TODO
+		'shaarli' => 'Shaarli',	// IGNORE
+		'share_name' => 'Share name to display',	// TODO
+		'share_url' => 'Share URL to use',	// TODO
+		'title' => 'Sharing',	// TODO
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
+	),
+	'shortcut' => array(
+		'_' => 'Pintasan',
+		'article_action' => 'Tindakan artikel',
+		'auto_share' => 'Bagikan',
+		'auto_share_help' => 'Jika hanya ada satu mode berbagi, itu akan digunakan. Jika tidak, mode dapat diakses dengan nomornya.',
+		'close_dropdown' => 'Tutup menu',
+		'collapse_article' => 'Ciutkan',
+		'first_article' => 'Buka artikel pertama',
+		'focus_search' => 'Akses kotak pencarian',
+		'global_view' => 'Beralih ke tampilan global',
+		'help' => 'Tampilkan dokumentasi',
+		'javascript' => 'JavaScript harus diaktifkan untuk menggunakan pintasan',
+		'last_article' => 'Buka artikel terakhir',
+		'load_more' => 'Muat lebih banyak artikel',
+		'mark_favorite' => 'Toggle favorit',
+		'mark_read' => 'Toggle baca',
+		'navigation' => 'Navigasi',
+		'navigation_help' => 'Dengan modifikasi <kbd>⇧ Shift</kbd>, pintasan navigasi berlaku pada feed.<br/>Dengan modifikasi <kbd>Alt ⎇</kbd>, pintasan navigasi berlaku pada kategori.',
+		'navigation_no_mod_help' => 'Pintasan navigasi berikut tidak mendukung modifikasi.',
+		'next_article' => 'Buka artikel berikutnya',
+		'next_unread_article' => 'Buka artikel berikutnya yang belum dibaca',
+		'non_standard' => 'Beberapa tombol (<kbd>%s</kbd>) mungkin tidak berfungsi sebagai pintasan.',
+		'normal_view' => 'Beralih ke tampilan normal',
+		'other_action' => 'Tindakan lainnya',
+		'previous_article' => 'Buka artikel sebelumnya',
+		'reading_view' => 'Beralih ke tampilan membaca',
+		'rss_view' => 'Buka sebagai umpan RSS',
+		'see_on_website' => 'Lihat di situs web asli',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> untuk menandai artikel sebelumnya sebagai telah dibaca<br />+ <kbd>⇧ Shift</kbd> untuk menandai semua artikel sebagai telah dibaca',
+		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
+		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
+		'title' => 'Pintasan',
+		'toggle_media' => 'Putar/jeda media',
+		'user_filter' => 'Akses kueri pengguna',
+		'user_filter_help' => 'Jika hanya ada satu kueri pengguna, itu akan digunakan. Jika tidak, kueri dapat diakses dengan nomornya.',
+		'views' => 'Tampilan',
+	),
+	'user' => array(
+		'articles_and_size' => '%s artikel (%s)',
+		'current' => 'Pengguna saat ini',
+		'is_admin' => 'adalah administrator',
+		'users' => 'Pengguna',
+	),
+);
