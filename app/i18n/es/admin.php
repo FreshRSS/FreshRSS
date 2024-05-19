@@ -205,7 +205,7 @@ return array(
 		'copiedFromURL' => 'update.php copiado desde %s a ./data',
 		'current_version' => 'Dispones de la versión',
 		'last' => 'Última comprobación',
-		'loading' => 'Actualizando...',
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
 		'releaseChannel' => array(
 			'_' => 'Canal de publicación',
