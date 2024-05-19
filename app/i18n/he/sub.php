@@ -68,7 +68,7 @@ return array(
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
 		'filteractions' => array(
