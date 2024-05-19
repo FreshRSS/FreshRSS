@@ -545,10 +545,6 @@ th {
 	padding: 5px;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux:not(.current):hover .item.title {
 }
 

@@ -161,8 +161,9 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
 					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
 					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION):
 				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTPATH);
+					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTNOTATION);
 					break;
 				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
 					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
@@ -254,7 +255,7 @@ class FreshRSS_Import_Service {
 				$jsonSettings['itemUid'] = $feed_elt['frss:jsonItemUid'];
 			}
 			if (!empty($jsonSettings)) {
-				$feed->_attribute('json_dotpath', $jsonSettings);
+				$feed->_attribute('json_dotnotation', $jsonSettings);
 			}
 
 			$curl_params = [];
@@ -283,7 +284,7 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_PROXY] = $feed_elt['frss:CURLOPT_PROXY'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_PROXYTYPE'])) {
-				$curl_params[CURLOPT_PROXYTYPE] = $feed_elt['frss:CURLOPT_PROXYTYPE'];
+				$curl_params[CURLOPT_PROXYTYPE] = (int)$feed_elt['frss:CURLOPT_PROXYTYPE'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_USERAGENT'])) {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];

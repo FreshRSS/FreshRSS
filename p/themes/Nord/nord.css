@@ -630,7 +630,7 @@ img.favicon {
 }
 
 .aside_feed .tree-folder-items.active {
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
 	background-color: var(--main-background);
 }
 
@@ -760,10 +760,6 @@ li.item.active {
 	padding: 0.25rem;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux .bottom {
 	font-size: 0.8rem;
 	text-align: center;
@@ -778,23 +774,23 @@ li.item.active {
 	background: var(--accent-bg);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--accent-bg);
 	transition: .3s;
 }
 
-.flux .flux_header .item.title a {
+.flux .flux_header .item .title {
 	color: var(--text-default);
 }
 
-.flux .flux_header .item.title .summary {
+.flux .flux_header .item .title .summary {
 	color: var(--text-accent);
 	font-size: 0.8rem;
 	font-style: italic;
 	opacity: 0.8;
 }
 
-.flux .flux_header .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--text-accent);
 	opacity: 0.8;
 }
@@ -1091,7 +1087,7 @@ optgroup::before {
 }
 
 .nav-list .nav-header {
-	padding: 1rem 1rem 0 1rem;
+	padding: 0 1rem;
 	font-weight: bold;
 }
 

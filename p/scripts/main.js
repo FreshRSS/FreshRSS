@@ -1085,7 +1085,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.title > a');
+		el = ev.target.closest('.item a.title');
 		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
 			return ev.ctrlKey || ev.metaKey;
 		}
@@ -1193,7 +1193,7 @@ function init_stream(stream) {
 			return;
 		}
 
-		let el = ev.target.closest('.item.title > a');
+		let el = ev.target.closest('.item a.title');
 		if (el) {
 			if (ev.which == 1) {
 				if (ev.ctrlKey) {	// Control+click

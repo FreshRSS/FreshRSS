@@ -57,7 +57,7 @@ See also another option for Authentik, [using the OAuth2 Provider with OpenID](1
 ## No Authentication
 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
-It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
+It is never advisable to not use any form of authentication, but **never** choose this option on a server that is able to be accessed outside of your home network.
 
 ## OpenID Connect
 

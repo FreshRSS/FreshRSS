@@ -897,7 +897,7 @@ a:hover .logo {
 	.current {
 		background-color: var(--color-background-hover);
 
-		&:not(.current):hover .item.title {
+		&:not(.current):hover .item .title {
 			background-color: var(--color-background-hover);
 		}
 	}
@@ -905,7 +905,7 @@ a:hover .logo {
 	&.favorite:not(.current) {
 		background-color: var(--color-background-stared);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-stared);
 		}
 	}
@@ -913,16 +913,14 @@ a:hover .logo {
 	&.not_read:not(.current) {
 		background-color: var(--color-background-unread);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-unread);
 		}
 	}
 
-	.item {
-		&.date {
-			color: var(--color-text-light-darker);
-			font-size: 0.7rem;
-		}
+	.flux_header .date,
+	.flux_content .bottom .date {
+		color: var(--color-text-light-darker);
 	}
 
 	.bottom {
@@ -1094,7 +1092,7 @@ a.signin {
 		text-align: center;
 	}
 
-	.flux:not(.current):hover .item.title {
+	.flux:not(.current):hover .item .title {
 		top: auto !important;
 	}
 

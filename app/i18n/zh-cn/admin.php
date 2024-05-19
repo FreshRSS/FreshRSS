@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP（面向启用 HTTPS 的高级用户)',
 		'none' => '无（危险）',
 		'title' => '认证',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => '主验证 token',
+		'token_help' => '允许不验证而访问用户的全部 RSS 输出以及刷新订阅源：',
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
 	),
@@ -213,7 +213,7 @@ return array(
 			'latest' => '稳定版本 (“latest”)',
 		),
 		'title' => '更新系统',
-		'viaGit' => '开始通过 git and Github.com 更新',
+		'viaGit' => '开始通过 git and GitHub.com 更新',
 	),
 	'user' => array(
 		'admin' => '管理员',
