@@ -59,9 +59,7 @@ return array(
 				'description' => 'Tema ini tidak lagi didukung dan tidak akan tersedia lagi pada <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">rilis mendatang FreshRSS</a>',
 			),
 		),
-
 		'theme_not_available' => 'Tema "%s" tidak lagi tersedia. Silakan pilih tema lain.',
-
 		'thumbnail' => array(
 			'label' => 'Thumbnail',
 			'landscape' => 'Lanskap',
@@ -69,11 +67,8 @@ return array(
 			'portrait' => 'Potret',
 			'square' => 'Persegi',
 		),
-
 		'timezone' => 'Zona waktu',
-
 		'title' => 'Tampilan',
-
 		'website' => array(
 			'full' => 'Ikon dan nama',
 			'icon' => 'Hanya ikon',
@@ -81,7 +76,6 @@ return array(
 			'name' => 'Hanya nama',
 			'none' => 'Tidak ada',
 		),
-
 		'width' => array(
 			'content' => 'Lebar konten',
 			'large' => 'Lebar',
@@ -103,7 +97,6 @@ return array(
 			'previous' => 'Sebelumnya',
 		),
 	),
-
 	'profile' => array(
 		'_' => 'Manajemen Profil',
 		'api' => 'Manajemen API',
@@ -117,7 +110,6 @@ return array(
 		'password_format' => 'Minimal 7 karakter',
 		'title' => 'Profil',
 	),
-
 	'query' => array(
 		'_' => 'Permintaan Pengguna',
 		'deprecated' => 'Permintaan ini tidak valid lagi. Kategori atau feed yang dirujuk telah dihapus.',
@@ -174,11 +166,8 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Membaca',
-
 		'after_onread' => 'Setelah “tandai semua sebagai telah dibaca”',
-
 		'always_show_favorites' => 'Selalu tampilkan semua artikel favorit secara default',
-
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Penulis dan tanggal',
@@ -187,15 +176,12 @@ return array(
 				'header' => 'Di header',
 				'none' => 'Tidak ada',
 			),
-
 			'feed_name' => array(
 				'above_title' => 'Di atas judul/tag',
 				'none' => 'Tidak ada',
 				'with_authors' => 'Di baris penulis dan tanggal',
 			),
-
 			'feed_title' => 'Judul feed',
-
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'Di header dan footer',
@@ -203,7 +189,6 @@ return array(
 				'header' => 'Di header',
 				'none' => 'Tidak ada',
 			),
-
 			'tags_max' => array(
 				'_' => 'Jumlah maksimum tag yang ditampilkan',
 				'help' => '0 berarti: tampilkan semua tag dan jangan lipat',
@@ -321,7 +306,6 @@ return array(
 			'user_filter_help' => 'Jika hanya ada satu kueri pengguna, itu akan digunakan. Jika tidak, kueri dapat diakses dengan nomornya.',
 			'views' => 'Tampilan',
 		),
-
 		'user' => array(
 			'articles_and_size' => '%s artikel (%s)',
 			'current' => 'Pengguna saat ini',

@@ -27,7 +27,7 @@ return array(
 	'check_install' => array(
 		'cache' => array(
 			'nok' => 'Periksa izin <em>./data/cache</em> direktori. HTTP server harus memiliki izin menulis.',
-			'ok' => 'Izin direktori cache bagus',	// DIRTY
+			'ok' => 'Izin direktori cache bagus',
 		),
 		'categories' => array(
 			'nok' => 'Tabel kategori dikonfigurasi secara tidak tepat.',
@@ -70,7 +70,7 @@ return array(
 			'nok' => 'Tidak dapat menemukan PHP fileinfo library (fileinfo package).',
 			'ok' => 'Kamu memiliki library fileinfo.',
 		),
-		'files' => 'Instalasi File',	// TO
+		'files' => 'Instalasi File',
 		'json' => array(
 			'nok' => 'Tidak dapat menemukan JSON (php-json package).',
 			'ok' => 'Anda memiliki ekstensi JSON.',
