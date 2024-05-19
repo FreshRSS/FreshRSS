@@ -213,7 +213,7 @@ return array(
 			'latest' => '안정 릴리즈 (“latest”)',
 		),
 		'title' => '업데이트',
-		'viaGit' => 'Git 및 Github.com을 통한 업데이트 시작 됨',
+		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',
 	),
 	'user' => array(
 		'admin' => '관리자',
