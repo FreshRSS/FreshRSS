@@ -1,5 +1,5 @@
-.vscode/
-bin/
+.git/
+*.min.js
 node_modules/
 symbolic/
 third-party/

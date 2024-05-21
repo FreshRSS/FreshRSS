@@ -1,0 +1,9 @@
+{
+	"esversion" : 8,
+	"browser" : true,
+	"globals": {
+		"confirm": true,
+		"console": true
+	},
+	"strict": "global"
+}

@@ -1,0 +1,24 @@
+parameters:
+	level: 0
+	treatPhpDocTypesAsCertain: false
+	fileExtensions:
+		- php
+		- phtml
+	paths:
+		- ../FreshRSS
+		- third-party/
+	excludePaths:
+		analyse:
+			- ../FreshRSS
+			- third-party/*/vendor/*
+		analyseAndScan:
+			- .git/
+			- node_modules/
+			- symbolic/
+			- third-party/*/tests/*
+			- tmp/
+			- vendor/
+			- xExtension-*
+	dynamicConstantNames:
+		- TYPE_GIT
+	reportMaybesInPropertyPhpDocTypes: false

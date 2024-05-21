@@ -1,0 +1,8 @@
+{
+	"name": "TinyTinyRSS API",
+	"author": "Marien Fressinaud",
+	"description": "Provides an API compliant with TinyTinyRSS applications.",
+	"version": "0.1",
+	"entrypoint": "TTRSS_API",
+	"type": "system"
+}

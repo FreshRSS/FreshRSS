@@ -1,0 +1,8 @@
+{
+	"name": "ShowFeedID",
+	"author": "math-GH",
+	"description": "Show the ID of feed and category",
+	"version": "0.3.0",
+	"entrypoint": "ShowFeedID",
+	"type": "user"
+}
