@@ -4,7 +4,7 @@
 #
 
 app = 'lindenrss'
-primary_region = 'lax'
+primary_region = 'nrt'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
 
