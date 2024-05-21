@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for lindenrss on 2024-05-21T12:07:38+08:00
+# fly.toml app configuration file generated for lindenrss on 2024-05-21T12:26:34+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'lindenrss'
-primary_region = 'nrt'
+primary_region = 'sin'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
 
