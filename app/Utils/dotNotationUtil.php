@@ -21,7 +21,7 @@ final class FreshRSS_dotNotation_Util
 			return static::value($default);
 		}
 		/** @var \ArrayAccess<string,mixed>|array<string,mixed> $array */
-		if (in_array($key, [null, '', '.'], true)) {
+		if (in_array($key, [null, '', '.', '$'], true)) {
 			return $array;
 		}
 
