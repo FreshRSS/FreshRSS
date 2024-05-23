@@ -1,5 +1,8 @@
 ﻿# FreshRSS changelog
 
+## 2024-XX-XX FreshRSS 1.24.1-dev
+
+
 ## 2024-05-23 FreshRSS 1.24.0
 
 * Features
