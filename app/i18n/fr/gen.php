@@ -30,9 +30,9 @@ return array(
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Article suivant',
+			'prev' => 'Article précédent',
+			'up' => 'Aller en haut',
 		),
 		'open_url' => 'Ouvrir l’URL',
 		'promote' => 'Promouvoir',
