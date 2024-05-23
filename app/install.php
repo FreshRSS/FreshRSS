@@ -117,9 +117,6 @@ function saveStep2(): void {
 					'bd_prefix' => substr($_POST['prefix'], 0, 16),
 				]);
 		}
-		if (Minz_Session::paramString('bd_type') === 'pgsql') {
-			Minz_Session::_param('bd_base', strtolower(Minz_Session::paramString('bd_base')));
-		}
 
 		// We use dirname to remove the /i part
 		$base_url = dirname(Minz_Request::guessBaseUrl());
