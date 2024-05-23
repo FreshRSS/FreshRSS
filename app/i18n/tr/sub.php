@@ -70,7 +70,7 @@ return array(
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
 		'export-as-opml' => array(
 			'download' => 'İndir',
-			'help' => 'XML dosyası',
+			'help' => 'XML dosyası (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'OPML olarak dışarı aktar',
 		),
 		'filteractions' => array(

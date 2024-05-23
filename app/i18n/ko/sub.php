@@ -70,7 +70,7 @@ return array(
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'export-as-opml' => array(
 			'download' => '다운로드',
-			'help' => 'XML 파일',
+			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'OPML로 내보내기',
 		),
 		'filteractions' => array(

@@ -70,7 +70,7 @@ return array(
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
-			'help' => 'XML file',	// IGNORE
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// IGNORE
 			'label' => 'Export as OPML',	// IGNORE
 		),
 		'filteractions' => array(

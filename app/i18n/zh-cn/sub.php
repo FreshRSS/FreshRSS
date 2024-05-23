@@ -70,7 +70,7 @@ return array(
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
 		'export-as-opml' => array(
 			'download' => '下载',
-			'help' => 'XML 文件',
+			'help' => 'XML 文件 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => '导出为 OPML',
 		),
 		'filteractions' => array(

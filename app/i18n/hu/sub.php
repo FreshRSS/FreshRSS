@@ -70,7 +70,7 @@ return array(
 		'error' => 'Ez a hírforrás nem működik. Ellenőrizd az elérhetőségét és frissítsd.',
 		'export-as-opml' => array(
 			'download' => 'Letöltés',
-			'help' => 'XML fájl',
+			'help' => 'XML fájl (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportálás OPML formátumban',
 		),
 		'filteractions' => array(
