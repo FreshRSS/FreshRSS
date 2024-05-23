@@ -134,7 +134,7 @@ return array(
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡Nuevos artículos!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Sin etiquetas',
 		'new_article' => 'Hay nuevos artículos disponibles. Pincha para refrescar la página.',
 		'should_be_activated' => 'JavaScript debe estar activado',
 	),

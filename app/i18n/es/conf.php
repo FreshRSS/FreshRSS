@@ -56,7 +56,7 @@ return array(
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
+				'_' => 'Obsoleto',
 				'description' => 'Este tema no tiene soporte y no volvera a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',
 			),
 		),
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Mostrar por feed',
 			'order' => 'Ordenar por fecha',
 			'search' => 'Expresión',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Permitir que OPML comparta las categorías y feeds correspondientes',
+			'shareRss' => 'Permite compartir por HTML &amp; RSS',
 			'state' => 'Estado',
 			'tags' => 'Mostrar por etiqueta',
 			'type' => 'Tipo',
 		),
 		'get_all' => 'Mostrar todos los artículos',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Mostrar artículos con cualquier etiqueta',
 		'get_category' => 'Mostrar la categoría “%s”',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Mostrar artículos de feeds importantes',
+		'get_label' => 'Mostrar artículos con la etiqueta “%s”',
+		'help' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentación para consultas de usuarios y compartir mediante HTML / RSS / OPML</a>.',
 		'name' => 'Nombre',
 		'no_filter' => 'Sin filtro',
 		'number' => 'Consulta n° %d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Mostrar primero los artículos más recientes',
 		'search' => 'Buscar “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Comparte esta consulta por enlace',
+			'help' => 'Dale este enlace si quieres compartir esta consulta con alguien',
+			'html' => 'Enlace para compartir a la página HTML',
+			'opml' => 'Enlace para compartir a la lista de feeds de OPML',
+			'rss' => 'Enlace para compartir a la fuente RSS',
 		),
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'cuando el artículo se abra en su web original',
 			'article_viewed' => 'cuando se muestre el artículo',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'cuando tiene el foco (excepto para feed importantes)',
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
-			'scroll' => 'durante el desplazamiento (except for important feeds)',	// DIRTY
+			'scroll' => 'durante el desplazamiento (excepto para feed importantes)',
 			'upon_gone' => 'cuando ya no está disponible en el feed de noticias previo',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
