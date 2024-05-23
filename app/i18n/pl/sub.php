@@ -68,7 +68,7 @@ return array(
 		'error' => 'Napotkano problem podczas dostępu do tego kanału. Należy sprawdzić czy kanał jest zawsze dostępny, a następnie go odświeżyć.',
 		'export-as-opml' => array(
 			'download' => 'Pobierz',
-			'help' => 'Plik XML',
+			'help' => 'Plik XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Eksportuj OPML',
 		),
 		'filteractions' => array(
