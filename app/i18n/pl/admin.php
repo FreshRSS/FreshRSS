@@ -19,10 +19,10 @@ return array(
 		'http' => 'HTTP (dla zaawansowanych użytkowników, z wykorzystaniem HTTPS)',
 		'none' => 'Brak (niebezpieczna)',
 		'title' => 'Uwierzytelnianie',
-		'token' => 'Token uwierzytelniania',
-		'token_help' => 'Pozwala na dostęp do treści RSS domyślnego użytkownika bez uwierzytelnienia:',
+		'token' => 'Główny token uwierzytelniania',
+		'token_help' => 'Umożliwia dostęp do wszystkich kanałów RSS użytkownika, jak również odświeżanie kanałów bez uwierzytelnienia:',
 		'type' => 'Metoda uwierzytelniania',
-		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem:	-> todo',
+		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Konfiguracja serwisu',
 		'auto-update-url' => 'Adres serwera automatycznej aktualizacji',
+		'base-url' => array(
+			'_' => 'Baza URL-a',
+			'recommendation' => 'Automatyczne zalecenie: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',
@@ -183,29 +187,33 @@ return array(
 			),
 			'title' => 'Formularz rejestracji użytkowników',
 		),
+		'sensitive-parameter' => 'Czuły parametr. Należy go ustawić ręcznie w <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'nie zostały ustalone',
+			'enabled' => '<a href="./?a=tos">włączone</a>',
+			'help' => 'W jaki sposób włączyć <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Warunki użytkowania</a>',
+		),
+		'websub' => array(
+			'help' => 'O protokole <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Aktualizacja',
 		'apply' => 'Zastosuj',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'lista zmian',
 		'check' => 'Szukaj uaktualnień',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Używana wersja FreshRSS to %s.',
-		'last' => 'Ostatnie sprawdzenie: %s',
-		'loading' => 'Updating…',	// TODO
+		'copiedFromURL' => 'update.php skopiowany z %s do ./data',
+		'current_version' => 'Używana wersja',
+		'last' => 'Ostatnie sprawdzenie',
+		'loading' => 'Aktualizowanie…',
 		'none' => 'Brak nowych aktualizacji',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Kanał aktualizacji',
+			'edge' => 'Wersja rozwojowa (“edge”)',
+			'latest' => 'Wersja stabilna (“latest”)',
 		),
 		'title' => 'Aktualizacja',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Rozpoczęto aktualizację gitem do najnowszej wersji z GitHuba',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

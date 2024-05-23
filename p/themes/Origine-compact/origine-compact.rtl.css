@@ -130,6 +130,9 @@
 
 /*=== Content of feed articles */
 /*=== Notification and actualize notification */
+.notification {
+	padding: 0.5rem 0.5rem 0.5rem 3rem;
+}
 /*=== "Load more" part */
 #bigMarkAsRead {
 	font-size: 1.2em;

@@ -1,28 +1,17 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Manage the reading modes in FreshRSS.
  */
 class FreshRSS_ReadingMode {
 
-	/**
-	 * @var string
-	 */
-	protected $id;
-	/**
-	 * @var string
-	 */
-	protected $name;
-	/**
-	 * @var string
-	 */
-	protected $title;
+	protected string $id;
+	protected string $name;
+	protected string $title;
 	/** @var array{'c':string,'a':string,'params':array<string,mixed>} */
-	protected $urlParams;
-	/**
-	 * @var bool
-	 */
-	protected $isActive = false;
+	protected array $urlParams;
+	protected bool $isActive = false;
 
 	/**
 	 * ReadingMode constructor.
@@ -87,26 +76,26 @@ class FreshRSS_ReadingMode {
 		$isDefaultCtrl = Minz_Request::controllerName() === $defaultCtrl;
 		$urlOutput = Minz_Request::currentRequest();
 
-		$readingModes = array(
+		$readingModes = [
 			new FreshRSS_ReadingMode(
 				"view-normal",
 				_t('index.menu.normal_view'),
-				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'normal')),
+				array_merge($urlOutput, ['c' => $defaultCtrl, 'a' => 'normal']),
 				($isDefaultCtrl && $actualView === 'normal')
 			),
 			new FreshRSS_ReadingMode(
 				"view-global",
 				_t('index.menu.global_view'),
-				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'global')),
+				array_merge($urlOutput, ['c' => $defaultCtrl, 'a' => 'global']),
 				($isDefaultCtrl && $actualView === 'global')
 			),
 			new FreshRSS_ReadingMode(
 				"view-reader",
 				_t('index.menu.reader_view'),
-				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'reader')),
+				array_merge($urlOutput, ['c' => $defaultCtrl, 'a' => 'reader']),
 				($isDefaultCtrl && $actualView === 'reader')
-			),
-		);
+			)
+		];
 
 		return $readingModes;
 	}

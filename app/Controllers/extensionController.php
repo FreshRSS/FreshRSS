@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The controller to manage extensions.
@@ -9,6 +10,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -20,12 +22,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		FreshRSS_View::prependTitle(_t('admin.extensions.title') . ' · ');
-		$this->view->extension_list = array(
-			'system' => array(),
-			'user' => array(),
-		);
+		$this->view->extension_list = [
+			'system' => [],
+			'user' => [],
+		];
 
-		$this->view->extensions_installed = array();
+		$this->view->extensions_installed = [];
 
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
@@ -38,7 +40,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * fetch extension list from GitHub
-	 * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
+	 * @return array<array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
 	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
@@ -47,23 +49,35 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		// we ran into problems, simply ignore them
 		if ($json === false) {
 			Minz_Log::error('Could not fetch available extension from GitHub');
-			return array();
+			return [];
 		}
 
 		// fetch the list as an array
-		/** @var array<string,mixed> */
+		/** @var array<string,mixed> $list*/
 		$list = json_decode($json, true);
-		if (empty($list)) {
+		if (!is_array($list) || empty($list['extensions']) || !is_array($list['extensions'])) {
 			Minz_Log::warning('Failed to convert extension file list');
-			return array();
+			return [];
 		}
 
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
-		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> */
-		$extensions = $list['extensions'];
-
+		$extensions = [];
+		foreach ($list['extensions'] as $extension) {
+			if (isset($extension['version']) && is_numeric($extension['version'])) {
+				$extension['version'] = (string)$extension['version'];
+			}
+			foreach (['author', 'description', 'directory', 'entrypoint', 'method', 'name', 'type', 'url', 'version'] as $key) {
+				if (empty($extension[$key]) || !is_string($extension[$key])) {
+					continue 2;
+				}
+			}
+			if (!in_array($extension['type'], ['system', 'user'], true)) {
+				continue;
+			}
+			$extensions[] = $extension;
+		}
 		return $extensions;
 	}
 
@@ -112,7 +126,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * - e: the extension name (urlencoded).
 	 */
 	public function enableAction(): void {
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::paramString('e'));
@@ -135,9 +149,9 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->install();
@@ -174,7 +188,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * - e: the extension name (urlencoded).
 	 */
 	public function disableAction(): void {
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::paramString('e'));
@@ -197,9 +211,9 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->uninstall();
@@ -240,7 +254,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$url_redirect = array('c' => 'extension', 'a' => 'index');
+		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::paramString('e'));

@@ -1,15 +1,17 @@
 <?php
+declare(strict_types=1);
+
 if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
 const EXIT_CODE_ALREADY_EXISTS = 3;
-const REGEX_INPUT_OPTIONS = '/^--/';
-const REGEX_PARAM_OPTIONS = '/:*$/';
 
 require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
+require_once(__DIR__ . '/CliOption.php');
+require_once(__DIR__ . '/CliOptionsParser.php');
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
@@ -33,11 +35,12 @@ function cliInitUser(string $username): string {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	if (!FreshRSS_Context::initUser($username)) {
+	FreshRSS_Context::initUser($username);
+	if (!FreshRSS_Context::hasUserConf()) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
-	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
 	Minz_ExtensionManager::enableByList($ext_list, 'user');
 
 	return $username;
@@ -70,34 +73,4 @@ function performRequirementCheck(string $databaseType): void {
 		}
 		fail($message);
 	}
-}
-
-/**
- * @param array<string> $options
- * @return array<string>
- */
-function getLongOptions(array $options, string $regex): array {
-	$longOptions = array_filter($options, static function (string $a) use ($regex) {
-		return preg_match($regex, $a);
-	});
-	return array_map(static function (string $a) use ($regex) {
-		return preg_replace($regex, '', $a);
-	}, $longOptions);
-}
-
-/**
- * @param array<string> $input
- * @param array<string> $params
- */
-function validateOptions(array $input, array $params): bool {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
-	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
-	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
-
-	if (0 === count($unknownOptions)) {
-		return true;
-	}
-
-	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
-	return false;
 }

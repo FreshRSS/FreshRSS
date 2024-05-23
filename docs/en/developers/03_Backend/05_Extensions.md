@@ -2,7 +2,7 @@
 
 ## About FreshRSS
 
-FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on Github: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on GitHub: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## The problem
 
@@ -131,15 +131,26 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
 
-```html
-class HelloWorldExtension extends Minz_Extension
+```php
+final class HelloWorldExtension extends Minz_Extension
 {
-	public function init() {
-		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+	#[\Override]
+	public function init(): void {
+		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}
-	public function renderEntry($entry) {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+
+	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
+		$message = $this->getUserConfigurationValue('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```
@@ -147,6 +158,8 @@ class HelloWorldExtension extends Minz_Extension
 The following events are available:
 
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
+* `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
@@ -161,6 +174,19 @@ The following events are available:
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
 * `post_update` (`function(none) -> none`): **TODO** add documentation.
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
+
+### Injecting CDN content
+
+When using the `init` method, it is possible to inject scripts from CDN using the `Minz_View::appendScript` directive.
+FreshRSS will include the script in the page but will not load it since it will be blocked by the default content security policy (**CSP**).
+To amend the existing CSP, you need to define the extension CSP policies:
+```php
+// in the extension.php file
+protected array $csp_policies = [
+	'default-src' => 'example.org',
+];
+```
+This will only amend the extension CSP to FreshRSS CSP.
 
 ### Writing your own configure.phtml
 

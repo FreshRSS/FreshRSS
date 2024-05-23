@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 final class FreshRSS_LogDAO {
 	public static function logPath(?string $logFileName = null): string {

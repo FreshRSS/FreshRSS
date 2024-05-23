@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle application statistics.
@@ -7,7 +8,6 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @var FreshRSS_ViewStats
-	 * @phpstan-ignore-next-line
 	 */
 	protected $view;
 
@@ -20,6 +20,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -32,12 +33,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		]);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-
 		$catDAO->checkDefault();
-		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listSortedCategories(false) ?: [];
-		$this->view->default_category = $catDAO->getDefault();
 
 		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
@@ -104,9 +101,9 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$id = Minz_Request::paramInt('id');
 		$ajax = Minz_Request::paramBoolean('ajax');
 		if ($ajax) {
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => 'stats', 'ajax' => (string)$ajax));
+			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => 'stats', 'ajax' => (string)$ajax]];
 		} else {
-			$url_redirect = array('c' => 'subscription', 'a' => 'feed', 'params' => array('id' => (string)$id, 'from' => 'stats'));
+			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => 'stats']];
 		}
 		Minz_Request::forward($url_redirect, true);
 	}
@@ -130,16 +127,16 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate() ?: [];
-		$idleFeeds = array(
-			'last_5_year' => array(),
-			'last_3_year' => array(),
-			'last_2_year' => array(),
-			'last_year' => array(),
-			'last_6_month' => array(),
-			'last_3_month' => array(),
-			'last_month' => array(),
-			'last_week' => array(),
-		);
+		$idleFeeds = [
+			'last_5_year' => [],
+			'last_3_year' => [],
+			'last_2_year' => [],
+			'last_year' => [],
+			'last_6_month' => [],
+			'last_3_month' => [],
+			'last_month' => [],
+			'last_week' => [],
+		];
 		$now = new \DateTime();
 		$feedDate = clone $now;
 		$lastWeek = clone $now;
@@ -197,7 +194,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		if ($id !== 0) {
 			$this->view->displaySlider = true;
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$this->view->feed = $feedDAO->searchById($id);
+			$this->view->feed = $feedDAO->searchById($id) ?? FreshRSS_Feed::default();
 		}
 	}
 
@@ -225,8 +222,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 			$id = null;
 		}
 
-		$this->view->categories 	= $categoryDAO->listCategories() ?: [];
-		$this->view->feed 			= $id === null ? null : $feedDAO->searchById($id);
+		$this->view->categories 	= $categoryDAO->listCategories(true) ?: [];
+		$this->view->feed 			= $id === null ? FreshRSS_Feed::default() : ($feedDAO->searchById($id) ?? FreshRSS_Feed::default());
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();
 

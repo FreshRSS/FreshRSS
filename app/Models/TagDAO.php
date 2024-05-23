@@ -1,45 +1,10 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_TagDAO extends Minz_ModelPdo {
 
 	public function sqlIgnore(): string {
 		return 'IGNORE';
-	}
-
-	public function createTagTable(): bool {
-		$ok = false;
-		$hadTransaction = $this->pdo->inTransaction();
-		if ($hadTransaction) {
-			$this->pdo->commit();
-		}
-		try {
-			require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-
-			Minz_Log::warning('SQL ALTER GUID case sensitivity…');
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->ensureCaseInsensitiveGuids();
-
-			Minz_Log::warning('SQL CREATE TABLE tag…');
-			$ok = $this->pdo->exec($GLOBALS['SQL_CREATE_TABLE_TAGS']) !== false;
-		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
-		}
-		if ($hadTransaction) {
-			$this->pdo->beginTransaction();
-		}
-		return $ok;
-	}
-
-	/** @param array<string> $errorInfo */
-	protected function autoUpdateDb(array $errorInfo): bool {
-		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
-				if (stripos($errorInfo[2], 'tag') !== false) {
-					return $this->createTagTable();	//v1.12.0
-				}
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -56,15 +21,15 @@ WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
 
-		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, 63, 'UTF-8');
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = array(
+		$values = [
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
-		);
+		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
 			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
@@ -80,10 +45,10 @@ SQL;
 	public function addTagObject(FreshRSS_Tag $tag) {
 		$tag0 = $this->searchByName($tag->name());
 		if (!$tag0) {
-			$values = array(
+			$values = [
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
-			);
+			];
 			return $this->addTag($values);
 		}
 		return $tag->id();
@@ -93,15 +58,16 @@ SQL;
 	public function updateTagName(int $id, string $name) {
 		// No category of the same name
 		$sql = <<<'SQL'
-UPDATE `_tag` SET name=? WHERE id=?
-AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = ?)
+UPDATE `_tag` SET name = :name1 WHERE id = :id
+AND NOT EXISTS (SELECT 1 FROM `_category` WHERE name = :name2)
 SQL;
 
-		$name = mb_strcut(trim($name), 0, 63, 'UTF-8');
+		$name = mb_strcut(trim($name), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
-			$stm->bindValue(':name', $name, PDO::PARAM_STR) &&
+			$stm->bindValue(':name1', $name, PDO::PARAM_STR) &&
+			$stm->bindValue(':name2', $name, PDO::PARAM_STR) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -130,11 +96,12 @@ SQL;
 	}
 
 	/**
+	 * @param non-empty-string $key
 	 * @param mixed $value
 	 * @return int|false
 	 */
 	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, $value) {
-		$tag->_attributes($key, $value);
+		$tag->_attribute($key, $value);
 		return $this->updateTagAttributes($tag->id(), $tag->attributes());
 	}
 
@@ -148,7 +115,7 @@ SQL;
 		$sql = 'DELETE FROM `_tag` WHERE id=?';
 		$stm = $this->pdo->prepare($sql);
 
-		$values = array($id);
+		$values = [$id];
 
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
@@ -168,6 +135,7 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			/** @var array{'id':int,'name':string,'attributes'?:array<string,mixed>} $row */
 			yield $row;
 		}
 	}
@@ -181,6 +149,8 @@ SQL;
 			return;
 		}
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			FreshRSS_DatabaseDAO::pdoInt($row, ['id_tag']);
+			FreshRSS_DatabaseDAO::pdoString($row, ['id_entry']);
 			yield $row;
 		}
 	}
@@ -214,16 +184,16 @@ SQL;
 	public function searchById(int $id): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE id=:id', [':id' => $id]);
 		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
-		return $res === null ? null : self::daoToTag($res)[0] ?? null;
+		return $res === null ? null : (current(self::daoToTags($res)) ?: null);
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Tag {
 		$res = $this->fetchAssoc('SELECT * FROM `_tag` WHERE name=:name', [':name' => $name]);
 		/** @var array<array{'id':int,'name':string,'attributes'?:string}>|null $res */
-		return $res === null ? null : self::daoToTag($res)[0] ?? null;
+		return $res === null ? null : (current(self::daoToTags($res)) ?: null);
 	}
 
-	/** @return array<FreshRSS_Tag>|false */
+	/** @return array<int,FreshRSS_Tag>|false */
 	public function listTags(bool $precounts = false) {
 		if ($precounts) {
 			$sql = <<<'SQL'
@@ -241,12 +211,9 @@ SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC) ?: [];
-			return self::daoToTag($res);
+			return self::daoToTags($res);
 		} else {
 			$info = $this->pdo->errorInfo();
-			if ($this->autoUpdateDb($info)) {
-				return $this->listTags($precounts);
-			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -284,9 +251,6 @@ SQL;
 			return (int)$res[0]['count'];
 		}
 		$info = $this->pdo->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->count();
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return -1;
 	}
@@ -326,12 +290,41 @@ SQL;
 			$sql = 'DELETE FROM `_entrytag` WHERE id_tag=? AND id_entry=?';
 		}
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id_tag, $id_entry);
+		$values = [$id_tag, $id_entry];
 
 		if ($stm !== false && $stm->execute($values)) {
 			return true;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		return false;
+	}
+
+	/**
+	 * @param array<array{id_tag:int,id_entry:string}> $addLabels Labels to insert as batch
+	 * @return int|false Number of new entries or false in case of error
+	 */
+	public function tagEntries(array $addLabels) {
+		$hasValues = false;
+		$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES ';
+		foreach ($addLabels as $addLabel) {
+			$id_tag = (int)($addLabel['id_tag'] ?? 0);
+			$id_entry = $addLabel['id_entry'] ?? '';
+			if ($id_tag > 0 && ctype_digit($id_entry)) {
+				$sql .= "({$id_tag},{$id_entry}),";
+				$hasValues = true;
+			}
+		}
+		$sql = rtrim($sql, ',');
+		if (!$hasValues) {
+			return false;
+		}
+
+		$affected = $this->pdo->exec($sql);
+		if ($affected !== false) {
+			return $affected;
+		}
+		$info = $this->pdo->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -348,20 +341,17 @@ ORDER BY t.name
 SQL;
 
 		$stm = $this->pdo->prepare($sql);
-		$values = array($id_entry);
+		$values = [$id_entry];
 
 		if ($stm !== false && $stm->execute($values)) {
 			$lines = $stm->fetchAll(PDO::FETCH_ASSOC);
 			for ($i = count($lines) - 1; $i >= 0; $i--) {
-				$lines[$i]['id'] = intval($lines[$i]['id']);
+				$lines[$i]['id'] = (int)($lines[$i]['id']);
 				$lines[$i]['checked'] = !empty($lines[$i]['checked']);
 			}
 			return $lines;
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntry($id_entry);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -377,18 +367,23 @@ FROM `_tag` t
 INNER JOIN `_entrytag` et ON et.id_tag = t.id
 SQL;
 
-		$values = array();
+		$values = [];
 		if (count($entries) > 0) {
 			if (count($entries) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
 				$idsChunks = array_chunk($entries, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
-					$values += $this->getTagsForEntries($idsChunk);
+					$valuesChunk = $this->getTagsForEntries($idsChunk);
+					if (!is_array($valuesChunk)) {
+						return false;
+					}
+					$values = array_merge($values, $valuesChunk);
 				}
 				return $values;
 			}
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
 			if (is_array($entries[0])) {
+				/** @var array<array<string,string>> $entries */
 				foreach ($entries as $entry) {
 					if (!empty($entry['id'])) {
 						$values[] = $entry['id'];
@@ -400,6 +395,7 @@ SQL;
 					$values[] = $entry->id();
 				}
 			} else {
+				/** @var array<numeric-string> $entries */
 				foreach ($entries as $entry) {
 					$values[] = $entry;
 				}
@@ -411,25 +407,23 @@ SQL;
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
 		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
-		if ($this->autoUpdateDb($info)) {
-			return $this->getTagsForEntries($entries);
-		}
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
 
 	/**
-	 * For API
-	 * @param array<FreshRSS_Entry|numeric-string> $entries
-	 * @return array<string,array<string>>
+	 * Produces an array: for each entry ID (prefixed by `e_`), associate a list of labels.
+	 * Used by API and by JSON export, to speed up queries (would be very expensive to perform a label look-up on each entry individually).
+	 * @param array<FreshRSS_Entry|numeric-string> $entries the list of entries for which to retrieve the labels.
+	 * @return array<string,array<string>> An array of the shape `[e_id_entry => ["label 1", "label 2"]]`
 	 */
 	public function getEntryIdsTagNames(array $entries): array {
-		$result = array();
+		$result = [];
 		foreach ($this->getTagsForEntries($entries) ?: [] as $line) {
 			$entryId = 'e_' . $line['id_entry'];
 			$tagName = $line['name'];
 			if (empty($result[$entryId])) {
-				$result[$entryId] = array();
+				$result[$entryId] = [];
 			}
 			$result[$entryId][] = $tagName;
 		}
@@ -438,9 +432,9 @@ SQL;
 
 	/**
 	 * @param iterable<array{'id':int,'name':string,'attributes'?:string}> $listDAO
-	 * @return array<FreshRSS_Tag>
+	 * @return array<int,FreshRSS_Tag>
 	 */
-	private static function daoToTag(iterable $listDAO): array {
+	private static function daoToTags(iterable $listDAO): array {
 		$list = [];
 		foreach ($listDAO as $dao) {
 			if (empty($dao['id']) || empty($dao['name'])) {
@@ -449,12 +443,12 @@ SQL;
 			$tag = new FreshRSS_Tag($dao['name']);
 			$tag->_id($dao['id']);
 			if (!empty($dao['attributes'])) {
-				$tag->_attributes('', $dao['attributes']);
+				$tag->_attributes($dao['attributes']);
 			}
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);
 			}
-			$list[] = $tag;
+			$list[$tag->id()] = $tag;
 		}
 		return $list;
 	}

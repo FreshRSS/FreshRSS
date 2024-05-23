@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -21,7 +21,7 @@
 				<select name="new_user_language" id="new_user_language">
 				<?php $languages = Minz_Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
-				<option value="<?= $lang ?>"<?= FreshRSS_Context::$user_conf->language === $lang ?
+				<option value="<?= $lang ?>"<?= FreshRSS_Context::userConf()->language === $lang ?
 					' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
 				</select>
@@ -91,7 +91,7 @@
 	</form>
 
 	<h2><?= _t('admin.user.list'); ?></h2>
-	<div class="table-wrapper">
+	<div class="table-wrapper scrollbar-thin">
 		<table id="user-list">
 			<thead>
 				<tr>

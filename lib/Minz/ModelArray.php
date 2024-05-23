@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -10,9 +12,8 @@
 class Minz_ModelArray {
 	/**
 	 * $filename est le nom du fichier
-	 * @var string
 	 */
-	protected $filename;
+	protected string $filename;
 
 	/**
 	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename
@@ -23,7 +24,11 @@ class Minz_ModelArray {
 		$this->filename = $filename;
 	}
 
-	/** @return array<string,mixed> */
+	/**
+	 * @return array<string,mixed>
+	 * @throws Minz_FileNotExistException
+	 * @throws Minz_PermissionDeniedException
+	 */
 	protected function loadArray(): array {
 		if (!file_exists($this->filename)) {
 			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
@@ -45,6 +50,7 @@ class Minz_ModelArray {
 	/**
 	 * Sauve le tableau $array dans le fichier $filename
 	 * @param array<string,mixed> $array
+	 * @throws Minz_PermissionDeniedException
 	 */
 	protected function writeArray(array $array): bool {
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {

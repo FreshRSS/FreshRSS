@@ -1,14 +1,13 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
 	}
+	$isDefault = $this->details['is_default'];
+	$isAdmin = $this->details['is_admin'];
+	$enabled = $this->details['enabled'];
 ?>
-
-<?php $isDefault = $this->details['is_default']; ?>
-<?php $isAdmin = $this->details['is_admin']; ?>
-<?php $enabled = $this->details['enabled']; ?>
-
 <div class="post">
 	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
 	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">

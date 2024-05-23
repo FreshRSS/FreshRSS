@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // > Error: FreshRSS requires PHP, which does not seem to be installed or configured correctly! <!--
 
 # ***** BEGIN LICENSE BLOCK *****
@@ -62,7 +64,7 @@ if (!file_exists($applied_migrations_path)) {
 		$error = $e->getMessage();
 	}
 
-	if ($error) {
+	if ($error !== false) {
 		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $error);
 		FreshRSS::killApp($error);
 	}

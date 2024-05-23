@@ -6,7 +6,7 @@ SQL;
 $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` VARCHAR(255) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
 	`error` SMALLINT DEFAULT 0,	-- 1.20.0
@@ -19,13 +19,13 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`url` VARCHAR(32768) NOT NULL,
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`category` INTEGER DEFAULT 0,	-- 1.20.0
-	`name` VARCHAR(255) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	`website` VARCHAR(32768),
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`lastUpdate` BIGINT DEFAULT 0,
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
-	`pathEntries` VARCHAR(511) DEFAULT NULL,
-	`httpAuth` VARCHAR(511) DEFAULT NULL,
+	`pathEntries` VARCHAR(4096) DEFAULT NULL,
+	`httpAuth` VARCHAR(1024) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
 	`ttl` INT NOT NULL DEFAULT 0,
 	`attributes` TEXT,	-- v1.11.0
@@ -38,18 +38,18 @@ CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);
 
 CREATE TABLE IF NOT EXISTS `entry` (
 	`id` BIGINT NOT NULL,
-	`guid` VARCHAR(760) NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
+	`guid` VARCHAR(767) NOT NULL,
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content` TEXT,
-	`link` VARCHAR(1023) NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`link` VARCHAR(16383) NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
-	`tags` VARCHAR(1023),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -61,39 +61,31 @@ CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
-SQL;
 
-$GLOBALS['SQL_CREATE_INDEX_ENTRY_1'] = <<<'SQL'
-CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
-SQL;
-
-$GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
-	`guid` VARCHAR(760) NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
+	`guid` VARCHAR(767) NOT NULL,
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
 	`content` TEXT,
-	`link` VARCHAR(1023) NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`link` VARCHAR(16383) NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
-	`tags` VARCHAR(1023),
+	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
 );
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
-SQL;
 
-$GLOBALS['SQL_CREATE_TABLE_TAGS'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` VARCHAR(63) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	`attributes` TEXT,
 	UNIQUE (`name`)
 );
@@ -114,4 +106,7 @@ DROP TABLE IF EXISTS `entrytmp`;
 DROP TABLE IF EXISTS `entry`;
 DROP TABLE IF EXISTS `feed`;
 DROP TABLE IF EXISTS `category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
 SQL;

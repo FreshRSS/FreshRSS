@@ -2,7 +2,8 @@
   "extends": "stylelint-config-recommended-scss",
   "plugins": [
     "stylelint-order",
-    "stylelint-scss"
+    "stylelint-scss",
+    "@stylistic/stylelint-plugin"
   ],
   "rules": {
     "at-rule-empty-line-before": [
@@ -10,27 +11,27 @@
         "ignoreAtRules": [ "after-comment", "else" ]
       }
     ],
-    "at-rule-name-space-after": [
+    "@stylistic/at-rule-name-space-after": [
       "always", {
         "ignoreAtRules": [ "after-comment" ]
       }
     ],
-    "block-closing-brace-newline-after": [
+    "@stylistic/block-closing-brace-newline-after": [
       "always", {
         "ignoreAtRules": [ "if", "else" ]
       }
     ],
-    "block-closing-brace-newline-before": "always-multi-line",
-    "block-opening-brace-newline-after": "always-multi-line",
-    "block-opening-brace-space-before": "always",
-    "color-hex-case": "lower",
+    "@stylistic/block-closing-brace-newline-before": "always-multi-line",
+    "@stylistic/block-opening-brace-newline-after": "always-multi-line",
+    "@stylistic/block-opening-brace-space-before": "always",
+    "@stylistic/color-hex-case": "lower",
     "color-hex-length": "short",
     "color-no-invalid-hex": true,
-    "declaration-colon-space-after": "always",
-    "declaration-colon-space-before": "never",
-    "indentation": "tab",
+    "@stylistic/declaration-colon-space-after": "always",
+    "@stylistic/declaration-colon-space-before": "never",
+    "@stylistic/indentation": "tab",
     "no-descending-specificity": null,
-    "no-eol-whitespace": true,
+    "@stylistic/no-eol-whitespace": true,
     "property-no-vendor-prefix": true,
     "rule-empty-line-before": [
       "always", {

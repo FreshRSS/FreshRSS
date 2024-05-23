@@ -1,12 +1,13 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nUsageValidator.php';
 
 class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
-	/** @var I18nValue */
-	private $value;
 
+	private I18nValue $value;
+
+	#[\Override]
 	public function setUp(): void {
 		$this->value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()

@@ -57,15 +57,20 @@ return array(
 		),
 		'css_cookie' => '記事のコンテンツを読み出したとき、クッキーを使用する',
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '失敗したRSSフィードを再取得します (ただし、多くの時間が必要になります!)',
-		'css_path' => '元のwebサイトのCSS',
+		'css_help' => '省略されたRSSフィードを復元します (ただし、時間がかかります)',
+		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => array(
-			'_' => '削除される要素をCSSで選ぶ',
-			'help' => 'CSSセレクタは: <kbd> フッターやアサイド要素をリストにできます</kbd>',
+			'_' => '要素を削除するCSSセレクタ',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
+		'export-as-opml' => array(
+			'download' => 'ダウンロード',
+			'help' => 'XMLファイル (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'OPMLとしてエクスポート',
+		),
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -99,8 +104,8 @@ return array(
 					'help' => '例: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'カスタム日時フォーマット',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
 				),
 				'item_timestamp' => array(
 					'_' => '項目の日付',
@@ -121,8 +126,47 @@ return array(
 				'relative' => 'XPath (関連する項目):',
 				'xpath' => 'XPathは:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON（ドット記法）',
+				'feed_title' => array(
+					'_' => 'フィード名',
+					'help' => '例: <code>meta.title</code> または静的文字列: <code>"My custom feed"</code>',
+				),
+				'help' => 'JSONのドット表記は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
+				'item' => array(
+					'_' => '<strong>ニュース</strong>を探す<br /><small>(最重要)</small>',
+					'help' => '項目を含む配列へのJSONパス。 例: <code>newsItems</code>',
+				),
+				'item_author' => 'アイテム作成者',
+				'item_categories' => 'アイテムタグ',
+				'item_content' => array(
+					'_' => '項目内容',
+					'help' => 'コンテンツが存在するキー。例: <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'アイテムのサムネイル',
+					'help' => '例: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'カスタム日時フォーマット',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
+				),
+				'item_timestamp' => array(
+					'_' => 'アイテム日付',
+					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析される',
+				),
+				'item_title' => 'アイテム名',
+				'item_uid' => 'アイテム固有ID',
+				'item_uri' => array(
+					'_' => 'アイテムリンク（URL）',
+					'help' => '例: <code>permalink</code>',
+				),
+				'json' => ':のドット表記',
+				'relative' => ':のドット表記パス（アイテムからの相対パス）。',
+			),
+			'jsonfeed' => 'JSONフィード',
 			'rss' => 'RSS / Atom (標準)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'キャッシュのクリア',
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'HTTPのリダイレクトの上限',
 		'max_http_redir_help' => '0を設定するか、空白のままにすると無効になり、-1を設定するとリダイレクト数が無制限になります。',
+		'method' => array(
+			'_' => 'HTTPメソッド',
+		),
+		'method_help' => 'POSTペイロードは <code>application/x-www-form-urlencoded</code> と <code>application/json</code> を自動的にサポートしています',
+		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
 		'mute' => 'ミュート',
 		'no_selected' => 'どのフィードも選択されていません',
@@ -140,11 +189,12 @@ return array(
 		'priority' => array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',
+			'category' => 'カテゴリで表示する',
+			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
-			'normal' => 'カテゴリで表示する',
 		),
 		'proxy' => 'フィードを読み込み時にproxyを設定してください',
-		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',
@@ -183,7 +233,7 @@ return array(
 		'title' => 'インポート / エクスポート',
 	),
 	'menu' => array(
-		'add' => 'フィード化カテゴリを追加します',
+		'add' => 'フィードあるいはカテゴリを追加します',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
 		'stats' => array(
@@ -195,6 +245,7 @@ return array(
 		'subscription_tools' => '購読ツール',
 	),
 	'tag' => array(
+		'auto_label' => 'このラベルを新しい記事に追加する',
 		'name' => '名前',
 		'new_name' => '新しい名前',
 		'old_name' => '古い名前',

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_password_Util {
 	// Will also have to be computed client side on mobile devices,
@@ -12,7 +13,7 @@ class FreshRSS_password_Util {
 		$passwordHash = password_hash(
 			$passwordPlain,
 			PASSWORD_BCRYPT,
-			array('cost' => self::BCRYPT_COST)
+			['cost' => self::BCRYPT_COST]
 		);
 
 		// Compatibility with bcrypt.js

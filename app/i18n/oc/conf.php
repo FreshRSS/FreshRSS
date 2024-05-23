@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Afichatge per flux',
 			'order' => 'Triar per data',
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Estat',
 			'tags' => 'Afichatge per etiqueta',
 			'type' => 'Tipe',
 		),
 		'get_all' => 'Mostrar totes los articles',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostrar la categoria « %s »',
 		'get_favorite' => 'Mostrar los articles favorits',
 		'get_feed' => 'Mostrar lo flux « %s »',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Mostrar los articles mai ancians en primièr',
 		'order_desc' => 'Mostrar los articles mai recents en primièr',
 		'search' => 'Recèrca de « %s »',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Mostrar totes los articles',
 		'state_1' => 'Mostrar los articles pas legits',
 		'state_2' => 'Mostrar los articles pas legits',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
-			'scroll' => 'en davalant la pagina',
+			'scroll' => 'en davalant la pagina (except for important feeds)',	// DIRTY
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',

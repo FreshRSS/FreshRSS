@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every feed actions.
@@ -9,16 +10,17 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			// Token is useful in the case that anonymous refresh is forbidden
 			// and CRON task cannot be used with php command so the user can
 			// set a CRON task to refresh his feeds by using token inside url
-			$token = FreshRSS_Context::$user_conf->token;
+			$token = FreshRSS_Context::userConf()->token;
 			$token_param = Minz_Request::paramString('token');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName();
-			$allow_anonymous_refresh = FreshRSS_Context::$system_conf->allow_anonymous_refresh;
+			$allow_anonymous_refresh = FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 			if ($action !== 'actualize' ||
 					!($allow_anonymous_refresh || $token_is_ok)) {
 				Minz_Error::error(403);
@@ -29,20 +31,23 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @param array<string,mixed> $attributes
 	 * @throws FreshRSS_AlreadySubscribed_Exception
-	 * @throws FreshRSS_FeedNotAdded_Exception
+	 * @throws FreshRSS_BadUrl_Exception
 	 * @throws FreshRSS_Feed_Exception
+	 * @throws FreshRSS_FeedNotAdded_Exception
 	 * @throws Minz_FileNotExistException
 	 */
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
 		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
 		FreshRSS_UserDAO::touch();
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 
 		$url = trim($url);
 
-		/** @var string|null $url */
+		/** @var string|null $urlHooked */
 		$urlHooked = Minz_ExtensionManager::callHook('check_url_before_add', $url);
 		if ($urlHooked === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
@@ -54,14 +59,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat = $catDAO->searchById($cat_id);
 		}
 		if ($cat === null && $new_cat_name != '') {
-			$new_cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
+			$new_cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
 			$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
 			$cat = $catDAO->searchById($cat_id);
 		}
 		if ($cat === null) {
 			$catDAO->checkDefault();
 		}
-		$cat_id = $cat === null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$title = trim($title);
@@ -69,9 +73,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feed->_name($title);
 		}
 		$feed->_kind($kind);
-		$feed->_attributes('', $attributes);
+		$feed->_attributes($attributes);
 		$feed->_httpAuth($http_auth);
-		$feed->_categoryId($cat_id);
+		if ($cat === null) {
+			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		} else {
+			$feed->_category($cat);
+		}
 		switch ($kind) {
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
@@ -102,7 +110,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed->_id($id);
 
 		// Ok, feed has been added in database. Now we have to refresh entries.
-		self::actualizeFeed($id, $url, false, null);
+		[, , $nb_new_articles] = self::actualizeFeeds($id, $url);
+		if ($nb_new_articles > 0) {
+			self::commitNewEntries();
+		}
 
 		return $feed;
 	}
@@ -132,20 +143,20 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		if ($url === '') {
 			// No url, do nothing
-			Minz_Request::forward(array(
+			Minz_Request::forward([
 				'c' => 'subscription',
-				'a' => 'index'
-			), true);
+				'a' => 'index',
+			], true);
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$url_redirect = array(
+		$url_redirect = [
 			'c' => 'subscription',
 			'a' => 'add',
-			'params' => array(),
-		);
+			'params' => [],
+		];
 
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
 			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']), $url_redirect);
@@ -169,6 +180,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$useragent = Minz_Request::paramString('curl_params_useragent');
 			$proxy_address = Minz_Request::paramString('curl_params');
 			$proxy_type = Minz_Request::paramString('proxy_type');
+			$request_method = Minz_Request::paramString('curl_method');
+			$request_fields = Minz_Request::paramString('curl_fields', true);
+
 			$opts = [];
 			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
@@ -188,6 +202,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
+			}
+			if ($request_method === 'POST') {
+				$opts[CURLOPT_POST] = true;
+				if ($request_fields !== '') {
+					$opts[CURLOPT_POSTFIELDS] = $request_fields;
+					if (json_decode($request_fields, true) !== null) {
+						$opts[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
+					}
+				}
 			}
 
 			$attributes = [
@@ -235,6 +258,44 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				if (!empty($xPathSettings)) {
 					$attributes['xpath'] = $xPathSettings;
+				}
+			} elseif ($feed_kind === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
+				$jsonSettings = [];
+				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
+					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItem') !== '') {
+					$jsonSettings['item'] = Minz_Request::paramString('jsonItem', true);
+				}
+				if (Minz_Request::paramString('jsonItemTitle') !== '') {
+					$jsonSettings['itemTitle'] = Minz_Request::paramString('jsonItemTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItemContent') !== '') {
+					$jsonSettings['itemContent'] = Minz_Request::paramString('jsonItemContent', true);
+				}
+				if (Minz_Request::paramString('jsonItemUri') !== '') {
+					$jsonSettings['itemUri'] = Minz_Request::paramString('jsonItemUri', true);
+				}
+				if (Minz_Request::paramString('jsonItemAuthor') !== '') {
+					$jsonSettings['itemAuthor'] = Minz_Request::paramString('jsonItemAuthor', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimestamp') !== '') {
+					$jsonSettings['itemTimestamp'] = Minz_Request::paramString('jsonItemTimestamp', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimeFormat') !== '') {
+					$jsonSettings['itemTimeFormat'] = Minz_Request::paramString('jsonItemTimeFormat', true);
+				}
+				if (Minz_Request::paramString('jsonItemThumbnail') !== '') {
+					$jsonSettings['itemThumbnail'] = Minz_Request::paramString('jsonItemThumbnail', true);
+				}
+				if (Minz_Request::paramString('jsonItemCategories') !== '') {
+					$jsonSettings['itemCategories'] = Minz_Request::paramString('jsonItemCategories', true);
+				}
+				if (Minz_Request::paramString('jsonItemUid') !== '') {
+					$jsonSettings['itemUid'] = Minz_Request::paramString('jsonItemUid', true);
+				}
+				if (!empty($jsonSettings)) {
+					$attributes['json_dotnotation'] = $jsonSettings;
 				}
 			}
 
@@ -302,11 +363,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public function truncateAction(): void {
 		$id = Minz_Request::paramInt('id');
-		$url_redirect = array(
+		$url_redirect = [
 			'c' => 'subscription',
 			'a' => 'index',
-			'params' => array('id' => $id)
-		);
+			'params' => ['id' => $id],
+		];
 
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($url_redirect, true);
@@ -324,40 +385,59 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return array{0:int,1:FreshRSS_Feed|false,2:int}
+	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
-	public static function actualizeFeed(int $feed_id, string $feed_url, bool $force, ?SimplePie $simplePiePush = null,
-		bool $noCommit = false, int $maxFeeds = 10): array {
-		@set_time_limit(300);
+	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
+
+		if (!is_int($feed_id) || $feed_id <= 0) {
+			$feed_id = null;
+		}
+		if (!is_string($feed_url) || trim($feed_url) === '') {
+			$feed_url = null;
+		}
+		if (!is_int($maxFeeds) || $maxFeeds <= 0) {
+			$maxFeeds = PHP_INT_MAX;
+		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		// Create a list of feeds to actualize.
-		// If feed_id is set and valid, corresponding feed is added to the list but
-		// alone in order to automatize further process.
-		$feeds = array();
-		if ($feed_id > 0 || $feed_url) {
-			$feed = $feed_id > 0 ? $feedDAO->searchById($feed_id) : $feedDAO->searchByUrl($feed_url);
-			if ($feed) {
+		$feeds = [];
+		if ($feed_id !== null || $feed_url !== null) {
+			$feed = $feed_id !== null ? $feedDAO->searchById($feed_id) : $feedDAO->searchByUrl($feed_url);
+			if ($feed !== null && $feed->id() > 0) {
 				$feeds[] = $feed;
+				$feed_id = $feed->id();
 			}
 		} else {
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
-		}
 
-		// Set maxFeeds to a minimum of 10
-		if ($maxFeeds < 10) {
-			$maxFeeds = 10;
+			// Hydrate category for each feed to avoid that each feed has to make an SQL request
+			$categories = [];
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			foreach ($catDAO->listCategories(false, false) as $category) {
+				$categories[$category->id()] = $category;
+			}
+			foreach ($feeds as $feed) {
+				$category = $categories[$feed->categoryId()] ?? null;
+				if ($category !== null) {
+					$feed->_category($category);
+				}
+			}
 		}
 
 		// WebSub (PubSubHubbub) support
-		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
+		$pubsubhubbubEnabledGeneral = FreshRSS_Context::systemConf()->pubsubhubbub_enabled;
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
 
 		$updated_feeds = 0;
 		$nb_new_articles = 0;
+
 		foreach ($feeds as $feed) {
 			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
@@ -368,27 +448,31 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
-			if ($simplePiePush === null && $feed_id === 0 && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+			if ($simplePiePush === null && $feed_id === null && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				//$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
 				//Minz_Log::debug($text, PSHB_LOG);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
-			if ($feed->mute()) {
-				continue;	//Feed refresh is disabled
+			if ($feed->mute() && $feed_id === null) {
+				continue;	// If the feed is disabled, only allow refresh if manually requested for that specific feed
 			}
 			$mtime = $feed->cacheModifiedTime() ?: 0;
 			$ttl = $feed->ttl();
 			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
-				$ttl = FreshRSS_Context::$user_conf->ttl_default;
+				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
-			if ($simplePiePush === null && $feed_id === 0 && (time() <= $feed->lastUpdate() + $ttl)) {
+			if ($simplePiePush === null && $feed_id === null && (time() <= $feed->lastUpdate() + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
-				if ($mtime <= 0 || $feed->lastUpdate() >= $mtime) {
+				$ε = 10;	// negligible offset errors in seconds
+				if ($mtime <= 0 ||
+					$feed->lastUpdate() + $ε >= $mtime ||
+					time() + $ε >= $mtime + FreshRSS_Context::systemConf()->limits['cache_duration']) {	// is cache still valid?
 					continue;	//Nothing newer from other users
 				}
-				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user; will take advantage of the newer cache.');
+				Minz_Log::debug('Feed ' . $feed->url(false) . ' was updated at ' . date('c', $feed->lastUpdate()) .
+					', and at ' . date('c', $mtime) . ' by another user; take advantage of newer cache.');
 			}
 
 			if (!$feed->lock()) {
@@ -412,6 +496,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$simplePie = $feed->loadHtmlXpath();
 					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('XML+XPath parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
+					$simplePie = $feed->loadJson();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('JSON dot notation parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSONFEED) {
+					$simplePie = $feed->loadJson();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('JSON Feed parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);
@@ -443,21 +537,23 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$needFeedCacheRefresh = false;
+			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
-				$titlesAsRead = [];
-				$readWhenSameTitleInFeed = $feed->attributes('read_when_same_title_in_feed');
-				if ($readWhenSameTitleInFeed == false) {
-					$readWhenSameTitleInFeed = FreshRSS_Context::$user_conf->mark_when['same_title_in_feed'];
+				if ($feed->attributeBoolean('read_when_same_title_in_feed') === null) {
+					$readWhenSameTitleInFeed = (int)FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
+				} elseif ($feed->attributeBoolean('read_when_same_title_in_feed') === false) {
+					$readWhenSameTitleInFeed = 0;
+				} else {
+					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					/** @var array<string,bool> $titlesAsRead*/
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), (int)$readWhenSameTitleInFeed));
+					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
+				} else {
+					$titlesAsRead = [];
 				}
 
-				$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
-						$feed->attributes('mark_updated_article_unread')
-					) : FreshRSS_Context::$user_conf->mark_updated_article_unread;
+				$mark_updated_article_unread = $feed->attributeBoolean('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
 
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids) ?: [];
@@ -477,10 +573,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$existingHash = $existingHashForGuids[$entry->guid()];
 						if (strcasecmp($existingHash, $entry->hash()) !== 0) {
 							//This entry already exists but has been updated
+							$entry->_isUpdated(true);
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							$entry->_isFavorite(null);	// Do not change favourite state
+							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							if ($mark_updated_article_unread) {
+								Minz_ExtensionManager::callHook('entry_auto_unread', $entry, 'updated_article');
+							}
 
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if (!($entry instanceof FreshRSS_Entry)) {
@@ -488,9 +588,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 								continue;
 							}
 
+							$entry->applyFilterActions($titlesAsRead);
+							if ($readWhenSameTitleInFeed > 0) {
+								$titlesAsRead[$entry->title()] = true;
+							}
+
 							if (!$entry->isRead()) {
-								$needFeedCacheRefresh = true;
-								$feed->incPendingUnread();	//Maybe
+								$needFeedCacheRefresh = true;	//Maybe
+								$nbMarkedUnread++;
 							}
 
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
@@ -502,17 +607,19 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$entryDAO->updateEntry($entry->toArray());
 						}
 					} else {
+						$entry->_isUpdated(false);
 						$id = uTimeString();
 						$entry->_id($id);
-						$entry->applyFilterActions($titlesAsRead);
-						if ($readWhenSameTitleInFeed > 0) {
-							$titlesAsRead[$entry->title()] = true;
-						}
 
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if (!($entry instanceof FreshRSS_Entry)) {
 							// An extension has returned a null value, there is nothing to insert.
 							continue;
+						}
+
+						$entry->applyFilterActions($titlesAsRead);
+						if ($readWhenSameTitleInFeed > 0) {
+							$titlesAsRead[$entry->title()] = true;
 						}
 
 						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
@@ -530,9 +637,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						}
 						$entryDAO->addEntry($entry->toArray(), true);
 
-						if (!$entry->isRead()) {
-							$feed->incPendingUnread();
-						}
 						$nb_new_articles++;
 					}
 				}
@@ -547,7 +651,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (mt_rand(0, 30) === 1) {	// Remove old entries once in 30.
+			if (rand(0, 30) === 1) {	// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
@@ -558,7 +662,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
-			$needFeedCacheRefresh |= ($feed->keepMaxUnread() != false);
+			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() + $nbMarkedUnread > $feed->keepMaxUnread())) {
+				Minz_Log::debug('Existing unread entries (' . ($feed->nbNotRead() + $nbMarkedUnread) . ') exceeding max number of ' .
+					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
+				$needFeedCacheRefresh |= ($feed->markAsReadMaxUnread() != false);
+			}
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
@@ -582,7 +690,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						}
 						$feed->_url($selfUrl, false);
 						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url(false));
-						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
+						$feedDAO->updateFeed($feed->id(), ['url' => $feed->url()]);
 					}
 				}
 			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
@@ -594,7 +702,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($simplePie != null) {
 				if ($feed->name(true) === '') {
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'
-					$name = strtr(html_only_entity_decode($simplePie->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));
+					$name = strtr(html_only_entity_decode($simplePie->get_title()), ['<' => '&lt;', '>' => '&gt;', '"' => '&quot;']);
 					$feed->_name($name);
 					$feedProperties['name'] = $feed->name(false);
 				}
@@ -634,62 +742,128 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			unset($feed);
 			gc_collect_cycles();
 
-			// No more than $maxFeeds feeds unless $force is true to avoid overloading
-			// the server.
-			if ($updated_feeds >= $maxFeeds && !$force) {
+			if ($updated_feeds >= $maxFeeds) {
 				break;
 			}
 		}
-		if (!$noCommit && ($nb_new_articles > 0 || $updated_feeds > 0)) {
+		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
+	}
+
+	/**
+	 * @return int|false The number of articles marked as read, of false if error
+	 */
+	private static function keepMaxUnreads() {
+		$affected = 0;
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+		foreach ($feeds as $feed) {
+			if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
+				($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
+				Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
+				$n = $feed->markAsReadMaxUnread();
+				if ($n === false) {
+					$affected = false;
+					break;
+				} else {
+					$affected += $n;
+				}
+			}
+		}
+		if ($feedDAO->updateCachedValues() === false) {
+			$affected = false;
+		}
+		return $affected;
+	}
+
+	/**
+	 * Auto-add labels to new articles.
+	 * @param int $nbNewEntries The number of top recent entries to process.
+	 * @return int|false The number of new labels added, or false in case of error.
+	 */
+	private static function applyLabelActions(int $nbNewEntries) {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$labels = FreshRSS_Context::labels();
+		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
+			return !empty($label->filtersAction('label'));
+		});
+		if (count($labels) <= 0) {
+			return 0;
+		}
+
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		/** @var array<array{id_tag:int,id_entry:string}> $applyLabels */
+		$applyLabels = [];
+		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll($nbNewEntries)) as $entry) {
+			foreach ($labels as $label) {
+				$label->applyFilterActions($entry, $applyLabel);
+				if ($applyLabel) {
+					$applyLabels[] = [
+						'id_tag' => $label->id(),
+						'id_entry' => $entry->id(),
+					];
+				}
+			}
+		}
+		return $tagDAO->tagEntries($applyLabels);
+	}
+
+	public static function commitNewEntries(): void {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		['all' => $nbNewEntries, 'unread' => $nbNewUnreadEntries] = $entryDAO->countNewEntries();
+		if ($nbNewEntries > 0) {
 			if (!$entryDAO->inTransaction()) {
 				$entryDAO->beginTransaction();
 			}
-			$entryDAO->commitNewEntries();
-			$feedDAO->updateCachedValues();
+			if ($entryDAO->commitNewEntries()) {
+				self::applyLabelActions($nbNewEntries);
+				if ($nbNewUnreadEntries > 0) {
+					self::keepMaxUnreads();
+				}
+			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->minorDbMaintenance();
 		}
-		return array($updated_feeds, reset($feeds), $nb_new_articles);
 	}
 
 	/**
 	 * This action actualizes entries from one or several feeds.
 	 *
 	 * Parameters are:
-	 *   - id (default: false): Feed ID
-	 *   - url (default: false): Feed URL
-	 *   - force (default: false)
+	 *   - id (default: null): Feed ID, or set to -1 to commit new articles to the main database
+	 *   - url (default: null): Feed URL (instead of feed ID)
+	 *   - maxFeeds (default: 10): Max number of feeds to refresh
 	 *   - noCommit (default: 0): Set to 1 to prevent committing the new articles to the main database
-	 * If id and url are not specified, all the feeds are actualized. But if force is
-	 * false, process stops at 10 feeds to avoid time execution problem.
+	 * If id and url are not specified, all the feeds are actualized, within the limits of maxFeeds.
 	 */
 	public function actualizeAction(): int {
 		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::paramInt('id');
 		$url = Minz_Request::paramString('url');
-		$force = Minz_Request::paramBoolean('force');
-		$maxFeeds = Minz_Request::paramInt('maxFeeds');
+		$maxFeeds = Minz_Request::paramInt('maxFeeds') ?: 10;
 		$noCommit = ($_POST['noCommit'] ?? 0) == 1;
-		$feed = null;
 
-		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
+		if ($id === -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$updated_feeds = 0;
-			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$entryDAO->beginTransaction();
-			$entryDAO->commitNewEntries();
-			$feedDAO->updateCachedValues();
-			$entryDAO->commit();
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->minorDbMaintenance();
+			$feed = null;
+			self::commitNewEntries();
 		} else {
-			FreshRSS_category_Controller::refreshDynamicOpmls();
-			[$updated_feeds, $feed] = self::actualizeFeed($id, $url, $force, null, $noCommit, $maxFeeds);
+			if ($id === 0 && $url === '') {
+				// Case of a batch refresh (e.g. cron)
+				$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+				$databaseDAO->minorDbMaintenance();
+				Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+
+				FreshRSS_feed_Controller::commitNewEntries();
+				FreshRSS_category_Controller::refreshDynamicOpmls();
+			}
+			[$updated_feeds, $feed, $nbNewArticles] = self::actualizeFeeds($id, $url, $maxFeeds);
+			if (!$noCommit && $nbNewArticles > 0) {
+				FreshRSS_feed_Controller::commitNewEntries();
+			}
 		}
 
 		if (Minz_Request::paramBoolean('ajax')) {
@@ -701,26 +875,28 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->_layout(null);
 		} elseif ($feed instanceof FreshRSS_Feed) {
 			// Redirect to the main page with correct notification.
-			if ($updated_feeds === 1) {
-				Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), [
-					'params' => ['get' => 'f_' . $feed->id()]
-				]);
-			} elseif ($updated_feeds > 1) {
-				Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), []);
-			} else {
-				Minz_Request::good(_t('feedback.sub.feed.no_refresh'), []);
-			}
+			Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), [
+				'params' => ['get' => 'f_' . $id]
+			]);
+		} elseif ($updated_feeds >= 1) {
+			Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), []);
+		} else {
+			Minz_Request::good(_t('feedback.sub.feed.no_refresh'), []);
 		}
 		return $updated_feeds;
 	}
 
+	/**
+	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_PDOConnectionException
+	 */
 	public static function renameFeed(int $feed_id, string $feed_name): bool {
 		if ($feed_id <= 0 || $feed_name === '') {
 			return false;
 		}
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name)) === 1;
+		return $feedDAO->updateFeed($feed_id, ['name' => $feed_name]) === 1;
 	}
 
 	public static function moveFeed(int $feed_id, int $cat_id, string $new_cat_name = ''): bool {
@@ -735,7 +911,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat_id = $cat === null ? 0 : $cat->id();
 		}
 		if ($cat_id <= 1 && $new_cat_name != '') {
-			$cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
+			$cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
 		}
 		if ($cat_id <= 1) {
 			$catDAO->checkDefault();
@@ -743,7 +919,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, array('category' => $cat_id)) === 1;
+		return $feedDAO->updateFeed($feed_id, ['category' => $cat_id]) === 1;
 	}
 
 	/**
@@ -760,7 +936,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public function moveAction(): void {
 		if (!Minz_Request::isPost()) {
-			Minz_Request::forward(array('c' => 'subscription'), true);
+			Minz_Request::forward(['c' => 'subscription'], true);
 		}
 
 		$feed_id = Minz_Request::paramInt('f_id');
@@ -783,10 +959,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// TODO: Delete old favicon
 
 			// Remove related queries
-			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
-				'f_' . $feed_id, FreshRSS_Context::$user_conf->queries);
-			FreshRSS_Context::$user_conf->save();
-
+			/** @var array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $queries */
+			$queries = remove_query_by_get('f_' . $feed_id, FreshRSS_Context::userConf()->queries);
+			FreshRSS_Context::userConf()->queries = $queries;
+			FreshRSS_Context::userConf()->save();
 			return true;
 		}
 		return false;
@@ -807,14 +983,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		switch ($from) {
 			case 'stats':
-				$redirect_url = array('c' => 'stats', 'a' => 'idle');
+				$redirect_url = ['c' => 'stats', 'a' => 'idle'];
 				break;
 			case 'normal':
 				$get = Minz_Request::paramString('get');
 				if ($get) {
-					$redirect_url = array('c' => 'index', 'a' => 'normal', 'params' => array('get' => $get));
+					$redirect_url = ['c' => 'index', 'a' => 'normal', 'params' => ['get' => $get]];
 				} else {
-					$redirect_url = array('c' => 'index', 'a' => 'normal');
+					$redirect_url = ['c' => 'index', 'a' => 'normal'];
 				}
 				break;
 			default:
@@ -845,15 +1021,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feed = $feedDAO->searchById($id);
 		if ($feed === null) {
-			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), []);
 			return;
 		}
 
 		$feed->clearCache();
 
-		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name()), array(
-			'params' => array('get' => 'f_' . $feed->id())
-		));
+		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name()), [
+			'params' => ['get' => 'f_' . $feed->id()],
+		]);
 	}
 
 	/**
@@ -865,7 +1041,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public function reloadAction(): void {
-		@set_time_limit(300);
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(300);
+		}
 
 		//Get Feed ID.
 		$feed_id = Minz_Request::paramInt('id');
@@ -876,20 +1054,23 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$feed = $feedDAO->searchById($feed_id);
 		if ($feed === null) {
-			Minz_Request::bad(_t('feedback.sub.feed.not_found'), array());
+			Minz_Request::bad(_t('feedback.sub.feed.not_found'), []);
 			return;
 		}
 
 		//Re-fetch articles as if the feed was new.
 		$feedDAO->updateFeed($feed->id(), [ 'lastUpdate' => 0 ]);
-		self::actualizeFeed($feed_id, '', false);
+		[, , $nb_new_articles] = self::actualizeFeeds($feed_id);
+		if ($nb_new_articles > 0) {
+			FreshRSS_feed_Controller::commitNewEntries();
+		}
 
 		//Extract all feed entries from database, load complete content and store them back in database.
 		$entries = $entryDAO->listWhere('f', $feed_id, FreshRSS_Entry::STATE_ALL, 'DESC', $limit);
 
 		//We need another DB connection in parallel for unbuffered streaming
 		Minz_ModelPdo::$usesSharedPdo = false;
-		if (FreshRSS_Context::$system_conf->db['type'] === 'mysql') {
+		if (FreshRSS_Context::systemConf()->db['type'] === 'mysql') {
 			// Second parallel connection for unbuffered streaming: MySQL
 			$entryDAO2 = FreshRSS_Factory::createEntryDao();
 		} else {
@@ -907,9 +1088,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		Minz_ModelPdo::$usesSharedPdo = true;
 
 		//Give feedback to user.
-		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), array(
-			'params' => array('get' => 'f_' . $feed->id())
-		));
+		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name()), [
+			'params' => ['get' => 'f_' . $feed->id()]
+		]);
 	}
 
 	/**
@@ -940,7 +1121,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed_id = Minz_Request::paramInt('id');
 		$content_selector = Minz_Request::paramString('selector');
 
-		if (!$content_selector) {
+		if ($content_selector === '') {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
 			return;
 		}
@@ -962,22 +1143,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//Get feed.
 		$feed = $entry->feed();
-
 		if ($feed === null) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
-
-		$attributes = $feed->attributes();
-		$attributes['path_entries_filter'] = Minz_Request::paramString('selector_filter', true);
+		$feed->_pathEntries($content_selector);
+		$feed->_attribute('path_entries_filter', Minz_Request::paramString('selector_filter', true));
 
 		//Fetch & select content.
 		try {
-			$fullContent = FreshRSS_Entry::getContentByParsing(
-				htmlspecialchars_decode($entry->link(), ENT_QUOTES),
-				htmlspecialchars_decode($content_selector, ENT_QUOTES),
-				$attributes
-			);
+			$fullContent = $entry->getContentByParsing();
 
 			if ($fullContent != '') {
 				$this->view->selectorSuccess = true;

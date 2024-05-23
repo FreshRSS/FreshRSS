@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -34,8 +34,8 @@
 		?>
 		<div class="box">
 			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('subscription', 'category', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributes('position') ?>"><?= _i('configure') ?></a>
-				<h2><?= $cat->name() ?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo " " . _i('opml-dyn'); } ?></h2>
+				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
+				<h2><?= $cat->name() ?><?php if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) { echo " " . _i('opml-dyn'); } ?></h2>
 			</div>
 			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php
@@ -61,9 +61,9 @@
 						$mute_class = $feed->mute() ? ' mute' : '';
 				?>
 				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
-					draggable="true" data-feed-id="<?= $feed->id() ?>">
+					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
 					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
-					<?php if (FreshRSS_Context::$user_conf->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+					<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
 					<span class="item-title"><?= $feed->name() ?></span>
 				</li>
 				<?php

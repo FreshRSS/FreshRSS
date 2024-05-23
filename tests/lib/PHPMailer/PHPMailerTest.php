@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class PHPMailerTest extends PHPUnit\Framework\TestCase
 {

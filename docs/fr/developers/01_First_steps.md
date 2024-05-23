@@ -66,7 +66,7 @@ suivante la variable d’environnement `TAG` au moment de l’exécution de la
 commande :
 
 ```sh
-TAG=arm make start
+TAG=alpine make start
 ```
 
 Vous pouvez trouver la liste complète des tags disponibles [sur le hub
@@ -77,13 +77,11 @@ suivante :
 
 ```sh
 make build
-# ou
-TAG=arm make build
 ```
 
 La valeur de la variable `TAG` peut contenir n’importe quelle valeur (par
 exemple `local`). Vous pouvez cibler une architecture spécifique en ajoutant
-`-alpine` ou `-arm` à la fin du tag (par exemple `local-arm`).
+`-alpine` à la fin du tag (par exemple `local-alpine`).
 
 ## Architecture du projet
 

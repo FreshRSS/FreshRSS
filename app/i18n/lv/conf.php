@@ -120,20 +120,33 @@ return array(
 			'feeds' => 'Rādīt pēc barotnes',
 			'order' => 'Kārtot pēc datuma',
 			'search' => 'Izteiksme',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
 		),
 		'get_all' => 'Rādīt visus rakstus',
+		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
+		'get_important' => 'Display articles from important feeds',	// TODO
+		'get_label' => 'Display articles with “%s” label',	// TODO
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'number' => 'Pieprasījums nr. %d',
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',	// TODO
+			'help' => 'Give this link if you want to share this query with anyone',	// TODO
+			'html' => 'Shareable link to the HTML page',	// TODO
+			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
+			'rss' => 'Shareable link to the RSS feed',	// TODO
+		),
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
 		'state_2' => 'Rādīt nelasītos rakstus',
@@ -204,8 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'kad raksts tiek atvērts tā sākotnējā mājaslapā',
 			'article_viewed' => 'kad raksts tiek skatīts',
+			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Maksimālais nelasīto rakstu skaits',
-			'scroll' => 'ritināšanas laikā',
+			'scroll' => 'ritināšanas laikā (except for important feeds)',	// DIRTY
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',

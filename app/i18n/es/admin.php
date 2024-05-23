@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'token' => 'Clave de identificación',
-		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
+		'token' => 'Token de autentificación Master',
+		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de feeds sin autenticación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
+		'base-url' => array(
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
@@ -183,29 +187,33 @@ return array(
 			),
 			'title' => 'Formulario de registro del usuario',
 		),
+		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'no se proporciona',
 			'enabled' => '<a href="./?a=tos">está activado</a>',
 			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
 		),
+		'websub' => array(
+			'help' => 'Acerca de <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Buscar actualizaciones',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Dispones de la versión %s de FreshRSS.',
-		'last' => 'Última comprobación: %s',
-		'loading' => 'Updating…',	// TODO
+		'copiedFromURL' => 'update.php copiado desde %s a ./data',
+		'current_version' => 'Dispones de la versión',
+		'last' => 'Última comprobación',
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Canal de publicación',
+			'edge' => 'Publicación en marcha (“edge”)',
+			'latest' => 'Publicación estable (“latest”)',
 		),
 		'title' => 'Actualizar sistema',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
 	),
 	'user' => array(
 		'admin' => 'Administrador',

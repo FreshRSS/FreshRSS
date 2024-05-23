@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
-	const ENTRY_COUNT_PERIOD = 30;
+	public const ENTRY_COUNT_PERIOD = 30;
 
 	protected function sqlFloor(string $s): string {
 		return "FLOOR($s)";
@@ -14,10 +15,10 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false}
 	 */
 	public function calculateEntryRepartition(): array {
-		return array(
+		return [
 			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
 			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
-		);
+		];
 	}
 
 	/**
@@ -48,8 +49,13 @@ WHERE e.id_feed = f.id
 {$filter}
 SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}>|null $res */
-		return $res[0] ?? false;
+		if (!empty($res[0])) {
+			$dao = $res[0];
+			/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}> $res */
+			FreshRSS_DatabaseDAO::pdoInt($dao, ['total', 'count_unreads', 'count_reads', 'count_favorites']);
+			return $dao;
+		}
+		return false;
 	}
 
 	/**
@@ -242,8 +248,8 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'label':string,'data':int}>|null @res */
+		$res = $this->fetchAssoc($sql);
 		return $res == null ? [] : $res;
 	}
 
@@ -285,7 +291,13 @@ LIMIT 10
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'count']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
@@ -305,7 +317,13 @@ ORDER BY name
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'last_date', 'nb_articles']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
@@ -313,7 +331,7 @@ SQL;
 	 * @return array<string>
 	 */
 	public function getDays(): array {
-		return $this->convertToTranslatedJson(array(
+		return $this->convertToTranslatedJson([
 			'sun',
 			'mon',
 			'tue',
@@ -321,7 +339,7 @@ SQL;
 			'thu',
 			'fri',
 			'sat',
-		));
+		]);
 	}
 
 	/**
@@ -329,7 +347,7 @@ SQL;
 	 * @return array<string>
 	 */
 	public function getMonths(): array {
-		return $this->convertToTranslatedJson(array(
+		return $this->convertToTranslatedJson([
 			'jan',
 			'feb',
 			'mar',
@@ -342,7 +360,7 @@ SQL;
 			'oct',
 			'nov',
 			'dec',
-		));
+		]);
 	}
 
 	/**
@@ -350,7 +368,7 @@ SQL;
 	 * @param array<string> $data
 	 * @return array<string>
 	 */
-	private function convertToTranslatedJson(array $data = array()): array {
+	private function convertToTranslatedJson(array $data = []): array {
 		$translated = array_map(static function (string $a) {
 			return _t('gen.date.' . $a);
 		}, $data);
