@@ -57,15 +57,20 @@ return array(
 		),
 		'css_cookie' => '記事のコンテンツを読み出したとき、クッキーを使用する',
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '失敗したRSSフィードを再取得します (ただし、多くの時間が必要になります!)',
-		'css_path' => '元のwebサイトのCSS',
+		'css_help' => '省略されたRSSフィードを復元します (ただし、時間がかかります)',
+		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => array(
-			'_' => '削除される要素をCSSで選ぶ',
-			'help' => 'CSSセレクタは: <kbd> フッターやアサイド要素をリストにできます</kbd>',
+			'_' => '要素を削除するCSSセレクタ',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
 		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
+		'export-as-opml' => array(
+			'download' => 'ダウンロード',
+			'help' => 'XMLファイル (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'OPMLとしてエクスポート',
+		),
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -99,8 +104,8 @@ return array(
 					'help' => '例: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'カスタム日時フォーマット',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
 				),
 				'item_timestamp' => array(
 					'_' => '項目の日付',
@@ -121,47 +126,47 @@ return array(
 				'relative' => 'XPath (関連する項目):',
 				'xpath' => 'XPathは:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON（ドット記法）',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'フィード名',
+					'help' => '例: <code>meta.title</code> または静的文字列: <code>"My custom feed"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSONのドット表記は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => '<strong>ニュース</strong>を探す<br /><small>(最重要)</small>',
+					'help' => '項目を含む配列へのJSONパス。 例: <code>newsItems</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'アイテム作成者',
+				'item_categories' => 'アイテムタグ',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => '項目内容',
+					'help' => 'コンテンツが存在するキー。例: <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'アイテムのサムネイル',
+					'help' => '例: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'カスタム日時フォーマット',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'アイテム日付',
+					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析される',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'アイテム名',
+				'item_uid' => 'アイテム固有ID',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'アイテムリンク（URL）',
+					'help' => '例: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => ':のドット表記',
+				'relative' => ':のドット表記パス（アイテムからの相対パス）。',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSONフィード',
 			'rss' => 'RSS / Atom (標準)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'キャッシュのクリア',
@@ -173,10 +178,10 @@ return array(
 		'max_http_redir' => 'HTTPのリダイレクトの上限',
 		'max_http_redir_help' => '0を設定するか、空白のままにすると無効になり、-1を設定するとリダイレクト数が無制限になります。',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTPメソッド',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'POSTペイロードは <code>application/x-www-form-urlencoded</code> と <code>application/json</code> を自動的にサポートしています',
+		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
 		'mute' => 'ミュート',
 		'no_selected' => 'どのフィードも選択されていません',
@@ -185,7 +190,7 @@ return array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',
 			'category' => 'カテゴリで表示する',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを読み込み時にproxyを設定してください',
@@ -240,7 +245,7 @@ return array(
 		'subscription_tools' => '購読ツール',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'このラベルを新しい記事に追加する',
 		'name' => '名前',
 		'new_name' => '新しい名前',
 		'old_name' => '古い名前',

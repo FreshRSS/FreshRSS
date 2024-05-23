@@ -16,10 +16,12 @@ class Minz_PdoPgsql extends Minz_Pdo {
 		$this->exec("SET NAMES 'UTF8';");
 	}
 
+	#[\Override]
 	public function dbType(): string {
 		return 'pgsql';
 	}
 
+	#[\Override]
 	protected function preSql(string $statement): string {
 		$statement = parent::preSql($statement);
 		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);

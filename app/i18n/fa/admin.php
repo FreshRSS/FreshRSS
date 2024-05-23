@@ -213,7 +213,7 @@ return array(
 			'latest' => ' انتشار پایدار ("آخرین")',
 		),
 		'title' => ' FreshRSS را به روز کنید',
-		'viaGit' => ' به روز رسانی از طریق git و Github.com شروع شد',
+		'viaGit' => ' به روز رسانی از طریق git و GitHub.com شروع شد',
 	),
 	'user' => array(
 		'admin' => ' مدیر',

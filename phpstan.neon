@@ -35,6 +35,7 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
+	checkMissingOverrideMethodAttribute: true
 	reportMaybesInPropertyPhpDocTypes: false
 	treatPhpDocTypesAsCertain: false
 	strictRules:

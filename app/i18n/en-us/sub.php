@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
+		'export-as-opml' => array(
+			'download' => 'Download',	// IGNORE
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// IGNORE
+			'label' => 'Export as OPML',	// IGNORE
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',	// IGNORE
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
@@ -121,13 +126,13 @@ return array(
 				'relative' => 'XPath (relative to item) for:',	// IGNORE
 				'xpath' => 'XPath for:',	// IGNORE
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// IGNORE
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'feed title',	// IGNORE
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// IGNORE
@@ -156,8 +161,8 @@ return array(
 					'_' => 'item link (URL)',	// IGNORE
 					'help' => 'Example: <code>permalink</code>',	// IGNORE
 				),
-				'json' => 'Dotted Path for:',	// IGNORE
-				'relative' => 'Dotted Path (relative to item) for:',	// IGNORE
+				'json' => 'dot notation for:',	// IGNORE
+				'relative' => 'dot notated path (relative to item) for:',	// IGNORE
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE

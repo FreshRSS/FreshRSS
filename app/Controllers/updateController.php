@@ -113,6 +113,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
 
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
@@ -266,7 +267,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$res = !self::hasGitUpdate();
 			} else {
 				require(UPDATE_FILENAME);
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore function.notFound
 				$res = do_post_update();
 			}
 
@@ -289,12 +290,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			} else {
 				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					save_info_update();
 				}
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore function.notFound
 				if (!need_info_update()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					$res = apply_update();
 				} else {
 					return;

@@ -16,7 +16,7 @@ return array(
 		'exception' => '高級清理策略',
 		'help' => '具體選項位於各訂閱源的設置',
 		'keep_favourites' => '不清理已收藏的文章',
-		'keep_labels' => '不清理標簽',
+		'keep_labels' => '不清理標籤',
 		'keep_max' => '最多保留的文章數',	// DIRTY
 		'keep_min_by_feed' => '至少保留的文章數',
 		'keep_period' => '文章最多保留',
@@ -33,16 +33,16 @@ return array(
 	'display' => array(
 		'_' => '顯示',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => '自動黑暗模式(beta)',
+			'auto' => '自動',
+			'no' => '否',
 		),
 		'icon' => array(
 			'bottom_line' => '底欄',
 			'display_authors' => '作者',
 			'entry' => '文章圖示',
 			'publication_date' => '更新日期',
-			'related_tags' => '相關標簽',
+			'related_tags' => '相關標籤',
 			'sharing' => '分享',
 			'summary' => '摘要',
 			'top_line' => '頂欄',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => '主題',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => '已廢棄',
+				'description' => '此主題不再被支援且將不再可用在 <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">未來FreshRSS的更新</a>',
 			),
 		),
 		'theme_not_available' => '“%s” 主題不再可用，請選擇其他主題。',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => '肖像',
 			'square' => '方塊',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => '時區',
 		'title' => '顯示',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => '圖示及名稱',
+			'icon' => '僅圖示',
+			'label' => '網站',
+			'name' => '僅名稱',
+			'none' => '無',
 		),
 		'width' => array(
 			'content' => '內容寬度',
@@ -88,7 +88,7 @@ return array(
 	'logs' => array(
 		'loglist' => array(
 			'level' => '日誌等級',
-			'message' => '信息',
+			'message' => '訊息',
 			'timestamp' => '時間',
 		),
 		'pagination' => array(
@@ -99,17 +99,17 @@ return array(
 		),
 	),
 	'profile' => array(
-		'_' => '使用者管理',
+		'_' => '個人資料管理',
 		'api' => 'API 管理',
 		'delete' => array(
 			'_' => '帳號刪除',
-			'warn' => '將刪除你的帳號以及所有相關數據！',
+			'warn' => '你的帳號及所有相關資料將被刪除。',
 		),
 		'email' => '郵箱地址',
 		'password_api' => 'API 密碼<br /><small>（例如用於手機應用）</small>',
 		'password_form' => '密碼<br /><small>(用於 Web-form 登入方式)</small>',
 		'password_format' => '至少 7 個字元',
-		'title' => '用戶帳號',
+		'title' => '個人資料',
 	),
 	'query' => array(
 		'_' => '自定義查詢',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => '按訂閱源顯示',
 			'order' => '按日期排序',
 			'search' => '表達式',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => '啟用透過對應類別和源的OPML分享',
+			'shareRss' => '啟用透過HTML分享 &amp; RSS',
 			'state' => '狀態',
-			'tags' => '按標簽顯示',
+			'tags' => '按標籤顯示',
 			'type' => '類型',
 		),
 		'get_all' => '顯示所有文章',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => '顯示任何標籤的文章',
 		'get_category' => '顯示分類 “%s”',
 		'get_favorite' => '顯示收藏文章',
 		'get_feed' => '顯示訂閱源 “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => '顯示來自重要源的文章',
+		'get_label' => '顯示帶有 “%s” 標籤的文章',
+		'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">有關使用者查詢和透過 HTML / RSS / OPML 重新共用的文件</a>.',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'number' => '查詢 n°%d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => '由新至舊顯示文章',
 		'search' => '搜尋 “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => '透過連結分享此查詢',
+			'help' => '如果您想與任何人分享此查詢，請提供此連結',
+			'html' => 'HTML 頁面的可共享連結',
+			'opml' => 'OPML 源列表的可共享連結',
+			'rss' => 'RSS源的可共享連結',
 		),
 		'state_0' => '顯示所有文章',
 		'state_1' => '顯示已讀文章',
@@ -178,21 +178,21 @@ return array(
 				'none' => '不顯示',
 			),
 			'feed_name' => array(
-				'above_title' => '在文章標題和標簽上方',
+				'above_title' => '在文章標題和標籤上方',
 				'none' => '不顯示',
 				'with_authors' => '與作者和日期一行',
 			),
 			'feed_title' => '訂閱源標題',
 			'tags' => array(
-				'_' => '文章標簽',
+				'_' => '文章標籤',
 				'both' => '兩者都顯示',
 				'footer' => '僅頁腳顯示',
 				'header' => '僅頁眉顯示',
 				'none' => '不顯示',
 			),
 			'tags_max' => array(
-				'_' => '標簽最多顯示個數',
-				'help' => '0 標識顯示所有標簽',
+				'_' => '標籤最多顯示個數',
+				'help' => '0 標識顯示所有標籤',
 			),
 		),
 		'articles_per_page' => '每頁文章數',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => '在打開原文章後',
 			'article_viewed' => '在文章被瀏覽後',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => '當注意力集中時（重要的源除外）',
 			'keep_max_n_unread' => '未讀最多保留 n 條',
-			'scroll' => '在滾動瀏覽後 (except for important feeds)',	// DIRTY
+			'scroll' => '在滾動瀏覽後（重要的源除外）',	// DIRTY
 			'upon_gone' => '在被原訂閱源移除後',
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',
@@ -235,7 +235,7 @@ return array(
 			'remember_categories' => '記住打開的分類',
 			'unread' => '只顯示未讀',
 		),
-		'show_fav_unread_help' => '同樣適用於標簽',
+		'show_fav_unread_help' => '同樣適用於標籤',
 		'sides_close_article' => '點擊文章區域外以關閉',
 		'sort' => array(
 			'_' => '排列順序',
@@ -253,14 +253,14 @@ return array(
 	),
 	'sharing' => array(
 		'_' => '分享',
-		'add' => '添加分享方式',
+		'add' => '新增分享方式',
 		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '這項功能已廢棄並在將來版本的 FreshRSS 中移除，詳情請見 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">說明文檔</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '郵箱',	// IGNORE
 		'facebook' => '臉書',	// IGNORE
-		'more_information' => '更多信息',
-		'print' => '打印',
+		'more_information' => '更多資訊',
+		'print' => '列印',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => '刪除分享方式',
 		'shaarli' => 'Shaarli',	// IGNORE
@@ -311,6 +311,6 @@ return array(
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'current' => '當前使用者',
 		'is_admin' => '該使用者為管理員',
-		'users' => '用戶',
+		'users' => '使用者',
 	),
 );

@@ -14,36 +14,36 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Névtelen felhasználok frissíthetik a cikkeket',
-		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobil alkalmazás szükséges)</small>',
+		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz szükséges)</small>',
 		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
 		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'Fő hitelesítési token',
+		'token_help' => 'Lehetővé teszi a hozzáférést a felhasználó összes RSS-kimenetéhez, valamint a hírfolyamok frissítéséhez hitelesítés nélkül:',
 		'type' => 'Hitelesítési módszer',
 		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Ellenőrizd a <em>./data/cache</em> könyvtárat. HTTP szervernek írási jogosultságra van szüksége.',
-			'ok' => 'Jogosultságok a gyorsítótár könyvtáron rendben vannak.',
+			'nok' => 'Ellenőrizd a <em>./data/cache</em> könyvtárat. A HTTP szervernek írási jogosultságra van szüksége.',
+			'ok' => 'A jogosultságok a gyorsítótár könyvtáron rendben vannak.',
 		),
 		'categories' => array(
-			'nok' => 'Kategória tábla nincs helyesen konfigurálva.',
-			'ok' => 'Kategória tábla rendben van.',
+			'nok' => 'A kategória tábla nincs helyesen konfigurálva.',
+			'ok' => 'A kategória tábla rendben van.',
 		),
 		'connection' => array(
 			'nok' => 'Nem lehet kapcsolódni az adatbázishoz.',
-			'ok' => 'Kapcsolat az adatbázissal rendben van.',
+			'ok' => 'A kapcsolat az adatbázissal rendben van.',
 		),
 		'ctype' => array(
 			'nok' => 'Nem található a karakter típus ellenőrző könyvtár (php-ctype).',
-			'ok' => 'Karakter típus ellenőrző könyvtár rendben (ctype).',
+			'ok' => 'A karakter típus ellenőrző könyvtár rendben van (ctype).',
 		),
 		'curl' => array(
 			'nok' => 'Nem található a cURL könyvtár (php-curl csomag).',
-			'ok' => 'cURL könyvtár rendben van.',
+			'ok' => 'A cURL könyvtár rendben van.',
 		),
 		'data' => array(
 			'nok' => 'Ellenőrizd a <em>./data</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
@@ -55,25 +55,25 @@ return array(
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
 		),
 		'entries' => array(
-			'nok' => 'Belépési tábla nincs helyesen konfigurálva.',
-			'ok' => 'Belépési tábla rendben.',
+			'nok' => 'A belépési tábla nincs helyesen konfigurálva.',
+			'ok' => 'A belépési tábla rendben van.',
 		),
 		'favicons' => array(
 			'nok' => 'Ellenőrizd a <em>./data/favicons</em> könyvtár jogosultságait.A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A favicons könyvtár jogosultságai megfelelőek.',
 		),
 		'feeds' => array(
-			'nok' => 'Hírforrás tábla nincs megfelelően konfigurálva.',
-			'ok' => 'Hírforrás tábla ok.',
+			'nok' => 'A hírforrás tábla nincs megfelelően konfigurálva.',
+			'ok' => 'A hírforrás tábla ok.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Fileinfo könyvtár nem található (fileinfo csomag).',
-			'ok' => 'Fileinfo könyvtár rendben van.',
+			'nok' => 'A PHP fileinfo könyvtár nem található (fileinfo csomag).',
+			'ok' => 'A fileinfo könyvtár rendben van.',
 		),
 		'files' => 'Fájl telepítés',
 		'json' => array(
-			'nok' => 'JSON nem található (php-json csomag).',
-			'ok' => 'JSON kiegészítő telepítve.',
+			'nok' => 'A JSON nem található (php-json csomag).',
+			'ok' => 'A JSON kiegészítő telepítve van.',
 		),
 		'mbstring' => array(
 			'nok' => 'Az ajánlott mbstring könyvtár nem található a Unicode kódoláshoz.',
@@ -85,7 +85,7 @@ return array(
 		),
 		'pdo' => array(
 			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO telepítve és legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'A PDO telepítve és van legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP telepítés',
@@ -99,15 +99,15 @@ return array(
 		'title' => 'Telepítés ellenőrzése',
 		'tokens' => array(
 			'nok' => 'Ellenőrizd a <em>./data/tokens</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'Token könyvtár írási jogosultságai rendben.',
+			'ok' => 'A token könyvtár írási jogosultságai rendben vannak.',
 		),
 		'users' => array(
 			'nok' => 'Ellenőrizd a <em>./data/users</em> könyvtár írási jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'Users könyvtár írási jogosultságai rendben.',
+			'ok' => 'A users könyvtár írási jogosultságai rendben vannak.',
 		),
 		'zip' => array(
 			'nok' => 'Nem található ZIP kiegészítő (php-zip csomag).',
-			'ok' => 'ZIP kiegészítő telepítve.',
+			'ok' => 'A ZIP kiegészítő telepítve van.',
 		),
 	),
 	'extensions' => array(
@@ -133,7 +133,7 @@ return array(
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
-		'entry_count' => 'Újak száma',
+		'entry_count' => 'Bejegyzések száma',
 		'entry_per_category' => 'Bejegyzések kategóriánként',
 		'entry_per_day' => 'Bejegyzések naponta (utolsó 30 nap)',
 		'entry_per_day_of_week' => 'A hét napjain (átlag: %.2f bejegyzés)',
@@ -146,7 +146,7 @@ return array(
 		'main' => 'Fő statisztika',
 		'main_stream' => 'Minden cikk',
 		'no_idle' => 'Nincsenek tétlen hírforrások!',
-		'number_entries' => '%d cikkek',
+		'number_entries' => '%d cikk',
 		'percent_of_total' => '% az összesből',
 		'repartition' => 'Cikkek eloszlása',
 		'status_favorites' => 'Kedvencek',
@@ -158,14 +158,14 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
-		'auto-update-url' => 'Szerver URL automata frissítése',
+		'auto-update-url' => 'Automatikus frissítés szerver URL',
 		'base-url' => array(
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
-			'number' => 'Bejelentkezési sütik megtartási ideje',
+			'number' => 'Bejelentkezve maradás időtartam',
 		),
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
@@ -228,8 +228,8 @@ return array(
 		'language' => 'Nyelv',
 		'last_user_activity' => 'Utolsó felhasználói aktivitás',
 		'list' => 'Felhasználói lista',
-		'number' => ' %d fiók létrehozva',
-		'numbers' => ' %d fiók van létrehozva',
+		'number' => '%d fiók létrehozva',
+		'numbers' => '%d fiók van létrehozva',
 		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
 		'password_format' => 'Legalább 7 karakter',
 		'title' => 'Felhasználók kezelése',

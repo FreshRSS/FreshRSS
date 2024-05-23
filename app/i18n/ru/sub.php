@@ -66,9 +66,14 @@ return array(
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
 		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
+		'export-as-opml' => array(
+			'download' => 'Скачать',
+			'help' => 'XML файл (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Экспортировать как OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
-			'help' => 'Введите по одному поисковому фильтру в строке. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
 		),
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
@@ -121,47 +126,47 @@ return array(
 				'relative' => 'XPath (относительно элемента) для:',
 				'xpath' => 'XPath для:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (точечная нотация)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'название ленты',
+					'help' => 'Пример: <code>meta.title</code> или статический текст: <code>"Моя пользовательская лента"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON с точечной нотацией использует точки между объектами и квадратные скобки для массивов (например: <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'Найти новые <strong>элементы</strong><br /><small>(самое важное)</small>',
+					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>newsItems</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'автор элемента',
+				'item_categories' => 'теги элемента',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'содержимое элемента',
+					'help' => 'Ключ, по которому найден контент, например: <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'эскиз элемента',
+					'help' => 'Пример: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Пользовательский формат даты/времени',
+					'help' => 'Выборочно. Формат, поддерживаемый <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, например <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'дата элемента',
+					'help' => 'Результат будет распарсен используя <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'название элемента',
+				'item_uid' => 'уникальный ID элемента',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'ссылка на элемент (URL)',
+					'help' => 'Пример: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'точечная нотация для:',
+				'relative' => 'JSON-путь (относительный до элемента) для:',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Лента',
 			'rss' => 'RSS / Atom (по умолчанию)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
@@ -173,10 +178,10 @@ return array(
 		'max_http_redir' => 'Максимум HTTP переводов',
 		'max_http_redir_help' => 'Установите 0 или оставьте пустым, чтобы отключить, -1 для бесконечных переводов',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP метод',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'Полезная нагрузка POST автоматически поддерживает <code>application/x-www-form-urlencoded</code> и <code>application/json</code>',
+		'method_postparams' => 'Полезная нагрузка POST',
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
 		'mute' => 'заглушить',
 		'no_selected' => 'Ленты не выбраны.',
@@ -185,11 +190,11 @@ return array(
 			'_' => 'Видимость',
 			'archived' => 'Не показывать (архивировано)',
 			'category' => 'Показывать в категории ленты',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
-		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',
 			'show_rendered' => 'Показать содержимое',
@@ -240,7 +245,7 @@ return array(
 		'subscription_tools' => 'Инструменты подписки',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Добавьте это название к новым статьям',
 		'name' => 'Название',
 		'new_name' => 'Новое название',
 		'old_name' => 'Старое название',

@@ -10,9 +10,19 @@ Do this before an upgrade.
 
 This following tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`. If you’ve installed it somewhere else, substitute your path as necessary.
 
+### Creating a database backup
+
+Back-up all users respective database to `data/users/*/backup.sqlite`
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-backup.php
+```
+
 ### Creating a Backup of all Files
 
-First, Enter the directory you wish to save your backup to. Here, for example, we’ll save the backup to the user home directory
+Enter the directory you wish to save your backup to.
+Here, for example, we’ll save the backup to the user home directory
 
 ```sh
 cd ~
@@ -52,7 +62,39 @@ And optionally, as cleanup, remove the copy of your backup from the FreshRSS dir
 rm FreshRSS-backup.tgz
 ```
 
-## Backing up Feeds
+### Restore a database backup
+
+> ℹ️ It is safer to stop your Web server and cron during maintenance operations.
+
+Restore all users respective database from `data/users/*/backup.sqlite`
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-restore.php --delete-backup --force-overwrite
+```
+
+## Migrate database
+
+Start by making an automatic backup of the all the user databases to SQLite files:
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-backup.php
+```
+
+Change your database setup:
+- if you like to change database type (e.g. from MySQL to PostgreSQL), edit `data/config.php` accordingly.
+- if you upgrade to a major PostgreSQL version, after a PostgreSQL backup, you may delete the old instance and start a new instance (remove the PostgreSQL volume if using Docker).
+
+Restore all the user databases from the SQLite files:
+
+```sh
+./cli/db-restore.php --delete-backup --force-overwrite
+```
+
+See also our [Docker documentation to migrate database](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#migrate-database).
+
+## Backing up selected content
 
 ### Feed list Export
 

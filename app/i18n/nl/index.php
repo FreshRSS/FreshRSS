@@ -19,7 +19,7 @@ return array(
 		'credits_content' => 'Sommige ontwerp elementen komen van <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> alhoewel FreshRSS dit raamwerk niet gebruikt. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Pictogrammen</a> komen van het <a href="https://www.gnome.org/">GNOME project</a>. <em>De Open Sans</em> font police is gemaakt door <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS is gebaseerd op <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, een PHP raamwerk. Nederlandse vertaling door Wanabo, <a href="http://www.nieuwskop.be" title="NieuwsKop">NieuwsKop.be</a>. Link naar de Nederlandse vertaling, <a href="https://github.com/Wanabo/FreshRSS-Dutch-translation/tree/master">FreshRSS-Dutch-translation</a>.',
 		'documentation' => 'Documentatie',
 		'freshrss_description' => 'FreshRSS is een RSS-feed aggregator om zelf te hosten. Het gebruikt weinig systeembronnen en is makkelijk te beheren terwijl het een krachtig en makkelijk te configureren programma is.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">op Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">op GitHub</a>',
 		'license' => 'Licentie',
 		'project_website' => 'Projectwebsite',
 		'title' => 'Over',
@@ -45,7 +45,7 @@ return array(
 		'bookmark_query' => 'Huidige query opslaan',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
-		'important' => 'Important feeds',	// TODO
+		'important' => 'Belangrijke feeds',
 		'main_stream' => 'Overzicht',
 		'mark_all_read' => 'Markeer alles als gelezen',
 		'mark_cat_read' => 'Markeer categorie als gelezen',

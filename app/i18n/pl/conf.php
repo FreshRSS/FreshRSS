@@ -33,9 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Wyświetlanie',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Tryb ciemny (beta)',
+			'auto' => 'Automatyczny',
+			'no' => 'Wyłączony',
 		),
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
@@ -56,8 +56,8 @@ return array(
 		'theme' => array(
 			'_' => 'Motyw',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Przestarzały',
+				'description' => 'Ten motyw nie jest już wspierany i zostanie usunięty w <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">przyszłej wersji FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'Motyw “%s” nie jest już dostępny. Wybierz inny motyw.',
@@ -68,14 +68,14 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Strefa czasowa',
 		'title' => 'Wyświetlanie',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Ikona i nazwa',
+			'icon' => 'Tylko ikona',
+			'label' => 'Strona źródłowa',
+			'name' => 'Tylko nazwa',
+			'none' => 'Ukryj',
 		),
 		'width' => array(
 			'content' => 'Rozmiar treści',
@@ -120,20 +120,20 @@ return array(
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
 			'search' => 'Wyrażenie',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Włącz udostępnianie OPML-i zawierających kategorie i kanały',
+			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',
 			'state' => 'Stan',
 			'tags' => 'Według tagu',
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Wyświetl wiadomości z dowolnymi etykietami',
 		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
 		'get_feed' => 'Wyświetlenie kanału “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Wyświetl wiadomości z ważnych kanałów',
+		'get_label' => 'Wyświetl wiadomości z etykietą “%s”',
+		'help' => 'Zapytania i dzielenie się nimi przez HTML / RSS / OPML opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentacji</a>.',
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
@@ -141,11 +141,11 @@ return array(
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
 		'search' => 'Szukaj “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Udostępnij to zapytanie',
+			'help' => 'Posłuż się tym odnośnikiem, aby podzielić się zapytaniem',
+			'html' => 'Odnośnik do strony HTML',
+			'opml' => 'Odnośnik do listy kanałów (OPML)',
+			'rss' => 'Odnośnik do kanału RSS',
 		),
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',
@@ -217,9 +217,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'gdy wiadomość jest otworzona na pierwotnej stronie',
 			'article_viewed' => 'gdy wiadomość jest otworzona',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'kiedy ma focus (z wyłączeniem ważnych kanałów)',
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
-			'scroll' => 'podczas przewijania (except for important feeds)',	// DIRTY
+			'scroll' => 'podczas przewijania (z wyłączeniem ważnych kanałów)',
 			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
