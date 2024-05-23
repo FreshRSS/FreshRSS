@@ -68,7 +68,7 @@ return array(
 		'error' => 'Šajā barotnē ir radusies problēma. Lūdzu, pārbaudiet, vai tā vienmēr ir sasniedzama, un pēc tam to atjauniniet.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
 		'filteractions' => array(
