@@ -48,6 +48,18 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function exits(): bool {
+		$sql = 'SELECT * FROM `_entry` LIMIT 1';
+		$stm = $this->pdo->query($sql);
+		if ($stm !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			if ($res !== false) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function tablesAreCorrect(): bool {
 		$res = $this->fetchAssoc('SHOW TABLES');
 		if ($res == null) {
@@ -220,8 +232,29 @@ SQL;
 		$catDAO->resetDefaultCategoryName();
 
 		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR'])) {
+			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
+			$isMariaDB = false;
+
+			if ($this->pdo->dbType() === 'mysql') {
+				$dbVersion = $this->fetchValue('SELECT version()') ?? '';
+				$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;	// MariaDB includes its name in version, but not MySQL
+				if (!$isMariaDB) {
+					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
+					// but MariaDB does https://mariadb.com/kb/en/drop-index/
+					$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
+				}
+			}
+
+			if ($this->pdo->exec($sql) === false) {
+				$info = $this->pdo->errorInfo();
+				if ($this->pdo->dbType() === 'mysql' &&
+					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
+					// Too bad for MySQL, but ignore error
+					return;
+				}
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+			}
 		}
 	}
 
@@ -242,6 +275,7 @@ SQL;
 		}
 		$error = '';
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$userDAO = FreshRSS_Factory::createUserDao();
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -259,15 +293,18 @@ SQL;
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
+					$userDAO = FreshRSS_Factory::createUserDao();
 					if ($this->pdo->dbType() === 'sqlite') {
 						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
 				} else {
-					$nbEntries = $entryDAO->countUnreadRead();
-					if (!empty($nbEntries['all'])) {
-						$error = 'Error: Destination database already contains some entries!';
+					if ($databaseDAO->exits()) {
+						$nbEntries = $entryDAO->countUnreadRead();
+						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
+							$error = 'Error: Destination database already contains some entries!';
+						}
 					}
 				}
 				break;
@@ -283,6 +320,7 @@ SQL;
 
 		try {
 			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
+			$sqlite->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
