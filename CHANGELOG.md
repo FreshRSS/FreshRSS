@@ -1,6 +1,11 @@
 ﻿# FreshRSS changelog
 
-## 2024-XX-XX FreshRSS 1.24.1-dev
+## 2024-0X-XX FreshRSS 1.24.1-dev
+
+* Bug fixing
+	* Fix regression HTTP GET curl options [#6492](https://github.com/FreshRSS/FreshRSS/pull/6492)
+	* Fix connection to PostgreSQL databases with uppercase letters [#6482](https://github.com/FreshRSS/FreshRSS/pull/6482)
+	* Fix UI regression hover over title while having the navigation buttons in mobile view [#6486](https://github.com/FreshRSS/FreshRSS/pull/6486)
 
 
 ## 2024-05-23 FreshRSS 1.24.0
@@ -12,7 +17,7 @@
 		[#6369](https://github.com/FreshRSS/FreshRSS/pull/6369), [#6476](https://github.com/FreshRSS/FreshRSS/pull/6476)
 	* New support for JSON Feeds [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662)
 	* New support for HTTP POST [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662)
-	* New options to automatically add labels to incoming articles [#5954](https://github.com/FreshRSS/FreshRSS/pull/5954)
+	* New option to automatically add labels to incoming articles [#5954](https://github.com/FreshRSS/FreshRSS/pull/5954)
 	* New button to download a feed configuration as OPML [#6312](https://github.com/FreshRSS/FreshRSS/pull/6312)
 	* Web scraping support more encodings such as EUC-JP [#6112](https://github.com/FreshRSS/FreshRSS/pull/6112)
 	* Web scraping support password-protected queries (refactor some cURL options and use `CURLOPT_USERPWD`) [#6177](https://github.com/FreshRSS/FreshRSS/pull/6177)
