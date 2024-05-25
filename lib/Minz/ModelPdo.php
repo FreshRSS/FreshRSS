@@ -18,7 +18,7 @@ class Minz_ModelPdo {
 
 	private static ?Minz_Pdo $sharedPdo = null;
 
-	private static ?string $sharedCurrentUser;
+	private static string $sharedCurrentUser = '';
 
 	protected Minz_Pdo $pdo;
 
@@ -78,7 +78,9 @@ class Minz_ModelPdo {
 					$db['user'], Minz_Exception::ERROR
 				);
 		}
-		self::$sharedPdo = $this->pdo;
+		if (self::$usesSharedPdo) {
+			self::$sharedPdo = $this->pdo;
+		}
 	}
 
 	/**
@@ -86,7 +88,7 @@ class Minz_ModelPdo {
 	 * HOST, BASE, USER and PASS variables defined in the configuration file
 	 * @param string|null $currentUser
 	 * @param Minz_Pdo|null $currentPdo
-	 * @throws Minz_ConfigurationNamespaceException
+	 * @throws Minz_ConfigurationException
 	 * @throws Minz_PDOConnectionException
 	 */
 	public function __construct(?string $currentUser = null, ?Minz_Pdo $currentPdo = null) {
@@ -97,7 +99,7 @@ class Minz_ModelPdo {
 			$this->pdo = $currentPdo;
 			return;
 		}
-		if ($currentUser == '') {
+		if ($currentUser == null) {
 			throw new Minz_PDOConnectionException('Current user must not be empty!', '', Minz_Exception::ERROR);
 		}
 		if (self::$usesSharedPdo && self::$sharedPdo !== null && $currentUser === self::$sharedCurrentUser) {
@@ -106,7 +108,9 @@ class Minz_ModelPdo {
 			return;
 		}
 		$this->current_user = $currentUser;
-		self::$sharedCurrentUser = $currentUser;
+		if (self::$usesSharedPdo) {
+			self::$sharedCurrentUser = $currentUser;
+		}
 
 		$ex = null;
 		//Attempt a few times to connect to database
@@ -153,6 +157,15 @@ class Minz_ModelPdo {
 	public static function clean(): void {
 		self::$sharedPdo = null;
 		self::$sharedCurrentUser = '';
+	}
+
+	public function close(): void {
+		if ($this->current_user === self::$sharedCurrentUser) {
+			self::clean();
+		}
+		$this->current_user = '';
+		unset($this->pdo);
+		gc_collect_cycles();
 	}
 
 	/**
@@ -224,5 +237,20 @@ class Minz_ModelPdo {
 	 */
 	public function fetchColumn(string $sql, int $column, array $values = []): ?array {
 		return $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, $column);
+	}
+
+	/** For retrieving a single value without prepared statement such as `SELECT version()` */
+	public function fetchValue(string $sql): ?string {
+		$stm = $this->pdo->query($sql);
+		if ($stm === false) {
+			Minz_Log::error('SQL error ' . json_encode($this->pdo->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		$columns = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if ($columns === false) {
+			Minz_Log::error('SQL error ' . json_encode($stm->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		return isset($columns[0]) ? (string)$columns[0] : null;
 	}
 }

@@ -66,6 +66,11 @@ return array(
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
+		'export-as-opml' => array(
+			'download' => 'Downloaden',
+			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Als OPML exporteren',
+		),
 		'filteractions' => array(
 			'_' => 'Filteracties',
 			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
@@ -121,6 +126,45 @@ return array(
 				'relative' => 'XPath (relatief naar bericht) voor:',
 				'xpath' => 'XPath voor:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (puntnotatie)',
+				'feed_title' => array(
+					'_' => 'feed-titel',
+					'help' => 'Voorbeeld: <code>meta.titel</code> of een statische reeks tekst: <code>"Mijn aangepaste feed"</code>',
+				),
+				'help' => 'JSON-puntnotatie gebruikt punten tussen objecten en vierkante haakjes voor arrays (bv. <code>data.items[0].titel</code>)',
+				'item' => array(
+					'_' => 'nieuws-<strong>items</strong> vinden<br /><small>(het belangrijkst)</small>',
+					'help' => 'JSON-puntnotatiepad naar de array met de items, bv. <code>nieuwsItems</code>',
+				),
+				'item_author' => 'item-auteur',
+				'item_categories' => 'item-tags',
+				'item_content' => array(
+					'_' => 'item-inhoud',
+					'help' => 'De sleutel waaronder de inhoude te vinden is, bv. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item-miniatuur',
+					'help' => 'Voorbeeld: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Aangepast datum-/tijdformaat',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item-datum',
+					'help' => 'Het resultaat zal worden geparst door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item-titel',
+				'item_uid' => 'uniek item-id',
+				'item_uri' => array(
+					'_' => 'item-link (url)',
+					'help' => 'Voorbeeld: <code>permalink</code>',
+				),
+				'json' => 'puntnotatie voor:',
+				'relative' => 'puntnotatiepad (relatief aan item) voor:',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (standaard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
 		'max_http_redir_help' => 'Stel in op 0 of laat leeg om uit te schakelen, -1 voor ongelimiteerde redirects',
+		'method' => array(
+			'_' => 'HTTP-methode',
+		),
+		'method_help' => 'De POST-payload ondersteunt automatisch <code>application/x-www-form-urlencoded</code> en <code>application/json</code>',
+		'method_postparams' => 'Payload voor POST',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',
@@ -141,7 +190,7 @@ return array(
 			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',
 			'category' => 'Toon in categorie',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
@@ -196,6 +245,7 @@ return array(
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'tag' => array(
+		'auto_label' => 'Dit label aan nieuwe artikelen toevoegen',
 		'name' => 'Naam',
 		'new_name' => 'Nieuwe naam',
 		'old_name' => 'Oude naam',

@@ -43,7 +43,7 @@ return array(
 		'archiving' => 'Archiviazione',
 		'auth' => array(
 			'configuration' => 'Autenticazione',
-			'help' => 'Accesso per feeds protetti',
+			'help' => 'Accesso per feed protetti',
 			'http' => 'Autenticazione HTTP',
 			'password' => 'Password HTTP',
 			'username' => 'Nome utente HTTP',
@@ -57,7 +57,7 @@ return array(
 		),
 		'css_cookie' => 'Usa i cookie quando viene recuperato il contenuto di un articolo',
 		'css_cookie_help' => 'Esempio: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => 'In caso di RSS feeds troncati (attenzione, richiede molto tempo!)',
+		'css_help' => 'In caso di feed RSS troncati (attenzione, richiede molto tempo!)',
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
 		'css_path_filter' => array(
 			'_' => 'Il selettore CSS degli elementi da rimuovere',
@@ -66,9 +66,14 @@ return array(
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
+		'export-as-opml' => array(
+			'download' => 'Scarica',
+			'help' => 'File XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Esporta come OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Azioni di filtro',
-			'help' => 'Scrivi un filtro di ricerca per riga. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Scrivi un filtro di ricerca per riga. Per li operatori <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">vedi la documentazione</a>.',
 		),
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
@@ -121,8 +126,47 @@ return array(
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// TODO
+				'feed_title' => array(
+					'_' => 'titolo feed',
+					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
+					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
+				),
+				'item_author' => 'autore elemento',
+				'item_categories' => 'tag elemento',
+				'item_content' => array(
+					'_' => 'contenuto elemento',
+					'help' => 'Chiave sotto la quale trovare il contenuto, es. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatura elemento',
+					'help' => 'Esempio: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Formato data/ora personalizzato',
+					'help' => 'Facoltativo. Un formato supportato da <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> come <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'data elemento',
+					'help' => 'Il risultato sarà interpretato da <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'titolo elemento',
+				'item_uid' => 'ID univoco elemento',
+				'item_uri' => array(
+					'_' => 'link elemento (URL)',
+					'help' => 'Esempio: <code>permalink</code>',
+				),
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Numero massimo di redirect HTTP',
 		'max_http_redir_help' => 'Imposta a 0 o lascia in bianco per disabilitare, -1 per impostare un numero illimitato di redirect',
+		'method' => array(
+			'_' => 'Metodo HTTP',
+		),
+		'method_help' => 'Il payload POST ha il supporto automatico per <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
+		'method_postparams' => 'Payload per POST',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
 		'mute' => 'muta',
 		'no_selected' => 'Nessun feed selezionato.',
@@ -141,11 +190,11 @@ return array(
 			'_' => 'Visibilità',
 			'archived' => 'Non mostrare (archiviato)',
 			'category' => 'Mostra nella sua categoria',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Mostra nei feed importanti',
 			'main_stream' => 'Mostra in homepage',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
-		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (es.: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Mostra codice sorgente',
 			'show_rendered' => 'Mostra contenuto',
@@ -188,7 +237,7 @@ return array(
 		'import_export' => 'Importa / esporta',
 		'label_management' => 'Gestione etichette',
 		'stats' => array(
-			'idle' => 'Feeds non aggiornati',
+			'idle' => 'Feed non aggiornati',
 			'main' => 'Statistiche principali',
 			'repartition' => 'Ripartizione articoli',
 		),
@@ -196,6 +245,7 @@ return array(
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 	'tag' => array(
+		'auto_label' => 'Aggiungi questo tag ai nuovi articoli',
 		'name' => 'Nome',
 		'new_name' => 'Nuovo nome',
 		'old_name' => 'Vecchio nome',
@@ -208,7 +258,7 @@ return array(
 		'add_feed' => 'Aggiungi un feed',
 		'add_label' => 'Aggiungi un’etichetta',
 		'delete_label' => 'Cancella un’etichetta',
-		'feed_management' => 'Gestione RSS feeds',
+		'feed_management' => 'Gestione feed RSS',
 		'rename_label' => 'Rinomina un’etichetta',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),

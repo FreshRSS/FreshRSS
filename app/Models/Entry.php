@@ -24,6 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $hash = '';
 	private ?bool $is_read;
 	private ?bool $is_favorite;
+	private bool $is_updated = false;
 	private int $feedId;
 	private ?FreshRSS_Feed $feed;
 	/** @var array<string> */
@@ -50,7 +51,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:string,'thumbnail'?:string,'timestamp'?:string} $dao */
+	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:?string,'thumbnail'?:string,'timestamp'?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		FreshRSS_DatabaseDAO::pdoInt($dao, ['id_feed', 'date', 'lastSeen', 'is_read', 'is_favorite']);
 
@@ -96,6 +97,17 @@ class FreshRSS_Entry extends Minz_Model {
 			$entry->_hash($dao['hash']);
 		}
 		return $entry;
+	}
+
+	/**
+	 * @param Traversable<array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
+	 *	'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:?string,'thumbnail'?:string,'timestamp'?:string}> $daos
+	 * @return Traversable<FreshRSS_Entry>
+	 */
+	public static function fromTraversable(Traversable $daos): Traversable {
+		foreach ($daos as $dao) {
+			yield FreshRSS_Entry::fromArray($dao);
+		}
 	}
 
 	public function id(): string {
@@ -190,7 +202,7 @@ HTML;
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
 				continue;
 			}
-			$credit = $enclosure['credit'] ?? '';
+			$credits = $enclosure['credit'] ?? '';
 			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
@@ -227,8 +239,13 @@ HTML;
 					. '" title="' . $etitle . '">💾</a></p>';
 			}
 
-			if ($credit != '') {
-				$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+			if ($credits != '') {
+				if (!is_array($credits)) {
+					$credits = [$credits];
+				}
+				foreach ($credits as $credit) {
+					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+				}
 			}
 			if ($description != '') {
 				$content .= '<figcaption class="enclosure-description">' . $description . '</figcaption>';
@@ -239,7 +256,7 @@ HTML;
 		return $content;
 	}
 
-	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
+	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
@@ -303,7 +320,7 @@ HTML;
 	}
 
 	/**
-	 * @return array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string,'height'?:int,'width'?:int,'thumbnails'?:array<string>}|null
+	 * @return array{'url':string,'height'?:int,'width'?:int,'time'?:string}|null
 	 */
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
@@ -376,6 +393,18 @@ HTML;
 	}
 	public function isFavorite(): ?bool {
 		return $this->is_favorite;
+	}
+
+	/**
+	 * Returns whether the entry has been modified since it was inserted in database.
+	 * @returns bool `true` if the entry already existed (and has been modified), `false` if the entry is new (or unmodified).
+	 */
+	public function isUpdated(): ?bool {
+		return $this->is_updated;
+	}
+
+	public function _isUpdated(bool $value): void {
+		$this->is_updated = $value;
 	}
 
 	public function feed(): ?FreshRSS_Feed {
@@ -679,11 +708,18 @@ HTML;
 	}
 
 	/**
-	 * @param array<string,mixed> $attributes
+	 * @param string $url Overridden URL. Will default to the entry URL.
+	 * @throws Minz_Exception
 	 */
-	public static function getContentByParsing(string $url, string $path, array $attributes = [], int $maxRedirs = 3): string {
-		$cachePath = FreshRSS_Feed::cacheFilename($url, $attributes, FreshRSS_Feed::KIND_HTML_XPATH);
-		$html = httpGet($url, $cachePath, 'html', $attributes);
+	public function getContentByParsing(string $url = '', int $maxRedirs = 3): string {
+		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
+		$feed = $this->feed();
+		if ($url === '' || $feed === null || $feed->pathEntries() === '') {
+			return '';
+		}
+
+		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
+		$html = httpGet($url, $cachePath, 'html');
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
@@ -697,7 +733,7 @@ HTML;
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
 						$refresh = SimplePie_Misc::absolutize_url($refresh, $url);
 						if ($refresh != false && $refresh !== $url) {
-							return self::getContentByParsing($refresh, $path, $attributes, $maxRedirs - 1);
+							return $this->getContentByParsing($refresh, $maxRedirs - 1);
 						}
 					}
 				}
@@ -712,11 +748,15 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($path))->asXPath());
+			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
+			$cssSelector = trim($cssSelector, ', ');
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector))->asXPath());
 			if ($nodes != false) {
+				$path_entries_filter = $feed->attributeString('path_entries_filter') ?? '';
+				$path_entries_filter = trim($path_entries_filter, ', ');
 				foreach ($nodes as $node) {
-					if (!empty($attributes['path_entries_filter'])) {
-						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($attributes['path_entries_filter']))->asXPath(), $node) ?: [];
+					if ($path_entries_filter !== '') {
+						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							if ($filterednode->parentNode === null) {
 								continue;
@@ -730,7 +770,7 @@ HTML;
 			$html = trim(sanitizeHTML($content, $base));
 			return $html;
 		} else {
-			throw new Exception();
+			throw new Minz_Exception();
 		}
 	}
 
@@ -748,11 +788,7 @@ HTML;
 			} else {
 				try {
 					// The article is not yet in the database, so let’s fetch it
-					$fullContent = self::getContentByParsing(
-						htmlspecialchars_decode($this->link(), ENT_QUOTES),
-						htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES),
-						$feed->attributes()
-					);
+					$fullContent = $this->getContentByParsing();
 					if ('' !== $fullContent) {
 						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
@@ -801,6 +837,28 @@ HTML;
 			'tags' => $this->tags(true),
 			'attributes' => $this->attributes(),
 		];
+	}
+
+	/**
+	 * @return array{array<string>,array<string>} Array of first tags to show, then array of remaining tags
+	 */
+	public function tagsFormattingHelper(): array {
+		$firstTags = [];
+		$remainingTags = [];
+
+		if (FreshRSS_Context::hasUserConf() && in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'f', 'h'], true)) {
+			$maxTagsDisplayed = (int)FreshRSS_Context::userConf()->show_tags_max;
+			$tags = $this->tags();
+			if (!empty($tags)) {
+				if ($maxTagsDisplayed > 0) {
+					$firstTags = array_slice($tags, 0, $maxTagsDisplayed);
+					$remainingTags = array_slice($tags, $maxTagsDisplayed);
+				} else {
+					$firstTags = $tags;
+				}
+			}
+		}
+		return [$firstTags,$remainingTags];
 	}
 
 	/**

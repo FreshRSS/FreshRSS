@@ -10,7 +10,7 @@ declare(strict_types=1);
  * The Dispatcher is in charge of initialising the Controller and exectue the action as specified in the Request object.
  * It is a singleton.
  */
-class Minz_Dispatcher {
+final class Minz_Dispatcher {
 
 	/**
 	 * Singleton
@@ -44,7 +44,7 @@ class Minz_Dispatcher {
 				$this->createController (Minz_Request::controllerName ());
 				$this->controller->init ();
 				$this->controller->firstAction ();
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->launchAction (
 						Minz_Request::actionName ()
@@ -53,7 +53,7 @@ class Minz_Dispatcher {
 				}
 				$this->controller->lastAction ();
 
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
 					$this->controller->view ()->build ();
@@ -61,7 +61,7 @@ class Minz_Dispatcher {
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
-			// @phpstan-ignore-next-line
+			// @phpstan-ignore doWhile.alwaysFalse
 		} while (self::$needsReset);
 	}
 

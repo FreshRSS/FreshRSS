@@ -3,7 +3,7 @@
 	/** @var FreshRSS_View $this */
 	if ($this->feed !== null) {
 ?>
-<main class="post">
+<main class="post bookmarklet">
 	<h1><?= _t('sub.feed.add') ?></h1>
 
 	<?php if (!$this->load_ok) { ?>
@@ -12,76 +12,82 @@
 
 	<form method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<legend><?= _t('sub.feed.information') ?></legend>
-		<?php if ($this->load_ok) { ?>
-		<div class="form-group">
-			<label class="group-name"><?= _t('sub.feed.title') ?></label>
-			<div class="group-controls">
-				<label><?= $this->feed->name()  ?></label>
-			</div>
-		</div>
-
-		<?php $desc = $this->feed->description(); if ($desc != '') { ?>
-		<div class="form-group">
-			<label class="group-name"><?= _t('sub.feed.description') ?></label>
-			<div class="group-controls">
-				<label><?= htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8') ?></label>
-			</div>
-		</div>
-		<?php } ?>
-
-		<div class="form-group">
-			<label class="group-name"><?= _t('sub.feed.website') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="text" value="<?= $this->feed->website() ?>" disabled="disabled" />
-					<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+		<fieldset>
+			<legend><?= _t('sub.feed.information') ?></legend>
+			<?php if ($this->load_ok) { ?>
+			<div class="form-group">
+				<label class="group-name"><?= _t('sub.feed.title') ?></label>
+				<div class="group-controls">
+					<label><?= $this->feed->name()  ?></label>
 				</div>
 			</div>
-		</div>
-		<?php } ?>
 
-		<div class="form-group">
-			<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
-					<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
-				</div>
-				<br />
-				<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="group-name" for="category"><?= _t('sub.category') ?></label>
-			<div class="group-controls">
-				<select name="category" id="category">
-					<?php foreach ($this->categories as $cat) { ?>
-					<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
-						<?= $cat->name() ?>
-					</option>
-					<?php } ?>
-				</select>
-			</div>
-		</div>
-
-		<legend><?= _t('sub.feed.auth.http') ?></legend>
-		<?php $auth = $this->feed->httpAuth(false); ?>
-		<div class="form-group">
-			<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
-			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" value="<?= $auth['username'] ?>" autocomplete="off" />
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
-			</div>
-
-			<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="password" name="http_pass" id="http_pass" value="<?= $auth['password'] ?>" autocomplete="new-password" />
-					<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
+			<?php $desc = $this->feed->description(); if ($desc != '') { ?>
+			<div class="form-group">
+				<label class="group-name"><?= _t('sub.feed.description') ?></label>
+				<div class="group-controls">
+					<label><?= htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8') ?></label>
 				</div>
 			</div>
-		</div>
+			<?php } ?>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('sub.feed.website') ?></label>
+				<div class="group-controls">
+					<div class="stick">
+						<input type="text" value="<?= $this->feed->website() ?>" disabled="disabled" />
+						<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>"><?= _i('link') ?></a>
+					</div>
+				</div>
+			</div>
+			<?php } ?>
+
+			<div class="form-group">
+				<label class="group-name" for="url"><?= _t('sub.feed.url') ?></label>
+				<div class="group-controls">
+					<div class="stick">
+						<input type="text" name="url_rss" id="url" value="<?= $this->feed->url() ?>" />
+						<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+					</div>
+					<br />
+					<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="category"><?= _t('sub.category') ?></label>
+				<div class="group-controls">
+					<select name="category" id="category">
+						<?php foreach ($this->categories as $cat) { ?>
+						<option value="<?= $cat->id() ?>"<?= $cat->id() == 1 ? ' selected="selected"' : '' ?>>
+							<?= $cat->name() ?>
+						</option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.feed.auth.http') ?></legend>
+			<?php $auth = $this->feed->httpAuth(false); ?>
+			<div class="form-group">
+				<label class="group-name" for="http_user"><?= _t('sub.feed.auth.username') ?></label>
+				<div class="group-controls">
+					<input type="text" name="http_user" id="http_user" value="<?= $auth['username'] ?>" autocomplete="off" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.auth.help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="http_pass"><?= _t('sub.feed.auth.password') ?></label>
+				<div class="group-controls">
+					<div class="stick">
+						<input type="password" name="http_pass" id="http_pass" value="<?= $auth['password'] ?>" autocomplete="new-password" />
+						<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
+					</div>
+				</div>
+			</div>
+		</fieldset>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

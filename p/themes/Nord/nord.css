@@ -171,8 +171,8 @@ button.as-link[disabled] {
 }
 
 /*=== Tables */
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 }
 
@@ -661,7 +661,7 @@ img.favicon {
 }
 
 .aside_feed .tree-folder-items.active {
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
 	background-color: var(--main-background);
 }
 
@@ -791,10 +791,6 @@ li.item.active {
 	padding: 0.25rem;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux .bottom {
 	font-size: 0.8rem;
 	text-align: center;
@@ -809,23 +805,23 @@ li.item.active {
 	background: var(--accent-bg);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--accent-bg);
 	transition: .3s;
 }
 
-.flux .item.title a {
+.flux .flux_header .item .title {
 	color: var(--text-default);
 }
 
-.flux .item.title .summary {
+.flux .flux_header .item .title .summary {
 	color: var(--text-accent);
 	font-size: 0.8rem;
 	font-style: italic;
 	opacity: 0.8;
 }
 
-.flux .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--text-accent);
 	opacity: 0.8;
 }
@@ -888,7 +884,6 @@ li.item.active {
 
 /*=== Notification and actualize notification */
 .notification {
-	padding: 1rem 3rem 1rem 1rem;
 	background: var(--dropdown-bg);
 	color: var(--text-default);
 	font-size: 0.9rem;
@@ -1119,7 +1114,7 @@ optgroup::before {
 }
 
 .nav-list .nav-header {
-	padding: 1rem 1rem 0 1rem;
+	padding: 0 1rem;
 	font-weight: bold;
 }
 
@@ -1199,11 +1194,6 @@ optgroup::before {
 	background-color: var(--accent-bg);
 	border: none;
 	border-radius: 12px;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

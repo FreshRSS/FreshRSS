@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
+		'export-as-opml' => array(
+			'download' => 'Download',
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',
+			'label' => 'Export as OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
@@ -121,6 +126,45 @@ return array(
 				'relative' => 'XPath (relative to item) for:',
 				'xpath' => 'XPath for:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',
+				'feed_title' => array(
+					'_' => 'feed title',
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',
+				),
+				'item_author' => 'item author',
+				'item_categories' => 'item tags',
+				'item_content' => array(
+					'_' => 'item content',
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',
+					'help' => 'Example: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item title',
+				'item_uid' => 'item unique ID',
+				'item_uri' => array(
+					'_' => 'item link (URL)',
+					'help' => 'Example: <code>permalink</code>',
+				),
+				'json' => 'dot notation for:',
+				'relative' => 'dot notated path (relative to item) for:',
+			),
+			'jsonfeed' => 'JSON Feed',
 			'rss' => 'RSS / Atom (default)',
 			'xml_xpath' => 'XML + XPath',
 		),
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
+		'method' => array(
+			'_' => 'HTTP Method',
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',
+		'method_postparams' => 'Payload for POST',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
 		'mute' => 'mute',
 		'no_selected' => 'No feed selected.',
@@ -196,6 +245,7 @@ return array(
 		'subscription_tools' => 'Subscription tools',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',
 		'name' => 'Name',
 		'new_name' => 'New name',
 		'old_name' => 'Old name',

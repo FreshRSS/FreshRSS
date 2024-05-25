@@ -5,6 +5,24 @@ if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
+if (!function_exists('array_is_list')) {
+	/**
+	 * Polyfill for PHP <8.1
+	 * https://php.net/array-is-list#127044
+	 * @param array<mixed> $array
+	 */
+	function array_is_list(array $array): bool {
+		$i = -1;
+		foreach ($array as $k => $v) {
+			++$i;
+			if ($k !== $i) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -23,7 +41,7 @@ if (!function_exists('syslog')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
 	function syslog(int $priority, string $message): bool {
-		// @phpstan-ignore-next-line
+		// @phpstan-ignore booleanAnd.rightAlwaysTrue
 		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && STDERR) {
 			return fwrite(STDERR, $message . "\n") != false;
 		}
@@ -88,6 +106,45 @@ function classAutoloader(string $class): void {
 
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
+
+/**
+ * Memory efficient replacement of `echo json_encode(...)`
+ * @param array<mixed>|mixed $json
+ * @param int $optimisationDepth Number of levels for which to perform memory optimisation
+ * before calling the faster native JSON serialisation.
+ * Set to negative value for infinite depth.
+ */
+function echoJson($json, int $optimisationDepth = -1): void {
+	if ($optimisationDepth === 0 || !is_array($json)) {
+		echo json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		return;
+	}
+	$first = true;
+	if (array_is_list($json)) {
+		echo '[';
+		foreach ($json as $item) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echoJson($item, $optimisationDepth - 1);
+		}
+		echo ']';
+	} else {
+		echo '{';
+		foreach ($json as $key => $value) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echo json_encode($key, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ':';
+			echoJson($value, $optimisationDepth - 1);
+		}
+		echo '}';
+	}
+}
 
 function idn_to_puny(string $url): string {
 	if (function_exists('idn_to_ascii')) {
@@ -246,9 +303,10 @@ function sensitive_log($log) {
 
 /**
  * @param array<string,mixed> $attributes
+ * @param array<int,mixed> $curl_options
  * @throws FreshRSS_Context_Exception
  */
-function customSimplePie(array $attributes = array()): SimplePie {
+function customSimplePie(array $attributes = [], array $curl_options = []): SimplePie {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
@@ -261,7 +319,7 @@ function customSimplePie(array $attributes = array()): SimplePie {
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-	$curl_options = FreshRSS_Context::systemConf()->curl_options;
+	$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options, $curl_options);
 	if (isset($attributes['ssl_verify'])) {
 		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
@@ -277,24 +335,27 @@ function customSimplePie(array $attributes = array()): SimplePie {
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
-	$simplePie->strip_htmltags(array(
+	$simplePie->strip_htmltags([
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
-	));
-	$simplePie->rename_attributes(array('id', 'class'));
-	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
+	]);
+	$simplePie->rename_attributes(['id', 'class']);
+	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
-	$simplePie->add_attributes(array(
-		'audio' => array('controls' => 'controls', 'preload' => 'none'),
-		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('controls' => 'controls', 'preload' => 'none'),
-	));
-	$simplePie->set_url_replacements(array(
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset']));
+	$simplePie->add_attributes([
+		'audio' => ['controls' => 'controls', 'preload' => 'none'],
+		'iframe' => [
+			'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+			'sandbox' => 'allow-scripts allow-same-origin',
+		],
+		'video' => ['controls' => 'controls', 'preload' => 'none'],
+	]);
+	$simplePie->set_url_replacements([
 		'a' => 'href',
 		'area' => 'href',
 		'audio' => 'src',
@@ -302,21 +363,21 @@ function customSimplePie(array $attributes = array()): SimplePie {
 		'del' => 'cite',
 		'form' => 'action',
 		'iframe' => 'src',
-		'img' => array(
+		'img' => [
 			'longdesc',
 			'src'
-		),
+		],
 		'input' => 'src',
 		'ins' => 'cite',
 		'q' => 'cite',
 		'source' => 'src',
 		'track' => 'src',
-		'video' => array(
+		'video' => [
 			'poster',
 			'src',
-		),
-	));
-	$https_domains = array();
+		],
+	]);
+	$https_domains = [];
 	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);
@@ -369,19 +430,34 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
+ * Remove the charset meta information of an HTML document, e.g.:
+ * `<meta charset="..." />`
+ * `<meta http-equiv="Content-Type" content="text/html; charset=...">`
+ */
+function stripHtmlMetaCharset(string $html): string {
+	return preg_replace('/<meta\s[^>]*charset\s*=\s*[^>]+>/i', '', $html, 1) ?? '';
+}
+
+/**
  * Set an XML preamble to enforce the HTML content type charset received by HTTP.
- * @param string $html the row downloaded HTML content
+ * @param string $html the raw downloaded HTML content
  * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
  * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
  */
 function enforceHttpEncoding(string $html, string $contentType = ''): string {
 	$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
 	if ($httpCharset == '') {
-		// No charset defined by HTTP, do nothing
-		return $html;
+		// No charset defined by HTTP
+		if (preg_match('/<meta\s[^>]*charset\s*=[\s\'"]*UTF-?8\b/i', substr($html, 0, 2048))) {
+			// Detect UTF-8 even if declared too deep in HTML for DOMDocument
+			$httpCharset = 'UTF-8';
+		} else {
+			// Do nothing
+			return $html;
+		}
 	}
 	$httpCharsetNormalized = SimplePie_Misc::encoding($httpCharset);
-	if ($httpCharsetNormalized === 'windows-1252') {
+	if (in_array($httpCharsetNormalized, ['windows-1252', 'US-ASCII'], true)) {
 		// Default charset for HTTP, do nothing
 		return $html;
 	}
@@ -397,14 +473,28 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		// Existing XML declaration, do nothing
 		return $html;
 	}
-	return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	if ($httpCharsetNormalized !== 'UTF-8') {
+		// Try to change encoding to UTF-8 using mbstring or iconv or intl
+		$utf8 = SimplePie_Misc::change_encoding($html, $httpCharsetNormalized, 'UTF-8');
+		if (is_string($utf8)) {
+			$html = stripHtmlMetaCharset($utf8);
+			$httpCharsetNormalized = 'UTF-8';
+		}
+	}
+	if ($httpCharsetNormalized === 'UTF-8') {
+		// Save encoding information as XML declaration
+		return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+	}
+	// Give up
+	return $html;
 }
 
 /**
  * @param string $type {html,json,opml,xml}
  * @param array<string,mixed> $attributes
+ * @param array<int,mixed> $curl_options
  */
-function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = []): string {
+function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): string {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -428,7 +518,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$accept = '*/*;q=0.8';
 	switch ($type) {
 		case 'json':
-			$accept = 'application/json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
+			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
 			break;
 		case 'opml':
 			$accept = 'text/x-opml,text/xml;q=0.9,application/xml;q=0.9,*/*;q=0.8';
@@ -469,6 +559,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
 	}
+
+	curl_setopt_array($ch, $curl_options);
+
 	$body = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
@@ -482,7 +575,10 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
-		$body = enforceHttpEncoding($body, $c_content_type);
+		$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+		if ($type !== 'json') {
+			$body = enforceHttpEncoding($body, $c_content_type);
+		}
 	}
 
 	if (file_put_contents($cachePath, $body) === false) {
@@ -580,6 +676,7 @@ function max_registrations_reached(): bool {
  *
  * @param string $username the name of the user of which we want the configuration.
  * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
+ * @throws Minz_ConfigurationNamespaceException
  */
 function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
@@ -590,9 +687,6 @@ function get_user_configuration(string $username): ?FreshRSS_UserConfiguration {
 		FreshRSS_UserConfiguration::register($namespace,
 			USERS_PATH . '/' . $username . '/config.php',
 			FRESHRSS_PATH . '/config-user.default.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
-		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage(), ADMIN_LOG);
 		return null;
@@ -706,13 +800,8 @@ function httpAuthUser(bool $onlyTrusted = true): string {
 }
 
 function cryptAvailable(): bool {
-	try {
-		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-		return $hash === @crypt('password', $hash);
-	} catch (Exception $e) {
-		Minz_Log::warning($e->getMessage());
-	}
-	return false;
+	$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+	return $hash === @crypt('password', $hash);
 }
 
 
@@ -849,7 +938,7 @@ function getNonStandardShortcuts(array $shortcuts): array {
 
 	$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
 		$shortcut = trim($shortcut);
-		return $shortcut !== '' & stripos($standard, $shortcut) === false;
+		return $shortcut !== '' && stripos($standard, $shortcut) === false;
 	});
 
 	return $nonStandard;

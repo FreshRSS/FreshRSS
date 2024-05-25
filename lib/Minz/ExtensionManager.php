@@ -118,6 +118,7 @@ final class Minz_ExtensionManager {
 	 * extension.php should contain at least a class named <name>Extension where
 	 * <name> must match with the entry point in metadata.json. This class must
 	 * inherit from Minz_Extension class.
+	 * @throws Minz_ConfigurationNamespaceException
 	 */
 	public static function init(): void {
 		self::reset();

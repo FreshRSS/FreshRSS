@@ -13,16 +13,12 @@ function isImgMime(string $content): bool {
 		return true;
 	}
 	$isImage = true;
-	try {
-		/** @var finfo $fInfo */
-		$fInfo = finfo_open(FILEINFO_MIME_TYPE);
-		/** @var string $content */
-		$content = finfo_buffer($fInfo, $content);
-		$isImage = strpos($content, 'image') !== false;
-		finfo_close($fInfo);
-	} catch (Exception $e) {
-		syslog(LOG_WARNING, 'FreshRSS favicon error: ' . $e->getMessage());
-	}
+	/** @var finfo $fInfo */
+	$fInfo = finfo_open(FILEINFO_MIME_TYPE);
+	/** @var string $content */
+	$content = finfo_buffer($fInfo, $content);
+	$isImage = strpos($content, 'image') !== false;
+	finfo_close($fInfo);
 	return $isImage;
 }
 
@@ -96,7 +92,7 @@ function searchFavicon(string &$url): string {
 
 		// Handle protocol-relative URLs by adding the current URL's scheme
 		if (substr($href, 0, 2) === '//') {
-			$href = ($urlParts['scheme'] ?? 'https') . '://' . $href;
+			$href = ($urlParts['scheme'] ?? 'https') . ':' . $href;
 		}
 
 		$href = SimplePie_IRI::absolutize($baseUrl, $href);

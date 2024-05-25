@@ -5,20 +5,24 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = array(
-	'user:',
-	'filename:',
-);
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
+	public string $filename;
 
-$options = getopt('', $params);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addRequiredOption('filename', (new CliOption('filename')));
+		parent::__construct();
+	}
+};
 
-if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename']) || !is_string($options['user']) || !is_string($options['filename'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username --filename /path/to/file.ext");
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['user']);
+$username = cliInitUser($cliOptions->user);
+$filename = $cliOptions->filename;
 
-$filename = $options['filename'];
 if (!is_readable($filename)) {
 	fail('FreshRSS error: file is not readable “' . $filename . '”');
 }

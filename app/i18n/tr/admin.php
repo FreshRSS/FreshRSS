@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'title' => 'Kimlik doğrulama',
-		'token' => 'Kimlik doğrulama işareti',
-		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
+		'token' => 'Ana kimlik doğrulama jetonu',
+		'token_help' => 'Kullanıcının tüm RSS çıkışlarına erişimine ve kimlik doğrulaması olmadan akışları yenilemesine izin ver:',
 		'type' => 'Kimlik doğrulama yöntemi',
 		'unsafe_autologin' => 'Güvensiz otomatik girişe izin ver: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Ana URL',
+			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'saniye',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'Kullanıcı kayıt formu',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Hassas parametre. <kbd>./data/config.php</kbd> adresinde elle düzenleyiniz.',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'verilmedi',
+			'enabled' => '<a href="./?a=tos">aktive edildi</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Kullanım şartlarını</a> nasıl aktifleştiririm?',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a> hakkında',
 		),
 	),
 	'update' => array(
 		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Değişiklik günlüğü',
 		'check' => 'Güncelleme kontrolü',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php %s lokasyonundan ./data lokasyonuna kopyalandı',
 		'current_version' => 'Mevcut sürümünüz',
 		'last' => 'Son kontrol',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Güncelleniyor…',
 		'none' => 'Yeni güncelleme yok',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Sürüm kanalı',
+			'edge' => 'Rolling release (“edge”)',	// IGNORE
+			'latest' => 'Stabil sürüm (“latest”)',
 		),
 		'title' => 'Sistem güncelleme',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'git ve GitHub.com ile gğncelleme başladı',
 	),
 	'user' => array(
 		'admin' => 'Yönetici',

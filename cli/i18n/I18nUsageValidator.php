@@ -22,6 +22,7 @@ class I18nUsageValidator implements I18nValidatorInterface {
 		$this->reference = $reference;
 	}
 
+	#[\Override]
 	public function displayReport(): string {
 		if ($this->failedEntries > $this->totalEntries) {
 			throw new \RuntimeException('The number of unused strings cannot be higher than the number of strings');
@@ -32,10 +33,12 @@ class I18nUsageValidator implements I18nValidatorInterface {
 		return sprintf('%5.1f%% of translation keys are unused.', $this->failedEntries / $this->totalEntries * 100) . PHP_EOL;
 	}
 
+	#[\Override]
 	public function displayResult(): string {
 		return $this->result;
 	}
 
+	#[\Override]
 	public function validate(): bool {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $key => $value) {

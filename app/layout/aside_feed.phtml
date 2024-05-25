@@ -109,7 +109,7 @@
 
 		$error_class = '';
 		$error_title = '';
-		if ($feed->inError()) {
+		if ($feed->inError() && !$feed->mute()) {
 			$error_class = ' error';
 			$error_title = _t('sub.feed.error');
 		}
@@ -128,7 +128,7 @@
 	?><div class="dropdown no-mobile">
 		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
 	</div><?php
-			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon test" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
+			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
 		endif;
 	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
 		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
@@ -153,9 +153,7 @@
 <script id="tag_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="item">
-			<button class="as-link confirm" disabled="disabled"
-				form="mark-read-aside" formaction="<?= _url('tag', 'delete', 'id_tag', '------') ?>"
-				type="submit"><?= _t('gen.action.remove') ?></button>
+			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
