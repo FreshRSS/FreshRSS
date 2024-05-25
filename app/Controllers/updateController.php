@@ -20,7 +20,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				'Please git pull manually!');
 		}
 
-		exec('which git', $output, $return);
+		exec('git -v', $output, $return);
 		if ($return != 0) {
 			throw new Minz_Exception("Error {$return} git not found: Please update manually!");
 		}
