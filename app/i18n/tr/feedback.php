@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
-		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Akışlarınız içe aktarıldı. Eğer içe aktarımı tamamladıysanız <i>Akışları güncelle</i> butonuna tıklayabilirsiniz.',
+		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi. Eğer içe aktarımı tamamladıysanız <i>Akışları güncelle</i> butonuna tıklayabilirsiniz.',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// DIRTY
+		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// IGNORE
 	),
 	'profile' => array(
 		'error' => 'Profiliniz düzenlenemedi',
@@ -94,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> önbelleği temizlendi',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin. URL adresine <code>#force_feed</code> ekleyerek denemeyi zorlayabilirsiniz.',
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => '“%s” etiketi oluşturuldu.',
+		'error' => 'Etiket güncellenemedi!',
 		'name_exists' => 'Etiket zaten mevcut.',
 		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
+		'updated' => 'Etiket güncellendi.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',

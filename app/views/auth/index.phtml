@@ -21,8 +21,8 @@
 					<?php } ?>
 					<option value="form"<?= FreshRSS_Context::systemConf()->auth_type === 'form' ? ' selected="selected"' : '',
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
-					<option value="http_auth"<?= FreshRSS_Context::systemConf()->auth_type === 'http_auth' ? ' selected="selected"' : '',
-						httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser() ?>')</option>
+					<option value="http_auth"<?= FreshRSS_Context::systemConf()->auth_type === 'http_auth' ? ' selected="selected"' : '' ?>>
+						<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser() ?>')</option>
 					<option value="none"<?= FreshRSS_Context::systemConf()->auth_type === 'none' ? ' selected="selected"' : '' ?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>

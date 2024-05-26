@@ -41,26 +41,15 @@
 				<li class="item">
 					<span>
 						<form action="<?= _url('index', 'index') ?>" method="get">
-							<?php $param_a = Minz_Request::actionName(); ?>
-							<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
-							<input type="hidden" name="a" value="<?= $param_a ?>" />
+							<?php if (in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) { ?>
+							<input type="hidden" name="a" value="<?= Minz_Request::actionName() ?>" />
+							<?php } if (Minz_Request::paramString('get') !== '') { ?>
+							<input type="hidden" name="get" value="<?= FreshRSS_Context::currentGet() ?>" />
+							<?php } if (ctype_upper(Minz_Request::paramString('order'))) { ?>
+							<input type="hidden" name="order" value="<?= FreshRSS_Context::$order ?>" />
+							<?php } if (Minz_Request::paramInt('state') !== 0) { ?>
+							<input type="hidden" name="state" value="<?= FreshRSS_Context::$state ?>" />
 							<?php } ?>
-
-							<?php $get = Minz_Request::paramString('get'); ?>
-							<?php if ($get !== '') { ?>
-							<input type="hidden" name="get" value="<?= $get ?>" />
-							<?php } ?>
-
-							<?php $order = Minz_Request::paramString('order'); ?>
-							<?php if ($order !== '') { ?>
-							<input type="hidden" name="order" value="<?= $order ?>" />
-							<?php } ?>
-
-							<?php $state = Minz_Request::paramString('state'); ?>
-							<?php if ($state !== '') { ?>
-							<input type="hidden" name="state" value="<?= $state ?>" />
-							<?php } ?>
-
 							<div class="stick search">
 								<input type="search" name="search"
 									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
@@ -89,7 +78,7 @@
 						<?php if (!empty($raw_query['url'])): ?>
 							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
 						<?php else: ?>
-						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
+						<?php $query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels()); ?>
 							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
 						<?php endif; ?>
 					</li>
@@ -210,20 +199,6 @@
 			<?php
 		}
 		?>
-
-		<?php
-			$url_output['a'] = 'rss';
-			if (FreshRSS_Context::userConf()->token) {
-				$url_output['params']['user'] = Minz_User::name();
-				$url_output['params']['token'] = FreshRSS_Context::userConf()->token;
-			}
-			if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
-				$url_output['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
-			}
-		?>
-		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz_Url::display($url_output) ?>">
-			<?= _i('rss') ?>
-		</a>
 	</div>
 
 	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>

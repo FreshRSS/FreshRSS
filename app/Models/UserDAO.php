@@ -32,6 +32,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		$ok = $this->pdo->exec($GLOBALS['SQL_DROP_TABLES']) !== false;
 
 		if ($ok) {
+			$this->close();
 			return true;
 		} else {
 			$info = $this->pdo->errorInfo();

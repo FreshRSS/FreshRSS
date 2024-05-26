@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'L’étiquette <em>%s</em> a été créée.',
-		'name_exists' => 'L’étiquette existe déjà.',
+		'error' => 'L’étiquette n’a pas pu être modifiée',
+		'name_exists' => 'L’étiquette existe déjà!',
 		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
+		'updated' => 'L’étiquette a été mise à jour.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',

@@ -61,7 +61,7 @@ return array(
 		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Arquivo não pôde ser enviado',
 		'no_zip_extension' => 'extensão ZIP não está presente em seu servidor.',
-		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',	// DIRTY
+		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Seu perfil não pode ser editado',
@@ -92,7 +92,7 @@ return array(
 			'added' => 'O feed RSS <em>%s</em> foi adicionado',
 			'already_subscribed' => 'Você já está inscrito no <em>%s</em>',
 			'cache_cleared' => 'O cache do feed <em>%s</em> foi limpo',
-			'deleted' => 'o Feed foi deletado',
+			'deleted' => 'o feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
 			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'URL <em>%s</em> é inválida',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Limpeza completa (%d artigos deletados)',
 	),
 	'tag' => array(
-		'created' => 'A Tag “%s” foi criada.',	// DIRTY
-		'name_exists' => 'O nome da tag já existe.',	// DIRTY
-		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',	// DIRTY
+		'created' => 'A Tag “%s” foi criada.',
+		'error' => 'Etiqueta não pode ser atualizada!',
+		'name_exists' => 'O nome da tag já existe.',
+		'renamed' => 'A Tag “%s” foi renomeada para “%s”.',
+		'updated' => 'Etiqueta foi atualizada.',
 	),
 	'update' => array(
 		'can_apply' => 'O FreshRSS será atualizado para a <strong>versão %s</strong>.',

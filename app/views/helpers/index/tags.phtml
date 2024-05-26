@@ -1,0 +1,42 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	[$firstTags,$remainingTags] = $this->entry->tagsFormattingHelper();
+?>
+<div class="tags">
+<?php if (!empty($firstTags)): ?>
+	<?= _i('tag') ?><ul class="list-tags">
+	<?php if (Minz_Request::controllerName() === 'index'): ?>
+		<?php foreach ($firstTags as $tag): ?>
+		<li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+		<?php endforeach; ?>
+	<?php else: // API public access ?>
+		<?php foreach ($firstTags as $tag): ?>
+		<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=%23' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<?php if (!empty($remainingTags)): // more than 7 tags: show dropdown menu ?>
+		<li class="item tag">
+			<div class="dropdown">
+				<div id="dropdown-tags2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+				<a class="dropdown-toggle" href="#dropdown-tags2-<?= $this->entry->id() ?>"><?= _i('down') ?></a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
+					<?php if (Minz_Request::controllerName() === 'index'): ?>
+						<?php foreach ($remainingTags as $tag): ?>
+						<li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<?php foreach ($remainingTags as $tag): ?>
+						<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=%23' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</ul>
+				<a class="dropdown-close" href="#close">❌</a>
+			</div>
+		</li>
+	<?php endif; ?>
+	</ul>
+<?php endif; ?>
+</div>

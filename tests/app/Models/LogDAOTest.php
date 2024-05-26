@@ -10,6 +10,7 @@ class LogDAOTest extends TestCase {
 
 	private string $logPath;
 
+	#[\Override]
 	protected function setUp(): void {
 		$this->logDAO = new FreshRSS_LogDAO();
 		$this->logPath = FreshRSS_LogDAO::logPath(self::LOG_FILE_TEST);
@@ -36,6 +37,7 @@ class LogDAOTest extends TestCase {
 		self::assertStringContainsString('', file_get_contents($this->logPath) ?: '');
 	}
 
+	#[\Override]
 	protected function tearDown(): void {
 		unlink($this->logPath);
 	}

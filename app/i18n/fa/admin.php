@@ -19,8 +19,8 @@ return array(
 		'http' => ' HTTP (برای کاربران پیشرفته با HTTPS)',
 		'none' => ' هیچ (خطرناک)',
 		'title' => ' احراز هویت',
-		'token' => ' نشانه احراز هویت',
-		'token_help' => ' امکان دسترسی به خروجی RSS کاربر پیش فرض بدون احراز هویت را می دهد:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => ' روش احراز هویت',
 		'unsafe_autologin' => ' اجازه ورود خودکار ناامن را با استفاده از قالب:',
 	),
@@ -213,7 +213,7 @@ return array(
 			'latest' => ' انتشار پایدار ("آخرین")',
 		),
 		'title' => ' FreshRSS را به روز کنید',
-		'viaGit' => ' به روز رسانی از طریق git و Github.com شروع شد',
+		'viaGit' => ' به روز رسانی از طریق git و GitHub.com شروع شد',
 	),
 	'user' => array(
 		'admin' => ' مدیر',

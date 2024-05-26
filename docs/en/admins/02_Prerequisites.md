@@ -6,11 +6,11 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 
 | Software      | Recommended             | Also Works With         |
 | ------------- | ----------------------- | ----------------------- |
-| Web server    | **Apache 2.4+**         | nginx, lighttpd         |
-| PHP           | **PHP 7.4+**            |                         |
+| Web server    | **Apache 2.4**          | nginx, lighttpd<br />minimal compatibility with Apache 2.2    |
+| PHP           | **PHP 7.4+**            | FreshRSS 1.21/1.22: PHP 7.2+; FreshRSS 1.23/1.24: PHP 7.4+    |
 | PHP modules   | Required: libxml, cURL, JSON, PDO_MySQL, PCRE and ctype.<br />Required (32-bit only): GMP <br />Recommended: Zlib, mbstring, iconv, ZipArchive<br />*For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* | |
-| Database      | **PostgreSQL 9.5+**     | SQLite, MySQL 5.5.3+, MariaDB 5.5+ |
-| Browser       | **Firefox**             | Chrome, Opera, Safari, or Edge          |
+| Database      | **PostgreSQL 9.5+**     | SQLite, MySQL 5.5.3+, MariaDB 5.5+   |
+| Browser       | **Firefox**             | Chrome, Opera, Safari, or Edge       |
 
 ## Getting the appropriate version of FreshRSS
 
@@ -32,6 +32,6 @@ It could happen that we make two releases in a short span of time if we have a r
 
 As its name suggests, the development version is the working codebase, intended for developers. **This release may be unstable!**
 
-If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on Github (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom), for instance), and manually pull new commits.
+If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on GitHub (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom), for instance), and manually pull new commits.
 
 Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing…

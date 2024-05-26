@@ -26,7 +26,7 @@ return array(
 	),
 	'auth' => array(
 		'login' => array(
-			'invalid' => '用戶名或密碼無效',
+			'invalid' => '使用者名或密碼無效',
 			'success' => '登入成功',
 		),
 		'logout' => array(
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => '清除完成（已刪除 %d 篇文章）',
 	),
 	'tag' => array(
-		'created' => '標簽 “%s” 已創建。',
-		'name_exists' => '標簽名已存在。',
-		'renamed' => '標簽 “%s” 已被重命名為 “%s”。',
+		'created' => '標籤 “%s” 已創建。',
+		'error' => '無法更新標籤!',
+		'name_exists' => '標籤名已存在。',
+		'renamed' => '標籤 “%s” 已被重命名為 “%s”。',
+		'updated' => '已更新標籤。',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS 將更新到 <strong>版本 %s</strong>。',
@@ -129,16 +131,16 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => '已創建用戶 %s',
-			'error' => '創建用戶 %s 失敗',
+			'_' => '已創建使用者 %s',
+			'error' => '創建使用者 %s 失敗',
 		),
 		'deleted' => array(
-			'_' => '已刪除用戶 %s',
-			'error' => '刪除用戶 %s 失敗',
+			'_' => '已刪除使用者 %s',
+			'error' => '刪除使用者 %s 失敗',
 		),
 		'updated' => array(
-			'_' => '已更新用戶 %s',
-			'error' => '更新用戶 %s 失敗',
+			'_' => '已更新使用者 %s',
+			'error' => '更新使用者 %s 失敗',
 		),
 	),
 );

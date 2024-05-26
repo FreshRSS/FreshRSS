@@ -1,9 +1,6 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	if ($this->feed === null) {
-		throw new FreshRSS_Context_Exception('Feed not initialised!');
-	}
 	$topline_read = FreshRSS_Context::userConf()->topline_read;
 	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
 	$topline_website = FreshRSS_Context::userConf()->topline_website;
@@ -54,8 +51,8 @@
 		endif;
 	?></li><?php
 	endif; ?>
-
-	<li class="item title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element"><?= $this->entry->title() ?><?php
+	<li class="item titleAuthorSummaryDate">
+		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();
@@ -68,11 +65,13 @@
 			}
 			?></span><?php
 		endif;
-		if ($topline_summary):
-			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
-		endif;
-	?></a></li>
-	<?php if ($topline_date) { ?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>" class="item-element"><?= $this->entry->date() ?></time>&nbsp;</li><?php } ?>
+		?></a>
+	<?php
+	if ($topline_summary):
+		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
+	endif; ?>
+	<?php if ($topline_date) { ?><span class="item-element date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</span><?php } ?>
+	</li>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>

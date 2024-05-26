@@ -2,7 +2,7 @@
 
 ## About FreshRSS
 
-FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on Github: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on GitHub: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## The problem
 
@@ -132,14 +132,25 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
 
 ```php
-class HelloWorldExtension extends Minz_Extension
+final class HelloWorldExtension extends Minz_Extension
 {
+	#[\Override]
 	public function init(): void {
 		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}
+
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+		$message = $this->getUserConfigurationValue('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```
@@ -163,6 +174,19 @@ The following events are available:
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
 * `post_update` (`function(none) -> none`): **TODO** add documentation.
 * `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
+
+### Injecting CDN content
+
+When using the `init` method, it is possible to inject scripts from CDN using the `Minz_View::appendScript` directive.
+FreshRSS will include the script in the page but will not load it since it will be blocked by the default content security policy (**CSP**).
+To amend the existing CSP, you need to define the extension CSP policies:
+```php
+// in the extension.php file
+protected array $csp_policies = [
+	'default-src' => 'example.org',
+];
+```
+This will only amend the extension CSP to FreshRSS CSP.
 
 ### Writing your own configure.phtml
 

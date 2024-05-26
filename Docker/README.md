@@ -21,7 +21,7 @@ Example for Linux Debian / Ubuntu:
 
 ```sh
 # Install default Docker Compose and automatically the corresponding version of Docker
-apt install docker-compose
+apt install docker-compose-v2
 ```
 
 ## Quick run
@@ -194,6 +194,8 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
 
+See also the section [Docker Compose with PostgreSQL](#docker-compose-with-postgresql) below.
+
 ### [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb)
 
 ```sh
@@ -285,13 +287,13 @@ See [`docker-compose.yml`](./freshrss/docker-compose.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose logs -f --timestamps
+docker compose logs -f --timestamps
 # Stop
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
 ```
 
 Detailed (partial) example of Docker Compose for FreshRSS:
@@ -352,8 +354,8 @@ services:
       # So if changes are made (or in .env file), first delete the service and volumes.
       # ℹ️ All the --db-* parameters can be omitted if using built-in SQLite database.
       FRESHRSS_INSTALL: |-
-        --api_enabled
-        --base_url ${BASE_URL}
+        --api-enabled
+        --base-url ${BASE_URL}
         --db-base ${DB_BASE}
         --db-host ${DB_HOST}
         --db-password ${DB_PASSWORD}
@@ -362,7 +364,7 @@ services:
         --default_user admin
         --language en
       FRESHRSS_USER: |-
-        --api_password ${ADMIN_API_PASSWORD}
+        --api-password ${ADMIN_API_PASSWORD}
         --email ${ADMIN_EMAIL}
         --language en
         --password ${ADMIN_PASSWORD}
@@ -378,12 +380,14 @@ See [`docker-compose-db.yml`](./freshrss/docker-compose-db.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-db.yml pull
+docker compose -f docker-compose.yml -f docker-compose-db.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 ```
+
+See also the section [Migrate database](#migrate-database) below to upgrade to a major PostgreSQL version with Docker Compose.
 
 ### Docker Compose for development
 
@@ -396,11 +400,11 @@ See [`docker-compose-development.yml`](./freshrss/docker-compose-development.yml
 cd ./FreshRSS/Docker/freshrss/
 # Update
 git pull --ff-only --prune
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
+docker compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
 # Stop with [Control]+[C] and purge
-docker-compose down --remove-orphans --volumes
+docker compose down --remove-orphans --volumes
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
@@ -446,13 +450,13 @@ See [`docker-compose-proxy.yml`](./freshrss/docker-compose-proxy.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml pull
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
 # Stop
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
@@ -649,4 +653,47 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss:alpine \
   crond -f -d 6
+```
+
+## Migrate database
+
+Our [CLI](../cli/README.md) offers commands to back-up and migrate user databases,
+with `cli/db-backup.php` and `cli/db-restore.php` in particular.
+
+Here is an example (assuming our [Docker Compose example](#docker-compose-with-postgresql))
+intended for migrating to a newer major version of PostgreSQL,
+but which can also be used to migrate between other databases (e.g. MySQL to PostgreSQL).
+
+```sh
+# Stop FreshRSS container (Web server + cron) during maintenance
+docker compose down freshrss
+
+# Optional additional pre-upgrade back-up using PostgreSQL own mechanism
+docker compose -f docker-compose-db.yml \
+  exec freshrss-db pg_dump -U freshrss freshrss | gzip -9 > freshrss-postgres-backup.sql.gz
+# ------↑ Name of your PostgreSQL Docker container
+# -----------------------------↑ Name of your PostgreSQL user for FreshRSS
+# --------------------------------------↑ Name of your PostgreSQL database for FreshRSS
+
+# Back-up all users’ respective tables to SQLite files
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  run --rm freshrss cli/db-backup.php
+
+# Remove old database (PostgreSQL) container and its data volume
+docker compose -f docker-compose-db.yml \
+  down --volumes freshrss-db
+
+# Edit your Compose file to use new database (e.g. newest postgres:xx)
+nano docker-compose-db.yml
+
+# Start new database (PostgreSQL) container and its new empty data volume
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  up -d freshrss-db
+
+# Restore all users’ respective tables from SQLite files
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  run --rm freshrss cli/db-restore.php --delete-backup
+
+# Restart a new FreshRSS container after maintenance
+docker compose -f docker-compose.yml -f docker-compose-db.yml up -d freshrss
 ```

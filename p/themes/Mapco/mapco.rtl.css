@@ -194,8 +194,8 @@ th {
 	background: #f9fafb;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -620,7 +620,6 @@ form th {
 	color: #5b6871;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	margin-top: 1rem;
 }
 .nav-list .nav-form {
 	padding: 3px;
@@ -1007,7 +1006,7 @@ main.prompt {
 .flux .flux_header:hover {
 	background: #f9fafb;
 }
-.flux .flux_header:hover:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item .title {
 	background: #f9fafb;
 }
 .flux.current {
@@ -1017,16 +1016,16 @@ main.prompt {
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current):hover .item .title {
 	background: #f2f6f8;
 }
-.flux.not_read .item.title a {
+.flux.not_read .item .title a {
 	color: #36c;
 }
 .flux.not_read .item.website a {
 	color: #36c;
 }
-.flux.not_read .item.date {
+.flux.not_read .item .date {
 	color: rgba(51, 102, 204, 0.5);
 }
 .flux.favorite {
@@ -1036,14 +1035,15 @@ main.prompt {
 .flux.favorite:not(.current) {
 	background: #fff6da;
 }
-.flux.favorite:not(.current):hover .item.title {
+.flux.favorite:not(.current):hover .item .title {
 	background: #fff6da;
 }
 .flux .website a {
 	color: #303136;
 	opacity: 0.75;
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: rgba(48, 49, 54, 0.5);
 	font-size: 0.85rem;
 }
@@ -1126,9 +1126,7 @@ main.prompt {
 	border: none;
 }
 #stream.reader .flux .content .author {
-	margin: 0 0 10px;
 	color: #a6a7ae;
-	font-size: 90%;
 }
 
 /*=== Configuration pages */

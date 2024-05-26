@@ -60,12 +60,12 @@
 						<td><?= $ext['author'] ?></td>
 						<td>
 							<?= $ext['description'] ?>
-							<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-								<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+							<?php if (isset($this->extensions_installed[$ext['entrypoint']])) { ?>
+								<?php if (version_compare(strval($this->extensions_installed[$ext['entrypoint']]), strval($ext['version'])) >= 0) { ?>
 									<span class="alert alert-success">
 										<?= _t('admin.extensions.latest') ?>
 									</span>
-								<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+								<?php } elseif (strval($this->extensions_installed[$ext['entrypoint']]) !== strval($ext['version'])) { ?>
 									<span class="alert alert-warn">
 										<?= _t('admin.extensions.update') ?>
 									</span>

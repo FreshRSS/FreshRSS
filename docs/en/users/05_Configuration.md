@@ -167,10 +167,7 @@ This means that if you assign a shortcut to more than one action, you’ll end u
 
 # User queries
 
-You can configure your [user queries](./03_Main_view.md) in that section. There is not much to say here as it is pretty straightforward.
-You can only change user query titles or drop them.
-
-At the moment, there is no helper to build a user query from here.
+You can configure your [user queries](./user_queries.md) in that section.
 
 # Profile
 

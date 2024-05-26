@@ -129,8 +129,8 @@ th {
 	background: var(--background-color-light);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -747,11 +747,11 @@ kbd {
 	background: var(--background-color-dark);
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
+.flux.not_read:not(.current):hover .item .title {
+	background: var(--background-color-hover);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--background-color-hover);
 }
 
@@ -759,11 +759,11 @@ kbd {
 	background: var(--background-color-hover);
 }
 
-.flux .item.title a {
+.flux .flux_header .item .title {
 	color: var(--font-color-light);
 }
 
-.flux .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--font-color-dark);
 }
 
@@ -794,9 +794,9 @@ kbd {
 	filter: grayscale(0.8) brightness(1.7);
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-light);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {
@@ -951,9 +951,7 @@ kbd {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-dark);
-	font-size: 90%;
 }
 
 #stream-footer {

@@ -153,8 +153,8 @@ th {
 	background-color: var(--background-color-grey);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -328,7 +328,6 @@ form th {
 	padding: 0 1rem;
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
-	border-bottom: 1px solid var(--border-color-grey-light);
 	font-weight: bold;
 }
 
@@ -798,11 +797,12 @@ a.signin {
 }
 
 .flux .flux_header:hover,
+.flux:not(.current):hover .flux_header .title,
 .flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
 
-.flux .flux_header:hover .title a {
+.flux .flux_header:hover .title {
 	color: var(--font-color-hover);
 }
 
@@ -815,8 +815,8 @@ a.signin {
 	border-left: 2px solid var(--border-left-article-unread);
 }
 
-.flux .item.title a,
-.flux.not_read:not(.current):hover .item.title {
+.flux .flux_header .item .title a,
+.flux.not_read:not(.current):hover .flux_header .item .title {
 	color: var(--font-color-link-title);
 }
 
@@ -828,6 +828,7 @@ a.signin {
 	background-color: var(--background-color-favorite);
 }
 
+.flux.favorite:not(.current):hover .flux_header .title,
 .flux.favorite:not(.current) .flux_header:hover,
 .flux.favorite.current .flux_header {
 	background-color: var(--background-color-favorite-hover);
@@ -847,9 +848,9 @@ a.signin {
 	padding: 0.425rem;
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-grey);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {
@@ -982,9 +983,7 @@ a.signin {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-grey);
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

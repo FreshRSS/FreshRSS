@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'token' => 'Authentifizierungs-Token',
-		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
+		'token' => 'Master-Authentifizierungs-Token',
+		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
 		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
@@ -187,14 +187,14 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Sensitive Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
 			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Über <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabile Version (“latest”)',
 		),
 		'title' => 'System aktualisieren',
-		'viaGit' => 'Update über git und Github.com gestartet',
+		'viaGit' => 'Update über git und GitHub.com gestartet',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE
