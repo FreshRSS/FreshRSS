@@ -1,0 +1,9 @@
+[submodule "extensions/gravity-freshrss-theme"]
+	path = extensions/gravity-freshrss-theme
+	url = https://github.com/frankyonnetti/gravity-freshrss-theme.git
+[submodule "extensions/xextension-threepanesview"]
+	path = extensions/xextension-threepanesview
+	url = https://framagit.org/nicofrand/xextension-threepanesview.git
+[submodule "extensions/xExtension-NewsAssistant"]
+	path = extensions/xExtension-NewsAssistant
+	url = https://github.com/reply2future/xExtension-NewsAssistant.git
