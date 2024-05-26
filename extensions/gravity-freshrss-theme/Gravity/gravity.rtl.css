@@ -1,0 +1,792 @@
+/* stylelint-disable block-no-empty  */
+
+@charset "UTF-8";
+
+/*=== GENERAL */
+/*============*/
+html, body {
+	height: 100%;
+	color: black;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+}
+
+/*=== Links */
+a, button.as-link {
+	color: blue;
+	outline: none;
+}
+
+/*=== Forms */
+legend {
+	margin: 20px 0 5px;
+	padding: 5px 0;
+	font-size: 1.4em;
+}
+
+label {
+	min-height: 25px;
+	padding: 5px 0;
+	cursor: pointer;
+}
+
+textarea {
+	width: 360px;
+	height: 100px;
+}
+
+input, select, textarea {
+	padding: 7px;
+	vertical-align: middle;
+}
+
+option {
+	padding: 0 .5em;
+}
+
+input:focus, select:focus, textarea:focus {
+}
+
+input:invalid, select:invalid {
+}
+
+input:disabled, select:disabled {
+}
+
+/*=== Tables */
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+}
+
+th {
+}
+
+form td,
+form th {
+	font-weight: normal;
+	text-align: center;
+}
+
+/*=== COMPONENTS */
+/*===============*/
+/*=== Forms */
+.form-group.form-actions {
+	padding: 5px 0;
+}
+
+.form-group.form-actions .btn {
+	margin: 0 10px;
+}
+
+.form-group .group-name {
+	padding: 10px 0;
+	text-align: left;
+}
+
+.form-group .group-controls {
+	min-height: 25px;
+	padding: 5px 0;
+}
+
+/*=== Buttons */
+.stick input,
+.stick .btn {
+}
+
+.stick .btn:first-child,
+.stick input:first-child {
+}
+
+.stick .btn-important:first-child {
+}
+
+.stick .btn:last-child,
+.stick input:last-child {
+}
+
+.stick .btn + .btn,
+.stick .btn + input,
+.stick .btn + .dropdown > .btn,
+.stick input + .btn,
+.stick input + input,
+.stick input + .dropdown > .btn,
+.stick .dropdown + .btn,
+.stick .dropdown + input,
+.stick .dropdown + .dropdown > .btn {
+}
+
+.stick input + .btn {
+}
+
+.stick .btn + .dropdown > .btn {
+}
+
+.btn {
+	margin: 0;
+	padding: 5px 10px;
+	min-height: 25px;
+	min-width: 15px;
+	font-size: 0.9rem;
+	line-height: 1.7;
+	vertical-align: middle;
+}
+
+.btn:hover {
+	text-decoration: none;
+}
+
+.btn.active,
+.btn:active,
+.dropdown-target:target ~ .btn.dropdown-toggle {
+}
+
+.btn-important {
+	font-weight: normal;
+}
+
+.btn-important:hover {
+}
+
+.btn-important:active {
+}
+
+.btn-attention {
+}
+
+.btn-attention:hover {
+}
+
+.btn-attention:active {
+}
+
+/*=== Navigation */
+.nav-list .nav-header,
+.nav-list .item {
+	line-height: 2.5;
+	font-size: 0.9rem;
+}
+
+.nav-list .item:hover {
+}
+
+.nav-list .item:hover a {
+}
+
+.nav-list .item.active {
+}
+
+.nav-list .item.active a {
+}
+
+.nav-list .item > a {
+	padding: 0 10px;
+}
+
+.nav-list a:hover {
+	text-decoration: none;
+}
+
+.nav-list .nav-header {
+	padding: 0 10px;
+	font-weight: bold;
+}
+
+.nav-list .nav-form {
+	padding: 3px;
+	text-align: center;
+}
+
+/*=== Dropdown */
+.dropdown-menu {
+	margin: 5px 0 0;
+	padding: 5px 0;
+	font-size: 0.8rem;
+	text-align: right;
+}
+
+.dropdown-menu::after {
+	position: absolute;
+	top: -6px;
+	left: 13px;
+	width: 10px;
+	height: 10px;
+	z-index: -10;
+	transform: rotate(-45deg);
+}
+
+.dropdown-header {
+	padding: 0 5px 5px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.dropdown-menu > .item {
+}
+
+.dropdown-menu > .item > a,
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
+	padding: 0 22px;
+	line-height: 2.5;
+}
+
+.dropdown-menu > .item:hover {
+}
+
+.dropdown-menu > .item[aria-checked="true"] > a::before {
+	font-weight: bold;
+	margin: 0 -14px 0 0;
+}
+
+.dropdown-menu > .item:hover > a {
+	text-decoration: none;
+}
+
+.dropdown-menu .input select,
+.dropdown-menu .input input {
+	margin: 0 auto 5px;
+	padding: 2px 5px;
+}
+
+/*=== Alerts */
+.alert {
+	font-size: 0.9em;
+}
+
+.alert-head {
+	font-size: 1.15em;
+}
+
+.alert > a {
+	text-decoration: underline;
+}
+
+.alert-warn {
+}
+
+.alert-success {
+}
+
+.alert-error {
+}
+
+/*=== Pagination */
+.pagination {
+	text-align: center;
+	font-size: 0.8em;
+}
+
+.content .pagination {
+	margin: 0;
+	padding: 0;
+}
+
+.pagination .item.pager-current {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.pagination .item a {
+	display: block;
+	font-style: italic;
+	line-height: 3;
+	text-decoration: none;
+}
+
+.pagination .item a:hover {
+}
+
+.pagination:first-child .item {
+}
+
+.pagination:last-child .item {
+}
+
+#load_more.loading,
+#load_more.loading:hover {
+	font-size: 0;
+}
+
+/*=== Boxes */
+.box {
+}
+
+.box .box-title {
+	margin: 0;
+	padding: 5px 10px;
+}
+
+.box .box-content {
+	max-height: 260px;
+}
+
+.box .box-content .item {
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 2.5;
+}
+
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+}
+
+.tree-folder-title {
+	position: relative;
+	padding: 0 10px;
+	line-height: 2.5;
+	font-size: 1rem;
+}
+
+.tree-folder-title .title {
+	background: inherit;
+}
+
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+
+.tree-folder.active .tree-folder-title {
+	font-weight: bold;
+}
+
+.tree-folder.active .tree-folder-title .title {
+}
+
+.tree-folder-items {
+}
+
+.tree-folder-items > .item {
+	font-size: 0.8rem;
+}
+
+.tree-folder-items > .item.active {
+}
+
+.tree-folder-items > .item > a {
+	text-decoration: none;
+}
+
+.tree-folder-items > .item.active > a {
+}
+
+/*=== STRUCTURE */
+/*===============*/
+/*=== Header */
+.header {
+	height: 85px;
+}
+
+.header > .item {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.header > .item.title h1 {
+	margin: 0.5em 0;
+}
+
+.header > .item.title h1 a {
+	text-decoration: none;
+}
+
+.header > .item.search input {
+	width: 350px;
+}
+
+/*=== Body */
+#global {
+	height: calc(100% - 85px);
+}
+
+.aside {
+}
+
+.aside.aside_feed {
+	padding: 10px 0;
+	text-align: center;
+}
+
+.aside.aside_feed .tree {
+	margin: 10px 0 50px;
+}
+
+/*=== Aside main page (categories) */
+.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
+	position: absolute;
+	left: 0;
+	margin: 10px 0;
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 1.5;
+}
+
+/*=== Aside main page (feeds) */
+.feed.item.empty.active {
+}
+
+.feed.item.error.active {
+}
+
+.feed.item.empty,
+.feed.item.empty > a {
+}
+
+.feed.item.error,
+.feed.item.error > a {
+}
+
+.feed.item.empty.active,
+.feed.item.error.active,
+.feed.item.empty.active > a,
+.feed.item.error.active > a {
+}
+
+.aside_feed .tree-folder-items .dropdown-menu::after {
+	right: 2px;
+}
+
+.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
+	border-radius: 3px;
+}
+
+/*=== Prompt (centered) */
+.prompt {
+	text-align: center;
+}
+
+.prompt label {
+	text-align: right;
+}
+
+.prompt form {
+	margin: 10px auto 20px auto;
+	width: 180px;
+}
+
+.prompt input {
+	margin: 5px auto;
+	width: 100%;
+}
+
+.prompt p {
+	margin: 20px 0;
+}
+
+/*=== New article notification */
+#new-article {
+	text-align: center;
+	font-size: 0.9em;
+}
+
+#new-article > a {
+	padding: 0.75rem;
+	font-weight: bold;
+}
+
+#new-article > a:hover {
+	text-decoration: none;
+}
+
+/*=== Day indication */
+.day {
+	padding: 0 10px;
+	font-weight: bold;
+	line-height: 3;
+}
+
+.day span {
+	line-height: 1.5;
+}
+
+#new-article + .day {
+}
+
+.day .name {
+	padding: 0 0 0 10px;
+	font-size: 1.8em;
+	opacity: 0.3;
+	font-style: italic;
+	text-align: left;
+}
+
+/*=== Index menu */
+.nav_menu {
+	text-align: center;
+	padding: 5px 0;
+}
+
+/*=== Feed articles */
+.flux {
+}
+
+.flux:hover {
+}
+
+.flux.current {
+}
+
+.flux.not_read {
+}
+
+.flux.not_read:not(.current):hover .item.title {
+}
+
+.flux.favorite {
+}
+
+.flux.favorite:not(.current):hover .item.title {
+}
+
+.flux_header {
+	font-size: 0.8rem;
+	cursor: pointer;
+}
+
+.flux_header .title {
+	font-size: 0.9rem;
+}
+
+.flux .website .favicon {
+	padding: 5px;
+}
+
+.flux .item.date {
+	font-size: 0.7rem;
+}
+
+.flux:not(.current):hover .item.title {
+}
+
+.flux .bottom {
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+/*=== Content of feed articles */
+.content {
+	padding: 20px 10px;
+}
+
+.content > h1.title > a {
+}
+
+.content hr {
+	margin: 30px 10px;
+	height: 1px;
+}
+
+.content pre {
+	margin: 10px auto;
+	padding: 10px 20px;
+	overflow: auto;
+	font-size: 0.9rem;
+}
+
+.content code {
+	padding: 2px 5px;
+}
+
+.content pre code {
+}
+
+.content blockquote {
+	margin: 0;
+	padding: 5px 20px;
+	display: block;
+}
+
+.content blockquote p {
+	margin: 0;
+}
+
+/*=== Notification and actualize notification */
+.notification {
+}
+
+.notification.good {
+}
+
+.notification.bad {
+}
+
+.notification.good a.close:hover {
+}
+
+.notification.bad a.close:hover {
+}
+
+/*=== "Load more" part */
+#bigMarkAsRead {
+	text-align: center;
+	text-decoration: none;
+}
+
+#bigMarkAsRead:hover {
+}
+
+#bigMarkAsRead:hover .bigTick {
+}
+
+/*=== Navigation menu (for articles) */
+#nav_entries {
+	margin: 0;
+	text-align: center;
+	line-height: 3;
+	table-layout: fixed;
+}
+
+/*=== READER VIEW */
+/*================*/
+#stream.reader .flux {
+	background-color: #f0f0f0;
+	color: #333;
+}
+
+#stream.reader .flux .content {
+	background-color: #fff;
+	border-color: #ddd;
+}
+
+#stream.reader .flux .author {
+	margin: 0 0 10px;
+	font-size: 90%;
+}
+
+/*=== GLOBAL VIEW */
+/*================*/
+.box.category .box-title .title {
+	font-weight: normal;
+	text-decoration: none;
+	text-align: right;
+}
+
+.box.category:not([data-unread="0"]) .box-title {
+}
+
+.box.category:not([data-unread="0"]) .box-title:active {
+}
+
+.box.category:not([data-unread="0"]) .box-title .title {
+	font-weight: bold;
+}
+
+.box.category .title:not([data-unread="0"])::after {
+	background: none;
+	border: 0;
+	position: absolute;
+	top: 5px; left: 10px;
+	font-weight: bold;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+/*=== DIVERS */
+/*===========*/
+.aside.aside_feed .nav-form input,
+.aside.aside_feed .nav-form select {
+	width: 140px;
+}
+
+.aside.aside_feed .nav-form .dropdown .dropdown-menu {
+	left: -20px;
+}
+
+.aside.aside_feed .nav-form .dropdown .dropdown-menu::after {
+	left: 33px;
+}
+
+/*=== STATISTICS */
+/*===============*/
+.stat {
+	margin: 10px 0 20px;
+}
+
+.stat th,
+.stat td,
+.stat tr {
+}
+
+.stat > table td,
+.stat > table th {
+	text-align: center;
+}
+
+/*=== MOBILE */
+/*===========*/
+
+@media (max-width: 840px) {
+	.aside {
+		transition: width 200ms linear;
+	}
+
+	.aside .toggle_aside,
+	#overlay .close,
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
+		background: #fff;
+		border-bottom-color: #ddd;
+	}
+
+	.aside .toggle_aside:hover,
+	#overlay .close:hover,
+	.dropdown-menu .toggle_aside:hover,
+	#slider .toggle_aside:hover {
+		background-color: #ddd;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
+	}
+
+	.nav_menu .btn {
+		margin: 5px 10px;
+	}
+
+	.nav_menu .stick {
+		margin: 0 10px;
+	}
+
+	.nav_menu .stick .btn {
+		margin: 5px 0;
+	}
+
+	.nav_menu .search {
+		display: inline-block;
+		max-width: 97%;
+	}
+
+	.nav_menu .search input {
+		max-width: 97%;
+		width: 90px;
+	}
+
+	.nav_menu .search input:focus {
+		width: 400px;
+	}
+
+	.day .name {
+		font-size: 1.1rem;
+	}
+
+	.pagination {
+		margin: 0 0 3.5em;
+	}
+
+	.notification a.close {
+		display: block;
+		right: 0;
+	}
+
+	.notification a.close:hover {
+		opacity: 0.5;
+	}
+
+	.notification a.close .icon {
+		display: none;
+	}
+}

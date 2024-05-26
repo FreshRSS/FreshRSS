@@ -1,0 +1,109 @@
+// ! grid
+$grid-1: math.div(1, 12) * 100%; // 8.33333333333%
+$grid-2: math.div(2, 12) * 100%; // 16.6666666667%
+$grid-3: 25%;
+$grid-4: math.div(4, 12) * 100%; // 33.3333333333%
+$grid-5: math.div(5, 12) * 100%; // 41.6666666667%
+$grid-6: 50%;
+$grid-7: math.div(7, 12) * 100%; // 58.3333333333%
+$grid-8: math.div(8, 12) * 100%; // 66.6666666667%
+$grid-9: 75%;
+$grid-10: math.div(10, 12) * 100%; // 83.3333333333%
+$grid-11: math.div(11, 12) * 100%; // 91.6666666667%
+$grid-12: 100%;
+
+// ! breakpoints
+$breakpoint-xs-only: "(max-width: 480px)";
+$breakpoint-sm-up: "(min-width: 601px)";
+$breakpoint-md-up: "(min-width: 841px)";
+$breakpoint-lg-up: "(min-width: 993px)";
+$breakpoint-xl-up: "(min-width: 1201px)";
+
+// ! colors
+
+$white: #ffffff;
+$black: #222222;
+
+$text-color: #e0e0e0;
+$link-color-light: #f5f5f5;
+
+$main-bg: #2b2b2b;
+$main-bg-light: #474747;
+$border: #474747;
+$border-light: #565657;
+
+// alerts
+$alert-blue-color-light: #3696ff;
+$alert-green-color-light: #4ddc62;
+$alert-red-color-light: #ff584e;
+
+// material color
+// https://material.io/design/color/the-color-system.html#tools-for-picking-colors
+
+$md-gray-50: #fafafa;
+$md-gray-100: #f5f5f5;
+$md-gray-200: #eeeeee;
+$md-gray-300: #e0e0e0;
+$md-gray-400: #bdbdbd;
+$md-gray-500: #9e9e9e;
+$md-gray-600: #757575;
+$md-gray-700: #616161;
+$md-gray-800: #424242;
+$md-gray-900: #212121;
+
+// ----------------------------------------------------------------------------
+
+// Gravity VS Code grays
+
+// activityBar
+$activityBar-bg: #2c2c2c;
+$activityBar-border: #151515;
+
+// badge
+$badge-foreground: #e0e0e0;
+$badge-background: #5a5a5a;
+
+// buttons
+$button-foreground: #e0e0e0;
+$button-background: #5a5a5a;
+$button-border: #5a5a5a;
+$button-hoverBackground: #727272;
+
+// editor
+$editor-background: #2b2b2b;
+$editor-foreground: #dddddd;
+$editor-lineHighlightBackground: #3d3d3d;
+$editor-foldBackground: #232323;
+
+// extensions
+$list-inactiveSelectionBackground: #353535;
+
+// panel
+$panel-background: #252525;
+
+// sidebar
+$sideBar-border: #111111;
+$sideBar-background: #1e1e1e;
+$sideBarSectionHeader-background: #2c2c2c;
+$sideBarTitle-foreground: #949494;
+
+// statusBar
+$statusBar-background: #383838;
+$statusBar-border: #222222;
+$statusBar-debuggingForeground: #e0e0e0;
+$statusBar-foreground: #969696;
+$statusBar-noFolderForeground: #e0e0e0;
+$statusBar-focusBorder: #22222200;
+$statusBarItem-prominentForeground: #e0e0e0;
+$statusBarItem-remoteForeground: #e0e0e0;
+
+// tab
+$editorGroupHeader-tabsBackground: #1e1e1e;
+$tab-activeBackground: #2b2b2b;
+$tab-border: #0d0d0d;
+$tab-inactiveBackground: #1e1e1e;
+
+// titleBar
+$titleBar-activeBackground: #383838;
+$titleBar-border: #191919;
+$titleBar-inactiveBackground: #2c2c2c;

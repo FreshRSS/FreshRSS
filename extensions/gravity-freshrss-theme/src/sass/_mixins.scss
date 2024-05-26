@@ -1,0 +1,26 @@
+@mixin btn {
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: normal;
+  vertical-align: middle;
+  margin: 0;
+  padding: 5px 10px;
+  min-width: 15px;
+  min-height: 25px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin buttonbtn {
+  @include btn;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+  transition: color 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
+
+  &:hover {
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>favicon</title>
+    <g id="favicon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g fill-rule="nonzero">
+            <circle id="Oval" fill="#EDECEC" cx="128" cy="128" r="33"></circle>
+            <path d="M128,0 C198.692448,0 256,57.307552 256,128 C256,198.692448 198.692448,256 128,256 L128,232 C185.437614,232 232,185.437614 232,128 C232,70.562386 185.437614,24 128,24 C70.562386,24 24,70.562386 24,128 L0,128 C0,57.307552 57.307552,0 128,0 Z" id="Path" fill-opacity="0.3" fill="#FFFFFF"></path>
+            <path d="M128,42 C175.496488,42 214,80.5035115 214,128 C214,175.496488 175.496488,214 128,214 L128,190 C162.241654,190 190,162.241654 190,128 C190,93.7583455 162.241654,66 128,66 C93.7583455,66 66,93.7583455 66,128 L42,128 C42,80.5035115 80.5035115,42 128,42 Z" id="Path" fill-opacity="0.3" fill="#FFFFFF"></path>
+            <path d="M128,0 C198.692448,0 256,57.307552 256,128 L232,128 C232,70.562386 185.437614,24 128,24 L128,0 Z" id="Path" fill="#EDECEC"></path>
+            <path d="M128,42 C175.496488,42 214,80.5035115 214,128 L190,128 C190,93.7583455 162.241654,66 128,66 L128,42 Z" id="Path" fill="#EDECEC"></path>
+        </g>
+    </g>
+</svg>

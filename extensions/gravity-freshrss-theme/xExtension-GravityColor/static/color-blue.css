@@ -1,0 +1,8 @@
+:root {
+  --color_base: #007aff;
+  --color_light: #3696ff;
+  --color_dark: #0063cf;
+  --color_text: #ffffff;
+  --color_filter_color: brightness(0) saturate(100%) invert(46%) sepia(72%) saturate(2025%) hue-rotate(194deg) brightness(103%) contrast(100%);
+  --color_filter: none;
+}
