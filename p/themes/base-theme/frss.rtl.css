@@ -1667,6 +1667,7 @@ a.website:hover .favicon {
 	width: 300px;
 	table-layout: fixed;
 	padding-bottom: env(safe-area-inset-bottom);
+	z-index: 50;
 }
 
 #nav_entries .item {

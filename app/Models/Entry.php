@@ -719,7 +719,7 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html');
+		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
