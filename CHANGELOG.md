@@ -2,10 +2,16 @@
 
 ## 2024-0X-XX FreshRSS 1.24.1-dev
 
+* Features
+	* Better git error messages in built-in Web update [#6496](https://github.com/FreshRSS/FreshRSS/pull/6496)
 * Bug fixing
 	* Fix regression HTTP GET curl options [#6492](https://github.com/FreshRSS/FreshRSS/pull/6492)
 	* Fix connection to PostgreSQL databases with uppercase letters [#6482](https://github.com/FreshRSS/FreshRSS/pull/6482)
 	* Fix UI regression hover over title while having the navigation buttons in mobile view [#6486](https://github.com/FreshRSS/FreshRSS/pull/6486)
+	* Fix UI for some drag & drops [#6505](https://github.com/FreshRSS/FreshRSS/pull/6505), [#6508](https://github.com/FreshRSS/FreshRSS/pull/6508)
+* i18n
+	* Improve Czech [#6504](https://github.com/FreshRSS/FreshRSS/pull/6504)
+	* Improve Turkish [#6506](https://github.com/FreshRSS/FreshRSS/pull/6506)
 
 
 ## 2024-05-23 FreshRSS 1.24.0
