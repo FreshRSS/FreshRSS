@@ -222,7 +222,9 @@
 					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 				</div>
 			</div>
+		</fieldset>
 
+		<fieldset>
 			<?php if (!$this->category->isDefault()): ?>
 			<p class="alert alert-warn">
 				<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
@@ -240,6 +242,19 @@
 						formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
 						formmethod="post"><?= _t('gen.action.remove') ?></button>
 					<?php endif;?>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.import_export.export') ?></legend>
+			<div class="form-group">
+				<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
+				<div class="group-controls">
+					<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'c_'.$this->category->id()) ?>" download="<?= 'f_'.$this->category->id()?> <?= $this->category->name(true) ?>.opml.xml">
+						<?= _t('sub.feed.export-as-opml.download') ?>
+					</a>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.export-as-opml.help') ?></p>
 				</div>
 			</div>
 		</fieldset>
