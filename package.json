@@ -33,11 +33,11 @@
     "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "eslint": "^9.4.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-n": "^17.7.0",
+    "eslint-plugin-promise": "^6.2.0",
     "markdownlint-cli": "^0.41.0",
     "rtlcss": "^4.1.1",
     "sass": "^1.77.4",
