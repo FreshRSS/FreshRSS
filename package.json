@@ -38,7 +38,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "markdownlint-cli": "^0.40.0",
+    "markdownlint-cli": "^0.41.0",
     "rtlcss": "^4.1.1",
     "sass": "^1.76.0",
     "stylelint": "^16.4.0",
