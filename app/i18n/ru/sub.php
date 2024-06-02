@@ -68,7 +68,7 @@ return array(
 		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
 		'export-as-opml' => array(
 			'download' => 'Скачать',
-			'help' => 'XML файл',
+			'help' => 'XML файл (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Экспортировать как OPML',
 		),
 		'filteractions' => array(

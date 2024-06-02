@@ -38,6 +38,7 @@ function downloadHttp(string &$url, array $curlOptions = []): string {
 			CURLOPT_MAXREDIRS => 10,
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_ENCODING => '',	//Enable all encodings
+			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 		]);
 
 	FreshRSS_Context::initSystem();
