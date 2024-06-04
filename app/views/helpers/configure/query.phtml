@@ -20,6 +20,10 @@
 				<input type="text" class="w100" name="name" id="name" value="<?= $this->query->getName() ?>" />
 				<input type="hidden" name="query[token]" id="query_token" value="<?= $this->query->getToken() ?>" />
 			</div>
+			<label class="group-name" for="description"><?= _t('conf.query.description') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w100" name="query[description]" id="description" value="<?= $this->query->getDescription() ?>" />
+			</div>
 		</div>
 
 		<fieldset>

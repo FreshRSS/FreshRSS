@@ -397,6 +397,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
 				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 			}
+			if (!empty($params['description']) && is_string($params['description'])) {
+				$queryParams['description'] = htmlspecialchars_decode($params['description'], ENT_QUOTES);
+			}
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 			$queryParams['name'] = $name;
 

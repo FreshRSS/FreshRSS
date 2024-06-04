@@ -25,6 +25,7 @@ class FreshRSS_UserQuery {
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels */
 	private array $labels;
+	private string $description = '';
 
 	public static function generateToken(string $salt): string {
 		if (!FreshRSS_Context::hasSystemConf()) {
@@ -77,6 +78,9 @@ class FreshRSS_UserQuery {
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
 		}
+		if (isset($query['description'])) {
+			$this->description = $query['description'];
+		}
 
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', false);
@@ -101,6 +105,7 @@ class FreshRSS_UserQuery {
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
+			'description' => $this->description,
 		]);
 	}
 
@@ -281,5 +286,13 @@ class FreshRSS_UserQuery {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
 		}
 		return '';
+	}
+
+	public function getDescription(): string {
+		return $this->description;
+	}
+
+	public function setDescription(string $description): void {
+		$this->description = $description;
 	}
 }
