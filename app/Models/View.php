@@ -107,6 +107,7 @@ class FreshRSS_View extends Minz_View {
 	public string $rss_base = '';
 	public bool $internal_rendering = false;
 	public string $description;
+	public string $image_url;
 
 	// Content preview
 	public string $fatalError;

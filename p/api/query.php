@@ -150,6 +150,7 @@ $view->userQuery = $query;
 $view->html_url = $query->sharedUrlHtml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
+$view->image_url = $query->getImageUrl();
 if ($query->getDescription() != '') {
 	$view->description = $query->getDescription();
 } else {

@@ -3,7 +3,7 @@
 	/** @var FreshRSS_View $this */
 ?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/"
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
 	<?= $this->rss_base == '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>
 >
 	<channel>
@@ -13,6 +13,12 @@
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
 		<atom:link href="<?= $this->rss_url ?>" rel="self" type="application/rss+xml" />
+		<itunes:image href="<?= $this->image_url ?>"></itunes:image>
+		<image>
+			<url><?= $this->image_url ?></url>
+			<title><?= $this->rss_title ?></title>
+			<link><?= $this->html_url ?></link>
+		</image>
 <?php
 foreach ($this->entries as $item) {
 	if (!$this->internal_rendering) {

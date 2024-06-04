@@ -400,6 +400,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['description']) && is_string($params['description'])) {
 				$queryParams['description'] = htmlspecialchars_decode($params['description'], ENT_QUOTES);
 			}
+			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
+				$queryParams['imageUrl'] = $params['imageUrl'];
+			}
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 			$queryParams['name'] = $name;
 

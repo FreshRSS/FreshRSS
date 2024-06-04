@@ -136,6 +136,7 @@ return array(
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',
 		'name' => 'Name',
 		'description' => 'Description',
+		'image_url' => 'Image URL',
 		'no_filter' => 'No filter',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
