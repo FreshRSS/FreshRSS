@@ -546,7 +546,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
+					$titlesAsRead = array_fill_keys($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed), true);
 				} else {
 					$titlesAsRead = [];
 				}
