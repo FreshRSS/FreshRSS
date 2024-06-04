@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
+		'description' => 'Description',
 		'filter' => array(
 			'_' => 'Filter applied:',
 			'categories' => 'Display by category',
@@ -134,9 +135,8 @@ return array(
 		'get_important' => 'Display articles from important feeds',
 		'get_label' => 'Display articles with “%s” label',
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',
-		'name' => 'Name',
-		'description' => 'Description',
 		'image_url' => 'Image URL',
+		'name' => 'Name',
 		'no_filter' => 'No filter',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',

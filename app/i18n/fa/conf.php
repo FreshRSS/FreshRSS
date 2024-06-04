@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => ' پرس و جوهای کاربر',
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => ' فیلتر اعمال شده:',
 			'categories' => ' نمایش بر اساس دسته بندی',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// TODO
 		'get_label' => 'Display articles with “%s” label',	// TODO
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => ' نام',
 		'no_filter' => ' بدون فیلتر',
 		'number' => ' پرس و جو n°%d',
