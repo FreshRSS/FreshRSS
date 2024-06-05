@@ -672,8 +672,7 @@ HTML;
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attributeBoolean('read_upon_reception') ||
-				($feed->attributeBoolean('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}

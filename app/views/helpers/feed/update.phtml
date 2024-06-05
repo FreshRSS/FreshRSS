@@ -200,7 +200,7 @@
 				<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
-						<option value=""<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value=""<?= $this->feed->hasAttribute('read_when_same_title_in_feed') ? '' : ' selected="selected"' ?>><?= _t('gen.short.by_default') ?></option>
 						<option value="0"<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
 						<option value="10"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
 						<option value="25"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
