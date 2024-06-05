@@ -47,7 +47,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $url = '';
 	private int $kind = 0;
 	private int $categoryId = 0;
-	private ?FreshRSS_Category $category;
+	private ?FreshRSS_Category $category = null;
 	private int $nbEntries = -1;
 	private int $nbNotRead = -1;
 	private string $name = '';
@@ -291,7 +291,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/** @param int|string $id */
 	public function _categoryId($id): void {
 		$this->category = null;
-		$this->categoryId = intval($id);
+		$this->categoryId = (int)$id;
 	}
 
 	public function _name(string $value): void {
@@ -330,7 +330,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->mute = $value;
 	}
 	public function _ttl(int $value): void {
-		$value = min($value, 100000000);
+		$value = min($value, 100_000_000);
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
@@ -492,7 +492,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
-			$tags = array();
+			$tags = [];
 			if (is_array($categories)) {
 				foreach ($categories as $category) {
 					$text = html_only_entity_decode($category->get_label());
@@ -550,13 +550,13 @@ class FreshRSS_Feed extends Minz_Model {
 							$attributeEnclosure['medium'] = $medium;
 						}
 						if ($length != '') {
-							$attributeEnclosure['length'] = intval($length);
+							$attributeEnclosure['length'] = (int)$length;
 						}
 						if ($height != '') {
-							$attributeEnclosure['height'] = intval($height);
+							$attributeEnclosure['height'] = (int)$height;
 						}
 						if ($width != '') {
-							$attributeEnclosure['width'] = intval($width);
+							$attributeEnclosure['width'] = (int)$width;
 						}
 
 						if (!empty($enclosure->get_thumbnails())) {
