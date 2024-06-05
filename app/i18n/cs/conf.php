@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly odstraněny.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Použitý filtr:',
 			'categories' => 'Zobrazit podle kategorie',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Zobrazit články z důležitých kanálů',
 		'get_label' => 'Zobrazit články se štítkem “%s”',
 		'help' => 'Viz <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentace pro uživatelské dotazy a další sdílení pomocí HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',

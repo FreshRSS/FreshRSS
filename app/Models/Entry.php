@@ -117,7 +117,27 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title(): string {
-		return $this->title == '' ? $this->guid() : $this->title;
+		$title = '';
+
+		if ($this->title === '') {
+			// used while fetching the article from feed and store it in the database
+			$title = $this->guid();
+		} else {
+			// used while fetching from the database
+			if ($this->title !== $this->guid) {
+				$title = $this->title;
+			} else {
+				$content = trim(strip_tags($this->content(false)));
+				$title = trim(mb_substr($content, 0, MAX_CHARS_EMPTY_FEED_TITLE, 'UTF-8'));
+
+				if ($title === '') {
+					$title = $this->guid();
+				} elseif (strlen($content) > strlen($title)) {
+					$title .= '…';
+				}
+			}
+		}
+		return $title;
 	}
 	/** @deprecated */
 	public function author(): string {
@@ -672,8 +692,7 @@ HTML;
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attributeBoolean('read_upon_reception') ||
-				($feed->attributeBoolean('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}

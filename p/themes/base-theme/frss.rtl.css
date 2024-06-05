@@ -1670,13 +1670,17 @@ a.website:hover .favicon {
 	z-index: 50;
 }
 
-#nav_entries .item {
+#nav_entries button {
+	background-color: transparent;
 	display: table-cell;
-	width: 30%;
+	width: 33.3%;
+	height: 3rem;
+	border: 0;
+	cursor: pointer;
 }
 
-#nav_entries a {
-	display: block;
+#nav_entries button:hover {
+	background-color: var(--frss-darken-background-hover-transparent);
 }
 
 /*=== "Load" parts */
