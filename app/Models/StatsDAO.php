@@ -222,7 +222,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return (int) $res[0]['count'] / ($interval_in_days / $period);
+		return (int)$res[0]['count'] / ($interval_in_days / $period);
 	}
 
 	/**

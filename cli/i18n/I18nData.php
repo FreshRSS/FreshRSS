@@ -93,7 +93,8 @@ class I18nData {
 	 * @return array<string>
 	 */
 	private function getNonReferenceLanguages(): array {
-		return array_filter(array_keys($this->data), static fn(string $value) => static::REFERENCE_LANGUAGE !== $value);
+		return array_filter(array_keys($this->data),
+			static fn(string $value) => static::REFERENCE_LANGUAGE !== $value);
 	}
 
 	/**

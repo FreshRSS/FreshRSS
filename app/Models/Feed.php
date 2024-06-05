@@ -291,7 +291,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/** @param int|string $id */
 	public function _categoryId($id): void {
 		$this->category = null;
-		$this->categoryId = (int) $id;
+		$this->categoryId = (int)$id;
 	}
 
 	public function _name(string $value): void {
@@ -550,13 +550,13 @@ class FreshRSS_Feed extends Minz_Model {
 							$attributeEnclosure['medium'] = $medium;
 						}
 						if ($length != '') {
-							$attributeEnclosure['length'] = (int) $length;
+							$attributeEnclosure['length'] = (int)$length;
 						}
 						if ($height != '') {
-							$attributeEnclosure['height'] = (int) $height;
+							$attributeEnclosure['height'] = (int)$height;
 						}
 						if ($width != '') {
-							$attributeEnclosure['width'] = (int) $width;
+							$attributeEnclosure['width'] = (int)$width;
 						}
 
 						if (!empty($enclosure->get_thumbnails())) {
