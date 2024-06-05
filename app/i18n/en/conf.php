@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Display',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',
+			'_' => 'Automatic dark mode',
 			'auto' => 'Auto',
+			'help' => 'For selected themes only',
 			'no' => 'No',
 		),
 		'icon' => array(

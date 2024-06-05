@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Tampilan',
 		'darkMode' => array(
-			'_' => 'Mode gelap otomatis (beta)',
+			'_' => 'Mode gelap otomatis',
 			'auto' => 'Otomatis',
+			'help' => 'For selected themes only',	// TODO
 			'no' => 'Tidak',
 		),
 		'icon' => array(

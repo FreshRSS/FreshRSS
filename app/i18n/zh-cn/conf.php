@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '显示',
 		'darkMode' => array(
-			'_' => '自动黑暗模式（测试版）',
+			'_' => '自动黑暗模式',
 			'auto' => '启动',
+			'help' => 'For selected themes only',	// TODO
 			'no' => '关闭',
 		),
 		'icon' => array(

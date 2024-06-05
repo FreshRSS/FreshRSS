@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Ekrāns',
 		'darkMode' => array(
-			'_' => 'Automātiskais tumšais režīms (beta versija)',
+			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For selected themes only',	// TODO
 			'no' => 'Nē',
 		),
 		'icon' => array(

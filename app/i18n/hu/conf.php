@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Megjelenítés',
 		'darkMode' => array(
-			'_' => 'Automatikus sötét mód (béta)',
+			'_' => 'Automatikus sötét mód',
 			'auto' => 'Automatikus',
+			'help' => 'For selected themes only',	// TODO
 			'no' => 'Nem',
 		),
 		'icon' => array(

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Wyświetlanie',
 		'darkMode' => array(
-			'_' => 'Tryb ciemny (beta)',
+			'_' => 'Tryb ciemny',
 			'auto' => 'Automatyczny',
+			'help' => 'For selected themes only',	// TODO
 			'no' => 'Wyłączony',
 		),
 		'icon' => array(
