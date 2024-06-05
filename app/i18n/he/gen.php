@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO

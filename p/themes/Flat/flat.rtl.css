@@ -846,10 +846,6 @@ th {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: #34495e;
 }
 

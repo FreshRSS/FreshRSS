@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Carregar mais atalhos',
 		'manage' => 'Gerenciar',
 		'mark_read' => 'Marcar como lido',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Abrir URL',
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
