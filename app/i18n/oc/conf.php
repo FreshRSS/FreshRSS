@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// TODO
 		'get_label' => 'Display articles with “%s” label',	// TODO
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
 		'number' => 'Filtre n°%d',

@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Alapértelmezett gyorsgombok visszaállítása',
 		'manage' => 'Kezelés',
 		'mark_read' => 'Megjelölés olvasottként',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',

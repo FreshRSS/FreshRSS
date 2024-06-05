@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Alle Artikel von den "Wichtige Feeds" anzeigen',
 		'get_label' => 'Artikel mit dem Label “%s” anzeigen',
 		'help' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Dokumentation für Benutzerabfragen und Teilen via HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',

@@ -920,10 +920,7 @@ li.item.active {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background: var(--accent-bg);
-	text-align: center;
-	line-height: 3em;
 }
 
 #nav_entries .item a:hover {

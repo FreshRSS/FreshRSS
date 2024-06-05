@@ -1,0 +1,20 @@
+<?php
+	declare(strict_types=1);
+	/** @var UserJSExtension $this */
+?>
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	<div class="form-group">
+		<label class="group-name" for="js-rules"><?= _t('ext.user_js.write_js') ?></label>
+		<div class="group-controls">
+			<textarea name="js-rules" id="js-rules"><?= $this->js_rules ?></textarea>
+		</div>
+	</div>
+
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+			<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+		</div>
+	</div>
+</form>

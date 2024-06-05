@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Otevřít adresu URL',
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',

@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => '自定義查詢',
 		'deprecated' => '此查詢不再有效。相關的分類或訂閱源已被刪除。',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => '生效的過濾器：',
 			'categories' => '按分類顯示',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => '顯示來自重要源的文章',
 		'get_label' => '顯示帶有 “%s” 標籤的文章',
 		'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">有關使用者查詢和透過 HTML / RSS / OPML 重新共用的文件</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'number' => '查詢 n°%d',
