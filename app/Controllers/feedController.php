@@ -346,7 +346,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feed = $feedDAO->searchByUrl($this->view->feed->url());
 			if ($feed) {
-				// Already subscribe, so we redirect to the feed configuration page.
+				// Already subscribed, so we redirect to the feed configuration page.
 				$url_redirect['a'] = 'feed';
 				$url_redirect['params']['id'] = $feed->id();
 				Minz_Request::good(_t('feedback.sub.feed.already_subscribed', $feed->name()), $url_redirect);
