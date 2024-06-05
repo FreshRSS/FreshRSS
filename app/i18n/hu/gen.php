@@ -144,7 +144,7 @@ return array(
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
