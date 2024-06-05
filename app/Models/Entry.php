@@ -130,12 +130,10 @@ class FreshRSS_Entry extends Minz_Model {
 				$content = trim(strip_tags($this->content(false)));
 				$title = trim(mb_substr($content, 0, MAX_CHARS_EMPTY_FEED_TITLE, 'UTF-8'));
 
-				if (strlen($content) > strlen($title)) {
-					$title .= '…';
-				}
-
 				if ($title === '') {
 					$title = $this->guid();
+				} elseif (strlen($content) > strlen($title)) {
+					$title .= '…';
 				}
 			}
 		}
