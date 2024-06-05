@@ -12,7 +12,13 @@ If you enabled web updates from your installation (see footnote 2 in [installati
 
 This will check for and apply a new Stable version, if available.
 
-## Updating Using git
+## Updating manually
+
+There are two options to update manually: with git (recommended if you’ve installed FreshRSS this way), or from a Zip archive.
+
+In both cases, **it is highly recommended to update version by version.** For instance, if you are running FreshRSS 1.17.0, you should update to version 1.18.1 (i.e. the latest of the branch 1.18.x) before updating to 1.19.2. After each update, check that FreshRSS is still running correctly. If it’s not, it will help to understand what is broken.
+
+### Using git
 
 If you installed FreshRSS using git, you can update, change branches, or switch to a specific version from the command line.
 
@@ -25,6 +31,6 @@ Generally, the update procedure via git works as follows:
 5. Pull the new version.
 6. Re-set group read (and write, if you wish) permissions on all files in `.`, and group write permissions on `./data/`.
 
-## Updating from a Zip Archive
+### From a Zip Archive
 
 Updating to a new version from a zip archive is always an option. Begin by unzipping the archive into your FreshRSS directory, overwriting old files, and finally re-set group read (and write, if you wish) permissions on all files in `.` and group write permissions on `./data/`.

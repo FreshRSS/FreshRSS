@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class handles all authentication process.
@@ -7,25 +8,25 @@ class FreshRSS_Auth {
 	/**
 	 * Determines if user is connected.
 	 */
-	const DEFAULT_COOKIE_DURATION = 7776000;
+	public const DEFAULT_COOKIE_DURATION = 7776000;
 
-	private static $login_ok = false;
+	private static bool $login_ok = false;
 
 	/**
 	 * This method initializes authentication system.
 	 */
-	public static function init() {
+	public static function init(): bool {
 		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
 		}
 
-		self::$login_ok = Minz_Session::param('loginOk', false);
-		$current_user = Minz_Session::param('currentUser', '');
-		if ($current_user == '') {
-			$current_user = FreshRSS_Context::$system_conf->default_user;
+		self::$login_ok = Minz_Session::paramBoolean('loginOk');
+		$current_user = Minz_User::name();
+		if ($current_user === null) {
+			$current_user = FreshRSS_Context::systemConf()->default_user;
 			Minz_Session::_params([
-				'currentUser' => $current_user,
+				Minz_User::CURRENT_USER => $current_user,
 				'csrf' => false,
 			]);
 		}
@@ -47,10 +48,10 @@ class FreshRSS_Auth {
 	 * Required session parameters are also set in this method (such as
 	 * currentUser).
 	 *
-	 * @return boolean true if user can be connected, false else.
+	 * @return bool true if user can be connected, false otherwise.
 	 */
-	private static function accessControl() {
-		$auth_type = FreshRSS_Context::$system_conf->auth_type;
+	private static function accessControl(): bool {
+		$auth_type = FreshRSS_Context::systemConf()->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
@@ -58,7 +59,7 @@ class FreshRSS_Auth {
 			if (isset($credentials[1])) {
 				$current_user = trim($credentials[0]);
 				Minz_Session::_params([
-					'currentUser' => $current_user,
+					Minz_User::CURRENT_USER => $current_user,
 					'passwordHash' => trim($credentials[1]),
 					'csrf' => false,
 				]);
@@ -70,13 +71,13 @@ class FreshRSS_Auth {
 				return false;
 			}
 			$login_ok = FreshRSS_UserDAO::exists($current_user);
-			if (!$login_ok && FreshRSS_Context::$system_conf->http_auth_auto_register) {
+			if (!$login_ok && FreshRSS_Context::systemConf()->http_auth_auto_register) {
 				$email = null;
-				if (FreshRSS_Context::$system_conf->http_auth_auto_register_email_field !== '' &&
-					isset($_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field])) {
-					$email = $_SERVER[FreshRSS_Context::$system_conf->http_auth_auto_register_email_field];
+				if (FreshRSS_Context::systemConf()->http_auth_auto_register_email_field !== '' &&
+					isset($_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field])) {
+					$email = (string)$_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field];
 				}
-				$language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::$system_conf->language);
+				$language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::systemConf()->language);
 				Minz_Translate::init($language);
 				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '', [
 					'language' => $language,
@@ -84,7 +85,7 @@ class FreshRSS_Auth {
 			}
 			if ($login_ok) {
 				Minz_Session::_params([
-					'currentUser' => $current_user,
+					Minz_User::CURRENT_USER => $current_user,
 					'csrf' => false,
 				]);
 			}
@@ -100,19 +101,19 @@ class FreshRSS_Auth {
 	/**
 	 * Gives access to the current user.
 	 */
-	public static function giveAccess() {
+	public static function giveAccess(): bool {
 		FreshRSS_Context::initUser();
-		if (FreshRSS_Context::$user_conf == null) {
+		if (!FreshRSS_Context::hasUserConf()) {
 			self::$login_ok = false;
 			return false;
 		}
 
-		switch (FreshRSS_Context::$system_conf->auth_type) {
+		switch (FreshRSS_Context::systemConf()->auth_type) {
 		case 'form':
-			self::$login_ok = Minz_Session::param('passwordHash') === FreshRSS_Context::$user_conf->passwordHash;
+			self::$login_ok = Minz_Session::paramString('passwordHash') === FreshRSS_Context::userConf()->passwordHash;
 			break;
 		case 'http_auth':
-			$current_user = Minz_Session::param('currentUser');
+			$current_user = Minz_User::name() ?? '';
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
 			break;
 		case 'none':
@@ -134,15 +135,15 @@ class FreshRSS_Auth {
 	 * Returns if current user has access to the given scope.
 	 *
 	 * @param string $scope general (default) or admin
-	 * @return boolean true if user has corresponding access, false else.
+	 * @return bool true if user has corresponding access, false else.
 	 */
-	public static function hasAccess($scope = 'general') {
-		if (FreshRSS_Context::$user_conf == null) {
+	public static function hasAccess(string $scope = 'general'): bool {
+		if (!FreshRSS_Context::hasUserConf()) {
 			return false;
 		}
-		$currentUser = Minz_Session::param('currentUser');
-		$isAdmin = FreshRSS_Context::$user_conf->is_admin;
-		$default_user = FreshRSS_Context::$system_conf->default_user;
+		$currentUser = Minz_User::name();
+		$isAdmin = FreshRSS_Context::userConf()->is_admin;
+		$default_user = FreshRSS_Context::systemConf()->default_user;
 		$ok = self::$login_ok;
 		switch ($scope) {
 		case 'general':
@@ -153,13 +154,13 @@ class FreshRSS_Auth {
 		default:
 			$ok = false;
 		}
-		return $ok;
+		return (bool)$ok;
 	}
 
 	/**
 	 * Removes all accesses for the current user.
 	 */
-	public static function removeAccess() {
+	public static function removeAccess(): void {
 		self::$login_ok = false;
 		Minz_Session::_params([
 			'loginOk' => false,
@@ -168,9 +169,9 @@ class FreshRSS_Auth {
 		]);
 
 		$username = '';
-		$token_param = Minz_Request::param('token', '');
+		$token_param = Minz_Request::paramString('token');
 		if ($token_param != '') {
-			$username = trim(Minz_Request::param('user', ''));
+			$username = Minz_Request::paramString('user');
 			if ($username != '') {
 				$conf = get_user_configuration($username);
 				if ($conf == null) {
@@ -179,11 +180,11 @@ class FreshRSS_Auth {
 			}
 		}
 		if ($username == '') {
-			$username = FreshRSS_Context::$system_conf->default_user;
+			$username = FreshRSS_Context::systemConf()->default_user;
 		}
-		Minz_Session::_param('currentUser', $username);
+		Minz_User::change($username);
 
-		switch (FreshRSS_Context::$system_conf->auth_type) {
+		switch (FreshRSS_Context::systemConf()->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
@@ -200,28 +201,29 @@ class FreshRSS_Auth {
 	/**
 	 * Return if authentication is enabled on this instance of FRSS.
 	 */
-	public static function accessNeedsLogin() {
-		return FreshRSS_Context::$system_conf->auth_type !== 'none';
+	public static function accessNeedsLogin(): bool {
+		return FreshRSS_Context::systemConf()->auth_type !== 'none';
 	}
 
 	/**
 	 * Return if authentication requires a PHP action.
 	 */
-	public static function accessNeedsAction() {
-		return FreshRSS_Context::$system_conf->auth_type === 'form';
+	public static function accessNeedsAction(): bool {
+		return FreshRSS_Context::systemConf()->auth_type === 'form';
 	}
 
-	public static function csrfToken() {
-		$csrf = Minz_Session::param('csrf');
+	public static function csrfToken(): string {
+		$csrf = Minz_Session::paramString('csrf');
 		if ($csrf == '') {
-			$salt = FreshRSS_Context::$system_conf->salt;
-			$csrf = sha1($salt . uniqid('' . mt_rand(), true));
+			$salt = FreshRSS_Context::systemConf()->salt;
+			$csrf = sha1($salt . uniqid('' . random_int(0, mt_getrandmax()), true));
 			Minz_Session::_param('csrf', $csrf);
 		}
 		return $csrf;
 	}
-	public static function isCsrfOk($token = null) {
-		$csrf = Minz_Session::param('csrf');
+
+	public static function isCsrfOk(?string $token = null): bool {
+		$csrf = Minz_Session::paramString('csrf');
 		if ($token === null) {
 			$token = $_POST['_csrf'] ?? '';
 		}

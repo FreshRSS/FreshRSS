@@ -43,7 +43,25 @@ If your idea is nice, we’ll have a look at it.
 
 Learn how to contribute to translations in [the dedicated documentation](./internationalization.md).
 
-## Contribute to documentation
+## Contribute to the documentation
 
 The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it.
 If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/edge/docs)!
+
+## Contribute to the system themes
+
+FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
+
+Basic Information for creating a new theme are written [here](./developers/04_Frontend/02_Design.md).
+
+This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
+
+* Essential files include: [metadata.json, loader.gif, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
+* Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
+* Theme-specific icons reside in the `icons` directory.
+	* Icons should be provided as `svg` files.
+		* Ensure clean code without any unnecessary fragments; utilize tools like [SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning.
+		* The default color for icons is `#666666`; employ CSS filters for recoloring.
+* Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
+* Implement a dark mode that aligns with the `.darkMode` CSS class.
+* To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.

@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16">
-<g transform="translate(-40.0002,-746)" fill="#FFF">
-<rect style="color:#FFF;" height="2.0002" width="9.9996" y="749" x="43"/>
-<rect style="color:#FFF;" height="2.0002" width="9.9996" y="753" x="43"/>
-<rect style="color:#FFF;" height="2.0002" width="9.9996" y="757" x="43"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+  <g style="fill:#666;fill-opacity:1">
+    <path d="M43 749h10v2H43zM43 753h10v2H43zM43 757h10v2H43z" style="fill:#666;fill-opacity:1" transform="translate(-40 -746)"/>
+  </g>
 </svg>

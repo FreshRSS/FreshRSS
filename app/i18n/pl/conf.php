@@ -17,7 +17,7 @@ return array(
 		'help' => 'Więcej opcji dostępne jest w ustawieniach konkretnych kanałów',
 		'keep_favourites' => 'Nigdy nie usuwaj ulubionych',
 		'keep_labels' => 'Nigdy nie usuwaj oznaczonych etykietą',
-		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania',
+		'keep_max' => 'Maksymalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_min_by_feed' => 'Minimalna liczba wiadomości do przechowywania w każdym kanale',
 		'keep_period' => 'Maksymalny wiek wiadomości do przechowywania',
 		'keep_unreads' => 'Nigdy nie usuwaj nieprzeczytanych wiadomości',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Wyświetlanie',
+		'darkMode' => array(
+			'_' => 'Tryb ciemny (beta)',
+			'auto' => 'Automatyczny',
+			'no' => 'Wyłączony',
+		),
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
-		'theme' => 'Motyw',
+		'theme' => array(
+			'_' => 'Motyw',
+			'deprecated' => array(
+				'_' => 'Przestarzały',
+				'description' => 'Ten motyw nie jest już wspierany i zostanie usunięty w <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">przyszłej wersji FreshRSS</a>',
+			),
+		),
 		'theme_not_available' => 'Motyw “%s” nie jest już dostępny. Wybierz inny motyw.',
 		'thumbnail' => array(
 			'label' => 'Miniaturka',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Portret',
 			'square' => 'Kwadrat',
 		),
+		'timezone' => 'Strefa czasowa',
 		'title' => 'Wyświetlanie',
+		'website' => array(
+			'full' => 'Ikona i nazwa',
+			'icon' => 'Tylko ikona',
+			'label' => 'Strona źródłowa',
+			'name' => 'Tylko nazwa',
+			'none' => 'Ukryj',
+		),
 		'width' => array(
 			'content' => 'Rozmiar treści',
 			'large' => 'Szeroka',
@@ -68,9 +87,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Poziom',
+			'message' => 'Zawartość wpisu',
+			'timestamp' => 'Czas',
 		),
 		'pagination' => array(
 			'first' => 'Początek',
@@ -95,26 +114,41 @@ return array(
 	'query' => array(
 		'_' => 'Zapisane zapytania',
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
 			'search' => 'Wyrażenie',
+			'shareOpml' => 'Włącz udostępnianie OPML-i zawierających kategorie i kanały',
+			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',
 			'state' => 'Stan',
 			'tags' => 'Według tagu',
 			'type' => 'Rodzaj',
 		),
 		'get_all' => 'Wyświetlenie wszystkich wiadomości',
-		'get_category' => 'Wyświetlenie kategorii "%s"',
+		'get_all_labels' => 'Wyświetl wiadomości z dowolnymi etykietami',
+		'get_category' => 'Wyświetlenie kategorii “%s”',
 		'get_favorite' => 'Wyświetlenie ulubionych wiadomości',
-		'get_feed' => 'Wyświetlenie kanału "%s"',
+		'get_feed' => 'Wyświetlenie kanału “%s”',
+		'get_important' => 'Wyświetl wiadomości z ważnych kanałów',
+		'get_label' => 'Wyświetl wiadomości z etykietą “%s”',
+		'help' => 'Zapytania i dzielenie się nimi przez HTML / RSS / OPML opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentacji</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
 		'order_asc' => 'Wyświetl najpierw najstarsze wiadomości',
 		'order_desc' => 'Wyświetl najpierw najnowsze wiadomości',
-		'search' => 'Szukaj "%s"',
+		'search' => 'Szukaj “%s”',
+		'share' => array(
+			'_' => 'Udostępnij to zapytanie',
+			'help' => 'Posłuż się tym odnośnikiem, aby podzielić się zapytaniem',
+			'html' => 'Odnośnik do strony HTML',
+			'opml' => 'Odnośnik do listy kanałów (OPML)',
+			'rss' => 'Odnośnik do kanału RSS',
+		),
 		'state_0' => 'Wyświetl wszystkie wiadomości',
 		'state_1' => 'Wyświetl przeczytane wiadomości',
 		'state_2' => 'Wyświetl nieprzeczytane wiadomości',
@@ -139,28 +173,28 @@ return array(
 		'always_show_favorites' => 'Pokaż wszystkie wiadomości po wejściu do ulubionych',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autor i data',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Ponad tytułem/tagami',
+				'none' => 'Brak',
+				'with_authors' => 'W tej samej linii co autor i data',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Nazwa kanału',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Tagi',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Limit liczby wyświetlanych tagów',
+				'help' => '0 oznacza: wyświetl wszystkie tagi i żadnego nie zwijaj',
 			),
 		),
 		'articles_per_page' => 'Liczba wiadomości na stronę',
@@ -170,12 +204,12 @@ return array(
 		'display_articles_unfolded' => 'Domyślnie wyświetlaj rozwinięte wiadomości',
 		'display_categories_unfolded' => 'Kategorie do rozwinięcia',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Wiadomości: otwieranie i zamykanie',
+			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
+			'categories' => 'Nawigacja po lewej: Kategorie',
+			'mark_as_read' => 'Oznacz wiadomość jako przeczytaną',
+			'misc' => 'Różne',
+			'view' => 'Widok',
 		),
 		'hide_read_feeds' => 'Ukryj kategorie i kanały nie zawierające nieprzeczytanych wiadomości (nie działa gdy włączone jest wyświetlanie wszystkich wiadomości)',
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
@@ -185,9 +219,10 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'gdy wiadomość jest otworzona na pierwotnej stronie',
 			'article_viewed' => 'gdy wiadomość jest otworzona',
+			'focus' => 'kiedy ma focus (z wyłączeniem ważnych kanałów)',
 			'keep_max_n_unread' => 'Maksymalna liczba nieprzeczytanych wiadomości',
-			'scroll' => 'podczas przewijania',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'scroll' => 'podczas przewijania (z wyłączeniem ważnych kanałów)',
+			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
 			'when_same_title' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach',
@@ -222,7 +257,7 @@ return array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Ta usługa jest przestarzała i zostanie usunięta w <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dodatkowe informacje znajdują się w dokumentacji" target="_blank">przyszłych wydaniach</a> FreshRSS.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE

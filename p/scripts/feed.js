@@ -88,10 +88,17 @@ function init_disable_elements_on_update(parent) {
 function init_select_show(parent) {
 	const listener = (select) => {
 		const options = select.querySelectorAll('option[data-show]');
+		const shows = {};	// To allow multiple options to show the same element
 		for (const option of options) {
-			const elem = document.getElementById(option.dataset.show);
+			if (!shows[option.dataset.show]) {
+				shows[option.dataset.show] = option.selected;
+			}
+		}
+
+		for (const show in shows) {
+			const elem = document.getElementById(show);
 			if (elem) {
-				elem.style.display = option.selected ? 'block' : 'none';
+				elem.style.display = shows[show] ? 'block' : 'none';
 			}
 		}
 	};

@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
@@ -134,20 +139,26 @@ return array(
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
 		'should_be_activated' => 'חובה להפעיל JavaScript',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -156,6 +167,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'אודות',
@@ -171,6 +183,7 @@ return array(
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',
 		'search' => 'חיפוש מילים או #תגים',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'שיתוף',
 		'shortcuts' => 'קיצורי דרך',
 		'stats' => 'סטטיסטיקות',
@@ -188,17 +201,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'דואר אלקטרוני',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE

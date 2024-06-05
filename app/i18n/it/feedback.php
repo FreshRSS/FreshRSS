@@ -20,8 +20,8 @@ return array(
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO
-			'updated' => 'Your password has been modified',	// TODO
+			'failed' => 'La tua password non può essere modificata',
+			'updated' => 'La tua password è stata modificata',
 		),
 	),
 	'auth' => array(
@@ -35,13 +35,13 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Si è verificato un errore durante il salvataggio della configurazione',
-		'query_created' => 'Ricerca "%s" creata.',
+		'query_created' => 'Ricerca “%s” creata.',
 		'shortcuts_updated' => 'Collegamenti tastiera aggiornati',
 		'updated' => 'Configurazione aggiornata',
 	),
 	'extensions' => array(
 		'already_enabled' => '%s è già abilitata',
-		'cannot_remove' => '%s cannot be removed',	// TODO
+		'cannot_remove' => '%s non può essere rimosso',
 		'disable' => array(
 			'ko' => '%s non può essere disabilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è disabilitata',
@@ -53,12 +53,12 @@ return array(
 		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
-		'removed' => '%s removed',	// TODO
+		'removed' => '%s rimosso',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
-		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati',
-		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori',
+		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
+		'feeds_imported_with_errors' => 'I tuoi feed sono stati importati ma si sono verificati alcuni errori. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
 		'zip_error' => 'Si è verificato un errore importando il file ZIP',
@@ -70,8 +70,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Aggiorna',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO
+			'marked_read' => 'Gli articoli selezionati sono stati segnati come già letti.',
+			'marked_unread' => 'Gli articoli sono stati segnati come non letti.',
 		),
 		'category' => array(
 			'created' => 'Categoria %s creata.',
@@ -88,36 +88,38 @@ return array(
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> aggiornato',
-			'actualizeds' => 'RSS feeds aggiornati',
+			'actualizeds' => 'Feed RSS aggiornati',
 			'added' => 'RSS feed <em>%s</em> aggiunti',
 			'already_subscribed' => 'Hai già sottoscritto <em>%s</em>',
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO
+			'cache_cleared' => 'La cache di <em>%s</em> è stata svuotata',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
-			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
+			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
-			'n_actualized' => '%d feeds aggiornati',
+			'n_actualized' => '%d feed aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
 			'no_refresh' => 'Nessun aggiornamento disponibile…',
 			'not_added' => '<em>%s</em> non può essere aggiunto',
-			'not_found' => 'Feed cannot be found',	// TODO
+			'not_found' => 'Feed non trovato',
 			'over_max' => 'Hai raggiunto il numero limite di feed (%d)',
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO
+			'reloaded' => '<em>%s</em> è stato ricaricato',
 			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
-				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
+				'http_error' => 'Fallito caricamento del contenuto del sito web.',
+				'no_entries' => 'Non sono presenti articoli in questo feed. Serve almeno un articolo per creare un’anteprima.',
+				'no_feed' => 'Errore interno (feed non trovato).',
+				'no_result' => 'Il selettore non ha trovato nessuna corrispondenza. Come azione di ripiego verrà mostrato il testo originale del feed.',
+				'selector_empty' => 'Il selettore è vuoto. Devi definirne uno per creare un’anteprima.',
 			),
 			'updated' => 'Feed aggiornato',
 		),
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO
-		'name_exists' => 'Tag name already exists.',	// TODO
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO
+		'created' => 'Il tag “%s” è stato creato.',
+		'error' => 'Il tag non può essere aggiornato!',
+		'name_exists' => 'Il nome del tag è già presente.',
+		'renamed' => 'Il tag “%s” è stato rinominato in “%s”.',
+		'updated' => 'Il tag è stato aggiornato.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',
@@ -137,8 +139,8 @@ return array(
 			'error' => 'Utente %s non cancellato',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO
-			'error' => 'User %s has not been updated',	// TODO
+			'_' => 'L’utente %s è stato aggiornato',
+			'error' => 'L’utente %s non è stato aggiornato',
 		),
 	),
 );

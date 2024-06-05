@@ -1,6 +1,6 @@
 # FreshRSS-Nord-Theme
 
-A simple theme based on Nord's color scheme for [FreshRSS](https://freshrss.org)
+A simple theme based on Nord’s color scheme for [FreshRSS](https://freshrss.org)
 
 You can see how it looks here. It features a compact layout and some custom icons.
 ![Example](./thumbs/original.png)

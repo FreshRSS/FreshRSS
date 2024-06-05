@@ -1,25 +1,42 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
 
-function show_password(ev) {
-	const button = ev.currentTarget;
-	const passwordField = document.getElementById(button.getAttribute('data-toggle'));
+let timeoutHide;
+
+function showPW_this() {
+	const id_passwordField = this.getAttribute('data-toggle');
+	if (this.classList.contains('active')) {
+		hidePW(id_passwordField);
+	} else {
+		showPW(id_passwordField);
+	}
+	return false;
+}
+
+function showPW(id_passwordField) {
+	const passwordField = document.getElementById(id_passwordField);
 	passwordField.setAttribute('type', 'text');
-	button.className += ' active';
+	passwordField.nextElementSibling.classList.add('active');
+	clearTimeout(timeoutHide);
+	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
 	return false;
 }
-function hide_password(ev) {
-	const button = ev.currentTarget;
-	const passwordField = document.getElementById(button.getAttribute('data-toggle'));
+
+function hidePW(id_passwordField) {
+	clearTimeout(timeoutHide);
+	const passwordField = document.getElementById(id_passwordField);
 	passwordField.setAttribute('type', 'password');
-	button.className = button.className.replace(/(?:^|\s)active(?!\S)/g, '');
+	passwordField.nextElementSibling.classList.remove('active');
 	return false;
 }
-const toggles = document.getElementsByClassName('toggle-password');
-for (let i = 0; i < toggles.length; i++) {
-	toggles[i].addEventListener('mousedown', show_password);
-	toggles[i].addEventListener('mouseup', hide_password);
+
+function init_password_observers(parent) {
+	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
+		btn.addEventListener('click', showPW_this);
+	});
 }
+
+init_password_observers(document.body);
 
 const auth_type = document.getElementById('auth_type');
 function auth_type_change() {

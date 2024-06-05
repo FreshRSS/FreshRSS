@@ -33,9 +33,11 @@ Here are some tips to help you present your bug report or suggestion:
 * **Give an explicit title to your request**, even if it’s a bit long. This not only helps us understand your request, but also to find your ticket later.
 * **One request = one ticket.** You may have lots of ideas while being afraid to spam the bug manager: it doesn’t matter. It’s better to have a few too many tickets than too many requests in one. We’ll close and consolidate requests when possible.
 * If you report a bug, think about **providing us with the FreshRSS logs** (accessible in the FreshRSS `data/log/` folder) and the **PHP logs** (the location may vary by distribution, but consider searching in `/var/log/httpd` or `/var/log/apache`).
-* If you can’t find the log files, specify it in your ticket so we know you’ve already searched.
-* Not all bugs require logs, but if you have any doubts, it is better to provide them to us. Logs are important and very useful for debugging!
-* The logs may reveal confidential information, so **be careful not to disclose anything sensitive.**
+  * If you can’t find the log files, specify it in your ticket so we know you’ve already searched.
+  * Not all bugs require logs, but if you have any doubts, it is better to provide them to us. Logs are important and very useful for debugging!
+  * The logs may reveal confidential information, so **be careful not to disclose anything sensitive.**
+* If you report a feed problem, it will be easier if you could provide a snapshot of its content in a text file.
+See [here](#how-to-provide-feed-data) for more information.
 
 In addition, when facing a bug, you’re encouraged to follow this message format (from the [Sam & Max website](http://sametmax.com/template-de-demande-daide-en-informatique/):
 
@@ -64,3 +66,13 @@ Remember to give the following information if you know it:
 3. Which version of PHP?
 4. Which database: SQLite, MySQL, MariaDB, PostgreSQL? Which version?
 5. Which distribution runs on the server? And… which version?
+
+## How to provide feed data
+
+If you need us to investigate a feed problem, it will be easier if you provide a snapshot of the feed data.
+To do that, you can launch the following command:
+
+```bash
+wget <feed url> -O output.rss.txt
+```
+Then you can drag-and-drop the generated file into the issue.

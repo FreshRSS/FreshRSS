@@ -110,7 +110,10 @@ return array(
 		'ok' => 'Obecná nastavení byla uložena.',
 	),
 	'congratulations' => 'Gratulujeme!',
-	'default_user' => 'Uživatelské jméno výchozího uživatele <small>(maximálně 16 alfanumerických znaků)</small>',
+	'default_user' => array(
+		'_' => 'Uživatelské jméno výchozího uživatele',
+		'max_char' => 'maximálně 16 alfanumerických znaků',
+	),
 	'fix_errors_before' => 'Opravte prosím všechny chyby před přechodem na další krok.',
 	'javascript_is_better' => 'Práce s FreshRSS je příjemnější se zapnutým JavaScript',
 	'js' => array(

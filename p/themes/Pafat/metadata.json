@@ -3,5 +3,6 @@
   "author": "Plopoyop",
   "description": "Un thème pour FreshRSS",
   "version": 0.2,
-  "files": ["_template.css", "pafat.css"]
+  "files": ["_frss.css", "pafat.css"],
+  "theme-color": "#f4f4f4"
 }

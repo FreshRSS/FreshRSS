@@ -2,40 +2,6 @@
 
 /*=== LOGS */
 /*=========*/
-.loglist {
-	overflow: hidden;
-	border: 1px solid variables.$grey-medium-dark;
-}
-
-.log {
-	margin: 10px 0;
-	padding: 5px 2%;
-	background: variables.$grey-lighter;
-	color: variables.$grey-dark;
-	font-size: 0.8rem;
-	overflow: auto;
-}
-
-.log > .date {
-	margin: 0 10px 0 0;
-	padding: 5px 10px;
-	border-radius: 20px;
-}
-
-.log.error > .date {
-	background: variables.$alert-bg;
-	color: #fff;
-}
-
-.log.warning > .date {
-	background: variables.$warning-bg;
-}
-
-.log.notice > .date {
-	background: variables.$grey-light;
-}
-
-.log.debug > .date {
-	background: variables.$main-first-darker;
-	color: variables.$white;
+.log-item.log-error {
+	background-color: rgba(variables.$main-first, 0.2);
 }

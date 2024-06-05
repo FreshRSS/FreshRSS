@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
 $dirs = array(
@@ -39,4 +40,4 @@ file_put_contents(DATA_PATH . '/.htaccess',
 
 accessRights();
 
-done($ok);
+done((bool)$ok);

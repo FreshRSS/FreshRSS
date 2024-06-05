@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
-		'token' => 'Ověřovací token',
-		'token_help' => 'Umožňuje přístup k výstupu RSS výchozího uživatele bez ověřování:',
+		'token' => 'Hlavní ověřovací token',
+		'token_help' => 'Umožňuje přístup ke všem výstupům RSS uživatele i obnovování kanálů bez ověřování:',
 		'type' => 'Metoda ověřování',
 		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
 	),
@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Všechny kanály',
 		'no_idle' => 'Nejsou žádné nečinné kanály!',
 		'number_entries' => '%d článků',
-		'percent_of_total' => '%% ze všech',
+		'percent_of_total' => '% ze všech',
 		'repartition' => 'Přerozdělení článků',
 		'status_favorites' => 'Oblíbené',
 		'status_read' => 'Přečtené',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Nastavení systému',
 		'auto-update-url' => 'Adresa URL serveru pro automatické aktualizace',
+		'base-url' => array(
+			'_' => 'Základní adresa URL',
+			'recommendation' => 'Automatické doporučení: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
@@ -170,28 +174,46 @@ return array(
 		'registration' => array(
 			'number' => 'Maximální počet účtů',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Registrační formulář',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Zakazáno: Žádný registrační formulář',
+					'nolimit' => 'Povoleno: Bez omezení počtu účtů',
+					'setaccountsnumber' => 'also it can be: Nastavit maximální počet účtů',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Formulář zakázán',
+				'enabled' => 'Formulář povolen',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Registrační formulář uživatele',
+		),
+		'sensitive-parameter' => 'Citlivý parametr. Upravte ručně v souboru <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'není uveden',
+			'enabled' => '<a href="./?a=tos">je povolen</a>',
+			'help' => 'Jak povolit <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">podmínky poskytování služby</a>',
+		),
+		'websub' => array(
+			'help' => 'O <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
+		'changelog' => 'Seznam změn',
 		'check' => 'Zkontrolovat aktualizace',
-		'current_version' => 'Vaše aktuální verze FreshRSS je %s.',
-		'last' => 'Poslední kontrola: %s',
+		'copiedFromURL' => 'update.php zkopírováno z %s do ./data',
+		'current_version' => 'Vaše aktuální verze',
+		'last' => 'Poslední kontrola',
+		'loading' => 'Aktualizuje se...',
 		'none' => 'Žádné nové aktualizace',
+		'releaseChannel' => array(
+			'_' => 'Kanál pro vydání',
+			'edge' => 'Vydání "Rolling" / Nepřetržitě aktualizované vydání (“edge”)',
+			'latest' => 'Stabilní vydání (“latest”)',
+		),
 		'title' => 'Aktualizovat systém',
+		'viaGit' => 'Aktualizace přes git a GitHub.com začala',
 	),
 	'user' => array(
 		'admin' => 'Administrátor',

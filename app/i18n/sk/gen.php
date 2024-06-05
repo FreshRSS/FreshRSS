@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
 		'create' => 'Vytvoriť',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Vymazať stíšené kanály',
 		'demote' => 'Degradovať',
 		'disable' => 'Zakázať',
 		'empty' => 'Vyprázdniť',
@@ -29,10 +29,15 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
-		'open_url' => 'Open URL',	// TODO
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'Otvoriť URL',
 		'promote' => 'Podporiť',
 		'purge' => 'Vymazať',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Obnoviť OPML',
 		'remove' => 'Odstrániť',
 		'rename' => 'Premenovať',
 		'see_website' => 'Zobraziť webovú stránku',
@@ -130,24 +135,30 @@ return array(
 		'confirm_action_feed_cat' => 'Určite chcete vykonať túto akciu? Prídete o súvisiace obľúbené a používateľské dopyty. Zmeny budú nezvratné!',
 		'feedback' => array(
 			'body_new_articles' => 'Počet nových článkov v čítačke FreshRSS: %%d',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(neprečítané: %%d)',
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
+		'labels_empty' => 'Žiadne štítky',
 		'new_article' => 'Našli sa nové články. Kliknite na obnovenie stránky.',
 		'should_be_activated' => 'Musíte povoliť JavaScript',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -156,6 +167,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
@@ -171,6 +183,7 @@ return array(
 		'queries' => 'Používateľské dopyty',
 		'reading' => 'Čítanie',
 		'search' => 'Hľadajte slová alebo #značky',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Zdieľanie',
 		'shortcuts' => 'Skratky',
 		'stats' => 'Štatistiky',
@@ -188,17 +201,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - oprava pre Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -209,7 +228,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Systémové zdieľanie',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

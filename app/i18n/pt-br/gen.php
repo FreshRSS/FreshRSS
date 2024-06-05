@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Criar',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'Excluir feeds silenciados',
 		'demote' => 'Despromover',
 		'disable' => 'Desabilitar',
 		'empty' => 'Vazio',
@@ -29,10 +29,15 @@ return array(
 		'load_default_shortcuts' => 'Carregar mais atalhos',
 		'manage' => 'Gerenciar',
 		'mark_read' => 'Marcar como lido',
-		'open_url' => 'Open URL',	// TODO
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'Abrir URL',
 		'promote' => 'Promover',
 		'purge' => 'Limpar',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'Atualizar OPML',
 		'remove' => 'Remover',
 		'rename' => 'Renomear',
 		'see_website' => 'Ver o site',
@@ -130,24 +135,30 @@ return array(
 		'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
 		'feedback' => array(
 			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(não lido: %%d)',
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Há novos artigos disponíveis, clique para atualizar a página.',
 		'should_be_activated' => 'O JavaScript precisa estar ativo',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -156,6 +167,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Sobre',
@@ -171,6 +183,7 @@ return array(
 		'queries' => 'Queries de usuário',
 		'reading' => 'Leitura',
 		'search' => 'Procurar por palavras ou #tags',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Compartilhamento',
 		'shortcuts' => 'Atalhos',
 		'stats' => 'Estatísticas',
@@ -188,17 +201,23 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites no Known',
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
 		'blogotext' => 'Blogotext',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
+		'email-webmail-firefox-fix' => 'Email (webmail - correção para o Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -209,7 +228,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sistemas-compartilhados (API)',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

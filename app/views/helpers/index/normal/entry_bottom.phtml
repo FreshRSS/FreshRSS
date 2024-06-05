@@ -1,17 +1,13 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	$sharing = array();
-	if (FreshRSS_Auth::hasAccess()) {
-		$sharing = FreshRSS_Context::$user_conf->sharing;
-	}
-
-	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
-	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
-	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count($sharing) > 0);
-	$bottomline_labels = true;	//TODO
-	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
-	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
-	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
+	$bottomline_read = FreshRSS_Context::userConf()->bottomline_read;
+	$bottomline_favorite = FreshRSS_Context::userConf()->bottomline_favorite;
+	$bottomline_sharing = FreshRSS_Context::userConf()->bottomline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);
+	$bottomline_myLabels = FreshRSS_Context::userConf()->bottomline_myLabels;
+	$bottomline_tags = FreshRSS_Context::userConf()->bottomline_tags;
+	$bottomline_date = FreshRSS_Context::userConf()->bottomline_date;
+	$bottomline_link = FreshRSS_Context::userConf()->bottomline_link;
 ?><ul class="horizontal-list bottom"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($bottomline_read) {
@@ -20,7 +16,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = 0;
 				}
-				?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -30,15 +26,14 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = 0;
 				}
-				?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
 	}
-	// @phpstan-ignore-next-line
-	if ($bottomline_labels) {
+	if ($bottomline_myLabels) {
 	?><li class="item labels">
-		<div class="dropdown dynamictags">
+		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
 				<?= _i('label') ?><?= _t('index.menu.tags') ?>
@@ -59,7 +54,7 @@
 	$tags = $bottomline_tags ? $this->entry->tags() : null;
 	if (!empty($tags)) {
 	?><li class="item tags">
-		<div class="dropdown">
+		<div class="item-element dropdown">
 			<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>">
 				<?= _i('tag') ?><?= _t('index.tag.related') ?>
@@ -75,8 +70,8 @@
 	</li><?php
 	}
 	?><li class="item share"><?php
-			if ($bottomline_sharing) {
-		?><div class="dropdown">
+		if ($bottomline_sharing) {
+		?><div class="item-element dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
 				<?= _i('share') ?><?= _t('index.share') ?>
@@ -86,8 +81,8 @@
 				<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
 					$id = $this->entry->id();
 					$link = $this->entry->link();
-					$title = $this->entry->title() . ' · ' . $this->feed->name();
-					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
+					$title = $this->entry->title() . ' · ' . ($this->feed === null ? '' : $this->feed->name());
+					foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
 						$share = FreshRSS_Share::get($share_options['type']);
 						if ($share === null) {
 							continue;
@@ -119,9 +114,9 @@
 		<?php } ?>
 	</li><?php
 	if ($bottomline_date) {
-		?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</li><?php
+		?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>" class="item-element"><?= $this->entry->date() ?></time>&nbsp;</li><?php
 	}
 	if ($bottomline_link) {
-		?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php
+		?><li class="item link"><a target="_blank" class="item-element" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php
 	} ?>
 </ul>

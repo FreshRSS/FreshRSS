@@ -17,7 +17,7 @@ return array(
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Nikdy neodstraňovat oblíbené',
 		'keep_labels' => 'Nikdy neodstraňovat popisky',
-		'keep_max' => 'Maximální počet článků k ponechání',
+		'keep_max' => 'Maximální počet článků k ponechání na kanál',
 		'keep_min_by_feed' => 'Minimální počet článků k ponechání na kanál',
 		'keep_period' => 'Maximální stáří článků k ponechání',
 		'keep_unreads' => 'Nikdy neodstraňovat nepřečtené články',
@@ -32,6 +32,11 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazení',
+		'darkMode' => array(
+			'_' => 'Automatický tmavý režim (beta)',
+			'auto' => 'Automatický',
+			'no' => 'Ne',
+		),
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
@@ -48,7 +53,13 @@ return array(
 			'timeout' => 'Časový limit HTML5 oznámení',
 		),
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
-		'theme' => 'Motiv',
+		'theme' => array(
+			'_' => 'Motiv',
+			'deprecated' => array(
+				'_' => 'Zastaralý',
+				'description' => 'Tento motiv již není podporován a v <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">budoucí verzi FreshRSS</a> již nebude dostupný.',
+			),
+		),
 		'theme_not_available' => 'Motiv „%s“ již není dostupný. Zvolte jiný motiv, prosím.',
 		'thumbnail' => array(
 			'label' => 'Náhled',
@@ -57,7 +68,15 @@ return array(
 			'portrait' => 'Na výšku',
 			'square' => 'Čtverec',
 		),
+		'timezone' => 'Časové pásmo',
 		'title' => 'Zobrazení',
+		'website' => array(
+			'full' => 'Ikona a název',
+			'icon' => 'Pouze ikona',
+			'label' => 'Webová stránka',
+			'name' => 'Pouze název',
+			'none' => 'Žádné',
+		),
 		'width' => array(
 			'content' => 'Šířka obsahu',
 			'large' => 'Široká',
@@ -68,9 +87,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Úroveň protokolování',
+			'message' => 'Záznam protokolu',
+			'timestamp' => 'Časová značka',
 		),
 		'pagination' => array(
 			'first' => 'První',
@@ -95,26 +114,41 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly odstraněny.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Použitý filtr:',
 			'categories' => 'Zobrazit podle kategorie',
 			'feeds' => 'Zobrazit podle kanálu',
 			'order' => 'Seřadit podle data',
 			'search' => 'Výraz',
+			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
+			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',
 			'state' => 'Stav',
 			'tags' => 'Zobrazit podle štítku',
 			'type' => 'Typ',
 		),
 		'get_all' => 'Zobrazit všechny články',
+		'get_all_labels' => 'Zobrazit články s libovolným štítkem',
 		'get_category' => 'Zobrazit kategorii „%s“',
 		'get_favorite' => 'Zobrazit oblíbené články',
 		'get_feed' => 'Zobrazit kanál „%s“',
+		'get_important' => 'Zobrazit články z důležitých kanálů',
+		'get_label' => 'Zobrazit články se štítkem “%s”',
+		'help' => 'Viz <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentace pro uživatelské dotazy a další sdílení pomocí HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
 		'search' => 'Hledat „%s“',
+		'share' => array(
+			'_' => 'Sdílet tento dotaz pomocí odkazu',
+			'help' => 'Pokud chcete tento dotaz s někým sdílet, uveďte tento odkaz.',
+			'html' => 'Odkaz na stránku HTML, který lze sdílet',
+			'opml' => 'Odkaz na seznam kanálů OPML, který lze sdílet',
+			'rss' => 'Odkaz na kanál RSS, který lze sdílet',
+		),
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
 		'state_2' => 'Zobrazit nepřečtené články',
@@ -136,31 +170,31 @@ return array(
 	'reading' => array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po „označit vše jako přečtené“',
-		'always_show_favorites' => 'Vy výchozím nastavení zobrazit všechny články v oblíbených',
+		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Autoři a datum',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádný',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Nad názvem/štítky',
+				'none' => 'Žádný',
+				'with_authors' => 'V řádku s autory a datem',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Název feedu',
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Štítky',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádné',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Maximální počet zobrazených štítků',
+				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
 			),
 		),
 		'articles_per_page' => 'Počet článků na stránku',
@@ -170,12 +204,12 @@ return array(
 		'display_articles_unfolded' => 'Ve výchozím nastavení zobrazovat články rozbalené',
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Články: Otevřít/zavřít',
+			'articles_header_footer' => 'Články: záhlaví/zápatí',
+			'categories' => 'Navigace vlevo: Kategorie',
+			'mark_as_read' => 'Označit článek jako přečtený',
+			'misc' => 'Různé',
+			'view' => 'Zobrazit',
 		),
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
@@ -185,9 +219,10 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'když je článek otevřen na své původní webové stránce',
 			'article_viewed' => 'když je článek zobrazen',
+			'focus' => 'při zaměření (kromě důležitých kanálů)',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
-			'scroll' => 'během posouvání',
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
+			'scroll' => 'během posouvání (kromě důležitých kanálů)',	// DIRTY
+			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
 			'when_same_title' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích',
@@ -222,7 +257,7 @@ return array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
 		'facebook' => 'Facebook',	// IGNORE
