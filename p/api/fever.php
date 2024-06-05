@@ -407,7 +407,7 @@ final class FeverAPI
 	}
 
 	/**
-	 * @param array<string> $ids
+	 * @param array<numeric-string> $ids
 	 */
 	private function entriesToIdList(array $ids = []): string {
 		return implode(',', array_values($ids));
@@ -424,6 +424,7 @@ final class FeverAPI
 	}
 
 	/**
+	 * @param numeric-string $id
 	 * @return int|false
 	 */
 	private function setItemAsRead(string $id) {
@@ -431,6 +432,7 @@ final class FeverAPI
 	}
 
 	/**
+	 * @param numeric-string $id
 	 * @return int|false
 	 */
 	private function setItemAsUnread(string $id) {
@@ -438,6 +440,7 @@ final class FeverAPI
 	}
 
 	/**
+	 * @param numeric-string $id
 	 * @return int|false
 	 */
 	private function setItemAsSaved(string $id) {
@@ -445,6 +448,7 @@ final class FeverAPI
 	}
 
 	/**
+	 * @param numeric-string $id
 	 * @return int|false
 	 */
 	private function setItemAsUnsaved(string $id) {
@@ -527,9 +531,12 @@ final class FeverAPI
 
 	/**
 	 * TODO replace by a dynamic fetch for id <= $before timestamp
+	 * @return numeric-string
 	 */
 	private function convertBeforeToId(int $beforeTimestamp): string {
-		return $beforeTimestamp == 0 ? '0' : $beforeTimestamp . '000000';
+		$result = $beforeTimestamp === 0 ? '0' : $beforeTimestamp . '000000';
+		/** @var numeric-string $result */
+		return $result;
 	}
 
 	/**

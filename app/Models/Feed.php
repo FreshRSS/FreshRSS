@@ -778,7 +778,6 @@ class FreshRSS_Feed extends Minz_Model {
 						$item['tags'] = [$itemCategories];
 					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
-						/** @var DOMNode $itemCategory */
 						foreach ($itemCategories as $itemCategory) {
 							$item['tags'][] = $itemCategory->textContent;
 						}
@@ -855,7 +854,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$maxTimestamp = time();
 			}
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$affected = $entryDAO->markReadFeed($this->id(), $maxTimestamp . '000000');
+			/** @var numeric-string $idMax */
+			$idMax = $maxTimestamp . '000000';
+			$affected = $entryDAO->markReadFeed($this->id(), $idMax);
 		} else {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$affected = $feedDAO->markAsReadUponGone($this->id());

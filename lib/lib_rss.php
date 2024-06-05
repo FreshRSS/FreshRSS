@@ -619,9 +619,12 @@ function lazyimg(string $content): string {
 	) ?? '';
 }
 
+/** @return numeric-string */
 function uTimeString(): string {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
+	$result = $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
+	/** @var numeric-string @result */
+	return $result;
 }
 
 function invalidateHttpCache(string $username = ''): bool {

@@ -9,7 +9,7 @@ declare(strict_types=1);
 /**
  * The Minz_Helper class contains some misc. help functions
  */
-class Minz_Helper {
+final class Minz_Helper {
 
 	/**
 	 * Wrapper for htmlspecialchars.

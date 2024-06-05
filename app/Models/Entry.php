@@ -10,6 +10,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
 
+	/** @var numeric-string */
 	private string $id = '0';
 	private string $guid;
 	private string $title;
@@ -110,6 +111,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
+	/** @return numeric-string */
 	public function id(): string {
 		return $this->id;
 	}
@@ -296,8 +298,10 @@ HTML;
 				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				if (!empty($enclosures)) {
-					/** @var DOMElement $enclosure */
 					foreach ($enclosures as $enclosure) {
+						if (!($enclosure instanceof DOMElement)) {
+							continue;
+						}
 						$result = [
 							'url' => $enclosure->getAttribute('src'),
 							'type' => $enclosure->getAttribute('data-type'),
@@ -318,8 +322,10 @@ HTML;
 			if ($searchBodyImages && $xpath !== null) {
 				$images = $xpath->query('//img');
 				if (!empty($images)) {
-					/** @var DOMElement $img */
 					foreach ($images as $img) {
+						if (!($img instanceof DOMElement)) {
+							continue;
+						}
 						$src = $img->getAttribute('src');
 						if ($src == null) {
 							$src = $img->getAttribute('data-src');
@@ -467,7 +473,7 @@ HTML;
 		return $this->hash;
 	}
 
-	/** @param int|string $value String is for compatibility with 32-bit platforms */
+	/** @param int|numeric-string $value String is for compatibility with 32-bit platforms */
 	public function _id($value): void {
 		if (is_int($value)) {
 			$value = (string)$value;
@@ -882,7 +888,7 @@ HTML;
 
 	/**
 	 * Integer format conversion for Google Reader API format
-	 * @param string|int $dec Decimal number
+	 * @param numeric-string|int $dec Decimal number
 	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 	 */
 	private static function dec2hex($dec): string {

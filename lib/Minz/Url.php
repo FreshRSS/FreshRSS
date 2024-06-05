@@ -7,7 +7,7 @@ declare(strict_types=1);
 class Minz_Url {
 	/**
 	 * Display a formatted URL
-	 * @param string|array<string,string|array<string,mixed>> $url The URL to format, defined as an array:
+	 * @param string|array{c?:string,a?:string,params?:array<string,string|int|bool>,'#'?:string} $url The URL to format, defined as an array:
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = array of additional parameters
@@ -58,7 +58,7 @@ class Minz_Url {
 
 	/**
 	 * Construit l'URI d'une URL
-	 * @param array<string,mixed> $url l'url sous forme de tableau
+	 * @param array{c:string,a:string,params:array<string,string|int|bool>,'#'?:string} $url URL as array definition
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
 	 */
@@ -74,17 +74,19 @@ class Minz_Url {
 		}
 
 		if (!empty($url['params']) && is_array($url['params']) && !empty($url['params']['#'])) {
-			$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
+			if (is_string($url['params']['#'])) {
+				$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
+			}
 			unset($url['params']['#']);
 		}
 
-		if (isset($url['c'])
+		if (isset($url['c']) && is_string($url['c'])
 		 && $url['c'] != Minz_Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 
-		if (isset($url['a'])
+		if (isset($url['a']) && is_string($url['a'])
 		 && $url['a'] != Minz_Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
@@ -94,7 +96,7 @@ class Minz_Url {
 			unset($url['params']['c']);
 			unset($url['params']['a']);
 			foreach ($url['params'] as $key => $param) {
-				if (!is_string($key) || (!is_string($param) && !is_int($param))) {
+				if (!is_string($key) && !is_int($param) && !is_bool($param)) {
 					continue;
 				}
 				$uri .= $separator . urlencode($key) . '=' . urlencode((string)$param);
@@ -113,8 +115,8 @@ class Minz_Url {
 
 	/**
 	 * Check that all array elements representing the controller URL are OK
-	 * @param array<string,string|array<string,mixed>> $url controller URL as array
-	 * @return array{'c':string,'a':string,'params':array<string,mixed>} Verified controller URL as array
+	 * @param array{c?:string,a?:string,params?:array<string,string|int|bool>} $url controller URL as array
+	 * @return array{c:string,a:string,params:array<string,string|int|bool>} Verified controller URL as array
 	 */
 	public static function checkControllerUrl(array $url): array {
 		return [
@@ -124,7 +126,7 @@ class Minz_Url {
 		];
 	}
 
-	/** @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url */
+	/** @param array{c?:string,a?:string,params?:array<string,string|int|bool>} $url */
 	public static function serialize(?array $url = []): string {
 		if (empty($url)) {
 			return '';
@@ -137,18 +139,18 @@ class Minz_Url {
 	}
 
 	/**
-	 * @phpstan-return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>}
+	 * @phpstan-return array{c?:string,a?:string,params?:array<string,string>}
 	 * @return array<string,string|array<string,string>>
 	 */
 	public static function unserialize(string $url = ''): array {
 		$result = json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
-		/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $result */
+		/** @var array{c?:string,a?:string,params?:array<string,string>} $result */
 		return $result;
 	}
 
 	/**
 	 * Returns an array representing the URL as passed in the address bar
-	 * @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} URL representation
+	 * @return array{c?:string,a?:string,params?:array<string,string>} URL representation
 	 */
 	public static function build(): array {
 		$url = [

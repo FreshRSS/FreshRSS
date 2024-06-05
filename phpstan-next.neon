@@ -13,6 +13,5 @@ parameters:
 			- app/Models/Feed.php
 			- app/Services/ImportService.php
 			- app/views/configure/archiving.phtml
-			- app/views/helpers/feed/update.phtml
 			- lib/Minz/Helper.php
 			- lib/Minz/Request.php

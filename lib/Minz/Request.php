@@ -13,13 +13,13 @@ class Minz_Request {
 
 	private static string $controller_name = '';
 	private static string $action_name = '';
-	/** @var array<string,mixed> */
+	/** @var array<string,string|array<string>> */
 	private static array $params = [];
 
 	private static string $default_controller_name = 'index';
 	private static string $default_action_name = 'index';
 
-	/** @var array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
+	/** @var array{c?:string,a?:string,params?:array<string,string>} */
 	private static array $originalRequest = [];
 
 	/**
@@ -31,16 +31,16 @@ class Minz_Request {
 	public static function actionName(): string {
 		return self::$action_name;
 	}
-	/** @return array<string,mixed> */
+	/** @return array<string,string|array<string>> */
 	public static function params(): array {
 		return self::$params;
 	}
 	/**
 	 * Read the URL parameter
 	 * @param string $key Key name
-	 * @param mixed $default default value, if no parameter is given
+	 * @param array<string>|bool|int|null|string $default default value, if no parameter is given
 	 * @param bool $specialchars special characters
-	 * @return mixed value of the parameter
+	 * @return array<string>|bool|int|null|string value of the parameter
 	 * @deprecated use typed versions instead
 	 */
 	public static function param(string $key, $default = false, bool $specialchars = false) {
@@ -56,6 +56,10 @@ class Minz_Request {
 		} else {
 			return $default;
 		}
+	}
+
+	public static function hasParam(string $key): bool {
+		return isset(self::$params[$key]);
 	}
 
 	/** @return array<string|int,string|array<string,string|int>> */
@@ -131,7 +135,7 @@ class Minz_Request {
 	public static function defaultActionName(): string {
 		return self::$default_action_name;
 	}
-	/** @return array{'c':string,'a':string,'params':array<string,mixed>} */
+	/** @return array{c:string,a:string,params:array<string,string|int|bool>} */
 	public static function currentRequest(): array {
 		return [
 			'c' => self::$controller_name,
@@ -140,14 +144,14 @@ class Minz_Request {
 		];
 	}
 
-	/** @return array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} */
+	/** @return array{c?:string,a?:string,params?:array<string,string>} */
 	public static function originalRequest() {
 		return self::$originalRequest;
 	}
 
 	/**
 	 * @param array<string,mixed>|null $extraParams
-	 * @return array{'c':string,'a':string,'params':array<string,mixed>}
+	 * @return array{c:string,a:string,params:array<string,string|int|bool>}
 	 */
 	public static function modifiedCurrentRequest(?array $extraParams = null): array {
 		unset(self::$params['ajax']);
@@ -169,14 +173,13 @@ class Minz_Request {
 		self::$action_name = ctype_alnum($action_name) ? $action_name : '';
 	}
 
-	/** @param array<string,string> $params */
+	/** @param array<string,string|array<string>> $params */
 	public static function _params(array $params): void {
 		self::$params = $params;
 	}
 
-	/** @param array|mixed $value */
-	public static function _param(string $key, $value = false): void {
-		if ($value === false) {
+	public static function _param(string $key, ?string $value = null): void {
+		if ($value === null) {
 			unset(self::$params[$key]);
 		} else {
 			self::$params[$key] = $value;
@@ -382,7 +385,7 @@ class Minz_Request {
 
 	/**
 	 * Restart a request
-	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url an array presentation of the URL to route to
+	 * @param array{c?:string,a?:string,params?:array<string,string|int|bool>} $url an array presentation of the URL to route to
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
 	 * @throws Minz_ConfigurationException
 	 */
@@ -400,10 +403,8 @@ class Minz_Request {
 		} else {
 			self::_controllerName($url['c']);
 			self::_actionName($url['a']);
-			self::_params(array_merge(
-				self::$params,
-				$url['params']
-			));
+			$merge = array_merge(self::$params, $url['params']);
+			self::_params($merge);
 			Minz_Dispatcher::reset();
 		}
 	}
@@ -411,7 +412,7 @@ class Minz_Request {
 	/**
 	 * Wrappers good notifications + redirection
 	 * @param string $msg notification content
-	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url url array to where we should be forwarded
+	 * @param array{c?:string,a?:string,params?:array<string,string|int|bool>} $url url array to where we should be forwarded
 	 */
 	public static function good(string $msg, array $url = []): void {
 		Minz_Request::setGoodNotification($msg);
@@ -421,7 +422,7 @@ class Minz_Request {
 	/**
 	 * Wrappers bad notifications + redirection
 	 * @param string $msg notification content
-	 * @param array{'c'?:string,'a'?:string,'params'?:array<string,mixed>} $url url array to where we should be forwarded
+	 * @param array{c?:string,a?:string,params?:array<string,string|int|bool>} $url url array to where we should be forwarded
 	 */
 	public static function bad(string $msg, array $url = []): void {
 		Minz_Request::setBadNotification($msg);
