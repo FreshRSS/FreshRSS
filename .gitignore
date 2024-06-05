@@ -1,4 +1,6 @@
 /bin/
+/extensions/node_modules/
+/extensions/vendor/
 /node_modules/
 /vendor/
 /data.back/

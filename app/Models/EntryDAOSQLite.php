@@ -1,28 +1,35 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
+	#[\Override]
 	public static function isCompressed(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public static function hasNativeHex(): bool {
 		return false;
 	}
 
+	#[\Override]
 	protected static function sqlConcat(string $s1, string $s2): string {
 		return $s1 . '||' . $s2;
 	}
 
+	#[\Override]
 	public static function sqlHexDecode(string $x): string {
 		return $x;
 	}
 
+	#[\Override]
 	public static function sqlIgnoreConflict(string $sql): string {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
-	/** @param array<string> $errorInfo */
+	/** @param array<string|int> $errorInfo */
+	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
@@ -35,6 +42,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return false;
 	}
 
+	#[\Override]
 	public function commitNewEntries(): bool {
 		$sql = <<<'SQL'
 DROP TABLE IF EXISTS `tmp`;
@@ -73,13 +81,14 @@ SQL;
 	 * @param bool $is_read
 	 * @return int|false affected rows
 	 */
+	#[\Override]
 	public function markRead($ids, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 				$affected = 0;
 				foreach ($ids as $id) {
-					$affected += $this->markRead($id, $is_read);
+					$affected += ($this->markRead($id, $is_read) ?: 0);
 				}
 				return $affected;
 			//}
@@ -118,6 +127,7 @@ SQL;
 	 * @param string $idMax max article ID
 	 * @return int|false affected rows
 	 */
+	#[\Override]
 	public function markReadTag($id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
@@ -125,9 +135,7 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` '
-			 . 'SET is_read = ? '
-			 . 'WHERE is_read <> ? AND id <= ? AND '
+		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';

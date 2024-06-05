@@ -1,10 +1,10 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if (FreshRSS_Auth::hasAccess()) {
 		$this->partial('aside_configure');
 	}
 ?>
-
 <main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
 	<?php if (FreshRSS_Auth::hasAccess()) {?>
 	<div class="link-back-wrapper">
@@ -33,8 +33,8 @@
 		<?= FRESHRSS_VERSION ?>
 
 		<?php
-		$env = FreshRSS_Context::$system_conf->environment;
-		if ($env !== 'production' && FreshRSS_Context::$user_conf->is_admin) { ?>
+		$env = FreshRSS_Context::systemConf()->environment;
+		if ($env !== 'production' && FreshRSS_Context::userConf()->is_admin) { ?>
 			<h2>data/config.php</h2>
 			<code>'environment' => '<?= $env; ?>'</code><br />
 			<?php

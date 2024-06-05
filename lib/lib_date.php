@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01

@@ -1,8 +1,9 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-$dirs = array(
+$dirs = [
 	'/',
 	'/cache',
 	'/extensions-data',
@@ -14,7 +15,7 @@ $dirs = array(
 	'/tokens',
 	'/users',
 	'/users/_',
-);
+];
 
 $ok = true;
 
@@ -23,18 +24,19 @@ foreach ($dirs as $dir) {
 	$ok &= touch(DATA_PATH . $dir . '/index.html');
 }
 
-file_put_contents(DATA_PATH . '/.htaccess',
-"# Apache 2.2\n" .
-"<IfModule !mod_authz_core.c>\n" .
-"	Order	Allow,Deny\n" .
-"	Deny	from all\n" .
-"	Satisfy	all\n" .
-"</IfModule>\n" .
-"\n" .
-"# Apache 2.4\n" .
-"<IfModule mod_authz_core.c>\n" .
-"	Require all denied\n" .
-"</IfModule>\n"
+file_put_contents(DATA_PATH . '/.htaccess', <<<'EOF'
+	# Apache 2.2
+	<IfModule !mod_authz_core.c>
+		Order	Allow,Deny
+		Deny	from all
+		Satisfy	all
+	</IfModule>
+
+	# Apache 2.4
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	EOF
 );
 
 accessRights();

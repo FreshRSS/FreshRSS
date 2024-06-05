@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => '加载默认快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
@@ -134,12 +139,12 @@ return array(
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => '无标签',
 		'new_article' => '发现新文章，点击刷新页面。',
 		'should_be_activated' => '必须启用 JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -177,8 +182,8 @@ return array(
 		'logs' => '日志',
 		'queries' => '自定义查询',
 		'reading' => '阅读',
-		'search' => '搜索内容或#标签',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search' => '搜索内容或#文章标签',
+		'search_help' => '查阅文档获取支持的 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜索参数</a>',
 		'sharing' => '分享',
 		'shortcuts' => '快捷键',
 		'stats' => '统计',

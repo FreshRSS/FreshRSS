@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/favicons.php');
@@ -13,7 +14,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 	}
 }
 
-$id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
+$id = $_SERVER['QUERY_STRING'] ?? '0';
 if (!ctype_xdigit($id)) {
 	$id = '0';
 }

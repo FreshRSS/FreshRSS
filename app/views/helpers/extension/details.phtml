@@ -1,6 +1,10 @@
-<?php /** @var FreshRSS_View $this */ ?>
-
 <?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	if ($this->ext_details === null) {
+		throw new FreshRSS_Context_Exception('Extension not initialised!');
+	}
+
 	$name_encoded = urlencode($this->ext_details->getName());
 	$ext_enabled = $this->ext_details->isEnabled();
 	if ($ext_enabled) {

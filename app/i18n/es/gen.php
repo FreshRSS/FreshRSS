@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Cargar accesos directos predeterminados',
 		'manage' => 'Administrar',
 		'mark_read' => 'Marcar como leído',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Abrir URL',
 		'promote' => 'Promover',
 		'purge' => 'Eliminar',
@@ -134,12 +139,12 @@ return array(
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡Nuevos artículos!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Sin etiquetas',
 		'new_article' => 'Hay nuevos artículos disponibles. Pincha para refrescar la página.',
 		'should_be_activated' => 'JavaScript debe estar activado',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE

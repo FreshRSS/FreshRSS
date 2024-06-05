@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -25,8 +27,7 @@
  */
 class Minz_FrontController {
 
-	/** @var Minz_Dispatcher */
-	protected $dispatcher;
+	protected Minz_Dispatcher $dispatcher;
 
 	/**
 	 * Constructeur
@@ -81,7 +82,7 @@ class Minz_FrontController {
 	 * @return never
 	 */
 	public static function killApp(string $txt = '') {
-		header('HTTP 1.1 500 Internal Server Error', true, 500);
+		header('HTTP/1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function
 			die(errorMessageInfo('Application problem', $txt));

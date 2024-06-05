@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
@@ -48,8 +49,13 @@ WHERE e.id_feed = f.id
 {$filter}
 SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}>|null $res */
-		return $res[0] ?? false;
+		if (!empty($res[0])) {
+			$dao = $res[0];
+			/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}> $res */
+			FreshRSS_DatabaseDAO::pdoInt($dao, ['total', 'count_unreads', 'count_reads', 'count_favorites']);
+			return $dao;
+		}
+		return false;
 	}
 
 	/**
@@ -216,7 +222,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return intval($res[0]['count']) / ($interval_in_days / $period);
+		return (int)$res[0]['count'] / ($interval_in_days / $period);
 	}
 
 	/**
@@ -224,9 +230,7 @@ SQL;
 	 * @return array<int,int>
 	 */
 	protected function initStatsArray(int $min, int $max): array {
-		return array_map(function () {
-			return 0;
-		}, array_flip(range($min, $max)));
+		return array_map(fn() => 0, array_flip(range($min, $max)));
 	}
 
 	/**
@@ -242,8 +246,8 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'label':string,'data':int}>|null @res */
+		$res = $this->fetchAssoc($sql);
 		return $res == null ? [] : $res;
 	}
 
@@ -285,7 +289,13 @@ LIMIT 10
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'count']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
@@ -305,7 +315,13 @@ ORDER BY name
 SQL;
 		$res = $this->fetchAssoc($sql);
 		/** @var array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
-		return $res == null ? [] : $res;
+		if (is_array($res)) {
+			foreach ($res as &$dao) {
+				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'last_date', 'nb_articles']);
+			}
+			return $res;
+		}
+		return [];
 	}
 
 	/**
@@ -351,9 +367,7 @@ SQL;
 	 * @return array<string>
 	 */
 	private function convertToTranslatedJson(array $data = []): array {
-		$translated = array_map(static function (string $a) {
-			return _t('gen.date.' . $a);
-		}, $data);
+		$translated = array_map(static fn(string $a) => _t('gen.date.' . $a), $data);
 
 		return $translated;
 	}

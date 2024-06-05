@@ -1,12 +1,13 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
-	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
-	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count(FreshRSS_Context::$user_conf->sharing) > 0);
-	$bottomline_labels = true;	//TODO
-	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
-	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
-	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
+	$bottomline_read = FreshRSS_Context::userConf()->bottomline_read;
+	$bottomline_favorite = FreshRSS_Context::userConf()->bottomline_favorite;
+	$bottomline_sharing = FreshRSS_Context::userConf()->bottomline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);
+	$bottomline_myLabels = FreshRSS_Context::userConf()->bottomline_myLabels;
+	$bottomline_tags = FreshRSS_Context::userConf()->bottomline_tags;
+	$bottomline_date = FreshRSS_Context::userConf()->bottomline_date;
+	$bottomline_link = FreshRSS_Context::userConf()->bottomline_link;
 ?><ul class="horizontal-list bottom"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($bottomline_read) {
@@ -30,8 +31,7 @@
 			?></li><?php
 		}
 	}
-	// @phpstan-ignore-next-line
-	if ($bottomline_labels) {
+	if ($bottomline_myLabels) {
 	?><li class="item labels">
 		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
@@ -70,7 +70,7 @@
 	</li><?php
 	}
 	?><li class="item share"><?php
-			if ($bottomline_sharing) {
+		if ($bottomline_sharing) {
 		?><div class="item-element dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
@@ -81,8 +81,8 @@
 				<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
 					$id = $this->entry->id();
 					$link = $this->entry->link();
-					$title = $this->entry->title() . ' · ' . $this->feed->name();
-					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
+					$title = $this->entry->title() . ' · ' . ($this->feed === null ? '' : $this->feed->name());
+					foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
 						$share = FreshRSS_Share::get($share_options['type']);
 						if ($share === null) {
 							continue;

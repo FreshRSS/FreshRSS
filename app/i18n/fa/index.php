@@ -19,14 +19,13 @@ return array(
 		'credits_content' => ' برخی از عناصر طراحی از <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> می آیند',
 		'documentation' => ' اسناد و مدارک',
 		'freshrss_description' => ' FreshRSS یک جمع کننده و خواننده RSS خود میزبان است. این به شما امکان می دهد بدون نیاز به مرور از یک وب سایت به وب سایت دیگر',
-		'github' => ' <a href="https://github.com/FreshRSS/FreshRSS/issues">در Github</a>',
+		'github' => ' <a href="https://github.com/FreshRSS/FreshRSS/issues">در GitHub</a>',
 		'license' => ' مجوز',
 		'project_website' => ' وب سایت پروژه',
 		'title' => ' در مورد',
 		'version' => ' نسخه',
 	),
 	'feed' => array(
-		'add' => ' لطفاً چند فید اضافه کنید.',
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'rss_of' => ' فید RSS %s',
 		'title' => ' جریان اصلی',
@@ -46,6 +45,7 @@ return array(
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => ' جریان اصلی',
 		'mark_all_read' => ' همه را به عنوان خوانده شده علامت گذاری کنید',
 		'mark_cat_read' => ' دسته را به عنوان خوانده شده علامت گذاری کنید',

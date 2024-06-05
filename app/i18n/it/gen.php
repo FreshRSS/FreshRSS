@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Carica le scorciatoie di default',
 		'manage' => 'Gestisci',
 		'mark_read' => 'Segna come letto',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Apri URL',
 		'promote' => 'Promuovi',
 		'purge' => 'Elimina',
@@ -65,7 +70,7 @@ return array(
 		'Aug' => '\\A\\g\\o\\s\\t\\o',
 		'Dec' => '\\D\\i\\c\\e\\m\\b\\r\\e',
 		'Feb' => '\\F\\e\\b\\b\\r\\a\\i\\o',
-		'Jan' => '\\G\\e\\n\\u\\a\\i\\o',
+		'Jan' => '\\G\\e\\n\\n\\a\\i\\o',
 		'Jul' => '\\L\\u\\g\\l\\i\\o',
 		'Jun' => '\\G\\i\\u\\g\\n\\o',
 		'Mar' => '\\M\\a\\r\\z\\o',
@@ -134,12 +139,12 @@ return array(
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Nessun tag',
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -178,7 +183,7 @@ return array(
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Vedi la documentazione per <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametri di ricerca avanzati</a>',
 		'sharing' => 'Condivisione',
 		'shortcuts' => 'Comandi tastiera',
 		'stats' => 'Statistiche',
@@ -203,7 +208,7 @@ return array(
 		'clipboard' => 'Appunti',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - fix per Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

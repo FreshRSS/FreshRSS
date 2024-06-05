@@ -1,16 +1,6 @@
 <?php
-function get_logout_url(): string {
-	if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
-		$url_string = urlencode(Minz_Request::guessBaseUrl());
-		return './oidc/?logout=' . $url_string . '/';
-		# The trailing slash is necessary so that we don’t redirect to http://.
-		# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
-	} else {
-		return _url('auth', 'logout') ?: '';
-	}
-}
+	declare(strict_types=1);
 ?>
-
 <nav class="nav nav-list aside" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
@@ -22,7 +12,7 @@ function get_logout_url(): string {
 					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 				</li>
 				<li class="item">
-					<a class="signout" href="<?= get_logout_url() ?>">
+					<a class="signout" href="<?= FreshRSS_auth_Controller::getLogoutUrl() ?>">
 						<?php
 						echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
 				</li>
@@ -58,7 +48,7 @@ function get_logout_url(): string {
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHook('menu_configuration_entry') ?>
+				<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
 			</ul>
 		</li>
 
@@ -78,7 +68,7 @@ function get_logout_url(): string {
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'checkInstall' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a>
 				</li>
-				<?php if (!FreshRSS_Context::$system_conf->disable_update) { ?>
+				<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
 				<li class="item<?= Minz_Request::controllerName() === 'update' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a>
 				</li>
@@ -86,7 +76,7 @@ function get_logout_url(): string {
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?= Minz_ExtensionManager::callHook('menu_admin_entry') ?>
+				<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
 			</ul>
 		</li>
 		<?php } ?>
@@ -98,7 +88,7 @@ function get_logout_url(): string {
 					<a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a>
 				</li>
 				<?php if (file_exists(TOS_FILENAME)) { ?>
-					<li class="item">
+					<li class="item<?= Minz_Request::actionName() === 'tos' ? ' active' : '' ?>">
 						<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
 					</li>
 				<?php } ?>

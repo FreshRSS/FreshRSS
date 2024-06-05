@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -32,18 +33,25 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
-	/** @var string */
-	private $mailer;
+	private string $mailer;
 	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
-	private $smtp_config;
-	/** @var int */
-	private $debug_level;
+	private array $smtp_config;
+	private int $debug_level;
 
 	/**
-	 * Constructor.
+	 * @phpstan-param class-string|'' $viewType
+	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
+	 * @throws Minz_ConfigurationException
 	 */
-	public function __construct () {
-		$this->view = new Minz_View();
+	public function __construct(string $viewType = '') {
+		$view = null;
+		if ($viewType !== '' && class_exists($viewType)) {
+			$view = new $viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
+		}
+		$this->view = $view ?? new Minz_View();
 		$this->view->_layout(null);
 		$this->view->attributeParams();
 

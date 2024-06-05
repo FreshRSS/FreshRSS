@@ -20,7 +20,6 @@ COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
 ARG FRESHRSS_VERSION
-ARG SOURCE_BRANCH
 ARG SOURCE_COMMIT
 
 LABEL \
@@ -28,7 +27,7 @@ LABEL \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
-	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
 	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
 	org.opencontainers.image.title="FreshRSS" \
 	org.opencontainers.image.url="https://freshrss.org/" \
@@ -37,6 +36,7 @@ LABEL \
 
 RUN a2dismod -q -f alias autoindex negotiation status && \
 	a2dismod -q auth_openidc && \
+	phpdismod calendar exif ffi ftp gettext mysqli posix readline shmop sockets sysvmsg sysvsem sysvshm xsl && \
 	a2enmod -q deflate expires headers mime remoteip setenvif && \
 	a2disconf -q '*' && \
 	a2dissite -q '*' && \

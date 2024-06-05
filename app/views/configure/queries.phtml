@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -18,8 +18,11 @@
 				<div class="box-title">
 					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
 					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_token" name="queries[<?= $key ?>][token]" value="<?= $query->getToken() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_shareRss" name="queries[<?= $key ?>][token]" value="<?= $query->shareRss() ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_shareOpml" name="queries[<?= $key ?>][token]" value="<?= $query->shareOpml() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()) ?>"/>
+					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->getRawInput()) ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>

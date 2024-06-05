@@ -181,7 +181,8 @@ main.prompt {
 		}
 	}
 
-	.stick {
+	.stick,
+	.group {
 		.btn {
 			border-left-width: 0;
 			padding: 0.5rem 1rem;
@@ -385,9 +386,5 @@ main.prompt {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: variables.$sid-bg;
 }

@@ -1,31 +1,35 @@
 <?php
+declare(strict_types=1);
 /** @var FreshRSS_View $this */
-$mark = FreshRSS_Context::$user_conf->mark_when;
-$s = FreshRSS_Context::$user_conf->shortcuts;
+$mark = FreshRSS_Context::userConf()->mark_when;
+$s = FreshRSS_Context::userConf()->shortcuts;
 $extData = Minz_ExtensionManager::callHook('js_vars', []);
 echo htmlspecialchars(json_encode(array(
 	'context' => array(
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
 		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
-		'hide_posts' => !(FreshRSS_Context::$user_conf->display_posts || Minz_Request::actionName() === 'reader'),
-		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::$user_conf->sort_order,
-		'display_categories' => FreshRSS_Context::$user_conf->display_categories,
+		'hide_posts' => !(FreshRSS_Context::userConf()->display_posts || Minz_Request::actionName() === 'reader'),
+		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::userConf()->sort_order,
+		'display_categories' => FreshRSS_Context::userConf()->display_categories,
 		'auto_mark_article' => !!$mark['article'],
 		'auto_mark_site' => !!$mark['site'],
 		'auto_mark_scroll' => !!$mark['scroll'],
-		'auto_load_more' => !!FreshRSS_Context::$user_conf->auto_load_more,
-		'auto_actualize_feeds' => !!Minz_Session::param('actualize_feeds', false),
-		'does_lazyload' => !!FreshRSS_Context::$user_conf->lazyload ,
-		'sides_close_article' => !!FreshRSS_Context::$user_conf->sides_close_article,
+		'auto_mark_focus' => !!$mark['focus'],
+		'auto_load_more' => !!FreshRSS_Context::userConf()->auto_load_more,
+		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
+		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
+		'does_lazyload' => !!FreshRSS_Context::userConf()->lazyload ,
+		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
-		'html5_notif_timeout' => FreshRSS_Context::$user_conf->html5_notif_timeout,
-		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
+		'html5_notif_timeout' => FreshRSS_Context::userConf()->html5_notif_timeout,
+		'auth_type' => FreshRSS_Context::systemConf()->auth_type,
 		'current_view' => Minz_Request::actionName(),
 		'csrf' => FreshRSS_Auth::csrfToken(),
 		'mtime' => [
 			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),
 			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
 		],
+		'version' => FRESHRSS_VERSION,
 	),
 	'shortcuts' => array(
 		'actualize' => @$s['actualize'],
@@ -66,7 +70,7 @@ echo htmlspecialchars(json_encode(array(
 		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
 		'category_empty' => _t('gen.js.category_empty'),
 		'labels_empty' => _t('gen.js.labels_empty'),
-		'language' => FreshRSS_Context::$user_conf->language,
+		'language' => FreshRSS_Context::userConf()->language,
 	),
 	'icons' => array(
 		'read' => rawurlencode(_i('read')),

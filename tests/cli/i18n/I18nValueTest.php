@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nValueTest extends PHPUnit\Framework\TestCase {

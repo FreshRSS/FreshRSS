@@ -27,8 +27,13 @@ return array(
 		'filter' => 'Szűrő',
 		'import' => 'Import',	// IGNORE
 		'load_default_shortcuts' => 'Alapértelmezett gyorsgombok visszaállítása',
-		'manage' => 'Beállítás',
+		'manage' => 'Kezelés',
 		'mark_read' => 'Megjelölés olvasottként',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',
@@ -129,17 +134,17 @@ return array(
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
 		'feedback' => array(
-			'body_new_articles' => ' %%d db új cikk olvasható a FreshRSS-ben.',
+			'body_new_articles' => '%%d db új cikk olvasható a FreshRSS-ben.',
 			'body_unread_articles' => '(olvasatlan: %%d)',
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Nincsenek címkék',
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -166,7 +171,7 @@ return array(
 	),
 	'menu' => array(
 		'about' => 'Névjegy',
-		'account' => 'Adatlap',
+		'account' => 'Fiók',
 		'admin' => 'Adminisztráció',
 		'archiving' => 'Archiválás',
 		'authentication' => 'Hitelesítés',
@@ -188,11 +193,11 @@ return array(
 		'user_profile' => 'Profil',
 	),
 	'period' => array(
-		'days' => 'napok',
-		'hours' => 'órák',
-		'months' => 'hónapok',
-		'weeks' => 'hetek',
-		'years' => 'évek',
+		'days' => 'nap',
+		'hours' => 'óra',
+		'months' => 'hónap',
+		'weeks' => 'hét',
+		'years' => 'év',
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',
@@ -242,7 +247,7 @@ return array(
 	),
 	'stream' => array(
 		'load_more' => 'Több cikk betöltése',
-		'mark_all_read' => 'Legyen mind olvasott',
+		'mark_all_read' => 'Minden megjelölése olvasottként',
 		'nothing_to_load' => 'Nincs több cikk',
 	),
 );

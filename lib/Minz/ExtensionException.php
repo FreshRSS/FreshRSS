@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class Minz_ExtensionException extends Minz_Exception {
 	public function __construct(string $message, string $extension_name = '', int $code = self::ERROR) {

@@ -39,3 +39,4 @@ sur FreshRSS :
 * [Accédez à vos flux même sur mobile](06_Mobile_access.md)
 * [Ajoutez quelques extensions](https://github.com/FreshRSS/Extensions)
 * [Foire aux questions](07_Frequently_Asked_Questions.md)
+* [Recevoir les articles instantannément grâce à WebSub](08_PubSubHubbub.md)

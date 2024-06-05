@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (for advanced users with HTTPS)',	// IGNORE
 		'none' => 'None (dangerous)',	// IGNORE
 		'title' => 'Authentication',	// IGNORE
-		'token' => 'Authentication token',	// IGNORE
-		'token_help' => 'Allows access to RSS output of the default user without authentication:',	// IGNORE
+		'token' => 'Master authentication token',	// IGNORE
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// IGNORE
 		'type' => 'Authentication method',	// IGNORE
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',	// IGNORE
 	),
@@ -193,6 +193,9 @@ return array(
 			'enabled' => '<a href="./?a=tos">is enabled</a>',	// IGNORE
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// IGNORE
 		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// IGNORE
+		),
 	),
 	'update' => array(
 		'_' => 'Update system',	// IGNORE
@@ -210,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// IGNORE
 		),
 		'title' => 'Update system',	// IGNORE
-		'viaGit' => 'Update via git and Github.com started',	// IGNORE
+		'viaGit' => 'Update via git and GitHub.com started',	// IGNORE
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

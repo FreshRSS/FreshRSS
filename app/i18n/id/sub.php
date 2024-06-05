@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',	// TODO
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// TODO
+		'export-as-opml' => array(
+			'download' => 'Download',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
+			'label' => 'Export as OPML',	// TODO
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
@@ -121,6 +126,45 @@ return array(
 				'relative' => 'XPath (relative to item) for:',	// TODO
 				'xpath' => 'XPath for:',	// TODO
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// TODO
+				'feed_title' => array(
+					'_' => 'feed title',	// TODO
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+				),
+				'item_author' => 'item author',	// TODO
+				'item_categories' => 'item tags',	// TODO
+				'item_content' => array(
+					'_' => 'item content',	// TODO
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// TODO
+					'help' => 'Example: <code>image</code>',	// TODO
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// TODO
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+				),
+				'item_title' => 'item title',	// TODO
+				'item_uid' => 'item unique ID',	// TODO
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// TODO
+					'help' => 'Example: <code>permalink</code>',	// TODO
+				),
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'JSON Feed',	// TODO
 			'rss' => 'RSS / Atom (default)',	// TODO
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',	// TODO
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
+		'method' => array(
+			'_' => 'HTTP Method',	// TODO
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
+		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// TODO
 		'mute' => 'mute',	// TODO
 		'no_selected' => 'No feed selected.',	// TODO
@@ -140,11 +189,12 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'archived' => 'Do not show (archived)',	// TODO
+			'category' => 'Show in its category',	// TODO
+			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Show in main stream',	// TODO
-			'normal' => 'Show in its category',	// TODO
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO
 			'show_rendered' => 'Show content',	// TODO
@@ -168,7 +218,7 @@ return array(
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO
 		'validator' => 'Check the validity of the feed',	// TODO
 		'website' => 'Website URL',	// TODO
-		'websub' => 'Instant notification with WebSub',	// TODO
+		'websub' => 'Instant notifications with WebSub',	// TODO
 	),
 	'import_export' => array(
 		'export' => 'Export',	// TODO
@@ -195,6 +245,7 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// TODO
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// TODO
 		'name' => 'Name',	// TODO
 		'new_name' => 'New name',	// TODO
 		'old_name' => 'Old name',	// TODO

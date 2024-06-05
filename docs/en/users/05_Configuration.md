@@ -13,7 +13,7 @@ Available languages are:
 
 | Language (English name) | Language (Endonym) | Ordered by language code (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
-| Czech                   | Čeština                | cz                                   |
+| Czech                   | Čeština                | cs                                   |
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |
 | English                 | English                | en                                   |
@@ -24,7 +24,7 @@ Available languages are:
 | Hungarian               | Magyar                 | hu                                   |
 | Indonesian              | Bahasa Indonesia       | id                                   |
 | Italian                 | Italiano               | it                                   |
-| Japanease               | 日本語                  | ja                                   |
+| Japanese                | 日本語                  | ja                                   |
 | Korean                  | 한국어                  | ko                                   |
 | Latvian                 | Latviešu               | lv                                   |
 | Dutch                   | Nederlands             | nl                                   |
@@ -45,7 +45,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| ~~Blue Lagoon~~     |Mister aiR | Was removed with FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | |
@@ -54,12 +54,12 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | No longer supported. Will be removed with FreshRSS V1.22.0 |
+| ~~Screwdriver~~ | Mister aiR | Was removed with FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
-If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md).
-
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
+
+If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.
 
 ## Content width
 
@@ -167,10 +167,7 @@ This means that if you assign a shortcut to more than one action, you’ll end u
 
 # User queries
 
-You can configure your [user queries](./03_Main_view.md) in that section. There is not much to say here as it is pretty straightforward.
-You can only change user query titles or drop them.
-
-At the moment, there is no helper to build a user query from here.
+You can configure your [user queries](./user_queries.md) in that section.
 
 # Profile
 
@@ -179,6 +176,45 @@ You can change your email address or password here. The authentication token is 
 # Extensions
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
+
+Some extensions have configurations and these can be changed in the manage page, which opens with the button near the name of the extension.
+
+## User CSS
+
+It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+
+### Example: Getting rid of Top Menu Items
+
+The Top Menu within the mobile view might look a little bit cluttered, depending on the theme. The following CSS rules allow to hide unnecessary top menu buttons or input boxes.
+
+```css
+@media (max-width: 840px)
+{
+    /* Hides "Actions" Menu in Mobile View */
+    #nav_menu_actions {
+        display: none;
+    }
+
+    /* Hides "Views" Menu in Mobile View */
+    #nav_menu_views {
+        display: none;
+    }
+
+    /* Hides "Search" Input Box in Mobile View */
+    .nav_menu .item.search {
+        display: none;
+    }
+
+    /* Hides the Dropdown Menu Button next to the "Mark all read" Button in Mobile View */
+    #mark-read-menu .dropdown {
+        display: none;
+    }
+}
+```
+
+## User JS
+
+It gives ability to create user-specific JS.
 
 # Users
 
@@ -190,7 +226,7 @@ Extensions can be managed from this menu. Note that while extensions can be remo
 
 1. User control is based on the `.htaccess` file.
 2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
-3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that WebSub and API will not work!
+3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that [WebSub](WebSub.md) and API will not work!
 4. Example `.htaccess` file for a user "marie":
 
 ```apache
@@ -202,4 +238,3 @@ Require user marie
 ```
 
 More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
-

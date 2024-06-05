@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 require(__DIR__ . '/../constants.php');
 
 // Supported types with their associated content type
@@ -60,7 +60,7 @@ function is_valid_path_extension(string $path, string $extensionPath, bool $isSt
 
 	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	list(, $static, $file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
+	[, $static, $file] = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
 	if (null === $file || 'static' !== $static) {
 		return false;
 	}
@@ -95,8 +95,8 @@ function sendNotFoundResponse() {
 	die();
 }
 
-if (!isset($_GET['f']) ||
-	!isset($_GET['t'])) {
+if (!isset($_GET['f']) || !is_string($_GET['f']) ||
+	!isset($_GET['t']) || !is_string($_GET['t'])) {
 	sendBadRequestResponse('Query string is incomplete.');
 }
 

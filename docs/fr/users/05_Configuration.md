@@ -19,7 +19,7 @@ Les langues disponibles sont:
 
 | Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
-| Tchèque                 | Čeština                | cz                                   |
+| Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
 | Anglais                 | English                | en                                   |
@@ -51,7 +51,6 @@ propose 13 thèmes officiels :
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
@@ -60,7 +59,6 @@ propose 13 thèmes officiels :
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
 Si aucun de ceux proposés ne convient, il est toujours possible de [créer

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -11,27 +13,27 @@ class Minz_Paginator {
 	/**
 	 * @var array<Minz_Model> tableau des éléments à afficher/gérer
 	 */
-	private $items = array ();
+	private array $items = [];
 
 	/**
-	 * @var int le nombre d'éléments par page
+	 * le nombre d'éléments par page
 	 */
-	private $nbItemsPerPage = 10;
+	private int $nbItemsPerPage = 10;
 
 	/**
-	 * @var int page actuelle à gérer
+	 * page actuelle à gérer
 	 */
-	private $currentPage = 1;
+	private int $currentPage = 1;
 
 	/**
-	 * @var int le nombre de pages de pagination
+	 * le nombre de pages de pagination
 	 */
-	private $nbPage = 1;
+	private int $nbPage = 1;
 
 	/**
-	 * @var int le nombre d'éléments
+	 * le nombre d'éléments
 	 */
-	private $nbItems = 0;
+	private int $nbItems = 0;
 
 	/**
 	 * Constructeur

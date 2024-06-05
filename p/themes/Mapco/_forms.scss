@@ -7,7 +7,6 @@
 	margin: 0;
 	padding: 0.5rem 1.5rem;
 	background: variables.$grey-lighter;
-	display: inline-block;
 	color: variables.$grey-dark;
 	font-size: 1rem;
 	border: none;
@@ -16,8 +15,6 @@
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 
 	@include mixins.transition(all, 0.15s, ease-in-out);
 

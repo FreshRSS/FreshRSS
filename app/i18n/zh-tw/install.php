@@ -20,30 +20,30 @@ return array(
 	),
 	'auth' => array(
 		'form' => '網頁表單（傳統方式, 依賴 JavaScript）',
-		'http' => 'HTTP（面向啟用 HTTPS 的高級用戶）',
+		'http' => 'HTTP（對於啟用 HTTPS 的進階使用者）',
 		'none' => '無認證（危險）',
-		'password_form' => '密碼<br /><small>（用于網頁表單登錄方式）</small>',
+		'password_form' => '密碼<br /><small>（用於網頁表單登入方式）</small>',
 		'password_format' => '至少 7 個字符',
 		'type' => '認證方式',
 	),
 	'bdd' => array(
-		'_' => '數據庫',
+		'_' => '資料庫',
 		'conf' => array(
-			'_' => '數據庫配置',
-			'ko' => '請驗證你的數據庫信息',
+			'_' => '資料庫配置',
+			'ko' => '請驗證你的資料庫資訊',
 			'ok' => '數據庫配置已保存',
 		),
 		'host' => '主機',
 		'password' => '密碼',
 		'prefix' => '表前綴',
-		'type' => '數據庫類型',
-		'username' => '用戶名',
+		'type' => '資料庫類型',
+		'username' => '使用者名',
 	),
 	'check' => array(
 		'_' => '檢查',
 		'already_installed' => '我們檢測到 FreshRSS 已經安裝！',
 		'cache' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'cache 目錄權限正常',
 		),
 		'ctype' => array(
@@ -55,15 +55,15 @@ return array(
 			'ok' => '已找到 cURL 庫',
 		),
 		'data' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'data 目錄權限正常',
 		),
 		'dom' => array(
-			'nok' => '找不到用于瀏覽 DOM 的庫（php-xml）',
-			'ok' => '已找到用于瀏覽 DOM 的庫',
+			'nok' => '找不到用於瀏覽 DOM 的庫（php-xml）',
+			'ok' => '已找到用於瀏覽 DOM 的庫',
 		),
 		'favicons' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'favicons 目錄權限正常',
 		),
 		'fileinfo' => array(
@@ -92,16 +92,16 @@ return array(
 		),
 		'reload' => '再檢查一遍',
 		'tmp' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => '緩存目錄權限正常。',
 		),
 		'unknown_process_username' => '未知',
 		'users' => array(
-			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 服務器必須有其寫入權限。',
+			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'users 目錄權限正常',
 		),
 		'xml' => array(
-			'nok' => '找不到用于 XML 解析庫',
+			'nok' => '找不到用於 XML 解析庫',
 			'ok' => '已找到 XML 解析庫',
 		),
 	),
@@ -111,7 +111,7 @@ return array(
 	),
 	'congratulations' => '恭喜！',
 	'default_user' => array(
-		'_' => '默認用戶名',
+		'_' => '預設使用者名',
 		'max_char' => '最多 16 個數字或字母',
 	),
 	'fix_errors_before' => '請在繼續下一步前修復錯誤',
@@ -124,13 +124,13 @@ return array(
 		'choose' => '為 FreshRSS 選擇語言',
 		'defined' => '語言已指定',
 	),
-	'missing_applied_migrations' => '出現錯誤，你需要手動創建一個空文件 <em>%s</em>。',
+	'missing_applied_migrations' => '出現錯誤，你需要手動創建一個空白檔案 <em>%s</em>。',
 	'ok' => '安裝成功',
 	'session' => array(
-		'nok' => 'Web 服務器似乎未正確配置 PHP 會話所需的 cookie！',
+		'nok' => 'Web 伺服器似乎未正確配置 PHP 會話所需的 cookie！',
 	),
 	'step' => '步驟 %d',
 	'steps' => '步驟',
-	'this_is_the_end' => '最后一步',
+	'this_is_the_end' => '最後一步',
 	'title' => '安裝 FreshRSS',
 );
