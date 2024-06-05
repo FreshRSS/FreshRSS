@@ -200,7 +200,7 @@
 				<label class="group-name" for="read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<select name="read_when_same_title_in_feed" id="read_when_same_title_in_feed" class="w50">
-						<option value=""<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value=""<?= $this->feed->hasAttribute('read_when_same_title_in_feed') ? '' : ' selected="selected"' ?>><?= _t('gen.short.by_default') ?></option>
 						<option value="0"<?= $this->feed->attributeBoolean('read_when_same_title_in_feed') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
 						<option value="10"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 10 ? ' selected="selected"' : '' ?>>10</option>
 						<option value="25"<?= $this->feed->attributeInt('read_when_same_title_in_feed') == 25 ? ' selected="selected"' : '' ?>>25</option>
@@ -765,7 +765,7 @@
 		</fieldset>
 	</form>
 
-	
+
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
@@ -791,7 +791,7 @@
 	<div class="form-group">
 		<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'f_'.$this->feed->id()) ?>" download="<?= 'f_'.$this->feed->id()?> <?= $this->feed->name(true) ?>.opml.xml">
+			<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'f_' . $this->feed->id()) ?>" download="f_<?= $this->feed->id() ?> <?= $this->feed->name(true) ?>.opml.xml">
 				<?= _t('sub.feed.export-as-opml.download') ?>
 			</a>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.export-as-opml.help') ?></p>

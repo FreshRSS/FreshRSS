@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Permintaan Pengguna',
 		'deprecated' => 'Permintaan ini tidak valid lagi. Kategori atau feed yang dirujuk telah dihapus.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filter yang diterapkan:',
 			'categories' => 'Tampilkan berdasarkan kategori',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Tampilkan artikel dari feed penting',
 		'get_label' => 'Tampilkan artikel dengan label "%s"',
 		'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentasi untuk permintaan pengguna dan berbagi ulang melalui HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nama',
 		'no_filter' => 'Tanpa filter',
 		'number' => 'Permintaan n°%d',

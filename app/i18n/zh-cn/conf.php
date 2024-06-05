@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => '显示来自“重要的订阅”的文章',
 		'get_label' => '显示打了“%s”标签的文章',
 		'help' => '参见文档： <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">queries and resharing by HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '名称',
 		'no_filter' => '无过滤器',
 		'number' => '查询 n°%d',

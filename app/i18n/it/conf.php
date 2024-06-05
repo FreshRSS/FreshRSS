@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtro applicato:',
 			'categories' => 'Mostra per categoria',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Mostra articoli dai feed importanti',
 		'get_label' => 'Mostra articoli con l’etichetta “%s”',
 		'help' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentazione per le query utente e ricondivisioine tramite HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nome',
 		'no_filter' => 'Nessun filtro',
 		'number' => 'Ricerca n°%d',

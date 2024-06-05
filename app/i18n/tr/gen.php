@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URLyi aç',
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',

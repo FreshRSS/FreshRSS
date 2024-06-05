@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',

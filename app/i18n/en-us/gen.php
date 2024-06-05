@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// IGNORE
 		'manage' => 'Manage',	// IGNORE
 		'mark_read' => 'Mark as read',	// IGNORE
+		'nav_buttons' => array(
+			'next' => 'Next article',	// IGNORE
+			'prev' => 'Previous article',	// IGNORE
+			'up' => 'Go up',	// IGNORE
+		),
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE

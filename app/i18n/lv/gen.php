@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Ielādēt noklusējuma saīsnes',
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
 		'purge' => 'Iztīrīt',

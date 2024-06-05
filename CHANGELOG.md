@@ -1,17 +1,25 @@
 ﻿# FreshRSS changelog
 
-## 2024-0X-XX FreshRSS 1.24.1-dev
+## 2024-XX-XX FreshRSS 1.24.2-dev
+
+
+## 2024-06-05 FreshRSS 1.24.1
 
 * Features
+	* New button to export OMPL of a category [#6519](https://github.com/FreshRSS/FreshRSS/pull/6519)
 	* Better git error messages in built-in Web update [#6496](https://github.com/FreshRSS/FreshRSS/pull/6496)
 * Bug fixing
 	* Fix regression HTTP GET curl options [#6492](https://github.com/FreshRSS/FreshRSS/pull/6492)
+	* Fix regression of *mark as read if an identical title already exists* [#6536](https://github.com/FreshRSS/FreshRSS/pull/6536), [#6543](https://github.com/FreshRSS/FreshRSS/pull/6543)
 	* Fix connection to PostgreSQL databases with uppercase letters [#6482](https://github.com/FreshRSS/FreshRSS/pull/6482)
 	* Fix UI regression hover over title while having the navigation buttons in mobile view [#6486](https://github.com/FreshRSS/FreshRSS/pull/6486)
 	* Fix UI for some drag & drops [#6505](https://github.com/FreshRSS/FreshRSS/pull/6505), [#6508](https://github.com/FreshRSS/FreshRSS/pull/6508)
 * i18n
 	* Improve Czech [#6504](https://github.com/FreshRSS/FreshRSS/pull/6504)
 	* Improve Turkish [#6506](https://github.com/FreshRSS/FreshRSS/pull/6506)
+* Misc.
+	* Update dev dependencies [#6525](https://github.com/FreshRSS/FreshRSS/pull/6525), [#6526](https://github.com/FreshRSS/FreshRSS/pull/6526), [#6528](https://github.com/FreshRSS/FreshRSS/pull/6528),
+		[#6529](https://github.com/FreshRSS/FreshRSS/pull/6529), [#6530](https://github.com/FreshRSS/FreshRSS/pull/6530)
 
 
 ## 2024-05-23 FreshRSS 1.24.0

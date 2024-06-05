@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'ユーザークエリ',
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリあるいはフィードはすでに消去されました。',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'フィルターを適用:',
 			'categories' => 'カテゴリごとに表示する',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => '重要なフィードからの記事を表示する',
 		'get_label' => '“%s”ラベルの記事を表示する',
 		'help' => 'HTML/RSS/OPMLによるユーザー照会と再共有については <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">こちら</a>をご覧ください',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',

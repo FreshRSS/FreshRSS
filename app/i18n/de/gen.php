@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_read' => 'Als gelesen markieren',
+		'nav_buttons' => array(
+			'next' => 'Nächster Artikel',
+			'prev' => 'Vorheriger Artikel',
+			'up' => 'Nach oben',
+		),
 		'open_url' => 'URL öffnen',
 		'promote' => 'Hochstufen',
 		'purge' => 'Bereinigen',

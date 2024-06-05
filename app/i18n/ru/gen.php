@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',

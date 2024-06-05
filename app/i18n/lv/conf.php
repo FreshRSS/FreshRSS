@@ -114,6 +114,7 @@ return array(
 	'query' => array(
 		'_' => 'Lietotāja pieprasījumi',
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
@@ -134,6 +135,7 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// TODO
 		'get_label' => 'Display articles with “%s” label',	// TODO
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'number' => 'Pieprasījums nr. %d',
