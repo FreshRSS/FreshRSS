@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
@@ -139,7 +144,7 @@ return array(
 		'should_be_activated' => 'JavaScript must be enabled',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
+		'cs' => 'Čeština',
 		'de' => 'Deutsch',
 		'el' => 'Ελληνικά',
 		'en' => 'English',

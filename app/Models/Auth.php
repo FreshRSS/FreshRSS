@@ -8,7 +8,7 @@ class FreshRSS_Auth {
 	/**
 	 * Determines if user is connected.
 	 */
-	public const DEFAULT_COOKIE_DURATION = 7776000;
+	public const DEFAULT_COOKIE_DURATION = 7_776_000;
 
 	private static bool $login_ok = false;
 

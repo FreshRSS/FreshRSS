@@ -150,6 +150,8 @@ $view->userQuery = $query;
 $view->html_url = $query->sharedUrlHtml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
+$view->image_url = $query->getImageUrl();
+$view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
 if ($query->getName() != '') {
 	FreshRSS_View::_title($query->getName());
 }

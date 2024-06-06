@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	#[\Override]
@@ -481,8 +481,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedIsNew = $feed->lastUpdate() <= 0;
-			$feedIsEmpty = false;
-			$feedIsUnchanged = false;
 
 			try {
 				if ($simplePiePush !== null) {
@@ -540,7 +538,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
-				if ($feed->attributeBoolean('read_when_same_title_in_feed') === null) {
+				if (!$feed->hasAttribute('read_when_same_title_in_feed')) {
 					$readWhenSameTitleInFeed = (int)FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
 				} elseif ($feed->attributeBoolean('read_when_same_title_in_feed') === false) {
 					$readWhenSameTitleInFeed = 0;
