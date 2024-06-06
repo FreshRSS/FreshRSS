@@ -26,7 +26,7 @@ class Minz_Url {
 
 		$url_string = '';
 
-		if ($absolute) {
+		if ($absolute !== false) {
 			$url_string = Minz_Request::getBaseUrl();
 			if (strlen($url_string) < strlen('http://a.bc')) {
 				$url_string = Minz_Request::guessBaseUrl();
