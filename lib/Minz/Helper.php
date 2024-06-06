@@ -13,7 +13,7 @@ final class Minz_Helper {
 
 	/**
 	 * Wrapper for htmlspecialchars.
-	 * Force UTf-8 value and can be used on array too.
+	 * Force UTF-8 value and can be used on array too.
 	 *
 	 * @phpstan-template T of string|array<mixed>
 	 * @phpstan-param T $var

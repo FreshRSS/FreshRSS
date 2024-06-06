@@ -6,9 +6,5 @@ parameters:
 	excludePaths:
 		analyse:
 			# TODO: Update files below and remove them from this list
-			- app/Controllers/configureController.php
-			- app/Models/Entry.php
-			- app/Models/Feed.php
 			- app/Services/ImportService.php
-			- app/views/configure/archiving.phtml
 			- lib/Minz/Helper.php

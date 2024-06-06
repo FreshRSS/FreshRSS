@@ -197,8 +197,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
-			$content .= <<<HTML
+			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
+				$content .= <<<HTML
 <figure class="enclosure">
 	<p class="enclosure-content">
 		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
@@ -218,7 +218,7 @@ HTML;
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '') {
+			if ($elink == '' || !is_string($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -283,6 +283,7 @@ HTML;
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
+			/** @var iterable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> $attributeEnclosures */
 			yield from $attributeEnclosures;
 		}
 		try {
@@ -352,6 +353,7 @@ HTML;
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
 		// First, use the provided thumbnail, if any
 		if (!empty($thumbnail['url'])) {
+			/** @var array{'url':string,'height'?:int,'width'?:int,'time'?:string} $thumbnail */
 			return $thumbnail;
 		}
 		if ($searchEnclosures) {

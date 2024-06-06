@@ -658,7 +658,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		//check if the content is actual JSON
 		$jf = json_decode($json, true);
-		if (json_last_error() !== JSON_ERROR_NONE) {
+		if (json_last_error() !== JSON_ERROR_NONE || !is_array($jf)) {
 			return null;
 		}
 
@@ -734,9 +734,14 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$xpath = new DOMXPath($doc);
+			$xpathEvaluateString = function (string $expression, ?DOMNode $contextNode = null) use ($xpath): string {
+				$result = @$xpath->evaluate('normalize-space(' . $expression . ')', $contextNode);
+				return is_string($result) ? $result : '';
+			};
+
 			$view->rss_title = $xPathFeedTitle == '' ? $this->name() :
-				htmlspecialchars(@$xpath->evaluate('normalize-space(' . $xPathFeedTitle . ')'), ENT_COMPAT, 'UTF-8');
-			$view->rss_base = htmlspecialchars(trim($xpath->evaluate('normalize-space(//base/@href)')), ENT_COMPAT, 'UTF-8');
+				htmlspecialchars($xpathEvaluateString($xPathFeedTitle), ENT_COMPAT, 'UTF-8');
+			$view->rss_base = htmlspecialchars(trim($xpathEvaluateString('//base/@href')), ENT_COMPAT, 'UTF-8');
 			$nodes = $xpath->query($xPathItem);
 			if ($nodes === false || $nodes->length === 0) {
 				return null;
@@ -744,7 +749,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			foreach ($nodes as $node) {
 				$item = [];
-				$item['title'] = $xPathItemTitle == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTitle . ')', $node);
+				$item['title'] = $xPathItemTitle == '' ? '' : $xpathEvaluateString($xPathItemTitle, $node);
 
 				$item['content'] = '';
 				if ($xPathItemContent != '') {
@@ -756,22 +761,22 @@ class FreshRSS_Feed extends Minz_Model {
 							$content .= $doc->saveHTML($child) . "\n";
 						}
 						$item['content'] = $content;
-					} else {
+					} elseif (is_string($result) || is_int($result) || is_bool($result)) {
 						// Typed expression, save as-is
 						$item['content'] = (string)$result;
 					}
 				}
 
-				$item['link'] = $xPathItemUri == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemUri . ')', $node);
-				$item['author'] = $xPathItemAuthor == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemAuthor . ')', $node);
-				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemTimestamp . ')', $node);
+				$item['link'] = $xPathItemUri == '' ? '' : $xpathEvaluateString($xPathItemUri, $node);
+				$item['author'] = $xPathItemAuthor == '' ? '' : $xpathEvaluateString($xPathItemAuthor, $node);
+				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpathEvaluateString($xPathItemTimestamp, $node);
 				if ($xPathItemTimeFormat != '') {
-					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp'] ?? '');
+					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp']);
 					if ($dateTime != false) {
 						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
 					}
 				}
-				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : @$xpath->evaluate('normalize-space(' . $xPathItemThumbnail . ')', $node);
+				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpathEvaluateString($xPathItemThumbnail, $node);
 				if ($xPathItemCategories != '') {
 					$itemCategories = @$xpath->evaluate($xPathItemCategories, $node);
 					if (is_string($itemCategories) && $itemCategories !== '') {
@@ -784,7 +789,7 @@ class FreshRSS_Feed extends Minz_Model {
 					}
 				}
 				if ($xPathItemUid != '') {
-					$item['guid'] = @$xpath->evaluate('normalize-space(' . $xPathItemUid . ')', $node);
+					$item['guid'] = $xpathEvaluateString($xPathItemUid, $node);
 				}
 				if (empty($item['guid'])) {
 					$item['guid'] = 'urn:sha1:' . sha1($item['title'] . $item['content'] . $item['link']);
@@ -959,7 +964,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
 		$hubJson = is_string($hubFile) ? json_decode($hubFile, true) : null;
-		if (is_array($hubJson) && !isset($hubJson['error']) || $hubJson['error'] !== $error) {
+		if (is_array($hubJson) && (!isset($hubJson['error']) || $hubJson['error'] !== $error)) {
 			$hubJson['error'] = $error;
 			file_put_contents($hubFilename, json_encode($hubJson));
 			Minz_Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
