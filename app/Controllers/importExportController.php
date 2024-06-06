@@ -563,7 +563,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if ($feed != null) {
+			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.
 				$id = $this->feedDAO->addFeedObject($feed);

@@ -113,10 +113,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			if (count($id = Minz_Request::paramArray('id')) > 0) {
-				$ids = $id;
-			} elseif (ctype_digit($id = Minz_Request::paramString('id'))) {
-				$ids = [$id];
+			$idA = Minz_Request::paramArray('id');
+			$idS = Minz_Request::paramString('id');
+			if (count($idA) > 0) {
+				$ids = $idA;
+			} if (ctype_digit($idS)) {
+				$ids = [$idS];
 			} else {
 				$ids = [];
 			}
@@ -153,7 +155,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	public function bookmarkAction(): void {
 		$id = Minz_Request::paramString('id');
 		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
-		if ($id != '') {
+		if ($id != '' && ctype_digit($id)) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite($id, $is_favourite);
 		}

@@ -517,6 +517,7 @@
 
 		<fieldset id="json_dotnotation">
 			<?php
+				/** @var array<string,string> $jsonSettings */
 				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.help') ?></p>
