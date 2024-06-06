@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automatický',
-			'help' => 'For selected themes only',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
 		),
 		'icon' => array(

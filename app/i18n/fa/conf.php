@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => ' حالت تاریک خودکار',
 			'auto' => ' خودکار',
-			'help' => 'For selected themes only',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => ' شماره',
 		),
 		'icon' => array(

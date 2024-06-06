@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => '자동 다크 모드',
 			'auto' => '자동',
-			'help' => 'For selected themes only',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
 		),
 		'icon' => array(

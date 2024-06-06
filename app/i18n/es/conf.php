@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Modo oscuro automatico',
 			'auto' => 'Automatico',
-			'help' => 'For selected themes only',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
