@@ -859,9 +859,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$maxTimestamp = time();
 			}
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			/** @var numeric-string $idMax */
-			$idMax = $maxTimestamp . '000000';
-			$affected = $entryDAO->markReadFeed($this->id(), $idMax);
+			$affected = $entryDAO->markReadFeed($this->id(), $maxTimestamp . '000000');
 		} else {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$affected = $feedDAO->markAsReadUponGone($this->id());

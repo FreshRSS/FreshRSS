@@ -534,9 +534,7 @@ final class FeverAPI
 	 * @return numeric-string
 	 */
 	private function convertBeforeToId(int $beforeTimestamp): string {
-		$result = $beforeTimestamp === 0 ? '0' : $beforeTimestamp . '000000';
-		/** @var numeric-string $result */
-		return $result;
+		return $beforeTimestamp == 0 ? '0' : $beforeTimestamp . '000000';
 	}
 
 	/**
