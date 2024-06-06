@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Отображение',
 		'darkMode' => array(
-			'_' => 'Автоматический темный режим (beta)',
+			'_' => 'Автоматический темный режим',
 			'auto' => 'Авто',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Нет',
 		),
 		'icon' => array(

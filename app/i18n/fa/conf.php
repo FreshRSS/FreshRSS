@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => ' نمایش',
 		'darkMode' => array(
-			'_' => ' حالت تاریک خودکار (بتا)',
+			'_' => ' حالت تاریک خودکار',
 			'auto' => ' خودکار',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => ' شماره',
 		),
 		'icon' => array(

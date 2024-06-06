@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Exibição',
 		'darkMode' => array(
-			'_' => 'Modo noturno automático (beta)',
+			'_' => 'Modo noturno automático',
 			'auto' => 'Automático',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Não',
 		),
 		'icon' => array(
