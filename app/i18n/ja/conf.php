@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '表示',
 		'darkMode' => array(
-			'_' => '自動ダークモード (beta)',
+			'_' => '自動ダークモード',
 			'auto' => '自動',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '無効',
 		),
 		'icon' => array(
