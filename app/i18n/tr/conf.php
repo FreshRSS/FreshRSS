@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Görünüm',
 		'darkMode' => array(
-			'_' => 'Otomatik karanlık mod (beta)',
+			'_' => 'Otomatik karanlık mod',
 			'auto' => 'Otomatik',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Kapalı',
 		),
 		'icon' => array(

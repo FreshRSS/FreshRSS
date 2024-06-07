@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Opmaak',
 		'darkMode' => array(
-			'_' => 'Automatische dark mode (beta)',
+			'_' => 'Automatische dark mode',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nee',
 		),
 		'icon' => array(

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '표시',
 		'darkMode' => array(
-			'_' => '자동 다크 모드 (베타)',
+			'_' => '자동 다크 모드',
 			'auto' => '자동',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
 		),
 		'icon' => array(

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazení',
 		'darkMode' => array(
-			'_' => 'Automatický tmavý režim (beta)',
+			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automatický',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
 		),
 		'icon' => array(

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'תצוגה',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
+			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
 		),
 		'icon' => array(
