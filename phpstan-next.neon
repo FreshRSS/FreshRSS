@@ -9,7 +9,6 @@ parameters:
 	excludePaths:
 		analyse:
 			# TODO: Update files below and remove them from this list
-			- app/Controllers/entryController.php
 			- app/Controllers/feedController.php
 			- app/Controllers/importExportController.php
 			- app/Controllers/subscriptionController.php

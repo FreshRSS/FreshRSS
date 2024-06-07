@@ -73,7 +73,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			if (!$get) {
+			if ($get === '') {
 				// No get? Mark all entries as read (from $id_max)
 				$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT, null, 0, $is_read);
 			} else {
@@ -113,12 +113,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			$idA = Minz_Request::paramArray('id');
-			$idS = Minz_Request::paramString('id');
-			if (count($idA) > 0) {
-				$ids = $idA;
-			} if (ctype_digit($idS)) {
-				$ids = [$idS];
+			$idArray = Minz_Request::paramArray('id');
+			$idString = Minz_Request::paramString('id');
+			if (count($idArray) > 0) {
+				$ids = $idArray;
+			} elseif (ctype_digit($idString)) {
+				$ids = [$idString];
 			} else {
 				$ids = [];
 			}
