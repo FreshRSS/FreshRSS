@@ -47,7 +47,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$get = Minz_Request::paramString('get');
 		$next_get = Minz_Request::paramString('nextGet') ?: $get;
 		$id_max = Minz_Request::paramString('idMax') ?: '0';
-		if (!is_numeric($id_max)) {
+		if (!ctype_digit($id_max)) {
 			$id_max = '0';
 		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
