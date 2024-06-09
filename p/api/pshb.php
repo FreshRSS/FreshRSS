@@ -67,7 +67,7 @@ if (empty($users)) {
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
-	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : (int) $_REQUEST['hub_lease_seconds'];
+	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : (int)$_REQUEST['hub_lease_seconds'];
 	if ($leaseSeconds > 60) {
 		$hubJson['lease_end'] = time() + $leaseSeconds;
 	} else {

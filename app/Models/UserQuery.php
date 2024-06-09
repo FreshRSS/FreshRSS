@@ -41,7 +41,8 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
-	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool} $query
+	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $query
 	 * @param array<int,FreshRSS_Category> $categories
 	 * @param array<int,FreshRSS_Tag> $labels
 	 */
@@ -61,8 +62,13 @@ class FreshRSS_UserQuery {
 		}
 		if (empty($query['url'])) {
 			if (!empty($query)) {
-				unset($query['name']);
-				$this->url = Minz_Url::display(['params' => $query]);
+				$link = $query;
+				unset($link['description']);
+				unset($link['imageUrl']);
+				unset($link['name']);
+				unset($link['shareOpml']);
+				unset($link['shareRss']);
+				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
 			$this->url = $query['url'];

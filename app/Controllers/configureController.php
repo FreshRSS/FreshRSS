@@ -204,6 +204,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
 			}
+			/** @var array<string,string> $shortcuts */
 			FreshRSS_Context::userConf()->shortcuts = array_map('trim', $shortcuts);
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
@@ -384,27 +385,27 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
 			if (!empty($params['state']) && is_array($params['state'])) {
-				$queryParams['state'] = (int)(array_sum($params['state']));
+				$queryParams['state'] = (int)array_sum($params['state']);
 			}
 			if (empty($params['token']) || !is_string($params['token'])) {
 				$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
 			} else {
 				$queryParams['token'] = $params['token'];
 			}
-			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
-				$queryParams['shareRss'] = (bool)$params['shareRss'];
-			}
-			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
-				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
-			}
+			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+			$queryParams['name'] = $name;
 			if (!empty($params['description']) && is_string($params['description'])) {
 				$queryParams['description'] = htmlspecialchars_decode($params['description'], ENT_QUOTES);
 			}
 			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
 				$queryParams['imageUrl'] = $params['imageUrl'];
 			}
-			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
-			$queryParams['name'] = $name;
+			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
+				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
+			}
+			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
+				$queryParams['shareRss'] = (bool)$params['shareRss'];
+			}
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();

@@ -75,7 +75,7 @@ function searchFavicon(string &$url): string {
 	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
 		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
 
-	if (!$links) {
+	if (!($links instanceof DOMNodeList)) {
 		return '';
 	}
 
