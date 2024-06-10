@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '표시',
 		'darkMode' => array(
-			'_' => '자동 다크 모드 (베타)',
+			'_' => '자동 다크 모드',
 			'auto' => '자동',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => '필터 적용:',
 			'categories' => '카테고리별로 표시',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => '중요 피드의 글 표시',
 		'get_label' => '“%s” 라벨을 가진 글 표시',
 		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">유저 쿼리 및 HTML / RSS / OPML을 사용한 재공유 방법 문서</a> 살펴보기.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',

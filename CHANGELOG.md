@@ -1,14 +1,37 @@
 ﻿# FreshRSS changelog
 
-## 2024-05-XX FreshRSS 1.23.2-dev
+## 2024-XX-XX FreshRSS 1.24.2-dev
+
+
+## 2024-06-05 FreshRSS 1.24.1
 
 * Features
-	* New *shareable user query* mechanism to share list of articles by HTML, RSS, OPML [#6052](https://github.com/FreshRSS/FreshRSS/pull/6052)
+	* New button to export OMPL of a category [#6519](https://github.com/FreshRSS/FreshRSS/pull/6519)
+	* Better git error messages in built-in Web update [#6496](https://github.com/FreshRSS/FreshRSS/pull/6496)
+* Bug fixing
+	* Fix regression HTTP GET curl options [#6492](https://github.com/FreshRSS/FreshRSS/pull/6492)
+	* Fix regression of *mark as read if an identical title already exists* [#6536](https://github.com/FreshRSS/FreshRSS/pull/6536), [#6543](https://github.com/FreshRSS/FreshRSS/pull/6543)
+	* Fix connection to PostgreSQL databases with uppercase letters [#6482](https://github.com/FreshRSS/FreshRSS/pull/6482)
+	* Fix UI regression hover over title while having the navigation buttons in mobile view [#6486](https://github.com/FreshRSS/FreshRSS/pull/6486)
+	* Fix UI for some drag & drops [#6505](https://github.com/FreshRSS/FreshRSS/pull/6505), [#6508](https://github.com/FreshRSS/FreshRSS/pull/6508)
+* i18n
+	* Improve Czech [#6504](https://github.com/FreshRSS/FreshRSS/pull/6504)
+	* Improve Turkish [#6506](https://github.com/FreshRSS/FreshRSS/pull/6506)
+* Misc.
+	* Update dev dependencies [#6525](https://github.com/FreshRSS/FreshRSS/pull/6525), [#6526](https://github.com/FreshRSS/FreshRSS/pull/6526), [#6528](https://github.com/FreshRSS/FreshRSS/pull/6528),
+		[#6529](https://github.com/FreshRSS/FreshRSS/pull/6529), [#6530](https://github.com/FreshRSS/FreshRSS/pull/6530)
+
+
+## 2024-05-23 FreshRSS 1.24.0
+
+* Features
+	* New [*shareable user query*](https://freshrss.github.io/FreshRSS/en/users/user_queries.html#share-your-user-queries) mechanism to share list of articles by HTML, RSS, OPML [#6052](https://github.com/FreshRSS/FreshRSS/pull/6052)
 		* Deprecates RSS sharing with master token
-	* New JSON scraping mode to consume JSON data [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662), [#6317](https://github.com/FreshRSS/FreshRSS/pull/6317), [#6369](https://github.com/FreshRSS/FreshRSS/pull/6369)
+	* New JSON scraping mode to consume JSON data [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662), [#6317](https://github.com/FreshRSS/FreshRSS/pull/6317),
+		[#6369](https://github.com/FreshRSS/FreshRSS/pull/6369), [#6476](https://github.com/FreshRSS/FreshRSS/pull/6476)
 	* New support for JSON Feeds [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662)
 	* New support for HTTP POST [#5662](https://github.com/FreshRSS/FreshRSS/pull/5662)
-	* New options to automatically add labels to incoming articles [#5954](https://github.com/FreshRSS/FreshRSS/pull/5954)
+	* New option to automatically add labels to incoming articles [#5954](https://github.com/FreshRSS/FreshRSS/pull/5954)
 	* New button to download a feed configuration as OPML [#6312](https://github.com/FreshRSS/FreshRSS/pull/6312)
 	* Web scraping support more encodings such as EUC-JP [#6112](https://github.com/FreshRSS/FreshRSS/pull/6112)
 	* Web scraping support password-protected queries (refactor some cURL options and use `CURLOPT_USERPWD`) [#6177](https://github.com/FreshRSS/FreshRSS/pull/6177)
@@ -69,14 +92,17 @@
 	* Improve Czech [#6344](https://github.com/FreshRSS/FreshRSS/pull/6344)
 	* Improve Dutch [#6343](https://github.com/FreshRSS/FreshRSS/pull/6343)
 	* Improve German [#6313](https://github.com/FreshRSS/FreshRSS/pull/6313)
-	* Improve Hungarian [#6005](https://github.com/FreshRSS/FreshRSS/pull/6005), [#6377](https://github.com/FreshRSS/FreshRSS/pull/6377)
+	* Improve Hungarian [#6005](https://github.com/FreshRSS/FreshRSS/pull/6005), [#6377](https://github.com/FreshRSS/FreshRSS/pull/6377), [#6464](https://github.com/FreshRSS/FreshRSS/pull/6464)
+	* Improve Indonesian [#6473](https://github.com/FreshRSS/FreshRSS/pull/6473)
 	* Improve Italian [#6018](https://github.com/FreshRSS/FreshRSS/pull/6018), [#6060](https://github.com/FreshRSS/FreshRSS/pull/6060), [#6329](https://github.com/FreshRSS/FreshRSS/pull/6329)
 	* Improve Japanese [#6108](https://github.com/FreshRSS/FreshRSS/pull/6108), [#6294](https://github.com/FreshRSS/FreshRSS/pull/6294)
 	* Improve Korean [#6342](https://github.com/FreshRSS/FreshRSS/pull/6342)
 	* Improve Polish [#6358](https://github.com/FreshRSS/FreshRSS/pull/6358)
 	* Improve Portuguese [#6345](https://github.com/FreshRSS/FreshRSS/pull/6345)
+	* Improve Russian [#6467](https://github.com/FreshRSS/FreshRSS/pull/6467)
 	* Improve Simplified Chinese [#6336](https://github.com/FreshRSS/FreshRSS/pull/6336)
 	* Improve Slovakian [#6356](https://github.com/FreshRSS/FreshRSS/issues/6356)
+	* Improve Spanish [#6471](https://github.com/FreshRSS/FreshRSS/pull/6471)
 	* Improve Traditional Chinese [#6350](https://github.com/FreshRSS/FreshRSS/pull/6350)
 	* Improve Turkish [#6328](https://github.com/FreshRSS/FreshRSS/pull/6328)
 	* Misc. [#6460](https://github.com/FreshRSS/FreshRSS/pull/6460)
@@ -89,7 +115,7 @@
 	* New function `Minz_Extension::amendCsp()` for extensions to modify HTTP headers for Content Security Policy [#6246](https://github.com/FreshRSS/FreshRSS/pull/6246)
 	* New property `FreshRSS_Entry::isUpdated()` for extensions to know whether an entry is new or updated [#6334](https://github.com/FreshRSS/FreshRSS/pull/6334)
 * Compatibility
-	* Restore PHP 7.4 compatibility for automated tests [#6038](https://github.com/FreshRSS/FreshRSS/pull/6038), [#6039](https://github.com/FreshRSS/FreshRSS/pull/6039)
+	* Fix PHP 7.4 compatibility for automated tests [#6038](https://github.com/FreshRSS/FreshRSS/pull/6038), [#6039](https://github.com/FreshRSS/FreshRSS/pull/6039)
 	* Fix PHP 8.2+ compatibility for e-mails [#6130](https://github.com/FreshRSS/FreshRSS/pull/6130)
 	* Use PHP 8.3+ `#[\Override]` [#6273](https://github.com/FreshRSS/FreshRSS/pull/6273)
 * Misc.

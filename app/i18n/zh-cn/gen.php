@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => '加载默认快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
@@ -139,7 +144,7 @@ return array(
 		'should_be_activated' => '必须启用 JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE

@@ -14,10 +14,10 @@
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 FreshRSS_Context::initSystem();
-echo json_encode(array(
-		'greader' => Minz_Url::display('/api/greader.php', 'php', true),
-		'fever' => Minz_Url::display('/api/fever.php', 'php', true),
-	));
+echo json_encode([
+	'greader' => Minz_Url::display('/api/greader.php', 'php', true),
+	'fever' => Minz_Url::display('/api/fever.php', 'php', true),
+]);
 ?>
 </script>
 </head>

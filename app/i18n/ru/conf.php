@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Отображение',
 		'darkMode' => array(
-			'_' => 'Автоматический темный режим (beta)',
+			'_' => 'Автоматический темный режим',
 			'auto' => 'Авто',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Нет',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Пользовательские запросы',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Отображать статьи из важных лент',
 		'get_label' => 'Показать статьи с “%s” меткой',
 		'help' => 'Смотрите <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">документацию по пользовательским запросам и повторному обмену данными с помощью HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
 		'number' => 'Запрос №%d',

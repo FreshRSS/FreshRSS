@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Opmaak',
 		'darkMode' => array(
-			'_' => 'Automatische dark mode (beta)',
+			'_' => 'Automatische dark mode',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nee',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Gebruikersquery’s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Artikelen van belangrijke feeds tonen',
 		'get_label' => 'Artikelen met het label „%s” tonen',
 		'help' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentatie voor gebruikersqueries en delen via HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'number' => 'Query n°%d',	// IGNORE
