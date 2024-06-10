@@ -32,6 +32,11 @@ return array(
 		'menu' => array(
 			'open' => 'Open menu',	// TODO
 		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
@@ -142,7 +147,7 @@ return array(
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE

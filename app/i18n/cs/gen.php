@@ -29,8 +29,10 @@ return array(
 		'load_default_shortcuts' => 'Načíst výchozí zkratky',
 		'manage' => 'Spravovat',
 		'mark_read' => 'Označit jako přečtené',
-		'menu' => array(
-			'open' => 'Open menu',	// TODO
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
 		),
 		'open_url' => 'Otevřít adresu URL',
 		'promote' => 'Zvýšit úroveň',
@@ -142,7 +144,7 @@ return array(
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE

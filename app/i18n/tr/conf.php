@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Görünüm',
 		'darkMode' => array(
-			'_' => 'Otomatik karanlık mod (beta)',
+			'_' => 'Otomatik karanlık mod',
 			'auto' => 'Otomatik',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Kapalı',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Önemli akışındaki makaleleri göster',
 		'get_label' => '“%s” etiketine sahip makaleleri göster',
 		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Kullanıcı aramaları ve HTML / RSS / OPML ile paylaşım hakkında dökümantasyonu</a> görüntüleyin.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',
@@ -255,7 +258,7 @@ return array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
 		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">Gelecek dağıtımda</a>.',
+		'deprecated' => 'Bu servis kullanımdan kaldırılmıştır ve gelecekteki bir FreshRSS dağıtımında kaldırılacaktır. Daha fazla bilgi için <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Daha fazla bilgi için belgeyi açın" target="_blank">buraya</a> tıklayın.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

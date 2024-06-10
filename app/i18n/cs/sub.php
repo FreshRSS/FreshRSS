@@ -70,7 +70,7 @@ return array(
 		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
 		'export-as-opml' => array(
 			'download' => 'Stáhnout',
-			'help' => 'Soubor XML',
+			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportovat jako OPML',
 		),
 		'filteractions' => array(

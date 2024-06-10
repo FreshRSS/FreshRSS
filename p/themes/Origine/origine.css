@@ -1001,12 +1001,8 @@ a:hover .icon {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background-color: var(--background-color-light);
 	border-top: 1px solid var(--border-color);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */

@@ -32,6 +32,11 @@ return array(
 		'menu' => array(
 			'open' => 'Open menu',	// IGNORE
 		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// IGNORE
+			'prev' => 'Previous article',	// IGNORE
+			'up' => 'Go up',	// IGNORE
+		),
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
@@ -142,7 +147,7 @@ return array(
 		'should_be_activated' => 'JavaScript must be enabled',	// IGNORE
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
