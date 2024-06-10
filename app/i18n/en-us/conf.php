@@ -184,7 +184,7 @@ return array(
 			),
 			'feed_title' => 'Feed title',	// IGNORE
 			'icons' => array(
-				'_' => 'Article icons position<br><small>(Reading view only)</small>',	// TODO
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
 				'above_title' => 'Above title',	// IGNORE
 				'with_authors' => 'In authors and date row',	// IGNORE
 			),
