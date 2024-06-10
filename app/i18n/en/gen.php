@@ -206,7 +206,6 @@ return array(
 		'Known' => 'Known based sites',
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
-		'blogotext' => 'Blogotext',
 		'buffer' => 'Buffer',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
