@@ -257,7 +257,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
