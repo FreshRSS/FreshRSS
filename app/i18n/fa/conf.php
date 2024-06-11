@@ -54,10 +54,6 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => ' موضوع',
 			'deprecated' => array(

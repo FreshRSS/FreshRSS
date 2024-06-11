@@ -54,10 +54,6 @@ return array(
 			'timeout' => 'Časový limit HTML5 oznámení',
 		),
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => 'Motiv',
 			'deprecated' => array(

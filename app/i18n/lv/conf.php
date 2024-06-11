@@ -54,10 +54,6 @@ return array(
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
 		),
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => 'Tēma',
 			'deprecated' => array(

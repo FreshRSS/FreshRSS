@@ -54,10 +54,6 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(

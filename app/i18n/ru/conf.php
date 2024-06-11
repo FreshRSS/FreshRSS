@@ -54,10 +54,6 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(

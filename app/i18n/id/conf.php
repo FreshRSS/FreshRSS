@@ -54,10 +54,6 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
-		'stickyButtons' => array(
-			'checkbox' => 'Sticky buttons',	// TODO
-			'label' => 'Configuration pages',	// TODO
-		),
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
