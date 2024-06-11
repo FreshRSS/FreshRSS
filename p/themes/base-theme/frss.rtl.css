@@ -430,7 +430,7 @@ td.numeric {
 	clear: both;
 }
 
-.stickyButtons .form-group.form-actions {
+.form-group.form-actions {
 	position: sticky;
 	bottom: 0;
 	backdrop-filter: blur(2px) grayscale(1);
