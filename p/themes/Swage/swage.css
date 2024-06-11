@@ -838,10 +838,6 @@ form th {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 	background-color: var(--color-background-aside);
 }
 

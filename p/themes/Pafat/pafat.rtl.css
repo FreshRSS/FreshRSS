@@ -962,12 +962,8 @@ a.signin {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background-color: var(--background-color-white);
 	border-top: 1px solid var(--border-color-grey-light);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 #nav_entries .item:hover {

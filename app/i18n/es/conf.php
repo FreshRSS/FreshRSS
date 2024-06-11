@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Visualización',
 		'darkMode' => array(
-			'_' => 'Modo oscuro automatico (beta)',
+			'_' => 'Modo oscuro automatico',
 			'auto' => 'Automatico',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
@@ -118,6 +119,7 @@ return array(
 	'query' => array(
 		'_' => 'Consultas de usuario',
 		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoría',
@@ -138,6 +140,7 @@ return array(
 		'get_important' => 'Mostrar artículos de feeds importantes',
 		'get_label' => 'Mostrar artículos con la etiqueta “%s”',
 		'help' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentación para consultas de usuarios y compartir mediante HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nombre',
 		'no_filter' => 'Sin filtro',
 		'number' => 'Consulta n° %d',
@@ -258,7 +261,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Este servicio está obsoleto y será removido de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futuro lanzamiento</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Correo electrónico',

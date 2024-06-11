@@ -44,8 +44,8 @@
 	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
-		$url_rss['params']['user'] = Minz_User::name();
-		$url_rss['params']['token'] = FreshRSS_Context::userConf()->token ?: null;
+		$url_rss['params']['user'] = Minz_User::name() ?? '';
+		$url_rss['params']['token'] = FreshRSS_Context::userConf()->token;
 		unset($url_rss['params']['rid']);
 		if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
 			$url_rss['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
@@ -55,8 +55,8 @@
 <?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
 		$opml_rss = $url_base;
 		$opml_rss['a'] = 'opml';
-		$opml_rss['params']['user'] = Minz_User::name();
-		$opml_rss['params']['token'] = FreshRSS_Context::userConf()->token ?: null;
+		$opml_rss['params']['user'] = Minz_User::name() ?? '';
+		$opml_rss['params']['token'] = FreshRSS_Context::userConf()->token;
 		unset($opml_rss['params']['rid']);
 ?>
 		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />

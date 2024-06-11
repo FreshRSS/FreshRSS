@@ -973,10 +973,6 @@ main.prompt {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: #fbf9f6;
 }
 
@@ -1291,8 +1287,8 @@ main.prompt {
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
 	}
-	#nav_entries {
-		line-height: 4.5rem;
+	#nav_entries button {
+		height: 4.5rem;
 	}
 	.notification {
 		border-radius: 0;

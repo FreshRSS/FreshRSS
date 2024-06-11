@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Afichatge',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
+			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
 		),
 		'icon' => array(
@@ -118,6 +119,7 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilizaires',
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
@@ -138,6 +140,7 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// TODO
 		'get_label' => 'Display articles with “%s” label',	// TODO
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
 		'number' => 'Filtre n°%d',
@@ -258,7 +261,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Aqueste servici es obsolèt e serà tirat de la <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dobrir la documentacion per mai d’informacions" target="_blank">futura version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',

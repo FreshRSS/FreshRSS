@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Wyświetlanie',
 		'darkMode' => array(
-			'_' => 'Tryb ciemny (beta)',
+			'_' => 'Tryb ciemny',
 			'auto' => 'Automatyczny',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Wyłączony',
 		),
 		'icon' => array(
@@ -118,6 +119,7 @@ return array(
 	'query' => array(
 		'_' => 'Zapisane zapytania',
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Według kategorii',
@@ -138,6 +140,7 @@ return array(
 		'get_important' => 'Wyświetl wiadomości z ważnych kanałów',
 		'get_label' => 'Wyświetl wiadomości z etykietą “%s”',
 		'help' => 'Zapytania i dzielenie się nimi przez HTML / RSS / OPML opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentacji</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nazwa',
 		'no_filter' => 'Brak filtrów',
 		'number' => 'Zapytanie nr %d',
@@ -258,7 +261,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Podawanie dalej',
 		'add' => 'Dodaj sposób na podanie dalej wiadomości',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ta usługa jest przestarzała i zostanie usunięta w <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dodatkowe informacje znajdują się w dokumentacji" target="_blank">przyszłych wydaniach</a> FreshRSS.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',

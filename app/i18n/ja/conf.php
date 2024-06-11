@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '表示',
 		'darkMode' => array(
-			'_' => '自動ダークモード (beta)',
+			'_' => '自動ダークモード',
 			'auto' => '自動',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '無効',
 		),
 		'icon' => array(
@@ -118,6 +119,7 @@ return array(
 	'query' => array(
 		'_' => 'ユーザークエリ',
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリあるいはフィードはすでに消去されました。',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'フィルターを適用:',
 			'categories' => 'カテゴリごとに表示する',
@@ -138,6 +140,7 @@ return array(
 		'get_important' => '重要なフィードからの記事を表示する',
 		'get_label' => '“%s”ラベルの記事を表示する',
 		'help' => 'HTML/RSS/OPMLによるユーザー照会と再共有については <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">こちら</a>をご覧ください',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',
@@ -258,7 +261,6 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'このサービスは非推奨でFreshRSSから削除される予定です<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
