@@ -11,11 +11,11 @@
 		<?php
 			$favoriteUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $entry->id()]];
 			if ($entry->isFavorite()) {
-				$favoriteUrl['params']['is_favorite'] = 0;
+				$favoriteUrl['params']['is_favorite'] = '0';
 			}
 			$readUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $entry->id()]];
 			if ($entry->isRead()) {
-				$readUrl['params']['is_read'] = 0;
+				$readUrl['params']['is_read'] = '0';
 			}
 		?>
 		<div class="article-header-topline horizontal-list">

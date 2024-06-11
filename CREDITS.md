@@ -199,6 +199,7 @@ People are sorted by name so please keep this order.
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:superboum), [Web](http://quentin.dufour.io/)
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:Quenty31)
 * [Raineer](https://github.com/Raineer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Raineer)
+* [Ramazan Sancar](https://github.com/ramazansancar): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ramazansancar), [Web](https://ramazansancar.com.tr/)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [rdmitr](https://github.com/rdmitr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rdmitr)
 * [Rebecca Scott](https://github.com/becdetat): [contirbutions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:becdetat), [Web](https://becdetat.com)

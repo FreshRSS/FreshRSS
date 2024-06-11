@@ -70,7 +70,7 @@ declare(strict_types=1);
  * @property int $dynamic_opml_ttl_default
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
- * @property array<string,mixed> $volatile
+ * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {

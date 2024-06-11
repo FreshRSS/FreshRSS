@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazení',
 		'darkMode' => array(
-			'_' => 'Automatický tmavý režim (beta)',
+			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automatický',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly odstraněny.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Použitý filtr:',
 			'categories' => 'Zobrazit podle kategorie',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Zobrazit články z důležitých kanálů',
 		'get_label' => 'Zobrazit články se štítkem “%s”',
 		'help' => 'Viz <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentace pro uživatelské dotazy a další sdílení pomocí HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Název',
 		'no_filter' => 'Žádný filtr',
 		'number' => 'Dotaz č. %d',
@@ -259,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',

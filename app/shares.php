@@ -43,14 +43,6 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
-	'blogotext' => [
-		'deprecated' => true,
-		'url' => '~URL~/admin/links.php?url=~LINK~',
-		'transform' => [],
-		'help' => 'http://lehollandaisvolant.net/blogotext/fr/',
-		'form' => 'advanced',
-		'method' => 'GET',
-	],
 	'buffer' => [
 		'url' => 'https://publish.buffer.com/compose?url=~LINK~&text=~TITLE~',
 		'transform' => ['rawurlencode'],
