@@ -187,7 +187,7 @@ return array(
 			),
 			'feed_title' => 'Titre du flux',
 			'icons' => array(
-				'_' => 'Position des icônes d'article<br /><small>(Vue lecture seulement)</small>',
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
 				'above_title' => 'Au dessus du titre',
 				'with_authors' => 'Sur la ligne auteur et date',
 			),
