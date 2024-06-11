@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabile (“latest”)',
 		),
 		'title' => 'Aggiorna sistema',
-		'viaGit' => 'Aggiornamento tramite git e Github.com avviato',
+		'viaGit' => 'Aggiornamento tramite git e GitHub.com avviato',
 	),
 	'user' => array(
 		'admin' => 'Amministratore',

@@ -1070,10 +1070,6 @@ form {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 
 	@extend %aside-width;
 	background-color: var(--color-background-aside);

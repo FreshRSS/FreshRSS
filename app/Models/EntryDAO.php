@@ -321,7 +321,7 @@ SQL;
 	 * @todo simplify the query by removing the str_repeat. I am pretty sure
 	 * there is an other way to do that.
 	 *
-	 * @param string|array<string> $ids
+	 * @param numeric-string|array<numeric-string> $ids
 	 * @return int|false
 	 */
 	public function markFavorite($ids, bool $is_favorite = true) {
@@ -399,7 +399,7 @@ SQL;
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
 	 *
-	 * @param string|array<string> $ids
+	 * @param numeric-string|array<numeric-string> $ids
 	 * @param bool $is_read
 	 * @return int|false affected rows
 	 */
@@ -465,7 +465,7 @@ SQL;
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @param string $idMax fail safe article ID
+	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
 	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $prioritMax = null,
@@ -517,7 +517,7 @@ SQL;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param int $id category ID
-	 * @param string $idMax fail safe article ID
+	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
 	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
@@ -558,7 +558,7 @@ SQL;
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
 	 * @param int $id_feed feed ID
-	 * @param string $idMax fail safe article ID
+	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
 	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
@@ -612,7 +612,7 @@ SQL;
 	/**
 	 * Mark all the articles in a tag as read.
 	 * @param int $id tag ID, or empty for targeting any tag
-	 * @param string $idMax max article ID
+	 * @param numeric-string $idMax max article ID
 	 * @return int|false affected rows
 	 */
 	public function markReadTag(int $id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null,
@@ -1206,7 +1206,7 @@ SQL;
 	}
 
 	/**
-	 * @param array<string> $ids
+	 * @param array<numeric-string> $ids
 	 * @param 'ASC'|'DESC' $order
 	 * @return Traversable<FreshRSS_Entry>
 	 */

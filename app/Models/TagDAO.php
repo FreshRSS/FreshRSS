@@ -230,7 +230,7 @@ SQL;
 		if ($id_tag === null) {
 			$sql .= ' GROUP BY t.id';
 		} else {
-			$sql .= ' WHERE t.id=' . intval($id_tag);
+			$sql .= ' WHERE t.id=' . $id_tag;
 		}
 		$res = $this->fetchAssoc($sql);
 		if ($res == null) {
@@ -383,6 +383,7 @@ SQL;
 			}
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
 			if (is_array($entries[0])) {
+				/** @var array<array<string,string>> $entries */
 				foreach ($entries as $entry) {
 					if (!empty($entry['id'])) {
 						$values[] = $entry['id'];
@@ -394,6 +395,7 @@ SQL;
 					$values[] = $entry->id();
 				}
 			} else {
+				/** @var array<numeric-string> $entries */
 				foreach ($entries as $entry) {
 					$values[] = $entry;
 				}

@@ -213,7 +213,7 @@ return array(
 			'latest' => '安定版リリース (“latest”)',
 		),
 		'title' => 'アップデートシステム',
-		'viaGit' => 'gitとGithub.comによるアップデートを開始',
+		'viaGit' => 'gitとGitHub.comによるアップデートを開始',
 	),
 	'user' => array(
 		'admin' => '管理者',
