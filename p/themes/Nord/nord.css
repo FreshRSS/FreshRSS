@@ -191,6 +191,7 @@ table th, table td {
 
 .form-group.form-actions {
 	margin: 2rem 0 5rem 0;
+	background-color: var(--main-background-transparent);
 }
 
 .form-group .group-name {
@@ -200,10 +201,6 @@ table th, table td {
 .form-group .group-controls {
 	padding: 5px 0;
 	min-height: 25px;
-}
-
-.stickyButtons .form-group.form-actions {
-	background-color: var(--main-background-transparent);
 }
 
 /*=== Buttons */

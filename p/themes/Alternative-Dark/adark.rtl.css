@@ -141,12 +141,8 @@ th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background: var(--background-color-dark);
-	border-top: 1px solid var(--border-color-dark);
-}
-
-.stickyButtons .form-group.form-actions {
 	background-color: var(--background-color-dark-transparent);
+	border-top: 1px solid var(--border-color-dark);
 }
 
 .form-group.form-actions .btn {

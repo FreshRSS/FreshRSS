@@ -182,7 +182,7 @@ form th {
 .form-group.form-actions {
 	margin: 15px 0 25px;
 	padding: 5px 0;
-	background-color: var(--color-background-light-darker);
+	background-color: var(--color-background-light-darker-transparent);
 	border-top: 3px solid var(--color-border-light-darker);
 }
 .form-group.form-actions .btn {
@@ -198,10 +198,6 @@ form th {
 }
 .form-group .group-controls .control {
 	line-height: 2;
-}
-
-.stickyButtons .form-group.form-actions {
-	background-color: var(--color-background-light-darker-transparent);
 }
 
 .stick select {
