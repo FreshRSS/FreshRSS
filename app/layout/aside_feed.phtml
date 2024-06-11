@@ -132,8 +132,8 @@
 			</div><?php
 		endif;
 		$title = _t('sub.feed.open_feed', $feed->name());
-		$title .= $error_title ? '&#13;⚠ ' . $error_title : '';
-		$title .= $empty_title ? '&#13;' . $empty_title : '';
+		$title .= $error_title !== '' ? '&#13;⚠ ' . $error_title : '';
+		$title .= $empty_title !== '' ? '&#13;' . $empty_title : '';
 		$title .= $feed->mute() ? '&#13;🔇 ' . _t('sub.feed.mute.state_is_muted') : '';
 		?><a class="item-title" title="<?= $title ?>"
 		data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
