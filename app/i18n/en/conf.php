@@ -188,8 +188,8 @@ return array(
 			'feed_title' => 'Feed title',
 			'icons' => array(
 				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
 			),
 			'tags' => array(
 				'_' => 'Tags',
