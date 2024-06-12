@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
-			'help' => 'For compatible themes only',	// TODO
+			'help' => 'Tikai saderīgām tēmām',	// TODO
 			'no' => 'Nē',
 		),
 		'icon' => array(
@@ -115,28 +115,28 @@ return array(
 	'query' => array(
 		'_' => 'Lietotāja pieprasījumi',
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
-		'description' => 'Description',	// TODO
+		'description' => 'Apraksts',	// TODO
 		'filter' => array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
 			'order' => 'Kārtot pēc datuma',
 			'search' => 'Izteiksme',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',	// TODO
+			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',	// TODO
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
 		),
 		'get_all' => 'Rādīt visus rakstus',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Rādīt rakstus ar jebkuru birku',	// TODO
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
-		'image_url' => 'Image URL',	// TODO
+		'get_important' => 'Rādīt rakstus no svarīgām barotnēm',	// TODO
+		'get_label' => 'Rādīt rakstus ar “%s” birku',	// TODO
+		'help' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">lietotāju pieprasījumu un koplietošanas dokumentāciju, izmantojot HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Attēla URL',	// TODO
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'number' => 'Pieprasījums nr. %d',
@@ -144,11 +144,11 @@ return array(
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Kopīgot šo pieprasījumu ar saiti',	// TODO
+			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',	// TODO
+			'html' => 'Kopīgojama saite uz HTML lapu',	// TODO
+			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',	// TODO
+			'rss' => 'Kopīgojama saite uz RSS barotni',	// TODO
 		),
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
@@ -220,9 +220,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'kad raksts tiek atvērts tā sākotnējā mājaslapā',
 			'article_viewed' => 'kad raksts tiek skatīts',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'kad fokusēts (izņemot svarīgas barotnes)',	// TODO
 			'keep_max_n_unread' => 'Maksimālais nelasīto rakstu skaits',
-			'scroll' => 'ritināšanas laikā (except for important feeds)',	// DIRTY
+			'scroll' => 'ritināšanas laikā (izņemot svarīgas barotnes)',	// DIRTY
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',

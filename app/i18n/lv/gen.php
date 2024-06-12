@@ -30,9 +30,9 @@ return array(
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Nākamais raksts',	// TODO
+			'prev' => 'Iepriekšējais raksts',	// TODO
+			'up' => 'Doties uz augšu',	// TODO
 		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
@@ -139,7 +139,7 @@ return array(
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Bez birku',	// TODO
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
 	),
@@ -177,7 +177,7 @@ return array(
 		'authentication' => 'Autentifikācija',
 		'check_install' => 'Uzstādīšanas pārbaude',
 		'configuration' => 'Konfigurācija',
-		'display' => 'Display',	// TODO
+		'display' => 'Displejs',	// TODO
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
 		'queries' => 'Lietotāja pieprasījumi',

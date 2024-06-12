@@ -67,9 +67,9 @@ return array(
 		'empty' => 'Šī barotne ir tukša. Lūdzu, pārbaudiet, vai tā joprojām tiek uzturēta.',
 		'error' => 'Šajā barotnē ir radusies problēma. Lūdzu, pārbaudiet, vai tā vienmēr ir sasniedzama, un pēc tam to atjauniniet.',
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'download' => 'Lejupielādēt',	// TODO
+			'help' => 'XML fails (datu apakškopa. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Skatīt dokumentāciju</a>)',	// TODO
+			'label' => 'Eksportēt kā OPML',	// TODO
 		),
 		'filteractions' => array(
 			'_' => 'Filtra darbības',
@@ -94,14 +94,14 @@ return array(
 					'_' => 'raksta autors',
 					'help' => 'Var arī būt teksts. Piemērs: <code>"Anonīms"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'vienuma tagi',	// TODO
 				'item_content' => array(
 					'_' => 'raksta saturs',
 					'help' => 'Piemērs, lai ņemtu pilnu rakstu: <code>.</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => 'raksta sīktēls',
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'help' => 'Piemērs: <code>descendant::img/@src</code>',	// TODO
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pielāgotais datuma/laika formāts',
@@ -129,42 +129,42 @@ return array(
 			'json_dotnotation' => array(
 				'_' => 'JSON (dot notation)',	// TODO
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'barotnes tituls',	// TODO
+					'help' => 'Piemērs: <code>meta.title</code> vai statiska virkne: <code>"Mana pielāgotā plūsma"</code>',	// TODO
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON punktu notācija izmanto punktus starp objektiem un iekavas masīviem. (piemēram, <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'jaunumu atrašana <strong>vienumi</strong><br /><small>(visbūtiskākais)</small>',	// TODO
+					'help' => 'JSON ceļš uz masīvu, kas satur vienumus, piemēram, <code>newsItems</code>',	// TODO
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'vienuma autors',	// TODO
+				'item_categories' => 'vienuma atslēgasvārdi',	// TODO
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'vienuma saturs',	// TODO
+					'help' => 'Atslēga, zem kuras atrodas saturs, piemēram, <code>content</code>',	// TODO
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'vienuma sīktēls',	// TODO
+					'help' => 'Piemērs: <code>image</code>',	// TODO
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Pielāgotais datuma/laika formāts',	// TODO
+					'help' => 'Pēc izvēles. Formāts, ko atbalsta <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> piemēram, <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'vienuma datums',	// TODO
+					'help' => 'Rezultātu parsēs <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'vienuma tituls',	// TODO
+				'item_uid' => 'vienuma unikālais ID',	// TODO
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'vienuma saite (URL)',	// TODO
+					'help' => 'Piemērs: <code>pastāvīga saite</code>',	// TODO
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'punktu notācija priekš:',	// TODO
+				'relative' => 'punktu notācijas ceļš (relatīvs pret vienumu) priekš:',	// TODO
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Barotne',	// TODO
 			'rss' => 'RSS / Atom (noklusējums)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
@@ -178,10 +178,10 @@ return array(
 		'max_http_redir' => 'Maksimālais HTTP novirzījumu skaits',
 		'max_http_redir_help' => 'Iestatiet 0 vai atstājiet tukšu, lai atspējotu, -1 neierobežotai novirzīšanai',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Metode',	// TODO
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'POST dati automātiski atbalsta  <code>application/x-www-form-urlencoded</code> un <code>application/json</code>',	// TODO
+		'method_postparams' => 'Nosūtīšanas dati POST metodei',	// TODO
 		'moved_category_deleted' => 'Kad dzēšat kategoriju, tās plūsmas automātiski tiek automātiski klasificētas kategorijā <em>%s</em>.',
 		'mute' => 'klusināt',
 		'no_selected' => 'Barotne nav izvēlēta.',
@@ -190,7 +190,7 @@ return array(
 			'_' => 'Prioritāte',
 			'archived' => 'Nerādīt (arhivēts)',
 			'category' => 'Rādīt kategorijā',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Rādīt svarīgajās barotnēs',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',
 		),
 		'proxy' => 'Iestatīt starpniekserveri šīs plūsmas iegūšanai',
@@ -245,7 +245,7 @@ return array(
 		'subscription_tools' => 'Abonamentu rīki',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Pievienot šo etiķeti jaunajiem rakstiem',	// TODO
 		'name' => 'Vārds',
 		'new_name' => 'Jaunais vārds',
 		'old_name' => 'Vecais vārds',
