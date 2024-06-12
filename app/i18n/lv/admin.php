@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
-		'token' => 'Galvenā autentifikācijas žetons',	// TODO
-		'token_help' => 'Ļauj piekļūt visām lietotāja RSS izvadēm, kā arī atsvaidzināt barotnes bez autentifikācijas:',	// TODO
+		'token' => 'Galvenā autentifikācijas žetons',
+		'token_help' => 'Ļauj piekļūt visām lietotāja RSS izvadēm, kā arī atsvaidzināt barotnes bez autentifikācijas:',
 		'type' => 'Autentifikācijas metode',
 		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
 	),
@@ -139,7 +139,7 @@ return array(
 		'entry_per_day_of_week' => 'Katrā nedēļas dienā (vidēji: %.2f ziņojumu)',
 		'entry_per_hour' => 'Katrā stundā (vidēji: %.2f ziņojumu)',
 		'entry_per_month' => 'Katrā mēnesī (vidēji: %.2f ziņojumu)',
-		'entry_repartition' => 'Ierakstu sadalījums',	// TODO
+		'entry_repartition' => 'Ierakstu sadalījums',
 		'feed' => 'Barotne',
 		'feed_per_category' => 'Barotnes pa kategorijām',
 		'idle' => 'Neaktīvās barotnes',
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
 		'base-url' => array(
-			'_' => 'Bāzes URL',	// TODO
-			'recommendation' => 'Automātiska ieteikšana: <kbd>%s</kbd>',	// TODO
+			'_' => 'Bāzes URL',
+			'recommendation' => 'Automātiska ieteikšana: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
@@ -200,20 +200,20 @@ return array(
 	'update' => array(
 		'_' => 'Atjaunināt sistēmu',
 		'apply' => 'Pieteikties',
-		'changelog' => 'Izmaiņu žurnāls',	// TODO
+		'changelog' => 'Izmaiņu žurnāls',
 		'check' => 'Jaunu atjauninājumu pārbaude',
-		'copiedFromURL' => 'update.php kopēts no %s uz ./data',	// TODO
+		'copiedFromURL' => 'update.php kopēts no %s uz ./data',
 		'current_version' => 'Jūsu pašreizējā versija',
 		'last' => 'Pēdējā verifikācija',
-		'loading' => 'Atjaunināšana…',	// TODO
+		'loading' => 'Atjaunināšana…',
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(
-			'_' => 'Izlaiduma kanāls',	// TODO
-			'edge' => 'Ritošā atbrīvošana (“edge”)',	// TODO
-			'latest' => 'Stabila atbrīvošana (“latest”)',	// TODO
+			'_' => 'Izlaiduma kanāls',
+			'edge' => 'Ritošā atbrīvošana (“edge”)',
+			'latest' => 'Stabila atbrīvošana (“latest”)',
 		),
 		'title' => 'Atjaunināt sistēmu',
-		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',	// TODO
+		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',
 	),
 	'user' => array(
 		'admin' => 'Administrators',

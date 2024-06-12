@@ -116,10 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Birka “%s” tika uztaisīta.',
-		'error' => 'Etiķete nevar tikt atjaunināta!',	// TODO
+		'error' => 'Etiķete nevar tikt atjaunināta!',
 		'name_exists' => 'Birkas nosaukums jau pastāv.',
 		'renamed' => 'Birka “%s” tika pārdēvēts par “%s”.',
-		'updated' => 'Etiķete ir atjaunināta.',	// TODO
+		'updated' => 'Etiķete ir atjaunināta.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS tagad būs atjaunots uz <strong>%s versiju</strong>.',
