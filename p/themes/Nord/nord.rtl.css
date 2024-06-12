@@ -31,6 +31,7 @@
 	--nord15-aurora: #b48ead;
 
 	--main-background: var(--nordX-background);
+	--main-background-transparent: #242933cc;
 	--accent-bg: var(--nord0-polarnight);
 	--accent-border: var(--nord0-polarnight);
 	--light-bg: var(--nord1-polarnight);
@@ -190,6 +191,7 @@ table th, table td {
 
 .form-group.form-actions {
 	margin: 2rem 0 5rem 0;
+	background-color: var(--main-background-transparent);
 }
 
 .form-group .group-name {
