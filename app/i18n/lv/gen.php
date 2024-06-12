@@ -126,7 +126,7 @@ return array(
 	),
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Par FreshRSS',
 	),
 	'js' => array(

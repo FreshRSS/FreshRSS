@@ -187,14 +187,14 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
-		'sensitive-parameter' => 'Jutīgs parametrs. Rediģējiet manuāli <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Jutīgs parametrs. Rediģējiet manuāli <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
 			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
 		),
 		'websub' => array(
-			'help' => 'Par <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Par <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(

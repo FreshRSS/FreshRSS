@@ -180,7 +180,7 @@ return array(
 		'method' => array(
 			'_' => 'HTTP Metode',
 		),
-		'method_help' => 'POST dati automātiski atbalsta  <code>application/x-www-form-urlencoded</code> un <code>application/json</code>',
+		'method_help' => 'POST dati automātiski atbalsta <code>application/x-www-form-urlencoded</code> un <code>application/json</code>',
 		'method_postparams' => 'Nosūtīšanas dati POST metodei',
 		'moved_category_deleted' => 'Kad dzēšat kategoriju, tās plūsmas automātiski tiek automātiski klasificētas kategorijā <em>%s</em>.',
 		'mute' => 'klusināt',
