@@ -431,7 +431,11 @@ td.numeric {
 }
 
 .form-group.form-actions {
+	position: sticky;
+	bottom: 0;
+	backdrop-filter: blur(2px) grayscale(1);
 	min-width: 250px;
+	z-index: 80;
 }
 
 .form-group .group-name {
