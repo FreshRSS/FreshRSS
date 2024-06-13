@@ -12,14 +12,14 @@ function load_panel(link) {
 	panel_loading = true;
 
 	const req = new XMLHttpRequest();
-	req.open('GET', link, true);
+	req.open('GET', link + '&ajax=1', true);
 	req.responseType = 'document';
 	req.onload = function (e) {
 		if (this.status != 200) {
 			return;
 		}
 		const html = this.response;
-		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream .pagination, #stream.prompt');
+		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream-footer, #stream.prompt');
 		const panel = document.getElementById('panel');
 		foreign.forEach(function (el) {
 			panel.appendChild(document.adoptNode(el));
@@ -33,10 +33,11 @@ function load_panel(link) {
 
 		document.getElementById('overlay').classList.add('visible');
 		panel.classList.add('visible');
+		document.documentElement.classList.add('slider-active');
 
-		// force le démarrage du scroll en haut.
-		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
-		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
+		// Force the initial scroll to the top.
+		// Without it, if one scrolls down in a category (for instance)
+		// and then open another one, we risk being at the same scroll position
 		panel.scrollTop = 0;
 		document.documentElement.scrollTop = 0;
 
@@ -70,6 +71,7 @@ function init_close_panel() {
 		panel.innerHTML = '';
 		panel.classList.remove('visible');
 		document.getElementById('overlay').classList.remove('visible');
+		document.documentElement.classList.remove('slider-active');
 		return false;
 	};
 	document.addEventListener('keydown', ev => {

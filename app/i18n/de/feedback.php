@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Sie haben nicht die Berechtigung, diese Seite aufzurufen',
@@ -25,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',
-		'query_created' => 'Abfrage "%s" ist erstellt worden.',
+		'query_created' => 'Abfrage „%s“ ist erstellt worden.',
 		'shortcuts_updated' => 'Die Tastenkombinationen sind aktualisiert worden',
 		'updated' => 'Die Konfiguration ist aktualisiert worden',
 	),
@@ -47,8 +57,8 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
-		'feeds_imported' => 'Ihre Feeds sind importiert worden und werden jetzt aktualisiert',
-		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf',
+		'feeds_imported' => 'Ihre Feeds sind importiert worden. Wenn Sie alle Dateien importiert haben, können Sie <i>Feeds aktualisieren</i> klicken.',
+		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf. Wenn Sie alle Dateien importiert haben, können Sie <i>Feeds aktualisieren</i> klicken.',
 		'file_cannot_be_uploaded' => 'Die Datei kann nicht hochgeladen werden!',
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
 		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
@@ -84,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> Zwischenspeicher wurde geleert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
+			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>. Mit <code>#force_feed</code> am Ende der Feed-URL kann das Hinzufügen erzwungen werden.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
 			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
@@ -105,9 +115,11 @@ return array(
 		'purge_completed' => 'Bereinigung abgeschlossen (%d Artikel gelöscht)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" wurde erstellt.',
-		'name_exists' => 'Tag Name existiert bereits.',
-		'renamed' => 'Der Tag "%s" wurde umbenannt in "%s".',
+		'created' => 'Das Label „%s“ wurde erstellt.',
+		'error' => 'Das Label konnte nicht angepasst werden!',
+		'name_exists' => 'Label-Name existiert bereits.',
+		'renamed' => 'Das Label „%s“ wurde umbenannt in „%s“.',
+		'updated' => 'Das Label wurde angepasst.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',

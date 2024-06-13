@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
@@ -9,8 +19,8 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'token' => 'Clave de identificación',
-		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
+		'token' => 'Token de autentificación Master',
+		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de feeds sin autenticación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
@@ -101,7 +111,7 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Autor/Autora',
+		'author' => 'Autor',
 		'community' => 'Extensiones de comunidad disponibles',
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
@@ -137,11 +147,11 @@ return array(
 		'main_stream' => 'Salida principal',
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
-		'percent_of_total' => '%% del total',
-		'repartition' => 'Reprto de artículos',
+		'percent_of_total' => '% del total',
+		'repartition' => 'Reparto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
@@ -149,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
+		'base-url' => array(
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
@@ -158,28 +172,58 @@ return array(
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
 		'registration' => array(
-			'help' => '0 significa que no hay límite en la cuenta',
 			'number' => 'Número máximo de cuentas',
+			'select' => array(
+				'label' => 'Formulario de registro',
+				'option' => array(
+					'noform' => 'Deshabilitado: Sin formulario de registro',
+					'nolimit' => 'Habilitado: Sin límite de cuentas',
+					'setaccountsnumber' => 'Establece el número máximo de cuentas',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulario deshabilitado',
+				'enabled' => 'Formulario habilitado',
+			),
+			'title' => 'Formulario de registro del usuario',
+		),
+		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'no se proporciona',
+			'enabled' => '<a href="./?a=tos">está activado</a>',
+			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
+		),
+		'websub' => array(
+			'help' => 'Acerca de <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Buscar actualizaciones',
-		'current_version' => 'Dispones de la versión %s de FreshRSS.',
-		'last' => 'Última comprobación: %s',
+		'copiedFromURL' => 'update.php copiado desde %s a ./data',
+		'current_version' => 'Dispones de la versión',
+		'last' => 'Última comprobación',
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
+		'releaseChannel' => array(
+			'_' => 'Canal de publicación',
+			'edge' => 'Publicación en marcha (“edge”)',
+			'latest' => 'Publicación estable (“latest”)',
+		),
 		'title' => 'Actualizar sistema',
+		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
 	),
 	'user' => array(
-		'admin' => 'Administrador/Administradora',
+		'admin' => 'Administrador',
 		'article_count' => 'Artículos',
 		'back_to_manage' => '← Volver a la lista de usuarios',
 		'create' => 'Crear nuevo usuario',
 		'database_size' => 'Tamaño de la base de datos',
 		'email' => 'Dirección de correo electrónico',
 		'enabled' => 'Permitido',
-		'feed_count' => 'Feeds',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'Es admin',
 		'language' => 'Idioma',
 		'last_user_activity' => 'Última actividad del usuario',

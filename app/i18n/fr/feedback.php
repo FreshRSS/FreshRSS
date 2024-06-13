@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Vous n’avez pas le droit d’accéder à cette page !',
@@ -25,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',
-		'query_created' => 'Le filtre "%s" a bien été créé.',
+		'query_created' => 'Le filtre <em>%s</em> a bien été créé.',
 		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
 	),
@@ -47,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
-		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.',
-		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.',
+		'feeds_imported' => 'Vos flux ont été importés.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
+		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
-		'zip_error' => 'Une erreur est survenue durant l’import du fichier ZIP.',
+		'zip_error' => 'Une erreur est survenue durant le traitement du fichier ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
@@ -90,14 +100,14 @@ return array(
 			'n_entries_deleted' => '%d articles ont été supprimés.',
 			'no_refresh' => 'Il n’y a aucun flux à actualiser…',
 			'not_added' => '<em>%s</em> n’a pas pu être ajouté.',
-			'not_found' => 'Le flux n\'a pas pu être trouvé.',
+			'not_found' => 'Le flux n’a pas pu être trouvé.',
 			'over_max' => 'Vous avez atteint votre limite de flux (%d)',
 			'reloaded' => '<em>%s</em> a été rechargé.',
 			'selector_preview' => array(
 				'http_error' => 'Échec lors du chargement du contenu du site web.',
-				'no_entries' => 'Il n\'y a pas d\'articles dans ce flux. Vous devez avoir au moins un article pour générer une prévisualisation.',
-				'no_feed' => 'Erreur interne (le flux n\'a pas pu être trouvé).',
-				'no_result' => 'Le sélecteur n\'a produit aucune concordance. Dans ces circonstances, le texte original du flux sera affiché.',
+				'no_entries' => 'Il n’y a pas d’articles dans ce flux. Vous devez avoir au moins un article pour générer une prévisualisation.',
+				'no_feed' => 'Erreur interne (le flux n’a pas pu être trouvé).',
+				'no_result' => 'Le sélecteur n’a produit aucune concordance. Dans ces circonstances, le texte original du flux sera affiché.',
 				'selector_empty' => 'Le sélecteur est vide. Vous devez en définir un pour générer une prévisualisation.',
 			),
 			'updated' => 'Le flux a été mis à jour',
@@ -105,9 +115,11 @@ return array(
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
 	'tag' => array(
-		'created' => 'L’étiquette "%s" a été créée.',
-		'name_exists' => 'L’étiquette existe déjà.',
-		'renamed' => 'L’étiquette "%s" a été renommée en "%s".',
+		'created' => 'L’étiquette <em>%s</em> a été créée.',
+		'error' => 'L’étiquette n’a pas pu être modifiée',
+		'name_exists' => 'L’étiquette existe déjà!',
+		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
+		'updated' => 'L’étiquette a été mise à jour.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',

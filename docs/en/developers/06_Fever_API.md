@@ -7,7 +7,7 @@ Additionally [page about our Google Reader compatible API](06_GoogleReader_API.m
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
-If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
+If your favourite client doesn’t work properly with this API, please create an issue and we’ll have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
@@ -22,8 +22,10 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
+|[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
+|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
 |[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Closed Source                                             |
-|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/-/blob/master/LICENSE)|
+|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
 |[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Closed Source                                             |
 |[Reeder](https://www.reederapp.com/)                                                |iOS                  |Closed Source                                              |
 |[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Closed Source                                              |
@@ -80,7 +82,7 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you're now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
+Perfect, you’re now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 

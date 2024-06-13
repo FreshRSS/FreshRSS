@@ -1,24 +1,45 @@
-<?php FreshRSS::preLayout(); ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	FreshRSS::preLayout();
+	$class = '';
+	$dir = '';
+	if (_t('gen.dir') === 'rtl') {
+		$dir = ' dir="rtl"';
+		$class = 'rtl ';
+	}
+	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
+		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+	}
+?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+<html lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= $class ?>">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="initial-scale=1.0" />
-		<?= self::headStyle() ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+		<?= FreshRSS_View::metaThemeColor() ?>
+		<?= FreshRSS_View::headStyle() ?>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
-		<?= self::headScript() ?>
+		<?= FreshRSS_View::headScript() ?>
+		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
 		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
+		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::systemConf()->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
+		<meta name="theme-color" content="#FFF" />
+<?php if (!FreshRSS_Context::systemConf()->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
+<?php } ?>
+		<?= FreshRSS_View::headTitle() ?>
+		<?php if ($this->rss_url != ''): ?>
+		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= $this->rss_url ?>" />
+		<?php endif; ?>
 		<meta name="robots" content="noindex,nofollow" />
-		<?= self::headTitle() ?>
 	</head>
 	<body>
 
@@ -26,22 +47,33 @@
 <div class="app-layout app-layout-simple">
 	<div class="header">
 		<div class="item title">
-			<a href="<?= _url('index', 'index') ?>">
-				<img class="logo" src="<?= _i('FreshRSS-logo', true) ?>" alt="" />
+			<a href="<?= Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root') ?>">
+				<?php if (FreshRSS_Context::systemConf()->logo_html == '') { ?>
+					<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
+				<?php
+					} else {
+						echo FreshRSS_Context::systemConf()->logo_html;
+					}
+				?>
 			</a>
 		</div>
 
 		<div class="item"></div>
 
-		<div class="item">
-			<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
-				<a class="signout" href="<?= _url('auth', 'logout') ?>">
-					<?= _i('logout') . _t('gen.auth.logout') ?>
-
-					(<?= htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') ?>)
+		<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
+			<div class="item configure">
+			<?php if (FreshRSS_Auth::hasAccess()): ?>
+				<a class="signout" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'logout'], 'html', 'root') ?>">
+					<?= _i('logout') ?><?= _t('gen.auth.logout') ?>
+					(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)
 				</a>
-			<?php } ?>
-		</div>
+			<?php else: ?>
+				<a class="signin" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'html', 'root') ?>">
+					<?= _i('login') ?><?= _t('gen.auth.login') ?>
+				</a>
+			<?php endif; ?>
+			</div>
+		<?php endif; ?>
 	</div>
 
 	<?php $this->render(); ?>
@@ -50,10 +82,10 @@
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (isset($this->notification)) {
-		$msg = $this->notification['content'];
-		$status = $this->notification['type'];
-
+	$notif = Minz_Request::getNotification();
+	if (!empty($notif)) {
+		$msg = $notif['content'];
+		$status = $notif['type'];
 		invalidateHttpCache();
 	}
 ?>

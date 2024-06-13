@@ -1,6 +1,6 @@
-# Installation on Debian 9/Ubuntu 16.04
+# Installation on Debian/Ubuntu
 
-This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. It's always recommended that you [backup your installation](05_Backup.md) before updating
+This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. It’s always recommended that you [backup your installation](05_Backup.md) before updating
 
 Please note: Commands need to be run as an administrator; either perform the following from a sudo shell (`sudo -s`) or use an administrator account.
 
@@ -13,7 +13,7 @@ apt install apache2
 a2enmod headers expires rewrite ssl
 ```
 
-Then, you have to configure Apache. You can create a file in `/etc/apache2/sites-available`, based on [our example configuration file](10_ServerConfig.md). Once you're done, create a symbolic link from this file to the `sites-enabled` folder:
+Then, you have to configure Apache. You can create a file in `/etc/apache2/sites-available`, based on [our example configuration file](10_ServerConfig.md). Once you’re done, create a symbolic link from this file to the `sites-enabled` folder:
 
 ```sh
 ln -s /etc/apache2/sites-available/freshrss.conf /etc/apache2/sites-enabled/freshrss.conf
@@ -31,7 +31,7 @@ Install the PHP module for Apache
 apt install libapache2-mod-php
 ```
 
-Next, we'll need to install and configure MySQL. Install MySQL components like so:
+Next, we’ll need to install and configure MySQL. Install MySQL components like so:
 
 ```sh
 sudo apt install mysql-server mysql-client php-mysql
@@ -43,8 +43,8 @@ MySQL must now be started:
 service mysql-server start
 ```
 
-We'll need to configure MySQL.
-**Note:** As you've just installed mysql, there will be no root password; simply hit enter on the first step
+We’ll need to configure MySQL.
+**Note:** As you’ve just installed mysql, there will be no root password; simply hit enter on the first step
 
 ```sh
 mysql_secure_installation
@@ -64,7 +64,7 @@ service apache2 restart
 
 ## Part 2: Installing FreshRSS
 
-Begin by installing git, if you don't already have it installed.
+Begin by installing git, if you don’t already have it installed.
 
 ```sh
 apt install git
@@ -81,31 +81,27 @@ Change to the new FreshRSS directory, and set the permissions so that your Web s
 
 ```sh
 cd FreshRSS
-chown -R :www-data .
-sudo chmod -R g+r .
+sudo cli/access-permissions.sh
 ```
 
-We'll also need to allow the data folder to be written to, like so:
+Optional: If you would like to allow updates from the Web interface, set write permissions (reduces slightly the security)
 
 ```sh
-chmod -R g+w ./data/
+# Debian
+chown www-data:www-data -R .
+# Alpine
+chown apache:www-data -R .
 ```
 
-Optional: If you would like to allow updates from the Web interface, set write permissions
+Finally, symlink the public folder to your FreshRSS directory
 
 ```sh
-chmod -R g+w .
-```
-
-Finally, symlink the public folder to the root of your web directory
-
-```sh
-ln -s /usr/share/FreshRSS/p /var/www/html/
+[ ! -e "/var/www/html/FreshRSS" ] && ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS already exists"
 ```
 
 ## Part 3: Creating a Database for FreshRSS
 
-Start a MySQL session. running this command will ask you for the MySQL password you set earler, and then put you into a prompt that should look like `MariaDB [(none)]>`
+Start a MySQL session. running this command will ask you for the MySQL password you set earlier, and then put you into a prompt that should look like `MariaDB [(none)]>`
 
 ```sh
 mysql -u root -p

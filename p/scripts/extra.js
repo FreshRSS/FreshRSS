@@ -1,23 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, openPopupWithSource, xmlHttpRequestJson */
-
-function fix_popup_preview_selector() {
-	const link = document.getElementById('popup-preview-selector');
-
-	if (!link) {
-		return;
-	}
-
-	link.addEventListener('click', function (ev) {
-		const selector_entries = document.getElementById('path_entries').value;
-		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries));
-
-		openPopupWithSource(href);
-
-		ev.preventDefault();
-	});
-}
+/* globals context, openNotification, xmlHttpRequestJson */
 
 // <crypto form (Web login)>
 function poormanSalt() {	// If crypto.getRandomValues is not available
@@ -98,20 +81,144 @@ function init_crypto_form() {
 }
 // </crypto form (Web login)>
 
-function init_password_observers() {
-	document.querySelectorAll('.toggle-password').forEach(function (a) {
-		a.onmousedown = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'text');
-			this.classList.add('active');
+// <show password>
+let timeoutHide;
+
+function showPW_this() {
+	const id_passwordField = this.getAttribute('data-toggle');
+	if (this.classList.contains('active')) {
+		hidePW(id_passwordField);
+	} else {
+		showPW(id_passwordField);
+	}
+	return false;
+}
+
+function showPW(id_passwordField) {
+	const passwordField = document.getElementById(id_passwordField);
+	passwordField.setAttribute('type', 'text');
+	passwordField.nextElementSibling.classList.add('active');
+	clearTimeout(timeoutHide);
+	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
+	return false;
+}
+
+function hidePW(id_passwordField) {
+	clearTimeout(timeoutHide);
+	const passwordField = document.getElementById(id_passwordField);
+	passwordField.setAttribute('type', 'password');
+	passwordField.nextElementSibling.classList.remove('active');
+	return false;
+}
+
+function init_password_observers(parent) {
+	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
+		btn.addEventListener('click', showPW_this);
+	});
+}
+// </show password>
+
+function init_archiving(parent) {
+	parent.addEventListener('change', function (e) {
+		if (e.target.id === 'use_default_purge_options') {
+			parent.querySelectorAll('.archiving').forEach(function (element) {
+				element.hidden = e.target.checked;
+				if (!e.target.checked) element.style.visibility = 'visible'; 	// Help for Edge 44
+			});
+		}
+	});
+	parent.addEventListener('click', function (e) {
+		if (e.target.closest('button[type=reset]')) {
+			const archiving = document.getElementById('use_default_purge_options');
+			if (archiving) {
+				parent.querySelectorAll('.archiving').forEach(function (element) {
+					element.hidden = archiving.getAttribute('data-leave-validation') == 1;
+				});
+			}
+		}
+	});
+}
+
+// <slider>
+const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
+
+function open_slider_listener(ev) {
+	if (ev.ctrlKey || ev.shiftKey) {
+		return;
+	}
+	const a = ev.target.closest('.open-slider');
+	if (a) {
+		if (!context.ajax_loading) {
+			context.ajax_loading = true;
+			const slider = document.getElementById('slider');
+			const slider_content = document.getElementById('slider-content');
+			const req = new XMLHttpRequest();
+			slider_content.innerHTML = '';
+			slider.classList.add('sliding');
+			const ahref = a.href + '&ajax=1#slider';
+			req.open('GET', ahref, true);
+			req.responseType = 'document';
+			req.onload = function (e) {
+				location.href = '#slider'; // close menu/dropdown
+				document.documentElement.classList.add('slider-active');
+				slider.classList.add('active');
+				slider.scrollTop = 0;
+				slider_content.innerHTML = this.response.body.innerHTML;
+				slider_content.querySelectorAll('form').forEach(function (f) {
+					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
+				});
+				context.ajax_loading = false;
+				slider.dispatchEvent(freshrssSliderLoadEvent);
+			};
+			req.send();
 			return false;
-		};
-		a.onmouseup = function (ev) {
-			const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-			passwordField.setAttribute('type', 'password');
-			this.classList.remove('active');
-			return false;
-		};
+		}
+	}
+}
+
+function init_slider(slider) {
+	window.onclick = open_slider_listener;
+
+	document.getElementById('close-slider').addEventListener('click', close_slider_listener);
+	document.querySelector('#slider .toggle_aside').addEventListener('click', close_slider_listener);
+
+	if (slider.children.length > 0) {
+		slider.dispatchEvent(freshrssSliderLoadEvent);
+	}
+}
+
+function close_slider_listener(ev) {
+	const slider = document.getElementById('slider');
+	if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
+		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+		document.documentElement.classList.remove('slider-active');
+		return true;
+	} else {
+		return false;
+	}
+}
+// </slider>
+
+// overwrites the href attribute from the url input
+function updateHref(ev) {
+	const urlField = document.getElementById(this.getAttribute('data-input'));
+	const url = urlField.value;
+	if (url.length > 0) {
+		this.href = url;
+		return true;
+	} else {
+		urlField.focus();
+		this.removeAttribute('href');
+		ev.preventDefault();
+		return false;
+	}
+}
+
+// set event listener on "show url" buttons
+function init_url_observers(parent) {
+	parent.querySelectorAll('.open-url').forEach(function (btn) {
+		btn.addEventListener('mouseover', updateHref);
+		btn.addEventListener('click', updateHref);
 	});
 }
 
@@ -134,52 +241,18 @@ function init_select_observers() {
 	});
 }
 
-function init_slider_observers() {
-	const slider = document.getElementById('slider');
-	const closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
+/**
+ * Returns true when no input element is changed, false otherwise.
+ * When excludeForm is defined, will only report changes outside the specified form.
+ */
+function data_leave_validation(parent, excludeForm = null) {
+	const ds = parent.querySelectorAll('[data-leave-validation]');
 
-	document.querySelector('.post').onclick = function (ev) {
-		const a = ev.target.closest('.open-slider');
-		if (a) {
-			if (!context.ajax_loading) {
-				context.ajax_loading = true;
-
-				const req = new XMLHttpRequest();
-				req.open('GET', a.href + '&ajax=1', true);
-				req.responseType = 'document';
-				req.onload = function (e) {
-					slider.innerHTML = this.response.body.innerHTML;
-					slider.classList.add('active');
-					closer.classList.add('active');
-					context.ajax_loading = false;
-					fix_popup_preview_selector();
-					init_extra();
-				};
-				req.send();
-				return false;
-			}
-		}
-	};
-
-	closer.onclick = function (ev) {
-		if (data_leave_validation() || confirm(context.i18n.confirmation_default)) {
-			slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return true;
-		} else {
-			return false;
-		}
-	};
-}
-
-function data_leave_validation() {
-	const ds = document.querySelectorAll('[data-leave-validation]');
 	for (let i = ds.length - 1; i >= 0; i--) {
 		const input = ds[i];
+		if (excludeForm && excludeForm === input.form) {
+			continue;
+		}
 		if (input.type === 'checkbox' || input.type === 'radio') {
 			if (input.checked != input.getAttribute('data-leave-validation')) {
 				return false;
@@ -191,44 +264,73 @@ function data_leave_validation() {
 	return true;
 }
 
+function init_2stateButton() {
+	const btns = document.getElementsByClassName('btn-state1');
+	Array.prototype.forEach.call(btns, function (el) {
+		el.addEventListener('click', function () {
+			const btnState2 = document.getElementById(el.dataset.state2Id);
+			btnState2.classList.add('show');
+			this.classList.add('hide');
+		});
+	});
+}
+
 function init_configuration_alert() {
 	window.onsubmit = function (e) {
-		window.hasSubmit = true;
+		window.hasSubmit = data_leave_validation(document.body, e.submitter ? e.submitter.form : null);
 	};
 	window.onbeforeunload = function (e) {
 		if (window.hasSubmit) {
 			return;
 		}
-		if (!data_leave_validation()) {
+		if (!data_leave_validation(document.body)) {
 			return false;
 		}
 	};
 }
 
-function init_extra() {
+function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
 			console.log('FreshRSS extra waiting for JS…');
 		}
-		window.setTimeout(init_extra, 50);	// Wait for all js to be loaded
+		setTimeout(init_extra_afterDOM, 50);
 		return;
 	}
-	init_crypto_form();
-	init_password_observers();
-	init_select_observers();
-	init_slider_observers();
-	init_configuration_alert();
-	fix_popup_preview_selector();
+	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
+		init_crypto_form();
+		init_password_observers(document.body);
+		init_select_observers();
+		init_configuration_alert();
+		init_2stateButton();
+
+		const slider = document.getElementById('slider');
+		if (slider) {
+			slider.addEventListener('freshrss:slider-load', function (e) {
+				init_password_observers(slider);
+			});
+			init_slider(slider);
+			init_archiving(slider);
+			init_url_observers(slider);
+		} else {
+			init_archiving(document.body);
+			init_url_observers(document.body);
+		}
+	}
+
+	if (window.console) {
+		console.log('FreshRSS extra init done.');
+	}
 }
 
 if (document.readyState && document.readyState !== 'loading') {
-	init_extra();
+	init_extra_afterDOM();
 } else {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
 			console.log('FreshRSS extra waiting for DOMContentLoaded…');
 		}
-		init_extra();
+		init_extra_afterDOM();
 	}, false);
 }
 // @license-end

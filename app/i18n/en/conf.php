@@ -1,13 +1,23 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archiving',
 		'exception' => 'Purge exception',
-		'help' => 'More options are available in the individual feed\'s settings',
+		'help' => 'More options are available in the individual feed’s settings',
 		'keep_favourites' => 'Never delete favourites',
 		'keep_labels' => 'Never delete labels',
-		'keep_max' => 'Maximum number of articles to keep',
+		'keep_max' => 'Maximum number of articles to keep per feed',
 		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',
 		'keep_period' => 'Maximum age of articles to keep',
 		'keep_unreads' => 'Never delete unread articles',
@@ -22,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',
+		'darkMode' => array(
+			'_' => 'Automatic dark mode',
+			'auto' => 'Auto',
+			'help' => 'For compatible themes only',
+			'no' => 'No',
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
 			'display_authors' => 'Authors',
@@ -38,7 +54,13 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
-		'theme' => 'Theme',
+		'theme' => array(
+			'_' => 'Theme',
+			'deprecated' => array(
+				'_' => 'Deprecated',
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',
+			),
+		),
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',
 		'thumbnail' => array(
 			'label' => 'Thumbnail',
@@ -47,13 +69,34 @@ return array(
 			'portrait' => 'Portrait',
 			'square' => 'Square',
 		),
+		'timezone' => 'Time zone',
 		'title' => 'Display',
+		'website' => array(
+			'full' => 'Icon and name',
+			'icon' => 'Icon only',
+			'label' => 'Website',
+			'name' => 'Name only',
+			'none' => 'None',
+		),
 		'width' => array(
 			'content' => 'Content width',
 			'large' => 'Wide',
 			'medium' => 'Medium',
 			'no_limit' => 'Full Width',
 			'thin' => 'Narrow',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Level',
+			'message' => 'Log Message',
+			'timestamp' => 'Timestamp',
+		),
+		'pagination' => array(
+			'first' => 'First',
+			'last' => 'Last',
+			'next' => 'Next',
+			'previous' => 'Previous',
 		),
 	),
 	'profile' => array(
@@ -72,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
+		'description' => 'Description',
 		'filter' => array(
 			'_' => 'Filter applied:',
 			'categories' => 'Display by category',
 			'feeds' => 'Display by feed',
 			'order' => 'Sort by date',
 			'search' => 'Expression',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',
 			'state' => 'State',
-			'tags' => 'Display by tag',
+			'tags' => 'Display by label',
 			'type' => 'Type',
 		),
 		'get_all' => 'Display all articles',
-		'get_category' => 'Display "%s" category',
+		'get_all_labels' => 'Display articles with any label',
+		'get_category' => 'Display “%s” category',
 		'get_favorite' => 'Display favourite articles',
-		'get_feed' => 'Display "%s" feed',
+		'get_feed' => 'Display “%s” feed',
+		'get_important' => 'Display articles from important feeds',
+		'get_label' => 'Display articles with “%s” label',
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',
 		'name' => 'Name',
 		'no_filter' => 'No filter',
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
-		'search' => 'Search for "%s"',
+		'search' => 'Search for “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',
+			'help' => 'Give this link if you want to share this query with anyone',
+			'html' => 'Shareable link to the HTML page',
+			'opml' => 'Shareable link to the OPML list of feeds',
+			'rss' => 'Shareable link to the RSS feed',
+		),
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',
 		'state_2' => 'Display unread articles',
@@ -114,22 +172,63 @@ return array(
 		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',
+				'none' => 'None',
+				'with_authors' => 'In authors and date row',
+			),
+			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
+			'tags' => array(
+				'_' => 'Tags',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',
+				'help' => '0 means: show all tags and do not collapse them',
+			),
+		),
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the bottom of the page',
 		'auto_remove_article' => 'Hide articles after reading',
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Categories to unfold',
+		'headline' => array(
+			'articles' => 'Articles: Open/Close',
+			'articles_header_footer' => 'Articles: header/footer',
+			'categories' => 'Left navigation: Categories',
+			'mark_as_read' => 'Mark article as read',
+			'misc' => 'Miscellaneous',
+			'view' => 'View',
+		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
-		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
+		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',
 		'jump_next' => 'jump to next unread sibling (feed or category)',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',
 			'article_viewed' => 'when the article is viewed',
+			'focus' => 'when focused (except for important feeds)',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
-			'scroll' => 'while scrolling',
+			'scroll' => 'while scrolling (except for important feeds)',
+			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
@@ -163,7 +262,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
-		'blogotext' => 'Blogotext',
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',

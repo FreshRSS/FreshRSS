@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
@@ -23,7 +33,7 @@ return array(
 			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
 		),
-		'host' => 'Host',
+		'host' => 'Host',	// IGNORE
 		'password' => 'Datenbank-Password',
 		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
@@ -100,7 +110,10 @@ return array(
 		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
 	),
 	'congratulations' => 'Glückwunsch!',
-	'default_user' => 'Benutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
+	'default_user' => array(
+		'_' => 'Benutzername des Standardbenutzers',
+		'max_char' => 'maximal 16 alphanumerische Zeichen',
+	),
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
 	'js' => array(
@@ -119,5 +132,5 @@ return array(
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
 	'this_is_the_end' => 'Das ist das Ende',
-	'title' => 'Installation · FreshRSS',
+	'title' => 'Installation · FreshRSS',	// IGNORE
 );

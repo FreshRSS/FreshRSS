@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
@@ -9,8 +19,8 @@ return array(
 		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
 		'none' => 'Aucune (dangereux)',
 		'title' => 'Authentification',
-		'token' => 'Jeton d’identification',
-		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier :',
+		'token' => 'Jeton d’identification maître',
+		'token_help' => 'Permet d’accéder à toutes les sorties RSS de l’utilisateur et au rafraîchissement des flux sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
 		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
@@ -62,8 +72,8 @@ return array(
 		),
 		'files' => 'Installation des fichiers',
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -103,7 +113,7 @@ return array(
 	'extensions' => array(
 		'author' => 'Auteur',
 		'community' => 'Extensions utilisateur disponibles',
-		'description' => 'Description',
+		'description' => 'Description',	// IGNORE
 		'disabled' => 'Désactivée',
 		'empty_list' => 'Aucune extension installée',
 		'enabled' => 'Activée',
@@ -114,10 +124,10 @@ return array(
 			'_' => 'Extensions système',
 			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
-		'title' => 'Extensions',
+		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mise à jour disponible',
 		'user' => 'Extensions utilisateur',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
@@ -136,8 +146,8 @@ return array(
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
-		'number_entries' => '%d articles',
-		'percent_of_total' => '%% du total',
+		'number_entries' => '%d articles',	// IGNORE
+		'percent_of_total' => '% du total',
 		'repartition' => 'Répartition des articles',
 		'status_favorites' => 'favoris',
 		'status_read' => 'lus',
@@ -149,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'base-url' => array(
+			'_' => 'URL de la racine',
+			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
@@ -158,26 +172,56 @@ return array(
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(
-			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulaire d’inscription',
+				'option' => array(
+					'noform' => 'Désactivé : Pas de formulaire d’inscription',
+					'nolimit' => 'Activé : Pas de limite au nombre d’utilisateurs',
+					'setaccountsnumber' => 'Nombre d’utilisateurs limités',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulaire désactivé',
+				'enabled' => 'Formulaire activé',
+			),
+			'title' => 'Formulaire d’inscription utilisateur',
+		),
+		'sensitive-parameter' => 'Paramètre sensible. Éditez manuellement <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'non renseigné',
+			'enabled' => '<a href="./?a=tos">activées</a>',
+			'help' => 'Comment <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activer les conditions d’utilisation</a>',
+		),
+		'websub' => array(
+			'help' => 'À propos de <a href="https://freshrss.github.io/FreshRSS/fr/users/08_PubSubHubbub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
+		'changelog' => 'Journal des modifications',
 		'check' => 'Vérifier les mises à jour',
-		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
-		'last' => 'Dernière vérification : %s',
+		'copiedFromURL' => 'update.php copié depuis %s vers ./data',
+		'current_version' => 'Votre version actuelle',
+		'last' => 'Dernière vérification',
+		'loading' => 'Mise à jour en cours…',
 		'none' => 'Aucune mise à jour à appliquer',
+		'releaseChannel' => array(
+			'_' => 'Canal de publication',
+			'edge' => 'Publication continue (“edge”)',
+			'latest' => 'Publication stable (“latest”)',
+		),
 		'title' => 'Système de mise à jour',
+		'viaGit' => 'Mise à jour via git et GitHub.com démarrée',
 	),
 	'user' => array(
 		'admin' => 'Administrateur',
-		'article_count' => 'Articles',
+		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Revenir à la liste des utilisateurs',
 		'create' => 'Créer un nouvel utilisateur',
 		'database_size' => 'Volumétrie',
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'enabled' => 'Actif',
 		'feed_count' => 'Flux',
 		'is_admin' => 'Admin',

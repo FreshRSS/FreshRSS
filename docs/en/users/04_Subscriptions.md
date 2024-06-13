@@ -5,12 +5,12 @@
 3. Paste the URL in the “Feed URL” field.
 4. (optional): You can select the category for your feed. By default, it will be in “Uncategorized”.
 5. (optional): If the subscription requires credentials, you can enter them in the "HTTP username" and "HTTP password" fields.
-6. (optional): You can set a timeout for the feed request if the feed requires it.
+6. (optional): You can set a timeout for the feed request.
 7. (optional): You can choose to ignore SSL certificate errors (such as with self-signed certificates) by setting "Verify SSL security" to "No". This is not recommended, and it is better to either add the root certificate to the FreshRSS server or to fix the SSL certificate problems on the feed hosting server.
 
 ## Subscription management
 
-The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed's settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
+The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed’s settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
 
 ## Category Settings
 
@@ -33,15 +33,15 @@ This section will let you override the default settings for feed archiving and u
 
 ### Login
 
-Some feeds require a username/password submitted over HTTP. These usually aren't needed for feeds.
+Some feeds require a username/password submitted over HTTP. These usually aren’t needed for feeds.
 
 ### Advanced
 
 #### Retrieve a truncated feed from within FreshRSS
 
-This question comes up regularly, so we'll try to clarify how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not user friendly, but it works. :)
+This question comes up regularly, so we’ll try to clarify how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not user friendly, but it works. :)
 
-Please be aware that this way you'll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you'll have to fetch the full article content one by one. So it's a feature to use sparingly!
+Please be aware that this way you’ll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you’ll have to fetch the full article content one by one. So it’s a feature to use sparingly!
 
 The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
 
@@ -50,7 +50,7 @@ The  "Article CSS selector on original website" corresponds to the "path" consis
 To find this path, you have to go to the address of one of the truncated articles.
 You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
 
-Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We'll only use the `.content` class here. Nevertheless, as said above, it's best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that's perfect! The path will be ```#article .content```.
+Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We’ll only use the `.content` class here. Nevertheless, as said above, it’s best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that’s perfect! The path will be ```#article .content```.
 
 ##### Add the corresponding classes to the article CSS path on the feed configuration page
 
@@ -63,7 +63,7 @@ Examples:
 
 ##### Combining CSS Classes
 
-Let's say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
+Let’s say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
 
 ```html
 <div id="article">
@@ -78,7 +78,7 @@ Let's say we have an article which contains ads, and we do not want to have thos
 </div>
 ```
 
-In this case it's possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
+In this case it’s possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
 
 #### Retrieve a truncated feed with external tools
 
@@ -89,7 +89,7 @@ Complementary tools can be used to retrieve full article content, such as:
 
 ### Filter
 
-Articles can be automatically marked as read based on some search terms. See [filtering](./03_Main_view.md#filtering-articles) for more information on how to create these filters.
+Articles can be automatically marked as read based on some search terms. See [filtering](./10_filter.md) for more information on how to create these filters.
 
 ## Import / export
 

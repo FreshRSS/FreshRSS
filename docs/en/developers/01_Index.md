@@ -2,11 +2,11 @@
 
 ## First Steps
 
-Start by creating your development environment. A guide to setting up FreshRSS's development environment can be found on [the appropriate page](02_First_steps.md).
+Start by creating your development environment. A guide to setting up FreshRSS’s development environment can be found on [the appropriate page](02_First_steps.md).
 
 ## After That
 
-* [Github Branching and Pushing](02_Github.md)
+* [GitHub Branching and Pushing](02_GitHub.md)
 * [Running tests](03_Running_tests.md)
 * [Creating a pull request](04_Pull_requests.md)
 * [Releasing a new version](05_Release_new_version.md)
@@ -19,12 +19,15 @@ Start by creating your development environment. A guide to setting up FreshRSS's
 * [Making extensions for FreshRSS](03_Backend/05_Extensions.md)
 * [Database Schema](03_Backend/01_Database_schema.md)
 * [External libraries](03_Backend/03_External_libraries.md)
-* [Changing source code](03_Backend/04_Changing_source_code.md)
 
 ## Frontend Development
 
 * [View files](04_Frontend/01_View_files.md)
 * [Design (Themes/Theming)](04_Frontend/02_Design.md)
+
+## Namespaces
+
+* [OPML FreshRSS namespace](OPML.md)
 
 ## Minz
 

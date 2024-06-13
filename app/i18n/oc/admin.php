@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
@@ -9,8 +19,8 @@ return array(
 		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
-		'token' => 'Geton d’autentificacion',
-		'token_help' => 'Permetre l’accès a la sortida RSS de l’utilizaire per defaut sens cap d’autentificacion :',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Mòde d’autentification',
 		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
 	),
@@ -114,10 +124,10 @@ return array(
 			'_' => 'Extensions sistèma',
 			'no_rights' => 'Extensions sistèma (contrarotlat per l’administrator)',
 		),
-		'title' => 'Extensions',
+		'title' => 'Extensions',	// IGNORE
 		'update' => 'Mesa a jorn disponibla',
 		'user' => 'Extensions utilizaire',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Estatisticas',
@@ -136,12 +146,12 @@ return array(
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
 		'no_idle' => 'I a pas cap d’article inactiu !',
-		'number_entries' => '%d articles',
-		'percent_of_total' => '%% del total',
+		'number_entries' => '%d articles',	// IGNORE
+		'percent_of_total' => '% del total',
 		'repartition' => 'Reparticion dels articles',
 		'status_favorites' => 'Favorits',
 		'status_read' => 'Legit',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
@@ -149,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+		),
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
@@ -158,22 +172,52 @@ return array(
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
 		'registration' => array(
-			'help' => '0 vòl dire qu’i a pas cap de limita de compte',
 			'number' => 'Nombre max de comptes',
+			'select' => array(
+				'label' => 'Formulari d’inscripcion',
+				'option' => array(
+					'noform' => 'Desactivat : cap de formulari d’inscripcion',
+					'nolimit' => 'Activat : cap de limit de comptes',
+					'setaccountsnumber' => 'Definir lo numbre max. de comptes',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulari desactivat',
+				'enabled' => 'Formulari activat',
+			),
+			'title' => 'Formulari d’inscripcion utilizaire',
+		),
+		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'tos' => array(
+			'disabled' => 'is not given',	// TODO
+			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
+			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+		),
+		'websub' => array(
+			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
 		),
 	),
 	'update' => array(
 		'_' => 'Sistèma de mesa a jorn',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// TODO
 		'check' => 'Verificar las mesas a jorn',
-		'current_version' => 'Vòstra version actuala de FreshRSS es %s.',
-		'last' => 'Darrièra verificacion : %s',
+		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'current_version' => 'Vòstra version actuala',
+		'last' => 'Darrièra verificacion',
+		'loading' => 'Updating…',	// TODO
 		'none' => 'Cap d’actualizacion d’aplicar',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Sistèma de mesa a jorn',
+		'viaGit' => 'Update via git and GitHub.com started',	// TODO
 	),
 	'user' => array(
-		'admin' => 'Administrator',
-		'article_count' => 'Articles',
+		'admin' => 'Administrator',	// IGNORE
+		'article_count' => 'Articles',	// IGNORE
 		'back_to_manage' => '← Tornar a la lista dels utilizaires',
 		'create' => 'Crear un nòu utilizaire',
 		'database_size' => 'Talha basa de donadas',

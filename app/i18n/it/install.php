@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Installazione completata',
@@ -17,13 +27,13 @@ return array(
 		'type' => 'Metodo di autenticazione',
 	),
 	'bdd' => array(
-		'_' => 'Database',	// TODO - Translation
+		'_' => 'Database',	// IGNORE
 		'conf' => array(
 			'_' => 'Configurazione database',
 			'ko' => 'Verifica le informazioni del database.',
 			'ok' => 'Le configurazioni del database sono state salvate.',
 		),
-		'host' => 'Host',	// TODO - Translation
+		'host' => 'Host',	// IGNORE
 		'password' => 'Password del database',
 		'prefix' => 'Prefisso tabella',
 		'type' => 'Tipo di database',
@@ -61,12 +71,12 @@ return array(
 			'ok' => 'Estensione fileinfo presente.',
 		),
 		'json' => array(
-			'nok' => 'You lack a recommended library to parse JSON.',
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO - Translation
+			'nok' => 'Manca la libreria consigliata per effettuare la lettura del JSON.',
+			'ok' => 'La libreria consigliata per la lettura del JSON è presente.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO - Translation
+			'nok' => 'Impossibile trovare la libreria mbstring, consigliata per Unicode.',
+			'ok' => 'La libreria mbstring, consigliata per Unicode, è presente.',
 		),
 		'pcre' => array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
@@ -83,16 +93,16 @@ return array(
 		'reload' => 'Controlla di nuovo',
 		'tmp' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'I permessi sulla cartella temp sono corretti.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'sconosciuto',
 		'users' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella users sono corretti.',
 		),
 		'xml' => array(
-			'nok' => 'You lack the required library to parse XML.',
-			'ok' => 'You have the required library to parse XML.',	// TODO - Translation
+			'nok' => 'La libreria richiesta per leggere gli XML non è presente.',
+			'ok' => 'La libreria richiesta per leggere gli XML è presente.',
 		),
 	),
 	'conf' => array(
@@ -100,7 +110,10 @@ return array(
 		'ok' => 'Configurazioni generali salvate.',
 	),
 	'congratulations' => 'Congratulazione!',
-	'default_user' => 'Username utente predefinito <small>(massimo 16 caratteri alfanumerici)</small>',
+	'default_user' => array(
+		'_' => 'Username utente predefinito',
+		'max_char' => 'massimo 16 caratteri alfanumerici',
+	),
 	'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
 	'javascript_is_better' => 'FreshRSS funziona meglio con JavaScript abilitato',
 	'js' => array(
@@ -111,10 +124,10 @@ return array(
 		'choose' => 'Seleziona la lingua per FreshRSS',
 		'defined' => 'Lingua impostata.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Qualcosa è andato storto; sarà necessario creare manualmente un file vuoto <em>%s</em>.',
 	'ok' => 'Processo di installazione terminato con successo.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'Il server web sembra configurato in maniera non corretta riguardo i cookie richiesti per le sessioni PHP!',
 	),
 	'step' => 'Passaggio %d',
 	'steps' => 'Passaggi',

@@ -1,52 +1,51 @@
+@use "mixins";
+
+@use "variables";
+
 /* btns */
 .btn {
 	margin: 0;
 	padding: 0.5rem 1.5rem;
-	background: $grey-lighter;
-	display: inline-block;
-	color: $grey-dark;
+	background: variables.$grey-lighter;
+	color: variables.$grey-dark;
 	font-size: 1rem;
 	border: none;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 
-	@include transition(all, 0.15s, ease-in-out);
+	@include mixins.transition(all, 0.15s, ease-in-out);
 
 	&.btn-important {
-		background: $main-first;
-		color: $white;
+		background: variables.$main-first;
+		color: variables.$white;
 
-		// @include transition(all, 0.15s, ease-in-out);
 		&:hover,
 		&:active {
-			background: $main-first-alt;
+			background: variables.$main-first-alt;
+		}
+
+		img {
+			filter: brightness(3);
 		}
 	}
 
 
 	&.btn-attention {
-		background: $alert-bg;
+		background: variables.$alert-bg;
 		color: #fff;
 
 		&:hover,
 		&:active {
-			background: $alert-text;
+			background: variables.$alert-text;
 		}
 	}
 
 	&:hover {
 		text-decoration: none;
 	}
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 /*=== Forms */
@@ -66,7 +65,7 @@ label {
 	min-height: 25px;
 	padding: 5px 0;
 	cursor: pointer;
-	color: $grey-dark;
+	color: variables.$grey-dark;
 }
 
 textarea {
@@ -77,15 +76,20 @@ textarea {
 
 input, select, textarea, button {
 	padding: 5px 10px;
-	background: $white;
-	color: $grey-dark;
+	background: variables.$white;
+	color: variables.$grey-dark;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 1rem;
-	border: 1px solid $grey-light;
+	border: 1px solid variables.$grey-light;
 	border-radius: 2px;
 	min-height: 25px;
 	line-height: 25px;
 	vertical-align: middle;
+}
+
+select {
+	padding-top: 9px;
+	padding-bottom: 9px;
 }
 
 option {
@@ -93,45 +97,32 @@ option {
 }
 
 input:focus, select:focus, textarea:focus {
-	color: $main-font-color;
-	border-color: $main-first;
+	color: variables.$main-font-color;
+	border-color: variables.$main-first;
 }
 
 input:invalid, select:invalid {
-	color: $alert-bg;
-	border-color: $alert-bg;
+	color: variables.$alert-bg;
+	border-color: variables.$alert-bg;
 	box-shadow: none;
 }
 
 input:disabled, select:disabled {
-	background: $grey-light;
+	color: variables.$grey-medium-dark;
+	border-color: variables.$grey-medium-dark;
 }
-
-input.extend {
-	transition: width 200ms linear;
-}
-
 
 .form-group {
 	padding: 5px;
 	border-radius: 3px;
 
 	&::after {
-		content: "";
 		display: block;
 		clear: both;
 	}
 
-	&:hover {
-		// background: #fff;
-		// 	border: 1px solid #eee;
-		// 	border-radius: 3px;
-		// 	border: 1px solid #eee;
-	}
-
 	.group-name {
 		padding: 10px 0;
-		text-align: right;
 	}
 
 	.group-controls {
@@ -146,7 +137,6 @@ input.extend {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		// background: #333;
 	}
 
 	&.form-actions .btn {

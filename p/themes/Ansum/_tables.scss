@@ -1,19 +1,20 @@
+@use "variables";
+
 /*=== Tables */
 table {
 	border-collapse: collapse;
 }
 
-tr, th, td {
-	padding: 0.5em;
-	border: 1px solid $grey-medium-light;
+th, td {
+	border: 1px solid variables.$grey-medium-light;
 }
 
 th {
-	background: $grey-lighter;
+	background: variables.$grey-lighter;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }

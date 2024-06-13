@@ -3,5 +3,6 @@
   "author": "Thomas Guesnon",
   "description": "Thème pour FreshRSS",
   "version": 0.1,
-  "files": ["_template.css", "mapco.css"]
+  "files": ["_frss.css", "mapco.css"],
+  "theme-color": "#303136"
 }

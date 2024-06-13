@@ -1,10 +1,20 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
 			'invalid' => 'このEメールアドレスは無効です。',
-			'required' => 'このEメールアドレスは必要です。',
+			'required' => 'Eメールアドレスは必要です。',
 		),
 		'validation' => array(
 			'change_email' => 'Eメールアドレスは <a href="%s">プロフィールページで変更できます</a>.',
@@ -26,7 +36,7 @@ return array(
 		'email_need_validation' => array(
 			'body' => 'あなたは %s で登録されましたが、Eメールアドレスを確認する必要があります。このリンクに従ってください:',
 			'title' => 'あなたのアカウントを確認する必要があります',
-			'welcome' => 'ようこそ %s,',
+			'welcome' => 'ようこそ %s さん',
 		),
 	),
 	'password' => array(

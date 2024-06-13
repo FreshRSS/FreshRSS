@@ -13,9 +13,11 @@ const init_draggable_list = function () {
 	let source;
 	const draggableList = document.querySelector('.draggableList');
 	const addMarker = (position, element) => {
-		const hr = draggableList.querySelector('hr.drag-drop-marker');
-		if (null === hr) {
-			element.insertAdjacentHTML(position, '<hr class="drag-drop-marker" />');
+		if (source) {
+			const hr = draggableList.querySelector('hr.drag-drop-marker');
+			if (null === hr) {
+				element.insertAdjacentHTML(position, '<hr class="drag-drop-marker" />');
+			}
 		}
 	};
 	const removeMarker = () => {
@@ -27,8 +29,14 @@ const init_draggable_list = function () {
 
 	draggableList.addEventListener('dragstart', event => {
 		source = event.target.closest('[draggable="true"]');
-		event.dataTransfer.setData('text/html', source.outerHTML);
-		event.dataTransfer.effectAllowed = 'move';
+		if (source) {
+			const dragbox = source.closest('.dragbox');
+			if (dragbox) {
+				source = dragbox;
+			}
+			event.dataTransfer.setData('text/html', source.outerHTML);
+			event.dataTransfer.effectAllowed = 'move';
+		}
 	});
 	draggableList.addEventListener('dragover', event => {
 		event.preventDefault();
@@ -36,7 +44,11 @@ const init_draggable_list = function () {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
 		if (null === draggableItem || source === draggableItem) {
 			return;
 		}
@@ -59,8 +71,13 @@ const init_draggable_list = function () {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
-		if (null === draggableItem || source === draggableItem) {
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
+		if (!source || null === draggableItem || source === draggableItem) {
+			removeMarker();
 			return;
 		}
 

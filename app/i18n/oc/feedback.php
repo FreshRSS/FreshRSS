@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Avètz pas l’autorizacion d’accedir a aquesta pagina',
@@ -46,12 +56,12 @@ return array(
 		'removed' => '%s suprimida',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'L\'extension ZIP es pas presenta sul servidor. Volgatz ensajar d\'exportar los fichièrs un per un.',
-		'feeds_imported' => 'Vòstres fluxes son estats importats seràn actualizats en seguida',
-		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors',
+		'export_no_zip_extension' => 'L’extension ZIP es pas presenta sul servidor. Volgatz ensajar d’exportar los fichièrs un per un.',
+		'feeds_imported' => 'Vòstres fluxes son estats importats seràn actualizats en seguida / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Telecargament del fichièr impossible',
-		'no_zip_extension' => 'L\'extension es pas presenta sul servidor.',
-		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',
+		'no_zip_extension' => 'L’extension es pas presenta sul servidor.',
+		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Impossible d’actualizar vòstre perfil',
@@ -85,7 +95,7 @@ return array(
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
-			'invalid_url' => 'L\'URL <em>%s</em> es invalida',
+			'invalid_url' => 'L’URL <em>%s</em> es invalida',
 			'n_actualized' => '%s fluxes son estats actualizats',
 			'n_entries_deleted' => '%d articles son estats suprimits',
 			'no_refresh' => 'I a pas cap de flux d’actualizar…',
@@ -106,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'L’etiqueta « %s » es estada creada.',
+		'error' => 'Label could not be updated!',	// TODO
 		'name_exists' => 'Lo nom de l’etiqueta existís ja.',
 		'renamed' => 'L’etiqueta « %s » es estada renomenada en « %s ».',
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS es per èsser mes a jorn en <strong>version %s</strong>.',

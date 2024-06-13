@@ -1,3 +1,9 @@
+@use "sass:string";
+
+@use "mixins";
+
+@use "variables";
+
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
@@ -5,12 +11,9 @@
 
 /*=== Horizontal-list */
 .horizontal-list {
-	margin: 0;
 	padding: 0.1rem 0;
 
 	.item {
-		vertical-align: middle;
-
 		&:first-child {
 			padding-left: 0.5rem;
 		}
@@ -19,10 +22,16 @@
 }
 
 /*=== Dropdown */
+.dropdown {
+	.dropdown-target:target + .btn {
+		background-color: variables.$grey-medium-light;
+	}
+}
+
 .dropdown-menu {
-	margin: 0;
+	margin: 9px 0 0 0;
 	padding: 0.5rem 0 1rem 0;
-	background: $grey-lighter;
+	background: variables.$grey-lighter;
 	font-size: 1rem;
 	border: none;
 	border-radius: 3px;
@@ -30,49 +39,72 @@
 	text-align: left;
 
 	&::after {
-		background: white;
-		width: 10px;
-		height: 10px;
-		content: "";
-		position: absolute;
-		top: -4px;
-		right: 13px;
-		z-index: -10;
-		transform: rotate(45deg);
-		// border-top: 1px solid #95a5a6;
-		// border-left: 1px solid #95a5a6;
+		border: none;
+		right: 17px;
 	}
 
-	.dropdown-header {
-		// padding: 0 5px 5px;
-		margin: 1.75rem 0 0.5rem 2rem;
+	.dropdown-header,
+	.dropdown-section .dropdown-section-title {
+		padding: 1rem 1.5rem;
 		font-weight: bold;
 		text-align: left;
-		color: $grey-dark;
+		color: variables.$grey-dark;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-
-
 	}
 
 	.item {
 
-		@include transition(all, 0.075s, ease-in-out);
+		@include mixins.transition(all, 0.075s, ease-in-out);
 
-		a, span, .as-link {
+		> a,
+		> span,
+		> .as-link {
 			padding: 0 2rem;
-			color: $main-font-color;
-			font-size: 1rem;
+			color: variables.$main-font-color;
+			font-size: inherit;
 			line-height: 2.5em;
+
+			span.icon {
+				padding: 0 0.25rem !important;
+			}
 		}
 
-		&:hover {
-			background: $main-first;
-			color: $white;
+		> a,
+		> .as-link {
+			&:not(.addItem):hover {
+				background: variables.$main-first;
+				color: variables.$white;
 
-			a, button {
-				text-decoration: none;
-				color: $white;
+				.icon {
+					filter: grayscale(100%) brightness(2.5);
+				}
+			}
+		}
+
+		&.dropdown-section {
+			margin-top: 0.75rem;
+
+			~ .dropdown-section {
+				border-top-color: variables.$grey-light;
+			}
+
+			.item {
+				a, .as-link {
+					padding-left: 2rem;
+				}
+			}
+		}
+
+		&:not(.addItem) {
+			> a:hover,
+			button:hover {
+				background: variables.$main-first;
+				color: variables.$white;
+
+				.icon {
+					filter: brightness(3);
+				}
 			}
 		}
 
@@ -81,6 +113,17 @@
 				margin: 0 0 0 -14px;
 				font-weight: bold;
 			}
+		}
+
+		~ .dropdown-header {
+			margin-top: 0.75rem;
+			padding-top: 1.75rem;
+			border-top-color: variables.$grey-light;
+		}
+
+		&.separator {
+			margin-top: 0.75rem;
+			border-top-color: variables.$grey-light;
 		}
 	}
 
@@ -92,30 +135,24 @@
 		}
 	}
 
-	.separator {
-		margin: 0.75rem 0;
-		border-bottom: 1px solid $grey-light;
-		// display: none;
-	}
-
 }
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
-	// tout ça sert à restaurer l'apparence du dropdown dans un contexte de sidebar sombre
+	// to reset the appearance of the dropdown in the case of a dark sidebar
 	.item {
 		padding: 0;
 
 		a,
 		button {
-			color: $main-font-color;
+			color: variables.$main-font-color;
 
 			&:hover {
-				color: $white;
+				color: variables.$white;
 			}
 		}
 
 		&:hover {
-			background: $main-first;
+			background: variables.$main-first;
 		}
 	}
 }
@@ -125,15 +162,12 @@
 
 /*=== Alerts */
 .alert {
-	margin: 1rem 0;
-	// width: 100%;
-	padding: 1rem;
-	background: $grey-lighter;
-	color: $grey-dark;
+	background: variables.$grey-lighter;
+	color: variables.$grey-dark;
 	font-size: 1rem;
-	border: 1px solid $grey-medium;
+	border: 1px solid variables.$grey-medium;
 	border-radius: 3px;
-	text-shadow: 0 0 1px $grey-light;
+	text-shadow: 0 0 1px variables.$grey-light;
 }
 
 .alert-head {
@@ -146,68 +180,41 @@
 }
 
 .alert-warn {
-	background: $warning-light;
-	color: $warning-text;
-	border: 1px solid unquote($warning-text+'33'); // on ajoute l'opacité à la fin
+	background: variables.$warning-light;
+	color: variables.$warning-text;
+	border: 1px solid string.unquote(variables.$warning-text + '33'); // on ajoute l’opacité à la fin
 }
 
 .alert-success {
-	background: $success-light;
-	color: $success-text;
-	border: 1px solid unquote($success-text+'33');
+	background: variables.$success-light;
+	color: variables.$success-text;
+	border: 1px solid string.unquote(variables.$success-text + '33');
 }
 
 .alert-error {
-	background: $alert-light;
-	color: $alert-text;
-	border: 1px solid unquote($alert-text+'33');
+	background: variables.$alert-light;
+	color: variables.$alert-text;
+	border: 1px solid string.unquote(variables.$alert-text + '33');
 }
 
 /*=== Pagination */
 .pagination {
-	background: $grey-light;
-	color: $main-font-color;
-	font-size: 0.8em;
-	text-align: center;
+	background: variables.$grey-light;
+	color: variables.$main-font-color;
 
-	.item {
-		&.pager-current {
-			background: $sid-bg;
-			color: $grey-light;
-			font-size: 1.5em;
-			font-weight: bold;
-		}
-
-		a {
-			display: block;
-			color: $main-font-color;
-			font-style: italic;
-			line-height: 3em;
-			text-decoration: none;
-
-			&:hover {
-				background: $main-font-color;
-				color: $grey-light;
-			}
-		}
-	}
-
-	.loading,
-	a:hover.loading {
-		background: url("loader.gif") center center no-repeat #34495e;
-		font-size: 0;
+	.item a {
+		color: variables.$main-font-color;
 	}
 }
 
-.content .pagination {
-	margin: 0;
-	padding: 0;
+#load_more.loading,
+#load_more.loading:hover {
+	background: url("loader.gif") center center no-repeat #34495e;
 }
-
 
 /*=== Boxes */
 .box {
-	background: $white;
+	background: variables.$white;
 	// border: 1px solid #ddd;
 	border: none;
 	border-radius: 3px;
@@ -216,101 +223,43 @@
 	.box-title {
 		margin: 0;
 		padding: 0.5rem 0.75rem;
-		background: $grey-light;
-		color: $main-font-color;
-		// border-bottom: 1px solid #ddd;
+		background: variables.$grey-light;
+		color: variables.$main-font-color;
 		border-radius: 2px 2px 0 0;
-
-		&:hover {
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
-				}
-			}
-		}
-
-		form {
-			input {
-				width: 85%;
-			}
-
-			.dropdown {
-				float: right;
-
-				a.dropdown-toggle {
-					padding: 0;
-					// float: right;
-					border-radius: 0;
-					background-image: url(icons/more.svg);
-					background-repeat: no-repeat;
-					background-position: right 8px;
-
-					img {
-						display: none;
-					}
-				}
-			}
-		}
-
-		.configure {
-			margin-right: 4px;
-		}
 	}
 
 	.box-content {
-		// max-height: 260px;
 		padding-left: 30px;
 
 		.item {
 			padding: 0.5rem 0;
-			color: $main-font-color;
+			color: variables.$main-font-color;
 			font-size: 1rem;
-			border-bottom: 1px solid $grey-light;
+			border-bottom: 1px solid variables.$grey-light;
 			line-height: 1.7em;
-
-			img {
-				margin-right: 0.75rem;
-			}
-
-			.configure {
-				background: url("icons/cog.svg") no-repeat 4px 4px;
-				display: block;
-				float: left;
-				width: 1.75rem;
-				height: 1.75rem;
-				border-radius: 2px;
-				margin-right: 0.5rem;
-
-				.icon {
-					display: none;
-					border-radius: 3px;
-					vertical-align: middle;
-				}
-
-				&:hover {
-					// background: $main-first;
-					background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
-				}
-			}
-
 		}
 
 		.item:last-child {
 			border-bottom: none;
+		}
+	}
+
+	.configure {
+		margin-right: 0.5rem;
+		padding: 0.25rem;
+		border-radius: 3px;
+
+		.icon {
+			vertical-align: middle;
+		}
+
+		&:hover {
+			border-radius: 2px;
+			background-color: variables.$main-first;
+
+			.icon {
+				filter: brightness(3);
+			}
 		}
 	}
 }
@@ -319,17 +268,17 @@
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
-	background: $main-first-light;
-	color: $main-first;
+	background: variables.$main-first-light;
+	color: variables.$main-first;
 
-	@include transition(all, 0.15s, ease-in-out);
+	@include mixins.transition(all, 0.15s, ease-in-out);
 
 	&:hover {
-		background: $main-first;
+		background: variables.$main-first;
 		color: #fff;
 
 		.bigTick {
-			background: url(icons/tick-white.svg) center no-repeat;
+			filter: brightness(7);
 		}
 	}
 
@@ -341,50 +290,5 @@
 		height: 64px;
 		text-indent: -9999px;
 		white-space: nowrap;
-	}
-}
-
-// page de login
-.formLogin {
-	background: $sid-bg;
-
-	.header {
-		.configure {
-			padding-right: 1rem;
-
-			img {
-				margin-right: 0.5rem;
-			}
-
-			a.signin {
-				color: $white;
-			}
-		}
-	}
-
-	h1 {
-		color: $white;
-	}
-
-	form#crypto-form {
-		div {
-			margin-bottom: 1rem;
-
-			label {
-				color: $grey-medium;
-				font-size: 1rem;
-
-
-			}
-
-			input {
-				background: $main-first-darker;
-
-				&:focus {
-					background: $grey-lighter;
-					color: $main-font-color;
-				}
-			}
-		}
 	}
 }

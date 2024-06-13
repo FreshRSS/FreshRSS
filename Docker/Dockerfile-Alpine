@@ -1,12 +1,14 @@
-FROM alpine:3.15
+FROM alpine:3.20
 
 ENV TZ UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
 RUN apk add --no-cache \
-	apache2 php8-apache2 \
-	php8 php8-curl php8-gmp php8-intl php8-mbstring php8-xml php8-zip \
-	php8-ctype php8-dom php8-fileinfo php8-iconv php8-json php8-opcache php8-phar php8-session php8-simplexml php8-xmlreader php8-xmlwriter php8-tokenizer php8-zlib \
-	php8-pdo_sqlite php8-pdo_mysql php8-pdo_pgsql
+	tzdata \
+	apache2 php-apache2 \
+	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
+	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
+	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -15,7 +17,6 @@ COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
-ARG SOURCE_BRANCH
 ARG SOURCE_COMMIT
 
 LABEL \
@@ -23,7 +24,7 @@ LABEL \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
-	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
 	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
 	org.opencontainers.image.title="FreshRSS" \
 	org.opencontainers.image.url="https://freshrss.org/" \
@@ -38,7 +39,6 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php8 /usr/bin/php; else true; fi && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \
@@ -49,12 +49,15 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 ENV COPY_LOG_TO_SYSLOG On
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV DATA_PATH ''
 ENV FRESHRSS_ENV ''
 ENV LISTEN ''
+ENV OIDC_ENABLED ''
+ENV TRUSTED_PROXY ''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')

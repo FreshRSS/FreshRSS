@@ -6,10 +6,10 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 
 | Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
 | --------         | -----------                                                                                                    | ---------------------          |
-| Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
-| PHP              | **PHP 7+**                                                                                                     |                                |
+| Serveur web      | **Apache 2.4+**                                                                                                | nginx, lighttpd                |
+| PHP              | **PHP 7.4+**                                                                                                   |                                |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
-| Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+, PostgreSQL 9.5+   |
+| Base de données  | **PostgreSQL 9.5+** | SQLite, MySQL 5.5.3+, MariaDB 5.5+ |
 | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
@@ -26,7 +26,7 @@ Cette version sort lorsqu’on considère qu’on a répondu à nos objectifs en
 
 [Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/edge.zip)
 
-Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur Github (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/edge.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
+Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur GitHub (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/edge.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
 
 ## Installation sur Apache
 
@@ -88,7 +88,7 @@ Comme son nom l’indique, il s’agit de la version sur laquelle les développe
 
 Voici un fichier de configuration pour nginx. Il couvre la configuration pour HTTP, HTTPS, et PHP.
 
-_Vous pourrez trouver d’autres fichiers de configuration plus simples mais ces derniers ne seront peut-être pas compatibles avec l’API FreshRSS._
+*Vous pourrez trouver d’autres fichiers de configuration plus simples mais ces derniers ne seront peut-être pas compatibles avec l’API FreshRSS.*
 
 ```nginx
 server {
@@ -115,11 +115,11 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
-		# REMARQUE : l'utilisation de la variable $path_info est requis. Pour plus de détails, voir :
+		# REMARQUE : l’utilisation de la variable $path_info est requis. Pour plus de détails, voir :
 		# https://trac.nginx.org/nginx/ticket/321
 		set $path_info $fastcgi_path_info;
 		fastcgi_param PATH_INFO $path_info;

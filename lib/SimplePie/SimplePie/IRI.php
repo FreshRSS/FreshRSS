@@ -263,9 +263,9 @@ class SimplePie_IRI
 	 *
 	 * Returns false if $base is not absolute, otherwise an IRI.
 	 *
-	 * @param IRI|string $base (Absolute) Base IRI
-	 * @param IRI|string $relative Relative IRI
-	 * @return IRI|false
+	 * @param SimplePie_IRI|string $base (Absolute) Base IRI
+	 * @param SimplePie_IRI|string $relative Relative IRI
+	 * @return SimplePie_IRI|false
 	 */
 	public static function absolutize($base, $relative)
 	{

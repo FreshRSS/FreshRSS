@@ -5,7 +5,7 @@
 function initCharts() {
 	if (!window.Chart) {
 		if (window.console) {
-			console.log('FreshRSS is waiting for Chart.js...');
+			console.log('FreshRSS is waiting for Chart.js…');
 		}
 		window.setTimeout(initCharts, 25);
 		return;
@@ -27,7 +27,7 @@ function initCharts() {
 				chartConfig = jsonChartDoughnut(jsonDataParsed.labels, jsonDataParsed.data);
 				break;
 			case 'barWithAverage':
-				chartConfig = jsonChartBarWithAvarage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart,
+				chartConfig = jsonChartBarWithAverage(jsonDataParsed.labelBarChart, jsonDataParsed.dataBarChart,
 					jsonDataParsed.labelAverage, jsonDataParsed.dataAverage, jsonDataParsed.xAxisLabels);
 		}
 
@@ -47,10 +47,10 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 		data: {
 			labels: xAxisLabels,
 			datasets: [{
-				label: label,
+				label,
 				backgroundColor: '#0062BD',
 				borderColor: '#0062BD',
-				data: data,
+				data,
 				barPercentage: 1.0,
 				categoryPercentage: 1.0,
 				order: 2,
@@ -80,7 +80,7 @@ function jsonChartDoughnut(labels, data) {
 	return {
 		type: 'doughnut',
 		data: {
-			labels: labels,
+			labels,
 			datasets: [{
 				backgroundColor: [
 					'#0b84a5', // petrol
@@ -97,7 +97,7 @@ function jsonChartDoughnut(labels, data) {
 					'#ffa056', // orange
 					'#8dddd0', // turkis
 				],
-				data: data,
+				data,
 			}],
 		},
 		options: {
@@ -114,7 +114,7 @@ function jsonChartDoughnut(labels, data) {
 	};
 }
 
-function jsonChartBarWithAvarage(labelBarChart, dataBarChart, labelAverage, dataAverage, xAxisLabels = '') {
+function jsonChartBarWithAverage(labelBarChart, dataBarChart, labelAverage, dataAverage, xAxisLabels = '') {
 	return {
 		type: 'bar',
 		data: {

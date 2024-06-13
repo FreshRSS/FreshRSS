@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Archivage',
@@ -7,11 +17,11 @@ return array(
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_favourites' => 'Ne jamais supprimer les articles favoris',
 		'keep_labels' => 'Ne jamais supprimer les articles étiquetés',
-		'keep_max' => 'Nombre maximum d’articles à conserver',
+		'keep_max' => 'Nombre maximum d’articles à conserver par flux',
 		'keep_min_by_feed' => 'Nombre minimum d’articles à conserver par flux',
 		'keep_period' => 'Âge maximum des articles à conserver',
 		'keep_unreads' => 'Ne jamais supprimer les articles non lus',
-		'maintenance' => 'Maintenance',
+		'maintenance' => 'Maintenance',	// IGNORE
 		'optimize' => 'Optimiser la base de données',
 		'optimize_help' => 'À faire de temps en temps pour réduire la taille de la BDD',
 		'policy' => 'Politique de nettoyage',
@@ -22,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'darkMode' => array(
+			'_' => 'Mode sombre automatique',
+			'auto' => 'Auto',	// IGNORE
+			'help' => 'Seulement pour les thèmes compatibles',
+			'no' => 'Non',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -38,22 +54,49 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
-		'theme' => 'Thème',
-		'theme_not_available' => 'Le thème “%s” n’est plus disponible. Veuillez choisir un autre thème.',
+		'theme' => array(
+			'_' => 'Thème',
+			'deprecated' => array(
+				'_' => 'Obsolète',
+				'description' => 'Ce thème est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/fr/users/05_Configuration.html#th%C3%A8me" target="_blank">future version de FreshRSS</a>',
+			),
+		),
+		'theme_not_available' => 'Le thème <em>%s</em> n’est plus disponible. Veuillez choisir un autre thème.',
 		'thumbnail' => array(
 			'label' => 'Miniature',
 			'landscape' => 'Paysage',
 			'none' => 'Sans',
-			'portrait' => 'Portrait',
+			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Carrée',
 		),
+		'timezone' => 'Fuseau horaire',
 		'title' => 'Affichage',
+		'website' => array(
+			'full' => 'Icône et nom',
+			'icon' => 'Icône seulement',
+			'label' => 'Site Web',
+			'name' => 'Nom seulement',
+			'none' => 'Aucun',
+		),
 		'width' => array(
 			'content' => 'Largeur du contenu',
-			'large' => 'Large',
+			'large' => 'Large',	// IGNORE
 			'medium' => 'Moyenne',
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Niveau de sévérité',
+			'message' => 'Message de journal',
+			'timestamp' => 'Horodatage',
+		),
+		'pagination' => array(
+			'first' => 'Début',
+			'last' => 'Fin',
+			'next' => 'Suivant',
+			'previous' => 'Précédent',
 		),
 	),
 	'profile' => array(
@@ -63,7 +106,7 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email' => 'Adresse email',
+		'email' => 'adresse électronique',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -72,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
+		'description' => 'Description',	// IGNORE
 		'filter' => array(
 			'_' => 'Filtres appliqués :',
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
-			'search' => 'Expression',
+			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
+			'shareRss' => 'Active le partage par HTML &amp; RSS',
 			'state' => 'État',
 			'tags' => 'Afficher par étiquette',
-			'type' => 'Type',
+			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
-		'get_category' => 'Afficher la catégorie "%s"',
+		'get_all_labels' => 'Afficher les articles avec une étiquette',
+		'get_category' => 'Afficher la catégorie <em>%s<em>',
 		'get_favorite' => 'Afficher les articles favoris',
-		'get_feed' => 'Afficher le flux "%s"',
+		'get_feed' => 'Afficher le flux <em>%s</em>',
+		'get_important' => 'Afficher les articles des flux importants',
+		'get_label' => 'Afficher les articles avec l’étiquette “%s”',
+		'help' => 'Voir la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation pour les filtres utilisateurs et repartage par HTML / RSS / OPML</a>.',
+		'image_url' => 'URL de l’image',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
-		'search' => 'Recherche de "%s"',
+		'search' => 'Recherche de « %s »',
+		'share' => array(
+			'_' => 'Partager ce filtre par lien',
+			'help' => 'Donner ce lien pour partager le contenu du filtre avec d’autres personnes',
+			'html' => 'Lien partageable de la page HTML',
+			'opml' => 'Lien partageable de la liste des flux au format OPML',
+			'rss' => 'Lien partageable du flux RSS',
+		),
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',
@@ -112,24 +170,65 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Lecture',
-		'after_onread' => 'Après “marquer tout comme lu”,',
+		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs et date',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'feed_name' => array(
+				'above_title' => 'Au-dessus du titre',
+				'none' => 'Caché',
+				'with_authors' => 'Sur la ligne « Auteurs et date »',
+			),
+			'feed_title' => 'Titre du flux',
+			'icons' => array(
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
+				'above_title' => 'Au dessus du titre',
+				'with_authors' => 'Sur la ligne auteur et date',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre maximum de tags affichés',
+				'help' => '0 pour afficher tous les tags sans menu déroulant',
+			),
+		),
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
-		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
+		'confirm_enabled' => 'Afficher une confirmation lors des actions « Marquer tout comme lu »',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Catégories à déplier',
-		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
-		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
+		'headline' => array(
+			'articles' => 'Articles : ouverture/fermeture',
+			'articles_header_footer' => 'Articles : en-tête / pied d’article',
+			'categories' => 'Navigation de gauche : catégories',
+			'mark_as_read' => 'Marquer les articles comme lus',
+			'misc' => 'Divers',
+			'view' => 'Vue',
+		),
+		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
+		'img_with_lazyload' => 'Utiliser le mode <em>chargement différé</em> pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',
 			'article_viewed' => 'lorsque l’article est affiché',
+			'focus' => 'lorsque l’article est sélectionné (sauf pour les flux importants)',
 			'keep_max_n_unread' => 'Nombre maximum d’articles conservés non lus',
-			'scroll' => 'au défilement de la page',
+			'scroll' => 'au défilement de la page (sauf pour les flux importants)',
+			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
 			'when_same_title' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents',
@@ -163,20 +262,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
-		'facebook' => 'Facebook',
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Plus d’informations',
-		'print' => 'Print',
-		'raindrop' => 'Raindrop.io',
+		'print' => 'Imprimer',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Supprimer la méthode de partage',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nom du partage à afficher',
 		'share_url' => 'URL du partage à utiliser',
 		'title' => 'Partage',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Raccourcis',
@@ -194,7 +293,7 @@ return array(
 		'load_more' => 'Charger plus d’articles',
 		'mark_favorite' => 'Basculer l’indicateur de favori',
 		'mark_read' => 'Basculer l’indicateur de lecture',
-		'navigation' => 'Navigation',
+		'navigation' => 'Navigation',	// IGNORE
 		'navigation_help' => 'Avec le modificateur <kbd>⇧ Maj</kbd>, les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur <kbd>Alt ⎇</kbd>, les raccourcis de navigation s’appliquent aux catégories.',
 		'navigation_no_mod_help' => 'Les raccourcis suivant ne supportent pas les modificateurs.',
 		'next_article' => 'Passer à l’article suivant',
@@ -216,7 +315,7 @@ return array(
 		'views' => 'Vues',
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',
+		'articles_and_size' => '%s articles (%s)',	// IGNORE
 		'current' => 'Utilisateur actuel',
 		'is_admin' => 'est administrateur',
 		'users' => 'Utilisateurs',

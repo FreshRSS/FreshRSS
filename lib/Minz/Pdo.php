@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
@@ -6,28 +7,44 @@
  */
 
 abstract class Minz_Pdo extends PDO {
-	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
+	/**
+	 * @param array<int,int|string|bool>|null $options
+	 * @throws PDOException
+	 */
+	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	}
 
-	abstract public function dbType();
+	abstract public function dbType(): string;
 
-	private $prefix = '';
-	public function prefix() { return $this->prefix; }
-	public function setPrefix($prefix) { $this->prefix = $prefix; }
+	private string $prefix = '';
+	public function prefix(): string {
+		return $this->prefix;
+	}
+	public function setPrefix(string $prefix): void {
+		$this->prefix = $prefix;
+	}
 
-	private function autoPrefix($sql) {
+	private function autoPrefix(string $sql): string {
 		return str_replace('`_', '`' . $this->prefix, $sql);
 	}
 
-	protected function preSql($statement) {
-		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
+	protected function preSql(string $statement): string {
+		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement) === 1) {
 			invalidateHttpCache();
 		}
 		return $this->autoPrefix($statement);
 	}
 
+	// PHP8+: PDO::lastInsertId(?string $name = null): string|false
+	/**
+	 * @param string|null $name
+	 * @return string|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 */
+	#[\Override]
+	#[\ReturnTypeWillChange]
 	public function lastInsertId($name = null) {
 		if ($name != null) {
 			$name = $this->preSql($name);
@@ -35,18 +52,44 @@ abstract class Minz_Pdo extends PDO {
 		return parent::lastInsertId($name);
 	}
 
-	public function prepare($statement, $driver_options = array()) {
-		$statement = $this->preSql($statement);
-		return parent::prepare($statement, $driver_options);
+	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
+	/**
+	 * @param string $query
+	 * @param array<int,string> $options
+	 * @return PDOStatement|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @phpstan-ignore method.childParameterType, throws.unusedType
+	 */
+	#[\Override]
+	#[\ReturnTypeWillChange]
+	public function prepare($query, $options = []) {
+		$query = $this->preSql($query);
+		return parent::prepare($query, $options);
 	}
 
+	// PHP8+: PDO::exec(string $statement): int|false
+	/**
+	 * @param string $statement
+	 * @return int|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @phpstan-ignore throws.unusedType
+	 */
+	#[\Override]
+	#[\ReturnTypeWillChange]
 	public function exec($statement) {
 		$statement = $this->preSql($statement);
 		return parent::exec($statement);
 	}
 
-	public function query($query, $fetch_mode = null, ...$fetch_mode_args) {
+	/**
+	 * @return PDOStatement|false
+	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @phpstan-ignore throws.unusedType
+	 */
+	#[\Override]
+	#[\ReturnTypeWillChange]
+	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args) {
 		$query = $this->preSql($query);
-		return $fetch_mode ? parent::query($query, $fetch_mode, ...$fetch_mode_args) : parent::query($query);
+		return $fetch_mode === null ? parent::query($query) : parent::query($query, $fetch_mode, ...$fetch_mode_args);
 	}
 }
