@@ -20,6 +20,7 @@ declare(strict_types=1);
  * @property array<string,int> $limits
  * @property-read string $logo_html
  * @property-read string $meta_description
+ * @property-read int $nb_parallel_refresh
  * @property-read bool $pubsubhubbub_enabled
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
@@ -29,9 +30,13 @@ declare(strict_types=1);
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 
-	/** @throws Minz_ConfigurationNamespaceException */
+	/** @throws Minz_FileNotExistException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
-		return parent::get('system');
+		try {
+			return parent::get('system');
+		} catch (Minz_ConfigurationNamespaceException $ex) {
+			FreshRSS::killApp($ex->getMessage());
+		}
 	}
 }

@@ -12,17 +12,17 @@
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Permitir a leitura anónima dos artigos pelo usuário padrão (%s)',
-		'allow_anonymous_refresh' => 'Permitir atualização anónima dos artigos',
+		'allow_anonymous' => 'Permitir a leitura anônima dos artigos pelo usuário padrão (%s)',
+		'allow_anonymous_refresh' => 'Permitir atualização anônima dos artigos',
 		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis)</small>',
 		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
 		'http' => 'HTTP (Para usuários avançados com HTTPS)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
-		'token' => 'Token de autenticação ',
-		'token_help' => 'Permitir acesso a saída RSS para o usuário padrão sem autenticação',
+		'token' => 'Token de autenticação principal',
+		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
-		'unsafe_autologin' => 'Permitir login automática insegura usando o seguinte formato: ',
+		'unsafe_autologin' => 'Permitir login automático inseguro usando o seguinte formato: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -154,14 +154,14 @@ return array(
 		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
-		'top_feed' => 'Top10 feeds',
+		'top_feed' => 'Top10 Feeds',
 	),
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendação automática: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
@@ -177,8 +177,8 @@ return array(
 				'label' => 'Formulário de Registro',
 				'option' => array(
 					'noform' => 'Desativado: Sem formulário de registro',
-					'nolimit' => 'Atividado: Sem limites de contas',
-					'setaccountsnumber' => 'Definir o máximo de número de contas',
+					'nolimit' => 'Ativado: Sem limites de contas',
+					'setaccountsnumber' => 'Definir o máximo número de contas',
 				),
 			),
 			'status' => array(
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'Formulário de Cadastro de Usuário',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Parâmetro sensível. Edite manualmente em <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'não fornecido',
+			'enabled' => '<a href="./?a=tos">está ativado</a>',
+			'help' => 'Como <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">habilitar os Termos de Serviço</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Sobre <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Atualização do sistema',
 		'apply' => 'Aplicar',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Registro de alterações',
 		'check' => 'Buscar por novas atualizações',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php copiado de %s para ./data',
 		'current_version' => 'Sua versão',
 		'last' => 'Última verificação',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Atualizando…',
 		'none' => 'Nenhuma atualização para se aplicar',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Canal de Release',
+			'edge' => 'Release contínua (“edge”)',
+			'latest' => 'Release estável (“latest”)',
 		),
 		'title' => 'Sistema de atualização',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Atualização via git e GitHub.com iniciada',
 	),
 	'user' => array(
 		'admin' => 'Administrador',

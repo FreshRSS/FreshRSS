@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
-		'token' => '인증 토큰',
-		'token_help' => '기본 사용자의 RSS에 인증 없이 접근할 수 있도록 합니다:',
+		'token' => '마스터 인증 토큰',
+		'token_help' => '인증 없이 사용자의 모든 RSS 내용과 피드 새로고침 권한을 허용합니다.:',
 		'type' => '인증',
 		'unsafe_autologin' => '다음과 같은 안전하지 않은 방식의 로그인을 허가합니다: ',
 	),
@@ -160,8 +160,8 @@ return array(
 		'_' => '시스템 설정',
 		'auto-update-url' => '자동 업데이트 서버 URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => '자동 추천: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => '초',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => '사용자 회원가입 양식',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Sensitive parameter. <kbd>./data/config.php</kbd>에서 직접 수정',	// DIRTY
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => '주어지지 않음',
+			'enabled' => '<a href="./?a=tos">활성화됨</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">이용 약관 활성화</a> 하는 방법',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a> 살펴보기',
 		),
 	),
 	'update' => array(
 		'_' => '업데이트',
 		'apply' => '업데이트 적용하기',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => '변경사항',
 		'check' => '새 업데이트 확인하기',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php가 %s 에서 ./data 으로 복사됨',
 		'current_version' => '현버전은 입니다',
 		'last' => '마지막 확인',
-		'loading' => 'Updating…',	// TODO
+		'loading' => '업데이트 중…',
 		'none' => '적용 가능한 업데이트가 없습니다',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => '릴리즈 채널',
+			'edge' => '롤링 릴리즈 (“edge”)',
+			'latest' => '안정 릴리즈 (“latest”)',
 		),
 		'title' => '업데이트',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',
 	),
 	'user' => array(
 		'admin' => '관리자',

@@ -7,7 +7,7 @@ volumes:
 services:
 
   traefik:
-    image: traefik:2.10
+    image: traefik:3.0
     container_name: traefik
     restart: unless-stopped
     logging:

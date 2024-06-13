@@ -27,60 +27,32 @@
 		</div>
 	</form>
 
-	<h2><?= _t('sub.title.rename_label') ?></h2>
-	<?php
-	$disabled = '';
-	if (count($this->tags) < 1) {
-		$disabled = ' disabled="disabled"';
-	} ?>
-	<form id="rename_tag" method="post" action="<?= _url('tag', 'rename') ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<label class="group-name" for="id_tag"><?= _t('sub.tag.old_name') ?></label>
-			<div class="group-controls">
-				<select name="id_tag" id="id_tag"<?= $disabled?>>
-					<?php foreach ($this->tags as $tag): ?>
-						<option value="<?= $tag->id() ?>"><?= $tag->name() ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="group-name" for="rename_new_name"><?= _t('sub.tag.new_name') ?></label>
-			<div class="group-controls">
-				<input id="rename_new_name" name="name" type="text" autocomplete="off"<?= $disabled?>/>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<?php if (!$disabled) { ?>
-				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.rename') ?></button>
-				<?php } ?>
-			</div>
-		</div>
-	</form>
-
-	<h2><?= _t('sub.title.delete_label') ?></h2>
-	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete') ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<label class="group-name" for="id_tag_delete"><?= _t('sub.tag.name') ?></label>
-			<div class="group-controls">
-				<select name="id_tag" id="id_tag_delete"<?= $disabled?>>
-					<?php foreach ($this->tags as $tag): ?>
-						<option value="<?= $tag->id() ?>"><?= $tag->name() ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<?php if (!$disabled) { ?>
-				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
-				<?php } ?>
-			</div>
-		</div>
-	</form>
+	<?php if (count($this->tags) > 0): ?>
+	<h2><?= _t('gen.action.manage') ?></h2>
+	<ul id="tagsList" <?= (count($this->tags) > 11) ? 'class="listInColumns"' : '' ?>>
+	<?php foreach ($this->tags as $tag): ?>
+		<li>
+			<a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>" class="configure open-slider" title="<?= _t('gen.action.manage') ?>">
+				<?= _i('configure') ?>
+			</a>
+			<?= $tag->name() ?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+	<?php endif; ?>
 </main>
+
+<?php $class = isset($this->tag) ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->tag)) {
+				$this->renderHelper('tag/update');
+			}
+		?>
+	</div>
+</aside>
+<a href="#" id="close-slider">
+	<?= _i('close') ?>
+</a>

@@ -8,14 +8,19 @@
 >
 	<channel>
 		<title><?= $this->rss_title ?></title>
-		<link><?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_NOQUOTES, 'UTF-8') : Minz_Url::display('', 'html', true) ?></link>
-		<description><?= _t('index.feed.rss_of', $this->rss_title) ?></description>
+		<link><?= $this->html_url ?></link>
+		<description><?= $this->description ?: _t('index.feed.rss_of', $this->rss_title) ?></description>
 		<pubDate><?= date('D, d M Y H:i:s O') ?></pubDate>
 		<lastBuildDate><?= gmdate('D, d M Y H:i:s') ?> GMT</lastBuildDate>
-		<atom:link href="<?= $this->internal_rendering ? htmlspecialchars($this->rss_url, ENT_COMPAT, 'UTF-8') :
-			Minz_Url::display($this->rss_url, 'html', true) ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?= $this->rss_url ?>" rel="self" type="application/rss+xml" />
+		<?php if ($this->image_url !== ''): ?>
+		<image>
+			<url><?= $this->image_url ?></url>
+			<title><?= $this->rss_title ?></title>
+			<link><?= $this->html_url ?></link>
+		</image>
+		<?php endif; ?>
 <?php
-/** @var FreshRSS_Entry */
 foreach ($this->entries as $item) {
 	if (!$this->internal_rendering) {
 		/** @var FreshRSS_Entry */
@@ -41,28 +46,48 @@ foreach ($this->entries as $item) {
 						echo "\t\t\t", '<category>', $category, '</category>', "\n";
 					}
 				}
+
+				$enclosures = iterator_to_array($item->enclosures(false));
 				$thumbnail = $item->thumbnail(false);
 				if (!empty($thumbnail['url'])) {
 					// https://www.rssboard.org/media-rss#media-thumbnails
 					echo "\t\t\t", '<media:thumbnail url="' . $thumbnail['url']
 						. (empty($thumbnail['width']) ? '' : '" width="' . $thumbnail['width'])
 						. (empty($thumbnail['height']) ? '' : '" height="' . $thumbnail['height'])
-						. (empty($thumbnail['type']) ? '' : '" type="' . $thumbnail['type'])
+						. (empty($thumbnail['time']) ? '' : '" time="' . $thumbnail['time'])
 						. '" />', "\n";
+					// Mostly for MailChimp + Feedbro which do not support <media:thumbnail> https://mailchimp.com/help/rss-merge-tags/
+					$thumbnail['medium'] ??= 'image';
+					array_unshift($enclosures, $thumbnail);
 				}
-				$enclosures = $item->enclosures(false);
-				if (is_iterable($enclosures)) {
-					foreach ($enclosures as $enclosure) {
-						// https://www.rssboard.org/media-rss
-						echo "\t\t\t", '<media:content url="' . $enclosure['url']
-							. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
-							. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
-							. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
-							. '">'
-							. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
-							. (empty($enclosure['credit']) ? '' : '<media:credit>' . $enclosure['credit'] . '</media:credit>')
-							. '</media:content>', "\n";
+
+				$urls = [];
+				foreach ($enclosures as $enclosure) {
+					if (empty($enclosure['url']) || isset($urls[$enclosure['url']])) {
+						continue;
 					}
+					$urls[$enclosure['url']] = true;
+
+					$credits = $enclosure['credit'] ?? [];
+					if (!is_array($credits)) {	// For entries < FreshRSS 1.24
+						$credits = [$credits];
+					}
+					$mediaCredits = '';
+					foreach ($credits as $credit) {
+						$mediaCredits = '<media:credit>' . $credit . '</media:credit>';
+					}
+
+					// https://www.rssboard.org/media-rss
+					echo "\t\t\t", '<media:content url="' . $enclosure['url']
+						. (empty($enclosure['medium']) ? '' : '" medium="' . $enclosure['medium'])
+						. (empty($enclosure['type']) ? '' : '" type="' . $enclosure['type'])
+						. (empty($enclosure['length']) ? '' : '" length="' . $enclosure['length'])
+						. (empty($enclosure['height']) ? '' : '" height="' . $enclosure['height'])
+						. (empty($enclosure['width']) ? '' : '" width="' . $enclosure['width'])
+						. '">'
+						. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
+						. $mediaCredits
+						. '</media:content>', "\n";
 				}
 			?>
 			<description><![CDATA[<?php

@@ -2,15 +2,18 @@
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
+	$class = '';
+	$dir = '';
+	if (_t('gen.dir') === 'rtl') {
+		$dir = ' dir="rtl"';
+		$class = 'rtl ';
+	}
+	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
+		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+	}
 ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::userConf()->language ?>" xml:lang="<?= FreshRSS_Context::userConf()->language ?>"<?php
-$class = '';
-if (_t('gen.dir') === 'rtl') {
-	echo ' dir="rtl"';
-	$class = 'rtl ';
-}
-?> class="<?= $class ?><?= (FreshRSS_Context::userConf()->darkMode === 'no') ? '' : 'darkMode_' . FreshRSS_Context::userConf()->darkMode ?>">
+<html lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= $class ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -38,6 +41,8 @@ if (_t('gen.dir') === 'rtl') {
 	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
+		$url_rss['params']['user'] = Minz_User::name() ?? '';
+		$url_rss['params']['token'] = FreshRSS_Context::userConf()->token;
 		unset($url_rss['params']['rid']);
 		if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
 			$url_rss['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
@@ -47,6 +52,8 @@ if (_t('gen.dir') === 'rtl') {
 <?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
 		$opml_rss = $url_base;
 		$opml_rss['a'] = 'opml';
+		$opml_rss['params']['user'] = Minz_User::name() ?? '';
+		$opml_rss['params']['token'] = FreshRSS_Context::userConf()->token;
 		unset($opml_rss['params']['rid']);
 ?>
 		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />

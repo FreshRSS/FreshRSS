@@ -10,19 +10,28 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0.
+	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0,
+	 * and perform checks for several git errors.
+	 * @throws Minz_Exception
 	 */
 	public static function migrateToGitEdge(): bool {
-		$errorMessage = 'Error during git checkout to edge branch. Please change branch manually!';
-
 		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception('Error during git checkout: .git directory does not seem writeable! ' .
+				'Please git pull manually!');
+		}
+
+		exec('git --version', $output, $return);
+		if ($return != 0) {
+			throw new Minz_Exception("Error {$return} git not found: Please update manually!");
 		}
 
 		//Note `git branch --show-current` requires git 2.22+
-		exec('git symbolic-ref --short HEAD', $output, $return);
+		exec('git symbolic-ref --short HEAD 2>&1', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git symbolic-ref: " .
+				'Reapply `chown www-data:www-data -R ' . FRESHRSS_PATH . '` ' .
+				'or git pull manually! ' .
+				json_encode($output, JSON_UNESCAPED_SLASHES));
 		}
 		$line = implode('', $output);
 		if ($line !== 'master' && $line !== 'dev') {
@@ -33,13 +42,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		unset($output);
 		exec('git checkout edge --guess -f', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git checkout to edge branch! ' .
+				'Please change branch manually!");
 		}
 
 		unset($output);
 		exec('git reset --hard FETCH_HEAD', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git reset! Please git pull manually!");
 		}
 
 		return true;
@@ -64,6 +74,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		chdir(FRESHRSS_PATH);
 		$output = [];
 		try {
+			/** @throws ValueError */
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
 				$output = [];
@@ -72,7 +83,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$line = implode('; ', $output);
 				Minz_Log::warning('git fetch warning: ' . $line);
 			}
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('git fetch error: ' . $e->getMessage());
 		}
 		chdir($cwd);
@@ -101,11 +112,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			$output = [];
 			self::migrateToGitEdge();
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('Git error: ' . $e->getMessage());
-			if (empty($output)) {
-				$output = $e->getMessage();
-			}
+			$output = $e->getMessage();
 			$return = 1;
 		}
 		chdir($cwd);
@@ -113,6 +122,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
 
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
@@ -141,7 +151,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if ($version == '') {
 				$version = 'unknown';
 			}
-			if (touch(FRESHRSS_PATH . '/index.html')) {
+			if (@touch(FRESHRSS_PATH . '/index.html')) {
 				$this->view->update_to_apply = true;
 				$this->view->message = [
 					'status' => 'good',
@@ -266,7 +276,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$res = !self::hasGitUpdate();
 			} else {
 				require(UPDATE_FILENAME);
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore function.notFound
 				$res = do_post_update();
 			}
 
@@ -289,12 +299,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			} else {
 				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					save_info_update();
 				}
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore function.notFound
 				if (!need_info_update()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					$res = apply_update();
 				} else {
 					return;

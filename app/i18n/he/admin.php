@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
-		'token' => 'מחרוזת אימות',
-		'token_help' => 'Allows to access RSS output of the default user without authentication:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'שיטת אימות',
 		'unsafe_autologin' => 'הרשאה להתחברות אוטומטית בפורמט: ',
 	),
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'מערכת העדכון',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Update via git and GitHub.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO

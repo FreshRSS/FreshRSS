@@ -31,11 +31,15 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '';
 
 if (PHP_INT_SIZE < 8) {	//32-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) return '0';
-		return gmp_strval(gmp_init($hex, 16), 10);
+		$result = gmp_strval(gmp_init($hex, 16), 10);
+		/** @var numeric-string $result */
+		return $result;
 	}
 } else {	//64-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) {
 			return '0';
@@ -419,7 +423,7 @@ final class GReaderAPI {
 			if (strpos($streamUrl, 'feed/') === 0) {
 				$streamUrl = '' . preg_replace('%^(feed/)+%', '', $streamUrl);
 				$feedId = 0;
-				if (ctype_digit($streamUrl)) {
+				if (is_numeric($streamUrl)) {
 					if ($action === 'subscribe') {
 						continue;
 					}
@@ -572,7 +576,7 @@ final class GReaderAPI {
 				continue;
 			}
 
-			$feed = FreshRSS_CategoryDAO::findFeed($categories, $entry->feedId());
+			$feed = FreshRSS_Category::findFeed($categories, $entry->feedId());
 			if ($feed === null) {
 				continue;
 			}
@@ -592,11 +596,11 @@ final class GReaderAPI {
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {
 		switch ($type) {
 			case 'f':	//feed
-				if ($streamId != '' && is_string($streamId) && !ctype_digit($streamId)) {
+				if ($streamId != '' && is_string($streamId) && !is_numeric($streamId)) {
 					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
 					$feed = $feedDAO->searchByUrl($streamId);
-					$streamId = $feed == null ? -1 : $feed->id();
+					$streamId = $feed == null ? 0 : $feed->id();
 				}
 				break;
 			case 'c':	//category or label
@@ -694,7 +698,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		$entries = iterator_to_array($entries);	//TODO: Improve
 
 		$items = self::entriesToArray($entries);
@@ -715,8 +719,9 @@ final class GReaderAPI {
 				$response['continuation'] = '' . $entry->id();
 			}
 		}
-
-		echo json_encode($response, JSON_OPTIONS), "\n";
+		unset($entries, $entryDAO, $items);
+		gc_collect_cycles();
+		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
 		exit();
 	}
 
@@ -746,7 +751,7 @@ final class GReaderAPI {
 		}
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
+		$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, 0, $continuation, $searches);
 		if ($ids === null) {
 			self::internalServerError();
 		}
@@ -793,6 +798,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
@@ -805,8 +811,9 @@ final class GReaderAPI {
 			'updated' => time(),
 			'items' => $items,
 		);
-
-		echo json_encode($response, JSON_OPTIONS), "\n";
+		unset($entries, $entryDAO, $items);
+		gc_collect_cycles();
+		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
 		exit();
 	}
 
@@ -820,6 +827,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$tagDAO = FreshRSS_Factory::createTagDao();
@@ -941,12 +949,15 @@ final class GReaderAPI {
 		self::badRequest();
 	}
 
-	/** @return never */
+	/**
+	 * @param numeric-string $olderThanId
+	 * @return never
+	 */
 	private static function markAllAsRead(string $streamId, string $olderThanId) {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if (strpos($streamId, 'feed/') === 0) {
 			$f_id = basename($streamId);
-			if (!ctype_digit($f_id)) {
+			if (!is_numeric($f_id)) {
 				self::badRequest();
 			}
 			$f_id = (int)$f_id;
@@ -990,7 +1001,7 @@ final class GReaderAPI {
 		}
 		$pathInfo = urldecode($pathInfo);
 		$pathInfo = '' . preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
-		if ($pathInfo == '') {
+		if ($pathInfo == '' && empty($_SERVER['QUERY_STRING'])) {
 			exit('OK');
 		}
 		$pathInfos = explode('/', $pathInfo);
@@ -1068,7 +1079,7 @@ final class GReaderAPI {
 						if (isset($pathInfos[6]) && isset($pathInfos[7])) {
 							if ($pathInfos[6] === 'feed') {
 								$include_target = $pathInfos[7];
-								if ($include_target != '' && !ctype_digit($include_target)) {
+								if ($include_target != '' && !is_numeric($include_target)) {
 									$include_target = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
 									if (preg_match('#/reader/api/0/stream/contents/feed/([A-Za-z0-9\'!*()%$_.~+-]+)#', $include_target, $matches) === 1) {
 										$include_target = urldecode($matches[1]);

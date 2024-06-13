@@ -1,6 +1,6 @@
 parameters:
-	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
-	level: 8
+	level: 9	# https://phpstan.org/user-guide/rule-levels
+	phpVersion: 80399	# TODO: Remove line when moving composer.json to PHP 8+
 	fileExtensions:
 		- php
 		- phtml
@@ -34,6 +34,7 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
+	checkMissingOverrideMethodAttribute: true
 	reportMaybesInPropertyPhpDocTypes: false
 	treatPhpDocTypesAsCertain: false
 	strictRules:
@@ -50,6 +51,13 @@ parameters:
 		strictCalls: true
 		switchConditionsMatchingType: true
 		uselessCast: true
+	exceptions:
+		check:
+			missingCheckedExceptionInThrows: false	# TODO pass
+			tooWideThrowType: true
+		implicitThrows: false
+		checkedExceptionClasses:
+			- 'Minz_Exception'
 	ignoreErrors:
 		# - '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 includes:

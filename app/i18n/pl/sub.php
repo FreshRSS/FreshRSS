@@ -66,9 +66,14 @@ return array(
 		'description' => 'Opis',
 		'empty' => 'Ten kanał jest pusty. Należy sprawdzić czy kanał w dalszym ciągu działa.',
 		'error' => 'Napotkano problem podczas dostępu do tego kanału. Należy sprawdzić czy kanał jest zawsze dostępny, a następnie go odświeżyć.',
+		'export-as-opml' => array(
+			'download' => 'Pobierz',
+			'help' => 'Plik XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Eksportuj OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
-			'help' => 'Jedno zapytanie na linię. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
 		),
 		'information' => 'Informacja',
 		'keep_min' => 'Minimalna liczba wiadomości do do przechowywania',
@@ -99,8 +104,8 @@ return array(
 					'help' => 'Przykład: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Własny format daty/czasu',
+					'help' => 'Opcjonalne. Format wspierany przez <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'daty',
@@ -121,8 +126,47 @@ return array(
 				'relative' => 'XPath (względem wiadomości) dla:',
 				'xpath' => 'XPath dla:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// IGNORE
+				'feed_title' => array(
+					'_' => 'Tytuł kanału',
+					'help' => 'Przykład: <code>meta.title</code>, lub stały ciąg: <code>"Mój kanał"</code>',
+				),
+				'help' => 'JSON oddzielający obiekty kropkami i używający nawiasów kwadratowych dla tablic (na przykład <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'odnajdywanie <strong>wiadomości</strong><br /><small>(najważniejsze)</small>',
+					'help' => 'Ścieżka w JSON-ie do tablicy zawierającej wiadomości, na przykład <code>newsItems</code>',
+				),
+				'item_author' => 'autor wiadomości',
+				'item_categories' => 'tagi wiadomości',
+				'item_content' => array(
+					'_' => 'zawartość wiadomości',
+					'help' => 'Klucz pod którym można znaleźć zawartość, przykładowo <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniaturka wiadomości',
+					'help' => 'Przykład: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Własny format daty/czasu',
+					'help' => 'Opcjonalne. Format wspierany przez <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'czas wiadomości',
+					'help' => 'Wartość będzie przetwarzana funkcją <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'tytuł wiadomości',
+				'item_uid' => 'unikalny identyfikator wiadomości',
+				'item_uri' => array(
+					'_' => 'adres URL wiadomości',
+					'help' => 'Przykład: <code>permalink</code>',
+				),
+				'json' => 'ścieżka do:',
+				'relative' => 'ścieżka do (względem wiadomości):',
+			),
+			'jsonfeed' => 'Kanał JSON',
 			'rss' => 'RSS / Atom (domyślne)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Limit przekierowań HTTP',
 		'max_http_redir_help' => 'Ustaw na 0, albo pozostaw puste, by zabronić przekierowywania. Wartość -1 wyłącza limit.',
+		'method' => array(
+			'_' => 'Medoda HTTP',
+		),
+		'method_help' => 'Ładunek w POST automatycznie wspiera <code>application/x-www-form-urlencoded</code> oraz <code>application/json</code>',
+		'method_postparams' => 'Ładunek w POST',
 		'moved_category_deleted' => 'Po usunięciu kategorii znajdujące się w niej kanały zostaną automatycznie przeniesione do <em>%s</em>.',
 		'mute' => 'wycisz',
 		'no_selected' => 'Brak kanałów.',
@@ -141,11 +190,11 @@ return array(
 			'_' => 'Widoczność',
 			'archived' => 'Nie pokazuj (zarchiwizowany)',
 			'category' => 'Pokaż w kategorii kanału',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
 		'proxy' => 'Użyj mechanizmu proxy podczas pobierania kanału',
-		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> lub <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Pokaż źródło',
 			'show_rendered' => 'Pokaż zawartość',
@@ -196,6 +245,7 @@ return array(
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),
 	'tag' => array(
+		'auto_label' => 'Dodaj tę etykietę do nowych wiadomości',
 		'name' => 'Nazwa',
 		'new_name' => 'Nowa nazwa',
 		'old_name' => 'Poprzednia nazwa',

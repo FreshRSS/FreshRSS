@@ -10,6 +10,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -59,7 +60,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					break;
 				default:
 					$feedDAO = FreshRSS_Factory::createFeedDao();
-					$this->view->feed = $feedDAO->searchById($id);
+					$this->view->feed = $feedDAO->searchById($id) ?? FreshRSS_Feed::default();
 					break;
 			}
 		}
@@ -143,6 +144,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$useragent = Minz_Request::paramString('curl_params_useragent');
 			$proxy_address = Minz_Request::paramString('curl_params');
 			$proxy_type = Minz_Request::paramString('proxy_type');
+			$request_method = Minz_Request::paramString('curl_method');
+			$request_fields = Minz_Request::paramString('curl_fields', true);
 			$opts = [];
 			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
@@ -163,6 +166,17 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
 			}
+
+			if ($request_method === 'POST') {
+				$opts[CURLOPT_POST] = true;
+				if ($request_fields !== '') {
+					$opts[CURLOPT_POSTFIELDS] = $request_fields;
+					if (json_decode($request_fields, true) !== null) {
+						$opts[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
+					}
+				}
+			}
+
 			$feed->_attribute('curl_params', empty($opts) ? null : $opts);
 
 			$feed->_attribute('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
@@ -224,6 +238,44 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
 				if (!empty($xPathSettings))
 					$feed->_attribute('xpath', $xPathSettings);
+			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
+				$jsonSettings = [];
+				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
+					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItem') !== '') {
+					$jsonSettings['item'] = Minz_Request::paramString('jsonItem', true);
+				}
+				if (Minz_Request::paramString('jsonItemTitle') !== '') {
+					$jsonSettings['itemTitle'] = Minz_Request::paramString('jsonItemTitle', true);
+				}
+				if (Minz_Request::paramString('jsonItemContent') !== '') {
+					$jsonSettings['itemContent'] = Minz_Request::paramString('jsonItemContent', true);
+				}
+				if (Minz_Request::paramString('jsonItemUri') !== '') {
+					$jsonSettings['itemUri'] = Minz_Request::paramString('jsonItemUri', true);
+				}
+				if (Minz_Request::paramString('jsonItemAuthor') !== '') {
+					$jsonSettings['itemAuthor'] = Minz_Request::paramString('jsonItemAuthor', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimestamp') !== '') {
+					$jsonSettings['itemTimestamp'] = Minz_Request::paramString('jsonItemTimestamp', true);
+				}
+				if (Minz_Request::paramString('jsonItemTimeFormat') !== '') {
+					$jsonSettings['itemTimeFormat'] = Minz_Request::paramString('jsonItemTimeFormat', true);
+				}
+				if (Minz_Request::paramString('jsonItemThumbnail') !== '') {
+					$jsonSettings['itemThumbnail'] = Minz_Request::paramString('jsonItemThumbnail', true);
+				}
+				if (Minz_Request::paramString('jsonItemCategories') !== '') {
+					$jsonSettings['itemCategories'] = Minz_Request::paramString('jsonItemCategories', true);
+				}
+				if (Minz_Request::paramString('jsonItemUid') !== '') {
+					$jsonSettings['itemUid'] = Minz_Request::paramString('jsonItemUid', true);
+				}
+				if (!empty($jsonSettings)) {
+					$feed->_attribute('json_dotnotation', $jsonSettings);
+				}
 			}
 
 			$feed->_attribute('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));

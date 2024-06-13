@@ -19,14 +19,14 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 
 	/** @return array<array{string,string}> */
 	public function provideValidNames(): array {
-		return array(
-			array('', ''),
-			array('this string does not need trimming', 'this string does not need trimming'),
-			array('  this string needs trimming on left', 'this string needs trimming on left'),
-			array('this string needs trimming on right  ', 'this string needs trimming on right'),
-			array('  this string needs trimming on both ends  ', 'this string needs trimming on both ends'),
-			array(str_repeat('X', 512), str_repeat('X', FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE)),	// max length
-		);
+		return [
+			['', ''],
+			['this string does not need trimming', 'this string does not need trimming'],
+			['  this string needs trimming on left', 'this string needs trimming on left'],
+			['this string needs trimming on right  ', 'this string needs trimming on right'],
+			['  this string needs trimming on both ends  ', 'this string needs trimming on both ends'],
+			[str_repeat('X', 512), str_repeat('X', FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE)],    // max length
+		];
 	}
 
 	public function test_feedOrdering(): void {
@@ -59,9 +59,12 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		$feeds = $category->feeds();
 
 		self::assertCount(3, $feeds);
-		self::assertEquals('AAA', $feeds[0]->name());
-		self::assertEquals('lll', $feeds[1]->name());
-		self::assertEquals('ZZZ', $feeds[2]->name());
+		$feed = reset($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('AAA', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('lll', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('ZZZ', $feed->name());
 
 		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject */
 		$feed_4 = $this->getMockBuilder(FreshRSS_Feed::class)
@@ -75,9 +78,13 @@ class CategoryTest extends PHPUnit\Framework\TestCase {
 		$feeds = $category->feeds();
 
 		self::assertCount(4, $feeds);
-		self::assertEquals('AAA', $feeds[0]->name());
-		self::assertEquals('BBB', $feeds[1]->name());
-		self::assertEquals('lll', $feeds[2]->name());
-		self::assertEquals('ZZZ', $feeds[3]->name());
+		$feed = reset($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('AAA', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('BBB', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('lll', $feed->name());
+		$feed = next($feeds) ?: FreshRSS_Feed::default();
+		self::assertEquals('ZZZ', $feed->name());
 	}
 }

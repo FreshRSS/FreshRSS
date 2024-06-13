@@ -439,7 +439,7 @@ function toggleContent(new_active, old_active, skipping) {
 		const nav_menu = document.querySelector('.nav_menu');
 		let nav_menu_height = 0;
 
-		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
+		if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
 			nav_menu_height = nav_menu.offsetHeight;
 		}
 
@@ -697,7 +697,7 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item a');
+	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
 		// Display the share div
 		location.hash = share.id;
@@ -1057,7 +1057,6 @@ function init_shortcuts() {
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
 		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
 		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 	});
 }
@@ -1082,7 +1081,7 @@ function init_stream(stream) {
 			return true;
 		}
 
-		el = ev.target.closest('.item.title > a');
+		el = ev.target.closest('.item a.title');
 		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
 			return ev.ctrlKey || ev.metaKey;
 		}
@@ -1115,7 +1114,7 @@ function init_stream(stream) {
 			if (navigator.clipboard) {
 				navigator.clipboard.writeText(el.dataset.url)
 					.then(() => {
-						toggleClass(el, 'error');
+						toggleClass(el, 'ok');
 					})
 					.catch(e => {
 						console.log(e);
@@ -1168,7 +1167,7 @@ function init_stream(stream) {
 			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
+			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}
@@ -1190,7 +1189,7 @@ function init_stream(stream) {
 			return;
 		}
 
-		let el = ev.target.closest('.item.title > a');
+		let el = ev.target.closest('.item a.title');
 		if (el) {
 			if (ev.which == 1) {
 				if (ev.ctrlKey) {	// Control+click
@@ -1448,7 +1447,7 @@ function refreshFeeds(json) {
 		}));
 	} else {
 		const feeds_count = json.feeds.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshFeed(json.feeds, feeds_count);
 		}
 	}
@@ -1487,7 +1486,7 @@ function refreshDynamicOpmls(json, next) {
 	categories_processed = 0;
 	if (json.categories && json.categories.length > 0) {
 		const categories_count = json.categories.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshDynamicOpml(json.categories, categories_count, next);
 		}
 	} else {
@@ -1941,11 +1940,14 @@ function init_main_afterDOM() {
 	if (stream) {
 		init_load_more(stream);
 		init_posts();
-		init_nav_entries();
-		init_notifs_html5();
-		toggle_bigMarkAsRead_button();
-		setTimeout(faviconNbUnread, 1000);
-		setInterval(refreshUnreads, 120000);
+		if (document.getElementById('new-article')) {
+			// Only relevant for interactive views
+			init_nav_entries();
+			init_notifs_html5();
+			toggle_bigMarkAsRead_button();
+			setTimeout(faviconNbUnread, 1000);
+			setInterval(refreshUnreads, 120000);
+		}
 	}
 
 	if (window.console) {
