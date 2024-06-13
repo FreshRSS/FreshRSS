@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'In authors and date row',
 			),
 			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
 			'tags' => array(
 				'_' => 'Tags',
 				'both' => 'In header and footer',
