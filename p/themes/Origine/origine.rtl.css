@@ -9,6 +9,7 @@
 	--background-color-light-gradient2: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
+	--background-color-light-shadowed-transparent: #f0f0f0a8;
 	--background-color-grey: #f0f0f0;
 	--background-color-hover: #f6f6f6;
 
@@ -177,7 +178,7 @@ th {
 .form-group.form-actions {
 	margin-bottom: 40px;
 	padding: 5px 0;
-	background-color: var(--background-color-light-shadowed);
+	background-color: var(--background-color-light-shadowed-transparent);
 	border-top: 1px solid var(--border-color);
 }
 
@@ -995,13 +996,9 @@ a:hover .icon {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background-color: var(--background-color-light);
 	border: 1px solid var(--border-color);
 	box-shadow: 0 0 0.5rem var(--box-shadow-color);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -1228,6 +1225,7 @@ a:hover .icon {
 		--background-color-light-gradient2: #111;
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
+		--background-color-light-shadowed-transparent: #191919cf;
 		--background-color-grey: #1f1f1f;
 		--background-color-hover: #212227;
 

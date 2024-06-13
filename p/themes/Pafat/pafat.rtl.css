@@ -21,6 +21,7 @@
 	--background-color-white: #fff;
 	--background-color-grey-light: #fafafa;
 	--background-color-grey: #f4f4f4;
+	--background-color-grey-transparent: #f3f3f3bb;
 	--background-color-grey-hover: #f0f0f0;
 	--background-color-grey-button-active: #eee;
 
@@ -164,7 +165,7 @@ th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background-color: var(--background-color-grey);
+	background-color: var(--background-color-grey-transparent);
 	border-top: 1px solid var(--border-color-grey-light);
 }
 
@@ -935,12 +936,8 @@ a.signin {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background-color: var(--background-color-white);
 	border-top: 1px solid var(--border-color-grey-light);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 #nav_entries .item:hover {

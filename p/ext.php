@@ -60,7 +60,7 @@ function is_valid_path_extension(string $path, string $extensionPath, bool $isSt
 
 	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	list(, $static, $file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
+	[, $static, $file] = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
 	if (null === $file || 'static' !== $static) {
 		return false;
 	}
