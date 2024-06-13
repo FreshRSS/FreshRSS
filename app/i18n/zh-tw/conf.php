@@ -186,6 +186,11 @@ return array(
 				'with_authors' => '與作者和日期一行',
 			),
 			'feed_title' => '訂閱源標題',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '文章標籤',
 				'both' => '兩者都顯示',

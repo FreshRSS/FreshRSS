@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'Com autores e data',
 			),
 			'feed_title' => 'Título do Feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'No cabeçalho e rodapé',
