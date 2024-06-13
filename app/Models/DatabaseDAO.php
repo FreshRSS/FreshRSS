@@ -81,7 +81,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array<string,string|int|bool|null>> */
+	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
 	public function getSchema(string $table): array {
 		$res = $this->fetchAssoc('DESC `_' . $table . '`');
 		return $res == null ? [] : $this->listDaoToSchema($res);
@@ -160,7 +160,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<string,string|int|bool|null> $dao
-	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
+	 * @return array{name:string,type:string,notnull:bool,default:mixed}
 	 */
 	public function daoToSchema(array $dao): array {
 		return [
@@ -173,7 +173,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<array<string,string|int|bool|null>> $listDAO
-	 * @return array<array<string,string|int|bool|null>>
+	 * @return array<array{name:string,type:string,notnull:bool,default:mixed}>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
 		$list = [];

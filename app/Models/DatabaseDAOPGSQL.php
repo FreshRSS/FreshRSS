@@ -34,7 +34,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array<string,string|int|bool|null>> */
+	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
