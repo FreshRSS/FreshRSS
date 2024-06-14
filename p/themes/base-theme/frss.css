@@ -2410,7 +2410,7 @@ html.slider-active {
 	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle .icon {
 		display: none;
 	}
-	
+
 	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
 		content: '✓';
 	}

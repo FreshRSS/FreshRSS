@@ -1155,7 +1155,7 @@ a:hover .icon {
 	#nav_menu_read_all .btn {
 		border-left: 1px solid var(--border-color-shadow-side);
 		border-radius: 3px;
-  }
+	}
 
 	#overlay {
 		background-color: var(--background-color-light);
