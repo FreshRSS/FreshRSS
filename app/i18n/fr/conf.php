@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'Sur la ligne « Auteurs et date »',
 			),
 			'feed_title' => 'Titre du flux',
+			'icons' => array(
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
+				'above_title' => 'Au dessus du titre',
+				'with_authors' => 'Sur la ligne auteur et date',
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'En en-tête et en pied d’article',
