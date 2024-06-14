@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '표시',
 		'darkMode' => array(
-			'_' => '자동 다크 모드 (베타)',
+			'_' => '자동 다크 모드',
 			'auto' => '자동',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => '작성자, 작성일과 같은 줄에',
 			),
 			'feed_title' => '피드 제목',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '태그',
 				'both' => '머리말과 꼬리말에',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '이 서비스는 더 이상 사용되지 않으며 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="상세 정보 문서 열기" target="_blank">추후 릴리즈</a> FreshRSS에서 삭제 될 것 입니다.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '表示',
 		'darkMode' => array(
-			'_' => '自動ダークモード (beta)',
+			'_' => '自動ダークモード',
 			'auto' => '自動',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '無効',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => '著者と日付の行',
 			),
 			'feed_title' => 'フィードのタイトル',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'タグ',
 				'both' => 'ヘッダーとフッター',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'このサービスは非推奨でFreshRSSから削除される予定です<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
