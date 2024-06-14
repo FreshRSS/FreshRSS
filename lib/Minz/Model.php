@@ -9,6 +9,6 @@ declare(strict_types=1);
 /**
  * The Minz_Model class represents a model in the MVC paradigm.
  */
-class Minz_Model {
+abstract class Minz_Model {
 
 }

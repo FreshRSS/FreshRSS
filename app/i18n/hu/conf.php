@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Megjelenítés',
 		'darkMode' => array(
-			'_' => 'Automatikus sötét mód (béta)',
+			'_' => 'Automatikus sötét mód',
 			'auto' => 'Automatikus',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nem',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Felhasználói lekérdezések',
 		'deprecated' => 'Ez a lekérdezés már nem érvényes. A hivatkozott kategória vagy hírforrás törölve lett.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Alkalmazott szűrő:',
 			'categories' => 'Rendezés kategória szerint',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Cikkek megjelenítése fontos hírforrásokból',
 		'get_label' => ' „%s” címkével rendelkező cikkek megjelenítése',
 		'help' => 'Lásd a <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank"> dokumentációt a felhasználói lekérdezések és HTML/RSS/OPML megosztás témákban</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Név',
 		'no_filter' => 'Nincs szűrés',
 		'number' => '%d lekérdezés',
@@ -183,6 +186,11 @@ return array(
 				'with_authors' => 'A szerzők és dátum sorban',
 			),
 			'feed_title' => 'Hírforrás címe',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Címkék',
 				'both' => 'Fejlécben és láblécben',
@@ -254,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Megosztás',
 		'add' => 'Megosztási mód hozzáadása',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ez a szolgáltatás elavult, és el lesz távolítva a FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dokumentáció további információkért" target="_blank">következő kiadásában.</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
