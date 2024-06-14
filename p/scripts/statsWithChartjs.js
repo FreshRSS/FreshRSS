@@ -47,10 +47,10 @@ function jsonChartBar(label, data, xAxisLabels = '') {
 		data: {
 			labels: xAxisLabels,
 			datasets: [{
-				label: label,
+				label,
 				backgroundColor: '#0062BD',
 				borderColor: '#0062BD',
-				data: data,
+				data,
 				barPercentage: 1.0,
 				categoryPercentage: 1.0,
 				order: 2,
@@ -80,7 +80,7 @@ function jsonChartDoughnut(labels, data) {
 	return {
 		type: 'doughnut',
 		data: {
-			labels: labels,
+			labels,
 			datasets: [{
 				backgroundColor: [
 					'#0b84a5', // petrol
@@ -97,7 +97,7 @@ function jsonChartDoughnut(labels, data) {
 					'#ffa056', // orange
 					'#8dddd0', // turkis
 				],
-				data: data,
+				data,
 			}],
 		},
 		options: {

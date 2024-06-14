@@ -18,6 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
 		'create' => 'Oluştur',
+		'delete_muted_feeds' => 'Sessize alınmış akışları sil',
 		'demote' => 'Yöneticilikten al',
 		'disable' => 'Pasif',
 		'empty' => 'Boş',
@@ -28,9 +29,15 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
-		'open_url' => 'Open URL',	// TODO
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'URLyi aç',
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
+		'refresh_opml' => 'OPML yenile',
 		'remove' => 'Sil',
 		'rename' => 'Yeniden adlandır',
 		'see_website' => 'Siteyi gör',
@@ -128,24 +135,30 @@ return array(
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale mevcut.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(unread: %%d)',	// IGNORE
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
+		'labels_empty' => 'Etiketsiz',
 		'new_article' => 'Yeni makaleler mevcut. Sayfayı yenilemek için tıklayın.',
 		'should_be_activated' => 'JavaScript aktif olmalıdır.',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -154,10 +167,11 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
-		'account' => 'Account',	// TODO
+		'account' => 'Hesap',
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
 		'authentication' => 'Kimlik doğrulama',
@@ -169,6 +183,7 @@ return array(
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',
 		'search' => 'Kelime veya #etiket ara',
+		'search_help' => 'Daha detaylı bilgi için dökümantasyonu inceleyin <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Arama parametreleri</a>',
 		'sharing' => 'Paylaşım',
 		'shortcuts' => 'Kısayollar',
 		'stats' => 'İstatistikler',
@@ -186,17 +201,22 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Bilinen siteler',
-		'blogotext' => 'Blogotext',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - Firefox için düzeltme)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -207,7 +227,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'Sistem paylaşımı',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

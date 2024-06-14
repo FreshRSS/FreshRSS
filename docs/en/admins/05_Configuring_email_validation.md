@@ -26,11 +26,28 @@ To configure a SMTP server, you’ll have to modify the `data/config.php` file.
 
 First, change the `mailer` item to `smtp` (instead of the default `mail`).
 
-Then, you should change the `smtp` options like you would do with a regular
-email client. You can find the full list of options in the [`config.default.php` file](https://github.com/FreshRSS/FreshRSS/blob/edge/config.default.php).
+Then, you should change the `smtp` options like you would do with a regular email client.
+You can find the full list of options in the [`config.default.php` file](https://github.com/FreshRSS/FreshRSS/blob/edge/config.default.php).
 If you’re not sure to what each item is corresponding, you may find useful [the
 PHPMailer documentation](http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties)
 (which is used by FreshRSS under the hood).
+
+### Example code to configure SMTP server
+
+```php
+	'mailer' => 'smtp', // instead of 'mail'
+	'smtp' => array(
+		'hostname' => 'example.net',
+		'host' => 'smtp.example.net', // URL to your smtp server
+		'port' => 465,
+		'auth' => true,
+		'auth_type' => '',
+		'username' => 'alice', // or maybe alice@example.net
+		'password' => 'yoursecretpassword',
+		'secure' => 'ssl', // '', 'ssl' or 'tls'
+		'from' => 'alice@example.net',
+	),
+```
 
 ## Check your SMTP server is correctly configured
 
@@ -51,7 +68,7 @@ Once you’re done, don’t forget to reconfigure your environment to `productio
 
 ## Access the validation URL during development
 
-You might find painful to configure a SMTP server when you’re developping and
+You might find painful to configure a SMTP server when you’re developing and
 `mail` function will not work on your local machine. For the moment, there is
 no easy way to access the validation URL unless forging it. You’ll need to
 information:

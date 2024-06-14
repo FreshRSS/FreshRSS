@@ -7,17 +7,14 @@
 	margin: 0;
 	padding: 0.5rem 1.5rem;
 	background: variables.$grey-lighter;
-	display: inline-block;
 	color: variables.$grey-dark;
 	font-size: 1rem;
 	border: none;
 	border-radius: 5px;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 
 	@include mixins.transition(all, 0.15s, ease-in-out);
 
@@ -25,10 +22,13 @@
 		background: variables.$main-first;
 		color: variables.$white;
 
-		// @include transition(all, 0.15s, ease-in-out);
 		&:hover,
 		&:active {
 			background: variables.$main-first-alt;
+		}
+
+		img {
+			filter: brightness(3);
 		}
 	}
 
@@ -46,11 +46,6 @@
 	&:hover {
 		text-decoration: none;
 	}
-}
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
 }
 
 /*=== Forms */
@@ -92,6 +87,11 @@ input, select, textarea, button {
 	vertical-align: middle;
 }
 
+select {
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+
 option {
 	padding: 0 .5em;
 }
@@ -111,31 +111,17 @@ input:disabled, select:disabled {
 	background: variables.$grey-light;
 }
 
-input.extend {
-	transition: width 200ms linear;
-}
-
-
 .form-group {
 	padding: 5px;
 	border-radius: 3px;
 
 	&::after {
-		content: "";
 		display: block;
 		clear: both;
 	}
 
-	&:hover {
-		// background: #fff;
-		// 	border: 1px solid #eee;
-		// 	border-radius: 3px;
-		// 	border: 1px solid #eee;
-	}
-
 	.group-name {
 		padding: 10px 0;
-		text-align: right;
 	}
 
 	.group-controls {
@@ -150,7 +136,6 @@ input.extend {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		// background: #333;
 	}
 
 	&.form-actions .btn {

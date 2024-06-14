@@ -1,7 +1,8 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `./data/config.php` instead, after the install process is completed.
+# but instead edit `./data/config.php` after the install process is completed,
+# or edit `./data/config.custom.php` before the install process.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -30,7 +31,12 @@ return array(
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
 
-	# Name of the user that has administration rights.
+	# Override logo of this FreshRSS instance in the Web user interface.
+	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
+	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
+	'logo_html' => '',
+
+	# Name of the default user. Also used as the public user for anonymous reading.
 	'default_user' => '_',
 
 	# Force users to validate their email address. If `true`, an email with a
@@ -86,6 +92,10 @@ return array(
 	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
 	'allow_referrer' => false,
 
+	# Number of feeds to refresh in parallel from the Web user interface.
+	# Faster with higher values. Reduce for server with little memory or database issues.
+	'nb_parallel_refresh' => 10,
+
 	'limits' => array(
 
 		# Duration in seconds of the login cookie.
@@ -97,14 +107,14 @@ return array(
 		'cache_duration' => 800,
 
 		# SimplePie HTTP request timeout in seconds.
-		'timeout' => 15,
+		'timeout' => 20,
 
 		# If a user has not used FreshRSS for more than x seconds,
 		#	then its feeds are not refreshed anymore.
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
@@ -183,10 +193,21 @@ return array(
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
-		'Google-Groups' => true,
-		'Tumblr-GDPR' => true,
 	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,
+
+	# Trusted IPs (e.g. of last proxy) that are allowed to send unsafe HTTP headers.
+	# The connection IP used during FreshRSS setup is automatically added to this list.
+	# Will be checked against CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip)
+	# or REMOTE_ADDR environment variable.
+	# This array can be overridden by the TRUSTED_PROXY environment variable.
+	# Read the documentation before configuring this https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
 );

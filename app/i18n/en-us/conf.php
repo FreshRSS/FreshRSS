@@ -17,7 +17,7 @@ return array(
 		'help' => 'More options are available in the individual feed’s settings',	// IGNORE
 		'keep_favourites' => 'Never delete favorites',
 		'keep_labels' => 'Never delete labels',	// IGNORE
-		'keep_max' => 'Maximum number of articles to keep',	// IGNORE
+		'keep_max' => 'Maximum number of articles to keep per feed',	// IGNORE
 		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// IGNORE
 		'keep_period' => 'Maximum age of articles to keep',	// IGNORE
 		'keep_unreads' => 'Never delete unread articles',	// IGNORE
@@ -32,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
+		'darkMode' => array(
+			'_' => 'Automatic dark mode',	// IGNORE
+			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// IGNORE
+			'no' => 'No',	// IGNORE
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
@@ -48,7 +54,13 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// IGNORE
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// IGNORE
-		'theme' => 'Theme',	// IGNORE
+		'theme' => array(
+			'_' => 'Theme',	// IGNORE
+			'deprecated' => array(
+				'_' => 'Deprecated',	// IGNORE
+				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// IGNORE
+			),
+		),
 		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// IGNORE
 		'thumbnail' => array(
 			'label' => 'Thumbnail',	// IGNORE
@@ -57,7 +69,15 @@ return array(
 			'portrait' => 'Portrait',	// IGNORE
 			'square' => 'Square',	// IGNORE
 		),
+		'timezone' => 'Time zone',	// IGNORE
 		'title' => 'Display',	// IGNORE
+		'website' => array(
+			'full' => 'Icon and name',	// IGNORE
+			'icon' => 'Icon only',	// IGNORE
+			'label' => 'Website',	// IGNORE
+			'name' => 'Name only',	// IGNORE
+			'none' => 'None',	// IGNORE
+		),
 		'width' => array(
 			'content' => 'Content width',	// IGNORE
 			'large' => 'Wide',	// IGNORE
@@ -68,9 +88,9 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Log Level',	// IGNORE
+			'message' => 'Log Message',	// IGNORE
+			'timestamp' => 'Timestamp',	// IGNORE
 		),
 		'pagination' => array(
 			'first' => 'First',	// IGNORE
@@ -95,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'User queries',	// IGNORE
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// IGNORE
+		'description' => 'Description',	// IGNORE
 		'filter' => array(
 			'_' => 'Filter applied:',	// IGNORE
 			'categories' => 'Display by category',	// IGNORE
 			'feeds' => 'Display by feed',	// IGNORE
 			'order' => 'Sort by date',	// IGNORE
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE
 			'state' => 'State',	// IGNORE
-			'tags' => 'Display by tag',	// IGNORE
+			'tags' => 'Display by label',	// IGNORE
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Display all articles',	// IGNORE
-		'get_category' => 'Display "%s" category',	// IGNORE
+		'get_all_labels' => 'Display articles with any label',	// IGNORE
+		'get_category' => 'Display “%s” category',	// IGNORE
 		'get_favorite' => 'Display favorite articles',
-		'get_feed' => 'Display "%s" feed',	// IGNORE
+		'get_feed' => 'Display “%s” feed',	// IGNORE
+		'get_important' => 'Display articles from important feeds',	// IGNORE
+		'get_label' => 'Display articles with “%s” label',	// IGNORE
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// IGNORE
+		'image_url' => 'Image URL',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Display oldest articles first',	// IGNORE
 		'order_desc' => 'Display newest articles first',	// IGNORE
-		'search' => 'Search for "%s"',	// IGNORE
+		'search' => 'Search for “%s”',	// IGNORE
+		'share' => array(
+			'_' => 'Share this query by link',	// IGNORE
+			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
+			'html' => 'Shareable link to the HTML page',	// IGNORE
+			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
+			'rss' => 'Shareable link to the RSS feed',	// IGNORE
+		),
 		'state_0' => 'Display all articles',	// IGNORE
 		'state_1' => 'Display read articles',	// IGNORE
 		'state_2' => 'Display unread articles',	// IGNORE
@@ -137,6 +172,37 @@ return array(
 		'_' => 'Reading',	// IGNORE
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// IGNORE
+				'none' => 'None',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// IGNORE
+				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
+			),
+		),
 		'articles_per_page' => 'Number of articles per page',	// IGNORE
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// IGNORE
 		'auto_remove_article' => 'Hide articles after reading',	// IGNORE
@@ -145,21 +211,24 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// IGNORE
+			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 			'categories' => 'Left navigation: Categories',	// IGNORE
 			'mark_as_read' => 'Mark article as read',	// IGNORE
 			'misc' => 'Miscellaneous',	// IGNORE
 			'view' => 'View',	// IGNORE
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// IGNORE
-		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	// IGNORE
+		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',	// IGNORE
 		'jump_next' => 'jump to next unread sibling (feed or category)',	// IGNORE
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// IGNORE
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// IGNORE
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',	// IGNORE
 			'article_viewed' => 'when the article is viewed',	// IGNORE
+			'focus' => 'when focused (except for important feeds)',	// IGNORE
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// IGNORE
-			'scroll' => 'while scrolling',	// IGNORE
+			'scroll' => 'while scrolling (except for important feeds)',	// IGNORE
+			'upon_gone' => 'when it is no longer in the upstream news feed',	// IGNORE
 			'upon_reception' => 'upon receiving the article',	// IGNORE
 			'when' => 'Mark an article as read…',	// IGNORE
 			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// IGNORE
@@ -193,8 +262,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// IGNORE
 		'add' => 'Add a sharing method',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

@@ -1,0 +1,24 @@
+name: Update Docker Hub description
+
+on:
+  push:
+    paths:
+      - Docker/README.md
+    branches:
+      - edge
+  workflow_dispatch:
+
+jobs:
+  dockerhub-description:
+    if: github.repository_owner == 'FreshRSS'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Update repo description
+      uses: peter-evans/dockerhub-description@e98e4d1628a5f3be2be7c231e50981aee98723ae
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        repository: freshrss/freshrss
+        readme-filepath: Docker/README.md

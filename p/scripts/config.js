@@ -19,12 +19,20 @@ function updateSelectInput(ev) {
 	const input = document.getElementById(elem.dataset.name + '-input');
 	if (elem.selectedOptions[0].dataset.inputVisible == 'false') {
 		formGroup.style.display = 'none';
-		input.name = '';
-		elem.name = elem.dataset.name;
+		if (input) {
+			input.name = '';
+		}
+		if (elem.name == '') {
+			elem.name = elem.dataset.name;
+		}
 	} else {
 		formGroup.style.display = '';
-		input.name = elem.dataset.name;
-		elem.name = '';
+		if (input) {
+			input.name = elem.dataset.name;
+		}
+		if (elem.name === elem.dataset.name) {
+			elem.name = '';
+		}
 	}
 }
 

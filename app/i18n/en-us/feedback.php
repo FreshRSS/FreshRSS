@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// IGNORE
-		'query_created' => 'Query "%s" has been created.',	// IGNORE
+		'query_created' => 'Query “%s” has been created.',	// IGNORE
 		'shortcuts_updated' => 'Shortcuts have been updated',	// IGNORE
 		'updated' => 'Configuration has been updated',	// IGNORE
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// IGNORE
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',	// IGNORE
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',	// IGNORE
+		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
+		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// IGNORE
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// IGNORE
-		'zip_error' => 'An error occurred during ZIP import.',	// IGNORE
+		'zip_error' => 'An error occurred during ZIP processing.',	// IGNORE
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// IGNORE
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',	// IGNORE
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// IGNORE
-		'name_exists' => 'Tag name already exists.',	// IGNORE
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// IGNORE
+		'created' => 'Label “%s” has been created.',	// IGNORE
+		'error' => 'Label could not be updated!',	// IGNORE
+		'name_exists' => 'Label name already exists.',	// IGNORE
+		'renamed' => 'Label “%s” has been renamed to “%s”.',	// IGNORE
+		'updated' => 'Label has been updated.',	// IGNORE
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// IGNORE

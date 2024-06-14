@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -45,7 +45,7 @@
 
 	<?php if (!empty($this->available_extensions)) { ?>
 		<h2><?= _t('admin.extensions.community') ?></h2>
-		<div class="table-wrapper">
+		<div class="table-wrapper scrollbar-thin">
 			<table>
 				<tr>
 					<th><?= _t('admin.extensions.name') ?></th>
@@ -60,12 +60,12 @@
 						<td><?= $ext['author'] ?></td>
 						<td>
 							<?= $ext['description'] ?>
-							<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-								<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+							<?php if (isset($this->extensions_installed[$ext['entrypoint']])) { ?>
+								<?php if (version_compare(strval($this->extensions_installed[$ext['entrypoint']]), strval($ext['version'])) >= 0) { ?>
 									<span class="alert alert-success">
 										<?= _t('admin.extensions.latest') ?>
 									</span>
-								<?php } elseif ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+								<?php } elseif (strval($this->extensions_installed[$ext['entrypoint']]) !== strval($ext['version'])) { ?>
 									<span class="alert alert-warn">
 										<?= _t('admin.extensions.update') ?>
 									</span>
@@ -77,16 +77,20 @@
 			</table>
 		</div>
 	<?php } ?>
-
-	<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
-	<a href="#" id="close-slider"<?= $class ?>>
-		<?= _i('close') ?>
-	</a>
-	<div id="slider"<?= $class ?>>
-	<?php
-		if (isset($this->extension)) {
-			$this->renderHelper('extension/configure');
-		}
-	?>
-	</div>
 </main>
+
+<?php $class = isset($this->extension) ? ' active' : ''; ?>
+<?php $closelink = isset($this->extension) ? _url('extension', 'index') : ''; ?>
+<aside id="slider">
+<a class="toggle_aside" href="<?= $closelink ?>#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->extension)) {
+				$this->renderHelper('extension/configure');
+			}
+		?>
+	</div>
+</aside>
+<a href="#" id="close-slider">
+	<?= _i('close') ?>
+</a>

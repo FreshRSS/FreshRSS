@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_configure');
 ?>
-
 <main class="post">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -16,7 +16,7 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
+	<?php $s = FreshRSS_Context::userConf()->shortcuts; ?>
 
 	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">
@@ -53,14 +53,6 @@
 				<div class="group-controls">
 					<input type="text" id="reading_view_shortcut" name="shortcuts[reading_view]" list="keys" value="<?= $s['reading_view'] ?>"
 						data-leave-validation="<?= $s['reading_view'] ?>"/>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="group-name" for="rss_view_shortcut"><?= _t('conf.shortcut.rss_view') ?></label>
-				<div class="group-controls">
-					<input type="text" id="rss_view_shortcut" name="shortcuts[rss_view]" list="keys" value="<?= $s['rss_view'] ?>"
-						data-leave-validation="<?= $s['rss_view'] ?>"/>
 				</div>
 			</div>
 		</fieldset>

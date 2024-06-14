@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -32,16 +33,26 @@ class Minz_Mailer {
 	 */
 	protected $view;
 
-	private $mailer;
-	private $smtp_config;
-	private $debug_level;
+	private string $mailer;
+	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
+	private array $smtp_config;
+	private int $debug_level;
 
 	/**
-	 * Constructor.
+	 * @phpstan-param class-string|'' $viewType
+	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
+	 * @throws Minz_ConfigurationException
 	 */
-	public function __construct () {
-		$this->view = new Minz_View();
-		$this->view->_layout(false);
+	public function __construct(string $viewType = '') {
+		$view = null;
+		if ($viewType !== '' && class_exists($viewType)) {
+			$view = new $viewType();
+			if (!($view instanceof Minz_View)) {
+				$view = null;
+			}
+		}
+		$this->view = $view ?? new Minz_View();
+		$this->view->_layout(null);
 		$this->view->attributeParams();
 
 		$conf = Minz_Configuration::get('system');
@@ -63,13 +74,12 @@ class Minz_Mailer {
 	 *
 	 * @param string $to The recipient of the email
 	 * @param string $subject The subject of the email
-	 *
 	 * @return bool true on success, false if a SMTP error happens
 	 */
-	public function mail($to, $subject) {
+	public function mail(string $to, string $subject): bool {
 		ob_start();
 		$this->view->render();
-		$body = ob_get_contents();
+		$body = ob_get_contents() ?: '';
 		ob_end_clean();
 
 		PHPMailer::$validator = 'html5';

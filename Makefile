@@ -5,6 +5,7 @@ ifndef TAG
 endif
 
 PORT ?= 8080
+NETWORK ?= freshrss-network
 
 ifdef NO_DOCKER
 	PHP = $(shell which php)
@@ -20,8 +21,6 @@ endif
 
 ifeq ($(findstring alpine,$(TAG)),alpine)
 	DOCKERFILE=Dockerfile-Alpine
-else ifeq ($(findstring arm,$(TAG)),arm)
-	DOCKERFILE=Dockerfile-QEMU-ARM
 else
 	DOCKERFILE=Dockerfile
 endif
@@ -38,64 +37,68 @@ build: ## Build a Docker image
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
+	docker network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
 	docker run \
+		-it \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
+		--network $(NETWORK) \
 		freshrss/freshrss:$(TAG)
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
-	docker stop freshrss-dev
+	docker stop freshrss-dev || true
+	docker network rm $(NETWORK) || true
 
 ######################
 ## Tests and linter ##
 ######################
 .PHONY: test
-test: bin/phpunit ## Run the test suite
-	$(PHP) ./bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
+test: vendor/bin/phpunit ## Run the test suite
+	$(PHP) vendor/bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 .PHONY: lint
-lint: bin/phpcs ## Run the linter on the PHP files
-	$(PHP) ./bin/phpcs . -p -s
+lint: vendor/bin/phpcs ## Run the linter on the PHP files
+	$(PHP) vendor/bin/phpcs . -p -s
 
 .PHONY: lint-fix
-lint-fix: bin/phpcbf ## Fix the errors detected by the linter
-	$(PHP) ./bin/phpcbf . -p -s
+lint-fix: vendor/bin/phpcbf ## Fix the errors detected by the linter
+	$(PHP) vendor/bin/phpcbf . -p -s
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/ce43e63e47a7fca052628faf1e4b14f9100ae82c/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/8af47a6fd4910073ea7580378d6252c708f83a06/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
-bin/phpunit:
-	mkdir -p bin/
-	wget -O bin/phpunit https://phar.phpunit.de/phpunit-9.5.2.phar
-	echo 'bcf913565bc60dfb5356cf67cbbccec1d8888dbd595b0fbb8343a5019342c67c bin/phpunit' | sha256sum -c - || rm bin/phpunit
+vendor/bin/phpunit: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpunit bin/phpunit
 
-bin/phpcs:
-	mkdir -p bin/
-	wget -O bin/phpcs https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcs.phar
-	echo '4a2f6aff1b1f760216bb00c0b3070431131e3ed91307436bb1bfb252281a804a bin/phpcs' | sha256sum -c - || rm bin/phpcs
+vendor/bin/phpcs: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpcs bin/phpcs
 
-bin/phpcbf:
-	mkdir -p bin/
-	wget -O bin/phpcbf https://github.com/squizlabs/PHP_CodeSniffer/releases/download/3.5.5/phpcbf.phar
-	echo '6f64fe00dee53fa7b256f63656dc0154f5964666fc7e535fac86d0078e7dea41 bin/phpcbf' | sha256sum -c - || rm bin/phpcbf
+vendor/bin/phpcbf: bin/composer
+	bin/composer install --prefer-dist --no-progress
+	ln -s ../vendor/bin/phpcbf bin/phpcbf
 
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.3.3/typos-v1.3.3-x86_64-unknown-linux-musl.tar.gz' && \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.17.0/typos-v1.17.0-x86_64-unknown-linux-musl.tar.gz' && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \
 	cd ..
 
 node_modules/.bin/eslint:
+	npm install
+
+node_modules/.bin/rtlcss:
 	npm install
 
 vendor/bin/phpstan: bin/composer
@@ -177,8 +180,8 @@ endif
 ## TOOLS ##
 ###########
 .PHONY: rtl
-rtl: ## Generate RTL CSS files
-	rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete
+rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
+	npm run-script rtlcss
 
 .PHONY: pot
 pot: ## Generate POT templates for docs

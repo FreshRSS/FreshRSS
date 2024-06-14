@@ -110,7 +110,10 @@ return array(
 		'ok' => 'Algemene configuratie is opgeslagen.',
 	),
 	'congratulations' => 'Gefeliciteerd!',
-	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
+	'default_user' => array(
+		'_' => 'Gebruikersnaam van de standaardgebruiker',
+		'max_char' => 'maximaal 16 alfanumerieke tekens',
+	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(

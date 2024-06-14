@@ -157,7 +157,7 @@ class SimplePie_HTTP_Parser
 		}
 
 		$this->http_version = '';
-		$this->status_code = '';
+		$this->status_code = 0;
 		$this->reason = '';
 		$this->headers = array();
 		$this->body = '';

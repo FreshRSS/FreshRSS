@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Podczas zapisywania konfiguracji wystąpił błąd',
-		'query_created' => 'Zapytanie "%s" zostało utworzone.',
+		'query_created' => 'Zapytanie “%s” zostało utworzone.',
 		'shortcuts_updated' => 'Skróty zostały zaktualizowane',
 		'updated' => 'Ustawienia zostały zaktualizowane',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze. Spróbuj eksportować pliki pojedynczo.',
-		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane',
-		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów',
+		'feeds_imported' => 'Kanały zostały zaimportowane. Jeżeli skończyłeś, kliknij guzik <i>Aktualizuj kanały</i>.',
+		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów. Jeżeli skończyłeś, kliknij guzik <i>Aktualizuj kanały</i>.',
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
-		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',
+		'zip_error' => 'Wystąpił błąd podczas przetwarzania pliku ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Nie można modyfikować profilu',
@@ -98,7 +98,7 @@ return array(
 			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
 			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',
 			'n_entries_deleted' => 'Liczba usuniętych wiadomości: %d',
-			'no_refresh' => 'Brak kanałó do odświeżenia',
+			'no_refresh' => 'Brak kanałów do odświeżenia',
 			'not_added' => 'Kanał <em>%s</em> nie mógł zostać dodany',
 			'not_found' => 'Kanał nie może zostać znaleziony',
 			'over_max' => 'Osiągnięto ustawiony limit kanałów (%d)',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'Oczyszczanie ukończone (liczba skasowanych wiadomości: %d)',
 	),
 	'tag' => array(
-		'created' => 'Etykieta "%s" została stworzona.',
+		'created' => 'Etykieta “%s” została stworzona.',
+		'error' => 'Etykieta nie może zostać zmieniona!',
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
-		'renamed' => 'Etykieta "%s" została zmieniona na "%s".',
+		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
+		'updated' => 'Etykieta została zmieniona.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',

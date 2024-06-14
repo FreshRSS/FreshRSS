@@ -110,7 +110,10 @@ return array(
 		'ok' => '일반 설정이 저장되었습니다.',
 	),
 	'congratulations' => '축하합니다!',
-	'default_user' => '기본 사용자 이름<small>(알파벳과 숫자를 포함할 수 있고 최대 16 글자)</small>',
+	'default_user' => array(
+		'_' => '기본 사용자 이름',
+		'max_char' => '알파벳과 숫자를 포함할 수 있고 최대 16 글자',
+	),
 	'fix_errors_before' => '다음 단계로 가기 전에 문제를 해결하세요.',
 	'javascript_is_better' => 'FreshRSS는 자바스크립트를 사용할 때 더욱 쾌적하고 강력합니다',
 	'js' => array(
