@@ -466,9 +466,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddKey(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k3'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k3'];
 
 		$rawData = array_merge($this->referenceData, [
 			'fr' => [],
@@ -502,9 +500,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddValueWhenLanguageIsReferenceAndValueInOtherLanguageHasNotChange(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$this->value->expects(self::atLeast(2))
 			->method('equal')
@@ -530,9 +526,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddValueWhenLanguageIsReferenceAndValueInOtherLanguageHasChange(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$this->value->expects(self::any())
 			->method('equal')
@@ -565,9 +559,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddValueWhenLanguageIsNotReference(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$rawData = array_merge($this->referenceData, [
 			'fr' => [],
