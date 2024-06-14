@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
@@ -23,7 +33,7 @@ return array(
 			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
 		),
-		'host' => 'Host',
+		'host' => 'Host',	// IGNORE
 		'password' => 'Datenbank-Password',
 		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
@@ -80,11 +90,12 @@ return array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
 		),
+		'reload' => 'Nochmal prüfen',
 		'tmp' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'unbekannt',
 		'users' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
@@ -99,25 +110,27 @@ return array(
 		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
 	),
 	'congratulations' => 'Glückwunsch!',
-	'default_user' => 'Benutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
-	'delete_articles_after' => 'Entferne Artikel nach',
+	'default_user' => array(
+		'_' => 'Benutzername des Standardbenutzers',
+		'max_char' => 'maximal 16 alphanumerische Zeichen',
+	),
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
 	'js' => array(
-		'confirm_reinstall' => 'Du wirst deine vorherige Konfiguration (Daten) verlieren FreshRSS. Bist du sicher, dass du fortfahren willst?',
+		'confirm_reinstall' => 'Die vorherige Konfiguration (Daten) geht verloren während FreshRSS neu installiert wird. Sind Sie sich sicher fortzufahren?',
 	),
 	'language' => array(
 		'_' => 'Sprache',
 		'choose' => 'Wählen Sie eine Sprache für FreshRSS',
 		'defined' => 'Die Sprache wurde festgelegt.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Etwas ist schief gelaufen. Bitte erstellen Sie eine leere <em>%s</em> Datei manuell.',
 	'ok' => 'Der Installationsvorgang war erfolgreich.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'Der Webserver scheint nicht korrekt konfiguriert zu sein, damit notwendige PHP-Session-Cookies verwendet werden können.',
 	),
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
 	'this_is_the_end' => 'Das ist das Ende',
-	'title' => 'Installation · FreshRSS',
+	'title' => 'Installation · FreshRSS',	// IGNORE
 );

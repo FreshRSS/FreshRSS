@@ -7,6 +7,8 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
+	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
+	'timezone' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,
@@ -16,6 +18,7 @@ return array (
 		'keep_unreads' => false,
 	],
 	'ttl_default' => 3600,
+	'dynamic_opml_ttl_default' => 43200,
 	'mail_login' => '',
 	'email_validation_token' => '',
 	'token' => '',
@@ -33,10 +36,15 @@ return array (
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
+	'show_tags' => 'f',	// {0 => none, b => both, f => footer, h => header}
+	'show_tags_max' => 7,
+	'show_author_date' => 'h',	// {0 => none, b => both, f => footer, h => header}
+	'show_feed_name' => 'a',	// {0 => none, a => with authors, t => above title}
+	'show_article_icons' => 't', // {a => with_authors, t => above title}
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
-	'sides_close_article' => true,
+	'sides_close_article' => false,
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
@@ -49,17 +57,25 @@ return array (
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
-		'site' => true,
-		'scroll' => true,
+		'gone' => false,
+		'max_n_unread' => false,
 		'reception' => false,
+		'same_title_in_feed' => false,
+		'scroll' => false,
+		'focus' => false,
+		'site' => true,
 	),
+	'filters' => [],
 	'theme' => 'Origine',
+	'darkMode' => 'auto',
 	'content_width' => 'thin',
 	'shortcuts' => array (
+		'actualize' => 'q',
 		'mark_read' => 'r',
 		'mark_favorite' => 'f',
 		'go_website' => 'space',
 		'next_entry' => 'j',
+		'next_unread_entry' => 'h',
 		'prev_entry' => 'k',
 		'skip_next_entry' => 'n',
 		'skip_prev_entry' => 'p',
@@ -75,12 +91,20 @@ return array (
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',
-		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
+
+	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds
 	'show_favicons' => true,
+	'icons_as_emojis' => false,
+	# Hide the dropdown configuration menu and favicon in the aside list in case of many feeds, for UI performance
+	'simplify_over_n_feeds' => 1000,
+
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_website' => 'full',
+	'topline_thumbnail' => 'none',
+	'topline_summary' => false,
 	'topline_display_authors' => false,
 	'topline_date' => true,
 	'topline_link' => true,
@@ -88,6 +112,7 @@ return array (
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,
 	'bottomline_tags' => true,
+	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
 	'sharing' => array (
@@ -96,5 +121,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
-	'extensions_enabled' => array(),
+	# List of enabled FreshRSS extensions.
+	'extensions_enabled' => [],
+	# Extensions configurations
+	'extensions' => [],
 );

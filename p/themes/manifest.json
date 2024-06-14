@@ -1,0 +1,29 @@
+{
+  "name": "FreshRSS feed aggregator",
+  "short_name": "FreshRSS",
+  "start_url": "../i/",
+  "scope": "../",
+  "icons": [
+    {
+      "src": "icons/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "150x150",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/favicon-96-padding.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/favicon-512-padding.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["news"],
+  "display": "standalone",
+  "description": "FreshRSS is a self-hosted RSS feed aggregator."
+}

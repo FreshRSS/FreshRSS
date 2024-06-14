@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Completeer installatie',
@@ -17,13 +27,13 @@ return array(
 		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
-		'_' => 'Database',
+		'_' => 'Database',	// IGNORE
 		'conf' => array(
 			'_' => 'Database configuratie',
 			'ko' => 'Controleer uw database informatie.',
 			'ok' => 'Database configuratie is opgeslagen.',
 		),
-		'host' => 'Host',
+		'host' => 'Host',	// IGNORE
 		'password' => 'Database wachtwoord',
 		'prefix' => 'Tabel voorvoegsel',
 		'type' => 'Type database',
@@ -80,6 +90,7 @@ return array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
 		),
+		'reload' => 'Controleer nog eens',
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'Algemene configuratie is opgeslagen.',
 	),
 	'congratulations' => 'Gefeliciteerd!',
-	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
-	'delete_articles_after' => 'Verwijder artikelen na',
+	'default_user' => array(
+		'_' => 'Gebruikersnaam van de standaardgebruiker',
+		'max_char' => 'maximaal 16 alfanumerieke tekens',
+	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(
@@ -111,7 +124,7 @@ return array(
 		'choose' => 'Kies een taal voor FreshRSS',
 		'defined' => 'Taal is bepaald.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Er is iets misgegaan; u zal handmatig een leeg bestand <em>%s</em> aan moeten maken.',
 	'ok' => 'De installatieprocedure is geslaagd.',
 	'session' => array(
 		'nok' => 'De webserver lijkt niet goed te zijn geconfigureerd voor de cookies die voor PHP-sessies nodig zijn!',

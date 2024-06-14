@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
@@ -9,9 +19,8 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'title_reset' => 'Reinicio de la identificación',
-		'token' => 'Clave de identificación',
-		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
+		'token' => 'Token de autentificación Master',
+		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de feeds sin autenticación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
@@ -67,8 +76,8 @@ return array(
 			'ok' => 'Dispones de la extensión JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
+			'nok' => 'No se puede encontrar la biblioteca mbstring recomendada para Unicode.',
+			'ok' => 'Tiene la biblioteca mbstring recomendada para Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'No se ha podido localizar la librería para las expresiones regulares (php-pcre).',
@@ -102,23 +111,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
+		'author' => 'Autor',
+		'community' => 'Extensiones de comunidad disponibles',
+		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
 		'empty_list' => 'No hay extensiones instaladas',
 		'enabled' => 'Activado',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'latest' => 'Instalado',
+		'name' => 'Nombre',
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
 		'system' => array(
 			'_' => 'Sistema de extensiones',
 			'no_rights' => 'Sistema de extensiones (careces de los permisos necesarios)',
 		),
 		'title' => 'Extensiones',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Actualización disponible',
 		'user' => 'Extensiones de usuario',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Versión',
 	),
 	'stats' => array(
 		'_' => 'Estadísticas',
@@ -136,18 +145,13 @@ return array(
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
 		'main_stream' => 'Salida principal',
-		'menu' => array(
-			'idle' => 'Fuentes inactivas',
-			'main' => 'Estadísticas principañes',
-			'repartition' => 'Reparto de artículos',
-		),
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
-		'percent_of_total' => '%% del total',
-		'repartition' => 'Reprto de artículos',
+		'percent_of_total' => '% del total',
+		'repartition' => 'Reparto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
-		'status_total' => 'Total',	// TODO - Translation
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
@@ -155,52 +159,80 @@ return array(
 	'system' => array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
-		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+		'base-url' => array(
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'en segundos',
+			'number' => 'Duración para mantenerse conectado',
+		),
+		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
 		'registration' => array(
-			'help' => '0 significa que no hay límite en la cuenta',
 			'number' => 'Número máximo de cuentas',
+			'select' => array(
+				'label' => 'Formulario de registro',
+				'option' => array(
+					'noform' => 'Deshabilitado: Sin formulario de registro',
+					'nolimit' => 'Habilitado: Sin límite de cuentas',
+					'setaccountsnumber' => 'Establece el número máximo de cuentas',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulario deshabilitado',
+				'enabled' => 'Formulario habilitado',
+			),
+			'title' => 'Formulario de registro del usuario',
+		),
+		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'no se proporciona',
+			'enabled' => '<a href="./?a=tos">está activado</a>',
+			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
+		),
+		'websub' => array(
+			'help' => 'Acerca de <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Buscar actualizaciones',
-		'current_version' => 'Dispones de la versión %s de FreshRSS.',
-		'last' => 'Última comprobación: %s',
+		'copiedFromURL' => 'update.php copiado desde %s a ./data',
+		'current_version' => 'Dispones de la versión',
+		'last' => 'Última comprobación',
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
+		'releaseChannel' => array(
+			'_' => 'Canal de publicación',
+			'edge' => 'Publicación en marcha (“edge”)',
+			'latest' => 'Publicación estable (“latest”)',
+		),
 		'title' => 'Actualizar sistema',
+		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s articles (%s)',	// TODO - Translation
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Administrador',
+		'article_count' => 'Artículos',
+		'back_to_manage' => '← Volver a la lista de usuarios',
 		'create' => 'Crear nuevo usuario',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Tamaño de la base de datos',
+		'email' => 'Dirección de correo electrónico',
+		'enabled' => 'Permitido',
+		'feed_count' => 'Feeds',	// IGNORE
+		'is_admin' => 'Es admin',
 		'language' => 'Idioma',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
+		'last_user_activity' => 'Última actividad del usuario',
+		'list' => 'Lista de usuarios',
 		'number' => 'Hay %d cuenta creada',
 		'numbers' => 'Hay %d cuentas creadas',
 		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
 		'password_format' => 'Mínimo de 7 caracteres',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Administrar usuarios',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'Lista de usuarios',
 		'username' => 'Nombre de usuario',
-		'users' => 'Usuarios',
 	),
 );

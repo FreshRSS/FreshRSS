@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Instalação completa',
@@ -23,7 +33,7 @@ return array(
 			'ko' => 'Verifique as informações do seu banco de dados.',
 			'ok' => 'Configurações do banco de dados foram salvas.',
 		),
-		'host' => 'Host',
+		'host' => 'Host',	// IGNORE
 		'password' => 'Senha do banco de dados',
 		'prefix' => 'Prefixo da tabela',
 		'type' => 'Tipo do banco de dados',
@@ -80,11 +90,12 @@ return array(
 			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
 			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
 		),
+		'reload' => 'Verifique novamente',
 		'tmp' => array(
 			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissions on the temp directory are good.',	// TODO - Translation
+			'ok' => 'As permissões para o diretório temporário estão certas.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO - Translation
+		'unknown_process_username' => 'Desconhecido',
 		'users' => array(
 			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório users estão corretos.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'Configurações gerais foram salvas.',
 	),
 	'congratulations' => 'Parabéns!',
-	'default_user' => 'Usuário do usuário padrão <small>(máximo de 16 caracteres alfanuméricos)</small>',
-	'delete_articles_after' => 'Remover artigos depois',
+	'default_user' => array(
+		'_' => 'Usuário do usuário padrão',
+		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',
 	'js' => array(
@@ -111,10 +124,10 @@ return array(
 		'choose' => 'Escolha o idioma para o FreshRSS',
 		'defined' => 'O idioma foi definido.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Algo de errado ocorreu; você tem que criar um arquivo vazio <em>%s</em> manualmente.',
 	'ok' => 'O processo de instalação foi um sucesso.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO - Translation
+		'nok' => 'O servidor parece ter sido configurado incorretamente para os cookies necessários para sessões PHP!',
 	),
 	'step' => 'passo %d',
 	'steps' => 'Passos',

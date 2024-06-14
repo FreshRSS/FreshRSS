@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
@@ -14,7 +24,7 @@ return array(
 				'email_sent' => 'Email adresinize posta gönderildi.',
 				'error' => 'Email adresi doğrulaması başarısız.',
 				'ok' => 'Bu email adresi doğrulandı.',
-				'unneccessary' => 'Bu email adresi zaten doğrulandı.',
+				'unnecessary' => 'Bu email adresi zaten doğrulandı.',
 				'wrong_token' => 'Email doğrulaması yanlış anahtar sebebi ile başarısız oldu.',
 			),
 			'need_to' => '%s kullanımından önce email doğrulaması yapmalısınız.',

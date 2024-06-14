@@ -1,18 +1,18 @@
-// La couleur principale du thème
-$main-first: #ca7227; // couleur principale
-$main-first-alt: #b7641d; // var pour les hovers
+// The main color of the theme
+$main-first: #ca7227; // main color
+$main-first-alt: #b7641d; // var for hovers
 $main-first-light: #fdf6ef; // var light 1
 $main-first-lighter: #fefaf7; // var light 2
-$main-first-dark: #3c3835; // var pour les hovers
-$main-first-darker: #221f1d; // var pour les hovers
+$main-first-dark: #3c3835; // var for hovers
+$main-first-darker: #221f1d; // var for hovers
 
-// les couleurs de polices liées
+// linked font colors
 $main-font-color: #363330;
 $light-font-color: #6d655f;
-$white: #fff; // le blanc (des fois qu'on aurait envie de le teinter un peu)
+$white: #fff; // white (sometimes we would like to tint it a little)
 
-// toute la palette des gris, très utile
-// on essaiera de teinter ces gris suivant la couleur principale
+// the whole palette of grays, very useful
+// we will try to tint these grays according to the main color
 $grey-darker: #524236;
 $grey-dark: #766556;
 $grey-medium-dark: #ba9;
@@ -25,10 +25,10 @@ $unread-font-color: #161a38;
 $unread-bg: #f2f6f8;
 $unread-bg-light: #fdfdfe;
 
-// les couleurs d'alertes (rouge, jaune, vert)
-$alert-bg: #f5633e; // la base
+// alert colors (red, yellow, green)
+$alert-bg: #f5633e; // the base
 $alert-light: #fde0d8; // +light
-$alert-text: #73341f; // +foncé
+$alert-text: #73341f; // +dark
 
 $warning-bg: #f4f762;
 $warning-light: #fdfde0;
@@ -38,16 +38,17 @@ $success-bg: #10f5b2;
 $success-light: #cffdef;
 $success-text: #0c7556;
 
-// les favoris
+// favorites
 $fav-bg: #ffc300;
 $fav-light: #fff6da;
 
-// la couleur de sidebar, utile si on a envie d'un thème qui aurait une sidebar foncé, e.g.
-$sid-font-color: #363330; // la couleur de fond de la barre de gauche et du header
-$sid-bg: #fbf9f6; // le background général de la barre de gauche, et du header
-$sid-bg-alt: #f7f2ea; // le background de l'intérieur des groupes
-$sid-bg-dark: #efe3d3; // les hovers
-$sid-sep: #f0e7da; // les séparateurs
-$sid-active: $main-first; // la couleur active
-$sid-active-font: #fff; // la couleur active
-$sid-pills: rgba(35,35,0, 0.15); // les gélules
+// the sidebar color, useful if you want a theme that would have a dark sidebar, e.g.
+$sid-font-color: #363330; // the background color of the left bar and the header
+$sid-bg: #fbf9f6; // the general background of the left bar, and of the header
+$sid-bg-alt: #f7f2ea; // background inside groups
+$sid-bg-dark: #efe3d3; // the hover
+$sid-sep: #f0e7da; // the separators
+$sid-active: $main-first; // the active color
+// stylelint-disable-next-line color-hex-length
+$sid-active-font: #ffffff; // the active color
+$sid-pills: rgba(35,35,0, 0.15); // capsules

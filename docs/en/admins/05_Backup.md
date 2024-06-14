@@ -1,28 +1,42 @@
 # Backup
 
-This tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`; If you've installed it somewhere else, substitute your path as necessary.
+FreshRSS global settings are in `./data/config.php` and users' settings are in `./data/users/*/config.php`. You can also back up the whole `./data/` directory but exclude the things you do not want.
 
-## Installation Backup
+If you use extensions, then each directory in `./extensions` the folder `static` contains the user’s extension settings.
+
+## Full-Installation Backup
 
 Do this before an upgrade.
 
-### Creating a Backup
+This following tutorial demonstrates commands for backing up FreshRSS. It assumes that your main FreshRSS directory is `/usr/share/FreshRSS`. If you’ve installed it somewhere else, substitute your path as necessary.
 
-First, Enter the directory you wish to save your backup to. Here, for example, we'll save the backup to the user home directory
+### Creating a database backup
+
+Back-up all users respective database to `data/users/*/backup.sqlite`
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-backup.php
+```
+
+### Creating a Backup of all Files
+
+Enter the directory you wish to save your backup to.
+Here, for example, we’ll save the backup to the user home directory
 
 ```sh
 cd ~
 ```
 
-Next, we'll create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it's current state.
+Next, we’ll create a gzipped tar archive of the FreshRSS directory. The following command will archive the entire contents of your FreshRSS installation in it’s current state.
 
 ```sh
 tar -czf FreshRSS-backup.tgz -C /usr/share/FreshRSS/ .
 ```
 
-And you're done!
+And you’re done!
 
-### Restoring from a Backup
+### Restoring Files from a Backup
 
 First, copy the backup previously made into your FreshRSS directory
 
@@ -48,22 +62,58 @@ And optionally, as cleanup, remove the copy of your backup from the FreshRSS dir
 rm FreshRSS-backup.tgz
 ```
 
-## Backing up Feeds
+### Restore a database backup
+
+> ℹ️ It is safer to stop your Web server and cron during maintenance operations.
+
+Restore all users respective database from `data/users/*/backup.sqlite`
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-restore.php --delete-backup --force-overwrite
+```
+
+## Migrate database
+
+Start by making an automatic backup of the all the user databases to SQLite files:
+
+```sh
+cd /usr/share/FreshRSS/
+./cli/db-backup.php
+```
+
+Change your database setup:
+- if you like to change database type (e.g. from MySQL to PostgreSQL), edit `data/config.php` accordingly.
+- if you upgrade to a major PostgreSQL version, after a PostgreSQL backup, you may delete the old instance and start a new instance (remove the PostgreSQL volume if using Docker).
+
+Restore all the user databases from the SQLite files:
+
+```sh
+./cli/db-restore.php --delete-backup --force-overwrite
+```
+
+See also our [Docker documentation to migrate database](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#migrate-database).
+
+## Backing up selected content
 
 ### Feed list Export
 
 You can export your feed list in OPML format either from the web interface, or from the [Command-Line Interface](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md).
 
+The OPML export only exports the standard OPML parameters and does not export things such as desired refresh frequency, custom attributes such as passwords, user agent, XPath Web scraping, etc.
+
+To export all that, use a full back-up with export-to-sqlite, as described in the following section.
+
 ### Saving Articles
 
-**If you are using MySQL**  
+**If you are using MySQL**
 You can use [phpMyAdmin](https://www.phpmyadmin.net/) or MySQL tools, where `<db_user>` is your database username, `<db_host>` is the hostname of your web server containing your FreshRSS database, and `<freshrss_db>` is the database used by FreshRSS:
 
 ```sh
 mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
-**From any database**  
+**From any database**
 You can use the [Command-Line Interface](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md) to export your database to a SQLite database file:
 
 ```sh

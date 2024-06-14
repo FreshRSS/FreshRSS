@@ -1,17 +1,26 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
-		'allow_anonymous_refresh' => 'Разрешить анонимную актуализацию статей',
+		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений)</small>',
 		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
 		'http' => 'HTTP (для опытных пользователей с HTTPS)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
-		'title_reset' => 'Сброс аутентицикации',
-		'token' => 'Токен аутентификации',
-		'token_help' => 'Разрешает доступ к RSS-лентам пользователя по умолчанию без аутентификации:',
+		'token' => 'Главный токен аутентификации',
+		'token_help' => 'Обеспечивает доступ ко всем выходным данным RSS пользователя, а также к обновлению лент без проверки подлинности:',
 		'type' => 'Способ аутентификации',
 		'unsafe_autologin' => 'Разрешить небезопасный автоматический вход с использованием следующего формата: ',
 	),
@@ -127,26 +136,21 @@ return array(
 		'entry_count' => 'Количество статей',
 		'entry_per_category' => 'Статей в категории',
 		'entry_per_day' => 'Статей за день (за последние 30 дней)',
-		'entry_per_day_of_week' => 'За неделю (в среднем - %.2f сообщений)',
-		'entry_per_hour' => 'За час (в среднем - %.2f сообщений)',
-		'entry_per_month' => 'За месяц (в среднем - %.2f сообщений)',
-		'entry_repartition' => 'Перерасределение статей',
+		'entry_per_day_of_week' => 'За неделю (в среднем %.2f сообщений)',
+		'entry_per_hour' => 'За час (в среднем %.2f сообщений)',
+		'entry_per_month' => 'За месяц (в среднем %.2f сообщений)',
+		'entry_repartition' => 'Расределение статей',
 		'feed' => 'Лента',
 		'feed_per_category' => 'Лент в категории',
 		'idle' => 'Неактивные ленты',
 		'main' => 'Основная статистика',
 		'main_stream' => 'Основной поток',
-		'menu' => array(
-			'idle' => 'Неактивные ленты',
-			'main' => 'Основная статистика',
-			'repartition' => 'Перерасределение статей',
-		),
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
-		'percent_of_total' => '%% от всего',
-		'repartition' => 'Перераспределение статей',
-		'status_favorites' => 'Избранное',
-		'status_read' => 'Читать',
+		'percent_of_total' => '% от всего',
+		'repartition' => 'Распределение статей',
+		'status_favorites' => 'В избранном',
+		'status_read' => 'Прочитано',
 		'status_total' => 'Всего',
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
@@ -155,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'URL сервера для автоматического обновления',
+		'base-url' => array(
+			'_' => 'Основной URL-адрес',
+			'recommendation' => 'Автоматическая рекомендация: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
@@ -164,27 +172,55 @@ return array(
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
 		'registration' => array(
-			'help' => '0 означает неограниченное количество пользователей',
-			'number' => 'Максимальное количество пользователей',
+			'number' => 'Максимальное количество аккаунтов',
+			'select' => array(
+				'label' => 'Форма регистрации',
+				'option' => array(
+					'noform' => 'Отключено: Нет формы регистрации',
+					'nolimit' => 'Включено: Нет ограничения аккаунтов',
+					'setaccountsnumber' => 'Установить максимальное количество аккаунтов',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Форма отключена',
+				'enabled' => 'Форма включена',
+			),
+			'title' => 'Форма регистрации пользователей',
+		),
+		'sensitive-parameter' => 'Важный параметр. Отредактируйте вручную в <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'не указан',
+			'enabled' => '<a href="./?a=tos">включен</a>',
+			'help' => 'Как <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">включить Условия предоставления услуг</a>',
+		),
+		'websub' => array(
+			'help' => 'О <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Обновление системы',
 		'apply' => 'Применить',
+		'changelog' => 'Список изменений',
 		'check' => 'Проверить обновления',
-		'current_version' => 'Ваша текущая версия FreshRSS: %s.',
-		'last' => 'Последняя проверка: %s',
+		'copiedFromURL' => 'update.php скопирован из %s в ./data',
+		'current_version' => 'Ваша текущая версия',
+		'last' => 'Последняя проверка',
+		'loading' => 'Обновление…',
 		'none' => 'Нет обновлений',
+		'releaseChannel' => array(
+			'_' => 'Релизный канал',
+			'edge' => 'Плавающий релиз (“edge”)',
+			'latest' => 'Стабильный релиз (“latest”)',
+		),
 		'title' => 'Обновить систему',
+		'viaGit' => 'Обновление с помощью git и GitHub.com запущено',
 	),
 	'user' => array(
 		'admin' => 'Администратор',
 		'article_count' => 'Статей',
-		'articles_and_size' => '%s статей (%s)',
 		'back_to_manage' => '← Вернуться к списку пользователей',
 		'create' => 'Создать нового пользователя',
 		'database_size' => 'Размер базы данных',
-		'delete_users' => 'Удалить пользователя',
 		'email' => 'Адрес электронной почты',
 		'enabled' => 'Включён',
 		'feed_count' => 'Лент',
@@ -196,11 +232,7 @@ return array(
 		'numbers' => 'Имеется %d созданных аккаунтов',
 		'password_form' => 'Пароль<br /><small>(для входа через веб-форму)</small>',
 		'password_format' => 'Не менее 7 символов',
-		'selected' => 'Выбранный пользователь',
 		'title' => 'Управление пользователями',
-		'update_users' => 'Изменить пользователя',
-		'user_list' => 'Список пользователей',
 		'username' => 'Имя пользователя',
-		'users' => 'Пользователи',
 	),
 );

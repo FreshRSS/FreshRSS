@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Завершить установку',
@@ -80,6 +90,7 @@ return array(
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
 		),
+		'reload' => 'Проверьте еще раз',
 		'tmp' => array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку temp в порядке.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'Общие настройки сохранены.',
 	),
 	'congratulations' => 'Поздравляем!',
-	'default_user' => 'Имя пользователя по умолчанию <small>(не более 16 буквенно-цифровых символов)</small>',
-	'delete_articles_after' => 'Удалять статьи после',
+	'default_user' => array(
+		'_' => 'Имя пользователя по умолчанию',
+		'max_char' => 'не более 16 буквенно-цифровых символов',
+	),
 	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
 	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',
 	'js' => array(

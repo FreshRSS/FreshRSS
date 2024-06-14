@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Acabar l’installacion',
@@ -80,6 +90,7 @@ return array(
 			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
+		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Las permissions sul repertòri temporari son bonas.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'La configuracion generala es enregistrada.',
 	),
 	'congratulations' => 'Òsca !',
-	'default_user' => 'Nom d’utilizaire per defaut <small>16 caractèrs alfanumerics maximum)</small>',
-	'delete_articles_after' => 'Levar los articles aprèp',
+	'default_user' => array(
+		'_' => 'Nom d’utilizaire per defaut',
+		'max_char' => '16 caractèrs alfanumerics maximum',
+	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',
 	'js' => array(
@@ -111,7 +124,7 @@ return array(
 		'choose' => 'Causissètz la lenga per FreshRSS',
 		'defined' => 'La lenga es corrèctament definida.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO - Translation
+	'missing_applied_migrations' => 'Quicòm a trucat ; devètz crear un fichièr <em>%s</em> void manualament.',
 	'ok' => 'L’installacion s’es corrèctament passada.',
 	'session' => array(
 		'nok' => 'Sembla que lo servidor web siá pas corrèctament configurat pels cookies per las sessions PHP !',

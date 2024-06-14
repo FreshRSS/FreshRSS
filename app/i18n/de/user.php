@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
@@ -14,7 +24,7 @@ return array(
 				'email_sent' => 'Wir haben Ihnen eine E-Mail geschickt.',
 				'error' => 'Die E-Mail Adresse konnte nicht verifiziert werden.',
 				'ok' => 'Die E-Mail-Adresse wurde verifiziert',
-				'unneccessary' => 'Die E-Mail-Adresse wurde bereits verifiziert.',
+				'unnecessary' => 'Die E-Mail-Adresse wurde bereits verifiziert.',
 				'wrong_token' => 'Die E-Mail-Adresse konnte aufgrund eines ungültigen Sicherheitstokens nicht verifiziert werden.',
 			),
 			'need_to' => 'Sie müssen zuerst Ihre E-Mail-Adresse verifizieren, bevor Sie %s nutzen können.',

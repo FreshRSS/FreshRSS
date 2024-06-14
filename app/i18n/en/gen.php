@@ -1,13 +1,24 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Update',
+		'actualize' => 'Update feeds',
 		'add' => 'Add',
 		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
+		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',
 		'disable' => 'Disable',
 		'empty' => 'Empty',
@@ -17,10 +28,16 @@ return array(
 		'import' => 'Import',
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
-		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'Open URL',
 		'promote' => 'Promote',
 		'purge' => 'Purge',
+		'refresh_opml' => 'Refresh OPML',
 		'remove' => 'Remove',
 		'rename' => 'Rename',
 		'see_website' => 'See website',
@@ -43,10 +60,8 @@ return array(
 			'ask' => 'Create an account?',
 			'title' => 'Account creation',
 		),
-		'reset' => 'Authentication reset',
 		'username' => array(
 			'_' => 'Username',
-			'admin' => 'Administrator username',
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 		),
 	),
@@ -120,22 +135,30 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
+			'body_unread_articles' => '(unread: %%d)',
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
+		'labels_empty' => 'No labels',
 		'new_article' => 'There are new articles available, click to refresh the page.',
 		'should_be_activated' => 'JavaScript must be enabled',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
+		'cs' => 'Čeština',
 		'de' => 'Deutsch',
+		'el' => 'Ελληνικά',
 		'en' => 'English',
 		'en-us' => 'English (United States)',
 		'es' => 'Español',
+		'fa' => 'فارسی',
 		'fr' => 'Français',
 		'he' => 'עברית',
+		'hu' => 'Magyar',
+		'id' => 'Bahasa Indonesia',
 		'it' => 'Italiano',
-		'kr' => '한국어',
+		'ja' => '日本語',
+		'ko' => '한국어',
+		'lv' => 'Latviešu',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
@@ -144,9 +167,11 @@ return array(
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
+		'zh-tw' => '正體中文',
 	),
 	'menu' => array(
 		'about' => 'About',
+		'account' => 'Account',
 		'admin' => 'Administration',
 		'archiving' => 'Archiving',
 		'authentication' => 'Authentication',
@@ -158,6 +183,7 @@ return array(
 		'queries' => 'User queries',
 		'reading' => 'Reading',
 		'search' => 'Search words or #tags',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',
 		'sharing' => 'Sharing',
 		'shortcuts' => 'Shortcuts',
 		'stats' => 'Statistics',
@@ -165,15 +191,6 @@ return array(
 		'update' => 'Update',
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
-	),
-	'pagination' => array(
-		'first' => 'First',
-		'last' => 'Last',
-		'load_more' => 'Load more articles',
-		'mark_all_read' => 'Mark all as read',
-		'next' => 'Next',
-		'nothing_to_load' => 'There are no more articles',
-		'previous' => 'Previous',
 	),
 	'period' => array(
 		'days' => 'days',
@@ -184,24 +201,35 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
-		'blogotext' => 'Blogotext',
+		'archiveORG' => 'archive.org',
+		'archivePH' => 'archive.ph',
+		'buffer' => 'Buffer',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',
 		'facebook' => 'Facebook',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'lemmy' => 'Lemmy',
+		'linkding' => 'Linkding',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
+		'pinterest' => 'Pinterest',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
+		'raindrop' => 'Raindrop.io',
+		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'web-sharing-api' => 'System sharing',
+		'whatsapp' => 'Whatsapp',
+		'xing' => 'Xing',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
@@ -215,5 +243,10 @@ return array(
 		'ok' => 'Okay!',
 		'or' => 'or',
 		'yes' => 'Yes',
+	),
+	'stream' => array(
+		'load_more' => 'Load more articles',
+		'mark_all_read' => 'Mark all as read',
+		'nothing_to_load' => 'There are no more articles',
 	),
 );

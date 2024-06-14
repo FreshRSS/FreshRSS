@@ -1,17 +1,18 @@
 # FreshRSS - Fever API implementation
 
-See the [page about our Google Reader compatible API](06_Mobile_access.md) for another possibility
-and general aspects of API access.
+See [Mobile access](../users/06_Mobile_access.md) for general aspects of API access.
+Additionally [page about our Google Reader compatible API](06_GoogleReader_API.md) for another possibility.
+
 
 ## RSS clients
 
 There are many RSS clients that support the Fever API, but they seem to understand the Fever API a bit differently.
-If your favourite client doesn't work properly with this API, please create an issue and we'll have a look.
+If your favourite client doesn’t work properly with this API, please create an issue and we’ll have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
 
-Before you can start using this API, you have to enable and setup API access, which is [documented here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
+Before you can start using this API, you have to enable and setup API access, which is [documented here](../users/06_Mobile_access.md),
 and then reset the user’s API password.
 
 Then point your mobile application to the `fever.php` address (e.g. `https://freshrss.example.net/api/fever.php`).
@@ -21,7 +22,10 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
+|[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
+|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
 |[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Closed Source                                             |
+|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
 |[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Closed Source                                             |
 |[Reeder](https://www.reederapp.com/)                                                |iOS                  |Closed Source                                              |
 |[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Closed Source                                              |
@@ -48,7 +52,7 @@ The following features are not supported:
 
 If this API does not work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
 
-Configure a POST request to the URL https://freshrss.example.net/api/fever.php?api which should give you the result:
+Configure a POST request to the URL <https://freshrss.example.net/api/fever.php?api> which should give you the result:
 ```json
 {
 	"api_version": 3,
@@ -78,19 +82,19 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you're now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
+Perfect, you’re now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
 
 Some basic calls are:
 
-* https://freshrss.example.net/api/fever.php?api&items
-* https://freshrss.example.net/api/fever.php?api&feeds
-* https://freshrss.example.net/api/fever.php?api&groups
-* https://freshrss.example.net/api/fever.php?api&unread_item_ids
-* https://freshrss.example.net/api/fever.php?api&saved_item_ids
-* https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
-* https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
-* https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+* <https://freshrss.example.net/api/fever.php?api&items>
+* <https://freshrss.example.net/api/fever.php?api&feeds>
+* <https://freshrss.example.net/api/fever.php?api&groups>
+* <https://freshrss.example.net/api/fever.php?api&unread_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&saved_item_ids>
+* <https://freshrss.example.net/api/fever.php?api&items&since_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&items&max_id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id>
+* <https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id>
 
 Replace `some_id` with a real ID from your `freshrss_username_entry` database.
 

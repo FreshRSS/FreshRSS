@@ -1,15 +1,17 @@
-# Les fichiers .phtml
+# Les vues
 
-**À FAIRE**
+## Les fichiers .phtml
 
-# Écrire une URL
+> **À FAIRE**
 
-**À FAIRE**
+## Écrire une URL
 
-# Afficher une icône
+> **À FAIRE**
 
-**À FAIRE**
+## Afficher une icône
 
-# Internationalisation
+> **À FAIRE**
 
-**À FAIRE**
+## Internationalisation
+
+> **À FAIRE**

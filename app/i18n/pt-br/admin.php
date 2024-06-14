@@ -1,19 +1,28 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Permitir a leitura anónima dos artigos pelo usuário padrão (%s)',
-		'allow_anonymous_refresh' => 'Permitir atualização anónima dos artigos',
+		'allow_anonymous' => 'Permitir a leitura anônima dos artigos pelo usuário padrão (%s)',
+		'allow_anonymous_refresh' => 'Permitir atualização anônima dos artigos',
 		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis)</small>',
 		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
 		'http' => 'HTTP (Para usuários avançados com HTTPS)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
-		'title_reset' => 'Reset autenticação',
-		'token' => 'Token de autenticação ',
-		'token_help' => 'Permitir acesso a saída RSS para o usuário padrão sem autenticação',
+		'token' => 'Token de autenticação principal',
+		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
-		'unsafe_autologin' => 'Permitir login automática insegura usando o seguinte formato: ',
+		'unsafe_autologin' => 'Permitir login automático inseguro usando o seguinte formato: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -131,30 +140,29 @@ return array(
 		'entry_per_hour' => 'Por hora (média: %.2f mensagens)',
 		'entry_per_month' => 'Por mês(média: %.2f mensagens)',
 		'entry_repartition' => 'Repartição de entradas',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds por categoria',
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
 		'main_stream' => 'Stream principal',
-		'menu' => array(
-			'idle' => 'Feeds inativos',
-			'main' => 'Estatísticas principais',
-			'repartition' => 'Repartição de artigos',
-		),
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'percent_of_total' => '%% do total',
+		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Lido',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
-		'top_feed' => 'Top10 feeds',
+		'top_feed' => 'Top10 Feeds',
 	),
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
+		'base-url' => array(
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendação automática: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',
@@ -164,43 +172,67 @@ return array(
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
 		'registration' => array(
-			'help' => '0 significa que não há limite para a conta',
 			'number' => 'Máximo número de contas',
+			'select' => array(
+				'label' => 'Formulário de Registro',
+				'option' => array(
+					'noform' => 'Desativado: Sem formulário de registro',
+					'nolimit' => 'Ativado: Sem limites de contas',
+					'setaccountsnumber' => 'Definir o máximo número de contas',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formulário desabilitado',
+				'enabled' => 'Formulário habilitado',
+			),
+			'title' => 'Formulário de Cadastro de Usuário',
+		),
+		'sensitive-parameter' => 'Parâmetro sensível. Edite manualmente em <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'não fornecido',
+			'enabled' => '<a href="./?a=tos">está ativado</a>',
+			'help' => 'Como <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">habilitar os Termos de Serviço</a>',
+		),
+		'websub' => array(
+			'help' => 'Sobre <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Atualização do sistema',
 		'apply' => 'Aplicar',
+		'changelog' => 'Registro de alterações',
 		'check' => 'Buscar por novas atualizações',
-		'current_version' => 'Sua versão do FreshRSS é %s.',
-		'last' => 'Última verificação: %s',
+		'copiedFromURL' => 'update.php copiado de %s para ./data',
+		'current_version' => 'Sua versão',
+		'last' => 'Última verificação',
+		'loading' => 'Atualizando…',
 		'none' => 'Nenhuma atualização para se aplicar',
+		'releaseChannel' => array(
+			'_' => 'Canal de Release',
+			'edge' => 'Release contínua (“edge”)',
+			'latest' => 'Release estável (“latest”)',
+		),
 		'title' => 'Sistema de atualização',
+		'viaGit' => 'Atualização via git e GitHub.com iniciada',
 	),
 	'user' => array(
 		'admin' => 'Administrador',
 		'article_count' => 'Artigos',
-		'articles_and_size' => '%s artigos (%s)',
 		'back_to_manage' => '← Voltar para à lista de usuários',
 		'create' => 'Criar novo usuário',
 		'database_size' => 'Tamanho do banco de dados',
-		'delete_users' => 'Deletar usuário',
 		'email' => 'Endereço de email',
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',
+		'enabled' => 'Habilitado',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'É administrador',
 		'language' => 'Idioma',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
+		'last_user_activity' => 'Última Atividade do Usuário',
 		'list' => 'Lista de usuários',
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
 		'password_form' => 'Senha<br /><small>(para o login pelo método do formulário)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
-		'selected' => 'Usuário selecionado',
 		'title' => 'Gerenciar usuários',
-		'update_users' => 'Atualizar usuário',
-		'user_list' => 'Lista de usuários',
 		'username' => 'Usuário',
-		'users' => 'Usuários',
 	),
 );

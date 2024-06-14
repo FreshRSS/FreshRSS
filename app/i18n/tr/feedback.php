@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'access' => array(
 		'denied' => 'Bu sayfaya erişim yetkiniz yok',
@@ -15,10 +25,6 @@ return array(
 		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'Sistem yapılandırma kimlik doğrulaması sırasında hata oldu. Lütfen daha sonra tekrar deneyin.',
-			'set' => 'Kimlik doğrulama sistemi tamamnaldı.',
-		),
 		'login' => array(
 			'invalid' => 'Giriş geçersiz',
 			'success' => 'Bağlantı kuruldu',
@@ -26,11 +32,10 @@ return array(
 		'logout' => array(
 			'success' => 'Bağlantı koptu',
 		),
-		'no_password_set' => 'Yönetici şifresi ayarlanmadı. Bu özellik kullanıma uygun değil.',
 	),
 	'conf' => array(
 		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',
-		'query_created' => 'Sorgu "%s" oluşturuldu.',
+		'query_created' => 'Sorgu “%s” oluşturuldu.',
 		'shortcuts_updated' => 'Kısayollar yenilendi',
 		'updated' => 'Yapılandırm ayarları yenilendi',
 	),
@@ -52,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
-		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek',
-		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi',
+		'feeds_imported' => 'Akışlarınız içe aktarıldı. Eğer içe aktarımı tamamladıysanız <i>Akışları güncelle</i> butonuna tıklayabilirsiniz.',
+		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi. Eğer içe aktarımı tamamladıysanız <i>Akışları güncelle</i> butonuna tıklayabilirsiniz.',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
+		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// IGNORE
 	),
 	'profile' => array(
 		'error' => 'Profiliniz düzenlenemedi',
@@ -89,7 +94,7 @@ return array(
 			'cache_cleared' => '<em>%s</em> önbelleği temizlendi',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin. URL adresine <code>#force_feed</code> ekleyerek denemeyi zorlayabilirsiniz.',
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
@@ -110,9 +115,11 @@ return array(
 		'purge_completed' => 'Temizleme tamamlandı (%d makale silindi)',
 	),
 	'tag' => array(
-		'created' => '"%s" etiketi oluşturuldu.',
+		'created' => '“%s” etiketi oluşturuldu.',
+		'error' => 'Etiket güncellenemedi!',
 		'name_exists' => 'Etiket zaten mevcut.',
-		'renamed' => '"%s" isimli etiketin ismi "%s" olarak değiştirildi.',
+		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
+		'updated' => 'Etiket güncellendi.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',

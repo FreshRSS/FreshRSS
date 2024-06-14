@@ -1,22 +1,31 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'Sobre',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bugs_reports' => 'Reportar Bugs',
 		'credits' => 'Créditos',
-		'credits_content' => 'Alguns elementos de design vieram do <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> Embora FreshRRS não utiliza este framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Ícones</a> vieram do <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police foi criada por <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS é baseado no <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, um framework PHP.',
-		'freshrss_description' => 'FreshRSS é um RSS feeds aggregator para um host próprio como o <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> ou <a href="https://github.com/LeedRSS/Leed">Leed</a>. É leve e fácil de utilizar enquanto é uma ferramenta poderosa e configurável. ',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">no Github</a>',
+		'credits_content' => 'Alguns elementos de design vieram do <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> Embora FreshRRS não utiliza este framework. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ícones</a> vieram do <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police foi criada por <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS é baseado no <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, um framework PHP.',
+		'documentation' => 'Documentação',
+		'freshrss_description' => 'FreshRSS é um RSS feeds aggregator para um host próprio. É leve e fácil de utilizar enquanto é uma ferramenta poderosa e configurável. ',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">no GitHub</a>',
 		'license' => 'licença',
 		'project_website' => 'Site do projeto',
 		'title' => 'Sobre',
 		'version' => 'Versão',
-		'website' => 'Site',
 	),
 	'feed' => array(
-		'add' => 'Você pode adicionar alguns feeds.',
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'rss_of' => 'RSS feed do %s',
 		'title' => 'Stream principal',
@@ -24,18 +33,19 @@ return array(
 		'title_global' => 'Visualização Global',
 	),
 	'log' => array(
-		'_' => 'Logs',
+		'_' => 'Logs',	// IGNORE
 		'clear' => 'Limpar logs',
 		'empty' => 'Arquivo de log está vazio',
-		'title' => 'Logs',
+		'title' => 'Logs',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Sobre o FreshRSS',
 		'before_one_day' => 'Antes de um dia',
 		'before_one_week' => 'Antes de uma semana',
-		'bookmark_query' => 'Bookmark current query',	// TODO - Translation
+		'bookmark_query' => 'Salvar pesquisa atual',
 		'favorites' => 'Favoritos (%s)',
 		'global_view' => 'Visualização global',
+		'important' => 'Feeds importantes',
 		'main_stream' => 'Stream principal',
 		'mark_all_read' => 'Marcar todos como lidos',
 		'mark_cat_read' => 'Marcar categoria como lida',

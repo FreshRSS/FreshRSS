@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Complete installation',
@@ -80,6 +90,7 @@ return array(
 			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
 		),
+		'reload' => 'Check again',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the temp directory are good.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'General configuration has been saved.',
 	),
 	'congratulations' => 'Congratulations!',
-	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
-	'delete_articles_after' => 'Remove articles after',
+	'default_user' => array(
+		'_' => 'Username of the default user',
+		'max_char' => 'maximum 16 alphanumeric characters',
+	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
 	'js' => array(

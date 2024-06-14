@@ -1,56 +1,30 @@
+@use "variables";
+
 /*=== Configuration pages */
 .post {
-	padding: 1rem 2rem;
 	font-size: 1rem;
 
-	form {
-		margin: 1rem 0;
-
-		// Gestion des extensions
-		.horizontal-list {
-			margin-bottom: 0.5rem;
-
-			.item {
-				.stick {
-					// width: 65%;
-					// margin-right: 1rem;
-					// display:flex;
-
-				}
-
-				.btn {
-					// width: 8rem;
-					// flex-grow: 1;
-				}
-			}
-
-		}
-	}
-
-	&.content {
-		max-width: 550px;
-	}
-
-	h1, h2 { // pages titles
-		// font-family: "spectral";
-		color: $main-font-color;
-		font-size: 3rem;
+	h1, h2 {
+		color: variables.$main-font-color;
+		font-size: 2rem;
 		margin-top: 1.75rem;
 		font-weight: 300;
 		line-height: 1.2em;
 	}
 
-	a[href="./"] { // C'est le bouton "Retour à vos flux"
+	h2 {
+		font-size: 1.5rem;
+	}
+
+	a[href="./"] { // This is the "Back to your feeds" button.
 		margin: 0;
 		padding: 0.75rem 1.5rem;
-		background: $grey-lighter;
+		background: variables.$grey-lighter;
 		display: inline-block;
-		// border: none;
-		color: $grey-dark;
+		color: variables.$grey-dark;
 		font-size: 1rem;
-		border: 1px solid $grey-medium-light;
+		border: 1px solid variables.$grey-medium-light;
 		border-radius: 5px;
-		// min-height: 38px;
 		min-width: 15px;
 		line-height: 25px;
 		vertical-align: middle;
@@ -58,9 +32,9 @@
 		overflow: hidden;
 
 		&:hover {
-			background: $main-first;
+			background: variables.$main-first;
 			color: white;
-			border: 1px solid $main-first;
+			border: 1px solid variables.$main-first;
 			text-decoration: none;
 		}
 	}
@@ -74,16 +48,18 @@
 	box-shadow: 0px 6px 8px 0px rgba(0,0,0,0.35);
 }
 
-.slide-container {
-	.properties {
-		padding: 1rem;
-		background: rgba(0, 0, 0, 0.75);
-		color: white;
-		border: 0;
+.theme-preview-list {
+	.preview-container {
+		.properties {
+			padding: 1rem;
+			background: rgba(0, 0, 0, 0.75);
+			color: white;
+			border: 0;
 
-		.page-number {
-			right: 1rem;
-			top: 1rem;
+			.page-number {
+				right: 1rem;
+				top: 1rem;
+			}
 		}
 	}
 }

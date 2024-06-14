@@ -1,12 +1,19 @@
-<div class="prompt">
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
 	<?php if (!max_registrations_reached()) { ?>
-		<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+		<div class="link-registration">
+			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+		</div>
 	<?php } ?>
 
 	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
 
 		<div class="form-group">
 			<label for="username"><?= _t('gen.auth.username') ?></label>
@@ -18,7 +25,7 @@
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
 				<input type="password" id="passwordPlain" required="required" />
-				<a class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></a>
+				<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
 			</div>
 			<input type="hidden" id="challenge" name="challenge" />
 			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
@@ -37,6 +44,11 @@
 			</button>
 		</div>
 	</form>
+</main>
 
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
-</div>
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>

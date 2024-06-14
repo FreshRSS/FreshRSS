@@ -1,13 +1,25 @@
 <?php
-$feeds = array();
-foreach ($this->feeds as $feed) {
-	$feeds[] = array(
-		'url' => Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'),
-		'title' => $feed->name(),
-	);
+declare(strict_types=1);
+/** @var FreshRSS_ViewJavascript $this */
+
+$categories = [];
+foreach ($this->categories as $category) {
+	$categories[] = [
+		'url' => Minz_Url::display(['c' => 'category', 'a' => 'refreshOpml', 'params' => ['id' => $category->id(), 'ajax' => '1']], 'php'),
+		'title' => $category->name(),
+	];
 }
-echo json_encode(array(
+
+$feeds = [];
+foreach ($this->feeds as $feed) {
+	$feeds[] = [
+		'url' => Minz_Url::display(['c' => 'feed', 'a' => 'actualize', 'params' => ['id' => $feed->id(), 'ajax' => '1']], 'php'),
+		'title' => $feed->name(),
+	];
+}
+echo json_encode([
+	'categories' => $categories,
 	'feeds' => $feeds,
 	'feedback_no_refresh' => _t('feedback.sub.feed.no_refresh'),
 	'feedback_actualize' => _t('feedback.sub.actualize'),
-));
+]);

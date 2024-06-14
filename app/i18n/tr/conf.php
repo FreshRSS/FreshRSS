@@ -1,14 +1,23 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
-		'delete_after' => 'Makelelerin tutulacağı süre',
 		'exception' => 'Temizlik ifadeleri',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
 		'keep_labels' => 'Etiketleri asla silme',
-		'keep_max' => 'Bellekte tutulacak en fazla makale sayısı',
+		'keep_max' => 'Bellekte tutulacak maksimum makale sayısı',
 		'keep_min_by_feed' => 'Akışta en az tutulacak makale sayısı',
 		'keep_period' => 'Bellekte tutulacak en eski makale tarihi',
 		'keep_unreads' => 'Okunmamaış makaleleri asla silme',
@@ -23,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Görünüm',
+		'darkMode' => array(
+			'_' => 'Otomatik karanlık mod',
+			'auto' => 'Otomatik',
+			'help' => 'For compatible themes only',	// TODO
+			'no' => 'Kapalı',
+		),
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
 			'display_authors' => 'Yazarlar',
@@ -30,6 +45,7 @@ return array(
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',
 			'sharing' => 'Paylaşım',
+			'summary' => 'Özet',
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',
@@ -38,14 +54,49 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
-		'theme' => 'Tema',
+		'theme' => array(
+			'_' => 'Tema',
+			'deprecated' => array(
+				'_' => 'Kullanımdan kalkanlar',
+				'description' => 'Bu tema artık desteklenmiyor ve <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSS in yeni sürümlerinde </a> kullanılamayacak',
+			),
+		),
+		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
+		'thumbnail' => array(
+			'label' => 'Önizleme',
+			'landscape' => 'Manzara',
+			'none' => 'Hiçbiri',
+			'portrait' => 'Portre',
+			'square' => 'Kare',
+		),
+		'timezone' => 'Saat dilimi',
 		'title' => 'Görünüm',
+		'website' => array(
+			'full' => 'simgesi and adı',
+			'icon' => 'Sadece simgesi',
+			'label' => 'Site',
+			'name' => 'Sadece adı',
+			'none' => 'Hiçbiri',
+		),
 		'width' => array(
 			'content' => 'İçerik genişliği',
 			'large' => 'Geniş',
 			'medium' => 'Orta',
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
+		),
+	),
+	'logs' => array(
+		'loglist' => array(
+			'level' => 'Log Seviyesi',
+			'message' => 'Log Mesajı',
+			'timestamp' => 'Zaman Damgası',
+		),
+		'pagination' => array(
+			'first' => 'İlk',
+			'last' => 'Son',
+			'next' => 'Sonraki',
+			'previous' => 'Önceki',
 		),
 	),
 	'profile' => array(
@@ -64,30 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
-		'display' => 'Kullanıcı sorgu sonuçlarını göster',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Akışa göre göster',
 			'order' => 'Tarihe göre göster',
 			'search' => 'İfade',
+			'shareOpml' => 'İlgili kategorilerin ve yayınların OPML ile paylaşılmasını etkinleştir',
+			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
-		'get_category' => '"%s" kategorisini göster',
+		'get_all_labels' => 'Herhangi etikete sahip makaleleri göster ',
+		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
-		'get_feed' => '"%s" akışını göster',
-		'get_tag' => '"%s" etiketini göster',
+		'get_feed' => '“%s” akışını göster',
+		'get_important' => 'Önemli akışındaki makaleleri göster',
+		'get_label' => '“%s” etiketine sahip makaleleri göster',
+		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Kullanıcı aramaları ve HTML / RSS / OPML ile paylaşım hakkında dökümantasyonu</a> görüntüleyin.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
-		'none' => 'Henüz hiç kullanıcı sorgusu oluşturmadınız.',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
-		'remove' => 'Kullanıcı sorgusunu temizle',
-		'search' => '"%s" için arama',
+		'search' => '“%s” için arama',
+		'share' => array(
+			'_' => 'Bu aramayı linkle paylaşın',
+			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
+			'html' => 'HTML sayfasına paylaşılabilir bağlantı',
+			'opml' => 'OMPL listesine paylaşılabilir bağlantı',
+			'rss' => 'RSS akışına paylaşılabilir bağlantı',
+		),
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
 		'state_2' => 'Okunmamış makaleleri göster',
@@ -108,25 +170,68 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Okuma',
-		'after_onread' => '"Hepsini okundu say" dedinten sonra,',
+		'after_onread' => '“Hepsini okundu say” dedinten sonra,',
 		'always_show_favorites' => 'Öntanımlı olarak favori tüm makaleleri göster',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Yazarlar ve Tarih',
+				'both' => 'Üst Bilgi ve Alt Bilgide',
+				'footer' => 'Alt Bilgi',
+				'header' => 'Üst Bilgi',
+				'none' => 'Hiçbiri',
+			),
+			'feed_name' => array(
+				'above_title' => 'Başlıklar/Etiklerin Üstünde',
+				'none' => 'Hiçbiri',
+				'with_authors' => 'Yazarlar ve tarihler satırında',
+			),
+			'feed_title' => 'Akış Başlığı',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Etiketler',
+				'both' => 'Üst Bilgi ve Alt Bilgide',
+				'footer' => 'Alt Bilgide',
+				'header' => 'Üst Bilgide',
+				'none' => 'Hiçbiri',
+			),
+			'tags_max' => array(
+				'_' => 'Gösterilecek maksimum etiket sayısı',
+				'help' => '0: Tüm etiketleri göster ve daraltma',
+			),
+		),
 		'articles_per_page' => 'Sayfa başına makale sayısı',
 		'auto_load_more' => 'Sayfa sonunda yeni makaleleri yükle',
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
-		'confirm_enabled' => '"Hepsini okundu say" eylemi için onay iste',
+		'confirm_enabled' => '“Hepsini okundu say” eylemi için onay iste',
 		'display_articles_unfolded' => 'Katlaması açılmış makaleleri öntanımlı olarak göster',
 		'display_categories_unfolded' => 'Katlaması açılacak kategoriler',
-		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
-		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
+		'headline' => array(
+			'articles' => 'Metinler: Açık/Kapalı',
+			'articles_header_footer' => 'Metinler: üst bilgi/alt bilgi',
+			'categories' => 'Sol navigasyon: Kategoriler',
+			'mark_as_read' => 'Metini okundu olarak işaretle',
+			'misc' => 'Çeşitli',
+			'view' => 'Görünüm',
+		),
+		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle (“Tüm makaleleri göster” komutunda çalışmaz)',
+		'img_with_lazyload' => 'Resimleri yüklemek için “tembel modu” kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okundu olarak işaretle',
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
-			'scroll' => 'kaydırma yapılırken',
+			'focus' => 'Odaklanıldığında (önemli akışı hariç)',
+			'keep_max_n_unread' => 'Okunmadı tutulacak maksimum metin sayısı',
+			'scroll' => 'kaydırma yapılırken (önemli akışı hariç)',
+			'upon_gone' => 'Yeni akışta üst sıralarda değilken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
+			'when_same_title' => 'Aynı başlığa sahip daha yeni bir makale en popüler <i>n</i> yeni metinlerdeyse',
 		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
@@ -157,19 +262,20 @@ return array(
 	'sharing' => array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
+		'deprecated' => 'Bu servis kullanımdan kaldırılmıştır ve gelecekteki bir FreshRSS dağıtımında kaldırılacaktır. Daha fazla bilgi için <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Daha fazla bilgi için belgeyi açın" target="_blank">buraya</a> tıklayın.',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Daha fazla bilgi',
 		'print' => 'Yazdır',
+		'raindrop' => 'Raindrop.io',	// IGNORE
 		'remove' => 'Paylaşım türünü sil',
-		'shaarli' => 'Shaarli',
+		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Paylaşım ismi',
 		'share_url' => 'Paylaşım URL si',
 		'title' => 'Paylaşım',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Kısayollar',
@@ -191,12 +297,13 @@ return array(
 		'navigation_help' => '<kbd>⇧ Shift</kbd> tuşu ile kısayollar akışlar için geçerli olur.<br/><kbd>Alt ⎇</kbd> tuşu ile kısayollar kategoriler için geçerli olur.',
 		'navigation_no_mod_help' => 'Aşağıdaki kısayollar değiştiricileri desteklenmemektedir.',
 		'next_article' => 'Sonraki makaleye geç',
+		'next_unread_article' => 'Sıradaki okunmamış metni aç',
 		'non_standard' => 'Bazı tuşlar (<kbd>%s</kbd>) kullanılamayabilir.',
 		'normal_view' => 'Normal görünüme geç',
 		'other_action' => 'Diğer eylemler',
 		'previous_article' => 'Önceki makaleye geç',
 		'reading_view' => 'Okuma görünümüne geç',
-		'rss_view' => 'RSS görünümünü yeni sekmede aç',
+		'rss_view' => 'RSS beslemesi olarak aç',
 		'see_on_website' => 'Orijinal sitede göster',
 		'shift_for_all_read' => 'Önceki makaleyi okundu olarak işaretlemek için + <kbd>Alt ⎇</kbd> kısayolu<br />Tüm makaleleri okundu işaretlemek için + <kbd>⇧ Shift</kbd>kısayolu',
 		'skip_next_article' => 'Açmadan bir sonraki makaleye geç',

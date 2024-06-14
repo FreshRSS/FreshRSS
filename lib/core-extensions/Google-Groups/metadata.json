@@ -1,8 +1,0 @@
-{
-	"name": "Google-Groups",
-	"author": "Alkarex",
-	"description": "To discover RSS feeds for Google Groups",
-	"version": 1.0,
-	"entrypoint": "GoogleGroups",
-	"type": "system"
-}

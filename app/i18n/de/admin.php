@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Anonymes Lesen der Artikel des Standardbenutzers (%s) erlauben',
@@ -9,9 +19,8 @@ return array(
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'title_reset' => 'Zurücksetzen der Authentifizierung',
-		'token' => 'Authentifizierungs-Token',
-		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
+		'token' => 'Master-Authentifizierungs-Token',
+		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
 		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
@@ -109,7 +118,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'enabled' => 'Aktiviert',
 		'latest' => 'Installiert',
-		'name' => 'Name',
+		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
 		'system' => array(
 			'_' => 'System-Erweiterungen',
@@ -118,7 +127,7 @@ return array(
 		'title' => 'Erweiterungen',
 		'update' => 'Update verfügbar',
 		'user' => 'Benutzer-Erweiterungen',
-		'version' => 'Version',
+		'version' => 'Version',	// IGNORE
 	),
 	'stats' => array(
 		'_' => 'Statistiken',
@@ -131,19 +140,14 @@ return array(
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
 		'entry_repartition' => 'Einträge-Verteilung',
-		'feed' => 'Feed',
+		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds pro Kategorie',
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'menu' => array(
-			'idle' => 'Inaktive Feeds',
-			'main' => 'Haupt-Statistiken',
-			'repartition' => 'Artikel-Verteilung',
-		),
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
-		'percent_of_total' => '%% Gesamt',
+		'percent_of_total' => '% Gesamt',
 		'repartition' => 'Artikel-Verteilung',
 		'status_favorites' => 'Favoriten',
 		'status_read' => 'Gelesen',
@@ -155,39 +159,71 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
 		),
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
-		'instance-name' => 'Dein Reader Name',
+		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
-			'help' => '0 heißt, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
+			'select' => array(
+				'label' => 'Registrierungsformular',
+				'option' => array(
+					'noform' => 'Deaktiviert: Keine Registrierung möglich',
+					'nolimit' => 'Aktiviert: Registrierung möglich',
+					'setaccountsnumber' => 'Anzahl maximaler Benutzer-Acounts festlegen',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Formular deaktiviert',
+				'enabled' => 'Formular aktiviert',
+			),
+			'title' => 'Benutzer-Registrierungsformular',
+		),
+		'sensitive-parameter' => 'Sensitive Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
+		'tos' => array(
+			'disabled' => 'sind nicht aktiviert',
+			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
+			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
+		),
+		'websub' => array(
+			'help' => 'Über <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
+		'changelog' => 'Liste der Änderungen',
 		'check' => 'Auf neue Aktualisierungen prüfen',
-		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
-		'last' => 'Letzte Überprüfung: %s',
+		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
+		'current_version' => 'Aktuelle Version',
+		'last' => 'Letzte Überprüfung',
+		'loading' => 'Aktualisierung läuft…',
 		'none' => 'Keine ausstehende Aktualisierung',
+		'releaseChannel' => array(
+			'_' => 'Veröffentlichungskanal',
+			'edge' => 'Aktueller Entwicklungsstand (“edge”)',
+			'latest' => 'Stabile Version (“latest”)',
+		),
 		'title' => 'System aktualisieren',
+		'viaGit' => 'Update über git und GitHub.com gestartet',
 	),
 	'user' => array(
-		'admin' => 'Administrator',
+		'admin' => 'Administrator',	// IGNORE
 		'article_count' => 'Artikel',
-		'articles_and_size' => '%s Artikel (%s)',
 		'back_to_manage' => '← Zurück zur Benutzerliste',
 		'create' => 'Neuen Benutzer erstellen',
 		'database_size' => 'Datenbankgröße',
-		'delete_users' => 'Lösche Benutzer',
 		'email' => 'E-Mail-Adresse',
 		'enabled' => 'Aktiviert',
-		'feed_count' => 'Feeds',
+		'feed_count' => 'Feeds',	// IGNORE
 		'is_admin' => 'Ist Administrator',
 		'language' => 'Sprache',
 		'last_user_activity' => 'Letzte Benutzeraktivität',
@@ -196,11 +232,7 @@ return array(
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
-		'selected' => 'Ausgewählter Benutzer',
 		'title' => 'Benutzer verwalten',
-		'update_users' => 'Aktualisiere Benutzer',
-		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',
-		'users' => 'Benutzer',
 	),
 );

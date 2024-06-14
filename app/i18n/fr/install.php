@@ -1,5 +1,15 @@
 <?php
 
+/******************************************************************************/
+/* Each entry of that file can be associated with a comment to indicate its   */
+/* state. When there is no comment, it means the entry is fully translated.   */
+/* The recognized comments are (comment matching is case-insensitive):        */
+/*   + TODO: the entry has never been translated.                             */
+/*   + DIRTY: the entry has been translated but needs to be updated.          */
+/*   + IGNORE: the entry does not need to be translated.                      */
+/* When a comment is not recognized, it is discarded.                         */
+/******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Terminer l’installation',
@@ -61,8 +71,8 @@ return array(
 			'ok' => 'Vous disposez de fileinfo.',
 		),
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommandée JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
@@ -80,6 +90,7 @@ return array(
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
 		),
+		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire temporaire sont bons.',
@@ -99,8 +110,10 @@ return array(
 		'ok' => 'La configuration générale a été enregistrée.',
 	),
 	'congratulations' => 'Félicitations !',
-	'default_user' => 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
-	'delete_articles_after' => 'Supprimer les articles après',
+	'default_user' => array(
+		'_' => 'Nom de l’utilisateur par défaut',
+		'max_char' => '16 caractères alphanumériques maximum',
+	),
 	'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 	'javascript_is_better' => 'FreshRSS est plus agréable à utiliser avec JavaScript activé',
 	'js' => array(
@@ -114,10 +127,10 @@ return array(
 	'missing_applied_migrations' => 'Quelque chose s’est mal passé, vous devriez créer le fichier <em>%s</em> à la main.',
 	'ok' => 'L’installation s’est bien passée.',
 	'session' => array(
-		'nok' => 'Le serveur Web semble mal configué pour les cookies nécessaires aux sessions PHP!',
+		'nok' => 'Le serveur Web semble mal configuré pour les cookies nécessaires aux sessions PHP!',
 	),
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
-	'this_is_the_end' => 'This is the end',
-	'title' => 'Installation · FreshRSS',
+	'this_is_the_end' => 'This is the end',	// IGNORE
+	'title' => 'Installation · FreshRSS',	// IGNORE
 );
