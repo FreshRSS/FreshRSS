@@ -48,7 +48,7 @@ return array(
 		'important' => '重要なフィード',
 		'main_stream' => 'メイン',
 		'mark_all_read' => 'すべての記事に既読をつける',
-		'mark_cat_read' => 'カテゴリーに既読をつける',
+		'mark_cat_read' => 'カテゴリに既読をつける',
 		'mark_feed_read' => 'フィードに既読をつける',
 		'mark_selection_unread' => '選択したものに未読をつける',
 		'newer_first' => '最新のものを先にする',
