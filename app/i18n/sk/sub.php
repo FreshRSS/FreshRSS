@@ -68,7 +68,7 @@ return array(
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
 		'export-as-opml' => array(
 			'download' => 'Stiahnuť',
-			'help' => 'XML súbor',
+			'help' => 'XML súbor (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportovať ako OPML',
 		),
 		'filteractions' => array(
