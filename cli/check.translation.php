@@ -8,38 +8,39 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once __DIR__ . '/../constants.php';
 
-$i18nFile = new I18nFile();
-$i18nData = new I18nData($i18nFile->load());
+$cliOptions = new class extends CliOptionsParser {
+	/** @var array<int,string> $language */
+	public array $language;
+	public string $displayResult;
+	public string $help;
+	public string $displayReport;
 
-$parameters = [
-	'long' => [
-		'display-result' => '',
-		'help' => '',
-		'language' => ':',
-		'display-report' => '',
-	],
-	'short' => [
-		'display-result' => 'd',
-		'help' => 'h',
-		'language' => 'l',
-		'display-report' => 'r',
-	],
-	'deprecated' => [],
-];
+	public function __construct() {
+		$this->addOption('language', (new CliOption('language', 'l'))->typeOfArrayOfString());
+		$this->addOption('displayResult', (new CliOption('display-result', 'd'))->withValueNone());
+		$this->addOption('help', (new CliOption('help', 'h'))->withValueNone());
+		$this->addOption('displayReport', (new CliOption('display-report', 'r'))->withValueNone());
+		parent::__construct();
+	}
+};
 
-$options = parseCliParams($parameters);
-
-if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) {
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
+}
+if (isset($cliOptions->help)) {
 	checkHelp();
 }
 
-if (array_key_exists('language', $options['valid'])) {
-	$languages = [$options['valid']['language']];
+$i18nFile = new I18nFile();
+$i18nData = new I18nData($i18nFile->load());
+
+if (isset($cliOptions->language)) {
+	$languages = $cliOptions->language;
 } else {
 	$languages = $i18nData->getAvailableLanguages();
 }
-$displayResults = array_key_exists('display-result', $options['valid']);
-$displayReport = array_key_exists('display-report', $options['valid']);
+$displayResults = isset($cliOptions->displayResult);
+$displayReport = isset($cliOptions->displayReport);
 
 $isValidated = true;
 $result = [];
@@ -122,5 +123,5 @@ DESCRIPTION
 	-r, --display-report	display completion report.
 
 HELP;
-	exit;
+	exit();
 }

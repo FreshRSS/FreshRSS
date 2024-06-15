@@ -72,7 +72,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>"><?= _t('sub.feed.kind.jsonfeed') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTPATH ?>" data-show="json_dotpath"><?= _t('sub.feed.kind.json_dotpath') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
 					</select>
 				</div>
 			</div>
@@ -166,88 +166,88 @@
 					</div>
 				</div>
 			</fieldset>
-			<fieldset id="json_dotpath">
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.help') ?></p>
+			<fieldset id="json_dotnotation">
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.help') ?></p>
 				<div class="form-group">
-					<label class="group-name" for="jsonFeedTitle"><small><?= _t('sub.feed.kind.json_dotpath.json') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.feed_title') ?></label>
+					<label class="group-name" for="jsonFeedTitle"><small><?= _t('sub.feed.kind.json_dotnotation.json') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.feed_title') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonFeedTitle" id="jsonFeedTitle" rows="2" cols="64" spellcheck="false">title</textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.feed_title.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.feed_title.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItem"><small><?= _t('sub.feed.kind.json_dotpath.json') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item') ?></label>
+					<label class="group-name" for="jsonItem"><small><?= _t('sub.feed.kind.json_dotnotation.json') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItem" id="jsonItem" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemTitle"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_title') ?></label>
+					<label class="group-name" for="jsonItemTitle"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_title') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemTitle" id="jsonItemTitle" rows="2" cols="64" spellcheck="false"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemContent"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_content') ?></label>
+					<label class="group-name" for="jsonItemContent"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_content') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemContent" id="jsonItemContent" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item_content.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_content.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemUri"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_uri') ?></label>
+					<label class="group-name" for="jsonItemUri"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_uri') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemUri" id="jsonItemUri" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item_uri.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_uri.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemThumbnail"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_thumbnail') ?></label>
+					<label class="group-name" for="jsonItemThumbnail"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_thumbnail') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemThumbnail" id="jsonItemThumbnail" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item_thumbnail.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_thumbnail.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemAuthor"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_author') ?></label>
+					<label class="group-name" for="jsonItemAuthor"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_author') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemAuthor" id="jsonItemAuthor" rows="2" cols="64" spellcheck="false"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemTimestamp"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_timestamp') ?></label>
+					<label class="group-name" for="jsonItemTimestamp"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_timestamp') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemTimestamp" id="jsonItemTimestamp" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item_timestamp.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_timestamp.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="group-name" for="jsonItemTimeFormat">
-						<?= _t('sub.feed.kind.json_dotpath.item_timeFormat') ?></label>
+						<?= _t('sub.feed.kind.json_dotnotation.item_timeFormat') ?></label>
 					<div class="group-controls">
 						<textarea name="jsonItemTimeFormat" id="jsonItemTimeFormat" rows="2" cols="64" spellcheck="false"></textarea>
-						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotpath.item_timeFormat.help') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_timeFormat.help') ?></p>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemCategories"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_categories') ?></label>
+					<label class="group-name" for="jsonItemCategories"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_categories') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemCategories" id="jsonItemCategories" rows="2" cols="64" spellcheck="false"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="group-name" for="jsonItemUid"><small><?= _t('sub.feed.kind.json_dotpath.relative') ?></small><br />
-						<?= _t('sub.feed.kind.json_dotpath.item_uid') ?></label>
+					<label class="group-name" for="jsonItemUid"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
+						<?= _t('sub.feed.kind.json_dotnotation.item_uid') ?></label>
 					<div class="group-controls">
 						<textarea class="valid-json" name="jsonItemUid" id="jsonItemUid" rows="2" cols="64" spellcheck="false"></textarea>
 					</div>

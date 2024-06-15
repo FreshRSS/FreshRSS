@@ -23,8 +23,6 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		Minz_ActionController::$defaultViewType = FreshRSS_View::class;
-
 		FreshRSS_Context::initSystem();
 		if (!FreshRSS_Context::hasSystemConf()) {
 			$message = 'Error during context system init!';

@@ -66,9 +66,14 @@ return array(
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
+		'export-as-opml' => array(
+			'download' => '다운로드',
+			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'OPML로 내보내기',
+		),
 		'filteractions' => array(
 			'_' => '필터 동작',
-			'help' => '한 줄에 한 검색 필터를 작성해 주세요. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => '한 줄에 한 검색 필터를 작성해 주세요. 실행시 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">문서 참고</a>.',
 		),
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
@@ -99,8 +104,8 @@ return array(
 					'help' => '예제: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => '사용자 지정 날짜/시간 형식',
+					'help' => '선택 사항. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
 				),
 				'item_timestamp' => array(
 					'_' => '기사 날짜',
@@ -121,62 +126,62 @@ return array(
 				'relative' => '다음의 (기사와 관련된) XPath:',
 				'xpath' => '다음의 XPath:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (점 표기법)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => '피드 제목',
+					'help' => '예시: <code>meta.title</code> 혹은 스태틱 문자열: <code>"나만의 커스텀 피드"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON 점 표기법은 배열을 표기할 때 오브젝트와 괄호 사이에 점을 사용합니다. (예: <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => '새 뉴스 <strong>기사</strong> 찾기<br /><small>(가장 중요함)</small>',
+					'help' => '기사를 포함한 배열의 JSON 경로, 예: <code>뉴스기사</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => '기사 저자',
+				'item_categories' => '기사 테그',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => '기사 내용',
+					'help' => 'Key under which the content is found, 예: <code>내용</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => '기사 섬네일',
+					'help' => '예시: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => '사용자 지정 날짜/시간 형식',
+					'help' => '선택 사항. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => '기사 날짜',
+					'help' => '결과 값은 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>를 통해 파싱됩니다.',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => '기사 제목',
+				'item_uid' => '기사 고유 ID',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => '기사 링크 (URL)',
+					'help' => '예시: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'JSON 경로:',
+				'relative' => 'JSON 상대 경로(기사 기준):',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON 피드',
 			'rss' => 'RSS / Atom (기본값)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',
 			'reload_articles' => '글 다시 로드',
-			'reload_articles_help' => '글 다시 로드하고 셀렉터가 정의 되었을 경우에 모든 컨텐츠 가져오기.',	// DIRTY
+			'reload_articles_help' => '선택자가 지정된 경우 해당하는 수의 기사를 다시 불러오고 전체 내용을 가져옵니다.',
 			'title' => '유지 보수',
 		),
 		'max_http_redir' => '최대 HTTP 리다이렉션',
 		'max_http_redir_help' => '값을 비워두거나 0으로 설정하면 비활성화하며, -1으로 설정하면 무제한 리다이렉션합니다',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP 메서드',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'POST 페이로드는 <code>application/x-www-form-urlencoded</code> 및 <code>application/json</code>을 자동으로 지원합니다.',
+		'method_postparams' => 'POST용 페이로드',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
@@ -185,11 +190,11 @@ return array(
 			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',
 			'category' => '피드가 속한 카테고리에만 표시하기',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',
 		),
 		'proxy' => '이 피드를 가져올 때 사용할 프록시 설정',
-		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> 혹은 <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => '소스코드 표시',
 			'show_rendered' => '콘텐츠 표시',
@@ -240,7 +245,7 @@ return array(
 		'subscription_tools' => '구독 도구',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => '새 기사에 이 라벨 추가',
 		'name' => '이름',
 		'new_name' => '새 이름',
 		'old_name' => '이전 이름',

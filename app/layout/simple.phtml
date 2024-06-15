@@ -3,8 +3,9 @@
 	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
 	$class = '';
+	$dir = '';
 	if (_t('gen.dir') === 'rtl') {
-		echo ' dir="rtl"';
+		$dir = ' dir="rtl"';
 		$class = 'rtl ';
 	}
 	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
@@ -12,7 +13,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::userConf()->language ?>" xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= $class ?>">
+<html lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= $class ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />

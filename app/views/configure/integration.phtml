@@ -13,7 +13,7 @@
 	<form method="post" action="<?= _url('configure', 'integration') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<template id="simple-share">
-			<formgroup class="group-share dragbox">
+			<fieldset class="group-share dragbox">
 				<legend draggable="true">##label##</legend>
 				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
 				<div class="form-group" id="group-share-##key##">
@@ -27,10 +27,10 @@
 						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
 					</div>
 				</div>
-			</formgroup>
+			</fieldset>
 		</template>
 		<template id="advanced-share">
-			<formgroup class="group-share dragbox">
+			<fieldset class="group-share dragbox">
 				<legend draggable="true">##label##</legend>
 				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
 				<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
@@ -53,7 +53,7 @@
 						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
 					</div>
 				</div>
-			</formgroup>
+			</fieldset>
 		</template>
 
 		<?php
@@ -64,7 +64,7 @@
 				}
 				$share->update($share_options);
 		?>
-		<formgroup class="group-share dragbox" id="group-share-<?= $key ?>">
+		<fieldset class="group-share dragbox" id="group-share-<?= $key ?>">
 			<legend draggable="true"><?= $share->name(true) ?></legend>
 			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
@@ -110,13 +110,11 @@
 			</div>
 
 
-		</formgroup>
+		</fieldset>
 		<?php } ?>
 
-		<formgroup>
-			<legend>
-				<?= _t('conf.sharing.add') ?>
-			</legend>
+		<fieldset>
+			<legend><?= _t('conf.sharing.add') ?></legend>
 			<div class="form-group">
 				<div class="group-controls">
 					<div class="stick">
@@ -132,7 +130,7 @@
 					</div>
 				</div>
 			</div>
-		</formgroup>
+		</fieldset>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

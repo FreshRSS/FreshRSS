@@ -5,45 +5,38 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-$parameters = [
-	'long' => [
-		'user' => ':',
-		'header' => '',
-		'json' => '',
-		'human-readable' => '',
-	],
-	'short' => [
-		'human-readable' => 'h',
-	],
-	'deprecated' => [],
-];
+$cliOptions = new class extends CliOptionsParser {
+	/** @var array<int,string> $user */
+	public array $user;
+	public string $header;
+	public string $json;
+	public string $humanReadable;
 
-$options = parseCliParams($parameters);
+	public function __construct() {
+		$this->addOption('user', (new CliOption('user'))->typeOfArrayOfString());
+		$this->addOption('header', (new CliOption('header'))->withValueNone());
+		$this->addOption('json', (new CliOption('json'))->withValueNone());
+		$this->addOption('humanReadable', (new CliOption('human-readable', 'h'))->withValueNone());
+		parent::__construct();
+	}
+};
 
-if (!empty($options['invalid'])) {
-	fail('Usage: ' . basename(__FILE__) . ' (--human-readable --header --json --user username --user username …)');
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-if (empty($options['valid']['user'])) {
-	$users = listUsers();
-} elseif (is_array($options['valid']['user'])) {
-	/** @var array<string> $users */
-	$users = $options['valid']['user'];
-} else {
-	/** @var array<string> $users */
-	$users = [$options['valid']['user']];
-}
+$users = $cliOptions->user ?? listUsers();
 
 sort($users);
 
-$formatJson = isset($options['valid']['json']);
+$formatJson = isset($cliOptions->json);
 $jsonOutput = [];
 if ($formatJson) {
-	unset($options['valid']['header']);
-	unset($options['valid']['human-readable']);
+	unset($cliOptions->header);
+	unset($cliOptions->humanReadable);
 }
 
-if (array_key_exists('header', $options['valid'])) {
+if (isset($cliOptions->header)) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -92,7 +85,7 @@ foreach ($users as $username) {
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
 	);
-	if (isset($options['valid']['human-readable'])) {	//Human format
+	if (isset($cliOptions->humanReadable)) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}

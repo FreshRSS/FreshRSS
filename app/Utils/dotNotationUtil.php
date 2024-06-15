@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-final class FreshRSS_dotpath_Util
+final class FreshRSS_dotNotation_Util
 {
 
 	/**
@@ -20,7 +21,7 @@ final class FreshRSS_dotpath_Util
 			return static::value($default);
 		}
 		/** @var \ArrayAccess<string,mixed>|array<string,mixed> $array */
-		if ($key === null || $key === '') {
+		if (in_array($key, [null, '', '.', '$'], true)) {
 			return $array;
 		}
 
@@ -96,11 +97,11 @@ final class FreshRSS_dotpath_Util
 	 *
 	 * @param array<string> $jf json feed
 	 * @param string $feedSourceUrl the source URL for the feed
-	 * @param array<string,string> $dotPaths dot paths to map JSON into RSS
-	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotPath `feedTitle`
+	 * @param array<string,string> $dotNotation dot notation to map JSON into RSS
+	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotNotation `feedTitle`
 	 */
-	public static function convertJsonToRss(array $jf, string $feedSourceUrl, array $dotPaths, string $defaultRssTitle = ''): ?string {
-		if (!isset($dotPaths['item']) || $dotPaths['item'] === '') {
+	public static function convertJsonToRss(array $jf, string $feedSourceUrl, array $dotNotation, string $defaultRssTitle = ''): ?string {
+		if (!isset($dotNotation['item']) || $dotNotation['item'] === '') {
 			return null; //no definition of item path, but we can't scrape anything without knowing this
 		}
 
@@ -111,40 +112,40 @@ final class FreshRSS_dotpath_Util
 		$view->html_url = $view->rss_url;
 		$view->entries = [];
 
-		$view->rss_title = isset($dotPaths['feedTitle'])
-			? (htmlspecialchars(FreshRSS_dotpath_Util::getString($jf, $dotPaths['feedTitle']) ?? '', ENT_COMPAT, 'UTF-8') ?: $defaultRssTitle)
+		$view->rss_title = isset($dotNotation['feedTitle'])
+			? (htmlspecialchars(FreshRSS_dotNotation_Util::getString($jf, $dotNotation['feedTitle']) ?? '', ENT_COMPAT, 'UTF-8') ?: $defaultRssTitle)
 			: $defaultRssTitle;
 
-		$jsonItems = FreshRSS_dotpath_Util::get($jf, $dotPaths['item']);
+		$jsonItems = FreshRSS_dotNotation_Util::get($jf, $dotNotation['item']);
 		if (!is_array($jsonItems) || count($jsonItems) === 0) {
 			return null;
 		}
 
 		foreach ($jsonItems as $jsonItem) {
 			$rssItem = [];
-			$rssItem['link'] = isset($dotPaths['itemUri']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemUri']) ?? '' : '';
+			$rssItem['link'] = isset($dotNotation['itemUri']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemUri']) ?? '' : '';
 			if (empty($rssItem['link'])) {
 				continue;
 			}
-			$rssItem['title'] = isset($dotPaths['itemTitle']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemTitle']) ?? '' : '';
-			$rssItem['author'] = isset($dotPaths['itemAuthor']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemAuthor']) ?? '' : '';
-			$rssItem['timestamp'] = isset($dotPaths['itemTimestamp']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemTimestamp']) ?? '' : '';
+			$rssItem['title'] = isset($dotNotation['itemTitle']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemTitle']) ?? '' : '';
+			$rssItem['author'] = isset($dotNotation['itemAuthor']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemAuthor']) ?? '' : '';
+			$rssItem['timestamp'] = isset($dotNotation['itemTimestamp']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemTimestamp']) ?? '' : '';
 
 			//get simple content, but if a path for HTML content has been provided, replace the simple content with HTML content
-			$rssItem['content'] = isset($dotPaths['itemContent']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemContent']) ?? '' : '';
-			$rssItem['content'] = isset($dotPaths['itemContentHTML'])
-				? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemContentHTML']) ?? ''
+			$rssItem['content'] = isset($dotNotation['itemContent']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemContent']) ?? '' : '';
+			$rssItem['content'] = isset($dotNotation['itemContentHTML'])
+				? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemContentHTML']) ?? ''
 				: $rssItem['content'];
 
-			if (isset($dotPaths['itemTimeFormat']) && is_string($dotPaths['itemTimeFormat'])) {
-				$dateTime = DateTime::createFromFormat($dotPaths['itemTimeFormat'], $rssItem['timestamp']);
+			if (isset($dotNotation['itemTimeFormat']) && is_string($dotNotation['itemTimeFormat'])) {
+				$dateTime = DateTime::createFromFormat($dotNotation['itemTimeFormat'], $rssItem['timestamp']);
 				if ($dateTime != false) {
 					$rssItem['timestamp'] = $dateTime->format(DateTime::ATOM);
 				}
 			}
 
-			if (isset($dotPaths['itemCategories'])) {
-				$jsonItemCategories = FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemCategories']);
+			if (isset($dotNotation['itemCategories'])) {
+				$jsonItemCategories = FreshRSS_dotNotation_Util::get($jsonItem, $dotNotation['itemCategories']);
 				if (is_string($jsonItemCategories) && $jsonItemCategories !== '') {
 					$rssItem['tags'] = [$jsonItemCategories];
 				} elseif (is_array($jsonItemCategories) && count($jsonItemCategories) > 0) {
@@ -157,31 +158,31 @@ final class FreshRSS_dotpath_Util
 				}
 			}
 
-			$rssItem['thumbnail'] = isset($dotPaths['itemThumbnail']) ? FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemThumbnail']) ?? '' : '';
+			$rssItem['thumbnail'] = isset($dotNotation['itemThumbnail']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemThumbnail']) ?? '' : '';
 
 			//Enclosures?
-			if (isset($dotPaths['itemAttachment'])) {
-				$jsonItemAttachments = FreshRSS_dotpath_Util::get($jsonItem, $dotPaths['itemAttachment']);
+			if (isset($dotNotation['itemAttachment'])) {
+				$jsonItemAttachments = FreshRSS_dotNotation_Util::get($jsonItem, $dotNotation['itemAttachment']);
 				if (is_array($jsonItemAttachments) && count($jsonItemAttachments) > 0) {
 					$rssItem['attachments'] = [];
 					foreach ($jsonItemAttachments as $attachment) {
 						$rssAttachment = [];
-						$rssAttachment['url'] = isset($dotPaths['itemAttachmentUrl'])
-							? FreshRSS_dotpath_Util::getString($attachment, $dotPaths['itemAttachmentUrl'])
+						$rssAttachment['url'] = isset($dotNotation['itemAttachmentUrl'])
+							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentUrl'])
 							: '';
-						$rssAttachment['type'] = isset($dotPaths['itemAttachmentType'])
-							? FreshRSS_dotpath_Util::getString($attachment, $dotPaths['itemAttachmentType'])
+						$rssAttachment['type'] = isset($dotNotation['itemAttachmentType'])
+							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentType'])
 							: '';
-						$rssAttachment['length'] = isset($dotPaths['itemAttachmentLength'])
-							? FreshRSS_dotpath_Util::get($attachment, $dotPaths['itemAttachmentLength'])
+						$rssAttachment['length'] = isset($dotNotation['itemAttachmentLength'])
+							? FreshRSS_dotNotation_Util::get($attachment, $dotNotation['itemAttachmentLength'])
 							: '';
 						$rssItem['attachments'][] = $rssAttachment;
 					}
 				}
 			}
 
-			if (isset($dotPaths['itemUid'])) {
-				$rssItem['guid'] = FreshRSS_dotpath_Util::getString($jsonItem, $dotPaths['itemUid']);
+			if (isset($dotNotation['itemUid'])) {
+				$rssItem['guid'] = FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemUid']);
 			}
 
 			if (empty($rssItem['guid'])) {

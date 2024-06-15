@@ -6,70 +6,65 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/../constants.php';
 
-$parameters = [
-	'long' => [
-		'action' => ':',
-		'help' => '',
-		'key' => ':',
-		'language' => ':',
-		'origin-language' => ':',
-		'revert' => '',
-		'value' => ':',
-	],
-	'short' => [
-		'action' => 'a',
-		'help' => 'h',
-		'key' => 'k',
-		'language' => 'l',
-		'origin-language' => 'o',
-		'revert' => 'r',
-		'value' => 'v',
-	],
-	'deprecated' => [],
-];
+$cliOptions = new class extends CliOptionsParser {
+	public string $action;
+	public string $key;
+	public string $value;
+	public string $language;
+	public string $originLanguage;
+	public string $revert;
+	public string $help;
 
-$options = parseCliParams($parameters);
+	public function __construct() {
+		$this->addRequiredOption('action', (new CliOption('action', 'a')));
+		$this->addOption('key', (new CliOption('key', 'k')));
+		$this->addOption('value', (new CliOption('value', 'v')));
+		$this->addOption('language', (new CliOption('language', 'l')));
+		$this->addOption('originLanguage', (new CliOption('origin-language', 'o')));
+		$this->addOption('revert', (new CliOption('revert', 'r'))->withValueNone());
+		$this->addOption('help', (new CliOption('help', 'h'))->withValueNone());
+		parent::__construct();
+	}
+};
 
-if (!empty($options['invalid']) || array_key_exists('help', $options['valid'])) {
-	manipulateHelp();
-	exit();
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-
-if (!array_key_exists('action', $options['valid'])) {
-	error('You need to specify the action to perform.');
+if (isset($cliOptions->help)) {
+	manipulateHelp();
 }
 
 $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
-switch ($options['valid']['action']) {
+switch ($cliOptions->action) {
 	case 'add' :
-		if (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid']) && array_key_exists('language', $options['valid'])) {
-			$i18nData->addValue($options['valid']['key'], $options['valid']['value'], $options['valid']['language']);
-		} elseif (array_key_exists('key', $options['valid']) && array_key_exists('value', $options['valid'])) {
-			$i18nData->addKey($options['valid']['key'], $options['valid']['value']);
-		} elseif (array_key_exists('language', $options['valid'])) {
+		if (isset($cliOptions->key) && isset($cliOptions->value) && isset($cliOptions->language)) {
+			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
+		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
+			$i18nData->addKey($cliOptions->key, $cliOptions->value);
+		} elseif (isset($cliOptions->language)) {
 			$reference = null;
-			if (array_key_exists('origin-language', $options['valid'])) {
-				$reference = $options['valid']['origin-language'];
+			if (isset($cliOptions->originLanguage)) {
+				$reference = $cliOptions->originLanguage;
 			}
-			$i18nData->addLanguage($options['valid']['language'], $reference);
+			$i18nData->addLanguage($cliOptions->language, $reference);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'delete' :
-		if (array_key_exists('key', $options['valid'])) {
-			$i18nData->removeKey($options['valid']['key']);
+		if (isset($cliOptions->key)) {
+			$i18nData->removeKey($cliOptions->key);
 		} else {
 			error('You need to specify the key to delete.');
 			exit;
 		}
 		break;
 	case 'exist':
-		if (array_key_exists('key', $options['valid'])) {
-			$key = $options['valid']['key'];
+		if (isset($cliOptions->key)) {
+			$key = $cliOptions->key;
 			if ($i18nData->isKnown($key)) {
 				echo "The '{$key}' key is known.\n\n";
 			} else {
@@ -83,16 +78,16 @@ switch ($options['valid']['action']) {
 	case 'format' :
 		break;
 	case 'ignore' :
-		if (array_key_exists('language', $options['valid']) && array_key_exists('key', $options['valid'])) {
-			$i18nData->ignore($options['valid']['key'], $options['valid']['language'], array_key_exists('revert', $options['valid']));
+		if (isset($cliOptions->language) && isset($cliOptions->key)) {
+			$i18nData->ignore($cliOptions->key, $cliOptions->language, isset($cliOptions->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
 	case 'ignore_unmodified' :
-		if (array_key_exists('language', $options['valid'])) {
-			$i18nData->ignore_unmodified($options['valid']['language'], array_key_exists('revert', $options['valid']));
+		if (isset($cliOptions->language)) {
+			$i18nData->ignore_unmodified($cliOptions->language, isset($cliOptions->revert));
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -122,6 +117,7 @@ ERROR;
  */
 function manipulateHelp(): void {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
+
 	echo <<<HELP
 NAME
 	$file
@@ -144,17 +140,17 @@ DESCRIPTION
 				select the origin language (only for add language action)
 
 EXAMPLES
-Example 1:	add a language. It adds a new language by duplicating the referential.
+Example 1:	add a language. Adds a new language by duplicating the reference language.
 	php $file -a add -l my_lang
 	php $file -a add -l my_lang -o ref_lang
 
-Example 2:	add a new key. It adds the key for all supported languages.
+Example 2:	add a new key. Adds a key to all supported languages.
 	php $file -a add -k my_key -v my_value
 
-Example 3:	add a new value. It adds a new value for the selected key in the selected language.
+Example 3:	add a new value. Sets a new value for the selected key in the selected language.
 	php $file -a add -k my_key -v my_value -l my_lang
 
-Example 4:	delete a key. It deletes the selected key from all supported languages.
+Example 4:	delete a key. Deletes the selected key from all supported languages.
 	php $file -a delete -k my_key
 
 Example 5:	format i18n files.
@@ -170,11 +166,12 @@ Example 8:	ignore all unmodified keys. Adds IGNORE comments to all unmodified ke
 	php $file -a ignore_unmodified -l my_lang
 
 Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from all unmodified keys in the selected language.
-		Warning: will also revert individually added unmodified keys.
+		Warning: will also revert individually added IGNOREs on unmodified keys.
 	php $file -a ignore_unmodified -r -l my_lang
 
 Example 10:	check if a key exist.
-	php $file -a exist -k my_key\n\n
+	php $file -a exist -k my_key
 
 HELP;
+	exit();
 }

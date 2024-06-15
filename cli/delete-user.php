@@ -5,29 +5,27 @@ require(__DIR__ . '/_cli.php');
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$parameters = [
-	'long' => [
-		'user' => ':',
-	],
-	'short' => [],
-	'deprecated' => [],
-];
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
 
-$options = parseCliParams($parameters);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		parent::__construct();
+	}
+};
 
-if (!empty($options['invalid']) || empty($options['valid']['user']) || !is_string($options['valid']['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username");
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-$username = $options['valid']['user'];
+
+$username = $cliOptions->user;
+
 if (!FreshRSS_user_Controller::checkUsername($username)) {
-	fail('FreshRSS error: invalid username “' . $username . '”');
+	fail('FreshRSS error: invalid username: ' . $username . "\n");
 }
-
-$usernames = listUsers();
-if (!preg_grep("/^$username$/i", $usernames)) {
-	fail('FreshRSS error: username not found “' . $username . '”');
+if (!FreshRSS_user_Controller::userExists($username)) {
+	fail('FreshRSS error: user not found: ' . $username . "\n");
 }
-
 if (strcasecmp($username, FreshRSS_Context::systemConf()->default_user) === 0) {
 	fail('FreshRSS error: default user must not be deleted: “' . $username . '”');
 }

@@ -29,10 +29,30 @@
 
 	<?php if (count($this->tags) > 0): ?>
 	<h2><?= _t('gen.action.manage') ?></h2>
-	<ul>
+	<ul id="tagsList" <?= (count($this->tags) > 11) ? 'class="listInColumns"' : '' ?>>
 	<?php foreach ($this->tags as $tag): ?>
-		<li><a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>"><?= $tag->name() ?></a></li>
+		<li>
+			<a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>" class="configure open-slider" title="<?= _t('gen.action.manage') ?>">
+				<?= _i('configure') ?>
+			</a>
+			<?= $tag->name() ?>
+		</li>
 	<?php endforeach; ?>
 	</ul>
 	<?php endif; ?>
 </main>
+
+<?php $class = isset($this->tag) ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->tag)) {
+				$this->renderHelper('tag/update');
+			}
+		?>
+	</div>
+</aside>
+<a href="#" id="close-slider">
+	<?= _i('close') ?>
+</a>

@@ -82,7 +82,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		if (Minz_Request::paramString('order') === '') {
 			Minz_Request::_param('order', $query->getOrder());
 		}
-		Minz_Request::_param('state', $query->getState());
+		Minz_Request::_param('state', (string)$query->getState());
 
 		$search = $query->getSearch()->getRawInput();
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
@@ -150,6 +150,8 @@ $view->userQuery = $query;
 $view->html_url = $query->sharedUrlHtml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
+$view->image_url = $query->getImageUrl();
+$view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
 if ($query->getName() != '') {
 	FreshRSS_View::_title($query->getName());
 }
