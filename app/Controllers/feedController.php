@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	#[\Override]
@@ -441,9 +441,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$nb_new_articles = 0;
 
 		foreach ($feeds as $feed) {
-			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
-			if (null === $feed) {
+			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
 			}
 
@@ -483,8 +482,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedIsNew = $feed->lastUpdate() <= 0;
-			$feedIsEmpty = false;
-			$feedIsUnchanged = false;
 
 			try {
 				if ($simplePiePush !== null) {

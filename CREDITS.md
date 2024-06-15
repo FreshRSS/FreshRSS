@@ -108,6 +108,7 @@ People are sorted by name so please keep this order.
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cez81)
 * [Jordi Garcia](https://github.com/jgtorcal): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jgtorcal)
 * [Joris Kinable](https://github.com/jkinable): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jkinable)
+* [Josh McKinney](https://github.com/joshka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joshka)
 * [Jules Bertholet](https://github.com/Jules-Bertholet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jules-Bertholet)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:j8r), [Web](https://blog.jrei.ch/)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.com/)

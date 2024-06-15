@@ -144,7 +144,7 @@ return array(
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -203,7 +203,6 @@ return array(
 		'Known' => 'Known based sites',	// TODO
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO

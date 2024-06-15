@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '顯示',
 		'darkMode' => array(
-			'_' => '自動黑暗模式(beta)',
+			'_' => '自動黑暗模式',
 			'auto' => '自動',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '否',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => '與作者和日期一行',
 			),
 			'feed_title' => '訂閱源標題',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '文章標籤',
 				'both' => '兩者都顯示',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '新增分享方式',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '這項功能已廢棄並在將來版本的 FreshRSS 中移除，詳情請見 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">說明文檔</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '郵箱',	// IGNORE

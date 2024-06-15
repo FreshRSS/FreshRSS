@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Ekrāns',
 		'darkMode' => array(
-			'_' => 'Automātiskais tumšais režīms (beta versija)',
+			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nē',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => 'Autoru un datuma rindā',
 			),
 			'feed_title' => 'Barotnes tituls',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Birkas',
 				'both' => 'Virsrakstā un kājenē',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Dalīšanās',
 		'add' => 'Pievienojat dalīšanās metodi',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Šis pakalpojums ir novecojis un tiks noņemts no FreshRSS kādā <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Atvērt dokumentāciju, lai iegūtu vairāk informācijas" target="_blank">nākamajā versijā</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-pasts',

@@ -144,7 +144,7 @@ return array(
 		'should_be_activated' => '必須啟用 JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -203,7 +203,6 @@ return array(
 		'Known' => '基於 Known 的站點',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪貼板',
 		'diaspora' => 'Diaspora*',	// IGNORE

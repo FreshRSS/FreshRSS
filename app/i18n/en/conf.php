@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Display',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',
+			'_' => 'Automatic dark mode',
 			'auto' => 'Auto',
+			'help' => 'For compatible themes only',
 			'no' => 'No',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => 'In authors and date row',
 			),
 			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
 			'tags' => array(
 				'_' => 'Tags',
 				'both' => 'In header and footer',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
-		'blogotext' => 'Blogotext',
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',

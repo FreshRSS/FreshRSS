@@ -144,7 +144,7 @@ return array(
 		'should_be_activated' => 'JavaScript moet aanstaan',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -203,7 +203,6 @@ return array(
 		'Known' => 'Known-gebaseerde sites',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Klembord',
 		'diaspora' => 'Diaspora*',	// IGNORE

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Opmaak',
 		'darkMode' => array(
-			'_' => 'Automatische dark mode (beta)',
+			'_' => 'Automatische dark mode',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nee',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => 'In lijn met auteurs en datum',
 			),
 			'feed_title' => 'Feedtitel',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In kop en voet',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

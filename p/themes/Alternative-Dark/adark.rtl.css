@@ -4,6 +4,7 @@
 /*============*/
 :root {
 	--background-color-dark: #171717;
+	--background-color-dark-transparent: #171717aa;
 	--background-color-middle: #1f1f1f;
 	--background-color-light: #262626;
 	--background-color-hover: #1d242f;
@@ -140,7 +141,7 @@ th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background: var(--background-color-dark);
+	background-color: var(--background-color-dark-transparent);
 	border-top: 1px solid var(--border-color-dark);
 }
 

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazenie',
 		'darkMode' => array(
-			'_' => 'Automatický tmavý režim (beta)',
+			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automaticky',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nie',
 		),
 		'icon' => array(
@@ -185,6 +186,11 @@ return array(
 				'with_authors' => 'V riadku autori a dátum',
 			),
 			'feed_title' => 'Nadpis kanála',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Značky',
 				'both' => 'V záhlaví a pätičke',
@@ -256,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE

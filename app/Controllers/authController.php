@@ -192,7 +192,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$password = Minz_Request::paramString('p');
 			Minz_Request::_param('p');
 
-			if (!$username) {
+			if ($username === '') {
 				return;
 			}
 

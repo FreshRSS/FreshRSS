@@ -144,7 +144,7 @@ return array(
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -203,7 +203,6 @@ return array(
 		'Known' => 'Known-Seite (https://withknown.com)',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',	// IGNORE
