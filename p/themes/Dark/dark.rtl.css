@@ -14,6 +14,7 @@
 	/** Origine **/
 	--background-color-light: #1c1c1c;
 	--background-color-light-shadowed: inherit;
+	--background-color-light-shadowed-transparent: #262626aa;
 	--background-color-grey: #1c1c1c;
 	--background-color-hover: #26303f;
 	--background-color-flux-hover: #111;

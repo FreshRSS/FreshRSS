@@ -40,6 +40,7 @@ return array (
 	'show_tags_max' => 7,
 	'show_author_date' => 'h',	// {0 => none, b => both, f => footer, h => header}
 	'show_feed_name' => 'a',	// {0 => none, a => with authors, t => above title}
+	'show_article_icons' => 't', // {a => with_authors, t => above title}
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
@@ -66,7 +67,7 @@ return array (
 	),
 	'filters' => [],
 	'theme' => 'Origine',
-	'darkMode' => 'no',
+	'darkMode' => 'auto',
 	'content_width' => 'thin',
 	'shortcuts' => array (
 		'actualize' => 'q',
