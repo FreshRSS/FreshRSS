@@ -63,8 +63,8 @@ th, td {
 th {
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -555,10 +555,6 @@ form th {
 	padding: 5px;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux:not(.current):hover .item.title {
 }
 
@@ -634,10 +630,6 @@ form th {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -650,11 +642,6 @@ form th {
 #stream.reader .flux .content {
 	background-color: #fff;
 	border-color: #ddd;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */

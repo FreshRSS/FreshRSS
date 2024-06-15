@@ -21,6 +21,7 @@ declare(strict_types=1);
  * @property int $show_tags_max
  * @property string $show_author_date
  * @property string $show_feed_name
+ * @property string $show_article_icons
  * @property bool $display_posts
  * @property string $email_validation_token
  * @property-read bool $enabled
@@ -69,16 +70,20 @@ declare(strict_types=1);
  * @property int $dynamic_opml_ttl_default
  * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
- * @property array<string,mixed> $volatile
+ * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
 
-	/** @throws Minz_ConfigurationNamespaceException */
+	/** @throws Minz_FileNotExistException */
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
-		return parent::get('user');
+		try {
+			return parent::get('user');
+		} catch (Minz_ConfigurationNamespaceException $ex) {
+			FreshRSS::killApp($ex->getMessage());
+		}
 	}
 
 	/**

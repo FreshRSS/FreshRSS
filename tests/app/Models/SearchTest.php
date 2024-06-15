@@ -47,26 +47,26 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideIntitleSearch(): array {
-		return array(
-			array('intitle:word1', array('word1'), null),
-			array('intitle:word1-word2', array('word1-word2'), null),
-			array('intitle:word1 word2', array('word1'), array('word2')),
-			array('intitle:"word1 word2"', array('word1 word2'), null),
-			array("intitle:'word1 word2'", array('word1 word2'), null),
-			array('word1 intitle:word2', array('word2'), array('word1')),
-			array('word1 intitle:word2 word3', array('word2'), array('word1', 'word3')),
-			array('word1 intitle:"word2 word3"', array('word2 word3'), array('word1')),
-			array("word1 intitle:'word2 word3'", array('word2 word3'), array('word1')),
-			array('intitle:word1 intitle:word2', array('word1', 'word2'), null),
-			array('intitle: word1 word2', null, array('word1', 'word2')),
-			array('intitle:123', array('123'), null),
-			array('intitle:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-			array("intitle:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-			array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
-			array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
-			array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['intitle:word1', ['word1'], null],
+			['intitle:word1-word2', ['word1-word2'], null],
+			['intitle:word1 word2', ['word1'], ['word2']],
+			['intitle:"word1 word2"', ['word1 word2'], null],
+			["intitle:'word1 word2'", ['word1 word2'], null],
+			['word1 intitle:word2', ['word2'], ['word1']],
+			['word1 intitle:word2 word3', ['word2'], ['word1', 'word3']],
+			['word1 intitle:"word2 word3"', ['word2 word3'], ['word1']],
+			["word1 intitle:'word2 word3'", ['word2 word3'], ['word1']],
+			['intitle:word1 intitle:word2', ['word1', 'word2'], null],
+			['intitle: word1 word2', null, ['word1', 'word2']],
+			['intitle:123', ['123'], null],
+			['intitle:"word1 word2" word3"', ['word1 word2'], ['word3"']],
+			["intitle:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
+			['intitle:"word1 word2\' word3"', ["word1 word2' word3"], null],
+			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -84,26 +84,26 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideAuthorSearch(): array {
-		return array(
-			array('author:word1', array('word1'), null),
-			array('author:word1-word2', array('word1-word2'), null),
-			array('author:word1 word2', array('word1'), array('word2')),
-			array('author:"word1 word2"', array('word1 word2'), null),
-			array("author:'word1 word2'", array('word1 word2'), null),
-			array('word1 author:word2', array('word2'), array('word1')),
-			array('word1 author:word2 word3', array('word2'), array('word1', 'word3')),
-			array('word1 author:"word2 word3"', array('word2 word3'), array('word1')),
-			array("word1 author:'word2 word3'", array('word2 word3'), array('word1')),
-			array('author:word1 author:word2', array('word1', 'word2'), null),
-			array('author: word1 word2', null, array('word1', 'word2')),
-			array('author:123', array('123'), null),
-			array('author:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-			array("author:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-			array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
-			array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
-			array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['author:word1', ['word1'], null],
+			['author:word1-word2', ['word1-word2'], null],
+			['author:word1 word2', ['word1'], ['word2']],
+			['author:"word1 word2"', ['word1 word2'], null],
+			["author:'word1 word2'", ['word1 word2'], null],
+			['word1 author:word2', ['word2'], ['word1']],
+			['word1 author:word2 word3', ['word2'], ['word1', 'word3']],
+			['word1 author:"word2 word3"', ['word2 word3'], ['word1']],
+			["word1 author:'word2 word3'", ['word2 word3'], ['word1']],
+			['author:word1 author:word2', ['word1', 'word2'], null],
+			['author: word1 word2', null, ['word1', 'word2']],
+			['author:123', ['123'], null],
+			['author:"word1 word2" word3"', ['word1 word2'], ['word3"']],
+			["author:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
+			['author:"word1 word2\' word3"', ["word1 word2' word3"], null],
+			["author:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			["author:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['author:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -121,16 +121,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideInurlSearch(): array {
-		return array(
-			array('inurl:word1', array('word1'), null),
-			array('inurl: word1', array(), array('word1')),
-			array('inurl:123', array('123'), null),
-			array('inurl:word1 word2', array('word1'), array('word2')),
-			array('inurl:"word1 word2"', array('"word1'), array('word2"')),
-			array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
-			array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['inurl:word1', ['word1'], null],
+			['inurl: word1', [], ['word1']],
+			['inurl:123', ['123'], null],
+			['inurl:word1 word2', ['word1'], ['word2']],
+			['inurl:"word1 word2"', ['"word1'], ['word2"']],
+			['inurl:word1 word2 inurl:word3', ['word1', 'word3'], ['word2']],
+			["inurl:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['inurl:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -194,16 +194,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<string|array<string>|null>>
 	 */
 	public function provideTagsSearch(): array {
-		return array(
-			array('#word1', array('word1'), null),
-			array('# word1', null, array('#', 'word1')),
-			array('#123', array('123'), null),
-			array('#word1 word2', array('word1'), array('word2')),
-			array('#"word1 word2"', array('"word1'), array('word2"')),
-			array('#word1 #word2', array('word1', 'word2'), null),
-			array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
-			['#word1+word2', ['word1 word2'], null],
-		);
+		return [
+			['#word1', ['word1'], null],
+			['# word1', null, ['#', 'word1']],
+			['#123', ['123'], null],
+			['#word1 word2', ['word1'], ['word2']],
+			['#"word1 word2"', ['"word1'], ['word2"'],],
+			['#word1 #word2', ['word1', 'word2'], null],
+			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
+			['#word1+word2', ['word1 word2'], null]
+		];
 	}
 
 	/**
@@ -289,7 +289,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @param array<string> $values
 	 */
 	public function test__construct_parentheses(string $input, string $sql, array $values): void {
-		list($filterValues, $filterSearch) = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertEquals($sql, $filterSearch);
 		self::assertEquals($values, $filterValues);
 	}
@@ -331,6 +331,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intitle:"\\(test\\)"',
 				'(e.title LIKE ? )',
 				['%(test)%'],
+			],
+			[
+				'intitle:\'"hello world"\'',
+				'(e.title LIKE ? )',
+				['%"hello world"%'],
 			],
 		];
 	}

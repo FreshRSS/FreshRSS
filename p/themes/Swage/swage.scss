@@ -11,6 +11,7 @@ $color_alert:	#fa8052;
 $color_good:	#5eaabf;
 $color_bad:		#b0425b;
 $color_grey:	#e3e3e3;
+$color_grey_transparent: #d9d9d9bb;
 $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
@@ -37,6 +38,7 @@ $color_hover:	#fff;
 
 	--color-background-light: #{$color_light};
 	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-light-darker-transparent: #{$color_grey_transparent};
 	--color-background-dark: #{$color_text};
 	--color-background-nav: #{$color_nav};
 	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
@@ -223,7 +225,7 @@ form {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background-color: var(--color-background-light-darker);
+		background-color: var(--color-background-light-darker-transparent);
 		border-top: 3px solid var(--color-border-light-darker);
 
 		.btn {
@@ -969,7 +971,7 @@ form {
 	.current {
 		background-color: var(--color-background-hover);
 
-		&:not(.current):hover .item.title {
+		&:not(.current):hover .item .title {
 			background-color: var(--color-background-hover);
 		}
 	}
@@ -977,7 +979,7 @@ form {
 	&.favorite:not(.current) {
 		background-color: var(--color-background-stared);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-stared);
 		}
 	}
@@ -985,16 +987,14 @@ form {
 	&.not_read:not(.current) {
 		background-color: var(--color-background-unread);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-unread);
 		}
 	}
 
-	.item {
-		&.date {
-			color: var(--color-text-light-darker);
-			font-size: 0.7rem;
-		}
+	.flux_header .date,
+	.flux_content .bottom .date {
+		color: var(--color-text-light-darker);
 	}
 
 	.bottom {
@@ -1072,10 +1072,6 @@ form {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 
 	@extend %aside-width;
 	background-color: var(--color-background-aside);
@@ -1166,7 +1162,7 @@ a.signin {
 @media (max-width: 840px) {
 	body:not(.formLogin, .register) {
 		.header {
-			.item.title {
+			.item .title {
 				display: none;
 			}
 		}
@@ -1218,7 +1214,7 @@ a.signin {
 		text-align: center;
 	}
 
-	.flux:not(.current):hover .item.title {
+	.flux:not(.current):hover .item .title {
 		top: auto !important;
 	}
 
@@ -1474,9 +1470,7 @@ button.as-link {
 	}
 
 	.author {
-		margin: 0 0 10px;
 		color: var(--color-text-light-darker);
-		font-size: 90%;
 	}
 }
 

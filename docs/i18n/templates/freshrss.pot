@@ -267,7 +267,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/01_Index.md:16
 #, markdown-text
-msgid "[Github Branching and Pushing](02_Github.md)"
+msgid "[GitHub Branching and Pushing](02_GitHub.md)"
 msgstr ""
 
 #. type: Bullet: '* '
@@ -1214,85 +1214,85 @@ msgid ""
 msgstr ""
 
 #. type: Title #
-#: en/./developers/02_Github.md:1
+#: en/./developers/02_GitHub.md:1
 #, markdown-text, no-wrap
 msgid "Branching"
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/02_Github.md:3
+#: en/./developers/02_GitHub.md:3
 #, markdown-text, no-wrap
 msgid "Basic"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:6
+#: en/./developers/02_GitHub.md:6
 #, markdown-text
 msgid "If you are new to Git, here are some of the resources you might find useful:"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 #, markdown-text
 msgid "[GitHub’s blog post](https://github.com/blog/120-new-to-git)"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 #, markdown-text
 msgid "<http://try.github.com/>"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 #, markdown-text
 msgid "<http://sixrevisions.com/resources/git-tutorials-beginners/>"
 msgstr ""
 
 #. type: Bullet: '* '
-#: en/./developers/02_Github.md:11
+#: en/./developers/02_GitHub.md:11
 #, markdown-text
 msgid "<http://rogerdudler.github.io/git-guide/>"
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/02_Github.md:12
+#: en/./developers/02_GitHub.md:12
 #, markdown-text, no-wrap
 msgid "Getting the latest code from the FreshRSS repository"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:15
+#: en/./developers/02_GitHub.md:15
 #, markdown-text
 msgid "First you need to add the official repo to your remote repo list:"
 msgstr ""
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:16
+#: en/./developers/02_GitHub.md:16
 #, no-wrap
 msgid "git remote add upstream git@github.com:FreshRSS/FreshRSS.git\n"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:21
+#: en/./developers/02_GitHub.md:21
 #, markdown-text
 msgid "You can verify the remote repo is successfully added by using:"
 msgstr ""
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:22
+#: en/./developers/02_GitHub.md:22
 #, no-wrap
 msgid "git remote -v show\n"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:27
+#: en/./developers/02_GitHub.md:27
 #, markdown-text
 msgid "Now you can pull the latest development code:"
 msgstr ""
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:28
+#: en/./developers/02_GitHub.md:28
 #, no-wrap
 msgid ""
 "git checkout edge\n"
@@ -1300,25 +1300,25 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/02_Github.md:33
+#: en/./developers/02_GitHub.md:33
 #, markdown-text, no-wrap
 msgid "Starting a new development branch"
 msgstr ""
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:35
+#: en/./developers/02_GitHub.md:35
 #, no-wrap
 msgid "git checkout -b my-development-branch\n"
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/02_Github.md:39
+#: en/./developers/02_GitHub.md:39
 #, markdown-text, no-wrap
 msgid "Sending a patch"
 msgstr ""
 
 #. type: Fenced code block (sh)
-#: en/./developers/02_Github.md:41
+#: en/./developers/02_GitHub.md:41
 #, no-wrap
 msgid ""
 "# Add the changed file, here actualize_script.php\n"
@@ -1332,19 +1332,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:53
+#: en/./developers/02_GitHub.md:53
 #, markdown-text
 msgid "Now you can create a PR based on your branch."
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/02_Github.md:54
+#: en/./developers/02_GitHub.md:54
 #, markdown-text, no-wrap
 msgid "How to write a commit message"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:57
+#: en/./developers/02_GitHub.md:57
 #, markdown-text
 msgid ""
 "A commit message should succinctly describe the changes on the first "
@@ -1352,19 +1352,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:59
+#: en/./developers/02_GitHub.md:59
 #, markdown-text, no-wrap
 msgid "> Fix broken icon\n"
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:61
+#: en/./developers/02_GitHub.md:61
 #, markdown-text
 msgid "If necessary, this can be followed by a blank line and a longer explanation."
 msgstr ""
 
 #. type: Plain text
-#: en/./developers/02_Github.md:62
+#: en/./developers/02_GitHub.md:62
 #, markdown-text
 msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
 msgstr ""
@@ -1424,7 +1424,7 @@ msgid ""
 "FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to "
 "October 2012. The official site is located at "
 "[freshrss.org](https://freshrss.org) and the official repository is hosted "
-"on Github: "
+"on GitHub: "
 "[github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS)."
 msgstr ""
 
@@ -1630,8 +1630,11 @@ msgstr ""
 #: en/./developers/03_Backend/05_Extensions.md:58
 #, no-wrap
 msgid ""
-"class HelloWorldExtension extends Minz_Extension {\n"
-"\tpublic function init() {\n"
+"final class HelloWorldExtension extends Minz_Extension {\n"
+"\t#[\Override]\n"
+"\tpublic function init(): void {\n"
+"\t\tparent::init();\n"
+"\n"
 "\t\t// your code here\n"
 "\t}\n"
 "}\n"
@@ -1911,9 +1914,12 @@ msgstr ""
 #: en/./developers/03_Backend/05_Extensions.md:134
 #, no-wrap
 msgid ""
-"class HelloWorldExtension extends Minz_Extension\n"
+"final class HelloWorldExtension extends Minz_Extension\n"
 "{\n"
-"\tpublic function init() {\n"
+"\t#[\Override]\n"
+"\tpublic function init(): void {\n"
+"\t\tparent::init();\n"
+"\n"
 "\t\t$this->registerHook('entry_before_display', array($this, "
 "'renderEntry'));\n"
 "\t}\n"
@@ -6336,7 +6342,7 @@ msgid ""
 "| Language (English name) | Language (Endonym) | Ordered by language code "
 "(ISO-639-1) |\n"
 "|:------------------------|:-----------------------|:-------------------------------------|\n"
-"| Czech                   | Čeština                | cz                                   "
+"| Czech                   | Čeština                | cs                                   "
 "|\n"
 "| German                  | Deutsch                | de                                   "
 "|\n"
@@ -7303,7 +7309,7 @@ msgstr ""
 msgid ""
 "__Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "
 "\"FreshRSS official demo\"). If it’s not working, you need to [create an "
-"issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
+"issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new \"Create an "
 "issue for FreshRSS\") so we can have a look at it. If it’s working, there’s "
 "probably something fishy with the hosting server."
 msgstr ""

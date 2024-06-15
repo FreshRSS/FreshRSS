@@ -14,6 +14,7 @@
 	/** Origine **/
 	--background-color-light: #1c1c1c;
 	--background-color-light-shadowed: inherit;
+	--background-color-light-shadowed-transparent: #262626aa;
 	--background-color-grey: #1c1c1c;
 	--background-color-hover: #26303f;
 	--background-color-flux-hover: #111;
@@ -267,7 +268,6 @@ button.as-link[disabled] {
 
 .nav-list .nav-header {
 	background-color: var(--dark-background-color1);
-	border-bottom: 1px solid var(--dark-border-color3);
 }
 
 /*=== Dropdown */
@@ -452,15 +452,16 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color1);
 }
 
-.flux_header .item.title a {
+.flux .flux_header .item .title {
 	color: var(--dark-font-color8);
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--dark-font-color6);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background-color: var(--dark-background-color1);
 }
 

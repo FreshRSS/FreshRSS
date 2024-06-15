@@ -21,33 +21,37 @@
 	<form method="post" action="<?= _url('tag', 'update', 'id', $this->tag->id(), '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
-		<legend><?= _t('sub.category.information') ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="name"><?= _t('sub.tag.name') ?></label>
-			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->tag->name() ?>" />
+		<fieldset>
+			<legend><?= _t('sub.category.information') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="name"><?= _t('sub.tag.name') ?></label>
+				<div class="group-controls">
+					<input type="text" name="name" id="name" value="<?= $this->tag->name() ?>" />
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 
-		<legend><?= _t('sub.feed.filteractions') ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="filteractions_label"><?= _t('sub.tag.auto_label') ?></label>
-			<div class="group-controls">
-				<textarea name="filteractions_label" id="filteractions_label" class="w100"><?php
-					foreach ($this->tag->filtersAction('label') as $filterRead) {
-						echo $filterRead->getRawInput(), PHP_EOL;
-					}
-				?></textarea>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+		<fieldset>
+			<legend><?= _t('sub.feed.filteractions') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="filteractions_label"><?= _t('sub.tag.auto_label') ?></label>
+				<div class="group-controls">
+					<textarea name="filteractions_label" id="filteractions_label" class="w100"><?php
+						foreach ($this->tag->filtersAction('label') as $filterRead) {
+							echo $filterRead->getRawInput(), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

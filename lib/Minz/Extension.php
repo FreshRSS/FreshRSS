@@ -26,6 +26,9 @@ abstract class Minz_Extension {
 
 	private bool $is_enabled;
 
+	/** @var string[] */
+	protected array $csp_policies = [];
+
 	/**
 	 * The constructor to assign specific information to the extension.
 	 *
@@ -77,7 +80,9 @@ abstract class Minz_Extension {
 	 * enabled by the extension manager).
 	 * @return void
 	 */
-	abstract public function init();
+	public function init() {
+		$this->migrateExtensionUserPath();
+	}
 
 	/**
 	 * Set the current extension to enable.
@@ -115,7 +120,9 @@ abstract class Minz_Extension {
 	 * Handle the configure action.
 	 * @return void
 	 */
-	public function handleConfigureAction() {}
+	public function handleConfigureAction() {
+		$this->migrateExtensionUserPath();
+	}
 
 	/**
 	 * Getters and setters.
@@ -151,6 +158,32 @@ abstract class Minz_Extension {
 		$this->type = $type;
 	}
 
+	/** Return the user-specific, extension-specific, folder where this extension can save user-specific data */
+	protected final function getExtensionUserPath(): string {
+		$username = Minz_User::name() ?: '_';
+		return USERS_PATH . "/{$username}/extensions/{$this->getEntrypoint()}";
+	}
+
+	private function migrateExtensionUserPath(): void {
+		$username = Minz_User::name() ?: '_';
+		$old_extension_user_path = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+		$new_extension_user_path = $this->getExtensionUserPath();
+		if (is_dir($old_extension_user_path)) {
+			rename($old_extension_user_path, $new_extension_user_path);
+		}
+	}
+
+	/** Return whether a user-specific, extension-specific, file exists */
+	protected final function hasFile(string $filename): bool {
+		return file_exists($this->getExtensionUserPath() . '/' . $filename);
+	}
+
+	/** Return the user-specific, extension-specific, file content, or null if it does not exist */
+	protected final function getFile(string $filename): ?string {
+		$content = @file_get_contents($this->getExtensionUserPath() . '/' . $filename);
+		return is_string($content) ? $content : null;
+	}
+
 	/**
 	 * Return the url for a given file.
 	 *
@@ -169,8 +202,8 @@ abstract class Minz_Extension {
 			if ($username == null) {
 				return '';
 			}
-			$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}/{$filename}";
-			$file_name_url = urlencode("{$username}/extensions/{$this->getName()}/{$filename}");
+			$path = $this->getExtensionUserPath() . "/{$filename}";
+			$file_name_url = urlencode("{$username}/extensions/{$this->getEntrypoint()}/{$filename}");
 			$mtime = @filemtime($path);
 		}
 
@@ -182,21 +215,21 @@ abstract class Minz_Extension {
 	 *
 	 * @param string $base_name the base name of the controller. Final name will be FreshExtension_<base_name>_Controller.
 	 */
-	public final function registerController(string $base_name): void {
+	protected final function registerController(string $base_name): void {
 		Minz_Dispatcher::registerController($base_name, $this->path);
 	}
 
 	/**
 	 * Register the views in order to be accessible by the application.
 	 */
-	public final function registerViews(): void {
+	protected final function registerViews(): void {
 		Minz_View::addBasePathname($this->path);
 	}
 
 	/**
 	 * Register i18n files from ext_dir/i18n/
 	 */
-	public final function registerTranslates(): void {
+	protected final function registerTranslates(): void {
 		$i18n_dir = $this->path . '/i18n';
 		Minz_Translate::registerPath($i18n_dir);
 	}
@@ -207,7 +240,7 @@ abstract class Minz_Extension {
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
 	 */
-	public final function registerHook(string $hook_name, $hook_function): void {
+	protected final function registerHook(string $hook_name, $hook_function): void {
 		Minz_ExtensionManager::addHook($hook_name, $hook_function);
 	}
 
@@ -246,7 +279,7 @@ abstract class Minz_Extension {
 	/**
 	 * @return array<string,mixed>
 	 */
-	public final function getSystemConfiguration(): array {
+	protected final function getSystemConfiguration(): array {
 		if ($this->isConfigurationEnabled('system') && $this->isExtensionConfigured('system')) {
 			return FreshRSS_Context::systemConf()->extensions[$this->getName()];
 		}
@@ -256,7 +289,7 @@ abstract class Minz_Extension {
 	/**
 	 * @return array<string,mixed>
 	 */
-	public final function getUserConfiguration(): array {
+	protected final function getUserConfiguration(): array {
 		if ($this->isConfigurationEnabled('user') && $this->isExtensionConfigured('user')) {
 			return FreshRSS_Context::userConf()->extensions[$this->getName()];
 		}
@@ -321,13 +354,13 @@ abstract class Minz_Extension {
 	}
 
 	/** @param array<string,mixed> $configuration */
-	public final function setSystemConfiguration(array $configuration): void {
+	protected final function setSystemConfiguration(array $configuration): void {
 		$this->setConfiguration('system', $configuration);
 		$this->system_configuration = $configuration;
 	}
 
 	/** @param array<string,mixed> $configuration */
-	public final function setUserConfiguration(array $configuration): void {
+	protected final function setUserConfiguration(array $configuration): void {
 		$this->setConfiguration('user', $configuration);
 		$this->user_configuration = $configuration;
 	}
@@ -358,19 +391,18 @@ abstract class Minz_Extension {
 		$conf->save();
 	}
 
-	public final function removeSystemConfiguration(): void {
+	protected final function removeSystemConfiguration(): void {
 		$this->removeConfiguration('system');
 		$this->system_configuration = null;
 	}
 
-	public final function removeUserConfiguration(): void {
+	protected final function removeUserConfiguration(): void {
 		$this->removeConfiguration('user');
 		$this->user_configuration = null;
 	}
 
-	public final function saveFile(string $filename, string $content): void {
-		$username = Minz_User::name();
-		$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
+	protected final function saveFile(string $filename, string $content): void {
+		$path = $this->getExtensionUserPath();
 
 		if (!file_exists($path)) {
 			mkdir($path, 0777, true);
@@ -379,15 +411,23 @@ abstract class Minz_Extension {
 		file_put_contents("{$path}/{$filename}", $content);
 	}
 
-	public final function removeFile(string $filename): void {
-		$username = Minz_User::name();
-		if ($username == null) {
-			return;
-		}
-		$path = USERS_PATH . "/{$username}/extensions/{$this->getName()}/{$filename}";
-
+	protected final function removeFile(string $filename): void {
+		$path = $path = $this->getExtensionUserPath() . '/' . $filename;
 		if (file_exists($path)) {
 			unlink($path);
+		}
+	}
+
+	/**
+	 * @param string[] $policies
+	 */
+	public function amendCsp(array &$policies): void {
+		foreach ($this->csp_policies as $policy => $source) {
+			if (array_key_exists($policy, $policies)) {
+				$policies[$policy] .= ' ' . $source;
+			} else {
+				$policies[$policy] = $source;
+			}
 		}
 	}
 }

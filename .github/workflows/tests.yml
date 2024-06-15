@@ -29,7 +29,7 @@ jobs:
 
     - name: Use Composer cache
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -79,7 +79,7 @@ jobs:
 
     - name: Use shell cache
       id: shell-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: bin
         key: ${{ runner.os }}-bin-shfmt@v3.7.0-hadolint@v2.12.0-typos@v1.17.0

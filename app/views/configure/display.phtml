@@ -84,6 +84,9 @@
 									<?php } ?>
 									<?= $theme['description'] ?>
 								</div>
+								<?php if (!empty($theme['theme-color']['dark'])) { ?>
+									<div class="darkMode">✔ <?= _t('conf.display.darkMode') ?></div>
+								<?php } ?>
 								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>
@@ -113,6 +116,7 @@
 					<option value="no"<?= FreshRSS_Context::userConf()->darkMode === 'no' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.no') ?></option>
 					<option value="auto"<?= FreshRSS_Context::userConf()->darkMode === 'auto' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.auto') ?></option>
 				</select>
+				<span class="help"><?= _i('help') ?> <?= _t('conf.display.darkMode.help') ?></span>
 			</div>
 		</div>
 

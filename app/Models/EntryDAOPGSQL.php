@@ -3,23 +3,28 @@ declare(strict_types=1);
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
+	#[\Override]
 	public static function hasNativeHex(): bool {
 		return true;
 	}
 
+	#[\Override]
 	public static function sqlHexDecode(string $x): string {
 		return 'decode(' . $x . ", 'hex')";
 	}
 
+	#[\Override]
 	public static function sqlHexEncode(string $x): string {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
+	#[\Override]
 	public static function sqlIgnoreConflict(string $sql): string {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
 	/** @param array<string|int> $errorInfo */
+	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
@@ -34,6 +39,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return false;
 	}
 
+	#[\Override]
 	public function commitNewEntries(): bool {
 		//TODO: Update to PostgreSQL 9.5+ syntax with ON CONFLICT DO NOTHING
 		$sql = 'DO $$

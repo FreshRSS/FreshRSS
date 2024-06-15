@@ -92,16 +92,16 @@ abstract class CliOptionsParser {
 						break;
 					case 'int':
 						$validValues = array_filter($values, static fn($value) => ctype_digit($value));
-						$typedValues = array_map(static fn($value) => (int) $value, $validValues);
+						$typedValues = array_map(static fn($value) => (int)$value, $validValues);
 						break;
 					case 'bool':
 						$validValues = array_filter($values, static fn($value) => filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== null);
-						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE), $validValues);
+						$typedValues = array_map(static fn($value) => (bool)filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE), $validValues);
 						break;
 				}
 
 				if (!empty($typedValues)) {
-					// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
+					// @phpstan-ignore property.dynamicName
 					$this->$name = $types['isArray'] ? $typedValues : array_pop($typedValues);
 				}
 			}

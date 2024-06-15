@@ -66,6 +66,7 @@ class I18nValue {
 		}
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		if ($this->state === null) {
 			return $this->value;

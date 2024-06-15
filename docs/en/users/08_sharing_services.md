@@ -14,12 +14,11 @@ FreshRSS has the option to share links with a bunch of services.
 
 | Service           | Short description                                    | Links                                            | Notes                                                         |
 |:------------------|:-----------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------------------|
-| Blogotext         | A little more than a lightweight SQLite Blog-Engine. | [GitHub](https://github.com/BlogoText/blogotext) | Deprecated since FreshRSS V1.20.0 (2022). Will be deleted in 2023 (scheduled to FreshRSS V1.22.0) |
 | Buffer         | Buffer.com is a social media management platform for scheduling, publishing, and analyzing content. | [Website](https://buffer.com) ||
 | Diaspora*         | The online social world where you are in control     | [Website](https://diasporafoundation.org/), [Wikipedia](https://en.wikipedia.org/wiki/Diaspora_(social_network)) |  |
-| Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://facebook.com), [Wikipedia](https://en.wikipedia.org/wiki/Facebook)
+| Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://facebook.com), [Wikipedia](https://en.wikipedia.org/wiki/Facebook) | |
 | GNU social        | Social communication software for both public and private communications | [Website](https://gnu.io/social/) | |
-| Journal du hacker | Le Journal du hacker s'inspire directement du site anglophone Hacker News | [Website](https://www.journalduhacker.net/) |
+| Journal du hacker | Le Journal du hacker s'inspire directement du site anglophone Hacker News | [Website](https://www.journalduhacker.net/) | |
 | Known based sites | Its robust open source framework can be used to build fully-fledged community sites, or a blog for a single user. | [Website](https://withknown.com/) | |
 | Lemmy             | Selfhosted social link aggregation and discussion platform | [Website](https://join-lemmy.org/) | |
 | Linkding          | Selfhosted bookmark service | [Website](https://github.com/sissbruecker/linkding) | |
@@ -34,7 +33,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
 | Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
 | Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) | |
-| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2
+| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2 |
 | Whatsapp          | Instant messaging and voice-over-IP service owned by Meta Platforms| [Website](https://www.whatsapp.com), [Wikipedia](https://en.wikipedia.org/wiki/WhatsApp) | |
 | XING              | Career-oriented social networking site, operated by New Work SE | [Website](https://www.xing.com/), [Wikipedia](https://en.wikipedia.org/wiki/XING) | |
 

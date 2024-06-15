@@ -66,9 +66,14 @@ return array(
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
+		'export-as-opml' => array(
+			'download' => 'İndir',
+			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">dökümantasyonu incele</a>)',
+			'label' => 'OPML olarak dışarı aktar',
+		),
 		'filteractions' => array(
 			'_' => 'Eylemi filtrele',
-			'help' => 'Her satıra tek arama filtresi yaz. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Her satıra tek bir arama filtresi yaz. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dökümantasyonu incele</a>.',
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
@@ -100,7 +105,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Özel tarih/saat formatı',
-					'help' => 'Opsiyonel. Desteklenen biçime buradan ulaşabilirsiniz. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> ya da <code>d-m-Y H:i:s</code>',
+					'help' => 'Opsiyonel. Desteklenen biçime <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code>buradan</a> ya da <code>d-m-Y H:i:s</code> adresinden ulaşabilirsiniz.',
 				),
 				'item_timestamp' => array(
 					'_' => 'nesne tarihi',
@@ -121,47 +126,47 @@ return array(
 				'relative' => 'XPath (nesneye ait):',
 				'xpath' => 'XPath:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (Dotted notation)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'akış başlığı',
+					'help' => 'Örnek: <code>meta.title</code> ya da sabit bir dizgi: <code>"Benim özel akışım"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON noktalı gösterimi, nesneler arasında noktalar ve diziler için köşeli parantezler kullanır (örneğin: <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'yeni akışlar bulunuyor <strong>çğeler</strong><br /><small>(en önemli)</small>',
+					'help' => 'Öğeleri içeren dizinin JSON yolu, e.g. <code>yeniAkışÖğeleri</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'öğe yazarı',
+				'item_categories' => 'öğe etiketleri',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'öğe içeriği',
+					'help' => 'İçeriğin bulunduğu anahtar, örneğin, <code>içerik</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'nesne küçük resmi',
+					'help' => 'Örnek: <code>resim</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Özel tarih/saat formatı',
+					'help' => 'İsteğe bağlı. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen formatlar. Örneğin <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'nesne tarihi',
+					'help' => 'Sonuçlar <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacak.',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'nesne başlığı',
+				'item_uid' => 'nesne özel ID',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'nesne linkı (URL)',
+					'help' => 'Örnek: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Noktalı gösterim yolu şunlar için geçerlidir:',
+				'relative' => 'Noktalı gösterim yolu ( öğeye göre bağıl) şunlar için geçerlidir:',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Akışı',
 			'rss' => 'RSS / Atom (varsayılan)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Önbelleği temizle',
@@ -173,10 +178,10 @@ return array(
 		'max_http_redir' => 'Maksimum HTTP yönlendirme sayısı',
 		'max_http_redir_help' => 'Devre dışı bırakmak için boş bırakın ya da 0 olarak bırakın. Sınırsız yönlendirme için -1 olarak tanımlayın',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Method',	// IGNORE
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'POST payload otomatik yardımı için <code>application/x-www-form-urlencoded</code> ve <code>application/json</code>',
+		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'sessize al',
 		'no_selected' => 'Hiçbir akış seçilmedi.',
@@ -185,11 +190,11 @@ return array(
 			'_' => 'Görünürlük',
 			'archived' => 'Gösterme (arşivlenmiş)',
 			'category' => 'Kendi kategorisinde göster',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Önemli akışlarda göster',
 			'main_stream' => 'Ana akışda göster',
 		),
 		'proxy' => 'Bu akışı güncellemek için vekil sunucu kullan',
-		'proxy_help' => 'Bir protokol seçin (ör: SOCKS5) vekil sunucu adresini girin (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Bir protokol seçin (ör: SOCKS5) vekil sunucu adresini girin (Örneğin: <kbd>127.0.0.1:1080</kbd> ya da <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Kaynak kodu göster',
 			'show_rendered' => 'İçeriği göster',
@@ -240,7 +245,7 @@ return array(
 		'subscription_tools' => 'Abonelik araçları',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Bu etiketi yeni makalelere ekle',
 		'name' => 'İsim',
 		'new_name' => 'Eski isim',
 		'old_name' => 'Yeni isim',

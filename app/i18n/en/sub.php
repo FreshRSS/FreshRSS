@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
+		'export-as-opml' => array(
+			'download' => 'Download',
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',
+			'label' => 'Export as OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
@@ -121,13 +126,13 @@ return array(
 				'relative' => 'XPath (relative to item) for:',
 				'xpath' => 'XPath for:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',
 				'feed_title' => array(
 					'_' => 'feed title',
 					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
 					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',
@@ -156,8 +161,8 @@ return array(
 					'_' => 'item link (URL)',
 					'help' => 'Example: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',
-				'relative' => 'Dotted Path (relative to item) for:',
+				'json' => 'dot notation for:',
+				'relative' => 'dot notated path (relative to item) for:',
 			),
 			'jsonfeed' => 'JSON Feed',
 			'rss' => 'RSS / Atom (default)',

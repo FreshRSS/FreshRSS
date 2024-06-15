@@ -66,6 +66,11 @@ return array(
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+		'export-as-opml' => array(
+			'download' => 'Télécharger',
+			'help' => 'Fichier XML (données partielles. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Voir documentation</a>)',
+			'label' => 'Exporter en OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
@@ -121,13 +126,13 @@ return array(
 				'relative' => 'XPath (relatif à l’article) pour :',
 				'xpath' => 'XPath pour :',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Chemin)',
+			'json_dotnotation' => array(
+				'_' => 'JSON (notation point)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
 					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
-				'help' => 'Un chemin JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
+				'help' => 'La notation point pour JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
 					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
@@ -156,8 +161,8 @@ return array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>permalink</code>',
 				),
-				'json' => 'Chemin JSON pour :',
-				'relative' => 'Chemin relatif à l’article pour :',
+				'json' => 'notation point pour :',
+				'relative' => 'notation point relative à l’article pour :',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',

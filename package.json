@@ -19,7 +19,7 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "scripts": {
     "eslint": "eslint --ext .js .",
@@ -33,18 +33,18 @@
     "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "markdownlint-cli": "^0.38.0",
+    "markdownlint-cli": "^0.41.0",
     "rtlcss": "^4.1.1",
-    "sass": "^1.69.7",
-    "stylelint": "^15.11.0",
-    "stylelint-config-recommended-scss": "^13.1.0",
+    "sass": "^1.77.4",
+    "stylelint": "^16.6.1",
+    "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-stylistic": "^0.4.5"
+    "@stylistic/stylelint-plugin": "^2.1.2"
   },
   "rtlcssConfig": {}
 }
