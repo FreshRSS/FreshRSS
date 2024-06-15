@@ -193,11 +193,11 @@ return array(
 		'user_profile' => 'プロフィール',
 	),
 	'period' => array(
-		'days' => '日',
-		'hours' => '時',
-		'months' => '月',
-		'weeks' => '週',
-		'years' => '年',
+		'days' => '日間',
+		'hours' => '時間',
+		'months' => 'ヶ月',
+		'weeks' => '週間',
+		'years' => '年間',
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
