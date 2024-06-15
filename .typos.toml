@@ -14,7 +14,7 @@ extend-exclude = [
 	"*.pot",
 	"*.rtl.css",
 	".git/",
-	"app/i18n/cz/",
+	"app/i18n/cs/",
 	"app/i18n/de/",
 	"app/i18n/el/",
 	"app/i18n/es/",
