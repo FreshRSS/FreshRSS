@@ -1,6 +1,5 @@
 parameters:
-	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
-	level: 8
+	level: 9	# https://phpstan.org/user-guide/rule-levels
 	phpVersion: 80399	# TODO: Remove line when moving composer.json to PHP 8+
 	fileExtensions:
 		- php
@@ -35,6 +34,7 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
+	checkMissingOverrideMethodAttribute: true
 	reportMaybesInPropertyPhpDocTypes: false
 	treatPhpDocTypesAsCertain: false
 	strictRules:

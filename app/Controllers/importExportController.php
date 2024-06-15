@@ -18,6 +18,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -247,10 +248,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, static function ($v) {
-					// Filter out empty properties, potentially reported as empty objects
-					return (is_string($v) && trim($v) !== '') || !empty($v);
-				});
+			$item = array_filter($item, static fn($v) =>
+				// Filter out empty properties, potentially reported as empty objects
+				(is_string($v) && trim($v) !== '') || !empty($v));
 			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
 			$item['content'] = ['content' => $item['content'] ?? ''];
@@ -577,7 +577,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if ($feed != null) {
+			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.
 				$id = $this->feedDAO->addFeedObject($feed);

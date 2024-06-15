@@ -107,6 +107,7 @@ class FreshRSS_Search {
 		$this->parseSearch($input);
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		return $this->getRawInput();
 	}
@@ -234,9 +235,7 @@ class FreshRSS_Search {
 	 * @return array<string>
 	 */
 	private static function removeEmptyValues(?array $anArray): array {
-		return empty($anArray) ? [] : array_filter($anArray, static function(string $value) {
-			return $value !== '';
-		});
+		return empty($anArray) ? [] : array_filter($anArray, static fn(string $value) => $value !== '');
 	}
 
 	/**

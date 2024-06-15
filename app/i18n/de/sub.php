@@ -66,6 +66,11 @@ return array(
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// IGNORE
+			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
+			'label' => 'Export als OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
@@ -121,45 +126,45 @@ return array(
 				'relative' => 'XPath (relativ zum Artikel) für:',
 				'xpath' => 'XPath für:',
 			),
-			'json_dotpath' => array(
-				'_' => 'JSON (Dotted paths)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (Punktnotation)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'Feed Name',
+					'help' => 'Beispiel: <code>meta.title</code> oder ein statischer String: <code>"Mein Feed"</code>',
 				),
-				'help' => 'A JSON dotted path uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
+					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>newsItems</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'Item Autor',
+				'item_categories' => 'Item Hashtags',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'Item Inhalt',
+					'help' => 'Schlüsslwort unter dem der Inhalt gefunden wird, z.B. <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'Item Vorschaubild',
+					'help' => 'Beispiel: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Benutzerdefiniertes Datum/Zeit-Format',
+					'help' => 'Optional. Format, das von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> unterstützt wird, wie z.B. <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'Item Datum',
+					'help' => 'Das Ergebnis wird von <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst.',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'Item Titel',
+				'item_uid' => 'Item einmalige ID',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'Item Link (URL)',
+					'help' => 'Beispiel: <code>permalink</code>',
 				),
-				'json' => 'Dotted Path for:',	// TODO
-				'relative' => 'Dotted Path (relative to item) for:',	// TODO
+				'json' => 'Punktnotation für:',
+				'relative' => 'Punktnotierter Pfad (relativ zum Item) für:',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -173,10 +178,10 @@ return array(
 		'max_http_redir' => 'Max HTTP Umleitungen',
 		'max_http_redir_help' => '0 oder leeres Feld = deaktiviert; -1 für unendlich viele Umleitungen',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'HTTP Methode',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
+		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => 'Stumm schalten',
 		'no_selected' => 'Kein Feed ausgewählt.',
@@ -185,7 +190,7 @@ return array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
 			'category' => 'Zeige in eigener Kategorie',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
@@ -240,7 +245,7 @@ return array(
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'Dieses Label zu neuen Artikeln hinzufügen',
 		'name' => 'Name',	// IGNORE
 		'new_name' => 'Neuer Name',
 		'old_name' => 'Alter Name',

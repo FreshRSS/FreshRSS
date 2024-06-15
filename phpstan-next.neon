@@ -1,0 +1,41 @@
+includes:
+	- phpstan.neon
+
+parameters:
+	strictRules:
+		booleansInConditions: true
+	ignoreErrors:
+		- '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
+	excludePaths:
+		analyse:
+			# TODO: Update files below and remove them from this list
+			- app/Controllers/feedController.php
+			- app/Controllers/importExportController.php
+			- app/Controllers/subscriptionController.php
+			- app/Controllers/tagController.php
+			- app/FreshRSS.php
+			- app/Models/CategoryDAO.php
+			- app/Models/CategoryDAOSQLite.php
+			- app/Models/DatabaseDAOSQLite.php
+			- app/Models/Entry.php
+			- app/Models/EntryDAO.php
+			- app/Models/EntryDAOSQLite.php
+			- app/Models/Feed.php
+			- app/Models/FeedDAO.php
+			- app/Models/FeedDAOSQLite.php
+			- app/Models/FormAuth.php
+			- app/Models/LogDAO.php
+			- app/Models/TagDAO.php
+			- app/Models/Themes.php
+			- app/Services/ExportService.php
+			- app/Services/ImportService.php
+			- app/views/configure/archiving.phtml
+			- app/views/configure/queries.phtml
+			- app/views/configure/query.phtml
+			- app/views/helpers/stream-footer.phtml
+			- app/views/stats/repartition.phtml
+			- app/views/subscription/feed.phtml
+			- cli/CliOptionsParser.php
+			- cli/create-user.php
+			- cli/update-user.php
+			- lib/lib_rss.php

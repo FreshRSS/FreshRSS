@@ -99,6 +99,9 @@ abstract class Minz_ActionController {
 	 */
 	public function declareCspHeader(): void {
 		$policies = [];
+		foreach (Minz_ExtensionManager::listExtensions(true) as $extension) {
+			$extension->amendCsp($this->csp_policies);
+		}
 		foreach ($this->csp_policies as $directive => $sources) {
 			$policies[] = $directive . ' ' . $sources;
 		}

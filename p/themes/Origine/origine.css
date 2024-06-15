@@ -9,6 +9,7 @@
 	--background-color-light-gradient2: #eee;
 	--background-color-light: #fff;
 	--background-color-light-shadowed: #f6f6f6;
+	--background-color-light-shadowed-transparent: #f0f0f0a8;
 	--background-color-grey: #f0f0f0;
 	--background-color-hover: #f6f6f6;
 
@@ -165,8 +166,8 @@ th {
 	background-color: var(--background-color-light-shadowed);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -177,7 +178,7 @@ form th {
 .form-group.form-actions {
 	margin-bottom: 40px;
 	padding: 5px 0;
-	background-color: var(--background-color-light-shadowed);
+	background-color: var(--background-color-light-shadowed-transparent);
 	border-top: 1px solid var(--border-color);
 }
 
@@ -404,7 +405,6 @@ a:hover .icon {
 .nav-list .nav-header {
 	background-color: var(--background-color-grey);
 	color: var(--font-color-grey);
-	border-bottom: 1px solid var(--border-color);
 	font-weight: bold;
 }
 
@@ -837,6 +837,7 @@ a:hover .icon {
 }
 
 .flux .flux_header:not(.current):hover .flux_header,
+.flux:not(.current):hover .flux_header .title,
 .flux.current .flux_header {
 	background-color: var(--background-color-hover);
 }
@@ -849,6 +850,7 @@ a:hover .icon {
 	background-color: var(--unread-article-background-color);
 }
 
+.flux.not_read:not(.current):hover .flux_header .title,
 .flux.not_read:not(.current):hover .flux_header,
 .flux.not_read.current .flux_header {
 	background-color: var(--unread-article-background-color-hover);
@@ -862,6 +864,7 @@ a:hover .icon {
 	background-color: var(--favorite-article-background-color);
 }
 
+.flux.favorite:not(.current):hover .flux_header .title,
 .flux.favorite:not(.current):hover .flux_header,
 .flux.favorite.current .flux_header {
 	background-color: var(--favorite-article-background-color-hover);
@@ -873,7 +876,7 @@ a:hover .icon {
 	cursor: pointer;
 }
 
-.flux .item.date {
+.flux .item .date {
 	color: var(--font-color-grey);
 	font-size: 0.7rem;
 }
@@ -986,12 +989,8 @@ a:hover .icon {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background-color: var(--background-color-light);
 	border-top: 1px solid var(--border-color);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -1007,9 +1006,7 @@ a:hover .icon {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-grey);
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */
@@ -1203,6 +1200,7 @@ a:hover .icon {
 		--background-color-light-gradient2: #111;
 		--background-color-light: #111;
 		--background-color-light-shadowed: #191919;
+		--background-color-light-shadowed-transparent: #191919cf;
 		--background-color-grey: #1f1f1f;
 		--background-color-hover: #212227;
 

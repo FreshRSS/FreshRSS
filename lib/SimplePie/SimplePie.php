@@ -2270,8 +2270,9 @@ class SimplePie
 	/**
 	 * Get the base URL value from the feed
 	 *
-	 * Uses `<xml:base>` if available, otherwise uses the first link in the
-	 * feed, or failing that, the URL of the feed itself.
+	 * Uses `<xml:base>` if available,
+	 * otherwise uses the first 'self' link or the first 'alternate' link of the feed,
+	 * or failing that, the URL of the feed itself.
 	 *
 	 * @see get_link
 	 * @see subscribe_url
@@ -2281,16 +2282,17 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
-		{
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
 			return $element['xml_base'];
 		}
-		elseif ($this->get_link() !== null)
-		{
-			return $this->get_link();
+		if (($link = $this->get_link(0, 'self')) !== null) {
+			return $link;
+		}
+		if (($link = $this->get_link(0, 'alternate')) !== null) {
+			return $link;
 		}
 
-		return $this->subscribe_url();
+		return $this->subscribe_url() ?? '';
 	}
 
 	/**

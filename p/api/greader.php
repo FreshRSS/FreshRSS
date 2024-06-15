@@ -31,11 +31,15 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '';
 
 if (PHP_INT_SIZE < 8) {	//32-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) return '0';
-		return gmp_strval(gmp_init($hex, 16), 10);
+		$result = gmp_strval(gmp_init($hex, 16), 10);
+		/** @var numeric-string $result */
+		return $result;
 	}
 } else {	//64-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) {
 			return '0';
@@ -794,6 +798,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
@@ -822,6 +827,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$tagDAO = FreshRSS_Factory::createTagDao();
@@ -943,7 +949,10 @@ final class GReaderAPI {
 		self::badRequest();
 	}
 
-	/** @return never */
+	/**
+	 * @param numeric-string $olderThanId
+	 * @return never
+	 */
 	private static function markAllAsRead(string $streamId, string $olderThanId) {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if (strpos($streamId, 'feed/') === 0) {
@@ -992,7 +1001,7 @@ final class GReaderAPI {
 		}
 		$pathInfo = urldecode($pathInfo);
 		$pathInfo = '' . preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
-		if ($pathInfo == '') {
+		if ($pathInfo == '' && empty($_SERVER['QUERY_STRING'])) {
 			exit('OK');
 		}
 		$pathInfos = explode('/', $pathInfo);

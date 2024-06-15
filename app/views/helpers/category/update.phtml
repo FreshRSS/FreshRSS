@@ -17,224 +17,246 @@
 
 	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<fieldset>
+			<legend><?= _t('sub.category.information') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="name"><?= _t('sub.category.title') ?></label>
+				<div class="group-controls">
+					<input type="text" name="name" id="name" value="<?= $this->category->name()  ?>" <?=
+						//Disallow changing the name of the default category
+						$this->category->id() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'readonly="readonly"' : ''
+					?> />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
+				<div class="group-controls">
+					<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributeInt('position') ?>" />
+					<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
+				</div>
+			</div>
 
-		<legend><?= _t('sub.category.information') ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="name"><?= _t('sub.category.title') ?></label>
-			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->category->name()  ?>" <?=
-					//Disallow changing the name of the default category
-					$this->category->id() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'readonly="readonly"' : ''
-				?> />
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
-			<div class="group-controls">
-				<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributeInt('position') ?>" />
-				<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-			</div>
-		</div>
+		</fieldset>
 
 		<?php if (!$this->category->isDefault()): ?>
-		<legend><?= _t('sub.category.dynamic_opml') ?> <?= _i('opml-dyn') ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributeString('opml_url') ?>" />
-					<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
-						<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
-					</button>
-					<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+			<fieldset>
+				<legend><?= _t('sub.category.dynamic_opml') ?> <?= _i('opml-dyn') ?></legend>
+				<div class="form-group">
+					<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
+					<div class="group-controls">
+						<div class="stick">
+							<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributeString('opml_url') ?>" />
+							<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
+								<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
+							</button>
+							<a class="btn open-url" target="_blank" rel="noreferrer" href="" data-input="opml_url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+						</div>
+						<p class="help"><?= _i('help') ?> <?= _t('gen.short.blank_to_disable') ?></p>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
+					</div>
 				</div>
-				<p class="help"><?= _i('help') ?> <?= _t('gen.short.blank_to_disable') ?></p>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
-			</div>
-		</div>
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-				<button type="submit" class="btn btn-attention confirm"
-					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('category', 'empty', 'id', $this->category->id(), 'muted', 1) ?>"
-					formmethod="post"><?= _t('gen.action.delete_muted_feeds') ?></button>
-			</div>
-		</div>
+				<div class="form-group form-actions">
+					<div class="group-controls">
+						<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+						<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+						<button type="submit" class="btn btn-attention confirm"
+							data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+							formaction="<?= _url('category', 'empty', 'id', $this->category->id(), 'muted', 1) ?>"
+							formmethod="post"><?= _t('gen.action.delete_muted_feeds') ?></button>
+					</div>
+				</div>
+			</fieldset>
 		<?php endif; ?>
 
-		<legend><?= _t('sub.feed.filteractions') ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
-			<div class="group-controls">
-				<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
-					foreach ($this->category->filtersAction('read') as $filterRead) {
-						echo $filterRead->getRawInput(), PHP_EOL;
-					}
-				?></textarea>
-				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+		<fieldset>
+			<legend><?= _t('sub.feed.filteractions') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
+				<div class="group-controls">
+					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
+						foreach ($this->category->filtersAction('read') as $filterRead) {
+							echo $filterRead->getRawInput(), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 
-		<legend><?= _t('sub.category.archiving') ?></legend>
-		<?php
-			$archiving = $this->category->attributeArray('archiving');
-			/** @var array<'default'?:bool,'keep_period'?:string,'keep_max'?:int,'keep_min'?:int,'keep_favourites'?:bool,'keep_labels'?:bool,'keep_unreads'?:bool>|null $archiving */
-			if (empty($archiving)) {
-				$archiving = [ 'default' => true ];
-			} else {
-				$archiving['default'] = false;
-			}
-			$volatile = [
-				'enable_keep_period' => false,
-				'keep_period_count' => '3',
-				'keep_period_unit' => 'P1M',
-			];
-			if (!empty($archiving['keep_period']) && is_string($archiving['keep_period'])) {
-				if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
-					$volatile['enable_keep_period'] = true;
-					$volatile['keep_period_count'] = $matches['count'];
-					$volatile['keep_period_unit'] = str_replace($matches['count'], '1', $archiving['keep_period']);
+		<fieldset>
+			<legend><?= _t('sub.category.archiving') ?></legend>
+			<?php
+				$archiving = $this->category->attributeArray('archiving');
+				/** @var array<'default'?:bool,'keep_period'?:string,'keep_max'?:int,'keep_min'?:int,'keep_favourites'?:bool,'keep_labels'?:bool,'keep_unreads'?:bool>|null $archiving */
+				if (empty($archiving)) {
+					$archiving = [ 'default' => true ];
+				} else {
+					$archiving['default'] = false;
 				}
-			}
-			//Defaults
-			if (!isset($archiving['keep_max']) || !is_int($archiving['keep_max'])) {
-				$archiving['keep_max'] = 0;
-			}
-			if (!isset($archiving['keep_min']) || !is_int($archiving['keep_min'])) {
-				$archiving['keep_min'] = 50;
-			}
-			if (!isset($archiving['keep_favourites']) || !is_bool($archiving['keep_favourites'])) {
-				$archiving['keep_favourites'] = true;
-			}
-			if (!isset($archiving['keep_labels']) || !is_bool($archiving['keep_labels'])) {
-				$archiving['keep_labels'] = true;
-			}
-			if (!isset($archiving['keep_unreads']) || !is_bool($archiving['keep_unreads'])) {
-				$archiving['keep_unreads'] = false;
-			}
-		?>
+				$volatile = [
+					'enable_keep_period' => false,
+					'keep_period_count' => '3',
+					'keep_period_unit' => 'P1M',
+				];
+				if (!empty($archiving['keep_period']) && is_string($archiving['keep_period'])) {
+					if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $archiving['keep_period'], $matches)) {
+						$volatile['enable_keep_period'] = true;
+						$volatile['keep_period_count'] = $matches['count'];
+						$volatile['keep_period_unit'] = str_replace($matches['count'], '1', $archiving['keep_period']);
+					}
+				}
+				//Defaults
+				if (!isset($archiving['keep_max']) || !is_int($archiving['keep_max'])) {
+					$archiving['keep_max'] = 0;
+				}
+				if (!isset($archiving['keep_min']) || !is_int($archiving['keep_min'])) {
+					$archiving['keep_min'] = 50;
+				}
+				if (!isset($archiving['keep_favourites']) || !is_bool($archiving['keep_favourites'])) {
+					$archiving['keep_favourites'] = true;
+				}
+				if (!isset($archiving['keep_labels']) || !is_bool($archiving['keep_labels'])) {
+					$archiving['keep_labels'] = true;
+				}
+				if (!isset($archiving['keep_unreads']) || !is_bool($archiving['keep_unreads'])) {
+					$archiving['keep_unreads'] = false;
+				}
+			?>
 
-		<p class="alert alert-warn">
-			<?= _t('conf.archiving.policy_warning') ?>
-		</p>
+			<p class="alert alert-warn">
+				<?= _t('conf.archiving.policy_warning') ?>
+			</p>
 
-		<div class="form-group">
-			<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
-			<div class="group-controls">
-				<label class="checkbox">
-					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
-					<?= _t('gen.short.by_default') ?>
-				</label>
+			<div class="form-group">
+				<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
+				<div class="group-controls">
+					<label class="checkbox">
+						<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
+						<?= _t('gen.short.by_default') ?>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-controls">
-				<label class="checkbox" for="enable_keep_max">
-					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?>
-						data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
-					<?= _t('conf.archiving.keep_max') ?>
-					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"
-						data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-controls">
+					<label class="checkbox" for="enable_keep_max">
+						<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?>
+							data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+						<?= _t('conf.archiving.keep_max') ?>
+						<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"
+							data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-controls">
-				<label class="checkbox" for="enable_keep_period">
-					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.keep_period') ?>
-					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>"
-						data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
-					<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
-						<option></option>
-						<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
-						<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
-						<option value="P1W" <?= 'P1W' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
-						<option value="P1D" <?= 'P1D' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
-						<option value="PT1H" <?= 'PT1H' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
-					</select>
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-controls">
+					<label class="checkbox" for="enable_keep_period">
+						<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+						<?= _t('conf.archiving.keep_period') ?>
+						<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>"
+							data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
+						<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
+							<option></option>
+							<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+							<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+							<option value="P1W" <?= 'P1W' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
+							<option value="P1D" <?= 'P1D' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+							<option value="PT1H" <?= 'PT1H' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
+						</select>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-name"><?= _t('conf.archiving.exception') ?></div>
-			<div class="group-controls">
-				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.keep_favourites') ?>
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-name"><?= _t('conf.archiving.exception') ?></div>
+				<div class="group-controls">
+					<label class="checkbox" for="keep_favourites">
+						<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
+						<?= _t('conf.archiving.keep_favourites') ?>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-controls">
-				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.keep_labels') ?>
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-controls">
+					<label class="checkbox" for="keep_labels">
+						<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
+						<?= _t('conf.archiving.keep_labels') ?>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-controls">
-				<label class="checkbox" for="keep_unreads">
-					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= $archiving['keep_unreads'] ? 1 : 0 ?>"/>
-					<?= _t('conf.archiving.keep_unreads') ?>
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-controls">
+					<label class="checkbox" for="keep_unreads">
+						<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $archiving['keep_unreads'] ? 1 : 0 ?>"/>
+						<?= _t('conf.archiving.keep_unreads') ?>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
-			<div class="group-controls">
-				<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
-					<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>"
-						data-leave-validation="<?= $archiving['keep_min'] ?>">
-				</label>
+			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
+				<div class="group-controls">
+					<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
+						<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>"
+							data-leave-validation="<?= $archiving['keep_min'] ?>">
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
 			</div>
-		</div>
+		</fieldset>
 
-		<?php if (!$this->category->isDefault()): ?>
-		<p class="alert alert-warn">
-			<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
-		</p>
-		<?php endif;?>
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-attention confirm"
-					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
-					formmethod="post"><?= _t('gen.action.empty') ?></button>
-				<?php if (!$this->category->isDefault()): ?>
-				<button type="submit" class="btn btn-attention confirm"
-					data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-					formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
-					formmethod="post"><?= _t('gen.action.remove') ?></button>
-				<?php endif;?>
+		<fieldset>
+			<?php if (!$this->category->isDefault()): ?>
+			<p class="alert alert-warn">
+				<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>
+			</p>
+			<?php endif;?>
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-attention confirm"
+						data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+						formaction="<?= _url('category', 'empty', 'id', $this->category->id()) ?>"
+						formmethod="post"><?= _t('gen.action.empty') ?></button>
+					<?php if (!$this->category->isDefault()): ?>
+					<button type="submit" class="btn btn-attention confirm"
+						data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+						formaction="<?= _url('category', 'delete', 'id', $this->category->id()) ?>"
+						formmethod="post"><?= _t('gen.action.remove') ?></button>
+					<?php endif;?>
+				</div>
 			</div>
-		</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.import_export.export') ?></legend>
+			<div class="form-group">
+				<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
+				<div class="group-controls">
+					<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'c_' . $this->category->id()) ?>" download="c_<?= $this->category->id() ?> <?= $this->category->name() ?>.opml.xml">
+						<?= _t('sub.feed.export-as-opml.download') ?>
+					</a>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.export-as-opml.help') ?></p>
+				</div>
+			</div>
+		</fieldset>
 	</form>
 </div>

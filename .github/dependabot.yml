@@ -11,10 +11,12 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      production-dependencies:
-        dependency-type: "production"
-      development-dependencies:
-        dependency-type: "development"
+      eslint:
+        patterns:
+          - "eslint*"
+      stylelint:
+        patterns:
+          - "stylelint*"
   - package-ecosystem: "composer"
     directory: "/"
     schedule:

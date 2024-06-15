@@ -58,6 +58,10 @@ if (!empty($cliOptions->errors)) {
 
 $username = $cliOptions->user;
 
+if (preg_grep("/^$username$/i", listUsers())) {
+	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
+}
+
 echo 'FreshRSS creating user “', $username, "”…\n";
 
 $values = [

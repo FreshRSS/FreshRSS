@@ -4,7 +4,7 @@
 
 FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre
 2012. Le site officiel est situé à l’adresse
-[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par Github
+[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par GitHub
 : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## Problème à résoudre
@@ -81,8 +81,11 @@ class name `HelloWorldExtension`.
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
 need the structure:
 ```html
-class HelloWorldExtension extends Minz_Extension {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
 	public function init() {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -188,14 +191,27 @@ You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
 
 ```php
-class HelloWorldExtension extends Minz_Extension
+final class HelloWorldExtension extends Minz_Extension
 {
+	#[\Override]
 	public function init(): void {
+		parent::init();
+
 		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}
+
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+		$message = $this->getUserConfigurationValue('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```

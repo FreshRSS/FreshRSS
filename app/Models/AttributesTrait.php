@@ -15,6 +15,11 @@ trait FreshRSS_AttributesTrait {
 		return $this->attributes;
 	}
 
+	/** @param non-empty-string $key */
+	public function hasAttribute(string $key): bool {
+		return isset($this->attributes[$key]);
+	}
+
 	/**
 	 * @param non-empty-string $key
 	 * @return array<int|string,mixed>|null
