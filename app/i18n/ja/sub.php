@@ -68,12 +68,12 @@ return array(
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
 		'export-as-opml' => array(
 			'download' => 'ダウンロード',
-			'help' => 'XMLファイル (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XMLファイル (データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。)',
 			'label' => 'OPMLとしてエクスポート',
 		),
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
-			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
@@ -172,7 +172,7 @@ return array(
 			'clear_cache' => 'キャッシュのクリア',
 			'clear_cache_help' => 'このフィードのキャッシュをクリアします。',
 			'reload_articles' => '記事を再読み込みする',
-			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',	// DIRTY
+			'reload_articles_help' => '指定した数の記事を再読み込みし、セレクターが定義されていればコンテンツを完全に取得します。',
 			'title' => 'メンテナンス',
 		),
 		'max_http_redir' => 'HTTPのリダイレクトの上限',
@@ -194,7 +194,7 @@ return array(
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを読み込み時にproxyを設定してください',
-		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',

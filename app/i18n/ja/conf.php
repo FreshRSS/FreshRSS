@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => '自動ダークモード',
 			'auto' => '自動',
-			'help' => 'For compatible themes only',	// TODO
+			'help' => '対応するテーマのみ',
 			'no' => '無効',
 		),
 		'icon' => array(
@@ -115,7 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'ユーザークエリ',
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリやフィードはすでに消去されました。',
-		'description' => 'Description',	// TODO
+		'description' => '説明',
 		'filter' => array(
 			'_' => 'フィルターを適用:',
 			'categories' => 'カテゴリごとに表示する',
@@ -136,7 +136,7 @@ return array(
 		'get_important' => '重要なフィードからの記事を表示する',
 		'get_label' => 'ラベル“%s”の記事を表示する',
 		'help' => 'HTML/RSS/OPMLによるユーザークエリと再共有については <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">こちら</a>をご覧ください',
-		'image_url' => 'Image URL',	// TODO
+		'image_url' => '画像のURL',
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'number' => 'クエリ n°%d',
@@ -187,9 +187,9 @@ return array(
 			),
 			'feed_title' => 'フィードのタイトル',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => '記事アイコンの位置<br /><small>(リーディングビューのみ)</small>',
+				'above_title' => 'タイトルの上',
+				'with_authors' => '著者と日付の行',
 			),
 			'tags' => array(
 				'_' => 'タグ',

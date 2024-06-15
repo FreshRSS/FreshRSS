@@ -30,9 +30,9 @@ return array(
 		'manage' => '管理',
 		'mark_read' => '既読にする',
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => '次の記事',
+			'prev' => '前の記事',
+			'up' => '先頭へ',
 		),
 		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
