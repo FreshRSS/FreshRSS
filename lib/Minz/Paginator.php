@@ -38,6 +38,7 @@ class Minz_Paginator {
 	/**
 	 * Constructeur
 	 * @param array<Minz_Model> $items les éléments à gérer
+	 * @throws Minz_CurrentPagePaginationException
 	 */
 	public function __construct(array $items) {
 		$this->_items($items);

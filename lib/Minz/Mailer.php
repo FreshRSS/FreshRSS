@@ -28,10 +28,8 @@ class Minz_Mailer {
 	/**
 	 * The view attached to the mailer.
 	 * You should set its file with `$this->view->_path($path)`
-	 *
-	 * @var Minz_View
 	 */
-	protected $view;
+	protected Minz_View $view;
 
 	private string $mailer;
 	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */

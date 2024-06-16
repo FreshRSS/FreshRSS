@@ -19,8 +19,7 @@ abstract class Minz_ActionController {
 	/** @var array<string,string> */
 	private array $csp_policies;
 
-	/** @var Minz_View */
-	protected $view;
+	protected Minz_View $view;
 
 	/**
 	 * Gives the possibility to override the default view model type.
