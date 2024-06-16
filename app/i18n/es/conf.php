@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'En la fila de autores y fecha',
 			),
 			'feed_title' => 'Título del Feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiquetas',
 				'both' => 'En el encabezado y pie de página',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartir',
 		'add' => 'Agregar un método de uso compartido',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Este servicio está obsoleto y será removido de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futuro lanzamiento</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Correo electrónico',

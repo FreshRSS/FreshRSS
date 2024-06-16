@@ -186,6 +186,11 @@ return array(
 				'with_authors' => '与作者和日期一行',
 			),
 			'feed_title' => '订阅源标题',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '文章标签',
 				'both' => '页脚与页眉',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '此功能已被废弃并会在未来的 FreshRSS 版本中移除，详情见 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="打开文档获更多信息" target="_blank">说明文档</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

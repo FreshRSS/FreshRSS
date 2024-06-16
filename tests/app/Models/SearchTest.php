@@ -332,6 +332,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.title LIKE ? )',
 				['%(test)%'],
 			],
+			[
+				'intitle:\'"hello world"\'',
+				'(e.title LIKE ? )',
+				['%"hello world"%'],
+			],
 		];
 	}
 }

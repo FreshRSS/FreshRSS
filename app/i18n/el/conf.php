@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'In authors and date row',	// TODO
 			),
 			'feed_title' => 'Feed title',	// TODO
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tags',	// TODO
 				'both' => 'In header and footer',	// TODO
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// TODO
 		'add' => 'Add a sharing method',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
 		'email' => 'Email',	// TODO

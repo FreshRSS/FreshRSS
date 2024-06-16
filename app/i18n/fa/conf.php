@@ -186,6 +186,11 @@ return array(
 				'with_authors' => ' در نویسندگان و ردیف تاریخ',
 			),
 			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => ' برچسب ها',
 				'both' => ' در سرصفحه و پاورقی',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => ' اشتراک گذاری',
 		'add' => ' یک روش اشتراک گذاری اضافه کنید',
-		'blogotext' => ' وبلاگ متن',
 		'deprecated' => ' این سرویس منسوخ شده است و در <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="باز کردن اسناد برای اطلاعات بیشتر" target= از FreshRSS حذف خواهد شد. "_blank">نسخه آینده</a>.',
 		'diaspora' => ' دیاسپورا*',
 		'email' => ' ایمیل',

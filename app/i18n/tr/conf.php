@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'Yazarlar ve tarihler satırında',
 			),
 			'feed_title' => 'Akış Başlığı',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiketler',
 				'both' => 'Üst Bilgi ve Alt Bilgide',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Bu servis kullanımdan kaldırılmıştır ve gelecekteki bir FreshRSS dağıtımında kaldırılacaktır. Daha fazla bilgi için <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Daha fazla bilgi için belgeyi açın" target="_blank">buraya</a> tıklayın.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

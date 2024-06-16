@@ -439,9 +439,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$nb_new_articles = 0;
 
 		foreach ($feeds as $feed) {
-			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
-			if (null === $feed) {
+			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
 			}
 

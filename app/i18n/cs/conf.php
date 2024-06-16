@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'V řádku s autory a datem',
 			),
 			'feed_title' => 'Název feedu',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Štítky',
 				'both' => 'V záhlaví a zápatí',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',

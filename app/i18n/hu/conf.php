@@ -186,6 +186,11 @@ return array(
 				'with_authors' => 'A szerzők és dátum sorban',
 			),
 			'feed_title' => 'Hírforrás címe',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Címkék',
 				'both' => 'Fejlécben és láblécben',
@@ -257,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Megosztás',
 		'add' => 'Megosztási mód hozzáadása',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ez a szolgáltatás elavult, és el lesz távolítva a FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dokumentáció további információkért" target="_blank">következő kiadásában.</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
