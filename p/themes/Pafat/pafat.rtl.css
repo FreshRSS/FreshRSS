@@ -386,6 +386,10 @@ th {
 	color: var(--font-color-grey);
 }
 
+.dropdown-open-right-to-top .dropdown-menu:has(> .item:last-child .item:last-child a:hover)::after {
+	background-color: var(--background-color-grey-hover);
+}
+
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 -14px 0 0;

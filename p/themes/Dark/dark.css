@@ -293,6 +293,10 @@ button.as-link[disabled] {
 	color: var(--dark-font-color8);
 }
 
+.dropdown-open-right-to-top .dropdown-menu:has(> .item:last-child .item:last-child a:hover)::after {
+	background-color: var(--dark-background-color-blue);
+}
+
 .item ~ .dropdown-header,
 .dropdown-section ~ .dropdown-section,
 .item.separator {

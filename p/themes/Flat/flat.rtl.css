@@ -378,6 +378,10 @@ main .nav_menu .group .dropdown:last-child > .btn {
 	color: #fff;
 }
 
+.dropdown-open-right-to-top .dropdown-menu:has(> .item:last-child .item:last-child a:hover)::after {
+	background: #2980b9;
+}
+
 .dropdown-menu > .item > a:hover .icon,
 .nav-list.aside .item a:hover .icon {
 	filter: brightness(3);
