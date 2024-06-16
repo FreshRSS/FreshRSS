@@ -275,6 +275,30 @@
 			</div>
 		</div>
 
+		<h2><?= _t('conf.display.view_bar.headline') ?></h2>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="show_nav_buttons">
+					<input type="checkbox" name="show_nav_buttons" id="show_nav_buttons" value="1"<?=
+						FreshRSS_Context::userConf()->show_nav_buttons ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::userConf()->show_nav_buttons ?>" />
+					<?= _t('conf.display.view_bar.show_add_feed_category_button') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="show_nav_buttons">
+					<input type="checkbox" name="show_nav_buttons" id="show_nav_buttons" value="1"<?=
+						FreshRSS_Context::userConf()->show_nav_buttons ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::userConf()->show_nav_buttons ?>" />
+					<?= _t('conf.display.view_bar.show_help_button') ?>
+				</label>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

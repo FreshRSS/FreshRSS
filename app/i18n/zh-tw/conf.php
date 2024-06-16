@@ -71,6 +71,11 @@ return array(
 		),
 		'timezone' => '時區',
 		'title' => '顯示',
+		'view_bar' => array(
+			'headline' => 'View bar',	// TODO
+			'show_add_feed_category_button' => 'Show „Add Feed or Category“ quick button',	// TODO
+			'show_help_button' => 'Show „Help“ quick button',	// TODO
+		),
 		'website' => array(
 			'full' => '圖示及名稱',
 			'icon' => '僅圖示',
