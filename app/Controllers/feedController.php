@@ -388,7 +388,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * @return array{0:int,1:FreshRSS_Feed|null,2:int} Number of updated feeds, first feed or null, number of new articles
 	 * @throws FreshRSS_BadUrl_Exception
-	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		if (function_exists('set_time_limit')) {
@@ -514,11 +513,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					// Feed is cached and unchanged
 					$newGuids = [];
 					$entries = [];
+					$feedIsEmpty = false;	// We do not know
 					$feedIsUnchanged = true;
 				} else {
 					$newGuids = $feed->loadGuids($simplePie);
 					$entries = $feed->loadEntries($simplePie);
 					$feedIsEmpty = $simplePiePush !== null && empty($newGuids);
+					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
 			} catch (FreshRSS_Feed_Exception $e) {
@@ -572,7 +573,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							//This entry already exists but has been updated
 							$entry->_isUpdated(true);
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
-								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
+							//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$entry->_isFavorite(null);	// Do not change favourite state
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if ($mark_updated_article_unread) {
@@ -745,6 +746,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 		return [$updated_feeds, reset($feeds) ?: null, $nb_new_articles];
 	}
+
 
 	/**
 	 * @return int|false The number of articles marked as read, of false if error
