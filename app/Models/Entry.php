@@ -10,6 +10,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
 
+	/** @var numeric-string */
 	private string $id = '0';
 	private string $guid;
 	private string $title;
@@ -110,6 +111,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
+	/** @return numeric-string */
 	public function id(): string {
 		return $this->id;
 	}
@@ -117,7 +119,27 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->guid;
 	}
 	public function title(): string {
-		return $this->title == '' ? $this->guid() : $this->title;
+		$title = '';
+
+		if ($this->title === '') {
+			// used while fetching the article from feed and store it in the database
+			$title = $this->guid();
+		} else {
+			// used while fetching from the database
+			if ($this->title !== $this->guid) {
+				$title = $this->title;
+			} else {
+				$content = trim(strip_tags($this->content(false)));
+				$title = trim(mb_substr($content, 0, MAX_CHARS_EMPTY_FEED_TITLE, 'UTF-8'));
+
+				if ($title === '') {
+					$title = $this->guid();
+				} elseif (strlen($content) > strlen($title)) {
+					$title .= '…';
+				}
+			}
+		}
+		return $title;
 	}
 	/** @deprecated */
 	public function author(): string {
@@ -175,8 +197,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if ($allowDuplicateEnclosures || !self::containsLink($content, $elink)) {
-			$content .= <<<HTML
+			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
+				$content .= <<<HTML
 <figure class="enclosure">
 	<p class="enclosure-content">
 		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
@@ -196,7 +218,7 @@ HTML;
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '') {
+			if ($elink == '' || !is_string($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -224,12 +246,12 @@ HTML;
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
 			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($length == null ? '' : '" data-length="' . (int)$length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
 				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . intval($length))
+					. ($length == null ? '' : '" data-length="' . (int)$length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 			} else {	//e.g. application, text, unknown
@@ -261,6 +283,7 @@ HTML;
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_iterable($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
+			/** @var iterable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> $attributeEnclosures */
 			yield from $attributeEnclosures;
 		}
 		try {
@@ -276,8 +299,10 @@ HTML;
 				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
 				if (!empty($enclosures)) {
-					/** @var DOMElement $enclosure */
 					foreach ($enclosures as $enclosure) {
+						if (!($enclosure instanceof DOMElement)) {
+							continue;
+						}
 						$result = [
 							'url' => $enclosure->getAttribute('src'),
 							'type' => $enclosure->getAttribute('data-type'),
@@ -298,8 +323,10 @@ HTML;
 			if ($searchBodyImages && $xpath !== null) {
 				$images = $xpath->query('//img');
 				if (!empty($images)) {
-					/** @var DOMElement $img */
 					foreach ($images as $img) {
+						if (!($img instanceof DOMElement)) {
+							continue;
+						}
 						$src = $img->getAttribute('src');
 						if ($src == null) {
 							$src = $img->getAttribute('data-src');
@@ -326,6 +353,7 @@ HTML;
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
 		// First, use the provided thumbnail, if any
 		if (!empty($thumbnail['url'])) {
+			/** @var array{'url':string,'height'?:int,'width'?:int,'time'?:string} $thumbnail */
 			return $thumbnail;
 		}
 		if ($searchEnclosures) {
@@ -381,10 +409,10 @@ HTML;
 			if ($microsecond) {
 				return $this->date_added;
 			} else {
-				return intval(substr($this->date_added, 0, -6));
+				return (int)substr($this->date_added, 0, -6);
 			}
 		} else {
-			$date = intval(substr($this->date_added, 0, -6));
+			$date = (int)substr($this->date_added, 0, -6);
 			return timestamptodate($date);
 		}
 	}
@@ -447,7 +475,7 @@ HTML;
 		return $this->hash;
 	}
 
-	/** @param int|string $value String is for compatibility with 32-bit platforms */
+	/** @param int|numeric-string $value String is for compatibility with 32-bit platforms */
 	public function _id($value): void {
 		if (is_int($value)) {
 			$value = (string)$value;
@@ -499,7 +527,7 @@ HTML;
 	}
 	/** @param int|string $value */
 	public function _date($value): void {
-		$value = intval($value);
+		$value = (int)$value;
 		$this->date = $value > 1 ? $value : time();
 	}
 
@@ -532,7 +560,7 @@ HTML;
 	/** @param int|string $id */
 	private function _feedId($id): void {
 		$this->feed = null;
-		$this->feedId = intval($id);
+		$this->feedId = (int)$id;
 	}
 
 	/** @param array<string>|string $value */
@@ -672,8 +700,7 @@ HTML;
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attributeBoolean('read_upon_reception') ||
-				($feed->attributeBoolean('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}
@@ -719,7 +746,7 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html');
+		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
@@ -748,11 +775,14 @@ HTML;
 			}
 
 			$content = '';
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($feed->pathEntries()))->asXPath());
+			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
+			$cssSelector = trim($cssSelector, ', ');
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector))->asXPath());
 			if ($nodes != false) {
-				$path_entries_filter = $feed->attributeString('path_entries_filter');
+				$path_entries_filter = $feed->attributeString('path_entries_filter') ?? '';
+				$path_entries_filter = trim($path_entries_filter, ', ');
 				foreach ($nodes as $node) {
-					if ($path_entries_filter != null) {
+					if ($path_entries_filter !== '') {
 						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
 							if ($filterednode->parentNode === null) {
@@ -860,7 +890,7 @@ HTML;
 
 	/**
 	 * Integer format conversion for Google Reader API format
-	 * @param string|int $dec Decimal number
+	 * @param numeric-string|int $dec Decimal number
 	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 	 */
 	private static function dec2hex($dec): string {
@@ -944,7 +974,7 @@ HTML;
 							(self::enclosureIsImage($enclosure) ? 'image' : ''),
 					];
 				if (!empty($enclosure['length'])) {
-					$media['length'] = intval($enclosure['length']);
+					$media['length'] = (int)$enclosure['length'];
 				}
 				$item['enclosure'][] = $media;
 			}

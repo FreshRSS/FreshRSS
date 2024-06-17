@@ -27,7 +27,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * The options available on the page are:
 	 *   - language (default: en)
 	 *   - theme (default: Origin)
-	 *   - darkMode (default: no)
+	 *   - darkMode (default: auto)
 	 *   - content width (default: thin)
 	 *   - display of read action in header
 	 *   - display of favorite action in header
@@ -48,7 +48,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->language = Minz_Request::paramString('language') ?: 'en';
 			FreshRSS_Context::userConf()->timezone = Minz_Request::paramString('timezone');
 			FreshRSS_Context::userConf()->theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
-			FreshRSS_Context::userConf()->darkMode = Minz_Request::paramString('darkMode') ?: 'no';
+			FreshRSS_Context::userConf()->darkMode = Minz_Request::paramString('darkMode') ?: 'auto';
 			FreshRSS_Context::userConf()->content_width = Minz_Request::paramString('content_width') ?: 'thin';
 			FreshRSS_Context::userConf()->topline_read = Minz_Request::paramBoolean('topline_read');
 			FreshRSS_Context::userConf()->topline_favorite = Minz_Request::paramBoolean('topline_favorite');
@@ -123,6 +123,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
 			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramString('show_author_date') ?: '0';
 			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramString('show_feed_name') ?: 't';
+			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramString('show_article_icons') ?: 't';
 			FreshRSS_Context::userConf()->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
@@ -204,6 +205,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
 			}
+			/** @var array<string,string> $shortcuts */
 			FreshRSS_Context::userConf()->shortcuts = array_map('trim', $shortcuts);
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
@@ -384,21 +386,27 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
 			if (!empty($params['state']) && is_array($params['state'])) {
-				$queryParams['state'] = (int)(array_sum($params['state']));
+				$queryParams['state'] = (int)array_sum($params['state']);
 			}
 			if (empty($params['token']) || !is_string($params['token'])) {
 				$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
 			} else {
 				$queryParams['token'] = $params['token'];
 			}
-			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
-				$queryParams['shareRss'] = (bool)$params['shareRss'];
+			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+			$queryParams['name'] = $name;
+			if (!empty($params['description']) && is_string($params['description'])) {
+				$queryParams['description'] = htmlspecialchars_decode($params['description'], ENT_QUOTES);
+			}
+			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
+				$queryParams['imageUrl'] = $params['imageUrl'];
 			}
 			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
 				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 			}
-			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
-			$queryParams['name'] = $name;
+			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
+				$queryParams['shareRss'] = (bool)$params['shareRss'];
+			}
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();

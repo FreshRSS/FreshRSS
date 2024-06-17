@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
+	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
 	#[\Override]
@@ -439,9 +439,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$nb_new_articles = 0;
 
 		foreach ($feeds as $feed) {
-			/** @var FreshRSS_Feed|null $feed */
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
-			if (null === $feed) {
+			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
 			}
 
@@ -481,8 +480,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedIsNew = $feed->lastUpdate() <= 0;
-			$feedIsEmpty = false;
-			$feedIsUnchanged = false;
 
 			try {
 				if ($simplePiePush !== null) {
@@ -540,7 +537,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
-				if ($feed->attributeBoolean('read_when_same_title_in_feed') === null) {
+				if (!$feed->hasAttribute('read_when_same_title_in_feed')) {
 					$readWhenSameTitleInFeed = (int)FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
 				} elseif ($feed->attributeBoolean('read_when_same_title_in_feed') === false) {
 					$readWhenSameTitleInFeed = 0;
@@ -548,7 +545,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
+					$titlesAsRead = array_fill_keys($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed), true);
 				} else {
 					$titlesAsRead = [];
 				}
@@ -1121,7 +1118,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feed_id = Minz_Request::paramInt('id');
 		$content_selector = Minz_Request::paramString('selector');
 
-		if (!$content_selector) {
+		if ($content_selector === '') {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.selector_empty');
 			return;
 		}
@@ -1143,11 +1140,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		//Get feed.
 		$feed = $entry->feed();
-
 		if ($feed === null) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.no_feed');
 			return;
 		}
+		$feed->_pathEntries($content_selector);
+		$feed->_attribute('path_entries_filter', Minz_Request::paramString('selector_filter', true));
 
 		//Fetch & select content.
 		try {

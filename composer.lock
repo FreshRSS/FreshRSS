@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39d1b72706ede754d441aa7d720c03d5",
+    "content-hash": "2dcd52d3495f0c8bbca900f58e469323",
     "packages": [],
     "packages-dev": [
         {
@@ -314,16 +314,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.67",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9100a76ce8015b9aa7125b9171ae3a76887b6c82",
+                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82",
                 "shasum": ""
             },
             "require": {
@@ -368,25 +368,25 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T07:22:02+00:00"
+            "time": "2024-06-06T12:19:22+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "1.3.16",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "d5242a59d035e46774f2e634b374bc39ff62cb95"
+                "reference": "f3ea021866f4263f07ca3636bf22c64be9610c11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/d5242a59d035e46774f2e634b374bc39ff62cb95",
-                "reference": "d5242a59d035e46774f2e634b374bc39ff62cb95",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/f3ea021866f4263f07ca3636bf22c64be9610c11",
+                "reference": "f3ea021866f4263f07ca3636bf22c64be9610c11",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.10"
+                "phpstan/phpstan": "^1.11"
             },
             "conflict": {
                 "phpunit/phpunit": "<7.0"
@@ -418,27 +418,27 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.16"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.4.0"
             },
-            "time": "2024-02-23T09:51:20+00:00"
+            "time": "2024-04-20T06:39:00+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "1.5.5",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "2e193a07651a6f4be3baa44ddb21d822681f5918"
+                "reference": "363f921dd8441777d4fc137deb99beb486c77df1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/2e193a07651a6f4be3baa44ddb21d822681f5918",
-                "reference": "2e193a07651a6f4be3baa44ddb21d822681f5918",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/363f921dd8441777d4fc137deb99beb486c77df1",
+                "reference": "363f921dd8441777d4fc137deb99beb486c77df1",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.10.60"
+                "phpstan/phpstan": "^1.11"
             },
             "require-dev": {
                 "nikic/php-parser": "^4.13.0",
@@ -467,9 +467,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.5.5"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.6.0"
             },
-            "time": "2024-04-19T15:12:26+00:00"
+            "time": "2024-04-20T06:37:51+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1858,16 +1858,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.2",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/8f90f7a53ce271935282967f53d0894f8f1ff877",
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877",
                 "shasum": ""
             },
             "require": {
@@ -1934,7 +1934,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-23T20:25:34+00:00"
+            "time": "2024-05-22T21:24:41+00:00"
         },
         {
             "name": "theseer/tokenizer",

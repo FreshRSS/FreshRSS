@@ -12,21 +12,21 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Másold ki az URL-t hogy külső alkalmazásban használhasd.',
+		'documentation' => 'Másold ki az URL-t, hogy külső alkalmazásban használhasd.',
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Húzd ezt a gombot a könyvjelzőid közé vagy jobb gombbal add hozzá. Ezt a gombot megnyomva az éppen látogatott weblapra lehet feliratkozni a FreshRSS-ben.',
+		'documentation' => 'Húzza ezt a gombot a könyvjelzők eszköztárára, vagy kattintson rá jobb gombbal, és válassza a „Link hozzáadása a könyvjelzőkhöz” lehetőséget. Ezután kattintson a „Feliratkozás” gombra bármely oldalon, amelyre szeretne feliratkozni.',
 		'label' => 'Feliratkozás',
-		'title' => 'Feliratkozás gomb',
+		'title' => 'könyvjelző',
 	),
 	'category' => array(
 		'_' => 'Kategória',
-		'add' => 'Kategória hozzáadása',
+		'add' => 'Hozzáadás egy kategóriához',
 		'archiving' => 'Archiválás',
 		'dynamic_opml' => array(
 			'_' => 'Dinamikus OPML',
-			'help' => 'Adj meg egy URL-t <a href="http://opml.org/" target="_blank">OPML fájl</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
+			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
 		'information' => 'Információ',
@@ -50,7 +50,7 @@ return array(
 		),
 		'clear_cache' => 'Mindig törölje a cache-t',
 		'content_action' => array(
-			'_' => 'Tartalom művelet amikor cikk tartalma beszerzésre kerül',
+			'_' => 'Tartalom művelet, amikor cikk tartalma beszerzésre kerül',
 			'append' => 'Hozzáadás a létező tartalom után',
 			'prepend' => 'Hozzáadás a létező tartalom elé',
 			'replace' => 'Cserélje ki a létező tartalmat',
@@ -68,7 +68,7 @@ return array(
 		'error' => 'Ez a hírforrás nem működik. Ellenőrizd az elérhetőségét és frissítsd.',
 		'export-as-opml' => array(
 			'download' => 'Letöltés',
-			'help' => 'XML fájl',
+			'help' => 'XML fájl (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportálás OPML formátumban',
 		),
 		'filteractions' => array(
@@ -85,7 +85,7 @@ return array(
 					'_' => 'hírforrás címe',
 					'help' => 'Példa: <code>//title</code> vagy statikus szöveg: <code>"Az egyedi hírforrásom"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> egy szabványos lekérdezési nyelv haladó felhasználóknak, amit a FreshRSS támogat (Web scraping).',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> egy szabványos lekérdezési nyelv haladó felhasználók számára, amelyet a FreshRSS támogat a webes lemásolás engedélyezéséhez.',
 				'item' => array(
 					'_' => 'hírek keresése <strong>elemek</strong><br /><small>(legfontosabb)</small>',
 					'help' => 'Példa: <code>//div[@class="news-item"]</code>',
@@ -226,8 +226,8 @@ return array(
 		'export_opml' => 'Hírforrások listájának exportálása (OPML)',
 		'export_starred' => 'Kedvencek exportálása',
 		'feed_list' => 'Cikkek %s listája',
-		'file_to_import' => 'Állomány importálása<br />(OPML, JSON vagy ZIP)',
-		'file_to_import_no_zip' => 'Állomány importálása<br />(OPML vagy JSON)',
+		'file_to_import' => 'Importálandó fájl<br />(OPML, JSON vagy ZIP)',
+		'file_to_import_no_zip' => 'Importálandó fájl<br />(OPML vagy JSON)',
 		'import' => 'Importálás',
 		'starred_list' => 'Kedvenc cikkek listája',
 		'title' => 'Importálás / exportálás',

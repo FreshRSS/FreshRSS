@@ -25,6 +25,8 @@ class FreshRSS_UserQuery {
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels */
 	private array $labels;
+	private string $description = '';
+	private string $imageUrl = '';
 
 	public static function generateToken(string $salt): string {
 		if (!FreshRSS_Context::hasSystemConf()) {
@@ -39,7 +41,8 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
-	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool} $query
+	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $query
 	 * @param array<int,FreshRSS_Category> $categories
 	 * @param array<int,FreshRSS_Tag> $labels
 	 */
@@ -48,6 +51,8 @@ class FreshRSS_UserQuery {
 		$this->labels = $labels;
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
+		} else {
+			$this->get_type = 'all';
 		}
 		if (isset($query['name'])) {
 			$this->name = trim($query['name']);
@@ -57,8 +62,13 @@ class FreshRSS_UserQuery {
 		}
 		if (empty($query['url'])) {
 			if (!empty($query)) {
-				unset($query['name']);
-				$this->url = Minz_Url::display(['params' => $query]);
+				$link = $query;
+				unset($link['description']);
+				unset($link['imageUrl']);
+				unset($link['name']);
+				unset($link['shareOpml']);
+				unset($link['shareRss']);
+				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
 			$this->url = $query['url'];
@@ -74,6 +84,12 @@ class FreshRSS_UserQuery {
 		}
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
+		}
+		if (isset($query['description'])) {
+			$this->description = $query['description'];
+		}
+		if (isset($query['imageUrl'])) {
+			$this->imageUrl = $query['imageUrl'];
 		}
 
 		// linked too deeply with the search object, need to use dependency injection
@@ -99,6 +115,8 @@ class FreshRSS_UserQuery {
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
+			'description' => $this->description,
+			'imageUrl' => $this->imageUrl,
 		]);
 	}
 
@@ -107,7 +125,9 @@ class FreshRSS_UserQuery {
 	 */
 	private function parseGet(string $get): void {
 		$this->get = $get;
-		if (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
+		if ($this->get === '') {
+			$this->get_type = 'all';
+		} elseif (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
 				case 'a':
@@ -155,22 +175,22 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * Check if the user query has parameters.
-	 * If the type is 'all', it is considered equal to no parameters
 	 */
 	public function hasParameters(): bool {
-		if ($this->get_type === 'all') {
-			return false;
+		if ($this->get_type !== 'all') {
+			return true;
 		}
 		if ($this->hasSearch()) {
 			return true;
 		}
-		if ($this->state) {
+		if (!in_array($this->state, [
+				0,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ,
+				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE
+			], true)) {
 			return true;
 		}
-		if ($this->order) {
-			return true;
-		}
-		if ($this->get) {
+		if ($this->order !== '' && $this->order !== FreshRSS_Context::userConf()->sort_order) {
 			return true;
 		}
 		return false;
@@ -277,5 +297,21 @@ class FreshRSS_UserQuery {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=opml';
 		}
 		return '';
+	}
+
+	public function getDescription(): string {
+		return $this->description;
+	}
+
+	public function setDescription(string $description): void {
+		$this->description = $description;
+	}
+
+	public function getImageUrl(): string {
+		return $this->imageUrl;
+	}
+
+	public function setImageUrl(string $imageUrl): void {
+		$this->imageUrl = $imageUrl;
 	}
 }
