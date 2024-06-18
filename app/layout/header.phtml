@@ -21,9 +21,11 @@
 
 		if (FreshRSS_Auth::hasAccess()) { ?>
 			<div id="header_menu_feedsmgmt" class="group">
-				<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>" title="<?= _t('sub.menu.add') ?>">
-					<?= _i('add') ?>
-				</a>
+				<?php if (FreshRSS_Context::userConf()->show_add_feed_category_button) { ?>}
+					<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>" title="<?= _t('sub.menu.add') ?>">
+						<?= _i('add') ?>
+					</a>
+				<?php } ?>
 
 				<div class="dropdown dropdown-open-right-to-bottom">
 					<div id="dropdown-subscriptionMgmt" class="dropdown-target"></div>
@@ -110,33 +112,35 @@
 			?>
 		</div>
 		<div id="header_menu_configs" class="group">
-			<div class="dropdown dropdown-open-right-to-top">
-				<div id="dropdown-help" class="dropdown-target"></div>
-				<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
-					<?= _i('help') ?>
-					<?php if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
-						<span class="label"><?= _t('gen.menu.help') ?></span>
-					<?php } ?>
-				</a>
-				<ul class="dropdown-menu scrollbar-thin">
-					<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
-					<li class="item dropdown-section">
-						<div class="dropdown-section-title">
-							<?= _t('gen.menu.help') ?>
-						</div>
-						<ul>
-							<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
-							<?php if (file_exists(TOS_FILENAME)) { ?>
-								<li class="item">
-									<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
-								</li>
-							<?php } ?>
-							<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
-						</ul>
-					</li>
-				</ul>
-				<a class="dropdown-close" href="#close">❌</a>
-			</div>
+			<?php if (FreshRSS_Context::userConf()->show_help_button) { ?>
+				<div class="dropdown dropdown-open-right-to-top">
+					<div id="dropdown-help" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
+						<?= _i('help') ?>
+						<?php if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
+							<span class="label"><?= _t('gen.menu.help') ?></span>
+						<?php } ?>
+					</a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title">
+								<?= _t('gen.menu.help') ?>
+							</div>
+							<ul>
+								<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+								<?php if (file_exists(TOS_FILENAME)) { ?>
+									<li class="item">
+										<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+									</li>
+								<?php } ?>
+								<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
+							</ul>
+						</li>
+					</ul>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
+			<?php } ?>
 <?php /*
 <!--
 TODO

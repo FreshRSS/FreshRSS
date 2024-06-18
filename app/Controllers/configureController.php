@@ -66,6 +66,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
 			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
+			FreshRSS_Context::userConf()->show_add_feed_category_button = Minz_Request::paramBoolean('show_add_feed_category_button');
+			FreshRSS_Context::userConf()->show_help_button = Minz_Request::paramBoolean('show_help_button');
 			FreshRSS_Context::userConf()->html5_notif_timeout = Minz_Request::paramInt('html5_notif_timeout');
 			FreshRSS_Context::userConf()->save();
 
