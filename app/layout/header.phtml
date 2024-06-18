@@ -21,7 +21,7 @@
 
 		if (FreshRSS_Auth::hasAccess()) { ?>
 			<div id="header_menu_feedsmgmt" class="group">
-				<?php if (FreshRSS_Context::userConf()->show_add_feed_category_button) { ?>}
+				<?php if (FreshRSS_Context::userConf()->show_add_feed_category_button) { ?>
 					<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>" title="<?= _t('sub.menu.add') ?>">
 						<?= _i('add') ?>
 					</a>
