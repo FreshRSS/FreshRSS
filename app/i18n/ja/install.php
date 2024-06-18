@@ -83,8 +83,8 @@ return array(
 			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDOとサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
@@ -127,7 +127,7 @@ return array(
 	'missing_applied_migrations' => '何かが誤っています; 空のファイルを手動で作ることができます <em>%s</em>',
 	'ok' => 'インストール作業は成功しました。',
 	'session' => array(
-		'nok' => 'webサーバーは、不正な設定がされておりPHPセッションが必要とされているクッキーの設定が誤っています!',
+		'nok' => 'Webサーバーは、不正な設定がされておりPHPセッションが必要とされているクッキーの設定が誤っています!',
 	),
 	'step' => 'ステップ %d',
 	'steps' => 'ステップ',
