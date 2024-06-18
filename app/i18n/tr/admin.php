@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'title' => 'Kimlik doğrulama',
-		'token' => 'Kimlik doğrulama işareti',
-		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
+		'token' => 'Ana kimlik doğrulama jetonu',
+		'token_help' => 'Kullanıcının tüm RSS çıkışlarına erişimine ve kimlik doğrulaması olmadan akışları yenilemesine izin ver:',
 		'type' => 'Kimlik doğrulama yöntemi',
 		'unsafe_autologin' => 'Güvensiz otomatik girişe izin ver: ',
 	),
@@ -147,7 +147,7 @@ return array(
 		'main_stream' => 'Ana akış',
 		'no_idle' => 'Boşta akış yok!',
 		'number_entries' => '%d makale',
-		'percent_of_total' => '%% toplamın yüzdesi',
+		'percent_of_total' => '% toplamın yüzdesi',
 		'repartition' => 'Makale dağılımı',
 		'status_favorites' => 'Favoriler',
 		'status_read' => 'Okunmuş',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
 		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
+		'base-url' => array(
+			'_' => 'Ana URL',
+			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'saniye',
 			'number' => 'Oturum açık kalma süresi',
@@ -170,28 +174,46 @@ return array(
 		'registration' => array(
 			'number' => 'En fazla hesap sayısı',
 			'select' => array(
-				'label' => 'Registration form',	// TODO
+				'label' => 'Kayıt Formu',
 				'option' => array(
-					'noform' => 'Disabled: No registration form',	// TODO
-					'nolimit' => 'Enabled: No limit of accounts',	// TODO
-					'setaccountsnumber' => 'Set max. number of accounts',	// TODO
+					'noform' => 'Devre Dışı: Kayıt Formu',
+					'nolimit' => 'Devrede: Hesap limiti yok',
+					'setaccountsnumber' => 'Maksimum hesap limitini ayarla',
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Form devre dışı',
+				'enabled' => 'Form devrede',
 			),
-			'title' => 'User registration form',	// TODO
+			'title' => 'Kullanıcı kayıt formu',
+		),
+		'sensitive-parameter' => 'Hassas parametre. <kbd>./data/config.php</kbd> adresinde elle düzenleyiniz.',
+		'tos' => array(
+			'disabled' => 'verilmedi',
+			'enabled' => '<a href="./?a=tos">aktive edildi</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Kullanım şartlarını</a> nasıl aktifleştiririm?',
+		),
+		'websub' => array(
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a> hakkında',
 		),
 	),
 	'update' => array(
 		'_' => 'Sistem güncelleme',
 		'apply' => 'Uygula',
+		'changelog' => 'Değişiklik günlüğü',
 		'check' => 'Güncelleme kontrolü',
-		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
-		'last' => 'Son kontrol: %s',
+		'copiedFromURL' => 'update.php %s lokasyonundan ./data lokasyonuna kopyalandı',
+		'current_version' => 'Mevcut sürümünüz',
+		'last' => 'Son kontrol',
+		'loading' => 'Güncelleniyor…',
 		'none' => 'Yeni güncelleme yok',
+		'releaseChannel' => array(
+			'_' => 'Sürüm kanalı',
+			'edge' => 'Rolling release (“edge”)',	// IGNORE
+			'latest' => 'Stabil sürüm (“latest”)',
+		),
 		'title' => 'Sistem güncelleme',
+		'viaGit' => 'git ve GitHub.com ile gğncelleme başladı',
 	),
 	'user' => array(
 		'admin' => 'Yönetici',

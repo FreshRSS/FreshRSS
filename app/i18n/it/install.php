@@ -110,7 +110,10 @@ return array(
 		'ok' => 'Configurazioni generali salvate.',
 	),
 	'congratulations' => 'Congratulazione!',
-	'default_user' => 'Username utente predefinito <small>(massimo 16 caratteri alfanumerici)</small>',
+	'default_user' => array(
+		'_' => 'Username utente predefinito',
+		'max_char' => 'massimo 16 caratteri alfanumerici',
+	),
 	'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
 	'javascript_is_better' => 'FreshRSS funziona meglio con JavaScript abilitato',
 	'js' => array(

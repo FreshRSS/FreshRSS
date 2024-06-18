@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (上級者はHTTPSでも)',
 		'none' => 'なし (危険)',
 		'title' => '認証',
-		'token' => '認証トークン',
-		'token_help' => 'ユーザーが承認無しで、RSSを出力できるようにします。:',
+		'token' => 'マスター認証用のトークン',
+		'token_help' => 'ユーザーのすべての RSS 出力へのアクセスと、認証なしのフィードの更新を許可します',
 		'type' => '認証メソッド',
 		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	),
@@ -84,7 +84,7 @@ return array(
 			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'PD0あるいはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'PD0またはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
@@ -147,7 +147,7 @@ return array(
 		'main_stream' => '主なストリーム',
 		'no_idle' => '未使用のフィードはありません!',
 		'number_entries' => '%d 記事',
-		'percent_of_total' => '%% 総計',
+		'percent_of_total' => '% 総計',
 		'repartition' => '記事の仕切り',
 		'status_favorites' => 'お気に入り',
 		'status_read' => '既読',
@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'システム設定',
 		'auto-update-url' => '自動アップグレードするサーバーのURL',
+		'base-url' => array(
+			'_' => 'ベースURL',
+			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログを残す間隔',
@@ -183,15 +187,33 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
+		'sensitive-parameter' => 'センシティブなパラメーターです。<kbd>./data/config.php</kbd> を手動で編集してください',
+		'tos' => array(
+			'disabled' => '無効化',
+			'enabled' => '<a href="./?a=tos">有効化</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">利用規約を有効にする方法</a>',
+		),
+		'websub' => array(
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSubについて</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'システムアップデート',
 		'apply' => '適用',
+		'changelog' => '変更履歴',
 		'check' => 'アップデートを確認する',
-		'current_version' => 'FreshRSS の現在のバージョンは %s です。',
-		'last' => '最近の検証: %s',
+		'copiedFromURL' => 'update.php が %s から ./data にコピーされました。',
+		'current_version' => '現在のバージョン',
+		'last' => '最近の検証',
+		'loading' => '更新中…',
 		'none' => '更新を適用できません',
+		'releaseChannel' => array(
+			'_' => 'リリースチャンネル',
+			'edge' => 'ローリングリリース (“edge”)',
+			'latest' => '安定版リリース (“latest”)',
+		),
 		'title' => 'アップデートシステム',
+		'viaGit' => 'gitとGitHub.comによるアップデートを開始',
 	),
 	'user' => array(
 		'admin' => '管理者',

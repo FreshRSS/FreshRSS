@@ -17,7 +17,7 @@ return array(
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_favourites' => 'Favorieten nooit verwijderen',
 		'keep_labels' => 'Labels nooit verwijderen',
-		'keep_max' => 'Maximaal aantal artikelen om te behouden',
+		'keep_max' => 'Maximaal aantal artikelen om te behouden in de feed',
 		'keep_min_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
 		'keep_period' => 'Maximumleeftijd artikelen om te behouden',
 		'keep_unreads' => 'Ongelezen artikels nooit verwijderen',
@@ -32,6 +32,12 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Opmaak',
+		'darkMode' => array(
+			'_' => 'Automatische dark mode',
+			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// TODO
+			'no' => 'Nee',
+		),
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',
@@ -48,8 +54,14 @@ return array(
 			'timeout' => 'HTML5 notificatie stop',
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
-		'theme' => 'Thema',
-		'theme_not_available' => 'Het “%s” thema is niet meer beschikbaar. Kies een ander thema.',
+		'theme' => array(
+			'_' => 'Thema',
+			'deprecated' => array(
+				'_' => 'Verouderd',
+				'description' => 'Dit thema wordt niet langer ondersteund en zal niet meer beschikbaar zijn in een <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">toekomstige release van FreshRSS</a>.',
+			),
+		),
+		'theme_not_available' => 'Het „%s” thema is niet meer beschikbaar. Kies een ander thema.',
 		'thumbnail' => array(
 			'label' => 'Miniatuur',
 			'landscape' => 'Liggend',
@@ -57,7 +69,15 @@ return array(
 			'portrait' => 'Staand',
 			'square' => 'Vierkant',
 		),
+		'timezone' => 'Tijdzone',
 		'title' => 'Opmaak',
+		'website' => array(
+			'full' => 'Icoon en naam',
+			'icon' => 'Alleen icoon',
+			'label' => 'Website',	// IGNORE
+			'name' => 'Alleen naam',
+			'none' => 'Geen',
+		),
 		'width' => array(
 			'content' => 'Inhoud breedte',
 			'large' => 'Breed',
@@ -95,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'Gebruikersquery’s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
+			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
+			'shareRss' => 'Via HTML &amp; RSS delen aanzetten',
 			'state' => 'Status',
-			'tags' => 'Weergeven op tag',
+			'tags' => 'Weergeven op label',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Toon alle artikelen',
-		'get_category' => 'Toon "%s" categorie',
+		'get_all_labels' => 'Artikelen met elk label tonen',
+		'get_category' => 'Toon „%s” categorie',
 		'get_favorite' => 'Toon favoriete artikelen',
-		'get_feed' => 'Toon "%s" feed',
+		'get_feed' => 'Toon „%s” feed',
+		'get_important' => 'Artikelen van belangrijke feeds tonen',
+		'get_label' => 'Artikelen met het label „%s” tonen',
+		'help' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentatie voor gebruikersqueries en delen via HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Naam',
 		'no_filter' => 'Geen filter',
 		'number' => 'Query n°%d',	// IGNORE
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
-		'search' => 'Zoek naar "%s"',
+		'search' => 'Zoek naar „%s”',
+		'share' => array(
+			'_' => 'Deze query delen via een link',
+			'help' => 'Geef deze link als je deze query met iemand wilt delen',
+			'html' => 'Deelbare link naar de HTML-pagina',
+			'opml' => 'Deelbare link naar de OPML-lijst van feeds',
+			'rss' => 'Deelbare link naar de RSS-feed',
+		),
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
 		'state_2' => 'Toon ongelezen artikelen',
@@ -135,7 +170,7 @@ return array(
 	),
 	'reading' => array(
 		'_' => 'Lezen',
-		'after_onread' => 'Na “markeer alles als gelezen”,',
+		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
 		'article' => array(
 			'authors_date' => array(
@@ -151,6 +186,11 @@ return array(
 				'with_authors' => 'In lijn met auteurs en datum',
 			),
 			'feed_title' => 'Feedtitel',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In kop en voet',
@@ -166,7 +206,7 @@ return array(
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
-		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
+		'confirm_enabled' => 'Toon een bevestigings dialoog op „markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Artikelen standaard uitklappen',
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
 		'headline' => array(
@@ -177,16 +217,17 @@ return array(
 			'misc' => 'Diversen',
 			'view' => 'Weergave',
 		),
-		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met “Toon alle artikelen” configuratie)',
-		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
+		'hide_read_feeds' => 'Categorieën en feeds zonder ongelezen artikelen verbergen (werkt niet met „Toon alle artikelen” configuratie)',
+		'img_with_lazyload' => 'Gebruik <em>lazy load</em> methode om afbeeldingen te laden',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
 		'read' => array(
 			'article_open_on_website' => 'als het artikel wordt geopend op de originele website',
 			'article_viewed' => 'als het artikel wordt bekeken',
+			'focus' => 'wanneer gefocust (behalve voor belangrijke feeds)',
 			'keep_max_n_unread' => 'Max aantal artikelen ongelezen houden',
-			'scroll' => 'tijdens het scrollen',
+			'scroll' => 'tijdens het scrollen (behalve voor belangrijke feeds)',
 			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
@@ -221,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

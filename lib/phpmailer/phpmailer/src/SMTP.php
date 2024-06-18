@@ -35,7 +35,7 @@ class SMTP
      *
      * @var string
      */
-    const VERSION = '6.6.0';
+    const VERSION = '6.9.1';
 
     /**
      * SMTP line break constant.
@@ -50,6 +50,13 @@ class SMTP
      * @var int
      */
     const DEFAULT_PORT = 25;
+
+    /**
+     * The SMTPs port to use if one is not specified.
+     *
+     * @var int
+     */
+    const DEFAULT_SECURE_PORT = 465;
 
     /**
      * The maximum line length allowed by RFC 5321 section 4.5.3.1.6,
@@ -187,7 +194,20 @@ class SMTP
         'SendGrid' => '/[\d]{3} Ok: queued as (.*)/',
         'CampaignMonitor' => '/[\d]{3} 2.0.0 OK:([a-zA-Z\d]{48})/',
         'Haraka' => '/[\d]{3} Message Queued \((.*)\)/',
+        'ZoneMTA' => '/[\d]{3} Message queued as (.*)/',
         'Mailjet' => '/[\d]{3} OK queued as (.*)/',
+    ];
+
+    /**
+     * Allowed SMTP XCLIENT attributes.
+     * Must be allowed by the SMTP server. EHLO response is not checked.
+     *
+     * @see https://www.postfix.org/XCLIENT_README.html
+     *
+     * @var array
+     */
+    public static $xclient_allowed_attributes = [
+        'NAME', 'ADDR', 'PORT', 'PROTO', 'HELO', 'LOGIN', 'DESTADDR', 'DESTPORT'
     ];
 
     /**
@@ -682,7 +702,6 @@ class SMTP
      */
     public function close()
     {
-        $this->setError('');
         $this->server_caps = null;
         $this->helo_rply = null;
         if (is_resource($this->smtp_conn)) {
@@ -697,7 +716,7 @@ class SMTP
      * Send an SMTP DATA command.
      * Issues a data command and sends the msg_data to the server,
      * finalizing the mail transaction. $msg_data is the message
-     * that is to be send with the headers. Each header needs to be
+     * that is to be sent with the headers. Each header needs to be
      * on a single line followed by a <CRLF> with the message headers
      * and the message body being separated by an additional <CRLF>.
      * Implements RFC 821: DATA <CRLF>.
@@ -725,7 +744,7 @@ class SMTP
         $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $msg_data));
 
         /* To distinguish between a complete RFC822 message and a plain message body, we check if the first field
-         * of the first line (':' separated) does not contain a space then it _should_ be a header and we will
+         * of the first line (':' separated) does not contain a space then it _should_ be a header, and we will
          * process all lines before a blank line as headers.
          */
 
@@ -965,6 +984,25 @@ class SMTP
     }
 
     /**
+     * Send SMTP XCLIENT command to server and check its return code.
+     *
+     * @return bool True on success
+     */
+    public function xclient(array $vars)
+    {
+        $xclient_options = "";
+        foreach ($vars as $key => $value) {
+            if (in_array($key, SMTP::$xclient_allowed_attributes)) {
+                $xclient_options .= " {$key}={$value}";
+            }
+        }
+        if (!$xclient_options) {
+            return true;
+        }
+        return $this->sendCommand('XCLIENT', 'XCLIENT' . $xclient_options, 250);
+    }
+
+    /**
      * Send an SMTP RSET command.
      * Abort any transaction that is currently in progress.
      * Implements RFC 821: RSET <CRLF>.
@@ -1037,7 +1075,10 @@ class SMTP
             return false;
         }
 
-        $this->setError('');
+        //Don't clear the error store when using keepalive
+        if ($command !== 'RSET') {
+            $this->setError('');
+        }
 
         return true;
     }

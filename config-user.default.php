@@ -7,6 +7,8 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
+	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
+	'timezone' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,
@@ -34,14 +36,15 @@ return array (
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
-	'show_tags' => '0',
-	'show_tags_max' => '7',
-	'show_author_date' => 'h',
-	'show_feed_name' => 'a',
+	'show_tags' => 'f',	// {0 => none, b => both, f => footer, h => header}
+	'show_tags_max' => 7,
+	'show_author_date' => 'h',	// {0 => none, b => both, f => footer, h => header}
+	'show_feed_name' => 'a',	// {0 => none, a => with authors, t => above title}
+	'show_article_icons' => 't', // {a => with_authors, t => above title}
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
-	'sides_close_article' => true,
+	'sides_close_article' => false,
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
@@ -58,10 +61,13 @@ return array (
 		'max_n_unread' => false,
 		'reception' => false,
 		'same_title_in_feed' => false,
-		'scroll' => true,
+		'scroll' => false,
+		'focus' => false,
 		'site' => true,
 	),
+	'filters' => [],
 	'theme' => 'Origine',
+	'darkMode' => 'auto',
 	'content_width' => 'thin',
 	'shortcuts' => array (
 		'actualize' => 'q',
@@ -85,7 +91,6 @@ return array (
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',
-		'rss_view' => '4',
 		'toggle_media' => 'v',
 	),
 
@@ -97,6 +102,7 @@ return array (
 
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_website' => 'full',
 	'topline_thumbnail' => 'none',
 	'topline_summary' => false,
 	'topline_display_authors' => false,
@@ -106,6 +112,7 @@ return array (
 	'bottomline_favorite' => true,
 	'bottomline_sharing' => true,
 	'bottomline_tags' => true,
+	'bottomline_myLabels' => true,
 	'bottomline_date' => true,
 	'bottomline_link' => true,
 	'sharing' => array (
@@ -114,5 +121,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
-	'extensions_enabled' => array(),
+	# List of enabled FreshRSS extensions.
+	'extensions_enabled' => [],
+	# Extensions configurations
+	'extensions' => [],
 );

@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',	// TODO
-		'query_created' => 'השאילתה "%s" נוצרה.',
+		'query_created' => 'השאילתה “%s” נוצרה.',
 		'shortcuts_updated' => 'קיצורי הדרך עודכנו',
 		'updated' => 'ההגדרות עודכנו',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
-		'feeds_imported' => 'ההזנות שלך יובאו וכעת יעודכנו',
-		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות',
+		'feeds_imported' => 'ההזנות שלך יובאו וכעת יעודכנו / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'אין אפשרות להעלות את הקובץ!',
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
-		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',
+		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// TODO
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => 'הניקוי הושלם (%d מאמרים נמחקו)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" has been created.',	// TODO
-		'name_exists' => 'Tag name already exists.',	// TODO
-		'renamed' => 'Tag "%s" has been renamed to "%s".',	// TODO
+		'created' => 'Label “%s” has been created.',	// TODO
+		'error' => 'Label could not be updated!',	// TODO
+		'name_exists' => 'Label name already exists.',	// TODO
+		'renamed' => 'Label “%s” has been renamed to “%s”.',	// TODO
+		'updated' => 'Label has been updated.',	// TODO
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',

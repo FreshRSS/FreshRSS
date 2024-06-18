@@ -275,7 +275,7 @@ class Misc
      * @param string $data Raw data in $input encoding
      * @param string $input Encoding of $data
      * @param string $output Encoding you want
-     * @return string|boolean False if we can't convert it
+     * @return string|bool False if we can't convert it
      */
     public static function change_encoding($data, $input, $output)
     {

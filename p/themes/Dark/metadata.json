@@ -1,7 +1,8 @@
 {
 	"name": "Dark",
 	"author": "AD",
-	"description": "The dark side of the “Origine” theme",
+	"description": "The dark side of the “Origine” theme with low contrast colors.",
 	"version": 0.2,
-	"files": ["_frss.css", "dark.css"]
+	"files": ["_frss.css", "../Origine/origine.css", "dark.css"],
+	"theme-color": "#111111"
 }

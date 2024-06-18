@@ -2,10 +2,8 @@
 
 /*=== GENERAL */
 /*============*/
-input, select, textarea {
-	padding: 3px 5px 2px 5px;
-	min-height: 25px;
-	line-height: 25px;
+:root {
+	--frss-padding-top-bottom: 0.125rem;
 }
 
 /*=== COMPONENTS */
@@ -24,13 +22,8 @@ input, select, textarea {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	min-height: 32px;
-}
-
-a.btn,
-.stick .btn {
 	min-height: 20px;
-	line-height: 20px;
+	line-height: 1.4;
 }
 
 /*=== Navigation */
@@ -40,83 +33,51 @@ a.btn,
 	font-size: 0.9rem;
 }
 
-.horizontal-list .item {
-	line-height: 30px;
-}
-
 /*=== Dropdown */
-.item ~ .dropdown-header,
-.item.separator {
-	border-top-color: #ddd;
-}
-
 /*=== Alerts */
 /*=== Pagination */
 /*=== Boxes */
 /*=== Tree */
-.tree-folder-title {
-	padding: 0 5px;
-	line-height: 2rem;
-	font-size: 0.9rem;
-}
-
-.tree-folder-items > .item {
-	line-height: 2.2rem;
-}
-
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
 .header {
-	height: 40px;
+	/* search bar and config button height = 2.1rem */
+	height: calc(2.1rem + 2 * var(--frss-padding-top-bottom));
 }
 
-.header > .item {
-	padding: 0px;
-}
-
-.header .item.configure .btn,
-.header .item.search .btn {
-	min-height: 18px;
-	padding: 4px 10px;
-	line-height: 18px;
+.header > .item.title a {
+	padding: 0 1rem;
 }
 
 .header > .item.title .logo {
-	height: 25px;
-}
-
-.header > .item.search input {
-	padding: 1px 5px;
+	/* logo is smaller than needed */
+	height: 1.5rem;
 }
 
 /*=== Body */
 #global {
-	height: calc(100vh - 40px);
+	height: calc(100vh - (calc(2.1rem + 2 * var(--frss-padding-top-bottom))))
 }
 
 /*=== Aside main page (categories) */
 .aside.aside_feed .category .title:not([data-unread="0"])::after,
 .global .box.category .title:not([data-unread="0"])::after {
-	margin: 0.5em 0 0 0;
+	font-size: 0.8rem;
+}
+
+#stream.global .feed .item-title:not([data-unread="0"])::after {
+	margin-top: 0.125rem;
 }
 
 .aside.aside_feed .feed .item-title:not([data-unread="0"])::after {
-	margin: 0.75em 0 0 0;
-}
-
-/*=== Aside main page (feeds) */
-/*=== Configuration pages */
-/*=== Prompt (centered) */
-/*=== New article notification */
-#new-article > a {
-	line-height: 3em;
+	font-size: 0.7rem;
 }
 
 /*=== Day indication */
 .day {
 	font-size: 0.9rem;
-	line-height: 2em;
+	line-height: 2;
 }
 
 .day .name {
@@ -126,14 +87,6 @@ a.btn,
 
 /*=== Index menu */
 /*=== Feed articles */
-.flux_header {
-	font-size: 0.8rem;
-}
-
-.flux .item {
-	padding: 0;
-}
-
 .flux .item.thumbnail {
 	padding: 5px;
 	height: 50px;
@@ -171,20 +124,15 @@ a.btn,
 	max-height: 1.5em;
 }
 
-.flux:not(.current):hover .item.title {
-	top: auto;
+.flux .flux_header .item .item-element {
+	padding: 0.25rem 0;
 }
 
 /*=== Content of feed articles */
-.content {
-	padding: 10px 10px;
-}
-
-#stream.normal .content > h1.title {
-	display: none;
-}
-
 /*=== Notification and actualize notification */
+.notification {
+	padding: 0.5rem 3rem 0.5rem 0.5rem;
+}
 /*=== "Load more" part */
 #bigMarkAsRead {
 	font-size: 1.2em;
@@ -195,10 +143,6 @@ a.btn,
 }
 
 /*=== Navigation menu (for articles) */
-#nav_entries {
-	line-height: 2.2em;
-}
-
 /*=== READER VIEW */
 /*================*/
 /*=== GLOBAL VIEW */
@@ -220,7 +164,7 @@ a.btn,
 	}
 
 	.post {
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 }

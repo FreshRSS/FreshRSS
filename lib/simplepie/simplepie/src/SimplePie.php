@@ -1003,7 +1003,7 @@ class SimplePie
      * @deprecated Use {@see get_registry()} instead
      * @link http://php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends PHP5 extends documentation
      * @param string $class Name of custom class
-     * @return boolean True on success, false otherwise
+     * @return bool True on success, false otherwise
      */
     /**
      * Set which class SimplePie uses for caching
@@ -1333,7 +1333,7 @@ class SimplePie
     /**
      * Enable throwing exceptions
      *
-     * @param boolean $enable Should we throw exceptions, or use the old-style error property?
+     * @param bool $enable Should we throw exceptions, or use the old-style error property?
      */
     public function enable_exceptions($enable = true)
     {
@@ -1369,7 +1369,7 @@ class SimplePie
      * configuration options get processed, feeds are fetched, cached, and
      * parsed, and all of that other good stuff.
      *
-     * @return boolean|integer positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
+     * @return bool|int positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
      */
     public function init()
     {
@@ -1785,7 +1785,7 @@ class SimplePie
      * This is the same as the old `$feed->enable_xml_dump(true)`, but returns
      * the data instead of printing it.
      *
-     * @return string|boolean Raw XML data, false if the cache is used
+     * @return string|bool Raw XML data, false if the cache is used
      */
     public function get_raw_data()
     {
@@ -2965,7 +2965,7 @@ class SimplePie
      * @access private
      * @param SimplePie $a
      * @param SimplePie $b
-     * @return boolean
+     * @return bool
      */
     public static function sort_items($a, $b)
     {

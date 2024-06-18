@@ -1,20 +1,21 @@
 <?php
+declare(strict_types=1);
 
-class SimplePieTest extends PHPUnit\Framework\TestCase
+final class SimplePieTest extends PHPUnit\Framework\TestCase
 {
-	public function testSimplePieClassExists() {
-		$this->assertTrue(class_exists('SimplePie\SimplePie'));
+	public function testSimplePieClassExists(): void {
+		self::assertTrue(class_exists(\SimplePie\SimplePie::class));
 	}
 
-	public function testSimplePieMiscClassExists() {
-		$this->assertTrue(class_exists('SimplePie\Misc'));
+	public function testSimplePieMiscClassExists(): void {
+		self::assertTrue(class_exists(\SimplePie\Misc::class));
 	}
 
-	public function testPsr0SimplePieClassExists() {
-		$this->assertTrue(class_exists('SimplePie'));
+	public function testPsr0SimplePieClassExists(): void {
+		self::assertTrue(class_exists('SimplePie'));
 	}
 
-	public function testPsr0SimplePieMiscClassExists() {
-		$this->assertTrue(class_exists('SimplePie_Misc'));
+	public function testPsr0SimplePieMiscClassExists(): void {
+		self::assertTrue(class_exists('SimplePie_Misc'));
 	}
 }

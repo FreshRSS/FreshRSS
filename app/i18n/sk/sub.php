@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte "Uložiť odkaz do záložiek". Potom kliknite na tlačidlo "Odoberať" na ktorejkoľvek stránke, ktorú chcete odoberať.',
+		'documentation' => 'Presunte toto tlačidlo do vašich záložiek, alebo kliknite pravým a zvoľte “Uložiť odkaz do záložiek”. Potom kliknite na tlačidlo “Odoberať” na ktorejkoľvek stránke, ktorú chcete odoberať.',
 		'label' => 'Odoberať',
 		'title' => 'Záložka',
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archív',
 		'dynamic_opml' => array(
 			'_' => 'Dynamické OPML',
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Zadajte URL adresu k <a href="http://opml.org/" target="_blank">OPML súboru</a>, z ktorého sa táto kategória automaticky naplní kanálmi.',
 		),
 		'empty' => 'Prázdna kategória',
 		'information' => 'Informácia',
@@ -37,7 +37,7 @@ return array(
 	),
 	'feed' => array(
 		'accept_cookies' => 'Prijať cookies',
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
+		'accept_cookies_help' => 'Povoliť serveru kanála nastaviť cookies (uložené v pamäti iba počas dopytu)',
 		'add' => 'Pridať RSS kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
@@ -66,21 +66,26 @@ return array(
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
 		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje, potom ho obnovte.',
+		'export-as-opml' => array(
+			'download' => 'Stiahnuť',
+			'help' => 'XML súbor (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Exportovať ako OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filtrovať akcie',
-			'help' => 'Napíšte jeden výraz hľadania na riadok.',
+			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
 			'_' => 'Typ zdroja kanála',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'názov kanála',
 					'help' => 'Príklad: <code>//title</code> alebo statický text: <code>"Môj vlastný kanál"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> je štandardný dopytovací jazyk pre pokročilých používateľov, ktorý FreshRSS podporuje na umožnenie funkcie Web scraping.',
 				'item' => array(
 					'_' => 'vyhľadávanie noviniek <strong>položky</strong><br /><small>(najdôležitejšie)</small>',
 					'help' => 'Príklad: <code>//div[@class="news-item"]</code>',
@@ -97,6 +102,10 @@ return array(
 				'item_thumbnail' => array(
 					'_' => 'položka miniatúra',
 					'help' => 'Príklad: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Vlastný formát dátumu/času',
+					'help' => 'Nepovinné. Formát podporovaný prostredníctvom <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> ako napríklad <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'položka dátum',
@@ -117,7 +126,47 @@ return array(
 				'relative' => 'XPath (relatívne k položke) pre:',
 				'xpath' => 'XPath pre:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (zápis s bodkou)',
+				'feed_title' => array(
+					'_' => 'Názov kanála',
+					'help' => 'Príklad: <code>meta.title</code> alebo ručne zadaná hodnota: <code>"Môj kanál"</code>',
+				),
+				'help' => 'JSON so zápisom s bodkou používa bodky na oddelenie objekov a zložené zátvorky pre polia (príklad: <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'hľadajú sa <strong>položky</strong> noviniek<br /><small>(najdôležitejšie)</small>',
+					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>newsItems</code>',
+				),
+				'item_author' => 'autor položky',
+				'item_categories' => 'značky položky',
+				'item_content' => array(
+					'_' => 'obsah položky',
+					'help' => 'Kľúč, pod ktorým je možné nájsť obsah, príklad: <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatúra položky',
+					'help' => 'Príklad: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Vlastný formát dátumu/času',
+					'help' => 'Nepovinné. Formát podporovaný prostredníctvom <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> ako napríklad <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'dátum položky',
+					'help' => 'Výsledok bude spracovaný prostredníctvom <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'nadpis položky',
+				'item_uid' => 'jednoznačný identifikátor položky',
+				'item_uri' => array(
+					'_' => 'odkaz na položku (URL)',
+					'help' => 'Príklad: <code>permalink</code>',
+				),
+				'json' => 'zápis s bodkou pre:',
+				'relative' => 'cesta zápisu s bodkou (relatívna k položke) pre:',
+			),
+			'jsonfeed' => 'JSON kanál',
 			'rss' => 'RSS / Atom (prednastavené)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
@@ -128,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP presmerovaní',
 		'max_http_redir_help' => 'Nastavte na 0 alebo nechajte prázdne na zakázanie, -1 pre neobmedzené množstvo presmerovaní',
+		'method' => array(
+			'_' => 'HTTP metóda',
+		),
+		'method_help' => 'Ako parametre metódy POST sú podporované <code>application/x-www-form-urlencoded</code> a <code>application/json</code>',
+		'method_postparams' => 'Parametre metódy POST',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
 		'mute' => 'stíšiť',
 		'no_selected' => 'Nevybrali ste kanál.',
@@ -135,11 +189,12 @@ return array(
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',
+			'category' => 'Zobraziť vo svojej kategórii',
+			'important' => 'Zobraziť v dôležitých kanáloch',
 			'main_stream' => 'Zobraziť v prehľade kanálov',
-			'normal' => 'Zobraziť vo svojej kategórii',
 		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
-		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Zobraziť zdrojový kód',
 			'show_rendered' => 'Zobraziť obsah',
@@ -190,6 +245,7 @@ return array(
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 	'tag' => array(
+		'auto_label' => 'Priraď túto menovku novým článkom',
 		'name' => 'Názov',
 		'new_name' => 'Nový názov',
 		'old_name' => 'Starý názov',

@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
+		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie „Als Lesezeichen hinzufügen“. Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche „Abonnieren“.',
 		'label' => 'Abonnieren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivierung',
 		'dynamic_opml' => array(
 			'_' => 'Dynamisches OPML',
-			'help' => 'URL zu einer <a href=http://opml.org/ target=_blank>OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
+			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',	// IGNORE
@@ -66,9 +66,14 @@ return array(
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
+		'export-as-opml' => array(
+			'download' => 'Download',	// IGNORE
+			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
+			'label' => 'Export als OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
-			'help' => 'Ein Suchfilter pro Zeile',
+			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
@@ -98,6 +103,10 @@ return array(
 					'_' => 'Artikel-Vorschaubild',
 					'help' => 'Beispiel: <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Benutzerdefiniertes Datum/Zeit-Format',
+					'help' => 'Optional. Ein Format unterstützt von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, wie zum Beispiel <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'Artikel-Datum',
 					'help' => 'Das Ergebnis wird durch <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst',
@@ -117,7 +126,47 @@ return array(
 				'relative' => 'XPath (relativ zum Artikel) für:',
 				'xpath' => 'XPath für:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (Punktnotation)',
+				'feed_title' => array(
+					'_' => 'Feed Name',
+					'help' => 'Beispiel: <code>meta.title</code> oder ein statischer String: <code>"Mein Feed"</code>',
+				),
+				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
+					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>newsItems</code>',
+				),
+				'item_author' => 'Item Autor',
+				'item_categories' => 'Item Hashtags',
+				'item_content' => array(
+					'_' => 'Item Inhalt',
+					'help' => 'Schlüsslwort unter dem der Inhalt gefunden wird, z.B. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'Item Vorschaubild',
+					'help' => 'Beispiel: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Benutzerdefiniertes Datum/Zeit-Format',
+					'help' => 'Optional. Format, das von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> unterstützt wird, wie z.B. <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'Item Datum',
+					'help' => 'Das Ergebnis wird von <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst.',
+				),
+				'item_title' => 'Item Titel',
+				'item_uid' => 'Item einmalige ID',
+				'item_uri' => array(
+					'_' => 'Item Link (URL)',
+					'help' => 'Beispiel: <code>permalink</code>',
+				),
+				'json' => 'Punktnotation für:',
+				'relative' => 'Punktnotierter Pfad (relativ zum Item) für:',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (Standard)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Zwischenspeicher leeren',
@@ -128,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP Umleitungen',
 		'max_http_redir_help' => '0 oder leeres Feld = deaktiviert; -1 für unendlich viele Umleitungen',
+		'method' => array(
+			'_' => 'HTTP Methode',
+		),
+		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
+		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => 'Stumm schalten',
 		'no_selected' => 'Kein Feed ausgewählt.',
@@ -135,11 +189,12 @@ return array(
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
+			'category' => 'Zeige in eigener Kategorie',
+			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
-			'normal' => 'Zeige in eigener Kategorie',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
-		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Quellcode anzeigen',
 			'show_rendered' => 'Inhalt anzeigen',
@@ -190,6 +245,7 @@ return array(
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'tag' => array(
+		'auto_label' => 'Dieses Label zu neuen Artikeln hinzufügen',
 		'name' => 'Name',	// IGNORE
 		'new_name' => 'Neuer Name',
 		'old_name' => 'Alter Name',
