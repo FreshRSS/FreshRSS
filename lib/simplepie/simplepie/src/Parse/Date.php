@@ -1,53 +1,14 @@
 <?php
-/**
- * SimplePie
- *
- * A PHP-Based RSS and Atom Feed Framework.
- * Takes the hard work out of managing a complete RSS/Atom solution.
- *
- * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are
- * permitted provided that the following conditions are met:
- *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
- *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
- *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS
- * AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package SimplePie
- * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
- * @author Ryan Parman
- * @author Sam Sneddon
- * @author Ryan McCue
- * @link http://simplepie.org/ SimplePie
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- */
+
+// SPDX-FileCopyrightText: 2004-2023 Ryan Parman, Sam Sneddon, Ryan McCue
+// SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SimplePie\Parse;
 
 /**
  * Date Parser
- *
- * @package SimplePie
- * @subpackage Parsing
  */
 class Date
 {
@@ -63,7 +24,7 @@ class Date
      * List of days, calendar day name => ordinal day number in the week
      *
      * @access protected
-     * @var array
+     * @var array<string, int<1,7>>
      */
     public $day = [
         // English
@@ -168,7 +129,7 @@ class Date
      * List of months, calendar month name => calendar month number
      *
      * @access protected
-     * @var array
+     * @var array<string, int<1,12>>
      */
     public $month = [
         // English
@@ -200,15 +161,15 @@ class Date
         'januari' => 1,
         'februari' => 2,
         'maart' => 3,
-        'april' => 4,
+        // 'april' => 4,
         'mei' => 5,
         'juni' => 6,
         'juli' => 7,
         'augustus' => 8,
-        'september' => 9,
+        // 'september' => 9,
         'oktober' => 10,
-        'november' => 11,
-        'december' => 12,
+        // 'november' => 11,
+        // 'december' => 12,
         // French
         'janvier' => 1,
         'février' => 2,
@@ -224,26 +185,26 @@ class Date
         'décembre' => 12,
         // German
         'januar' => 1,
-        'jan' => 1,
+        // 'jan' => 1,
         'februar' => 2,
-        'feb' => 2,
+        // 'feb' => 2,
         'märz' => 3,
         'mär' => 3,
-        'april' => 4,
-        'apr' => 4,
-        'mai' => 5, // no short form for may
-        'juni' => 6,
-        'jun' => 6,
-        'juli' => 7,
-        'jul' => 7,
-        'august' => 8,
-        'aug' => 8,
-        'september' => 9,
-        'sep' => 9,
-        'oktober' => 10,
+        // 'april' => 4,
+        // 'apr' => 4,
+        // 'mai' => 5, // no short form for may
+        // 'juni' => 6,
+        // 'jun' => 6,
+        // 'juli' => 7,
+        // 'jul' => 7,
+        // 'august' => 8,
+        // 'aug' => 8,
+        // 'september' => 9,
+        // 'sep' => 9,
+        // 'oktober' => 10,
         'okt' => 10,
-        'november' => 11,
-        'nov' => 11,
+        // 'november' => 11,
+        // 'nov' => 11,
         'dezember' => 12,
         'dez' => 12,
         // Italian
@@ -257,17 +218,17 @@ class Date
         'agosto' => 8,
         'settembre' => 9,
         'ottobre' => 10,
-        'novembre' => 11,
+        // 'novembre' => 11,
         'dicembre' => 12,
         // Spanish
         'enero' => 1,
         'febrero' => 2,
-        'marzo' => 3,
+        // 'marzo' => 3,
         'abril' => 4,
         'mayo' => 5,
         'junio' => 6,
         'julio' => 7,
-        'agosto' => 8,
+        // 'agosto' => 8,
         'septiembre' => 9,
         'setiembre' => 9,
         'octubre' => 10,
@@ -297,8 +258,8 @@ class Date
         'augusztus' => 8,
         'szeptember' => 9,
         'október' => 10,
-        'november' => 11,
-        'december' => 12,
+        // 'november' => 11,
+        // 'december' => 12,
         // Greek
         'Ιαν' => 1,
         'Φεβ' => 2,
@@ -350,7 +311,7 @@ class Date
      * List of timezones, abbreviation => offset from UTC
      *
      * @access protected
-     * @var array
+     * @var array<string, int>
      */
     public $timezone = [
         'ACDT' => 37800,
@@ -421,7 +382,7 @@ class Date
         'GILT' => 43200,
         'GIT' => -32400,
         'GST' => 14400,
-        'GST' => -7200,
+        // 'GST' => -7200,
         'GYT' => -14400,
         'HAA' => -10800,
         'HAC' => -18000,
@@ -575,7 +536,7 @@ class Date
      * Array of user-added callback methods
      *
      * @access private
-     * @var array
+     * @var array<string>
      */
     public $built_in = [];
 
@@ -583,7 +544,7 @@ class Date
      * Array of user-added callback methods
      *
      * @access private
-     * @var array
+     * @var array<callable(string): string|false>
      */
     public $user = [];
 
@@ -618,6 +579,7 @@ class Date
      * Get the object
      *
      * @access public
+     * @return Date
      */
     public static function get()
     {
@@ -634,9 +596,9 @@ class Date
      * @final
      * @access public
      * @param string $date Date to parse
-     * @return int Timestamp corresponding to date string, or false on failure
+     * @return int|false Timestamp corresponding to date string, or false on failure
      */
-    public function parse($date)
+    public function parse(string $date)
     {
         foreach ($this->user as $method) {
             if (($returned = call_user_func($method, $date)) !== false) {
@@ -658,15 +620,12 @@ class Date
      *
      * @final
      * @access public
-     * @param callback $callback
+     * @param callable $callback
+     * @return void
      */
-    public function add_callback($callback)
+    public function add_callback(callable $callback)
     {
-        if (is_callable($callback)) {
-            $this->user[] = $callback;
-        } else {
-            trigger_error('User-supplied function must be a valid callback', E_USER_WARNING);
-        }
+        $this->user[] = $callback;
     }
 
     /**
@@ -675,58 +634,71 @@ class Date
      * spaces to be used as the time separator (including more than one))
      *
      * @access protected
-     * @return int Timestamp
+     * @param string $date
+     * @return int|false Timestamp
      */
-    public function date_w3cdtf($date)
+    public function date_w3cdtf(string $date)
     {
-        static $pcre;
-        if (!$pcre) {
-            $year = '([0-9]{4})';
-            $month = $day = $hour = $minute = $second = '([0-9]{2})';
-            $decimal = '([0-9]*)';
-            $zone = '(?:(Z)|([+\-])([0-9]{1,2}):?([0-9]{1,2}))';
-            $pcre = '/^' . $year . '(?:-?' . $month . '(?:-?' . $day . '(?:[Tt\x09\x20]+' . $hour . '(?::?' . $minute . '(?::?' . $second . '(?:.' . $decimal . ')?)?)?' . $zone . ')?)?)?$/';
-        }
+        $pcre = <<<'PCRE'
+            /
+            ^
+            (?P<year>[0-9]{4})
+            (?:
+                -?
+                (?P<month>[0-9]{2})
+                (?:
+                    -?
+                    (?P<day>[0-9]{2})
+                    (?:
+                        [Tt\x09\x20]+
+                        (?P<hour>[0-9]{2})
+                        (?:
+                            :?
+                            (?P<minute>[0-9]{2})
+                            (?:
+                                :?
+                                (?P<second>[0-9]{2})
+                                (?:
+                                    .
+                                    (?P<second_fraction>[0-9]*)
+                                )?
+                            )?
+                        )?
+                        (?:
+                            (?P<zulu>Z)
+                            |   (?P<tz_sign>[+\-])
+                                (?P<tz_hour>[0-9]{1,2})
+                                :?
+                                (?P<tz_minute>[0-9]{1,2})
+                        )
+                    )?
+                )?
+            )?
+            $
+            /x
+PCRE;
         if (preg_match($pcre, $date, $match)) {
-            /*
-            Capturing subpatterns:
-            1: Year
-            2: Month
-            3: Day
-            4: Hour
-            5: Minute
-            6: Second
-            7: Decimal fraction of a second
-            8: Zulu
-            9: Timezone ±
-            10: Timezone hours
-            11: Timezone minutes
-            */
-
-            // Fill in empty matches
-            for ($i = count($match); $i <= 3; $i++) {
-                $match[$i] = '1';
-            }
-
-            for ($i = count($match); $i <= 7; $i++) {
-                $match[$i] = '0';
-            }
+            // Fill in empty matches and convert to proper types.
+            $year = (int) $match['year'];
+            $month = isset($match['month']) ? (int) $match['month'] : 1;
+            $day = isset($match['day']) ? (int) $match['day'] : 1;
+            $hour = isset($match['hour']) ? (int) $match['hour'] : 0;
+            $minute = isset($match['minute']) ? (int) $match['minute'] : 0;
+            $second = isset($match['second']) ? (int) $match['second'] : 0;
+            $second_fraction = isset($match['second_fraction']) ? ((int) $match['second_fraction']) / (10 ** strlen($match['second_fraction'])) : 0;
+            $tz_sign = ($match['tz_sign'] ?? '') === '-' ? -1 : 1;
+            $tz_hour = isset($match['tz_hour']) ? (int) $match['tz_hour'] : 0;
+            $tz_minute = isset($match['tz_minute']) ? (int) $match['tz_minute'] : 0;
 
             // Numeric timezone
-            if (isset($match[9]) && $match[9] !== '') {
-                $timezone = $match[10] * 3600;
-                $timezone += $match[11] * 60;
-                if ($match[9] === '-') {
-                    $timezone = 0 - $timezone;
-                }
-            } else {
-                $timezone = 0;
-            }
+            $timezone = $tz_hour * 3600;
+            $timezone += $tz_minute * 60;
+            $timezone *= $tz_sign;
 
             // Convert the number of seconds to an integer, taking decimals into account
-            $second = round((int)$match[6] + (int)$match[7] / (10 ** strlen($match[7])));
+            $second = (int) round($second + $second_fraction);
 
-            return gmmktime($match[4], $match[5], $second, $match[2], $match[3], $match[1]) - $timezone;
+            return gmmktime($hour, $minute, $second, $month, $day, $year) - $timezone;
         }
 
         return false;
@@ -736,12 +708,11 @@ class Date
      * Remove RFC822 comments
      *
      * @access protected
-     * @param string $data Data to strip comments from
+     * @param string $string Data to strip comments from
      * @return string Comment stripped string
      */
-    public function remove_rfc2822_comments($string)
+    public function remove_rfc2822_comments(string $string)
     {
-        $string = (string) $string;
         $position = 0;
         $length = strlen($string);
         $depth = 0;
@@ -786,9 +757,10 @@ class Date
      * Parse RFC2822's date format
      *
      * @access protected
-     * @return int Timestamp
+     * @param string $date
+     * @return int|false Timestamp
      */
-    public function date_rfc2822($date)
+    public function date_rfc2822(string $date)
     {
         static $pcre;
         if (!$pcre) {
@@ -821,20 +793,31 @@ class Date
             11: Alphabetic timezone
             */
 
+            $day = (int) $match[2];
             // Find the month number
             $month = $this->month[strtolower($match[3])];
+            $year = (int) $match[4];
+            $hour = (int) $match[5];
+            $minute = (int) $match[6];
+            // Second is optional, if it is empty set it to zero
+            $second = (int) $match[7];
+
+            $tz_sign = $match[8];
+            $tz_hour = (int) $match[9];
+            $tz_minute = (int) $match[10];
+            $tz_code = isset($match[11]) ? strtoupper($match[11]) : '';
 
             // Numeric timezone
-            if ($match[8] !== '') {
-                $timezone = $match[9] * 3600;
-                $timezone += $match[10] * 60;
-                if ($match[8] === '-') {
+            if ($tz_sign !== '') {
+                $timezone = $tz_hour * 3600;
+                $timezone += $tz_minute * 60;
+                if ($tz_sign === '-') {
                     $timezone = 0 - $timezone;
                 }
             }
             // Character timezone
-            elseif (isset($this->timezone[strtoupper($match[11])])) {
-                $timezone = $this->timezone[strtoupper($match[11])];
+            elseif (isset($this->timezone[$tz_code])) {
+                $timezone = $this->timezone[$tz_code];
             }
             // Assume everything else to be -0000
             else {
@@ -842,20 +825,13 @@ class Date
             }
 
             // Deal with 2/3 digit years
-            if ($match[4] < 50) {
-                $match[4] += 2000;
-            } elseif ($match[4] < 1000) {
-                $match[4] += 1900;
+            if ($year < 50) {
+                $year += 2000;
+            } elseif ($year < 1000) {
+                $year += 1900;
             }
 
-            // Second is optional, if it is empty set it to zero
-            if ($match[7] !== '') {
-                $second = $match[7];
-            } else {
-                $second = 0;
-            }
-
-            return gmmktime($match[5], $match[6], $second, $month, $match[2], $match[4]) - $timezone;
+            return gmmktime($hour, $minute, $second, $month, $day, $year) - $timezone;
         }
 
         return false;
@@ -865,9 +841,10 @@ class Date
      * Parse RFC850's date format
      *
      * @access protected
-     * @return int Timestamp
+     * @param string $date
+     * @return int|false Timestamp
      */
-    public function date_rfc850($date)
+    public function date_rfc850(string $date)
     {
         static $pcre;
         if (!$pcre) {
@@ -892,12 +869,20 @@ class Date
             8: Timezone
             */
 
+            $day = (int) $match[2];
             // Month
             $month = $this->month[strtolower($match[3])];
+            $year = (int) $match[4];
+            $hour = (int) $match[5];
+            $minute = (int) $match[6];
+            // Second is optional, if it is empty set it to zero
+            $second = (int) $match[7];
+
+            $tz_code = strtoupper($match[8]);
 
             // Character timezone
-            if (isset($this->timezone[strtoupper($match[8])])) {
-                $timezone = $this->timezone[strtoupper($match[8])];
+            if (isset($this->timezone[$tz_code])) {
+                $timezone = $this->timezone[$tz_code];
             }
             // Assume everything else to be -0000
             else {
@@ -905,13 +890,13 @@ class Date
             }
 
             // Deal with 2 digit year
-            if ($match[4] < 50) {
-                $match[4] += 2000;
+            if ($year < 50) {
+                $year += 2000;
             } else {
-                $match[4] += 1900;
+                $year += 1900;
             }
 
-            return gmmktime($match[5], $match[6], $match[7], $month, $match[2], $match[4]) - $timezone;
+            return gmmktime($hour, $minute, $second, $month, $day, $year) - $timezone;
         }
 
         return false;
@@ -921,9 +906,10 @@ class Date
      * Parse C99's asctime()'s date format
      *
      * @access protected
-     * @return int Timestamp
+     * @param string $date
+     * @return int|false Timestamp
      */
-    public function date_asctime($date)
+    public function date_asctime(string $date)
     {
         static $pcre;
         if (!$pcre) {
@@ -949,7 +935,7 @@ class Date
             */
 
             $month = $this->month[strtolower($match[2])];
-            return gmmktime($match[4], $match[5], $match[6], $month, $match[3], $match[7]);
+            return gmmktime((int) $match[4], (int) $match[5], (int) $match[6], $month, (int) $match[3], (int) $match[7]);
         }
 
         return false;
@@ -959,9 +945,10 @@ class Date
      * Parse dates using strtotime()
      *
      * @access protected
-     * @return int Timestamp
+     * @param string $date
+     * @return int|false Timestamp
      */
-    public function date_strtotime($date)
+    public function date_strtotime(string $date)
     {
         $strtotime = strtotime($date);
         if ($strtotime === -1 || $strtotime === false) {

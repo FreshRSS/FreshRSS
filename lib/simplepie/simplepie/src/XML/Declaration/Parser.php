@@ -1,53 +1,14 @@
 <?php
-/**
- * SimplePie
- *
- * A PHP-Based RSS and Atom Feed Framework.
- * Takes the hard work out of managing a complete RSS/Atom solution.
- *
- * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are
- * permitted provided that the following conditions are met:
- *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
- *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
- *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS
- * AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package SimplePie
- * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
- * @author Ryan Parman
- * @author Sam Sneddon
- * @author Ryan McCue
- * @link http://simplepie.org/ SimplePie
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- */
+
+// SPDX-FileCopyrightText: 2004-2023 Ryan Parman, Sam Sneddon, Ryan McCue
+// SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SimplePie\XML\Declaration;
 
 /**
  * Parses the XML Declaration
- *
- * @package SimplePie
- * @subpackage Parsing
  */
 class Parser
 {
@@ -75,54 +36,29 @@ class Parser
      */
     public $standalone = false;
 
-    /**
-     * @access private
-     */
-    const STATE_BEFORE_VERSION_NAME = 'before_version_name';
-    /**
-     * @access private
-     */
-    const STATE_VERSION_NAME = 'version_name';
-    /**
-     * @access private
-     */
-    const STATE_VERSION_EQUALS = 'version_equals';
-    /**
-     * @access private
-     */
-    const STATE_VERSION_VALUE = 'version_value';
-    /**
-     * @access private
-     */
-    const STATE_ENCODING_NAME = 'encoding_name';
-    /**
-     * @access private
-     */
-    const STATE_EMIT = 'emit';
-    /**
-     * @access private
-     */
-    const STATE_ENCODING_EQUALS = 'encoding_equals';
-    /**
-     * @access private
-     */
-    const STATE_STANDALONE_NAME = 'standalone_name';
-    /**
-     * @access private
-     */
-    const STATE_ENCODING_VALUE = 'encoding_value';
-    /**
-     * @access private
-     */
-    const STATE_STANDALONE_EQUALS = 'standalone_equals';
-    /**
-     * @access private
-     */
-    const STATE_STANDALONE_VALUE = 'standalone_value';
-    /**
-     * @access private
-     */
-    const STATE_ERROR = false;
+    private const STATE_BEFORE_VERSION_NAME = 'before_version_name';
+
+    private const STATE_VERSION_NAME = 'version_name';
+
+    private const STATE_VERSION_EQUALS = 'version_equals';
+
+    private const STATE_VERSION_VALUE = 'version_value';
+
+    private const STATE_ENCODING_NAME = 'encoding_name';
+
+    private const STATE_EMIT = 'emit';
+
+    private const STATE_ENCODING_EQUALS = 'encoding_equals';
+
+    private const STATE_STANDALONE_NAME = 'standalone_name';
+
+    private const STATE_ENCODING_VALUE = 'encoding_value';
+
+    private const STATE_STANDALONE_EQUALS = 'standalone_equals';
+
+    private const STATE_STANDALONE_VALUE = 'standalone_value';
+
+    private const STATE_ERROR = false;
 
     /**
      * Current state of the state machine
@@ -162,7 +98,7 @@ class Parser
      * @access public
      * @param string $data Input data
      */
-    public function __construct($data)
+    public function __construct(string $data)
     {
         $this->data = $data;
         $this->data_length = strlen($this->data);
@@ -174,7 +110,7 @@ class Parser
      * @access public
      * @return bool true on success, false on failure
      */
-    public function parse()
+    public function parse(): bool
     {
         while ($this->state && $this->state !== self::STATE_EMIT && $this->has_data()) {
             $state = $this->state;
@@ -185,9 +121,10 @@ class Parser
             return true;
         }
 
-        $this->version = '';
-        $this->encoding = '';
-        $this->standalone = '';
+        // Reset the parser state.
+        $this->version = '1.0';
+        $this->encoding = 'UTF-8';
+        $this->standalone = false;
         return false;
     }
 
@@ -197,7 +134,7 @@ class Parser
      * @access private
      * @return bool true if there is further data, false if not
      */
-    public function has_data()
+    public function has_data(): bool
     {
         return (bool) ($this->position < $this->data_length);
     }
@@ -216,6 +153,8 @@ class Parser
 
     /**
      * Read value
+     *
+     * @return string|false
      */
     public function get_value()
     {
@@ -232,7 +171,7 @@ class Parser
         return false;
     }
 
-    public function before_version_name()
+    public function before_version_name(): void
     {
         if ($this->skip_whitespace()) {
             $this->state = self::STATE_VERSION_NAME;
@@ -241,7 +180,7 @@ class Parser
         }
     }
 
-    public function version_name()
+    public function version_name(): void
     {
         if (substr($this->data, $this->position, 7) === 'version') {
             $this->position += 7;
@@ -252,7 +191,7 @@ class Parser
         }
     }
 
-    public function version_equals()
+    public function version_equals(): void
     {
         if (substr($this->data, $this->position, 1) === '=') {
             $this->position++;
@@ -263,7 +202,7 @@ class Parser
         }
     }
 
-    public function version_value()
+    public function version_value(): void
     {
         if ($this->version = $this->get_value()) {
             $this->skip_whitespace();
@@ -277,7 +216,7 @@ class Parser
         }
     }
 
-    public function encoding_name()
+    public function encoding_name(): void
     {
         if (substr($this->data, $this->position, 8) === 'encoding') {
             $this->position += 8;
@@ -288,7 +227,7 @@ class Parser
         }
     }
 
-    public function encoding_equals()
+    public function encoding_equals(): void
     {
         if (substr($this->data, $this->position, 1) === '=') {
             $this->position++;
@@ -299,7 +238,7 @@ class Parser
         }
     }
 
-    public function encoding_value()
+    public function encoding_value(): void
     {
         if ($this->encoding = $this->get_value()) {
             $this->skip_whitespace();
@@ -313,7 +252,7 @@ class Parser
         }
     }
 
-    public function standalone_name()
+    public function standalone_name(): void
     {
         if (substr($this->data, $this->position, 10) === 'standalone') {
             $this->position += 10;
@@ -324,7 +263,7 @@ class Parser
         }
     }
 
-    public function standalone_equals()
+    public function standalone_equals(): void
     {
         if (substr($this->data, $this->position, 1) === '=') {
             $this->position++;
@@ -335,7 +274,7 @@ class Parser
         }
     }
 
-    public function standalone_value()
+    public function standalone_value(): void
     {
         if ($standalone = $this->get_value()) {
             switch ($standalone) {

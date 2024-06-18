@@ -1,144 +1,120 @@
 <?php
-/**
- * SimplePie
- *
- * A PHP-Based RSS and Atom Feed Framework.
- * Takes the hard work out of managing a complete RSS/Atom solution.
- *
- * Copyright (c) 2004-2022, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are
- * permitted provided that the following conditions are met:
- *
- * 	* Redistributions of source code must retain the above copyright notice, this list of
- * 	  conditions and the following disclaimer.
- *
- * 	* Redistributions in binary form must reproduce the above copyright notice, this list
- * 	  of conditions and the following disclaimer in the documentation and/or other materials
- * 	  provided with the distribution.
- *
- * 	* Neither the name of the SimplePie Team nor the names of its contributors may be used
- * 	  to endorse or promote products derived from this software without specific prior
- * 	  written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS
- * AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package SimplePie
- * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
- * @author Ryan Parman
- * @author Sam Sneddon
- * @author Ryan McCue
- * @link http://simplepie.org/ SimplePie
- * @license http://www.opensource.org/licenses/bsd-license.php BSD License
- */
+
+// SPDX-FileCopyrightText: 2004-2023 Ryan Parman, Sam Sneddon, Ryan McCue
+// SPDX-License-Identifier: BSD-3-Clause
+
+declare(strict_types=1);
 
 namespace SimplePie;
+
+use SimplePie\XML\Declaration\Parser as DeclarationParser;
+use XMLParser;
 
 /**
  * Parses XML into something sane
  *
  *
  * This class can be overloaded with {@see \SimplePie\SimplePie::set_parser_class()}
- *
- * @package SimplePie
- * @subpackage Parsing
  */
-class Parser
+class Parser implements RegistryAware
 {
+    /** @var int */
     public $error_code;
+    /** @var string */
     public $error_string;
+    /** @var int */
     public $current_line;
+    /** @var int */
     public $current_column;
+    /** @var int */
     public $current_byte;
+    /** @var string */
     public $separator = ' ';
+    /** @var string[] */
     public $namespace = [''];
+    /** @var string[] */
     public $element = [''];
+    /** @var string[] */
     public $xml_base = [''];
+    /** @var bool[] */
     public $xml_base_explicit = [false];
+    /** @var string[] */
     public $xml_lang = [''];
+    /** @var array<string, mixed> */
     public $data = [];
+    /** @var array<array<string, mixed>> */
     public $datas = [[]];
+    /** @var int */
     public $current_xhtml_construct = -1;
+    /** @var string */
     public $encoding;
+    /** @var Registry */
     protected $registry;
 
+    /**
+     * @return void
+     */
     public function set_registry(\SimplePie\Registry $registry)
     {
         $this->registry = $registry;
     }
 
-    public function parse(&$data, $encoding, $url = '')
+    /**
+     * @return bool
+     */
+    public function parse(string &$data, string $encoding, string $url = '')
     {
-        $xmlEncoding = '';
-
-        if (!empty($encoding)) {
-            // Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
-            if (strtoupper($encoding) === 'US-ASCII') {
-                $this->encoding = 'UTF-8';
-            } else {
-                $this->encoding = $encoding;
-            }
-
-            // Strip BOM:
-            // UTF-32 Big Endian BOM
-            if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
-                $data = substr($data, 4);
-            }
-            // UTF-32 Little Endian BOM
-            elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
-                $data = substr($data, 4);
-            }
-            // UTF-16 Big Endian BOM
-            elseif (substr($data, 0, 2) === "\xFE\xFF") {
-                $data = substr($data, 2);
-            }
-            // UTF-16 Little Endian BOM
-            elseif (substr($data, 0, 2) === "\xFF\xFE") {
-                $data = substr($data, 2);
-            }
-            // UTF-8 BOM
-            elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
-                $data = substr($data, 3);
-            }
-
-            if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false) {
-                $declaration = $this->registry->create('XML_Declaration_Parser', [substr($data, 5, $pos - 5)]);
-                if ($declaration->parse()) {
-                    $xmlEncoding = strtoupper($declaration->encoding);	//FreshRSS
-                    $data = substr($data, $pos + 2);
-                    $data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . $data;
-                } else {
-                    $this->error_string = 'SimplePie bug! Please report this!';
-                    return false;
-                }
+        if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
+            $doc = new \DOMDocument();
+            @$doc->loadHTML($data);
+            $xpath = new \DOMXpath($doc);
+            // Check for both h-feed and h-entry, as both a feed with no entries
+            // and a list of entries without an h-feed wrapper are both valid.
+            $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
+                'contains(concat(" ", @class, " "), " h-entry ")]';
+            $result = $xpath->query($query);
+            if ($result->length !== 0) {
+                return $this->parse_microformats($data, $url);
             }
         }
 
-        if ($xmlEncoding === '' || $xmlEncoding === 'UTF-8') {	//FreshRSS: case of no explicit HTTP encoding, and lax UTF-8
-            try {
-                $dom = new \DOMDocument();
-                $dom->recover = true;
-                $dom->strictErrorChecking = false;
-                @$dom->loadXML($data, LIBXML_NOERROR | LIBXML_NOWARNING);
-                $this->encoding = $encoding = $dom->encoding = 'UTF-8';
-                $data2 = $dom->saveXML();
-                if (function_exists('mb_convert_encoding')) {
-                    $data2 = mb_convert_encoding($data2, 'UTF-8', 'UTF-8');
-                }
-                if (strlen($data2) > (strlen($data) / 2.0)) {
-                    $data = $data2;
-                }
-                unset($data2);
-            } catch (Exception $e) {
+        // Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
+        if (strtoupper($encoding) === 'US-ASCII') {
+            $this->encoding = 'UTF-8';
+        } else {
+            $this->encoding = $encoding;
+        }
+
+        // Strip BOM:
+        // UTF-32 Big Endian BOM
+        if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
+            $data = substr($data, 4);
+        }
+        // UTF-32 Little Endian BOM
+        elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
+            $data = substr($data, 4);
+        }
+        // UTF-16 Big Endian BOM
+        elseif (substr($data, 0, 2) === "\xFE\xFF") {
+            $data = substr($data, 2);
+        }
+        // UTF-16 Little Endian BOM
+        elseif (substr($data, 0, 2) === "\xFF\xFE") {
+            $data = substr($data, 2);
+        }
+        // UTF-8 BOM
+        elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
+            $data = substr($data, 3);
+        }
+
+        if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false) {
+            $declaration = $this->registry->create(DeclarationParser::class, [substr($data, 5, $pos - 5)]);
+            if ($declaration->parse()) {
+                $data = substr($data, $pos + 2);
+                $data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' ."\n". $this->declare_html_entities() . $data;
+            } else {
+                $this->error_string = 'SimplePie bug! Please report this!';
+                return false;
             }
         }
 
@@ -157,9 +133,8 @@ class Parser
             $xml = xml_parser_create_ns($this->encoding, $this->separator);
             xml_parser_set_option($xml, XML_OPTION_SKIP_WHITE, 1);
             xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, 0);
-            xml_set_object($xml, $this);
-            xml_set_character_data_handler($xml, 'cdata');
-            xml_set_element_handler($xml, 'tag_open', 'tag_close');
+            xml_set_character_data_handler($xml, [$this, 'cdata']);
+            xml_set_element_handler($xml, [$this, 'tag_open'], [$this, 'tag_close']);
 
             // Parse!
             $wrapper = @is_writable(sys_get_temp_dir()) ? 'php://temp' : 'php://memory';
@@ -169,7 +144,7 @@ class Parser
                 //Parse by chunks not to use too much memory
                 do {
                     $stream_data = fread($stream, 1048576);
-                    if (!xml_parse($xml, $stream_data === false ? '' : $stream_data, feof($stream))) {
+                    if (!xml_parse($xml, $stream_data == false ? '' : $stream_data, feof($stream))) {
                         $this->error_code = xml_get_error_code($xml);
                         $this->error_string = xml_error_string($this->error_code);
                         $return = false;
@@ -193,7 +168,6 @@ class Parser
         $xml->xml($data);
         while (@$xml->read()) {
             switch ($xml->nodeType) {
-
                 case constant('XMLReader::END_ELEMENT'):
                     if ($xml->namespaceURI !== '') {
                         $tagName = $xml->namespaceURI . $this->separator . $xml->localName;
@@ -241,48 +215,71 @@ class Parser
         return true;
     }
 
+    /**
+     * @return int
+     */
     public function get_error_code()
     {
         return $this->error_code;
     }
 
+    /**
+     * @return string
+     */
     public function get_error_string()
     {
         return $this->error_string;
     }
 
+    /**
+     * @return int
+     */
     public function get_current_line()
     {
         return $this->current_line;
     }
 
+    /**
+     * @return int
+     */
     public function get_current_column()
     {
         return $this->current_column;
     }
 
+    /**
+     * @return int
+     */
     public function get_current_byte()
     {
         return $this->current_byte;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function get_data()
     {
         return $this->data;
     }
 
-    public function tag_open($parser, $tag, $attributes)
+    /**
+     * @param XMLParser|resource|null $parser
+     * @param array<string, string> $attributes
+     * @return void
+     */
+    public function tag_open($parser, string $tag, array $attributes)
     {
-        list($this->namespace[], $this->element[]) = $this->split_ns($tag);
+        [$this->namespace[], $this->element[]] = $this->split_ns($tag);
 
         $attribs = [];
         foreach ($attributes as $name => $value) {
-            list($attrib_namespace, $attribute) = $this->split_ns($name);
+            [$attrib_namespace, $attribute] = $this->split_ns($name);
             $attribs[$attrib_namespace][$attribute] = $value;
         }
 
         if (isset($attribs[\SimplePie\SimplePie::NAMESPACE_XML]['base'])) {
-            $base = $this->registry->call('Misc', 'absolutize_url', [$attribs[\SimplePie\SimplePie::NAMESPACE_XML]['base'], end($this->xml_base)]);
+            $base = $this->registry->call(Misc::class, 'absolutize_url', [$attribs[\SimplePie\SimplePie::NAMESPACE_XML]['base'], end($this->xml_base)]);
             if ($base !== false) {
                 $this->xml_base[] = $base;
                 $this->xml_base_explicit[] = true;
@@ -310,8 +307,8 @@ class Parser
                 $this->data['data'] .= '>';
             }
         } else {
-            $this->datas[] =& $this->data;
-            $this->data =& $this->data['child'][end($this->namespace)][end($this->element)][];
+            $this->datas[] = &$this->data;
+            $this->data = &$this->data['child'][end($this->namespace)][end($this->element)][];
             $this->data = ['data' => '', 'attribs' => $attribs, 'xml_base' => end($this->xml_base), 'xml_base_explicit' => end($this->xml_base_explicit), 'xml_lang' => end($this->xml_lang)];
             if ((end($this->namespace) === \SimplePie\SimplePie::NAMESPACE_ATOM_03 && in_array(end($this->element), ['title', 'tagline', 'copyright', 'info', 'summary', 'content']) && isset($attribs['']['mode']) && $attribs['']['mode'] === 'xml')
             || (end($this->namespace) === \SimplePie\SimplePie::NAMESPACE_ATOM_10 && in_array(end($this->element), ['rights', 'subtitle', 'summary', 'info', 'title', 'content']) && isset($attribs['']['type']) && $attribs['']['type'] === 'xhtml')
@@ -323,7 +320,11 @@ class Parser
         }
     }
 
-    public function cdata($parser, $cdata)
+    /**
+     * @param XMLParser|resource|null $parser
+     * @return void
+     */
+    public function cdata($parser, string $cdata)
     {
         if ($this->current_xhtml_construct >= 0) {
             $this->data['data'] .= htmlspecialchars($cdata, ENT_QUOTES, $this->encoding);
@@ -332,7 +333,11 @@ class Parser
         }
     }
 
-    public function tag_close($parser, $tag)
+    /**
+     * @param XMLParser|resource|null $parser
+     * @return void
+     */
+    public function tag_close($parser, string $tag)
     {
         if ($this->current_xhtml_construct >= 0) {
             $this->current_xhtml_construct--;
@@ -341,7 +346,7 @@ class Parser
             }
         }
         if ($this->current_xhtml_construct === -1) {
-            $this->data =& $this->datas[count($this->datas) - 1];
+            $this->data = &$this->datas[count($this->datas) - 1];
             array_pop($this->datas);
         }
 
@@ -352,7 +357,10 @@ class Parser
         array_pop($this->xml_lang);
     }
 
-    public function split_ns($string)
+    /**
+     * @return array{string, string}
+     */
+    public function split_ns(string $string)
     {
         static $cache = [];
         if (!isset($cache[$string])) {
@@ -383,7 +391,10 @@ class Parser
         return $cache[$string];
     }
 
-    private function parse_hcard($data, $category = false)
+    /**
+     * @param array<string, mixed> $data
+     */
+    private function parse_hcard(array $data, bool $category = false): string
     {
         $name = '';
         $link = '';
@@ -404,10 +415,13 @@ class Parser
                 return '<a class="h-card" href="'.$link.'">'.$person_tag.$name.'</a>';
             }
         }
-        return isset($data['value']) ? $data['value'] : '';
+        return $data['value'] ?? '';
     }
 
-    private function parse_microformats(&$data, $url)
+    /**
+     * @return true
+     */
+    private function parse_microformats(string &$data, string $url): bool
     {
         $feed_title = '';
         $feed_author = null;
@@ -487,8 +501,7 @@ class Parser
                     // author is a special case, it can be plain text or an h-card array.
                     // If it's plain text it can also be a url that should be followed to
                     // get the actual h-card.
-                    $author = isset($entry['properties']['author'][0]) ?
-                        $entry['properties']['author'][0] : $feed_author;
+                    $author = $entry['properties']['author'][0] ?? $feed_author;
                     if (!is_string($author)) {
                         $author = $this->parse_hcard($author);
                     } elseif (strpos($author, 'http') === 0) {
@@ -629,7 +642,7 @@ class Parser
         return true;
     }
 
-    private function declare_html_entities()
+    private function declare_html_entities(): string
     {
         // This is required because the RSS specification says that entity-encoded
         // html is allowed, but the xml specification says they must be declared.

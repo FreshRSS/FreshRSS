@@ -7,7 +7,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/Art4/simplepie.git"
+            "url": "https://github.com/FreshRSS/simplepie.git"
         },
         {
             "type": "git",
@@ -18,7 +18,7 @@
         "marienfressinaud/lib_opml": "0.5.1",
         "phpgt/cssxpath": "dev-master#d99d35f7194bac19fb3f8726b70c1bc83de3e931",
         "phpmailer/phpmailer": "6.9.1",
-        "simplepie/simplepie": "dev-freshrss#94db37e06b20bab99d7474f58346b3e98ee90c0e"
+        "simplepie/simplepie": "dev-freshrss#91917a1634e68341927882937ac425ada5729f09"
     },
     "config": {
         "sort-packages": true,

@@ -758,7 +758,7 @@ HTML;
 				foreach ($metas as $meta) {
 					if ($meta instanceof DOMElement && strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
 						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
-						$refresh = \SimplePie\Misc::absolutize_url($refresh, $url);
+						$refresh = is_string($refresh) ? \SimplePie\Misc::absolutize_url($refresh, $url) : false;
 						if ($refresh != false && $refresh !== $url) {
 							return $this->getContentByParsing($refresh, $maxRedirs - 1);
 						}
