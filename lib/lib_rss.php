@@ -311,8 +311,10 @@ function sensitive_log($log) {
 function customSimplePie(array $attributes = [], array $curl_options = []): \SimplePie\SimplePie {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$simplePie = new \SimplePie\SimplePie();
+	if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+		$simplePie->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieResponse::class);
+	}
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog(FreshRSS_Context::systemConf()->simplepie_syslog_enabled);
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
