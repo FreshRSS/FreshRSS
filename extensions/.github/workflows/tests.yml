@@ -1,0 +1,107 @@
+name: Automated tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  tests:
+    # https://github.com/actions/virtual-environments
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./Extensions
+
+    steps:
+    - name: Git checkout source code
+      uses: actions/checkout@v4
+      with:
+        path: Extensions
+
+    # Composer tests
+
+    - name: Check PHP syntax
+      run: composer run-script php-lint
+
+    - name: Check PHTML syntax
+      run: composer run-script phtml-lint
+
+    - name: Use Composer cache
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: Extensions/vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Run Composer install
+      run: composer install --prefer-dist --no-progress
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+
+    - name: PHP_CodeSniffer
+      run: composer run-script phpcs
+
+    - name: Git checkout FreshRSS source code
+      uses: actions/checkout@v4
+      with:
+        repository: FreshRSS/FreshRSS
+        path: FreshRSS
+
+    - name: PHPStan
+      run: composer run-script phpstan
+
+    - name: PHPStan Next Level
+      run: composer run-script phpstan-next
+
+    # NPM tests
+
+    - name: Uses Node.js
+      uses: actions/setup-node@v3
+      with:
+        # https://nodejs.org/en/about/releases/
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'Extensions/package-lock.json'
+
+    - run: npm ci
+
+    - name: Check JavaScript syntax
+      run: npm run --silent eslint
+
+    - name: Check Markdown syntax
+      run: npm run --silent markdownlint
+
+    - name: Check CSS syntax
+      run: npm run --silent stylelint
+
+    - name: Check Right-to-left CSS
+      run: npm run --silent rtlcss && git diff --exit-code
+
+    # Shell tests
+
+    - name: Use shell cache
+      id: shell-cache
+      uses: actions/cache@v3
+      with:
+        path: Extensions/bin
+        key: ${{ runner.os }}-typos@v1.16.21
+
+    - name: Add ./bin/ to $PATH
+      run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
+
+    - name: Install typos
+      if: steps.shell-cache.outputs.cache-hit != 'true'
+      run: |
+        cd bin ;
+        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.16.21/typos-v1.16.21-x86_64-unknown-linux-musl.tar.gz' &&
+        tar -xvf *.tar.gz './typos' &&
+        chmod +x typos &&
+        rm *.tar.gz ;
+        cd ..
+
+    - name: Check spelling
+      run: bin/typos

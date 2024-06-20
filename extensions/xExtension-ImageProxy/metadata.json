@@ -1,0 +1,8 @@
+{
+	"name": "Image Proxy",
+	"author": "Frans de Jonge",
+	"description": "No insecure content warnings or disappearing images.",
+	"version": "0.7.3",
+	"entrypoint": "ImageProxy",
+	"type": "user"
+}

@@ -1,0 +1,8 @@
+{
+	"name": "YouTube Video Feed",
+	"author": "Kevin Papst",
+	"description": "Embed YouTube feeds inside article content.",
+	"version": "0.12",
+	"entrypoint": "YouTube",
+	"type": "user"
+}

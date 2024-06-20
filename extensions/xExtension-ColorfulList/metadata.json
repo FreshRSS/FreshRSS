@@ -1,0 +1,8 @@
+{
+	"name": "Colorful List",
+	"author": "Claud Xiao",
+	"description": "Colorful Entry Title based on RSS source",
+	"version": "0.3.1",
+	"entrypoint": "ColorfulList",
+	"type": "user"
+}

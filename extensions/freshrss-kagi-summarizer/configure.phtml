@@ -1,0 +1,62 @@
+<?php
+  $kagi_token = FreshRSS_Context::$user_conf->kagi_token;
+  $kagi_language = FreshRSS_Context::$user_conf->kagi_language;
+  function printLanguageOption($lang, $selected) {
+    echo '<option ' . ($selected == $lang ? 'selected ' : '') . 'value="'. $lang . '">'
+      . _t('ext.kagiSummarizer.configure.lang.' . strtolower($lang == '' ? 'default' : $lang))
+      . '</option>';
+  }
+?>
+
+<form action="<?php echo _url('extension', 'configure', 'e', urlencode($this->getName())); ?>" method="post">
+  <input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+  <div class="form-group">
+    <label class="group-name" for="kagi_token"><?php echo _t('ext.kagiSummarizer.configure.kagi_token'); ?></label>
+    <div class="group-controls">
+      <input type="text" name="kagi_token" id="kagi_token" value="<?php echo $kagi_token; ?>">
+      <p><small><?php echo _t('ext.kagiSummarizer.configure.kagi_token_help'); ?></small></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="group-name" for="kagi_language"><?php echo _t('ext.kagiSummarizer.configure.kagi_language'); ?></label>
+    <div class="group-controls">
+      <select name="kagi_language" id="kagi_language">
+        <?php printLanguageOption('', $kagi_language); ?>
+        <?php printLanguageOption('BG', $kagi_language); ?>
+        <?php printLanguageOption('CS', $kagi_language); ?>
+        <?php printLanguageOption('DA', $kagi_language); ?>
+        <?php printLanguageOption('DE', $kagi_language); ?>
+        <?php printLanguageOption('EL', $kagi_language); ?>
+        <?php printLanguageOption('EN', $kagi_language); ?>
+        <?php printLanguageOption('ES', $kagi_language); ?>
+        <?php printLanguageOption('ET', $kagi_language); ?>
+        <?php printLanguageOption('FI', $kagi_language); ?>
+        <?php printLanguageOption('FR', $kagi_language); ?>
+        <?php printLanguageOption('HU', $kagi_language); ?>
+        <?php printLanguageOption('ID', $kagi_language); ?>
+        <?php printLanguageOption('IT', $kagi_language); ?>
+        <?php printLanguageOption('JA', $kagi_language); ?>
+        <?php printLanguageOption('KO', $kagi_language); ?>
+        <?php printLanguageOption('LT', $kagi_language); ?>
+        <?php printLanguageOption('LV', $kagi_language); ?>
+        <?php printLanguageOption('NB', $kagi_language); ?>
+        <?php printLanguageOption('NL', $kagi_language); ?>
+        <?php printLanguageOption('PL', $kagi_language); ?>
+        <?php printLanguageOption('PT', $kagi_language); ?>
+        <?php printLanguageOption('RO', $kagi_language); ?>
+        <?php printLanguageOption('RU', $kagi_language); ?>
+        <?php printLanguageOption('SK', $kagi_language); ?>
+        <?php printLanguageOption('SL', $kagi_language); ?>
+        <?php printLanguageOption('SV', $kagi_language); ?>
+        <?php printLanguageOption('TR', $kagi_language); ?>
+        <?php printLanguageOption('UK', $kagi_language); ?>
+        <?php printLanguageOption('ZH', $kagi_language); ?>
+      </select>
+    </div>
+  </div>
+  <div class="form-group form-actions">
+    <div class="group-controls">
+      <button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+    </div>
+  </div>
+</form>

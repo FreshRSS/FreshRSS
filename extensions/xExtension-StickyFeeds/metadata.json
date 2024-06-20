@@ -1,0 +1,8 @@
+{
+	"name": "Sticky Feeds",
+	"author": "Marien Fressinaud",
+	"description": "Set the feed aside in the main stream following the window scroll.",
+	"version": "0.2.1",
+	"entrypoint": "StickyFeeds",
+	"type": "user"
+}

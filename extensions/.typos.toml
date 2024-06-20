@@ -1,0 +1,24 @@
+[default.extend-identifiers]
+ot = "ot"
+Ths2 = "Ths2"
+
+[default.extend-words]
+referer = "referer"
+
+[files]
+extend-exclude = [
+	".git/",
+	"*.fr.md",
+	"*.map",
+	"*.min.js",
+	"*.rtl.css",
+	"*/i18n/de",
+	"*/i18n/fr",
+	"bin/",
+	"node_modules/",
+	"symbolic/",
+	"third-party/",
+	"tmp/",
+	"vendor/",
+	"xExtension-ReadingTime/README.md"
+]

@@ -1,0 +1,18 @@
+#aside_feed.sticky {
+	position: relative;
+}
+
+#aside_feed.sticky .tree {
+	position: absolute;
+	right: 0;
+	width: 100%;
+	margin-top: 0;
+	overflow-y: auto;
+}
+
+@media (max-width: 840px) {
+	/* No effect on mobile. And yep, under 840px it is a mobile... a big one. */
+	#aside_feed.sticky .tree {
+		position: static;
+	}
+}

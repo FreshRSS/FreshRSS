@@ -1,0 +1,49 @@
+# fly.toml app configuration file generated for lindenrss on 2024-06-20T22:36:59+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = 'lindenrss'
+primary_region = 'sin'
+kill_signal = 'SIGINT'
+kill_timeout = '5s'
+
+[experimental]
+  auto_rollback = true
+
+[build]
+  dockerfile = './Docker/Dockerfile'
+
+[env]
+  CRON_MIN = '1,31'
+
+[[mounts]]
+  source = 'freshrss_data'
+  destination = '/var/www/FreshRSS/data'
+  initial_size = '1gb'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 80
+  processes = ['app']
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '2s'
+    grace_period = '1s'
+
+[[vm]]
+  size = 'shared-cpu-1x'
