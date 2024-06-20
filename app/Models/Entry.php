@@ -672,8 +672,7 @@ HTML;
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attributeBoolean('read_upon_reception') ||
-				($feed->attributeBoolean('read_upon_reception') === null && FreshRSS_Context::userConf()->mark_when['reception'])) {
+			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
 			}
@@ -719,7 +718,7 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html');
+		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		if (strlen($html) > 0) {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);

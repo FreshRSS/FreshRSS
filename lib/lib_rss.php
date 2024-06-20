@@ -544,6 +544,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_ENCODING => '',	//Enable all encodings
+		//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 	]);
 
 	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);

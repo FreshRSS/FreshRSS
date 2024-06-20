@@ -540,7 +540,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$nbMarkedUnread = 0;
 
 			if (count($newGuids) > 0) {
-				if ($feed->attributeBoolean('read_when_same_title_in_feed') === null) {
+				if (!$feed->hasAttribute('read_when_same_title_in_feed')) {
 					$readWhenSameTitleInFeed = (int)FreshRSS_Context::userConf()->mark_when['same_title_in_feed'];
 				} elseif ($feed->attributeBoolean('read_when_same_title_in_feed') === false) {
 					$readWhenSameTitleInFeed = 0;
@@ -548,7 +548,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_flip($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed));
+					$titlesAsRead = array_fill_keys($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed), true);
 				} else {
 					$titlesAsRead = [];
 				}
