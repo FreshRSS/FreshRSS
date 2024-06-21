@@ -209,5 +209,8 @@ return array(
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',
-	]
+	],
+
+	# Shows number of unread articles in the title
+	'show_title_unread' => true,
 );
