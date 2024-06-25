@@ -9,8 +9,7 @@ $ok = true;
 $cliOptions = new class extends CliOptionsParser {
 	public string $quiet;
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->addOption('quiet', (new CliOption('quiet', 'q'))->withValueNone());
 		parent::__construct();
 	}
