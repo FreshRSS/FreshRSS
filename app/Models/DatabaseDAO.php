@@ -269,7 +269,7 @@ SQL;
 	public const SQLITE_EXPORT = 1;
 	public const SQLITE_IMPORT = 2;
 
-	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
+	public function dbCopy(string $filename, int $mode, bool $clearFirst = false, bool $verbose = true): bool {
 		if (!extension_loaded('pdo_sqlite')) {
 			return self::stdError('PHP extension pdo_sqlite is missing!');
 		}
@@ -354,7 +354,7 @@ SQL;
 
 		$idMaps = [];
 
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "Start SQL copy…\n");
 		}
 
@@ -397,11 +397,11 @@ SQL;
 					return self::stdError($error);
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
+			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
 				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
 			}
 		}
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
 		}
 		$entryTo->commit();
