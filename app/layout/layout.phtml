@@ -71,16 +71,6 @@
 	}
 ?>
 
-<script type="application/json" id="show-unread-favicon">
-	<?php
-		$data = array(
-			'show_unread_favicon' => FreshRSS_Context::userConf()->show_title_unread == 1
-		);
-
-		echo json_encode($data);
-	?>
-</script>
-
 <div id="global">
 	<?php
 		flush();

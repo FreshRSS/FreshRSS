@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 の通知タイムアウト時間',
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'theme' => array(
 			'_' => 'テーマ',
 			'deprecated' => array(

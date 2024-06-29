@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
 		'theme' => array(
 			'_' => 'Thème',
 			'deprecated' => array(

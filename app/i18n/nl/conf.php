@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 notificatie stop',
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(

@@ -92,6 +92,9 @@ return array(
 	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
 	'allow_referrer' => false,
 
+	# Shows number of unread articles in the title
+	'show_title_unread' => true,
+
 	# Number of feeds to refresh in parallel from the Web user interface.
 	# Faster with higher values. Reduce for server with little memory or database issues.
 	'nb_parallel_refresh' => 10,
@@ -210,7 +213,4 @@ return array(
 		'127.0.0.0/8',
 		'::1/128',
 	],
-
-	# Shows number of unread articles in the title
-	'show_title_unread' => true,
 );

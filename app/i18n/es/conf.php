@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
