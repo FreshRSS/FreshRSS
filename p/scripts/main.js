@@ -402,7 +402,7 @@ function mark_favorite(div) {
 const freshrssOpenArticleEvent = document.createEvent('Event');
 freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
 
-function load_allLazyImages(rootElement) {
+function loadLazyImages(rootElement) {
 	rootElement.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
 		el.src = el.getAttribute('data-original');
 		el.removeAttribute('data-original');
@@ -416,7 +416,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	if (context.does_lazyload && !skipping) {
-		load_allLazyImages(new_active);
+		loadLazyImages(new_active);
 	}
 
 	if (old_active !== new_active) {
@@ -1113,7 +1113,7 @@ function init_stream(stream) {
 			if (content_el === null) {
 				content_el = el.closest('.flux').querySelector('.flux_content .content');
 			}
-			load_allLazyImages(content_el);
+			loadLazyImages(content_el);
 			tmp_window.document.writeln(content_el.innerHTML);
 			tmp_window.document.close();
 			tmp_window.focus();
