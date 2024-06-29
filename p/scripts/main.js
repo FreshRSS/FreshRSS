@@ -1852,13 +1852,8 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
-	const showUnreadFavicon = document.getElementById('show-unread-favicon');
-	if (showUnreadFavicon) {
-		const val = JSON.parse(showUnreadFavicon.textContent);
-		const showUnread = val['show_unread_favicon'];
-		if (showUnread === false) {
-			return;
-		}
+	if (context.show_unread_favicon === false) {
+		return;
 	}
 
 	if (typeof n === 'undefined') {

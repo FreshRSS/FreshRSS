@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 通知超時時間',
 		),
 		'show_nav_buttons' => '顯示導航按鈕',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'theme' => array(
 			'_' => '主題',
 			'deprecated' => array(

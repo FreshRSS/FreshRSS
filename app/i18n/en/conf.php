@@ -53,8 +53,8 @@ return array(
 			'seconds' => 'seconds (0 means no timeout)',
 			'timeout' => 'HTML5 notification timeout',
 		),
-		'show_title_unread' => 'Show number of unread in the title',
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'show_title_unread' => 'Show number of unread articles in the title',
 		'theme' => array(
 			'_' => 'Theme',
 			'deprecated' => array(
