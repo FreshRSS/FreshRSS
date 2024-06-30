@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'Zobraziť počet neprečítaných článkov v názve',
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(

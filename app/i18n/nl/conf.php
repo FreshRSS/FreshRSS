@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'HTML5 notificatie stop',
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(
