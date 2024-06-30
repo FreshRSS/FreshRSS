@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'הצגת מספר המאמרים שלא נקראו בכותרת',
 		'theme' => array(
 			'_' => 'ערכת נושא',
 			'deprecated' => array(

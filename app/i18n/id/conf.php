@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(

@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'Mostra lo nombre d'articles non legits dins lo títol',
 		'theme' => array(
 			'_' => 'Tèma',
 			'deprecated' => array(
