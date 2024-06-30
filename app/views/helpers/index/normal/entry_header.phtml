@@ -53,24 +53,24 @@
 	?></li><?php
 	endif; ?>
 	<li class="item titleAuthorSummaryDate">
-		<span class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>"><?= $this->entry->title() ?><?php
-			if ($topline_display_authors) {
-				?><span class="author"><?php
-				$authors = $this->entry->authors();
-				if (is_array($authors)) {
-					$first = true;
-					foreach ($authors as $author) {
-						echo $first ? $author : ', ' . $author;
-						$first = false;
-					}
-				} ?></span><?php
-			} ?>
-		</a></span>
-		<?php
-		if ($topline_summary):
-			?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
+		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><?= $this->entry->title() ?><?php
+		if ($topline_display_authors):
+			?><span class="author"><?php
+			$authors = $this->entry->authors();
+			if (is_array($authors)) {
+				$first = true;
+				foreach ($authors as $author) {
+					echo $first ? $author : ', ' . $author;
+					$first = false;
+				}
+			}
+			?></span><?php
 		endif;
-	?>
+		?></a>
+	<?php
+	if ($topline_summary):
+		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
+	endif; ?>
 	<?php if ($topline_date) { ?><span class="item-element date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</span><?php } ?>
 	</li>
 	<?php if ($topline_sharing) { ?>
