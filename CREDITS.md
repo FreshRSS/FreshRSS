@@ -91,6 +91,7 @@ People are sorted by name so please keep this order.
 * [Harshad Hirapara](https://github.com/harshad389): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:harshad389)
 * [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
 * [Hippolyte Thomas](https://github.com/hippothomas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hippothomas), [Web](https://hippolyte-thomas.fr/)
+* [hkcomori](https://github.com/hkcomori): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hkcomori)
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [ibiruai](https://github.com/ibiruai): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ibiruai)
 * [id-konstantin-stepanov](https://github.com/id-konstantin-stepanov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:id-konstantin-stepanov)
