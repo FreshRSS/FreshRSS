@@ -186,7 +186,7 @@ class Minz_Translate {
 	/**
 	 * Translate a key into its corresponding value based on selected language.
 	 * @param string $key the key to translate.
-	 * @param mixed ...$args additional parameters for variable keys.
+	 * @param bool|float|int|string ...$args additional parameters for variable keys.
 	 * @return string value corresponding to the key.
 	 *         If no value is found, return the key itself.
 	 */
@@ -211,6 +211,9 @@ class Minz_Translate {
 
 		// Go through the i18n keys to get the correct translation value.
 		$translates = self::$translates[$top_level];
+		if (!is_array($translates)) {
+			$translates = [];
+		}
 		$size_group = count($group);
 		$level_processed = 0;
 		$translation_value = $key;
@@ -253,7 +256,7 @@ class Minz_Translate {
 /**
  * Alias for Minz_Translate::t()
  * @param string $key
- * @param mixed ...$args
+ * @param bool|float|int|string ...$args
  */
 function _t(string $key, ...$args): string {
 	return Minz_Translate::t($key, ...$args);

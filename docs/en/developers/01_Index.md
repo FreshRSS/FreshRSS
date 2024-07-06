@@ -6,7 +6,7 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 
 ## After That
 
-* [Github Branching and Pushing](02_Github.md)
+* [GitHub Branching and Pushing](02_GitHub.md)
 * [Running tests](03_Running_tests.md)
 * [Creating a pull request](04_Pull_requests.md)
 * [Releasing a new version](05_Release_new_version.md)

@@ -4,6 +4,7 @@
 /*============*/
 :root {
 	--background-color-dark: #171717;
+	--background-color-dark-transparent: #171717aa;
 	--background-color-middle: #1f1f1f;
 	--background-color-light: #262626;
 	--background-color-hover: #1d242f;
@@ -49,7 +50,7 @@
 html, body {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-middle);
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -129,8 +130,8 @@ th {
 	background: var(--background-color-light);
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -140,7 +141,7 @@ form th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background: var(--background-color-dark);
+	background-color: var(--background-color-dark-transparent);
 	border-top: 1px solid var(--border-color-dark);
 }
 
@@ -208,7 +209,6 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background: var(--background-color-dark);
-	display: inline-block;
 	color: var(--font-color-middle);
 	font-size: 0.9rem;
 	border: 1px solid var(--border-color-middle);
@@ -217,8 +217,6 @@ form th {
 	min-width: 15px;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .btn:hover {
@@ -750,11 +748,11 @@ kbd {
 	background: var(--background-color-dark);
 }
 
-.flux.not_read:not(.current):hover .item.title {
-	background: inherit;
+.flux.not_read:not(.current):hover .item .title {
+	background: var(--background-color-hover);
 }
 
-.flux:not(.current):hover .item.title {
+.flux:not(.current):hover .item .title {
 	background: var(--background-color-hover);
 }
 
@@ -762,11 +760,11 @@ kbd {
 	background: var(--background-color-hover);
 }
 
-.flux .item.title a {
+.flux .flux_header .item .title {
 	color: var(--font-color-light);
 }
 
-.flux .item.title .author {
+.flux .flux_header .item .title .author {
 	color: var(--font-color-dark);
 }
 
@@ -797,9 +795,9 @@ kbd {
 	filter: grayscale(0.8) brightness(1.7);
 }
 
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--font-color-light);
-	font-size: 0.7rem;
 }
 
 .flux .bottom {
@@ -925,11 +923,7 @@ kbd {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background: var(--background-color-light);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -954,9 +948,7 @@ kbd {
 }
 
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--font-color-dark);
-	font-size: 90%;
 }
 
 #stream-footer {

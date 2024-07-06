@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (για έμπειρους χρήστες με )',
 		'none' => 'Καμία (ριψοκίνδυνο)',
 		'title' => 'Πιστοποίηση',
-		'token' => 'Διακριτικό Πιστοποίησης (token)',
-		'token_help' => 'Επιτρέπει την πρόσβαση στα RSS αποτελέσματα του προεπιλεγμένου χρήστη χωρίς έλεγχο ταυτότητας:',
+		'token' => 'Master authentication token',	// TODO
+		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Μέθοδος Πιστοποίησης',
 		'unsafe_autologin' => 'Επιτρέψτε την μη ασφαλή αυτόματη σύνδεση με την χρήση της μορφής: ',
 	),
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stable release (“latest”)',	// TODO
 		),
 		'title' => 'Ενημέρωση συστήματος',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Update via git and GitHub.com started',	// TODO
 	),
 	'user' => array(
 		'admin' => 'Διαχειριστής',

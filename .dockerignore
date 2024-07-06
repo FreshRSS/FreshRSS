@@ -1,4 +1,6 @@
+/.devcontainer/
 /.git/
+/.github/
 /bin/
 /data/
 /docs/

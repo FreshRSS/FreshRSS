@@ -61,7 +61,6 @@
 	margin: 0;
 	padding: 0.5rem 1.5rem;
 	background: #fcfaf8;
-	display: inline-block;
 	color: #766556;
 	font-size: 1rem;
 	border: none;
@@ -70,8 +69,6 @@
 	min-width: 15px;
 	line-height: 25px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 	transition: all 0.15s ease-in-out;
 }
 .btn.btn-important {
@@ -198,8 +195,8 @@ th {
 	background: #fcfaf8;
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -609,7 +606,6 @@ form th {
 	color: #766556;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	margin-top: 1rem;
 }
 .nav-list .nav-form {
 	padding: 3px;
@@ -977,10 +973,6 @@ main.prompt {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: #fbf9f6;
 }
 
@@ -992,7 +984,7 @@ main.prompt {
 .flux .flux_header:hover {
 	background: #fcfaf8;
 }
-.flux .flux_header:hover:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item .title {
 	background: #fcfaf8;
 }
 .flux.current {
@@ -1005,16 +997,16 @@ main.prompt {
 .flux.not_read:not(.current) {
 	background: #f2f6f8;
 }
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current):hover .item .title {
 	background: #f2f6f8;
 }
-.flux.not_read .item.title a {
+.flux.not_read .item .title a {
 	color: #161a38;
 }
 .flux.not_read .item.website a {
 	color: #161a38;
 }
-.flux.not_read .item.date {
+.flux.not_read .item .date {
 	color: rgba(22, 26, 56, 0.5);
 }
 .flux.favorite {
@@ -1024,14 +1016,15 @@ main.prompt {
 .flux.favorite:not(.current) {
 	background: #fff6da;
 }
-.flux.favorite:not(.current):hover .item.title {
+.flux.favorite:not(.current):hover .item .title {
 	background: #fff6da;
 }
 .flux .website a {
 	color: #363330;
 	opacity: 0.75;
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: rgba(54, 51, 48, 0.5);
 	font-size: 0.85rem;
 }
@@ -1114,9 +1107,7 @@ main.prompt {
 	border: none;
 }
 #stream.reader .flux .content .author {
-	margin: 0 0 10px;
 	color: #ba9;
-	font-size: 90%;
 }
 
 /*=== Configuration pages */
@@ -1296,8 +1287,8 @@ main.prompt {
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
 	}
-	#nav_entries {
-		line-height: 4.5rem;
+	#nav_entries button {
+		height: 4.5rem;
 	}
 	.notification {
 		border-radius: 0;

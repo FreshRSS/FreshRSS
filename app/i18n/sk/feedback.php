@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
-		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Vaše kanály boli importované. Ak ste s importovaním skončili, kliknite na tlačidlo <i>Aktualizovať kanále</i>.',
+		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby. Ak ste s importovaním skončili, kliknite na tlačidlo <i>Aktualizovať kanále</i>.',
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
-		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',	// DIRTY
+		'zip_error' => 'Počas importovania ZIP súboru sa vyskytla chyba.',
 	),
 	'profile' => array(
 		'error' => 'Váš profil nie je možné upraviť',
@@ -116,8 +116,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Štítok “%s” bol vytvorený.',
+		'error' => 'Štítok sa nepodarilo aktualizovať!',
 		'name_exists' => 'Názov štítku už existuje.',
 		'renamed' => 'Štítok “%s” bol premenovaný na “%s”.',
+		'updated' => 'Štítok bol aktualizovaný.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',

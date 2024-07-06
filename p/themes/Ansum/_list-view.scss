@@ -15,7 +15,7 @@
 		&:hover {
 			background: variables.$grey-lighter;
 
-			&:not(.current):hover .item.title {
+			&:not(.current):hover .item .title {
 				background: variables.$grey-lighter;
 			}
 		}
@@ -33,13 +33,13 @@
 	&.not_read:not(.current) {
 		background: variables.$unread-bg;
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background: variables.$unread-bg;
 		}
 	}
 
 	&.not_read {
-		.item.title {
+		.item .title {
 			a {
 				color: variables.$unread-font-color;
 			}
@@ -51,7 +51,7 @@
 			}
 		}
 
-		.item.date {
+		.item .date {
 			color: color.scale(variables.$unread-font-color, $alpha: -50%);
 		}
 	}
@@ -65,7 +65,7 @@
 	&.favorite:not(.current) {
 		background: variables.$fav-light;
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background: variables.$fav-light;
 		}
 	}
@@ -77,7 +77,8 @@
 		}
 	}
 
-	.item.date {
+	.flux_header .date,
+	.flux_content .bottom .date {
 		color: color.scale(variables.$main-font-color, $alpha: -50%);
 		font-size: 0.85rem;
 	}

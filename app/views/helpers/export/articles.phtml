@@ -24,7 +24,7 @@ foreach ($this->entries as $entry) {
 		continue;
 	}
 
-	$feed = $this->feed ?? FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feedId());
+	$feed = $this->feed ?? FreshRSS_Category::findFeed($this->categories, $entry->feedId());
 	$entry->_feed($feed);
 
 	$article = $entry->toGReader('freshrss', $this->entryIdsTagNames['e_' . $entry->id()] ?? []);

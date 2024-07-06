@@ -29,6 +29,11 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URLyi aç',
 		'promote' => 'Yöneticilik ata',
 		'purge' => 'Temizle',
@@ -134,12 +139,12 @@ return array(
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Etiketsiz',
 		'new_article' => 'Yeni makaleler mevcut. Sayfayı yenilemek için tıklayın.',
 		'should_be_activated' => 'JavaScript aktif olmalıdır.',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -178,7 +183,7 @@ return array(
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',
 		'search' => 'Kelime veya #etiket ara',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Daha detaylı bilgi için dökümantasyonu inceleyin <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Arama parametreleri</a>',
 		'sharing' => 'Paylaşım',
 		'shortcuts' => 'Kısayollar',
 		'stats' => 'İstatistikler',
@@ -198,12 +203,11 @@ return array(
 		'Known' => 'Bilinen siteler',
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Kopyala',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Email (webmail - Firefox için düzeltme)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

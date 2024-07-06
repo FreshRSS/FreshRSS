@@ -159,7 +159,7 @@ class Minz_Session {
 	 * @param bool $force if false, does not clear the language parameter
 	 */
 	public static function unset_session(bool $force = false): void {
-		$language = self::param('language');
+		$language = self::paramString('language');
 
 		if (!self::$volatile) {
 			session_destroy();

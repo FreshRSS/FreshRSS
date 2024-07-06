@@ -17,7 +17,7 @@ return array(
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_favourites' => 'Favorileri asla silme',
 		'keep_labels' => 'Etiketleri asla silme',
-		'keep_max' => 'Bellekte tutulacak en fazla makale sayısı',	// DIRTY
+		'keep_max' => 'Bellekte tutulacak maksimum makale sayısı',
 		'keep_min_by_feed' => 'Akışta en az tutulacak makale sayısı',
 		'keep_period' => 'Bellekte tutulacak en eski makale tarihi',
 		'keep_unreads' => 'Okunmamaış makaleleri asla silme',
@@ -33,9 +33,10 @@ return array(
 	'display' => array(
 		'_' => 'Görünüm',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Otomatik karanlık mod',
+			'auto' => 'Otomatik',
+			'help' => 'For compatible themes only',	// TODO
+			'no' => 'Kapalı',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alt çizgi',
@@ -56,8 +57,8 @@ return array(
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Kullanımdan kalkanlar',
+				'description' => 'Bu tema artık desteklenmiyor ve <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSS in yeni sürümlerinde </a> kullanılamayacak',
 			),
 		),
 		'theme_not_available' => '“%s” teması şuan uygun değilç Lütfen başka bir tema seçin.',
@@ -68,7 +69,7 @@ return array(
 			'portrait' => 'Portre',
 			'square' => 'Kare',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Saat dilimi',
 		'title' => 'Görünüm',
 		'website' => array(
 			'full' => 'simgesi and adı',
@@ -114,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtre uygulandı:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Akışa göre göster',
 			'order' => 'Tarihe göre göster',
 			'search' => 'İfade',
+			'shareOpml' => 'İlgili kategorilerin ve yayınların OPML ile paylaşılmasını etkinleştir',
+			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
 			'state' => 'Durum',
 			'tags' => 'Etikete göre göster',
 			'type' => 'Tür',
 		),
 		'get_all' => 'Tüm makaleleri göster',
+		'get_all_labels' => 'Herhangi etikete sahip makaleleri göster ',
 		'get_category' => '“%s” kategorisini göster',
 		'get_favorite' => 'Favori makaleleri göster',
 		'get_feed' => '“%s” akışını göster',
+		'get_important' => 'Önemli akışındaki makaleleri göster',
+		'get_label' => '“%s” etiketine sahip makaleleri göster',
+		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Kullanıcı aramaları ve HTML / RSS / OPML ile paylaşım hakkında dökümantasyonu</a> görüntüleyin.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'İsim',
 		'no_filter' => 'Filtre yok',
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
 		'search' => '“%s” için arama',
+		'share' => array(
+			'_' => 'Bu aramayı linkle paylaşın',
+			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
+			'html' => 'HTML sayfasına paylaşılabilir bağlantı',
+			'opml' => 'OMPL listesine paylaşılabilir bağlantı',
+			'rss' => 'RSS akışına paylaşılabilir bağlantı',
+		),
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
 		'state_2' => 'Okunmamış makaleleri göster',
@@ -170,6 +186,11 @@ return array(
 				'with_authors' => 'Yazarlar ve tarihler satırında',
 			),
 			'feed_title' => 'Akış Başlığı',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiketler',
 				'both' => 'Üst Bilgi ve Alt Bilgide',
@@ -204,9 +225,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'orijinal makale sitesi açıldığında',
 			'article_viewed' => 'makale görüntülendiğinde',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'Odaklanıldığında (önemli akışı hariç)',
 			'keep_max_n_unread' => 'Okunmadı tutulacak maksimum metin sayısı',
-			'scroll' => 'kaydırma yapılırken (except for important feeds)',	// DIRTY
+			'scroll' => 'kaydırma yapılırken (önemli akışı hariç)',
 			'upon_gone' => 'Yeni akışta üst sıralarda değilken',
 			'upon_reception' => 'makale üzerinde gelince',
 			'when' => 'Makaleyi okundu olarak işaretle…',
@@ -241,8 +262,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Paylaşım',
 		'add' => 'Bir paylaşım türü ekle',
-		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">Gelecek dağıtımda</a>.',
+		'deprecated' => 'Bu servis kullanımdan kaldırılmıştır ve gelecekteki bir FreshRSS dağıtımında kaldırılacaktır. Daha fazla bilgi için <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Daha fazla bilgi için belgeyi açın" target="_blank">buraya</a> tıklayın.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Affichage',
 		'darkMode' => array(
-			'_' => 'Mode sombre automatique (bêta)',
+			'_' => 'Mode sombre automatique',
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'Seulement pour les thèmes compatibles',
 			'no' => 'Non',
 		),
 		'icon' => array(
@@ -114,26 +115,41 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
+		'description' => 'Description',	// IGNORE
 		'filter' => array(
 			'_' => 'Filtres appliqués :',
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
 			'search' => 'Expression',	// IGNORE
+			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
+			'shareRss' => 'Active le partage par HTML &amp; RSS',
 			'state' => 'État',
 			'tags' => 'Afficher par étiquette',
 			'type' => 'Type',	// IGNORE
 		),
 		'get_all' => 'Afficher tous les articles',
+		'get_all_labels' => 'Afficher les articles avec une étiquette',
 		'get_category' => 'Afficher la catégorie <em>%s<em>',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux <em>%s</em>',
+		'get_important' => 'Afficher les articles des flux importants',
+		'get_label' => 'Afficher les articles avec l’étiquette “%s”',
+		'help' => 'Voir la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation pour les filtres utilisateurs et repartage par HTML / RSS / OPML</a>.',
+		'image_url' => 'URL de l’image',
 		'name' => 'Nom',
 		'no_filter' => 'Aucun filtre appliqué',
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
 		'search' => 'Recherche de « %s »',
+		'share' => array(
+			'_' => 'Partager ce filtre par lien',
+			'help' => 'Donner ce lien pour partager le contenu du filtre avec d’autres personnes',
+			'html' => 'Lien partageable de la page HTML',
+			'opml' => 'Lien partageable de la liste des flux au format OPML',
+			'rss' => 'Lien partageable du flux RSS',
+		),
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',
 		'state_2' => 'Afficher les articles non lus',
@@ -170,6 +186,11 @@ return array(
 				'with_authors' => 'Sur la ligne « Auteurs et date »',
 			),
 			'feed_title' => 'Titre du flux',
+			'icons' => array(
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
+				'above_title' => 'Au dessus du titre',
+				'with_authors' => 'Sur la ligne auteur et date',
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'En en-tête et en pied d’article',
@@ -241,7 +262,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',

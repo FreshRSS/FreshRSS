@@ -66,9 +66,14 @@ return array(
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
+		'export-as-opml' => array(
+			'download' => 'Stáhnout',
+			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Exportovat jako OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Akce filtrování',
-			'help' => 'Zapište jeden filtr hledání na řádek. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Zapište jeden filtr hledání na řádek. Operátoři <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">viz dokumentace</a>.',
 		),
 		'information' => 'Informace',
 		'keep_min' => 'Minimální počet článků pro ponechání',
@@ -99,8 +104,8 @@ return array(
 					'help' => 'Příklad: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Vlastní formát data a času',
+					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',
@@ -121,8 +126,47 @@ return array(
 				'relative' => 'XPath (vzhledem k položce) pro:',
 				'xpath' => 'XPath pro:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON s tečkovým zápisem (dot notation)',
+				'feed_title' => array(
+					'_' => 'název kanálu',
+					'help' => 'Příklad: <code>meta.title</code> nebo statický řetězec: <code>"Můj vlastní kanál"</code>',
+				),
+				'help' => 'JSON s tečkovým zápisem používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'vyhledávání nových <strong>položek</strong><br /><small>(nejdůležitější)</small>',
+					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>newsItems</code>',
+				),
+				'item_author' => 'autor položky',
+				'item_categories' => 'štítky položky',
+				'item_content' => array(
+					'_' => 'obsah položky',
+					'help' => 'Klíč, pod kterým se obsah nachází, např.: <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'náhled položky',
+					'help' => 'Příklad: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Vlastní formát data a času',
+					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'datum položky',
+					'help' => 'Výsledek bude analyzován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'název položky',
+				'item_uid' => 'unikátní ID položky',
+				'item_uri' => array(
+					'_' => 'odkaz na položku (adresa URL)',
+					'help' => 'Příklad: <code>permalink</code>',
+				),
+				'json' => 'tečkový zápis pro:',
+				'relative' => 'cesta s tečkovým zápisem (relativní k položce) pro:',
+			),
+			'jsonfeed' => 'Zdroj JSON',
 			'rss' => 'RSS / Atom (výchozí)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vymazat mezipaměť',
@@ -133,6 +177,11 @@ return array(
 		),
 		'max_http_redir' => 'Maximální počet přesměrování HTTP',
 		'max_http_redir_help' => 'Nastavte na 0 nebo nechte prázdné pro zakázání, -1 pro neomezené přesměrování.',
+		'method' => array(
+			'_' => 'Metoda HTTP',
+		),
+		'method_help' => 'Payload metody POST má automatickou podporu pro <code>application/x-www-form-urlencoded</code> a <code>application/json</code>',
+		'method_postparams' => 'Payload pro metodu POST',
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'ztlumit',
 		'no_selected' => 'Nejsou vybrány žádné kanály.',
@@ -141,11 +190,11 @@ return array(
 			'_' => 'Viditelnost',
 			'archived' => 'Nezobrazovat (archivováno)',
 			'category' => 'Zobrazit v jeho kategorii',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'Zobrazit v důležitých kanálech',
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
 		),
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
-		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> nebo <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Zobrazit zdrojový kód',
 			'show_rendered' => 'Zobrazit obsah',
@@ -196,6 +245,7 @@ return array(
 		'subscription_tools' => 'Nástroje odběrů',
 	),
 	'tag' => array(
+		'auto_label' => 'Přidat tento štítek k novým článkům',
 		'name' => 'Název',
 		'new_name' => 'Nový název',
 		'old_name' => 'Starý název',

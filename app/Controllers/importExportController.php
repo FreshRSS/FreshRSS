@@ -15,6 +15,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -242,10 +243,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, static function ($v) {
-					// Filter out empty properties, potentially reported as empty objects
-					return (is_string($v) && trim($v) !== '') || !empty($v);
-				});
+			$item = array_filter($item, static fn($v) =>
+				// Filter out empty properties, potentially reported as empty objects
+				(is_string($v) && trim($v) !== '') || !empty($v));
 			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
 			$item['content'] = ['content' => $item['content'] ?? ''];
@@ -289,7 +289,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 */
 	private function importJson(string $article_file, bool $starred = false): bool {
 		$article_object = json_decode($article_file, true);
-		if ($article_object == null) {
+		if (!is_array($article_object)) {
 			if (FreshRSS_Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS error trying to import a non-JSON file' . "\n");
 			} else {
@@ -299,14 +299,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 		$items = $article_object['items'] ?? $article_object;
 
-		$mark_as_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
+		$mark_as_read = FreshRSS_Context::userConf()->mark_when['reception'] ? 1 : 0;
 
 		$error = false;
 		$article_to_feed = [];
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$newFeedGuids = [];
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($items as &$item) {
@@ -364,7 +364,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$labels = $tagDAO->listTags() ?: [];
+		$labels = FreshRSS_Context::labels();
 		$knownLabels = [];
 		foreach ($labels as $label) {
 			$knownLabels[$label->name()]['id'] = $label->id();
@@ -563,7 +563,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if ($feed != null) {
+			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.
 				$id = $this->feedDAO->addFeedObject($feed);
@@ -601,7 +601,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
-		$username = Minz_User::name();
+		$username = Minz_User::name() ?? '_';
 		$export_service = new FreshRSS_Export_Service($username);
 
 		$export_opml = Minz_Request::paramBoolean('export_opml');

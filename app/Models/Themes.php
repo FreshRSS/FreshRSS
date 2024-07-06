@@ -38,11 +38,12 @@ class FreshRSS_Themes extends Minz_Model {
 			if (file_exists($json_filename)) {
 				$content = file_get_contents($json_filename) ?: '';
 				$res = json_decode($content, true);
-				if ($res &&
+				if (is_array($res) &&
 						!empty($res['name']) &&
 						isset($res['files']) &&
 						is_array($res['files'])) {
 					$res['id'] = $theme_id;
+					/** @var array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}} */
 					return $res;
 				}
 			}
@@ -155,7 +156,7 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		if ($type == self::ICON_DEFAULT) {
-			if ((FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis)
+			if ((FreshRSS_Context::hasUserConf() && FreshRSS_Context::userConf()->icons_as_emojis)
 				// default to emoji alternate for some icons
 				) {
 				$type = self::ICON_EMOJI;

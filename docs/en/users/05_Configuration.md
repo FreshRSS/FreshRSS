@@ -13,7 +13,7 @@ Available languages are:
 
 | Language (English name) | Language (Endonym) | Ordered by language code (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
-| Czech                   | Čeština                | cz                                   |
+| Czech                   | Čeština                | cs                                   |
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |
 | English                 | English                | en                                   |
@@ -167,10 +167,7 @@ This means that if you assign a shortcut to more than one action, you’ll end u
 
 # User queries
 
-You can configure your [user queries](./03_Main_view.md) in that section. There is not much to say here as it is pretty straightforward.
-You can only change user query titles or drop them.
-
-At the moment, there is no helper to build a user query from here.
+You can configure your [user queries](./user_queries.md) in that section.
 
 # Profile
 
@@ -179,6 +176,45 @@ You can change your email address or password here. The authentication token is 
 # Extensions
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
+
+Some extensions have configurations and these can be changed in the manage page, which opens with the button near the name of the extension.
+
+## User CSS
+
+It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+
+### Example: Getting rid of Top Menu Items
+
+The Top Menu within the mobile view might look a little bit cluttered, depending on the theme. The following CSS rules allow to hide unnecessary top menu buttons or input boxes.
+
+```css
+@media (max-width: 840px)
+{
+    /* Hides "Actions" Menu in Mobile View */
+    #nav_menu_actions {
+        display: none;
+    }
+
+    /* Hides "Views" Menu in Mobile View */
+    #nav_menu_views {
+        display: none;
+    }
+
+    /* Hides "Search" Input Box in Mobile View */
+    .nav_menu .item.search {
+        display: none;
+    }
+
+    /* Hides the Dropdown Menu Button next to the "Mark all read" Button in Mobile View */
+    #mark-read-menu .dropdown {
+        display: none;
+    }
+}
+```
+
+## User JS
+
+It gives ability to create user-specific JS.
 
 # Users
 
@@ -202,4 +238,3 @@ Require user marie
 ```
 
 More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
-

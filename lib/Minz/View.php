@@ -30,6 +30,7 @@ class Minz_View {
 
 	/**
 	 * Determines if a layout is used or not
+	 * @throws Minz_ConfigurationException
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
@@ -345,6 +346,7 @@ class Minz_View {
 
 	public function attributeParams(): void {
 		foreach (Minz_View::$params as $key => $value) {
+			// @phpstan-ignore property.dynamicName
 			$this->$key = $value;
 		}
 	}

@@ -21,7 +21,7 @@ class I18nValue {
 		}
 		$data = explode(' -> ', $data);
 
-		$this->value = array_shift($data);
+		$this->value = (string)(array_shift($data) ?? '');
 		if (count($data) === 0) {
 			return;
 		}
@@ -66,6 +66,7 @@ class I18nValue {
 		}
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		if ($this->state === null) {
 			return $this->value;

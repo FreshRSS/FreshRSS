@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (voor gevorderde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
 		'title' => 'Authenticatie',
-		'token' => 'Authenticatie teken',
-		'token_help' => 'Sta toegang toe tot de RSS uitvoer van de standaard gebruiker zonder authenticatie:',
+		'token' => 'Hoofdauthenticatietoken',
+		'token_help' => 'Geeft toegang tot alle RSS-uitvoer van de gebruiker en kan feeds verversen zonder authenticatie:',
 		'type' => 'Authenticatie methode',
 		'unsafe_autologin' => 'Sta onveilige automatische log in toe met het volgende formaat: ',
 	),
@@ -194,7 +194,7 @@ return array(
 			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">algemene voorwaarden inschakelen</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Over <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
@@ -213,7 +213,7 @@ return array(
 			'latest' => 'Stabiele release (“latest”)',
 		),
 		'title' => 'Vernieuw systeem',
-		'viaGit' => 'Update via git and Github.com gestart',
+		'viaGit' => 'Update via git and GitHub.com gestart',
 	),
 	'user' => array(
 		'admin' => 'Beheerder',
