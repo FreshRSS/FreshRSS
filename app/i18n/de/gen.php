@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_read' => 'Als gelesen markieren',
+		'menu' => array(
+			'open' => 'Menü öffnen',
+		),
 		'nav_buttons' => array(
 			'next' => 'Nächster Artikel',
 			'prev' => 'Vorheriger Artikel',

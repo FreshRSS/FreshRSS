@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Öntanımlı kısayolları yükle',
 		'manage' => 'Yönet',
 		'mark_read' => 'Okundu olarak işaretle',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO

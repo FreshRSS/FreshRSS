@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
 		'mark_read' => 'Označiť ako prečítané',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO

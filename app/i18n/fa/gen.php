@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => ' میانبرهای پیش فرض را بارگیری کنید',
 		'manage' => ' مدیریت',
 		'mark_read' => ' علامت گذاری به عنوان خوانده شده',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
