@@ -30,7 +30,7 @@ return array(
 		'manage' => 'Gérer',
 		'mark_read' => 'Marquer comme lu',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Ouvrir le menu',
 		),
 		'nav_buttons' => array(
 			'next' => 'Article suivant',
