@@ -31,15 +31,16 @@ class FreshRSS_Auth {
 			]);
 		}
 
-		if (self::$login_ok) {
-			self::giveAccess();
-		} elseif (self::accessControl() && self::giveAccess()) {
-			FreshRSS_UserDAO::touch();
-		} else {
-			// Be sure all accesses are removed!
-			self::removeAccess();
+		if (self::$login_ok && self::giveAccess()) {
+			return self::$login_ok;
 		}
-		return self::$login_ok;
+		if (self::accessControl() && self::giveAccess()) {
+			FreshRSS_UserDAO::touch();
+			return self::$login_ok;
+		}
+		// Be sure all accesses are removed!
+		self::removeAccess();
+		return false;
 	}
 
 	/**
@@ -103,7 +104,7 @@ class FreshRSS_Auth {
 	 */
 	public static function giveAccess(): bool {
 		FreshRSS_Context::initUser();
-		if (!FreshRSS_Context::hasUserConf()) {
+		if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 			self::$login_ok = false;
 			return false;
 		}
