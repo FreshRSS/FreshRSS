@@ -29,7 +29,9 @@ return array(
 			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
+		'expand' => 'Développer la catégorie',
 		'information' => 'Informations',
+		'open' => 'Ouvrir la catégorie',
 		'opml_url' => 'URL de l’OPML',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'Les données POST supportent automatiquement <code>application/x-www-form-urlencoded</code> et <code>application/json</code>',
 		'method_postparams' => 'Données pour POST',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
-		'mute' => 'désactivé',
+		'mute' => array(
+			'_' => 'désactivé',
+			'state_is_muted' => 'Ce flux est désactivé',
+		),
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Ouvrir le flux %s',
 		'priority' => array(
 			'_' => 'Visibilité',
 			'archived' => 'Ne pas afficher (archivé)',
