@@ -43,7 +43,7 @@ abstract class CliOptionsParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	protected function addOption(string $name, CliOption $option, string $defaultInput = null): void {
+	protected function addOption(string $name, CliOption $option, ?string $defaultInput = null): void {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
