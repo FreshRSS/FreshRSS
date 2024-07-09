@@ -8,7 +8,8 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
 	apache2 php84-apache2 \
 	apache-mod-auth-openidc \
 	php84 php84-curl php84-gmp php84-intl php84-mbstring php84-xml php84-zip \
-	php84-ctype php84-dom php84-fileinfo php84-iconv php84-json php84-opcache php84-openssl php84-phar php84-session php84-simplexml php84-xmlreader php84-xmlwriter php84-xml php84-tokenizer php84-zlib \
+	php84-ctype php84-dom php84-fileinfo php84-iconv php84-json php84-openssl php84-phar php84-session php84-simplexml php84-xmlreader php84-xmlwriter php84-xml php84-tokenizer php84-zlib \
+	# TODO: Re-add php84-opcache with PHP > 8.4.0alpha1. See https://github.com/php/php-src/issues/14873
 	php84-pdo_sqlite php84-pdo_mysql php84-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
