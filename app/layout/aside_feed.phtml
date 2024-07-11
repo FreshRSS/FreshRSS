@@ -66,8 +66,8 @@
 				?>
 				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : '' ?>" data-unread="<?= $tag->nbUnread() ?>">
 					<div class="dropdown no-mobile">
-						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle"><?= _i('configure') ?></a>
+						<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
+						<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
 					<a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
