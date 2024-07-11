@@ -274,45 +274,14 @@ SQL;
 	}
 
 	/**
-	 * Count the number of new entries in the temporary table (which have not yet been committed), grouped by read / unread.
-	 * @return array{'all':int,'unread':int,'read':int}
+	 * Count the number of new entries in the temporary table (which have not yet been committed).
 	 */
-	public function countNewEntries(): array {
+	public function countNewEntries(): int {
 		$sql = <<<'SQL'
-		SELECT is_read, COUNT(id) AS nb_entries FROM `_entrytmp`
-		GROUP BY is_read
+		SELECT COUNT(id) AS nb_entries FROM `_entrytmp`
 		SQL;
-		$lines = $this->fetchAssoc($sql) ?? [];
-		$nbRead = 0;
-		$nbUnread = 0;
-		foreach ($lines as $line) {
-			if (empty($line['is_read'])) {
-				$nbUnread = (int)($line['nb_entries'] ?? 0);
-			} else {
-				$nbRead = (int)($line['nb_entries'] ?? 0);
-			}
-		}
-		return ['all' => $nbRead + $nbUnread, 'unread' => $nbUnread, 'read' => $nbRead];
-	}
-
-	/**
-	 * Count the number of new unread entries in the temporary table (which have not yet been committed), grouped by feed ID.
-	 * @return array<int,int>
-	 */
-	public function newUnreadEntriesPerFeed(): array {
-		$sql = <<<'SQL'
-		SELECT id_feed, COUNT(id) AS nb_entries FROM `_entrytmp`
-		WHERE is_read = 0
-		GROUP BY id_feed
-		SQL;
-		$lines = $this->fetchAssoc($sql) ?? [];
-		$result = [];
-		foreach ($lines as $line) {
-			if (!empty($line['id_feed'])) {
-				$result[(int)$line['id_feed']] = (int)($line['nb_entries'] ?? 0);
-			}
-		}
-		return $result;
+		$res = $this->fetchColumn($sql, 0);
+		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
 	/**
@@ -343,7 +312,7 @@ SQL;
 		}
 		$sql = 'UPDATE `_entry` '
 			. 'SET is_favorite=? '
-			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
 		$values = [$is_favorite ? 1 : 0];
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
@@ -404,7 +373,6 @@ SQL;
 	 * @return int|false affected rows
 	 */
 	public function markRead($ids, bool $is_read = true) {
-		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
@@ -422,9 +390,10 @@ SQL;
 				return $affected;
 			}
 
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` '
 				 . 'SET is_read=? '
-				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
 			$values = [$is_read ? 1 : 0];
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
@@ -439,6 +408,7 @@ SQL;
 			}
 			return $affected;
 		} else {
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
 				 . 'SET e.is_read=?,'
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
@@ -651,7 +621,7 @@ SQL;
 	}
 
 	/**
-	 * Remember to call updateCachedValue($id_feed) or updateCachedValues() just after.
+	 * Remember to call updateCachedValues($id_feed) or updateCachedValues() just after.
 	 * @param array<string,bool|int|string> $options
 	 * @return int|false
 	 */
@@ -793,7 +763,7 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
-					} elseif ($filter->operator() === 'AND NOT') {
+					} elseif (in_array($filter->operator(), ['AND NOT', 'OR NOT'], true)) {
 						// Special case if we start with a negation (there is already the default AND before)
 						$search .= ' NOT';
 					}
@@ -1093,43 +1063,43 @@ SQL;
 		$where = '';
 		$values = [];
 		switch ($type) {
-		case 'a':	//All PRIORITY_MAIN_STREAM
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
-			break;
-		case 'A':	//All except PRIORITY_ARCHIVED
-			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
-			break;
-		case 'i':	//Priority important feeds
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
-			break;
-		case 's':	//Starred. Deprecated: use $state instead
-			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
-			$where .= 'AND e.is_favorite=1 ';
-			break;
-		case 'S':	//Starred
-			$where .= 'e.is_favorite=1 ';
-			break;
-		case 'c':	//Category
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
-			$where .= 'AND f.category=? ';
-			$values[] = $id;
-			break;
-		case 'f':	//Feed
-			$where .= 'e.id_feed=? ';
-			$values[] = $id;
-			break;
-		case 't':	//Tag (label)
-			$where .= 'et.id_tag=? ';
-			$values[] = $id;
-			break;
-		case 'T':	//Any tag (label)
-			$where .= '1=1 ';
-			break;
-		case 'ST':	//Starred or tagged (label)
-			$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `_entrytag` et2 WHERE et2.id_entry = e.id) ';
-			break;
-		default:
-			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
+			case 'a':	//All PRIORITY_MAIN_STREAM
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
+				break;
+			case 'A':	//All except PRIORITY_ARCHIVED
+				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+				break;
+			case 'i':	//Priority important feeds
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
+				break;
+			case 's':	//Starred. Deprecated: use $state instead
+				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+				$where .= 'AND e.is_favorite=1 ';
+				break;
+			case 'S':	//Starred
+				$where .= 'e.is_favorite=1 ';
+				break;
+			case 'c':	//Category
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
+				$where .= 'AND f.category=? ';
+				$values[] = $id;
+				break;
+			case 'f':	//Feed
+				$where .= 'e.id_feed=? ';
+				$values[] = $id;
+				break;
+			case 't':	//Tag (label)
+				$where .= 'et.id_tag=? ';
+				$values[] = $id;
+				break;
+			case 'T':	//Any tag (label)
+				$where .= '1=1 ';
+				break;
+			case 'ST':	//Starred or tagged (label)
+				$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `_entrytag` et2 WHERE et2.id_entry = e.id) ';
+				break;
+			default:
+				throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
@@ -1288,7 +1258,7 @@ SQL;
 		}
 		$guids = array_unique($guids);
 		$sql = 'SELECT guid, ' . static::sqlHexEncode('hash') .
-			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
 		$stm = $this->pdo->prepare($sql);
 		$values = [$id_feed];
 		$values = array_merge($values, $guids);
@@ -1325,7 +1295,7 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();

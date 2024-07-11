@@ -38,9 +38,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 */
 	private static function megabytes(string $size_str) {
 		switch (substr($size_str, -1)) {
-			case 'M': case 'm': return (int)$size_str;
-			case 'K': case 'k': return (int)$size_str / 1024;
-			case 'G': case 'g': return (int)$size_str * 1024;
+			case 'M':
+			case 'm':
+				return (int)$size_str;
+			case 'K':
+			case 'k':
+				return (int)$size_str / 1024;
+			case 'G':
+			case 'g':
+				return (int)$size_str * 1024;
 		}
 		return $size_str;
 	}
@@ -689,15 +695,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private static function filenameToContentType(string $filename): string {
 		$filetype = self::guessFileType($filename);
 		switch ($filetype) {
-		case 'zip':
-			return 'application/zip';
-		case 'opml':
-			return 'application/xml; charset=utf-8';
-		case 'json_starred':
-		case 'json_feed':
-			return 'application/json; charset=utf-8';
-		default:
-			return 'application/octet-stream';
+			case 'zip':
+				return 'application/zip';
+			case 'opml':
+				return 'application/xml; charset=utf-8';
+			case 'json_starred':
+			case 'json_feed':
+				return 'application/json; charset=utf-8';
+			default:
+				return 'application/octet-stream';
 		}
 	}
 }

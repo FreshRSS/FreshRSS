@@ -13,7 +13,7 @@ if (!ctype_alnum($token)) {
 }
 
 $format = Minz_Request::paramString('f');
-if (!in_array($format, ['atom', 'html', 'opml', 'rss'], true)) {
+if (!in_array($format, ['atom', 'greader', 'html', 'json', 'opml', 'rss'], true)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid format `f`!');
@@ -47,8 +47,13 @@ if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) 
 
 if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 	require(LIB_PATH . '/http-conditional.php');
+	$dateLastModification = max(
+		FreshRSS_UserDAO::ctime($user),
+		FreshRSS_UserDAO::mtime($user),
+		@filemtime(DATA_PATH . '/config.php') ?: 0
+	);
 	// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
-	if (httpConditional(FreshRSS_UserDAO::mtime($user) ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
+	if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
 		exit();	//No need to send anything
 	}
 }
@@ -63,7 +68,9 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
 		switch ($format) {
 			case 'atom':
+			case 'greader':
 			case 'html':
+			case 'json':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
@@ -157,10 +164,26 @@ if ($query->getName() != '') {
 }
 FreshRSS_Context::systemConf()->allow_anonymous = true;
 
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Max-Age: 600');
+header('Cache-Control: public, max-age=60');
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+	header('HTTP/1.1 204 No Content');
+	exit();
+}
+
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
+} elseif (in_array($format, ['greader', 'json'], true)) {
+	header('Content-Type: application/json; charset=utf-8');
+	$view->_layout(null);
+	$view->type = 'query/' . $token;
+	$view->list_title = $query->getName();
+	$view->entryIdsTagNames = [];	// Do not export user labels for privacy
+	$view->_path('helpers/export/articles.phtml');
 } elseif ($format === 'opml') {
 	if (!$query->safeForOpml()) {
 		Minz_Error::error(FreshRSS_HttpResponseCode::HTTP_404_NOT_FOUND, 'OPML not allowed for this user query!');
