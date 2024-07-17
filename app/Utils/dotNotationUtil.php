@@ -55,7 +55,7 @@ final class FreshRSS_dotNotation_Util
 	 */
 	public static function getString($array, ?string $key): ?string {
 		$result = self::get($array, $key, null);
-		return is_string($result) ? $result : null;
+		return is_string($result) || is_bool($result) || is_float($result) || is_int($result) ? (string)$result : null;
 	}
 
 	/**
