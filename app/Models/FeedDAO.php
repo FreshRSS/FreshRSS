@@ -203,7 +203,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/**
 	 * @return int|false
-	 * @see updateCachedValue()
+	 * @see updateCachedValues()
 	 */
 	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0) {
 		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
