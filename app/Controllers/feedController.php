@@ -659,11 +659,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
-			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() + $nbMarkedUnread > $feed->keepMaxUnread())) {
-				Minz_Log::debug('Existing unread entries (' . ($feed->nbNotRead() + $nbMarkedUnread) . ') exceeding max number of ' .
-					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
-				$needFeedCacheRefresh |= ($feed->markAsReadMaxUnread() != false);
-			}
 			if ($simplePiePush === null) {
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
@@ -751,28 +746,27 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	private static function keepMaxUnreads() {
 		$affected = 0;
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$newUnreadEntriesPerFeed = $entryDAO->newUnreadEntriesPerFeed();
+		$error = false;
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+		$feedIdsToUpdate = [];
 		foreach ($feeds as $feed) {
-			if (!empty($newUnreadEntriesPerFeed[$feed->id()]) && $feed->keepMaxUnread() !== null &&
-				($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()] > $feed->keepMaxUnread())) {
-				Minz_Log::debug('New unread entries (' . ($feed->nbNotRead() + $newUnreadEntriesPerFeed[$feed->id()]) . ') exceeding max number of ' .
+			if ($feed->keepMaxUnread() !== null && ($feed->nbNotRead() > $feed->keepMaxUnread())) {
+				Minz_Log::debug('New unread entries (' . $feed->nbNotRead() . ') exceeding max number of ' .
 					$feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
 				$n = $feed->markAsReadMaxUnread();
 				if ($n === false) {
-					$affected = false;
-					break;
+					$error = true;
 				} else {
 					$affected += $n;
+					$feedIdsToUpdate[] = $feed->id();
 				}
 			}
 		}
-		if ($feedDAO->updateCachedValues() === false) {
-			$affected = false;
+		if ($error || $affected > 0) {
+			return $feedDAO->updateCachedValues(...$feedIdsToUpdate);
 		}
-		return $affected;
+		return 0;
 	}
 
 	/**

@@ -453,20 +453,21 @@ SQL;
 	}
 
 	/**
+	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 * @return int|false
 	 */
-	public function updateCachedValues(int $id = 0) {
+	public function updateCachedValues(int ...$feedIds) {
 		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		$sql = 'UPDATE `_feed` '
-			. 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),'
-			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
-			. ($id != 0 ? ' WHERE id=:id' : '');
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $id != 0) {
-			$stm->bindParam(':id', $id, PDO::PARAM_INT);
+		$sql = <<<SQL
+UPDATE `_feed`
+SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),
+	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
+SQL;
+		if (count($feedIds) > 0) {
+			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1). '?)';
 		}
-
-		if ($stm !== false && $stm->execute()) {
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false && $stm->execute($feedIds)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
