@@ -55,6 +55,7 @@ People are sorted by name so please keep this order.
 * [Damien Leroy](https://github.com/ShiiFu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ShiiFu)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
 * [danc](https://github.com/danc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:danc), [Web](http://tintouli.free.fr/)
+* [Dani Servian](https://github.com/dservian): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dservian)
 * [Daniel Lo Nigro](https://github.com/Daniel15): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Daniel15), [Web](https://d.sb/)
 * [David Lynch](https://github.com/kemayo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kemayo), [Web](http://davidlynch.org/)
 * [David Souza](https://github.com/araujo0205): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:araujo0205), [Web](http://davidsouza.tech/)
@@ -254,4 +255,3 @@ People are sorted by name so please keep this order.
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
 * [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
-* [Dani Servian](https://github.com/dservian): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dservian)
