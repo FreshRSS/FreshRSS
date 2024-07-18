@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivo',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinámico',
-			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con feeds',
+			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con fuentes',
 		),
 		'empty' => 'Vaciar categoría',
 		'expand' => 'Expandir categoría',
@@ -39,7 +39,7 @@ return array(
 	),
 	'feed' => array(
 		'accept_cookies' => 'Aceptar cookies',
-		'accept_cookies_help' => 'Permitir que el servidor de feed configure las cookies (guardadas en memoria únicamente para el tiempo de vida de la solicitud)',
+		'accept_cookies_help' => 'Permitir que el servidor de fuentes configure las cookies (guardadas en memoria únicamente para el tiempo de vida de la solicitud)',
 		'add' => 'Añadir fuente RSS',
 		'advanced' => 'Avanzado',
 		'archiving' => 'Archivo',
@@ -53,8 +53,8 @@ return array(
 		'clear_cache' => 'Borrar siempre la memoria caché',
 		'content_action' => array(
 			'_' => 'Acción de contenido al obtener el contenido del artículo',
-			'append' => 'Agregar después del contenido existente',
-			'prepend' => 'Agregar antes del contenido existente',
+			'append' => 'Añadir después del contenido existente',
+			'prepend' => 'Añadir antes del contenido existente',
 			'replace' => 'Reemplazar contenido existente',
 		),
 		'css_cookie' => 'Usar cookies al obtener el contenido del artículo',
@@ -80,12 +80,12 @@ return array(
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
-			'_' => 'Tipo de origen del feed',
+			'_' => 'Tipo de origen de la fuente',
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'Título del feed',
-					'help' => 'Ejemplo: <code>//título</code> o un texto estático: <code>"Mi feed personalizado"</code>',
+					'_' => 'Título de la fuente',
+					'help' => 'Ejemplo: <code>//título</code> o un texto estático: <code>"Mi fuente personalizada"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lenguaje de consulta estándar para usuarios avanzados, el cual FreshRSS soporta para habilitar Web scraping',
 				'item' => array(
@@ -131,8 +131,8 @@ return array(
 			'json_dotnotation' => array(
 				'_' => 'JSON (notación de punto)',
 				'feed_title' => array(
-					'_' => 'título del feed',
-					'help' => 'Ejemplo: <code>meta.title</code> o texto estático: <code>"Feed personalizado"</code>',
+					'_' => 'título de la fuente',
+					'help' => 'Ejemplo: <code>meta.title</code> o texto estático: <code>"Fuente personalizada"</code>',
 				),
 				'help' => 'Un punto JSON anotado utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
 				'item' => array(
@@ -166,7 +166,7 @@ return array(
 				'json' => 'notación de punto por:',
 				'relative' => 'ruta de notación con puntos (relativa al elemento) para:',
 			),
-			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'jsonfeed' => 'Fuente JSON'
 			'rss' => 'RSS / Atom (por defecto)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -187,16 +187,16 @@ return array(
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => array(
 			'_' => 'silenciar',
-			'state_is_muted' => 'Esta feed está silenciada',
+			'state_is_muted' => 'Esta fuente está silenciada',
 		),
 		'no_selected' => 'No hay fuentes seleccionadas.',
 		'number_entries' => '%d artículos',
-		'open_feed' => 'Feed abierto %s',
+		'open_feed' => 'Fuente abierta %s',
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'archived' => 'No mostrar (archivado)',
 			'category' => 'Mostrar en su categoría',
-			'important' => 'Mostrar en feeds importantes',
+			'important' => 'Mostrar en fuentes importantes',
 			'main_stream' => 'Mostrar en salida principal',
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
@@ -206,11 +206,11 @@ return array(
 			'show_rendered' => 'Mostrar contenido',
 		),
 		'show' => array(
-			'all' => 'Mostrar todos los feeds',
-			'error' => 'Mostrar solo feeds con errores',
+			'all' => 'Mostrar todas las fuentes',
+			'error' => 'Mostrar solo fuentes con errores',
 		),
 		'showing' => array(
-			'error' => 'Mostrar solo feeds con errores',
+			'error' => 'Mostrar solo fuentes con errores',
 		),
 		'ssl_verify' => 'Verificar la seguridad SSL',
 		'stats' => 'Estadísticas',
@@ -239,7 +239,7 @@ return array(
 		'title' => 'Importar / exportar',
 	),
 	'menu' => array(
-		'add' => 'Agregar un feed o una categoría',
+		'add' => 'Añadir una fuente o categoría',
 		'import_export' => 'Importar / exportar',
 		'label_management' => 'Gestión de etiquetas',
 		'stats' => array(
@@ -258,10 +258,10 @@ return array(
 	),
 	'title' => array(
 		'_' => 'Administración de suscripciones',
-		'add' => 'Agregar un feed o una categoría',
-		'add_category' => 'Agregar una categoría',
+		'add' => 'Añadir una fuente o categoría',
+		'add_category' => 'Añadir una categoría',
 		'add_dynamic_opml' => 'Agrega un OPML dinámico',
-		'add_feed' => 'Añadir un feed',
+		'add_feed' => 'Añadir una fuente',
 		'add_label' => 'Añadir una etiqueta',
 		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',

@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← regresar a tus fuentes RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Crear',
-		'delete_muted_feeds' => 'Eliminar feeds silenciados',
+		'delete_muted_feeds' => 'Eliminar fuentes silenciadas',
 		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
 		'empty' => 'Vaciar',
