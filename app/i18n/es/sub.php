@@ -166,7 +166,7 @@ return array(
 				'json' => 'notación de punto por:',
 				'relative' => 'ruta de notación con puntos (relativa al elemento) para:',
 			),
-			'jsonfeed' => 'Fuente JSON'
+			'jsonfeed' => 'Fuente JSON',
 			'rss' => 'RSS / Atom (por defecto)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
