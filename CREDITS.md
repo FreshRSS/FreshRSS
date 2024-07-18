@@ -254,3 +254,4 @@ People are sorted by name so please keep this order.
 * [Zhaofeng Li](https://github.com/zhaofengli): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhaofengli), [Web](https://zhaofeng.li/)
 * [Zhiyuan Zheng](https://github.com/zhzy0077): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zhzy0077)
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
+* [Dani Servian](https://github.com/dservian): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dservian)
