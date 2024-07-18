@@ -29,9 +29,9 @@ return array(
 			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con feeds',
 		),
 		'empty' => 'Vaciar categoría',
-		'expand' => 'Expand category',	// TODO
+		'expand' => 'Expandir categoría',
 		'information' => 'Información',
-		'open' => 'Open category',	// TODO
+		'open' => 'Abrir categoría',
 		'opml_url' => 'URL del OPML',
 		'position' => 'Posición de visualización',
 		'position_help' => 'Para controlar el orden de clasificación de categorías',
@@ -67,7 +67,7 @@ return array(
 		),
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
-		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
+		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible y prueba de nuevo.',
 		'export-as-opml' => array(
 			'download' => 'Descargar',
 			'help' => 'archivo XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
@@ -155,7 +155,7 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'fecha del item',
-					'help' => 'El resultado será parseado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'El resultado será analizado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'título del item',
 				'item_uid' => 'ID único del item',
@@ -178,7 +178,7 @@ return array(
 			'title' => 'Mantenimiento',
 		),
 		'max_http_redir' => 'Máximas redirecciones HTTP',
-		'max_http_redir_help' => 'Escribir 0 o dejarlo en blanco para deshabilitarlo, -1 para redirecciones ilimitadas',
+		'max_http_redir_help' => 'Escribir 0 o dejarlo en blanco para deshabilitar, -1 para redirecciones ilimitadas',
 		'method' => array(
 			'_' => 'HTTP Method',	// IGNORE
 		),
@@ -187,11 +187,11 @@ return array(
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => array(
 			'_' => 'silenciar',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => 'Esta feed está silenciada',
 		),
-		'no_selected' => 'No hay funentes seleccionadas.',
+		'no_selected' => 'No hay fuentes seleccionadas.',
 		'number_entries' => '%d artículos',
-		'open_feed' => 'Open feed %s',	// TODO
+		'open_feed' => 'Feed abierto %s',
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'archived' => 'No mostrar (archivado)',
@@ -220,11 +220,11 @@ return array(
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
 		'url' => 'URL de la fuente',
-		'useragent' => 'Selecciona el agente de usario por recuperar la fuente',
+		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
 		'useragent_help' => 'Ejemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Verifica la validez de la fuente',
 		'website' => 'Web de la URL',
-		'websub' => 'Notificación inmedaiata con WebSub',
+		'websub' => 'Notificación inmediata con WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Exportar',
@@ -251,7 +251,7 @@ return array(
 		'subscription_tools' => 'Herramientas de suscripción',
 	),
 	'tag' => array(
-		'auto_label' => 'Añadir esta estiqueta a nuevos artículos',
+		'auto_label' => 'Añadir esta etiqueta a nuevos artículos',
 		'name' => 'Nombre',
 		'new_name' => 'Nuevo nombre',
 		'old_name' => 'Nombre antiguo',
