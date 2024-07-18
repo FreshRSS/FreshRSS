@@ -368,8 +368,13 @@ SQL;
 			} else {
 				$catId = $catTo->addCategory($category);
 				if ($catId == false) {
-					$error = 'Error during SQLite copy of categories!';
-					return self::stdError($error);
+					$error = 'Error during SQLite copy of category “' . $category['name'] . '”!';
+					// Try again with another name in case of e.g. conflict with user label
+					$category['name'] .= ' ②';
+					$catId = $catTo->addCategory($category);
+					if ($catId == false) {
+						return self::stdError($error);
+					}
 				}
 			}
 			$idMaps['c' . $category['id']] = $catId;
