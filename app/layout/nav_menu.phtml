@@ -1,6 +1,5 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
 ?>
 <nav class="nav_menu">
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -34,6 +33,7 @@
 			<ul class="dropdown-menu">
 				<li class="item">
 					<span>
+						<?php /** @var FreshRSS_View $this */ ?>
 						<form action="<?= $this->html_url ?>" method="get">
 							<?php if (Minz_Request::controllerName() === 'index'): ?>
 								<?php if (in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) { ?>
@@ -104,6 +104,7 @@
 	</div>
 
 	<div class="group stick search">
+		<?php /** @var FreshRSS_View $this */ ?>
 		<form action="<?= $this->html_url ?>" method="get">
 			<input type="search" name="search" id="search"
 				value="<?= htmlspecialchars(htmlspecialchars_decode(Minz_Request::paramString('search'), ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
