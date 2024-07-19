@@ -29,7 +29,9 @@ return array(
 			'help' => 'Dinamik olarak bu kategoriyi akışla doldurmak için bir link <a href="http://opml.org/" target="_blank">OPML file</a> sağla',
 		),
 		'empty' => 'Boş kategori',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Bilgi',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML linki',
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'POST payload otomatik yardımı için <code>application/x-www-form-urlencoded</code> ve <code>application/json</code>',
 		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
-		'mute' => 'sessize al',
+		'mute' => array(
+			'_' => 'sessize al',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'archived' => 'Gösterme (arşivlenmiş)',

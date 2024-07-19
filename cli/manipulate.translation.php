@@ -166,7 +166,7 @@ Example 8:	ignore all unmodified keys. Adds IGNORE comments to all unmodified ke
 	php $file -a ignore_unmodified -l my_lang
 
 Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from all unmodified keys in the selected language.
-		Warning: will also revert individually added IGNOREs on unmodified keys.
+		Warning: will also revert individually added IGNORE(s) on unmodified keys.
 	php $file -a ignore_unmodified -r -l my_lang
 
 Example 10:	check if a key exist.

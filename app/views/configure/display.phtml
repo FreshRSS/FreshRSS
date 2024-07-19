@@ -212,7 +212,9 @@
 								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_favorite ?>" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
-							<td><input type="checkbox" disabled="disabled" /></td>
+							<td><input type="checkbox" name="topline_sharing" value="1"<?=
+								FreshRSS_Context::userConf()->topline_sharing ? ' checked="checked"' : '' ?>
+								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_sharing ?>" /></td>
 							<td><input type="checkbox" name="topline_summary" value="1"<?=
 								FreshRSS_Context::userConf()->topline_summary ? 'checked="checked"' : '' ?>
 								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_summary ?>" /></td>

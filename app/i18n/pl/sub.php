@@ -29,7 +29,9 @@ return array(
 			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
 		),
 		'empty' => 'Pusta kategoria',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informacje',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'Adres OPML',
 		'position' => 'Miejsce wyświetlania',
 		'position_help' => 'Kontrola porządku sortowania kategorii',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'Ładunek w POST automatycznie wspiera <code>application/x-www-form-urlencoded</code> oraz <code>application/json</code>',
 		'method_postparams' => 'Ładunek w POST',
 		'moved_category_deleted' => 'Po usunięciu kategorii znajdujące się w niej kanały zostaną automatycznie przeniesione do <em>%s</em>.',
-		'mute' => 'wycisz',
+		'mute' => array(
+			'_' => 'wycisz',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Brak kanałów.',
 		'number_entries' => '%d wiadomości',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Widoczność',
 			'archived' => 'Nie pokazuj (zarchiwizowany)',

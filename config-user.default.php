@@ -102,6 +102,7 @@ return array (
 
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_sharing' => false,
 	'topline_website' => 'full',
 	'topline_thumbnail' => 'none',
 	'topline_summary' => false,
