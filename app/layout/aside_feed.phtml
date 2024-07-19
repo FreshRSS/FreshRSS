@@ -42,11 +42,9 @@
 		</li>
 
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('starred') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
-					<?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?>
-				</a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
+				<?= _i('starred') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>"><?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?></span>
+			</a>
 		</li>
 
 		<?php
