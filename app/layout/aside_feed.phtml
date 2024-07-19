@@ -36,11 +36,9 @@
 		</li>
 
 		<li class="tree-folder category important<?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
-					<?= _t('index.menu.important') ?>
-				</a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
+				<?= _i('important') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>"><?= _t('index.menu.important') ?></span>
+			</a>
 		</li>
 
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
