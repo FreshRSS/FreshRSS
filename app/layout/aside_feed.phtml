@@ -30,10 +30,9 @@
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
-					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?= _url('index', $actual_view) . $state_filter_manual ?>">
+				<?= _i('all') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>"><?= _t('index.menu.main_stream') ?></span>
+			</a>
 		</li>
 
 		<li class="tree-folder category important<?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
