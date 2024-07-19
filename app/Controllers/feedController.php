@@ -740,7 +740,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		foreach ($feeds as $feed) {
 			$n = $feed->markAsReadMaxUnread();
-			if ($n !== false) {
+			if ($n !== false && $n > 0) {
 				Minz_Log::debug($n . ' unread entries exceeding max number of ' . $feed->keepMaxUnread() .  ' for [' . $feed->url(false) . ']');
 				$affected += $n;
 			}
