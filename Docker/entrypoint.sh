@@ -23,7 +23,8 @@ fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	# Debian
-	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
+	(which a2enmod >/dev/null && a2enmod -q auth_openidc)
+ 	(echo "OIDCSessionMaxDuration ${OIDC_SESS_MAX_DURATION:-2592000}" >> /etc/apache2/mods-available/auth_openidc.conf && echo "OIDCSessionInactivityTimeout ${OIDCSessionInactivityTimeout:-86400}" >> /etc/apache2/mods-available/auth_openidc.conf) ||
 		# Alpine
 		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.')
 	if [ -n "$OIDC_SCOPES" ]; then
@@ -32,9 +33,6 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 		export OIDC_SCOPES
 	fi
 fi
-
-echo "OIDCSessionMaxDuration ${OIDC_SESS_MAX_DURATION:-2592000}" >> /etc/apache2/mods-available/auth_openidc.conf
-echo "OIDCSessionInactivityTimeout ${OIDCSessionInactivityTimeout:-86400}" >> /etc/apache2/mods-available/auth_openidc.conf
 
 if [ -n "$CRON_MIN" ]; then
 	awk -v RS='\0' '!/^(FRESHRSS_INSTALL|FRESHRSS_USER|HOME|PATH|PWD|SHLVL|TERM|_)=/ {gsub("\047", "\047\\\047\047"); print "export \047" $0 "\047"}' /proc/self/environ >/var/www/FreshRSS/Docker/env.txt
