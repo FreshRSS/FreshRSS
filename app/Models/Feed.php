@@ -835,15 +835,12 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$affected = $feedDAO->markAsReadMaxUnread($this->id(), $keepMaxUnread);
-		if ($affected > 0) {
-			Minz_Log::debug(__METHOD__ . " $affected items [" . $this->url(false) . ']');
-		}
 		return $affected;
 	}
 
 	/**
 	 * Applies the *mark as read upon gone* policy, if enabled.
-	 * Remember to call `updateCachedValue($id_feed)` or `updateCachedValues()` just after.
+	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
 	public function markAsReadUponGone(bool $upstreamIsEmpty, int $maxTimestamp = 0) {
@@ -871,7 +868,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * Remember to call `updateCachedValue($id_feed)` or `updateCachedValues()` just after
+	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after
 	 * @return int|false
 	 */
 	public function cleanOldEntries() {
