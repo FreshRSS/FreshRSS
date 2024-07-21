@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Egy napnál régebbiek',
 		'before_one_week' => 'Egy hétnél régebbiek',
 		'bookmark_query' => 'Jelenlegi lekérdezés könyvjelzőzése',
-		'favorites' => 'Kedvencek (%s)',
+		'favorites' => 'Kedvencek',
 		'global_view' => 'Globális nézet',
 		'important' => 'Fontos hírforrások',
 		'main_stream' => 'Minden cikk',

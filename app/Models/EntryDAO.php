@@ -1393,36 +1393,51 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	/** @return array{'all':int,'read':int,'unread':int} */
-	public function countUnreadReadFavorites(): array {
+	/** @return int */
+	public function countUnreadFavorites(): int {
 		$sql = <<<'SQL'
 SELECT c FROM (
-	SELECT COUNT(e1.id) AS c, 1 AS o
-		FROM `_entry` AS e1
-		JOIN `_feed` AS f1 ON e1.id_feed = f1.id
-		WHERE e1.is_favorite = 1
-		AND f1.priority >= :priority1
-	UNION
-	SELECT COUNT(e2.id) AS c, 2 AS o
-		FROM `_entry` AS e2
-		JOIN `_feed` AS f2 ON e2.id_feed = f2.id
-		WHERE e2.is_favorite = 1
-		AND e2.is_read = 0 AND f2.priority >= :priority2
+	SELECT COUNT(e.id) AS c
+		FROM `_entry` AS e
+		JOIN `_feed` AS f ON e.id_feed = f.id
+		WHERE e.is_favorite = 1
+		AND e.is_read = 0 AND f.priority >= :priority_category
 	) u
-ORDER BY o
 SQL;
 		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
 		$res = $this->fetchColumn($sql, 0, [
-			':priority1' => FreshRSS_Feed::PRIORITY_CATEGORY,
-			':priority2' => FreshRSS_Feed::PRIORITY_CATEGORY,
+			':priority_category' => FreshRSS_Feed::PRIORITY_CATEGORY,
 		]);
 		if ($res === null) {
-			return ['all' => -1, 'unread' => -1, 'read' => -1];
+			return -1;
+		}
+
+		rsort($res);
+		$unread = (int)($res[0] ?? 0);
+		return $unread;
+	}
+
+	/** @return int */
+	public function countFavorites(): int {
+		$sql = <<<'SQL'
+SELECT c FROM (
+	SELECT COUNT(e.id) AS c
+		FROM `_entry` AS e
+		JOIN `_feed` AS f ON e.id_feed = f.id
+		WHERE e.is_favorite = 1
+		AND f.priority >= :priority_category
+	) u
+SQL;
+		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
+		$res = $this->fetchColumn($sql, 0, [
+			':priority_category' => FreshRSS_Feed::PRIORITY_CATEGORY,
+		]);
+		if ($res === null) {
+			return -1;
 		}
 
 		rsort($res);
 		$all = (int)($res[0] ?? 0);
-		$unread = (int)($res[1] ?? 0);
-		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
+		return $all;
 	}
 }

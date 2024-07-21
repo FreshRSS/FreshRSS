@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => ' بزرگتر از یک روز',
 		'before_one_week' => ' بزرگتر از یک هفته',
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
-		'favorites' => ' موارد دلخواه (%s)',
+		'favorites' => ' موارد دلخواه',
 		'global_view' => ' نمای جهانی',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => ' جریان اصلی',

@@ -43,7 +43,7 @@ return array(
 		'before_one_day' => 'Vecāks par vienu dienu',
 		'before_one_week' => 'Vecāks par vienu nedēļu',
 		'bookmark_query' => 'Pievienot grāmatzīmi pašreizējam pieprasījumam',
-		'favorites' => 'Mīļākie (%s)',
+		'favorites' => 'Mīļākie',
 		'global_view' => 'Globālais skats',
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Galvenā plūsma',
