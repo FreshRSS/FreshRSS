@@ -896,11 +896,6 @@ function init_column_categories() {
 				if (b) {
 					b.disabled = false;
 				}
-			} else if (getComputedStyle(dropdownMenu).display === 'none') {
-				const id2 = div.closest('.item').id.substr(2);
-				a.href = '#dropdown-' + id2;
-			} else {
-				a.href = '#close';
 			}
 			return true;
 		}
