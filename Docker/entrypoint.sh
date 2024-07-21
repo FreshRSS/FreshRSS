@@ -26,9 +26,6 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine
 		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.')
-	OIDC_CONF=$(test -e /etc/apache2/mods-available/auth_openidc.conf && echo /etc/apache2/mods-available/auth_openidc.conf || echo /etc/apache2/conf.d/mod-auth-openidc.conf)
-	echo "OIDCSessionMaxDuration ${OIDC_SESS_MAX_DURATION:-2592000}" >> "$OIDC_CONF"
-	echo "OIDCSessionInactivityTimeout ${OIDCSessionInactivityTimeout:-86400}" >> "$OIDC_CONF"
 	if [ -n "$OIDC_SCOPES" ]; then
 		# Compatibility with : as separator instead of space
 		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
