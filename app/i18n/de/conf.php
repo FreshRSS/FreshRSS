@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
 		'view' => array(

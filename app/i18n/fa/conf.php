@@ -250,6 +250,9 @@ return array(
 			'newer_first' => ' ابتدا جدیدترین',
 			'older_first' => ' اول قدیمی ترین',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
 		'title' => ' خواندن',
 		'view' => array(

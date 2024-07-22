@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'חדשים בראש',
 			'older_first' => 'ישנים יותר בראש',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
 		'title' => 'קריאה',
 		'view' => array(

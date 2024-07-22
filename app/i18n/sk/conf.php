@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Novšie hore',
 			'older_first' => 'Staršie hore',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
 		'view' => array(

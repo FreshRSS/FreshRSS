@@ -250,6 +250,9 @@ return array(
 			'newer_first' => '最新のものを先頭にする',
 			'older_first' => '最古のものを先頭にする',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',
 		'view' => array(

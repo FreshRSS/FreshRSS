@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Sākumā jaunākos',
 			'older_first' => 'Sākumā vecākos',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',
 		'view' => array(

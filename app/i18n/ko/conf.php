@@ -250,6 +250,9 @@ return array(
 			'newer_first' => '최근 글 먼저',
 			'older_first' => '오래된 글 먼저',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
 		'title' => '읽기',
 		'view' => array(

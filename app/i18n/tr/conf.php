@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Önce yeniler',
 			'older_first' => 'Önce eskiler',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',
 		'view' => array(
