@@ -13,7 +13,7 @@ if (!ctype_alnum($token)) {
 }
 
 $format = Minz_Request::paramString('f');
-if (!in_array($format, ['atom', 'html', 'opml', 'rss'], true)) {
+if (!in_array($format, ['atom', 'greader', 'html', 'json', 'opml', 'rss'], true)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid format `f`!');
@@ -63,7 +63,9 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
 		switch ($format) {
 			case 'atom':
+			case 'greader':
 			case 'html':
+			case 'json':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
@@ -161,6 +163,13 @@ if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
+} elseif (in_array($format, ['greader', 'json'], true)) {
+	header('Content-Type: application/json; charset=utf-8');
+	$view->_layout(null);
+	$view->type = 'query/' . $token;
+	$view->list_title = $query->getName();
+	$view->entryIdsTagNames = [];	// Do not export user labels for privacy
+	$view->_path('helpers/export/articles.phtml');
 } elseif ($format === 'opml') {
 	if (!$query->safeForOpml()) {
 		Minz_Error::error(404, 'OPML not allowed for this user query!');

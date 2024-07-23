@@ -145,6 +145,7 @@ return array(
 		'search' => '搜尋 “%s”',
 		'share' => array(
 			'_' => '透過連結分享此查詢',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '如果您想與任何人分享此查詢，請提供此連結',
 			'html' => 'HTML 頁面的可共享連結',
 			'opml' => 'OPML 源列表的可共享連結',
