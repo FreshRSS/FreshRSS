@@ -204,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
