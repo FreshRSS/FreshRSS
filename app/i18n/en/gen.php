@@ -206,6 +206,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archiveIS' => 'archive.is',
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'buffer' => 'Buffer',

@@ -638,6 +638,12 @@ a:hover .icon {
 	font-size: 1rem;
 }
 
+.aside_feed .tree-folder.all .tree-folder-title .title,
+.aside_feed .tree-folder.important .tree-folder-title .title,
+.aside_feed .tree-folder.favorites .tree-folder-title .title {
+	margin-right: 0.25rem;
+}
+
 .aside_feed .tree-folder-title button.dropdown-toggle {
 	margin: -0.75rem -0.75rem -0.75rem 0.25rem;
 	padding: 0.75rem 0.75rem 0.75rem 0;
