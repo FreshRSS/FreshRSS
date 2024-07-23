@@ -204,7 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基於 Known 的站點',
-		'archiveIS' => 'archive.is',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE

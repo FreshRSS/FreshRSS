@@ -204,7 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
-		'archiveIS' => 'archive.is',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE

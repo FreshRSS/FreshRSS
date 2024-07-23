@@ -204,7 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
-		'archiveIS' => 'archive.is',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE

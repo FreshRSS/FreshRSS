@@ -204,7 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
-		'archiveIS' => 'archive.is',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
 		'buffer' => ' بافر',

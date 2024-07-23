@@ -204,7 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sitios basados en conocidos',
-		'archiveIS' => 'archive.is',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
