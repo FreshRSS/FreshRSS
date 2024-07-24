@@ -145,6 +145,7 @@ return array(
 		'search' => 'Busca por “%s”',
 		'share' => array(
 			'_' => 'Compartilhar esta consulta por link',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Forneça este link se quiser compartilhar esta consulta com alguém',
 			'html' => 'Link compartilhável para a página HTML',
 			'opml' => 'Link compartilhável para a lista de feeds OPML',

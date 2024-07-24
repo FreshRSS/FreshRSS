@@ -145,6 +145,7 @@ return array(
 		'search' => 'Keresés erre „%s”',
 		'share' => array(
 			'_' => 'Lekérdezés megosztása linkkel',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Ezt a linket küldd el hogy megoszd a lekérdezést bárkivel',
 			'html' => 'Megosztható link a HTML oldalhoz',
 			'opml' => 'Megosztható link az OPML hírforrás listához',

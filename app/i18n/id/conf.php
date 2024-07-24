@@ -145,6 +145,7 @@ return array(
 		'search' => 'Cari untuk "%s"',
 		'share' => array(
 			'_' => 'Bagikan permintaan ini melalui tautan',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Berikan tautan ini jika Anda ingin berbagi permintaan ini dengan siapa pun',
 			'html' => 'Tautan dapat dibagikan ke halaman HTML',
 			'opml' => 'Tautan dapat dibagikan ke daftar OPML dari feed',

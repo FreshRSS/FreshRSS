@@ -145,6 +145,7 @@ return array(
 		'search' => '“%s” için arama',
 		'share' => array(
 			'_' => 'Bu aramayı linkle paylaşın',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
 			'html' => 'HTML sayfasına paylaşılabilir bağlantı',
 			'opml' => 'OMPL listesine paylaşılabilir bağlantı',

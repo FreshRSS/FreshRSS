@@ -145,6 +145,7 @@ return array(
 		'search' => 'Search for “%s”',
 		'share' => array(
 			'_' => 'Share this query by link',
+			'greader' => 'Shareable link to the GReader JSON',
 			'help' => 'Give this link if you want to share this query with anyone',
 			'html' => 'Shareable link to the HTML page',
 			'opml' => 'Shareable link to the OPML list of feeds',
