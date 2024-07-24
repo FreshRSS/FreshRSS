@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Nieuwste eerst',
 			'older_first' => 'Oudste eerst',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',
 		'view' => array(

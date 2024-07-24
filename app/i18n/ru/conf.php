@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Сначала новые',
 			'older_first' => 'Сначала старые',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
 		'title' => 'Чтение',
 		'view' => array(

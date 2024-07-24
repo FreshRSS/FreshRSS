@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Újabb elöl',
 			'older_first' => 'Régebbi elöl',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
 		'title' => 'Olvasás',
 		'view' => array(

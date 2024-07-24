@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Terbaru dulu',
 			'older_first' => 'Terlama dulu',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Tempelkan artikel di bagian atas saat dibuka',
 		'title' => 'Membaca',
 		'view' => array(

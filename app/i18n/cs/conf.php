@@ -250,6 +250,9 @@ return array(
 			'newer_first' => 'Nejdříve nejnovější',
 			'older_first' => 'Nejdříve nejstarší',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
 		'title' => 'Čtení',
 		'view' => array(

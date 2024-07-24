@@ -250,6 +250,9 @@ return array(
 			'newer_first' => '由新至舊',
 			'older_first' => '由舊至新',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => '打開文章時將其置於頁首',
 		'title' => '閱讀',
 		'view' => array(
