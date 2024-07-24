@@ -3,7 +3,7 @@
 In order to get as much feedback as possible before a release, it’s preferable to announce it on GitHub by creating a dedicated ticket
 ([see examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
 
-It’s also recommended to make the announcement on mailing@freshrss.org.
+It’s also recommended to make the announcement on <mailing@freshrss.org>.
 
 ## Check the dev status
 
@@ -95,7 +95,7 @@ When everything’s working, it’s time to announce the release to the world!
 * on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)
 * on the freshrss.org blog, at least for stable versions (write the article on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))
 * on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)
-* and on mailing@freshrss.org
+* and on <mailing@freshrss.org>
 
 ## Starting the next development version
 

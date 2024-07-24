@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
+		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir « Enregistrer ce lien ». Ensuite, cliquer sur le bouton « S’abonner » sur les pages auxquelles vous voulez vous abonner.',
 		'label' => 'S’abonner',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -26,16 +26,20 @@ return array(
 		'archiving' => 'Archivage',
 		'dynamic_opml' => array(
 			'_' => 'OPML dynamique',
-			'help' => 'Fournir l’URL d’un <a href=http://opml.org/ target=_blank>fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
+			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
+		'expand' => 'Développer la catégorie',
 		'information' => 'Informations',
+		'open' => 'Ouvrir la catégorie',
 		'opml_url' => 'URL de l’OPML',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
 		'title' => 'Titre',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Autoriser les cookies',
+		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux RSS',
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
@@ -57,12 +61,21 @@ return array(
 		'css_cookie_help' => 'Exemple : <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
+		'css_path_filter' => array(
+			'_' => 'Sélecteur CSS des éléments à supprimer',
+			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+		'export-as-opml' => array(
+			'download' => 'Télécharger',
+			'help' => 'Fichier XML (données partielles. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Voir documentation</a>)',
+			'label' => 'Exporter en OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
-			'help' => 'Écrivez une recherche par ligne.',
+			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 		),
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
@@ -72,11 +85,11 @@ return array(
 				'_' => 'HTML + XPath (Moissonnage du Web)',
 				'feed_title' => array(
 					'_' => 'titre de flux',
-					'help' => 'Exemple : <code>//title</code> ou un text statique : <code>"Mon flux personnalisé"</code>',
+					'help' => 'Exemple : <code>//title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> est un langage de requête pour les utilisateurs avancés, supporté par FreshRSS pour le moissonnage du Web (Web scraping).',
 				'item' => array(
-					'_' => 'trouver les <strong>articles</strong>',
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
 					'help' => 'Exemple : <code>//div[@class="article"]</code>',
 				),
 				'item_author' => array(
@@ -92,6 +105,10 @@ return array(
 					'_' => 'miniature de l’article',
 					'help' => 'Exemple : <code>descendant::img/@src</code>',
 				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
 					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
@@ -100,6 +117,10 @@ return array(
 					'_' => 'titre de l’article',
 					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
+				'item_uid' => array(
+					'_' => 'identifiant unique de l’article',
+					'help' => 'Optionnel. Exemple : <code>descendant::div/@data-uri</code>',
+				),
 				'item_uri' => array(
 					'_' => 'lien (URL) de l’article',
 					'help' => 'Exemple : <code>descendant::a/@href</code>',
@@ -107,7 +128,47 @@ return array(
 				'relative' => 'XPath (relatif à l’article) pour :',
 				'xpath' => 'XPath pour :',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (notation point)',
+				'feed_title' => array(
+					'_' => 'titre de flux',
+					'help' => 'Exemple : <code>meta.title</code> ou un texte statique : <code>"Mon flux personnalisé"</code>',
+				),
+				'help' => 'La notation point pour JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
+					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
+				),
+				'item_author' => 'auteur de l’article',
+				'item_categories' => 'catégories (tags) de l’article',
+				'item_content' => array(
+					'_' => 'contenu de l’article',
+					'help' => 'Chemin JSON pour le contenu, par exemple <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniature de l’article',
+					'help' => 'Exemple : <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Format personnalisé pour interpréter la date',
+					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'date de l’article',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'titre de l’article',
+				'item_uid' => 'identifiant unique de l’article',
+				'item_uri' => array(
+					'_' => 'lien (URL) de l’article',
+					'help' => 'Exemple : <code>permalink</code>',
+				),
+				'json' => 'notation point pour :',
+				'relative' => 'notation point relative à l’article pour :',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (par défaut)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
@@ -116,18 +177,30 @@ return array(
 			'reload_articles_help' => 'Recharge cette quantité d’articles et récupère le contenu complet si un sélecteur est défini.',
 			'title' => 'Maintenance',	// IGNORE
 		),
+		'max_http_redir' => 'Maximum de redirections HTTP',
+		'max_http_redir_help' => 'Mettre à 0 ou vide pour désactiver, -1 pour un nombre illimité de redirections',
+		'method' => array(
+			'_' => 'Méthode HTTP',
+		),
+		'method_help' => 'Les données POST supportent automatiquement <code>application/x-www-form-urlencoded</code> et <code>application/json</code>',
+		'method_postparams' => 'Données pour POST',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
-		'mute' => 'désactivé',
+		'mute' => array(
+			'_' => 'désactivé',
+			'state_is_muted' => 'Ce flux est désactivé',
+		),
 		'no_selected' => 'Aucun flux sélectionné.',
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Ouvrir le flux %s',
 		'priority' => array(
 			'_' => 'Visibilité',
 			'archived' => 'Ne pas afficher (archivé)',
-			'main_stream' => 'Afficher dans le flux principal',
-			'normal' => 'Afficher dans sa catégorie',
+			'category' => 'Afficher dans sa catégorie',
+			'important' => 'Afficher dans les flux importants',
+			'main_stream' => 'Afficher dans les flux principaux',
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
-		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
 			'show_rendered' => 'Afficher le contenu',
@@ -151,7 +224,7 @@ return array(
 		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
-		'websub' => 'Notification instantanée par WebSub',
+		'websub' => 'Notifications instantanée par WebSub',
 	),
 	'import_export' => array(
 		'export' => 'Exporter',
@@ -178,6 +251,7 @@ return array(
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 	'tag' => array(
+		'auto_label' => 'Ajoute l’étiquette aux nouveaux articles',
 		'name' => 'Nom',
 		'new_name' => 'Nouveau nom',
 		'old_name' => 'Ancien nom',

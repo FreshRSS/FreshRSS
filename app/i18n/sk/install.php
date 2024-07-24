@@ -110,7 +110,10 @@ return array(
 		'ok' => 'Hlavné nastavenia boli uložené.',
 	),
 	'congratulations' => 'Nastavenia!',
-	'default_user' => 'Hlavné používateľské meno <small>(najviac 16 alfanumerických znakov)</small>',
+	'default_user' => array(
+		'_' => 'Hlavné používateľské meno',
+		'max_char' => 'najviac 16 alfanumerických znakov',
+	),
 	'fix_errors_before' => 'Prosím, pred pokračovaním opravte chyby.',
 	'javascript_is_better' => 'FreshRSS si užijete viac, keď povolíte JavaScript',
 	'js' => array(

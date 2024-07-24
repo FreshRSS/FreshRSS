@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => '設定を保存するとき、エラーが発生しました。',
-		'query_created' => '"%s"クエリは作成されました。',
+		'query_created' => '“%s”クエリは作成されました。',
 		'shortcuts_updated' => 'ショートカットはアップデートされました。',
 		'updated' => '設定が更新されました。',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP 拡張は現在あなたのサーバーに存在しません。一つずつファイルをエクスポートしてみてください。',
-		'feeds_imported' => 'あなたのフィードはインポートされ、更新されます。',
-		'feeds_imported_with_errors' => 'あなたのフィードはインポートされましたが、エラーが起きました。',
+		'feeds_imported' => 'フィードがインポートされました。インポートが完了したら、<i>フィードを更新する</i>ボタンをクリックしてください。',
+		'feeds_imported_with_errors' => 'フィードがインポートされましたが、エラーが起きました。インポートが完了したら、<i>フィードを更新する</i>ボタンをクリックしてください。',
 		'file_cannot_be_uploaded' => 'ファイルをアップロードすることはできません!',
 		'no_zip_extension' => 'ZIP拡張は現在あなたのサーバーに存在しません。',
-		'zip_error' => 'ZIPをインポートするときエラーが発生しました。',
+		'zip_error' => 'ZIPの処理中にエラーが発生しました。',
 	),
 	'profile' => array(
 		'error' => 'あなたのプロフィールを変更することはできません',
@@ -104,7 +104,7 @@ return array(
 			'over_max' => 'フィードの最大値に達しました (%d)',
 			'reloaded' => '<em>%s</em> は再読み込みされました',
 			'selector_preview' => array(
-				'http_error' => 'webサイトの読み込みに失敗しました',
+				'http_error' => 'Webサイトの読み込みに失敗しました',
 				'no_entries' => 'このフィードには記事がありません。少なくともプレビュー表示を作成するには一つの記事が必要です。',
 				'no_feed' => '内部エラー (フィードが見つかりませんでした).',
 				'no_result' => '選択されたものはどれともマッチしませんでした。代わりにフォールバックとして、元のテキストが表示されます。',
@@ -115,9 +115,11 @@ return array(
 		'purge_completed' => '不要データの削除が完了されました (%d 記事は消去されました)',
 	),
 	'tag' => array(
-		'created' => '"%s" タグが作成されました',
+		'created' => '“%s” タグが作成されました',
+		'error' => 'ラベルを更新できませんでした',
 		'name_exists' => 'このタグ名は既に存在します',
-		'renamed' => '"%s"タグは"%s"に改名されました',
+		'renamed' => '“%s”タグは“%s”に改名されました',
+		'updated' => 'ラベルが更新されました',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSSは<strong>バージョン %s</strong>に更新されます。',

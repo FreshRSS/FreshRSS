@@ -418,6 +418,12 @@ define('SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS', 16);
  */
 class SimplePie
 {
+
+	/**
+	 * @internal Default value of the HTTP Accept header when fetching/locating feeds
+	 */
+	public const DEFAULT_HTTP_ACCEPT_HEADER = 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1';
+
 	/**
 	 * @var array Raw data
 	 * @access private
@@ -1690,7 +1696,7 @@ class SimplePie
 				else
 				{
 					$headers = array(
-						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+						'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 					);
 					if (isset($this->data['headers']['last-modified']))
 					{
@@ -1754,7 +1760,7 @@ class SimplePie
 			else
 			{
 				$headers = array(
-					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+					'Accept' => SimplePie::DEFAULT_HTTP_ACCEPT_HEADER,
 				);
 				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 			}
@@ -2264,8 +2270,9 @@ class SimplePie
 	/**
 	 * Get the base URL value from the feed
 	 *
-	 * Uses `<xml:base>` if available, otherwise uses the first link in the
-	 * feed, or failing that, the URL of the feed itself.
+	 * Uses `<xml:base>` if available,
+	 * otherwise uses the first 'self' link or the first 'alternate' link of the feed,
+	 * or failing that, the URL of the feed itself.
 	 *
 	 * @see get_link
 	 * @see subscribe_url
@@ -2275,16 +2282,17 @@ class SimplePie
 	 */
 	public function get_base($element = array())
 	{
-		if (!empty($element['xml_base_explicit']) && isset($element['xml_base']))
-		{
+		if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
 			return $element['xml_base'];
 		}
-		elseif ($this->get_link() !== null)
-		{
-			return $this->get_link();
+		if (($link = $this->get_link(0, 'self')) !== null) {
+			return $link;
+		}
+		if (($link = $this->get_link(0, 'alternate')) !== null) {
+			return $link;
 		}
 
-		return $this->subscribe_url();
+		return $this->subscribe_url() ?? '';
 	}
 
 	/**

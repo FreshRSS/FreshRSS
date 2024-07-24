@@ -1,3 +1,6 @@
+.git/
+extensions/
+lib/marienfressinaud/
 lib/phpgt/
 lib/phpmailer/
 node_modules/

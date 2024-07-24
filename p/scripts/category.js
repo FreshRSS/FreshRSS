@@ -68,14 +68,14 @@ function init_draggable() {
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
 		if (li_draggable) {
 			dragend_process(li_draggable);
+			li_draggable.classList.remove('dragging');
+			const disallowDragging = document.getElementsByClassName('drag-disallowed');
+			for (let i = 0; i < disallowDragging.length; i++) {
+				disallowDragging[i].setAttribute('dropzone', 'move');
+				disallowDragging[i].classList.remove('drag-disallowed');
+			}
+			li_draggable.closest('.drag-active').classList.remove('drag-active');
 		}
-		li_draggable.classList.remove('dragging');
-		const disallowDragging = document.getElementsByClassName('drag-disallowed');
-		for (let i = 0; i < disallowDragging.length; i++) {
-			disallowDragging[i].setAttribute('dropzone', 'move');
-			disallowDragging[i].classList.remove('drag-disallowed');
-		}
-		li_draggable.closest('.drag-active').classList.remove('drag-active');
 	};
 
 	dropSection.ondragenter = function (ev) {
@@ -116,40 +116,43 @@ function init_draggable() {
 	};
 
 	dropSection.ondrop = function (ev) {
-		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
-		if (ul_dropzone) {
-			loading = true;
+		if (dragFeedId) {
+			const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 
-			const req = new XMLHttpRequest();
-			req.open('POST', './?c=feed&a=move', true);
-			req.responseType = 'json';
-			req.onload = function (e) {
-				if (this.status == 200) {
-					ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
-					ul_dropzone.firstChild.classList.add('moved');
-					ul_dropzone.scrollTop = 0;
-					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
-					if (disabledElement.length > 0) {
-						disabledElement[0].remove();
+			if (ul_dropzone) {
+				loading = true;
+
+				const req = new XMLHttpRequest();
+				req.open('POST', './?c=feed&a=move', true);
+				req.responseType = 'json';
+				req.onload = function (e) {
+					if (this.status == 200) {
+						ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
+						ul_dropzone.firstChild.classList.add('moved');
+						ul_dropzone.scrollTop = 0;
+						const disabledElement = ul_dropzone.getElementsByClassName('disabled');
+						if (disabledElement.length > 0) {
+							disabledElement[0].remove();
+						}
+						dnd_successful = true;
+						ul_dropzone.closest('ul').classList.add('drag-drop');
 					}
-					dnd_successful = true;
-				}
-			};
-			req.onloadend = function (e) {
-				loading = false;
-				dragFeedId = '';
-				dragHtml = '';
-			};
-			req.setRequestHeader('Content-Type', 'application/json');
-			req.send(JSON.stringify({
-				f_id: dragFeedId,
-				c_id: ul_dropzone.getAttribute('data-cat-id'),
-				_csrf: context.csrf,
-			}));
+				};
+				req.onloadend = function (e) {
+					loading = false;
+					dragFeedId = '';
+					dragHtml = '';
+				};
+				req.setRequestHeader('Content-Type', 'application/json');
+				req.send(JSON.stringify({
+					f_id: dragFeedId,
+					c_id: ul_dropzone.getAttribute('data-cat-id'),
+					_csrf: context.csrf,
+				}));
 
-			ul_dropzone.closest('ul').classList.add('drag-drop');
-			ul_dropzone.closest('ul').classList.remove('drag-hover');
-			return false;
+				ul_dropzone.closest('ul').classList.remove('drag-hover');
+				return false;
+			}
 		}
 	};
 }

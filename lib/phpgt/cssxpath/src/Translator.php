@@ -12,7 +12,7 @@ class Translator {
 		. '|(#(?P<id>[\w-]*))'
 		. '|(\.(?P<class>[\w-]*))'
 		. '|(?P<sibling>\s*\+\s*)'
-		. "|(\[(?P<attribute>[\w-]*)((?P<attribute_equals>[=~$]+)(?P<attribute_value>(.+\[\]'?)|[^\]]+))*\])+"
+		. "|(\[(?P<attribute>[\w-]*)((?P<attribute_equals>[=~$*]+)(?P<attribute_value>(.+\[\]'?)|[^\]]+))*\])+"
 		. '|(?P<descendant>\s+)'
 		. '/';
 
@@ -61,7 +61,7 @@ class Translator {
 		$thread = array_values($thread);
 
 		$xpath = [$this->prefix];
-		$prevType = "";
+		$hasElement = false;
 		foreach($thread as $threadKey => $currentThreadItem) {
 			$next = isset($thread[$threadKey + 1])
 				? $thread[$threadKey + 1]
@@ -71,6 +71,7 @@ class Translator {
 			case "star":
 			case "element":
 				$xpath []= $currentThreadItem['content'];
+				$hasElement = true;
 				break;
 
 			case "pseudo":
@@ -160,23 +161,26 @@ class Translator {
 
 			case "child":
 				array_push($xpath, "/");
+				$hasElement = false;
 				break;
 
 			case "id":
 				array_push(
 					$xpath,
-					($prevType != "element"  ? '*' : '')
+					($hasElement ? '' : '*')
 					. "[@id='{$currentThreadItem['content']}']"
 				);
+				$hasElement = true;
 				break;
 
 			case "class":
 				// https://devhints.io/xpath#class-check
 				array_push(
 					$xpath,
-					(($prevType != "element" && $prevType != "class") ? '*' : '')
+					($hasElement ? '' : '*')
 					. "[contains(concat(' ',normalize-space(@class),' '),' {$currentThreadItem['content']} ')]"
 				);
+				$hasElement = true;
 				break;
 
 			case "sibling":
@@ -184,11 +188,13 @@ class Translator {
 					$xpath,
 					"/following-sibling::*[1]/self::"
 				);
+				$hasElement = false;
 				break;
 
 			case "attribute":
-				if(!$prevType) {
+				if(!$hasElement) {
 					array_push($xpath, "*");
+					$hasElement = true;
 				}
 
 				/** @var null|array<int, array<string, string>> $detail */
@@ -220,7 +226,11 @@ class Translator {
 					break;
 
 				case self::EQUALS_CONTAINS:
-					throw new NotYetImplementedException();
+					array_push(
+						$xpath,
+						"[contains(@{$currentThreadItem['content']},\"{$valueString}\")]"
+					);
+					break;
 
 				case self::EQUALS_CONTAINS_WORD:
 					array_push(
@@ -257,10 +267,9 @@ class Translator {
 
 			case "descendant":
 				array_push($xpath, "//");
+				$hasElement = false;
 				break;
 			}
-
-			$prevType = $currentThreadItem["type"];
 		}
 
 		return implode("", $xpath);

@@ -110,7 +110,10 @@ return array(
 		'ok' => 'ההגדרות הכלליות נשמרו.',
 	),
 	'congratulations' => 'מזל טוב!',
-	'default_user' => 'שם המשתמש של משתמש ברירת המחדל <small>(לכל היותר 16 תווים אלפאנומריים)</small>',
+	'default_user' => array(
+		'_' => 'שם המשתמש של משתמש ברירת המחדל',
+		'max_char' => 'לכל היותר 16 תווים אלפאנומריים',
+	),
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
 	'js' => array(

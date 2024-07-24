@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',
-		'query_created' => 'Query "%s" is gemaakt.',
+		'query_created' => 'Query „%s” is gemaakt.',
 		'shortcuts_updated' => 'Verwijzingen zijn vernieuwd',
 		'updated' => 'Configuratie is vernieuwd',
 	),
@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
-		'feeds_imported' => 'Uw feeds zijn geimporteerd en worden nu vernieuwd',
-		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden',
+		'feeds_imported' => 'Uw feeds zijn geimporteerd en worden nu vernieuwd / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
-		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',
+		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',	// DIRTY
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',
@@ -115,12 +115,14 @@ return array(
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
 	),
 	'tag' => array(
-		'created' => 'Tag "%s" is aangemaakt.',
-		'name_exists' => 'Tagnaam bestaat al.',
-		'renamed' => 'Tag "%s" hernoemd naar "%s".',
+		'created' => 'Label „%s” aangemaakt.',
+		'error' => 'Label kon niet worden bijgewerkt!',
+		'name_exists' => 'Label bestaat al.',
+		'renamed' => 'Label „%s” hernoemd naar „%s”.',
+		'updated' => 'Label bijgewerkt.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
+		'can_apply' => 'FreshRSS word nu bijgewerkt naar <strong>versie %s</strong>.',
 		'error' => 'Het vernieuwingsproces kwam een fout tegen: %s',
 		'file_is_nok' => '<strong>Versie %s</strong>. Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
 		'finished' => 'Vernieuwing compleet!',

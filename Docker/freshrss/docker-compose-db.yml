@@ -6,7 +6,7 @@ volumes:
 services:
 
   freshrss-db:
-    image: postgres:14
+    image: postgres:16
     container_name: freshrss-db
     hostname: freshrss-db
     restart: unless-stopped
@@ -19,3 +19,11 @@ services:
       POSTGRES_DB: ${DB_BASE:-freshrss}
       POSTGRES_USER: ${DB_USER:-freshrss}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
+    command:
+      # Examples of PostgreSQL tuning.
+      # https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server
+      # When in doubt, skip and stick to default PostgreSQL settings.
+      - -c
+      - shared_buffers=1GB
+      - -c
+      - work_mem=32MB

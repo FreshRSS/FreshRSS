@@ -110,7 +110,10 @@ return array(
 		'ok' => 'General configuration has been saved.',	// IGNORE
 	),
 	'congratulations' => 'Congratulations!',	// IGNORE
-	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',	// IGNORE
+	'default_user' => array(
+		'_' => 'Username of the default user',	// IGNORE
+		'max_char' => 'maximum 16 alphanumeric characters',	// IGNORE
+	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// IGNORE
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// IGNORE
 	'js' => array(

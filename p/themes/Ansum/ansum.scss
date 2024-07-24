@@ -36,8 +36,14 @@
 /*============*/
 html, body {
 	background: variables.$grey-light;
+	color: variables.$unread-font-color;
 	font-family: "lato", "Helvetica", "Arial", sans-serif;
 	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: variables.$sid-bg;
 }
 
 /*=== Links */

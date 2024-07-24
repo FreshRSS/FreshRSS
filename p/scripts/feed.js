@@ -56,7 +56,9 @@ function init_popup_preview_selector() {
 
 	link.addEventListener('click', function (ev) {
 		const selector_entries = document.getElementById('path_entries').value;
-		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries));
+		const selector_entries_filter = document.getElementById('path_entries_filter').value;
+		const href = link.href.replace('selector-token', encodeURIComponent(selector_entries))
+			.replace('selector-filter-token', encodeURIComponent(selector_entries_filter));
 
 		openPopupWithSource(href);
 
@@ -86,10 +88,17 @@ function init_disable_elements_on_update(parent) {
 function init_select_show(parent) {
 	const listener = (select) => {
 		const options = select.querySelectorAll('option[data-show]');
+		const shows = {};	// To allow multiple options to show the same element
 		for (const option of options) {
-			const elem = document.getElementById(option.dataset.show);
+			if (!shows[option.dataset.show]) {
+				shows[option.dataset.show] = option.selected;
+			}
+		}
+
+		for (const show in shows) {
+			const elem = document.getElementById(show);
 			if (elem) {
-				elem.style.display = option.selected ? 'block' : 'none';
+				elem.style.display = shows[show] ? 'block' : 'none';
 			}
 		}
 	};

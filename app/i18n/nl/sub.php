@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies "Deze link aan bladwijzers toevoegen."',
+		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies „Deze link aan bladwijzers toevoegen.”',
 		'label' => 'Abonneren',
 		'title' => 'Bookmarklet',	// IGNORE
 	),
@@ -25,17 +25,21 @@ return array(
 		'add' => 'Voeg categorie',
 		'archiving' => 'Archiveren',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href=http://opml.org/ target=_blank>OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'Dynamische OPML',
+			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informatie',
-		'opml_url' => 'OPML URL',	// TODO
+		'open' => 'Open category',	// TODO
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
 	),
 	'feed' => array(
+		'accept_cookies' => 'Cookies accepteren',
+		'accept_cookies_help' => 'De feed-server toestaan cookies te plaatsen (die alleen voor de duur van de aanvraag in het geheugen worden opgeslagen)',
 		'add' => 'Voeg een RSS-feed toe',
 		'advanced' => 'Geavanceerd',
 		'archiving' => 'Archiveren',
@@ -57,57 +61,114 @@ return array(
 		'css_cookie_help' => 'Voorbeeld: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Haalt onvolledige RSS-feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'CSS-pad van artikelen op originele website',
+		'css_path_filter' => array(
+			'_' => 'CSS selector van de elementen om te verwijderen',
+			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside</kbd>',
+		),
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
+		'export-as-opml' => array(
+			'download' => 'Downloaden',
+			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Als OPML exporteren',
+		),
 		'filteractions' => array(
 			'_' => 'Filteracties',
-			'help' => 'Voer één zoekfilter per lijn in.',
+			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
+			'_' => 'Feedbron-type',
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'feedtitel',
+					'help' => 'Voorbeeld: <code>//title</code> of een statische string: <code>"Mijn aangepaste feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is een standaard querytaal voor geavanceerde gebruikers, die door FreshRSS ondersteund wordt voor web scraping.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'nieuws vinden <strong>berichten</strong><br /><small>(belangrijkste)</small>',
+					'help' => 'Voorbeeld: <code>//div[@class="nieuws-bericht"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'auteur van het bericht',
+					'help' => 'Kan ook een statische string zijn. Voorbeeld: <code>"Anoniem"</code>',
 				),
-				'item_categories' => 'items tags',	// TODO
+				'item_categories' => 'tags van bericht',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'inhoud van bericht',
+					'help' => 'Voorbeeld om het volledige bericht over te nemen: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'miniatuur van bericht',
+					'help' => 'Voorbeeld: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Aangepast datum-/tijdformaat',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'datum van bericht',
+					'help' => 'Het resultaat zal worden geparset door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'titel van bericht',
+					'help' => 'Gebruik vooral <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> zoals <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'uniek ID van bericht',
+					'help' => 'Optioneel. Voorbeeld: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'link van bericht (URL)',
+					'help' => 'Voorbeeld: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relatief naar bericht) voor:',
+				'xpath' => 'XPath voor:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (puntnotatie)',
+				'feed_title' => array(
+					'_' => 'feed-titel',
+					'help' => 'Voorbeeld: <code>meta.titel</code> of een statische reeks tekst: <code>"Mijn aangepaste feed"</code>',
+				),
+				'help' => 'JSON-puntnotatie gebruikt punten tussen objecten en vierkante haakjes voor arrays (bv. <code>data.items[0].titel</code>)',
+				'item' => array(
+					'_' => 'nieuws-<strong>items</strong> vinden<br /><small>(het belangrijkst)</small>',
+					'help' => 'JSON-puntnotatiepad naar de array met de items, bv. <code>nieuwsItems</code>',
+				),
+				'item_author' => 'item-auteur',
+				'item_categories' => 'item-tags',
+				'item_content' => array(
+					'_' => 'item-inhoud',
+					'help' => 'De sleutel waaronder de inhoude te vinden is, bv. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item-miniatuur',
+					'help' => 'Voorbeeld: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Aangepast datum-/tijdformaat',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item-datum',
+					'help' => 'Het resultaat zal worden geparst door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item-titel',
+				'item_uid' => 'uniek item-id',
+				'item_uri' => array(
+					'_' => 'item-link (url)',
+					'help' => 'Voorbeeld: <code>permalink</code>',
+				),
+				'json' => 'puntnotatie voor:',
+				'relative' => 'puntnotatiepad (relatief aan item) voor:',
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'rss' => 'RSS / Atom (standaard)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
@@ -116,18 +177,30 @@ return array(
 			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',	// DIRTY
 			'title' => 'Onderhoud',
 		),
+		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
+		'max_http_redir_help' => 'Stel in op 0 of laat leeg om uit te schakelen, -1 voor ongelimiteerde redirects',
+		'method' => array(
+			'_' => 'HTTP-methode',
+		),
+		'method_help' => 'De POST-payload ondersteunt automatisch <code>application/x-www-form-urlencoded</code> en <code>application/json</code>',
+		'method_postparams' => 'Payload voor POST',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
-		'mute' => 'demp',
+		'mute' => array(
+			'_' => 'demp',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',
+			'category' => 'Toon in categorie',
+			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
-			'normal' => 'Toon in categorie',
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
-		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',
 			'show_rendered' => 'Inhoud tonen',
@@ -178,6 +251,7 @@ return array(
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'tag' => array(
+		'auto_label' => 'Dit label aan nieuwe artikelen toevoegen',
 		'name' => 'Naam',
 		'new_name' => 'Nieuwe naam',
 		'old_name' => 'Oude naam',
@@ -186,7 +260,7 @@ return array(
 		'_' => 'Abonnementenbeheer',
 		'add' => 'Feed of categorie toevoegen',
 		'add_category' => 'Categorie toevoegen',
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
+		'add_dynamic_opml' => 'Dynamische OPML toevoegen',
 		'add_feed' => 'Feed toevoegen',
 		'add_label' => 'Label toevoegen',
 		'delete_label' => 'Label verwijderen',

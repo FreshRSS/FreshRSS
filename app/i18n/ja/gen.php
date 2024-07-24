@@ -18,7 +18,7 @@ return array(
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
 		'create' => '作成',
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '寄付',
 		'disable' => '無効',
 		'empty' => '空',
@@ -29,13 +29,21 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
-		'open_url' => 'Open URL',	// TODO
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => '次の記事',
+			'prev' => '前の記事',
+			'up' => '先頭へ',
+		),
+		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
-		'refresh_opml' => 'Refresh OPML',	// TODO
+		'refresh_opml' => 'OPMLをリフレッシュする',
 		'remove' => '消去',
-		'rename' => 'リネーム',
-		'see_website' => 'webサイトを閲覧してください',
+		'rename' => '名前を変更する',
+		'see_website' => 'Webサイトを開く',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
 		'update' => '更新',
@@ -119,7 +127,7 @@ return array(
 		'wed' => '水',
 		'yesterday' => '昨日',
 	),
-	'dir' => 'ltr',	// IGNORE
+	'dir' => 'ディレクトリ',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
@@ -130,24 +138,30 @@ return array(
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(未読: %%d)',
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
 		),
+		'labels_empty' => 'ラベルがありません',
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
@@ -156,6 +170,7 @@ return array(
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
+		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'FreshRSSについて',
@@ -170,7 +185,8 @@ return array(
 		'logs' => 'ログ',
 		'queries' => 'ユーザークエリ',
 		'reading' => 'リーディング',
-		'search' => '単語で検索するか #tagsで検索する',
+		'search' => '単語で検索するかハッシュタグで検索する',
+		'search_help' => '高度な検索パラメータについては <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">こちら</a>を参照してください',
 		'sharing' => '共有',
 		'shortcuts' => 'ショートカット',
 		'stats' => '統計',
@@ -180,25 +196,31 @@ return array(
 		'user_profile' => 'プロフィール',
 	),
 	'period' => array(
-		'days' => '日',
-		'hours' => '時',
-		'months' => '月',
-		'weeks' => '週',
-		'years' => '年',
+		'days' => '日間',
+		'hours' => '時間',
+		'months' => 'ヶ月',
+		'weeks' => '週間',
+		'years' => '年間',
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
-		'blogotext' => 'Blogotext',	// IGNORE
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
+		'email-webmail-firefox-fix' => 'Eメール（Firefox用に修正）',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
 		'pocket' => 'Pocket',	// IGNORE
@@ -209,7 +231,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'System sharing',	// TODO
+		'web-sharing-api' => 'システム共有',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
@@ -219,12 +241,12 @@ return array(
 		'by_author' => '著者:',
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
-		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'NO',
+		'default_category' => '未分類',
+		'no' => 'いいえ',
 		'not_applicable' => '利用不可能',
 		'ok' => 'OK!',
 		'or' => 'または',
-		'yes' => 'OK',
+		'yes' => 'はい',
 	),
 	'stream' => array(
 		'load_more' => '記事をもっと読み込む',

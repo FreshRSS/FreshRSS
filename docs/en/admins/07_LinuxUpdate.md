@@ -4,6 +4,8 @@ This tutorial demonstrates commands for updating FreshRSS. It assumes that your 
 
 **Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 
+Please read the general advice from “[Backing Up and Updating FreshRSS](04_Updating.md)” before applying any command from this guide.
+
 ## Pausing automatic feed updates
 
 If [Automatic Feed Updating](08_FeedUpdates.md) has been configured, temporarily suspend the automatic feed updates during the upgrade process.
@@ -47,22 +49,22 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 4. Update FreshRSS
 	```sh
 	git checkout edge
-	git pull
-	git checkout $(git describe --tags --abbrev=0)
+	git pull --ff-only
 	```
 
-	Note: If you want to use the rolling release, the last command is optional.
+	> ℹ️ Use `edge` for the rolling release or `latest` for the latest stable release.
 
 5. (optional) Make sure you use the correct version
 	```sh
 	git status
 	```
 
-	The command should tell you the tag that you’re using. It must be the same as the one associated with [the latest release on GitHub](https://github.com/FreshRSS/FreshRSS/releases/latest). If you use the rolling release, it should tell you that your `edge` branch is up to date with `origin`.
+	The command should tell you the branch that you’re using. It must be the same as the one associated with [the latest release on GitHub](https://github.com/FreshRSS/FreshRSS/releases/latest).
+	If you use the rolling release, it should tell you that your `edge` branch is up to date with `origin`.
 
 6. Re-set correct permissions so that your web server can access the files
 	```sh
-	chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
+	cli/access-permissions.sh
 	```
 
 ## Using the Zip archive
@@ -89,10 +91,10 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 
 5. Re-set permissions
 	```sh
-	chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
+	cli/access-permissions.sh
 	```
 
-6. Clean up the FreshRSS directory by deleting the downloaded zip, the file forcing the setup wizard and the temporary directory
+6. Clean up the FreshRSS directory by deleting the downloaded zip and the temporary directory
 	```sh
 	rm -f freshrss.zip
 	rm -rf FreshRSS-*/

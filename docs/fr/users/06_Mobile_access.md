@@ -57,16 +57,18 @@ possibilité.
 		* [News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
-		* [Readrops](https://github.com/readrops/Readrops) (Open source)
+		* [Readrops](https://github.com/readrops/Readrops) (Libre)
+		* [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) (Libre)
+		* [Read You](https://github.com/Ashinch/ReadYou/) (Libre)
 		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 		* [Newsboat 2.24+](https://newsboat.org/) (Libre)
-	* macOS
+	* macOS, iOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+		* [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) (Libre)
 		* [Reeder](https://www.reederapp.com/) (Commercial)
-	* iOS
-		* [Reeder](https://www.reederapp.com/) (Commercial)
+		* [lire](https://lireapp.com/) (Commercial)
 	* Firefox
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
 
@@ -99,4 +101,8 @@ curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60
 # Récupère les articles, envoyés à jq pour une lecture JSON plus facile
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .
+
+# Se désabonner d’un flux
+curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  -d 'ac=unsubscribe&s=feed/52' 'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/edit'
 ```

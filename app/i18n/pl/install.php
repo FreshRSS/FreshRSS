@@ -110,7 +110,10 @@ return array(
 		'ok' => 'General configuration has been saved.',	// TODO
 	),
 	'congratulations' => 'Congratulations!',	// TODO
-	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',	// TODO
+	'default_user' => array(
+		'_' => 'Username of the default user',	// TODO
+		'max_char' => 'maximum 16 alphanumeric characters',	// TODO
+	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// TODO
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO
 	'js' => array(

@@ -1,6 +1,10 @@
+/.devcontainer/
 /.git/
+/.github/
 /bin/
 /data/
 /docs/
+/extensions/node_modules/
+/extensions/vendor/
 /node_modules/
 /vendor/
