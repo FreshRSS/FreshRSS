@@ -166,7 +166,7 @@ header('Cache-Control: public, max-age=60');
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 	header('HTTP/1.1 204 No Content');
 	header('Content-Type: text/plain; charset=UTF-8');
-	exit('No Content');
+	exit();
 }
 
 if (in_array($format, ['rss', 'atom'], true)) {

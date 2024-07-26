@@ -116,7 +116,7 @@ final class GReaderAPI {
 	private static function noContent() {
 		header('HTTP/1.1 204 No Content');
 		header('Content-Type: text/plain; charset=UTF-8');
-		exit('No Content');
+		exit();
 	}
 
 	/** @return never */
