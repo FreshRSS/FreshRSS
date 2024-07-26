@@ -159,6 +159,11 @@ if ($query->getName() != '') {
 }
 FreshRSS_Context::systemConf()->allow_anonymous = true;
 
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Max-Age: 600');
+header('Cache-Control: public, max-age=60');
+
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
 	$view->_layout(null);

@@ -987,6 +987,11 @@ final class GReaderAPI {
 	public static function parse() {
 		global $ORIGINAL_INPUT;
 
+		header('Access-Control-Allow-Headers: Authorization');
+		header('Access-Control-Allow-Methods: GET, POST');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Max-Age: 600');
+
 		$pathInfo = '';
 		if (empty($_SERVER['PATH_INFO'])) {
 			if (!empty($_SERVER['ORIG_PATH_INFO'])) {
