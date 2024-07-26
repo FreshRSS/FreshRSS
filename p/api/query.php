@@ -164,6 +164,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Max-Age: 600');
 header('Cache-Control: public, max-age=60');
 
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+	header('HTTP/1.1 204 No Content');
+	header('Content-Type: text/plain; charset=UTF-8');
+	exit('No Content');
+}
+
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
 	$view->_layout(null);

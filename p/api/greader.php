@@ -113,6 +113,13 @@ function debugInfo(): string {
 final class GReaderAPI {
 
 	/** @return never */
+	private static function noContent() {
+		header('HTTP/1.1 204 No Content');
+		header('Content-Type: text/plain; charset=UTF-8');
+		exit('No Content');
+	}
+
+	/** @return never */
 	private static function badRequest() {
 		Minz_Log::warning(__METHOD__, API_LOG);
 		Minz_Log::debug(__METHOD__ . ' ' . debugInfo(), API_LOG);
@@ -1009,6 +1016,10 @@ final class GReaderAPI {
 		$pathInfos = explode('/', $pathInfo);
 		if (count($pathInfos) < 3) {
 			self::badRequest();
+		}
+
+		if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+			self::noContent();
 		}
 
 		FreshRSS_Context::initSystem();
