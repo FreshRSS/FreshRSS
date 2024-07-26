@@ -998,6 +998,9 @@ final class GReaderAPI {
 		header('Access-Control-Allow-Methods: GET, POST');
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Max-Age: 600');
+		if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+			self::noContent();
+		}
 
 		$pathInfo = '';
 		if (empty($_SERVER['PATH_INFO'])) {
@@ -1016,10 +1019,6 @@ final class GReaderAPI {
 		$pathInfos = explode('/', $pathInfo);
 		if (count($pathInfos) < 3) {
 			self::badRequest();
-		}
-
-		if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
-			self::noContent();
 		}
 
 		FreshRSS_Context::initSystem();

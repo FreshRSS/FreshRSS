@@ -163,7 +163,6 @@ header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Max-Age: 600');
 header('Cache-Control: public, max-age=60');
-
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 	header('HTTP/1.1 204 No Content');
 	header('Content-Type: text/plain; charset=UTF-8');
