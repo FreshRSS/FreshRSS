@@ -784,6 +784,10 @@ input[type="checkbox"]:focus-visible {
 	display: inline-block;
 }
 
+.horizontal-list .dropdown-target:target ~ .dropdown-toggle-close {
+	display: inline;
+}
+
 .dropdown-target:target ~ .dropdown-menu {
 	display: block;
 	z-index: 50;
