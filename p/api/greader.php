@@ -113,6 +113,12 @@ function debugInfo(): string {
 final class GReaderAPI {
 
 	/** @return never */
+	private static function noContent() {
+		header('HTTP/1.1 204 No Content');
+		exit();
+	}
+
+	/** @return never */
 	private static function badRequest() {
 		Minz_Log::warning(__METHOD__, API_LOG);
 		Minz_Log::debug(__METHOD__ . ' ' . debugInfo(), API_LOG);
@@ -986,6 +992,14 @@ final class GReaderAPI {
 	/** @return never */
 	public static function parse() {
 		global $ORIGINAL_INPUT;
+
+		header('Access-Control-Allow-Headers: Authorization');
+		header('Access-Control-Allow-Methods: GET, POST');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Max-Age: 600');
+		if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+			self::noContent();
+		}
 
 		$pathInfo = '';
 		if (empty($_SERVER['PATH_INFO'])) {

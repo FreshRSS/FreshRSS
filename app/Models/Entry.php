@@ -172,7 +172,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$mime = $enclosure['type'] ?? '';
 
 		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
-			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)$/i', $elink));
+			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)([?#]|$)/i', $elink));
 	}
 
 	/**
