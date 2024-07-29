@@ -150,6 +150,7 @@ return array(
 		'search' => '“%s” için arama',
 		'share' => array(
 			'_' => 'Bu aramayı linkle paylaşın',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
 			'html' => 'HTML sayfasına paylaşılabilir bağlantı',
 			'opml' => 'OMPL listesine paylaşılabilir bağlantı',
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Sıralama',
 			'newer_first' => 'Önce yeniler',
 			'older_first' => 'Önce eskiler',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',

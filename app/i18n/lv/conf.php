@@ -150,6 +150,7 @@ return array(
 		'search' => 'Meklēt “%s”',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Kārtošanas kārtība',
 			'newer_first' => 'Sākumā jaunākos',
 			'older_first' => 'Sākumā vecākos',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',

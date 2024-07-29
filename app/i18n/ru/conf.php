@@ -150,6 +150,7 @@ return array(
 		'search' => 'Искать “%s”',
 		'share' => array(
 			'_' => 'Поделиться запросом по ссылке',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Дайте эту ссылку, если хотите поделиться этим запросом с кем-либо',
 			'html' => 'Ссылка доступа на HTML-страницу',
 			'opml' => 'Ссылка доступа на список лент в формате OPML',
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Порядок сортировки',
 			'newer_first' => 'Сначала новые',
 			'older_first' => 'Сначала старые',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
 		'title' => 'Чтение',

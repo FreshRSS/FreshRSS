@@ -150,6 +150,7 @@ return array(
 		'search' => 'חיפוש “%s”',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
@@ -254,6 +255,9 @@ return array(
 			'_' => 'סדר המיון',
 			'newer_first' => 'חדשים בראש',
 			'older_first' => 'ישנים יותר בראש',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
 		'title' => 'קריאה',

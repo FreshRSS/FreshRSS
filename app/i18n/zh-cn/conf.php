@@ -150,6 +150,7 @@ return array(
 		'search' => '搜索 “%s”',
 		'share' => array(
 			'_' => '分享您的自定义查询',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '获取此自定义查询的分享链接',
 			'html' => 'HTML 页面的分享链接',
 			'opml' => '订阅源 OPML 的分享链接',
@@ -254,6 +255,9 @@ return array(
 			'_' => '排列顺序',
 			'newer_first' => '由新至旧',
 			'older_first' => '由旧至新',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',

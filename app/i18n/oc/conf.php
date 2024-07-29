@@ -150,6 +150,7 @@ return array(
 		'search' => 'Recèrca de « %s »',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Òrdre de tria',
 			'newer_first' => 'Mai recents en primièr',
 			'older_first' => 'Mai ancians en primièr',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',

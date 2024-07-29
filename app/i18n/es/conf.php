@@ -150,6 +150,7 @@ return array(
 		'search' => 'Buscar “%s”',
 		'share' => array(
 			'_' => 'Comparte esta consulta por enlace',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Dale este enlace si quieres compartir esta consulta con alguien',
 			'html' => 'Enlace para compartir a la página HTML',
 			'opml' => 'Enlace para compartir a la lista de fuentes de OPML',
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Orden',
 			'newer_first' => 'Nuevos primero',
 			'older_first' => 'Antiguos primero',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',

@@ -150,6 +150,7 @@ return array(
 		'search' => 'Zoek naar „%s”',
 		'share' => array(
 			'_' => 'Deze query delen via een link',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Geef deze link als je deze query met iemand wilt delen',
 			'html' => 'Deelbare link naar de HTML-pagina',
 			'opml' => 'Deelbare link naar de OPML-lijst van feeds',
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Sorteer volgorde',
 			'newer_first' => 'Nieuwste eerst',
 			'older_first' => 'Oudste eerst',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',

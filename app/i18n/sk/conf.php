@@ -150,6 +150,7 @@ return array(
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
 			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
 			'html' => 'Zdielateľný odkaz na HTML stránku',
 			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
@@ -254,6 +255,9 @@ return array(
 			'_' => 'Poradie',
 			'newer_first' => 'Novšie hore',
 			'older_first' => 'Staršie hore',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
