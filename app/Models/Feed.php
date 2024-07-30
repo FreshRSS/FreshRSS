@@ -843,7 +843,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
-	public function markAsReadUponGone(bool $upstreamIsEmpty, int $maxTimestamp = 0) {
+	public function markAsReadUponGone(bool $upstreamIsEmpty, int $minLastSeen = 0) {
 		$readUponGone = $this->attributeBoolean('read_upon_gone');
 		if ($readUponGone === null) {
 			$readUponGone = FreshRSS_Context::userConf()->mark_when['gone'];
@@ -852,14 +852,14 @@ class FreshRSS_Feed extends Minz_Model {
 			return false;
 		}
 		if ($upstreamIsEmpty) {
-			if ($maxTimestamp <= 0) {
-				$maxTimestamp = time();
+			if ($minLastSeen <= 0) {
+				$minLastSeen = time();
 			}
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$affected = $entryDAO->markReadFeed($this->id(), $maxTimestamp . '000000');
+			$affected = $entryDAO->markReadFeed($this->id(), $minLastSeen . '000000');
 		} else {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$affected = $feedDAO->markAsReadUponGone($this->id());
+			$affected = $feedDAO->markAsReadNotSeen($this->id(), $minLastSeen);
 		}
 		if ($affected > 0) {
 			Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : '') . ' [' . $this->url(false) . ']');

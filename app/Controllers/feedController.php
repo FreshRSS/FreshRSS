@@ -515,7 +515,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				} else {
 					$newGuids = $feed->loadGuids($simplePie);
 					$entries = $feed->loadEntries($simplePie);
-					$feedIsEmpty = $simplePiePush !== null && empty($newGuids);
+					$feedIsEmpty = $simplePiePush === null && empty($newGuids);
 					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
