@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
 == Description ==
@@ -24,6 +23,8 @@ Server-side API compatible with Google Reader API layer 2
 * https://feedhq.readthedocs.io/en/latest/api/index.html
 * https://github.com/bazqux/bazqux-api
 */
+
+declare(strict_types=1);
 
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
@@ -394,7 +395,7 @@ final class GReaderAPI {
 			case 'edit':
 				break;
 			default:
-			self::badRequest();
+				self::badRequest();
 		}
 		$addCatId = 0;
 		$c_name = '';

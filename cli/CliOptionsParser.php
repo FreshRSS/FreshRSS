@@ -136,10 +136,10 @@ abstract class CliOptionsParser {
 		foreach ($userInputs as $input) {
 			preg_match($regex, $input, $matches);
 
-			if(!empty($matches['short'])) {
+			if (!empty($matches['short'])) {
 				$foundAliases = array_merge($foundAliases, str_split($matches['short']));
 			}
-			if(!empty($matches['long'])) {
+			if (!empty($matches['long'])) {
 				$foundAliases[] = $matches['long'];
 			}
 		}
@@ -232,7 +232,7 @@ abstract class CliOptionsParser {
 		return implode(' ', $required) . ' ' . implode(' ', $optional);
 	}
 
-	private function makeInputRegex() : string {
+	private function makeInputRegex(): string {
 		$shortWithValues = '';
 		foreach ($this->options as $option) {
 			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias()) {

@@ -210,5 +210,4 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$user_query = new FreshRSS_UserQuery($query, [], []);
 		self::assertFalse($user_query->isDeprecated());
 	}
-
 }

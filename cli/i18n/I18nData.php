@@ -329,5 +329,4 @@ class I18nData {
 	private function getFilenamePrefix(string $key): string {
 		return preg_replace('/\..*/', '.php', $key) ?? '';
 	}
-
 }

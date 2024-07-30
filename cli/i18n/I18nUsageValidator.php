@@ -56,5 +56,4 @@ class I18nUsageValidator implements I18nValidatorInterface {
 
 		return 0 === $this->failedEntries;
 	}
-
 }

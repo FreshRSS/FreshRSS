@@ -43,7 +43,7 @@ SQL;
 				$periodMax = 12;
 				break;
 			default:
-			$periodMax = 30;
+				$periodMax = 30;
 		}
 
 		$repartition = array_fill(0, $periodMax, 0);
@@ -53,5 +53,4 @@ SQL;
 
 		return $repartition;
 	}
-
 }

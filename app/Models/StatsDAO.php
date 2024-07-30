@@ -371,5 +371,4 @@ SQL;
 
 		return $translated;
 	}
-
 }

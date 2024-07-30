@@ -63,5 +63,4 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 
 		return $this->totalEntries === $this->passEntries;
 	}
-
 }

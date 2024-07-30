@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 class Minz_Exception extends Exception {
-	const ERROR = 0;
-	const WARNING = 10;
-	const NOTICE = 20;
+	public const ERROR = 0;
+	public const WARNING = 10;
+	public const NOTICE = 20;
 
 	public function __construct(string $message = '', int $code = self::ERROR, ?Throwable $previous = null) {
 		if ($code !== Minz_Exception::ERROR

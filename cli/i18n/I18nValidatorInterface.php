@@ -15,5 +15,4 @@ interface I18nValidatorInterface {
 	 * Display the validation report.
 	 */
 	public function displayReport(): string;
-
 }
