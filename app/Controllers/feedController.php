@@ -583,7 +583,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 								continue;
 							}
 
-							$entry->applyFilterActions($titlesAsRead);
+							// NB: Do not mark updated articles as read based on their title, as the duplicate title maybe be from the same article.
+							$entry->applyFilterActions([]);
 							if ($readWhenSameTitleInFeed > 0) {
 								$titlesAsRead[$entry->title()] = true;
 							}
