@@ -509,20 +509,15 @@ SQL;
 	 * Remember to call updateCachedValues() after calling this function
 	 * @return int|false number of lines affected or false in case of error
 	 */
-	public function markAsReadUponGone(int $id) {
-		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
+	public function markAsReadNotSeen(int $id, int $minLastSeen) {
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
-WHERE id_feed=:id_feed1 AND is_read=0 AND (
-	`lastSeen` + 60 < (SELECT s1.maxlastseen FROM (
-		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
-	) s1)
-)
+WHERE id_feed=:id_feed AND is_read=0 AND (`lastSeen` + 10 < :min_last_seen)
 SQL;
 
 		if (($stm = $this->pdo->prepare($sql)) &&
-			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':min_last_seen', $minLastSeen, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
