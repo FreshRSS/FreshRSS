@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="FreshRSS-Extensions">
-	<arg name="extensions" value="php"/>
+<ruleset name="FreshRSS">
+	<arg name="extensions" value="php,phtml"/>
 	<arg name="tab-width" value="4"/>
 	<exclude-pattern>./.git/</exclude-pattern>
 	<exclude-pattern>./node_modules/</exclude-pattern>
@@ -17,7 +17,6 @@
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
-	<exclude-pattern>*.min.js$</exclude-pattern>
 	<rule ref="PSR12">
 		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed"/>
 		<exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine"/>
@@ -61,7 +60,8 @@
 			<property name="lineLimit" value="165"/>
 			<property name="absoluteLineLimit" value="190"/>
 		</properties>
-		<exclude-pattern>/app/i18n/*.php$</exclude-pattern>
+		<exclude-pattern>/app/i18n/*\.php$</exclude-pattern>
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/><!-- Consider using PSR12 defaults instead -->
 	<rule ref="Generic.PHP.DeprecatedFunctions"/>
@@ -72,20 +72,33 @@
 	</rule>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.WhiteSpace.ScopeIndent.Incorrect">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 		<exclude-pattern>/app/install.php</exclude-pattern>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 		<exclude-pattern>/app/install.php</exclude-pattern>
 	</rule>
+	<rule ref="Internal.NoCodeFound">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+	</rule>
 	<!-- <rule ref="Squiz.Commenting.ClassComment.Missing"/> --><!-- Consider adding -->
+	<rule ref="Squiz.ControlStructures.ControlSignature">
+		<include-pattern>*\.phtml$</include-pattern>
+		<properties>
+			<property name="requiredSpacesBeforeColon" value="0" />
+		</properties>
+	</rule>
 	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
-		<exclude-pattern>.phtml$</exclude-pattern>
-		<exclude-pattern>.js$</exclude-pattern>
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
 	<rule ref="Squiz.WhiteSpace.OperatorSpacing">
 		<properties>
 			<property name="ignoreNewlines" value="true"/>
 		</properties>
+	</rule>
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace.Indent">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
 	<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
 </ruleset>
