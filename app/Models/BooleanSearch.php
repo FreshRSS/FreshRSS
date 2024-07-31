@@ -187,7 +187,6 @@ class FreshRSS_BooleanSearch {
 		for ($i = 0; $i < $length; $i++) {
 			$c = $input[$i];
 			$backslashed = $i >= 1 ? $input[$i - 1] === '\\' : false;
-
 			if (!$backslashed) {
 				if ($c === '(') {
 					if ($parenthesesCount === 0) {
@@ -212,7 +211,6 @@ class FreshRSS_BooleanSearch {
 					}
 				}
 			}
-
 			$segment .= $c;
 		}
 		if (trim($segment) !== '') {
