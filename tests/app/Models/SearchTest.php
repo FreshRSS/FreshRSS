@@ -416,12 +416,14 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			],
 			[
 				'(ab) cd OR ef OR (gh)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 			[
 				'(ab) OR cd OR ef OR (gh)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 		];
