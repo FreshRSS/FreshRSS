@@ -17,6 +17,7 @@ class FreshRSS_BooleanSearch {
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
+		// echo __METHOD__ . "('$input', level=$level, '$operator', $allowUserQueries)\n";
 		$this->operator = $operator;
 		$input = trim($input);
 		if ($input === '') {
@@ -37,6 +38,8 @@ class FreshRSS_BooleanSearch {
 			$input = trim($input);
 		}
 		$this->raw_input = $input;
+
+		$input = self::consistentParentheses($input);
 
 		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
 		// or parse everything as a series of Search’s combined by explicit OR
@@ -128,6 +131,94 @@ class FreshRSS_BooleanSearch {
 			$input = str_replace($fromS, $toS, $input);
 		}
 		return $input;
+	}
+
+	/**
+	 * Example: 'ab cd OR ef OR "gh ij"' becomes '(ab cd) OR (ef) OR ("gh ij")'
+	 */
+	public static function addOrParentheses(string $input): string {
+		echo LOG_DEBUG, __METHOD__ . ' ' . $input, "\n";
+		$input = trim($input);
+		if ($input === '') {
+			return '';
+		}
+		$result = '';
+		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
+		$segment = '';
+		$ns = count($splits);
+		for ($i = 0; $i < $ns; $i++) {
+			$segment = $segment . $splits[$i];
+			if (trim($segment) === '') {
+				$segment = '';
+			} elseif (strcasecmp($segment, 'OR') === 0) {
+				$result .= $segment . ' ';
+				$segment = '';
+			} else {
+				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
+				if ($quotes % 2 === 0) {
+					$result .= '(' . trim($segment) . ') ';
+					$segment = '';
+				}
+			}
+		}
+		$segment = trim($segment);
+		if ($segment != '') {
+			$result .= '(' . $segment . ')';
+		}
+		return trim($result);
+	}
+
+	/**
+	 * If the query contains a mix of expressions with and without parentheses,
+	 * then add parentheses to make the query consistent.
+	 * Example: '(ab (cd OR ef)) OR gh OR ij OR (kl)' becomes '(ab ((cd) OR (ef))) OR (gh) OR (ij) OR (kl)'
+	 */
+	public static function consistentParentheses(string $input): string {
+		echo LOG_DEBUG, __METHOD__ . ' ' . $input, "\n";
+		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
+			// No unescaped parentheses in the input
+			return trim($input);
+		}
+		$parenthesesCount = 0;
+		$result = '';
+		$segment = '';
+		$length = strlen($input);
+
+		for ($i = 0; $i < $length; $i++) {
+			$c = $input[$i];
+			$backslashed = $i >= 1 ? $input[$i - 1] === '\\' : false;
+
+			if (!$backslashed) {
+				if ($c === '(') {
+					if ($parenthesesCount === 0) {
+						if ($segment !== '') {
+							$result = rtrim($result) . ' ' . self::addOrParentheses($segment) . ' ';
+							$segment = '';
+
+						}
+						$c = '';
+					}
+					$parenthesesCount++;
+				} elseif ($c === ')') {
+					$parenthesesCount--;
+					if ($parenthesesCount === 0) {
+						$segment = self::consistentParentheses($segment);
+						if ($segment !== '') {
+							$result .= '(' . $segment . ')';
+							$segment = '';
+
+						}
+						$c = '';
+					}
+				}
+			}
+
+			$segment .= $c;
+		}
+		if (trim($segment) !== '') {
+			$result = rtrim($result) . ' ' . self::addOrParentheses($segment);
+		}
+		return trim($result);
 	}
 
 	/** @return bool True if some parenthesis logic took over, false otherwise */
@@ -249,12 +340,11 @@ class FreshRSS_BooleanSearch {
 			return;
 		}
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
-
 		$segment = '';
 		$ns = count($splits);
 		for ($i = 0; $i < $ns; $i++) {
 			$segment = $segment . $splits[$i];
-			if (trim($segment) == '' || strcasecmp($segment, 'OR') === 0) {
+			if (trim($segment) === '' || strcasecmp($segment, 'OR') === 0) {
 				$segment = '';
 			} else {
 				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
