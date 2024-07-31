@@ -17,7 +17,6 @@ class FreshRSS_BooleanSearch {
 
 	/** @param 'AND'|'OR'|'AND NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
-		// echo __METHOD__ . "('$input', level=$level, '$operator', $allowUserQueries)\n";
 		$this->operator = $operator;
 		$input = trim($input);
 		if ($input === '') {
@@ -39,7 +38,7 @@ class FreshRSS_BooleanSearch {
 		}
 		$this->raw_input = $input;
 
-		$input = self::consistentParentheses($input);
+		$input = self::consistentOrParentheses($input);
 
 		// Either parse everything as a series of BooleanSearch’s combined by implicit AND
 		// or parse everything as a series of Search’s combined by explicit OR
@@ -137,15 +136,17 @@ class FreshRSS_BooleanSearch {
 	 * Example: 'ab cd OR ef OR "gh ij"' becomes '(ab cd) OR (ef) OR ("gh ij")'
 	 */
 	public static function addOrParentheses(string $input): string {
-		echo LOG_DEBUG, __METHOD__ . ' ' . $input, "\n";
 		$input = trim($input);
 		if ($input === '') {
 			return '';
 		}
-		$result = '';
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
-		$segment = '';
 		$ns = count($splits);
+		if ($ns <= 1) {
+			return $input;
+		}
+		$result = '';
+		$segment = '';
 		for ($i = 0; $i < $ns; $i++) {
 			$segment = $segment . $splits[$i];
 			if (trim($segment) === '') {
@@ -169,12 +170,11 @@ class FreshRSS_BooleanSearch {
 	}
 
 	/**
-	 * If the query contains a mix of expressions with and without parentheses,
+	 * If the query contains a mix of `OR` expressions with and without parentheses,
 	 * then add parentheses to make the query consistent.
 	 * Example: '(ab (cd OR ef)) OR gh OR ij OR (kl)' becomes '(ab ((cd) OR (ef))) OR (gh) OR (ij) OR (kl)'
 	 */
-	public static function consistentParentheses(string $input): string {
-		echo LOG_DEBUG, __METHOD__ . ' ' . $input, "\n";
+	public static function consistentOrParentheses(string $input): string {
 		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
 			// No unescaped parentheses in the input
 			return trim($input);
@@ -202,7 +202,7 @@ class FreshRSS_BooleanSearch {
 				} elseif ($c === ')') {
 					$parenthesesCount--;
 					if ($parenthesesCount === 0) {
-						$segment = self::consistentParentheses($segment);
+						$segment = self::consistentOrParentheses($segment);
 						if ($segment !== '') {
 							$result .= '(' . $segment . ')';
 							$segment = '';
