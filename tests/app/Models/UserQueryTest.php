@@ -96,27 +96,27 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		self::assertCount(0, $user_query->toArray());
 	}
 
-	// public function testToArray_whenData_returnsArray(): void {
-	// 	$query = array(
-	// 		'get' => 's',
-	// 		'name' => 'some name',
-	// 		'order' => 'some order',
-	// 		'search' => 'some search',
-	// 		'state' => FreshRSS_Entry::STATE_ALL,
-	// 		'url' => 'some url',
-	// 	);
-	// 	$user_query = new FreshRSS_UserQuery($query, [], []);
-	// 	self::assertCount(6, $user_query->toArray());
-	// 	self::assertEquals($query, $user_query->toArray());
-	// }
+	public function testToArray_whenData_returnsArray(): void {
+		$query = array(
+			'get' => 's',
+			'name' => 'some name',
+			'order' => 'some order',
+			'search' => 'some search',
+			'state' => FreshRSS_Entry::STATE_ALL,
+			'url' => 'some url',
+		);
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertCount(6, $user_query->toArray());
+		self::assertEquals($query, $user_query->toArray());
+	}
 
-	// public function testHasSearch_whenSearch_returnsTrue(): void {
-	// 	$query = array(
-	// 		'search' => 'some search',
-	// 	);
-	// 	$user_query = new FreshRSS_UserQuery($query, [], []);
-	// 	self::assertTrue($user_query->hasSearch());
-	// }
+	public function testHasSearch_whenSearch_returnsTrue(): void {
+		$query = array(
+			'search' => 'some search',
+		);
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->hasSearch());
+	}
 
 	public function testHasSearch_whenNoSearch_returnsFalse(): void {
 		$user_query = new FreshRSS_UserQuery([], [], []);
