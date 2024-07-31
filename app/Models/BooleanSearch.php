@@ -148,7 +148,7 @@ class FreshRSS_BooleanSearch {
 		$result = '';
 		$segment = '';
 		for ($i = 0; $i < $ns; $i++) {
-			$segment = $segment . $splits[$i];
+			$segment .= $splits[$i];
 			if (trim($segment) === '') {
 				$segment = '';
 			} elseif (strcasecmp($segment, 'OR') === 0) {
@@ -157,13 +157,20 @@ class FreshRSS_BooleanSearch {
 			} else {
 				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
 				if ($quotes % 2 === 0) {
-					$result .= '(' . trim($segment) . ') ';
+					$segment = trim($segment);
+					if (in_array($segment, ['!', '-'], true)) {
+						$result .= $segment;
+					} else {
+						$result .= '(' . $segment . ') ';
+					}
 					$segment = '';
 				}
 			}
 		}
 		$segment = trim($segment);
-		if ($segment != '') {
+		if (in_array($segment, ['!', '-'], true)) {
+			$result .= $segment;
+		} elseif ($segment !== '') {
 			$result .= '(' . $segment . ')';
 		}
 		return trim($result);
@@ -191,9 +198,12 @@ class FreshRSS_BooleanSearch {
 				if ($c === '(') {
 					if ($parenthesesCount === 0) {
 						if ($segment !== '') {
-							$result = rtrim($result) . ' ' . self::addOrParentheses($segment) . ' ';
+							$result = rtrim($result) . ' ' . self::addOrParentheses($segment);
+							$negation = preg_match('/[!-]$/', $result);
+							if (!$negation) {
+								$result .= ' ';
+							}
 							$segment = '';
-
 						}
 						$c = '';
 					}
@@ -205,7 +215,6 @@ class FreshRSS_BooleanSearch {
 						if ($segment !== '') {
 							$result .= '(' . $segment . ')';
 							$segment = '';
-
 						}
 						$c = '';
 					}
@@ -214,7 +223,12 @@ class FreshRSS_BooleanSearch {
 			$segment .= $c;
 		}
 		if (trim($segment) !== '') {
-			$result = rtrim($result) . ' ' . self::addOrParentheses($segment);
+			$result = rtrim($result);
+			$negation = preg_match('/[!-]$/', $segment);
+			if (!$negation) {
+				$result .= ' ';
+			}
+			$result .= self::addOrParentheses($segment);
 		}
 		return trim($result);
 	}
@@ -235,7 +249,7 @@ class FreshRSS_BooleanSearch {
 				$hasParenthesis = true;
 
 				$before = trim($before);
-				if (preg_match('/[!-]$/i', $before)) {
+				if (preg_match('/[!-]$/', $before)) {
 					// Trim trailing negation
 					$before = substr($before, 0, -1);
 
@@ -301,7 +315,7 @@ class FreshRSS_BooleanSearch {
 					$i++;
 				}
 				// $sub = trim($sub);
-				// if ($sub != '') {
+				// if ($sub !== '') {
 				// 	// TODO: Consider throwing an error or warning in case of non-matching parenthesis
 				// }
 			// } elseif ($c === ')') {
@@ -354,7 +368,7 @@ class FreshRSS_BooleanSearch {
 			}
 		}
 		$segment = trim($segment);
-		if ($segment != '') {
+		if ($segment !== '') {
 			$this->searches[] = new FreshRSS_Search($segment);
 		}
 	}

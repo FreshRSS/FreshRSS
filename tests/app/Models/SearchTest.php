@@ -296,8 +296,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 		return [
 			['ab', 'ab'],
 			['ab cd', 'ab cd'],
+			['!ab -cd', '!ab -cd'],
 			['ab OR cd', '(ab) OR (cd)'],
+			['!ab OR -cd', '(!ab) OR (-cd)'],
 			['ab cd OR ef OR "gh ij"', '(ab cd) OR (ef) OR ("gh ij")'],
+			['ab (!cd)', 'ab (!cd)'],
 		];
 	}
 
@@ -315,11 +318,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['(ab cd ef)', '(ab cd ef)'],
 			['("ab cd" ef)', '("ab cd" ef)'],
 			['"ab cd" (ef gh) "ij kl"', '"ab cd" (ef gh) "ij kl"'],
+			['ab (!cd)', 'ab (!cd)'],
+			['ab !(cd)', 'ab !(cd)'],
+			['(ab) -(cd)', '(ab) -(cd)'],
 			['ab cd OR ef OR "gh ij"', 'ab cd OR ef OR "gh ij"'],
 			['"plain or text" OR (cd)', '("plain or text") OR (cd)'],
 			['(ab) OR cd OR ef OR (gh)', '(ab) OR (cd) OR (ef) OR (gh)'],
 			['(ab (cd OR ef)) OR gh OR ij OR (kl)', '(ab (cd OR ef)) OR (gh) OR (ij) OR (kl)'],
 			['(ab (cd OR ef OR (gh))) OR ij', '(ab ((cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab (!cd OR ef OR (gh))) OR ij', '(ab ((!cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab !(cd OR ef OR !(gh))) OR ij', '(ab !((cd) OR (ef) OR !(gh))) OR (ij)'],
 		];
 	}
 
