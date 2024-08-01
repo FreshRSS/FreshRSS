@@ -452,7 +452,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
-			if ($feed->mute() && $feed_id === null) {
+			if ($feed->mute() && ($feed_id === null || $simplePiePush !== null)) {
 				continue;	// If the feed is disabled, only allow refresh if manually requested for that specific feed
 			}
 			$mtime = $feed->cacheModifiedTime() ?: 0;

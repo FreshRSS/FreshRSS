@@ -577,12 +577,20 @@ HTML;
 		foreach ($booleanSearch->searches() as $filter) {
 			if ($filter instanceof FreshRSS_BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR or AND NOT (special cases) operators and are recursive
-				if ($filter->operator() === 'OR') {
-					$ok |= $this->matches($filter);
-				} elseif ($filter->operator() === 'AND NOT') {
-					$ok &= !$this->matches($filter);
-				} else {	// AND
-					$ok &= $this->matches($filter);
+				switch ($filter->operator()) {
+					case 'OR':
+						$ok |= $this->matches($filter);
+						break;
+					case 'OR NOT':
+						$ok |= !$this->matches($filter);
+						break;
+					case 'AND NOT':
+						$ok &= !$this->matches($filter);
+						break;
+					case 'AND':
+					default:
+						$ok &= $this->matches($filter);
+						break;
 				}
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
