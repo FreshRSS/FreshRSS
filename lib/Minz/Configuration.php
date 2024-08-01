@@ -106,7 +106,7 @@ class Minz_Configuration {
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
 	 * @throws Minz_FileNotExistException
 	 */
-	private final function __construct(string $namespace, string $config_filename, string $default_filename = null,
+	final private function __construct(string $namespace, string $config_filename, string $default_filename = null,
 		Minz_ConfigurationSetterInterface $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;

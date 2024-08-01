@@ -872,7 +872,7 @@ function check_install_database(): array {
 		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
 		$status['tag'] = $dbDAO->tagIsCorrect();
 		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
-	} catch(Minz_PDOConnectionException $e) {
+	} catch (Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
 

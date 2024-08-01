@@ -394,7 +394,7 @@ final class GReaderAPI {
 			case 'edit':
 				break;
 			default:
-			self::badRequest();
+				self::badRequest();
 		}
 		$addCatId = 0;
 		$c_name = '';

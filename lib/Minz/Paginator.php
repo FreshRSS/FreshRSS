@@ -90,7 +90,7 @@ class Minz_Paginator {
 				return $i;
 			}
 			$i++;
-		} while ($i < $this->nbItems ());
+		} while ($i < $this->nbItems());
 
 		return false;
 	}
@@ -102,7 +102,7 @@ class Minz_Paginator {
 	 */
 	public function itemByPosition(int $pos): Minz_Model {
 		if ($pos < 0) {
-			$pos = $this->nbItems () - 1;
+			$pos = $this->nbItems() - 1;
 		}
 		if ($pos >= count($this->items)) {
 			$pos = 0;
@@ -120,7 +120,7 @@ class Minz_Paginator {
 	 */
 	public function items(bool $all = false): array {
 		$array = array ();
-		$nbItems = $this->nbItems ();
+		$nbItems = $this->nbItems();
 
 		if ($nbItems <= $this->nbItemsPerPage || $all) {
 			$array = $this->items;
@@ -165,8 +165,8 @@ class Minz_Paginator {
 		$this->_nbPage();
 	}
 	public function _nbItemsPerPage(int $nbItemsPerPage): void {
-		if ($nbItemsPerPage > $this->nbItems ()) {
-			$nbItemsPerPage = $this->nbItems ();
+		if ($nbItemsPerPage > $this->nbItems()) {
+			$nbItemsPerPage = $this->nbItems();
 		}
 		if ($nbItemsPerPage < 0) {
 			$nbItemsPerPage = 0;

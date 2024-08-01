@@ -270,7 +270,6 @@ final class FeverAPI
 					$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 					break;
 			}
-
 		}
 
 		return $response_arr;
@@ -359,7 +358,6 @@ final class FeverAPI
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-
 			$id = hash('crc32b', $salt . $feed->url());
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {

@@ -464,7 +464,7 @@ SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_f
 	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
 SQL;
 		if (count($feedIds) > 0) {
-			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1). '?)';
+			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($feedIds)) {

@@ -28,7 +28,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	 * Request parameter is:
 	 *   - new-category
 	 */
-	public function createAction() :void {
+	public function createAction(): void {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$tagDAO = FreshRSS_Factory::createTagDao();
 

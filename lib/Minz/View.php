@@ -43,7 +43,7 @@ class Minz_View {
 	 */
 	public function change_view(string $controller_name, string $action_name): void {
 		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
-		$this->_path($controller_name. '/' . $action_name . '.phtml');
+		$this->_path($controller_name . '/' . $action_name . '.phtml');
 	}
 
 	/**
@@ -71,9 +71,9 @@ class Minz_View {
 	 */
 	public function build(): void {
 		if ($this->layout_filename !== '') {
-			$this->buildLayout ();
+			$this->buildLayout();
 		} else {
-			$this->render ();
+			$this->render();
 		}
 	}
 
