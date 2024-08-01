@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Fever API for FreshRSS
@@ -10,8 +11,6 @@
  * TinyTinyRSS Fever API plugin @dasmurphy
  * See https://github.com/dasmurphy/tinytinyrss-fever-plugin
  */
-
-declare(strict_types=1);
 
 // ================================================================================================
 // BOOTSTRAP FreshRSS

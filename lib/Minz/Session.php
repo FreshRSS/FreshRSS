@@ -212,4 +212,5 @@ class Minz_Session {
 	public static function getLongTermCookie(string $name): string {
 		return $_COOKIE[$name] ?? '';
 	}
+
 }

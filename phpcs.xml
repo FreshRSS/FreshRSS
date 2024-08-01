@@ -33,8 +33,10 @@
 		<exclude name="PSR12.Classes.OpeningBraceSpace.Found"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.IncorrectOrder"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport"/>
+		<exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineCASE"/>
 		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakNotNewLine"/>
