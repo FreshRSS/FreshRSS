@@ -426,6 +426,27 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
+			[
+				'ab OR (!(cd OR ef))',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab OR !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'(ab (!cd OR ef OR (gh))) OR !(ij OR kl)',
+				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
+			],
 		];
 	}
 }

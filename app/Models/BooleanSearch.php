@@ -11,11 +11,11 @@ class FreshRSS_BooleanSearch {
 	private array $searches = [];
 
 	/**
-	 * @phpstan-var 'AND'|'OR'|'AND NOT'
+	 * @phpstan-var 'AND'|'OR'|'AND NOT'|'OR NOT'
 	 */
 	private string $operator;
 
-	/** @param 'AND'|'OR'|'AND NOT' $operator */
+	/** @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator */
 	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
 		$this->operator = $operator;
 		$input = trim($input);
@@ -251,7 +251,12 @@ class FreshRSS_BooleanSearch {
 				$before = trim($before);
 				if (preg_match('/[!-]$/', $before)) {
 					// Trim trailing negation
-					$before = substr($before, 0, -1);
+					$before = rtrim($before, ' !-');
+					$isOr = preg_match('/\bOR$/i', $before);
+					if ($isOr) {
+						// Trim trailing OR
+						$before = substr($before, 0, -2);
+					}
 
 					// The text prior to the negation is a BooleanSearch
 					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
@@ -260,8 +265,8 @@ class FreshRSS_BooleanSearch {
 					}
 					$before = '';
 
-					// The next BooleanSearch will have to be combined with AND NOT instead of default AND
-					$nextOperator = 'AND NOT';
+					// The next BooleanSearch will have to be combined with AND NOT or OR NOT instead of default AND
+					$nextOperator = $isOr ? 'OR NOT' : 'AND NOT';
 				} elseif (preg_match('/\bOR$/i', $before)) {
 					// Trim trailing OR
 					$before = substr($before, 0, -2);
@@ -382,7 +387,7 @@ class FreshRSS_BooleanSearch {
 		return $this->searches;
 	}
 
-	/** @return 'AND'|'OR'|'AND NOT' depending on how this BooleanSearch should be combined */
+	/** @return 'AND'|'OR'|'AND NOT'|'OR NOT' depending on how this BooleanSearch should be combined */
 	public function operator(): string {
 		return $this->operator;
 	}
