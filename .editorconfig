@@ -12,7 +12,7 @@ indent_style = tab
 [*.{html,php,phtml}]
 indent_style = tab
 
-[*.js]
+[*.{js,mjs}]
 indent_style = tab
 
 [*.md]
