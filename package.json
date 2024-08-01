@@ -42,7 +42,7 @@
     "rtlcss": "^4.2.0",
     "sass": "^1.77.8",
     "stylelint": "^16.6.1",
-    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-order": "^6.0.4",
     "@stylistic/stylelint-plugin": "^3.0.0"
   },
