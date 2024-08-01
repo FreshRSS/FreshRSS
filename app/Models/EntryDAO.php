@@ -762,7 +762,7 @@ SQL;
 				if ($filterSearch !== '') {
 					if ($search !== '') {
 						$search .= $filter->operator();
-					} elseif ($filter->operator() === 'AND NOT') {
+					} elseif (in_array($filter->operator(), ['AND NOT', 'OR NOT'], true)) {
 						// Special case if we start with a negation (there is already the default AND before)
 						$search .= ' NOT';
 					}
