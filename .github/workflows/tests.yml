@@ -58,7 +58,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         # https://nodejs.org/en/about/previous-releases
-        node-version: lts
+        node-version: 'lts'
         cache: 'npm'
 
     - run: npm ci
