@@ -1,5 +1,6 @@
 {
   "name": "freshrss",
+  "type": "module",
   "description": "A free, self-hostable aggregator",
   "homepage": "https://freshrss.org/",
   "readmeFilename": "README.md",

@@ -19,6 +19,10 @@ export default [
 			"node_modules/",
 			"p/scripts/vendor/",
 			"vendor/",
+			// Additional exclusions for Extensions:
+			"symbolic/",
+			"third-party/",
+			"tmp/",
 		],
 	},
 	js.configs.recommended,
@@ -33,7 +37,7 @@ export default [
 			"eqeqeq": "off",
 			"no-empty": ["error", { "allowEmptyCatch": true }],
 			"no-unused-vars": ["error", {
-				"argsIgnorePattern": "^e",
+				"args": "none",
 				"caughtErrors": "none",
 			}],
 			"yoda": "off",
