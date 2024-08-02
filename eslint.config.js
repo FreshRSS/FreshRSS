@@ -36,6 +36,7 @@ export default [
 				"args": "none",
 				"caughtErrors": "none",
 			}],
+			"object-shorthand": ["warn", "consistent"],
 			"yoda": "off",
 			"@stylistic/indent": ["warn", "tab", { "SwitchCase": 1 }],
 			"@stylistic/linebreak-style": ["error", "unix"],
