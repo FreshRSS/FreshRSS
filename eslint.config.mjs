@@ -22,6 +22,7 @@ export default [
 		],
 	},
 	js.configs.recommended,
+	// stylistic.configs['recommended-flat'],
 	...neostandard(),
 	{
 		plugins: {
@@ -36,10 +37,6 @@ export default [
 				"caughtErrors": "none",
 			}],
 			"yoda": "off",
-			"@stylistic/comma-dangle": ["warn", {
-				"arrays": "always-multiline",
-				"objects": "always-multiline",
-			}],
 			"@stylistic/indent": ["warn", "tab", { "SwitchCase": 1 }],
 			"@stylistic/linebreak-style": ["error", "unix"],
 			"@stylistic/max-len": ["warn", 165],
