@@ -1,0 +1,14 @@
+/* WordHighlighter v0.0.2 (FreshRSS Extension) CSS */
+#stream mark {
+	padding: 2px;
+	padding-right: 0; /* because in case when part of word is highlighted */
+	border-radius: 4px;
+}
+
+#stream mark.mark-secondary {
+	background-color: rgba(255, 255, 0, 0.3) !important;
+}
+
+html[class*="darkMode"] #stream mark.mark-secondary {
+	background-color: rgba(255, 255, 0, 0.5) !important;
+}
