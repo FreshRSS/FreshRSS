@@ -1,6 +1,6 @@
 import globals from "globals";
 import js from "@eslint/js";
-import neostandard from 'neostandard';
+import neostandard, { resolveIgnoresFromGitignore } from 'neostandard';
 import stylistic from '@stylistic/eslint-plugin';
 
 export default [
@@ -15,16 +15,10 @@ export default [
 	},
 	{
 		ignores: [
-			".git/",
+			...resolveIgnoresFromGitignore(),
 			"**/*.min.js",
 			"extensions/",
-			"node_modules/",
 			"p/scripts/vendor/",
-			"vendor/",
-			// Additional exclusions for Extensions:
-			"symbolic/",
-			"third-party/",
-			"tmp/",
 		],
 	},
 	js.configs.recommended,
