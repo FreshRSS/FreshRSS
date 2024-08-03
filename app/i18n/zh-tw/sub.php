@@ -29,9 +29,9 @@ return array(
 			'help' => '使用地址上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的訂閱源填充這一分類',
 		),
 		'empty' => '空分類',
-		'expand' => 'Expand category',	// TODO
-		'information' => '信息',
-		'open' => 'Open category',	// TODO
+		'expand' => '展開分類',
+		'information' => '資訊',
+		'open' => '打開分類',
 		'opml_url' => 'OPML 地址',
 		'position' => '顯示位置',
 		'position_help' => '控制分類排列順序',
@@ -69,9 +69,9 @@ return array(
 		'empty' => '此源為空。請確認它是否正常更新。',
 		'error' => '此源遇到一些問題。請在確認是否能正常訪問後重試。',
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
+			'download' => '下載',
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'label' => '匯出為OPML',
 		),
 		'filteractions' => array(
 			'_' => '過濾動作',
@@ -106,8 +106,8 @@ return array(
 					'help' => '例如 <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => '自訂日期/時間格式',
+					'help' => '可選的。支援的格式<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
