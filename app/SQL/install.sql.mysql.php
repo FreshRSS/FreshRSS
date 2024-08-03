@@ -155,5 +155,5 @@ BEGIN
 	END IF;
 END;
 CALL update_minor();
-DROP PROCEDURE IF EXISTS update_minor;
+DROP PROCEDURE update_minor;
 SQL;
