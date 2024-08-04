@@ -51,7 +51,7 @@ abstract class Minz_ActionController {
 		$this->view = $view ?? new Minz_View();
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
-		$this->view->attributeParams ();
+		$this->view->attributeParams();
 	}
 
 	/**

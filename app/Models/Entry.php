@@ -393,7 +393,7 @@ HTML;
 		return timestamptodate($this->date);
 	}
 	public function machineReadableDate(): string {
-		return @date (DATE_ATOM, $this->date);
+		return @date(DATE_ATOM, $this->date);
 	}
 
 	public function lastSeen(): int {
@@ -577,12 +577,20 @@ HTML;
 		foreach ($booleanSearch->searches() as $filter) {
 			if ($filter instanceof FreshRSS_BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR or AND NOT (special cases) operators and are recursive
-				if ($filter->operator() === 'OR') {
-					$ok |= $this->matches($filter);
-				} elseif ($filter->operator() === 'AND NOT') {
-					$ok &= !$this->matches($filter);
-				} else {	// AND
-					$ok &= $this->matches($filter);
+				switch ($filter->operator()) {
+					case 'OR':
+						$ok |= $this->matches($filter);
+						break;
+					case 'OR NOT':
+						$ok |= !$this->matches($filter);
+						break;
+					case 'AND NOT':
+						$ok &= !$this->matches($filter);
+						break;
+					case 'AND':
+					default:
+						$ok &= $this->matches($filter);
+						break;
 				}
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
@@ -720,17 +728,17 @@ HTML;
 	public function isDay(int $day, int $today): bool {
 		$date = $this->dateAdded(true);
 		switch ($day) {
-		case FreshRSS_Days::TODAY:
-			$tomorrow = $today + 86400;
-			return $date >= $today && $date < $tomorrow;
-		case FreshRSS_Days::YESTERDAY:
-			$yesterday = $today - 86400;
-			return $date >= $yesterday && $date < $today;
-		case FreshRSS_Days::BEFORE_YESTERDAY:
-			$yesterday = $today - 86400;
-			return $date < $yesterday;
-		default:
-			return false;
+			case FreshRSS_Days::TODAY:
+				$tomorrow = $today + 86400;
+				return $date >= $today && $date < $tomorrow;
+			case FreshRSS_Days::YESTERDAY:
+				$yesterday = $today - 86400;
+				return $date >= $yesterday && $date < $today;
+			case FreshRSS_Days::BEFORE_YESTERDAY:
+				$yesterday = $today - 86400;
+				return $date < $yesterday;
+			default:
+				return false;
 		}
 	}
 

@@ -30,12 +30,12 @@ return array(
 		'manage' => '管理',
 		'mark_read' => '標記已讀',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => '開啟選單',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => '下一篇文章',
+			'prev' => '預覽文章',
+			'up' => '回上一篇',
 		),
 		'open_url' => '打開連結',
 		'promote' => '設為管理員',
@@ -142,7 +142,7 @@ return array(
 			'request_failed' => '請求失敗，這可能是因為網絡連接問題。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => '沒有標籤',
 		'new_article' => '發現新文章，點擊刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
 	),

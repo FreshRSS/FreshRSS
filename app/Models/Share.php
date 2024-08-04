@@ -157,7 +157,7 @@ class FreshRSS_Share {
 				case 'method':
 					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
 					break;
-				case 'field';
+				case 'field':
 					$this->field = $value;
 					break;
 			}

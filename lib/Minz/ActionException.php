@@ -7,6 +7,6 @@ class Minz_ActionException extends Minz_Exception {
 		$action_name = rawurlencode($action_name);
 
 		$message = "Invalid action name “{$action_name}” for controller “{$controller_name}”.";
-		parent::__construct ($message, $code);
+		parent::__construct($message, $code);
 	}
 }
