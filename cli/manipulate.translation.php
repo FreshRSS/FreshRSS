@@ -38,7 +38,7 @@ $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
 switch ($cliOptions->action) {
-	case 'add' :
+	case 'add':
 		if (isset($cliOptions->key) && isset($cliOptions->value) && isset($cliOptions->language)) {
 			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
 		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
@@ -54,7 +54,7 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	case 'delete' :
+	case 'delete':
 		if (isset($cliOptions->key)) {
 			$i18nData->removeKey($cliOptions->key);
 		} else {
@@ -75,9 +75,9 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	case 'format' :
+	case 'format':
 		break;
-	case 'ignore' :
+	case 'ignore':
 		if (isset($cliOptions->language) && isset($cliOptions->key)) {
 			$i18nData->ignore($cliOptions->key, $cliOptions->language, isset($cliOptions->revert));
 		} else {
@@ -85,7 +85,7 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	case 'ignore_unmodified' :
+	case 'ignore_unmodified':
 		if (isset($cliOptions->language)) {
 			$i18nData->ignore_unmodified($cliOptions->language, isset($cliOptions->revert));
 		} else {
@@ -93,7 +93,7 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	default :
+	default:
 		manipulateHelp();
 		exit;
 }

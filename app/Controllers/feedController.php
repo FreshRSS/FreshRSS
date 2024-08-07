@@ -452,7 +452,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
-			if ($feed->mute() && $feed_id === null) {
+			if ($feed->mute() && ($feed_id === null || $simplePiePush !== null)) {
 				continue;	// If the feed is disabled, only allow refresh if manually requested for that specific feed
 			}
 			$mtime = $feed->cacheModifiedTime() ?: 0;
@@ -515,7 +515,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				} else {
 					$newGuids = $feed->loadGuids($simplePie);
 					$entries = $feed->loadEntries($simplePie);
-					$feedIsEmpty = $simplePiePush !== null && empty($newGuids);
+					$feedIsEmpty = $simplePiePush === null && empty($newGuids);
 					$feedIsUnchanged = false;
 				}
 				$mtime = $feed->cacheModifiedTime() ?: time();
@@ -583,7 +583,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 								continue;
 							}
 
-							$entry->applyFilterActions($titlesAsRead);
+							// NB: Do not mark updated articles as read based on their title, as the duplicate title maybe be from the same article.
+							$entry->applyFilterActions([]);
 							if ($readWhenSameTitleInFeed > 0) {
 								$titlesAsRead[$entry->title()] = true;
 							}

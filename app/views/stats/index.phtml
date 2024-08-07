@@ -83,16 +83,15 @@
 			<div>
 				<canvas id="statsEntriesPerDay"></canvas>
 				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode(array(
+				<?= json_encode([
 					'canvasID' 		=> 'statsEntriesPerDay',
 					'charttype' 	=> 'barWithAverage',
 					'labelBarChart' => _t('admin.stats.entry_count'),
 					'dataBarChart' 	=> $this->entryCount,
-					'labelAverage' 	=> 'Average ('.$this->average.')',
+					'labelAverage' 	=> 'Average (' . $this->average . ')',
 					'dataAverage' 	=> $this->average,
 					'xAxisLabels' 	=> $this->last30DaysLabels,
-				), JSON_UNESCAPED_UNICODE);
+				], JSON_UNESCAPED_UNICODE)
 				?></script>
 			</div>
 		</div>

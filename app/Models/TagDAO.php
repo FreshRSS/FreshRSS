@@ -381,7 +381,7 @@ SQL;
 				}
 				return $values;
 			}
-			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
+			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1) . '?)';
 			if (is_array($entries[0])) {
 				/** @var array<array<string,string>> $entries */
 				foreach ($entries as $entry) {

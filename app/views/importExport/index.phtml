@@ -62,7 +62,7 @@
 				<?php
 					$select_args = '';
 					if (extension_loaded('zip')) {
-						$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
+						$select_args = ' size="' . min(10, count($this->feeds)) . '" multiple="multiple"';
 					}
 				?>
 				<select name="export_feeds[]"<?= $select_args ?> size="10">

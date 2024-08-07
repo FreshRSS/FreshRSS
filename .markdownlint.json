@@ -11,6 +11,7 @@
 	"no-multiple-blanks": {
 		"maximum": 2
 	},
+	"no-trailing-spaces": true,
 	"ul-indent": false,
 	"ul-style": {
 		"style": "consistent"
