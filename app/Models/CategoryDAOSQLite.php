@@ -16,5 +16,4 @@ class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
 		}
 		return false;
 	}
-
 }

@@ -81,13 +81,13 @@ class Minz_Url {
 		}
 
 		if (isset($url['c']) && is_string($url['c'])
-		 && $url['c'] != Minz_Request::defaultControllerName()) {
+			&& $url['c'] != Minz_Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 
 		if (isset($url['a']) && is_string($url['a'])
-		 && $url['a'] != Minz_Request::defaultActionName()) {
+			&& $url['a'] != Minz_Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}

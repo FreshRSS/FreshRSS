@@ -69,6 +69,15 @@ class Minz_Request {
 		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
 	}
 
+	/** @return array<string> */
+	public static function paramArrayString(string $key, bool $specialchars = false): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_string');
+		return $specialchars ? Minz_Helper::htmlspecialchars_utf8($result) : $result;
+	}
+
 	public static function paramTernary(string $key): ?bool {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];

@@ -5,11 +5,11 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
 	tzdata \
-	apache2 php83-apache2 \
+	apache2 php84-apache2 \
 	apache-mod-auth-openidc \
-	php83 php83-curl php83-gmp php83-intl php83-mbstring php83-xml php83-zip \
-	php83-ctype php83-dom php83-fileinfo php83-iconv php83-json php83-opcache php83-openssl php83-phar php83-session php83-simplexml php83-xmlreader php83-xmlwriter php83-xml php83-tokenizer php83-zlib \
-	php83-pdo_sqlite php83-pdo_mysql php83-pdo_pgsql
+	php84 php84-curl php84-gmp php84-intl php84-mbstring php84-xml php84-zip \
+	php84-ctype php84-dom php84-fileinfo php84-iconv php84-json php84-opcache php84-openssl php84-phar php84-session php84-simplexml php84-xmlreader php84-xmlwriter php84-xml php84-tokenizer php84-zlib \
+	php84-pdo_sqlite php84-pdo_mysql php84-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
@@ -41,8 +41,8 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
 	mv /etc/apache2/conf.d/mod-auth-openidc.conf /etc/apache2/conf.d/mod-auth-openidc.conf.bak && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php83 /usr/bin/php; else true; fi && \
-	echo 'memory_limit = 256M' > /etc/php83/conf.d/10_memory.ini && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php84 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php84/conf.d/10_memory.ini && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \

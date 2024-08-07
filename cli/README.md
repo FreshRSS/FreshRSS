@@ -123,6 +123,7 @@ cd /usr/share/FreshRSS
 
 ./cli/db-backup.php
 # Back-up all users respective database to `data/users/*/backup.sqlite`
+# -q, --quiet suppress non-error messages
 
 ./cli/db-restore.php --delete-backup --force-overwrite
 # Restore all users respective database from `data/users/*/backup.sqlite`

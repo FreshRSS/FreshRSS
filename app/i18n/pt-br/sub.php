@@ -29,7 +29,9 @@ return array(
 			'help' => 'Forneça uma URL para <a href="http://opml.org/" target="_blank">o arquivo OPML </a> para preencher dinamicamente esta categoria com feeds',
 		),
 		'empty' => 'Categoria vazia',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informações',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL de OPML',
 		'position' => 'Posição de exibição',
 		'position_help' => 'Para controlar a ordem de exibição',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'O conteúdo do POST tem suporte automático para <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
 		'method_postparams' => 'Conteúdo do POST',
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
-		'mute' => 'silenciar',
+		'mute' => array(
+			'_' => 'silenciar',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibilidade',
 			'archived' => 'Não exibir (arquivado)',

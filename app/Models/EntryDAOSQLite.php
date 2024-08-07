@@ -86,11 +86,11 @@ SQL;
 		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
-				$affected = 0;
-				foreach ($ids as $id) {
-					$affected += ($this->markRead($id, $is_read) ?: 0);
-				}
-				return $affected;
+			$affected = 0;
+			foreach ($ids as $id) {
+				$affected += ($this->markRead($id, $is_read) ?: 0);
+			}
+			return $affected;
 			//}
 		} else {
 			$this->pdo->beginTransaction();
