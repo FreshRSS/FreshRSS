@@ -66,7 +66,7 @@ FreshRSS comes with absolutely no warranty.
 	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype)
 	* Recommended extensions: [PDO_SQLite](https://www.php.net/pdo-sqlite) (for export/import), [GMP](https://www.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://www.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://www.php.net/mbstring) (for Unicode strings), [iconv](https://www.php.net/iconv) (for charset conversion), [ZIP](https://www.php.net/zip) (for import/export), [zlib](https://www.php.net/zlib) (for compressed feeds)
 	* Extension for database: [PDO_PGSQL](https://www.php.net/pdo-pgsql) or [PDO_SQLite](https://www.php.net/pdo-sqlite) or [PDO_MySQL](https://www.php.net/pdo-mysql)
-* PostgreSQL 9.5+ or SQLite or MySQL 5.5.3+ or MariaDB 5.5+
+* PostgreSQL 10+ or SQLite or MySQL 5.5.3+ or MariaDB 5.5+
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
 

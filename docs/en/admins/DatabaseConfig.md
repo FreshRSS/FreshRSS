@@ -12,6 +12,8 @@ Without changing anything in FreshRSS’ code (which is using [`ILIKE`](https://
 CREATE EXTENSION pg_trgm;
 CREATE INDEX gin_trgm_index_title ON freshrss_entry USING gin(title gin_trgm_ops);
 CREATE INDEX gin_trgm_index_content ON freshrss_entry USING gin(content gin_trgm_ops);
+CREATE STATISTICS freshrss_entry_stats ON title, content FROM freshrss_entry;
+ANALYZE freshrss_entry;
 ```
 
 Where `freshrss_entry` needs to be adapted to the name of the *entry* of a given use, e.g., `freshrss_alice_entry`.
