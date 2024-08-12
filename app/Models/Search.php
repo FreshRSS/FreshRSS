@@ -167,6 +167,7 @@ class FreshRSS_Search {
 	public function getIntitleRegex(): ?array {
 		return $this->intitle_regex;
 	}
+	/** @return array<string>|null */
 	public function getNotIntitle(): ?array {
 		return $this->not_intitle;
 	}
