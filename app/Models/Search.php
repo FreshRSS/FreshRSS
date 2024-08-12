@@ -27,6 +27,8 @@ class FreshRSS_Search {
 	private ?array $label_names = null;
 	/** @var array<string>|null */
 	private ?array $intitle = null;
+	/** @var array<string>|null */
+	private ?array $intitle_regex = null;
 	/** @var int|false|null */
 	private $min_date = null;
 	/** @var int|false|null */
@@ -43,6 +45,8 @@ class FreshRSS_Search {
 	private ?array $tags = null;
 	/** @var array<string>|null */
 	private ?array $search = null;
+	/** @var array<string>|null */
+	private ?array $search_regex = null;
 
 	/** @var array<string>|null */
 	private ?array $not_entry_ids = null;
@@ -54,6 +58,8 @@ class FreshRSS_Search {
 	private ?array $not_label_names = null;
 	/** @var array<string>|null */
 	private ?array $not_intitle = null;
+	/** @var array<string>|null */
+	private ?array $not_intitle_regex = null;
 	/** @var int|false|null */
 	private $not_min_date = null;
 	/** @var int|false|null */
@@ -70,6 +76,8 @@ class FreshRSS_Search {
 	private ?array $not_tags = null;
 	/** @var array<string>|null */
 	private ?array $not_search = null;
+	/** @var array<string>|null */
+	private ?array $not_search_regex = null;
 
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
@@ -156,8 +164,15 @@ class FreshRSS_Search {
 		return $this->intitle;
 	}
 	/** @return array<string>|null */
+	public function getIntitleRegex(): ?array {
+		return $this->intitle_regex;
+	}
 	public function getNotIntitle(): ?array {
 		return $this->not_intitle;
+	}
+	/** @return array<string>|null */
+	public function getNotIntitleRegex(): ?array {
+		return $this->not_intitle_regex;
 	}
 
 	public function getMinDate(): ?int {
@@ -226,8 +241,25 @@ class FreshRSS_Search {
 		return $this->search;
 	}
 	/** @return array<string>|null */
+	public function getSearchRegex(): ?array {
+		return $this->search_regex;
+	}
+	/** @return array<string>|null */
 	public function getNotSearch(): ?array {
 		return $this->not_search;
+	}
+	/** @return array<string>|null */
+	public function getNotSearchRegex(): ?array {
+		return $this->not_search_regex;
+	}
+
+	/**
+	 * Filter an array of string to keep only the valid regexes
+	 * @param array<string> $regexes
+	 * @return array<string>
+	 */
+	private static function sanitizeRegexes(array $regexes): array {
+		return array_filter($regexes, static fn(string $regex) => @preg_match($regex, '') !== false);
 	}
 
 	/**
@@ -428,6 +460,10 @@ class FreshRSS_Search {
 	 * The search is the first word following the keyword.
 	 */
 	private function parseIntitleSearch(string $input): string {
+		if (preg_match_all('/\bintitle:(?P<search>\/.+\/[i]?)/U', $input, $matches)) {
+			$this->intitle_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/\bintitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->intitle = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -444,6 +480,10 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotIntitleSearch(string $input): string {
+		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>\.+\[i]?)/U', $input, $matches)) {
+			$this->not_intitle_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_intitle = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -599,12 +639,17 @@ class FreshRSS_Search {
 	/**
 	 * Parse the search string to find search values.
 	 * Every word is a distinct search value using a delimiter.
-	 * Supported delimiters are single quote (') and double quotes (").
+	 * Supported delimiters are single quote (') and double quotes (") and regex (/).
 	 */
 	private function parseQuotedSearch(string $input): string {
 		$input = self::cleanSearch($input);
 		if ($input === '') {
 			return '';
+		}
+		if (preg_match_all('/(?<![!-])(?P<search>\/.*\/[i]?)/U', $input, $matches)) {
+			$this->search_regex = self::sanitizeRegexes($matches['search']);
+			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
+			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<![!-])(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->search = $matches['search'];
@@ -635,6 +680,10 @@ class FreshRSS_Search {
 		$input = self::cleanSearch($input);
 		if ($input === '') {
 			return '';
+		}
+		if (preg_match_all('/(?<=\s|^)[!-](?P<search>\/.*\/[i]?)/U', $input, $matches)) {
+			$this->not_search_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\s|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_search = $matches['search'];

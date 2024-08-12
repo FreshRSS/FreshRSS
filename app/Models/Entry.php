@@ -651,6 +651,16 @@ HTML;
 						$ok &= stripos($this->title, $title) === false;
 					}
 				}
+				if ($ok && $filter->getIntitleRegex()) {
+					foreach ($filter->getIntitleRegex() as $title) {
+						$ok &= preg_match($title, $this->title) === 1;
+					}
+				}
+				if ($ok && $filter->getNotIntitleRegex()) {
+					foreach ($filter->getNotIntitleRegex() as $title) {
+						$ok &= preg_match($title, $this->title) === 0;
+					}
+				}
 				if ($ok && $filter->getTags()) {
 					foreach ($filter->getTags() as $tag2) {
 						$found = false;
@@ -691,6 +701,16 @@ HTML;
 				if ($ok && $filter->getNotSearch()) {
 					foreach ($filter->getNotSearch() as $needle) {
 						$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
+					}
+				}
+				if ($ok && $filter->getSearchRegex()) {
+					foreach ($filter->getSearchRegex() as $needle) {
+						$ok &= (preg_match($needle, $this->title) === 1 || preg_match($needle, $this->content) === 1);
+					}
+				}
+				if ($ok && $filter->getNotSearchRegex()) {
+					foreach ($filter->getNotSearchRegex() as $needle) {
+						$ok &= (preg_match($needle, $this->title) === 0 && preg_match($needle, $this->content) === 0);
 					}
 				}
 				if ($ok) {
