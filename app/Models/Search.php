@@ -481,7 +481,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotIntitleSearch(string $input): string {
-		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>\.+\[i]?)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>\/.+\/[i]?)/U', $input, $matches)) {
 			$this->not_intitle_regex = self::sanitizeRegexes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
