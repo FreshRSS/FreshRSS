@@ -461,7 +461,7 @@ class FreshRSS_Search {
 	 * The search is the first word following the keyword.
 	 */
 	private function parseIntitleSearch(string $input): string {
-		if (preg_match_all('/\bintitle:(?P<search>\/.+\/[i]?)/U', $input, $matches)) {
+		if (preg_match_all('/\bintitle:(?P<search>\/.+?\/[i]?)/', $input, $matches)) {
 			$this->intitle_regex = self::sanitizeRegexes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -481,7 +481,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotIntitleSearch(string $input): string {
-		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>\/.+\/[i]?)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=\s|^)[!-]intitle:(?P<search>\/.+?\/[i]?)/', $input, $matches)) {
 			$this->not_intitle_regex = self::sanitizeRegexes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -647,7 +647,7 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('/(?<![!-])(?P<search>\/.*\/[i]?)/U', $input, $matches)) {
+		if (preg_match_all('/(?<![!-])(?P<search>\/.*?\/[i]?)/', $input, $matches)) {
 			$this->search_regex = self::sanitizeRegexes($matches['search']);
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
@@ -682,7 +682,7 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('/(?<=\s|^)[!-](?P<search>\/.*\/[i]?)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=\s|^)[!-](?P<search>\/.*?\/[i]?)/', $input, $matches)) {
 			$this->not_search_regex = self::sanitizeRegexes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
