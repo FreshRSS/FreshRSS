@@ -28,6 +28,12 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
+	#[\Override]
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		// TODO: Implement using https://php.net/pdo.sqlitecreatefunction
+		return '';
+	}
+
 	/** @param array<string|int> $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {

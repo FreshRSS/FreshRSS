@@ -27,6 +27,28 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	/** @return array{pattern?:string,matchType?:string} */
+	protected static function regexToSql(string $regex): array {
+		if (preg_match('#^/(?P<pattern>.*)/(?P<matchType>[i]?)$#', $regex, $matches)) {
+			return $matches;
+		}
+		return [];
+	}
+
+	/** @param array<int|string> $values */
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		$matches = static::regexToSql($regex);
+		if (!empty($matches['pattern'])) {
+			$values[] = $matches['pattern'];
+			if (empty($matches['matchType']) || !ctype_alpha($matches['matchType'])) {
+				return "REGEXP_LIKE({$expression},?)";	//MySQL
+			} else {
+				return "REGEXP_LIKE({$expression},?,{$matches['matchType']})";
+			}
+		}
+		return '';
+	}
+
 	private function updateToMediumBlob(): bool {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
@@ -918,6 +940,11 @@ SQL;
 					$values[] = "%{$title}%";
 				}
 			}
+			if ($filter->getIntitleRegex() !== null) {
+				foreach ($filter->getIntitleRegex() as $title) {
+					$sub_search .= 'AND ' . static::sqlRegex($alias . 'title', $title, $values) . ' ';
+				}
+			}
 			if ($filter->getTags() !== null) {
 				foreach ($filter->getTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' LIKE ? ';
@@ -941,6 +968,11 @@ SQL;
 				foreach ($filter->getNotIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
+				}
+			}
+			if ($filter->getNotIntitleRegex() !== null) {
+				foreach ($filter->getNotIntitleRegex() as $title) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $title, $values) . ' ';
 				}
 			}
 			if ($filter->getNotTags() !== null) {
@@ -968,6 +1000,17 @@ SQL;
 					}
 				}
 			}
+			if ($filter->getSearchRegex() !== null) {
+				foreach ($filter->getSearchRegex() as $search_value) {
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND ' . static::sqlRegex(
+							'CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin))', $search_value, $values) . ' ';
+					} else {
+						$sub_search .= 'AND (' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' OR ' . static::sqlRegex($alias . 'content', $search_value, $values) . ') ';
+					}
+				}
+			}
 			if ($filter->getNotSearch() !== null) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
@@ -977,6 +1020,17 @@ SQL;
 						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
 						$values[] = "%{$search_value}%";
 						$values[] = "%{$search_value}%";
+					}
+				}
+			}
+			if ($filter->getNotSearchRegex() !== null) {
+				foreach ($filter->getNotSearchRegex() as $search_value) {
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND NOT ' . static::sqlRegex(
+							'CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin))', $search_value, $values) . ' ';
+					} else {
+						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' AND NOT ' . static::sqlRegex($alias . 'content', $search_value, $values) . ' ';
 					}
 				}
 			}
