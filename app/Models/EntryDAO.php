@@ -29,7 +29,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	/** @return array{pattern?:string,matchType?:string} */
 	protected static function regexToSql(string $regex): array {
-		if (preg_match('#^/(?P<pattern>.*)/(?P<matchType>[i]?)$#', $regex, $matches)) {
+		if (preg_match('#^/(?P<pattern>.*)/(?P<matchType>[im]*)$#', $regex, $matches)) {
 			return $matches;
 		}
 		return [];
