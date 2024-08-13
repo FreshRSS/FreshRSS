@@ -50,6 +50,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return '';
 	}
 
+	/** Register any needed SQL function for the query, e.g. application-defined functions for SQLite */
+	protected function registerSqlFunctions(string $sql): void {
+		// Nothing to do for MySQL
+	}
+
 	private function updateToMediumBlob(): bool {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
@@ -1096,6 +1101,7 @@ SQL;
 			if ($filterSearch !== '') {
 				$search .= 'AND (' . $filterSearch . ') ';
 				$values = array_merge($values, $filterValues);
+				$this->registerSqlFunctions($search);
 			}
 		}
 		return [$values, $search];

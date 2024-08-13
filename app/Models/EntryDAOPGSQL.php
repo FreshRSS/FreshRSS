@@ -44,6 +44,11 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return '';
 	}
 
+	#[\Override]
+	protected function registerSqlFunctions(string $sql): void {
+		// Nothing to do for PostgreSQL
+	}
+
 	/** @param array<string|int> $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
