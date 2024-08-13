@@ -449,4 +449,97 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			],
 		];
 	}
+
+	/**
+	 * @dataProvider provideRegexPostreSQL
+	 * @param array<string> $values
+	 */
+	public function test__regex_postgresql(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexPostreSQL(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				'(e.title ~ ? )',
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				'(e.title ~* ? )',
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				'(e.title ~ ? )',
+				['(?m)^ab$']
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexMySQL
+	 * @param array<string> $values
+	 */
+	public function test__regex_mysql(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexMySQL(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(REGEXP_LIKE(e.title,?,'c') )",
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(REGEXP_LIKE(e.title,?,'i') )",
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(REGEXP_LIKE(e.title,?,'mc') )",
+				['^ab$']
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexSQLite
+	 * @param array<string> $values
+	 */
+	public function test__regex_sqlite(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexSQLite(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(e.title REGEXP ? )",
+				['/^ab$/']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(e.title REGEXP ? )",
+				['/^ab$/i']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(e.title REGEXP ? )",
+				['/^ab$/m']
+			],
+		];
+	}
 }
