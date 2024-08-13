@@ -26,11 +26,18 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	#[\Override]
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
-		if (!empty($matches['pattern'])) {
+		if (isset($matches['pattern'])) {
+			$matchType = $matches['matchType'] ?? '';
+			if (str_contains($matchType, 'm')) {
+				// newline-sensitive matching
+				$matches['pattern'] = '(?m)' . $matches['pattern'];
+			}
 			$values[] = $matches['pattern'];
-			if (($matches['matchType'] ?? '') === 'i') {
+			if (str_contains($matchType, 'i')) {
+				// case-insensitive matching
 				return "{$expression} ~* ?";
 			} else {
+				// case-sensitive matching
 				return "{$expression} ~ ?";
 			}
 		}

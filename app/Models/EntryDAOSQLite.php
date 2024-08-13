@@ -30,8 +30,19 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
 	#[\Override]
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
-		// TODO: Implement using https://php.net/pdo.sqlitecreatefunction
-		return '';
+		static $functionDefined = false;
+		if (!$functionDefined) {
+			$functionDefined = true;
+			// https://php.net/pdo.sqlitecreatefunction
+			// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
+			// $this->pdo->sqliteCreateFunction('regexp',
+			// 	function (string $pattern, string $text): bool {
+			// 		return preg_match($pattern, $text) === 1;
+			// 	},
+			// 	2
+			// );
+		}
+		return "{$expression} REGEXP ?";
 	}
 
 	/** @param array<string|int> $errorInfo */

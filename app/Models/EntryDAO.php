@@ -38,13 +38,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	/** @param array<int|string> $values */
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
-		if (!empty($matches['pattern'])) {
-			$values[] = $matches['pattern'];
-			if (empty($matches['matchType']) || !ctype_alpha($matches['matchType'])) {
-				return "REGEXP_LIKE({$expression},?)";	//MySQL
-			} else {
-				return "REGEXP_LIKE({$expression},?,{$matches['matchType']})";
+		if (isset($matches['pattern'])) {
+			$matchType = $matches['matchType'] ?? '';
+			if (!str_contains($matchType, 'i')) {
+				// Case-sensitive matching
+				$matchType .= 'c';
 			}
+			$values[] = $matches['pattern'];
+			return "REGEXP_LIKE({$expression},?,'{$matchType}')";	// MySQL
 		}
 		return '';
 	}
@@ -991,7 +992,7 @@ SQL;
 			if ($filter->getSearch() !== null) {
 				foreach ($filter->getSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
+						$sub_search .= "AND CONCAT({$alias}title, '\\n', UNCOMPRESS({$alias}content_bin)) LIKE ? ";
 						$values[] = "%{$search_value}%";
 					} else {
 						$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' . $alias . 'content LIKE ?) ';
@@ -1003,8 +1004,8 @@ SQL;
 			if ($filter->getSearchRegex() !== null) {
 				foreach ($filter->getSearchRegex() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND ' . static::sqlRegex(
-							'CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin))', $search_value, $values) . ' ';
+						$sub_search .= 'AND (' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' OR ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ') ';
 					} else {
 						$sub_search .= 'AND (' . static::sqlRegex($alias . 'title', $search_value, $values) .
 							' OR ' . static::sqlRegex($alias . 'content', $search_value, $values) . ') ';
@@ -1014,7 +1015,7 @@ SQL;
 			if ($filter->getNotSearch() !== null) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ? ';
+						$sub_search .= "AND CONCAT({$alias}title, '\\n', UNCOMPRESS({$alias}content_bin)) NOT LIKE ? ";
 						$values[] = "%{$search_value}%";
 					} else {
 						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
@@ -1026,8 +1027,8 @@ SQL;
 			if ($filter->getNotSearchRegex() !== null) {
 				foreach ($filter->getNotSearchRegex() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND NOT ' . static::sqlRegex(
-							'CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin))', $search_value, $values) . ' ';
+						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' ANT NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
 					} else {
 						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
 							' AND NOT ' . static::sqlRegex($alias . 'content', $search_value, $values) . ' ';
