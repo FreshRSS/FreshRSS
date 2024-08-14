@@ -22,13 +22,10 @@ class Minz_PdoMysql extends Minz_Pdo {
 	}
 
 	/**
-	 * @param string|null $name
-	 * @return string|false
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
-	#[\ReturnTypeWillChange]
-	public function lastInsertId($name = null) {
+	public function lastInsertId(?string $name = null): string|false {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }

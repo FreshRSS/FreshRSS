@@ -116,10 +116,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function categoryId(): int {
-		if ($this->category !== null) {
-			return $this->category->id() ?: $this->categoryId;
-		}
-		return $this->categoryId;
+		return $this->category?->id() ?: $this->categoryId;
 	}
 
 	/**
@@ -155,7 +152,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @phpstan-return ($raw is true ? string : array{'username':string,'password':string})
 	 * @return array{'username':string,'password':string}|string
 	 */
-	public function httpAuth(bool $raw = true) {
+	public function httpAuth(bool $raw = true): array|string {
 		if ($raw) {
 			return $this->httpAuth;
 		} else {
@@ -816,7 +813,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return int|null The max number of unread articles to keep, or null if disabled.
 	 */
-	public function keepMaxUnread() {
+	public function keepMaxUnread(): ?int {
 		$keepMaxUnread = $this->attributeInt('keep_max_n_unread');
 		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::userConf()->mark_when['max_n_unread'];
@@ -827,7 +824,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return int|false The number of articles marked as read, of false if error
 	 */
-	public function markAsReadMaxUnread() {
+	public function markAsReadMaxUnread(): int|false {
 		$keepMaxUnread = $this->keepMaxUnread();
 		if ($keepMaxUnread === null) {
 			return false;
@@ -842,7 +839,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
-	public function markAsReadUponGone(bool $upstreamIsEmpty, int $minLastSeen = 0) {
+	public function markAsReadUponGone(bool $upstreamIsEmpty, int $minLastSeen = 0): int|false {
 		$readUponGone = $this->attributeBoolean('read_upon_gone');
 		if ($readUponGone === null) {
 			$readUponGone = FreshRSS_Context::userConf()->mark_when['gone'];
@@ -868,9 +865,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after
-	 * @return int|false
 	 */
-	public function cleanOldEntries() {
+	public function cleanOldEntries(): int|false {
 		/** @var array<string,bool|int|string>|null $archiving */
 		$archiving = $this->attributeArray('archiving');
 		if ($archiving === null) {
@@ -915,7 +911,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return int|false */
-	public function cacheModifiedTime() {
+	public function cacheModifiedTime(): int|false {
 		$filename = $this->cacheFilename();
 		clearstatcache(true, $filename);
 		return @filemtime($filename);
@@ -966,10 +962,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function pubSubHubbubPrepare() {
+	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
 		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
 			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
