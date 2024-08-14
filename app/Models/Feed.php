@@ -350,7 +350,6 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($this->url != '') {
 			/**
 			 * @throws Minz_FileNotExistException
-			 * @phpstan-ignore if.alwaysFalse
 			 */
 			if (CACHE_PATH == '') {
 				throw new Minz_FileNotExistException(
