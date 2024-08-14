@@ -108,7 +108,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($this->users as $username => $values) : ?>
+				<?php foreach ($this->users as $username => $values): ?>
 					<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
 						<td><a href="<?= _url('user', 'details', 'username', $username) ?>" class="configure open-slider" ><?= _i('configure') ?></a></td>
 						<td><?= $username ?></td>

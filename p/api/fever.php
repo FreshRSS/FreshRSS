@@ -270,7 +270,6 @@ final class FeverAPI
 					$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 					break;
 			}
-
 		}
 
 		return $response_arr;
@@ -351,12 +350,14 @@ final class FeverAPI
 		if (!FreshRSS_Context::hasSystemConf()) {
 			return [];
 		}
+
+		require_once(LIB_PATH . '/favicons.php');
+
 		$favicons = [];
 		$salt = FreshRSS_Context::systemConf()->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-
 			$id = hash('crc32b', $salt . $feed->url());
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
@@ -365,7 +366,7 @@ final class FeverAPI
 
 			$favicons[] = [
 				'id' => $feed->id(),
-				'data' => image_type_to_mime_type(exif_imagetype($filename) ?: 0) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')
+				'data' => contentType($filename) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')
 			];
 		}
 

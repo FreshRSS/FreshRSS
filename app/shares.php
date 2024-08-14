@@ -36,6 +36,13 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
+	'archiveIS' => [
+		'url' => 'https://archive.is/submit/?url=~LINK~',
+		'transform' => [],
+		'help' => 'https://archive.is/',
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'archivePH' => [
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => [],
