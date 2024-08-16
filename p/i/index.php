@@ -32,6 +32,8 @@ if (!file_exists($applied_migrations_path)) {
 	require(APP_PATH . '/install.php');
 } else {
 	session_cache_limiter('');
+	Minz_Session::init('FreshRSS');
+	Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 		require(LIB_PATH . '/http-conditional.php');
@@ -42,8 +44,6 @@ if (!file_exists($applied_migrations_path)) {
 			@filemtime(DATA_PATH . '/config.php') ?: 0
 		);
 		if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
-			Minz_Session::init('FreshRSS');
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			exit();	//No need to send anything
 		}
 	}
@@ -56,7 +56,6 @@ if (!file_exists($applied_migrations_path)) {
 			FreshRSS_Context::initSystem();
 			$front_controller = new FreshRSS();
 			$front_controller->init();
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			$front_controller->run();
 		} else {
 			$error = $result;
