@@ -37,10 +37,11 @@ if (!file_exists($applied_migrations_path)) {
 		require(LIB_PATH . '/http-conditional.php');
 		$currentUser = Minz_User::name();
 		$dateLastModification = $currentUser === null ? time() : max(
-			@filemtime(USERS_PATH . '/' . $currentUser . '/' . LOG_FILENAME) ?: 0,
+			FreshRSS_UserDAO::ctime($currentUser),
+			FreshRSS_UserDAO::mtime($currentUser),
 			@filemtime(DATA_PATH . '/config.php') ?: 0
 		);
-		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {
+		if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
 			Minz_Session::init('FreshRSS');
 			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			exit();	//No need to send anything
