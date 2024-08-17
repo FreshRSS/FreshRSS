@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Ielādēt noklusējuma saīsnes',
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Zināmas vietnes',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE

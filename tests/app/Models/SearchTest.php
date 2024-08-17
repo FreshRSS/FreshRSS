@@ -285,12 +285,59 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @dataProvider provideAddOrParentheses
+	 */
+	public function test__addOrParentheses(string $input, string $output): void {
+		self::assertEquals($output, FreshRSS_BooleanSearch::addOrParentheses($input));
+	}
+
+	/** @return array<array{string,string}> */
+	public function provideAddOrParentheses(): array {
+		return [
+			['ab', 'ab'],
+			['ab cd', 'ab cd'],
+			['!ab -cd', '!ab -cd'],
+			['ab OR cd', '(ab) OR (cd)'],
+			['!ab OR -cd', '(!ab) OR (-cd)'],
+			['ab cd OR ef OR "gh ij"', '(ab cd) OR (ef) OR ("gh ij")'],
+			['ab (!cd)', 'ab (!cd)'],
+		];
+	}
+
+	/**
+	 * @dataProvider provideconsistentOrParentheses
+	 */
+	public function test__consistentOrParentheses(string $input, string $output): void {
+		self::assertEquals($output, FreshRSS_BooleanSearch::consistentOrParentheses($input));
+	}
+
+	/** @return array<array{string,string}> */
+	public function provideconsistentOrParentheses(): array {
+		return [
+			['ab cd ef', 'ab cd ef'],
+			['(ab cd ef)', '(ab cd ef)'],
+			['("ab cd" ef)', '("ab cd" ef)'],
+			['"ab cd" (ef gh) "ij kl"', '"ab cd" (ef gh) "ij kl"'],
+			['ab (!cd)', 'ab (!cd)'],
+			['ab !(cd)', 'ab !(cd)'],
+			['(ab) -(cd)', '(ab) -(cd)'],
+			['ab cd OR ef OR "gh ij"', 'ab cd OR ef OR "gh ij"'],
+			['"plain or text" OR (cd)', '("plain or text") OR (cd)'],
+			['(ab) OR cd OR ef OR (gh)', '(ab) OR (cd) OR (ef) OR (gh)'],
+			['(ab (cd OR ef)) OR gh OR ij OR (kl)', '(ab (cd OR ef)) OR (gh) OR (ij) OR (kl)'],
+			['(ab (cd OR ef OR (gh))) OR ij', '(ab ((cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab (!cd OR ef OR (gh))) OR ij', '(ab ((!cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab !(cd OR ef OR !(gh))) OR ij', '(ab !((cd) OR (ef) OR !(gh))) OR (ij)'],
+		];
+	}
+
+	/**
 	 * @dataProvider provideParentheses
 	 * @param array<string> $values
 	 */
-	public function test__construct_parentheses(string $input, string $sql, array $values): void {
+	public function test__parentheses(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals($sql, $filterSearch);
+		self::assertEquals(trim($sql), trim($filterSearch));
 		self::assertEquals($values, $filterValues);
 	}
 
@@ -336,6 +383,69 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intitle:\'"hello world"\'',
 				'(e.title LIKE ? )',
 				['%"hello world"%'],
+			],
+			[
+				'(ab) OR (cd) OR (ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'("plain or text") OR (cd)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
+			],
+			[
+				'"plain or text" OR cd',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
+			],
+			[
+				'"plain OR text" OR cd',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) ',
+				['%plain OR text%', '%plain OR text%', '%cd%', '%cd%'],
+			],
+			[
+				'ab OR cd OR (ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab OR cd OR ef',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'(ab) cd OR ef OR (gh)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
+			],
+			[
+				'(ab) OR cd OR ef OR (gh)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
+			],
+			[
+				'ab OR (!(cd OR ef))',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab OR !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'(ab (!cd OR ef OR (gh))) OR !(ij OR kl)',
+				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
 			],
 		];
 	}

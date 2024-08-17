@@ -145,6 +145,7 @@ return array(
 		'search' => 'Suche nach „%s“',
 		'share' => array(
 			'_' => 'Diese Benutzerabfrage per Link teilen',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Diesen Link verteilen, um in mit Jedem zu teilen',
 			'html' => 'Verteilbarer Link zur HTML-Seite',
 			'opml' => 'Verteilbarer Link zur OPML Liste der Feeds',
@@ -249,6 +250,9 @@ return array(
 			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',

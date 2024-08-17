@@ -145,6 +145,7 @@ return array(
 		'search' => 'Hledat „%s“',
 		'share' => array(
 			'_' => 'Sdílet tento dotaz pomocí odkazu',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Pokud chcete tento dotaz s někým sdílet, uveďte tento odkaz.',
 			'html' => 'Odkaz na stránku HTML, který lze sdílet',
 			'opml' => 'Odkaz na seznam kanálů OPML, který lze sdílet',
@@ -249,6 +250,9 @@ return array(
 			'_' => 'Pořadí řazení',
 			'newer_first' => 'Nejdříve nejnovější',
 			'older_first' => 'Nejdříve nejstarší',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
 		'title' => 'Čtení',

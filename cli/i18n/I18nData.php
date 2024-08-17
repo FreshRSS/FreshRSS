@@ -101,7 +101,7 @@ class I18nData {
 	 * Add a new language. It’s a copy of the reference language.
 	 * @throws Exception
 	 */
-	public function addLanguage(string $language, string $reference = null): void {
+	public function addLanguage(string $language, ?string $reference = null): void {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}

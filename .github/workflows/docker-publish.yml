@@ -81,7 +81,7 @@ jobs:
     #     password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker images
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         file: ${{ matrix.file }}
         platforms: linux/amd64,linux/arm/v7,linux/arm64

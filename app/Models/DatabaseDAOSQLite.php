@@ -8,7 +8,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	#[\Override]
 	public function tablesAreCorrect(): bool {
-		$sql = 'SELECT name FROM sqlite_master WHERE type="table"';
+		$sql = "SELECT name FROM sqlite_master WHERE type='table'";
 		$stm = $this->pdo->query($sql);
 		$res = $stm ? $stm->fetchAll(PDO::FETCH_ASSOC) : false;
 		if ($res === false) {

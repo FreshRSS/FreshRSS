@@ -1,0 +1,37 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	//TODO: To reduce output size, replace by an on-demand JavaScript menu, potentially using HTML template element
+?>
+<ul class="dropdown-menu">
+	<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
+		$id = $this->entry->id();
+		$link = $this->entry->link();
+		$title = $this->entry->title() . ' · ' . ($this->feed === null ? '' : $this->feed->name());
+		foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
+			$share = FreshRSS_Share::get($share_options['type']);
+			if ($share === null) {
+				continue;
+			}
+			$cssClass = $share->isDeprecated() ? ' error' : '';
+			$share_options['id'] = $id;
+			$share_options['link'] = $link;
+			$share_options['title'] = $title;
+			$share->update($share_options);
+			?><li class="item share<?= $cssClass ?>">
+				<?php if ('GET' === $share->method()) {
+					if ($share->HTMLtag() !== 'button') {?>
+					<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
+					<?php } else { ?>
+					<button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button>
+					<?php
+					}
+				} else {?>
+					<a href="POST"><?= $share->name() ?></a>
+					<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
+						<input type="hidden" value="<?= $link ?>" name="<?= $share->field() ?>"/>
+					</form>
+				<?php } ?>
+			</li><?php
+		}
+?></ul>
