@@ -799,7 +799,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * 	list of feeds for which a cache refresh is needed
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
-	public static function actualizeFeedsAndCommit(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie\SimplePie $simplePiePush = null): array {
+	public static function actualizeFeedsAndCommit(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null,
+		?SimplePie\SimplePie $simplePiePush = null): array {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		[$nbUpdatedFeeds, $feed, $nbNewArticles, $feedsCacheToRefresh] = FreshRSS_feed_Controller::actualizeFeeds($feed_id, $feed_url, $maxFeeds, $simplePiePush);
 		if ($nbNewArticles > 0) {

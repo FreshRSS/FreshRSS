@@ -492,7 +492,8 @@ class Item implements RegistryAware
                 $name = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['name'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             }
             if (isset($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]['data'])) {
-                $uri = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]));
+                $uri = $contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0];
+                $uri = $this->sanitize($uri['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($uri));
             }
             if (isset($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['email'][0]['data'])) {
                 $email = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['email'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
@@ -509,7 +510,8 @@ class Item implements RegistryAware
                 $name = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['name'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             }
             if (isset($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]['data'])) {
-                $url = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]));
+                $url = $contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0];
+                $url = $this->sanitize($url['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($url));
             }
             if (isset($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['email'][0]['data'])) {
                 $email = $this->sanitize($contributor['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['email'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
@@ -545,7 +547,8 @@ class Item implements RegistryAware
                 $name = $this->sanitize($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['name'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             }
             if (isset($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]['data'])) {
-                $uri = $this->sanitize($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0]));
+                $uri = $author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['uri'][0];
+                $uri = $this->sanitize($uri['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($uri));
             }
             if (isset($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['email'][0]['data'])) {
                 $email = $this->sanitize($author['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['email'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
@@ -562,7 +565,8 @@ class Item implements RegistryAware
                 $name = $this->sanitize($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['name'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             }
             if (isset($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]['data'])) {
-                $url = $this->sanitize($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0]));
+                $url = $author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['url'][0];
+                $url = $this->sanitize($url['data'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_base($url));
             }
             if (isset($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['email'][0]['data'])) {
                 $email = $this->sanitize($author[0]['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_03]['email'][0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);

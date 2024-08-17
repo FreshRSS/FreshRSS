@@ -39,7 +39,7 @@ final class CallableNameFilter implements NameFilter
      * and encodings or longer lengths, but MUST support at least that
      * minimum.
      *
-     * @param string $name The name for the cache will be most likly an url with query string
+     * @param string $name The name for the cache will be most likely an url with query string
      *
      * @return string the new cache name
      */

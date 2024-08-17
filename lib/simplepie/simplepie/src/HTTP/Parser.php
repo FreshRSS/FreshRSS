@@ -110,14 +110,14 @@ class Parser
     protected $position = 0;
 
     /**
-     * Name of the hedaer currently being parsed
+     * Name of the header currently being parsed
      *
      * @var string
      */
     protected $name = '';
 
     /**
-     * Value of the hedaer currently being parsed
+     * Value of the header currently being parsed
      *
      * @var string
      */

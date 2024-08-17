@@ -23,7 +23,7 @@ parameters:
         - '(Constructor of class SimplePie\\Enclosure has an unused parameter \$javascript\.)'
 
         # Testing legacy dynamic property usage.
-        - '(Access to an undefined property SimplePie.IRI::\$nonexistant_prop\.)'
+        - '(Access to an undefined property SimplePie.IRI::\$nonexistent_prop\.)'
 
         -
             message: '(^Strict comparison using === between string and false will always evaluate to false\.$)'

@@ -1474,7 +1474,7 @@ class SimplePie
     }
 
     /**
-     * @param string[]|string|false $tags Set a list of tags to strip, or set emtpy string to use default tags or false, to strip nothing.
+     * @param string[]|string|false $tags Set a list of tags to strip, or set empty string to use default tags or false, to strip nothing.
      * @return void
      */
     public function strip_htmltags($tags = '', ?bool $encode = null)
@@ -2641,7 +2641,8 @@ class SimplePie
                 $name = $this->sanitize($author['child'][self::NAMESPACE_ATOM_10]['name'][0]['data'], self::CONSTRUCT_TEXT);
             }
             if (isset($author['child'][self::NAMESPACE_ATOM_10]['uri'][0]['data'])) {
-                $uri = $this->sanitize($author['child'][self::NAMESPACE_ATOM_10]['uri'][0]['data'], self::CONSTRUCT_IRI, $this->get_base($author['child'][self::NAMESPACE_ATOM_10]['uri'][0]));
+                $uri = $author['child'][self::NAMESPACE_ATOM_10]['uri'][0];
+                $uri = $this->sanitize($uri['data'], self::CONSTRUCT_IRI, $this->get_base($uri));
             }
             if (isset($author['child'][self::NAMESPACE_ATOM_10]['email'][0]['data'])) {
                 $email = $this->sanitize($author['child'][self::NAMESPACE_ATOM_10]['email'][0]['data'], self::CONSTRUCT_TEXT);
@@ -2658,7 +2659,8 @@ class SimplePie
                 $name = $this->sanitize($author[0]['child'][self::NAMESPACE_ATOM_03]['name'][0]['data'], self::CONSTRUCT_TEXT);
             }
             if (isset($author[0]['child'][self::NAMESPACE_ATOM_03]['url'][0]['data'])) {
-                $url = $this->sanitize($author[0]['child'][self::NAMESPACE_ATOM_03]['url'][0]['data'], self::CONSTRUCT_IRI, $this->get_base($author[0]['child'][self::NAMESPACE_ATOM_03]['url'][0]));
+                $url = $author[0]['child'][self::NAMESPACE_ATOM_03]['url'][0];
+                $url = $this->sanitize($url['data'], self::CONSTRUCT_IRI, $this->get_base($url));
             }
             if (isset($author[0]['child'][self::NAMESPACE_ATOM_03]['email'][0]['data'])) {
                 $email = $this->sanitize($author[0]['child'][self::NAMESPACE_ATOM_03]['email'][0]['data'], self::CONSTRUCT_TEXT);
@@ -2720,7 +2722,8 @@ class SimplePie
                 $name = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_10]['name'][0]['data'], self::CONSTRUCT_TEXT);
             }
             if (isset($contributor['child'][self::NAMESPACE_ATOM_10]['uri'][0]['data'])) {
-                $uri = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_10]['uri'][0]['data'], self::CONSTRUCT_IRI, $this->get_base($contributor['child'][self::NAMESPACE_ATOM_10]['uri'][0]));
+                $uri = $contributor['child'][self::NAMESPACE_ATOM_10]['uri'][0];
+                $uri = $this->sanitize($uri['data'], self::CONSTRUCT_IRI, $this->get_base($uri));
             }
             if (isset($contributor['child'][self::NAMESPACE_ATOM_10]['email'][0]['data'])) {
                 $email = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_10]['email'][0]['data'], self::CONSTRUCT_TEXT);
@@ -2737,7 +2740,8 @@ class SimplePie
                 $name = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_03]['name'][0]['data'], self::CONSTRUCT_TEXT);
             }
             if (isset($contributor['child'][self::NAMESPACE_ATOM_03]['url'][0]['data'])) {
-                $url = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_03]['url'][0]['data'], self::CONSTRUCT_IRI, $this->get_base($contributor['child'][self::NAMESPACE_ATOM_03]['url'][0]));
+                $url = $contributor['child'][self::NAMESPACE_ATOM_03]['url'][0];
+                $url = $this->sanitize($url['data'], self::CONSTRUCT_IRI, $this->get_base($url));
             }
             if (isset($contributor['child'][self::NAMESPACE_ATOM_03]['email'][0]['data'])) {
                 $email = $this->sanitize($contributor['child'][self::NAMESPACE_ATOM_03]['email'][0]['data'], self::CONSTRUCT_TEXT);
@@ -3361,7 +3365,7 @@ class SimplePie
                 if ($arg instanceof SimplePie) {
                     $items = array_merge($items, $arg->get_items(0, $limit));
 
-                // @phpstan-ignore-next-line Enforce PHPDoc type.
+                    // @phpstan-ignore-next-line Enforce PHPDoc type.
                 } else {
                     trigger_error('Arguments must be SimplePie objects', E_USER_WARNING);
                 }
