@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
+INSERT IGNORE INTO `_category` (id, name) VALUES(1, 'Uncategorized');
 
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
