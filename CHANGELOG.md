@@ -25,6 +25,7 @@
 	* Fix performance / deadlock of PostgreSQL and MySQL / MariaDB during schema updates [#6692](https://github.com/FreshRSS/FreshRSS/pull/6692)
 	* Fix HTTP cache of main page (regression since 1.18.0) [#6719](https://github.com/FreshRSS/FreshRSS/pull/6719)
 	* Fix HTTP cache of shareable user queries [#6718](https://github.com/FreshRSS/FreshRSS/pull/6718)
+	* Fix HTTP cache for feeds with modified `Last-Modified` when content is not modified [#6723](https://github.com/FreshRSS/FreshRSS/pull/6723)
 * Extensions
 	* Add core extensions, shipped by default: UserCSS and UserJS [#6267](https://github.com/FreshRSS/FreshRSS/pull/6267)
 		* Replaces CustomCSS and CustomCS extensions
