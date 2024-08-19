@@ -22,7 +22,9 @@ phpmailer/phpmailer/src/DSNConfigurator.php
 phpmailer/phpmailer/src/OAuth*
 phpmailer/phpmailer/src/POP3.php
 simplepie/simplepie/.*
+!simplepie/simplepie/.editorconfig
 !simplepie/simplepie/.github/
+!simplepie/simplepie/.gitignore
 simplepie/simplepie/.github/*
 !simplepie/simplepie/.github/README.md
 simplepie/simplepie/autoloader.php
