@@ -50,15 +50,16 @@ final class BaseDataCache implements DataCache
             return $default;
         }
 
-        // ignore data if internal cache expiration time is not set
-        if (!array_key_exists('__cache_expiration_time', $data)) {
-            return $default;
-        }
+        // FreshRSS commented out, to allow HTTP 304
+        // // ignore data if internal cache expiration time is not set
+        // if (!array_key_exists('__cache_expiration_time', $data)) {
+        //     return $default;
+        // }
 
-        // ignore data if internal cache expiration time is expired
-        if ($data['__cache_expiration_time'] < time()) {
-            return $default;
-        }
+        // // ignore data if internal cache expiration time is expired
+        // if ($data['__cache_expiration_time'] < time()) {
+        //     return $default;
+        // }
 
         // remove internal cache expiration time
         unset($data['__cache_expiration_time']);
