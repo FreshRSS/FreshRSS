@@ -1728,11 +1728,17 @@ class SimplePie
 
 					$md5 = $this->cleanMd5($file->body);
 					if ($this->data['md5'] === $md5) {
+						// FreshRSS
 						if ($this->syslog_enabled)
 						{
 							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
 						}
-						$cache->touch();
+						$this->data['headers'] = $file->headers;
+						$this->data['mtime'] = time();
+						if (!$cache->save($this))
+						{
+							trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
+						}
 						return true;	//Content unchanged even though server did not send a 304
 					} else {
 						if ($this->syslog_enabled)

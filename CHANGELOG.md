@@ -14,7 +14,7 @@
 * Security
 	* Force log out of users when they are disabled [#6612](https://github.com/FreshRSS/FreshRSS/pull/6612)
 	* Increase default values for OpenID Connect `OIDCSessionMaxDuration` and `OIDCSessionInactivityTimeout` [#6642](https://github.com/FreshRSS/FreshRSS/pull/6642)
-	* Add default API CORS HTTP headers when sharing user queries [#6659](https://github.com/FreshRSS/FreshRSS/pull/6659)
+	* Add default API CORS HTTP headers to shareable user queries [#6659](https://github.com/FreshRSS/FreshRSS/pull/6659)
 * Bug fixing
 	* Fix parentheses for complex `OR` Boolean search expressions [#6672](https://github.com/FreshRSS/FreshRSS/pull/6672)
 	* Fix *keep max unread* [#6632](https://github.com/FreshRSS/FreshRSS/pull/6632)
@@ -23,6 +23,9 @@
 	* Fix regression for Fever API, remove dependency to Exif extension [#6624](https://github.com/FreshRSS/FreshRSS/pull/6624)
 	* Fix muted feeds for WebSub [#6671](https://github.com/FreshRSS/FreshRSS/pull/6671)
 	* Fix performance / deadlock of PostgreSQL and MySQL / MariaDB during schema updates [#6692](https://github.com/FreshRSS/FreshRSS/pull/6692)
+	* Fix HTTP cache of main page (regression since 1.18.0) [#6719](https://github.com/FreshRSS/FreshRSS/pull/6719)
+	* Fix HTTP cache of shareable user queries [#6718](https://github.com/FreshRSS/FreshRSS/pull/6718)
+	* Fix HTTP cache for feeds with modified `Last-Modified` when content is not modified [#6723](https://github.com/FreshRSS/FreshRSS/pull/6723)
 * Extensions
 	* Add core extensions, shipped by default: UserCSS and UserJS [#6267](https://github.com/FreshRSS/FreshRSS/pull/6267)
 		* Replaces CustomCSS and CustomCS extensions
@@ -37,7 +40,7 @@
 * Deployment
 	* Docker default image (Debian 12 Bookworm) updated to PHP 8.2.20 and Apache 2.4.61
 	* Docker alternative image updated to Alpine 3.20 with PHP 8.3.10 and Apache 2.4.62 [#5383]([#5383](https://github.com/FreshRSS/FreshRSS/pull/5383))
-	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta1 and Apache 2.4.62 [#5764]([#5764](https://github.com/FreshRSS/FreshRSS/pull/5764))
+	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta3 and Apache 2.4.62 [#5764]([#5764](https://github.com/FreshRSS/FreshRSS/pull/5764))
 * UI
 	* Default dark mode to auto [#5582](https://github.com/FreshRSS/FreshRSS/pull/5582)
 	* New option to control action icons position in reading view [#6297](https://github.com/FreshRSS/FreshRSS/pull/6297)

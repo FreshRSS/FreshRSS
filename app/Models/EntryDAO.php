@@ -371,7 +371,6 @@ SQL;
 	 * @return int|false affected rows
 	 */
 	public function markRead(array|string $ids, bool $is_read = true): int|false {
-		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
@@ -389,6 +388,7 @@ SQL;
 				return $affected;
 			}
 
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` '
 				 . 'SET is_read=? '
 				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
@@ -406,6 +406,7 @@ SQL;
 			}
 			return $affected;
 		} else {
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
 				 . 'SET e.is_read=?,'
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '

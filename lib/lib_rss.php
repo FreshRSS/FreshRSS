@@ -596,11 +596,7 @@ function invalidateHttpCache(string $username = ''): bool {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
-	//if (!$ok) {
-		//TODO: Display notification error on front-end
-	//}
-	return $ok;
+	return FreshRSS_UserDAO::ctouch($username);
 }
 
 /**
