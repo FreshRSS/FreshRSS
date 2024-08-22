@@ -1983,12 +1983,10 @@ class SimplePie
                     if (isset($file)) { // FreshRSS
                         $hash = $this->clean_hash($file->get_body_content());
                         if (($this->data['hash'] ?? null) === $hash) {
-                            syslog(LOG_DEBUG, 'SimplePie hash cache match for ' . Misc::url_remove_credentials($this->feed_url));
                             $this->data['headers'] = $file->get_headers();
                             $cache->set_data($cacheKey, $this->data, $this->cache_duration);
                             return true; // Content unchanged even though server did not send a 304
                         } else {
-                            syslog(LOG_DEBUG, 'SimplePie hash cache no match for ' . Misc::url_remove_credentials($this->feed_url));
                             $this->data['hash'] = $hash;
                         }
                     }

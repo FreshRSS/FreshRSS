@@ -422,7 +422,7 @@ class FreshRSS_Feed extends Minz_Model {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					return $simplePie;
 				}
-				//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
+				syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
 			}
 		}
 		return null;
