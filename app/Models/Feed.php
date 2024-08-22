@@ -899,7 +899,11 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	public function cacheFilename(string $url = ''): string {
 		$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
-		$url = $url ?: htmlspecialchars_decode($this->url);
+		if ($url !== '') {
+			$filename = $simplePie->get_cache_filename($url);
+			return CACHE_PATH . '/' . $filename . '.html';
+		}
+		$url = htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
 		if ($this->kind === FreshRSS_Feed::KIND_HTML_XPATH) {
 			return CACHE_PATH . '/' . $filename . '.html';
