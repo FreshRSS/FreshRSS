@@ -22,6 +22,11 @@ if [ -n "$TRUSTED_PROXY" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
+	# Default values
+	export OIDC_SESSION_INACTIVITY_TIMEOUT=${OIDC_SESSION_INACTIVITY_TIMEOUT:-300}
+	export OIDC_SESSION_MAX_DURATION=${OIDC_SESSION_MAX_DURATION:-27200}
+	export OIDC_SESSION_TYPE=${OIDC_SESSION_TYPE:-server-cache}
+
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine
@@ -31,8 +36,6 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
 		export OIDC_SCOPES
 	fi
-	find /etc/apache2/*/ -type f -name '*openidc.conf' -exec sed -r -i "/^#?OIDCSessionInactivityTimeout/s/^.*/OIDCSessionInactivityTimeout ${OIDCSessionInactivityTimeout:-86400}/" {} \;
-	find /etc/apache2/*/ -type f -name '*openidc.conf' -exec sed -r -i "/^#?OIDCSessionMaxDuration/s/^.*/OIDCSessionMaxDuration ${OIDCSessionMaxDuration:-2592000}/" {} \;
 fi
 
 if [ -n "$CRON_MIN" ]; then
