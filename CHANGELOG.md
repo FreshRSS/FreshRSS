@@ -2,6 +2,10 @@
 
 ## 2024-XX-XX FreshRSS 1.24.3-dev
 
+* Misc.
+	* Use charset for JSON requests from the UI [#6710](https://github.com/FreshRSS/FreshRSS/pull/6710)
+	* Use `.html` extension for the local cache of full content pages instead of `.spc` [#6724](https://github.com/FreshRSS/FreshRSS/pull/6724)
+
 
 ## 2024-08-23 FreshRSS 1.24.2
 
