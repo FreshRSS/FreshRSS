@@ -30,9 +30,10 @@ Example running FreshRSS (or scroll down to the [Docker Compose](#docker-compose
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -p 8080:80 \
+  -p 8080:8080 \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
+  -e LISTEN: 0.0.0.0:8080 \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
@@ -97,7 +98,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` and must match the inner part of an exposed port (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -138,10 +139,11 @@ while reading the source code from your local (git) directory, like the followin
 ```sh
 cd ./FreshRSS/
 docker run --rm \
-  -p 8080:80 \
+  -p 8080:8080 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
+  -e LISTEN: 0.0.0.0:8080 \
   -v $(pwd):/var/www/FreshRSS \
   -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
@@ -277,7 +279,7 @@ First, put variables such as passwords in your `.env` file, which can live where
 ADMIN_EMAIL=admin@example.net
 ADMIN_PASSWORD=freshrss
 ADMIN_API_PASSWORD=freshrss
-# Published port if running locally
+# Published port if running locally. WARNING: this must match your LISTEN port
 PUBLISHED_PORT=8080
 # Database credentials (not relevant if using default SQLite database)
 DB_HOST=freshrss-db
@@ -333,7 +335,9 @@ services:
       - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
     ports:
       # If you want to open a port 8080 on the local machine:
-      - "8080:80"
+      # Inner and outer ports must match here due to an Apache limitation. Modify this port by
+      # also setting the LISTEN environment variable port.
+      - "8080:8080"
     environment:
       # A timezone http://php.net/timezones (default is UTC)
       TZ: Europe/Paris
@@ -342,7 +346,8 @@ services:
       # 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
-      LISTEN: 0.0.0.0:80
+      # Defaults to 80, but must match the inner port of the exposed port setting.
+      LISTEN: 0.0.0.0:8080
       # Optional parameter, remove for automatic settings, set to 0 to disable,
       # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
@@ -581,6 +586,66 @@ server {
 		proxy_set_header Authorization $http_authorization;
 		proxy_pass_header Authorization;
 	}
+}
+```
+### Alternative reverse proxy using Caddy
+
+#### Hosted in a subdirectory
+
+This is an example of configuration to run FreshRSS behind a [caddy reverse proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy) (as a subdirectory).  
+Caddy supports automatic TLS generation/update, but this example assumes an externally created/managed certificate.
+
+```caddyfile
+example.com {
+    log {
+        output file /var/log/caddy/example.com.access.log {
+            # allow fail2ban to use it directly, keep it uncompressed
+            roll_uncompressed
+            roll_size 5MiB
+            roll_keep 10
+        }
+        format json {
+            time_format iso8601
+        }
+    }
+
+    # path within /etc/certificates/ that holds the cert and private key
+    tls /etc/certificates/example.com/chain.pem /etc/certificates/example.com/privkey.pem
+
+    redir /freshrss /freshrss/i/
+    route /freshrss* {
+        uri strip_prefix /freshrss
+        reverse_proxy http://freshrss:8080 {
+            header_up X-Forwarded-Prefix "/freshrss/"
+	    }
+    }
+}
+```
+
+#### Hosted as domain root
+
+Here is an example of configuration to run FreshRSS behind a Caddy reverse proxy (as domain root).  
+Caddy supports automatic TLS generation/update, but this example assumes an externally created/managed certificate.
+
+
+```caddyfile
+freshrss.example.com {
+    log {
+        output file /var/log/caddy/freshrss.example.com.access.log {
+            # allow fail2ban to use it directly, keep it uncompressed
+            roll_uncompressed
+            roll_size 5MiB
+            roll_keep 10
+        }
+        format json {
+            time_format iso8601
+        }
+    }
+
+    # path within /etc/certificates/ that holds the cert and private key
+    tls /etc/certificates/freshrss.example.com/chain.pem /etc/certificates/freshrss.example.com/privkey.pem
+
+    reverse_proxy http://freshrss:8080
 }
 ```
 

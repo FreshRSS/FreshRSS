@@ -4,4 +4,4 @@ services:
 
   freshrss:
     ports:
-      - "${PUBLISHED_PORT:-8080}:${LISTEN:-80}"
+      - "${PUBLISHED_PORT:-8080}:${LISTEN:-8080}"
