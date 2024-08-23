@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2024-0X-XX FreshRSS 1.24.2-dev
+## 2024-08-23 FreshRSS 1.24.2-dev
 
 * Features
 	* New global option to automatically add articles to favourites [#6648](https://github.com/FreshRSS/FreshRSS/pull/6648)
@@ -58,6 +58,7 @@
 	* Minor update of PHPCS whitespace / formatting rules whitespace PHPCS rules [#6666](https://github.com/FreshRSS/FreshRSS/pull/6666)
 	* Markdownlint no-trailing-spaces [#6668](https://github.com/FreshRSS/FreshRSS/pull/6668)
 	* Removed sharing with Blogotext [#6225](https://github.com/FreshRSS/FreshRSS/pull/6225)
+	* Code improvements [#6043](https://github.com/FreshRSS/FreshRSS/pull/6043)
 	* Update dev dependencies [#6606](https://github.com/FreshRSS/FreshRSS/pull/6606), [#6614](https://github.com/FreshRSS/FreshRSS/pull/6614),
 		[#6679](https://github.com/FreshRSS/FreshRSS/pull/6679), [#6681](https://github.com/FreshRSS/FreshRSS/pull/6681), [#6682](https://github.com/FreshRSS/FreshRSS/pull/6682),
 		[#6683](https://github.com/FreshRSS/FreshRSS/pull/6683), [#6684](https://github.com/FreshRSS/FreshRSS/pull/6684)

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 //<Not customisable>
 const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
-const FRESHRSS_VERSION = '1.24.2-dev';
+const FRESHRSS_VERSION = '1.24.3-dev';
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 

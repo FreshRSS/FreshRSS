@@ -440,7 +440,7 @@ class Minz_Request {
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON(): void {
-		if ('application/json' !== self::extractContentType()) {
+		if (!str_starts_with(self::extractContentType(), 'application/json')) {
 			return;
 		}
 		$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
