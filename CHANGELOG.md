@@ -1,6 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2024-08-23 FreshRSS 1.24.2-dev
+## 2024-XX-XX FreshRSS 1.24.3-dev
+
+
+## 2024-08-23 FreshRSS 1.24.2
 
 * Features
 	* New global option to automatically add articles to favourites [#6648](https://github.com/FreshRSS/FreshRSS/pull/6648)
