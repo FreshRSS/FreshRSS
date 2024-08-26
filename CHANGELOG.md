@@ -5,6 +5,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2024-XX-XX FreshRSS 1.24.3-dev
 
+* Security
+	* OpenID Connect better definition of session parameters [#6730](https://github.com/FreshRSS/FreshRSS/pull/6730)
 * Misc.
 	* Use charset for JSON requests from the UI [#6710](https://github.com/FreshRSS/FreshRSS/pull/6710)
 	* Use `.html` extension for the local cache of full content pages instead of `.spc` [#6724](https://github.com/FreshRSS/FreshRSS/pull/6724)
@@ -65,7 +67,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Misc.
 	* Pass PHPStan [Level 9](https://phpstan.org/user-guide/rule-levels) [#6544](https://github.com/FreshRSS/FreshRSS/pull/6544)
 	* Migrate to ESLint 9 [#6685](https://github.com/FreshRSS/FreshRSS/pull/6685)
-	* Minor update of PHPCS whitespace / formatting rules whitespace PHPCS rules [#6666](https://github.com/FreshRSS/FreshRSS/pull/6666)
+	* Minor update of PHPCS whitespace / formatting rules [#6666](https://github.com/FreshRSS/FreshRSS/pull/6666)
 	* Markdownlint no-trailing-spaces [#6668](https://github.com/FreshRSS/FreshRSS/pull/6668)
 	* Removed sharing with Blogotext [#6225](https://github.com/FreshRSS/FreshRSS/pull/6225)
 	* Code improvements [#6043](https://github.com/FreshRSS/FreshRSS/pull/6043)
