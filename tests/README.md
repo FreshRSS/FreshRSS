@@ -2,7 +2,7 @@
 
 ```sh
 cd ./tests/
-wget https://phar.phpunit.de/phpunit.phar
+wget -O phpunit.phar https://phar.phpunit.de/phpunit-9.phar
 php phpunit.phar --bootstrap bootstrap.php
 ```
 
