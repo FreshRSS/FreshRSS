@@ -1,6 +1,18 @@
 ﻿# FreshRSS changelog
 
-## 2024-0X-XX FreshRSS 1.24.2-dev
+See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
+
+
+## 2024-XX-XX FreshRSS 1.24.3-dev
+
+* Security
+	* OpenID Connect better definition of session parameters [#6730](https://github.com/FreshRSS/FreshRSS/pull/6730)
+* Misc.
+	* Use charset for JSON requests from the UI [#6710](https://github.com/FreshRSS/FreshRSS/pull/6710)
+	* Use `.html` extension for the local cache of full content pages instead of `.spc` [#6724](https://github.com/FreshRSS/FreshRSS/pull/6724)
+
+
+## 2024-08-23 FreshRSS 1.24.2
 
 * Features
 	* New global option to automatically add articles to favourites [#6648](https://github.com/FreshRSS/FreshRSS/pull/6648)
@@ -14,7 +26,7 @@
 * Security
 	* Force log out of users when they are disabled [#6612](https://github.com/FreshRSS/FreshRSS/pull/6612)
 	* Increase default values for OpenID Connect `OIDCSessionMaxDuration` and `OIDCSessionInactivityTimeout` [#6642](https://github.com/FreshRSS/FreshRSS/pull/6642)
-	* Add default API CORS HTTP headers when sharing user queries [#6659](https://github.com/FreshRSS/FreshRSS/pull/6659)
+	* Add default API CORS HTTP headers to shareable user queries [#6659](https://github.com/FreshRSS/FreshRSS/pull/6659)
 * Bug fixing
 	* Fix parentheses for complex `OR` Boolean search expressions [#6672](https://github.com/FreshRSS/FreshRSS/pull/6672)
 	* Fix *keep max unread* [#6632](https://github.com/FreshRSS/FreshRSS/pull/6632)
@@ -23,6 +35,9 @@
 	* Fix regression for Fever API, remove dependency to Exif extension [#6624](https://github.com/FreshRSS/FreshRSS/pull/6624)
 	* Fix muted feeds for WebSub [#6671](https://github.com/FreshRSS/FreshRSS/pull/6671)
 	* Fix performance / deadlock of PostgreSQL and MySQL / MariaDB during schema updates [#6692](https://github.com/FreshRSS/FreshRSS/pull/6692)
+	* Fix HTTP cache of main page (regression since 1.18.0) [#6719](https://github.com/FreshRSS/FreshRSS/pull/6719)
+	* Fix HTTP cache of shareable user queries [#6718](https://github.com/FreshRSS/FreshRSS/pull/6718)
+	* Fix HTTP cache for feeds with modified `Last-Modified` when content is not modified [#6723](https://github.com/FreshRSS/FreshRSS/pull/6723)
 * Extensions
 	* Add core extensions, shipped by default: UserCSS and UserJS [#6267](https://github.com/FreshRSS/FreshRSS/pull/6267)
 		* Replaces CustomCSS and CustomCS extensions
@@ -37,7 +52,7 @@
 * Deployment
 	* Docker default image (Debian 12 Bookworm) updated to PHP 8.2.20 and Apache 2.4.61
 	* Docker alternative image updated to Alpine 3.20 with PHP 8.3.10 and Apache 2.4.62 [#5383]([#5383](https://github.com/FreshRSS/FreshRSS/pull/5383))
-	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta1 and Apache 2.4.62 [#5764]([#5764](https://github.com/FreshRSS/FreshRSS/pull/5764))
+	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta3 and Apache 2.4.62 [#5764]([#5764](https://github.com/FreshRSS/FreshRSS/pull/5764))
 * UI
 	* Default dark mode to auto [#5582](https://github.com/FreshRSS/FreshRSS/pull/5582)
 	* New option to control action icons position in reading view [#6297](https://github.com/FreshRSS/FreshRSS/pull/6297)
@@ -52,9 +67,10 @@
 * Misc.
 	* Pass PHPStan [Level 9](https://phpstan.org/user-guide/rule-levels) [#6544](https://github.com/FreshRSS/FreshRSS/pull/6544)
 	* Migrate to ESLint 9 [#6685](https://github.com/FreshRSS/FreshRSS/pull/6685)
-	* Minor update of PHPCS whitespace / formatting rules whitespace PHPCS rules [#6666](https://github.com/FreshRSS/FreshRSS/pull/6666)
+	* Minor update of PHPCS whitespace / formatting rules [#6666](https://github.com/FreshRSS/FreshRSS/pull/6666)
 	* Markdownlint no-trailing-spaces [#6668](https://github.com/FreshRSS/FreshRSS/pull/6668)
 	* Removed sharing with Blogotext [#6225](https://github.com/FreshRSS/FreshRSS/pull/6225)
+	* Code improvements [#6043](https://github.com/FreshRSS/FreshRSS/pull/6043)
 	* Update dev dependencies [#6606](https://github.com/FreshRSS/FreshRSS/pull/6606), [#6614](https://github.com/FreshRSS/FreshRSS/pull/6614),
 		[#6679](https://github.com/FreshRSS/FreshRSS/pull/6679), [#6681](https://github.com/FreshRSS/FreshRSS/pull/6681), [#6682](https://github.com/FreshRSS/FreshRSS/pull/6682),
 		[#6683](https://github.com/FreshRSS/FreshRSS/pull/6683), [#6684](https://github.com/FreshRSS/FreshRSS/pull/6684)

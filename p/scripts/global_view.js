@@ -49,7 +49,7 @@ function load_panel(link) {
 
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', b.formAction, false);
-				req2.setRequestHeader('Content-Type', 'application/json');
+				req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req2.send(JSON.stringify({
 					_csrf: context.csrf,
 				}));
