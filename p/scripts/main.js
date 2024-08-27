@@ -605,7 +605,7 @@ function prev_category() {
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		last_category();
@@ -619,7 +619,7 @@ function next_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -633,7 +633,7 @@ function next_unread_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -641,12 +641,12 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	if (links && links.length > 0) {
 		delayedClick(links[links.length - 1]);
 	}
