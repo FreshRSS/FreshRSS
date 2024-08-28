@@ -478,6 +478,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.title ~ ? )',
 				['(?m)^ab$']
 			],
+			[
+				'author:/^ab$/',
+				"(REPLACE(e.author, ';', '\n') ~ ? )",
+				['^ab$']
+			],
+			[
+				'inurl:/^ab$/',
+				'(e.link ~ ? )',
+				['^ab$']
+			],
 		];
 	}
 

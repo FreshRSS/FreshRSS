@@ -40,7 +40,11 @@ class FreshRSS_Search {
 	/** @var array<string>|null */
 	private ?array $inurl = null;
 	/** @var array<string>|null */
+	private ?array $inurl_regex = null;
+	/** @var array<string>|null */
 	private ?array $author = null;
+	/** @var array<string>|null */
+	private ?array $author_regex = null;
 	/** @var array<string>|null */
 	private ?array $tags = null;
 	/** @var array<string>|null */
@@ -71,7 +75,11 @@ class FreshRSS_Search {
 	/** @var array<string>|null */
 	private ?array $not_inurl = null;
 	/** @var array<string>|null */
+	private ?array $not_inurl_regex = null;
+	/** @var array<string>|null */
 	private ?array $not_author = null;
+	/** @var array<string>|null */
+	private ?array $not_author_regex = null;
 	/** @var array<string>|null */
 	private ?array $not_tags = null;
 	/** @var array<string>|null */
@@ -215,8 +223,16 @@ class FreshRSS_Search {
 		return $this->inurl;
 	}
 	/** @return array<string>|null */
+	public function getInurlRegex(): ?array {
+		return $this->inurl_regex;
+	}
+	/** @return array<string>|null */
 	public function getNotInurl(): ?array {
 		return $this->not_inurl;
+	}
+	/** @return array<string>|null */
+	public function getNotInurlRegex(): ?array {
+		return $this->not_inurl_regex;
 	}
 
 	/** @return array<string>|null */
@@ -224,8 +240,16 @@ class FreshRSS_Search {
 		return $this->author;
 	}
 	/** @return array<string>|null */
+	public function getAuthorRegex(): ?array {
+		return $this->author_regex;
+	}
+	/** @return array<string>|null */
 	public function getNotAuthor(): ?array {
 		return $this->not_author;
+	}
+	/** @return array<string>|null */
+	public function getNotAuthorRegex(): ?array {
+		return $this->not_author_regex;
 	}
 
 	/** @return array<string>|null */
@@ -506,6 +530,10 @@ class FreshRSS_Search {
 	 * a delimiter. Supported delimiters are single quote (') and double quotes (").
 	 */
 	private function parseAuthorSearch(string $input): string {
+		if (preg_match_all('#\\bauthor:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->author_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/\\bauthor:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->author = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -522,6 +550,10 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotAuthorSearch(string $input): string {
+		if (preg_match_all('#(?<=\\s|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->not_author_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/(?<=\\s|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_author = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -542,6 +574,10 @@ class FreshRSS_Search {
 	 * The search is the first word following the keyword.
 	 */
 	private function parseInurlSearch(string $input): string {
+		if (preg_match_all('#\\binurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->inurl_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/\\binurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -551,6 +587,10 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotInurlSearch(string $input): string {
+		if (preg_match_all('#(?<=\\s|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->not_inurl_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);

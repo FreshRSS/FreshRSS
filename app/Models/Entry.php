@@ -636,9 +636,19 @@ HTML;
 						$ok &= stripos(implode(';', $this->authors), $author) !== false;
 					}
 				}
+				if ($ok && $filter->getAuthorRegex()) {
+					foreach ($filter->getAuthorRegex() as $author) {
+						$ok &= preg_match($author, implode("\n", $this->authors)) === 1;
+					}
+				}
 				if ($ok && $filter->getNotAuthor()) {
 					foreach ($filter->getNotAuthor() as $author) {
 						$ok &= stripos(implode(';', $this->authors), $author) === false;
+					}
+				}
+				if ($ok && $filter->getNotAuthorRegex()) {
+					foreach ($filter->getNotAuthorRegex() as $author) {
+						$ok &= preg_match($author, implode("\n", $this->authors)) === 0;
 					}
 				}
 				if ($ok && $filter->getIntitle()) {
@@ -646,14 +656,14 @@ HTML;
 						$ok &= stripos($this->title, $title) !== false;
 					}
 				}
-				if ($ok && $filter->getNotIntitle()) {
-					foreach ($filter->getNotIntitle() as $title) {
-						$ok &= stripos($this->title, $title) === false;
-					}
-				}
 				if ($ok && $filter->getIntitleRegex()) {
 					foreach ($filter->getIntitleRegex() as $title) {
 						$ok &= preg_match($title, $this->title) === 1;
+					}
+				}
+				if ($ok && $filter->getNotIntitle()) {
+					foreach ($filter->getNotIntitle() as $title) {
+						$ok &= stripos($this->title, $title) === false;
 					}
 				}
 				if ($ok && $filter->getNotIntitleRegex()) {
@@ -688,9 +698,19 @@ HTML;
 						$ok &= stripos($this->link, $url) !== false;
 					}
 				}
+				if ($ok && $filter->getIntitleRegex()) {
+					foreach ($filter->getIntitleRegex() as $url) {
+						$ok &= preg_match($url, $this->link) === 1;
+					}
+				}
 				if ($ok && $filter->getNotInurl()) {
 					foreach ($filter->getNotInurl() as $url) {
 						$ok &= stripos($this->link, $url) === false;
+					}
+				}
+				if ($ok && $filter->getNotInurlRegex()) {
+					foreach ($filter->getNotInurlRegex() as $url) {
+						$ok &= preg_match($url, $this->link) === 0;
 					}
 				}
 				if ($ok && $filter->getSearch()) {

@@ -941,6 +941,11 @@ SQL;
 					$values[] = "%{$author}%";
 				}
 			}
+			if ($filter->getAuthorRegex() !== null) {
+				foreach ($filter->getAuthorRegex() as $author) {
+					$sub_search .= 'AND ' . static::sqlRegex("REPLACE({$alias}author, ';', '\n')", $author, $values) . ' ';
+				}
+			}
 			if ($filter->getIntitle() !== null) {
 				foreach ($filter->getIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
@@ -964,11 +969,21 @@ SQL;
 					$values[] = "%{$url}%";
 				}
 			}
+			if ($filter->getInurlRegex() !== null) {
+				foreach ($filter->getInurlRegex() as $url) {
+					$sub_search .= 'AND ' . static::sqlRegex($alias . 'link', $url, $values) . ' ';
+				}
+			}
 
 			if ($filter->getNotAuthor() !== null) {
 				foreach ($filter->getNotAuthor() as $author) {
 					$sub_search .= 'AND ' . $alias . 'author NOT LIKE ? ';
 					$values[] = "%{$author}%";
+				}
+			}
+			if ($filter->getNotAuthorRegex() !== null) {
+				foreach ($filter->getNotAuthorRegex() as $author) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex("REPLACE({$alias}author, ';', '\n')", $author, $values) . ' ';
 				}
 			}
 			if ($filter->getNotIntitle() !== null) {
