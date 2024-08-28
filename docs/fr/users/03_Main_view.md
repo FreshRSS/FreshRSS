@@ -286,7 +286,7 @@ Le mode multilignes peut être activé avec l’option de recherche `m` comme : 
 
 > ℹ️ `author:` fonctionne avec un auteur par ligne, ce qui fait que le mode multilignes peut être avantageux, comme : `author:/^Alice Doe$/im`
 
-Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l\b/i`
+Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
 
 Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
 
