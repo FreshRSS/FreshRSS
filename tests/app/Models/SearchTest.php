@@ -479,6 +479,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				['(?m)^ab$']
 			],
 			[
+				'intitle:/^ab\\M/',
+				'(e.title ~ ? )',
+				['^ab\\M']
+			],
+			[
 				'author:/^ab$/',
 				"(REPLACE(e.author, ';', '\n') ~ ? )",
 				['^ab$']
@@ -549,6 +554,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intitle:/^ab$/m',
 				"(e.title REGEXP ? )",
 				['/^ab$/m']
+			],
+			[
+				'intitle:/^ab\\b/',
+				'(e.title REGEXP ? )',
+				['/^ab\\b/']
 			],
 		];
 	}

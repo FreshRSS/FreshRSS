@@ -284,7 +284,8 @@ class FreshRSS_Search {
 	 * @return array<string>
 	 */
 	private static function sanitizeRegexes(array $regexes): array {
-		return array_filter($regexes, static fn(string $regex) => @preg_match($regex, '') !== false);
+		// return array_filter($regexes, static fn(string $regex) => @preg_match($regex, '') !== false);	// TODO: Disabled for now
+		return $regexes;
 	}
 
 	/**
