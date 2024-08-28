@@ -125,7 +125,7 @@ Regex searches are case-sensitive by default, but can be made case-insensitive w
 
 Supports multiline mode with `m` modifier like: `/^Alice/m`
 
-> ℹ️ `author:` is working with one author per line, so the multiline mode may advantageously be used
+> ℹ️ `author:` is working with one author per line, so the multiline mode may advantageously be used, like: `author:/^Alice Dupont$/im`
 
 Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l\b/i`
 
