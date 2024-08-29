@@ -92,10 +92,10 @@ $dbValues = [
 	'prefix' => $cliOptions->dbPrefix ?? null,
 ];
 
-$config = array(
-		'salt' => generateSalt(),
-		'db' => FreshRSS_Context::systemConf()->db,
-	);
+$config = [
+	'salt' => generateSalt(),
+	'db' => FreshRSS_Context::systemConf()->db,
+	];
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {

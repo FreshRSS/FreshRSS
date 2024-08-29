@@ -37,12 +37,12 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 
 FreshRSS_Context::initUser($user);
 if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
-	usleep(rand(100, 10000));	//Primitive mitigation of scanning for users
+	usleep(random_int(100, 10000));	//Primitive mitigation of scanning for users
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('User not found!');
 } else {
-	usleep(rand(20, 200));
+	usleep(random_int(20, 200));
 }
 
 if (!file_exists(DATA_PATH . '/no-cache.txt')) {
@@ -106,7 +106,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	}
 }
 if ($query === null || $userSearch === null) {
-	usleep(rand(100, 10000));
+	usleep(random_int(100, 10000));
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('User query not found!');
@@ -118,7 +118,7 @@ try {
 	FreshRSS_Context::updateUsingRequest(false);
 	Minz_Request::_param('search', $userSearch->getRawInput());	// Restore user search
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
-} catch (Minz_Exception $e) {
+} catch (Minz_Exception) {
 	Minz_Error::error(400, 'Bad user query!');
 	die();
 }

@@ -16,7 +16,7 @@ class FreshRSS_UserQuery {
 	/** XML-encoded name */
 	private string $name = '';
 	private string $order = '';
-	private FreshRSS_BooleanSearch $search;
+	private readonly FreshRSS_BooleanSearch $search;
 	private int $state = 0;
 	private string $url = '';
 	private string $token = '';
@@ -48,9 +48,11 @@ class FreshRSS_UserQuery {
 	 * @param array<int,FreshRSS_Category> $categories
 	 * @param array<int,FreshRSS_Tag> $labels
 	 */
-	public function __construct(array $query, array $categories, array $labels) {
-		$this->categories = $categories;
-		$this->labels = $labels;
+	public function __construct(
+		array $query,
+		private array $categories,
+		private array $labels,
+	) {
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
 		} else {

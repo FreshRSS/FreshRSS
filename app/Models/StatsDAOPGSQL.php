@@ -57,19 +57,12 @@ SQL;
 			return [];
 		}
 
-		switch ($period) {
-			case 'hour':
-				$periodMax = 24;
-				break;
-			case 'day':
-				$periodMax = 7;
-				break;
-			case 'month':
-				$periodMax = 12;
-				break;
-			default:
-				$periodMax = 30;
-		}
+		$periodMax = match ($period) {
+			'hour' => 24,
+			'day' => 7,
+			'month' => 12,
+			default => 30,
+		};
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {

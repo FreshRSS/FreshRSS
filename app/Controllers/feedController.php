@@ -340,7 +340,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				// We try to get more information about the feed.
 				$this->view->feed->load(true);
 				$this->view->load_ok = true;
-			} catch (Exception $e) {
+			} catch (Exception) {
 				$this->view->load_ok = false;
 			}
 
@@ -647,7 +647,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (rand(0, 30) === 1) {	// Remove old entries once in 30.
+			if (random_int(0, 30) === 1) {	// Remove old entries once in 30.
 				$nb = $feed->cleanOldEntries();
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
@@ -768,9 +768,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	private static function applyLabelActions(int $nbNewEntries): int|false {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$labels = FreshRSS_Context::labels();
-		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
-			return !empty($label->filtersAction('label'));
-		});
+		$labels = array_filter($labels, static fn(FreshRSS_Tag $label) => !empty($label->filtersAction('label')));
 		if (count($labels) <= 0) {
 			return 0;
 		}
@@ -1178,7 +1176,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$this->view->selectorSuccess = false;
 				$this->view->htmlContent = $entry->content(false);
 			}
-		} catch (Exception $e) {
+		} catch (Exception) {
 			$this->view->fatalError = _t('feedback.sub.feed.selector_preview.http_error');
 		}
 	}

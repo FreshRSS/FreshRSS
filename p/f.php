@@ -15,7 +15,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 }
 
 $id = $_SERVER['QUERY_STRING'] ?? '0';
-if (!ctype_xdigit($id)) {
+if (!ctype_xdigit((string) $id)) {
 	$id = '0';
 }
 
@@ -42,9 +42,9 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 		if ($ico_mtime == false) {
 			show_default_favicon(86400);
 			exit();
-		} else {
-			touch($ico);
 		}
+
+		touch($ico);
 	}
 }
 

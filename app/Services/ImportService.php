@@ -6,9 +6,9 @@ declare(strict_types=1);
  */
 class FreshRSS_Import_Service {
 
-	private FreshRSS_CategoryDAO $catDAO;
+	private readonly FreshRSS_CategoryDAO $catDAO;
 
-	private FreshRSS_FeedDAO $feedDAO;
+	private readonly FreshRSS_FeedDAO $feedDAO;
 
 	/** true if success, false otherwise */
 	private bool $lastStatus;
@@ -153,25 +153,14 @@ class FreshRSS_Import_Service {
 			$feed->_name($name);
 			$feed->_website($website);
 			$feed->_description($description);
-
-			switch (strtolower($feed_elt['type'] ?? '')) {
-				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
-					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
-					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION):
-				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTNOTATION);
-					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
-					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
-					break;
-				default:
-					$feed->_kind(FreshRSS_Feed::KIND_RSS);
-					break;
-			}
+			$jsonDotPath = FreshRSS_Export_Service::TYPE_JSON_DOTPATH;
+			match (strtolower($feed_elt['type'] ?? '')) {
+				strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH) => $feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH),
+				strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH) => $feed->_kind(FreshRSS_Feed::KIND_XML_XPATH),
+				strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION), strtolower($jsonDotPath) => $feed->_kind(FreshRSS_Feed::KIND_JSON_DOTNOTATION),
+				strtolower(FreshRSS_Export_Service::TYPE_JSONFEED) => $feed->_kind(FreshRSS_Feed::KIND_JSONFEED),
+				default => $feed->_kind(FreshRSS_Feed::KIND_RSS),
+			};
 
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
