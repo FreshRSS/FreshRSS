@@ -165,14 +165,10 @@ class FreshRSS_Themes extends Minz_Model {
 			}
 		}
 
-		switch ($type) {
-			case self::ICON_URL:
-				return Minz_Url::display($url);
-			case self::ICON_IMG:
-				return '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />';
-			case self::ICON_EMOJI:
-			default:
-				return '<span class="icon"' . $title . '>' . $alt . '</span>';
-		}
+		return match ($type) {
+			self::ICON_URL => Minz_Url::display($url),
+			self::ICON_IMG => '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />',
+			default => '<span class="icon"' . $title . '>' . $alt . '</span>',
+		};
 	}
 }

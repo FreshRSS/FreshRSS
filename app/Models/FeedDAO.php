@@ -424,9 +424,7 @@ SQL;
 		 */
 		$feeds = self::daoToFeeds($res);
 
-		uasort($feeds, static function (FreshRSS_Feed $a, FreshRSS_Feed $b) {
-			return strnatcasecmp($a->name(), $b->name());
-		});
+		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
 
 		return $feeds;
 	}

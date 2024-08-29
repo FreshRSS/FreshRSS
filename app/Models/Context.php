@@ -347,24 +347,16 @@ final class FreshRSS_Context {
 		$type = substr($get, 0, 1);
 		$id = substr($get, 2);
 
-		switch ($type) {
-			case 'a':
-				return self::$current_get['all'];
-			case 'i':
-				return self::$current_get['important'];
-			case 's':
-				return self::$current_get['starred'];
-			case 'f':
-				return self::$current_get['feed'] == $id;
-			case 'c':
-				return self::$current_get['category'] == $id;
-			case 't':
-				return self::$current_get['tag'] == $id;
-			case 'T':
-				return self::$current_get['tags'] || self::$current_get['tag'];
-			default:
-				return false;
-		}
+		return match ($type) {
+			'a' => self::$current_get['all'],
+			'i' => self::$current_get['important'],
+			's' => self::$current_get['starred'],
+			'f' => self::$current_get['feed'] == $id,
+			'c' => self::$current_get['category'] == $id,
+			't' => self::$current_get['tag'] == $id,
+			'T' => self::$current_get['tags'] || self::$current_get['tag'],
+			default => false,
+		};
 	}
 
 	/**

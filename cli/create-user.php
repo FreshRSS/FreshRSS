@@ -79,7 +79,7 @@ $values = array_filter($values);
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
-	isset($cliOptions->email) ? $cliOptions->email : null,
+	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
 	$values,
 	!isset($cliOptions->noDefaultFeeds)

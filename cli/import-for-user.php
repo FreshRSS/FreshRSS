@@ -34,7 +34,7 @@ $importController = new FreshRSS_importExport_Controller();
 $ok = false;
 try {
 	$ok = $importController->importFile($filename, $filename, $username);
-} catch (FreshRSS_ZipMissing_Exception $zme) {
+} catch (FreshRSS_ZipMissing_Exception) {
 	fail('FreshRSS error: Lacking php-zip extension!');
 } catch (FreshRSS_Zip_Exception $ze) {
 	fail('FreshRSS error: ZIP archive cannot be imported! Error code: ' . $ze->zipErrorCode());

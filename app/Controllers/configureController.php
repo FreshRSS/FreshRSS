@@ -270,7 +270,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			];
 		if (!empty(FreshRSS_Context::userConf()->archiving['keep_period'])) {
 			$keepPeriod = FreshRSS_Context::userConf()->archiving['keep_period'];
-			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', (string)$keepPeriod, $matches)) {
 				$volatile = [
 					'enable_keep_period' => true,
 					'keep_period_count' => $matches['count'],

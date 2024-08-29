@@ -6,9 +6,9 @@ declare(strict_types=1);
  */
 class FreshRSS_Import_Service {
 
-	private FreshRSS_CategoryDAO $catDAO;
+	private readonly FreshRSS_CategoryDAO $catDAO;
 
-	private FreshRSS_FeedDAO $feedDAO;
+	private readonly FreshRSS_FeedDAO $feedDAO;
 
 	/** true if success, false otherwise */
 	private bool $lastStatus;
