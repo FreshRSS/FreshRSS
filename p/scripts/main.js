@@ -1345,6 +1345,7 @@ function loadDynamicTags(div) {
 			const input_newTag = document.createElement('input');
 			input_newTag.setAttribute('type', 'text');
 			input_newTag.setAttribute('name', 'newTag');
+			input_newTag.setAttribute('list', 'datalist-labels');
 			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
 			const button_btn = document.createElement('button');
@@ -1368,6 +1369,7 @@ function loadDynamicTags(div) {
 		}
 
 		let html = '';
+		let datalist = '';
 		if (json && json.length) {
 			let nbLabelsChecked = 0;
 			for (let i = 0; i < json.length; i++) {
@@ -1384,12 +1386,16 @@ function loadDynamicTags(div) {
 					'name="t_' + tag.id + '"type="checkbox" ' +
 					(context.anonymous ? 'disabled="disabled" ' : '') +
 					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
+				datalist += '<option value="' + tag.name + '"></option>'
 			}
 			if (context.anonymous && nbLabelsChecked === 0) {
 				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
+		const datalistLabels = document.getElementById('datalist-labels');
+		datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
+		datalistLabels.insertAdjacentHTML('beforeend', datalist);
 	};
 	req.send();
 }
