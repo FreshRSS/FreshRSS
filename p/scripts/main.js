@@ -1219,8 +1219,6 @@ function init_stream(stream) {
 			toggleContent(new_active, old_active, false);
 			return false;
 		}
-
-
 	};
 
 	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
