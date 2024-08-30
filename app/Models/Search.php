@@ -579,6 +579,10 @@ class FreshRSS_Search {
 			$this->inurl_regex = self::sanitizeRegexes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
+		if (preg_match_all('/\\binurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->inurl = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/\\binurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
@@ -590,6 +594,10 @@ class FreshRSS_Search {
 	private function parseNotInurlSearch(string $input): string {
 		if (preg_match_all('#(?<=\\s|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_inurl_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
