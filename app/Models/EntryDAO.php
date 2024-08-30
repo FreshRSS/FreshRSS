@@ -1009,6 +1009,11 @@ SQL;
 					$values[] = "%{$url}%";
 				}
 			}
+			if ($filter->getNotInurlRegex() !== null) {
+				foreach ($filter->getNotInurlRegex() as $url) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'link', $url, $values) . ' ';
+				}
+			}
 
 			if ($filter->getSearch() !== null) {
 				foreach ($filter->getSearch() as $search_value) {
