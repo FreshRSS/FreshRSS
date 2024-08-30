@@ -11,12 +11,6 @@
 		</div>
 	<?php } ?>
 
-	<?php if (!max_registrations_reached()) { ?>
-		<div class="link-registration">
-			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
-		</div>
-	<?php } ?>
-
 	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
