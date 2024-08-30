@@ -1,6 +1,7 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	$ticket = $_GET['ticket'];
 ?>
 <main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
@@ -74,6 +75,7 @@
 				));
 			?>
 			<input type="hidden" name="r" value="<?= $redirect_url ?>" />
+			<input type="hidden" name="ticket" value="<?= $ticket ?>" />
 
 			<button type="submit" class="btn btn-important"><?= _t('gen.action.create') ?></button>
 

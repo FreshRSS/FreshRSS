@@ -276,6 +276,17 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return (bool)$ok;
 	}
 
+	private function punchTicket(string $ticket): bool {
+		// Success is atomic, so race-safe.
+		// Fails if
+		// - ticket file doesn't exist;
+		// - punched ticket file exists.
+		// All suits us.
+		$pristine_path = join_path(DATA_PATH, 'tickets', $ticket);
+		$punched_path = join_path(DATA_PATH, 'tickets', $ticket . '.punched');
+		return rename($pristine_path, $punched_path);
+	}
+
 	/**
 	 * This action creates a new user.
 	 *
@@ -297,6 +308,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$new_user_name = Minz_Request::paramString('new_user_name');
 			$email = Minz_Request::paramString('new_user_email');
 			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', true);
+			// proof of payment of account grant
+			$ticket = Minz_Request::paramString('ticket');
 			$badRedirectUrl = [
 				'c' => Minz_Request::paramString('originController') ?: 'auth',
 				'a' => Minz_Request::paramString('originAction') ?: 'register',
@@ -346,11 +359,19 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
+			if (!self::punchTicket($ticket)) {
+				Minz_Request::bad(
+					_t('user.ticket.invalid'),
+					$badRedirectUrl
+				);
+			}
+
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, [
 				'language' => Minz_Request::paramString('new_user_language') ?: FreshRSS_Context::userConf()->language,
 				'timezone' => Minz_Request::paramString('new_user_timezone'),
 				'is_admin' => Minz_Request::paramBoolean('new_user_is_admin'),
 				'enabled' => true,
+				'ticket' => $ticket,
 			]);
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';

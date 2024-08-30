@@ -68,6 +68,13 @@ return array(
 			'format' => '<small>Maximum 16 alphanumeric characters</small>',
 		),
 	),
+	'customer' => array(
+		'buy' => array(
+			'_' => 'Buy an account',
+			'ask' => 'Buy an account?',
+			'title' => 'Buy an account',
+		),
+	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l',
 		'Aug' => '\\A\\u\\g\\u\\s\\t',

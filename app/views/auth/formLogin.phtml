@@ -6,6 +6,12 @@
 	<h1><?= _t('gen.auth.login') ?></h1>
 
 	<?php if (!max_registrations_reached()) { ?>
+		<div class="link-buy">
+			<a href="<?= _url('customer', 'pay') ?>"><?= _t('gen.customer.buy.ask') ?></a>
+		</div>
+	<?php } ?>
+
+	<?php if (!max_registrations_reached()) { ?>
 		<div class="link-registration">
 			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
 		</div>
