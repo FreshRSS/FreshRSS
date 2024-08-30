@@ -698,8 +698,8 @@ HTML;
 						$ok &= stripos($this->link, $url) !== false;
 					}
 				}
-				if ($ok && $filter->getIntitleRegex()) {
-					foreach ($filter->getIntitleRegex() as $url) {
+				if ($ok && $filter->getInurlRegex()) {
+					foreach ($filter->getInurlRegex() as $url) {
 						$ok &= preg_match($url, $this->link) === 1;
 					}
 				}
