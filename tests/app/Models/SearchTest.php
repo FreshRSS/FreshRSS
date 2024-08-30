@@ -126,7 +126,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['inurl: word1', [], ['word1']],
 			['inurl:123', ['123'], null],
 			['inurl:word1 word2', ['word1'], ['word2']],
-			['inurl:"word1 word2"', ['"word1'], ['word2"']],
+			['inurl:"word1 word2"', ['word1 word2'], null],
 			['inurl:word1 word2 inurl:word3', ['word1', 'word3'], ['word2']],
 			["inurl:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['inurl:word1+word2', ['word1+word2'], null],
