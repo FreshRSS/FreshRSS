@@ -229,6 +229,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		$ok = self::checkUsername($new_user_name);
 		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
+		// create basepath if missing
+		if (!is_dir(join_path(DATA_PATH, 'users'))) {
+			$ok &= mkdir(join_path(DATA_PATH, 'users'), 0770, true);
+		}
 		$configPath = '';
 
 		if ($ok) {
@@ -243,10 +247,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok &= !file_exists($configPath);
 		}
 		if ($ok) {
-			if (!is_dir($homeDir)) {
-				mkdir($homeDir, 0770, true);
+			// $homeDir must not exist beforehand,
+			// otherwise it might be multiple remote parties racing to register one username
+			$ok = mkdir($homeDir, 0770, true);
+			if ($ok) {
+				$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 			}
-			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 		}
 		if ($ok) {
 			$newUserDAO = FreshRSS_Factory::createUserDao($new_user_name);
