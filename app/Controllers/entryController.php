@@ -44,10 +44,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - is_read (default: true)
 	 */
 	public function readAction(): void {
-		$id = Minz_Request::param('id');
 		$get = Minz_Request::paramString('get');
 		$next_get = Minz_Request::paramString('nextGet') ?: $get;
 		$id_max = Minz_Request::paramString('idMax') ?: '0';
+		if (!ctype_digit($id_max)) {
+			$id_max = '0';
+		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
 
@@ -64,44 +66,44 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$this->view->tagsForEntries = [];
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		if ($id == false) {
-			// id is false? It MUST be a POST request!
+		if (!Minz_Request::hasParam('id')) {
+			// No id, then it MUST be a POST request
 			if (!Minz_Request::isPost()) {
 				Minz_Request::bad(_t('feedback.access.not_found'), ['c' => 'index', 'a' => 'index']);
 				return;
 			}
 
-			if (!$get) {
+			if ($get === '') {
 				// No get? Mark all entries as read (from $id_max)
 				$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT, null, 0, $is_read);
 			} else {
 				$type_get = $get[0];
 				$get = (int)substr($get, 2);
-				switch($type_get) {
-				case 'c':
-					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 'f':
-					$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 's':
-					$entryDAO->markReadEntries($id_max, true, null, FreshRSS_Feed::PRIORITY_IMPORTANT,
-						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 'a':
-					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT,
-						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 'i':
-					$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_IMPORTANT, null,
-						FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 't':
-					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
-				case 'T':
-					$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-					break;
+				switch ($type_get) {
+					case 'c':
+						$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 'f':
+						$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 's':
+						$entryDAO->markReadEntries($id_max, true, null, FreshRSS_Feed::PRIORITY_IMPORTANT,
+							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 'a':
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT,
+							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 'i':
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_IMPORTANT, null,
+							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 't':
+						$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
+					case 'T':
+						$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						break;
 				}
 
 				if ($next_get !== 'a') {
@@ -111,7 +113,16 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				}
 			}
 		} else {
-			$ids = is_array($id) ? $id : [$id];
+			/** @var array<numeric-string> $idArray */
+			$idArray = Minz_Request::paramArrayString('id');
+			$idString = Minz_Request::paramString('id');
+			if (count($idArray) > 0) {
+				$ids = $idArray;
+			} elseif (ctype_digit($idString)) {
+				$ids = [$idString];
+			} else {
+				$ids = [];
+			}
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
 			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?: [];
@@ -145,7 +156,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	public function bookmarkAction(): void {
 		$id = Minz_Request::paramString('id');
 		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
-		if ($id != '') {
+		if ($id != '' && ctype_digit($id)) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite($id, $is_favourite);
 		}

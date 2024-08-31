@@ -31,6 +31,8 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')
 		export OIDC_SCOPES
 	fi
+	find /etc/apache2/*/ -type f -name '*openidc.conf' -exec sed -r -i "/^#?OIDCSessionInactivityTimeout/s/^.*/OIDCSessionInactivityTimeout ${OIDCSessionInactivityTimeout:-86400}/" {} \;
+	find /etc/apache2/*/ -type f -name '*openidc.conf' -exec sed -r -i "/^#?OIDCSessionMaxDuration/s/^.*/OIDCSessionMaxDuration ${OIDCSessionMaxDuration:-2592000}/" {} \;
 fi
 
 if [ -n "$CRON_MIN" ]; then

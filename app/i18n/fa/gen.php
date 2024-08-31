@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => ' میانبرهای پیش فرض را بارگیری کنید',
 		'manage' => ' مدیریت',
 		'mark_read' => ' علامت گذاری به عنوان خوانده شده',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => ' URL را باز کنید',
 		'promote' => ' ترویج',
 		'purge' => ' پاکسازی',
@@ -139,7 +147,7 @@ return array(
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -196,9 +204,9 @@ return array(
 	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
-		'blogotext' => ' وبلاگ متن',
 		'buffer' => ' بافر',
 		'clipboard' => ' کلیپ بورد',
 		'diaspora' => ' دیاسپورا*',

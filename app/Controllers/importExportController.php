@@ -38,9 +38,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 */
 	private static function megabytes(string $size_str) {
 		switch (substr($size_str, -1)) {
-			case 'M': case 'm': return (int)$size_str;
-			case 'K': case 'k': return (int)$size_str / 1024;
-			case 'G': case 'g': return (int)$size_str * 1024;
+			case 'M':
+			case 'm':
+				return (int)$size_str;
+			case 'K':
+			case 'k':
+				return (int)$size_str / 1024;
+			case 'G':
+			case 'g':
+				return (int)$size_str * 1024;
 		}
 		return $size_str;
 	}
@@ -243,10 +249,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, static function ($v) {
-					// Filter out empty properties, potentially reported as empty objects
-					return (is_string($v) && trim($v) !== '') || !empty($v);
-				});
+			$item = array_filter($item, static fn($v) =>
+				// Filter out empty properties, potentially reported as empty objects
+				(is_string($v) && trim($v) !== '') || !empty($v));
 			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
 			$item['content'] = ['content' => $item['content'] ?? ''];
@@ -564,7 +569,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if ($feed != null) {
+			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.
 				$id = $this->feedDAO->addFeedObject($feed);
@@ -690,15 +695,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private static function filenameToContentType(string $filename): string {
 		$filetype = self::guessFileType($filename);
 		switch ($filetype) {
-		case 'zip':
-			return 'application/zip';
-		case 'opml':
-			return 'application/xml; charset=utf-8';
-		case 'json_starred':
-		case 'json_feed':
-			return 'application/json; charset=utf-8';
-		default:
-			return 'application/octet-stream';
+			case 'zip':
+				return 'application/zip';
+			case 'opml':
+				return 'application/xml; charset=utf-8';
+			case 'json_starred':
+			case 'json_feed':
+				return 'application/json; charset=utf-8';
+			default:
+				return 'application/octet-stream';
 		}
 	}
 }

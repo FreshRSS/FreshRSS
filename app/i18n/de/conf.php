@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Anzeige',
 		'darkMode' => array(
-			'_' => 'Automatischer Dunkel-Modus (Beta)',
+			'_' => 'Automatischer Dunkel-Modus',
 			'auto' => 'Automatisch',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nein',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Alle Artikel von den "Wichtige Feeds" anzeigen',
 		'get_label' => 'Artikel mit dem Label “%s” anzeigen',
 		'help' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Dokumentation für Benutzerabfragen und Teilen via HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
@@ -142,6 +145,7 @@ return array(
 		'search' => 'Suche nach „%s“',
 		'share' => array(
 			'_' => 'Diese Benutzerabfrage per Link teilen',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Diesen Link verteilen, um in mit Jedem zu teilen',
 			'html' => 'Verteilbarer Link zur HTML-Seite',
 			'opml' => 'Verteilbarer Link zur OPML Liste der Feeds',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => 'In der Zeile mit Autoren und Datum',
 			),
 			'feed_title' => 'Feed Titel',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Hashtags',
 				'both' => 'In Kopf- und Fußzeile',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Dieser Dienst ist veraltet und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">zukünftigen FreshRSS-Version</a> entfernt.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',

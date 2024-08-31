@@ -29,13 +29,21 @@ return array(
 		'load_default_shortcuts' => 'デフォルトのショートカットを読み込む',
 		'manage' => '管理',
 		'mark_read' => '既読にする',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => '次の記事',
+			'prev' => '前の記事',
+			'up' => '先頭へ',
+		),
 		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
 		'refresh_opml' => 'OPMLをリフレッシュする',
 		'remove' => '消去',
 		'rename' => '名前を変更する',
-		'see_website' => 'webサイトをご覧ください',
+		'see_website' => 'Webサイトを開く',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
 		'update' => '更新',
@@ -139,7 +147,7 @@ return array(
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -188,17 +196,17 @@ return array(
 		'user_profile' => 'プロフィール',
 	),
 	'period' => array(
-		'days' => '日',
-		'hours' => '時',
-		'months' => '月',
-		'weeks' => '週',
-		'years' => '年',
+		'days' => '日間',
+		'hours' => '時間',
+		'months' => 'ヶ月',
+		'weeks' => '週間',
+		'years' => '年間',
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -233,12 +241,12 @@ return array(
 		'by_author' => '著者:',
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
-		'default_category' => 'カテゴリーに登録されていない',
-		'no' => 'NO',
+		'default_category' => '未分類',
+		'no' => 'いいえ',
 		'not_applicable' => '利用不可能',
 		'ok' => 'OK!',
 		'or' => 'または',
-		'yes' => 'OK',
+		'yes' => 'はい',
 	),
 	'stream' => array(
 		'load_more' => '記事をもっと読み込む',

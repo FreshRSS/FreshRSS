@@ -222,7 +222,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return intval($res[0]['count']) / ($interval_in_days / $period);
+		return (int)$res[0]['count'] / ($interval_in_days / $period);
 	}
 
 	/**
@@ -230,9 +230,7 @@ SQL;
 	 * @return array<int,int>
 	 */
 	protected function initStatsArray(int $min, int $max): array {
-		return array_map(function () {
-			return 0;
-		}, array_flip(range($min, $max)));
+		return array_map(fn() => 0, array_flip(range($min, $max)));
 	}
 
 	/**
@@ -369,11 +367,8 @@ SQL;
 	 * @return array<string>
 	 */
 	private function convertToTranslatedJson(array $data = []): array {
-		$translated = array_map(static function (string $a) {
-			return _t('gen.date.' . $a);
-		}, $data);
+		$translated = array_map(static fn(string $a) => _t('gen.date.' . $a), $data);
 
 		return $translated;
 	}
-
 }

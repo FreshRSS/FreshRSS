@@ -8,7 +8,7 @@ class FreshRSS_Auth {
 	/**
 	 * Determines if user is connected.
 	 */
-	public const DEFAULT_COOKIE_DURATION = 7776000;
+	public const DEFAULT_COOKIE_DURATION = 7_776_000;
 
 	private static bool $login_ok = false;
 
@@ -31,15 +31,16 @@ class FreshRSS_Auth {
 			]);
 		}
 
-		if (self::$login_ok) {
-			self::giveAccess();
-		} elseif (self::accessControl() && self::giveAccess()) {
-			FreshRSS_UserDAO::touch();
-		} else {
-			// Be sure all accesses are removed!
-			self::removeAccess();
+		if (self::$login_ok && self::giveAccess()) {
+			return self::$login_ok;
 		}
-		return self::$login_ok;
+		if (self::accessControl() && self::giveAccess()) {
+			FreshRSS_UserDAO::touch();
+			return self::$login_ok;
+		}
+		// Be sure all accesses are removed!
+		self::removeAccess();
+		return false;
 	}
 
 	/**
@@ -53,48 +54,48 @@ class FreshRSS_Auth {
 	private static function accessControl(): bool {
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
 		switch ($auth_type) {
-		case 'form':
-			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
-			$current_user = '';
-			if (isset($credentials[1])) {
-				$current_user = trim($credentials[0]);
-				Minz_Session::_params([
+			case 'form':
+				$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
+				$current_user = '';
+				if (isset($credentials[1])) {
+					$current_user = trim($credentials[0]);
+					Minz_Session::_params([
 					Minz_User::CURRENT_USER => $current_user,
 					'passwordHash' => trim($credentials[1]),
 					'csrf' => false,
-				]);
-			}
-			return $current_user != '';
-		case 'http_auth':
-			$current_user = httpAuthUser();
-			if ($current_user == '') {
-				return false;
-			}
-			$login_ok = FreshRSS_UserDAO::exists($current_user);
-			if (!$login_ok && FreshRSS_Context::systemConf()->http_auth_auto_register) {
-				$email = null;
-				if (FreshRSS_Context::systemConf()->http_auth_auto_register_email_field !== '' &&
-					isset($_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field])) {
-					$email = (string)$_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field];
+					]);
 				}
-				$language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::systemConf()->language);
-				Minz_Translate::init($language);
-				$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '', [
+				return $current_user != '';
+			case 'http_auth':
+				$current_user = httpAuthUser();
+				if ($current_user == '') {
+					return false;
+				}
+				$login_ok = FreshRSS_UserDAO::exists($current_user);
+				if (!$login_ok && FreshRSS_Context::systemConf()->http_auth_auto_register) {
+					$email = null;
+					if (FreshRSS_Context::systemConf()->http_auth_auto_register_email_field !== '' &&
+						isset($_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field])) {
+						$email = (string)$_SERVER[FreshRSS_Context::systemConf()->http_auth_auto_register_email_field];
+					}
+					$language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::systemConf()->language);
+					Minz_Translate::init($language);
+					$login_ok = FreshRSS_user_Controller::createUser($current_user, $email, '', [
 					'language' => $language,
-				]);
-			}
-			if ($login_ok) {
-				Minz_Session::_params([
+					]);
+				}
+				if ($login_ok) {
+					Minz_Session::_params([
 					Minz_User::CURRENT_USER => $current_user,
 					'csrf' => false,
-				]);
-			}
-			return $login_ok;
-		case 'none':
-			return true;
-		default:
-			// TODO load extension
-			return false;
+					]);
+				}
+				return $login_ok;
+			case 'none':
+				return true;
+			default:
+				// TODO load extension
+				return false;
 		}
 	}
 
@@ -103,25 +104,25 @@ class FreshRSS_Auth {
 	 */
 	public static function giveAccess(): bool {
 		FreshRSS_Context::initUser();
-		if (!FreshRSS_Context::hasUserConf()) {
+		if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 			self::$login_ok = false;
 			return false;
 		}
 
 		switch (FreshRSS_Context::systemConf()->auth_type) {
-		case 'form':
-			self::$login_ok = Minz_Session::paramString('passwordHash') === FreshRSS_Context::userConf()->passwordHash;
-			break;
-		case 'http_auth':
-			$current_user = Minz_User::name() ?? '';
-			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
-			break;
-		case 'none':
-			self::$login_ok = true;
-			break;
-		default:
-			// TODO: extensions
-			self::$login_ok = false;
+			case 'form':
+				self::$login_ok = Minz_Session::paramString('passwordHash') === FreshRSS_Context::userConf()->passwordHash;
+				break;
+			case 'http_auth':
+				$current_user = Minz_User::name() ?? '';
+				self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
+				break;
+			case 'none':
+				self::$login_ok = true;
+				break;
+			default:
+				// TODO: extensions
+				self::$login_ok = false;
 		}
 
 		Minz_Session::_params([
@@ -146,13 +147,13 @@ class FreshRSS_Auth {
 		$default_user = FreshRSS_Context::systemConf()->default_user;
 		$ok = self::$login_ok;
 		switch ($scope) {
-		case 'general':
-			break;
-		case 'admin':
-			$ok &= $default_user === $currentUser || $isAdmin;
-			break;
-		default:
-			$ok = false;
+			case 'general':
+				break;
+			case 'admin':
+				$ok &= $default_user === $currentUser || $isAdmin;
+				break;
+			default:
+				$ok = false;
 		}
 		return (bool)$ok;
 	}
@@ -185,16 +186,16 @@ class FreshRSS_Auth {
 		Minz_User::change($username);
 
 		switch (FreshRSS_Context::systemConf()->auth_type) {
-		case 'form':
-			Minz_Session::_param('passwordHash');
-			FreshRSS_FormAuth::deleteCookie();
-			break;
-		case 'http_auth':
-		case 'none':
-			// Nothing to do…
-			break;
-		default:
-			// TODO: extensions
+			case 'form':
+				Minz_Session::_param('passwordHash');
+				FreshRSS_FormAuth::deleteCookie();
+				break;
+			case 'http_auth':
+			case 'none':
+				// Nothing to do…
+				break;
+			default:
+				// TODO: extensions
 		}
 	}
 

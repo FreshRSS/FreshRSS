@@ -93,16 +93,15 @@ class I18nData {
 	 * @return array<string>
 	 */
 	private function getNonReferenceLanguages(): array {
-		return array_filter(array_keys($this->data), static function (string $value) {
-			return static::REFERENCE_LANGUAGE !== $value;
-		});
+		return array_filter(array_keys($this->data),
+			static fn(string $value) => static::REFERENCE_LANGUAGE !== $value);
 	}
 
 	/**
 	 * Add a new language. It’s a copy of the reference language.
 	 * @throws Exception
 	 */
-	public function addLanguage(string $language, string $reference = null): void {
+	public function addLanguage(string $language, ?string $reference = null): void {
 		if (array_key_exists($language, $this->data)) {
 			throw new Exception('The selected language already exist.');
 		}
@@ -145,9 +144,7 @@ class I18nData {
 		$keys = array_keys($this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
 		$parent = $this->getParentKey($key);
 
-		return array_values(array_filter($keys, static function (string $element) use ($parent) {
-			return false !== strpos($element, $parent);
-		}));
+		return array_values(array_filter($keys, static fn(string $element) => false !== strpos($element, $parent)));
 	}
 
 	/**

@@ -29,7 +29,9 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
+		'expand' => 'Expand category',	// TODO
 		'information' => ' اطلاعات',
+		'open' => 'Open category',	// TODO
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
 		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
-		'mute' => ' بی صدا',
+		'mute' => array(
+			'_' => ' بی صدا',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => ' هیچ خوراکی انتخاب نشده است.',
 		'number_entries' => ' %d مقاله',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',

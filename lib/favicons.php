@@ -75,7 +75,7 @@ function searchFavicon(string &$url): string {
 	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
 		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
 
-	if (!$links) {
+	if (!($links instanceof DOMNodeList)) {
 		return '';
 	}
 
@@ -131,4 +131,17 @@ function download_favicon(string $url, string $dest): bool {
 	}
 	return ($favicon != '' && file_put_contents($dest, $favicon) > 0) ||
 		@copy(DEFAULT_FAVICON, $dest);
+}
+
+function contentType(string $ico): string {
+	$ico_content_type = 'image/x-icon';
+	if (function_exists('mime_content_type')) {
+		$ico_content_type = mime_content_type($ico) ?: $ico_content_type;
+	}
+	switch ($ico_content_type) {
+		case 'image/svg':
+			$ico_content_type = 'image/svg+xml';
+			break;
+	}
+	return $ico_content_type;
 }

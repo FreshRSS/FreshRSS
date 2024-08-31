@@ -41,8 +41,7 @@ if (!function_exists('syslog')) {
 		define('STDERR', fopen('php://stderr', 'w'));
 	}
 	function syslog(int $priority, string $message): bool {
-		// @phpstan-ignore booleanAnd.rightAlwaysTrue
-		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && STDERR) {
+		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && is_resource(STDERR)) {
 			return fwrite(STDERR, $message . "\n") != false;
 		}
 		return false;
@@ -619,9 +618,12 @@ function lazyimg(string $content): string {
 	) ?? '';
 }
 
+/** @return numeric-string */
 function uTimeString(): string {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
+	$result = $t['sec'] . str_pad('' . $t['usec'], 6, '0', STR_PAD_LEFT);
+	/** @var numeric-string @result */
+	return $result;
 }
 
 function invalidateHttpCache(string $username = ''): bool {
@@ -629,11 +631,7 @@ function invalidateHttpCache(string $username = ''): bool {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
-	//if (!$ok) {
-		//TODO: Display notification error on front-end
-	//}
-	return $ok;
+	return FreshRSS_UserDAO::ctouch($username);
 }
 
 /**
@@ -870,7 +868,7 @@ function check_install_database(): array {
 		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
 		$status['tag'] = $dbDAO->tagIsCorrect();
 		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
-	} catch(Minz_PDOConnectionException $e) {
+	} catch (Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
 
