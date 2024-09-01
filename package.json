@@ -41,10 +41,10 @@
     "neostandard": "^0.11.2",
     "rtlcss": "^4.3.0",
     "sass": "^1.77.8",
-    "stylelint": "^16.8.1",
+    "stylelint": "^16.9.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-order": "^6.0.4",
-    "@stylistic/stylelint-plugin": "^3.0.0"
+    "@stylistic/stylelint-plugin": "^3.0.1"
   },
   "rtlcssConfig": {}
 }
