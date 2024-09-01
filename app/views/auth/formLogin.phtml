@@ -5,12 +5,6 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
-	<?php if (!max_registrations_reached()) { ?>
-		<div class="link-buy">
-			<a href="<?= _url('customer', 'pay') ?>"><?= _t('gen.customer.buy.ask') ?></a>
-		</div>
-	<?php } ?>
-
 	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
