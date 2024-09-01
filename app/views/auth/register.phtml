@@ -1,10 +1,15 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	$ticket = $_GET['ticket'];
 ?>
 <main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
+
+	<?php if (!max_registrations_reached() && !isset($_GET['ticket'])) { ?>
+		<div class="link-buy">
+			<a href="<?= _url('customer', 'pay') ?>"><?= _t('gen.customer.buy.ask') ?></a>
+		</div>
+	<?php } ?>
 
 	<form method="post" action="<?= _url('user', 'create') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
@@ -75,7 +80,7 @@
 				));
 			?>
 			<input type="hidden" name="r" value="<?= $redirect_url ?>" />
-			<input type="hidden" name="ticket" value="<?= $ticket ?>" />
+			<input type="hidden" name="ticket" value="<?= $_GET['ticket'] ?? '' ?>" />
 
 			<button type="submit" class="btn btn-important"><?= _t('gen.action.create') ?></button>
 
