@@ -51,4 +51,7 @@ return array(
 		'invalid' => 'This username is invalid.',
 		'taken' => 'This username, %s, is taken.',
 	),
+	'ticket' => array(
+		'invalid' => 'This ticket is invalid.',
+	),
 );
