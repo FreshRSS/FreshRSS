@@ -208,7 +208,7 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 * par auteur : `author:nom` ou `author:'nom composé'`
 * par titre : `intitle:mot` ou `intitle:'mot composé'`
 * par URL : `inurl:mot` ou `inurl:'mot composé'`
-* par tag : `#tag`
+* par tag : `#tag` ou `#'tag avec espace'`
 * par texte libre : `mot` ou `'mot composé'`
 * par date d’ajout, en utilisant le [format ISO 8601 d’intervalle entre deux dates](https://fr.wikipedia.org/wiki/ISO_8601#Intervalle_entre_deux_dates) : `date:<intervalle-de-dates>`
 	* D’un jour spécifique, ou mois, ou année :
@@ -278,13 +278,15 @@ Enfin, les parenthèses peuvent être utilisées pour des expressions plus compl
 
 #### Regex
 
-Les recherches de texte (incluant `author:`, `intitle:`, `inurl:`) peuvent utiliser les expressions régulières qui doivent être exprimées comme `/ /`.
+Les recherches de texte (incluant `author:`, `intitle:`, `inurl:`, `#`) peuvent utiliser les expressions régulières qui doivent être exprimées comme `/ /`.
 
 Les recherches regex sont sensibles à la casse, mais peuvent être rendues insensibles à la casse avec l’option de recherche `i` comme : `/Alice/i`
 
 Le mode multilignes peut être activé avec l’option de recherche `m` comme : `/^Alice/m`
 
 > ℹ️ `author:` fonctionne avec un auteur par ligne, ce qui fait que le mode multilignes peut être avantageux, comme : `author:/^Alice Doe$/im`
+>
+> ℹ️ `#` fonctionne également avec un tag par line, ce qui fait que le mode multilignes peut être avantageux, comme : `#/^Hello World$/im`
 
 Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
 

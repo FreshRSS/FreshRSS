@@ -49,7 +49,7 @@ You can use the search field to further refine results:
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag` or `#tag+with+whitespace`
+* by tag: `#tag` or `#tag+with+whitespace` or or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
@@ -119,13 +119,15 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 
 ### Regex
 
-Text searches (including `author:`, `intitle:`, `inurl:`) may use regular expressions, which must be enclosed in `/ /`.
+Text searches (including `author:`, `intitle:`, `inurl:`, `#`) may use regular expressions, which must be enclosed in `/ /`.
 
 Regex searches are case-sensitive by default, but can be made case-insensitive with the `i` modifier like: `/Alice/i`
 
 Supports multiline mode with `m` modifier like: `/^Alice/m`
 
 > ℹ️ `author:` is working with one author per line, so the multiline mode may advantageously be used, like: `author:/^Alice Dupont$/im`
+>
+> ℹ️ `#` is likewise working with one tag per line, so the multiline mode may advantageously be used, like: `#/^Hello World$/im`
 
 Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
 

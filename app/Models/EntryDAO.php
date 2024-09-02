@@ -963,6 +963,11 @@ SQL;
 					$values[] = "%{$tag} #%";
 				}
 			}
+			if ($filter->getTagsRegex() !== null) {
+				foreach ($filter->getTagsRegex() as $tag) {
+					$sub_search .= 'AND ' . static::sqlRegex("REPLACE(REPLACE({$alias}tags, ' #', '#'), '#', '\n')", $tag, $values) . ' ';
+				}
+			}
 			if ($filter->getInurl() !== null) {
 				foreach ($filter->getInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
@@ -1001,6 +1006,11 @@ SQL;
 				foreach ($filter->getNotTags() as $tag) {
 					$sub_search .= 'AND ' . static::sqlConcat('TRIM(' . $alias . 'tags) ', " ' #'") . ' NOT LIKE ? ';
 					$values[] = "%{$tag} #%";
+				}
+			}
+			if ($filter->getNotTagsRegex() !== null) {
+				foreach ($filter->getNotTagsRegex() as $tag) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex("REPLACE(REPLACE({$alias}tags, ' #', '#'), '#', '\n')", $tag, $values) . ' ';
 				}
 			}
 			if ($filter->getNotInurl() !== null) {

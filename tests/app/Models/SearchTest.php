@@ -123,7 +123,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public function provideInurlSearch(): array {
 		return [
 			['inurl:word1', ['word1'], null],
-			['inurl: word1', [], ['word1']],
+			['inurl: word1', null, ['word1']],
 			['inurl:123', ['123'], null],
 			['inurl:word1 word2', ['word1'], ['word2']],
 			['inurl:"word1 word2"', ['word1 word2'], null],
@@ -199,7 +199,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['# word1', null, ['#', 'word1']],
 			['#123', ['123'], null],
 			['#word1 word2', ['word1'], ['word2']],
-			['#"word1 word2"', ['"word1'], ['word2"'],],
+			['#"word1 word2"', ['word1 word2'], null],
 			['#word1 #word2', ['word1', 'word2'], null],
 			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['#word1+word2', ['word1 word2'], null]

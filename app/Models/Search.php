@@ -48,6 +48,8 @@ class FreshRSS_Search {
 	/** @var array<string>|null */
 	private ?array $tags = null;
 	/** @var array<string>|null */
+	private ?array $tags_regex = null;
+	/** @var array<string>|null */
 	private ?array $search = null;
 	/** @var array<string>|null */
 	private ?array $search_regex = null;
@@ -82,6 +84,8 @@ class FreshRSS_Search {
 	private ?array $not_author_regex = null;
 	/** @var array<string>|null */
 	private ?array $not_tags = null;
+	/** @var array<string>|null */
+	private ?array $not_tags_regex = null;
 	/** @var array<string>|null */
 	private ?array $not_search = null;
 	/** @var array<string>|null */
@@ -257,8 +261,16 @@ class FreshRSS_Search {
 		return $this->tags;
 	}
 	/** @return array<string>|null */
+	public function getTagsRegex(): ?array {
+		return $this->tags_regex;
+	}
+	/** @return array<string>|null */
 	public function getNotTags(): ?array {
 		return $this->not_tags;
+	}
+	/** @return array<string>|null */
+	public function getNotTagsRegex(): ?array {
+		return $this->not_tags_regex;
 	}
 
 	/** @return array<string>|null */
@@ -586,7 +598,10 @@ class FreshRSS_Search {
 		if (preg_match_all('/\\binurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$this->inurl = self::removeEmptyValues($this->inurl);
+		}
+		$this->inurl = self::removeEmptyValues($this->inurl);
+		if (empty($this->inurl)) {
+			$this->inurl = null;
 		}
 		return $input;
 	}
@@ -603,7 +618,10 @@ class FreshRSS_Search {
 		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$this->not_inurl = self::removeEmptyValues($this->not_inurl);
+		}
+		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
+		if (empty($this->not_inurl)) {
+			$this->not_inurl = null;
 		}
 		return $input;
 	}
@@ -667,20 +685,44 @@ class FreshRSS_Search {
 	 * The search is the first word following the #.
 	 */
 	private function parseTagsSearch(string $input): string {
+		if (preg_match_all('%#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
+			$this->tags_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->tags = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/#(?P<search>[^\\s]+)/', $input, $matches)) {
 			$this->tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$this->tags = self::removeEmptyValues($this->tags);
+		}
+		$this->tags = self::removeEmptyValues($this->tags);
+		if (empty($this->tags)) {
+			$this->tags = null;
+		} else {
 			$this->tags = self::decodeSpaces($this->tags);
 		}
 		return $input;
 	}
 
 	private function parseNotTagsSearch(string $input): string {
+		if (preg_match_all('%(?<=\\s|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
+			$this->not_tags_regex = self::sanitizeRegexes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=\\s|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->not_tags = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
 		if (preg_match_all('/(?<=\\s|^)[!-]#(?P<search>[^\\s]+)/', $input, $matches)) {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
-			$this->not_tags = self::removeEmptyValues($this->not_tags);
+		}
+		$this->not_tags = self::removeEmptyValues($this->not_tags);
+		if (empty($this->not_tags)) {
+			$this->not_tags = null;
+		} else {
 			$this->not_tags = self::decodeSpaces($this->not_tags);
 		}
 		return $input;
