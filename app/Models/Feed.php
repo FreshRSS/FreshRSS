@@ -905,12 +905,19 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$url = htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($this->kind === FreshRSS_Feed::KIND_HTML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.html';
-		} elseif ($this->kind === FreshRSS_Feed::KIND_XML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.xml';
-		} else {
-			return CACHE_PATH . '/' . $filename . '.spc';
+		switch ($this->kind) {
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.html';
+			case FreshRSS_Feed::KIND_XML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.xml';
+			case FreshRSS_Feed::KIND_JSON_DOTNOTATION:
+			case FreshRSS_Feed::KIND_JSON_XPATH:
+			case FreshRSS_Feed::KIND_JSONFEED:
+				return CACHE_PATH . '/' . $filename . '.json';
+			case FreshRSS_Feed::KIND_RSS:
+			case FreshRSS_Feed::KIND_RSS_FORCED:
+			default:
+				return CACHE_PATH . '/' . $filename . '.spc';
 		}
 	}
 
