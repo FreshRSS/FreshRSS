@@ -493,6 +493,26 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.link ~ ? )',
 				['^ab$']
 			],
+			[
+				'/^ab$/',
+				'((e.title ~ ? OR e.content ~ ?) )',
+				['^ab$', '^ab$']
+			],
+			[
+				'!/^ab$/',
+				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				['^ab$', '^ab$']
+			],
+			[	// Not a regex
+				'inurl:https://example.net/test/',
+				'(e.link LIKE ? )',
+				['%https://example.net/test/%']
+			],
+			[	// Not a regex
+				'https://example.net/test/',
+				'((e.title LIKE ? OR e.content LIKE ?) )',
+				['%https://example.net/test/%', '%https://example.net/test/%']
+			],
 		];
 	}
 

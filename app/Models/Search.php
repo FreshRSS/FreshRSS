@@ -738,7 +738,7 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('#(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=\\s|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->search_regex = self::sanitizeRegexes($matches['search']);
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
