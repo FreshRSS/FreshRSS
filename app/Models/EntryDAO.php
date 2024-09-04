@@ -64,7 +64,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 					// Case-sensitive matching
 					$matchType .= 'c';
 				}
-				// MySQL does not support multiline mode
 				$values[] = $matches['pattern'];
 				return "REGEXP_LIKE({$expression},?,'{$matchType}')";
 			}

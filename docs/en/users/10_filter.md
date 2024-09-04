@@ -131,13 +131,14 @@ Supports multiline mode with `m` modifier like: `/^Alice/m`
 
 Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
 
-Advanced regex syntax details depend on the regex engine used:
+⚠️ Advanced regex syntax details depend on the regex engine used:
 
 * FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
 * Regex searches depend on which database you are using:
 	* For SQLite, [PHP preg_match](https://php.net/function.preg-match) is used;
 	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
-	* [For MySQL](https://dev.mysql.com/doc/refman/8.4/en/regexp.html#function_regexp-like).
+	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
+	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
 
 ## By sorting by date
 

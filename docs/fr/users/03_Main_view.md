@@ -290,10 +290,11 @@ Le mode multilignes peut être activé avec l’option de recherche `m` comme : 
 
 Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
 
-Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
+⚠️ Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
 
 * Les filtres d’action de FreshRSS comme marquer-automatiquement-comme-lu et mettre-automatiquement-en-favori utilisent [PHP preg_match](https://php.net/function.preg-match).
 * Les recherches regex dépendent de la base de données utilisée :
 	* Pour SQLite, [PHP preg_match](https://php.net/function.preg-match) est utilisé ;
-	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
-	* [For MySQL](https://dev.mysql.com/doc/refman/8.4/en/regexp.html#function_regexp-like).
+	* [Pour PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
+	* [Pour MariaDB](https://mariadb.com/kb/en/pcre/) ;
+	* [Pour MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
