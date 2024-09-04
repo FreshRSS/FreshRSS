@@ -106,7 +106,7 @@ class Minz_Request {
 		return 0;
 	}
 
-	public static function paramString(string $key, bool $specialchars = false): string {
+	public static function paramStringNull(string $key, bool $specialchars = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
@@ -117,7 +117,11 @@ class Minz_Request {
 				return (string)$s;
 			}
 		}
-		return '';
+		return null;
+	}
+
+	public static function paramString(string $key, bool $specialchars = false): string {
+		return self::paramStringNull($key, $specialchars) ?? '';
 	}
 
 	/**

@@ -785,7 +785,7 @@ HTML;
 			$content = '';
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector))->asXPath());
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
 			if ($nodes != false) {
 				$path_entries_filter = $feed->attributeString('path_entries_filter') ?? '';
 				$path_entries_filter = trim($path_entries_filter, ', ');
