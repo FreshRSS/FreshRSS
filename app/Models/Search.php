@@ -291,16 +291,6 @@ class FreshRSS_Search {
 	}
 
 	/**
-	 * Filter an array of string to keep only the valid regexes
-	 * @param array<string> $regexes
-	 * @return array<string>
-	 */
-	private static function sanitizeRegexes(array $regexes): array {
-		// return array_filter($regexes, static fn(string $regex) => @preg_match($regex, '') !== false);	// TODO: Disabled for now
-		return $regexes;
-	}
-
-	/**
 	 * @param array<string>|null $anArray
 	 * @return array<string>
 	 */
@@ -499,7 +489,7 @@ class FreshRSS_Search {
 	 */
 	private function parseIntitleSearch(string $input): string {
 		if (preg_match_all('#\\bintitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->intitle_regex = self::sanitizeRegexes($matches['search']);
+			$this->intitle_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bintitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -519,7 +509,7 @@ class FreshRSS_Search {
 
 	private function parseNotIntitleSearch(string $input): string {
 		if (preg_match_all('#(?<=\\s|^)[!-]intitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_intitle_regex = self::sanitizeRegexes($matches['search']);
+			$this->not_intitle_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -544,7 +534,7 @@ class FreshRSS_Search {
 	 */
 	private function parseAuthorSearch(string $input): string {
 		if (preg_match_all('#\\bauthor:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->author_regex = self::sanitizeRegexes($matches['search']);
+			$this->author_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bauthor:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -564,7 +554,7 @@ class FreshRSS_Search {
 
 	private function parseNotAuthorSearch(string $input): string {
 		if (preg_match_all('#(?<=\\s|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_author_regex = self::sanitizeRegexes($matches['search']);
+			$this->not_author_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -588,7 +578,7 @@ class FreshRSS_Search {
 	 */
 	private function parseInurlSearch(string $input): string {
 		if (preg_match_all('#\\binurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->inurl_regex = self::sanitizeRegexes($matches['search']);
+			$this->inurl_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\binurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -608,7 +598,7 @@ class FreshRSS_Search {
 
 	private function parseNotInurlSearch(string $input): string {
 		if (preg_match_all('#(?<=\\s|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_inurl_regex = self::sanitizeRegexes($matches['search']);
+			$this->not_inurl_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -686,7 +676,7 @@ class FreshRSS_Search {
 	 */
 	private function parseTagsSearch(string $input): string {
 		if (preg_match_all('%#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
-			$this->tags_regex = self::sanitizeRegexes($matches['search']);
+			$this->tags_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -708,7 +698,7 @@ class FreshRSS_Search {
 
 	private function parseNotTagsSearch(string $input): string {
 		if (preg_match_all('%(?<=\\s|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
-			$this->not_tags_regex = self::sanitizeRegexes($matches['search']);
+			$this->not_tags_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -739,7 +729,7 @@ class FreshRSS_Search {
 			return '';
 		}
 		if (preg_match_all('#(?<=\\s|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->search_regex = self::sanitizeRegexes($matches['search']);
+			$this->search_regex = $matches['search'];
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -774,7 +764,7 @@ class FreshRSS_Search {
 			return '';
 		}
 		if (preg_match_all('#(?<=\\s|^)[!-](?P<search>(?<!\\\\)/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_search_regex = self::sanitizeRegexes($matches['search']);
+			$this->not_search_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=\\s|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
