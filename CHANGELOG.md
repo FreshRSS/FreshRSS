@@ -3,13 +3,24 @@
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 
-## 2024-XX-XX FreshRSS 1.24.3-dev
+## 2024-09-XX FreshRSS 1.24.3-dev
 
+* Bug fixing
+	* Fix mark-as-read from user query [#6738](https://github.com/FreshRSS/FreshRSS/pull/6738)
+	* Fix regression for shortcut to move between categories [#6741](https://github.com/FreshRSS/FreshRSS/pull/6741)
+	* Fix feed title option [#6771](https://github.com/FreshRSS/FreshRSS/pull/6771)
+	* Fix XPath for HTML documents with broken root (used by CSS selectors to fetch full content) [#6774](https://github.com/FreshRSS/FreshRSS/pull/6774)
+	* Fix UI regression in Mapco/Ansum themes [#6740](https://github.com/FreshRSS/FreshRSS/pull/6740)
+	* Fix minor style bug with some themes [#6746](https://github.com/FreshRSS/FreshRSS/pull/6746)
 * Security
 	* OpenID Connect better definition of session parameters [#6730](https://github.com/FreshRSS/FreshRSS/pull/6730)
+* Compatibility
+	* Last version supporting PHP 7.4
 * Misc.
 	* Use charset for JSON requests from the UI [#6710](https://github.com/FreshRSS/FreshRSS/pull/6710)
 	* Use `.html` extension for the local cache of full content pages instead of `.spc` [#6724](https://github.com/FreshRSS/FreshRSS/pull/6724)
+	* Update dev dependencies [#6739](https://github.com/FreshRSS/FreshRSS/pull/6739), [#6758](https://github.com/FreshRSS/FreshRSS/pull/6758),
+		[#6759](https://github.com/FreshRSS/FreshRSS/pull/6759), [#6760](https://github.com/FreshRSS/FreshRSS/pull/6760)
 
 
 ## 2024-08-23 FreshRSS 1.24.2
@@ -45,7 +56,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * CLI
 	* Add quiet option to `cli/db-backup.php` [#6593](https://github.com/FreshRSS/FreshRSS/pull/6593)
 * Compatibility
-	* Last version supporting PHP 7.4
 	* Initial support for PHP 8.4+ [#6615](https://github.com/FreshRSS/FreshRSS/pull/6615)
 		* With upstream contributions [php/php-src#14873](https://github.com/php/php-src/issues/14873), [PhpGt/CssXPath#227](https://github.com/PhpGt/CssXPath/pull/227)
 	* Fix SQLite on FreeBSD due to DQS [#6701](https://github.com/FreshRSS/FreshRSS/pull/6701), [#6702](https://github.com/FreshRSS/FreshRSS/pull/6702)
