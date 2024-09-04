@@ -517,10 +517,45 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @dataProvider provideRegexMariaDB
+	 * @param array<string> $values
+	 */
+	public function test__regex_mariadb(string $input, string $sql, array $values): void {
+		FreshRSS_DatabaseDAO::$dummyConnection = true;
+		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexMariaDB(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(e.title REGEXP ? )",
+				['(?-i)^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(e.title REGEXP ? )",
+				['(?i)^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(e.title REGEXP ? )",
+				['(?-i)(?m)^ab$']
+			],
+		];
+	}
+
+	/**
 	 * @dataProvider provideRegexMySQL
 	 * @param array<string> $values
 	 */
 	public function test__regex_mysql(string $input, string $sql, array $values): void {
+		FreshRSS_DatabaseDAO::$dummyConnection = true;
+		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertEquals(trim($sql), trim($filterSearch));
 		self::assertEquals($values, $filterValues);

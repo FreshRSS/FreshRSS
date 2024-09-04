@@ -16,6 +16,11 @@ class Minz_ModelPdo {
 	 */
 	public static bool $usesSharedPdo = true;
 
+	/**
+	 * If true, the connection to the database will be a dummy one. Useful for unit tests.
+	 */
+	public static bool $dummyConnection = false;
+
 	private static ?Minz_Pdo $sharedPdo = null;
 
 	private static string $sharedCurrentUser = '';
@@ -97,6 +102,9 @@ class Minz_ModelPdo {
 		}
 		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;
+			return;
+		}
+		if (self::$dummyConnection) {
 			return;
 		}
 		if ($currentUser == null) {

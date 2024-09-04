@@ -37,15 +37,37 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	/** @param array<int|string> $values */
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		// The implementation of this function is solely for MySQL and MariaDB
+		static $databaseDAOMySQL = null;
+		if ($databaseDAOMySQL === null) {
+			$databaseDAOMySQL = new FreshRSS_DatabaseDAO();
+		}
+
 		$matches = static::regexToSql($regex);
 		if (isset($matches['pattern'])) {
 			$matchType = $matches['matchType'] ?? '';
-			if (!str_contains($matchType, 'i')) {
-				// Case-sensitive matching
-				$matchType .= 'c';
+			if ($databaseDAOMySQL->isMariaDB()) {
+				if (str_contains($matchType, 'm')) {
+					// multiline mode
+					$matches['pattern'] = '(?m)' . $matches['pattern'];
+				}
+				if (str_contains($matchType, 'i')) {
+					// case-insensitive match
+					$matches['pattern'] = '(?i)' . $matches['pattern'];
+				} else {
+					$matches['pattern'] = '(?-i)' . $matches['pattern'];
+				}
+				$values[] = $matches['pattern'];
+				return "{$expression} REGEXP ?";
+			} else {	// MySQL
+				if (!str_contains($matchType, 'i')) {
+					// Case-sensitive matching
+					$matchType .= 'c';
+				}
+				// MySQL does not support multiline mode
+				$values[] = $matches['pattern'];
+				return "REGEXP_LIKE({$expression},?,'{$matchType}')";
 			}
-			$values[] = $matches['pattern'];
-			return "REGEXP_LIKE({$expression},?,'{$matchType}')";	// MySQL
 		}
 		return '';
 	}
