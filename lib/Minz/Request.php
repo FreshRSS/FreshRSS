@@ -106,7 +106,7 @@ class Minz_Request {
 		return 0;
 	}
 
-	public static function paramString(string $key, bool $specialchars = false): string {
+	public static function paramStringNull(string $key, bool $specialchars = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
@@ -117,7 +117,11 @@ class Minz_Request {
 				return (string)$s;
 			}
 		}
-		return '';
+		return null;
+	}
+
+	public static function paramString(string $key, bool $specialchars = false): string {
+		return self::paramStringNull($key, $specialchars) ?? '';
 	}
 
 	/**
@@ -440,7 +444,7 @@ class Minz_Request {
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON(): void {
-		if ('application/json' !== self::extractContentType()) {
+		if (!str_starts_with(self::extractContentType(), 'application/json')) {
 			return;
 		}
 		$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
