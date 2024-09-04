@@ -261,7 +261,8 @@ SQL;
 			$isMariaDB = false;
 
 			if ($this->pdo->dbType() === 'mysql') {
-				if (!$this->isMariaDB()) {
+				$isMariaDB = $this->isMariaDB();
+				if (!$isMariaDB) {
 					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
 					// but MariaDB does https://mariadb.com/kb/en/drop-index/
 					$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
