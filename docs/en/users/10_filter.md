@@ -131,6 +131,8 @@ Supports multiline mode with `m` modifier like: `/^Alice/m`
 
 Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
 
+As opposed to normal searches, HTML special characters are not escaped in regex searches, to allow searching HTML code, like: `/Hello <span>world<\/span>/`
+
 ⚠️ Advanced regex syntax details depend on the regex engine used:
 
 * FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
