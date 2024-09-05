@@ -315,6 +315,7 @@ class FreshRSS_Search {
 
 	/**
 	 * @param array<string> $strings
+	 * @return array<string>
 	 */
 	private static function htmlspecialchars_decodes(array $strings): array {
 		return array_map(static fn(string $s) => htmlspecialchars_decode($s, ENT_QUOTES), $strings);
