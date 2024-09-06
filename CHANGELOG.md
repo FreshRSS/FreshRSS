@@ -5,7 +5,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2024-XX-XX FreshRSS 1.25.0-dev
 
 * Features
-	* Add support for regex search (regular expressions) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
+	* Add support for [regex search (regular expressions)](https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
 		* ⚠️ Advanced regex syntax for searches depends on the database used (SQLite, PostgreSQL, MariaDB, MySQL),
 		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://php.net/regexp.introduction).
 	* Update `phpgt/cssxpath` library with improved CSS selectors with support for `last-child`, `first-of-type`, `last-of-type`, `^=`, `|=` [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618)
@@ -21,6 +21,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Default styles for `<pre>` and `<code>` [#6770](https://github.com/FreshRSS/FreshRSS/pull/6770)
 * Misc.
 	* Better cache name for JSON feeds [#6768](https://github.com/FreshRSS/FreshRSS/pull/6768)
+	* Update dev dependencies [#6780](https://github.com/FreshRSS/FreshRSS/pull/6780)
 
 
 ## 2024-09-06 FreshRSS 1.24.3
