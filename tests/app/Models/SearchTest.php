@@ -454,7 +454,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideRegexPostreSQL(): array {
+	public static function provideRegexPostreSQL(): array {
 		return [
 			[
 				'intitle:/^ab$/',
@@ -522,7 +522,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideRegexMariaDB(): array {
+	public static function provideRegexMariaDB(): array {
 		return [
 			[
 				'intitle:/^ab$/',
@@ -555,7 +555,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideRegexMySQL(): array {
+	public static function provideRegexMySQL(): array {
 		return [
 			[
 				'intitle:/^ab$/',
@@ -586,7 +586,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/** @return array<array<mixed>> */
-	public function provideRegexSQLite(): array {
+	public static function provideRegexSQLite(): array {
 		return [
 			[
 				'intitle:/^ab$/',
