@@ -1173,7 +1173,7 @@ input[type="search"] {
 .aside_feed .tree-folder-title button.dropdown-toggle {
 	padding: 0;
 	border: 0;
-	background-color: inherit;
+	background-color: transparent;
 	cursor: pointer;
 }
 
@@ -1604,7 +1604,15 @@ a.website:hover .favicon {
 }
 
 .content pre {
+	margin: 10px auto;
+	padding: 10px 20px;
 	overflow: auto;
+	font-size: 0.9rem;
+}
+
+.content code {
+	padding: 2px 5px;
+	border: 1px solid var(--frss-border-color);
 }
 
 .subtitle > div {

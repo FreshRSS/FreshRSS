@@ -114,17 +114,17 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function readingAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->posts_per_page = Minz_Request::paramInt('posts_per_page') ?: 10;
-			FreshRSS_Context::userConf()->view_mode = Minz_Request::paramString('view_mode', true) ?: 'normal';
-			FreshRSS_Context::userConf()->default_view = Minz_Request::paramString('default_view') ?: 'adaptive';
+			FreshRSS_Context::userConf()->view_mode = Minz_Request::paramStringNull('view_mode', true) ?? 'normal';
+			FreshRSS_Context::userConf()->default_view = Minz_Request::paramStringNull('default_view') ?? 'adaptive';
 			FreshRSS_Context::userConf()->show_fav_unread = Minz_Request::paramBoolean('show_fav_unread');
 			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
 			FreshRSS_Context::userConf()->display_posts = Minz_Request::paramBoolean('display_posts');
-			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramString('display_categories') ?: 'active';
-			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramString('show_tags') ?: '0';
+			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramStringNull('display_categories') ?? 'active';
+			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramStringNull('show_tags') ?? '0';
 			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
-			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramString('show_author_date') ?: '0';
-			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramString('show_feed_name') ?: 't';
-			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramString('show_article_icons') ?: 't';
+			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramStringNull('show_author_date') ?? '0';
+			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramStringNull('show_feed_name') ?? 't';
+			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramStringNull('show_article_icons') ?? 't';
 			FreshRSS_Context::userConf()->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
@@ -150,6 +150,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
 			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
@@ -478,8 +479,6 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
-	 *
-	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {

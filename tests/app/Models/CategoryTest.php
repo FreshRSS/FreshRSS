@@ -1,24 +1,24 @@
 <?php
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class CategoryTest extends PHPUnit\Framework\TestCase {
 
-	public function test__construct_whenNoParameters_createsObjectWithDefaultValues(): void {
+	public static function test__construct_whenNoParameters_createsObjectWithDefaultValues(): void {
 		$category = new FreshRSS_Category();
 		self::assertEquals(0, $category->id());
 		self::assertEquals('', $category->name());
 	}
 
-	/**
-	 * @dataProvider provideValidNames
-	 */
-	public function test_name_whenValidValue_storesModifiedValue(string $input, string $expected): void {
+	#[DataProvider('provideValidNames')]
+	public static function test_name_whenValidValue_storesModifiedValue(string $input, string $expected): void {
 		$category = new FreshRSS_Category($input);
 		self::assertEquals($expected, $category->name());
 	}
 
 	/** @return array<array{string,string}> */
-	public function provideValidNames(): array {
+	public static function provideValidNames(): array {
 		return [
 			['', ''],
 			['this string does not need trimming', 'this string does not need trimming'],

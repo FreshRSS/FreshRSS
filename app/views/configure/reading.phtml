@@ -368,6 +368,18 @@
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="filteractions_star"><?= _t('conf.reading.star.when') ?></label>
+				<div class="group-controls">
+					<textarea name="filteractions_star" id="filteractions_star" class="w100"><?php
+						foreach (FreshRSS_Context::userConf()->filtersAction('star') as $filterStar) {
+							echo $filterStar->getRawInput(), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>

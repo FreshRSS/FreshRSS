@@ -31,7 +31,7 @@ class FreshRSS_Themes extends Minz_Model {
 	/**
 	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}
 	 */
-	public static function get_infos(string $theme_id) {
+	public static function get_infos(string $theme_id): array|false {
 		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
@@ -58,7 +58,7 @@ class FreshRSS_Themes extends Minz_Model {
 	/**
 	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}
 	 */
-	public static function load(string $theme_id) {
+	public static function load(string $theme_id): array|false {
 		$infos = self::get_infos($theme_id);
 		if (!$infos) {
 			if ($theme_id !== self::$defaultTheme) {	//Fall-back to default theme
@@ -158,7 +158,7 @@ class FreshRSS_Themes extends Minz_Model {
 		if ($type == self::ICON_DEFAULT) {
 			if ((FreshRSS_Context::hasUserConf() && FreshRSS_Context::userConf()->icons_as_emojis)
 				// default to emoji alternate for some icons
-				) {
+			) {
 				$type = self::ICON_EMOJI;
 			} else {
 				$type = self::ICON_IMG;
