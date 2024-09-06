@@ -1,4 +1,5 @@
-*.spc
 *.html
+*.json
+*.spc
 *.xml
 !index.html
