@@ -13,7 +13,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Use curl to fetch extensions list (allows e.g. IPv6) [#6767](https://github.com/FreshRSS/FreshRSS/pull/6767)
 * Compatibility
 	* Require PHP 8.1+ (drop PHP 7.4) [#6711](https://github.com/FreshRSS/FreshRSS/pull/6711)
-	* Improved support of PHP 8.4+ [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618), [PhpGt/CssXPath#227](https://github.com/PhpGt/CssXPath/pull/227)
+	* Improved support of PHP 8.4+ [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618), [PhpGt/CssXPath#227](https://github.com/PhpGt/CssXPath/pull/227),
+		[#6781](https://github.com/FreshRSS/FreshRSS/pull/6781)
 	* Require PostgreSQL 10+ (drop PostgreSQL 9.5) [#6705](https://github.com/FreshRSS/FreshRSS/pull/6705)
 	* Require MariaDB 10.0.5+ (drop MariaDB 5.5) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
 	* Requiring MySQL 8+ (drop MySQL 5.5.3) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
