@@ -3,35 +3,35 @@ declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nValueTest extends PHPUnit\Framework\TestCase {
-	public function testConstructorWithoutState(): void {
+	public static function testConstructorWithoutState(): void {
 		$value = new I18nValue('some value');
 		self::assertEquals('some value', $value->getValue());
 		self::assertFalse($value->isIgnore());
 		self::assertFalse($value->isTodo());
 	}
 
-	public function testConstructorWithUnknownState(): void {
+	public static function testConstructorWithUnknownState(): void {
 		$value = new I18nValue('some value -> unknown');
 		self::assertEquals('some value', $value->getValue());
 		self::assertFalse($value->isIgnore());
 		self::assertFalse($value->isTodo());
 	}
 
-	public function testConstructorWithTodoState(): void {
+	public static function testConstructorWithTodoState(): void {
 		$value = new I18nValue('some value -> todo');
 		self::assertEquals('some value', $value->getValue());
 		self::assertFalse($value->isIgnore());
 		self::assertTrue($value->isTodo());
 	}
 
-	public function testConstructorWithIgnoreState(): void {
+	public static function testConstructorWithIgnoreState(): void {
 		$value = new I18nValue('some value -> ignore');
 		self::assertEquals('some value', $value->getValue());
 		self::assertTrue($value->isIgnore());
 		self::assertFalse($value->isTodo());
 	}
 
-	public function testClone(): void {
+	public static function testClone(): void {
 		$value = new I18nValue('some value');
 		$clonedValue = clone $value;
 		self::assertEquals('some value', $value->getValue());
@@ -42,21 +42,21 @@ class I18nValueTest extends PHPUnit\Framework\TestCase {
 		self::assertTrue($clonedValue->isTodo());
 	}
 
-	public function testEqualWhenValueIsIdentical(): void {
+	public static function testEqualWhenValueIsIdentical(): void {
 		$value = new I18nValue('some value');
 		$clonedValue = clone $value;
 		self::assertTrue($value->equal($clonedValue));
 		self::assertTrue($clonedValue->equal($value));
 	}
 
-	public function testEqualWhenValueIsDifferent(): void {
+	public static function testEqualWhenValueIsDifferent(): void {
 		$value = new I18nValue('some value');
 		$otherValue = new I18nValue('some other value');
 		self::assertFalse($value->equal($otherValue));
 		self::assertFalse($otherValue->equal($value));
 	}
 
-	public function testStates(): void {
+	public static function testStates(): void {
 		$reflectionProperty = new ReflectionProperty(I18nValue::class, 'state');
 		$reflectionProperty->setAccessible(true);
 
@@ -74,7 +74,7 @@ class I18nValueTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals('todo', $reflectionProperty->getValue($value));
 	}
 
-	public function testToString(): void {
+	public static function testToString(): void {
 		$value = new I18nValue('some value');
 		self::assertEquals('some value', $value->__toString());
 		$value->markAsTodo();

@@ -13,11 +13,10 @@ class Minz_Url {
 	 *                    $url['params'] = array of additional parameters
 	 *             or as a string
 	 * @param string $encoding how to encode & (& ou &amp; pour html)
-	 * @param bool|string $absolute
 	 * @return string Formatted URL
 	 * @throws Minz_ConfigurationException
 	 */
-	public static function display($url = [], string $encoding = 'html', $absolute = false): string {
+	public static function display($url = [], string $encoding = 'html', bool|string $absolute = false): string {
 		$isArray = is_array($url);
 
 		if ($isArray) {
@@ -160,13 +159,7 @@ class Minz_Url {
 	}
 }
 
-/**
- * @param string $controller
- * @param string $action
- * @param string|int ...$args
- * @return string|false
- */
-function _url(string $controller, string $action, ...$args) {
+function _url(string $controller, string $action, int|string ...$args): string|false {
 	$nb_args = count($args);
 
 	if ($nb_args % 2 !== 0) {

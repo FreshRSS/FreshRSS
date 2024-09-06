@@ -31,7 +31,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 *
 	 * @return array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false
 	 */
-	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false) {
+	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false): array|false {
 		$filter = '';
 		if ($only_main) {
 			$filter .= 'AND f.priority = 10';
