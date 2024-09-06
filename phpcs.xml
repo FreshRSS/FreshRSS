@@ -1,122 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="FreshRSS Ruleset">
-	<description>Created with the PHP Coding Standard Generator. https://edorian.github.com/php-coding-standard-generator/</description>
-	<arg name="extensions" value="php,phtml,css,js"/>
+<ruleset name="FreshRSS">
+	<arg name="extensions" value="php,phtml"/>
 	<arg name="tab-width" value="4"/>
 	<exclude-pattern>./.git/</exclude-pattern>
-	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
-	<exclude-pattern>./lib/marienfressinaud/</exclude-pattern>
-	<exclude-pattern>./lib/phpgt/</exclude-pattern>
-	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
-	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
-	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./data/config.php</exclude-pattern>
 	<exclude-pattern>./data/update.php</exclude-pattern>
 	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
 	<exclude-pattern>./extensions/</exclude-pattern>
+	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
+	<exclude-pattern>./lib/marienfressinaud/</exclude-pattern>
+	<exclude-pattern>./lib/phpgt/</exclude-pattern>
+	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
+	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
 	<exclude-pattern>./vendor/</exclude-pattern>
-	<exclude-pattern>*.min.js$</exclude-pattern>
-	<!-- Duplicate class names are not allowed -->
+	<!-- Additional exclusions for Extensions: -->
+	<exclude-pattern>./symbolic/</exclude-pattern>
+	<exclude-pattern>./third-party/</exclude-pattern>
+	<exclude-pattern>./tmp/</exclude-pattern>
+	<exclude-pattern>./xExtension-TTRSS_API</exclude-pattern>
+	<rule ref="PSR12">
+		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed"/>
+		<exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.NonIndentTabsUsed"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsedHeredocCloser"/>
+		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+		<exclude name="PSR1.Classes.ClassDeclaration.MultipleClasses"/>
+		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+		<exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+		<exclude name="PSR12.Classes.OpeningBraceSpace.Found"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.IncorrectOrder"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport"/>
+		<exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineCASE"/>
+		<exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakNotNewLine"/>
+		<exclude name="PSR2.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature.CloseBracketLine"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature.ContentAfterOpenBracket"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
+		<exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.CloseBracketLine"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.FirstParamSpacing"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.Indent"/>
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.OneParamPerLine"/>
+		<exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+	</rule>
 	<rule ref="Generic.Classes.DuplicateClassName"/>
-	<!-- Statements must not be empty -->
 	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
-	<!-- Unconditional if-statements are not allowed -->
 	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
-	<!-- Do not use final statements inside final classes -->
 	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
-	<!-- Do not override methods to call their parent -->
 	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
-	<!-- Maximum line length -->
 	<rule ref="Generic.Files.LineLength">
-		<!-- For language strings maximum line lengths make little sense. -->
-		<exclude-pattern>./app/i18n/</exclude-pattern>
-		<!-- Don’t enforce line length on the HTML; the point is to improve legibility, not reduce it -->
-		<exclude-pattern>*.phtml$</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="165"/>
 			<property name="absoluteLineLimit" value="190"/>
 		</properties>
+		<exclude-pattern>/app/i18n/*\.php$</exclude-pattern>
+		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
-	<!-- When calling a function: -->
-	<!-- Do not add a space before the opening parenthesis -->
-	<!-- Do not add a space after the opening parenthesis -->
-	<!-- Do not add a space before the closing parenthesis -->
-	<!-- Do not add a space before a comma -->
-	<!-- Add a space after a comma -->
-	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
-	<rule ref="Generic.PHP.DisallowShortOpenTag">
-		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
-	</rule>
-	<rule ref="Generic.PHP.DeprecatedFunctions" />
-	<!-- Use UPPERCARE for constants -->
-	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-	<!-- Use lowercase for 'true', 'false' and 'null' -->
-	<rule ref="Generic.PHP.LowerCaseConstant"/>
-	<!-- Use a single string instead of concatenating -->
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/><!-- Consider using PSR12 defaults instead -->
+	<rule ref="Generic.PHP.DeprecatedFunctions"/>
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
-			<!-- Allow string concatenating across multiple lines -->
 			<property name="allowMultiline" value="true"/>
 		</properties>
 	</rule>
-	<!-- Use tabs for indentation -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<!-- Parameters with default values must appear last in functions -->
-	<rule ref="PEAR.Functions.ValidDefaultValue"/>
-	<!-- Use 'elseif' instead of 'else if' -->
-	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
-	<!-- Do not add spaces after opening or before closing bracket -->
-	<rule ref="PSR2.ControlStructures.ControlStructureSpacing"/>
-	<!-- Add a new line at the end of a file -->
-	<rule ref="PSR2.Files.EndFileNewline"/>
-	<!-- Use Unix newlines -->
-	<rule ref="Generic.Files.LineEndings">
-		<properties>
-			<property name="eolChar" value="\n" />
-		</properties>
+	<rule ref="Generic.WhiteSpace.ScopeIndent.Incorrect">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+		<exclude-pattern>/app/install.php</exclude-pattern>
 	</rule>
-	<!-- Add space after closing parenthesis -->
-	<!-- Add body into new line -->
-	<!-- Close body in new line -->
+	<rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+		<exclude-pattern>/app/install.php</exclude-pattern>
+	</rule>
+	<rule ref="Internal.NoCodeFound">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+	</rule>
+	<!-- <rule ref="Squiz.Commenting.ClassComment.Missing"/> --><!-- Consider adding -->
 	<rule ref="Squiz.ControlStructures.ControlSignature">
-		<!-- No space after keyword (before opening parenthesis) -->
-		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>
-	</rule>
-	<!-- When declaring a function: -->
-	<!-- Do not add a space before a comma -->
-	<!-- Add a space after a comma -->
-	<!-- Add a space before and after an equal sign -->
-	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<include-pattern>*\.phtml$</include-pattern>
 		<properties>
-			<property name="equalsSpacing" value="1"/>
+			<property name="requiredSpacesBeforeColon" value="0" />
 		</properties>
 	</rule>
-	<!-- Do not add spaces when casting -->
-	<rule ref="Squiz.WhiteSpace.CastSpacing"/>
-	<!-- Operators must have a space around them -->
+	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+	</rule>
 	<rule ref="Squiz.WhiteSpace.OperatorSpacing">
 		<properties>
-			<property name="ignoreNewlines" value="true" />
+			<property name="ignoreNewlines" value="true"/>
 		</properties>
 	</rule>
-	<!-- Do not add a whitespace before a semicolon -->
+	<rule ref="Squiz.WhiteSpace.ScopeClosingBrace.Indent">
+		<exclude-pattern>*\.phtml$</exclude-pattern>
+	</rule>
 	<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
-	<!-- Do not add whitespace at start or end of a file or end of a line -->
-	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
-	<!-- Expected space after closing parenthesis -->
-	<rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
-		<exclude-pattern>.phtml$</exclude-pattern>
-	</rule>
-	<!-- Opening brace on same line as function declaration -->
-	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-	<!-- Newline required after opening brace -->
-	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
-		<exclude-pattern>.phtml$</exclude-pattern>
-		<exclude-pattern>.js$</exclude-pattern>
-	</rule>
-	<!-- No PHP code was found in this file -->
-	<rule ref="Internal.NoCodeFound">
-		<exclude-pattern>.phtml$</exclude-pattern>
-	</rule>
 </ruleset>

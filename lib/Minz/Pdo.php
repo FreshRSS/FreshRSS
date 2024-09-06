@@ -37,58 +37,44 @@ abstract class Minz_Pdo extends PDO {
 		return $this->autoPrefix($statement);
 	}
 
-	// PHP8+: PDO::lastInsertId(?string $name = null): string|false
 	/**
-	 * @param string|null $name
-	 * @return string|false
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
-	#[\ReturnTypeWillChange]
-	public function lastInsertId($name = null) {
+	public function lastInsertId(?string $name = null): string|false {
 		if ($name != null) {
 			$name = $this->preSql($name);
 		}
 		return parent::lastInsertId($name);
 	}
 
-	// PHP8+: PDO::prepare(string $query, array $options = []): PDOStatement|false
 	/**
-	 * @param string $query
 	 * @param array<int,string> $options
-	 * @return PDOStatement|false
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 * @phpstan-ignore method.childParameterType, throws.unusedType
 	 */
 	#[\Override]
-	#[\ReturnTypeWillChange]
-	public function prepare($query, $options = []) {
+	public function prepare(string $query, array $options = []): PDOStatement|false {
 		$query = $this->preSql($query);
 		return parent::prepare($query, $options);
 	}
 
-	// PHP8+: PDO::exec(string $statement): int|false
 	/**
-	 * @param string $statement
-	 * @return int|false
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 * @phpstan-ignore throws.unusedType
 	 */
 	#[\Override]
-	#[\ReturnTypeWillChange]
-	public function exec($statement) {
+	public function exec(string $statement): int|false {
 		$statement = $this->preSql($statement);
 		return parent::exec($statement);
 	}
 
 	/**
-	 * @return PDOStatement|false
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 * @phpstan-ignore throws.unusedType
 	 */
 	#[\Override]
-	#[\ReturnTypeWillChange]
-	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args) {
+	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args): PDOStatement|false {
 		$query = $this->preSql($query);
 		return $fetch_mode === null ? parent::query($query) : parent::query($query, $fetch_mode, ...$fetch_mode_args);
 	}

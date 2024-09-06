@@ -22,6 +22,11 @@ if [ -n "$TRUSTED_PROXY" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
+	# Default values
+	export OIDC_SESSION_INACTIVITY_TIMEOUT="${OIDC_SESSION_INACTIVITY_TIMEOUT:-300}"
+	export OIDC_SESSION_MAX_DURATION="${OIDC_SESSION_MAX_DURATION:-27200}"
+	export OIDC_SESSION_TYPE="${OIDC_SESSION_TYPE:-server-cache}"
+
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine

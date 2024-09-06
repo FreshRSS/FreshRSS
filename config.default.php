@@ -42,8 +42,6 @@ return array(
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
 	# feed if they didn’t access this URL.
-	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
-	# sent).
 	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
@@ -173,7 +171,7 @@ return array(
 
 	],
 
-	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# Configuration to send emails.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#

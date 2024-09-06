@@ -84,7 +84,7 @@ trait FreshRSS_FilterActionsTrait {
 				}
 			}
 			//Update existing filter with new action
-			for ($k = count($filters) - 1; $k >= 0; $k --) {
+			for ($k = count($filters) - 1; $k >= 0; $k--) {
 				$filter = $filters[$k];
 				if ($filter === $filterAction->booleanSearch()->getRawInput()) {
 					$actions[] = $action;
@@ -100,7 +100,7 @@ trait FreshRSS_FilterActionsTrait {
 		}
 
 		//Add new filters
-		for ($k = count($filters) - 1; $k >= 0; $k --) {
+		for ($k = count($filters) - 1; $k >= 0; $k--) {
 			$filter = $filters[$k];
 			if ($filter != '') {
 				$filterAction = FreshRSS_FilterAction::fromJSON([
