@@ -18,10 +18,6 @@ use PHPMailer\PHPMailer\Exception;
  * $this->view->_path('user_mailer/email_need_validation.txt.php')
  * ```
  *
- * Minz_Mailer uses the PHPMailer library under the hood. The latter requires
- * PHP >= 5.5 to work. If you instantiate a Minz_Mailer with PHP < 5.5, a
- * warning will be logged.
- *
  * The email is sent by calling the `mail` method.
  */
 class Minz_Mailer {

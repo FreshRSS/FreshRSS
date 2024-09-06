@@ -55,7 +55,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_Context::$state = Minz_Request::paramInt('state');
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
-			FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
+			if (!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+				FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
+			}
 		} elseif (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
 			FreshRSS_Context::$state = FreshRSS_Entry::STATE_NOT_FAVORITE;
 		} else {

@@ -83,14 +83,12 @@ function is_valid_path(string $path): bool {
 		|| is_valid_path_extension($path, USERS_PATH, false);
 }
 
-/** @return never */
-function sendBadRequestResponse(string $message = null) {
+function sendBadRequestResponse(string $message = null): never {
 	header('HTTP/1.1 400 Bad Request');
 	die($message);
 }
 
-/** @return never */
-function sendNotFoundResponse() {
+function sendNotFoundResponse(): never {
 	header('HTTP/1.1 404 Not Found');
 	die();
 }

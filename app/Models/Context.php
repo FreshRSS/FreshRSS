@@ -274,7 +274,7 @@ final class FreshRSS_Context {
 	 * @phpstan-return ($asArray is true ? array{'a'|'c'|'f'|'i'|'s'|'t'|'T',bool|int} : string)
 	 * @return string|array{string,bool|int}
 	 */
-	public static function currentGet(bool $asArray = false) {
+	public static function currentGet(bool $asArray = false): string|array {
 		if (self::$current_get['all']) {
 			return $asArray ? ['a', true] : 'a';
 		} elseif (self::$current_get['important']) {

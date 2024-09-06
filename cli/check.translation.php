@@ -102,9 +102,8 @@ function findUsedTranslations(): array {
 
 /**
  * Output help message.
- * @return never
  */
-function checkHelp() {
+function checkHelp(): never {
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 
 	echo <<<HELP

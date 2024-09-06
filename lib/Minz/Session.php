@@ -63,7 +63,7 @@ class Minz_Session {
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
 	 * @deprecated Use typed versions instead
 	 */
-	public static function param(string $p, $default = false) {
+	public static function param(string $p, $default = false): mixed {
 		return $_SESSION[$p] ?? $default;
 	}
 

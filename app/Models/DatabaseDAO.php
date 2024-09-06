@@ -185,6 +185,30 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $list;
 	}
 
+	private static ?string $staticVersion = null;
+	/**
+	 * To override the database version. Useful for testing.
+	 */
+	public static function setStaticVersion(?string $version): void {
+		self::$staticVersion = $version;
+	}
+
+	public function version(): string {
+		if (self::$staticVersion !== null) {
+			return self::$staticVersion;
+		}
+		static $version = null;
+		if ($version === null) {
+			$version = $this->fetchValue('SELECT version()') ?? '';
+		}
+		return $version;
+	}
+
+	final public function isMariaDB(): bool {
+		// MariaDB includes its name in version, but not MySQL
+		return str_contains($this->version(), 'MariaDB');
+	}
+
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::systemConf()->db;
 
@@ -237,8 +261,7 @@ SQL;
 			$isMariaDB = false;
 
 			if ($this->pdo->dbType() === 'mysql') {
-				$dbVersion = $this->fetchValue('SELECT version()') ?? '';
-				$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;	// MariaDB includes its name in version, but not MySQL
+				$isMariaDB = $this->isMariaDB();
 				if (!$isMariaDB) {
 					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
 					// but MariaDB does https://mariadb.com/kb/en/drop-index/

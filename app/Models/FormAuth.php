@@ -38,8 +38,7 @@ class FreshRSS_FormAuth {
 		return [];
 	}
 
-	/** @return string|false */
-	private static function renewCookie(string $token) {
+	private static function renewCookie(string $token): string|false {
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		if (touch($token_file)) {
 			$limits = FreshRSS_Context::systemConf()->limits;
@@ -51,8 +50,7 @@ class FreshRSS_FormAuth {
 		return false;
 	}
 
-	/** @return string|false */
-	public static function makeCookie(string $username, string $password_hash) {
+	public static function makeCookie(string $username, string $password_hash): string|false {
 		do {
 			$token = sha1(FreshRSS_Context::systemConf()->salt . $username . uniqid('' . mt_rand(), true));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';

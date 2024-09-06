@@ -208,7 +208,7 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 * par auteur : `author:nom` ou `author:'nom composé'`
 * par titre : `intitle:mot` ou `intitle:'mot composé'`
 * par URL : `inurl:mot` ou `inurl:'mot composé'`
-* par tag : `#tag`
+* par tag : `#tag` ou `#'tag avec espace'`
 * par texte libre : `mot` ou `'mot composé'`
 * par date d’ajout, en utilisant le [format ISO 8601 d’intervalle entre deux dates](https://fr.wikipedia.org/wiki/ISO_8601#Intervalle_entre_deux_dates) : `date:<intervalle-de-dates>`
 	* D’un jour spécifique, ou mois, ou année :
@@ -264,6 +264,8 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
 
+> ℹ️ Les recherches sont effectuées sur le code HTML brut
+
 Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes, avec un support basique de la négation :
 
 * `(author:Alice OR intitle:bonjour) (author:Bob OR intitle:monde)`
@@ -273,3 +275,28 @@ Enfin, les parenthèses peuvent être utilisées pour des expressions plus compl
 * `!(S:1 OR S:2)`
 
 > ℹ️ Si vous devez chercher une parenthèse, elle doit être *échappée* comme suit : `\(` ou `\)`
+
+#### Regex
+
+Les recherches de texte (incluant `author:`, `intitle:`, `inurl:`, `#`) peuvent utiliser les expressions régulières qui doivent être exprimées comme `/ /`.
+
+Les recherches regex sont sensibles à la casse, mais peuvent être rendues insensibles à la casse avec l’option de recherche `i` comme : `/Alice/i`
+
+Le mode multilignes peut être activé avec l’option de recherche `m` comme : `/^Alice/m`
+
+> ℹ️ `author:` fonctionne avec un auteur par ligne, ce qui fait que le mode multilignes peut être avantageux, comme : `author:/^Alice Doe$/im`
+>
+> ℹ️ `#` fonctionne également avec un tag par line, ce qui fait que le mode multilignes peut être avantageux, comme : `#/^Hello World$/im`
+
+Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
+
+Contrairement aux recherches normales, les caractères spéciaux HTML ne sont pas encodés dans les recherches regex, afin de permettre de chercher du code HTML, comme : `/Bonjour <span>à tous<\/span>/`
+
+⚠️ Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
+
+* Les filtres d’action de FreshRSS comme marquer-automatiquement-comme-lu et mettre-automatiquement-en-favori utilisent [PHP preg_match](https://php.net/function.preg-match).
+* Les recherches regex dépendent de la base de données utilisée :
+	* Pour SQLite, [PHP preg_match](https://php.net/function.preg-match) est utilisé ;
+	* [Pour PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
+	* [Pour MariaDB](https://mariadb.com/kb/en/pcre/) ;
+	* [Pour MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).

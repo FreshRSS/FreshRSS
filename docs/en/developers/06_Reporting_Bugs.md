@@ -64,7 +64,7 @@ Remember to give the following information if you know it:
 1. Which browser? Which version?
 2. Which server: Apache, Nginx? Which version?
 3. Which version of PHP?
-4. Which database: SQLite, MySQL, MariaDB, PostgreSQL? Which version?
+4. Which database: SQLite, PostgreSQL, MariaDB, MySQL? Which version?
 5. Which distribution runs on the server? And… which version?
 
 ## How to provide feed data

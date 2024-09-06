@@ -105,7 +105,7 @@ abstract class Minz_Extension {
 	 *
 	 * @return string|false html content from ext_dir/configure.phtml, false if it does not exist.
 	 */
-	final public function getConfigureView() {
+	final public function getConfigureView(): string|false {
 		$filename = $this->path . '/configure.phtml';
 		if (!file_exists($filename)) {
 			return false;
@@ -146,7 +146,7 @@ abstract class Minz_Extension {
 		return $this->version;
 	}
 	/** @return 'system'|'user' */
-	final public function getType() {
+	final public function getType(): string {
 		return $this->type;
 	}
 
@@ -296,11 +296,7 @@ abstract class Minz_Extension {
 		return [];
 	}
 
-	/**
-	 * @param mixed $default
-	 * @return mixed
-	 */
-	final public function getSystemConfigurationValue(string $key, $default = null) {
+	final public function getSystemConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->system_configuration)) {
 			$this->system_configuration = $this->getSystemConfiguration();
 		}
@@ -311,11 +307,7 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
-	/**
-	 * @param mixed $default
-	 * @return mixed
-	 */
-	final public function getUserConfigurationValue(string $key, $default = null) {
+	final public function getUserConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->user_configuration)) {
 			$this->user_configuration = $this->getUserConfiguration();
 		}

@@ -369,7 +369,7 @@ final class Minz_ExtensionManager {
 	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
-	private static function callOneToOne(string $hook_name, $arg) {
+	private static function callOneToOne(string $hook_name, mixed $arg): mixed {
 		$result = $arg;
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			$result = call_user_func($function, $arg);

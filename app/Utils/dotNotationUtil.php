@@ -12,11 +12,8 @@ final class FreshRSS_dotNotation_Util
 	 * https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337
 	 *
 	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
-	 * @param string|null $key
-	 * @param mixed $default
-	 * @return mixed
 	 */
-	public static function get($array, ?string $key, mixed $default = null) {
+	public static function get($array, ?string $key, mixed $default = null): mixed {
 		if (!static::accessible($array)) {
 			return static::value($default);
 		}
@@ -51,7 +48,6 @@ final class FreshRSS_dotNotation_Util
 	 * Get a string from an array using "dot" notation.
 	 *
 	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
-	 * @param string|null $key
 	 */
 	public static function getString($array, ?string $key): ?string {
 		$result = self::get($array, $key, null);
@@ -60,11 +56,8 @@ final class FreshRSS_dotNotation_Util
 
 	/**
 	 * Determine whether the given value is array accessible.
-	 *
-	 * @param mixed $value
-	 * @return bool
 	 */
-	private static function accessible($value): bool {
+	private static function accessible(mixed $value): bool {
 		return is_array($value) || $value instanceof \ArrayAccess;
 	}
 
@@ -72,8 +65,6 @@ final class FreshRSS_dotNotation_Util
 	 * Determine if the given key exists in the provided array.
 	 *
 	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
-	 * @param string $key
-	 * @return bool
 	 */
 	private static function exists($array, string $key): bool {
 		if ($array instanceof \ArrayAccess) {
@@ -85,8 +76,7 @@ final class FreshRSS_dotNotation_Util
 		return false;
 	}
 
-	/** @param mixed $value */
-	private static function value($value): mixed {
+	private static function value(mixed $value): mixed {
 		return $value instanceof Closure ? $value() : $value;
 	}
 

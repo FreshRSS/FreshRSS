@@ -33,10 +33,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
-	/**
-	 * @return float|int|string
-	 */
-	private static function megabytes(string $size_str) {
+	private static function megabytes(string $size_str): float|int|string {
 		switch (substr($size_str, -1)) {
 			case 'M':
 			case 'm':
@@ -51,10 +48,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return $size_str;
 	}
 
-	/**
-	 * @param string|int $mb
-	 */
-	private static function minimumMemory($mb): void {
+	private static function minimumMemory(int|string $mb): void {
 		$mb = (int)$mb;
 		$ini = self::megabytes(ini_get('memory_limit') ?: '0');
 		if ($ini < $mb) {
@@ -240,11 +234,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return 'unknown';
 	}
 
-	/**
-	 * @return false|string
-	 */
-	private function ttrssXmlToJson(string $xml) {
-		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
+	private function ttrssXmlToJson(string $xml): string|false {
+		$table = (array)simplexml_load_string($xml, options: LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = $table['article'] ?? [];
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
