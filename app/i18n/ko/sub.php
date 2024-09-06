@@ -29,7 +29,9 @@ return array(
 			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="http://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
 		),
 		'empty' => '빈 카테고리',
+		'expand' => 'Expand category',	// TODO
 		'information' => '정보',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
@@ -68,7 +70,7 @@ return array(
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
 		'export-as-opml' => array(
 			'download' => '다운로드',
-			'help' => 'XML 파일',
+			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'OPML로 내보내기',
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'POST 페이로드는 <code>application/x-www-form-urlencoded</code> 및 <code>application/json</code>을 자동으로 지원합니다.',
 		'method_postparams' => 'POST용 페이로드',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
-		'mute' => '무기한 새로고침 금지',
+		'mute' => array(
+			'_' => '무기한 새로고침 금지',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',

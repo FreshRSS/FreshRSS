@@ -60,7 +60,7 @@ function is_valid_path_extension(string $path, string $extensionPath, bool $isSt
 
 	// Static files to serve must be under a `ext_dir/static/` directory.
 	$path_relative_to_ext = substr($path, strlen($real_ext_path) + 1);
-	list(, $static, $file) = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
+	[, $static, $file] = sscanf($path_relative_to_ext, '%[^/]/%[^/]/%s') ?? [null, null, null];
 	if (null === $file || 'static' !== $static) {
 		return false;
 	}
@@ -83,14 +83,12 @@ function is_valid_path(string $path): bool {
 		|| is_valid_path_extension($path, USERS_PATH, false);
 }
 
-/** @return never */
-function sendBadRequestResponse(string $message = null) {
+function sendBadRequestResponse(string $message = null): never {
 	header('HTTP/1.1 400 Bad Request');
 	die($message);
 }
 
-/** @return never */
-function sendNotFoundResponse() {
+function sendNotFoundResponse(): never {
 	header('HTTP/1.1 404 Not Found');
 	die();
 }

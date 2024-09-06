@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => '加载默认快捷键',
 		'manage' => '管理',
 		'mark_read' => '标记已读',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
@@ -139,7 +147,7 @@ return array(
 		'should_be_activated' => '必须启用 JavaScript',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -196,9 +204,9 @@ return array(
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪贴板',
 		'diaspora' => 'Diaspora*',	// IGNORE

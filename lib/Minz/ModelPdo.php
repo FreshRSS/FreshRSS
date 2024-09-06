@@ -16,6 +16,11 @@ class Minz_ModelPdo {
 	 */
 	public static bool $usesSharedPdo = true;
 
+	/**
+	 * If true, the connection to the database will be a dummy one. Useful for unit tests.
+	 */
+	public static bool $dummyConnection = false;
+
 	private static ?Minz_Pdo $sharedPdo = null;
 
 	private static string $sharedCurrentUser = '';
@@ -86,8 +91,6 @@ class Minz_ModelPdo {
 	/**
 	 * Create the connection to the database using the variables
 	 * HOST, BASE, USER and PASS variables defined in the configuration file
-	 * @param string|null $currentUser
-	 * @param Minz_Pdo|null $currentPdo
 	 * @throws Minz_ConfigurationException
 	 * @throws Minz_PDOConnectionException
 	 */
@@ -97,6 +100,9 @@ class Minz_ModelPdo {
 		}
 		if ($currentPdo !== null) {
 			$this->pdo = $currentPdo;
+			return;
+		}
+		if (self::$dummyConnection) {
 			return;
 		}
 		if ($currentUser == null) {
@@ -237,5 +243,20 @@ class Minz_ModelPdo {
 	 */
 	public function fetchColumn(string $sql, int $column, array $values = []): ?array {
 		return $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, $column);
+	}
+
+	/** For retrieving a single value without prepared statement such as `SELECT version()` */
+	public function fetchValue(string $sql): ?string {
+		$stm = $this->pdo->query($sql);
+		if ($stm === false) {
+			Minz_Log::error('SQL error ' . json_encode($this->pdo->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		$columns = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if ($columns === false) {
+			Minz_Log::error('SQL error ' . json_encode($stm->errorInfo()) . ' during ' . $sql);
+			return null;
+		}
+		return isset($columns[0]) ? (string)$columns[0] : null;
 	}
 }

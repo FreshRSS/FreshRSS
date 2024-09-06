@@ -10,7 +10,7 @@ declare(strict_types=1);
  * The Minz_Error class logs and raises framework errors
  */
 class Minz_Error {
-	public function __construct() { }
+	public function __construct() {}
 
 	/**
 	* Permet de lancer une erreur
@@ -76,7 +76,7 @@ class Minz_Error {
 				return array_merge($error, $warning, $notice);
 			case 'production':
 			default:
-					return $error;
+				return $error;
 		}
 	}
 }

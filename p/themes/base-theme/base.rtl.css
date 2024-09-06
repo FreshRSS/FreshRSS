@@ -577,14 +577,9 @@ th {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 }
 
 .content code {
-	padding: 2px 5px;
 }
 
 .content pre code {
@@ -630,10 +625,6 @@ th {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */

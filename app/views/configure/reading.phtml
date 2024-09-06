@@ -124,6 +124,7 @@
 					</select>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<label class="group-name" for="show_author_date"><?= _t('conf.reading.article.authors_date') ?></label>
 				<div class="group-controls">
@@ -132,6 +133,15 @@
 						<option value="h" <?= FreshRSS_Context::userConf()->show_author_date === 'h' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.header') ?></option>
 						<option value="f" <?= FreshRSS_Context::userConf()->show_author_date === 'f' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.footer') ?></option>
 						<option value="b" <?= FreshRSS_Context::userConf()->show_author_date === 'b' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.article.authors_date.both') ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="show_article_icons"><?= _t('conf.reading.article.icons') ?></label>
+				<div class="group-controls">
+					<select name="show_article_icons" id="show_article_icons" data-leave-validation="<?= FreshRSS_Context::userConf()->show_article_icons ?>">
+						<option value="t" <?= FreshRSS_Context::userConf()->show_article_icons === 't' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.reading.article.icons.above_title') ?></option>
+						<option value="a" <?= FreshRSS_Context::userConf()->show_article_icons === 'a' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.reading.article.icons.with_authors') ?></option>
 					</select>
 				</div>
 			</div>
@@ -353,6 +363,18 @@
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
 						foreach (FreshRSS_Context::userConf()->filtersAction('read') as $filterRead) {
 							echo $filterRead->getRawInput(), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="filteractions_star"><?= _t('conf.reading.star.when') ?></label>
+				<div class="group-controls">
+					<textarea name="filteractions_star" id="filteractions_star" class="w100"><?php
+						foreach (FreshRSS_Context::userConf()->filtersAction('star') as $filterStar) {
+							echo $filterStar->getRawInput(), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Display',	// IGNORE
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// IGNORE
+			'_' => 'Automatic dark mode',	// IGNORE
 			'auto' => 'Auto',	// IGNORE
+			'help' => 'For compatible themes only',	// IGNORE
 			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'User queries',	// IGNORE
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// IGNORE
+		'description' => 'Description',	// IGNORE
 		'filter' => array(
 			'_' => 'Filter applied:',	// IGNORE
 			'categories' => 'Display by category',	// IGNORE
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// IGNORE
 		'get_label' => 'Display articles with “%s” label',	// IGNORE
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// IGNORE
+		'image_url' => 'Image URL',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'No filter',	// IGNORE
 		'number' => 'Query n°%d',	// IGNORE
@@ -142,6 +145,7 @@ return array(
 		'search' => 'Search for “%s”',	// IGNORE
 		'share' => array(
 			'_' => 'Share this query by link',	// IGNORE
+			'greader' => 'Shareable link to the GReader JSON',	// IGNORE
 			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
 			'html' => 'Shareable link to the HTML page',	// IGNORE
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => 'In authors and date row',	// IGNORE
 			),
 			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In header and footer',	// IGNORE
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => 'Newest first',	// IGNORE
 			'older_first' => 'Oldest first',	// IGNORE
 		),
+		'star' => array(
+			'when' => 'Mark an article as favorite…',
+		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
 		'title' => 'Reading',	// IGNORE
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// IGNORE
 		'add' => 'Add a sharing method',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

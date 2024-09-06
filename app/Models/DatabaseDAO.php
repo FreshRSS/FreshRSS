@@ -81,7 +81,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array<string,string|int|bool|null>> */
+	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
 	public function getSchema(string $table): array {
 		$res = $this->fetchAssoc('DESC `_' . $table . '`');
 		return $res == null ? [] : $this->listDaoToSchema($res);
@@ -160,7 +160,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<string,string|int|bool|null> $dao
-	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
+	 * @return array{name:string,type:string,notnull:bool,default:mixed}
 	 */
 	public function daoToSchema(array $dao): array {
 		return [
@@ -173,7 +173,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<array<string,string|int|bool|null>> $listDAO
-	 * @return array<array<string,string|int|bool|null>>
+	 * @return array<array{name:string,type:string,notnull:bool,default:mixed}>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
 		$list = [];
@@ -183,6 +183,30 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 
 		return $list;
+	}
+
+	private static ?string $staticVersion = null;
+	/**
+	 * To override the database version. Useful for testing.
+	 */
+	public static function setStaticVersion(?string $version): void {
+		self::$staticVersion = $version;
+	}
+
+	public function version(): string {
+		if (self::$staticVersion !== null) {
+			return self::$staticVersion;
+		}
+		static $version = null;
+		if ($version === null) {
+			$version = $this->fetchValue('SELECT version()') ?? '';
+		}
+		return $version;
+	}
+
+	final public function isMariaDB(): bool {
+		// MariaDB includes its name in version, but not MySQL
+		return str_contains($this->version(), 'MariaDB');
 	}
 
 	public function size(bool $all = false): int {
@@ -232,8 +256,28 @@ SQL;
 		$catDAO->resetDefaultCategoryName();
 
 		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && $this->pdo->exec($GLOBALS['SQL_UPDATE_MINOR']) === false) {
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR'])) {
+			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
+			$isMariaDB = false;
+
+			if ($this->pdo->dbType() === 'mysql') {
+				$isMariaDB = $this->isMariaDB();
+				if (!$isMariaDB) {
+					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
+					// but MariaDB does https://mariadb.com/kb/en/drop-index/
+					$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
+				}
+			}
+
+			if ($this->pdo->exec($sql) === false) {
+				$info = $this->pdo->errorInfo();
+				if ($this->pdo->dbType() === 'mysql' &&
+					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
+					// Too bad for MySQL, but ignore error
+					return;
+				}
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+			}
 		}
 	}
 
@@ -248,7 +292,7 @@ SQL;
 	public const SQLITE_EXPORT = 1;
 	public const SQLITE_IMPORT = 2;
 
-	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
+	public function dbCopy(string $filename, int $mode, bool $clearFirst = false, bool $verbose = true): bool {
 		if (!extension_loaded('pdo_sqlite')) {
 			return self::stdError('PHP extension pdo_sqlite is missing!');
 		}
@@ -299,6 +343,7 @@ SQL;
 
 		try {
 			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
+			$sqlite->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
@@ -332,7 +377,7 @@ SQL;
 
 		$idMaps = [];
 
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "Start SQL copy…\n");
 		}
 
@@ -375,11 +420,11 @@ SQL;
 					return self::stdError($error);
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
+			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
 				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
 			}
 		}
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
 		}
 		$entryTo->commit();

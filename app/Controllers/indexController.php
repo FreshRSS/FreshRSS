@@ -202,7 +202,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$type = (string)$get[0];
 		$id = (int)$get[1];
 
-		$this->view->excludeMutedFeeds = true;
+		$this->view->excludeMutedFeeds = $type !== 'f';	// Exclude muted feeds except when we focus on a feed
 
 		switch ($type) {
 			case 'a':
@@ -268,8 +268,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
 					$postsPerPage ?? FreshRSS_Context::$number, FreshRSS_Context::$offset, FreshRSS_Context::$first_id,
-					FreshRSS_Context::$search, $date_min)
-				as $entry) {
+					FreshRSS_Context::$search, $date_min
+				) as $entry) {
 			yield $entry;
 		}
 	}

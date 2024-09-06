@@ -50,9 +50,7 @@ class FreshRSS_Share {
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
-			return strcasecmp($a->name() ?? '', $b->name() ?? '');
-		});
+		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => strcasecmp($a->name() ?? '', $b->name() ?? ''));
 	}
 
 	/**
@@ -108,9 +106,7 @@ class FreshRSS_Share {
 	 *        decentralized ones.
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
-	 * @param string|null $field
 	 * @param 'button'|null $HTMLtag
-	 * @param bool $isDeprecated
 	 */
 	private function __construct(string $type, string $url_transform, array $transforms, string $form_type,
 		string $help_url, string $method, ?string $field, ?string $HTMLtag, bool $isDeprecated = false) {
@@ -159,7 +155,7 @@ class FreshRSS_Share {
 				case 'method':
 					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
 					break;
-				case 'field';
+				case 'field':
 					$this->field = $value;
 					break;
 			}

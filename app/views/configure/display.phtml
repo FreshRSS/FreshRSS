@@ -84,6 +84,9 @@
 									<?php } ?>
 									<?= $theme['description'] ?>
 								</div>
+								<?php if (!empty($theme['theme-color']['dark'])) { ?>
+									<div class="darkMode">✔ <?= _t('conf.display.darkMode') ?></div>
+								<?php } ?>
 								<div class="page-number"><?= sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
 						</li>
@@ -113,6 +116,7 @@
 					<option value="no"<?= FreshRSS_Context::userConf()->darkMode === 'no' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.no') ?></option>
 					<option value="auto"<?= FreshRSS_Context::userConf()->darkMode === 'auto' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.auto') ?></option>
 				</select>
+				<span class="help"><?= _i('help') ?> <?= _t('conf.display.darkMode.help') ?></span>
 			</div>
 		</div>
 
@@ -208,7 +212,9 @@
 								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_favorite ?>" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
-							<td><input type="checkbox" disabled="disabled" /></td>
+							<td><input type="checkbox" name="topline_sharing" value="1"<?=
+								FreshRSS_Context::userConf()->topline_sharing ? ' checked="checked"' : '' ?>
+								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_sharing ?>" /></td>
 							<td><input type="checkbox" name="topline_summary" value="1"<?=
 								FreshRSS_Context::userConf()->topline_summary ? 'checked="checked"' : '' ?>
 								data-leave-validation="<?= FreshRSS_Context::userConf()->topline_summary ?>" /></td>

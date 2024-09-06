@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => 'Cargar los acorchis per defaut',
 		'manage' => 'Gerir',
 		'mark_read' => 'Marcar coma legit',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Dobrir l’URL',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
@@ -139,7 +147,7 @@ return array(
 		'should_be_activated' => 'JavaScript deu èsser activat',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -196,9 +204,9 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Sites basats sus Known',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Quicha-papiers.',
 		'diaspora' => 'Diaspora*',	// IGNORE

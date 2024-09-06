@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'Token de autentificación Master',
+		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de fuentes sin autenticación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
@@ -63,8 +63,8 @@ return array(
 			'ok' => 'Los permisos en el directorio favicons son correctos.',
 		),
 		'feeds' => array(
-			'nok' => 'La tabla Feed está configurada de forma incorrecta.',
-			'ok' => 'La tabla Feed está correcta.',
+			'nok' => 'La tabla Fuentes está configurada de forma incorrecta.',
+			'ok' => 'La tabla Fuentes está correcta.',
 		),
 		'fileinfo' => array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
@@ -136,7 +136,7 @@ return array(
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
-		'entry_per_day_of_week' => 'Por día de la semana (mnedia: %.2f mensajes)',
+		'entry_per_day_of_week' => 'Por día de la semana (media: %.2f mensajes)',
 		'entry_per_hour' => 'Por hora (media: %.2f mensajes)',
 		'entry_per_month' => 'Por mes (media: %.2f mensajes)',
 		'entry_repartition' => 'Reparto de entradas',
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'en segundos',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'Formulario de registro del usuario',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'no se proporciona',
 			'enabled' => '<a href="./?a=tos">está activado</a>',
 			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Acerca de <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Buscar actualizaciones',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php copiado desde %s a ./data',
 		'current_version' => 'Dispones de la versión',
 		'last' => 'Última comprobación',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Canal de publicación',
+			'edge' => 'Publicación en marcha (“edge”)',
+			'latest' => 'Publicación estable (“latest”)',
 		),
 		'title' => 'Actualizar sistema',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
 	),
 	'user' => array(
 		'admin' => 'Administrador',
@@ -223,7 +223,7 @@ return array(
 		'database_size' => 'Tamaño de la base de datos',
 		'email' => 'Dirección de correo electrónico',
 		'enabled' => 'Permitido',
-		'feed_count' => 'Feeds',	// IGNORE
+		'feed_count' => 'Fuentes',
 		'is_admin' => 'Es admin',
 		'language' => 'Idioma',
 		'last_user_activity' => 'Última actividad del usuario',

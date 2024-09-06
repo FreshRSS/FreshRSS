@@ -29,7 +29,9 @@ return array(
 			'help' => 'Zadejte adresu URL na <a href="http://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
 		),
 		'empty' => 'Vyprázdit kategorii',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informace',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'ADRESA URL OPML',
 		'position' => 'Zobrazit pozici',
 		'position_help' => 'Pro ovládání pořadí řazení kategorií',
@@ -68,7 +70,7 @@ return array(
 		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný, pak ho aktualizujte.',
 		'export-as-opml' => array(
 			'download' => 'Stáhnout',
-			'help' => 'Soubor XML',
+			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportovat jako OPML',
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'Payload metody POST má automatickou podporu pro <code>application/x-www-form-urlencoded</code> a <code>application/json</code>',
 		'method_postparams' => 'Payload pro metodu POST',
 		'moved_category_deleted' => 'Když odstraníte kategorii, její kanály jsou automaticky přesunuty do <em>%s</em>.',
-		'mute' => 'ztlumit',
+		'mute' => array(
+			'_' => 'ztlumit',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nejsou vybrány žádné kanály.',
 		'number_entries' => '%d článků',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Viditelnost',
 			'archived' => 'Nezobrazovat (archivováno)',

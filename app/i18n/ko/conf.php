@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '표시',
 		'darkMode' => array(
-			'_' => '자동 다크 모드 (베타)',
+			'_' => '자동 다크 모드',
 			'auto' => '자동',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => '필터 적용:',
 			'categories' => '카테고리별로 표시',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => '중요 피드의 글 표시',
 		'get_label' => '“%s” 라벨을 가진 글 표시',
 		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">유저 쿼리 및 HTML / RSS / OPML을 사용한 재공유 방법 문서</a> 살펴보기.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'number' => '쿼리 #%d',
@@ -142,6 +145,7 @@ return array(
 		'search' => '“%s”의 검색 결과',
 		'share' => array(
 			'_' => '링크로 쿼리 공유',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '링크를 사용해서 쿼리를 공유하세요',
 			'html' => 'HTML 공유 링크',
 			'opml' => 'OPML 피드 목록 공유 링크',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => '작성자, 작성일과 같은 줄에',
 			),
 			'feed_title' => '피드 제목',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '태그',
 				'both' => '머리말과 꼬리말에',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => '최근 글 먼저',
 			'older_first' => '오래된 글 먼저',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
 		'title' => '읽기',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '이 서비스는 더 이상 사용되지 않으며 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="상세 정보 문서 열기" target="_blank">추후 릴리즈</a> FreshRSS에서 삭제 될 것 입니다.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',

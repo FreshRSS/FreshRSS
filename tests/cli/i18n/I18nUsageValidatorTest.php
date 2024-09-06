@@ -42,7 +42,7 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		$validator->displayReport();
 	}
 
-	public function testValidateWhenNoData(): void {
+	public static function testValidateWhenNoData(): void {
 		$validator = new I18nUsageValidator([], []);
 		self::assertTrue($validator->validate());
 		self::assertEquals('', $validator->displayResult());

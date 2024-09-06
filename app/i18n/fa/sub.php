@@ -29,7 +29,9 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
+		'expand' => 'Expand category',	// TODO
 		'information' => ' اطلاعات',
+		'open' => 'Open category',	// TODO
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
 		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
@@ -68,7 +70,7 @@ return array(
 		'error' => ' این فید با مشکل مواجه شده است. لطفاً بررسی کنید که همیشه در دسترس است و سپس آن را به روز کنید.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
-		'mute' => ' بی صدا',
+		'mute' => array(
+			'_' => ' بی صدا',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => ' هیچ خوراکی انتخاب نشده است.',
 		'number_entries' => ' %d مقاله',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',

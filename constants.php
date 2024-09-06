@@ -3,8 +3,8 @@ declare(strict_types=1);
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-const FRESHRSS_MIN_PHP_VERSION = '7.4.0';
-const FRESHRSS_VERSION = '1.23.2-dev';
+const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
+const FRESHRSS_VERSION = '1.25.0-dev';
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 
@@ -39,6 +39,9 @@ defined('COPY_SYSLOG_TO_STDERR') or define('COPY_SYSLOG_TO_STDERR', filter_var(g
 
 // Maximum log file size in Bytes, before it will be divided by two
 defined('MAX_LOG_SIZE') or define('MAX_LOG_SIZE', 1048576);
+
+// Amount of characters of text shown if feed has no title
+defined('MAX_CHARS_EMPTY_FEED_TITLE') or define('MAX_CHARS_EMPTY_FEED_TITLE', 75);
 
 //This directory must be writable
 $dataPath = getenv('DATA_PATH');

@@ -3,7 +3,7 @@ declare(strict_types=1);
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
-const MAX_PAYLOAD = 3145728;
+const MAX_PAYLOAD = 3_145_728;
 
 header('Content-Type: text/plain; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
@@ -30,7 +30,7 @@ if ($canonical === false) {
 	if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
 		Minz_Log::warning('Warning: Accept unknown unsubscribe', PSHB_LOG);
 		header('Connection: close');
-		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+		exit($_REQUEST['hub_challenge'] ?? '');
 	}
 	// https://github.com/w3c/websub/issues/106 , https://w3c.github.io/websub/#content-distribution
 	header('HTTP/1.1 410 Gone');
@@ -67,7 +67,7 @@ if (empty($users)) {
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
-	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : intval($_REQUEST['hub_lease_seconds']);
+	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : (int)$_REQUEST['hub_lease_seconds'];
 	if ($leaseSeconds > 60) {
 		$hubJson['lease_end'] = time() + $leaseSeconds;
 	} else {
@@ -79,13 +79,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 	}
 	file_put_contents('./!hub.json', json_encode($hubJson));
 	header('Connection: close');
-	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+	exit($_REQUEST['hub_challenge'] ?? '');
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
 	if (empty($hubJson['lease_end']) || $hubJson['lease_end'] < time()) {
 		header('Connection: close');
-		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+		exit($_REQUEST['hub_challenge'] ?? '');
 	} else {
 		header('HTTP/1.1 422 Unprocessable Entity');
 		die('We did not ask to unsubscribe!');
@@ -103,7 +103,7 @@ $simplePie->init();
 unset($ORIGINAL_INPUT);
 
 $links = $simplePie->get_links('self');
-$self = isset($links[0]) ? $links[0] : null;
+$self = $links[0] ?? null;
 
 if ($self !== $canonical) {
 	//header('HTTP/1.1 422 Unprocessable Entity');
@@ -133,11 +133,8 @@ foreach ($users as $userFilename) {
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_enabled, 'user');
 		Minz_Translate::reset(FreshRSS_Context::userConf()->language);
 
-		[$updated_feeds, , $nb_new_articles] = FreshRSS_feed_Controller::actualizeFeeds(null, $self, null, $simplePie);
-		if ($nb_new_articles > 0) {
-			FreshRSS_feed_Controller::commitNewEntries();
-		}
-		if ($updated_feeds > 0) {
+		[$nbUpdatedFeeds, ] = FreshRSS_feed_Controller::actualizeFeedsAndCommit(null, $self, null, $simplePie);
+		if ($nbUpdatedFeeds > 0) {
 			$nb++;
 		} else {
 			Minz_Log::warning('Warning: User ' . $username . ' does not subscribe anymore to ' . $self, PSHB_LOG);

@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URL openen',
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
@@ -139,7 +147,7 @@ return array(
 		'should_be_activated' => 'JavaScript moet aanstaan',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -196,9 +204,9 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Klembord',
 		'diaspora' => 'Diaspora*',	// IGNORE

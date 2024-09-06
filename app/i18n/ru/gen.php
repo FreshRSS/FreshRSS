@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
@@ -134,12 +142,12 @@ return array(
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Нет меток',
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
@@ -178,7 +186,7 @@ return array(
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',
 		'search' => 'Искать слова или #теги',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Дополнительные <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">параметры поиска</a> приведены в документации',
 		'sharing' => 'Обмен',
 		'shortcuts' => 'Горячие клавиши',
 		'stats' => 'Статистика',
@@ -196,14 +204,14 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Электронная почта (webmail - правка для Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE

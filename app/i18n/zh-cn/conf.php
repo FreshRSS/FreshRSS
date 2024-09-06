@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => '显示',
 		'darkMode' => array(
-			'_' => '自动黑暗模式（测试版）',
+			'_' => '自动黑暗模式',
 			'auto' => '启动',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => '关闭',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => '显示来自“重要的订阅”的文章',
 		'get_label' => '显示打了“%s”标签的文章',
 		'help' => '参见文档： <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">queries and resharing by HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => '名称',
 		'no_filter' => '无过滤器',
 		'number' => '查询 n°%d',
@@ -142,6 +145,7 @@ return array(
 		'search' => '搜索 “%s”',
 		'share' => array(
 			'_' => '分享您的自定义查询',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '获取此自定义查询的分享链接',
 			'html' => 'HTML 页面的分享链接',
 			'opml' => '订阅源 OPML 的分享链接',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => '与作者和日期一行',
 			),
 			'feed_title' => '订阅源标题',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '文章标签',
 				'both' => '页脚与页眉',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => '由新至旧',
 			'older_first' => '由旧至新',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => '此功能已被废弃并会在未来的 FreshRSS 版本中移除，详情见 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="打开文档获更多信息" target="_blank">说明文档</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE

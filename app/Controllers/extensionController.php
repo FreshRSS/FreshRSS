@@ -44,10 +44,10 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
-		$json = @file_get_contents($extensionListUrl);
+		$json = httpGet($extensionListUrl, CACHE_PATH . '/extension_list.json', 'json');
 
 		// we ran into problems, simply ignore them
-		if ($json === false) {
+		if ($json === '') {
 			Minz_Log::error('Could not fetch available extension from GitHub');
 			return [];
 		}
@@ -158,7 +158,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+				$ext_list = array_filter($ext_list, static function (string $key) use ($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;
@@ -220,7 +220,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+				$ext_list = array_filter($ext_list, static function (string $key) use ($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;

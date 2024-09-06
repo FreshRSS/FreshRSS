@@ -29,7 +29,9 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Empty category',	// TODO
+		'expand' => 'Expand category',	// TODO
 		'information' => 'מידע',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Display position',	// TODO
 		'position_help' => 'To control category sort order',	// TODO
@@ -68,7 +70,7 @@ return array(
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
-		'mute' => 'mute',	// TODO
+		'mute' => array(
+			'_' => 'mute',	// TODO
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'archived' => 'Do not show (archived)',	// TODO

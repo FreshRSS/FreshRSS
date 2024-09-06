@@ -29,7 +29,9 @@ return array(
 			'help' => 'Norādiet URL uz <a href="http://opml.org/" target="_blank">OPML failu</a>, lai dinamiski papildinātu šo kategoriju ar barotnēm.',
 		),
 		'empty' => 'Tukša kategorija',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informācija',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Displeja pozīcija',
 		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
@@ -68,7 +70,7 @@ return array(
 		'error' => 'Šajā barotnē ir radusies problēma. Lūdzu, pārbaudiet, vai tā vienmēr ir sasniedzama, un pēc tam to atjauniniet.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
-			'help' => 'XML file',	// TODO
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Kad dzēšat kategoriju, tās plūsmas automātiski tiek automātiski klasificētas kategorijā <em>%s</em>.',
-		'mute' => 'klusināt',
+		'mute' => array(
+			'_' => 'klusināt',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Barotne nav izvēlēta.',
 		'number_entries' => '%d raksti',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'archived' => 'Nerādīt (arhivēts)',

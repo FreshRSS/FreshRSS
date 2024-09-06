@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Zobrazenie',
 		'darkMode' => array(
-			'_' => 'Automatický tmavý režim (beta)',
+			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automaticky',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nie',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Dopyty používateľa',
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Použitý filter:',
 			'categories' => 'Zobraziť podľa kategórie',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Zobraziť články z dôležitých kanálov',
 		'get_label' => 'Zobraziť články so štítkom “%s”',
 		'help' => 'Prečítajte si <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentáciu pre dopyt používateľov a zdieľanie prostredníctvom HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
 		'number' => 'Dopyt číslo %d',
@@ -142,6 +145,7 @@ return array(
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
 			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
 			'html' => 'Zdielateľný odkaz na HTML stránku',
 			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => 'V riadku autori a dátum',
 			),
 			'feed_title' => 'Nadpis kanála',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Značky',
 				'both' => 'V záhlaví a pätičke',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => 'Novšie hore',
 			'older_first' => 'Staršie hore',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE

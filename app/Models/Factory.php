@@ -89,5 +89,4 @@ class FreshRSS_Factory {
 				return new FreshRSS_DatabaseDAO($username);
 		}
 	}
-
 }

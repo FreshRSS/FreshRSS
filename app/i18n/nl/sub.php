@@ -29,7 +29,9 @@ return array(
 			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informatie',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
@@ -68,7 +70,7 @@ return array(
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
 		'export-as-opml' => array(
 			'download' => 'Downloaden',
-			'help' => 'XML-bestand',
+			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Als OPML exporteren',
 		),
 		'filteractions' => array(
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'De POST-payload ondersteunt automatisch <code>application/x-www-form-urlencoded</code> en <code>application/json</code>',
 		'method_postparams' => 'Payload voor POST',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
-		'mute' => 'demp',
+		'mute' => array(
+			'_' => 'demp',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',

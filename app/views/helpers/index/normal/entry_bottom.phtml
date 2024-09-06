@@ -12,9 +12,9 @@
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($bottomline_read) {
 			?><li class="item manage"><?php
-				$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $this->entry->id()));
+				$arUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isRead()) {
-					$arUrl['params']['is_read'] = 0;
+					$arUrl['params']['is_read'] = '0';
 				}
 				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
@@ -22,9 +22,9 @@
 		}
 		if ($bottomline_favorite) {
 			?><li class="item manage"><?php
-				$arUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $this->entry->id()));
+				$arUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isFavorite()) {
-					$arUrl['params']['is_favorite'] = 0;
+					$arUrl['params']['is_favorite'] = '0';
 				}
 				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
@@ -76,39 +76,7 @@
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
 				<?= _i('share') ?><?= _t('index.share') ?>
 			</a>
-
-			<ul class="dropdown-menu">
-				<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
-					$id = $this->entry->id();
-					$link = $this->entry->link();
-					$title = $this->entry->title() . ' · ' . ($this->feed === null ? '' : $this->feed->name());
-					foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
-						$share = FreshRSS_Share::get($share_options['type']);
-						if ($share === null) {
-							continue;
-						}
-						$cssClass = $share->isDeprecated() ? ' error' : '';
-						$share_options['id'] = $id;
-						$share_options['link'] = $link;
-						$share_options['title'] = $title;
-						$share->update($share_options);
-				?><li class="item share<?= $cssClass ?>">
-					<?php if ('GET' === $share->method()) {
-						if ($share->HTMLtag() !== 'button') {?>
-						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
-						<?php } else { ?>
-						<button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button>
-						<?php
-						}
-					} else {?>
-						<a href="POST"><?= $share->name() ?></a>
-						<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
-							<input type="hidden" value="<?= $link ?>" name="<?= $share->field() ?>"/>
-						</form>
-					<?php } ?>
-				</li><?php
-					}
-			?></ul>
+			<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 		<?php } ?>

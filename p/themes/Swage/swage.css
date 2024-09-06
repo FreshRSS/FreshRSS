@@ -17,6 +17,7 @@
 	--color-border-bad: #b0425b;
 	--color-background-light: #fcfcfc;
 	--color-background-light-darker: #e3e3e3;
+	--color-background-light-darker-transparent: rgba(217, 217, 217, 0.7333333333);
 	--color-background-dark: #181621;
 	--color-background-nav: #0062be;
 	--color-background-nav-darker: #00488b;
@@ -181,7 +182,7 @@ form th {
 .form-group.form-actions {
 	margin: 15px 0 25px;
 	padding: 5px 0;
-	background-color: var(--color-background-light-darker);
+	background-color: var(--color-background-light-darker-transparent);
 	border-top: 3px solid var(--color-border-light-darker);
 }
 .form-group.form-actions .btn {
@@ -433,12 +434,8 @@ form th {
 	box-shadow: 0 2px 5px var(--color-box-shadow-light);
 }
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background-color: var(--color-background-dark);
 	color: var(--color-text-light);
-	font-size: 0.9rem;
 }
 .content pre code {
 	background: transparent;
@@ -446,10 +443,9 @@ form th {
 	border: none;
 }
 .content code {
-	padding: 2px 5px;
 	background-color: var(--color-background-light);
 	color: var(--color-text-bad);
-	border: 1px solid var(--color-border-light);
+	border-color: var(--color-border-light);
 }
 .content blockquote {
 	margin: 0;
@@ -833,10 +829,6 @@ form th {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 	background-color: var(--color-background-aside);
 }
 
