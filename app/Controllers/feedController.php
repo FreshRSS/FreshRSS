@@ -755,7 +755,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @param int $nbNewEntries The number of top recent entries to process.
 	 * @return int|false The number of new labels added, or false in case of error.
 	 */
-	private static function applyLabelActions(int $nbNewEntries) {
+	private static function applyLabelActions(int $nbNewEntries): int|false {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$labels = FreshRSS_Context::labels();
 		$labels = array_filter($labels, static function (FreshRSS_Tag $label) {
@@ -800,9 +800,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public static function actualizeFeedsAndCommit(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null, ?SimplePie $simplePiePush = null): array {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$entryDAO->beginTransaction();
 		[$nbUpdatedFeeds, $feed, $nbNewArticles, $feedsCacheToRefresh] = FreshRSS_feed_Controller::actualizeFeeds($feed_id, $feed_url, $maxFeeds, $simplePiePush);
 		if ($nbNewArticles > 0) {
+			$entryDAO->beginTransaction();
 			FreshRSS_feed_Controller::commitNewEntries();
 		}
 		if (count($feedsCacheToRefresh) > 0) {
@@ -852,10 +852,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				FreshRSS_category_Controller::refreshDynamicOpmls();
 			}
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$entryDAO->beginTransaction();
 			[$nbUpdatedFeeds, $feed, $nbNewArticles, $feedsCacheToRefresh] = self::actualizeFeeds($id, $url, $maxFeeds);
 			if (!$noCommit) {
 				if ($nbNewArticles > 0) {
+					$entryDAO->beginTransaction();
 					FreshRSS_feed_Controller::commitNewEntries();
 				}
 				$feedDAO = FreshRSS_Factory::createFeedDao();

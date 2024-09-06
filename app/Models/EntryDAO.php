@@ -291,9 +291,8 @@ SQL;
 	 * there is an other way to do that.
 	 *
 	 * @param numeric-string|array<numeric-string> $ids
-	 * @return int|false
 	 */
-	public function markFavorite($ids, bool $is_favorite = true) {
+	public function markFavorite($ids, bool $is_favorite = true): int|false {
 		if (!is_array($ids)) {
 			$ids = [$ids];
 		}
@@ -369,11 +368,9 @@ SQL;
 	 * Then the cache is updated.
 	 *
 	 * @param numeric-string|array<numeric-string> $ids
-	 * @param bool $is_read
 	 * @return int|false affected rows
 	 */
-	public function markRead($ids, bool $is_read = true) {
-		FreshRSS_UserDAO::touch();
+	public function markRead(array|string $ids, bool $is_read = true): int|false {
 		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
@@ -391,6 +388,7 @@ SQL;
 				return $affected;
 			}
 
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` '
 				 . 'SET is_read=? '
 				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
@@ -408,6 +406,7 @@ SQL;
 			}
 			return $affected;
 		} else {
+			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
 				 . 'SET e.is_read=?,'
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
@@ -437,7 +436,7 @@ SQL;
 	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $prioritMax = null,
+	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $priorityMax = null,
 		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
@@ -450,15 +449,15 @@ SQL;
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
 		}
-		if ($priorityMin !== null || $prioritMax !== null) {
+		if ($priorityMin !== null || $priorityMax !== null) {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1';
 			if ($priorityMin !== null) {
 				$sql .= ' AND f.priority >= ?';
 				$values[] = $priorityMin;
 			}
-			if ($prioritMax !== null) {
+			if ($priorityMax !== null) {
 				$sql .= ' AND f.priority < ?';
-				$values[] = $prioritMax;
+				$values[] = $priorityMax;
 			}
 			$sql .= ')';
 		}
@@ -489,7 +488,7 @@ SQL;
 	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
@@ -530,7 +529,7 @@ SQL;
 	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = time() . '000000';
@@ -622,9 +621,8 @@ SQL;
 	/**
 	 * Remember to call updateCachedValues($id_feed) or updateCachedValues() just after.
 	 * @param array<string,bool|int|string> $options
-	 * @return int|false
 	 */
-	public function cleanOldEntries(int $id_feed, array $options = []) {
+	public function cleanOldEntries(int $id_feed, array $options = []): int|false {
 		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed1';	//No alias for MySQL / MariaDB
 		$params = [];
 		$params[':id_feed1'] = $id_feed;
@@ -1120,12 +1118,11 @@ SQL;
 	 * @phpstan-param 'a'|'A'|'s'|'S'|'i'|'c'|'f'|'t'|'T'|'ST' $type
 	 * @param 'ASC'|'DESC' $order
 	 * @param int $id category/feed/tag ID
-	 * @return PDOStatement|false
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL,
 			string $order = 'DESC', int $limit = 1, int $offset = 0, string $firstId = '', ?FreshRSS_BooleanSearch $filters = null,
-			int $date_min = 0) {
+			int $date_min = 0): PDOStatement|false {
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $order, $limit, $offset, $firstId, $filters, $date_min);
 
 		if ($order !== 'DESC' && $order !== 'ASC') {
@@ -1243,7 +1240,7 @@ SQL;
 	 * @param array<string> $guids
 	 * @return array<string>|false
 	 */
-	public function listHashForFeedGuids(int $id_feed, array $guids) {
+	public function listHashForFeedGuids(int $id_feed, array $guids): array|false {
 		$result = [];
 		if (count($guids) < 1) {
 			return $result;
@@ -1282,7 +1279,7 @@ SQL;
 	 * @param array<string> $guids
 	 * @return int|false The number of affected entries, or false if error
 	 */
-	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0) {
+	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0): int|false {
 		if (count($guids) < 1) {
 			return 0;
 		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
@@ -1320,7 +1317,7 @@ SQL;
 	 * To be performed just before {@see FreshRSS_FeedDAO::updateLastUpdate()}
 	 * @return int|false The number of affected entries, or false in case of error
 	 */
-	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0) {
+	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
 UPDATE `_entry` SET `lastSeen` = :mtime
 WHERE id_feed = :id_feed1 AND `lastSeen` = (

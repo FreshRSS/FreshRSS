@@ -5,34 +5,9 @@ if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
 }
 
-if (!function_exists('array_is_list')) {
-	/**
-	 * Polyfill for PHP <8.1
-	 * https://php.net/array-is-list#127044
-	 * @param array<mixed> $array
-	 */
-	function array_is_list(array $array): bool {
-		$i = -1;
-		foreach ($array as $k => $v) {
-			++$i;
-			if ($k !== $i) {
-				return false;
-			}
-		}
-		return true;
-	}
-}
-
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
-	}
-}
-
-if (!function_exists('str_starts_with')) {
-	/** Polyfill for PHP <8.0 */
-	function str_starts_with(string $haystack, string $needle): bool {
-		return strncmp($haystack, $needle, strlen($needle)) === 0;
 	}
 }
 
@@ -149,14 +124,7 @@ function idn_to_puny(string $url): string {
 	if (function_exists('idn_to_ascii')) {
 		$idn = parse_url($url, PHP_URL_HOST);
 		if (is_string($idn) && $idn != '') {
-			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
-			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
-			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
-				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
-			} else {
-				$puny = idn_to_ascii($idn);
-			}
+			$puny = idn_to_ascii($idn);
 			$pos = strpos($url, $idn);
 			if ($puny != false && $pos !== false) {
 				$url = substr_replace($url, $puny, $pos, strlen($idn));
@@ -166,10 +134,7 @@ function idn_to_puny(string $url): string {
 	return $url;
 }
 
-/**
- * @return string|false
- */
-function checkUrl(string $url, bool $fixScheme = true) {
+function checkUrl(string $url, bool $fixScheme = true): string|false {
 	$url = trim($url);
 	if ($url == '') {
 		return '';
@@ -178,7 +143,7 @@ function checkUrl(string $url, bool $fixScheme = true) {
 		$url = 'https://' . ltrim($url, '/');
 	}
 
-	$url = idn_to_puny($url);	//PHP bug #53474 IDN
+	$url = idn_to_puny($url);	// https://bugs.php.net/bug.php?id=53474
 	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
 
 	if (is_string(filter_var($urlRelaxed, FILTER_VALIDATE_URL))) {
@@ -279,7 +244,7 @@ function html_only_entity_decode(?string $text): string {
  * @param array<string,mixed>|string $log
  * @return array<string,mixed>|string
  */
-function sensitive_log($log) {
+function sensitive_log($log): array|string {
 	if (is_array($log)) {
 		foreach ($log as $k => $v) {
 			if (in_array($k, ['api_key', 'Passwd', 'T'], true)) {
@@ -631,11 +596,7 @@ function invalidateHttpCache(string $username = ''): bool {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/' . LOG_FILENAME);
-	//if (!$ok) {
-		//TODO: Display notification error on front-end
-	//}
-	return $ok;
+	return FreshRSS_UserDAO::ctouch($username);
 }
 
 /**

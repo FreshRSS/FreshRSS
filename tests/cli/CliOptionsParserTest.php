@@ -52,163 +52,138 @@ final class CliOptionsOptionalAndRequiredTest extends CliOptionsParser {
 
 class CliOptionsParserTest extends TestCase {
 
-	public function testInvalidOptionSetWithValueReturnsError(): void {
-		$result = $this->runOptionalOptions('--invalid=invalid');
-
+	public static function testInvalidOptionSetWithValueReturnsError(): void {
+		$result = self::runOptionalOptions('--invalid=invalid');
 		self::assertEquals(['invalid' => 'unknown option: invalid'], $result->errors);
 	}
 
-	public function testInvalidOptionSetWithoutValueReturnsError(): void {
-		$result = $this->runOptionalOptions('--invalid');
-
+	public static function testInvalidOptionSetWithoutValueReturnsError(): void {
+		$result = self::runOptionalOptions('--invalid');
 		self::assertEquals(['invalid' => 'unknown option: invalid'], $result->errors);
 	}
 
-	public function testValidOptionSetWithValidValueAndInvalidOptionSetWithValueReturnsValueForValidOptionAndErrorForInvalidOption(): void {
-		$result = $this->runOptionalOptions('--string=string --invalid=invalid');
-
+	public static function testValidOptionSetWithValidValueAndInvalidOptionSetWithValueReturnsValueForValidOptionAndErrorForInvalidOption(): void {
+		$result = self::runOptionalOptions('--string=string --invalid=invalid');
 		self::assertEquals('string', $result->string);
 		self::assertEquals(['invalid' => 'unknown option: invalid'], $result->errors);
 	}
 
-	public function testOptionWithValueTypeOfStringSetOnceWithValidValueReturnsValueAsString(): void {
-		$result = $this->runOptionalOptions('--string=string');
-
+	public static function testOptionWithValueTypeOfStringSetOnceWithValidValueReturnsValueAsString(): void {
+		$result = self::runOptionalOptions('--string=string');
 		self::assertEquals('string', $result->string);
 	}
 
-	public function testOptionWithRequiredValueTypeOfIntSetOnceWithValidValueReturnsValueAsInt(): void {
-		$result = $this->runOptionalOptions('--int=111');
-
+	public static function testOptionWithRequiredValueTypeOfIntSetOnceWithValidValueReturnsValueAsInt(): void {
+		$result = self::runOptionalOptions('--int=111');
 		self::assertEquals(111, $result->int);
 	}
 
-	public function testOptionWithRequiredValueTypeOfBoolSetOnceWithValidValueReturnsValueAsBool(): void {
-		$result = $this->runOptionalOptions('--bool=on');
-
+	public static function testOptionWithRequiredValueTypeOfBoolSetOnceWithValidValueReturnsValueAsBool(): void {
+		$result = self::runOptionalOptions('--bool=on');
 		self::assertEquals(true, $result->bool);
 	}
 
-	public function testOptionWithValueTypeOfArrayOfStringSetOnceWithValidValueReturnsValueAsArrayOfString(): void {
-		$result = $this->runOptionalOptions('--array-of-string=string');
-
+	public static function testOptionWithValueTypeOfArrayOfStringSetOnceWithValidValueReturnsValueAsArrayOfString(): void {
+		$result = self::runOptionalOptions('--array-of-string=string');
 		self::assertEquals(['string'], $result->arrayOfString);
 	}
 
-	public function testOptionWithValueTypeOfStringSetMultipleTimesWithValidValueReturnsLastValueSetAsString(): void {
-		$result = $this->runOptionalOptions('--string=first --string=second');
-
+	public static function testOptionWithValueTypeOfStringSetMultipleTimesWithValidValueReturnsLastValueSetAsString(): void {
+		$result = self::runOptionalOptions('--string=first --string=second');
 		self::assertEquals('second', $result->string);
 	}
 
-	public function testOptionWithValueTypeOfIntSetMultipleTimesWithValidValueReturnsLastValueSetAsInt(): void {
-		$result = $this->runOptionalOptions('--int=111 --int=222');
-
+	public static function testOptionWithValueTypeOfIntSetMultipleTimesWithValidValueReturnsLastValueSetAsInt(): void {
+		$result = self::runOptionalOptions('--int=111 --int=222');
 		self::assertEquals(222, $result->int);
 	}
 
-	public function testOptionWithValueTypeOfBoolSetMultipleTimesWithValidValueReturnsLastValueSetAsBool(): void {
-		$result = $this->runOptionalOptions('--bool=on --bool=off');
-
+	public static function testOptionWithValueTypeOfBoolSetMultipleTimesWithValidValueReturnsLastValueSetAsBool(): void {
+		$result = self::runOptionalOptions('--bool=on --bool=off');
 		self::assertEquals(false, $result->bool);
 	}
 
-	public function testOptionWithValueTypeOfArrayOfStringSetMultipleTimesWithValidValueReturnsAllSetValuesAsArrayOfString(): void {
-		$result = $this->runOptionalOptions('--array-of-string=first --array-of-string=second');
-
+	public static function testOptionWithValueTypeOfArrayOfStringSetMultipleTimesWithValidValueReturnsAllSetValuesAsArrayOfString(): void {
+		$result = self::runOptionalOptions('--array-of-string=first --array-of-string=second');
 		self::assertEquals(['first', 'second'], $result->arrayOfString);
 	}
 
-	public function testOptionWithValueTypeOfIntSetWithInvalidValueReturnsAnError(): void {
-		$result = $this->runOptionalOptions('--int=one');
-
+	public static function testOptionWithValueTypeOfIntSetWithInvalidValueReturnsAnError(): void {
+		$result = self::runOptionalOptions('--int=one');
 		self::assertEquals(['int' => 'invalid input: int must be an integer'], $result->errors);
 	}
 
-	public function testOptionWithValueTypeOfBoolSetWithInvalidValuesReturnsAnError(): void {
-		$result = $this->runOptionalOptions('--bool=bad');
-
+	public static function testOptionWithValueTypeOfBoolSetWithInvalidValuesReturnsAnError(): void {
+		$result = self::runOptionalOptions('--bool=bad');
 		self::assertEquals(['bool' => 'invalid input: bool must be a boolean'], $result->errors);
 	}
 
-	public function testOptionWithValueTypeOfIntSetMultipleTimesWithValidAndInvalidValuesReturnsLastValidValueSetAsIntAndError(): void {
-		$result = $this->runOptionalOptions('--int=111 --int=one --int=222 --int=two');
-
+	public static function testOptionWithValueTypeOfIntSetMultipleTimesWithValidAndInvalidValuesReturnsLastValidValueSetAsIntAndError(): void {
+		$result = self::runOptionalOptions('--int=111 --int=one --int=222 --int=two');
 		self::assertEquals(222, $result->int);
 		self::assertEquals(['int' => 'invalid input: int must be an integer'], $result->errors);
 	}
 
-	public function testOptionWithValueTypeOfBoolSetMultipleTimesWithWithValidAndInvalidValuesReturnsLastValidValueSetAsBoolAndError(): void {
-		$result = $this->runOptionalOptions('--bool=on --bool=good --bool=off --bool=bad');
-
+	public static function testOptionWithValueTypeOfBoolSetMultipleTimesWithWithValidAndInvalidValuesReturnsLastValidValueSetAsBoolAndError(): void {
+		$result = self::runOptionalOptions('--bool=on --bool=good --bool=off --bool=bad');
 		self::assertEquals(false, $result->bool);
 		self::assertEquals(['bool' => 'invalid input: bool must be a boolean'], $result->errors);
 	}
 
-	public function testNotSetOptionWithDefaultInputReturnsDefaultInput(): void {
-		$result = $this->runOptionalOptions('');
-
+	public static function testNotSetOptionWithDefaultInputReturnsDefaultInput(): void {
+		$result = self::runOptionalOptions('');
 		self::assertEquals('default', $result->defaultInput);
 	}
 
-	public function testOptionWithDefaultInputSetWithValidValueReturnsCorrectlyTypedValue(): void {
-		$result = $this->runOptionalOptions('--default-input=input');
-
+	public static function testOptionWithDefaultInputSetWithValidValueReturnsCorrectlyTypedValue(): void {
+		$result = self::runOptionalOptions('--default-input=input');
 		self::assertEquals('input', $result->defaultInput);
 	}
 
-	public function testOptionWithOptionalValueSetWithoutValueReturnsEmptyString(): void {
-		$result = $this->runOptionalOptions('--optional-value');
-
+	public static function testOptionWithOptionalValueSetWithoutValueReturnsEmptyString(): void {
+		$result = self::runOptionalOptions('--optional-value');
 		self::assertEquals('', $result->optionalValue);
 	}
 
-	public function testOptionWithOptionalValueDefaultSetWithoutValueReturnsOptionalValueDefault(): void {
-		$result = $this->runOptionalOptions('--optional-value-with-default');
-
+	public static function testOptionWithOptionalValueDefaultSetWithoutValueReturnsOptionalValueDefault(): void {
+		$result = self::runOptionalOptions('--optional-value-with-default');
 		self::assertEquals(true, $result->optionalValueWithDefault);
 	}
 
-	public function testNotSetOptionWithOptionalValueDefaultAndDefaultInputReturnsDefaultInput(): void {
-		$result = $this->runOptionalOptions('');
-
+	public static function testNotSetOptionWithOptionalValueDefaultAndDefaultInputReturnsDefaultInput(): void {
+		$result = self::runOptionalOptions('');
 		self::assertEquals('default', $result->defaultInputAndOptionalValueWithDefault);
 	}
 
-	public function testOptionWithOptionalValueDefaultAndDefaultInputSetWithoutValueReturnsOptionalValueDefault(): void {
-		$result = $this->runOptionalOptions('--default-input-and-optional-value-with-default');
-
+	public static function testOptionWithOptionalValueDefaultAndDefaultInputSetWithoutValueReturnsOptionalValueDefault(): void {
+		$result = self::runOptionalOptions('--default-input-and-optional-value-with-default');
 		self::assertEquals('optional', $result->defaultInputAndOptionalValueWithDefault);
 	}
 
-	public function testRequiredOptionNotSetReturnsError(): void {
-		$result = $this->runOptionalAndRequiredOptions('');
-
+	public static function testRequiredOptionNotSetReturnsError(): void {
+		$result = self::runOptionalAndRequiredOptions('');
 		self::assertEquals(['required' => 'invalid input: required cannot be empty'], $result->errors);
 	}
 
-	public function testOptionSetWithDeprecatedAliasGeneratesDeprecationWarningAndReturnsValue(): void {
-		$result = $this->runCommandReadingStandardError('--deprecated-string=string');
-
+	public static function testOptionSetWithDeprecatedAliasGeneratesDeprecationWarningAndReturnsValue(): void {
+		$result = self::runCommandReadingStandardError('--deprecated-string=string');
 		self::assertEquals('FreshRSS deprecation warning: the CLI option(s): deprecated-string are deprecated ' .
 				'and will be removed in a future release. Use: string instead',
 			$result
 		);
 
-		$result = $this->runOptionalOptions('--deprecated-string=string');
-
+		$result = self::runOptionalOptions('--deprecated-string=string');
 		self::assertEquals('string', $result->string);
 	}
 
-	public function testAlwaysReturnUsageMessageWithUsageInfoForAllOptions(): void {
-		$result = $this->runOptionalAndRequiredOptions('');
-
+	public static function testAlwaysReturnUsageMessageWithUsageInfoForAllOptions(): void {
+		$result = self::runOptionalAndRequiredOptions('');
 		self::assertEquals('Usage: cli-parser-test.php --required=<required> [-s --string=<string>] [-i --int=<int>] [-b --bool=<bool>] [-f --flag]',
 			$result->usage,
 		);
 	}
 
-	private function runOptionalOptions(string $cliOptions = ''): CliOptionsOptionalTest {
+	private static function runOptionalOptions(string $cliOptions = ''): CliOptionsOptionalTest {
 		$command = __DIR__ . '/cli-parser-test.php';
 		$className = CliOptionsOptionalTest::class;
 
@@ -219,7 +194,7 @@ class CliOptionsParserTest extends TestCase {
 		return $result;
 	}
 
-	private function runOptionalAndRequiredOptions(string $cliOptions = ''): CliOptionsOptionalAndRequiredTest {
+	private static function runOptionalAndRequiredOptions(string $cliOptions = ''): CliOptionsOptionalAndRequiredTest {
 		$command = __DIR__ . '/cli-parser-test.php';
 		$className = CliOptionsOptionalAndRequiredTest::class;
 
@@ -230,7 +205,7 @@ class CliOptionsParserTest extends TestCase {
 		return $result;
 	}
 
-	private function runCommandReadingStandardError(string $cliOptions = ''): string {
+	private static function runCommandReadingStandardError(string $cliOptions = ''): string {
 		$command = __DIR__ . '/cli-parser-test.php';
 		$className = CliOptionsOptionalTest::class;
 

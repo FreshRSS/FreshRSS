@@ -76,7 +76,6 @@ class Minz_Log {
 	 * This method can be called multiple times for one script execution, but its result will not change unless
 	 * you call clearstatcache() in between. We won’t do do that for performance reasons.
 	 *
-	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize(string $file_name): void {

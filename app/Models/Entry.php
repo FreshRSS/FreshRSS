@@ -32,13 +32,10 @@ class FreshRSS_Entry extends Minz_Model {
 	private array $tags = [];
 
 	/**
-	 * @param int|string $pubdate
-	 * @param bool|int|null $is_read
-	 * @param bool|int|null $is_favorite
 	 * @param string|array<string> $tags
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
-			string $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+			string $link = '', int|string $pubdate = 0, bool|int|null $is_read = false, bool|int|null $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -149,7 +146,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @phpstan-return ($asString is true ? string : array<string>)
 	 * @return string|array<string>
 	 */
-	public function authors(bool $asString = false) {
+	public function authors(bool $asString = false): string|array {
 		if ($asString) {
 			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
 		} else {
@@ -384,9 +381,8 @@ HTML;
 	}
 	/**
 	 * @phpstan-return ($raw is false ? string : int)
-	 * @return string|int
 	 */
-	public function date(bool $raw = false) {
+	public function date(bool $raw = false): int|string {
 		if ($raw) {
 			return $this->date;
 		}
@@ -402,9 +398,8 @@ HTML;
 
 	/**
 	 * @phpstan-return ($raw is false ? string : ($microsecond is true ? string : int))
-	 * @return int|string
 	 */
-	public function dateAdded(bool $raw = false, bool $microsecond = false) {
+	public function dateAdded(bool $raw = false, bool $microsecond = false): int|string {
 		if ($raw) {
 			if ($microsecond) {
 				return $this->date_added;
@@ -451,7 +446,7 @@ HTML;
 	 * @phpstan-return ($asString is true ? string : array<string>)
 	 * @return string|array<string>
 	 */
-	public function tags(bool $asString = false) {
+	public function tags(bool $asString = false): array|string {
 		if ($asString) {
 			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
 		} else {
@@ -719,9 +714,7 @@ HTML;
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);
-		if ($feed->category() !== null) {
-			$feed->category()->applyFilterActions($this);
-		}
+		$feed->category()?->applyFilterActions($this);
 		$feed->applyFilterActions($this);
 	}
 
@@ -785,7 +778,7 @@ HTML;
 			$content = '';
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector))->asXPath());
+			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
 			if ($nodes != false) {
 				$path_entries_filter = $feed->attributeString('path_entries_filter') ?? '';
 				$path_entries_filter = trim($path_entries_filter, ', ');
