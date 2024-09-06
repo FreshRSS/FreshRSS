@@ -44,10 +44,10 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
-		$json = @file_get_contents($extensionListUrl);
+		$json = httpGet($extensionListUrl, CACHE_PATH . '/extension_list.json', 'json');
 
 		// we ran into problems, simply ignore them
-		if ($json === false) {
+		if ($json === '') {
 			Minz_Log::error('Could not fetch available extension from GitHub');
 			return [];
 		}
