@@ -70,7 +70,7 @@
         "phpcbf": "phpcbf . -p -s",
         "phpstan": "phpstan analyse --memory-limit 512M .",
         "phpstan-next": "phpstan analyse --memory-limit 512M -c phpstan-next.neon .",
-        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices ./tests",
+        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-phpunit-deprecations ./tests",
         "translations": "cli/manipulate.translation.php -a format",
         "test": [
             "@php-lint",
