@@ -1,6 +1,6 @@
 # Database configuration
 
-FreshRSS supports the databases SQLite (built-in), PostgreSQL, MySQL / MariaDB.
+FreshRSS supports the databases SQLite (built-in), PostgreSQL, MariaDB / MySQL.
 
 While the default installation should be fine for most cases, additional tuning can be made.
 

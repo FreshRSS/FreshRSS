@@ -27,6 +27,55 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	/** @return array{pattern?:string,matchType?:string} */
+	protected static function regexToSql(string $regex): array {
+		if (preg_match('#^/(?P<pattern>.*)/(?P<matchType>[im]*)$#', $regex, $matches)) {
+			return $matches;
+		}
+		return [];
+	}
+
+	/** @param array<int|string> $values */
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		// The implementation of this function is solely for MySQL and MariaDB
+		static $databaseDAOMySQL = null;
+		if ($databaseDAOMySQL === null) {
+			$databaseDAOMySQL = new FreshRSS_DatabaseDAO();
+		}
+
+		$matches = static::regexToSql($regex);
+		if (isset($matches['pattern'])) {
+			$matchType = $matches['matchType'] ?? '';
+			if ($databaseDAOMySQL->isMariaDB()) {
+				if (str_contains($matchType, 'm')) {
+					// multiline mode
+					$matches['pattern'] = '(?m)' . $matches['pattern'];
+				}
+				if (str_contains($matchType, 'i')) {
+					// case-insensitive match
+					$matches['pattern'] = '(?i)' . $matches['pattern'];
+				} else {
+					$matches['pattern'] = '(?-i)' . $matches['pattern'];
+				}
+				$values[] = $matches['pattern'];
+				return "{$expression} REGEXP ?";
+			} else {	// MySQL
+				if (!str_contains($matchType, 'i')) {
+					// Case-sensitive matching
+					$matchType .= 'c';
+				}
+				$values[] = $matches['pattern'];
+				return "REGEXP_LIKE({$expression},?,'{$matchType}')";
+			}
+		}
+		return '';
+	}
+
+	/** Register any needed SQL function for the query, e.g. application-defined functions for SQLite */
+	protected function registerSqlFunctions(string $sql): void {
+		// Nothing to do for MySQL
+	}
+
 	private function updateToMediumBlob(): bool {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
@@ -910,10 +959,20 @@ SQL;
 					$values[] = "%{$author}%";
 				}
 			}
+			if ($filter->getAuthorRegex() !== null) {
+				foreach ($filter->getAuthorRegex() as $author) {
+					$sub_search .= 'AND ' . static::sqlRegex("REPLACE({$alias}author, ';', '\n')", $author, $values) . ' ';
+				}
+			}
 			if ($filter->getIntitle() !== null) {
 				foreach ($filter->getIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title LIKE ? ';
 					$values[] = "%{$title}%";
+				}
+			}
+			if ($filter->getIntitleRegex() !== null) {
+				foreach ($filter->getIntitleRegex() as $title) {
+					$sub_search .= 'AND ' . static::sqlRegex($alias . 'title', $title, $values) . ' ';
 				}
 			}
 			if ($filter->getTags() !== null) {
@@ -922,10 +981,20 @@ SQL;
 					$values[] = "%{$tag} #%";
 				}
 			}
+			if ($filter->getTagsRegex() !== null) {
+				foreach ($filter->getTagsRegex() as $tag) {
+					$sub_search .= 'AND ' . static::sqlRegex("REPLACE(REPLACE({$alias}tags, ' #', '#'), '#', '\n')", $tag, $values) . ' ';
+				}
+			}
 			if ($filter->getInurl() !== null) {
 				foreach ($filter->getInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link LIKE ? ';
 					$values[] = "%{$url}%";
+				}
+			}
+			if ($filter->getInurlRegex() !== null) {
+				foreach ($filter->getInurlRegex() as $url) {
+					$sub_search .= 'AND ' . static::sqlRegex($alias . 'link', $url, $values) . ' ';
 				}
 			}
 
@@ -935,10 +1004,20 @@ SQL;
 					$values[] = "%{$author}%";
 				}
 			}
+			if ($filter->getNotAuthorRegex() !== null) {
+				foreach ($filter->getNotAuthorRegex() as $author) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex("REPLACE({$alias}author, ';', '\n')", $author, $values) . ' ';
+				}
+			}
 			if ($filter->getNotIntitle() !== null) {
 				foreach ($filter->getNotIntitle() as $title) {
 					$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? ';
 					$values[] = "%{$title}%";
+				}
+			}
+			if ($filter->getNotIntitleRegex() !== null) {
+				foreach ($filter->getNotIntitleRegex() as $title) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $title, $values) . ' ';
 				}
 			}
 			if ($filter->getNotTags() !== null) {
@@ -947,17 +1026,27 @@ SQL;
 					$values[] = "%{$tag} #%";
 				}
 			}
+			if ($filter->getNotTagsRegex() !== null) {
+				foreach ($filter->getNotTagsRegex() as $tag) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex("REPLACE(REPLACE({$alias}tags, ' #', '#'), '#', '\n')", $tag, $values) . ' ';
+				}
+			}
 			if ($filter->getNotInurl() !== null) {
 				foreach ($filter->getNotInurl() as $url) {
 					$sub_search .= 'AND ' . $alias . 'link NOT LIKE ? ';
 					$values[] = "%{$url}%";
 				}
 			}
+			if ($filter->getNotInurlRegex() !== null) {
+				foreach ($filter->getNotInurlRegex() as $url) {
+					$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'link', $url, $values) . ' ';
+				}
+			}
 
 			if ($filter->getSearch() !== null) {
 				foreach ($filter->getSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) LIKE ? ';
+						$sub_search .= "AND CONCAT({$alias}title, '\\n', UNCOMPRESS({$alias}content_bin)) LIKE ? ";
 						$values[] = "%{$search_value}%";
 					} else {
 						$sub_search .= 'AND (' . $alias . 'title LIKE ? OR ' . $alias . 'content LIKE ?) ';
@@ -966,15 +1055,37 @@ SQL;
 					}
 				}
 			}
+			if ($filter->getSearchRegex() !== null) {
+				foreach ($filter->getSearchRegex() as $search_value) {
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND (' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' OR ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ') ';
+					} else {
+						$sub_search .= 'AND (' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' OR ' . static::sqlRegex($alias . 'content', $search_value, $values) . ') ';
+					}
+				}
+			}
 			if ($filter->getNotSearch() !== null) {
 				foreach ($filter->getNotSearch() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
-						$sub_search .= 'AND CONCAT(' . $alias . 'title, UNCOMPRESS(' . $alias . 'content_bin)) NOT LIKE ? ';
+						$sub_search .= "AND CONCAT({$alias}title, '\\n', UNCOMPRESS({$alias}content_bin)) NOT LIKE ? ";
 						$values[] = "%{$search_value}%";
 					} else {
 						$sub_search .= 'AND ' . $alias . 'title NOT LIKE ? AND ' . $alias . 'content NOT LIKE ? ';
 						$values[] = "%{$search_value}%";
 						$values[] = "%{$search_value}%";
+					}
+				}
+			}
+			if ($filter->getNotSearchRegex() !== null) {
+				foreach ($filter->getNotSearchRegex() as $search_value) {
+					if (static::isCompressed()) {	// MySQL-only
+						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' ANT NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
+					} else {
+						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
+							' AND NOT ' . static::sqlRegex($alias . 'content', $search_value, $values) . ' ';
 					}
 				}
 			}
@@ -1039,6 +1150,7 @@ SQL;
 			if ($filterSearch !== '') {
 				$search .= 'AND (' . $filterSearch . ') ';
 				$values = array_merge($values, $filterValues);
+				$this->registerSqlFunctions($search);
 			}
 		}
 		return [$values, $search];

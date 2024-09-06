@@ -631,9 +631,19 @@ HTML;
 						$ok &= stripos(implode(';', $this->authors), $author) !== false;
 					}
 				}
+				if ($ok && $filter->getAuthorRegex()) {
+					foreach ($filter->getAuthorRegex() as $author) {
+						$ok &= preg_match($author, implode("\n", $this->authors)) === 1;
+					}
+				}
 				if ($ok && $filter->getNotAuthor()) {
 					foreach ($filter->getNotAuthor() as $author) {
 						$ok &= stripos(implode(';', $this->authors), $author) === false;
+					}
+				}
+				if ($ok && $filter->getNotAuthorRegex()) {
+					foreach ($filter->getNotAuthorRegex() as $author) {
+						$ok &= preg_match($author, implode("\n", $this->authors)) === 0;
 					}
 				}
 				if ($ok && $filter->getIntitle()) {
@@ -641,9 +651,19 @@ HTML;
 						$ok &= stripos($this->title, $title) !== false;
 					}
 				}
+				if ($ok && $filter->getIntitleRegex()) {
+					foreach ($filter->getIntitleRegex() as $title) {
+						$ok &= preg_match($title, $this->title) === 1;
+					}
+				}
 				if ($ok && $filter->getNotIntitle()) {
 					foreach ($filter->getNotIntitle() as $title) {
 						$ok &= stripos($this->title, $title) === false;
+					}
+				}
+				if ($ok && $filter->getNotIntitleRegex()) {
+					foreach ($filter->getNotIntitleRegex() as $title) {
+						$ok &= preg_match($title, $this->title) === 0;
 					}
 				}
 				if ($ok && $filter->getTags()) {
@@ -652,6 +672,19 @@ HTML;
 						foreach ($this->tags as $tag1) {
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
+								break;
+							}
+						}
+						$ok &= $found;
+					}
+				}
+				if ($ok && $filter->getTagsRegex()) {
+					foreach ($filter->getTagsRegex() as $tag2) {
+						$found = false;
+						foreach ($this->tags as $tag1) {
+							if (preg_match($tag2, $tag1) === 1) {
+								$found = true;
+								break;
 							}
 						}
 						$ok &= $found;
@@ -663,6 +696,19 @@ HTML;
 						foreach ($this->tags as $tag1) {
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
+								break;
+							}
+						}
+						$ok &= !$found;
+					}
+				}
+				if ($ok && $filter->getNotTagsRegex()) {
+					foreach ($filter->getNotTagsRegex() as $tag2) {
+						$found = false;
+						foreach ($this->tags as $tag1) {
+							if (preg_match($tag2, $tag1) === 1) {
+								$found = true;
+								break;
 							}
 						}
 						$ok &= !$found;
@@ -673,9 +719,19 @@ HTML;
 						$ok &= stripos($this->link, $url) !== false;
 					}
 				}
+				if ($ok && $filter->getInurlRegex()) {
+					foreach ($filter->getInurlRegex() as $url) {
+						$ok &= preg_match($url, $this->link) === 1;
+					}
+				}
 				if ($ok && $filter->getNotInurl()) {
 					foreach ($filter->getNotInurl() as $url) {
 						$ok &= stripos($this->link, $url) === false;
+					}
+				}
+				if ($ok && $filter->getNotInurlRegex()) {
+					foreach ($filter->getNotInurlRegex() as $url) {
+						$ok &= preg_match($url, $this->link) === 0;
 					}
 				}
 				if ($ok && $filter->getSearch()) {
@@ -686,6 +742,16 @@ HTML;
 				if ($ok && $filter->getNotSearch()) {
 					foreach ($filter->getNotSearch() as $needle) {
 						$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
+					}
+				}
+				if ($ok && $filter->getSearchRegex()) {
+					foreach ($filter->getSearchRegex() as $needle) {
+						$ok &= (preg_match($needle, $this->title) === 1 || preg_match($needle, $this->content) === 1);
+					}
+				}
+				if ($ok && $filter->getNotSearchRegex()) {
+					foreach ($filter->getNotSearchRegex() as $needle) {
+						$ok &= (preg_match($needle, $this->title) === 0 && preg_match($needle, $this->content) === 0);
 					}
 				}
 				if ($ok) {

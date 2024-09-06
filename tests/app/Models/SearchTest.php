@@ -124,10 +124,10 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	public static function provideInurlSearch(): array {
 		return [
 			['inurl:word1', ['word1'], null],
-			['inurl: word1', [], ['word1']],
+			['inurl: word1', null, ['word1']],
 			['inurl:123', ['123'], null],
 			['inurl:word1 word2', ['word1'], ['word2']],
-			['inurl:"word1 word2"', ['"word1'], ['word2"']],
+			['inurl:"word1 word2"', ['word1 word2'], null],
 			['inurl:word1 word2 inurl:word3', ['word1', 'word3'], ['word2']],
 			["inurl:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['inurl:word1+word2', ['word1+word2'], null],
@@ -196,7 +196,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['# word1', null, ['#', 'word1']],
 			['#123', ['123'], null],
 			['#word1 word2', ['word1'], ['word2']],
-			['#"word1 word2"', ['"word1'], ['word2"'],],
+			['#"word1 word2"', ['word1 word2'], null],
 			['#word1 #word2', ['word1', 'word2'], null],
 			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['#word1+word2', ['word1 word2'], null]
@@ -439,6 +439,174 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
 				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexPostreSQL
+	 * @param array<string> $values
+	 */
+	public function test__regex_postgresql(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexPostreSQL(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				'(e.title ~ ? )',
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				'(e.title ~* ? )',
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				'(e.title ~ ? )',
+				['(?m)^ab$']
+			],
+			[
+				'intitle:/^ab\\M/',
+				'(e.title ~ ? )',
+				['^ab\\M']
+			],
+			[
+				'author:/^ab$/',
+				"(REPLACE(e.author, ';', '\n') ~ ? )",
+				['^ab$']
+			],
+			[
+				'inurl:/^ab$/',
+				'(e.link ~ ? )',
+				['^ab$']
+			],
+			[
+				'/^ab$/',
+				'((e.title ~ ? OR e.content ~ ?) )',
+				['^ab$', '^ab$']
+			],
+			[
+				'!/^ab$/',
+				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				['^ab$', '^ab$']
+			],
+			[	// Not a regex
+				'inurl:https://example.net/test/',
+				'(e.link LIKE ? )',
+				['%https://example.net/test/%']
+			],
+			[	// Not a regex
+				'https://example.net/test/',
+				'((e.title LIKE ? OR e.content LIKE ?) )',
+				['%https://example.net/test/%', '%https://example.net/test/%']
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexMariaDB
+	 * @param array<string> $values
+	 */
+	public function test__regex_mariadb(string $input, string $sql, array $values): void {
+		FreshRSS_DatabaseDAO::$dummyConnection = true;
+		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexMariaDB(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(e.title REGEXP ? )",
+				['(?-i)^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(e.title REGEXP ? )",
+				['(?i)^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(e.title REGEXP ? )",
+				['(?-i)(?m)^ab$']
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexMySQL
+	 * @param array<string> $values
+	 */
+	public function test__regex_mysql(string $input, string $sql, array $values): void {
+		FreshRSS_DatabaseDAO::$dummyConnection = true;
+		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexMySQL(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(REGEXP_LIKE(e.title,?,'c') )",
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(REGEXP_LIKE(e.title,?,'i') )",
+				['^ab$']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(REGEXP_LIKE(e.title,?,'mc') )",
+				['^ab$']
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideRegexSQLite
+	 * @param array<string> $values
+	 */
+	public function test__regex_sqlite(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals($values, $filterValues);
+	}
+
+	/** @return array<array<mixed>> */
+	public function provideRegexSQLite(): array {
+		return [
+			[
+				'intitle:/^ab$/',
+				"(e.title REGEXP ? )",
+				['/^ab$/']
+			],
+			[
+				'intitle:/^ab$/i',
+				"(e.title REGEXP ? )",
+				['/^ab$/i']
+			],
+			[
+				'intitle:/^ab$/m',
+				"(e.title REGEXP ? )",
+				['/^ab$/m']
+			],
+			[
+				'intitle:/^ab\\b/',
+				'(e.title REGEXP ? )',
+				['/^ab\\b/']
 			],
 		];
 	}
