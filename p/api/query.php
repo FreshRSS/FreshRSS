@@ -37,12 +37,12 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 
 FreshRSS_Context::initUser($user);
 if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
-	usleep(random_int(100, 10000));	//Primitive mitigation of scanning for users
+	usleep(mt_rand(100, 10000));	//Primitive mitigation of scanning for users
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('User not found!');
 } else {
-	usleep(random_int(20, 200));
+	usleep(mt_rand(20, 200));
 }
 
 if (!file_exists(DATA_PATH . '/no-cache.txt')) {
@@ -106,7 +106,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	}
 }
 if ($query === null || $userSearch === null) {
-	usleep(random_int(100, 10000));
+	usleep(mt_rand(100, 10000));
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('User query not found!');

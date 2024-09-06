@@ -647,7 +647,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			unset($entries);
 
-			if (random_int(0, 30) === 1) {	// Remove old entries once in 30.
+			if (mt_rand(0, 30) === 1) {	// Remove old entries once in 30.
 				$nb = $feed->cleanOldEntries();
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
