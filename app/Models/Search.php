@@ -135,11 +135,11 @@ class FreshRSS_Search {
 	}
 
 	/** @return array<int>|'*'|null */
-	public function getLabelIds() {
+	public function getLabelIds(): array|string|null {
 		return $this->label_ids;
 	}
 	/** @return array<int>|'*'|null */
-	public function getNotLabelIds() {
+	public function getNotLabelIds(): array|string|null {
 		return $this->not_label_ids;
 	}
 	/** @return array<string>|null */
@@ -242,7 +242,7 @@ class FreshRSS_Search {
 	 * @param array<string>|string $value
 	 * @return ($value is array ? array<string> : string)
 	 */
-	private static function decodeSpaces($value) {
+	private static function decodeSpaces($value): array|string {
 		if (is_array($value)) {
 			for ($i = count($value) - 1; $i >= 0; $i--) {
 				$value[$i] = self::decodeSpaces($value[$i]);

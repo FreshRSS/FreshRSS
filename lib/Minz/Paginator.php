@@ -64,7 +64,7 @@ class Minz_Paginator {
 	 * @param Minz_Model $item l'élément à retrouver
 	 * @return int|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
-	public function pageByItem($item) {
+	public function pageByItem($item): int|false {
 		$i = 0;
 
 		do {
@@ -82,7 +82,7 @@ class Minz_Paginator {
 	 * @param Minz_Model $item the element to search
 	 * @return int|false the position of the element, or false if not found
 	 */
-	public function positionByItem($item) {
+	public function positionByItem($item): int|false {
 		$i = 0;
 
 		do {
