@@ -270,7 +270,6 @@ final class FeverAPI
 					$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 					break;
 			}
-
 		}
 
 		return $response_arr;
@@ -351,12 +350,14 @@ final class FeverAPI
 		if (!FreshRSS_Context::hasSystemConf()) {
 			return [];
 		}
+
+		require_once(LIB_PATH . '/favicons.php');
+
 		$favicons = [];
 		$salt = FreshRSS_Context::systemConf()->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-
 			$id = hash('crc32b', $salt . $feed->url());
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
@@ -365,7 +366,7 @@ final class FeverAPI
 
 			$favicons[] = [
 				'id' => $feed->id(),
-				'data' => image_type_to_mime_type(exif_imagetype($filename) ?: 0) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')
+				'data' => contentType($filename) . ';base64,' . base64_encode(file_get_contents($filename) ?: '')
 			];
 		}
 
@@ -425,33 +426,29 @@ final class FeverAPI
 
 	/**
 	 * @param numeric-string $id
-	 * @return int|false
 	 */
-	private function setItemAsRead(string $id) {
+	private function setItemAsRead(string $id): int|false {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
 	 * @param numeric-string $id
-	 * @return int|false
 	 */
-	private function setItemAsUnread(string $id) {
+	private function setItemAsUnread(string $id): int|false {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
 	 * @param numeric-string $id
-	 * @return int|false
 	 */
-	private function setItemAsSaved(string $id) {
+	private function setItemAsSaved(string $id): int|false {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
 	 * @param numeric-string $id
-	 * @return int|false
 	 */
-	private function setItemAsUnsaved(string $id) {
+	private function setItemAsUnsaved(string $id): int|false {
 		return $this->entryDAO->markFavorite($id, false);
 	}
 
@@ -537,18 +534,12 @@ final class FeverAPI
 		return $beforeTimestamp == 0 ? '0' : $beforeTimestamp . '000000';
 	}
 
-	/**
-	 * @return int|false
-	 */
-	private function setFeedAsRead(int $id, int $before) {
+	private function setFeedAsRead(int $id, int $before): int|false {
 		$before = $this->convertBeforeToId($before);
 		return $this->entryDAO->markReadFeed($id, $before);
 	}
 
-	/**
-	 * @return int|false
-	 */
-	private function setGroupAsRead(int $id, int $before) {
+	private function setGroupAsRead(int $id, int $before): int|false {
 		$before = $this->convertBeforeToId($before);
 
 		// special case to mark all items as read

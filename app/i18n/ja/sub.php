@@ -29,7 +29,9 @@ return array(
 			'help' => '<a href="http://opml.org/" target="_blank">から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
 		),
 		'empty' => 'からのカテゴリ',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'インフォメーション',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPMLのURL',
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'POSTペイロードは <code>application/x-www-form-urlencoded</code> と <code>application/json</code> を自動的にサポートしています',
 		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
-		'mute' => 'ミュート',
+		'mute' => array(
+			'_' => 'ミュート',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'どのフィードも選択されていません',
 		'number_entries' => '%d 記事数',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',

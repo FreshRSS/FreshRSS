@@ -33,7 +33,7 @@ class Minz_FrontController {
 	 * Constructeur
 	 * Initialise le dispatcher, met à jour la Request
 	 */
-	public function __construct () {
+	public function __construct() {
 		try {
 			$this->setReporting();
 
@@ -79,9 +79,8 @@ class Minz_FrontController {
 
 	/**
 	 * Kills the programme
-	 * @return never
 	 */
-	public static function killApp(string $txt = '') {
+	public static function killApp(string $txt = ''): never {
 		header('HTTP/1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function

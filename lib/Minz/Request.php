@@ -44,7 +44,7 @@ class Minz_Request {
 	 * @return mixed value of the parameter
 	 * @deprecated use typed versions instead
 	 */
-	public static function param(string $key, $default = false, bool $specialchars = false) {
+	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_string($p) || is_array($p)) {
@@ -67,6 +67,15 @@ class Minz_Request {
 			return [];
 		}
 		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
+	}
+
+	/** @return array<string> */
+	public static function paramArrayString(string $key, bool $specialchars = false): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_string');
+		return $specialchars ? Minz_Helper::htmlspecialchars_utf8($result) : $result;
 	}
 
 	public static function paramTernary(string $key): ?bool {
@@ -97,7 +106,7 @@ class Minz_Request {
 		return 0;
 	}
 
-	public static function paramString(string $key, bool $specialchars = false): string {
+	public static function paramStringNull(string $key, bool $specialchars = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
@@ -108,7 +117,11 @@ class Minz_Request {
 				return (string)$s;
 			}
 		}
-		return '';
+		return null;
+	}
+
+	public static function paramString(string $key, bool $specialchars = false): string {
+		return self::paramStringNull($key, $specialchars) ?? '';
 	}
 
 	/**
@@ -143,7 +156,7 @@ class Minz_Request {
 	}
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
-	public static function originalRequest() {
+	public static function originalRequest(): array {
 		return self::$originalRequest;
 	}
 
@@ -431,7 +444,7 @@ class Minz_Request {
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON(): void {
-		if ('application/json' !== self::extractContentType()) {
+		if (!str_starts_with(self::extractContentType(), 'application/json')) {
 			return;
 		}
 		$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);

@@ -100,9 +100,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array{'name':string,'id'?:int,'kind'?:int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string|array<string,mixed>} $valuesTmp
-	 * @return int|false
 	 */
-	public function addCategory(array $valuesTmp) {
+	public function addCategory(array $valuesTmp): int|false {
 		// TRIM() to provide a type hint as text
 		// No tag of the same name
 		$sql = <<<'SQL'
@@ -136,8 +135,7 @@ SQL;
 		}
 	}
 
-	/** @return int|false */
-	public function addCategoryObject(FreshRSS_Category $category) {
+	public function addCategoryObject(FreshRSS_Category $category): int|false {
 		$cat = $this->searchByName($category->name());
 		if (!$cat) {
 			$values = [
@@ -153,9 +151,8 @@ SQL;
 
 	/**
 	 * @param array{'name':string,'kind':int,'attributes'?:array<string,mixed>|mixed|null} $valuesTmp
-	 * @return int|false
 	 */
-	public function updateCategory(int $id, array $valuesTmp) {
+	public function updateCategory(int $id, array $valuesTmp): int|false {
 		// No tag of the same name
 		$sql = <<<'SQL'
 UPDATE `_category` SET name=?, kind=?, attributes=? WHERE id=?
@@ -187,8 +184,7 @@ SQL;
 		}
 	}
 
-	/** @return int|false */
-	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0) {
+	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
 		$sql = 'UPDATE `_category` SET `lastUpdate`=?, error=? WHERE id=?';
 		$values = [
 			$mtime <= 0 ? time() : $mtime,
@@ -206,8 +202,7 @@ SQL;
 		}
 	}
 
-	/** @return int|false */
-	public function deleteCategory(int $id) {
+	public function deleteCategory(int $id): int|false {
 		if ($id <= self::DEFAULTCATEGORYID) {
 			return false;
 		}
@@ -345,8 +340,7 @@ SQL;
 		}
 	}
 
-	/** @return int|bool */
-	public function checkDefault() {
+	public function checkDefault(): int|bool {
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {

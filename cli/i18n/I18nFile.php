@@ -82,7 +82,6 @@ class I18nFile {
 	 * Flatten an array of translation
 	 *
 	 * @param array<string,I18nValue|array<string,I18nValue>> $translation
-	 * @param string $prefix
 	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {

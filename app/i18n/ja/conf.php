@@ -145,6 +145,7 @@ return array(
 		'search' => '“%s”で検索する',
 		'share' => array(
 			'_' => 'このクエリをリンクで共有する',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'このクエリを誰かと共有したい場合は、このリンクを提供してください',
 			'html' => 'HTMLページへの共有リンク',
 			'opml' => 'フィードのOPMLリストへの共有リンク',
@@ -249,6 +250,9 @@ return array(
 			'_' => '順序',
 			'newer_first' => '最新のものを先頭にする',
 			'older_first' => '最古のものを先頭にする',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',

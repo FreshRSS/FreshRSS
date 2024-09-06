@@ -278,6 +278,13 @@ class FreshRSS_UserQuery {
 		return '';
 	}
 
+	public function sharedUrlGreader(bool $xmlEscaped = true): string {
+		if ($this->shareRss && $this->token !== '') {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=greader';
+		}
+		return '';
+	}
+
 	public function sharedUrlHtml(bool $xmlEscaped = true): string {
 		if ($this->shareRss && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=html';
