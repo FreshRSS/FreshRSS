@@ -2,8 +2,10 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
+## 2024-XX-XX FreshRSS 1.25.0-dev
 
-## 2024-09-XX FreshRSS 1.24.3-dev
+
+## 2024-09-06 FreshRSS 1.24.3
 
 * Bug fixing
 	* Fix mark-as-read from user query [#6738](https://github.com/FreshRSS/FreshRSS/pull/6738)
@@ -12,6 +14,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix XPath for HTML documents with broken root (used by CSS selectors to fetch full content) [#6774](https://github.com/FreshRSS/FreshRSS/pull/6774)
 	* Fix UI regression in Mapco/Ansum themes [#6740](https://github.com/FreshRSS/FreshRSS/pull/6740)
 	* Fix minor style bug with some themes [#6746](https://github.com/FreshRSS/FreshRSS/pull/6746)
+	* Fix export of OPML information for date format of JSON and HTML+XPath feeds [#6779](https://github.com/FreshRSS/FreshRSS/pull/6779)
 * Security
 	* OpenID Connect better definition of session parameters [#6730](https://github.com/FreshRSS/FreshRSS/pull/6730)
 * Compatibility

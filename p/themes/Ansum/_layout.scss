@@ -273,12 +273,8 @@ main.prompt {
 	}
 
 	pre {
-		margin: 10px auto;
-		padding: 10px 20px;
-		overflow: auto;
 		background: variables.$main-first-darker;
 		color: variables.$white;
-		font-size: 0.9rem;
 		border-radius: 3px;
 
 		code {
@@ -289,9 +285,8 @@ main.prompt {
 	}
 
 	code {
-		padding: 2px 5px;
 		background: variables.$grey-lighter;
-		border: 1px solid variables.$grey-light;
+		border-color: variables.$grey-light;
 		border-radius: 3px;
 	}
 
