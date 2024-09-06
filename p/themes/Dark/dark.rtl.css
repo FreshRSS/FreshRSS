@@ -482,7 +482,7 @@ button.as-link[disabled] {
 
 .content code {
 	background-color: var(--dark-background-color1);
-	border: 1px solid var(--dark-border-color3);
+	border-color: var(--dark-border-color3);
 }
 
 .content pre code {
