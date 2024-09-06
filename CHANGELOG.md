@@ -3,7 +3,7 @@
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 
-## 2024-09-XX FreshRSS 1.24.3-dev
+## 2024-09-06 FreshRSS 1.24.3
 
 * Bug fixing
 	* Fix mark-as-read from user query [#6738](https://github.com/FreshRSS/FreshRSS/pull/6738)
