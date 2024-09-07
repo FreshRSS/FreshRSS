@@ -852,7 +852,7 @@ HTML;
 					if ($path_entries_filter !== '') {
 						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
-							if ($filterednode->parentNode === null) {
+							if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
 								continue;
 							}
 							$filterednode->parentNode->removeChild($filterednode);
@@ -868,15 +868,20 @@ HTML;
 		}
 	}
 
+	/**
+	 * @return bool True if the content was modified, false otherwise
+	 */
 	public function loadCompleteContent(bool $force = false): bool {
 		// Gestion du contenu
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed();
-		if ($feed != null && trim($feed->pathEntries()) != '') {
+		if ($feed === null) {
+			return false;
+		}
+		if (trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
-
-			if ($entry) {
+			if ($entry !== null) {
 				// l’article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content(false);
 			} else {
@@ -898,7 +903,6 @@ HTML;
 								$this->content = $fullContent;
 								break;
 						}
-
 						return true;
 					}
 				} catch (Exception $e) {
@@ -906,6 +910,30 @@ HTML;
 					Minz_Log::warning($e->getMessage());
 				}
 			}
+		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
+			$doc = new DOMDocument();
+			$utf8BOM = "\xEF\xBB\xBF";
+			if (!$doc->loadHTML($utf8BOM . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+				return false;
+			}
+			$modified = false;
+			$xpath = new DOMXPath($doc);
+			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
+			foreach ($filterednodes as $filterednode) {
+				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
+					continue;
+				}
+				$filterednode->parentNode->removeChild($filterednode);
+				$modified = true;
+			}
+			if ($modified) {
+				$html = $doc->saveHTML();
+				if (!is_string($html)) {
+					return false;
+				}
+				$this->content = $html;
+			}
+			return $modified;
 		}
 		return false;
 	}
