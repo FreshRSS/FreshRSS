@@ -85,8 +85,7 @@ function numberFormat(nStr) {
 		return 0;
 	}
 	// http://www.mredkj.com/javascript/numberFormat.html
-	nStr += '';
-	const x = nStr.split('.');
+	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;
 	let x1 = x[0];
@@ -279,7 +278,7 @@ function send_mark_read_queue(queue, asRead, callback) {
 			callback();
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		ajax: true,
 		_csrf: context.csrf,
@@ -392,7 +391,7 @@ function mark_favorite(div) {
 
 		delete pending_entries[div.id];
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		ajax: true,
 		_csrf: context.csrf,
@@ -544,7 +543,8 @@ function prev_feed() {
 			continue;
 		}
 		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
@@ -573,7 +573,8 @@ function next_feed() {
 			continue;
 		}
 		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
@@ -604,7 +605,7 @@ function prev_category() {
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		last_category();
@@ -618,7 +619,7 @@ function next_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -632,7 +633,7 @@ function next_unread_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -640,12 +641,12 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	if (links && links.length > 0) {
 		delayedClick(links[links.length - 1]);
 	}
@@ -1260,7 +1261,7 @@ function init_stream(stream) {
 						loadDynamicTags(checkboxTag.closest('div.dropdown'));
 					}
 				};
-				req.setRequestHeader('Content-Type', 'application/json');
+				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
 					_csrf: context.csrf,
 					id_tag: tagId,
@@ -1421,7 +1422,7 @@ function refreshFeed(feeds, feeds_count) {
 			req2.onloadend = function (e) {
 				delayedFunction(function () { location.reload(); });
 			};
-			req2.setRequestHeader('Content-Type', 'application/json');
+			req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			req2.send(JSON.stringify({
 				_csrf: context.csrf,
 				noCommit: 0,
@@ -1430,7 +1431,7 @@ function refreshFeed(feeds, feeds_count) {
 			refreshFeed(feeds, feeds_count);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1446,7 +1447,7 @@ function refreshFeeds(json) {
 		req2.onloadend = function (e) {
 			context.ajax_loading = false;
 		};
-		req2.setRequestHeader('Content-Type', 'application/json');
+		req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req2.send(JSON.stringify({
 			_csrf: context.csrf,
 			noCommit: 0,
@@ -1481,7 +1482,7 @@ function refreshDynamicOpml(categories, categories_count, next) {
 			refreshDynamicOpml(categories, categories_count, next);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1552,7 +1553,7 @@ function init_actualize() {
 				refreshFeeds(json);
 			}
 		};
-		req.setRequestHeader('Content-Type', 'application/json');
+		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req.send(JSON.stringify({
 			_csrf: context.csrf,
 		}));

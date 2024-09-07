@@ -143,7 +143,7 @@ function init_draggable() {
 					dragFeedId = '';
 					dragHtml = '';
 				};
-				req.setRequestHeader('Content-Type', 'application/json');
+				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
 					f_id: dragFeedId,
 					c_id: ul_dropzone.getAttribute('data-cat-id'),
