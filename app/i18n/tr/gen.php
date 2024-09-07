@@ -17,6 +17,7 @@ return array(
 		'back' => '← Geri dön',
 		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
 		'cancel' => 'İptal',
+		'close' => 'Close',	// TODO
 		'create' => 'Oluştur',
 		'delete_muted_feeds' => 'Sessize alınmış akışları sil',
 		'demote' => 'Yöneticilikten al',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Hakkında',
+		'about' => 'FreshRSS hakkında',
 		'account' => 'Hesap',
 		'admin' => 'Yönetim',
 		'archiving' => 'Arşiv',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Yapılandırma',
 		'display' => 'Görünüm',
 		'extensions' => 'Eklentiler',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log kayıtları',
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',

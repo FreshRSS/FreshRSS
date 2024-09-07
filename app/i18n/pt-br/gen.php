@@ -17,6 +17,7 @@ return array(
 		'back' => '← Voltar',
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
+		'close' => 'Close',	// TODO
 		'create' => 'Criar',
 		'delete_muted_feeds' => 'Excluir feeds silenciados',
 		'demote' => 'Despromover',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Sobre',
+		'about' => 'Sobre FreshRSS',
 		'account' => 'Conta',
 		'admin' => 'Administração',
 		'archiving' => 'Arquivar',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Configuração',
 		'display' => 'Visualização',
 		'extensions' => 'Extensões',
+		'help' => 'Help',	// TODO
 		'logs' => 'Logs',	// IGNORE
 		'queries' => 'Queries de usuário',
 		'reading' => 'Leitura',

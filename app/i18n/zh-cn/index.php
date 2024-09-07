@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => '分享',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => '文章标签',
 	),
 	'tos' => array(

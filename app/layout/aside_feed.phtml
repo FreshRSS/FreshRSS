@@ -14,21 +14,23 @@
 		$state_filter_manual = '&state=' . $state_filter_manual;
 	}
 ?>
-<nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
+<nav class="nav aside aside_feed scrollbar-thin<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
-
-	<?php if (FreshRSS_Auth::hasAccess()) { ?>
-	<div class="stick configure-feeds">
-		<a id="btn-subscription" class="btn btn-important" href="<?= _url('subscription', 'index') ?>"><?= _t('index.menu.subscription') ?></a>
-		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
+	<div class="logo-wrapper">
+		<a href="<?= Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root') ?>">
+			<?php if (FreshRSS_Context::systemConf()->logo_html == '') { ?>
+				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
+			<?php
+				} else {
+					echo FreshRSS_Context::systemConf()->logo_html;
+				}
+			?>
+		</a>
 	</div>
-	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
-	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
-	<?php } ?>
 
 	<form id="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	<ul id="sidebar" class="tree scrollbar-thin">
+	<ul id="sidebar" class="tree">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
 			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?= _url('index', $actual_view) . $state_filter_manual ?>">
 				<?= _i('all') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>"><?= _t('index.menu.main_stream') ?></span>
@@ -145,7 +147,6 @@
 				}
 			endforeach;
 		?>
-		<li class="tree-bottom"></li>
 	</ul>
 	</form>
 </nav>

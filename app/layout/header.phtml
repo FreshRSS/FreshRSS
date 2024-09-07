@@ -3,122 +3,218 @@
 	/** @var FreshRSS_View $this */
 ?>
 <header class="header">
-	<div class="item title">
-		<a href="<?= Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root') ?>">
-			<?php if (FreshRSS_Context::systemConf()->logo_html == '') { ?>
-				<img class="logo" src="<?= _i('FreshRSS-logo', FreshRSS_Themes::ICON_URL) ?>" alt="FreshRSS" loading="lazy" />
-			<?php
-				} else {
-					echo FreshRSS_Context::systemConf()->logo_html;
-				}
-			?>
-		</a>
-	</div>
-
-	<div class="item search">
-		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous) { ?>
-		<form action="<?= $this->html_url ?>" method="get">
-			<?php if (Minz_Request::controllerName() === 'index'): ?>
-				<?php if (in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) { ?>
-				<input type="hidden" name="a" value="<?= Minz_Request::actionName() ?>" />
-				<?php } if (Minz_Request::paramString('get') !== '') { ?>
-				<input type="hidden" name="get" value="<?= FreshRSS_Context::currentGet() ?>" />
-				<?php } if (Minz_Request::paramInt('state') !== 0) { ?>
-				<input type="hidden" name="state" value="<?= Minz_Request::paramInt('state') ?>" />
-				<?php } ?>
-			<?php endif; ?>
-			<?php if (Minz_Request::paramString('user') !== '') { ?>
-			<input type="hidden" name="user" value="<?= Minz_User::name() ?>" />
-			<?php } if (ctype_alnum(Minz_Request::paramString('t'))) { ?>
-			<input type="hidden" name="t" value="<?= Minz_Request::paramString('t') ?>" />
-			<?php } if (ctype_upper(Minz_Request::paramString('order'))) { ?>
-			<input type="hidden" name="order" value="<?= FreshRSS_Context::$order ?>" />
-			<?php } if (ctype_lower(Minz_Request::paramString('f'))) { ?>
-			<input type="hidden" name="f" value="<?= Minz_Request::paramString('f') ?>" />
-			<?php } ?>
-			<div class="stick">
-				<input type="search" name="search" id="search"
-					value="<?= htmlspecialchars(htmlspecialchars_decode(Minz_Request::paramString('search'), ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
-					placeholder="<?= _t('gen.menu.search') ?>" />
-				<button class="btn" type="submit"><?= _i('search') ?></button>
+	<nav class="nav-header scrollbar-thin">
+		<?php if (Minz_Request::actionName() != 'global') { ?>
+			<div id="toggle_aside" class="nav_mobile group">
+				<a class="btn" href="#aside_feed"><?= _i('category') ?></a>
 			</div>
-		</form>
-		<?php } ?>
-	</div>
+		<?php
+		}
 
-	<?php if (FreshRSS_Auth::hasAccess()) { ?>
-	<nav class="item configure">
-		<div class="dropdown">
-			<div id="dropdown-configure" class="dropdown-target"></div>
-			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
-			<ul class="dropdown-menu scrollbar-thin">
-				<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+		if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
+			<div id="header_menu_login" class="group">
+				<a class="signin btn btn-important" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'html', 'root') ?>" title="<?= _t('gen.auth.login') ?>">
+					<?= _i('login') ?><span class="label"><?= _t('gen.auth.login') ?></span>
+				</a>
+			</div>
+		<?php }
 
-				<li class="item dropdown-section">
-					<div class="dropdown-section-title">
-						<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>
-					</div>
-					<ul>
-						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
-						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
-						<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
-						<?php else: ?>
-						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
-						<?php endif; ?>
-					</ul>
-				</li>
-				<li class="item dropdown-section">
-					<div class="dropdown-section-title">
-						<?= _t('gen.menu.configuration') ?>
-					</div>
-					<ul>
-						<li class="item"><a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a></li>
-						<li class="item"><a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a></li>
-						<li class="item"><a href="<?= _url('configure', 'archiving') ?>"><?= _t('gen.menu.archiving') ?></a></li>
-						<li class="item"><a href="<?= _url('configure', 'integration') ?>"><?= _t('gen.menu.sharing') ?></a></li>
-						<li class="item"><a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a></li>
-						<li class="item"><a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a></li>
-						<li class="item"><a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a></li>
-						<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
-					</ul>
-				</li>
-				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-				<li class="item dropdown-section">
-					<div class="dropdown-section-title">
-						<?= _t('gen.menu.admin') ?>
-					</div>
-					<ul>
-						<li class="item"><a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a></li>
-						<li class="item"><a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a></li>
-						<li class="item"><a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a></li>
-						<li class="item"><a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a></li>
-						<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
-						<li class="item"><a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a></li>
-						<?php } ?>
-						<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
-					</ul>
-				</li>
+		if (FreshRSS_Auth::hasAccess()) { ?>
+			<div id="header_menu_feedsmgmt" class="group">
+				<?php if (FreshRSS_Context::userConf()->show_add_feed_category_button) { ?>
+					<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>" title="<?= _t('sub.menu.add') ?>">
+						<?= _i('add') ?>
+					</a>
 				<?php } ?>
 
-				<li class="item dropdown-section">
-					<ul>
-						<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
-						<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
-						<?php if (file_exists(TOS_FILENAME)) { ?>
-							<li class="item">
-								<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
-							</li>
-						<?php } ?>
-						<?= Minz_ExtensionManager::callHookString('menu_other_entry') ?>
+				<div class="dropdown dropdown-open-right-to-bottom">
+					<div id="dropdown-subscriptionMgmt" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-subscriptionMgmt" title="<?= _t('sub.menu.subscription_management') ?>">
+						<?= _i('icon') ?>
+					</a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title"><?= _t('sub.menu.subscription_management') ?></div>
+							<ul>
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'add' ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'add') ?>"><?= _t('sub.menu.add') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && in_array(Minz_Request::actionName(), ['index', 'category', 'feed'], true) ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'index') ?>"><?= _t('sub.menu.subscription_management') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'tag' ? ' active' : '' ?>">
+									<a href="<?= _url('tag', 'index') ?>"><?= _t('sub.menu.label_management') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'importExport' ? ' active' : '' ?>">
+									<a href="<?= _url('importExport', 'index') ?>"><?= _t('sub.menu.import_export') ?></a>
+								</li>
+
+								<li class="item<?= Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'bookmarklet' ? ' active' : '' ?>">
+									<a href="<?= _url('subscription', 'bookmarklet') ?>"><?= _t('sub.menu.subscription_tools') ?></a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title"><?= _t('admin.stats') ?></div>
+							<ul>
+								<li class="item<?= Minz_Request::controllerName() == 'stats' && Minz_Request::actionName() == 'index' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'index') ?>"><?= _t('sub.menu.stats.main') ?></a>
+								</li>
+								<li class="item<?= Minz_Request::actionName() == 'idle' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'idle') ?>"><?= _t('sub.menu.stats.idle') ?></a>
+								</li>
+								<li class="item<?= Minz_Request::actionName() == 'repartition' ? ' active' : '' ?>">
+									<a href="<?= _url('stats', 'repartition') ?>"><?= _t('sub.menu.stats.repartition') ?></a>
+								</li>
+							</ul>
+						</li>
 					</ul>
-				</li>
-			</ul>
-			<a class="dropdown-close" href="#close">❌</a>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
+			</div>
+		<?php } ?>
+
+		<div class="group" id="header_menu_views">
+			<?php
+			$readingModes = FreshRSS_ReadingMode::getReadingModes();
+			$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+			if (!is_iterable($readingModes)) {
+				$readingModes = FreshRSS_ReadingMode::getReadingModes();
+			}
+
+			$keepAllURLParameters = true;
+			$href = '';
+			if (!in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) {
+				$keepAllURLParameters = false;
+			}
+
+			/** @var FreshRSS_ReadingMode $mode */
+			foreach ($readingModes as $mode) {
+				if ($keepAllURLParameters) {
+					// keep all URL parameters if the current page is a view
+					$href = Minz_Url::display($mode->getUrlParams());
+				} else {
+					$params = $mode->getUrlParams();
+					$href = Minz_Url::display(['c' => $params['c'], 'a' => $params['a']]);
+				}
+				?>
+				
+				<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
+					$mode->getTitle() ?>" href="<?= $href ?>">
+					<?= $mode->getName() ?>
+				</a>
+				<?php
+			}
+			?>
+		</div>
+		<div id="header_menu_configs" class="group">
+			<?php if (FreshRSS_Context::userConf()->show_help_button) { ?>
+				<div class="dropdown dropdown-open-right-to-top">
+					<div id="dropdown-help" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-help" title="<?= _t('gen.menu.help') ?>">
+						<?= _i('help') ?>
+						<?php if (!FreshRSS_Auth::hasAccess() && FreshRSS_Auth::accessNeedsAction()) { ?>
+							<span class="label"><?= _t('gen.menu.help') ?></span>
+						<?php } ?>
+					</a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title">
+								<?= _t('gen.menu.help') ?>
+							</div>
+							<ul>
+								<li class="item"><a href="<?= _url('index', 'about') ?>"><?= _t('gen.menu.about') ?></a></li>
+								<?php if (file_exists(TOS_FILENAME)) { ?>
+									<li class="item">
+										<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+									</li>
+								<?php } ?>
+								<li class="item"><a href="<?= FRESHRSS_WIKI ?>" target="_blank"><?= _t('index.about.documentation') ?></a></li>
+							</ul>
+						</li>
+					</ul>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
+			<?php }
+
+			if (FreshRSS_Auth::hasAccess()) { ?>
+				<div class="dropdown dropdown-open-right-to-top">
+					<div id="dropdown-account" class="dropdown-target"></div>
+					<a class="btn dropdown-toggle" href="#dropdown-account" title="<?= _t('gen.menu.account') ?>"><?= _i('person') ?></a>
+					<ul class="dropdown-menu scrollbar-thin">
+						<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title">
+								<?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>
+							</div>
+							<ul>
+								<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
+							</ul>
+						</li>
+						<li class="item dropdown-section">
+							<div class="dropdown-section-title">
+								<?= _t('gen.menu.configuration') ?>
+							</div>
+							<ul>
+								<li class="item"><a href="<?= _url('configure', 'display') ?>"><?= _t('gen.menu.display') ?></a></li>
+								<li class="item"><a href="<?= _url('configure', 'reading') ?>"><?= _t('gen.menu.reading') ?></a></li>
+								<li class="item"><a href="<?= _url('configure', 'archiving') ?>"><?= _t('gen.menu.archiving') ?></a></li>
+								<li class="item"><a href="<?= _url('configure', 'integration') ?>"><?= _t('gen.menu.sharing') ?></a></li>
+								<li class="item"><a href="<?= _url('configure', 'shortcut') ?>"><?= _t('gen.menu.shortcuts') ?></a></li>
+								<li class="item"><a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a></li>
+								<li class="item"><a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a></li>
+								<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
+							</ul>
+						</li>
+						<li class="item dropdown-section">
+							<ul>
+								<li class="item"><a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a></li>
+								<?= Minz_ExtensionManager::callHookString('menu_other_entry') ?>
+							</ul>
+						</li>
+						<li class="item dropdown-section">
+							<ul>
+								<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
+									<li class="item"><a class="signout" href="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></a></li>
+								<?php } ?>
+							</ul>
+						</li>
+					</ul>
+					<a class="dropdown-close" href="#close">❌</a>
+				</div>
+				<?php
+				if (FreshRSS_Auth::hasAccess('admin')) { ?>
+					<div class="dropdown dropdown-open-right-to-top">
+						<div id="dropdown-configure" class="dropdown-target"></div>
+						<a class="btn dropdown-toggle" href="#dropdown-configure" title="<?= _t('gen.menu.admin') ?>"><?= _i('configure') ?></a>
+						<ul class="dropdown-menu scrollbar-thin">
+							<li class="dropdown-header-close"><a class="toggle_aside" href="#close"><?= _i('close') ?></a></li>
+							<li class="item dropdown-section">
+								<div class="dropdown-section-title">
+									<?= _t('gen.menu.admin') ?>
+								</div>
+								<ul>
+									<li class="item"><a href="<?= _url('configure', 'system') ?>"><?= _t('gen.menu.system') ?></a></li>
+									<li class="item"><a href="<?= _url('user', 'manage') ?>"><?= _t('gen.menu.user_management') ?></a></li>
+									<li class="item"><a href="<?= _url('auth', 'index') ?>"><?= _t('gen.menu.authentication') ?></a></li>
+									<li class="item"><a href="<?= _url('update', 'checkInstall') ?>"><?= _t('gen.menu.check_install') ?></a></li>
+									<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
+									<li class="item"><a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a></li>
+									<?php } ?>
+									<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
+								</ul>
+							</li>
+						</ul>
+						<a class="dropdown-close" href="#close">❌</a>
+					</div>
+				<?php }
+			} ?>
 		</div>
 	</nav>
-	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
-	<div class="item configure">
-		<a class="signin" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'html', 'root') ?>"><?= _i('login') ?><?= _t('gen.auth.login') ?></a>
-	</div>
-	<?php } ?>
 </header>

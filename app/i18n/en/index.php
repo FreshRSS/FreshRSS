@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Share',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Article tags',
 	),
 	'tos' => array(

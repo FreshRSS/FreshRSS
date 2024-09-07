@@ -17,6 +17,7 @@ return array(
 		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
+		'close' => 'Close',	// TODO
 		'create' => 'Create',
 		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',
 	),
 	'menu' => array(
-		'about' => 'About',
+		'about' => 'About FreshRSS',
 		'account' => 'Account',
 		'admin' => 'Administration',
 		'archiving' => 'Archiving',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Configuration',
 		'display' => 'Display',
 		'extensions' => 'Extensions',
+		'help' => 'Help',
 		'logs' => 'Logs',
 		'queries' => 'User queries',
 		'reading' => 'Reading',

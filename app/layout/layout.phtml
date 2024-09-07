@@ -69,19 +69,14 @@
 		flush();
 		$this->partial('header');
 	}
-?>
 
-<div id="global">
-	<?php
-		flush();
-		if (isset($this->callbackBeforeFeeds)) {
-			call_user_func($this->callbackBeforeFeeds, $this);
-		}
-		$this->render();
-	?>
-</div>
+	flush();
 
-<?php
+	if (isset($this->callbackBeforeFeeds)) {
+		call_user_func($this->callbackBeforeFeeds, $this);
+	}
+	$this->render();
+
 	$msg = '';
 	$status = 'closed';
 	$notif = Minz_Request::getNotification();
@@ -91,9 +86,9 @@
 		invalidateHttpCache();
 	}
 ?>
-<div id="notification" class="notification <?= $status ?>">
-	<span class="msg"><?= $msg ?></span>
-	<a class="close" href=""><?= _i('close') ?></a>
-</div>
+			<div id="notification" class="notification <?= $status ?>">
+				<span class="msg"><?= $msg ?></span>
+				<a class="close" href=""><?= _i('close') ?></a>
+			</div>
 	</body>
 </html>

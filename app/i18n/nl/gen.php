@@ -17,6 +17,7 @@ return array(
 		'back' => '← Terug',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
+		'close' => 'Close',	// TODO
 		'create' => 'Opslaan',
 		'delete_muted_feeds' => 'Gedempte feeds verwijderen',
 		'demote' => 'Degraderen',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Over',
+		'about' => 'Over FreshRSS',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administratie',
 		'archiving' => 'Archiveren',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Configuratie',
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log boeken',
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',

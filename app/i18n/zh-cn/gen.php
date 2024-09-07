@@ -17,6 +17,7 @@ return array(
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
+		'close' => 'Close',	// TODO
 		'create' => '创建',
 		'delete_muted_feeds' => '删除已暂停的订阅源',
 		'demote' => '撤销管理员',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => '关于',
+		'about' => '关于 FreshRSS',
 		'account' => '账户',
 		'admin' => '管理',
 		'archiving' => '归档',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => '配置',
 		'display' => '显示',
 		'extensions' => '扩展',
+		'help' => 'Help',	// TODO
 		'logs' => '日志',
 		'queries' => '自定义查询',
 		'reading' => '阅读',

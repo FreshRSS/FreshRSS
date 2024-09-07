@@ -17,6 +17,7 @@ return array(
 		'back' => '← 返回',
 		'back_to_rss_feeds' => '← 返回訂閱源',
 		'cancel' => '取消',
+		'close' => 'Close',	// TODO
 		'create' => '創建',
 		'delete_muted_feeds' => '刪除已暫停的訂閱源',
 		'demote' => '撤銷管理員',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => '關於',
+		'about' => '關於 FreshRSS',
 		'account' => '帳號',
 		'admin' => '管理',
 		'archiving' => '歸檔',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => '配置',
 		'display' => '顯示',
 		'extensions' => '擴充功能',
+		'help' => 'Help',	// TODO
 		'logs' => '日誌',
 		'queries' => '自定義查詢',
 		'reading' => '閱讀',

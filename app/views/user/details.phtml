@@ -3,6 +3,9 @@
 	/** @var FreshRSS_View $this */
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
+		?>
+		<main>
+		<?php
 	}
 	$isDefault = $this->details['is_default'];
 	$isAdmin = $this->details['is_admin'];
@@ -87,3 +90,9 @@
 		</div>
 	</form>
 </div>
+<?php
+if (!Minz_Request::paramBoolean('ajax')) {
+	?>
+	</main>
+	<?php
+} ?>

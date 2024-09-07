@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_subscription');
+	?>
+	<main>
+	<?php
 }
 
 if ($this->feed) {
@@ -14,4 +17,11 @@ if ($this->feed) {
 	<span class="alert-head"><?= _t('sub.feed.no_selected') ?></span>
 	<?= _t('sub.feed.think_to_add') ?>
 </div>
-<?php } ?>
+<?php
+}
+
+if (!Minz_Request::paramBoolean('ajax')) {
+	?>
+	</main>
+	<?php
+}

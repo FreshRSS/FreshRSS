@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Обмен',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Теги статьи',
 	),
 	'tos' => array(

@@ -17,6 +17,7 @@ return array(
 		'back' => '← Vissza',
 		'back_to_rss_feeds' => '← Vissza az RSS hírforrásokhoz',
 		'cancel' => 'Mégsem',
+		'close' => 'Close',	// TODO
 		'create' => 'Létrehoz',
 		'delete_muted_feeds' => 'Némított hírforrások törlése',
 		'demote' => 'Lefokoz',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Konfiguráció',
 		'display' => 'Megjelenítés',
 		'extensions' => 'Kiegészítők',
+		'help' => 'Help',	// TODO
 		'logs' => 'Log-ok',
 		'queries' => 'Felhasználói lekérdezések',
 		'reading' => 'Olvasás',

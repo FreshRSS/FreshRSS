@@ -17,6 +17,7 @@ return array(
 		'back' => '← 돌아가기',
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
+		'close' => 'Close',	// TODO
 		'create' => '생성',
 		'delete_muted_feeds' => '음소거된 피드 삭제',
 		'demote' => '목록 수준 내리기',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => '설정',
 		'display' => '표시',
 		'extensions' => '확장 기능',
+		'help' => 'Help',	// TODO
 		'logs' => '로그',
 		'queries' => '사용자 쿼리',
 		'reading' => '읽기',

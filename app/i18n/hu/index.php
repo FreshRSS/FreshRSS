@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Megosztás',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => 'Cikk címkék',
 	),
 	'tos' => array(

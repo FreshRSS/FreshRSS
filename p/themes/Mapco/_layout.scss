@@ -7,87 +7,33 @@
 /*=== Header */
 .header {
 	background: variables.$sid-bg;
+}
 
-	.item {
-		vertical-align: middle;
+@media (min-width: 841px) {
+	header.header {
+		border-right: 1px dotted variables.$grey-light;
 
-		&.title {
-			a {
-				padding: 0.5rem 1rem;
-
-				.logo {
-					filter: grayscale(100%) brightness(3);
-				}
-
-				&:hover {
-					.logo {
-						filter: grayscale(100%) brightness(2.2);
-					}
-				}
-			}
-		}
-
-		&.search {
-			input {
-				width: 350px;
-				color: variables.$sid-font-color;
-				border: none;
-				border-radius: 2px 0 0 2px;
-				background-color: variables.$sid-bg-alt;
-
-				@include mixins.transition(all, 0.15s, ease-in-out);
-
-				&:hover {
-					background-color: variables.$sid-bg-dark;
-				}
-
-				&:focus {
-					color: variables.$grey-dark;
-					background-color: variables.$white;
-				}
-			}
-
-			input:focus ~ .btn,
-			input:hover ~ .btn {
-				background-color: variables.$main-first;
-
-				.icon {
-					filter: brightness(3);
-				}
-			}
-
+		.group {
 			.btn {
-				width: 3rem;
-				border-radius: 0 2px 2px 0;
-				background-color: variables.$sid-bg-alt;
-				border-left-width: 0;
-				min-height: 35px;
-
-				&:hover {
-					background-color: variables.$main-first-alt;
-
-					.icon {
-						filter: brightness(3);
-					}
-				}
-			}
-		}
-
-		&.configure {
-			text-align: center;
-
-			.btn .icon,
-			> .icon {
-				filter: brightness(3)
+				border-left: 0;
+				border-radius: 5px;
 			}
 
-			.signin {
-				color: white;
+			.btn:first-child {
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
 			}
 
-			.btn {
-				padding: 0.25rem 1rem;
-				background-color: transparent;
+			.btn + .btn,
+			.btn + .dropdown .btn {
+				border-top-width: 0;
+				border-radius: 0;
+			}
+
+			.dropdown:last-child > .btn,
+			.btn:last-child {
+				border-bottom-right-radius: 5px;
+				border-bottom-left-radius: 5px;
 			}
 		}
 	}
@@ -168,6 +114,7 @@ main.prompt {
 .nav_menu {
 	text-align: center;
 	padding: 5px 0;
+	background-color: variables.$grey-light;
 
 	.btn {
 		border-left-width: 0;
@@ -236,6 +183,10 @@ main.prompt {
 					display: none;
 				}
 			}
+
+			a.dropdown-toggle-close {
+				border-left-width: 0;
+			}
 		}
 
 		#dropdown-search-wrapper.dropdown {
@@ -250,14 +201,12 @@ main.prompt {
 .content, .content.thin {
 	padding: 20px 10px;
 
-	font-size: 1.125rem;
-	line-height: 1.8rem;
+	line-height: 1.5rem;
 
 	h1.title, h1 {
 		a {
 			color: variables.$main-font-color;
 			font-family: "spectral", serif;
-			font-size: 2rem;
 
 			&:hover {
 				color: variables.$main-first;
@@ -268,12 +217,10 @@ main.prompt {
 
 	.author {
 		color: variables.$light-font-color;
-		font-size: 1.125rem;
 	}
 
 	p, ul {
-		font-size: 1.125rem;
-		line-height: 1.8rem;
+		line-height: 1.5rem;
 	}
 
 	.content hr {

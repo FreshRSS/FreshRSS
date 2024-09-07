@@ -17,6 +17,7 @@ return array(
 		'back' => '← 戻る',
 		'back_to_rss_feeds' => '← RSSフィードに戻る',
 		'cancel' => 'キャンセル',
+		'close' => 'Close',	// TODO
 		'create' => '作成',
 		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '寄付',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => '設定',
 		'display' => 'ディスプレイ',
 		'extensions' => '拡張機能',
+		'help' => 'Help',	// TODO
 		'logs' => 'ログ',
 		'queries' => 'ユーザークエリ',
 		'reading' => 'リーディング',

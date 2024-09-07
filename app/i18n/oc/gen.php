@@ -17,6 +17,7 @@ return array(
 		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
+		'close' => 'Close',	// TODO
 		'create' => 'Crear',
 		'delete_muted_feeds' => 'Suprimir los flux muts',
 		'demote' => 'Retrogradar',
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'A prepaus',
+		'about' => 'A prepaus de FreshRSS',
 		'account' => 'Compte',
 		'admin' => 'Administracion',	// IGNORE
 		'archiving' => 'Archivar',
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Configuracion',	// IGNORE
 		'display' => 'Afichatge',
 		'extensions' => 'Extensions',	// IGNORE
+		'help' => 'Help',	// TODO
 		'logs' => 'Jornals d’audit',	// IGNORE
 		'queries' => 'Filtres utilizaire',
 		'reading' => 'Lectura',

@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => 'Teilen',
 	'tag' => array(
+		'more' => 'Weitere Hashtags',
 		'related' => 'Hashtags',
 	),
 	'tos' => array(

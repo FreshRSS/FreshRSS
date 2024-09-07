@@ -50,6 +50,8 @@ declare(strict_types=1);
  * @property bool $icons_as_emojis
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
+ * @property bool $show_add_feed_category_button
+ * @property bool $show_help_button
  * @property 'ASC'|'DESC' $sort_order
  * @property array<string,array<string>> $sharing
  * @property array<string,string> $shortcuts

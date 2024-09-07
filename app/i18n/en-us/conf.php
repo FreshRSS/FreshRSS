@@ -71,6 +71,11 @@ return array(
 		),
 		'timezone' => 'Time zone',	// IGNORE
 		'title' => 'Display',	// IGNORE
+		'view_bar' => array(
+			'headline' => 'View bar',	// IGNORE
+			'show_add_feed_category_button' => 'Show „Add Feed or Category“ quick button',	// IGNORE
+			'show_help_button' => 'Show „Help“ quick button',	// IGNORE
+		),
 		'website' => array(
 			'full' => 'Icon and name',	// IGNORE
 			'icon' => 'Icon only',	// IGNORE

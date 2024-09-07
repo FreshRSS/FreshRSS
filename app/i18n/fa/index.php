@@ -68,6 +68,7 @@ return array(
 	),
 	'share' => ' به اشتراک بگذارید',
 	'tag' => array(
+		'more' => 'More article tags',	// TODO
 		'related' => ' برچسب های مقاله',
 	),
 	'tos' => array(

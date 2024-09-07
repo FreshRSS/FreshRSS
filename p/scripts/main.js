@@ -733,7 +733,11 @@ function onScroll() {
 		return;
 	}
 	if (context.auto_mark_scroll) {
-		const hidden_px = -5; // negative = pixels over the edge
+		let hidden_px = document.querySelector('.nav_menu').offsetHeight; // negative = pixels over the edge
+		const hidden_px_header = document.querySelector('header.header').offsetHeight;
+		if (hidden_px_header < 200) { // if header's height is <200 px than it is on top in mobile view. If >200px: header is on the left side
+			hidden_px = hidden_px + hidden_px_header;
+		}
 		const minTop = hidden_px + box_to_follow.scrollTop;
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 			if (div.offsetHeight > 0 &&
@@ -1052,9 +1056,9 @@ function init_shortcuts() {
 		if (k === s.close_dropdown) { location.hash = null; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
-		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
-		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
-		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
+		if (k === s.normal_view) { delayedClick(document.querySelector('#header_menu_views .view-normal')); ev.preventDefault(); return; }
+		if (k === s.reading_view) { delayedClick(document.querySelector('#header_menu_views .view-reader')); ev.preventDefault(); return; }
+		if (k === s.global_view) { delayedClick(document.querySelector('#header_menu_views .view-global')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 	});
 }
@@ -1298,12 +1302,15 @@ function init_nav_entries() {
 			const item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
 			const nav_menu = document.querySelector('.nav_menu');
+			const header_menu_height = window.innerWidth < 841 ? document.querySelector('header.header').offsetHeight : 0;
+
 			let nav_menu_height = 0;
 
 			if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
 				nav_menu_height = nav_menu.offsetHeight;
 			}
-			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
+
+			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height - header_menu_height : 0 - nav_menu_height;
 			return false;
 		};
 	}

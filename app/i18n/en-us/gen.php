@@ -17,6 +17,7 @@ return array(
 		'back' => '← Go back',	// IGNORE
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// IGNORE
 		'cancel' => 'Cancel',	// IGNORE
+		'close' => 'Close',	// IGNORE
 		'create' => 'Create',	// IGNORE
 		'delete_muted_feeds' => 'Delete muted feeds',	// IGNORE
 		'demote' => 'Demote',	// IGNORE
@@ -173,7 +174,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'About',	// IGNORE
+		'about' => 'About FreshRSS',	// IGNORE
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
@@ -182,6 +183,7 @@ return array(
 		'configuration' => 'Configuration',	// IGNORE
 		'display' => 'Display',	// IGNORE
 		'extensions' => 'Extensions',	// IGNORE
+		'help' => 'Help',	// IGNORE
 		'logs' => 'Logs',	// IGNORE
 		'queries' => 'User queries',	// IGNORE
 		'reading' => 'Reading',	// IGNORE

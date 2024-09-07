@@ -122,6 +122,8 @@ return array (
 	),
 	'html5_notif_timeout' => 0,
 	'show_nav_buttons' => true,
+	'show_add_feed_category_button' => true,
+	'show_help_button' => true,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
 	# Extensions configurations
