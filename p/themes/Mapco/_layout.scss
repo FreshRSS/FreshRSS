@@ -285,12 +285,8 @@ main.prompt {
 	}
 
 	pre {
-		margin: 10px auto;
-		padding: 10px 20px;
-		overflow: auto;
 		background: variables.$main-first-darker;
 		color: variables.$white;
-		font-size: 0.9rem;
 		border-radius: 3px;
 
 		code {
@@ -301,11 +297,9 @@ main.prompt {
 	}
 
 	code {
-		padding: 2px 5px;
 		background: variables.$code-bg;
 		color: variables.$code-text;
 		font-size: 1rem;
-		// border: 1px solid variables.$alert-light;
 		border-radius: 3px;
 	}
 

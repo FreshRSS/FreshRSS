@@ -106,9 +106,7 @@ class FreshRSS_Share {
 	 *        decentralized ones.
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
-	 * @param string|null $field
 	 * @param 'button'|null $HTMLtag
-	 * @param bool $isDeprecated
 	 */
 	private function __construct(string $type, string $url_transform, array $transforms, string $form_type,
 		string $help_url, string $method, ?string $field, ?string $HTMLtag, bool $isDeprecated = false) {

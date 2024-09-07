@@ -44,7 +44,7 @@ class Minz_Request {
 	 * @return mixed value of the parameter
 	 * @deprecated use typed versions instead
 	 */
-	public static function param(string $key, $default = false, bool $specialchars = false) {
+	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_string($p) || is_array($p)) {
@@ -106,7 +106,7 @@ class Minz_Request {
 		return 0;
 	}
 
-	public static function paramString(string $key, bool $specialchars = false): string {
+	public static function paramStringNull(string $key, bool $specialchars = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
@@ -117,7 +117,11 @@ class Minz_Request {
 				return (string)$s;
 			}
 		}
-		return '';
+		return null;
+	}
+
+	public static function paramString(string $key, bool $specialchars = false): string {
+		return self::paramStringNull($key, $specialchars) ?? '';
 	}
 
 	/**
@@ -152,7 +156,7 @@ class Minz_Request {
 	}
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
-	public static function originalRequest() {
+	public static function originalRequest(): array {
 		return self::$originalRequest;
 	}
 

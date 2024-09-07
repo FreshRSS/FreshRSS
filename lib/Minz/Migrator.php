@@ -19,9 +19,6 @@ class Minz_Migrator
 	/**
 	 * Execute a list of migrations, skipping versions indicated in a file
 	 *
-	 * @param string $migrations_path
-	 * @param string $applied_migrations_path
-	 *
 	 * @return true|string Returns true if execute succeeds to apply
 	 *                        migrations, or a string if it fails.
 	 * @throws DomainException if there is no migrations corresponding to the
@@ -31,7 +28,7 @@ class Minz_Migrator
 	 *
 	 * @throws BadFunctionCallException if a callback isn’t callable.
 	 */
-	public static function execute(string $migrations_path, string $applied_migrations_path) {
+	public static function execute(string $migrations_path, string $applied_migrations_path): string|bool {
 		$applied_migrations = @file_get_contents($applied_migrations_path);
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";

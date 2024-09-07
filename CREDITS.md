@@ -178,6 +178,7 @@ People are sorted by name so please keep this order.
 * [otaconix](https://github.com/otaconix): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:otaconix)
 * [Pablo Caro](https://github.com/pcaro90): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pcaro90), [Web](https://pcaro.es/)
 * [PAHXO](https://github.com/PAHXO): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:PAHXO)
+* [pando85](https://github.com/pando85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pando85)
 * [papaschloss](https://github.com/papaschloss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:papaschloss)
 * [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
