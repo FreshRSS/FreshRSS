@@ -28,6 +28,27 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
+	#[\Override]
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		$values[] = $regex;
+		return "{$expression} REGEXP ?";
+	}
+
+	#[\Override]
+	protected function registerSqlFunctions(string $sql): void {
+		if (!str_contains($sql, ' REGEXP ')) {
+			return;
+		}
+		// https://php.net/pdo.sqlitecreatefunction
+		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
+		$this->pdo->sqliteCreateFunction('regexp',
+			function (string $pattern, string $text): bool {
+				return preg_match($pattern, $text) === 1;
+			},
+			2
+		);
+	}
+
 	/** @param array<string|int> $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
@@ -77,12 +98,11 @@ SQL;
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
 	 *
-	 * @param string|array<string> $ids
-	 * @param bool $is_read
+	 * @param numeric-string|array<numeric-string> $ids
 	 * @return int|false affected rows
 	 */
 	#[\Override]
-	public function markRead($ids, bool $is_read = true) {
+	public function markRead(array|string $ids, bool $is_read = true): int|false {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 			$affected = 0;
@@ -128,7 +148,7 @@ SQL;
 	 * @return int|false affected rows
 	 */
 	#[\Override]
-	public function markReadTag($id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
+	public function markReadTag($id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';

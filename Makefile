@@ -72,7 +72,7 @@ lint-fix: vendor/bin/phpcbf ## Fix the errors detected by the linter
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/163a517dbb7eba0eb25633061c76e648392c6738/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/1a26c0dcb361332cb504e4861ed0f758281575aa/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
 vendor/bin/phpunit: bin/composer
 	bin/composer install --prefer-dist --no-progress
