@@ -264,7 +264,8 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
 
-> ℹ️ Les recherches sont effectuées sur le code HTML brut
+> ℹ️ Les recherches sont effectuées sur le code HTML, et les caractères XML spéciaux sont automatiquement encodés (donc on peut chercher `'A & B'` sans avoir à encoder le `&amp;`).
+> Pour chercher des tags HTML, il faut utiliser les recherches regex (voi ci-dessous).
 
 Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes, avec un support basique de la négation :
 

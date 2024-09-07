@@ -49,7 +49,7 @@ You can use the search field to further refine results:
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag` or `#tag+with+whitespace` or or `#'tag with whitespace'`
+* by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
@@ -105,7 +105,8 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
-> ℹ️ Searches are applied to the raw HTML content
+> ℹ️ Searches are applied to the HTML content, and are automatically XML-encoded (so one can search for `'A & B'` without having to encode the `&amp;`).
+> To search HTML tags, one must use regex searches (see below).
 
 Finally, parentheses may be used to express more complex queries, with basic negation support:
 
