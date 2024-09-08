@@ -670,6 +670,7 @@ HTML;
 					foreach ($filter->getTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
 								break;
@@ -682,6 +683,7 @@ HTML;
 					foreach ($filter->getTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (preg_match($tag2, $tag1) === 1) {
 								$found = true;
 								break;
@@ -694,6 +696,7 @@ HTML;
 					foreach ($filter->getNotTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
 								break;
@@ -706,6 +709,7 @@ HTML;
 					foreach ($filter->getNotTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (preg_match($tag2, $tag1) === 1) {
 								$found = true;
 								break;
