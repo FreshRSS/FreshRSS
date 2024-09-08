@@ -1983,7 +1983,9 @@ class SimplePie
                     if (isset($file)) { // FreshRSS
                         $hash = $this->clean_hash($file->get_body_content());
                         if (($this->data['hash'] ?? null) === $hash) {
-                            $this->data['headers'] = $file->get_headers();
+                            $this->data['headers'] = array_map(function (array $values): string {
+                                return implode(',', $values);
+                            }, $file->get_headers());
                             $cache->set_data($cacheKey, $this->data, $this->cache_duration);
                             return true; // Content unchanged even though server did not send a 304
                         } else {
