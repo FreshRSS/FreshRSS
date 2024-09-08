@@ -362,10 +362,8 @@ class FreshRSS_Import_Service {
 	 * This method is applied to a list of outlines. It merges the different
 	 * list of feeds from several outlines into one array.
 	 *
-	 * @param array<array<mixed>> $outlines
-	 *     The outlines from which to extract the outlines.
-	 * @param string $parent_category_name
-	 *     The name of the parent category of the current outlines.
+	 * @param array<array<mixed>> $outlines The outlines from which to extract the outlines.
+	 * @param string $parent_category_name The name of the parent category of the current outlines.
 	 * @return array{0:array<string,array<string,string>>,1:array<string,array<array<string,string>>>}
 	 */
 	private function loadFromOutlines(array $outlines, string $parent_category_name): array {
@@ -405,10 +403,8 @@ class FreshRSS_Import_Service {
 	 * exists), it will add the outline to an array accessible by its category
 	 * name.
 	 *
-	 * @param array<mixed> $outline
-	 *     The outline from which to extract the categories and feeds outlines.
-	 * @param string $parent_category_name
-	 *     The name of the parent category of the current outline.
+	 * @param array<mixed> $outline The outline from which to extract the categories and feeds outlines.
+	 * @param string $parent_category_name The name of the parent category of the current outline.
 	 *
 	 * @return array{0:array<string,array<string,string>>,1:array<array<string,array<string,string>>>}
 	 */

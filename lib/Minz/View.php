@@ -232,8 +232,6 @@ class Minz_View {
 
 	/**
 	 * Append a `<link>` element referencing stylesheet.
-	 * @param string $url
-	 * @param string $media
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
 	public static function appendStyle(string $url, string $media = 'all', bool $cond = false): void {
@@ -298,7 +296,6 @@ class Minz_View {
 	}
 	/**
 	 * Prepend a `<script>` element.
-	 * @param string $url
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 * @param bool $defer Use `defer` flag
 	 * @param bool $async Use `async` flag
@@ -318,7 +315,6 @@ class Minz_View {
 
 	/**
 	 * Append a `<script>` element.
-	 * @param string $url
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 * @param bool $defer Use `defer` flag
 	 * @param bool $async Use `async` flag
@@ -338,9 +334,8 @@ class Minz_View {
 
 	/**
 	 * Management of parameters added to the view
-	 * @param mixed $value
 	 */
-	public static function _param(string $key, $value): void {
+	public static function _param(string $key, mixed $value): void {
 		self::$params[$key] = $value;
 	}
 

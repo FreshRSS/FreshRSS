@@ -16,9 +16,9 @@
     ],
     "require": {
         "marienfressinaud/lib_opml": "0.5.1",
-        "phpgt/cssxpath": "dev-master#d99d35f7194bac19fb3f8726b70c1bc83de3e931",
+        "phpgt/cssxpath": "dev-master#45f3ac151fc21d459e2515c3aff97cd4bf877bf8",
         "phpmailer/phpmailer": "6.9.1",
-        "simplepie/simplepie": "dev-cache-hash#82ae104433c0974fbcec1746e28fc017f146d18b"
+        "simplepie/simplepie": "dev-cache-hash#9f09ec3f8cdfb68c7ecbc47c39b7e8c12eced947"
     },
     "config": {
         "sort-packages": true,

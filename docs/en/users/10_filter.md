@@ -49,7 +49,7 @@ You can use the search field to further refine results:
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag` or `#tag+with+whitespace`
+* by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
@@ -105,6 +105,9 @@ can be used to combine several search criteria with a logical *or* instead: `aut
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
 
+> ℹ️ Searches are applied to the HTML content, and special XML characters `<&">` are automatically encoded (so one can search for `'A & B'` without having to encode the `&amp;`).
+> To search HTML tags, one must use regex searches (see below).
+
 Finally, parentheses may be used to express more complex queries, with basic negation support:
 
 * `(author:Alice OR intitle:hello) (author:Bob OR intitle:world)`
@@ -114,6 +117,33 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 * `!(S:1 OR S:2)`
 
 > ℹ️ If you need to search for a parenthesis, it needs to be escaped like `\(` or `\)`
+
+### Regex
+
+Text searches (including `author:`, `intitle:`, `inurl:`, `#`) may use regular expressions, which must be enclosed in `/ /`.
+
+Regex searches are case-sensitive by default, but can be made case-insensitive with the `i` modifier like: `/Alice/i`
+
+Supports multiline mode with `m` modifier, like: `/^Alice/m`
+
+> ℹ️ `author:` is working with one author per line, so the multiline mode may advantageously be used, like: `author:/^Alice Dupont$/im`
+>
+> ℹ️ `#` is likewise working with one tag per line, so the multiline mode may advantageously be used, like: `#/^Hello World$/im`
+
+Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
+
+As opposed to normal searches, special XML characters `<&">` are not escaped in regex searches, to allow searching HTML code, like: `/Hello <span>world<\/span>/`
+
+> ℹ️ A literal slash needs to be escaped, like `\/`
+
+⚠️ Advanced regex syntax details depend on the regex engine used:
+
+* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
+* Regex searches depend on which database you are using:
+	* For SQLite, [PHP preg_match](https://php.net/function.preg-match) is used;
+	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
+	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
+	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
 
 ## By sorting by date
 

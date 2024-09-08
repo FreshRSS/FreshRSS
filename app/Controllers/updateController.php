@@ -93,7 +93,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @return string|true */
-	public static function gitPull() {
+	public static function gitPull(): string|bool {
 		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
 		if ($cwd === false) {

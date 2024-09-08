@@ -605,7 +605,7 @@ function prev_category() {
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		last_category();
@@ -619,7 +619,7 @@ function next_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -633,7 +633,7 @@ function next_unread_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -641,12 +641,12 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	if (links && links.length > 0) {
 		delayedClick(links[links.length - 1]);
 	}
@@ -1089,6 +1089,36 @@ function init_stream(stream) {
 			if (!el.closest('div').classList.contains('author')) {
 				el.target = '_blank';
 				el.rel = 'noreferrer';
+			}
+			return true;
+		}
+
+		el = ev.target.closest('.item.share a.dropdown-toggle');
+		if (el) {
+			const itemId = el.closest('.flux').id;
+			const templateId = 'share_article_template';
+			const id = itemId;
+			const flux_header_el = el.closest('.flux');
+			const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+			const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+			const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+			let articleAuthorsText = '';
+			if (articleAuthors.trim().length > 0) {
+				articleAuthorsText = ' (' + articleAuthors + ')';
+			}
+			const link = title_el.href;
+			const title = title_el.textContent;
+			const titleText = title;
+			const div = el.parentElement;
+			const dropdownMenu = div.querySelector('.dropdown-menu');
+			const template = document.getElementById(templateId).innerHTML
+				.replace(/--entryId--/g, id)
+				.replace(/--link--/g, link)
+				.replace(/--titleText--/g, titleText)
+				.replace(/--websiteName--/g, websiteName)
+				.replace(/--articleAuthors--/g, articleAuthorsText);
+			if (!dropdownMenu) {
+				div.insertAdjacentHTML('beforeend', template);
 			}
 			return true;
 		}
