@@ -130,7 +130,7 @@ class FreshRSS_Export_Service {
 		$exported_files = [];
 		foreach ($feed_ids as $feed_id) {
 			$result = $this->generateFeedEntries($feed_id, $max_number_entries);
-			if (!$result) {
+			if ($result === null) {
 				continue;
 			}
 

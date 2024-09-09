@@ -351,7 +351,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			if ($feed != null) {
+			if ($feed !== null) {
 				$article_to_feed[$item['guid']] = $feed->id();
 				if (!isset($newFeedGuids['f_' . $feed->id()])) {
 					$newFeedGuids['f_' . $feed->id()] = [];
@@ -627,7 +627,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries((int)$feed_id, $max_number_entries);
-			if (!$result) {
+			if ($result === null) {
 				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}

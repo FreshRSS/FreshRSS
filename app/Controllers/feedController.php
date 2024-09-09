@@ -92,7 +92,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		if ($feedDAO->searchByUrl($feed->url())) {
+		if ($feedDAO->searchByUrl($feed->url()) !== null) {
 			throw new FreshRSS_AlreadySubscribed_Exception($url, $feed->name());
 		}
 
@@ -340,7 +340,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed = $feedDAO->searchByUrl($this->view->feed->url());
-			if ($feed) {
+			if ($feed !== null) {
 				// Already subscribe so we redirect to the feed configuration page.
 				$url_redirect['a'] = 'feed';
 				$url_redirect['params']['id'] = $feed->id();
@@ -617,7 +617,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 						$needFeedCacheRefresh = true;
 
-						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
+						if ($pubSubHubbubEnabled && $simplePiePush === null) {	//We use push, but have discovered an article by pull!
 							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' .
 								SimplePie_Misc::url_remove_credentials($url) .
 								' GUID ' . $entry->guid();
@@ -658,10 +658,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			$feedProperties = [];
 
-			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
+			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() !== '' && $feed->selfUrl() !== '') {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
 					$selfUrl = checkUrl($feed->selfUrl());
-					if ($selfUrl) {
+					if ($selfUrl != false) {
 						Minz_Log::debug('WebSub unsubscribe ' . $feed->url(false));
 						if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
 							Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(false));
@@ -709,7 +709,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed->faviconPrepare();
-			if ($pubsubhubbubEnabledGeneral && $feed->pubSubHubbubPrepare()) {
+			if ($pubsubhubbubEnabledGeneral && $feed->pubSubHubbubPrepare() != false) {
 				Minz_Log::notice('WebSub subscribe ' . $feed->url(false));
 				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
 					Minz_Log::warning('Error while WebSub subscribing to ' . $feed->url(false));
@@ -997,7 +997,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 			case 'normal':
 				$get = Minz_Request::paramString('get');
-				if ($get) {
+				if ($get !== '') {
 					$redirect_url = ['c' => 'index', 'a' => 'normal', 'params' => ['get' => $get]];
 				} else {
 					$redirect_url = ['c' => 'index', 'a' => 'normal'];
