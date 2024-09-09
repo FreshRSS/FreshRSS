@@ -670,6 +670,7 @@ HTML;
 					foreach ($filter->getTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
 								break;
@@ -682,6 +683,7 @@ HTML;
 					foreach ($filter->getTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (preg_match($tag2, $tag1) === 1) {
 								$found = true;
 								break;
@@ -694,6 +696,7 @@ HTML;
 					foreach ($filter->getNotTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (strcasecmp($tag1, $tag2) === 0) {
 								$found = true;
 								break;
@@ -706,6 +709,7 @@ HTML;
 					foreach ($filter->getNotTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
+							$tag1 = ltrim($tag1, '#');
 							if (preg_match($tag2, $tag1) === 1) {
 								$found = true;
 								break;
@@ -852,7 +856,7 @@ HTML;
 					if ($path_entries_filter !== '') {
 						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
 						foreach ($filterednodes as $filterednode) {
-							if ($filterednode->parentNode === null) {
+							if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
 								continue;
 							}
 							$filterednode->parentNode->removeChild($filterednode);
@@ -868,15 +872,20 @@ HTML;
 		}
 	}
 
+	/**
+	 * @return bool True if the content was modified, false otherwise
+	 */
 	public function loadCompleteContent(bool $force = false): bool {
 		// Gestion du contenu
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed();
-		if ($feed != null && trim($feed->pathEntries()) != '') {
+		if ($feed === null) {
+			return false;
+		}
+		if (trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
-
-			if ($entry) {
+			if ($entry !== null) {
 				// l’article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content(false);
 			} else {
@@ -898,7 +907,6 @@ HTML;
 								$this->content = $fullContent;
 								break;
 						}
-
 						return true;
 					}
 				} catch (Exception $e) {
@@ -906,6 +914,30 @@ HTML;
 					Minz_Log::warning($e->getMessage());
 				}
 			}
+		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
+			$doc = new DOMDocument();
+			$utf8BOM = "\xEF\xBB\xBF";
+			if (!$doc->loadHTML($utf8BOM . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+				return false;
+			}
+			$modified = false;
+			$xpath = new DOMXPath($doc);
+			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
+			foreach ($filterednodes as $filterednode) {
+				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
+					continue;
+				}
+				$filterednode->parentNode->removeChild($filterednode);
+				$modified = true;
+			}
+			if ($modified) {
+				$html = $doc->saveHTML();
+				if (!is_string($html)) {
+					return false;
+				}
+				$this->content = $html;
+			}
+			return $modified;
 		}
 		return false;
 	}
