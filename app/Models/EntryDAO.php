@@ -138,10 +138,7 @@ SQL;
 		return false;
 	}
 
-	/**
-	 * @var PDOStatement|null|false
-	 */
-	private $addEntryPrepared = false;
+	private PDOStatement|null|false $addEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>} $valuesTmp */
@@ -158,7 +155,7 @@ SQL;
 				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
-		if ($this->addEntryPrepared !== false) {
+		if ($this->addEntryPrepared != false) {
 			$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
 			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
@@ -200,10 +197,10 @@ SQL;
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 			}
 		}
-		if ($this->addEntryPrepared !== false && $this->addEntryPrepared->execute()) {
+		if ($this->addEntryPrepared != false && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->addEntryPrepared == null ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == false ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
@@ -240,7 +237,7 @@ SQL;
 		return $result;
 	}
 
-	private ?PDOStatement $updateEntryPrepared = null;
+	private PDOStatement|null|false $updateEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
 	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
@@ -252,7 +249,7 @@ SQL;
 			$valuesTmp['is_favorite'] = null;
 		}
 
-		if ($this->updateEntryPrepared === null) {
+		if ($this->updateEntryPrepared == null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
@@ -262,9 +259,9 @@ SQL;
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
 				. ', tags=:tags, attributes=:attributes '
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
-			$this->updateEntryPrepared = $this->pdo->prepare($sql) ?: null;
+			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
-		if ($this->updateEntryPrepared !== null) {
+		if ($this->updateEntryPrepared != false) {
 			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
 			$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
@@ -309,10 +306,10 @@ SQL;
 			}
 		}
 
-		if ($this->updateEntryPrepared !== null && $this->updateEntryPrepared->execute()) {
+		if ($this->updateEntryPrepared != false && $this->updateEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->updateEntryPrepared == null ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
+			$info = $this->updateEntryPrepared == false ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
