@@ -1640,7 +1640,7 @@ class SimplePie
      * FreshRSS
      * @return string $rss A hash of the cleaned content, or empty string in case of error.
      */
-    function clean_hash(string $rss): string
+    private function clean_hash(string $rss): string
     {
         if ($rss === '') {
             return '';

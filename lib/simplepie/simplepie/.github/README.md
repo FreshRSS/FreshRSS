@@ -12,6 +12,10 @@
 [This repository `FreshRSS/simplepie`](https://github.com/FreshRSS/simplepie) is a fork of the [main repository `simplepie/simplepie`](https://github.com/simplepie/simplepie)
 intended to be used for [FreshRSS](https://github.com/FreshRSS/FreshRSS), which is a free, self-hostable news aggregator.
 
-The branch [`freshrss`](https://github.com/FreshRSS/simplepie/tree/freshrss) is the one used in [the FreshRSS codebase](https://github.com/FreshRSS/FreshRSS/tree/edge/lib/simplepie).
+The default branch [`freshrss`](https://github.com/FreshRSS/simplepie/tree/freshrss) is the one used in [the FreshRSS codebase](https://github.com/FreshRSS/FreshRSS/tree/edge/lib/simplepie).
 
 This allows in particular to use fixes and patches, which have not (yet) been submitted upstream or not (yet) merged upstream.
+
+### Differences
+
+[See the differences](https://github.com/simplepie/simplepie/compare/master...FreshRSS:simplepie:freshrss).
