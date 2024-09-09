@@ -393,18 +393,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$labels = [];
 			for ($i = count($tags) - 1; $i >= 0; $i--) {
 				$tag = trim($tags[$i]);
-				if (strpos($tag, 'user/-/') !== false) {
-					if ($tag === 'user/-/state/com.google/starred') {
+				if (preg_match('%^user/[A-Za-z0-9_-]+/%', $tag)) {
+					if (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/starred$%', $tag)) {
 						$is_starred = true;
-					} elseif ($tag === 'user/-/state/com.google/read') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/read$%', $tag)) {
 						$is_read = true;
-					} elseif ($tag === 'user/-/state/com.google/unread') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
-					} elseif (strpos($tag, 'user/-/label/') === 0) {
-						$tag = trim(substr($tag, 13));
-						if ($tag != '') {
-							$labels[] = $tag;
-						}
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
+						$labels[] = $matches['tag'];
 					}
 					unset($tags[$i]);
 				}
