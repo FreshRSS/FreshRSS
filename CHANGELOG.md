@@ -8,8 +8,11 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Add support for [regex search (regular expressions)](https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
 		* ⚠️ Advanced regex syntax for searches depends on the database used (SQLite, PostgreSQL, MariaDB, MySQL),
 		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://php.net/regexp.introduction).
+	* Add ability to remove content from articles with CSS selectors, also when not using full content [#6786](https://github.com/FreshRSS/FreshRSS/pull/6786)
 	* Update `phpgt/cssxpath` library with improved CSS selectors with support for `last-child`, `first-of-type`, `last-of-type`, `^=`, `|=` [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618)
+	* Better import of Inoreader user labels [#6791](https://github.com/FreshRSS/FreshRSS/pull/6791)
 * Bug fixing
+	* Fix auto-read tags [#6790](https://github.com/FreshRSS/FreshRSS/pull/6790)
 	* Use curl to fetch extensions list (allows e.g. IPv6) [#6767](https://github.com/FreshRSS/FreshRSS/pull/6767)
 * Compatibility
 	* Require PHP 8.1+ (drop PHP 7.4) [#6711](https://github.com/FreshRSS/FreshRSS/pull/6711)
@@ -22,6 +25,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.16 with PHP 8.1.22 and Apache 2.4.59 [#6711](https://github.com/FreshRSS/FreshRSS/pull/6711)
 * UI
 	* Default styles for `<pre>` and `<code>` [#6770](https://github.com/FreshRSS/FreshRSS/pull/6770)
+	* Refactor the sharing menu to use a `<template>` instead of duplicated HTML code [#6751](https://github.com/FreshRSS/FreshRSS/pull/6751)
 * Misc.
 	* Better cache name for JSON feeds [#6768](https://github.com/FreshRSS/FreshRSS/pull/6768)
 	* Update dev dependencies [#6780](https://github.com/FreshRSS/FreshRSS/pull/6780)
