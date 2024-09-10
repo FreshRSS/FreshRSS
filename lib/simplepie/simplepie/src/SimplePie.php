@@ -1653,12 +1653,15 @@ class SimplePie
             $ctx = hash_init('sha1');
             while ($stream_data = fread($stream, 1048576)) {
                 hash_update(
-                    $ctx, preg_replace(
+                    $ctx,
+                    preg_replace(
                         [
                             '#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
                             '#<(media:starRating|media:statistics) [^/<>]+/>#',
                             '#<!--.+?-->#s',
-                        ], '', $stream_data
+                        ],
+                        '',
+                        $stream_data
                     )
                 );
             }
