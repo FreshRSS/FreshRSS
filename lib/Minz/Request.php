@@ -40,7 +40,7 @@ class Minz_Request {
 	 * Read the URL parameter
 	 * @param string $key Key name
 	 * @param mixed $default default value, if no parameter is given
-	 * @param bool $specialchars special characters
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
 	 * @return mixed value of the parameter
 	 * @deprecated use typed versions instead
 	 */
@@ -61,15 +61,21 @@ class Minz_Request {
 		return isset(self::$params[$key]);
 	}
 
-	/** @return array<string|int,string|array<string,string|int|bool>> */
+	/**
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
+	 * @return array<string|int,string|array<string,string|int|bool>>
+	 */
 	public static function paramArray(string $key, bool $specialchars = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];
 		}
-		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
+		return $specialchars ? self::$params[$key] : Minz_Helper::htmlspecialchars_utf8(self::$params[$key]);
 	}
 
-	/** @return array<string> */
+	/**
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
+	 * @return array<string>
+	 */
 	public static function paramArrayString(string $key, bool $specialchars = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];
@@ -106,6 +112,9 @@ class Minz_Request {
 		return 0;
 	}
 
+	/**
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
+	 */
 	public static function paramStringNull(string $key, bool $specialchars = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
@@ -120,6 +129,9 @@ class Minz_Request {
 		return null;
 	}
 
+	/**
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
+	 */
 	public static function paramString(string $key, bool $specialchars = false): string {
 		return self::paramStringNull($key, $specialchars) ?? '';
 	}
