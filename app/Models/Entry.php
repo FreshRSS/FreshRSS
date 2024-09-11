@@ -590,83 +590,83 @@ HTML;
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
 				$ok = true;
-				if ($filter->getEntryIds()) {
+				if ($filter->getEntryIds() !== null) {
 					$ok &= in_array($this->id, $filter->getEntryIds(), true);
 				}
-				if ($ok && $filter->getNotEntryIds()) {
+				if ($ok && $filter->getNotEntryIds() !== null) {
 					$ok &= !in_array($this->id, $filter->getNotEntryIds(), true);
 				}
-				if ($ok && $filter->getMinDate()) {
+				if ($ok && $filter->getMinDate() !== null) {
 					$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
 				}
-				if ($ok && $filter->getNotMinDate()) {
+				if ($ok && $filter->getNotMinDate() !== null) {
 					$ok &= strnatcmp($this->id, $filter->getNotMinDate() . '000000') < 0;
 				}
-				if ($ok && $filter->getMaxDate()) {
+				if ($ok && $filter->getMaxDate() !== null) {
 					$ok &= strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
 				}
-				if ($ok && $filter->getNotMaxDate()) {
+				if ($ok && $filter->getNotMaxDate() !== null) {
 					$ok &= strnatcmp($this->id, $filter->getNotMaxDate() . '000000') > 0;
 				}
-				if ($ok && $filter->getMinPubdate()) {
+				if ($ok && $filter->getMinPubdate() !== null) {
 					$ok &= $this->date >= $filter->getMinPubdate();
 				}
-				if ($ok && $filter->getNotMinPubdate()) {
+				if ($ok && $filter->getNotMinPubdate() !== null) {
 					$ok &= $this->date < $filter->getNotMinPubdate();
 				}
-				if ($ok && $filter->getMaxPubdate()) {
+				if ($ok && $filter->getMaxPubdate() !== null) {
 					$ok &= $this->date <= $filter->getMaxPubdate();
 				}
-				if ($ok && $filter->getNotMaxPubdate()) {
+				if ($ok && $filter->getNotMaxPubdate() !== null) {
 					$ok &= $this->date > $filter->getNotMaxPubdate();
 				}
-				if ($ok && $filter->getFeedIds()) {
+				if ($ok && $filter->getFeedIds() !== null) {
 					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
 				}
-				if ($ok && $filter->getNotFeedIds()) {
+				if ($ok && $filter->getNotFeedIds() !== null) {
 					$ok &= !in_array($this->feedId, $filter->getNotFeedIds(), true);
 				}
-				if ($ok && $filter->getAuthor()) {
+				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
 						$ok &= stripos(implode(';', $this->authors), $author) !== false;
 					}
 				}
-				if ($ok && $filter->getAuthorRegex()) {
+				if ($ok && $filter->getAuthorRegex() !== null) {
 					foreach ($filter->getAuthorRegex() as $author) {
 						$ok &= preg_match($author, implode("\n", $this->authors)) === 1;
 					}
 				}
-				if ($ok && $filter->getNotAuthor()) {
+				if ($ok && $filter->getNotAuthor() !== null) {
 					foreach ($filter->getNotAuthor() as $author) {
 						$ok &= stripos(implode(';', $this->authors), $author) === false;
 					}
 				}
-				if ($ok && $filter->getNotAuthorRegex()) {
+				if ($ok && $filter->getNotAuthorRegex() !== null) {
 					foreach ($filter->getNotAuthorRegex() as $author) {
 						$ok &= preg_match($author, implode("\n", $this->authors)) === 0;
 					}
 				}
-				if ($ok && $filter->getIntitle()) {
+				if ($ok && $filter->getIntitle() !== null) {
 					foreach ($filter->getIntitle() as $title) {
 						$ok &= stripos($this->title, $title) !== false;
 					}
 				}
-				if ($ok && $filter->getIntitleRegex()) {
+				if ($ok && $filter->getIntitleRegex() !== null) {
 					foreach ($filter->getIntitleRegex() as $title) {
 						$ok &= preg_match($title, $this->title) === 1;
 					}
 				}
-				if ($ok && $filter->getNotIntitle()) {
+				if ($ok && $filter->getNotIntitle() !== null) {
 					foreach ($filter->getNotIntitle() as $title) {
 						$ok &= stripos($this->title, $title) === false;
 					}
 				}
-				if ($ok && $filter->getNotIntitleRegex()) {
+				if ($ok && $filter->getNotIntitleRegex() !== null) {
 					foreach ($filter->getNotIntitleRegex() as $title) {
 						$ok &= preg_match($title, $this->title) === 0;
 					}
 				}
-				if ($ok && $filter->getTags()) {
+				if ($ok && $filter->getTags() !== null) {
 					foreach ($filter->getTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
@@ -679,7 +679,7 @@ HTML;
 						$ok &= $found;
 					}
 				}
-				if ($ok && $filter->getTagsRegex()) {
+				if ($ok && $filter->getTagsRegex() !== null) {
 					foreach ($filter->getTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
@@ -692,7 +692,7 @@ HTML;
 						$ok &= $found;
 					}
 				}
-				if ($ok && $filter->getNotTags()) {
+				if ($ok && $filter->getNotTags() !== null) {
 					foreach ($filter->getNotTags() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
@@ -705,7 +705,7 @@ HTML;
 						$ok &= !$found;
 					}
 				}
-				if ($ok && $filter->getNotTagsRegex()) {
+				if ($ok && $filter->getNotTagsRegex() !== null) {
 					foreach ($filter->getNotTagsRegex() as $tag2) {
 						$found = false;
 						foreach ($this->tags as $tag1) {
@@ -718,42 +718,42 @@ HTML;
 						$ok &= !$found;
 					}
 				}
-				if ($ok && $filter->getInurl()) {
+				if ($ok && $filter->getInurl() !== null) {
 					foreach ($filter->getInurl() as $url) {
 						$ok &= stripos($this->link, $url) !== false;
 					}
 				}
-				if ($ok && $filter->getInurlRegex()) {
+				if ($ok && $filter->getInurlRegex() !== null) {
 					foreach ($filter->getInurlRegex() as $url) {
 						$ok &= preg_match($url, $this->link) === 1;
 					}
 				}
-				if ($ok && $filter->getNotInurl()) {
+				if ($ok && $filter->getNotInurl() !== null) {
 					foreach ($filter->getNotInurl() as $url) {
 						$ok &= stripos($this->link, $url) === false;
 					}
 				}
-				if ($ok && $filter->getNotInurlRegex()) {
+				if ($ok && $filter->getNotInurlRegex() !== null) {
 					foreach ($filter->getNotInurlRegex() as $url) {
 						$ok &= preg_match($url, $this->link) === 0;
 					}
 				}
-				if ($ok && $filter->getSearch()) {
+				if ($ok && $filter->getSearch() !== null) {
 					foreach ($filter->getSearch() as $needle) {
 						$ok &= (stripos($this->title, $needle) !== false || stripos($this->content, $needle) !== false);
 					}
 				}
-				if ($ok && $filter->getNotSearch()) {
+				if ($ok && $filter->getNotSearch() !== null) {
 					foreach ($filter->getNotSearch() as $needle) {
 						$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
 					}
 				}
-				if ($ok && $filter->getSearchRegex()) {
+				if ($ok && $filter->getSearchRegex() !== null) {
 					foreach ($filter->getSearchRegex() as $needle) {
 						$ok &= (preg_match($needle, $this->title) === 1 || preg_match($needle, $this->content) === 1);
 					}
 				}
-				if ($ok && $filter->getNotSearchRegex()) {
+				if ($ok && $filter->getNotSearchRegex() !== null) {
 					foreach ($filter->getNotSearchRegex() as $needle) {
 						$ok &= (preg_match($needle, $this->title) === 0 && preg_match($needle, $this->content) === 0);
 					}
@@ -1056,7 +1056,7 @@ HTML;
 		if ($category != null && $mode !== 'freshrss') {
 			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($category->name(), ENT_QUOTES);
 		}
-		if ($feed != null) {
+		if ($feed !== null) {
 			$item['origin']['htmlUrl'] = htmlspecialchars_decode($feed->website());
 			$item['origin']['title'] = $feed->name();	//EasyRSS
 			if ($mode === 'compat') {

@@ -371,7 +371,7 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
 				$mtime = $simplePie->init();
 
-				if ((!$mtime) || $simplePie->error()) {
+				if ((!$mtime) || !empty($simplePie->error())) {
 					$errorMessage = $simplePie->error();
 					if (empty($errorMessage)) {
 						$errorMessage = '';
@@ -950,7 +950,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function pubSubHubbubEnabled(): bool {
 		$url = $this->selfUrl ?: $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
-		if ($hubFile = @file_get_contents($hubFilename)) {
+		if (($hubFile = @file_get_contents($hubFilename)) != false) {
 			$hubJson = json_decode($hubFile, true);
 			if (is_array($hubJson) && empty($hubJson['error']) &&
 				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
@@ -976,10 +976,10 @@ class FreshRSS_Feed extends Minz_Model {
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
 		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
-			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
+			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
-			if ($hubFile = @file_get_contents($hubFilename)) {
+			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
 				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
@@ -1027,7 +1027,7 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
+		if ($url !== '' && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {

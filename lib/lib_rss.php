@@ -285,9 +285,9 @@ function customSimplePie(array $attributes = [], array $curl_options = []): Simp
 
 	$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options, $curl_options);
 	if (isset($attributes['ssl_verify'])) {
-		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
+		$curl_options[CURLOPT_SSL_VERIFYHOST] = empty($attributes['ssl_verify']) ? 0 : 2;
 		$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
-		if (!$attributes['ssl_verify']) {
+		if (empty($attributes['ssl_verify'])) {
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
@@ -518,9 +518,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	}
 
 	if (isset($attributes['ssl_verify'])) {
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
-		if (!$attributes['ssl_verify']) {
+		if (empty($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 		}
 	}
