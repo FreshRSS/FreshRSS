@@ -80,7 +80,7 @@ if (!$ok) {
 
 if (isset($cliOptions->apiPassword)) {
 	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
-	if ($error) {
+	if ($error !== false) {
 		fail($error);
 	}
 }

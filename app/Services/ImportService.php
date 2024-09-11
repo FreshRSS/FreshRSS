@@ -91,7 +91,7 @@ class FreshRSS_Import_Service {
 
 				if ($can_create_category) {
 					$category = $this->createCategory($category_element, $dry_run);
-					if ($category) {
+					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
 					}
@@ -102,7 +102,7 @@ class FreshRSS_Import_Service {
 				}
 			}
 
-			if (!$category) {
+			if ($category === null) {
 				// Category can be null if the feeds weren't in a category
 				// outline, or if we weren't able to create the category.
 				$category = $default_category;
@@ -121,7 +121,7 @@ class FreshRSS_Import_Service {
 					break;
 				}
 
-				if ($this->createFeed($feed_element, $category, $dry_run)) {
+				if ($this->createFeed($feed_element, $category, $dry_run) !== null) {
 					// TODO what if the feed already exists in the database?
 					$nb_feeds++;
 				} else {
@@ -301,7 +301,7 @@ class FreshRSS_Import_Service {
 				return $feed;
 			}
 
-			if ($feed != null) {
+			if ($feed !== null) {
 				// addFeedObject checks if feed is already in DB
 				$id = $this->feedDAO->addFeedObject($feed);
 				if ($id == false) {

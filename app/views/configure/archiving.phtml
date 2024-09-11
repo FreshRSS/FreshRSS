@@ -59,8 +59,8 @@
 			<div class="group-controls">
 				<label class="checkbox" for="enable_keep_period">
 					<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?=
-						FreshRSS_Context::userConf()->volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= FreshRSS_Context::userConf()->volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+						empty(FreshRSS_Context::userConf()->volatile['enable_keep_period']) ? '' : ' checked="checked"' ?>
+						data-leave-validation="<?= empty(FreshRSS_Context::userConf()->volatile['enable_keep_period']) ? 0 : 1 ?>"/>
 					<?= _t('conf.archiving.keep_period') ?>
 					<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= FreshRSS_Context::userConf()->volatile['keep_period_count'] ?>"
 						data-leave-validation="<?= FreshRSS_Context::userConf()->volatile['keep_period_count'] ?>"/>

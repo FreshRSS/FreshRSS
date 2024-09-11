@@ -49,9 +49,6 @@ jobs:
     - name: PHPStan
       run: composer run-script phpstan
 
-    - name: PHPStan Next Level
-      run: composer run-script phpstan-next
-
     # NPM tests
 
     - name: Uses Node.js

@@ -21,7 +21,7 @@ class FreshRSS_Themes extends Minz_Model {
 		$list = [];
 		foreach ($themes_list as $theme_dir) {
 			$theme = self::get_infos($theme_dir);
-			if ($theme) {
+			if (is_array($theme)) {
 				$list[$theme_dir] = $theme;
 			}
 		}
@@ -60,7 +60,7 @@ class FreshRSS_Themes extends Minz_Model {
 	 */
 	public static function load(string $theme_id): array|false {
 		$infos = self::get_infos($theme_id);
-		if (!$infos) {
+		if (empty($infos)) {
 			if ($theme_id !== self::$defaultTheme) {	//Fall-back to default theme
 				return self::load(self::$defaultTheme);
 			}
