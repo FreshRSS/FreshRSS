@@ -81,7 +81,7 @@ class Minz_Request {
 			return [];
 		}
 		$result = array_filter(self::$params[$key], 'is_string');
-		return $specialchars ? Minz_Helper::htmlspecialchars_utf8($result) : $result;
+		return $specialchars ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 	}
 
 	public static function paramTernary(string $key): ?bool {
