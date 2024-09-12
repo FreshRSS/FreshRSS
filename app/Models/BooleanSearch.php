@@ -402,6 +402,7 @@ class FreshRSS_BooleanSearch {
 		return $this->getRawInput();
 	}
 
+	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}
