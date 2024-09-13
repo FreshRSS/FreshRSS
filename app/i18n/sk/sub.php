@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
 		'css_path_filter' => array(
 			'_' => 'CSS selektor elementu na odstránenie',
-			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'
+			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',

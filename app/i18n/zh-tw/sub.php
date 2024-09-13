@@ -63,7 +63,7 @@ return array(
 		'css_path' => '原文的 CSS 選擇器',
 		'css_path_filter' => array(
 			'_' => '需移除元素的 CSS 選擇器',
-			'help' => '可設置多個 CSS 選擇器，例如：<kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'
+			'help' => '可設置多個 CSS 選擇器，例如：<kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => '描述',
 		'empty' => '此源為空。請確認它是否正常更新。',

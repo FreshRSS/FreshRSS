@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'css_path_filter' => array(
 			'_' => 'Selector CSS de l’element de tirar',
-			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'
+			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',

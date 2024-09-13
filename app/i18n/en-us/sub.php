@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Article CSS selector on original website',	// IGNORE
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',	// IGNORE
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'	// IGNORE
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',	// IGNORE
 		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
