@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
 		'css_path_filter' => array(
 			'_' => 'CSS-Selector für die Elemente, die entfernt werden sollen',
-			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',

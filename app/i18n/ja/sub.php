@@ -63,7 +63,7 @@ return array(
 		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => array(
 			'_' => '要素を削除するCSSセレクタ',
-			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'
 		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',

@@ -176,7 +176,8 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
 	 */
 	public function originalContent(): string {
-		return preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
+		return $this->attributeString('original_content') ??
+			preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
 	}
 
 	/**
@@ -897,13 +898,16 @@ HTML;
 						$originalContent = $this->originalContent();
 						switch ($feed->attributeString('content_action')) {
 							case 'prepend':
+								$this->_attribute('original_content');
 								$this->content = $fullContent . $originalContent;
 								break;
 							case 'append':
+								$this->_attribute('original_content');
 								$this->content = $originalContent . $fullContent;
 								break;
 							case 'replace':
 							default:
+								$this->_attribute('original_content', $originalContent);
 								$this->content = $fullContent;
 								break;
 						}
@@ -915,12 +919,12 @@ HTML;
 				}
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
+			$originalContent = $this->attributeString('original_content') ?? $this->content;
 			$doc = new DOMDocument();
 			$utf8BOM = "\xEF\xBB\xBF";
-			if (!$doc->loadHTML($utf8BOM . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+			if (!$doc->loadHTML($utf8BOM . $originalContent, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
 				return false;
 			}
-			$modified = false;
 			$xpath = new DOMXPath($doc);
 			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
@@ -928,16 +932,24 @@ HTML;
 					continue;
 				}
 				$filterednode->parentNode->removeChild($filterednode);
-				$modified = true;
 			}
-			if ($modified) {
-				$html = $doc->saveHTML();
-				if (!is_string($html)) {
-					return false;
-				}
+			$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild);
+			if (!is_string($html)) {
+				return false;
+			}
+			$html = preg_replace('%^\s*<body>\s*|\s*</body>\s*$%i', '', $html);
+			$this->_attribute('original_content');
+			if ($this->content !== $html) {
+				$this->_attribute('original_content', $originalContent);
 				$this->content = $html;
+				return true;
 			}
-			return $modified;
+		} else {
+			$originalContent = $this->originalContent();
+			if ($originalContent !== $this->content) {
+				$this->content = $originalContent;
+				return true;
+			}
 		}
 		return false;
 	}

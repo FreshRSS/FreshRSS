@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Cikk CSS selector az eredeti weblapon',
 		'css_path_filter' => array(
 			'_' => 'A törlendő elemek CSS selectora',
-			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside</kbd>',
+			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>'
 		),
 		'description' => 'Leírás',
 		'empty' => 'Ez a hírforrás üres. Ellenőrizd hogy van e tartalom rajta.',
