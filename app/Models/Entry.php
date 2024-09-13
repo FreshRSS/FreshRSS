@@ -939,7 +939,7 @@ HTML;
 			}
 			$html = preg_replace('%^\s*<body>\s*|\s*</body>\s*$%i', '', $html);
 			$this->_attribute('original_content');
-			if ($this->content !== $html) {
+			if (is_string($html) && $this->content !== $html) {
 				$this->_attribute('original_content', $originalContent);
 				$this->content = $html;
 				return true;
