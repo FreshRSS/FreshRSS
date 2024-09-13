@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Přepínač CSS článku na původních webových stránkách',
 		'css_path_filter' => array(
 			'_' => 'selektor CSS prvků, které mají být odstraněny',
-			'help' => 'Selektor CSS může být seznam, například: <kbd>.footer, .aside</kbd>',
+			'help' => 'Selektor CSS může být seznam, například: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',

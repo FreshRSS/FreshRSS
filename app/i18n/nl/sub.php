@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector van de elementen om te verwijderen',
-			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside</kbd>',
+			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
