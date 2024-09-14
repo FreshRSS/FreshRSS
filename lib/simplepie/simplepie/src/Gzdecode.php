@@ -142,7 +142,7 @@ class Gzdecode
      */
     public function __set(string $name, $value)
     {
-        trigger_error("Cannot write property $name", E_USER_ERROR);
+        throw new Exception("Cannot write property $name");
     }
 
     /**

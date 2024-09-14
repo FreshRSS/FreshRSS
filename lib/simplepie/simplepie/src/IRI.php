@@ -203,9 +203,9 @@ class IRI
     /**
      * Create a new IRI object, from a specified string
      *
-     * @param string $iri
+     * @param string|null $iri
      */
-    public function __construct(string $iri = null)
+    public function __construct(?string $iri = null)
     {
         $this->set_iri($iri);
     }
