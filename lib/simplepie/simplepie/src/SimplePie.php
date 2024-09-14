@@ -42,6 +42,13 @@ class SimplePie
     public const VERSION = '1.8.0';
 
     /**
+     * SimplePie cache version.
+     * To be updated when the cache format changes.
+     * FreshRSS
+     */
+    public const CACHE_VERSION = 1;
+
+    /**
      * SimplePie Website URL
      */
     public const URL = 'http://simplepie.org';
@@ -1841,6 +1848,7 @@ class SimplePie
                         $this->data['headers'] = $headers;
                     }
                     $this->data['build'] = Misc::get_build();
+                    $this->data['cache_version'] = self::CACHE_VERSION; // FreshRSS
                     $this->data['hash'] = $this->data['hash'] ?? $this->clean_hash($this->raw_data); // FreshRSS
 
                     // Cache the file if caching is enabled
@@ -1915,7 +1923,8 @@ class SimplePie
 
             if (!empty($this->data)) {
                 // If the cache is for an outdated build of SimplePie
-                if (!isset($this->data['build']) || $this->data['build'] !== Misc::get_build()) {
+                // if (!isset($this->data['build']) || $this->data['build'] !== Misc::get_build()) {
+                if (($this->data['cache_version'] ?? null) !== self::CACHE_VERSION) { // FreshRSS
                     $cache->delete_data($cacheKey);
                     $this->data = [];
                 }
@@ -1940,7 +1949,7 @@ class SimplePie
                     $this->data = [];
                 }
                 // Check if the cache has been updated
-                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] > time()) { // FreshRSS, https://github.com/simplepie/simplepie/pull/846
+                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] > time()) { // FreshRSS
                     // Want to know if we tried to send last-modified and/or etag headers
                     // when requesting this file. (Note that it's up to the file to
                     // support this, but we don't always send the headers either.)
@@ -2128,6 +2137,7 @@ class SimplePie
                         'feed_url' => $file->get_final_requested_uri(),
                         'build' => Misc::get_build(),
                         'cache_expiration_time' => $this->cache_duration + time(),
+                        'cache_version' => self::CACHE_VERSION, // FreshRSS
                         'hash' => empty($hash) ? $this->clean_hash($file->get_body_content()) : $hash, // FreshRSS
                     ];
 
