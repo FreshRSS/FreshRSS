@@ -1949,7 +1949,7 @@ class SimplePie
                     $this->data = [];
                 }
                 // Check if the cache has been updated
-                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] > time()) { // FreshRSS
+                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] < time()) { // FreshRSS https://github.com/simplepie/simplepie/pull/846
                     // Want to know if we tried to send last-modified and/or etag headers
                     // when requesting this file. (Note that it's up to the file to
                     // support this, but we don't always send the headers either.)
@@ -1973,6 +1973,7 @@ class SimplePie
                             $this->status_code = 0;
 
                             if ($this->force_cache_fallback) {
+                                $this->data['cache_expiration_time'] = $this->cache_duration + time(); // FreshRSS
                                 $cache->set_data($cacheKey, $this->data, $this->cache_duration);
 
                                 return true;
@@ -1987,6 +1988,7 @@ class SimplePie
                             $this->raw_data = false;
                             if (isset($file)) { // FreshRSS
                                 // Update cache metadata
+                                $this->data['cache_expiration_time'] = $this->cache_duration + time();
                                 $this->data['headers'] = array_map(function (array $values): string {
                                     return implode(',', $values);
                                 }, $file->get_headers());
@@ -2000,6 +2002,7 @@ class SimplePie
                         $hash = $this->clean_hash($file->get_body_content());
                         if (($this->data['hash'] ?? null) === $hash) {
                             // Update cache metadata
+                            $this->data['cache_expiration_time'] = $this->cache_duration + time();
                             $this->data['headers'] = array_map(function (array $values): string {
                                 return implode(',', $values);
                             }, $file->get_headers());
