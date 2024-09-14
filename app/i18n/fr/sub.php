@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
 		'css_path_filter' => array(
 			'_' => 'Sélecteur CSS des éléments à supprimer',
-			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside</kbd>',
+			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',

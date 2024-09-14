@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'css_path_filter' => array(
 			'_' => 'Kaldırılacak elemana ait CSS seçicisi',
-			'help' => 'CSS seçicisi şu şekilde olabilir: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS seçicisi şu şekilde olabilir: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',

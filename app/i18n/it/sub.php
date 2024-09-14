@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
 		'css_path_filter' => array(
 			'_' => 'Il selettore CSS degli elementi da rimuovere',
-			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside</kbd>',
+			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
