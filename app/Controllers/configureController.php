@@ -202,7 +202,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			$shortcuts = Minz_Request::paramArray('shortcuts', specialchars: true);
+			$shortcuts = Minz_Request::paramArray('shortcuts', plaintext: true);
 			if (Minz_Request::paramBoolean('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
