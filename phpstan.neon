@@ -10,7 +10,7 @@ parameters:
 			- lib/marienfressinaud/*
 			- lib/phpgt/*
 			- lib/phpmailer/*
-			- lib/SimplePie/*
+			- lib/simplepie/*
 			- vendor/*
 		analyseAndScan:
 			- .git/*

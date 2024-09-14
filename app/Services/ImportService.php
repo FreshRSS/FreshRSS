@@ -316,7 +316,7 @@ class FreshRSS_Import_Service {
 			$this->lastStatus = false;
 		}
 
-		$clean_url = SimplePie_Misc::url_remove_credentials($url);
+		$clean_url = \SimplePie\Misc::url_remove_credentials($url);
 		self::log("Cannot create {$clean_url} feed in category {$category->name()}");
 		return null;
 	}
