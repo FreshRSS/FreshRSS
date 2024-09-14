@@ -1639,6 +1639,7 @@ class SimplePie
      * after having cleaned it from noisy elements such as statistics or comments.
      * FreshRSS
      * @return string $rss A hash of the cleaned content, or empty string in case of error.
+     * @see SimplePie::get_hash()
      */
     private function clean_hash(string $rss): string
     {
@@ -1678,7 +1679,7 @@ class SimplePie
      * configuration options get processed, feeds are fetched, cached, and
      * parsed, and all of that other good stuff.
      *
-     * @return bool|int positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise // FreshRSS
+     * @return bool True if successful, false otherwise
      */
     public function init()
     {
@@ -1766,7 +1767,7 @@ class SimplePie
 
             // Fetch the data into $this->raw_data
             if (($fetched = $this->fetch_data($cache)) === true) {
-                return $this->data['mtime'] ?? true; // FreshRSS
+                return true;
             } elseif ($fetched === false) {
                 return false;
             }
@@ -1841,7 +1842,6 @@ class SimplePie
                     }
                     $this->data['build'] = Misc::get_build();
                     $this->data['hash'] = $this->data['hash'] ?? $this->clean_hash($this->raw_data); // FreshRSS
-                    $this->data['mtime'] = time(); // FreshRSS
 
                     // Cache the file if caching is enabled
                     $this->data['cache_expiration_time'] = $this->cache_duration + time();
@@ -1889,7 +1889,6 @@ class SimplePie
      *
      * @param Base|DataCache|false $cache Cache handler, or false to not load from the cache
      * @return array{array<string, string>, string}|array{}|bool Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
-     * @phpstan-impure
      */
     protected function fetch_data(&$cache)
     {
@@ -1941,8 +1940,7 @@ class SimplePie
                     $this->data = [];
                 }
                 // Check if the cache has been updated
-                // elseif (isset($this->data['cache_expiration_time']) && $this->data['cache_expiration_time'] > time()) {  // FreshRSS
-                elseif (empty($this->data['mtime']) || $this->data['mtime'] + $this->cache_duration <= time()) {
+                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] > time()) { // FreshRSS, https://github.com/simplepie/simplepie/pull/846
                     // Want to know if we tried to send last-modified and/or etag headers
                     // when requesting this file. (Note that it's up to the file to
                     // support this, but we don't always send the headers either.)
@@ -1980,7 +1978,6 @@ class SimplePie
                             $this->raw_data = false;
                             if (isset($file)) { // FreshRSS
                                 // Update cache metadata
-                                $this->data['mtime'] = time();
                                 $this->data['headers'] = array_map(function (array $values): string {
                                     return implode(',', $values);
                                 }, $file->get_headers());
@@ -1994,7 +1991,6 @@ class SimplePie
                         $hash = $this->clean_hash($file->get_body_content());
                         if (($this->data['hash'] ?? null) === $hash) {
                             // Update cache metadata
-                            $this->data['mtime'] = time();
                             $this->data['headers'] = array_map(function (array $values): string {
                                 return implode(',', $values);
                             }, $file->get_headers());
@@ -2133,7 +2129,6 @@ class SimplePie
                         'build' => Misc::get_build(),
                         'cache_expiration_time' => $this->cache_duration + time(),
                         'hash' => empty($hash) ? $this->clean_hash($file->get_body_content()) : $hash, // FreshRSS
-                        'mtime' => time(), // FreshRSS
                     ];
 
                     if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) {
@@ -2177,6 +2172,18 @@ class SimplePie
     public function status_code()
     {
         return $this->status_code;
+    }
+
+    /**
+     * Get the last hash of the feed
+     *
+     * @return string Hash of the content of the feed
+     * @see SimplePie::clean_hash()
+     * FreshRSS
+     */
+    public function get_hash(): string
+    {
+        return $this->data['hash'] ?? '';
     }
 
     /**

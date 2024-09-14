@@ -18,7 +18,7 @@
         "marienfressinaud/lib_opml": "0.5.1",
         "phpgt/cssxpath": "dev-master#45f3ac151fc21d459e2515c3aff97cd4bf877bf8",
         "phpmailer/phpmailer": "6.9.1",
-        "simplepie/simplepie": "dev-freshrss#44aea920b6792096f7fb1d8ac93026889a5149ee"
+        "simplepie/simplepie": "dev-freshrss#f99d21bc542836e45eeb69aab506464a8d1c783e"
     },
     "config": {
         "sort-packages": true,

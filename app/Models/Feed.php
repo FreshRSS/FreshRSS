@@ -369,9 +369,9 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->clearCache();
 				}
 				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
-				$mtime = $simplePie->init();
+				$simplePieResult = $simplePie->init();
 
-				if ((!$mtime) || !empty($simplePie->error())) {
+				if ($simplePieResult === false || $simplePie->get_hash() === '' || !empty($simplePie->error())) {
 					$errorMessage = $simplePie->error();
 					if (empty($errorMessage)) {
 						$errorMessage = '';
@@ -415,8 +415,9 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
-					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
+				if ($noCache || $simplePie->get_hash() !== $this->attributeString('SimplePieHash')) {
+					Minz_Log::debug('FreshRSS no cache ' . $simplePie->get_hash() . ' !== ' . $this->attributeString('SimplePieHash') . ' for ' . $clean_url);
+					$this->_attribute('SimplePieHash', $simplePie->get_hash());
 					return $simplePie;
 				}
 				syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);

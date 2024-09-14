@@ -444,6 +444,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$url = $feed->url();	//For detection of HTTP 301
+			$oldSimplePieHash = $feed->attributeString('SimplePieHash');
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
 			if ($simplePiePush === null && $feed_id === null && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
@@ -658,6 +659,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedProperties = [];
+			if ($oldSimplePieHash !== $feed->attributeString('SimplePieHash')) {
+				$feedProperties['attributes'] = $feed->attributes();
+			}
 
 			if ($pubsubhubbubEnabledGeneral && $feed->hubUrl() !== '' && $feed->selfUrl() !== '') {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
