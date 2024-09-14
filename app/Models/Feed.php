@@ -416,7 +416,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				if ($noCache || $simplePie->get_hash() !== $this->attributeString('SimplePieHash')) {
-					Minz_Log::debug('FreshRSS no cache ' . $simplePie->get_hash() . ' !== ' . $this->attributeString('SimplePieHash') . ' for ' . $clean_url);
+					// syslog(LOG_DEBUG, 'FreshRSS no cache ' . $simplePie->get_hash() . ' !== ' . $this->attributeString('SimplePieHash') . ' for ' . $clean_url);
 					$this->_attribute('SimplePieHash', $simplePie->get_hash());
 					return $simplePie;
 				}
