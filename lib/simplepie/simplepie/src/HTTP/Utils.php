@@ -43,7 +43,7 @@ final class Utils
             if (preg_match('/\bmust-revalidate\b/', $cache_control)) {
                 $cache_duration_min = 0;
             }
-            if (preg_match('/\bmax-age=(\d+)\b/', $cache_control, $matches)) {
+            if (preg_match('/\bs-maxage=(\d+)\b/', $cache_control, $matches) || preg_match('/\bmax-age=(\d+)\b/', $cache_control, $matches)) {
                 $max_age = (int) $matches[1];
                 $age = $http_headers['age'] ?? '';
                 if (is_numeric($age)) {
