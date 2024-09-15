@@ -21,12 +21,12 @@ final class Utils
      * - `Expires` like `Cache-Control: max-age` but only if it is absent
      *
      * @param array<string,mixed> $http_headers HTTP headers of the response
-     * @param int $cache_duration Desired cache duration in seconds, potentially overriden by HTTP response headers
+     * @param int $cache_duration Desired cache duration in seconds, potentially overridden by HTTP response headers
      * @param int $cache_duration_min Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control: max-age` and `Expires`,
      * but without effect on `Cache-Control: no-store` and `Cache-Control: no-cache` and `Cache-Control: must-revalidate`
      * @param int $cache_duration_max Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control: max-age` and `Expires`,
      * but without effect on `Cache-Control: no-store` and `Cache-Control: no-cache`
-     * @return int The negociated cache expiration time in seconds since the Unix Epoch
+     * @return int The negotiated cache expiration time in seconds since the Unix Epoch
      *
      * FreshRSS
      */
