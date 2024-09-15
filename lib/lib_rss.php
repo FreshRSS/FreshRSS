@@ -282,7 +282,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_cache_name_function('sha1');
 	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->set_cache_duration($limits['cache_duration'], $limits['cache_duration_min'], $limits['cache_duration_max']);
 	$simplePie->enable_order_by_date(false);
 
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
