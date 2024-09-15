@@ -101,7 +101,7 @@ return array(
 
 		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
-		# Might be overriden by HTTP response headers.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
 		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control: max-age` and `Expires`,
 		# but without effect on `Cache-Control: no-store` and `Cache-Control: no-cache` and `Cache-Control: must-revalidate`
