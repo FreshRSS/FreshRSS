@@ -103,11 +103,9 @@ return array(
 		# Especially important for multi-user setups.
 		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
-		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control: max-age` and `Expires`,
-		# but without effect on `Cache-Control: no-store` and `Cache-Control: no-cache` and `Cache-Control: must-revalidate`
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
 		'cache_duration_min' => 60,
-		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control: max-age` and `Expires`,
-		# but without effect on `Cache-Control: no-store` and `Cache-Control: no-cache`
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
 		'cache_duration_max' => 86400,
 
 		# SimplePie HTTP request timeout in seconds.

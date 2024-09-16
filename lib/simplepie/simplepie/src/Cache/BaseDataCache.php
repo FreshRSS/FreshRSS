@@ -90,8 +90,6 @@ final class BaseDataCache implements DataCache
     {
         if ($ttl === null) {
             $ttl = 3600;
-        } elseif ($ttl <= 0) {
-            return $this->delete_data($key); // FreshRSS
         }
 
         // place internal cache expiration time
