@@ -369,6 +369,7 @@ function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): 
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
+		$simplePie->enable_cache(false);
 		$simplePie->init();
 	}
 	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base));

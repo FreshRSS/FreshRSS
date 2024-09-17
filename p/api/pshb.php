@@ -98,6 +98,7 @@ if ($ORIGINAL_INPUT == '') {
 }
 
 $simplePie = customSimplePie();
+$simplePie->enable_cache(false);
 $simplePie->set_raw_data($ORIGINAL_INPUT);
 $simplePie->init();
 unset($ORIGINAL_INPUT);

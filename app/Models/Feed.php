@@ -612,6 +612,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 */
 	private function simplePieFromContent(string $feedContent): \SimplePie\SimplePie {
 		$simplePie = customSimplePie();
+		$simplePie->enable_cache(false);
 		$simplePie->set_raw_data($feedContent);
 		$simplePie->init();
 		return $simplePie;
