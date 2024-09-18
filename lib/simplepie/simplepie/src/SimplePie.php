@@ -516,7 +516,7 @@ class SimplePie
     public $cache_duration = 3600;
 
     /**
-     * @var int Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+     * @var int Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`
      * @see SimplePie::set_cache_duration()
      * @access private
      * FreshRSS
@@ -524,7 +524,7 @@ class SimplePie
     public $cache_duration_min = 60;
 
     /**
-     * @var int Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+     * @var int Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`
      * @see SimplePie::set_cache_duration()
      * @access private
      * FreshRSS
@@ -1008,8 +1008,8 @@ class SimplePie
      * FreshRSS: The cache is (partially) HTTP compliant, with the following rules:
      *
      * @param int $seconds The feed content cache duration, which may be overridden by HTTP response headers)
-     * @param int $min The minimun cache duration (default: 60s), overriding HTTP response headers `Cache-Control` and `Expires`,
-     * @param int $max The maximum cache duration (default: 24h), overriding HTTP response headers `Cache-Control` and `Expires`,
+     * @param int $min The minimum cache duration (default: 60s), overriding HTTP response headers `Cache-Control` and `Expires`
+     * @param int $max The maximum cache duration (default: 24h), overriding HTTP response headers `Cache-Control` and `Expires`
      * @return void
      */
     public function set_cache_duration(int $seconds = 3600, ?int $min = null, ?int $max = null)
@@ -2019,10 +2019,10 @@ class SimplePie
                             $this->raw_data = false;
                             if (isset($file)) { // FreshRSS
                                 // Update cache metadata
-                                $this->data['cache_expiration_time'] = \SimplePie\HTTP\Utils::negociate_cache_expiration_time($this->data['headers'] ?? [], $this->cache_duration, $this->cache_duration_min, $this->cache_duration_max);
                                 $this->data['headers'] = array_map(function (array $values): string {
                                     return implode(',', $values);
                                 }, $file->get_headers());
+                                $this->data['cache_expiration_time'] = \SimplePie\HTTP\Utils::negociate_cache_expiration_time($this->data['headers'] ?? [], $this->cache_duration, $this->cache_duration_min, $this->cache_duration_max);
                             }
                             if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) { // FreshRSS
                                 trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
@@ -2035,11 +2035,11 @@ class SimplePie
                         $hash = $this->clean_hash($file->get_body_content());
                         if (($this->data['hash'] ?? null) === $hash) {
                             // Update cache metadata
-                            $this->data['cache_expiration_time'] = \SimplePie\HTTP\Utils::negociate_cache_expiration_time($this->data['headers'] ?? [], $this->cache_duration, $this->cache_duration_min, $this->cache_duration_max);
                             $this->data['headers'] = array_map(function (array $values): string {
                                 return implode(',', $values);
                             }, $file->get_headers());
-                            if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) { // FreshRSS
+                            $this->data['cache_expiration_time'] = \SimplePie\HTTP\Utils::negociate_cache_expiration_time($this->data['headers'] ?? [], $this->cache_duration, $this->cache_duration_min, $this->cache_duration_max);
+                            if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) {
                                 trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
                             }
 
@@ -2179,7 +2179,7 @@ class SimplePie
                         'hash' => empty($hash) ? $this->clean_hash($file->get_body_content()) : $hash, // FreshRSS
                     ];
 
-                    if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) { // FreshRSS
+                    if (!$cache->set_data($cacheKey, $this->data, $this->cache_duration)) {
                         trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
                     }
                 }
