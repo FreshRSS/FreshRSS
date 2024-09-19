@@ -204,7 +204,8 @@ img.favicon {
 	font-style: italic;
 }
 
-.feed.mute .item-title .title::before {
+.feed.mute .item-title .title::before,
+.item.feed.mute .item-title::before {
 	content: '🔇 ';
 }
 
@@ -2059,7 +2060,8 @@ html.slider-active {
 .item.share.error a::after,
 .category .title.error::before,
 .item.feed.error .item-title .title::before,
-.theme-preview-list .properties .error::before {
+.theme-preview-list .properties .error::before,
+.box-content .item.feed.error .item-title::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
 }
