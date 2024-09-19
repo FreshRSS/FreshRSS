@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Aceptar cookies',
 		'accept_cookies_help' => 'Permitir que el servidor de fuentes configure las cookies (guardadas en memoria únicamente para el tiempo de vida de la solicitud)',
-		'add' => 'Añadir fuente RSS',
+		'add' => 'Añadir fuente',
 		'advanced' => 'Avanzado',
 		'archiving' => 'Archivo',
 		'auth' => array(

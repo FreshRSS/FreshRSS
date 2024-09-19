@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Sütik elfogadása',
 		'accept_cookies_help' => 'Engedélyezze hogy a hírforrás szerver beállíthasson sütiket (memóriában lesznek tárolva a kapcsolat idejére)',
-		'add' => 'RSS hírforrás hozzáadása',
+		'add' => 'hírforrás hozzáadása',
 		'advanced' => 'Haladó',
 		'archiving' => 'Archiválás',
 		'auth' => array(

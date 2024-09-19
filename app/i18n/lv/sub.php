@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Pieņemt sīkfailus',
 		'accept_cookies_help' => 'Atļaut barotnes serverim iestatīt sīkfailus (atmiņā tiek saglabāti tikai uz pieprasījuma laiku).',
-		'add' => 'Pievienot RSS barotni',
+		'add' => 'Pievienot barotni',
 		'advanced' => 'Advancēts',
 		'archiving' => 'Arhivēšana',
 		'auth' => array(
