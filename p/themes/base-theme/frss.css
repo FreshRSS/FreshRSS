@@ -922,6 +922,9 @@ input[type="checkbox"]:focus-visible {
 .box .box-content .item.feed {
 	display: block;
 	padding-top: var(--frss-padding-top-bottom);
+.box .box-content .item.feed.emptyCategory {
+	padding: 0.5rem 1rem 0.5rem 0;
+}
 }
 
 .box .box-content .item.feed.moved {

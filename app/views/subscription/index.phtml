@@ -70,7 +70,7 @@
 					}
 				} else {
 				?>
-				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
+				<li class="item feed disabled emptyCategory"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 				<?php } ?>
 				<?php if ($cat->kind() != FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
 					<li class="item feed"><a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _i('add') ?><?= _t('sub.feed.add') ?></a></li>
