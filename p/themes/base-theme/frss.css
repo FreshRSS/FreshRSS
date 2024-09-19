@@ -205,7 +205,7 @@ img.favicon {
 }
 
 .feed.mute .item-title .title::before,
-.item.feed.mute .item-title::before {
+.box .item.feed.mute .item-title::before {
 	content: '🔇 ';
 }
 
