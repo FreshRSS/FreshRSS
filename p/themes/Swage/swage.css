@@ -468,7 +468,6 @@ form th {
 }
 .box .box-title {
 	margin: 0;
-	padding: 7px 10px;
 	background-color: var(--color-background-aside);
 	color: var(--color-text-light);
 	border-bottom: 1px solid var(--color-border-light-darker);
@@ -483,7 +482,6 @@ form th {
 	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
 }
 .box .box-content {
-	padding-left: 30px;
 	max-height: 260px;
 }
 .box .box-content .item {

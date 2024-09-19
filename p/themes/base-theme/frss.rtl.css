@@ -504,6 +504,10 @@ td.numeric {
 	overflow: hidden;
 }
 
+.btn > .icon {
+	margin-left: 0.25rem;
+}
+
 .btn-important {
 	font-weight: bold;
 }
@@ -900,6 +904,11 @@ input[type="checkbox"]:focus-visible {
 
 .box .box-title {
 	position: relative;
+	padding: 0.25rem 1rem;
+}
+
+.box .box-title .icon {
+	margin-bottom: 0.25rem;
 }
 
 .box .box-title h2 {
@@ -913,19 +922,35 @@ input[type="checkbox"]:focus-visible {
 }
 
 .box .box-content {
-	padding: 8px 16px 8px 8px;
+	padding: 0.5rem 1.75rem 0.5rem 0.5rem;
 	display: block;
 	min-height: 2.5em;
 	max-height: 260px;
 	overflow: auto;
 }
 
+.box .box-content .item {
+	font-size: 0.9rem;
+	line-height: 1.5;
+	text-indent: -3rem;
+}
+
 .box .box-content .item.feed {
+	padding: var(--frss-padding-top-bottom) 2rem calc(var(--frss-padding-top-bottom) / 2) 0;
 	display: block;
-	padding-top: var(--frss-padding-top-bottom);
+}
+
 .box .box-content .item.feed.emptyCategory {
 	padding: 0.5rem 0 0.5rem 1rem;
 }
+
+.box .box-content .item.feed .favicon {
+	margin-left: 0.25rem;
+}
+
+.box .box-content .item.feed .icon {
+	margin-right: 0.25rem;
+	margin-left: 0.5rem;
 }
 
 .box .box-content .item.feed.moved {
