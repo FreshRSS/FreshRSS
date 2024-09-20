@@ -749,6 +749,14 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"><?= !empty($this->feed->attributeArray('curl_params')) ? implode(PHP_EOL, $this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER]) : '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div class="group-controls">
 					<label class="checkbox" for="clear_cache">
 						<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?= $this->feed->attributeBoolean('clear_cache') ? ' checked="checked"' : '' ?> />
