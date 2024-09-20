@@ -12,6 +12,23 @@ namespace SimplePie\HTTP;
 final class Utils
 {
     /**
+     * Extracts `max-age` from the `Cache-Control` HTTP headers
+     *
+     * @param array<string,mixed> $http_headers HTTP headers of the response
+     * @return int|null The `max-age` value or `null` if not found
+     *
+     * FreshRSS
+     */
+    public static function get_http_max_age(array $http_headers): ?int
+    {
+        $cache_control = $http_headers['cache-control'] ?? null;
+        if (is_string($cache_control) && preg_match('/\bmax-age=(\d+)\b/', $cache_control, $matches)) {
+            return (int) $matches[1];
+        }
+        return null;
+    }
+
+    /**
      * Negotiate the cache expiration time based on the HTTP response headers.
      * Return the cache duration time in number of seconds since the Unix Epoch, accounting for:
      * - `Cache-Control: max-age` minus `Age`, bounded by `$cache_duration_min` and `$cache_duration_max`

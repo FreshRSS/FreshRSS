@@ -2019,6 +2019,7 @@ class SimplePie
                             $this->raw_data = false;
                             if (isset($file)) { // FreshRSS
                                 $old_cache_control = $this->data['headers']['cache-control'] ?? '';
+                                $old_max_age = \SimplePie\HTTP\Utils::get_http_max_age($this->data['headers']);
 
                                 // Update cache metadata
                                 $this->data['headers'] = array_map(function (array $values): string {
@@ -2026,13 +2027,12 @@ class SimplePie
                                 }, $file->get_headers());
 
                                 // Workaround for buggy servers returning wrong cache-control headers for 304 responses
-                                if (is_numeric($old_cache_control)) {
-                                    $new_cache_control = $this->data['headers']['cache-control'] ?? '';
-                                    if (!is_numeric($new_cache_control)) {
-                                        $new_cache_control = $this->cache_duration;
+                                if ($old_max_age !== null) {
+                                    $new_max_age = \SimplePie\HTTP\Utils::get_http_max_age($this->data['headers']);
+                                    if ($new_max_age === null || $new_max_age > $old_max_age) {
+                                        // Allow servers to return a shorter cache duration for 304 responses, but not longer
+                                        $this->data['headers']['cache-control'] = $old_cache_control;
                                     }
-                                    // Allow servers to return a shorter cache duration for 304 responses, but not longer
-                                    $this->data['headers']['cache-control'] = min((int)$old_cache_control, (int)$new_cache_control);
                                 }
 
                                 $this->data['cache_expiration_time'] = \SimplePie\HTTP\Utils::negociate_cache_expiration_time($this->data['headers'] ?? [], $this->cache_duration, $this->cache_duration_min, $this->cache_duration_max);
