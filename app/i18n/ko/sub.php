@@ -77,6 +77,8 @@ return array(
 			'_' => '필터 동작',
 			'help' => '한 줄에 한 검색 필터를 작성해 주세요. 실행시 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">문서 참고</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br>Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(

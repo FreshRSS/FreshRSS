@@ -77,6 +77,8 @@ return array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br>Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(

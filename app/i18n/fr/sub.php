@@ -77,6 +77,8 @@ return array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br>Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
