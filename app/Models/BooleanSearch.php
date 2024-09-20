@@ -27,7 +27,7 @@ class FreshRSS_BooleanSearch {
 			if (!is_string($input)) {
 				return;
 			}
-			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
+			$input = preg_replace('/(?<=[\s(!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
 			if (!is_string($input)) {
 				return;
 			}
