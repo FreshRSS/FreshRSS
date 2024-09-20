@@ -59,8 +59,12 @@
 							$empty_title = _t('sub.feed.empty');
 						}
 						$mute_class = $feed->mute() ? ' mute' : '';
+
+						$title = $error_title !== '' ? '⚠ ' . $error_title . '&#13;' : '';
+						$title .= $empty_title !== '' ? $empty_title . '&#13;' : '';
+						$title .= $feed->mute() ? '🔇 ' . _t('sub.feed.mute.state_is_muted') : '';
 				?>
-				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
+				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $title ?>"
 					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
 					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
 					if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
