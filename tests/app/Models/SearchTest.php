@@ -296,6 +296,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['!ab OR -cd', '(!ab) OR (-cd)'],
 			['ab cd OR ef OR "gh ij"', '(ab cd) OR (ef) OR ("gh ij")'],
 			['ab (!cd)', 'ab (!cd)'],
+			['"ab" (!"cd")', '"ab" (!"cd")'],
 		];
 	}
 
@@ -321,6 +322,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['(ab (cd OR ef OR (gh))) OR ij', '(ab ((cd) OR (ef) OR (gh))) OR (ij)'],
 			['(ab (!cd OR ef OR (gh))) OR ij', '(ab ((!cd) OR (ef) OR (gh))) OR (ij)'],
 			['(ab !(cd OR ef OR !(gh))) OR ij', '(ab !((cd) OR (ef) OR !(gh))) OR (ij)'],
+			['"ab" OR (!"cd")', '("ab") OR (!"cd")'],
 		];
 	}
 
@@ -439,6 +441,18 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
 				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
+			],
+			[
+				'"ab" "cd" ("ef") intitle:"gh" !"ij" -"kl"',
+				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
+			],
+			[
+				'&quot;ab&quot; &quot;cd&quot; (&quot;ef&quot;) intitle:&quot;gh&quot; !&quot;ij&quot; -&quot;kl&quot;',
+				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 		];
 	}
