@@ -504,7 +504,7 @@ td.numeric {
 	overflow: hidden;
 }
 
-.btn > .icon {
+.btn-icon-text > .icon {
 	margin-left: 0.25rem;
 }
 
