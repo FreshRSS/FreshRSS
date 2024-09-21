@@ -170,15 +170,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$http_auth = $user . ':' . $pass;
 			}
 
-			$cookie = Minz_Request::paramString('curl_params_cookie');
+			$cookie = Minz_Request::paramString('curl_params_cookie', plaintext: true);
 			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
 			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
-			$useragent = Minz_Request::paramString('curl_params_useragent');
-			$proxy_address = Minz_Request::paramString('curl_params');
-			$proxy_type = Minz_Request::paramString('proxy_type');
-			$request_method = Minz_Request::paramString('curl_method');
-			$request_fields = Minz_Request::paramString('curl_fields', true);
-			$headers = Minz_Request::paramTextToArray('http_headers');
+			$useragent = Minz_Request::paramString('curl_params_useragent', plaintext: true);
+			$proxy_address = Minz_Request::paramString('curl_params', plaintext: true);
+			$proxy_type = Minz_Request::paramString('proxy_type', plaintext: true);
+			$request_method = Minz_Request::paramString('curl_method', plaintext: true);
+			$request_fields = Minz_Request::paramString('curl_fields', plaintext: true);
+			$headers = Minz_Request::paramTextToArray('http_headers', plaintext: true);
 
 			$opts = [];
 			if ($proxy_type !== '') {

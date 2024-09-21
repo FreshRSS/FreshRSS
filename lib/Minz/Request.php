@@ -142,14 +142,15 @@ class Minz_Request {
 	 * It will return an array where each cell contains one line of a text. The new line
 	 * character is used to break the text into lines. This method is well suited to use
 	 * to split textarea content.
-	 * @param array<string> $default
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
 	 * @return array<string>
 	 */
-	public static function paramTextToArray(string $key, array $default = []): array {
+	public static function paramTextToArray(string $key, bool $plaintext = false): array {
 		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
-			return preg_split('/\R/u', self::$params[$key]) ?: [];
+			$result = preg_split('/\R/u', self::$params[$key]) ?: [];
+			return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 		}
-		return $default;
+		return [];
 	}
 
 	public static function defaultControllerName(): string {
