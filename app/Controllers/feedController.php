@@ -178,6 +178,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$proxy_type = Minz_Request::paramString('proxy_type');
 			$request_method = Minz_Request::paramString('curl_method');
 			$request_fields = Minz_Request::paramString('curl_fields', true);
+			$headers = Minz_Request::paramTextToArray('http_headers');
 
 			$opts = [];
 			if ($proxy_type !== '') {
@@ -207,6 +208,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$opts[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
 					}
 				}
+			}
+			if(!empty($headers)) {
+				$opts[CURLOPT_HTTPHEADER] = array_merge($headers, $opts[CURLOPT_HTTPHEADER] ?? []);
 			}
 
 			$attributes = [
