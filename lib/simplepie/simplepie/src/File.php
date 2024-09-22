@@ -124,7 +124,7 @@ class File implements Response
                 curl_setopt($fp, CURLOPT_FAILONERROR, 1);
                 curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
                 curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
-                curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url));
+                // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
                 curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
                 curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
                 foreach ($curl_options as $curl_param => $curl_value) {

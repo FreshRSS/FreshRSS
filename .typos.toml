@@ -38,7 +38,6 @@ extend-exclude = [
 	"app/i18n/zh-tw/",
 	"bin/",
 	"CHANGELOG-old.md",
-	"composer.json",
 	"composer.lock",
 	"data/",
 	"docs/fr/",

@@ -22,13 +22,13 @@ final class UserJSExtension extends Minz_Extension {
 		$this->registerTranslates();
 
 		if (Minz_Request::isPost()) {
-			$js_rules = html_entity_decode(Minz_Request::paramString('js-rules'));
+			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $js_rules);
 		}
 
 		$this->js_rules = '';
 		if ($this->hasFile(self::FILENAME)) {
-			$this->js_rules = htmlentities($this->getFile(self::FILENAME) ?? '');
+			$this->js_rules = htmlspecialchars($this->getFile(self::FILENAME) ?? '', ENT_NOQUOTES, 'UTF-8');
 		}
 	}
 }
