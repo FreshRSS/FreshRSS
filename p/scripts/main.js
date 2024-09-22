@@ -698,29 +698,31 @@ function user_filter(key) {
 }
 
 function show_share_menu(el) {
-	const itemId = el.closest('.flux').id;
-	const templateId = 'share_article_template';
-	const id = itemId;
-	const flux_header_el = el.closest('.flux');
-	const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
-	const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
-	const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
-	let articleAuthorsText = '';
-	if (articleAuthors.trim().length > 0) {
-		articleAuthorsText = ' (' + articleAuthors + ')';
-	}
-	const link = title_el.href;
-	const title = title_el.textContent;
-	const titleText = title;
 	const div = el.parentElement;
 	const dropdownMenu = div.querySelector('.dropdown-menu');
-	const template = document.getElementById(templateId).innerHTML
-		.replace(/--entryId--/g, id)
-		.replace(/--link--/g, link)
-		.replace(/--titleText--/g, titleText)
-		.replace(/--websiteName--/g, websiteName)
-		.replace(/--articleAuthors--/g, articleAuthorsText);
+
 	if (!dropdownMenu) {
+		const itemId = el.closest('.flux').id;
+		const templateId = 'share_article_template';
+		const id = itemId;
+		const flux_header_el = el.closest('.flux');
+		const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+		const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+		const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+		let articleAuthorsText = '';
+		if (articleAuthors.trim().length > 0) {
+			articleAuthorsText = ' (' + articleAuthors + ')';
+		}
+		const link = title_el.href;
+		const title = title_el.textContent;
+		const titleText = title;
+		const template = document.getElementById(templateId).innerHTML
+			.replace(/--entryId--/g, id)
+			.replace(/--link--/g, link)
+			.replace(/--titleText--/g, titleText)
+			.replace(/--websiteName--/g, websiteName)
+			.replace(/--articleAuthors--/g, articleAuthorsText);
+
 		div.insertAdjacentHTML('beforeend', template);
 	}
 	return true;
