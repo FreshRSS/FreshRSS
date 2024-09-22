@@ -912,17 +912,18 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
-			loadJs('extra.js');
-			loadJs('feed.js');
-			const itemId = a.closest('.item').id;
-			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
-			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb') || '';
 			const div = a.parentElement;
 			const dropdownMenu = div.querySelector('.dropdown-menu');
-			const template = document.getElementById(templateId)
-				.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+
 			if (!dropdownMenu) {
+				loadJs('extra.js');
+				loadJs('feed.js');
+				const itemId = a.closest('.item').id;
+				const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
+				const id = itemId.substr(2);
+				const feed_web = a.getAttribute('data-fweb') || '';
+				const template = document.getElementById(templateId)
+					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
