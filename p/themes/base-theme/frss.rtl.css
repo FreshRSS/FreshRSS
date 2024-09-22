@@ -708,6 +708,8 @@ input[type="checkbox"]:focus-visible {
 	min-width: 200px;
 	position: absolute;
 	left: 0;
+	scroll-margin-top: 2rem;
+	scroll-margin-bottom: 2rem;
 }
 
 .dropdown-menu::after {

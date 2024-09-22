@@ -738,9 +738,13 @@ function auto_share(key) {
 		// Display the share div
 		location.hash = share.id;
 		// Force scrolling to the share div
-		const scrollTop = needsScroll(share.closest('.bottom'));
+		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
-			document.scrollingElement.scrollTop = scrollTop;
+			if (share.closest('.horizontal-list.flux_header')) {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
