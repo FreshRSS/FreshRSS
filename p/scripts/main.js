@@ -697,6 +697,37 @@ function user_filter(key) {
 	}
 }
 
+function show_share_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu) {
+		const itemId = el.closest('.flux').id;
+		const templateId = 'share_article_template';
+		const id = itemId;
+		const flux_header_el = el.closest('.flux');
+		const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+		const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+		const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+		let articleAuthorsText = '';
+		if (articleAuthors.trim().length > 0) {
+			articleAuthorsText = ' (' + articleAuthors + ')';
+		}
+		const link = title_el.href;
+		const title = title_el.textContent;
+		const titleText = title;
+		const template = document.getElementById(templateId).innerHTML
+			.replace(/--entryId--/g, id)
+			.replace(/--link--/g, link)
+			.replace(/--titleText--/g, titleText)
+			.replace(/--websiteName--/g, websiteName)
+			.replace(/--articleAuthors--/g, articleAuthorsText);
+
+		div.insertAdjacentHTML('beforeend', template);
+	}
+	return true;
+}
+
 function auto_share(key) {
 	const share = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-share"]');
 	if (!share) {
@@ -704,12 +735,18 @@ function auto_share(key) {
 	}
 	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
+		show_share_menu(share);
+
 		// Display the share div
 		location.hash = share.id;
 		// Force scrolling to the share div
-		const scrollTop = needsScroll(share.closest('.bottom'));
+		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
-			document.scrollingElement.scrollTop = scrollTop;
+			if (share.closest('.horizontal-list.flux_header')) {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -1101,32 +1138,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.item.share a.dropdown-toggle');
 		if (el) {
-			const itemId = el.closest('.flux').id;
-			const templateId = 'share_article_template';
-			const id = itemId;
-			const flux_header_el = el.closest('.flux');
-			const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
-			const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
-			const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
-			let articleAuthorsText = '';
-			if (articleAuthors.trim().length > 0) {
-				articleAuthorsText = ' (' + articleAuthors + ')';
-			}
-			const link = title_el.href;
-			const title = title_el.textContent;
-			const titleText = title;
-			const div = el.parentElement;
-			const dropdownMenu = div.querySelector('.dropdown-menu');
-			const template = document.getElementById(templateId).innerHTML
-				.replace(/--entryId--/g, id)
-				.replace(/--link--/g, link)
-				.replace(/--titleText--/g, titleText)
-				.replace(/--websiteName--/g, websiteName)
-				.replace(/--articleAuthors--/g, articleAuthorsText);
-			if (!dropdownMenu) {
-				div.insertAdjacentHTML('beforeend', template);
-			}
-			return true;
+			return show_share_menu(el);
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="print"]');
