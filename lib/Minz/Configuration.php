@@ -29,8 +29,8 @@ class Minz_Configuration {
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
 	 * @throws Minz_FileNotExistException
 	 */
-	public static function register(string $namespace, string $config_filename, string $default_filename = null,
-		Minz_ConfigurationSetterInterface $configuration_setter = null): void {
+	public static function register(string $namespace, string $config_filename, ?string $default_filename = null,
+		?Minz_ConfigurationSetterInterface $configuration_setter = null): void {
 		self::$config_list[$namespace] = new static(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
@@ -105,8 +105,8 @@ class Minz_Configuration {
 	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
 	 * @throws Minz_FileNotExistException
 	 */
-	final private function __construct(string $namespace, string $config_filename, string $default_filename = null,
-		Minz_ConfigurationSetterInterface $configuration_setter = null) {
+	final private function __construct(string $namespace, string $config_filename, ?string $default_filename = null,
+		?Minz_ConfigurationSetterInterface $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;

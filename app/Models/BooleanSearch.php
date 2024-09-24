@@ -27,7 +27,7 @@ class FreshRSS_BooleanSearch {
 			if (!is_string($input)) {
 				return;
 			}
-			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
+			$input = preg_replace('/(?<=[\s(!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
 			if (!is_string($input)) {
 				return;
 			}
@@ -402,6 +402,7 @@ class FreshRSS_BooleanSearch {
 		return $this->getRawInput();
 	}
 
+	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}

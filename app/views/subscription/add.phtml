@@ -353,6 +353,14 @@
 					</select>
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
+				</div>
+			</div>
 		</details>
 
 		<div class="form-group form-actions">

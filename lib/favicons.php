@@ -96,7 +96,7 @@ function searchFavicon(string &$url): string {
 			$href = ($urlParts['scheme'] ?? 'https') . ':' . $href;
 		}
 
-		$href = SimplePie_IRI::absolutize($baseUrl, $href);
+		$href = \SimplePie\IRI::absolutize($baseUrl, $href);
 		if ($href == false) {
 			return '';
 		}

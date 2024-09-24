@@ -149,7 +149,7 @@ disponible dans le menu du flux.
 Avec le nombre croissant d’articles stockés par FreshRSS, il devient
 important d’avoir des filtres efficaces pour n’afficher qu’une partie des
 articles. Il existe plusieurs méthodes qui filtrent selon des critères
-différents. Ces méthodes peuvent être combinées dans la plus part des cas.
+différents. Ces méthodes peuvent être combinées dans la plupart des cas.
 
 ### Par catégorie
 
@@ -264,7 +264,8 @@ encore plus précis, et il est autorisé d’avoir plusieurs instances de :
 Combiner plusieurs critères implique un *et* logique, mais le mot clef `OR`
 peut être utilisé pour combiner plusieurs critères avec un *ou* logique : `author:Dupont OR author:Dupond`
 
-> ℹ️ Les recherches sont effectuées sur le code HTML brut
+> ℹ️ Les recherches sont effectuées sur le code HTML, et les caractères XML spéciaux `<&">` sont automatiquement encodés (donc on peut chercher `'A & B'` sans avoir à encoder le `&amp;`).
+> Pour chercher des tags HTML, il faut utiliser les recherches regex (voir ci-dessous).
 
 Enfin, les parenthèses peuvent être utilisées pour des expressions plus complexes, avec un support basique de la négation :
 
@@ -290,7 +291,9 @@ Le mode multilignes peut être activé avec l’option de recherche `m` comme : 
 
 Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
 
-Contrairement aux recherches normales, les caractères spéciaux HTML ne sont pas encodés dans les recherches regex, afin de permettre de chercher du code HTML, comme : `/Bonjour <span>à tous<\/span>/`
+Contrairement aux recherches normales, les caractères spéciaux XML `<&">` ne sont pas encodés dans les recherches regex, afin de permettre de chercher du code HTML, comme : `/Bonjour <span>à tous<\/span>/`
+
+> ℹ️ Une barre oblique (slash) doit être échappée comme suit : `\/`
 
 ⚠️ Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
 

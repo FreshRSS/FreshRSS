@@ -242,9 +242,9 @@ SQL;
 		foreach ($tables as $table) {
 			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
 			$stm = $this->pdo->query($sql);
-			if ($stm == false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
+			if ($stm === false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
 				$ok = false;
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}

@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if ($this->entry === null) {
+		return;
+	}
 	[$firstTags,$remainingTags] = $this->entry->tagsFormattingHelper();
 ?>
 <div class="tags">

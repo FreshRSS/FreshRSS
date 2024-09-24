@@ -5,7 +5,7 @@ final class FreshRSS_ViewStats extends FreshRSS_View {
 
 	/** @var array<int,FreshRSS_Category> */
 	public array $categories;
-	public FreshRSS_Feed $feed;
+	public ?FreshRSS_Feed $feed = null;
 	/** @var array<int,FreshRSS_Feed> */
 	public array $feeds;
 	public bool $displaySlider = false;
