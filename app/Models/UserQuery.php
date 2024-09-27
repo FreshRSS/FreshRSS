@@ -8,7 +8,6 @@ declare(strict_types=1);
  * easy way.
  */
 class FreshRSS_UserQuery {
-
 	private bool $deprecated = false;
 	private string $get = '';
 	private string $get_name = '';
@@ -22,10 +21,6 @@ class FreshRSS_UserQuery {
 	private string $token = '';
 	private bool $shareRss = false;
 	private bool $shareOpml = false;
-	/** @var array<int,FreshRSS_Category> $categories */
-	private array $categories;
-	/** @var array<int,FreshRSS_Tag> $labels */
-	private array $labels;
 	/** XML-encoded description */
 	private string $description = '';
 	private string $imageUrl = '';
