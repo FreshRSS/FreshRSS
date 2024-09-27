@@ -1,7 +1,7 @@
 <?php
-$GLOBALS['SQL_CREATE_DB'] = <<<'SQL_WRAP'
+$GLOBALS['SQL_CREATE_DB'] = <<<'SQL'
 SELECT 1;	-- Do nothing for SQLite
-SQL_WRAP;
+SQL;
 
 $GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `category` (

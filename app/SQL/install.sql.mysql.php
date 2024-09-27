@@ -113,7 +113,7 @@ $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;
 
-$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL_WRAP'
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
 DROP PROCEDURE IF EXISTS update_minor;
 CREATE PROCEDURE update_minor()
 BEGIN
@@ -156,4 +156,4 @@ BEGIN
 END;
 CALL update_minor();
 DROP PROCEDURE update_minor;
-SQL_WRAP;
+SQL;

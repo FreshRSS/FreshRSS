@@ -83,6 +83,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				], false),
 			'none' => Minz_Error::error(404),
 			default => Minz_Error::error(404),
+			// TODO load plugin instead
 		};
 	}
 
@@ -127,7 +128,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			usleep(mt_rand(100, 10000));	//Primitive mitigation of timing attacks, in μs
+			usleep(rand(100, 10000));	//Primitive mitigation of timing attacks, in μs
 
 			FreshRSS_Context::initUser($username);
 			if (!FreshRSS_Context::hasUserConf()) {
@@ -138,7 +139,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			}
 
 			if (!FreshRSS_Context::userConf()->enabled || FreshRSS_Context::userConf()->passwordHash == '') {
-				usleep(mt_rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
+				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
 				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
 				return;
 			}

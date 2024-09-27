@@ -983,7 +983,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$hubFilename = $path . '/!hub.json';
 			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
-				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string) $hubJson['key'])) {
+				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string)$hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
@@ -1037,7 +1037,7 @@ class FreshRSS_Feed extends Minz_Model {
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
-			if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string) $hubJson['key']) || empty($hubJson['hub'])) {
+			if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string)$hubJson['key']) || empty($hubJson['hub'])) {
 				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}

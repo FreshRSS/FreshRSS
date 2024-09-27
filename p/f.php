@@ -15,7 +15,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 }
 
 $id = $_SERVER['QUERY_STRING'] ?? '0';
-if (!ctype_xdigit((string) $id)) {
+if (!ctype_xdigit((string)$id)) {
 	$id = '0';
 }
 
@@ -25,7 +25,7 @@ $ico = FAVICONS_DIR . $id . '.ico';
 $ico_mtime = @filemtime($ico) ?: 0;
 $txt_mtime = @filemtime($txt) ?: 0;
 
-if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) {
+if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
 		exit();
@@ -48,7 +48,7 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 	}
 }
 
-if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
+if (!httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
 	$ico_content_type = contentType($ico);
 	header('Content-Type: ' . $ico_content_type);
 	header('Content-Disposition: inline; filename="' . $id . '.ico"');

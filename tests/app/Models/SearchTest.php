@@ -329,7 +329,7 @@ class SearchTest extends TestCase {
 	#[DataProvider('provideParentheses')]
 	public function test__parentheses(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim((string) $filterSearch));
+		self::assertEquals(trim($sql), trim((string)$filterSearch));
 		self::assertEquals($values, $filterValues);
 	}
 

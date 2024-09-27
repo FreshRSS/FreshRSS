@@ -74,7 +74,7 @@ function headerVariable(string $headerName, string $varName): string {
 function multiplePosts(string $name): array {
 	//https://bugs.php.net/bug.php?id=51633
 	global $ORIGINAL_INPUT;
-	$inputs = explode('&', (string) $ORIGINAL_INPUT);
+	$inputs = explode('&', (string)$ORIGINAL_INPUT);
 	$result = [];
 	$prefix = $name . '=';
 	$prefixLength = strlen($prefix);
@@ -278,7 +278,7 @@ final class GReaderAPI {
 		$categories = $categoryDAO->listCategories(true, false) ?: [];
 		foreach ($categories as $cat) {
 			$tags[] = [
-			'id' => 'user/-/label/' . htmlspecialchars_decode((string) $cat->name(), ENT_QUOTES),
+			'id' => 'user/-/label/' . htmlspecialchars_decode((string)$cat->name(), ENT_QUOTES),
 	   //'sortid' => $cat->name(),
 			'type' => 'folder',
 			];
@@ -288,7 +288,7 @@ final class GReaderAPI {
 		$labels = $tagDAO->listTags(true) ?: [];
 		foreach ($labels as $label) {
 			$tags[] = [
-			'id' => 'user/-/label/' . htmlspecialchars_decode((string) $label->name(), ENT_QUOTES),
+			'id' => 'user/-/label/' . htmlspecialchars_decode((string)$label->name(), ENT_QUOTES),
 	   //'sortid' => $label->name(),
 			'type' => 'tag',
 	   //Inoreader
@@ -341,14 +341,14 @@ final class GReaderAPI {
 					'title' => escapeToUnicodeAlternative($feed->name(), true),
 					'categories' => [
 						[
-							'id' => 'user/-/label/' . htmlspecialchars_decode((string) $cat->name(), ENT_QUOTES),
-							'label' => htmlspecialchars_decode((string) $cat->name(), ENT_QUOTES),
+							'id' => 'user/-/label/' . htmlspecialchars_decode((string)$cat->name(), ENT_QUOTES),
+							'label' => htmlspecialchars_decode((string)$cat->name(), ENT_QUOTES),
 						],
 					],
 					//'sortid' => $feed->name(),
 					//'firstitemmsec' => 0,
-					'url' => htmlspecialchars_decode((string) $feed->url(), ENT_QUOTES),
-					'htmlUrl' => htmlspecialchars_decode((string) $feed->website(), ENT_QUOTES),
+					'url' => htmlspecialchars_decode((string)$feed->url(), ENT_QUOTES),
+					'htmlUrl' => htmlspecialchars_decode((string)$feed->website(), ENT_QUOTES),
 					'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $feed->url()),
 				];
 			}
@@ -499,7 +499,7 @@ final class GReaderAPI {
 				}
 			}
 			$unreadcounts[] = [
-				'id' => 'user/-/label/' . htmlspecialchars_decode((string) $cat->name(), ENT_QUOTES),
+				'id' => 'user/-/label/' . htmlspecialchars_decode((string)$cat->name(), ENT_QUOTES),
 				'count' => $cat->nbNotRead(),
 				'newestItemTimestampUsec' => '' . $catLastUpdate,
 				];
@@ -514,7 +514,7 @@ final class GReaderAPI {
 		foreach ($tagDAO->listTags(true) ?: [] as $label) {
 			$lastUpdate = $tagsNewestItemUsec['t_' . $label->id()] ?? 0;
 			$unreadcounts[] = [
-				'id' => 'user/-/label/' . htmlspecialchars_decode((string) $label->name(), ENT_QUOTES),
+				'id' => 'user/-/label/' . htmlspecialchars_decode((string)$label->name(), ENT_QUOTES),
 				'count' => $label->nbUnread(),
 				'newestItemTimestampUsec' => '' . $lastUpdate,
 				];
@@ -948,7 +948,7 @@ final class GReaderAPI {
 		} else {
 			$pathInfo = $_SERVER['PATH_INFO'];
 		}
-		$pathInfo = urldecode((string) $pathInfo);
+		$pathInfo = urldecode((string)$pathInfo);
 		$pathInfo = '' . preg_replace('%^(/api)?(/greader\.php)?%', '', $pathInfo);	//Discard common errors
 		if ($pathInfo == '' && empty($_SERVER['QUERY_STRING'])) {
 			exit('OK');
@@ -1019,14 +1019,14 @@ final class GReaderAPI {
 					 * The same request can be re-issued with the value of that attribute put
 					 * in this parameter to get more items
 					 */
-					$continuation = isset($_GET['c']) ? trim((string) $_GET['c']) : '';
+					$continuation = isset($_GET['c']) ? trim((string)$_GET['c']) : '';
 					if (!ctype_digit($continuation)) {
 						$continuation = '';
 					}
 					if (isset($pathInfos[5]) && $pathInfos[5] === 'contents') {
 						if (!isset($pathInfos[6]) && isset($_GET['s'])) {
 							// Compatibility BazQux API https://github.com/bazqux/bazqux-api#fetching-streams
-							$streamIdInfos = explode('/', (string) $_GET['s']);
+							$streamIdInfos = explode('/', (string)$_GET['s']);
 							foreach ($streamIdInfos as $streamIdInfo) {
 								$pathInfos[] = $streamIdInfo;
 							}
@@ -1036,7 +1036,7 @@ final class GReaderAPI {
 								$include_target = $pathInfos[7];
 								if ($include_target != '' && !is_numeric($include_target)) {
 									$include_target = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
-									if (preg_match('#/reader/api/0/stream/contents/feed/([A-Za-z0-9\'!*()%$_.~+-]+)#', (string) $include_target, $matches) === 1) {
+									if (preg_match('#/reader/api/0/stream/contents/feed/([A-Za-z0-9\'!*()%$_.~+-]+)#', (string)$include_target, $matches) === 1) {
 										$include_target = urldecode($matches[1]);
 									} else {
 										$include_target = '';
@@ -1128,7 +1128,7 @@ final class GReaderAPI {
 					self::unreadCount();
 					// Always exits
 				case 'edit-tag':	//http://blog.martindoms.com/2010/01/20/using-the-google-reader-api-part-3/
-					$token = isset($_POST['T']) ? trim((string) $_POST['T']) : '';
+					$token = isset($_POST['T']) ? trim((string)$_POST['T']) : '';
 					self::checkToken(FreshRSS_Context::userConf(), $token);
 					$a = $_POST['a'] ?? '';	//Add:	user/-/state/com.google/read	user/-/state/com.google/starred
 					$r = $_POST['r'] ?? '';	//Remove:	user/-/state/com.google/read	user/-/state/com.google/starred
@@ -1136,14 +1136,14 @@ final class GReaderAPI {
 					self::editTag($e_ids, $a, $r);
 					// Always exits
 				case 'rename-tag':	//https://github.com/theoldreader/api
-					$token = isset($_POST['T']) ? trim((string) $_POST['T']) : '';
+					$token = isset($_POST['T']) ? trim((string)$_POST['T']) : '';
 					self::checkToken(FreshRSS_Context::userConf(), $token);
 					$s = $_POST['s'] ?? '';	//user/-/label/Folder
 					$dest = $_POST['dest'] ?? '';	//user/-/label/NewFolder
 					self::renameTag($s, $dest);
 					// Always exits
 				case 'disable-tag':	//https://github.com/theoldreader/api
-					$token = isset($_POST['T']) ? trim((string) $_POST['T']) : '';
+					$token = isset($_POST['T']) ? trim((string)$_POST['T']) : '';
 					self::checkToken(FreshRSS_Context::userConf(), $token);
 					$s_s = multiplePosts('s');
 					foreach ($s_s as $s) {
@@ -1151,7 +1151,7 @@ final class GReaderAPI {
 					}
 					// Always exits
 				case 'mark-all-as-read':
-					$token = isset($_POST['T']) ? trim((string) $_POST['T']) : '';
+					$token = isset($_POST['T']) ? trim((string)$_POST['T']) : '';
 					self::checkToken(FreshRSS_Context::userConf(), $token);
 					$streamId = trim($_POST['s'] ?? '');
 					$ts = trim($_POST['ts'] ?? '0');	//Older than timestamp in nanoseconds

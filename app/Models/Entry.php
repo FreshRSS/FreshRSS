@@ -57,7 +57,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['content'] = '';
 		}
 
-		$dao['attributes'] = empty($dao['attributes']) ? [] : json_decode((string) $dao['attributes'], true);
+		$dao['attributes'] = empty($dao['attributes']) ? [] : json_decode((string)$dao['attributes'], true);
 		if (!is_array($dao['attributes'])) {
 			$dao['attributes'] = [];
 		}
@@ -83,7 +83,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entry->_id($dao['id']);
 		}
 		if (!empty($dao['timestamp'])) {
-			$entry->_date(strtotime((string) $dao['timestamp']) ?: 0);
+			$entry->_date(strtotime((string)$dao['timestamp']) ?: 0);
 		}
 		if (isset($dao['lastSeen'])) {
 			$entry->_lastSeen($dao['lastSeen']);
@@ -226,7 +226,7 @@ HTML;
 			$description = nl2br($enclosure['description'] ?? '', true);
 			$length = $enclosure['length'] ?? 0;
 			$medium = $enclosure['medium'] ?? '';
-			$mime = $enclosure['type'] ?? '';
+			$mime = (string)($enclosure['type'] ?? '');
 			$thumbnails = $enclosure['thumbnails'] ?? null;
 			if (!is_array($thumbnails)) {
 				$thumbnails = [];
@@ -242,20 +242,20 @@ HTML;
 
 			if (self::enclosureIsImage($enclosure)) {
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
-			} elseif ($medium === 'audio' || str_starts_with((string) $mime, 'audio')) {
+			} elseif ($medium === 'audio' || str_starts_with($mime, 'audio')) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 					. ($length == null ? '' : '" data-length="' . (int)$length)
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars((string) $mime, ENT_COMPAT, 'UTF-8'))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-			} elseif ($medium === 'video' || str_starts_with((string) $mime, 'video')) {
+			} elseif ($medium === 'video' || str_starts_with($mime, 'video')) {
 				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 					. ($length == null ? '' : '" data-length="' . (int)$length)
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars((string) $mime, ENT_COMPAT, 'UTF-8'))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 			} else {	//e.g. application, text, unknown
 				$content .= '<p class="enclosure-content"><a download="" href="' . $elink
-					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars((string) $mime, ENT_COMPAT, 'UTF-8'))
-					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars((string) $medium, ENT_COMPAT, 'UTF-8'))
+					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
+					. ($medium == '' ? '' : '" data-medium="' . htmlspecialchars((string)$medium, ENT_COMPAT, 'UTF-8'))
 					. '" title="' . $etitle . '">💾</a></p>';
 			}
 
