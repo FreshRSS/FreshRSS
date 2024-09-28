@@ -456,7 +456,7 @@ HTML;
 	}
 
 	public function hash(): string {
-		if ($this->hash == '') {
+		if ($this->hash === '') {
 			//Do not include $this->date because it may be automatically generated when lacking
 			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
 		}
@@ -481,11 +481,12 @@ HTML;
 			$this->date_added = $value;
 		}
 	}
+
 	public function _guid(string $value): void {
 		$value = trim($value);
-		if (empty($value)) {
+		if ($value === '') {
 			$value = $this->link;
-			if (empty($value)) {
+			if ($value === '') {
 				$value = $this->hash();
 			} else {
 				$value = sha1($this->link . $this->title);
@@ -493,6 +494,7 @@ HTML;
 		}
 		$this->guid = $value;
 	}
+
 	public function _title(string $value): void {
 		$this->hash = '';
 		$this->title = trim($value);
