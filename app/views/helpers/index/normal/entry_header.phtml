@@ -11,7 +11,10 @@
 	$topline_date = FreshRSS_Context::userConf()->topline_date;
 	$topline_link = FreshRSS_Context::userConf()->topline_link;
 	$lazyload = FreshRSS_Context::userConf()->lazyload;
-?><ul class="horizontal-list flux_header website<?= $topline_website ?>"><?php
+	if ($this->feed === null || $this->entry === null) {
+		return;
+	}
+?><ul class="horizontal-list flux_header website<?= $topline_website ?>" data-website-name="<?= $this->feed->name() ?>" data-article-authors="<?= implode(', ', $this->entry->authors()) ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
@@ -80,8 +83,7 @@
 				<a class="dropdown-toggle" href="#dropdown-share2-<?= $this->entry->id() ?>" title="<?= _t('index.share') ?>">
 					<?= _i('share') ?>
 				</a>
-				<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
-				<a class="dropdown-close" href="#close">❌</a>
+				<?php /* entry_share_menu */ ?>
 			</div>
 		</li>
 	<?php } ?>

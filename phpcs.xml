@@ -11,7 +11,7 @@
 	<exclude-pattern>./lib/marienfressinaud/</exclude-pattern>
 	<exclude-pattern>./lib/phpgt/</exclude-pattern>
 	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
-	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./lib/simplepie/</exclude-pattern>
 	<exclude-pattern>./node_modules/</exclude-pattern>
 	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
 	<exclude-pattern>./vendor/</exclude-pattern>

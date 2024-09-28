@@ -32,7 +32,7 @@ class FreshRSS_FormAuth {
 		}
 
 		$credentials = @file_get_contents($token_file);
-		if ($credentials !== false && self::renewCookie($token)) {
+		if ($credentials !== false && self::renewCookie($token) != false) {
 			return explode("\t", $credentials, 2);
 		}
 		return [];
