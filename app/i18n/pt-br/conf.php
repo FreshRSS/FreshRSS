@@ -145,6 +145,7 @@ return array(
 		'search' => 'Busca por “%s”',
 		'share' => array(
 			'_' => 'Compartilhar esta consulta por link',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Forneça este link se quiser compartilhar esta consulta com alguém',
 			'html' => 'Link compartilhável para a página HTML',
 			'opml' => 'Link compartilhável para a lista de feeds OPML',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'Com autores e data',
 			),
 			'feed_title' => 'Título do Feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'No cabeçalho e rodapé',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Ordem de visualização',
 			'newer_first' => 'Novos primeiro',
 			'older_first' => 'Antigos primeiro',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
 		'title' => 'Lendo',

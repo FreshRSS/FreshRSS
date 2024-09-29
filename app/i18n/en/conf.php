@@ -145,6 +145,7 @@ return array(
 		'search' => 'Search for “%s”',
 		'share' => array(
 			'_' => 'Share this query by link',
+			'greader' => 'Shareable link to the GReader JSON',
 			'help' => 'Give this link if you want to share this query with anyone',
 			'html' => 'Shareable link to the HTML page',
 			'opml' => 'Shareable link to the OPML list of feeds',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'In authors and date row',
 			),
 			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
 			'tags' => array(
 				'_' => 'Tags',
 				'both' => 'In header and footer',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Sort order',
 			'newer_first' => 'Newest first',
 			'older_first' => 'Oldest first',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
 		'title' => 'Reading',

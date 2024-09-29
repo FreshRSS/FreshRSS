@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Standard-Kürzel laden',
 		'manage' => 'Verwalten',
 		'mark_read' => 'Als gelesen markieren',
+		'menu' => array(
+			'open' => 'Menü öffnen',
+		),
 		'nav_buttons' => array(
 			'next' => 'Nächster Artikel',
 			'prev' => 'Vorheriger Artikel',
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
@@ -224,6 +228,7 @@ return array(
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE

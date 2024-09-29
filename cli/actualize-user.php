@@ -29,6 +29,9 @@ $databaseDAO->minorDbMaintenance();
 Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
 
 FreshRSS_feed_Controller::commitNewEntries();
+$feedDAO = FreshRSS_Factory::createFeedDao();
+$feedDAO->updateCachedValues();
+
 $result = FreshRSS_category_Controller::refreshDynamicOpmls();
 if (!empty($result['errors'])) {
 	$errors = $result['errors'];
@@ -39,10 +42,7 @@ if (!empty($result['successes'])) {
 	echo "FreshRSS refreshed $successes dynamic OPMLs for $username\n";
 }
 
-[$nbUpdatedFeeds, , $nbNewArticles] = FreshRSS_feed_Controller::actualizeFeeds();
-if ($nbNewArticles > 0) {
-	FreshRSS_feed_Controller::commitNewEntries();
-}
+[$nbUpdatedFeeds, , $nbNewArticles] = FreshRSS_feed_Controller::actualizeFeedsAndCommit();
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
 

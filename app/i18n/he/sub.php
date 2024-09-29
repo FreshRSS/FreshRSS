@@ -29,7 +29,9 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Empty category',	// TODO
+		'expand' => 'Expand category',	// TODO
 		'information' => 'מידע',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// TODO
 		'position' => 'Display position',	// TODO
 		'position_help' => 'To control category sort order',	// TODO
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',	// TODO
 		),
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'מידע',
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת	<em>%s</em>.',
-		'mute' => 'mute',	// TODO
+		'mute' => array(
+			'_' => 'mute',	// TODO
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'archived' => 'Do not show (archived)',	// TODO

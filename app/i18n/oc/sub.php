@@ -29,7 +29,9 @@ return array(
 			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informacions',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Acceptar los cookies',
 		'accept_cookies_help' => 'Permetre al servidor del flux de definir de cookies (gardatz en memòria pendent la durada de la requèsta sonque)',
-		'add' => 'Ajustar un flux RSS',
+		'add' => 'Ajustar un flux',
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'css_path_filter' => array(
 			'_' => 'Selector CSS de l’element de tirar',
-			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside</kbd>',
+			'help' => 'Un selector CSS pòt èsser una lista coma : <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filtre d’accion',
 			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informacions',
 		'keep_min' => 'Nombre minimum d’articles de servar',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
-		'mute' => 'mut',
+		'mute' => array(
+			'_' => 'mut',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Cap de flux pas seleccionat.',
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibilitat',
 			'archived' => 'Mostrar pas (archivat)',

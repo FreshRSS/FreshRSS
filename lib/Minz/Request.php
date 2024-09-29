@@ -40,11 +40,11 @@ class Minz_Request {
 	 * Read the URL parameter
 	 * @param string $key Key name
 	 * @param mixed $default default value, if no parameter is given
-	 * @param bool $specialchars special characters
+	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
 	 * @return mixed value of the parameter
 	 * @deprecated use typed versions instead
 	 */
-	public static function param(string $key, $default = false, bool $specialchars = false) {
+	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_string($p) || is_array($p)) {
@@ -61,12 +61,27 @@ class Minz_Request {
 		return isset(self::$params[$key]);
 	}
 
-	/** @return array<string|int,string|array<string,string|int|bool>> */
-	public static function paramArray(string $key, bool $specialchars = false): array {
+	/**
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @return array<string|int,string|array<string,string|int|bool>>
+	 */
+	public static function paramArray(string $key, bool $plaintext = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
 			return [];
 		}
-		return $specialchars ? Minz_Helper::htmlspecialchars_utf8(self::$params[$key]) : self::$params[$key];
+		return $plaintext ? self::$params[$key] : Minz_Helper::htmlspecialchars_utf8(self::$params[$key]);
+	}
+
+	/**
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @return array<string>
+	 */
+	public static function paramArrayString(string $key, bool $plaintext = false): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_string');
+		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 	}
 
 	public static function paramTernary(string $key): ?bool {
@@ -97,18 +112,28 @@ class Minz_Request {
 		return 0;
 	}
 
-	public static function paramString(string $key, bool $specialchars = false): string {
+	/**
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 */
+	public static function paramStringNull(string $key, bool $plaintext = false): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
 				$s = trim($s);
-				return $specialchars ? $s : htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
+				return $plaintext ? $s : htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 			}
 			if (is_int($s) || is_bool($s)) {
 				return (string)$s;
 			}
 		}
-		return '';
+		return null;
+	}
+
+	/**
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 */
+	public static function paramString(string $key, bool $plaintext = false): string {
+		return self::paramStringNull($key, $plaintext) ?? '';
 	}
 
 	/**
@@ -117,14 +142,15 @@ class Minz_Request {
 	 * It will return an array where each cell contains one line of a text. The new line
 	 * character is used to break the text into lines. This method is well suited to use
 	 * to split textarea content.
-	 * @param array<string> $default
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
 	 * @return array<string>
 	 */
-	public static function paramTextToArray(string $key, array $default = []): array {
+	public static function paramTextToArray(string $key, bool $plaintext = false): array {
 		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
-			return preg_split('/\R/u', self::$params[$key]) ?: [];
+			$result = preg_split('/\R/u', self::$params[$key]) ?: [];
+			return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 		}
-		return $default;
+		return [];
 	}
 
 	public static function defaultControllerName(): string {
@@ -143,7 +169,7 @@ class Minz_Request {
 	}
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
-	public static function originalRequest() {
+	public static function originalRequest(): array {
 		return self::$originalRequest;
 	}
 
@@ -431,7 +457,7 @@ class Minz_Request {
 	 * Allows receiving POST data as application/json
 	 */
 	private static function initJSON(): void {
-		if ('application/json' !== self::extractContentType()) {
+		if (!str_starts_with(self::extractContentType(), 'application/json')) {
 			return;
 		}
 		$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);

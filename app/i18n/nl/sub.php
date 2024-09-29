@@ -29,7 +29,9 @@ return array(
 			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informatie',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookies accepteren',
 		'accept_cookies_help' => 'De feed-server toestaan cookies te plaatsen (die alleen voor de duur van de aanvraag in het geheugen worden opgeslagen)',
-		'add' => 'Voeg een RSS-feed toe',
+		'add' => 'Voeg een feed toe',
 		'advanced' => 'Geavanceerd',
 		'archiving' => 'Archiveren',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'CSS-pad van artikelen op originele website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector van de elementen om te verwijderen',
-			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside</kbd>',
+			'help' => 'Een CSS selector kan een lijst zijn, zoals: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filteracties',
 			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informatie',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'De POST-payload ondersteunt automatisch <code>application/x-www-form-urlencoded</code> en <code>application/json</code>',
 		'method_postparams' => 'Payload voor POST',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
-		'mute' => 'demp',
+		'mute' => array(
+			'_' => 'demp',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'archived' => 'Niet weergeven (gearchiveerd)',

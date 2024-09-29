@@ -145,6 +145,7 @@ return array(
 		'search' => 'Szukaj “%s”',
 		'share' => array(
 			'_' => 'Udostępnij to zapytanie',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Posłuż się tym odnośnikiem, aby podzielić się zapytaniem',
 			'html' => 'Odnośnik do strony HTML',
 			'opml' => 'Odnośnik do listy kanałów (OPML)',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'W tej samej linii co autor i data',
 			),
 			'feed_title' => 'Nazwa kanału',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tagi',
 				'both' => 'W nagłówku i stopce',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Porządek sortowania',
 			'newer_first' => 'Najpierw najnowsze',
 			'older_first' => 'Najpierw najstarsze',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
 		'title' => 'Czytanie',

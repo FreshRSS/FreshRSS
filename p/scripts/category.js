@@ -25,7 +25,7 @@ function dragend_process(t) {
 
 		if (p.childElementCount <= 1) {
 			p.insertAdjacentHTML('afterbegin',
-				'<li class="item feed disabled"><div class="alert-warn">' + context.i18n.category_empty + '</div></li>');
+				'<li class="item feed disabled emptyCategory"><div class="alert-warn">' + context.i18n.category_empty + '</div></li>');
 		}
 	}
 }
@@ -143,7 +143,7 @@ function init_draggable() {
 					dragFeedId = '';
 					dragHtml = '';
 				};
-				req.setRequestHeader('Content-Type', 'application/json');
+				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
 					f_id: dragFeedId,
 					c_id: ul_dropzone.getAttribute('data-cat-id'),

@@ -145,6 +145,7 @@ return array(
 		'search' => 'Meklēt “%s”',
 		'share' => array(
 			'_' => 'Kopīgot šo pieprasījumu ar saiti',
+      'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',
 			'html' => 'Kopīgojama saite uz HTML lapu',
 			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'Autoru un datuma rindā',
 			),
 			'feed_title' => 'Barotnes tituls',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Birkas',
 				'both' => 'Virsrakstā un kājenē',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Kārtošanas kārtība',
 			'newer_first' => 'Sākumā jaunākos',
 			'older_first' => 'Sākumā vecākos',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',

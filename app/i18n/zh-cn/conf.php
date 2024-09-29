@@ -145,6 +145,7 @@ return array(
 		'search' => '搜索 “%s”',
 		'share' => array(
 			'_' => '分享您的自定义查询',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '获取此自定义查询的分享链接',
 			'html' => 'HTML 页面的分享链接',
 			'opml' => '订阅源 OPML 的分享链接',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => '与作者和日期一行',
 			),
 			'feed_title' => '订阅源标题',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '文章标签',
 				'both' => '页脚与页眉',
@@ -244,6 +250,9 @@ return array(
 			'_' => '排列顺序',
 			'newer_first' => '由新至旧',
 			'older_first' => '由旧至新',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',

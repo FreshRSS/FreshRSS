@@ -21,6 +21,7 @@ declare(strict_types=1);
  * @property int $show_tags_max
  * @property string $show_author_date
  * @property string $show_feed_name
+ * @property string $show_article_icons
  * @property bool $display_posts
  * @property string $email_validation_token
  * @property-read bool $enabled
@@ -60,6 +61,7 @@ declare(strict_types=1);
  * @property bool $topline_date
  * @property bool $topline_display_authors
  * @property bool $topline_favorite
+ * @property bool $topline_sharing
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary

@@ -17,7 +17,7 @@
         "WebSub"
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -49,18 +49,18 @@
             "phpstan/extension-installer": false
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         }
     },
     "require-dev": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "ext-phar": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*",
         "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-phpunit": "^1.4",
         "phpstan/phpstan-strict-rules": "^1.6",
-        "phpunit/phpunit": "^9",
+        "phpunit/phpunit": "^10",
         "squizlabs/php_codesniffer": "^3.9"
     },
     "scripts": {
@@ -70,15 +70,14 @@
         "phpcbf": "phpcbf . -p -s",
         "phpstan": "phpstan analyse --memory-limit 512M .",
         "phpstan-next": "phpstan analyse --memory-limit 512M -c phpstan-next.neon .",
-        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --verbose ./tests",
+        "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-phpunit-deprecations ./tests",
         "translations": "cli/manipulate.translation.php -a format",
         "test": [
             "@php-lint",
             "@phtml-lint",
             "@phpunit",
             "@phpcs",
-            "@phpstan",
-            "@phpstan-next"
+            "@phpstan"
         ],
         "fix": [
             "@translations",

@@ -11,6 +11,7 @@ abstract class CliOptionsParser {
 	public string $usage = '';
 
 	public function __construct() {
+		/** @var array<string> $argv */
 		global $argv;
 
 		$this->usage = $this->getUsageMessage($argv[0]);
@@ -43,7 +44,7 @@ abstract class CliOptionsParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	protected function addOption(string $name, CliOption $option, string $defaultInput = null): void {
+	protected function addOption(string $name, CliOption $option, ?string $defaultInput = null): void {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
@@ -82,7 +83,7 @@ abstract class CliOptionsParser {
 		foreach ($this->inputs as $name => $input) {
 			$values = $input['values'] ?? $input['defaultInput'] ?? null;
 			$types = $this->options[$name]->getTypes();
-			if ($values) {
+			if (!empty($values)) {
 				$validValues = [];
 				$typedValues = [];
 
@@ -136,10 +137,10 @@ abstract class CliOptionsParser {
 		foreach ($userInputs as $input) {
 			preg_match($regex, $input, $matches);
 
-			if(!empty($matches['short'])) {
+			if (!empty($matches['short'])) {
 				$foundAliases = array_merge($foundAliases, str_split($matches['short']));
 			}
-			if(!empty($matches['long'])) {
+			if (!empty($matches['long'])) {
 				$foundAliases[] = $matches['long'];
 			}
 		}
@@ -205,8 +206,8 @@ abstract class CliOptionsParser {
 
 		foreach ($this->options as $option) {
 			$long[] = $option->getLongAlias() . $getoptNotation[$option->getValueTaken()];
-			$long[] = $option->getDeprecatedAlias() ? $option->getDeprecatedAlias() . $getoptNotation[$option->getValueTaken()] : '';
-			$short .= $option->getShortAlias() ? $option->getShortAlias() . $getoptNotation[$option->getValueTaken()] : '';
+			$long[] = $option->getDeprecatedAlias() != null ? $option->getDeprecatedAlias() . $getoptNotation[$option->getValueTaken()] : '';
+			$short .= $option->getShortAlias() != null ? $option->getShortAlias() . $getoptNotation[$option->getValueTaken()] : '';
 		}
 
 		return [
@@ -220,7 +221,7 @@ abstract class CliOptionsParser {
 		$optional = [];
 
 		foreach ($this->options as $name => $option) {
-			$shortAlias = $option->getShortAlias() ? '-' . $option->getShortAlias() . ' ' : '';
+			$shortAlias = $option->getShortAlias() != null ? '-' . $option->getShortAlias() . ' ' : '';
 			$longAlias = '--' . $option->getLongAlias() . ($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '');
 			if ($this->inputs[$name]['required']) {
 				$required[] = $shortAlias . $longAlias;
@@ -232,10 +233,10 @@ abstract class CliOptionsParser {
 		return implode(' ', $required) . ' ' . implode(' ', $optional);
 	}
 
-	private function makeInputRegex() : string {
+	private function makeInputRegex(): string {
 		$shortWithValues = '';
 		foreach ($this->options as $option) {
-			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias()) {
+			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias() != null) {
 				$shortWithValues .= $option->getShortAlias();
 			}
 		}

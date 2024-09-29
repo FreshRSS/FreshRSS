@@ -3,8 +3,8 @@ declare(strict_types=1);
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-const FRESHRSS_MIN_PHP_VERSION = '7.4.0';
-const FRESHRSS_VERSION = '1.24.2-dev';
+const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
+const FRESHRSS_VERSION = '1.25.0-dev';
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
 

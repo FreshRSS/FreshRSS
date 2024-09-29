@@ -32,7 +32,7 @@ Nous avons aussi besoin de quelques informations :
 
 * Votre version de FreshRSS (sur la page A propos) ou le fichier `constants.php`)
 * Votre configuration de serveur : type d’hébergement, version PHP
-* Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle version ?
+* Quelle base de données : SQLite, PostgreSQL, MariaDB, MySQL ? Quelle version ?
 * Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/users/your_user/log.txt`)
 
 ## Corriger un bogue

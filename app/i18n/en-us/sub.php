@@ -29,7 +29,9 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
 		),
 		'empty' => 'Empty category',	// IGNORE
+		'expand' => 'Expand category',	// IGNORE
 		'information' => 'Information',	// IGNORE
+		'open' => 'Open category',	// IGNORE
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',	// IGNORE
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// IGNORE
-		'add' => 'Add an RSS feed',	// IGNORE
+		'add' => 'Add a feed',	// IGNORE
 		'advanced' => 'Advanced',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Article CSS selector on original website',	// IGNORE
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',	// IGNORE
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// IGNORE
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',	// IGNORE
 		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filter actions',	// IGNORE
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
 		),
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// IGNORE
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// IGNORE
 		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
-		'mute' => 'mute',	// IGNORE
+		'mute' => array(
+			'_' => 'mute',	// IGNORE
+			'state_is_muted' => 'This feed is muted',	// IGNORE
+		),
 		'no_selected' => 'No feed selected.',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Open feed %s',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'archived' => 'Do not show (archived)',	// IGNORE

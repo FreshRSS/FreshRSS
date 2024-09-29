@@ -145,6 +145,7 @@ return array(
 		'search' => 'Search for “%s”',	// IGNORE
 		'share' => array(
 			'_' => 'Share this query by link',	// IGNORE
+			'greader' => 'Shareable link to the GReader JSON',	// IGNORE
 			'help' => 'Give this link if you want to share this query with anyone',	// IGNORE
 			'html' => 'Shareable link to the HTML page',	// IGNORE
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'In authors and date row',	// IGNORE
 			),
 			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In header and footer',	// IGNORE
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Sort order',	// IGNORE
 			'newer_first' => 'Newest first',	// IGNORE
 			'older_first' => 'Oldest first',	// IGNORE
+		),
+		'star' => array(
+			'when' => 'Mark an article as favorite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
 		'title' => 'Reading',	// IGNORE

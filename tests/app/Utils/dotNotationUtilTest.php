@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
 
 	/**
 	 * @return Traversable<array{array<string,mixed>,string,string}>
 	 */
-	public function provideJsonDots(): Traversable {
+	public static function provideJsonDots(): Traversable {
 		$json = <<<json
 		{
 			"hello": "world",
@@ -34,10 +36,10 @@ class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @dataProvider provideJsonDots
 	 * @param array<string,mixed> $array
 	 */
-	public function testJsonDots(array $array, string $key, string $expected): void {
+	#[DataProvider('provideJsonDots')]
+	public static function testJsonDots(array $array, string $key, string $expected): void {
 		$value = FreshRSS_dotNotation_Util::get($array, $key);
 		self::assertEquals($expected, $value);
 	}

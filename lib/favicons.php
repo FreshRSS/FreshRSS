@@ -96,7 +96,7 @@ function searchFavicon(string &$url): string {
 			$href = ($urlParts['scheme'] ?? 'https') . ':' . $href;
 		}
 
-		$href = SimplePie_IRI::absolutize($baseUrl, $href);
+		$href = \SimplePie\IRI::absolutize($baseUrl, $href);
 		if ($href == false) {
 			return '';
 		}
@@ -131,4 +131,17 @@ function download_favicon(string $url, string $dest): bool {
 	}
 	return ($favicon != '' && file_put_contents($dest, $favicon) > 0) ||
 		@copy(DEFAULT_FAVICON, $dest);
+}
+
+function contentType(string $ico): string {
+	$ico_content_type = 'image/x-icon';
+	if (function_exists('mime_content_type')) {
+		$ico_content_type = mime_content_type($ico) ?: $ico_content_type;
+	}
+	switch ($ico_content_type) {
+		case 'image/svg':
+			$ico_content_type = 'image/svg+xml';
+			break;
+	}
+	return $ico_content_type;
 }

@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'Manage',	// TODO
 		'mark_read' => 'Mark as read',	// TODO
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// TODO
 		'buffer' => 'Buffer',	// IGNORE
@@ -224,6 +228,7 @@ return array(
 		'raindrop' => 'Raindrop.io',	// TODO
 		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// TODO
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',	// TODO
 		'wallabag' => 'wallabag v1',	// TODO
 		'wallabagv2' => 'wallabag v2',	// TODO

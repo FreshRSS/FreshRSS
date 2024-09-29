@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => ' میانبرهای پیش فرض را بارگیری کنید',
 		'manage' => ' مدیریت',
 		'mark_read' => ' علامت گذاری به عنوان خوانده شده',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
 		'buffer' => ' بافر',
@@ -224,6 +228,7 @@ return array(
 		'raindrop' => ' Raindrop.io',
 		'reddit' => ' Reddit',
 		'shaarli' => ' شعرلی',
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => ' توییتر',
 		'wallabag' => ' wallabag نسخه 1',
 		'wallabagv2' => ' wallabag نسخه 2',

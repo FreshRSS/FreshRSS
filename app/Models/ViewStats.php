@@ -5,7 +5,7 @@ final class FreshRSS_ViewStats extends FreshRSS_View {
 
 	/** @var array<int,FreshRSS_Category> */
 	public array $categories;
-	public FreshRSS_Feed $feed;
+	public ?FreshRSS_Feed $feed = null;
 	/** @var array<int,FreshRSS_Feed> */
 	public array $feeds;
 	public bool $displaySlider = false;
@@ -44,5 +44,4 @@ final class FreshRSS_ViewStats extends FreshRSS_View {
 	public array $repartitionMonth;
 	/** @var array<array{'id':int,'name':string,'category':string,'count':int}> */
 	public array $topFeed;
-
 }

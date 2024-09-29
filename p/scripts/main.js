@@ -85,8 +85,7 @@ function numberFormat(nStr) {
 		return 0;
 	}
 	// http://www.mredkj.com/javascript/numberFormat.html
-	nStr += '';
-	const x = nStr.split('.');
+	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;
 	let x1 = x[0];
@@ -279,7 +278,7 @@ function send_mark_read_queue(queue, asRead, callback) {
 			callback();
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		ajax: true,
 		_csrf: context.csrf,
@@ -392,7 +391,7 @@ function mark_favorite(div) {
 
 		delete pending_entries[div.id];
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		ajax: true,
 		_csrf: context.csrf,
@@ -402,6 +401,13 @@ function mark_favorite(div) {
 const freshrssOpenArticleEvent = document.createEvent('Event');
 freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
 
+function loadLazyImages(rootElement) {
+	rootElement.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
+		el.src = el.getAttribute('data-original');
+		el.removeAttribute('data-original');
+	});
+}
+
 function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
 	if (!new_active) {
@@ -409,10 +415,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	if (context.does_lazyload && !skipping) {
-		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
-			el.src = el.getAttribute('data-original');
-			el.removeAttribute('data-original');
-		});
+		loadLazyImages(new_active);
 	}
 
 	if (old_active !== new_active) {
@@ -540,7 +543,8 @@ function prev_feed() {
 			continue;
 		}
 		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
@@ -569,7 +573,8 @@ function next_feed() {
 			continue;
 		}
 		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
@@ -600,7 +605,7 @@ function prev_category() {
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		last_category();
@@ -614,7 +619,7 @@ function next_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -628,7 +633,7 @@ function next_unread_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -636,12 +641,12 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	if (links && links.length > 0) {
 		delayedClick(links[links.length - 1]);
 	}
@@ -692,6 +697,37 @@ function user_filter(key) {
 	}
 }
 
+function show_share_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu) {
+		const itemId = el.closest('.flux').id;
+		const templateId = 'share_article_template';
+		const id = itemId;
+		const flux_header_el = el.closest('.flux');
+		const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+		const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+		const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+		let articleAuthorsText = '';
+		if (articleAuthors.trim().length > 0) {
+			articleAuthorsText = ' (' + articleAuthors + ')';
+		}
+		const link = title_el.href;
+		const title = title_el.textContent;
+		const titleText = title;
+		const template = document.getElementById(templateId).innerHTML
+			.replace(/--entryId--/g, id)
+			.replace(/--link--/g, link)
+			.replace(/--titleText--/g, titleText)
+			.replace(/--websiteName--/g, websiteName)
+			.replace(/--articleAuthors--/g, articleAuthorsText);
+
+		div.insertAdjacentHTML('beforeend', template);
+	}
+	return true;
+}
+
 function auto_share(key) {
 	const share = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-share"]');
 	if (!share) {
@@ -699,12 +735,18 @@ function auto_share(key) {
 	}
 	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
+		show_share_menu(share);
+
 		// Display the share div
 		location.hash = share.id;
 		// Force scrolling to the share div
-		const scrollTop = needsScroll(share.closest('.bottom'));
+		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
-			document.scrollingElement.scrollTop = scrollTop;
+			if (share.closest('.horizontal-list.flux_header')) {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -799,7 +841,7 @@ function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
 	if (!category_element) return;
 	category_element.querySelector('.tree-folder-items').classList.add('active');
-	const img = category_element.querySelector('a.dropdown-toggle img');
+	const img = category_element.querySelector('button.dropdown-toggle img');
 	if (!img) return;
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '🔼';
@@ -833,7 +875,7 @@ function init_column_categories() {
 	}
 
 	document.getElementById('aside_feed').onclick = function (ev) {
-		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
+		let a = ev.target.closest('.tree-folder > .tree-folder-title > button.dropdown-toggle');
 		if (a) {
 			const icon = a.querySelector('.icon');
 			const category_id = a.closest('.category').id;
@@ -870,19 +912,18 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
-			loadJs('extra.js');
-			loadJs('feed.js');
-			const itemId = a.closest('.item').id;
-			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
-			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb') || '';
 			const div = a.parentElement;
 			const dropdownMenu = div.querySelector('.dropdown-menu');
-			const template = document.getElementById(templateId)
-				.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+
 			if (!dropdownMenu) {
-				a.href = '#dropdown-' + id;
-				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
+				loadJs('extra.js');
+				loadJs('feed.js');
+				const itemId = a.closest('.item').id;
+				const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
+				const id = itemId.substr(2);
+				const feed_web = a.getAttribute('data-fweb') || '';
+				const template = document.getElementById(templateId)
+					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
@@ -894,11 +935,6 @@ function init_column_categories() {
 				if (b) {
 					b.disabled = false;
 				}
-			} else if (getComputedStyle(dropdownMenu).display === 'none') {
-				const id2 = div.closest('.item').id.substr(2);
-				a.href = '#dropdown-' + id2;
-			} else {
-				a.href = '#close';
 			}
 			return true;
 		}
@@ -910,6 +946,11 @@ function init_column_categories() {
 function init_shortcuts() {
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
+		if (context.shortcuts[k].indexOf('&') >= 0) {
+			// Decode potential HTML entities <'&">
+			const parser = new DOMParser();
+			context.shortcuts[k] = parser.parseFromString(context.shortcuts[k], 'text/html').documentElement.textContent;
+		}
 	});
 
 	document.addEventListener('keydown', ev => {
@@ -1095,13 +1136,27 @@ function init_stream(stream) {
 			return true;
 		}
 
+		el = ev.target.closest('.item.share a.dropdown-toggle');
+		if (el) {
+			return show_share_menu(el);
+		}
+
 		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
 			const tmp_window = window.open();
 			for (let i = 0; i < document.styleSheets.length; i++) {
 				tmp_window.document.writeln('<link href="' + document.styleSheets[i].href + '" rel="stylesheet" type="text/css" />');
 			}
-			tmp_window.document.writeln(el.closest('.flux_content').querySelector('.content').innerHTML);
+			const flux_content = el.closest('.flux_content');
+			let content_el = null;
+			if (flux_content) {
+				content_el = el.closest('.flux_content').querySelector('.content');
+			}
+			if (content_el === null) {
+				content_el = el.closest('.flux').querySelector('.flux_content .content');
+			}
+			loadLazyImages(content_el);
+			tmp_window.document.writeln(content_el.innerHTML);
 			tmp_window.document.close();
 			tmp_window.focus();
 			tmp_window.print();
@@ -1254,7 +1309,7 @@ function init_stream(stream) {
 						loadDynamicTags(checkboxTag.closest('div.dropdown'));
 					}
 				};
-				req.setRequestHeader('Content-Type', 'application/json');
+				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
 					_csrf: context.csrf,
 					id_tag: tagId,
@@ -1415,7 +1470,7 @@ function refreshFeed(feeds, feeds_count) {
 			req2.onloadend = function (e) {
 				delayedFunction(function () { location.reload(); });
 			};
-			req2.setRequestHeader('Content-Type', 'application/json');
+			req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			req2.send(JSON.stringify({
 				_csrf: context.csrf,
 				noCommit: 0,
@@ -1424,7 +1479,7 @@ function refreshFeed(feeds, feeds_count) {
 			refreshFeed(feeds, feeds_count);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1440,7 +1495,7 @@ function refreshFeeds(json) {
 		req2.onloadend = function (e) {
 			context.ajax_loading = false;
 		};
-		req2.setRequestHeader('Content-Type', 'application/json');
+		req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req2.send(JSON.stringify({
 			_csrf: context.csrf,
 			noCommit: 0,
@@ -1475,7 +1530,7 @@ function refreshDynamicOpml(categories, categories_count, next) {
 			refreshDynamicOpml(categories, categories_count, next);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1546,7 +1601,7 @@ function init_actualize() {
 				refreshFeeds(json);
 			}
 		};
-		req.setRequestHeader('Content-Type', 'application/json');
+		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req.send(JSON.stringify({
 			_csrf: context.csrf,
 		}));

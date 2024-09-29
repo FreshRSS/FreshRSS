@@ -29,7 +29,9 @@ return array(
 			'help' => 'Norādiet URL uz <a href="http://opml.org/" target="_blank">OPML failu</a>, lai dinamiski papildinātu šo kategoriju ar barotnēm.',
 		),
 		'empty' => 'Tukša kategorija',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informācija',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Displeja pozīcija',
 		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Pieņemt sīkfailus',
 		'accept_cookies_help' => 'Atļaut barotnes serverim iestatīt sīkfailus (atmiņā tiek saglabāti tikai uz pieprasījuma laiku).',
-		'add' => 'Pievienot RSS barotni',
+		'add' => 'Pievienot barotni',
 		'advanced' => 'Advancēts',
 		'archiving' => 'Arhivēšana',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Raksta CSS selektors sākotnējā vietnē',
 		'css_path_filter' => array(
 			'_' => 'Noņemamo elementu CSS selektors',
-			'help' => 'CSS selektors var būt saraksts, piemēram.: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS selektors var būt saraksts, piemēram.: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Apraksts',
 		'empty' => 'Šī barotne ir tukša. Lūdzu, pārbaudiet, vai tā joprojām tiek uzturēta.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filtra darbības',
 			'help' => 'Uzrakstiet vienu meklēšanas filtru katrā rindā. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informācija',
 		'keep_min' => 'Minimālais saglabājamo izstrādājumu skaits',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'POST dati automātiski atbalsta <code>application/x-www-form-urlencoded</code> un <code>application/json</code>',
 		'method_postparams' => 'Nosūtīšanas dati POST metodei',
 		'moved_category_deleted' => 'Kad dzēšat kategoriju, tās plūsmas automātiski tiek automātiski klasificētas kategorijā <em>%s</em>.',
-		'mute' => 'klusināt',
+		'mute' => array(
+			'_' => 'klusināt',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Barotne nav izvēlēta.',
 		'number_entries' => '%d raksti',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'archived' => 'Nerādīt (arhivēts)',

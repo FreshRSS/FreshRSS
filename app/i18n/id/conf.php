@@ -145,6 +145,7 @@ return array(
 		'search' => 'Cari untuk "%s"',
 		'share' => array(
 			'_' => 'Bagikan permintaan ini melalui tautan',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Berikan tautan ini jika Anda ingin berbagi permintaan ini dengan siapa pun',
 			'html' => 'Tautan dapat dibagikan ke halaman HTML',
 			'opml' => 'Tautan dapat dibagikan ke daftar OPML dari feed',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'Di baris penulis dan tanggal',
 			),
 			'feed_title' => 'Judul feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'Di header dan footer',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Urutan penyortiran',
 			'newer_first' => 'Terbaru dulu',
 			'older_first' => 'Terlama dulu',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Tempelkan artikel di bagian atas saat dibuka',
 		'title' => 'Membaca',

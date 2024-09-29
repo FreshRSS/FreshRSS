@@ -30,26 +30,21 @@
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('all') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?=
-					_url('index', $actual_view) . $state_filter_manual ?>"><?= _t('index.menu.main_stream') ?></a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>" href="<?= _url('index', $actual_view) . $state_filter_manual ?>">
+				<?= _i('all') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>"><?= _t('index.menu.main_stream') ?></span>
+			</a>
 		</li>
 
 		<li class="tree-folder category important<?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('important') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
-					<?= _t('index.menu.important') ?>
-				</a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>" href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
+				<?= _i('important') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>"><?= _t('index.menu.important') ?></span>
+			</a>
 		</li>
 
 		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
-			<div class="tree-folder-title">
-				<?= _i('starred') ?><a class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
-					<?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?>
-				</a>
-			</div>
+			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>" href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
+				<?= _i('starred') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>"><?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?></span>
+			</a>
 		</li>
 
 		<?php
@@ -57,17 +52,17 @@
 			$t_show = ($t_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true)) || FreshRSS_Context::userConf()->display_categories === 'all';
 		?>
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>">
-			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($t_show ? 'up' : 'down') ?></a><a class="title" data-unread="<?= format_number($this->nbUnreadTags) ?>" href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>"><?= _t('index.menu.tags') ?></a>
-			</div>
+			<a href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>" class="tree-folder-title">
+				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($t_show ? 'up' : 'down') ?></button><span class="title" title="<?= _t('sub.category.open') ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"><?= _t('index.menu.tags') ?></span>
+			</a>
 			<ul class="tree-folder-items<?= $t_show ? ' active' : '' ?>">
 				<?php
 					foreach ($this->tags as $tag):
 				?>
 				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : '' ?>" data-unread="<?= $tag->nbUnread() ?>">
 					<div class="dropdown no-mobile">
-						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle"><?= _i('configure') ?></a>
+						<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
+						<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
 					<a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
@@ -93,23 +88,25 @@
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
 			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
-			<div class="tree-folder-title">
-				<a class="dropdown-toggle" href="#"><?= _i($c_show ? 'up' : 'down') ?></a><a class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>"><?=
+			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
+				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><span title="<?= _t('sub.category.open') ?>" class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
+					format_number($cat->nbNotRead()) ?>" ><?=
 						$cat->name()
-					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></a>
-			</div>
+					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></span>
+			</a>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
 <?php
 	// NB: Reduce whitespace in that loop
+	$show_favicon = FreshRSS_Context::userConf()->show_favicons && $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds;
+
 	foreach ($feeds as $feed):
 		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 		$f_active_class = $f_active ? ' active' : '';
 
 		$error_class = '';
 		$error_title = '';
-		if ($feed->inError() && !$feed->mute()) {
+		if ($feed->inError()) {
 			$error_class = ' error';
 			$error_title = _t('sub.feed.error');
 		}
@@ -122,16 +119,23 @@
 		}
 		$mute_class = $feed->mute() ? ' mute' : '';
 ?>
-<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>" title="<?= $error_title, $empty_title ?>"
+<li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>"
 		data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
-	?><div class="dropdown no-mobile">
-		<div class="dropdown-target"></div><a class="dropdown-toggle" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
-	</div><?php
-			if (FreshRSS_Context::userConf()->show_favicons) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
+			?><div class="dropdown no-mobile">
+				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="<?= _t('gen.action.menu.open') ?>" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
+			</div><?php
 		endif;
-	?><a class="item-title" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
-		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>"><?= $feed->name() ?></a></li>
+		$title = _t('sub.feed.open_feed', $feed->name());
+		$title .= $error_title !== '' ? '&#13;⚠ ' . $error_title : '';
+		$title .= $empty_title !== '' ? '&#13;' . $empty_title : '';
+		$title .= $feed->mute() ? '&#13;🔇 ' . _t('sub.feed.mute.state_is_muted') : '';
+		?><a class="item-title" title="<?= $title ?>"
+		data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?=
+		_url('index', $actual_view, 'get', 'f_' . $feed->id()) . $state_filter_manual ?>">
+		<?php
+		if ($show_favicon || $f_active) { ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php }
+		?><span class="title"><?= $feed->name() ?></span></a></li>
 <?php
 	endforeach;
 ?>
@@ -150,16 +154,16 @@
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>
 
-<script id="tag_config_template" type="text/html">
+<template id="tag_config_template">
 	<ul class="dropdown-menu">
 		<li class="item">
 			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
-</script>
+</template>
 
-<script id="feed_config_template" type="text/html">
+<template id="feed_config_template">
 	<ul class="dropdown-menu">
 		<li class="item"><a href="<?= _url('index', $actual_view, 'get', 'f_------') ?>"><?= _t('gen.action.filter') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -186,4 +190,4 @@
 		<?php } ?>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
-</script>
+</template>

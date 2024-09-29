@@ -145,6 +145,7 @@ return array(
 		'search' => 'Cerca per “%s”',
 		'share' => array(
 			'_' => 'Condividi questa query tramite un link',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Fornisci questo link se vuoi condividere questa query con altre persone',
 			'html' => 'Link condivisibile alla pagina HTML',
 			'opml' => 'Link condivisibile alla lista OPML dei feed',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'Nella riga degli autori e data',
 			),
 			'feed_title' => 'Titolo del feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'Nell’intestazione e nel fondo pagina',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Ordinamento',
 			'newer_first' => 'Prima i più recenti',
 			'older_first' => 'Prima i più vecchi',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
 		'title' => 'Lettura',

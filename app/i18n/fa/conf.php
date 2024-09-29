@@ -145,6 +145,7 @@ return array(
 		'search' => ' «%s» را جستجو کنید',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => ' در نویسندگان و ردیف تاریخ',
 			),
 			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => ' برچسب ها',
 				'both' => ' در سرصفحه و پاورقی',
@@ -244,6 +250,9 @@ return array(
 			'_' => ' ترتیب مرتب سازی',
 			'newer_first' => ' ابتدا جدیدترین',
 			'older_first' => ' اول قدیمی ترین',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
 		'title' => ' خواندن',

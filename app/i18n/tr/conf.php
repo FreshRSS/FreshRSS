@@ -145,6 +145,7 @@ return array(
 		'search' => '“%s” için arama',
 		'share' => array(
 			'_' => 'Bu aramayı linkle paylaşın',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Bu aramayı herhangi biriyle paylaşmak istiyorsanız bu bağlantıyı verin',
 			'html' => 'HTML sayfasına paylaşılabilir bağlantı',
 			'opml' => 'OMPL listesine paylaşılabilir bağlantı',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'Yazarlar ve tarihler satırında',
 			),
 			'feed_title' => 'Akış Başlığı',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Etiketler',
 				'both' => 'Üst Bilgi ve Alt Bilgide',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Sıralama',
 			'newer_first' => 'Önce yeniler',
 			'older_first' => 'Önce eskiler',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Makale açıldığında yukarı getir',
 		'title' => 'Okuma',

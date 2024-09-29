@@ -14,6 +14,7 @@
 	/** Origine **/
 	--background-color-light: #1c1c1c;
 	--background-color-light-shadowed: inherit;
+	--background-color-light-shadowed-transparent: #262626aa;
 	--background-color-grey: #1c1c1c;
 	--background-color-hover: #26303f;
 	--background-color-flux-hover: #111;
@@ -481,7 +482,7 @@ button.as-link[disabled] {
 
 .content code {
 	background-color: var(--dark-background-color1);
-	border: 1px solid var(--dark-border-color3);
+	border-color: var(--dark-border-color3);
 }
 
 .content pre code {

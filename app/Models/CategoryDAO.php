@@ -12,7 +12,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
 			$stm->bindValue(':name', 'Uncategorized');
 		}
-		return $stm && $stm->execute();
+		return $stm !== false && $stm->execute();
 	}
 
 	protected function addColumn(string $name): bool {
@@ -100,9 +100,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array{'name':string,'id'?:int,'kind'?:int,'lastUpdate'?:int,'error'?:int|bool,'attributes'?:string|array<string,mixed>} $valuesTmp
-	 * @return int|false
 	 */
-	public function addCategory(array $valuesTmp) {
+	public function addCategory(array $valuesTmp): int|false {
 		// TRIM() to provide a type hint as text
 		// No tag of the same name
 		$sql = <<<'SQL'
@@ -127,7 +126,7 @@ SQL;
 			$catId = $this->pdo->lastInsertId('`_category_id_seq`');
 			return $catId === false ? false : (int)$catId;
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->addCategory($valuesTmp);
 			}
@@ -136,10 +135,9 @@ SQL;
 		}
 	}
 
-	/** @return int|false */
-	public function addCategoryObject(FreshRSS_Category $category) {
+	public function addCategoryObject(FreshRSS_Category $category): int|false {
 		$cat = $this->searchByName($category->name());
-		if (!$cat) {
+		if ($cat === null) {
 			$values = [
 				'kind' => $category->kind(),
 				'name' => $category->name(),
@@ -153,9 +151,8 @@ SQL;
 
 	/**
 	 * @param array{'name':string,'kind':int,'attributes'?:array<string,mixed>|mixed|null} $valuesTmp
-	 * @return int|false
 	 */
-	public function updateCategory(int $id, array $valuesTmp) {
+	public function updateCategory(int $id, array $valuesTmp): int|false {
 		// No tag of the same name
 		$sql = <<<'SQL'
 UPDATE `_category` SET name=?, kind=?, attributes=? WHERE id=?
@@ -178,7 +175,7 @@ SQL;
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateCategory($id, $valuesTmp);
 			}
@@ -187,8 +184,7 @@ SQL;
 		}
 	}
 
-	/** @return int|false */
-	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0) {
+	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
 		$sql = 'UPDATE `_category` SET `lastUpdate`=?, error=? WHERE id=?';
 		$values = [
 			$mtime <= 0 ? time() : $mtime,
@@ -200,14 +196,13 @@ SQL;
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
 
-	/** @return int|false */
-	public function deleteCategory(int $id) {
+	public function deleteCategory(int $id): int|false {
 		if ($id <= self::DEFAULTCATEGORYID) {
 			return false;
 		}
@@ -216,7 +211,7 @@ SQL;
 		if ($stm !== false && $stm->bindParam(':id', $id, PDO::PARAM_INT) && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -295,7 +290,7 @@ SQL;
 				 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'category'?:int,'website'?:string,'priority'?:int,'error'?:int|bool,'attributes'?:string,'cache_nbEntries'?:int,'cache_nbUnreads'?:int,'ttl'?:int}> $res */
 				return self::daoToCategoriesPrepopulated($res);
 			} else {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				if ($this->autoUpdateDb($info)) {
 					return $this->listCategories($prePopulateFeeds, $details);
 				}
@@ -320,7 +315,7 @@ SQL;
 			$stm->execute()) {
 			return self::daoToCategories($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm ? $stm->errorInfo() : $this->pdo->errorInfo();
+			$info = $stm !== false ? $stm->errorInfo() : $this->pdo->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listCategoriesOrderUpdate($defaultCacheDuration, $limit);
 			}
@@ -345,8 +340,7 @@ SQL;
 		}
 	}
 
-	/** @return int|bool */
-	public function checkDefault() {
+	public function checkDefault(): int|bool {
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {
@@ -368,7 +362,7 @@ SQL;
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
 				return $catId === false ? false : (int)$catId;
 			} else {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 				return false;
 			}

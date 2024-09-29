@@ -145,6 +145,7 @@ return array(
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
 			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
 			'html' => 'Zdielateľný odkaz na HTML stránku',
 			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'V riadku autori a dátum',
 			),
 			'feed_title' => 'Nadpis kanála',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Značky',
 				'both' => 'V záhlaví a pätičke',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Poradie',
 			'newer_first' => 'Novšie hore',
 			'older_first' => 'Staršie hore',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',

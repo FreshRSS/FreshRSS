@@ -29,7 +29,9 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',
 		),
 		'empty' => 'Empty category',
+		'expand' => 'Expand category',
 		'information' => 'Information',
+		'open' => 'Open category',
 		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',
-		'add' => 'Add an RSS feed',
+		'add' => 'Add a feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Article CSS selector on original website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
 		),
+		'http_headers' => 'HTTP Headers',
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'information' => 'Information',
 		'keep_min' => 'Minimum number of articles to keep',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',
 		'method_postparams' => 'Payload for POST',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
-		'mute' => 'mute',
+		'mute' => array(
+			'_' => 'mute',
+			'state_is_muted' => 'This feed is muted',
+		),
 		'no_selected' => 'No feed selected.',
 		'number_entries' => '%d articles',
+		'open_feed' => 'Open feed %s',
 		'priority' => array(
 			'_' => 'Visibility',
 			'archived' => 'Do not show (archived)',

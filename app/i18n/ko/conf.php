@@ -145,6 +145,7 @@ return array(
 		'search' => '“%s”의 검색 결과',
 		'share' => array(
 			'_' => '링크로 쿼리 공유',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '링크를 사용해서 쿼리를 공유하세요',
 			'html' => 'HTML 공유 링크',
 			'opml' => 'OPML 피드 목록 공유 링크',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => '작성자, 작성일과 같은 줄에',
 			),
 			'feed_title' => '피드 제목',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => '태그',
 				'both' => '머리말과 꼬리말에',
@@ -244,6 +250,9 @@ return array(
 			'_' => '정렬 순서',
 			'newer_first' => '최근 글 먼저',
 			'older_first' => '오래된 글 먼저',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
 		'title' => '읽기',

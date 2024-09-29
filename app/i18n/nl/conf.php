@@ -145,6 +145,7 @@ return array(
 		'search' => 'Zoek naar „%s”',
 		'share' => array(
 			'_' => 'Deze query delen via een link',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Geef deze link als je deze query met iemand wilt delen',
 			'html' => 'Deelbare link naar de HTML-pagina',
 			'opml' => 'Deelbare link naar de OPML-lijst van feeds',
@@ -186,6 +187,11 @@ return array(
 				'with_authors' => 'In lijn met auteurs en datum',
 			),
 			'feed_title' => 'Feedtitel',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tags',	// IGNORE
 				'both' => 'In kop en voet',
@@ -244,6 +250,9 @@ return array(
 			'_' => 'Sorteer volgorde',
 			'newer_first' => 'Nieuwste eerst',
 			'older_first' => 'Oudste eerst',
+		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
 		'title' => 'Lees modus',

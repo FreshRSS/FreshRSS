@@ -29,7 +29,9 @@ return array(
 			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="http://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
 		),
 		'empty' => '빈 카테고리',
+		'expand' => 'Expand category',	// TODO
 		'information' => '정보',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => '쿠키 사용 동의',
 		'accept_cookies_help' => '피드 서버가 쿠키를 사용하도록 허용 (요청 지속 기간 동안에만 메모리에 저장)',
-		'add' => 'RSS 피드 추가',
+		'add' => '피드 추가',
 		'advanced' => '고급 설정',
 		'archiving' => '보관',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
 		'css_path_filter' => array(
 			'_' => '제거할 요소의 CSS 선택자',
-			'help' => 'CSS 선택자는 다음과 같은 목록일 수 있습니다: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS 선택자는 다음과 같은 목록일 수 있습니다: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
@@ -75,6 +77,8 @@ return array(
 			'_' => '필터 동작',
 			'help' => '한 줄에 한 검색 필터를 작성해 주세요. 실행시 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">문서 참고</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'POST 페이로드는 <code>application/x-www-form-urlencoded</code> 및 <code>application/json</code>을 자동으로 지원합니다.',
 		'method_postparams' => 'POST용 페이로드',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
-		'mute' => '무기한 새로고침 금지',
+		'mute' => array(
+			'_' => '무기한 새로고침 금지',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '표시',
 			'archived' => '표시하지 않음 (보관됨)',
