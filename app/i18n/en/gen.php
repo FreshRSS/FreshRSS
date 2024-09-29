@@ -33,9 +33,9 @@ return array(
 			'open' => 'Open menu',
 		),
 		'nav_buttons' => array(
-			'next' => 'Nächster Artikel',
-			'prev' => 'Vorheriger Artikel',
-			'up' => 'Nach oben',
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
 		),
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
