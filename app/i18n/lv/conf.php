@@ -145,7 +145,7 @@ return array(
 		'search' => 'Meklēt “%s”',
 		'share' => array(
 			'_' => 'Kopīgot šo pieprasījumu ar saiti',
-      'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',
 			'html' => 'Kopīgojama saite uz HTML lapu',
 			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
