@@ -1978,7 +1978,7 @@ class SimplePie
                     $this->data = [];
                 }
                 // Check if the cache has been updated
-                elseif (empty($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] < time()) { // FreshRSS https://github.com/simplepie/simplepie/pull/846
+                elseif (!isset($this->data['cache_expiration_time']) || $this->data['cache_expiration_time'] < time()) {
                     // Want to know if we tried to send last-modified and/or etag headers
                     // when requesting this file. (Note that it's up to the file to
                     // support this, but we don't always send the headers either.)
