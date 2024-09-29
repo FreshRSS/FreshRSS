@@ -228,6 +228,7 @@ return array(
 		'raindrop' => 'Raindrop.io',	// TODO
 		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// TODO
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',	// TODO
 		'wallabag' => 'wallabag v1',	// TODO
 		'wallabagv2' => 'wallabag v2',	// TODO

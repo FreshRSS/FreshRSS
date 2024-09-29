@@ -228,6 +228,7 @@ return array(
 		'raindrop' => ' Raindrop.io',
 		'reddit' => ' Reddit',
 		'shaarli' => ' شعرلی',
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => ' توییتر',
 		'wallabag' => ' wallabag نسخه 1',
 		'wallabagv2' => ' wallabag نسخه 2',
