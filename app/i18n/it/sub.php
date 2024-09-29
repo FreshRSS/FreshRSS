@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accetta i cookie',
 		'accept_cookies_help' => 'Consenti al server dei feed di impostare dei cookie (salvati in memoria solo per la durata della richiesta)',
-		'add' => 'Aggiungi un Feed RSS',
+		'add' => 'Aggiungi un Feed',
 		'advanced' => 'Avanzate',
 		'archiving' => 'Archiviazione',
 		'auth' => array(

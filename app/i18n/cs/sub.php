@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Přijímat soubory cookie',
 		'accept_cookies_help' => 'Povolit serveru feedu nastavit soubory cookie (uložené v paměti pouze po dobu trvání požadavku).',
-		'add' => 'Přidat kanál RSS',
+		'add' => 'Přidat kanál',
 		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
 		'auth' => array(

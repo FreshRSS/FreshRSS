@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',	// TODO
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
-		'add' => 'Add an RSS feed',	// TODO
+		'add' => 'Add a feed',	// TODO
 		'advanced' => 'Advanced',	// TODO
 		'archiving' => 'Archiving',	// TODO
 		'auth' => array(
