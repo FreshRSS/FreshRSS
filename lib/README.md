@@ -1,5 +1,12 @@
 # Libraries
 
+## SimplePie
+
+FreshRSS uses a forked version of [SimplePie](https://github.com/simplepie/simplepie), with a [number of patches](https://github.com/FreshRSS/simplepie/).
+
+See the [read-me of our fork](https://github.com/FreshRSS/simplepie/blob/freshrss/.github/README.md).
+
+
 ## Updating libraries
 
 Some of the libraries in this folder can be updated semi-automatically by invoking:

@@ -36,6 +36,13 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
+	'archiveIS' => [
+		'url' => 'https://archive.is/submit/?url=~LINK~',
+		'transform' => [],
+		'help' => 'https://archive.is/',
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'archivePH' => [
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => [],
@@ -188,6 +195,12 @@ return [
 		'transform' => ['rawurlencode'],
 		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
+		'method' => 'GET',
+	],
+	'telegram' => [
+		'url' => 'https://t.me/share/url?url=~LINK~&text=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'form' => 'simple',
 		'method' => 'GET',
 	],
 	'twitter' => [

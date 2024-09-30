@@ -314,18 +314,12 @@ th {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 }
 
 .box .box-content {
-	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
-	font-size: 0.9rem;
-	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -577,14 +571,9 @@ th {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 }
 
 .content code {
-	padding: 2px 5px;
 }
 
 .content pre code {

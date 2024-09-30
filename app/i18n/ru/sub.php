@@ -29,7 +29,9 @@ return array(
 			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Информация',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML ссылка',
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Разрешить файлы cookies',
 		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
-		'add' => 'Добавить RSS-ленту',
+		'add' => 'Добавить ленту',
 		'advanced' => 'Дополнительно',
 		'archiving' => 'Архивирование',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'CSS селектор статьи на сайте',
 		'css_path_filter' => array(
 			'_' => 'CSS селектор элемента для удаления',
-			'help' => 'CSS селектор может быть списком как: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS селектор может быть списком как: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Действия фильтрации',
 			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'Полезная нагрузка POST автоматически поддерживает <code>application/x-www-form-urlencoded</code> и <code>application/json</code>',
 		'method_postparams' => 'Полезная нагрузка POST',
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
-		'mute' => 'заглушить',
+		'mute' => array(
+			'_' => 'заглушить',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Ленты не выбраны.',
 		'number_entries' => '%d статей',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Видимость',
 			'archived' => 'Не показывать (архивировано)',

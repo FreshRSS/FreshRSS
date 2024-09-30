@@ -310,7 +310,7 @@
 				<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 				<div class="group-controls">
 					<select class="number" name="proxy_type" id="proxy_type"><?php
-						foreach(['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						foreach (['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
 							echo '<option value="' . $k . '">' . $v . '</option>';
 						}
 					?>
@@ -351,6 +351,14 @@
 						<option value="0"><?= _t('gen.short.no') ?></option>
 						<option value="1"><?= _t('gen.short.yes') ?></option>
 					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
 				</div>
 			</div>
 		</details>

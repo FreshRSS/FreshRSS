@@ -559,12 +559,8 @@ form {
 	}
 
 	pre {
-		margin: 10px auto;
-		padding: 10px 20px;
-		overflow: auto;
 		background-color: var(--color-background-dark);
 		color: var(--color-text-light);
-		font-size: 0.9rem;
 
 		code {
 			background: transparent;
@@ -574,10 +570,9 @@ form {
 	}
 
 	code {
-		padding: 2px 5px;
 		background-color: var(--color-background-light);
 		color: var(--color-text-bad);
-		border: 1px solid var(--color-border-light);
+		border-color: var(--color-border-light);
 	}
 
 	blockquote {
@@ -604,7 +599,6 @@ form {
 
 	.box-title {
 		margin: 0;
-		padding: 7px 10px;
 		background-color: var(--color-background-aside);
 		color: var(--color-text-light);
 		border-bottom: 1px solid var(--color-border-light-darker);
@@ -625,7 +619,6 @@ form {
 	}
 
 	.box-content {
-		padding-left: 30px;
 		max-height: 260px;
 
 		.item {

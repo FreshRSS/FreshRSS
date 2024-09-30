@@ -13,6 +13,7 @@ class FreshRSS_UserQuery {
 	private string $get = '';
 	private string $get_name = '';
 	private string $get_type = '';
+	/** XML-encoded name */
 	private string $name = '';
 	private string $order = '';
 	private FreshRSS_BooleanSearch $search;
@@ -25,6 +26,7 @@ class FreshRSS_UserQuery {
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels */
 	private array $labels;
+	/** XML-encoded description */
 	private string $description = '';
 	private string $imageUrl = '';
 
@@ -274,6 +276,13 @@ class FreshRSS_UserQuery {
 	public function sharedUrlRss(bool $xmlEscaped = true): string {
 		if ($this->shareRss && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=rss';
+		}
+		return '';
+	}
+
+	public function sharedUrlGreader(bool $xmlEscaped = true): string {
+		if ($this->shareRss && $this->token !== '') {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=greader';
 		}
 		return '';
 	}

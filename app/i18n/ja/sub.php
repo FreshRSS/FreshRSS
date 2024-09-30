@@ -29,7 +29,9 @@ return array(
 			'help' => '<a href="http://opml.org/" target="_blank">から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
 		),
 		'empty' => 'からのカテゴリ',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'インフォメーション',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPMLのURL',
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'クッキーを受け入れる',
 		'accept_cookies_help' => 'クッキーをこのサーバーから受け入れます(このリクエストだけにメモリへ保存されます)',
-		'add' => 'RSSフィードに追加する',
+		'add' => 'フィードに追加する',
 		'advanced' => '高度な設定',
 		'archiving' => 'アーカイブ',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
 		'css_path_filter' => array(
 			'_' => '要素を削除するCSSセレクタ',
-			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSSセレクタは次のようなリストです: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => '説明',
 		'empty' => 'このフィードは空です。サイトが運営されているかどうかを確認してみてください。',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'POSTペイロードは <code>application/x-www-form-urlencoded</code> と <code>application/json</code> を自動的にサポートしています',
 		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
-		'mute' => 'ミュート',
+		'mute' => array(
+			'_' => 'ミュート',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'どのフィードも選択されていません',
 		'number_entries' => '%d 記事数',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',

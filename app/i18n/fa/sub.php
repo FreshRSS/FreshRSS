@@ -29,7 +29,9 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
+		'expand' => 'Expand category',	// TODO
 		'information' => ' اطلاعات',
+		'open' => 'Open category',	// TODO
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
 		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => ' کوکی ها را بپذیرید',
 		'accept_cookies_help' => ' به سرور فید اجازه دهید تا کوکی ها را تنظیم کند (فقط برای مدت زمان درخواست در حافظه ذخیره می شود)',
-		'add' => ' یک فید RSS اضافه کنید',
+		'add' => ' یک فید اضافه کنید',
 		'advanced' => ' پیشرفته',
 		'archiving' => ' بایگانی',
 		'auth' => array(
@@ -75,6 +77,8 @@ return array(
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => ' اطلاعات',
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
 		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
-		'mute' => ' بی صدا',
+		'mute' => array(
+			'_' => ' بی صدا',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => ' هیچ خوراکی انتخاب نشده است.',
 		'number_entries' => ' %d مقاله',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',

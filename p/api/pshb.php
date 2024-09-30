@@ -98,6 +98,7 @@ if ($ORIGINAL_INPUT == '') {
 }
 
 $simplePie = customSimplePie();
+$simplePie->enable_cache(false);
 $simplePie->set_raw_data($ORIGINAL_INPUT);
 $simplePie->init();
 unset($ORIGINAL_INPUT);
@@ -133,11 +134,8 @@ foreach ($users as $userFilename) {
 		Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_enabled, 'user');
 		Minz_Translate::reset(FreshRSS_Context::userConf()->language);
 
-		[$updated_feeds, , $nb_new_articles] = FreshRSS_feed_Controller::actualizeFeeds(null, $self, null, $simplePie);
-		if ($nb_new_articles > 0) {
-			FreshRSS_feed_Controller::commitNewEntries();
-		}
-		if ($updated_feeds > 0) {
+		[$nbUpdatedFeeds, ] = FreshRSS_feed_Controller::actualizeFeedsAndCommit(null, $self, null, $simplePie);
+		if ($nbUpdatedFeeds > 0) {
 			$nb++;
 		} else {
 			Minz_Log::warning('Warning: User ' . $username . ' does not subscribe anymore to ' . $self, PSHB_LOG);

@@ -185,6 +185,30 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $list;
 	}
 
+	private static ?string $staticVersion = null;
+	/**
+	 * To override the database version. Useful for testing.
+	 */
+	public static function setStaticVersion(?string $version): void {
+		self::$staticVersion = $version;
+	}
+
+	public function version(): string {
+		if (self::$staticVersion !== null) {
+			return self::$staticVersion;
+		}
+		static $version = null;
+		if ($version === null) {
+			$version = $this->fetchValue('SELECT version()') ?? '';
+		}
+		return $version;
+	}
+
+	final public function isMariaDB(): bool {
+		// MariaDB includes its name in version, but not MySQL
+		return str_contains($this->version(), 'MariaDB');
+	}
+
 	public function size(bool $all = false): int {
 		$db = FreshRSS_Context::systemConf()->db;
 
@@ -218,9 +242,9 @@ SQL;
 		foreach ($tables as $table) {
 			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
 			$stm = $this->pdo->query($sql);
-			if ($stm == false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
+			if ($stm === false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
 				$ok = false;
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}
@@ -237,8 +261,7 @@ SQL;
 			$isMariaDB = false;
 
 			if ($this->pdo->dbType() === 'mysql') {
-				$dbVersion = $this->fetchValue('SELECT version()') ?? '';
-				$isMariaDB = stripos($dbVersion, 'MariaDB') !== false;	// MariaDB includes its name in version, but not MySQL
+				$isMariaDB = $this->isMariaDB();
 				if (!$isMariaDB) {
 					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
 					// but MariaDB does https://mariadb.com/kb/en/drop-index/
@@ -269,7 +292,7 @@ SQL;
 	public const SQLITE_EXPORT = 1;
 	public const SQLITE_IMPORT = 2;
 
-	public function dbCopy(string $filename, int $mode, bool $clearFirst = false): bool {
+	public function dbCopy(string $filename, int $mode, bool $clearFirst = false, bool $verbose = true): bool {
 		if (!extension_loaded('pdo_sqlite')) {
 			return self::stdError('PHP extension pdo_sqlite is missing!');
 		}
@@ -354,7 +377,7 @@ SQL;
 
 		$idMaps = [];
 
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "Start SQL copy…\n");
 		}
 
@@ -397,11 +420,11 @@ SQL;
 					return self::stdError($error);
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
+			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
 				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
 			}
 		}
-		if (defined('STDERR')) {
+		if (defined('STDERR') && $verbose) {
 			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
 		}
 		$entryTo->commit();

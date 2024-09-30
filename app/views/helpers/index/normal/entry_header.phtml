@@ -3,6 +3,7 @@
 	/** @var FreshRSS_View $this */
 	$topline_read = FreshRSS_Context::userConf()->topline_read;
 	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
+	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing;
 	$topline_website = FreshRSS_Context::userConf()->topline_website;
 	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
 	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
@@ -10,7 +11,10 @@
 	$topline_date = FreshRSS_Context::userConf()->topline_date;
 	$topline_link = FreshRSS_Context::userConf()->topline_link;
 	$lazyload = FreshRSS_Context::userConf()->lazyload;
-?><ul class="horizontal-list flux_header website<?= $topline_website ?>"><?php
+	if ($this->feed === null || $this->entry === null) {
+		return;
+	}
+?><ul class="horizontal-list flux_header website<?= $topline_website ?>" data-website-name="<?= $this->feed->name() ?>" data-article-authors="<?= implode(', ', $this->entry->authors()) ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
@@ -72,6 +76,17 @@
 	endif; ?>
 	<?php if ($topline_date) { ?><span class="item-element date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</span><?php } ?>
 	</li>
+	<?php if ($topline_sharing) { ?>
+		<li class="item share">
+			<div class="item-element dropdown">
+				<div id="dropdown-share2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
+				<a class="dropdown-toggle" href="#dropdown-share2-<?= $this->entry->id() ?>" title="<?= _t('index.share') ?>">
+					<?= _i('share') ?>
+				</a>
+				<?php /* entry_share_menu */ ?>
+			</div>
+		</li>
+	<?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>

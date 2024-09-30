@@ -32,7 +32,7 @@ class I18nValue {
 		}
 	}
 
-	public function __clone() {
+	public function __clone(): void {
 		$this->markAsTodo();
 	}
 

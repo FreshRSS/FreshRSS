@@ -29,7 +29,9 @@ return array(
 			'help' => 'Zadajte URL adresu k <a href="http://opml.org/" target="_blank">OPML súboru</a>, z ktorého sa táto kategória automaticky naplní kanálmi.',
 		),
 		'empty' => 'Prázdna kategória',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informácia',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Prijať cookies',
 		'accept_cookies_help' => 'Povoliť serveru kanála nastaviť cookies (uložené v pamäti iba počas dopytu)',
-		'add' => 'Pridať RSS kanál',
+		'add' => 'Pridať kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Pôvodný CSS súbor článku z webovej stránky',
 		'css_path_filter' => array(
 			'_' => 'CSS selektor elementu na odstránenie',
-			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS selektor môže byť zoznam ako: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Filtrovať akcie',
 			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'Ako parametre metódy POST sú podporované <code>application/x-www-form-urlencoded</code> a <code>application/json</code>',
 		'method_postparams' => 'Parametre metódy POST',
 		'moved_category_deleted' => 'Keď vymažete kategóriu, jej kanály sa automaticky zaradia pod <em>%s</em>.',
-		'mute' => 'stíšiť',
+		'mute' => array(
+			'_' => 'stíšiť',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nevybrali ste kanál.',
 		'number_entries' => 'Počet článkov: %d',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'archived' => 'Nezobrazovať (archivované)',

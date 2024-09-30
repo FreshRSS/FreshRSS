@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
+		'menu' => array(
+			'open' => 'Open menu',
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',
+		'archiveIS' => 'archive.is',
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
 		'buffer' => 'Buffer',
@@ -224,6 +228,7 @@ return array(
 		'raindrop' => 'Raindrop.io',
 		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',

@@ -39,21 +39,21 @@ class Minz_Log {
 			}
 
 			switch ($level) {
-			case LOG_ERR :
-				$level_label = 'error';
-				break;
-			case LOG_WARNING :
-				$level_label = 'warning';
-				break;
-			case LOG_NOTICE :
-				$level_label = 'notice';
-				break;
-			case LOG_DEBUG :
-				$level_label = 'debug';
-				break;
-			default :
-				$level = LOG_INFO;
-				$level_label = 'info';
+				case LOG_ERR:
+					$level_label = 'error';
+					break;
+				case LOG_WARNING:
+					$level_label = 'warning';
+					break;
+				case LOG_NOTICE:
+					$level_label = 'notice';
+					break;
+				case LOG_DEBUG:
+					$level_label = 'debug';
+					break;
+				default:
+					$level = LOG_INFO;
+					$level_label = 'info';
 			}
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
@@ -76,7 +76,6 @@ class Minz_Log {
 	 * This method can be called multiple times for one script execution, but its result will not change unless
 	 * you call clearstatcache() in between. We won’t do do that for performance reasons.
 	 *
-	 * @param string $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize(string $file_name): void {

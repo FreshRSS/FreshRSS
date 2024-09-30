@@ -29,7 +29,9 @@ return array(
 			'help' => 'Dinamik olarak bu kategoriyi akışla doldurmak için bir link <a href="http://opml.org/" target="_blank">OPML file</a> sağla',
 		),
 		'empty' => 'Boş kategori',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Bilgi',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML linki',
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookieleri kabul et',
 		'accept_cookies_help' => 'Akış sağlayıcısının cookieler oluşturmasına izin ver. (Sadece istek süresince bellekte depolanmak üzere)',
-		'add' => 'RSS akışı ekle',
+		'add' => 'akışı ekle',
 		'advanced' => 'Gelişmiş',
 		'archiving' => 'Arşiv',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'css_path_filter' => array(
 			'_' => 'Kaldırılacak elemana ait CSS seçicisi',
-			'help' => 'CSS seçicisi şu şekilde olabilir: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS seçicisi şu şekilde olabilir: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Eylemi filtrele',
 			'help' => 'Her satıra tek bir arama filtresi yaz. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dökümantasyonu incele</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'POST payload otomatik yardımı için <code>application/x-www-form-urlencoded</code> ve <code>application/json</code>',
 		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
-		'mute' => 'sessize al',
+		'mute' => array(
+			'_' => 'sessize al',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'archived' => 'Gösterme (arşivlenmiş)',

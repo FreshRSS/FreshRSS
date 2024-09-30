@@ -29,6 +29,9 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// IGNORE
 		'manage' => 'Manage',	// IGNORE
 		'mark_read' => 'Mark as read',	// IGNORE
+		'menu' => array(
+			'open' => 'Open menu',	// IGNORE
+		),
 		'nav_buttons' => array(
 			'next' => 'Next article',	// IGNORE
 			'prev' => 'Previous article',	// IGNORE
@@ -201,6 +204,7 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
@@ -224,6 +228,7 @@ return array(
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE

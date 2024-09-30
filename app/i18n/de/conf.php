@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Automatischer Dunkel-Modus',
 			'auto' => 'Automatisch',
-			'help' => 'For compatible themes only',	// TODO
+			'help' => 'Nur für kompatible Layouts',
 			'no' => 'Nein',
 		),
 		'icon' => array(
@@ -115,7 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
-		'description' => 'Description',	// TODO
+		'description' => 'Beschreibung',
 		'filter' => array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
@@ -136,7 +136,7 @@ return array(
 		'get_important' => 'Alle Artikel von den "Wichtige Feeds" anzeigen',
 		'get_label' => 'Artikel mit dem Label “%s” anzeigen',
 		'help' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">Dokumentation für Benutzerabfragen und Teilen via HTML / RSS / OPML</a>.',
-		'image_url' => 'Image URL',	// TODO
+		'image_url' => 'Bild-URL',
 		'name' => 'Name',	// IGNORE
 		'no_filter' => 'Kein Filter',
 		'number' => 'Abfrage Nr. %d',
@@ -145,6 +145,7 @@ return array(
 		'search' => 'Suche nach „%s“',
 		'share' => array(
 			'_' => 'Diese Benutzerabfrage per Link teilen',
+			'greader' => 'Verteilbarer Link für GReader JSON',
 			'help' => 'Diesen Link verteilen, um in mit Jedem zu teilen',
 			'html' => 'Verteilbarer Link zur HTML-Seite',
 			'opml' => 'Verteilbarer Link zur OPML Liste der Feeds',
@@ -187,9 +188,9 @@ return array(
 			),
 			'feed_title' => 'Feed Titel',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
+				'above_title' => 'Über dem Titel',
+				'with_authors' => 'In der Autoren- und Datumszeile',
 			),
 			'tags' => array(
 				'_' => 'Hashtags',
@@ -249,6 +250,9 @@ return array(
 			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
+		),
+		'star' => array(
+			'when' => 'Markiere einen Artikel als Favoriten…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
 		'title' => 'Lesen',

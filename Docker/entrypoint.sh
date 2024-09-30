@@ -3,9 +3,10 @@
 ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
 echo "$TZ" >/etc/timezone
 
-find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
-find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" {} \;
-find /etc/php*/ -type f -name php.ini -exec sed -r -i "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
+find /etc/php*/ -type f -name php.ini -exec sed -i -E \
+	-e "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" \
+	-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
+	-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
 if [ -n "$LISTEN" ]; then
 	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
@@ -22,6 +23,11 @@ if [ -n "$TRUSTED_PROXY" ]; then
 fi
 
 if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
+	# Default values
+	export OIDC_SESSION_INACTIVITY_TIMEOUT="${OIDC_SESSION_INACTIVITY_TIMEOUT:-300}"
+	export OIDC_SESSION_MAX_DURATION="${OIDC_SESSION_MAX_DURATION:-27200}"
+	export OIDC_SESSION_TYPE="${OIDC_SESSION_TYPE:-server-cache}"
+
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine

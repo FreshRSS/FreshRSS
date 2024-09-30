@@ -29,7 +29,9 @@ return array(
 			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Információ',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Megjelenítési pozíció',
 		'position_help' => 'Kategória rendezési sorrend',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Sütik elfogadása',
 		'accept_cookies_help' => 'Engedélyezze hogy a hírforrás szerver beállíthasson sütiket (memóriában lesznek tárolva a kapcsolat idejére)',
-		'add' => 'RSS hírforrás hozzáadása',
+		'add' => 'hírforrás hozzáadása',
 		'advanced' => 'Haladó',
 		'archiving' => 'Archiválás',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Cikk CSS selector az eredeti weblapon',
 		'css_path_filter' => array(
 			'_' => 'A törlendő elemek CSS selectora',
-			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside</kbd>',
+			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Leírás',
 		'empty' => 'Ez a hírforrás üres. Ellenőrizd hogy van e tartalom rajta.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Szűrő műveletek',
 			'help' => 'Írj egy szűrőt soronként. Műveletek <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">a dokumentációban</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Információ',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'A POST metódus hasznos adattartalma automatikusan támogatja az <code>application/x-www-form-urlencoded</code> és <code>application/json</code>',
 		'method_postparams' => 'POST metódus adattartalma',
 		'moved_category_deleted' => 'Ha kitörölsz egy kategóriát, az alá tartozó hírforrások automatikusan ide kerülnek <em>%s</em>.',
-		'mute' => 'némítás',
+		'mute' => array(
+			'_' => 'némítás',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nincsen hírforrás kiválasztva.',
 		'number_entries' => '%d cikkek',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'archived' => 'Ne jelenjen meg (archivált)',

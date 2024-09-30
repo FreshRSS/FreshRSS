@@ -1,6 +1,5 @@
 parameters:
 	level: 9	# https://phpstan.org/user-guide/rule-levels
-	phpVersion: 80399	# TODO: Remove line when moving composer.json to PHP 8+
 	fileExtensions:
 		- php
 		- phtml
@@ -11,7 +10,7 @@ parameters:
 			- lib/marienfressinaud/*
 			- lib/phpgt/*
 			- lib/phpmailer/*
-			- lib/SimplePie/*
+			- lib/simplepie/*
 			- vendor/*
 		analyseAndScan:
 			- .git/*
@@ -39,7 +38,7 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 	strictRules:
 		allRules: false
-		booleansInConditions: false	# TODO pass
+		booleansInConditions: true
 		closureUsesThis: true
 		disallowedConstructs: false
 		disallowedLooseComparison: false
@@ -59,9 +58,8 @@ parameters:
 		checkedExceptionClasses:
 			- 'Minz_Exception'
 	ignoreErrors:
-		# - '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
+		- '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
-	# - vendor/phpstan/phpstan/conf/bleedingEdge.neon

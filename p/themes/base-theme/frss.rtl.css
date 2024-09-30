@@ -204,8 +204,16 @@ img.favicon {
 	font-style: italic;
 }
 
-.feed.mute::before {
-	content: '🔇';
+.category .title.error::before,
+.item.feed.error .item-title .title::before,
+.box-content .item.feed.error .item-title::before {
+	content: " ⚠ ";
+	color: var(--frss-font-color-error);
+}
+
+.item.feed.mute .item-title .title::before,
+.box .box-content .item.feed.mute .item-title::before {
+	content: '🔇 ';
 }
 
 /*=== Videos */
@@ -503,6 +511,10 @@ td.numeric {
 	overflow: hidden;
 }
 
+.btn-icon-text > .icon {
+	margin-left: 0.25rem;
+}
+
 .btn-important {
 	font-weight: bold;
 }
@@ -708,6 +720,8 @@ input[type="checkbox"]:focus-visible {
 	min-width: 200px;
 	position: absolute;
 	left: 0;
+	scroll-margin-top: 2rem;
+	scroll-margin-bottom: 2rem;
 }
 
 .dropdown-menu::after {
@@ -899,6 +913,11 @@ input[type="checkbox"]:focus-visible {
 
 .box .box-title {
 	position: relative;
+	padding: 0.25rem 1rem;
+}
+
+.box .box-title .icon {
+	margin-bottom: 0.25rem;
 }
 
 .box .box-title h2 {
@@ -912,16 +931,35 @@ input[type="checkbox"]:focus-visible {
 }
 
 .box .box-content {
-	padding: 8px 16px 8px 8px;
+	padding: 0.5rem 1.75rem 0.5rem 0.5rem;
 	display: block;
 	min-height: 2.5em;
 	max-height: 260px;
 	overflow: auto;
 }
 
+.box .box-content .item {
+	font-size: 0.9rem;
+	line-height: 1.5;
+	text-indent: -3rem;
+}
+
 .box .box-content .item.feed {
+	padding: var(--frss-padding-top-bottom) 2rem calc(var(--frss-padding-top-bottom) / 2) 0;
 	display: block;
-	padding-top: var(--frss-padding-top-bottom);
+}
+
+.box .box-content .item.feed.emptyCategory {
+	padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.box .box-content .item.feed .favicon {
+	margin-left: 0.25rem;
+}
+
+.box .box-content .item.feed .icon {
+	margin-right: 0.25rem;
+	margin-left: 0.5rem;
 }
 
 .box .box-content .item.feed.moved {
@@ -1046,6 +1084,7 @@ li.drag-hover {
 }
 
 .tree-folder-title {
+	display: block;
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
 }
@@ -1064,10 +1103,10 @@ li.drag-hover {
 	white-space: nowrap;
 }
 
-.tree-folder-items > .item > a {
+.tree-folder-items > .item > .item-title {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 32px);
+	width: calc(100% - 2.5rem);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1169,17 +1208,19 @@ input[type="search"] {
 	padding: 0;
 }
 
-.aside_feed .tree-folder-title .icon,
-.aside_feed .tree-folder-items .feed .icon {
-	margin: 0 0 0 0.5rem;
+.aside_feed .tree-folder-title button.dropdown-toggle {
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.aside_feed .tree-folder-title .icon {
+	margin: 0 0 0 0.25rem;
 }
 
 .aside_feed .tree-folder-items .feed .favicon {
 	padding: 0;
-}
-
-.aside_feed .tree-folder-items .item.feed {
-	padding: var(--frss-padding-top-bottom) 0.75rem;
 }
 
 .aside_feed .tree-folder-items:not(.active) {
@@ -1190,17 +1231,30 @@ input[type="search"] {
 	overflow: hidden;
 }
 
-.aside_feed .tree-folder-items .dropdown {
-	vertical-align: top;
-}
-
 .aside_feed .tree-folder-items .dropdown-menu {
 	right: 0;
+	margin-right: 0.75rem
+}
+
+.aside_feed .tree-folder-items .dropdown {
+	vertical-align: baseline;
+	margin-left: 0.25rem;
+}
+
+.aside_feed .tree-folder-items .dropdown .dropdown-toggle {
+	padding: var(--frss-padding-top-bottom) 0.75rem var(--frss-padding-top-bottom) 0.25rem;
+	display: inline-block;
+	text-align: left;
+	opacity: 0.4;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-toggle > .icon {
 	visibility: hidden;
 	cursor: pointer;
+}
+
+.aside_feed .tree-folder-items .item .dropdown-toggle:hover {
+	opacity: 1;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
@@ -1257,12 +1311,14 @@ input[type="search"] {
 
 .flux .flux_header .item.manage .item-element,
 .flux .flux_header .item.website .item-element,
+.flux .flux_header .item.share .dropdown-toggle,
 .flux .flux_header .item.link .item-element {
 	padding-right: var(--frss-padding-flux-items);
 	padding-left: var(--frss-padding-flux-items);
 }
 
 .flux .item.manage,
+.flux .flux_header > .item.share,
 .flux .item.link {
 	width: calc(1rem + 2 * var(--frss-padding-flux-items));
 }
@@ -1586,7 +1642,15 @@ a.website:hover .favicon {
 }
 
 .content pre {
+	margin: 10px auto;
+	padding: 10px 20px;
 	overflow: auto;
+	font-size: 0.9rem;
+}
+
+.content code {
+	padding: 2px 5px;
+	border: 1px solid var(--frss-border-color);
 }
 
 .subtitle > div {
@@ -2028,8 +2092,6 @@ html.slider-active {
 }
 
 .item.share.error a::after,
-.category .title.error::before,
-.item.feed.error .item-title::before,
 .theme-preview-list .properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);
@@ -2098,9 +2160,13 @@ html.slider-active {
 	text-decoration: underline double;
 }
 
-.aside .category .title:not([data-unread="0"])::after,
+.aside .feed .item-title {
+	padding: var(--frss-padding-top-bottom) 0 var(--frss-padding-top-bottom) 3.5rem;
+}
+
+.aside .category .tree-folder-title .title:not([data-unread="0"])::after,
 .aside .feed .item-title:not([data-unread="0"])::after {
-	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
+	margin: var(--frss-padding-top-bottom) 0 0 0;
 	padding: 0.25rem 0.5rem;
 	min-width: 2rem;
 	display: block;
@@ -2113,6 +2179,10 @@ html.slider-active {
 	border-radius: 0.75rem;
 	line-height: 1;
 	font-weight: initial;
+}
+
+.aside .category .title:not([data-unread="0"])::after {
+	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
 }
 
 .global .box.category .title:not([data-unread="0"])::after {
@@ -2179,7 +2249,7 @@ html.slider-active {
 
 .feed .item-title:not([data-unread="0"]) {
 	font-weight: bold;
-	width: calc(100% - 5.5rem);
+	width: calc(100% - 6rem);
 }
 
 .state_unread .category:not(.active)[data-unread="0"],
@@ -2304,6 +2374,18 @@ html.slider-active {
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
 		text-align: center;
+	}
+
+	.aside .feed .item-title {
+		padding-right: 0.75rem;
+		padding-left: 4rem;
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.aside .feed .item-title[data-unread="0"] {
+		padding-left: 1rem;
 	}
 
 	.flux .flux_header .item .title:has(~.date) {

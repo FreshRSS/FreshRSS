@@ -42,8 +42,6 @@ return array(
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
 	# feed if they didn’t access this URL.
-	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
-	# sent).
 	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
@@ -101,10 +99,14 @@ return array(
 		# Duration in seconds of the login cookie.
 		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
-		# Duration in seconds of the SimplePie cache,
-		#	during which a query to the RSS feed will return the local cached version.
+		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_min' => 60,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_max' => 86400,
 
 		# SimplePie HTTP request timeout in seconds.
 		'timeout' => 20,
@@ -173,7 +175,7 @@ return array(
 
 	],
 
-	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# Configuration to send emails.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#

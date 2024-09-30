@@ -29,7 +29,9 @@ return array(
 			'help' => 'Fornisci l’URL ad un <a href="http://opml.org/" target="_blank">file OPML</a> per popolare dinamicamente questa categoria con i feed',
 		),
 		'empty' => 'Categoria vuota',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informazioni',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostra posizione',
 		'position_help' => 'Per controllare l’ordinamento della categoria',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accetta i cookie',
 		'accept_cookies_help' => 'Consenti al server dei feed di impostare dei cookie (salvati in memoria solo per la durata della richiesta)',
-		'add' => 'Aggiungi un Feed RSS',
+		'add' => 'Aggiungi un Feed',
 		'advanced' => 'Avanzate',
 		'archiving' => 'Archiviazione',
 		'auth' => array(
@@ -61,7 +63,7 @@ return array(
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
 		'css_path_filter' => array(
 			'_' => 'Il selettore CSS degli elementi da rimuovere',
-			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside</kbd>',
+			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
@@ -75,6 +77,8 @@ return array(
 			'_' => 'Azioni di filtro',
 			'help' => 'Scrivi un filtro di ricerca per riga. Per li operatori <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">vedi la documentazione</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
@@ -183,9 +187,13 @@ return array(
 		'method_help' => 'Il payload POST ha il supporto automatico per <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
 		'method_postparams' => 'Payload per POST',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
-		'mute' => 'muta',
+		'mute' => array(
+			'_' => 'muta',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nessun feed selezionato.',
 		'number_entries' => '%d articoli',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibilità',
 			'archived' => 'Non mostrare (archiviato)',

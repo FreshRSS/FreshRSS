@@ -36,7 +36,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				$anon_refresh !== FreshRSS_Context::systemConf()->allow_anonymous_refresh ||
 				$unsafe_autologin !== FreshRSS_Context::systemConf()->unsafe_autologin_enabled ||
 				$api_enabled !== FreshRSS_Context::systemConf()->api_enabled) {
-
 				if (in_array($auth_type, ['form', 'http_auth', 'none'], true)) {
 					FreshRSS_Context::systemConf()->auth_type = $auth_type;
 				} else {
@@ -89,6 +88,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			case 'none':
 				// It should not happen!
 				Minz_Error::error(404);
+				break;
 			default:
 				// TODO load plugin instead
 				Minz_Error::error(404);
@@ -187,8 +187,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
 			}
 		} elseif (FreshRSS_Context::systemConf()->unsafe_autologin_enabled) {
-			$username = Minz_Request::paramString('u');
-			$password = Minz_Request::paramString('p');
+			$username = Minz_Request::paramString('u', plaintext: true);
+			$password = Minz_Request::paramString('p', plaintext: true);
 			Minz_Request::_param('p');
 
 			if ($username === '') {

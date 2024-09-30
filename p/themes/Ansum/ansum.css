@@ -376,8 +376,6 @@ th {
 	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 .box .box-title {
-	margin: 0;
-	padding: 0.5rem 0.75rem;
 	background: #f5f0ec;
 	color: #363330;
 	border-radius: 2px 2px 0 0;
@@ -464,13 +462,24 @@ th {
 	box-shadow: inset -1px -11px 8px rgba(0, 0, 0, 0.2);
 }
 .tree .tree-folder .tree-folder-title {
-	padding: 1rem;
+	padding: 0.75rem 1rem;
 	background: #fbf9f6;
 	position: relative;
 	font-size: 0.85rem;
 	letter-spacing: 1px;
 	font-weight: 700;
 	text-transform: uppercase;
+}
+.tree .tree-folder .tree-folder-title button.dropdown-toggle {
+	margin: -0.75rem 0.25rem -0.75rem -1rem;
+	padding: 0.75rem 0 0.75rem 1rem;
+}
+.tree .tree-folder .tree-folder-title button.dropdown-toggle:hover .icon {
+	filter: brightness(1.7) !important;
+	transition: 0.1s linear;
+}
+.tree .tree-folder .tree-folder-title .icon {
+	margin-right: 0.5rem;
 }
 .tree .tree-folder .tree-folder-title .title {
 	background: inherit;
@@ -487,8 +496,6 @@ th {
 	background: #f7f2ea;
 }
 .tree .tree-folder .tree-folder-items .item {
-	padding: 0 1rem;
-	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: 400;
 	transition: all 0.15s ease-in-out;
@@ -511,6 +518,9 @@ th {
 .tree .tree-folder .tree-folder-items .item a {
 	text-decoration: none;
 	color: #363330;
+}
+.tree .tree-folder .tree-folder-items .item a.dropdown-toggle .icon {
+	margin-right: 0.25rem;
 }
 
 /*=== Buttons */
@@ -559,8 +569,15 @@ th {
 	background: #fbf9f6;
 	border-right: 1px solid #f0e7da;
 }
+.aside.aside_feed .tree-folder-title:hover button.dropdown-toggle .icon {
+	filter: none;
+}
 .aside.aside_feed .tree {
 	margin: 10px 0 50px;
+}
+.aside a:hover .icon {
+	filter: brightness(1.7);
+	transition: 0.1s linear;
 }
 
 /* Sidebar des pages de configuration */
@@ -618,7 +635,7 @@ th {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1rem 0 0 0;
+	margin: 0.75rem 0 0 0;
 	background-color: rgba(35, 35, 0, 0.15);
 }
 
@@ -891,12 +908,8 @@ main.prompt {
 	box-shadow: 0 2px 5px #ccc;
 }
 .content pre, .content.thin pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background: #221f1d;
 	color: #fff;
-	font-size: 0.9rem;
 	border-radius: 3px;
 }
 .content pre code, .content.thin pre code {
@@ -905,9 +918,8 @@ main.prompt {
 	border: none;
 }
 .content code, .content.thin code {
-	padding: 2px 5px;
 	background: #fcfaf8;
-	border: 1px solid #f5f0ec;
+	border-color: #f5f0ec;
 	border-radius: 3px;
 }
 .content blockquote, .content.thin blockquote {
@@ -1324,3 +1336,5 @@ a, button.as-link {
 	outline: none;
 	color: #ca7227;
 }
+
+/*# sourceMappingURL=ansum.css.map */

@@ -23,6 +23,32 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
+	#[\Override]
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		$matches = static::regexToSql($regex);
+		if (isset($matches['pattern'])) {
+			$matchType = $matches['matchType'] ?? '';
+			if (str_contains($matchType, 'm')) {
+				// newline-sensitive matching
+				$matches['pattern'] = '(?m)' . $matches['pattern'];
+			}
+			$values[] = $matches['pattern'];
+			if (str_contains($matchType, 'i')) {
+				// case-insensitive matching
+				return "{$expression} ~* ?";
+			} else {
+				// case-sensitive matching
+				return "{$expression} ~ ?";
+			}
+		}
+		return '';
+	}
+
+	#[\Override]
+	protected function registerSqlFunctions(string $sql): void {
+		// Nothing to do for PostgreSQL
+	}
+
 	/** @param array<string|int> $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
