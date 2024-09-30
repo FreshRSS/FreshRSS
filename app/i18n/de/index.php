@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Aktuelle Abfrage speichern',
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Wichtige Feeds',
 		'main_stream' => 'Haupt-Feeds',
 		'mark_all_read' => 'Alle als gelesen markieren',

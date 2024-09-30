@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Uložit aktuální dotaz do záložek',
 		'favorites' => 'Oblíbené (%s)',
 		'global_view' => 'Zobrazení přehledu',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Důležité kanály',
 		'main_stream' => 'Hlavní kanál',
 		'mark_all_read' => 'Označit vše jako přečtené',

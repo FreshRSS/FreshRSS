@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => '收藏當前查詢',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局視圖',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => '重要的源',
 		'main_stream' => '首頁',
 		'mark_all_read' => '全部設為已讀',
