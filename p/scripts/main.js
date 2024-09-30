@@ -1434,7 +1434,7 @@ function loadDynamicTags(div) {
 					'name="t_' + tag.id + '"type="checkbox" ' +
 					(context.anonymous ? 'disabled="disabled" ' : '') +
 					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
-				datalist += '<option value="' + tag.name + '"></option>'
+				datalist += '<option value="' + tag.name + '"></option>';
 			}
 			if (context.anonymous && nbLabelsChecked === 0) {
 				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
