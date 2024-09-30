@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Pieņemt sīkfailus',
 		'accept_cookies_help' => 'Atļaut barotnes serverim iestatīt sīkfailus (atmiņā tiek saglabāti tikai uz pieprasījuma laiku).',
-		'add' => 'Pievienot RSS barotni',
+		'add' => 'Pievienot barotni',
 		'advanced' => 'Advancēts',
 		'archiving' => 'Arhivēšana',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Raksta CSS selektors sākotnējā vietnē',
 		'css_path_filter' => array(
 			'_' => 'Noņemamo elementu CSS selektors',
-			'help' => 'CSS selektors var būt saraksts, piemēram.: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS selektors var būt saraksts, piemēram.: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Apraksts',
 		'empty' => 'Šī barotne ir tukša. Lūdzu, pārbaudiet, vai tā joprojām tiek uzturēta.',
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Filtra darbības',
 			'help' => 'Uzrakstiet vienu meklēšanas filtru katrā rindā. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informācija',
 		'keep_min' => 'Minimālais saglabājamo izstrādājumu skaits',
 		'kind' => array(

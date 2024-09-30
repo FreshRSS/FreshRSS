@@ -34,7 +34,7 @@ SQL;
 			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
 			return $tagId === false ? false : (int)$tagId;
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -42,7 +42,7 @@ SQL;
 
 	public function addTagObject(FreshRSS_Tag $tag): int|false {
 		$tag0 = $this->searchByName($tag->name());
-		if (!$tag0) {
+		if ($tag0 === null) {
 			$values = [
 				'name' => $tag->name(),
 				'attributes' => $tag->attributes(),
@@ -68,7 +68,7 @@ SQL;
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -86,7 +86,7 @@ SQL;
 			$stm->execute()) {
 			return $stm->rowCount();
 		}
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -111,7 +111,7 @@ SQL;
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
@@ -155,7 +155,7 @@ SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		if ($stm === false || !$stm->execute([$newTagId, $oldTagId])) {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 			return false;
 		}
@@ -166,7 +166,7 @@ SQL;
 		if ($stm !== false && $stm->execute([$newTagId, $oldTagId])) {
 			return $stm->rowCount();
 		}
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 		return false;
 	}
@@ -285,7 +285,7 @@ SQL;
 		if ($stm !== false && $stm->execute($values)) {
 			return true;
 		}
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -341,7 +341,7 @@ SQL;
 			}
 			return $lines;
 		}
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}
@@ -396,7 +396,7 @@ SQL;
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return false;
 	}

@@ -16,7 +16,9 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = FreshRSS_Context::userConf()->shortcuts; ?>
+	<?php
+		$s = array_map(static fn(string $string) => htmlspecialchars($string, ENT_COMPAT, 'UTF-8'), FreshRSS_Context::userConf()->shortcuts);
+	?>
 
 	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">

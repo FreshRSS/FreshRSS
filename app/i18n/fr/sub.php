@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Autoriser les cookies',
 		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
-		'add' => 'Ajouter un flux RSS',
+		'add' => 'Ajouter un flux',
 		'advanced' => 'Avancé',
 		'archiving' => 'Archivage',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
 		'css_path_filter' => array(
 			'_' => 'Sélecteur CSS des éléments à supprimer',
-			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside</kbd>',
+			'help' => 'Un sélecteur CSS peut être une liste comme : <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 		),
+		'http_headers' => 'Entêtes HTTP',
+		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(

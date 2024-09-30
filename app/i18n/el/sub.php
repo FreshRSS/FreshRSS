@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',	// TODO
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
-		'add' => 'Add an RSS feed',	// TODO
+		'add' => 'Add a feed',	// TODO
 		'advanced' => 'Advanced',	// TODO
 		'archiving' => 'Archiving',	// TODO
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Article CSS selector on original website',	// TODO
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',	// TODO
 		),
 		'description' => 'Description',	// TODO
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Information',	// TODO
 		'keep_min' => 'Minimum number of articles to keep',	// TODO
 		'kind' => array(

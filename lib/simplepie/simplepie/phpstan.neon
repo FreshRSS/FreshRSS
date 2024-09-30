@@ -1,0 +1,67 @@
+parameters:
+    level: 6
+
+    paths:
+        - library/
+        - src/
+        - tests/
+
+    ignoreErrors:
+        # Ignore that only one const exists atm
+        -
+            message: "#^Strict comparison using \\!\\=\\= between 'GET' and 'GET' will always evaluate to false\\.$#"
+            count: 1
+            path: src/HTTP/Psr18Client.php
+
+        # SimplePie\Content\Type\Sniffer::__construct(): Parameter $file could be mixed due to BC.
+        -
+            message: '(Result of \|\| is always false\.)'
+            count: 1
+            path: src/Content/Type/Sniffer.php
+
+        # Not used since https://github.com/simplepie/simplepie/commit/b2eb0134d53921e75f0fa70b1cf901ed82b988b1 but cannot be removed due to BC.
+        - '(Constructor of class SimplePie\\Enclosure has an unused parameter \$javascript\.)'
+
+        # Testing legacy dynamic property usage.
+        - '(Access to an undefined property SimplePie.IRI::\$nonexistent_prop\.)'
+
+        -
+            message: '(^Strict comparison using === between string and false will always evaluate to false\.$)'
+            count: 1
+            path: src/HTTP/Parser.php
+            # Only occurs on PHP ≥ 8.0
+            reportUnmatched: false
+
+        -
+            message: '(^Strict comparison using === between string and false will always evaluate to false\.$)'
+            count: 1
+            path: src/IRI.php
+            # Only occurs on PHP ≥ 8.0
+            reportUnmatched: false
+
+        -
+            message: '(^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$)'
+
+            count: 3
+            path: tests/Unit/Cache/Psr16Test.php
+            # Only occurs on PHP ≤ 7.4
+            reportUnmatched: false
+
+        -
+            message: '(^Parameter \$parser of method SimplePie\\Parser::(tag_open|cdata|tag_close)\(\) has invalid type XMLParser\.$)'
+
+            count: 3
+            path: src/Parser.php
+            # Only occurs on PHP ≤ 7.4
+            reportUnmatched: false
+
+        -
+            message: '(^Unable to resolve the template type T in call to method SimplePie\\Registry::get_class\(\)$)'
+            count: 2
+            path: tests/Unit/RegistryTest.php
+
+        # PHPStan stubs bug https://github.com/phpstan/phpstan/issues/8629
+        -
+            message: '(^Access to an undefined property XMLReader::\$\w+\.$)'
+            # Only occurs on PHP ≥ 8.2
+            reportUnmatched: false

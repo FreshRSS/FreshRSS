@@ -13,7 +13,7 @@ final class FreshRSS_LogDAO {
 	public static function lines(?string $logFileName = null): array {
 		$logs = [];
 		$handle = @fopen(self::logPath($logFileName), 'r');
-		if ($handle) {
+		if (is_resource($handle)) {
 			while (($line = fgets($handle)) !== false) {
 				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
 					$myLog = new FreshRSS_Log();

@@ -52,7 +52,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	/** @param array<string|int> $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
-		if ($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) {
+		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1) ?: [];
 			foreach (['attributes'] as $column) {
 				if (!in_array($column, $columns, true)) {
@@ -117,8 +117,8 @@ SQL;
 			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
 			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
-			if (!($stm && $stm->execute($values))) {
-				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+			if ($stm === false || !$stm->execute($values)) {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 				$this->pdo->rollBack();
 				return false;
@@ -129,8 +129,8 @@ SQL;
 				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=?)';
 				$values = [$ids];
 				$stm = $this->pdo->prepare($sql);
-				if (!($stm && $stm->execute($values))) {
-					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+				if ($stm === false || !$stm->execute($values)) {
+					$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					$this->pdo->rollBack();
 					return false;
@@ -167,8 +167,8 @@ SQL;
 		[$searchValues, $search] = $this->sqlListEntriesWhere('e.', $filters, $state);
 
 		$stm = $this->pdo->prepare($sql . $search);
-		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}

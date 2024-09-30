@@ -11,6 +11,7 @@ abstract class CliOptionsParser {
 	public string $usage = '';
 
 	public function __construct() {
+		/** @var array<string> $argv */
 		global $argv;
 
 		$this->usage = $this->getUsageMessage($argv[0]);
@@ -82,7 +83,7 @@ abstract class CliOptionsParser {
 		foreach ($this->inputs as $name => $input) {
 			$values = $input['values'] ?? $input['defaultInput'] ?? null;
 			$types = $this->options[$name]->getTypes();
-			if ($values) {
+			if (!empty($values)) {
 				$validValues = [];
 				$typedValues = [];
 
@@ -205,8 +206,8 @@ abstract class CliOptionsParser {
 
 		foreach ($this->options as $option) {
 			$long[] = $option->getLongAlias() . $getoptNotation[$option->getValueTaken()];
-			$long[] = $option->getDeprecatedAlias() ? $option->getDeprecatedAlias() . $getoptNotation[$option->getValueTaken()] : '';
-			$short .= $option->getShortAlias() ? $option->getShortAlias() . $getoptNotation[$option->getValueTaken()] : '';
+			$long[] = $option->getDeprecatedAlias() != null ? $option->getDeprecatedAlias() . $getoptNotation[$option->getValueTaken()] : '';
+			$short .= $option->getShortAlias() != null ? $option->getShortAlias() . $getoptNotation[$option->getValueTaken()] : '';
 		}
 
 		return [
@@ -220,7 +221,7 @@ abstract class CliOptionsParser {
 		$optional = [];
 
 		foreach ($this->options as $name => $option) {
-			$shortAlias = $option->getShortAlias() ? '-' . $option->getShortAlias() . ' ' : '';
+			$shortAlias = $option->getShortAlias() != null ? '-' . $option->getShortAlias() . ' ' : '';
 			$longAlias = '--' . $option->getLongAlias() . ($option->getValueTaken() === 'required' ? '=<' . strtolower($name) . '>' : '');
 			if ($this->inputs[$name]['required']) {
 				$required[] = $shortAlias . $longAlias;
@@ -235,7 +236,7 @@ abstract class CliOptionsParser {
 	private function makeInputRegex(): string {
 		$shortWithValues = '';
 		foreach ($this->options as $option) {
-			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias()) {
+			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias() != null) {
 				$shortWithValues .= $option->getShortAlias();
 			}
 		}

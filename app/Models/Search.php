@@ -341,7 +341,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotEntryIds(string $input): string {
-		if (preg_match_all('/(?<=\\s|^)[!-]e:(?P<search>[0-9,]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]e:(?P<search>[0-9,]*)/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
 			$this->not_entry_ids = [];
@@ -375,7 +375,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotFeedIds(string $input): string {
-		if (preg_match_all('/(?<=\\s|^)[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
 			$this->not_feed_ids = [];
@@ -418,7 +418,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotLabelIds(string $input): string {
-		if (preg_match_all('/(?<=\\s|^)[!-][lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-][lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$ids_lists = $matches['search'];
 			$this->not_label_ids = [];
@@ -470,11 +470,11 @@ class FreshRSS_Search {
 	 */
 	private function parseNotLabelNames(string $input): string {
 		$names_lists = [];
-		if (preg_match_all('/(?<=\\s|^)[!-]labels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]labels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]labels?:(?P<search>[^\\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]labels?:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -516,15 +516,15 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotIntitleSearch(string $input): string {
-		if (preg_match_all('#(?<=\\s|^)[!-]intitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=[\\s(]|^)[!-]intitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_intitle_regex = self::htmlspecialchars_decodes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_intitle = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_intitle = array_merge($this->not_intitle ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -561,15 +561,15 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotAuthorSearch(string $input): string {
-		if (preg_match_all('#(?<=\\s|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=[\\s(]|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_author_regex = self::htmlspecialchars_decodes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_author = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_author = array_merge($this->not_author ?: [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -605,15 +605,15 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotInurlSearch(string $input): string {
-		if (preg_match_all('#(?<=\\s|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=[\\s(]|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_inurl_regex = self::htmlspecialchars_decodes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -640,7 +640,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotDateSearch(string $input): string {
-		if (preg_match_all('/(?<=\\s|^)[!-]date:(?P<search>[^\\s]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]date:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
@@ -667,7 +667,7 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotPubdateSearch(string $input): string {
-		if (preg_match_all('/(?<=\\s|^)[!-]pubdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]pubdate:(?P<search>[^\\s]*)/', $input, $matches)) {
 			$input = str_replace($matches[0], '', $input);
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
@@ -705,15 +705,15 @@ class FreshRSS_Search {
 	}
 
 	private function parseNotTagsSearch(string $input): string {
-		if (preg_match_all('%(?<=\\s|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
+		if (preg_match_all('%(?<=[\\s(]|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
 			$this->not_tags_regex = self::htmlspecialchars_decodes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-]#(?P<search>[^\\s]+)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s]+)/', $input, $matches)) {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -736,12 +736,12 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('#(?<=\\s|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=[\\s(]|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->search_regex = self::htmlspecialchars_decodes($matches['search']);
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<![!-])(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)(?<![!-\\\\])(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->search = $matches['search'];
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
@@ -771,11 +771,11 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('#(?<=\\s|^)[!-](?P<search>(?<!\\\\)/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+		if (preg_match_all('#(?<=[\\s(]|^)[!-](?P<search>(?<!\\\\)/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_search_regex = self::htmlspecialchars_decodes($matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_search = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -783,7 +783,7 @@ class FreshRSS_Search {
 		if ($input === '') {
 			return '';
 		}
-		if (preg_match_all('/(?<=\\s|^)[!-](?P<search>[^\\s]+)/', $input, $matches)) {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-](?P<search>[^\\s]+)/', $input, $matches)) {
 			$this->not_search = array_merge(is_array($this->not_search) ? $this->not_search : [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}

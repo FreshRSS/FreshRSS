@@ -99,10 +99,14 @@ return array(
 		# Duration in seconds of the login cookie.
 		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
-		# Duration in seconds of the SimplePie cache,
-		#	during which a query to the RSS feed will return the local cached version.
+		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_min' => 60,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_max' => 86400,
 
 		# SimplePie HTTP request timeout in seconds.
 		'timeout' => 20,

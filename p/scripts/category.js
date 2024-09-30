@@ -25,7 +25,7 @@ function dragend_process(t) {
 
 		if (p.childElementCount <= 1) {
 			p.insertAdjacentHTML('afterbegin',
-				'<li class="item feed disabled"><div class="alert-warn">' + context.i18n.category_empty + '</div></li>');
+				'<li class="item feed disabled emptyCategory"><div class="alert-warn">' + context.i18n.category_empty + '</div></li>');
 		}
 	}
 }

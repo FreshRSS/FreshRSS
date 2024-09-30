@@ -224,7 +224,7 @@ class Minz_ModelPdo {
 			$calling .= '|' . $backtrace[$i]['function'];
 		}
 		$calling = trim($calling, '|');
-		$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . $calling . ' ' . json_encode($info));
 		return null;
 	}
