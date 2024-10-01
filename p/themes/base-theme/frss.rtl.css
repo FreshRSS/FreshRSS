@@ -2329,16 +2329,37 @@ html.slider-active {
 	margin: 1rem;
 	padding: 1rem;
 	width: 350px;
-	height: 320px;
+	height: 350px;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	border: 1px solid grey;
+}
+
+.grid .card .article-header-topline {
+	margin-bottom: 0.5rem;
+}
+
+.grid .card .article-header-topline .manage a {
+	padding: 0 0 0.25rem 0.25rem;
+	margin-left: 0.5rem;
 }
 
 .grid .card .thumbnail img {
 	width: 335px;
 	height: 200px;
 	object-fit: cover;
+}
+
+.grid .card .date {
+	padding: 0.25rem 0;
+	font-size: 0.9rem;
+}
+
+.grid .card .title {
+	color: var(--frss-font-color-dark);
+}
+
+.grid .flux.not_read .card .title {
+	font-weight: bold;
 }
 
 #loglist-wrapper {

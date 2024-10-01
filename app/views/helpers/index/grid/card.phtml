@@ -16,7 +16,7 @@
 	}
 ?>
 <div class="card">
-	<div>
+	<div class="article-header-topline">
 		<?php
 		if (FreshRSS_Auth::hasAccess()) {
 			if ($topline_read) {
@@ -25,17 +25,17 @@
 					if ($this->entry->isRead()) {
 						$arUrl['params']['is_read'] = '0';
 					}
-					?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+					?><a class="read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
 						echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 				?></span><?php
 			}
 			if ($topline_favorite) {
-				?><span class="item manage"><?php
+				?><span class="manage"><?php
 					$arUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $this->entry->id()]];
 					if ($this->entry->isFavorite()) {
 						$arUrl['params']['is_favorite'] = '0';
 					}
-					?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+					?><a class="bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
 						echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 				?></span><?php
 			}
@@ -53,7 +53,11 @@
 	<div class="thumbnail <?= $topline_thumbnail ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
 		if ($thumbnail != null):
-			?><img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" /><?php
+			?>
+			<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>">
+				<img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" />
+			</a>
+			<?php
 		endif;
 	?></div>
 	<?php if ($topline_date) { ?>
