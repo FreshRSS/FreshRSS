@@ -938,7 +938,7 @@ input[type="checkbox"]:focus-visible {
 	overflow: auto;
 }
 
-.box .box-content .item {
+.box .box-content .feed.item {
 	font-size: 0.9rem;
 	line-height: 1.5;
 	text-indent: -3rem;
