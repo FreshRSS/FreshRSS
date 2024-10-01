@@ -1982,7 +1982,7 @@ function init_normal() {
 function init_main_beforeDOM() {
 	document.scrollingElement.scrollTop = 0;
 	init_shortcuts();
-	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
+	if (['normal', 'grid', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
 }
