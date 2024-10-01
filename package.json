@@ -34,11 +34,11 @@
     "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
   },
   "devDependencies": {
-    "eslint": "^9.9.1",
+    "eslint": "^9.11.1",
     "@eslint/js": "^9.9.0",
-    "globals": "^15.9.0",
+    "globals": "^15.10.0",
     "markdownlint-cli": "^0.42.0",
-    "neostandard": "^0.11.4",
+    "neostandard": "^0.11.6",
     "rtlcss": "^4.3.0",
     "sass": "^1.79.4",
     "stylelint": "^16.9.0",
