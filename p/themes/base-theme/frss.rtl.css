@@ -2320,13 +2320,17 @@ html.slider-active {
 	border: 1px solid var(--frss-border-color);
 }
 
+#stream.grid {
+	padding: 1rem 2rem;
+}
+
 .grid .flux {
 	display: inline-block;
 	vertical-align: top;
 }
 
 .grid .card {
-	margin: 1rem;
+	margin: 0 0 2rem 1rem;
 	padding: 1rem;
 	width: 350px;
 	height: 350px;
