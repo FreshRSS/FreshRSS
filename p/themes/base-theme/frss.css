@@ -2320,6 +2320,27 @@ html.slider-active {
 	border: 1px solid var(--frss-border-color);
 }
 
+.grid .flux {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.grid .card {
+	margin: 1rem;
+	padding: 1rem;
+	width: 350px;
+	height: 320px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border: 1px solid grey;
+}
+
+.grid .card .thumbnail img {
+	width: 335px;
+	height: 200px;
+	object-fit: cover;
+}
+
 #loglist-wrapper {
 	overflow-x: auto;
 }

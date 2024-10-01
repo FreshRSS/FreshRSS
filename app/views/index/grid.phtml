@@ -22,7 +22,7 @@ $today = @strtotime('today');
 </template>
 
 <main id="stream" class="normal<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
-	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
+	<h1 class="title_hidden"><?= _t('conf.reading.view.grid') ?></h1>
 	<div id="new-article">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
@@ -73,7 +73,7 @@ $today = @strtotime('today');
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
 		?>"><?php
-			$this->renderHelper('index/normal/entry_header');
+			$this->renderHelper('index/grid/card');
 			if ($this->feed === null || $this->entry === null) {
 				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 			}

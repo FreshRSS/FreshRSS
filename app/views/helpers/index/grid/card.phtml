@@ -1,0 +1,69 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$topline_read = FreshRSS_Context::userConf()->topline_read;
+	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
+	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing;
+	$topline_website = FreshRSS_Context::userConf()->topline_website;
+	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
+	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
+	$topline_display_authors = FreshRSS_Context::userConf()->topline_display_authors;
+	$topline_date = FreshRSS_Context::userConf()->topline_date;
+	$topline_link = FreshRSS_Context::userConf()->topline_link;
+	$lazyload = FreshRSS_Context::userConf()->lazyload;
+	if ($this->feed === null || $this->entry === null) {
+		return;
+	}
+?>
+<div class="card">
+	<div>
+		<?php
+		if (FreshRSS_Auth::hasAccess()) {
+			if ($topline_read) {
+				?><span class="manage"><?php
+					$arUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $this->entry->id()]];
+					if ($this->entry->isRead()) {
+						$arUrl['params']['is_read'] = '0';
+					}
+					?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
+						echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+				?></span><?php
+			}
+			if ($topline_favorite) {
+				?><span class="item manage"><?php
+					$arUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $this->entry->id()]];
+					if ($this->entry->isFavorite()) {
+						$arUrl['params']['is_favorite'] = '0';
+					}
+					?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
+						echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+				?></span><?php
+			}
+		}
+
+		if ($topline_website !== 'none'):
+		?>
+		<span class="website <?= $topline_website ?>">
+			<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
+				<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
+			</a>
+				</span><?php
+		endif; ?>
+	</div>
+	<div class="thumbnail <?= $topline_thumbnail ?>"><?php
+		$thumbnail = $this->entry->thumbnail();
+		if ($thumbnail != null):
+			?><img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" /><?php
+		endif;
+	?></div>
+	<?php if ($topline_date) { ?>
+		<div class="date">
+			<time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>
+		</div>
+	<?php } ?>
+	<div class="title">
+		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto">
+			<?= $this->entry->title() ?>
+		</a>
+	</div>
+</div>
