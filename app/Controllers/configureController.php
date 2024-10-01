@@ -413,7 +413,6 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
-			$queries[$id]['search'] == $queryParams['search'] ?? '';	// Keep original search string, e.g. for allowing a dynamic `search:` operator
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
