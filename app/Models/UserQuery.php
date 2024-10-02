@@ -95,7 +95,7 @@ class FreshRSS_UserQuery {
 		}
 
 		// linked too deeply with the search object, need to use dependency injection
-		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', false);
+		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', allowUserQueries: true);
 		if (!empty($query['state'])) {
 			$this->state = intval($query['state']);
 		}
