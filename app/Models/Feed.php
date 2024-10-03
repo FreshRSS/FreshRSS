@@ -498,7 +498,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 		if (!$hasUniqueGuids) {
 			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$guidPolicy = $this->attributeString('guidPolicy');
 			if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
 				$guidPolicy = 'link';
@@ -513,8 +512,8 @@ class FreshRSS_Feed extends Minz_Model {
 			};
 
 			if ($newGuidPolicy !== $guidPolicy) {
-				$feedDAO->updateFeedAttribute($this, 'hasBadGuids', null);	// Remove legacy
-				$feedDAO->updateFeedAttribute($this, 'guidPolicy', $newGuidPolicy);
+				$this->_attribute('hasBadGuids', null);	// Remove legacy
+				$this->_attribute('guidPolicy', $newGuidPolicy);
 				Minz_Log::warning('Feed GUID policy updated (' . $guidPolicy . ' → ' . $newGuidPolicy . '): ' . $this->url);
 				return $this->loadGuids($simplePie);
 			}

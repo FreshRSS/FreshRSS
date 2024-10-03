@@ -108,6 +108,16 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($feed->name() . ' · ' . _t('sub.title.feed_management') . ' · ');
 
 		if (Minz_Request::isPost()) {
+			$guidPolicy = Minz_Request::paramString('guidPolicy');
+			if (in_array($guidPolicy, [null, '', 'id'], strict: true)) {
+				$guidPolicy = null;
+			}
+			if ($guidPolicy === null && $feed->attributeBoolean('hasBadGuids')) {	// Legacy
+				$guidPolicy = 'link';
+			}
+			$feed->_attribute('hasBadGuids', null);	// Remove legacy
+			$feed->_attribute('guidPolicy', $guidPolicy);
+
 			$user = Minz_Request::paramString('http_user_feed' . $id);
 			$pass = Minz_Request::paramString('http_pass_feed' . $id);
 
