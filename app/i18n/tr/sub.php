@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookieleri kabul et',
 		'accept_cookies_help' => 'Akış sağlayıcısının cookieler oluşturmasına izin ver. (Sadece istek süresince bellekte depolanmak üzere)',
-		'add' => 'RSS akışı ekle',
+		'add' => 'akışı ekle',
 		'advanced' => 'Gelişmiş',
 		'archiving' => 'Arşiv',
 		'auth' => array(

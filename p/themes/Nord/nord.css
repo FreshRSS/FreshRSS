@@ -509,22 +509,19 @@ img.favicon {
 	border-radius: 10px;
 }
 
-.box .box-title {
-	padding: 5px 10px;
-}
-
-.box .box-title,
-.box .box-content {
-	padding: 1rem 1rem .25rem 1rem;
-}
-
 .box .box-content {
 	padding-bottom: 1.5rem;
 	list-style: none;
 }
 
+.box .box-title {
+	padding-top: 0.75rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--nordX-background);
+}
+
 .box .box-title .configure {
-	padding-right: .5rem;
+	padding-right: .25rem;
 }
 
 .box .box-title h2 {

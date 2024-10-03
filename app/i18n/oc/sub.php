@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Acceptar los cookies',
 		'accept_cookies_help' => 'Permetre al servidor del flux de definir de cookies (gardatz en memòria pendent la durada de la requèsta sonque)',
-		'add' => 'Ajustar un flux RSS',
+		'add' => 'Ajustar un flux',
 		'advanced' => 'Avançat',
 		'archiving' => 'Archivar',
 		'auth' => array(

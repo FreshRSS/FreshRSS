@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Разрешить файлы cookies',
 		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
-		'add' => 'Добавить RSS-ленту',
+		'add' => 'Добавить ленту',
 		'advanced' => 'Дополнительно',
 		'archiving' => 'Архивирование',
 		'auth' => array(

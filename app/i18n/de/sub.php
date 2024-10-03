@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookies zulassen',
 		'accept_cookies_help' => 'Erlaubt dem Feed-Server das Setzen von Cookies (wird nur für die Dauer der Anfrage im Speicher gehalten)',
-		'add' => 'Einen RSS-Feed hinzufügen',
+		'add' => 'Einen Feed hinzufügen',
 		'advanced' => 'Erweitert',
 		'archiving' => 'Archivierung',
 		'auth' => array(
@@ -77,9 +77,9 @@ return array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'information' => 'Information',	// IGNORE
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',

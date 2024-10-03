@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'クッキーを受け入れる',
 		'accept_cookies_help' => 'クッキーをこのサーバーから受け入れます(このリクエストだけにメモリへ保存されます)',
-		'add' => 'RSSフィードに追加する',
+		'add' => 'フィードに追加する',
 		'advanced' => '高度な設定',
 		'archiving' => 'アーカイブ',
 		'auth' => array(
