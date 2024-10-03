@@ -489,7 +489,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$guid = $this->decideGuid($item);
+			$guid = $this->decideGuid($item, fallback: true);
 			$hasUniqueGuids &= $guid !== '';
 			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
 			$testGuids['_' . $guid] = true;
@@ -623,7 +623,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
-			$guid = $this->decideGuid($item);
+			$guid = $this->decideGuid($item, fallback: true);
 			unset($item);
 
 			$authorNames = '';
