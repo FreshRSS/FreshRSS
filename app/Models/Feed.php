@@ -427,14 +427,58 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * Decide the GUID of an entry based on the feed’s policy.
+	 * @param \SimplePie\Item $item The item to decide the GUID for.
+	 * @param bool $fallback Whether to automatically switch to the next policy in case of blank GUID.
+	 * @return string The decided GUID for the entry.
+	 */
+	protected function decideGuid(\SimplePie\Item $item, bool $fallback = false): string {
+		$guidPolicy = $this->attributeString('guidPolicy');
+		if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
+			$guidPolicy = 'link';
+		}
+
+		$entryId = safe_ascii($item->get_id(false, false));
+
+		$guid = match ($guidPolicy) {
+			null => $entryId,
+			'link' => $item->get_permalink() ?? '',
+			'sha1:link_published'               => sha1($item->get_permalink() . $item->get_date('U')),
+			'sha1:link_published_title'         => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title()),
+			'sha1:link_published_title_content' => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title() . $item->get_content()),
+			default => $entryId,
+		};
+
+		$blankHash = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';	// sha1('')
+		if ($guid === $blankHash) {
+			$guid = '';
+		}
+
+		if ($fallback && $guid === '') {
+			if ($entryId !== '') {
+				$guid = $entryId;
+			} elseif (($item->get_permalink() ?? '') !== '') {
+				$guid = sha1($item->get_permalink() . $item->get_date('U'));
+			} elseif (($item->get_title() ?? '') !== '') {
+				$guid = sha1($item->get_permalink() . $item->get_date('U') . $item->get_title());
+			} else {
+				$guid = sha1($item->get_permalink() . $item->get_date('U') . $item->get_title() . $item->get_content());
+			}
+			if ($guid === $blankHash) {
+				$guid = '';
+			}
+		}
+
+		return $guid;
+	}
+
+	/**
 	 * @return array<string>
 	 */
 	public function loadGuids(\SimplePie\SimplePie $simplePie): array {
 		$hasUniqueGuids = true;
 		$testGuids = [];
 		$guids = [];
-		$links = [];
-		$hadBadGuids = $this->attributeBoolean('hasBadGuids');
 
 		$items = $simplePie->get_items();
 		if (empty($items)) {
@@ -445,33 +489,43 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$guid = safe_ascii($item->get_id(false, false));
+			$guid = $this->decideGuid($item);
+			$hasUniqueGuids &= $guid !== '';
 			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
 			$testGuids['_' . $guid] = true;
 			$guids[] = $guid;
-			$permalink = $item->get_permalink();
-			if ($permalink != null) {
-				$links[] = $permalink;
-			}
 		}
 
-		if ($hadBadGuids != !$hasUniqueGuids) {
-			if ($hadBadGuids) {
-				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			} else {
-				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
-			}
+		if (!$hasUniqueGuids) {
+			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', !$hasUniqueGuids);
+			$guidPolicy = $this->attributeString('guidPolicy');
+			if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
+				$guidPolicy = 'link';
+			}
+
+			$newGuidPolicy = match ($guidPolicy) {
+				null => 'sha1:link_published',
+				'link' => 'sha1:link_published',
+				'sha1:link_published' => 'sha1:link_published_title',
+				'sha1:link_published_title' => 'sha1:link_published_title_content',
+				default => 'sha1:link_published',
+			};
+
+			if ($newGuidPolicy !== $guidPolicy) {
+				$feedDAO->updateFeedAttribute($this, 'hasBadGuids', null);	// Remove legacy
+				$feedDAO->updateFeedAttribute($this, 'guidPolicy', $newGuidPolicy);
+				Minz_Log::warning('Feed GUID policy updated (' . $guidPolicy . ' → ' . $newGuidPolicy . '): ' . $this->url);
+				return $this->loadGuids($simplePie);
+			}
+			$this->_error(true);
 		}
 
-		return $hasUniqueGuids ? $guids : $links;
+		return $guids;
 	}
 
 	/** @return Traversable<FreshRSS_Entry> */
 	public function loadEntries(\SimplePie\SimplePie $simplePie): Traversable {
-		$hasBadGuids = $this->attributeBoolean('hasBadGuids');
-
 		$items = $simplePie->get_items();
 		if (empty($items)) {
 			return;
@@ -485,7 +539,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$title = html_only_entity_decode(strip_tags($item->get_title() ?? ''));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
-			$date = @strtotime((string)($item->get_date() ?? '')) ?: 0;
+			$date = $item->get_date('U');
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
@@ -569,7 +623,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
-			$guid = safe_ascii($item->get_id(false, false));
+			$guid = $this->decideGuid($item);
 			unset($item);
 
 			$authorNames = '';
@@ -585,7 +639,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$hasBadGuids ? '' : $guid,
+				$guid,
 				$title == '' ? '' : $title,
 				$authorNames,
 				$content == '' ? '' : $content,
