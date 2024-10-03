@@ -483,16 +483,7 @@ HTML;
 	}
 
 	public function _guid(string $value): void {
-		$value = trim($value);
-		if ($value === '') {
-			$value = $this->link;
-			if ($value === '') {
-				$value = $this->hash();
-			} else {
-				$value = sha1($this->link . $this->title);
-			}
-		}
-		$this->guid = $value;
+		$this->guid = trim($value);
 	}
 
 	public function _title(string $value): void {
