@@ -701,7 +701,12 @@ function show_labels_menu(el) {
 	const div = el.parentElement;
 	const dropdownMenu = div.querySelector('.dropdown-menu');
 
-	if (!dropdownMenu) {
+	if (!dropdownMenu || forceReloadLabelsList) {
+		if (dropdownMenu) {
+			dropdownMenu.nextElementSibling.remove();
+			dropdownMenu.remove();
+		}
+
 		const templateId = 'labels_article_template';
 		const template = document.getElementById(templateId).innerHTML;
 		div.insertAdjacentHTML('beforeend', template);
@@ -1319,6 +1324,7 @@ function init_stream(stream) {
 				req.onloadend = function (e) {
 					checkboxTag.disabled = false;
 					if (tagId == 0) {
+						forceReloadLabelsList = true;
 						loadDynamicTags(checkboxTag.closest('div.dropdown'));
 					}
 				};
@@ -1369,6 +1375,11 @@ function init_nav_entries() {
 		};
 	}
 }
+
+// forceReloadLabelsList default is false, so that the list does need a reload after opening it a second time.
+// will be set to true, if a new tag is added. Then the labels list will be reloaded each opening.
+// purpose of this flag: minimize the network traffic.
+let forceReloadLabelsList = false;
 
 function loadDynamicTags(div) {
 	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
