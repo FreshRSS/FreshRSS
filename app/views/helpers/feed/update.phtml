@@ -101,20 +101,20 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="guidPolicy"><?= _t('sub.feed.guidPolicy') ?></label>
+				<label class="group-name" for="unicityPolicy"><?= _t('sub.feed.unicityPolicy') ?></label>
 				<?php
-					$guidPolicy = $this->feed->attributeString('guidPolicy');
+					$unicityPolicy = $this->feed->attributeString('unicityPolicy');
 					if ($this->feed->attributeBoolean('hasBadGuids')) {	// Legacy
-						$guidPolicy = 'link';
+						$unicityPolicy = 'link';
 					}
 				?>
 				<div class="group-controls">
-					<select class="w50" name="guidPolicy" id="guidPolicy" required="required">
-						<option value="" <?= $guidPolicy == null ? 'selected="selected"' : '' ?>><?= _t('sub.feed.guidPolicy.id') ?></option>
-						<option value="link" <?= $guidPolicy === 'link' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.guidPolicy.link') ?></option>
-						<option value="sha1:link_published" <?= $guidPolicy === 'sha1:link_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.guidPolicy.sha1:link_published') ?></option>
-						<option value="sha1:link_published_title" <?= $guidPolicy === 'sha1:link_published_title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.guidPolicy.sha1:link_published_title') ?></option>
-						<option value="sha1:link_published_title_content" <?= $guidPolicy === 'sha1:link_published_title_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.guidPolicy.sha1:link_published_title_content') ?></option>
+					<select class="w50" name="unicityPolicy" id="unicityPolicy" required="required">
+						<option value="id" <?= $unicityPolicy == null ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityPolicy.id') ?></option>
+						<option value="link" <?= $unicityPolicy === 'link' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityPolicy.link') ?></option>
+						<option value="sha1:link_published" <?= $unicityPolicy === 'sha1:link_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityPolicy.sha1:link_published') ?></option>
+						<option value="sha1:link_published_title" <?= $unicityPolicy === 'sha1:link_published_title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityPolicy.sha1:link_published_title') ?></option>
+						<option value="sha1:link_published_title_content" <?= $unicityPolicy === 'sha1:link_published_title_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityPolicy.sha1:link_published_title_content') ?></option>
 					</select>
 				</div>
 			</div>

@@ -221,6 +221,14 @@ return array(
 		'title' => 'Cím',
 		'title_add' => 'RSS hírforrás hozzáadása',
 		'ttl' => 'Ne frissítsd automatikusan többször mint',
+		'unicityPolicy' => array(
+			'_' => 'Articles unicity',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'Hírforrás URL',
 		'useragent' => 'Állíts be egy user agent-et ehhez a hírforráshoz',
 		'useragent_help' => 'Példa: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

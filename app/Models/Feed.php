@@ -432,15 +432,15 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @param bool $fallback Whether to automatically switch to the next policy in case of blank GUID.
 	 * @return string The decided GUID for the entry.
 	 */
-	protected function decideGuid(\SimplePie\Item $item, bool $fallback = false): string {
-		$guidPolicy = $this->attributeString('guidPolicy');
+	protected function decideEntryGuid(\SimplePie\Item $item, bool $fallback = false): string {
+		$unicityPolicy = $this->attributeString('unicityPolicy');
 		if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
-			$guidPolicy = 'link';
+			$unicityPolicy = 'link';
 		}
 
 		$entryId = safe_ascii($item->get_id(false, false));
 
-		$guid = match ($guidPolicy) {
+		$guid = match ($unicityPolicy) {
 			null => $entryId,
 			'link' => $item->get_permalink() ?? '',
 			'sha1:link_published'               => sha1($item->get_permalink() . $item->get_date('U')),
@@ -489,7 +489,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$guid = $this->decideGuid($item, fallback: true);
+			$guid = $this->decideEntryGuid($item, fallback: true);
 			$hasUniqueGuids &= $guid !== '';
 			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
 			$testGuids['_' . $guid] = true;
@@ -498,12 +498,12 @@ class FreshRSS_Feed extends Minz_Model {
 
 		if (!$hasUniqueGuids) {
 			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			$guidPolicy = $this->attributeString('guidPolicy');
+			$unicityPolicy = $this->attributeString('unicityPolicy');
 			if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
-				$guidPolicy = 'link';
+				$unicityPolicy = 'link';
 			}
 
-			$newGuidPolicy = match ($guidPolicy) {
+			$newUnicityPolicy = match ($unicityPolicy) {
 				null => 'sha1:link_published',
 				'link' => 'sha1:link_published',
 				'sha1:link_published' => 'sha1:link_published_title',
@@ -511,10 +511,10 @@ class FreshRSS_Feed extends Minz_Model {
 				default => 'sha1:link_published',
 			};
 
-			if ($newGuidPolicy !== $guidPolicy) {
+			if ($newUnicityPolicy !== $unicityPolicy) {
 				$this->_attribute('hasBadGuids', null);	// Remove legacy
-				$this->_attribute('guidPolicy', $newGuidPolicy);
-				Minz_Log::warning('Feed GUID policy updated (' . $guidPolicy . ' → ' . $newGuidPolicy . '): ' . $this->url);
+				$this->_attribute('unicityPolicy', $newUnicityPolicy);
+				Minz_Log::warning('Feed GUID policy updated (' . $unicityPolicy . ' → ' . $newUnicityPolicy . '): ' . $this->url);
 				return $this->loadGuids($simplePie);
 			}
 			$this->_error(true);
@@ -622,7 +622,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
-			$guid = $this->decideGuid($item, fallback: true);
+			$guid = $this->decideEntryGuid($item, fallback: true);
 			unset($item);
 
 			$authorNames = '';

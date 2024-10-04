@@ -221,6 +221,14 @@ return array(
 		'title' => 'タイトル',
 		'title_add' => 'RSS フィードを追加する',
 		'ttl' => '自動更新の頻度',
+		'unicityPolicy' => array(
+			'_' => 'Articles unicity',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',
 		'useragent_help' => '例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
