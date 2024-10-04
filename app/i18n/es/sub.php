@@ -221,7 +221,7 @@ return array(
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

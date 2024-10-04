@@ -221,7 +221,7 @@ return array(
 		'title' => 'Cím',
 		'title_add' => 'RSS hírforrás hozzáadása',
 		'ttl' => 'Ne frissítsd automatikusan többször mint',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

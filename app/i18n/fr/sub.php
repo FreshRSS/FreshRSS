@@ -221,7 +221,7 @@ return array(
 		'title' => 'Titre',
 		'title_add' => 'Ajouter un flux RSS',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Critère d’unicité des articles',
 			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer le critère peut créer des doublons.',
 			'id' => 'ID standard (défaut)',

@@ -433,14 +433,14 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @return string The decided GUID for the entry.
 	 */
 	protected function decideEntryGuid(\SimplePie\Item $item, bool $fallback = false): string {
-		$unicityPolicy = $this->attributeString('unicityPolicy');
+		$unicityCriteria = $this->attributeString('unicityCriteria');
 		if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
-			$unicityPolicy = 'link';
+			$unicityCriteria = 'link';
 		}
 
 		$entryId = safe_ascii($item->get_id(false, false));
 
-		$guid = match ($unicityPolicy) {
+		$guid = match ($unicityCriteria) {
 			null => $entryId,
 			'link' => $item->get_permalink() ?? '',
 			'sha1:link_published'               => sha1($item->get_permalink() . $item->get_date('U')),
@@ -498,12 +498,12 @@ class FreshRSS_Feed extends Minz_Model {
 
 		if (!$hasUniqueGuids) {
 			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			$unicityPolicy = $this->attributeString('unicityPolicy');
+			$unicityCriteria = $this->attributeString('unicityCriteria');
 			if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
-				$unicityPolicy = 'link';
+				$unicityCriteria = 'link';
 			}
 
-			$newUnicityPolicy = match ($unicityPolicy) {
+			$newUnicityCriteria = match ($unicityCriteria) {
 				null => 'sha1:link_published',
 				'link' => 'sha1:link_published',
 				'sha1:link_published' => 'sha1:link_published_title',
@@ -511,10 +511,10 @@ class FreshRSS_Feed extends Minz_Model {
 				default => 'sha1:link_published',
 			};
 
-			if ($newUnicityPolicy !== $unicityPolicy) {
+			if ($newUnicityCriteria !== $unicityCriteria) {
 				$this->_attribute('hasBadGuids', null);	// Remove legacy
-				$this->_attribute('unicityPolicy', $newUnicityPolicy);
-				Minz_Log::warning('Feed unicity policy degraded (' . ($unicityPolicy ?: 'id') . ' → ' . $newUnicityPolicy . '): ' . $this->url);
+				$this->_attribute('unicityCriteria', $newUnicityCriteria);
+				Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' . $this->url);
 				return $this->loadGuids($simplePie);
 			}
 			$this->_error(true);

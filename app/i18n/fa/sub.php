@@ -221,7 +221,7 @@ return array(
 		'title' => ' عنوان',
 		'title_add' => ' یک فید RSS اضافه کنید',
 		'ttl' => ' به‌طور خودکار بیشتر از آن رفرش نکنید',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

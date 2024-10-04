@@ -221,7 +221,7 @@ return array(
 		'title' => 'כותרת',
 		'title_add' => 'הוספת הזנה',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

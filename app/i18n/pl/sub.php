@@ -221,7 +221,7 @@ return array(
 		'title' => 'Tytuł',
 		'title_add' => 'Dodaj kanał',
 		'ttl' => 'Nie odświeżaj automatycznie częściej niż',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

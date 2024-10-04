@@ -108,15 +108,15 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($feed->name() . ' · ' . _t('sub.title.feed_management') . ' · ');
 
 		if (Minz_Request::isPost()) {
-			$unicityPolicy = Minz_Request::paramString('unicityPolicy');
-			if (in_array($unicityPolicy, ['id', '', null], strict: true)) {
-				$unicityPolicy = null;
+			$unicityCriteria = Minz_Request::paramString('unicityCriteria');
+			if (in_array($unicityCriteria, ['id', '', null], strict: true)) {
+				$unicityCriteria = null;
 			}
-			if ($unicityPolicy === null && $feed->attributeBoolean('hasBadGuids')) {	// Legacy
-				$unicityPolicy = 'link';
+			if ($unicityCriteria === null && $feed->attributeBoolean('hasBadGuids')) {	// Legacy
+				$unicityCriteria = 'link';
 			}
 			$feed->_attribute('hasBadGuids', null);	// Remove legacy
-			$feed->_attribute('unicityPolicy', $unicityPolicy);
+			$feed->_attribute('unicityCriteria', $unicityCriteria);
 
 			$user = Minz_Request::paramString('http_user_feed' . $id);
 			$pass = Minz_Request::paramString('http_pass_feed' . $id);

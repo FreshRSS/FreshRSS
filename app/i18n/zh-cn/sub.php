@@ -221,7 +221,7 @@ return array(
 		'title' => '标题',
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

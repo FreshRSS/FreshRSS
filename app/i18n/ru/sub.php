@@ -221,7 +221,7 @@ return array(
 		'title' => 'Заголовок',
 		'title_add' => 'Добавить RSS-ленту',
 		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO

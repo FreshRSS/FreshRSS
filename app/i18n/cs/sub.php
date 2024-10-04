@@ -221,7 +221,7 @@ return array(
 		'title' => 'Název',
 		'title_add' => 'Přidat kanál RSS',
 		'ttl' => 'Neobnovovat automaticky častěji než',
-		'unicityPolicy' => array(
+		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
