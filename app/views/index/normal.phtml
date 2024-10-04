@@ -23,6 +23,19 @@ $today = @strtotime('today');
 	<a class="dropdown-close" href="#close">❌</a>
 </template>
 
+<template id="labels_article_template">
+	<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
+		<li class="dropdown-header">
+			<?= _t('index.menu.tags') ?>
+			<?php if (FreshRSS_Auth::hasAccess()) { ?>
+				<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
+			<?php } ?>
+		</li>
+		<!-- Ajax -->
+	</ul>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>
+
 <main id="stream" class="normal<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
 	<div id="new-article">
