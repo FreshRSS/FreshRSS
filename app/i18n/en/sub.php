@@ -222,7 +222,7 @@ return array(
 		'title_add' => 'Add an RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',
 		'unicityPolicy' => array(
-			'_' => 'Articles unicity',
+			'_' => 'Article unicity criteria',
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',
 			'link' => 'Link',

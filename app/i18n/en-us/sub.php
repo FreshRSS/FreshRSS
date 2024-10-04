@@ -222,7 +222,7 @@ return array(
 		'title_add' => 'Add an RSS feed',	// IGNORE
 		'ttl' => 'Do not automatically refresh more often than',	// IGNORE
 		'unicityPolicy' => array(
-			'_' => 'Articles unicity',	// IGNORE
+			'_' => 'Article unicity criteria',	// IGNORE
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// IGNORE
 			'id' => 'Standard ID (default)',	// IGNORE
 			'link' => 'Link',	// IGNORE

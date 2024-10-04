@@ -222,7 +222,7 @@ return array(
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'unicityPolicy' => array(
-			'_' => 'Articles unicity',	// TODO
+			'_' => 'Article unicity criteria',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
