@@ -514,7 +514,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($newUnicityPolicy !== $unicityPolicy) {
 				$this->_attribute('hasBadGuids', null);	// Remove legacy
 				$this->_attribute('unicityPolicy', $newUnicityPolicy);
-				Minz_Log::warning('Feed unicity policy updated (' . ($unicityPolicy ?: 'id') . ' → ' . $newUnicityPolicy . '): ' . $this->url);
+				Minz_Log::warning('Feed unicity policy degraded (' . ($unicityPolicy ?: 'id') . ' → ' . $newUnicityPolicy . '): ' . $this->url);
 				return $this->loadGuids($simplePie);
 			}
 			$this->_error(true);
