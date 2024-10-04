@@ -708,7 +708,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 				}
 			}
-			if (!empty($feedProperties)) {
+			if (!empty($feedProperties) || $feedIsNew) {
+				$feedProperties['attributes'] = $feed->attributes();
 				$ok = $feedDAO->updateFeed($feed->id(), $feedProperties);
 				if (!$ok && $feedIsNew) {
 					//Cancel adding new feed in case of database error at first actualize
