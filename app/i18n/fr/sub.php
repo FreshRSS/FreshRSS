@@ -223,6 +223,7 @@ return array(
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'unicityPolicy' => array(
 			'_' => 'Unicité des articles',
+			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer la politique peut créer des doublons.',
 			'id' => 'ID standard (défaut)',
 			'link' => 'Lien',
 			'sha1:link_published' => 'Lien + Date',

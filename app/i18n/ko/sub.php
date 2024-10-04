@@ -223,6 +223,7 @@ return array(
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'unicityPolicy' => array(
 			'_' => 'Articles unicity',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO

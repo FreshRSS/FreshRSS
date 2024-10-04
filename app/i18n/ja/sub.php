@@ -223,6 +223,7 @@ return array(
 		'ttl' => '自動更新の頻度',
 		'unicityPolicy' => array(
 			'_' => 'Articles unicity',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO

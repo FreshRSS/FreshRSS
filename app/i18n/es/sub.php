@@ -223,6 +223,7 @@ return array(
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
 		'unicityPolicy' => array(
 			'_' => 'Articles unicity',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
