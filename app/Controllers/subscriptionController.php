@@ -118,6 +118,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attribute('hasBadGuids', null);	// Remove legacy
 			$feed->_attribute('unicityCriteria', $unicityCriteria);
 
+			$feed->_attribute('unicityCriteriaForced', Minz_Request::paramBoolean('unicityCriteriaForced') ? true : null);
+
 			$user = Minz_Request::paramString('http_user_feed' . $id);
 			$pass = Minz_Request::paramString('http_pass_feed' . $id);
 

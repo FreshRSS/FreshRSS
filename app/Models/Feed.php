@@ -498,24 +498,26 @@ class FreshRSS_Feed extends Minz_Model {
 
 		if (!$hasUniqueGuids) {
 			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			$unicityCriteria = $this->attributeString('unicityCriteria');
-			if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
-				$unicityCriteria = 'link';
-			}
+			if (!$this->attributeBoolean('unicityCriteriaForced')) {
+				$unicityCriteria = $this->attributeString('unicityCriteria');
+				if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
+					$unicityCriteria = 'link';
+				}
 
-			// Automatic fallback to next (degraded) unicity criteria
-			$newUnicityCriteria = match ($unicityCriteria) {
-				null => 'sha1:link_published',
-				'link' => 'sha1:link_published',
-				'sha1:link_published' => 'sha1:link_published_title',
-				default => $unicityCriteria,
-			};
+				// Automatic fallback to next (degraded) unicity criteria
+				$newUnicityCriteria = match ($unicityCriteria) {
+					null => 'sha1:link_published',
+					'link' => 'sha1:link_published',
+					'sha1:link_published' => 'sha1:link_published_title',
+					default => $unicityCriteria,
+				};
 
-			if ($newUnicityCriteria !== $unicityCriteria) {
-				$this->_attribute('hasBadGuids', null);	// Remove legacy
-				$this->_attribute('unicityCriteria', $newUnicityCriteria);
-				Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' . $this->url);
-				return $this->loadGuids($simplePie);
+				if ($newUnicityCriteria !== $unicityCriteria) {
+					$this->_attribute('hasBadGuids', null);	// Remove legacy
+					$this->_attribute('unicityCriteria', $newUnicityCriteria);
+					Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' . $this->url);
+					return $this->loadGuids($simplePie);
+				}
 			}
 			$this->_error(true);
 		}

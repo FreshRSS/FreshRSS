@@ -223,6 +223,7 @@ return array(
 		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO

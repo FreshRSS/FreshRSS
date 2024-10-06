@@ -116,6 +116,10 @@
 						<option value="sha1:link_published_title" <?= $unicityCriteria === 'sha1:link_published_title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title') ?></option>
 						<option value="sha1:link_published_title_content" <?= $unicityCriteria === 'sha1:link_published_title_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title_content') ?></option>
 					</select>
+					<label for="unicityCriteriaForced" class="inline">
+						<input type="checkbox" name="unicityCriteriaForced" id="unicityCriteriaForced" value="1"<?= $this->feed->attributeBoolean('unicityCriteriaForced') ? ' checked="checked"' : '' ?> />
+						<?= _t('sub.feed.unicityCriteria.forced') ?>
+					</label>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.unicityCriteria.help') ?></p>
 				</div>
 			</div>

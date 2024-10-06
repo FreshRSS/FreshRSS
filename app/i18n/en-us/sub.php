@@ -223,6 +223,7 @@ return array(
 		'ttl' => 'Do not automatically refresh more often than',	// IGNORE
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// IGNORE
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// IGNORE
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// IGNORE
 			'id' => 'Standard ID (default)',	// IGNORE
 			'link' => 'Link',	// IGNORE

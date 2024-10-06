@@ -223,6 +223,7 @@ return array(
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'unicityCriteria' => array(
 			'_' => 'Critère d’unicité des articles',
+			'forced' => '<span title="Bloque le critère d’unicité même en cas de doublons">forcé</span>',
 			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer le critère peut créer des doublons.',
 			'id' => 'ID standard (défaut)',
 			'link' => 'Lien',
