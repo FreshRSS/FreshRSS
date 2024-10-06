@@ -12,7 +12,7 @@ body:
     attributes:
       label: Feed URL
       description: Share the URL of the feed
-      placeholder: https://…
+      placeholder: https://...
     validations:
       required: true
   - type: textarea
