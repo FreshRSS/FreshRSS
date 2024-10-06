@@ -246,7 +246,7 @@ label.inline {
 	display: inline-block;
 }
 
-span[title] {
+label > span[title] {
 	text-decoration: underline dotted;
 }
 
