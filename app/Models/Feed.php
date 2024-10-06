@@ -503,12 +503,12 @@ class FreshRSS_Feed extends Minz_Model {
 				$unicityCriteria = 'link';
 			}
 
+			// Automatic fallback to next (degrated) unicity criteria
 			$newUnicityCriteria = match ($unicityCriteria) {
 				null => 'sha1:link_published',
 				'link' => 'sha1:link_published',
 				'sha1:link_published' => 'sha1:link_published_title',
-				'sha1:link_published_title' => 'sha1:link_published_title_content',
-				default => 'sha1:link_published',
+				default => $unicityCriteria,
 			};
 
 			if ($newUnicityCriteria !== $unicityCriteria) {
