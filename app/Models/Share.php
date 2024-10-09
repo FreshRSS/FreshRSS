@@ -95,11 +95,18 @@ class FreshRSS_Share {
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
 	 * @param 'button'|null $HTMLtag
 	 */
-	private function __construct(private readonly string $type, private readonly string $url_transform, private array $transforms, string $form_type,
-		private readonly string $help_url, string $method, private ?string $field, /**
-   * @phpstan-var 'button'|null
-   */
-	private readonly ?string $HTMLtag, private readonly bool $isDeprecated = false) {
+	private function __construct(
+		private readonly string $type,
+		private readonly string $url_transform,
+		private array $transforms,
+		string $form_type,
+		private readonly string $help_url,
+		string $method,
+		private ?string $field,
+		/** @phpstan-var 'button'|null */
+		private readonly ?string $HTMLtag,
+		private readonly bool $isDeprecated = false
+	) {
 		$this->name = _t('gen.share.' . $this->type);
 
 		if (!in_array($form_type, ['simple', 'advanced'], true)) {
