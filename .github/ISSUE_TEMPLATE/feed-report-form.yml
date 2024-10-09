@@ -1,18 +1,18 @@
 name: Feed Report
-description: A feed does not work?
+description: "A feed does not work? Type of feed: RSS / Atom, JSON Feed, JSON (dot notation). "
 title: "[Feed problem] "
-labels: ["Feed Problem"]
+labels: ["Feed problem 🗞️"]
 body:
   - type: markdown
     attributes:
       value: |
-        If you're experiencing issues with a particular RSS feed, please use this form to report the problem. There can be various reasons why an RSS feed may not be working. By sharing as much information as possible, we can better determine the cause and address it.
+        If you're experiencing issues with a particular feed (RSS, Atom, JSON), please use this form to report the problem. There can be various reasons why a feed may not be working. By sharing as much information as possible, we can better determine the cause and address it.
   - type: input
     id: feedurl
     attributes:
       label: Feed URL
       description: Share the URL of the feed
-      placeholder: https://...
+      placeholder: https://…
     validations:
       required: true
   - type: textarea
