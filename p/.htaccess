@@ -1,3 +1,10 @@
+<IfModule mod_authz_core.c>
+	# Deny files starting with a dot, or without extension, or not in a whitelist of extensions
+	<FilesMatch "^\.|^[^.]+$|\.(?!css|gif|html|ico|js|php|png|svg|txt|woff|woff2)[^.]*$">
+		Require all denied
+	</FilesMatch>
+</IfModule>
+
 <IfModule mod_dir.c>
 	DirectoryIndex	index.php index.html
 </IfModule>
