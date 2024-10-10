@@ -362,6 +362,7 @@ SQL;
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
+			Minz_ExtensionManager::callHook('entries_favorite', $ids, $is_favorite);
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

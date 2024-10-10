@@ -233,6 +233,8 @@ The following events are available:
 	executed when a feed is refreshed and new entries will be imported into
 	the database. The new entry (instance of FreshRSS\_Entry) will be passed
 	as parameter.
+* `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
+	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
 	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
 	will be passed as parameter.
