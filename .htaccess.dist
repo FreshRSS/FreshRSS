@@ -1,7 +1,6 @@
 # Copy this file to `.htaccess` for additional root-level protection
-<IfModule mod_authz_core.c>
-	# Deny files starting with a dot, or without extension, or not in a whitelist of extensions
-	<FilesMatch "^\.|^[^.]+$|\.(?!css|gif|html|ico|js|php|png|svg|txt|woff|woff2)[^.]*$">
-		Require all denied
-	</FilesMatch>
-</IfModule>
+
+# Deny files starting with a dot, or without extension, or not in a whitelist of extensions
+<FilesMatch "^\.|^[^.]+$|\.(?!css|gif|html|ico|js|php|png|svg|txt|woff|woff2)[^.]*$">
+	Require all denied
+</FilesMatch>
