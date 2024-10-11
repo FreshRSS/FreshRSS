@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
 		'img_with_lazyload' => 'Usar el modo de “carga perezosa” para las imágenes',
-		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
+		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
 		'read' => array(
