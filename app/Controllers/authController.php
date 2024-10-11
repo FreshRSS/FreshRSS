@@ -265,7 +265,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * @param string $username
-	 * @return array{c?: string, a?: string, params?: array<string, mixed>}
+	 * @return array{c?:string,a?:string,params?:array<string,mixed>}
 	 * @throws FreshRSS_Context_Exception
 	 */
 	private function getUrl(string $username): array {
