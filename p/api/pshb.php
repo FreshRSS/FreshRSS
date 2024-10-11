@@ -19,7 +19,7 @@ FreshRSS_Context::systemConf()->auth_type = 'none';	// avoid necessity to be log
 
 //Minz_Log::debug(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true), PSHB_LOG);
 
-$key = isset($_GET['k']) ? substr($_GET['k'], 0, 128) : '';
+$key = isset($_GET['k']) ? substr((string)$_GET['k'], 0, 128) : '';
 if (!ctype_xdigit($key)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	die('Invalid feed key format!');

@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 class FreshRSS_FilterAction {
 
-	private FreshRSS_BooleanSearch $booleanSearch;
 	/** @var array<string>|null */
 	private ?array $actions = null;
 
 	/** @param array<string> $actions */
-	private function __construct(FreshRSS_BooleanSearch $booleanSearch, array $actions) {
-		$this->booleanSearch = $booleanSearch;
+	private function __construct(private readonly FreshRSS_BooleanSearch $booleanSearch, array $actions) {
 		$this->_actions($actions);
 	}
 

@@ -48,7 +48,7 @@ function is_valid_path_extension(string $path, string $extensionPath, bool $isSt
 	$real_ext_path = str_replace('\\', '/', $real_ext_path);
 	$path = str_replace('\\', '/', $path);
 
-	$in_ext_path = (substr($path, 0, strlen($real_ext_path)) === $real_ext_path);
+	$in_ext_path = (str_starts_with($path, $real_ext_path));
 	if (!$in_ext_path) {
 		return false;
 	}
@@ -93,8 +93,10 @@ function sendNotFoundResponse(): never {
 	die();
 }
 
-if (!isset($_GET['f']) || !is_string($_GET['f']) ||
-	!isset($_GET['t']) || !is_string($_GET['t'])) {
+if (!isset($_GET['f'], $_GET['t']) ||
+	!is_string($_GET['f']) ||
+	!is_string($_GET['t'])
+) {
 	sendBadRequestResponse('Query string is incomplete.');
 }
 

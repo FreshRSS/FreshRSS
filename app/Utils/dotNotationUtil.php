@@ -5,14 +5,14 @@ final class FreshRSS_dotNotation_Util
 {
 
 	/**
-	 * Get an item from an array using "dot" notation.
-	 * Functions adapted from https://stackoverflow.com/a/39118759
-	 * https://github.com/illuminate/support/blob/52e8f314b8043860b1c09e5c2c7e8cca94aafc7d/Arr.php#L270-L305
-	 * Newer version in
-	 * https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337
-	 *
-	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
-	 */
+	* Get an item from an array using "dot" notation.
+	* Functions adapted from https://stackoverflow.com/a/39118759
+	* https://github.com/illuminate/support/blob/52e8f314b8043860b1c09e5c2c7e8cca94aafc7d/Arr.php#L270-L305
+	* Newer version in
+	* https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337
+	*
+	* @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
+	*/
 	public static function get($array, ?string $key, mixed $default = null): mixed {
 		if (!static::accessible($array)) {
 			return static::value($default);
@@ -31,7 +31,7 @@ final class FreshRSS_dotNotation_Util
 		if (static::exists($array, $key)) {
 			return $array[$key];
 		}
-		if (strpos($key, '.') === false) {
+		if (!str_contains($key, '.')) {
 			return $array[$key] ?? static::value($default);
 		}
 		foreach (explode('.', $key) as $segment) {
@@ -55,8 +55,8 @@ final class FreshRSS_dotNotation_Util
 	}
 
 	/**
-	 * Determine whether the given value is array accessible.
-	 */
+	* Determine whether the given value is array accessible.
+	*/
 	private static function accessible(mixed $value): bool {
 		return is_array($value) || $value instanceof \ArrayAccess;
 	}

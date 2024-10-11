@@ -70,7 +70,7 @@ $values = array_filter($values);
 
 $ok = FreshRSS_user_Controller::updateUser(
 	$username,
-	isset($cliOptions->email) ? $cliOptions->email : null,
+	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
 	$values);
 

@@ -33,11 +33,11 @@ $number_entries = $cliOptions->maxFeedEntries;
 $exported_files = [];
 
 // First, we generate the OPML file
-list($filename, $content) = $export_service->generateOpml();
+[$filename, $content] = $export_service->generateOpml();
 $exported_files[$filename] = $content;
 
 // Then, labelled and starred entries
-list($filename, $content) = $export_service->generateStarredEntries('ST');
+[$filename, $content] = $export_service->generateStarredEntries('ST');
 $exported_files[$filename] = $content;
 
 // And a list of entries based on the complete list of feeds
@@ -46,7 +46,7 @@ $exported_files = array_merge($exported_files, $feeds_exported_files);
 
 // Finally, we compress all these files into a single Zip archive and we output
 // the content
-list($filename, $content) = $export_service->zip($exported_files);
+[$filename, $content] = $export_service->zip($exported_files);
 echo $content;
 
 invalidateHttpCache($username);

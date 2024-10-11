@@ -9,7 +9,7 @@ require_once(LIB_PATH . '/lib_date.php');
  * It allows to extract meaningful bits of the search and store them in a
  * convenient object
  */
-class FreshRSS_Search {
+class FreshRSS_Search implements \Stringable {
 
 	/**
 	 * This contains the user input string

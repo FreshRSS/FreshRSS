@@ -68,33 +68,20 @@ class FreshRSS_Share {
 	public static function get(string $type): ?FreshRSS_Share {
 		return self::$list_sharing[$type] ?? null;
 	}
-
-
-	private string $type;
-	private string $name;
-	private string $url_transform;
-	/** @var array<callable>|array<string,array<callable>> */
-	private array $transforms;
+	private readonly string $name;
 	/**
 	 * @phpstan-var 'simple'|'advanced'
 	 */
-	private string $form_type;
-	private string $help_url;
+	private readonly string $form_type;
 	private ?string $custom_name = null;
 	private ?string $base_url = null;
 	private ?string $id = null;
 	private ?string $title = null;
 	private ?string $link = null;
-	private bool $isDeprecated;
 	/**
 	 * @phpstan-var 'GET'|'POST'
 	 */
 	private string $method;
-	private ?string $field;
-	/**
-	 * @phpstan-var 'button'|null
-	 */
-	private ?string $HTMLtag;
 
 	/**
 	 * Create a FreshRSS_Share object.
@@ -108,15 +95,19 @@ class FreshRSS_Share {
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
 	 * @param 'button'|null $HTMLtag
 	 */
-	private function __construct(string $type, string $url_transform, array $transforms, string $form_type,
-		string $help_url, string $method, ?string $field, ?string $HTMLtag, bool $isDeprecated = false) {
-		$this->type = $type;
-		$this->name = _t('gen.share.' . $type);
-		$this->url_transform = $url_transform;
-		$this->help_url = $help_url;
-		$this->HTMLtag = $HTMLtag;
-		$this->isDeprecated = $isDeprecated;
-		$this->transforms = $transforms;
+	private function __construct(
+		private readonly string $type,
+		private readonly string $url_transform,
+		private array $transforms,
+		string $form_type,
+		private readonly string $help_url,
+		string $method,
+		private ?string $field,
+		/** @phpstan-var 'button'|null */
+		private readonly ?string $HTMLtag,
+		private readonly bool $isDeprecated = false
+	) {
+		$this->name = _t('gen.share.' . $this->type);
 
 		if (!in_array($form_type, ['simple', 'advanced'], true)) {
 			$form_type = 'simple';
@@ -126,7 +117,6 @@ class FreshRSS_Share {
 			$method = 'GET';
 		}
 		$this->method = $method;
-		$this->field = $field;
 	}
 
 	/**

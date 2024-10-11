@@ -39,7 +39,7 @@ function debugInfo(): string {
 	} else {	//nginx	http://php.net/getallheaders#84262
 		$ALL_HEADERS = [];
 		foreach ($_SERVER as $name => $value) {
-			if (substr($name, 0, 5) === 'HTTP_') {
+			if (str_starts_with($name, 'HTTP_')) {
 				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
 			}
 		}
@@ -69,7 +69,7 @@ final class FeverDAO extends Minz_ModelPdo
 	 */
 	private function bindParamArray(string $prefix, array $values, array &$bindArray): string {
 		$str = '';
-		for ($i = 0; $i < count($values); $i++) {
+		for ($i = 0, $iMax = count($values); $i < $iMax; $i++) {
 			$str .= ':' . $prefix . $i . ',';
 			$bindArray[$prefix . $i] = $values[$i];
 		}
@@ -151,7 +151,7 @@ final class FeverAPI
 	private function authenticate(): bool {
 		FreshRSS_Context::clearUserConf();
 		Minz_User::change();
-		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
+		$feverKey = empty($_POST['api_key']) ? '' : substr(trim((string)$_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
 			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::systemConf()->salt) . '-' . $feverKey . '.txt', false);
@@ -223,10 +223,10 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && ctype_digit($_REQUEST['id'])) {
+		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && ctype_digit((string)$_REQUEST['id'])) {
 			$id = (string)$_REQUEST['id'];
 			$before = (int)($_REQUEST['before'] ?? '0');
-			switch (strtolower($_REQUEST['mark'])) {
+			switch (strtolower((string)$_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
 						case 'read':
@@ -317,8 +317,8 @@ final class FeverAPI
 				'id' => $feed->id(),
 				'favicon_id' => $feed->id(),
 				'title' => escapeToUnicodeAlternative($feed->name(), true),
-				'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
-				'site_url' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
+				'url' => htmlspecialchars_decode((string)$feed->url(), ENT_QUOTES),
+				'site_url' => htmlspecialchars_decode((string)$feed->website(), ENT_QUOTES),
 				'is_spark' => 0,
 				// unsupported
 				'last_updated_on_time' => $feed->lastUpdate(),
@@ -461,12 +461,12 @@ final class FeverAPI
 
 		if (isset($_REQUEST['feed_ids']) || isset($_REQUEST['group_ids'])) {
 			if (isset($_REQUEST['feed_ids'])) {
-				$feed_ids = explode(',', $_REQUEST['feed_ids']);
+				$feed_ids = explode(',', (string)$_REQUEST['feed_ids']);
 			}
 
 			if (isset($_REQUEST['group_ids'])) {
 				$categoryDAO = FreshRSS_Factory::createCategoryDao();
-				$group_ids = explode(',', $_REQUEST['group_ids']);
+				$group_ids = explode(',', (string)$_REQUEST['group_ids']);
 				$feeds = [];
 				foreach ($group_ids as $id) {
 					$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
@@ -488,7 +488,7 @@ final class FeverAPI
 				$max_id = '';
 			}
 		} elseif (isset($_REQUEST['with_ids'])) {
-			$entry_ids = explode(',', $_REQUEST['with_ids']);
+			$entry_ids = explode(',', (string)$_REQUEST['with_ids']);
 		} elseif (isset($_REQUEST['since_id'])) {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
@@ -515,8 +515,8 @@ final class FeverAPI
 				'id' => $entry->id(),
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
-				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'author' => escapeToUnicodeAlternative(trim((string)$entry->authors(true), '; '), false),
+				'html' => $entry->content(), 'url' => htmlspecialchars_decode((string)$entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),

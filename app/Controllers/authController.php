@@ -72,27 +72,19 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
 		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
-		switch ($auth_type) {
-			case 'form':
-				Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']);
-				break;
-			case 'http_auth':
-				Minz_Error::error(403, [
+		match ($auth_type) {
+			'form' => Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']),
+			'http_auth' => Minz_Error::error(403, [
 					'error' => [
 						_t('feedback.access.denied'),
 						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
 						' ; Remote IP address=' . connectionRemoteAddress() . ']'
 					]
-				], false);
-				break;
-			case 'none':
-				// It should not happen!
-				Minz_Error::error(404);
-				break;
-			default:
-				// TODO load plugin instead
-				Minz_Error::error(404);
-		}
+				], false),
+			'none' => Minz_Error::error(404),
+			default => Minz_Error::error(404),
+			// TODO load plugin instead
+		};
 	}
 
 	/**
@@ -136,7 +128,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			usleep(random_int(100, 10000));	//Primitive mitigation of timing attacks, in μs
+			usleep(rand(100, 10000));	//Primitive mitigation of timing attacks, in μs
 
 			FreshRSS_Context::initUser($username);
 			if (!FreshRSS_Context::hasUserConf()) {
@@ -147,7 +139,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			}
 
 			if (!FreshRSS_Context::userConf()->enabled || FreshRSS_Context::userConf()->passwordHash == '') {
-				usleep(random_int(100, 5000));	//Primitive mitigation of timing attacks, in μs
+				usleep(rand(100, 5000));	//Primitive mitigation of timing attacks, in μs
 				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
 				return;
 			}

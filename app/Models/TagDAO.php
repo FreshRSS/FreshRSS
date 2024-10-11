@@ -92,8 +92,8 @@ SQL;
 	}
 
 	/**
-	 * @param non-empty-string $key
-	 */
+	* @param non-empty-string $key
+	*/
 	public function updateTagAttribute(FreshRSS_Tag $tag, string $key, mixed $value): int|false {
 		$tag->_attribute($key, $value);
 		return $this->updateTagAttributes($tag->id(), $tag->attributes());

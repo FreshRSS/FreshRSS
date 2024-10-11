@@ -60,7 +60,7 @@ class FreshRSS_error_Controller extends FreshRSS_ActionController {
 				break;
 		}
 
-		$error_message = trim(implode($error_logs));
+		$error_message = trim(implode('', $error_logs));
 		if ($error_message !== '') {
 			$this->view->errorMessage = $error_message;
 		}
