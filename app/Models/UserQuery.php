@@ -13,6 +13,7 @@ class FreshRSS_UserQuery {
 	private string $get = '';
 	private string $get_name = '';
 	private string $get_type = '';
+	/** XML-encoded name */
 	private string $name = '';
 	private string $order = '';
 	private FreshRSS_BooleanSearch $search;
@@ -25,6 +26,7 @@ class FreshRSS_UserQuery {
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels */
 	private array $labels;
+	/** XML-encoded description */
 	private string $description = '';
 	private string $imageUrl = '';
 
@@ -93,7 +95,7 @@ class FreshRSS_UserQuery {
 		}
 
 		// linked too deeply with the search object, need to use dependency injection
-		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', false);
+		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', allowUserQueries: true);
 		if (!empty($query['state'])) {
 			$this->state = intval($query['state']);
 		}

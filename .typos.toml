@@ -44,7 +44,7 @@ extend-exclude = [
 	"lib/marienfressinaud/",
 	"lib/phpgt/",
 	"lib/phpmailer/",
-	"lib/SimplePie/",
+	"lib/simplepie/",
 	"node_modules/",
 	"p/scripts/vendor/",
 	"package-lock.json",

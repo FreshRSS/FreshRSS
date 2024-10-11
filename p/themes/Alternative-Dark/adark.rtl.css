@@ -457,8 +457,6 @@ kbd {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 	background: var(--background-color-light);
 	border-radius: 5px 5px 0 0;
 }
@@ -475,7 +473,6 @@ kbd {
 
 .box .box-content .item {
 	font-size: 0.9rem;
-	line-height: 2.5;
 }
 
 /*=== Tree */

@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookies zulassen',
 		'accept_cookies_help' => 'Erlaubt dem Feed-Server das Setzen von Cookies (wird nur für die Dauer der Anfrage im Speicher gehalten)',
-		'add' => 'Einen RSS-Feed hinzufügen',
+		'add' => 'Einen Feed hinzufügen',
 		'advanced' => 'Erweitert',
 		'archiving' => 'Archivierung',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
 		'css_path_filter' => array(
 			'_' => 'CSS-Selector für die Elemente, die entfernt werden sollen',
-			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
@@ -77,7 +77,9 @@ return array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
-		'information' => 'Information',	// IGNORE
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',

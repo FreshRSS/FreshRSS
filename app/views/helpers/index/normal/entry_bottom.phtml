@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if ($this->entry === null) {
+		return;
+	}
 	$bottomline_read = FreshRSS_Context::userConf()->bottomline_read;
 	$bottomline_favorite = FreshRSS_Context::userConf()->bottomline_favorite;
 	$bottomline_sharing = FreshRSS_Context::userConf()->bottomline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);
@@ -38,16 +41,6 @@
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
 				<?= _i('label') ?><?= _t('index.menu.tags') ?>
 			</a>
-			<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
-				<li class="dropdown-header">
-					<?= _t('index.menu.tags') ?>
-					<?php if (FreshRSS_Auth::hasAccess()) { ?>
-						<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
-					<?php } ?>
-				</li>
-				<!-- Ajax -->
-			</ul>
-			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</li><?php
 	}
@@ -76,8 +69,7 @@
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
 				<?= _i('share') ?><?= _t('index.share') ?>
 			</a>
-			<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
-			<a class="dropdown-close" href="#close">❌</a>
+			<?php /* entry_share_menu */ ?>
 		</div>
 		<?php } ?>
 	</li><?php

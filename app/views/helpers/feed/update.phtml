@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if ($this->feed === null) {
+		return;
+	}
 ?>
 <div class="post" id="feed_update">
 	<h1><?= $this->feed->name() ?></h1>
@@ -643,7 +646,7 @@
 				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 				<div class="group-controls">
 					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="w100" value="<?=
-						!empty($curlParams[CURLOPT_COOKIE]) ? $curlParams[CURLOPT_COOKIE] : ''
+						htmlspecialchars((string)($curlParams[CURLOPT_COOKIE] ?? ''), ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
 					<label for="curl_params_cookiefile">
@@ -681,7 +684,7 @@
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
 					<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="w100" value="<?=
-						!empty($curlParams[CURLOPT_USERAGENT]) ? $curlParams[CURLOPT_USERAGENT] : ''
+						htmlspecialchars((string)($curlParams[CURLOPT_USERAGENT] ?? ''), ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
@@ -698,7 +701,7 @@
 					?>
 					</select>
 					<input type="text" name="curl_params" id="curl_params" value="<?=
-						!empty($curlParams[CURLOPT_PROXY]) ? $curlParams[CURLOPT_PROXY] : ''
+						htmlspecialchars((string)($curlParams[CURLOPT_PROXY] ?? ''), ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
@@ -719,8 +722,7 @@
 					</select>
 					<div class="stick">
 						<input type="text" name="curl_fields" id="curl_fields" value="<?=
-							$this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS]) ?
-								htmlentities($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS], ENT_COMPAT) : ''
+							htmlspecialchars($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '', ENT_COMPAT, 'UTF-8')
 						?>" placeholder="<?= _t('sub.feed.method_postparams') ?>" />
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.method_help') ?></p>
@@ -742,6 +744,18 @@
 						<option value="0"<?= $this->feed->attributeBoolean('ssl_verify') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
 						<option value="1"<?= $this->feed->attributeBoolean('ssl_verify') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
 					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"><?php
+						foreach ($this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [] as $header) {
+							echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
 				</div>
 			</div>
 

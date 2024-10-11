@@ -111,7 +111,7 @@ class FreshRSS extends Minz_FrontController {
 			return;
 		}
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::userConf()->theme);
-		if ($theme) {
+		if (is_array($theme)) {
 			foreach (array_reverse($theme['files']) as $file) {
 				switch (substr($file, -3)) {
 					case '.js':

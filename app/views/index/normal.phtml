@@ -16,6 +16,26 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 $today = @strtotime('today');
 ?>
 
+<datalist id="datalist-labels"></datalist>
+
+<template id="share_article_template">
+	<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>
+
+<template id="labels_article_template">
+	<ul class="dropdown-menu dropdown-menu-scrollable scrollbar-thin">
+		<li class="dropdown-header">
+			<?= _t('index.menu.tags') ?>
+			<?php if (FreshRSS_Auth::hasAccess()) { ?>
+				<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
+			<?php } ?>
+		</li>
+		<!-- Ajax -->
+	</ul>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>
+
 <main id="stream" class="normal<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
 	<div id="new-article">
@@ -69,6 +89,9 @@ $today = @strtotime('today');
 		?>" data-priority="<?= $this->feed->priority()
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
+			if ($this->feed === null || $this->entry === null) {
+				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+			}
 		?><article class="flux_content" dir="auto">
 			<div class="content <?= FreshRSS_Context::userConf()->content_width ?>">
 				<header>
@@ -81,6 +104,9 @@ $today = @strtotime('today');
 					<?php } ?>
 					<?php if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'b') {
 						$this->renderHelper('index/tags');
+						if ($this->feed === null || $this->entry === null) {
+							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+						}
 					} ?>
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
 					<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
@@ -191,4 +217,7 @@ $today = @strtotime('today');
 	<?= _i('close') ?>
 </a>
 
-<?php if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) $this->partial('nav_entries'); ?>
+<?php
+	if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) {
+		$this->partial('nav_entries');
+	}

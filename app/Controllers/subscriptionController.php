@@ -138,14 +138,15 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			$feed->_attribute('read_when_same_title_in_feed', $read_when_same_title_in_feed);
 
-			$cookie = Minz_Request::paramString('curl_params_cookie');
+			$cookie = Minz_Request::paramString('curl_params_cookie', plaintext: true);
 			$cookie_file = Minz_Request::paramBoolean('curl_params_cookiefile');
 			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
-			$useragent = Minz_Request::paramString('curl_params_useragent');
-			$proxy_address = Minz_Request::paramString('curl_params');
-			$proxy_type = Minz_Request::paramString('proxy_type');
-			$request_method = Minz_Request::paramString('curl_method');
-			$request_fields = Minz_Request::paramString('curl_fields', true);
+			$useragent = Minz_Request::paramString('curl_params_useragent', plaintext: true);
+			$proxy_address = Minz_Request::paramString('curl_params', plaintext: true);
+			$proxy_type = Minz_Request::paramString('proxy_type', plaintext: true);
+			$request_method = Minz_Request::paramString('curl_method', plaintext: true);
+			$request_fields = Minz_Request::paramString('curl_fields', plaintext: true);
+			$headers = Minz_Request::paramTextToArray('http_headers', plaintext: true);
 			$opts = [];
 			if ($proxy_type !== '') {
 				$opts[CURLOPT_PROXY] = $proxy_address;
@@ -175,6 +176,11 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 						$opts[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
 					}
 				}
+			}
+
+			if(!empty($headers)) {
+				$headers = array_filter(array_map('trim', $headers));
+				$opts[CURLOPT_HTTPHEADER] = array_merge($headers, $opts[CURLOPT_HTTPHEADER] ?? []);
 			}
 
 			$feed->_attribute('curl_params', empty($opts) ? null : $opts);
@@ -304,7 +310,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				case 'normal':
 				case 'reader':
 					$get = Minz_Request::paramString('get');
-					if ($get) {
+					if ($get !== '') {
 						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['get' => $get]];
 					} else {
 						$url_redirect = ['c' => 'index', 'a' => $from];
