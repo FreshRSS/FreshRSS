@@ -95,7 +95,7 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar pagaidu mapes atļaujām viss ir kārtībā.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO
+		'unknown_process_username' => 'nezināms',
 		'users' => array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',

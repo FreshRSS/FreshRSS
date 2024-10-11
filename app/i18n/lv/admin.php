@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'Galvenā autentifikācijas žetons',
+		'token_help' => 'Ļauj piekļūt visām lietotāja RSS izvadēm, kā arī atsvaidzināt barotnes bez autentifikācijas:',
 		'type' => 'Autentifikācijas metode',
 		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
 	),
@@ -139,7 +139,7 @@ return array(
 		'entry_per_day_of_week' => 'Katrā nedēļas dienā (vidēji: %.2f ziņojumu)',
 		'entry_per_hour' => 'Katrā stundā (vidēji: %.2f ziņojumu)',
 		'entry_per_month' => 'Katrā mēnesī (vidēji: %.2f ziņojumu)',
-		'entry_repartition' => 'Entries repartition',	// TODO
+		'entry_repartition' => 'Ierakstu sadalījums',
 		'feed' => 'Barotne',
 		'feed_per_category' => 'Barotnes pa kategorijām',
 		'idle' => 'Neaktīvās barotnes',
@@ -160,8 +160,8 @@ return array(
 		'_' => 'Sistēmas konfigurācija',
 		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Bāzes URL',
+			'recommendation' => 'Automātiska ieteikšana: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
@@ -187,33 +187,33 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Jutīgs parametrs. Rediģējiet manuāli <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nav dots',
 			'enabled' => '<a href="./?a=tos">ir ieslēgts</a>',
 			'help' => 'Kā iespējot <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">pakalpojumu sniegšanas noteikumus</a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => 'Par <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Atjaunināt sistēmu',
 		'apply' => 'Pieteikties',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Izmaiņu žurnāls',
 		'check' => 'Jaunu atjauninājumu pārbaude',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
+		'copiedFromURL' => 'update.php kopēts no %s uz ./data',
 		'current_version' => 'Jūsu pašreizējā versija',
 		'last' => 'Pēdējā verifikācija',
-		'loading' => 'Updating…',	// TODO
+		'loading' => 'Atjaunināšana…',
 		'none' => 'Nav jāpiemēro atjauninājums',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Izlaiduma kanāls',
+			'edge' => 'Ritošā atbrīvošana (“edge”)',
+			'latest' => 'Stabila atbrīvošana (“latest”)',
 		),
 		'title' => 'Atjaunināt sistēmu',
-		'viaGit' => 'Update via git and GitHub.com started',	// TODO
+		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',
 	),
 	'user' => array(
 		'admin' => 'Administrators',
