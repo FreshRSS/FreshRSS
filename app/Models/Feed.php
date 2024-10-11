@@ -473,10 +473,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * @param float $invalidGuidsTolerance (default 0.05) The maximum ratio (rounded) of invalid GUIDs to tolerate before degrading the unicity criteria.
+	 * Example for 0.05 (5% rounded): tolerate 0 invalid GUIDs for up to 9 articles, 1 for 10, 2 for 30, 3 for 50, 4 for 70, 5 for 90, 6 for 110, etc.
+	 * The default value of 5% rounded was chosen to allow 1 invalid GUID for feeds of 10 articles, which is a frequently observed amount of articles.
 	 * @return array<string>
 	 */
-	public function loadGuids(\SimplePie\SimplePie $simplePie): array {
-		$hasUniqueGuids = true;
+	public function loadGuids(\SimplePie\SimplePie $simplePie, float $invalidGuidsTolerance = 0.05): array {
+		$invalidGuids = 0;
 		$testGuids = [];
 		$guids = [];
 
@@ -490,15 +493,17 @@ class FreshRSS_Feed extends Minz_Model {
 				continue;
 			}
 			$guid = $this->decideEntryGuid($item, fallback: true);
-			$hasUniqueGuids &= $guid !== '';
-			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
+			if ($guid === '' || !empty($testGuids['_' . $guid])) {
+				$invalidGuids++;
+				Minz_Log::debug('Invalid GUID [' . $guid . '] for feed ' . $this->url);
+			}
 			$testGuids['_' . $guid] = true;
 			$guids[] = $guid;
 		}
 
-		if (!$hasUniqueGuids) {
-			Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			if (!$this->attributeBoolean('unicityCriteriaForced')) {
+		if ($invalidGuids > 0) {
+			Minz_Log::warning("Feed has {$invalidGuids} invalid GUIDs: " . $this->url);
+			if (!$this->attributeBoolean('unicityCriteriaForced') && $invalidGuids > round($invalidGuidsTolerance * count($items))) {
 				$unicityCriteria = $this->attributeString('unicityCriteria');
 				if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
 					$unicityCriteria = 'link';
