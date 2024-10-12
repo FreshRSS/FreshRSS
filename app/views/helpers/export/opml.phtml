@@ -65,7 +65,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:jsonItemCategories'] = $jsonSettings['itemCategories'] ?? null;
 			$outline['frss:jsonItemUid'] = $jsonSettings['itemUid'] ?? null;
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION) {
-				$outline['frss:xpathToJson'] = $feed->attributeString('xpathToJson');
+				$outline['frss:xPathToJson'] = $feed->attributeString('xPathToJson');
 			}
 		}
 

@@ -642,8 +642,8 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	private function extractJsonFromHtml(string $html): ?string {
-		$xpathToJson = $this->attributeString('xpathToJson') ?? '';
-		if ($xpathToJson === '') {
+		$xPathToJson = $this->attributeString('xPathToJson') ?? '';
+		if ($xPathToJson === '') {
 			return null;
 		}
 
@@ -655,7 +655,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$xpath = new DOMXPath($doc);
-		$json = @$xpath->evaluate('normalize-space(' . $xpathToJson . ')');
+		$json = @$xpath->evaluate('normalize-space(' . $xPathToJson . ')');
 		return is_string($json) ? $json : null;
 	}
 

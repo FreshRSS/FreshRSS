@@ -260,7 +260,7 @@ class FreshRSS_Import_Service {
 			if (!empty($jsonSettings)) {
 				$feed->_attribute('json_dotnotation', $jsonSettings);
 			}
-			$feed->_attribute('xpathToJson', $feed_elt['frss:xpathToJson'] ?? null);
+			$feed->_attribute('xPathToJson', $feed_elt['frss:xPathToJson'] ?? null);
 
 			$curl_params = [];
 			if (isset($feed_elt['frss:CURLOPT_COOKIE'])) {

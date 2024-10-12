@@ -419,7 +419,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
 							data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
-							data-show="json_dotnotation xpathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
+							data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>
 			</div>
@@ -525,12 +525,12 @@
 			<?php
 				/** @var array<string,string> $jsonSettings */
 				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
-				$xpathToJson = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('xpathToJson'));
+				$xPathToJson = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('xPathToJson'));
 			?>
-			<div class="form-group" id="xpathToJsonGroup">
-				<label class="group-name" for="xpathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
+			<div class="form-group" id="xPathToJsonGroup">
+				<label class="group-name" for="xPathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xpathToJson" id="xpathToJson" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $xpathToJson ?>"><?= $xpathToJson ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathToJson" id="xPathToJson" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $xPathToJson ?>"><?= $xPathToJson ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_json.xpath.help') ?></p>
 				</div>
 			</div>

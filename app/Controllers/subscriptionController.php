@@ -282,8 +282,8 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				if (!empty($jsonSettings)) {
 					$feed->_attribute('json_dotnotation', $jsonSettings);
 				}
-				if (Minz_Request::paramString('xpathToJson', plaintext: true) !== '') {
-					$feed->_attribute('xpathToJson', Minz_Request::paramString('xpathToJson', plaintext: true));
+				if (Minz_Request::paramString('xPathToJson', plaintext: true) !== '') {
+					$feed->_attribute('xPathToJson', Minz_Request::paramString('xPathToJson', plaintext: true));
 				}
 			}
 

@@ -69,7 +69,7 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 
 ### HTML+JSON
 
-* `<outline type="HTML+JSON+DotNotation" frss:xpathToJson="..." ...`: Same as `JSON+DotNotation` but first extracting the JSON string from an HTML document thanks to an XPath expression.
+* `<outline type="HTML+JSON+DotNotation" frss:xPathToJson="..." ...`: Same as `JSON+DotNotation` but first extracting the JSON string from an HTML document thanks to an XPath expression.
 	* Example: `//script[@type='application/json']`
 
 ### cURL
