@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Sütik elfogadása',
 		'accept_cookies_help' => 'Engedélyezze hogy a hírforrás szerver beállíthasson sütiket (memóriában lesznek tárolva a kapcsolat idejére)',
-		'add' => 'RSS hírforrás hozzáadása',
+		'add' => 'hírforrás hozzáadása',
 		'advanced' => 'Haladó',
 		'archiving' => 'Archiválás',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Cikk CSS selector az eredeti weblapon',
 		'css_path_filter' => array(
 			'_' => 'A törlendő elemek CSS selectora',
-			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside</kbd>',
+			'help' => 'Egy CSS selector lehet egy lista például: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Leírás',
 		'empty' => 'Ez a hírforrás üres. Ellenőrizd hogy van e tartalom rajta.',
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Szűrő műveletek',
 			'help' => 'Írj egy szűrőt soronként. Műveletek <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">a dokumentációban</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Információ',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(

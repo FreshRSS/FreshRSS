@@ -187,8 +187,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
 			}
 		} elseif (FreshRSS_Context::systemConf()->unsafe_autologin_enabled) {
-			$username = Minz_Request::paramString('u');
-			$password = Minz_Request::paramString('p');
+			$username = Minz_Request::paramString('u', plaintext: true);
+			$password = Minz_Request::paramString('p', plaintext: true);
 			Minz_Request::_param('p');
 
 			if ($username === '') {

@@ -49,11 +49,11 @@
 					<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
 					<?php } ?>
 
-					<?php if ($query->getOrder()) { ?>
+					<?php if ($query->getOrder() !== '') { ?>
 					<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
 					<?php } ?>
 
-					<?php if ($query->getGet()) { ?>
+					<?php if ($query->getGet() !== '') { ?>
 					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
 					<?php } ?>
 					<?php } ?>

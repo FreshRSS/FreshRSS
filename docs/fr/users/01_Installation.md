@@ -4,13 +4,13 @@ FreshRSS est un logiciel développé en PHP reposant sur le modèle client - ser
 
 Il est toutefois de votre responsabilité de vérifier que votre hébergement permettra de faire tourner FreshRSS avant de nous taper dessus. Dans le cas où les informations listées ci-dessous ne seraient pas à jour, vous pourrez.
 
-| Logiciel         | Recommandé                                                                                                     | Fonctionne aussi avec          |
-| --------         | -----------                                                                                                    | ---------------------          |
-| Serveur web      | **Apache 2.4+**                                                                                                | nginx, lighttpd                |
-| PHP              | **PHP 7.4+**                                                                                                   |                                |
+| Logiciel         | Recommandé         | Fonctionne aussi avec          |
+| --------         | -----------        | ---------------------          |
+| Serveur web      | **Apache 2.4+**    | nginx, lighttpd<br />Compatibilité minimale avec Apache 2.2 |
+| PHP              | **PHP 8.1+**       | FreshRSS 1.24.3 : PHP 7.4+<br />FreshRSS 1.22.1 : PHP 7.2+ |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
-| Base de données  | **PostgreSQL 9.5+** | SQLite, MySQL 5.5.3+, MariaDB 5.5+ |
-| Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or Edge   |
+| Base de données  | **PostgreSQL 10+** | SQLite, MariaDB 10.0.5+, MySQL 8.0+ |
+| Navigateur       | **Firefox**        | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
 
@@ -115,7 +115,7 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !

@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Aceitar cookies',
 		'accept_cookies_help' => 'Permitir que o servidor de Feed defina os cookies (sarmazenados na memória apenas durante a solicitação)',
-		'add' => 'Adicionar um RSS feed',
+		'add' => 'Adicionar um feed',
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Caminho do CSS do artigo no site original',
 		'css_path_filter' => array(
 			'_' => 'Seletor CSS dos elementos a serem removidos',
-			'help' => 'O seletor CSS pode ser uma lista com: <kbd>.footer, .aside</kbd>',
+			'help' => 'O seletor CSS pode ser uma lista com: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Ações do filtro',
 			'help' => 'Escreva um filtro de pesquisa por linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(

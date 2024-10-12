@@ -255,9 +255,7 @@ class Minz_Translate {
 
 /**
  * Alias for Minz_Translate::t()
- * @param string $key
- * @param bool|float|int|string ...$args
  */
-function _t(string $key, ...$args): string {
+function _t(string $key, bool|float|int|string ...$args): string {
 	return Minz_Translate::t($key, ...$args);
 }

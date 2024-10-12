@@ -63,7 +63,7 @@ return array(
 		'css_path' => '原文的 CSS 選擇器',
 		'css_path_filter' => array(
 			'_' => '需移除元素的 CSS 選擇器',
-			'help' => '可設置多個 CSS 選擇器，例如：<kbd>.footer, .aside</kbd>',
+			'help' => '可設置多個 CSS 選擇器，例如：<kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => '描述',
 		'empty' => '此源為空。請確認它是否正常更新。',
@@ -77,6 +77,8 @@ return array(
 			'_' => '過濾動作',
 			'help' => '每行寫一條過濾搜尋 Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => '信息',
 		'keep_min' => '至少保存的文章數',
 		'kind' => array(

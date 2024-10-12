@@ -567,8 +567,6 @@ a:hover .icon {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 	background-color: var(--background-color-grey);
 	border-bottom: 1px solid var(--border-color);
 	border-radius: 5px 5px 0 0;
@@ -578,16 +576,8 @@ a:hover .icon {
 	margin-right: 4px;
 }
 
-.box .box-content {
-	padding-left: 30px;
-	min-height: 2.5em;
-	max-height: 260px;
-}
-
 .box .box-content .item {
 	padding-bottom: 0.25rem;
-	font-size: 0.9rem;
-	line-height: 1.5;
 }
 
 /*=== Tree */
@@ -919,19 +909,14 @@ a:hover .icon {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
 }
 
 .content code {
-	padding: 2px 5px;
 	background-color: var(--background-color-light-shadowed);
 	color: var(--error-feed-color);
-	border: 1px solid var(--border-color);
+	border-color: var(--border-color);
 	border-radius: 3px;
 }
 

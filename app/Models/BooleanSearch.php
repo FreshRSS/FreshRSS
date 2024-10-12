@@ -27,16 +27,18 @@ class FreshRSS_BooleanSearch {
 			if (!is_string($input)) {
 				return;
 			}
-			$input = preg_replace('/(?<=[\s!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
+			$input = preg_replace('/(?<=[\s(!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
 			if (!is_string($input)) {
 				return;
 			}
+		}
+		$this->raw_input = $input;
 
+		if ($level === 0) {
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
 			$input = trim($input);
 		}
-		$this->raw_input = $input;
 
 		$input = self::consistentOrParentheses($input);
 
@@ -58,11 +60,11 @@ class FreshRSS_BooleanSearch {
 		}
 
 		if (!empty($all_matches)) {
-			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
-				$queries[$query->getName()] = $query;
+				if (($raw_query['name'] ?? '') !== '' && ($raw_query['search'] ?? '') !== '') {
+					$queries[$raw_query['name']] = trim($raw_query['search']);
+				}
 			}
 
 			$fromS = [];
@@ -76,7 +78,7 @@ class FreshRSS_BooleanSearch {
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
 						if ($allowUserQueries) {
-							$toS[] = '(' . trim($queries[$name]->getSearch()->getRawInput()) . ')';
+							$toS[] = '(' . $queries[$name] . ')';
 						} else {
 							$toS[] = '';
 						}
@@ -100,11 +102,9 @@ class FreshRSS_BooleanSearch {
 		}
 
 		if (!empty($all_matches)) {
-			/** @var array<string,FreshRSS_UserQuery> */
 			$queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-				$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
-				$queries[] = $query;
+				$queries[] = trim($raw_query['search'] ?? '');
 			}
 
 			$fromS = [];
@@ -119,7 +119,7 @@ class FreshRSS_BooleanSearch {
 					if (!empty($queries[$id])) {
 						$fromS[] = $matches[0][$i];
 						if ($allowUserQueries) {
-							$toS[] = '(' . trim($queries[$id]->getSearch()->getRawInput()) . ')';
+							$toS[] = '(' . $queries[$id] . ')';
 						} else {
 							$toS[] = '';
 						}
@@ -402,6 +402,7 @@ class FreshRSS_BooleanSearch {
 		return $this->getRawInput();
 	}
 
+	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}

@@ -197,6 +197,12 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
+	'telegram' => [
+		'url' => 'https://t.me/share/url?url=~LINK~&text=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'twitter' => [
 		'url' => 'https://twitter.com/share?url=~LINK~&amp;text=~TITLE~',
 		'transform' => ['rawurlencode'],

@@ -424,8 +424,6 @@ th {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 	background: #ecf0f1;
 	color: #333;
 	border-bottom: 1px solid #ddd;
@@ -757,20 +755,15 @@ th {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background: #222;
 	color: #fff;
-	font-size: 0.9rem;
 	border-radius: 3px;
 }
 
 .content code {
-	padding: 2px 5px;
 	background: #fafafa;
 	color: #d14;
-	border: 1px solid #eee;
+	border-color: #eee;
 	border-radius: 3px;
 }
 

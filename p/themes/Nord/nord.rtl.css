@@ -509,22 +509,19 @@ img.favicon {
 	border-radius: 10px;
 }
 
-.box .box-title {
-	padding: 5px 10px;
-}
-
-.box .box-title,
-.box .box-content {
-	padding: 1rem 1rem .25rem 1rem;
-}
-
 .box .box-content {
 	padding-bottom: 1.5rem;
 	list-style: none;
 }
 
+.box .box-title {
+	padding-top: 0.75rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--nordX-background);
+}
+
 .box .box-title .configure {
-	padding-left: .5rem;
+	padding-left: .25rem;
 }
 
 .box .box-title h2 {
@@ -866,17 +863,9 @@ li.item.active {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 	border: 1px solid var(--accent);
 	border-radius: 6px;
 
-}
-
-.content code {
-	padding: 2px 5px;
 }
 
 .content blockquote {

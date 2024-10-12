@@ -697,6 +697,56 @@ function user_filter(key) {
 	}
 }
 
+function show_labels_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu || forceReloadLabelsList) {
+		if (dropdownMenu) {
+			dropdownMenu.nextElementSibling.remove();
+			dropdownMenu.remove();
+		}
+
+		const templateId = 'labels_article_template';
+		const template = document.getElementById(templateId).innerHTML;
+		div.insertAdjacentHTML('beforeend', template);
+
+		loadDynamicTags(div.closest('.dynamictags'));
+	}
+	return true;
+}
+
+function show_share_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu) {
+		const itemId = el.closest('.flux').id;
+		const templateId = 'share_article_template';
+		const id = itemId;
+		const flux_header_el = el.closest('.flux');
+		const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+		const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+		const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+		let articleAuthorsText = '';
+		if (articleAuthors.trim().length > 0) {
+			articleAuthorsText = ' (' + articleAuthors + ')';
+		}
+		const link = title_el.href;
+		const title = title_el.textContent;
+		const titleText = title;
+		const template = document.getElementById(templateId).innerHTML
+			.replace(/--entryId--/g, id)
+			.replace(/--link--/g, link)
+			.replace(/--titleText--/g, titleText)
+			.replace(/--websiteName--/g, websiteName)
+			.replace(/--articleAuthors--/g, articleAuthorsText);
+
+		div.insertAdjacentHTML('beforeend', template);
+	}
+	return true;
+}
+
 function auto_share(key) {
 	const share = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-share"]');
 	if (!share) {
@@ -704,12 +754,18 @@ function auto_share(key) {
 	}
 	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
+		show_share_menu(share);
+
 		// Display the share div
 		location.hash = share.id;
 		// Force scrolling to the share div
-		const scrollTop = needsScroll(share.closest('.bottom'));
+		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
-			document.scrollingElement.scrollTop = scrollTop;
+			if (share.closest('.horizontal-list.flux_header')) {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -875,17 +931,18 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
-			loadJs('extra.js');
-			loadJs('feed.js');
-			const itemId = a.closest('.item').id;
-			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
-			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb') || '';
 			const div = a.parentElement;
 			const dropdownMenu = div.querySelector('.dropdown-menu');
-			const template = document.getElementById(templateId)
-				.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+
 			if (!dropdownMenu) {
+				loadJs('extra.js');
+				loadJs('feed.js');
+				const itemId = a.closest('.item').id;
+				const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
+				const id = itemId.substr(2);
+				const feed_web = a.getAttribute('data-fweb') || '';
+				const template = document.getElementById(templateId)
+					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
@@ -908,6 +965,11 @@ function init_column_categories() {
 function init_shortcuts() {
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
+		if (context.shortcuts[k].indexOf('&') >= 0) {
+			// Decode potential HTML entities <'&">
+			const parser = new DOMParser();
+			context.shortcuts[k] = parser.parseFromString(context.shortcuts[k], 'text/html').documentElement.textContent;
+		}
 	});
 
 	document.addEventListener('keydown', ev => {
@@ -1073,12 +1135,6 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.dynamictags');
-		if (el) {
-			loadDynamicTags(el);
-			return true;
-		}
-
 		el = ev.target.closest('.item a.title');
 		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
 			return ev.ctrlKey || ev.metaKey;
@@ -1091,6 +1147,16 @@ function init_stream(stream) {
 				el.rel = 'noreferrer';
 			}
 			return true;
+		}
+
+		el = ev.target.closest('.item.labels a.dropdown-toggle');
+		if (el) {
+			return show_labels_menu(el);
+		}
+
+		el = ev.target.closest('.item.share a.dropdown-toggle');
+		if (el) {
+			return show_share_menu(el);
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="print"]');
@@ -1258,6 +1324,7 @@ function init_stream(stream) {
 				req.onloadend = function (e) {
 					checkboxTag.disabled = false;
 					if (tagId == 0) {
+						forceReloadLabelsList = true;
 						loadDynamicTags(checkboxTag.closest('div.dropdown'));
 					}
 				};
@@ -1309,8 +1376,12 @@ function init_nav_entries() {
 	}
 }
 
+// forceReloadLabelsList default is false, so that the list does need a reload after opening it a second time.
+// will be set to true, if a new tag is added. Then the labels list will be reloaded each opening.
+// purpose of this flag: minimize the network traffic.
+let forceReloadLabelsList = false;
+
 function loadDynamicTags(div) {
-	div.classList.remove('dynamictags');
 	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
 	const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
 
@@ -1319,7 +1390,6 @@ function loadDynamicTags(div) {
 	req.responseType = 'json';
 	req.onerror = function (e) {
 		div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
-		div.classList.add('dynamictags');
 	};
 	req.onload = function (e) {
 		if (this.status != 200) {
@@ -1345,6 +1415,7 @@ function loadDynamicTags(div) {
 			const input_newTag = document.createElement('input');
 			input_newTag.setAttribute('type', 'text');
 			input_newTag.setAttribute('name', 'newTag');
+			input_newTag.setAttribute('list', 'datalist-labels');
 			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
 			const button_btn = document.createElement('button');
@@ -1368,6 +1439,7 @@ function loadDynamicTags(div) {
 		}
 
 		let html = '';
+		let datalist = '';
 		if (json && json.length) {
 			let nbLabelsChecked = 0;
 			for (let i = 0; i < json.length; i++) {
@@ -1384,12 +1456,16 @@ function loadDynamicTags(div) {
 					'name="t_' + tag.id + '"type="checkbox" ' +
 					(context.anonymous ? 'disabled="disabled" ' : '') +
 					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
+				datalist += '<option value="' + tag.name + '"></option>';
 			}
 			if (context.anonymous && nbLabelsChecked === 0) {
 				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
 			}
 		}
 		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
+		const datalistLabels = document.getElementById('datalist-labels');
+		datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
+		datalistLabels.insertAdjacentHTML('beforeend', datalist);
 	};
 	req.send();
 }

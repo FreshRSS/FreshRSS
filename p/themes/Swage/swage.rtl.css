@@ -434,12 +434,8 @@ form th {
 	box-shadow: 0 2px 5px var(--color-box-shadow-light);
 }
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background-color: var(--color-background-dark);
 	color: var(--color-text-light);
-	font-size: 0.9rem;
 }
 .content pre code {
 	background: transparent;
@@ -447,10 +443,9 @@ form th {
 	border: none;
 }
 .content code {
-	padding: 2px 5px;
 	background-color: var(--color-background-light);
 	color: var(--color-text-bad);
-	border: 1px solid var(--color-border-light);
+	border-color: var(--color-border-light);
 }
 .content blockquote {
 	margin: 0;
@@ -473,7 +468,6 @@ form th {
 }
 .box .box-title {
 	margin: 0;
-	padding: 7px 10px;
 	background-color: var(--color-background-aside);
 	color: var(--color-text-light);
 	border-bottom: 1px solid var(--color-border-light-darker);
@@ -488,7 +482,6 @@ form th {
 	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
 }
 .box .box-content {
-	padding-right: 30px;
 	max-height: 260px;
 }
 .box .box-content .item {

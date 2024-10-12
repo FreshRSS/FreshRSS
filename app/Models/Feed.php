@@ -95,7 +95,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function url(bool $includeCredentials = true): string {
-		return $includeCredentials ? $this->url : SimplePie_Misc::url_remove_credentials($this->url);
+		return $includeCredentials ? $this->url : \SimplePie\Misc::url_remove_credentials($this->url);
 	}
 	public function selfUrl(): string {
 		return $this->selfUrl;
@@ -116,10 +116,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function categoryId(): int {
-		if ($this->category !== null) {
-			return $this->category->id() ?: $this->categoryId;
-		}
-		return $this->categoryId;
+		return $this->category?->id() ?: $this->categoryId;
 	}
 
 	/**
@@ -155,7 +152,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @phpstan-return ($raw is true ? string : array{'username':string,'password':string})
 	 * @return array{'username':string,'password':string}|string
 	 */
-	public function httpAuth(bool $raw = true) {
+	public function httpAuth(bool $raw = true): array|string {
 		if ($raw) {
 			return $this->httpAuth;
 		} else {
@@ -346,7 +343,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @throws Minz_FileNotExistException
 	 * @throws FreshRSS_Feed_Exception
 	 */
-	public function load(bool $loadDetails = false, bool $noCache = false): ?SimplePie {
+	public function load(bool $loadDetails = false, bool $noCache = false): ?\SimplePie\SimplePie {
 		if ($this->url != '') {
 			/**
 			 * @throws Minz_FileNotExistException
@@ -365,16 +362,16 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$simplePie->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
-					$simplePie->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
+					$simplePie->set_autodiscovery_level(\SimplePie\SimplePie::LOCATOR_NONE);
 				}
 				if ($this->attributeBoolean('clear_cache')) {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
 				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
-				$mtime = $simplePie->init();
+				$simplePieResult = $simplePie->init();
 
-				if ((!$mtime) || $simplePie->error()) {
+				if ($simplePieResult === false || $simplePie->get_hash() === '' || !empty($simplePie->error())) {
 					$errorMessage = $simplePie->error();
 					if (empty($errorMessage)) {
 						$errorMessage = '';
@@ -383,7 +380,7 @@ class FreshRSS_Feed extends Minz_Model {
 					}
 					throw new FreshRSS_Feed_Exception(
 						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) .
-							' [' . $this->url . ']',
+							' [' . \SimplePie\Misc::url_remove_credentials($this->url) . ']',
 						$simplePie->status_code()
 					);
 				}
@@ -413,16 +410,17 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $simplePie->subscribe_url(true) ?? '';
 				}
 
-				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
+				$clean_url = \SimplePie\Misc::url_remove_credentials($subscribe_url);
 				if ($subscribe_url !== '' && $subscribe_url !== $url) {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
-					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
+				if ($noCache || $simplePie->get_hash() !== $this->attributeString('SimplePieHash')) {
+					// syslog(LOG_DEBUG, 'FreshRSS no cache ' . $simplePie->get_hash() . ' !== ' . $this->attributeString('SimplePieHash') . ' for ' . $clean_url);
+					$this->_attribute('SimplePieHash', $simplePie->get_hash());
 					return $simplePie;
 				}
-				//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
+				syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
 			}
 		}
 		return null;
@@ -431,7 +429,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return array<string>
 	 */
-	public function loadGuids(SimplePie $simplePie): array {
+	public function loadGuids(\SimplePie\SimplePie $simplePie): array {
 		$hasUniqueGuids = true;
 		$testGuids = [];
 		$guids = [];
@@ -471,7 +469,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return Traversable<FreshRSS_Entry> */
-	public function loadEntries(SimplePie $simplePie): Traversable {
+	public function loadEntries(\SimplePie\SimplePie $simplePie): Traversable {
 		$hasBadGuids = $this->attributeBoolean('hasBadGuids');
 
 		$items = $simplePie->get_items();
@@ -578,7 +576,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
 					$authorName = $author->name != '' ? $author->name : $author->email;
-					if ($authorName != '') {
+					if (is_string($authorName) && $authorName !== '') {
 						$authorNames .= escapeToUnicodeAlternative(strip_tags($authorName), true) . '; ';
 					}
 				}
@@ -612,8 +610,9 @@ class FreshRSS_Feed extends Minz_Model {
 	 * returns a SimplePie initialized already with that content
 	 * @param string $feedContent the content of the feed, typically generated via FreshRSS_View::renderToString()
 	 */
-	private function simplePieFromContent(string $feedContent): SimplePie {
+	private function simplePieFromContent(string $feedContent): \SimplePie\SimplePie {
 		$simplePie = customSimplePie();
+		$simplePie->enable_cache(false);
 		$simplePie->set_raw_data($feedContent);
 		$simplePie->init();
 		return $simplePie;
@@ -640,7 +639,7 @@ class FreshRSS_Feed extends Minz_Model {
 		];
 	}
 
-	public function loadJson(): ?SimplePie {
+	public function loadJson(): ?\SimplePie\SimplePie {
 		if ($this->url == '') {
 			return null;
 		}
@@ -672,7 +671,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->simplePieFromContent($feedContent);
 	}
 
-	public function loadHtmlXpath(): ?SimplePie {
+	public function loadHtmlXpath(): ?\SimplePie\SimplePie {
 		if ($this->url == '') {
 			return null;
 		}
@@ -816,7 +815,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return int|null The max number of unread articles to keep, or null if disabled.
 	 */
-	public function keepMaxUnread() {
+	public function keepMaxUnread(): ?int {
 		$keepMaxUnread = $this->attributeInt('keep_max_n_unread');
 		if ($keepMaxUnread === null) {
 			$keepMaxUnread = FreshRSS_Context::userConf()->mark_when['max_n_unread'];
@@ -827,7 +826,7 @@ class FreshRSS_Feed extends Minz_Model {
 	/**
 	 * @return int|false The number of articles marked as read, of false if error
 	 */
-	public function markAsReadMaxUnread() {
+	public function markAsReadMaxUnread(): int|false {
 		$keepMaxUnread = $this->keepMaxUnread();
 		if ($keepMaxUnread === null) {
 			return false;
@@ -842,7 +841,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after.
 	 * @return int|false the number of lines affected, or false if not applicable
 	 */
-	public function markAsReadUponGone(bool $upstreamIsEmpty, int $minLastSeen = 0) {
+	public function markAsReadUponGone(bool $upstreamIsEmpty, int $minLastSeen = 0): int|false {
 		$readUponGone = $this->attributeBoolean('read_upon_gone');
 		if ($readUponGone === null) {
 			$readUponGone = FreshRSS_Context::userConf()->mark_when['gone'];
@@ -868,9 +867,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	/**
 	 * Remember to call `updateCachedValues($id_feed)` or `updateCachedValues()` just after
-	 * @return int|false
 	 */
-	public function cleanOldEntries() {
+	public function cleanOldEntries(): int|false {
 		/** @var array<string,bool|int|string>|null $archiving */
 		$archiving = $this->attributeArray('archiving');
 		if ($archiving === null) {
@@ -905,12 +903,19 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$url = htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
-		if ($this->kind === FreshRSS_Feed::KIND_HTML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.html';
-		} elseif ($this->kind === FreshRSS_Feed::KIND_XML_XPATH) {
-			return CACHE_PATH . '/' . $filename . '.xml';
-		} else {
-			return CACHE_PATH . '/' . $filename . '.spc';
+		switch ($this->kind) {
+			case FreshRSS_Feed::KIND_HTML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.html';
+			case FreshRSS_Feed::KIND_XML_XPATH:
+				return CACHE_PATH . '/' . $filename . '.xml';
+			case FreshRSS_Feed::KIND_JSON_DOTNOTATION:
+			case FreshRSS_Feed::KIND_JSON_XPATH:
+			case FreshRSS_Feed::KIND_JSONFEED:
+				return CACHE_PATH . '/' . $filename . '.json';
+			case FreshRSS_Feed::KIND_RSS:
+			case FreshRSS_Feed::KIND_RSS_FORCED:
+			default:
+				return CACHE_PATH . '/' . $filename . '.spc';
 		}
 	}
 
@@ -919,7 +924,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return int|false */
-	public function cacheModifiedTime() {
+	public function cacheModifiedTime(): int|false {
 		$filename = $this->cacheFilename();
 		clearstatcache(true, $filename);
 		return @filemtime($filename);
@@ -947,7 +952,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function pubSubHubbubEnabled(): bool {
 		$url = $this->selfUrl ?: $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
-		if ($hubFile = @file_get_contents($hubFilename)) {
+		if (($hubFile = @file_get_contents($hubFilename)) != false) {
 			$hubJson = json_decode($hubFile, true);
 			if (is_array($hubJson) && empty($hubJson['error']) &&
 				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
@@ -970,16 +975,13 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	/**
-	 * @return string|false
-	 */
-	public function pubSubHubbubPrepare() {
+	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
 		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
-			$this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
+			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
-			if ($hubFile = @file_get_contents($hubFilename)) {
+			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
 				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
@@ -1027,7 +1029,7 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
+		if ($url !== '' && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {

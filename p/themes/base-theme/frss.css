@@ -204,7 +204,15 @@ img.favicon {
 	font-style: italic;
 }
 
-.feed.mute .item-title .title::before {
+.category .title.error::before,
+.item.feed.error .item-title .title::before,
+.box-content .item.feed.error .item-title::before {
+	content: " ⚠ ";
+	color: var(--frss-font-color-error);
+}
+
+.item.feed.mute .item-title .title::before,
+.box .box-content .item.feed.mute .item-title::before {
 	content: '🔇 ';
 }
 
@@ -503,6 +511,10 @@ td.numeric {
 	overflow: hidden;
 }
 
+.btn-icon-text > .icon {
+	margin-right: 0.25rem;
+}
+
 .btn-important {
 	font-weight: bold;
 }
@@ -708,6 +720,8 @@ input[type="checkbox"]:focus-visible {
 	min-width: 200px;
 	position: absolute;
 	right: 0;
+	scroll-margin-top: 2rem;
+	scroll-margin-bottom: 2rem;
 }
 
 .dropdown-menu::after {
@@ -899,6 +913,11 @@ input[type="checkbox"]:focus-visible {
 
 .box .box-title {
 	position: relative;
+	padding: 0.25rem 1rem;
+}
+
+.box .box-title .icon {
+	margin-bottom: 0.25rem;
 }
 
 .box .box-title h2 {
@@ -912,16 +931,35 @@ input[type="checkbox"]:focus-visible {
 }
 
 .box .box-content {
-	padding: 8px 8px 8px 16px;
+	padding: 0.5rem 0.5rem 0.5rem 1.75rem;
 	display: block;
 	min-height: 2.5em;
 	max-height: 260px;
 	overflow: auto;
 }
 
+.box .box-content .feed.item {
+	font-size: 0.9rem;
+	line-height: 1.5;
+	text-indent: -3rem;
+}
+
 .box .box-content .item.feed {
+	padding: var(--frss-padding-top-bottom) 0 calc(var(--frss-padding-top-bottom) / 2) 2rem;
 	display: block;
-	padding-top: var(--frss-padding-top-bottom);
+}
+
+.box .box-content .item.feed.emptyCategory {
+	padding: 0.5rem 1rem 0.5rem 0;
+}
+
+.box .box-content .item.feed .favicon {
+	margin-right: 0.25rem;
+}
+
+.box .box-content .item.feed .icon {
+	margin-left: 0.25rem;
+	margin-right: 0.5rem;
 }
 
 .box .box-content .item.feed.moved {
@@ -1604,7 +1642,15 @@ a.website:hover .favicon {
 }
 
 .content pre {
+	margin: 10px auto;
+	padding: 10px 20px;
 	overflow: auto;
+	font-size: 0.9rem;
+}
+
+.content code {
+	padding: 2px 5px;
+	border: 1px solid var(--frss-border-color);
 }
 
 .subtitle > div {
@@ -2046,8 +2092,6 @@ html.slider-active {
 }
 
 .item.share.error a::after,
-.category .title.error::before,
-.item.feed.error .item-title .title::before,
 .theme-preview-list .properties .error::before {
 	content: " ⚠ ";
 	color: var(--frss-font-color-error);

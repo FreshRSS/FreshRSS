@@ -16,13 +16,13 @@ class FreshRSS_Export_Service {
 
 	private FreshRSS_TagDAO $tag_dao;
 
-	public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
-	public const TYPE_HTML_XPATH = 'HTML+XPath';
-	public const TYPE_XML_XPATH = 'XML+XPath';
-	public const TYPE_RSS_ATOM = 'rss';
-	public const TYPE_JSON_DOTPATH = 'JSON+DotPath';	// Legacy 1.24.0-dev
-	public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
-	public const TYPE_JSONFEED = 'JSONFeed';
+	final public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
+	final public const TYPE_HTML_XPATH = 'HTML+XPath';
+	final public const TYPE_XML_XPATH = 'XML+XPath';
+	final public const TYPE_RSS_ATOM = 'rss';
+	final public const TYPE_JSON_DOTPATH = 'JSON+DotPath';	// Legacy 1.24.0-dev
+	final public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
+	final public const TYPE_JSONFEED = 'JSONFeed';
 
 	/**
 	 * Initialize the service for the given user.
@@ -87,8 +87,6 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for the given feed.
-	 * @param int $feed_id
-	 * @param int $max_number_entries
 	 * @return array{0:string,1:string}|null First item is the filename, second item is the content.
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
@@ -124,7 +122,6 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Generate the entries file content for all the feeds.
-	 * @param int $max_number_entries
 	 * @return array<string,string> Keys are filenames and values are contents.
 	 */
 	public function generateAllFeedEntries(int $max_number_entries): array {
@@ -133,7 +130,7 @@ class FreshRSS_Export_Service {
 		$exported_files = [];
 		foreach ($feed_ids as $feed_id) {
 			$result = $this->generateFeedEntries($feed_id, $max_number_entries);
-			if (!$result) {
+			if ($result === null) {
 				continue;
 			}
 

@@ -202,7 +202,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			$shortcuts = Minz_Request::paramArray('shortcuts');
+			$shortcuts = Minz_Request::paramArray('shortcuts', plaintext: true);
 			if (Minz_Request::paramBoolean('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
@@ -379,12 +379,13 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$name = _t('conf.query.number', $id + 1);
 			}
 			if (!empty($params['get']) && is_string($params['get'])) {
-				$queryParams['get'] = htmlspecialchars_decode($params['get'], ENT_QUOTES);
+				$queryParams['get'] = $params['get'];
 			}
 			if (!empty($params['order']) && is_string($params['order'])) {
-				$queryParams['order'] = htmlspecialchars_decode($params['order'], ENT_QUOTES);
+				$queryParams['order'] = $params['order'];
 			}
 			if (!empty($params['search']) && is_string($params['search'])) {
+				// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
 				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 			}
 			if (!empty($params['state']) && is_array($params['state'])) {
@@ -398,7 +399,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 			$queryParams['name'] = $name;
 			if (!empty($params['description']) && is_string($params['description'])) {
-				$queryParams['description'] = htmlspecialchars_decode($params['description'], ENT_QUOTES);
+				$queryParams['description'] = $params['description'];
 			}
 			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
 				$queryParams['imageUrl'] = $params['imageUrl'];
@@ -479,8 +480,6 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
-	 *
-	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {

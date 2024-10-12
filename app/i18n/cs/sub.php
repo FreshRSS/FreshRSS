@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Přijímat soubory cookie',
 		'accept_cookies_help' => 'Povolit serveru feedu nastavit soubory cookie (uložené v paměti pouze po dobu trvání požadavku).',
-		'add' => 'Přidat kanál RSS',
+		'add' => 'Přidat kanál',
 		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
 		'auth' => array(
@@ -63,7 +63,7 @@ return array(
 		'css_path' => 'Přepínač CSS článku na původních webových stránkách',
 		'css_path_filter' => array(
 			'_' => 'selektor CSS prvků, které mají být odstraněny',
-			'help' => 'Selektor CSS může být seznam, například: <kbd>.footer, .aside</kbd>',
+			'help' => 'Selektor CSS může být seznam, například: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
@@ -77,6 +77,8 @@ return array(
 			'_' => 'Akce filtrování',
 			'help' => 'Zapište jeden filtr hledání na řádek. Operátoři <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">viz dokumentace</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informace',
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(

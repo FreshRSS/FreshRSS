@@ -33,10 +33,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
-	/**
-	 * @return float|int|string
-	 */
-	private static function megabytes(string $size_str) {
+	private static function megabytes(string $size_str): float|int|string {
 		switch (substr($size_str, -1)) {
 			case 'M':
 			case 'm':
@@ -51,10 +48,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return $size_str;
 	}
 
-	/**
-	 * @param string|int $mb
-	 */
-	private static function minimumMemory($mb): void {
+	private static function minimumMemory(int|string $mb): void {
 		$mb = (int)$mb;
 		$ini = self::megabytes(ini_get('memory_limit') ?: '0');
 		if ($ini < $mb) {
@@ -240,11 +234,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		return 'unknown';
 	}
 
-	/**
-	 * @return false|string
-	 */
-	private function ttrssXmlToJson(string $xml) {
-		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
+	private function ttrssXmlToJson(string $xml): string|false {
+		$table = (array)simplexml_load_string($xml, options: LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = $table['article'] ?? [];
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
@@ -360,7 +351,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			if ($feed != null) {
+			if ($feed !== null) {
 				$article_to_feed[$item['guid']] = $feed->id();
 				if (!isset($newFeedGuids['f_' . $feed->id()])) {
 					$newFeedGuids['f_' . $feed->id()] = [];
@@ -402,18 +393,15 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$labels = [];
 			for ($i = count($tags) - 1; $i >= 0; $i--) {
 				$tag = trim($tags[$i]);
-				if (strpos($tag, 'user/-/') !== false) {
-					if ($tag === 'user/-/state/com.google/starred') {
+				if (preg_match('%^user/[A-Za-z0-9_-]+/%', $tag)) {
+					if (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/starred$%', $tag)) {
 						$is_starred = true;
-					} elseif ($tag === 'user/-/state/com.google/read') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/read$%', $tag)) {
 						$is_read = true;
-					} elseif ($tag === 'user/-/state/com.google/unread') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
-					} elseif (strpos($tag, 'user/-/label/') === 0) {
-						$tag = trim(substr($tag, 13));
-						if ($tag != '') {
-							$labels[] = $tag;
-						}
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
+						$labels[] = $matches['tag'];
 					}
 					unset($tags[$i]);
 				}
@@ -639,7 +627,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries((int)$feed_id, $max_number_entries);
-			if (!$result) {
+			if ($result === null) {
 				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}

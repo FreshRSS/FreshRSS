@@ -13,6 +13,14 @@
 		$state_unread = true;
 	}
 ?>
+
+<datalist id="datalist-labels"></datalist>
+
+<template id="share_article_template">
+	<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>
+
 <main id="stream" class="global<?= $class ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
 <?php

@@ -22,7 +22,7 @@
 
 	<?php if (!$this->onlyFeedsWithError && $this->signalError) { ?>
 		<div>
-			<a class="btn" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
+			<a class="btn btn-icon-text" href="<?= _url('subscription', 'index', 'error', '1') ?>"><?= _i('look') ?> <?= _t('sub.feed.show.error') ?></a>
 		</div>
 	<?php } ?>
 
@@ -34,7 +34,7 @@
 		?>
 		<div class="box">
 			<div class="box-title">
-				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
+				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" title="<?= _t('gen.action.manage') ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
 				<h2><?= $cat->name() ?><?php if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) { echo " " . _i('opml-dyn'); } ?></h2>
 			</div>
 			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
@@ -59,21 +59,25 @@
 							$empty_title = _t('sub.feed.empty');
 						}
 						$mute_class = $feed->mute() ? ' mute' : '';
+
+						$title = $error_title !== '' ? '⚠ ' . $error_title . '&#13;' : '';
+						$title .= $empty_title !== '' ? $empty_title . '&#13;' : '';
+						$title .= $feed->mute() ? '🔇 ' . _t('sub.feed.mute.state_is_muted') : '';
 				?>
-				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
+				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $title ?>"
 					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
-					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
-					<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-					<span class="item-title"><?= $feed->name() ?></span>
+					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id()) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
+					if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+					endif; ?><span class="item-title"><?= $feed->name() ?></span>
 				</li>
 				<?php
 					}
 				} else {
 				?>
-				<li class="item feed disabled"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
+				<li class="item feed disabled emptyCategory"><div class="alert-warn"><?= _t('sub.category.empty') ?></div></li>
 				<?php } ?>
 				<?php if ($cat->kind() != FreshRSS_Category::KIND_DYNAMIC_OPML): ?>
-					<li class="item feed">✚ <a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _t('sub.feed.add') ?></a></li>
+					<li class="item feed"><a href="<?= _url('subscription', 'add', 'cat_id', $cat->id()) ?>"><?= _i('add') ?><?= _t('sub.feed.add') ?></a></li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -81,7 +85,7 @@
 
 		<div class="box visible-semi">
 			<div class="box-title">
-				✚ <a href="<?= _url('subscription', 'add') ?>"><h2><?= _t('sub.category.add') ?></h2></a>
+				<a href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?> <h2><?= _t('sub.category.add') ?></h2></a>
 			</div>
 			<div class="box-content">
 			</div>

@@ -106,7 +106,7 @@
 
 		$error_class = '';
 		$error_title = '';
-		if ($feed->inError() && !$feed->mute()) {
+		if ($feed->inError()) {
 			$error_class = ' error';
 			$error_title = _t('sub.feed.error');
 		}
@@ -154,16 +154,16 @@
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>
 
-<script id="tag_config_template" type="text/html">
+<template id="tag_config_template">
 	<ul class="dropdown-menu">
 		<li class="item">
 			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
-</script>
+</template>
 
-<script id="feed_config_template" type="text/html">
+<template id="feed_config_template">
 	<ul class="dropdown-menu">
 		<li class="item"><a href="<?= _url('index', $actual_view, 'get', 'f_------') ?>"><?= _t('gen.action.filter') ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
@@ -190,4 +190,4 @@
 		<?php } ?>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
-</script>
+</template>
