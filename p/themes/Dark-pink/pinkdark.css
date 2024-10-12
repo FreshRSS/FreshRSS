@@ -31,6 +31,14 @@
 	color: #ffb6c1;
 }
 
+.tree-folder-title:hover button.dropdown-toggle .icon {
+	filter: sepia(21%) brightness(44%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%);
+}
+
+.tree-folder-title button.dropdown-toggle:hover .icon {
+	filter: sepia(21%) brightness(94%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%)
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	background-color: #000;

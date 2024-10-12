@@ -1,0 +1,56 @@
+<?php
+	declare(strict_types=1);
+	/** @var ImageProxyExtension $this */
+?>
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_url"><?= _t('ext.imageproxy.proxy_url') ?></label>
+		<div class="group-controls">
+			<input type="url" name="image_proxy_url" id="image_proxy_url" value="<?= FreshRSS_Context::userConf()->image_proxy_url ?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_scheme_http"><?= _t('ext.imageproxy.scheme_http') ?></label>
+		<div class="group-controls">
+			<input type="checkbox" name="image_proxy_scheme_http" id="image_proxy_scheme_http" value="1" <?= FreshRSS_Context::userConf()->image_proxy_scheme_http ? 'checked' : '' ?>>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_scheme_https"><?= _t('ext.imageproxy.scheme_https'); ?></label>
+		<div class="group-controls">
+			<input type="checkbox" name="image_proxy_scheme_https" id="image_proxy_scheme_https" value="1" <?= FreshRSS_Context::userConf()->image_proxy_scheme_https ? 'checked' : '' ?>>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_scheme_default"><?= _t('ext.imageproxy.scheme_default'); ?></label>
+		<div class="group-controls">
+			<select name="image_proxy_scheme_default" id="image_proxy_scheme_default">
+				<option value="<?= htmlentities(FreshRSS_Context::userConf()->image_proxy_scheme_default ?? '') ?>" selected="selected"><?= htmlentities(FreshRSS_Context::userConf()->image_proxy_scheme_default ?? '') ?></option>
+				<option value="-">-</option>
+				<option value="auto">auto</option>
+				<option value="http">http</option>
+				<option value="https">https</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_scheme_include"><?= _t('ext.imageproxy.scheme_include'); ?></label>
+		<div class="group-controls">
+			<input type="checkbox" name="image_proxy_scheme_include" id="image_proxy_scheme_include" value="1" <?= FreshRSS_Context::userConf()->image_proxy_scheme_include ? 'checked' : '' ?>>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_proxy_url_encode"><?= _t('ext.imageproxy.url_encode'); ?></label>
+		<div class="group-controls">
+			<input type="checkbox" name="image_proxy_url_encode" id="image_proxy_url_encode" value="1" <?= FreshRSS_Context::userConf()->image_proxy_url_encode ? 'checked' : '' ?>>
+		</div>
+	</div>
+
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+			<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+		</div>
+	</div>
+</form>

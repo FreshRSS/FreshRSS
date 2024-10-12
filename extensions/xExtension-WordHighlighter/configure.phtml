@@ -1,0 +1,88 @@
+<?php
+declare(strict_types=1);
+/** @var WordHighlighterExtension $this */
+?>
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+	<div class="form-group">
+		<label class="group-name" for="words_list">
+			<?= _t('ext.word_highlighter.write_words') ?> <br />
+			<?= _t('ext.word_highlighter.write_words_more') ?>
+		</label>
+		<div class="group-controls">
+			<textarea name="words_list"
+				id="words_list"><?= $this->word_highlighter_conf ?></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="enable-in-article" class="group-name">
+			<?= _t('ext.word_highlighter.enable_in_article') ?>
+		</label>
+		<div class="group-controls">
+			<?php if ($this->enable_in_article == '') { ?>
+				<input type="checkbox" name="enable-in-article" id="enable-in-article"></input>
+			<?php } else { ?>
+				<input type="checkbox" name="enable-in-article" id="enable-in-article" checked="true"></input>
+			<?php } ?>
+			<i><?= _t('ext.word_highlighter.enable_in_article_more') ?></i>
+		</div>
+	</div>
+
+	<details>
+		<summary>Click to see more advanced options</summary>
+
+		<div class="form-group">
+			<label for="case_sensitive" class="group-name">
+				<?= _t('ext.word_highlighter.case_sensitive') ?>
+			</label>
+			<div class="group-controls">
+				<?php if ($this->case_sensitive == '') { ?>
+					<input type="checkbox" name="case_sensitive" id="case_sensitive"></input>
+				<?php } else { ?>
+					<input type="checkbox" name="case_sensitive" id="case_sensitive" checked="true"></input>
+				<?php } ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="separate_word_search" class="group-name">
+				<?= _t('ext.word_highlighter.separate_word_search') ?>
+			</label>
+			<div class="group-controls">
+				<?php if ($this->separate_word_search == '') { ?>
+					<input type="checkbox" name="separate_word_search" id="separate_word_search"></input>
+				<?php } else { ?>
+					<input type="checkbox" name="separate_word_search" id="separate_word_search" checked="true"></input>
+				<?php } ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="enable_logs" class="group-name">
+				<?= _t('ext.word_highlighter.enable_logs') ?>
+			</label>
+			<div class="group-controls">
+				<?php if ($this->enable_logs == '') { ?>
+					<input type="checkbox" name="enable_logs" id="enable_logs"></input>
+				<?php } else { ?>
+					<input type="checkbox" name="enable_logs" id="enable_logs" checked="true"></input>
+				<?php } ?>
+			</div>
+
+		</div>
+	</details>
+
+	<div class="form-group form-actions">
+		<?php if ($this->permission_problem !== '') { ?>
+			<p class="alert alert-error"><?= _t('ext.word_highlighter.permission_problem', $this->permission_problem) ?></p>
+		<?php } else { ?>
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		<?php } ?>
+	</div>
+
+</form>

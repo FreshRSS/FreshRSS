@@ -31,11 +31,15 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '';
 
 if (PHP_INT_SIZE < 8) {	//32-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) return '0';
-		return gmp_strval(gmp_init($hex, 16), 10);
+		$result = gmp_strval(gmp_init($hex, 16), 10);
+		/** @var numeric-string $result */
+		return $result;
 	}
 } else {	//64-bit
+	/** @return numeric-string */
 	function hex2dec(string $hex): string {
 		if (!ctype_xdigit($hex)) {
 			return '0';
@@ -107,6 +111,12 @@ function debugInfo(): string {
 }
 
 final class GReaderAPI {
+
+	/** @return never */
+	private static function noContent() {
+		header('HTTP/1.1 204 No Content');
+		exit();
+	}
 
 	/** @return never */
 	private static function badRequest() {
@@ -327,10 +337,7 @@ final class GReaderAPI {
 		$importService = new FreshRSS_Import_Service($user);
 		$importService->importOpml($opml);
 		if ($importService->lastStatus()) {
-			[, , $nb_new_articles] = FreshRSS_feed_Controller::actualizeFeeds();
-			if ($nb_new_articles > 0) {
-				FreshRSS_feed_Controller::commitNewEntries();
-			}
+			FreshRSS_feed_Controller::actualizeFeedsAndCommit();
 			invalidateHttpCache($user);
 			exit('OK');
 		} else {
@@ -387,7 +394,7 @@ final class GReaderAPI {
 			case 'edit':
 				break;
 			default:
-			self::badRequest();
+				self::badRequest();
 		}
 		$addCatId = 0;
 		$c_name = '';
@@ -794,6 +801,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
@@ -822,6 +830,7 @@ final class GReaderAPI {
 				$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 			}
 		}
+		/** @var array<numeric-string> $e_ids */
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$tagDAO = FreshRSS_Factory::createTagDao();
@@ -943,7 +952,10 @@ final class GReaderAPI {
 		self::badRequest();
 	}
 
-	/** @return never */
+	/**
+	 * @param numeric-string $olderThanId
+	 * @return never
+	 */
 	private static function markAllAsRead(string $streamId, string $olderThanId) {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if (strpos($streamId, 'feed/') === 0) {
@@ -980,6 +992,14 @@ final class GReaderAPI {
 	/** @return never */
 	public static function parse() {
 		global $ORIGINAL_INPUT;
+
+		header('Access-Control-Allow-Headers: Authorization');
+		header('Access-Control-Allow-Methods: GET, POST');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Max-Age: 600');
+		if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+			self::noContent();
+		}
 
 		$pathInfo = '';
 		if (empty($_SERVER['PATH_INFO'])) {

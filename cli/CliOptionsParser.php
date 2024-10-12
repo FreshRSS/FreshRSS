@@ -43,7 +43,7 @@ abstract class CliOptionsParser {
 	 * @param string $defaultInput If not null this value is received as input in all cases where no
 	 *  user input is present. e.g. set this if you want an option to always return a value.
 	 */
-	protected function addOption(string $name, CliOption $option, string $defaultInput = null): void {
+	protected function addOption(string $name, CliOption $option, ?string $defaultInput = null): void {
 		$this->inputs[$name] = [
 			'defaultInput' => is_string($defaultInput) ? [$defaultInput] : $defaultInput,
 			'required' => null,
@@ -92,11 +92,11 @@ abstract class CliOptionsParser {
 						break;
 					case 'int':
 						$validValues = array_filter($values, static fn($value) => ctype_digit($value));
-						$typedValues = array_map(static fn($value) => (int) $value, $validValues);
+						$typedValues = array_map(static fn($value) => (int)$value, $validValues);
 						break;
 					case 'bool':
 						$validValues = array_filter($values, static fn($value) => filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== null);
-						$typedValues = array_map(static fn($value) => (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE), $validValues);
+						$typedValues = array_map(static fn($value) => (bool)filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE), $validValues);
 						break;
 				}
 
@@ -136,10 +136,10 @@ abstract class CliOptionsParser {
 		foreach ($userInputs as $input) {
 			preg_match($regex, $input, $matches);
 
-			if(!empty($matches['short'])) {
+			if (!empty($matches['short'])) {
 				$foundAliases = array_merge($foundAliases, str_split($matches['short']));
 			}
-			if(!empty($matches['long'])) {
+			if (!empty($matches['long'])) {
 				$foundAliases[] = $matches['long'];
 			}
 		}
@@ -232,7 +232,7 @@ abstract class CliOptionsParser {
 		return implode(' ', $required) . ' ' . implode(' ', $optional);
 	}
 
-	private function makeInputRegex() : string {
+	private function makeInputRegex(): string {
 		$shortWithValues = '';
 		foreach ($this->options as $option) {
 			if (($option->getValueTaken() === 'required' || $option->getValueTaken() === 'optional') && $option->getShortAlias()) {

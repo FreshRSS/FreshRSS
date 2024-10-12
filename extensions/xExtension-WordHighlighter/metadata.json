@@ -1,0 +1,8 @@
+{
+	"name": "Word highlighter",
+	"author": "Lukas Melega",
+	"description": "Highlight specific words",
+	"version": "0.0.2",
+	"entrypoint": "WordHighlighter",
+	"type": "user"
+}

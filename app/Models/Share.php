@@ -50,9 +50,7 @@ class FreshRSS_Share {
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
-			return strcasecmp($a->name() ?? '', $b->name() ?? '');
-		});
+		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => strcasecmp($a->name() ?? '', $b->name() ?? ''));
 	}
 
 	/**
@@ -159,7 +157,7 @@ class FreshRSS_Share {
 				case 'method':
 					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
 					break;
-				case 'field';
+				case 'field':
 					$this->field = $value;
 					break;
 			}

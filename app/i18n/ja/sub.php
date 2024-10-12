@@ -29,7 +29,9 @@ return array(
 			'help' => '<a href="http://opml.org/" target="_blank">から提供されたOPMLファイル</a>をこのカテゴリに動的に追加します。',
 		),
 		'empty' => 'からのカテゴリ',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'インフォメーション',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPMLのURL',
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
@@ -68,12 +70,12 @@ return array(
 		'error' => 'このフィードに問題が発生しました。ここでアクセスできるかどうかを確認して更新してみてください。',
 		'export-as-opml' => array(
 			'download' => 'ダウンロード',
-			'help' => 'XMLファイル (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XMLファイル (データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。)',
 			'label' => 'OPMLとしてエクスポート',
 		),
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
-			'help' => '1行に1つの検索フィルターを設定してください Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
@@ -83,15 +85,15 @@ return array(
 				'_' => 'HTML + XPath (ウェブスクレイピング)',
 				'feed_title' => array(
 					'_' => 'フィードタイトル',
-					'help' => '例: <code>//タイトル</code>あるいは文字列定数: <code>"カスタムフィード"</code>',
+					'help' => '例: <code>//title</code> または文字列定数: <code>"カスタムフィード"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> は上級者向けのクエリ型言語で、FreshRSSでスクレイピングをサポートしている言語です。',
 				'item' => array(
-					'_' => 'ニュース<strong>の項目を探す</strong><br /><small>(最も重要)</small>',
+					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>(最も重要)</small>',
 					'help' => '例: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => '著者',
+					'_' => '項目の著者',
 					'help' => 'これもまた、文字定数が使えます。例: <code>"匿名"</code>',
 				),
 				'item_categories' => '項目のタグ',
@@ -105,15 +107,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'カスタム日時フォーマット',
-					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
 				),
 				'item_timestamp' => array(
 					'_' => '項目の日付',
-					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>によってパースされます',
+					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
 				),
 				'item_title' => array(
 					'_' => '項目のタイトル',
-					'help' => '特に<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath アクシスを</a> <code>descendant::</code> ように使います <code>descendant::h2</code>',
+					'help' => '特に<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath Axis</a>の <code>descendant::</code> を <code>descendant::h2</code> のように使います',
 				),
 				'item_uid' => array(
 					'_' => '項目のユニークID',
@@ -123,8 +125,8 @@ return array(
 					'_' => '項目のリンク(URL)',
 					'help' => '例: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (関連する項目):',
-				'xpath' => 'XPathは:',
+				'relative' => 'XPath (項目からの相対パス):',
+				'xpath' => 'XPath:',
 			),
 			'json_dotnotation' => array(
 				'_' => 'JSON（ドット記法）',
@@ -132,37 +134,37 @@ return array(
 					'_' => 'フィード名',
 					'help' => '例: <code>meta.title</code> または静的文字列: <code>"My custom feed"</code>',
 				),
-				'help' => 'JSONのドット表記は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
+				'help' => 'JSONのドット記法は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
 				'item' => array(
-					'_' => '<strong>ニュース</strong>を探す<br /><small>(最重要)</small>',
+					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>(最重要)</small>',
 					'help' => '項目を含む配列へのJSONパス。 例: <code>newsItems</code>',
 				),
-				'item_author' => 'アイテム作成者',
-				'item_categories' => 'アイテムタグ',
+				'item_author' => '項目の著者',
+				'item_categories' => '項目のタグ',
 				'item_content' => array(
-					'_' => '項目内容',
+					'_' => '項目のコンテンツ',
 					'help' => 'コンテンツが存在するキー。例: <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'アイテムのサムネイル',
+					'_' => '項目のサムネイル',
 					'help' => '例: <code>image</code>',
 				),
 				'item_timeFormat' => array(
 					'_' => 'カスタム日時フォーマット',
-					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている、<code>d-m-Y H:i:s</code>のように使います',
+					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
 				),
 				'item_timestamp' => array(
-					'_' => 'アイテム日付',
-					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析される',
+					'_' => '項目の日付',
+					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
 				),
-				'item_title' => 'アイテム名',
-				'item_uid' => 'アイテム固有ID',
+				'item_title' => '項目のタイトル',
+				'item_uid' => '項目のユニークID',
 				'item_uri' => array(
-					'_' => 'アイテムリンク（URL）',
+					'_' => '項目のリンク（URL）',
 					'help' => '例: <code>permalink</code>',
 				),
-				'json' => ':のドット表記',
-				'relative' => ':のドット表記パス（アイテムからの相対パス）。',
+				'json' => 'ドット記法:',
+				'relative' => 'ドット記法（項目からの相対パス）:',
 			),
 			'jsonfeed' => 'JSONフィード',
 			'rss' => 'RSS / Atom (標準)',
@@ -172,7 +174,7 @@ return array(
 			'clear_cache' => 'キャッシュのクリア',
 			'clear_cache_help' => 'このフィードのキャッシュをクリアします。',
 			'reload_articles' => '記事を再読み込みする',
-			'reload_articles_help' => '記事を再読み込みして、セレクターが定義したコンテンツを完全に取得します。',	// DIRTY
+			'reload_articles_help' => '指定した数の記事を再読み込みし、セレクターが定義されていればコンテンツを完全に取得します。',
 			'title' => 'メンテナンス',
 		),
 		'max_http_redir' => 'HTTPのリダイレクトの上限',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'POSTペイロードは <code>application/x-www-form-urlencoded</code> と <code>application/json</code> を自動的にサポートしています',
 		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
-		'mute' => 'ミュート',
+		'mute' => array(
+			'_' => 'ミュート',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'どのフィードも選択されていません',
 		'number_entries' => '%d 記事数',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => '表示する場所',
 			'archived' => '非表示にする(アーカイブ)',
@@ -194,7 +200,7 @@ return array(
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを読み込み時にproxyを設定してください',
-		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) proxyアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',
@@ -226,14 +232,14 @@ return array(
 		'export_opml' => 'フィードリストをエクスポートする (OPML)',
 		'export_starred' => 'お気に入りをエクスポートする',
 		'feed_list' => '%s 記事のリスト',
-		'file_to_import' => 'インポートするファイル<br />(OPML, JSON あるいは ZIP)',
-		'file_to_import_no_zip' => 'インポートするファイル<br />(OPML あるいは JSON)',
+		'file_to_import' => 'インポートするファイル<br />(OPML, JSON または ZIP)',
+		'file_to_import_no_zip' => 'インポートするファイル<br />(OPML または JSON)',
 		'import' => 'インポート',
 		'starred_list' => 'お気に入りの記事',
 		'title' => 'インポート / エクスポート',
 	),
 	'menu' => array(
-		'add' => 'フィードあるいはカテゴリを追加します',
+		'add' => 'フィードやカテゴリを追加',
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
 		'stats' => array(
@@ -241,7 +247,7 @@ return array(
 			'main' => '主な統計',
 			'repartition' => '記事の仕切り',
 		),
-		'subscription_management' => '購読されたものの管理',
+		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',
 	),
 	'tag' => array(
@@ -251,8 +257,8 @@ return array(
 		'old_name' => '古い名前',
 	),
 	'title' => array(
-		'_' => '購読されたものの管理',
-		'add' => 'フィードあるいはカテゴリを追加します',
+		'_' => '購読フィードの管理',
+		'add' => 'フィードやカテゴリを追加',
 		'add_category' => 'カテゴリの追加',
 		'add_dynamic_opml' => '動的なOPMLを追加する',
 		'add_feed' => 'フィードの追加',

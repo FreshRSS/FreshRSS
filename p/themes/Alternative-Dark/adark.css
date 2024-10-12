@@ -4,6 +4,7 @@
 /*============*/
 :root {
 	--background-color-dark: #171717;
+	--background-color-dark-transparent: #171717aa;
 	--background-color-middle: #1f1f1f;
 	--background-color-light: #262626;
 	--background-color-hover: #1d242f;
@@ -140,7 +141,7 @@ th {
 /*=== Forms */
 .form-group.form-actions {
 	padding: 5px 0;
-	background: var(--background-color-dark);
+	background-color: var(--background-color-dark-transparent);
 	border-top: 1px solid var(--border-color-dark);
 }
 
@@ -502,6 +503,14 @@ kbd {
 	filter: brightness(2);
 }
 
+.tree-folder-title:hover button.dropdown-toggle .icon {
+	filter: inherit;
+}
+
+.tree-folder-title button.dropdown-toggle:hover .icon {
+	filter: brightness(2);
+}
+
 .tree-folder-title .title {
 	background: inherit;
 	color: var(--font-color-middle);
@@ -601,6 +610,11 @@ kbd {
 .aside.aside_feed .category:hover .title:not([data-unread="0"])::after,
 .aside.aside_feed .feed:hover .item-title:not([data-unread="0"])::after {
 	color: var(--font-color-light);
+}
+
+.aside_feed .tree-folder-title button.dropdown-toggle {
+	margin: -0.75rem 0 -0.75rem -0.75rem;
+	padding: 0.75rem 0 0.75rem 0.75rem;
 }
 
 /*=== Aside main page (feeds) */
@@ -922,11 +936,7 @@ kbd {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
 	background: var(--background-color-light);
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */

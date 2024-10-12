@@ -478,13 +478,24 @@ th {
 	border-bottom: 1px solid #3f3f3f;
 }
 .tree .tree-folder .tree-folder-title {
-	padding: 1rem;
+	padding: 0.75rem 1rem;
 	background: #303136;
 	position: relative;
 	font-size: 0.85rem;
 	letter-spacing: 1px;
 	font-weight: 700;
 	text-transform: uppercase;
+}
+.tree .tree-folder .tree-folder-title button.dropdown-toggle {
+	margin: -0.75rem -1rem -0.75rem 0.25rem;
+	padding: 0.75rem 1rem 0.75rem 0;
+}
+.tree .tree-folder .tree-folder-title button.dropdown-toggle:hover .icon {
+	filter: brightness(2) !important;
+	transition: 0.1s linear;
+}
+.tree .tree-folder .tree-folder-title .icon {
+	margin-left: 0.5rem;
 }
 .tree .tree-folder .tree-folder-title .title {
 	background: inherit;
@@ -501,8 +512,6 @@ th {
 	background: #26272a;
 }
 .tree .tree-folder .tree-folder-items .item {
-	padding: 0 1rem;
-	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: 400;
 	transition: all 0.15s ease-in-out;
@@ -525,6 +534,9 @@ th {
 .tree .tree-folder .tree-folder-items .item a {
 	text-decoration: none;
 	color: #ffffff;
+}
+.tree .tree-folder .tree-folder-items .item a.dropdown-toggle .icon {
+	margin-left: 0.25rem;
 }
 
 /*=== Buttons */
@@ -572,8 +584,15 @@ th {
 	text-align: center;
 	background: #303136;
 }
+.aside.aside_feed .tree-folder-title:hover button.dropdown-toggle .icon {
+	filter: none;
+}
 .aside.aside_feed .tree {
 	margin: 10px 0 50px;
+}
+.aside a:hover .icon {
+	filter: brightness(2);
+	transition: 0.1s linear;
 }
 
 /* Sidebar des pages de configuration */
@@ -632,7 +651,7 @@ th {
 }
 
 .aside.aside_feed .category .title:not([data-unread="0"])::after {
-	margin: 1rem 0 0 0;
+	margin: 0.75rem 0 0 0;
 	background-color: rgba(0, 0, 0, 0.25);
 }
 
@@ -991,10 +1010,6 @@ main.prompt {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: #303136;
 }
 
@@ -1311,8 +1326,8 @@ main.prompt {
 		line-height: 1.5rem;
 		margin-bottom: 1rem;
 	}
-	#nav_entries {
-		line-height: 4.5rem;
+	#nav_entries button {
+		height: 4.5rem;
 	}
 	.notification {
 		border-radius: 0;

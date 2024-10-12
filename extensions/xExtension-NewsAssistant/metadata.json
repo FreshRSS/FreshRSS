@@ -1,0 +1,8 @@
+{
+	"name": "News Assistant",
+	"author": "Mervyn Zhan",
+	"description": "Using the ai api of `OpenAI`, `Anthropic`, `Groq` by [Portkey-AI/gateway](https://github.com/Portkey-AI/gateway/) to summary the news.",
+	"version": "0.11.1",
+	"entrypoint": "NewsAssistant",
+	"type": "system"
+}

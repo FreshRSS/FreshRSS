@@ -1,0 +1,33 @@
+.flux .flux_header .item {
+	vertical-align: top;
+}
+
+.flux .flux_header .item .title {
+	position: relative;
+}
+
+.flux .flux_header .item.website .websiteName,
+.flux .flux_header .item .title {
+	white-space: wrap;
+}
+
+.flux .flux_header .item .summary {
+	margin-top: -0.5rem;
+}
+
+.flux:not(.current):hover .flux_header .item .date {
+	opacity: inherit;
+}
+
+.flux:not(.current):hover .flux_header .item .title:has(~ .date) {
+	padding-left: 155px;
+	z-index: auto;
+}
+
+@media (max-width: 840px) {
+	.flux:not(.current) .flux_header .item.titleAuthorSummaryDate .title:has(~ .date),
+	.flux:not(.current):hover .flux_header .item.titleAuthorSummaryDate .title:has(~ .date) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

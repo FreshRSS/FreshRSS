@@ -39,21 +39,21 @@ class Minz_Log {
 			}
 
 			switch ($level) {
-			case LOG_ERR :
-				$level_label = 'error';
-				break;
-			case LOG_WARNING :
-				$level_label = 'warning';
-				break;
-			case LOG_NOTICE :
-				$level_label = 'notice';
-				break;
-			case LOG_DEBUG :
-				$level_label = 'debug';
-				break;
-			default :
-				$level = LOG_INFO;
-				$level_label = 'info';
+				case LOG_ERR:
+					$level_label = 'error';
+					break;
+				case LOG_WARNING:
+					$level_label = 'warning';
+					break;
+				case LOG_NOTICE:
+					$level_label = 'notice';
+					break;
+				case LOG_DEBUG:
+					$level_label = 'debug';
+					break;
+				default:
+					$level = LOG_INFO;
+					$level_label = 'info';
 			}
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";

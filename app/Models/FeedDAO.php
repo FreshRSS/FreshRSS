@@ -203,7 +203,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/**
 	 * @return int|false
-	 * @see updateCachedValue()
+	 * @see updateCachedValues()
 	 */
 	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0) {
 		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
@@ -453,20 +453,21 @@ SQL;
 	}
 
 	/**
+	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 * @return int|false
 	 */
-	public function updateCachedValues(int $id = 0) {
+	public function updateCachedValues(int ...$feedIds) {
 		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		$sql = 'UPDATE `_feed` '
-			. 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),'
-			. '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)'
-			. ($id != 0 ? ' WHERE id=:id' : '');
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $id != 0) {
-			$stm->bindParam(':id', $id, PDO::PARAM_INT);
+		$sql = <<<SQL
+UPDATE `_feed`
+SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),
+	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
+SQL;
+		if (count($feedIds) > 0) {
+			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
-
-		if ($stm !== false && $stm->execute()) {
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false && $stm->execute($feedIds)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -508,20 +509,15 @@ SQL;
 	 * Remember to call updateCachedValues() after calling this function
 	 * @return int|false number of lines affected or false in case of error
 	 */
-	public function markAsReadUponGone(int $id) {
-		//Double SELECT for MySQL workaround ERROR 1093 (HY000)
+	public function markAsReadNotSeen(int $id, int $minLastSeen) {
 		$sql = <<<'SQL'
 UPDATE `_entry` SET is_read=1
-WHERE id_feed=:id_feed1 AND is_read=0 AND (
-	`lastSeen` + 60 < (SELECT s1.maxlastseen FROM (
-		SELECT MAX(e2.`lastSeen`) AS maxlastseen FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
-	) s1)
-)
+WHERE id_feed=:id_feed AND is_read=0 AND (`lastSeen` + 10 < :min_last_seen)
 SQL;
 
 		if (($stm = $this->pdo->prepare($sql)) &&
-			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':min_last_seen', $minLastSeen, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {

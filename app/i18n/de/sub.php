@@ -29,7 +29,9 @@ return array(
 			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
+		'expand' => 'Kategory aufklappen',
 		'information' => 'Information',	// IGNORE
+		'open' => 'Kategory öffnen',
 		'opml_url' => 'OPML-Datei URL',
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
 		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
-		'mute' => 'Stumm schalten',
+		'mute' => array(
+			'_' => 'Stumm schalten',
+			'state_is_muted' => 'Dieser Feed ist stummgeschaltet',
+		),
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
+		'open_feed' => 'Feed %s öffnen',
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',

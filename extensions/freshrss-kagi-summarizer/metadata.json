@@ -1,0 +1,8 @@
+{
+  "name": "Kagi Summarizer",
+  "author": "Rudis Muiznieks",
+  "description": "Add buttons to summarize articles with the Kagi Universal Summarizer.",
+  "version": 0.2,
+  "entrypoint": "KagiSummarizer",
+  "type": "user"
+}

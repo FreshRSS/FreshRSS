@@ -83,16 +83,16 @@ SQL;
 	 */
 	#[\Override]
 	public function markRead($ids, bool $is_read = true) {
-		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
-				$affected = 0;
-				foreach ($ids as $id) {
-					$affected += ($this->markRead($id, $is_read) ?: 0);
-				}
-				return $affected;
+			$affected = 0;
+			foreach ($ids as $id) {
+				$affected += ($this->markRead($id, $is_read) ?: 0);
+			}
+			return $affected;
 			//}
 		} else {
+			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
 			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
 			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
@@ -135,9 +135,7 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` '
-			 . 'SET is_read = ? '
-			 . 'WHERE is_read <> ? AND id <= ? AND '
+		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';

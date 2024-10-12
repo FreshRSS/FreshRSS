@@ -1,0 +1,85 @@
+[{
+	"url": "https://github.com/FreshRSS/Extensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/oyox/FreshRSS-extensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/Eisa01/FreshRSS---Auto-Refresh-Extension",
+	"type": "git"
+}, {
+	"url": "https://github.com/aledeg/xExtension-DateFormat",
+	"type": "git"
+}, {
+	"url": "https://github.com/aledeg/xExtension-LatexSupport",
+	"type": "git"
+}, {
+	"url": "https://github.com/aledeg/xExtension-RedditImage",
+	"type": "git"
+}, {
+	"url": "https://github.com/aledeg/xExtension-WhiteList",
+	"type": "git"
+}, {
+	"url": "https://framagit.org/Lapineige/FreshRSS_Extension-ReadingTime/",
+	"type": "git"
+}, {
+	"url": "https://framagit.org/nicofrand/xextension-threepanesview",
+	"type": "git"
+}, {
+	"url": "https://framagit.org/nicofrand/xextension-togglablemenu",
+	"type": "git"
+}, {
+	"url": "https://github.com/Korbak/freshrss-invidious",
+	"type": "git"
+}, {
+	"url": "https://github.com/cn-tools/cntools_FreshRssExtensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/ravenscroftj/freshrss-flaresolverr-extension",
+	"type": "git"
+}, {
+	"url": "https://github.com/jacob2826/FreshRSS-TranslateTitlesCN",
+	"type": "git"
+}, {
+	"url": "https://github.com/babico/xExtension-TwitchChannel2RssFeed",
+	"type": "git"
+}, {
+	"url": "https://github.com/tunbridgep/freshrss-invidious",
+	"type": "git"
+}, {
+	"url": "https://github.com/javerous/freshrss-greader-redate",
+	"type": "git"
+}, {
+	"url": "https://github.com/kapdap/freshrss-extensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/christian-putzke/freshrss-pocket-button",
+	"type": "git"
+}, {
+	"url": "https://github.com/printfuck/xExtension-Readable",
+	"type": "git"
+}, {
+	"url": "https://github.com/Victrid/freshrss-image-cache-plugin",
+	"type": "git"
+}, {
+	"url": "https://github.com/aidistan/freshrss-extensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/mgnsk/FreshRSS-AutoTTL",
+	"type": "git"
+}, {
+	"url": "https://github.com/DevonHess/FreshRSS-Extensions",
+	"type": "git"
+}, {
+	"url": "https://github.com/reply2future/xExtension-NewsAssistant",
+	"type": "git"
+}, {
+	"url": "https://github.com/giventofly/freshrss-comicsinfeed",
+	"type": "git"
+}, {
+	"url": "https://code.sitosis.com/rudism/freshrss-kagi-summarizer",
+	"type": "git"
+}, {
+	"url": "https://github.com/kalvn/freshrss-mark-previous-as-read",
+	"type": "git"
+}]

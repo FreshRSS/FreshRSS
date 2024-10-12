@@ -1,0 +1,7 @@
+.git/
+*.min.js
+node_modules/
+symbolic/
+third-party/
+tmp/
+vendor/

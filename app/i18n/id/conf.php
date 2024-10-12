@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Tampilan',
 		'darkMode' => array(
-			'_' => 'Mode gelap otomatis (beta)',
+			'_' => 'Mode gelap otomatis',
 			'auto' => 'Otomatis',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Tidak',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Permintaan Pengguna',
 		'deprecated' => 'Permintaan ini tidak valid lagi. Kategori atau feed yang dirujuk telah dihapus.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filter yang diterapkan:',
 			'categories' => 'Tampilkan berdasarkan kategori',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Tampilkan artikel dari feed penting',
 		'get_label' => 'Tampilkan artikel dengan label "%s"',
 		'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentasi untuk permintaan pengguna dan berbagi ulang melalui HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nama',
 		'no_filter' => 'Tanpa filter',
 		'number' => 'Permintaan n°%d',
@@ -142,6 +145,7 @@ return array(
 		'search' => 'Cari untuk "%s"',
 		'share' => array(
 			'_' => 'Bagikan permintaan ini melalui tautan',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Berikan tautan ini jika Anda ingin berbagi permintaan ini dengan siapa pun',
 			'html' => 'Tautan dapat dibagikan ke halaman HTML',
 			'opml' => 'Tautan dapat dibagikan ke daftar OPML dari feed',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => 'Di baris penulis dan tanggal',
 			),
 			'feed_title' => 'Judul feed',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Tag',
 				'both' => 'Di header dan footer',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => 'Terbaru dulu',
 			'older_first' => 'Terlama dulu',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Tempelkan artikel di bagian atas saat dibuka',
 		'title' => 'Membaca',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// TODO
 		'add' => 'Add a sharing method',	// TODO
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// TODO

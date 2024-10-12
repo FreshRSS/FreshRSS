@@ -1,0 +1,41 @@
+{
+  "name": "gravity-freshrss",
+  "version": "0.1.0",
+  "description": "A macOS theme",
+  "author": "Frank Yonnetti",
+  "license": "GPL-2.0 AND MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "style:sass": "sass --error-css --style=compressed --embed-source-map ./src/sass/style.scss",
+    "style:replace": "perl -pe 's|file:(.+?)/src|../src|g'",
+    "style:postcss": "postcss --config './postcss.config.js' -o ./Gravity/gravity.css",
+    "style": "bun style:sass | bun style:replace | bun style:postcss",
+    "svgo": "svgo -f ./src/icons -o ./Gravity/icons --config ./svgo.config.js",
+    "build": "bun style && bun color && bun svgo",
+    "watch:style": "nodemon --watch ./src/sass/ --ext scss --exec 'bun style' --quiet",
+    "watch:svgo": "nodemon --watch ./src/icons --ext svg --exec 'bun svgo' --quiet",
+    "watch": "concurrently --raw --kill-others 'bun watch:style'"
+  },
+  "browserslist": [
+    "> 0.2%",
+    "last 2 version",
+    "Firefox ESR",
+    "not dead"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-pxtorem": "^6.1.0",
+    "sass": "^1.77.1",
+    "stylelint": "^16.5.0",
+    "stylelint-config-sass-guidelines": "^11.1.0",
+    "stylelint-order": "^6.0.4",
+    "svgo": "^3.3.2"
+  }
+}

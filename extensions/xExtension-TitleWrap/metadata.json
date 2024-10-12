@@ -1,0 +1,8 @@
+{
+	"name": "Title-Wrap",
+	"author": "₣rans de Jonge, Joris Kinable",
+	"description": "Applies a line-wrap to long article titles, as opposed to truncating the title when it overflows its display area.",
+	"version": "0.3.0",
+	"entrypoint": "TitleWrap",
+	"type": "user"
+}

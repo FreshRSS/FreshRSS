@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Отображение',
 		'darkMode' => array(
-			'_' => 'Автоматический темный режим (beta)',
+			'_' => 'Автоматический темный режим',
 			'auto' => 'Авто',
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Нет',
 		),
 		'icon' => array(
@@ -114,6 +115,7 @@ return array(
 	'query' => array(
 		'_' => 'Пользовательские запросы',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
@@ -134,6 +136,7 @@ return array(
 		'get_important' => 'Отображать статьи из важных лент',
 		'get_label' => 'Показать статьи с “%s” меткой',
 		'help' => 'Смотрите <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">документацию по пользовательским запросам и повторному обмену данными с помощью HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
 		'number' => 'Запрос №%d',
@@ -142,6 +145,7 @@ return array(
 		'search' => 'Искать “%s”',
 		'share' => array(
 			'_' => 'Поделиться запросом по ссылке',
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Дайте эту ссылку, если хотите поделиться этим запросом с кем-либо',
 			'html' => 'Ссылка доступа на HTML-страницу',
 			'opml' => 'Ссылка доступа на список лент в формате OPML',
@@ -183,6 +187,11 @@ return array(
 				'with_authors' => 'В строке с автором и датой',
 			),
 			'feed_title' => 'Титул ленты',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
 			'tags' => array(
 				'_' => 'Метки',
 				'both' => 'В верхнем и нижнем колонтитулах',
@@ -242,6 +251,9 @@ return array(
 			'newer_first' => 'Сначала новые',
 			'older_first' => 'Сначала старые',
 		),
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
+		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
 		'title' => 'Чтение',
 		'view' => array(
@@ -254,7 +266,6 @@ return array(
 	'sharing' => array(
 		'_' => 'Обмен',
 		'add' => 'Добавить способ обмена',
-		'blogotext' => 'Blogotext',	// IGNORE
 		'deprecated' => 'Этот сервис устарел и будет удалён из FreshRSS в <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Открыть документацию для большей информации" target="_blank">будущем релизе</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',

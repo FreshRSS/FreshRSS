@@ -29,7 +29,9 @@ return array(
 			'help' => 'Dinamik olarak bu kategoriyi akışla doldurmak için bir link <a href="http://opml.org/" target="_blank">OPML file</a> sağla',
 		),
 		'empty' => 'Boş kategori',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Bilgi',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML linki',
 		'position' => 'Konumu göster',
 		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
@@ -68,12 +70,12 @@ return array(
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
 		'export-as-opml' => array(
 			'download' => 'İndir',
-			'help' => 'XML dosyası (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">dökümantasyonu incele</a>)',
 			'label' => 'OPML olarak dışarı aktar',
 		),
 		'filteractions' => array(
 			'_' => 'Eylemi filtrele',
-			'help' => 'Her satıra tek bir arama filtresi yaz. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Dökümantasyonu incele</a>.',
+			'help' => 'Her satıra tek bir arama filtresi yaz. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dökümantasyonu incele</a>.',
 		),
 		'information' => 'Bilgi',
 		'keep_min' => 'En az tutulacak makale sayısı',
@@ -132,7 +134,7 @@ return array(
 					'_' => 'akış başlığı',
 					'help' => 'Örnek: <code>meta.title</code> ya da sabit bir dizgi: <code>"Benim özel akışım"</code>',
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON noktalı gösterimi, nesneler arasında noktalar ve diziler için köşeli parantezler kullanır (örneğin: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'yeni akışlar bulunuyor <strong>çğeler</strong><br /><small>(en önemli)</small>',
 					'help' => 'Öğeleri içeren dizinin JSON yolu, e.g. <code>yeniAkışÖğeleri</code>',
@@ -161,8 +163,8 @@ return array(
 					'_' => 'nesne linkı (URL)',
 					'help' => 'Örnek: <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'Noktalı gösterim yolu şunlar için geçerlidir:',
+				'relative' => 'Noktalı gösterim yolu ( öğeye göre bağıl) şunlar için geçerlidir:',
 			),
 			'jsonfeed' => 'JSON Akışı',
 			'rss' => 'RSS / Atom (varsayılan)',
@@ -183,9 +185,13 @@ return array(
 		'method_help' => 'POST payload otomatik yardımı için <code>application/x-www-form-urlencoded</code> ve <code>application/json</code>',
 		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
-		'mute' => 'sessize al',
+		'mute' => array(
+			'_' => 'sessize al',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Hiçbir akış seçilmedi.',
 		'number_entries' => '%d makale',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'archived' => 'Gösterme (arşivlenmiş)',

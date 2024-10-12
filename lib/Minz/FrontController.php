@@ -33,7 +33,7 @@ class Minz_FrontController {
 	 * Constructeur
 	 * Initialise le dispatcher, met à jour la Request
 	 */
-	public function __construct () {
+	public function __construct() {
 		try {
 			$this->setReporting();
 

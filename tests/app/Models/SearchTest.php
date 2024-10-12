@@ -47,26 +47,26 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideIntitleSearch(): array {
-		return array(
-			array('intitle:word1', array('word1'), null),
-			array('intitle:word1-word2', array('word1-word2'), null),
-			array('intitle:word1 word2', array('word1'), array('word2')),
-			array('intitle:"word1 word2"', array('word1 word2'), null),
-			array("intitle:'word1 word2'", array('word1 word2'), null),
-			array('word1 intitle:word2', array('word2'), array('word1')),
-			array('word1 intitle:word2 word3', array('word2'), array('word1', 'word3')),
-			array('word1 intitle:"word2 word3"', array('word2 word3'), array('word1')),
-			array("word1 intitle:'word2 word3'", array('word2 word3'), array('word1')),
-			array('intitle:word1 intitle:word2', array('word1', 'word2'), null),
-			array('intitle: word1 word2', null, array('word1', 'word2')),
-			array('intitle:123', array('123'), null),
-			array('intitle:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-			array("intitle:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-			array('intitle:"word1 word2\' word3"', array("word1 word2' word3"), null),
-			array("intitle:'word1 word2\" word3'", array('word1 word2" word3'), null),
-			array("intitle:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['intitle:word1', ['word1'], null],
+			['intitle:word1-word2', ['word1-word2'], null],
+			['intitle:word1 word2', ['word1'], ['word2']],
+			['intitle:"word1 word2"', ['word1 word2'], null],
+			["intitle:'word1 word2'", ['word1 word2'], null],
+			['word1 intitle:word2', ['word2'], ['word1']],
+			['word1 intitle:word2 word3', ['word2'], ['word1', 'word3']],
+			['word1 intitle:"word2 word3"', ['word2 word3'], ['word1']],
+			["word1 intitle:'word2 word3'", ['word2 word3'], ['word1']],
+			['intitle:word1 intitle:word2', ['word1', 'word2'], null],
+			['intitle: word1 word2', null, ['word1', 'word2']],
+			['intitle:123', ['123'], null],
+			['intitle:"word1 word2" word3"', ['word1 word2'], ['word3"']],
+			["intitle:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
+			['intitle:"word1 word2\' word3"', ["word1 word2' word3"], null],
+			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -84,26 +84,26 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideAuthorSearch(): array {
-		return array(
-			array('author:word1', array('word1'), null),
-			array('author:word1-word2', array('word1-word2'), null),
-			array('author:word1 word2', array('word1'), array('word2')),
-			array('author:"word1 word2"', array('word1 word2'), null),
-			array("author:'word1 word2'", array('word1 word2'), null),
-			array('word1 author:word2', array('word2'), array('word1')),
-			array('word1 author:word2 word3', array('word2'), array('word1', 'word3')),
-			array('word1 author:"word2 word3"', array('word2 word3'), array('word1')),
-			array("word1 author:'word2 word3'", array('word2 word3'), array('word1')),
-			array('author:word1 author:word2', array('word1', 'word2'), null),
-			array('author: word1 word2', null, array('word1', 'word2')),
-			array('author:123', array('123'), null),
-			array('author:"word1 word2" word3"', array('word1 word2'), array('word3"')),
-			array("author:'word1 word2' word3'", array('word1 word2'), array("word3'")),
-			array('author:"word1 word2\' word3"', array("word1 word2' word3"), null),
-			array("author:'word1 word2\" word3'", array('word1 word2" word3'), null),
-			array("author:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['author:word1', ['word1'], null],
+			['author:word1-word2', ['word1-word2'], null],
+			['author:word1 word2', ['word1'], ['word2']],
+			['author:"word1 word2"', ['word1 word2'], null],
+			["author:'word1 word2'", ['word1 word2'], null],
+			['word1 author:word2', ['word2'], ['word1']],
+			['word1 author:word2 word3', ['word2'], ['word1', 'word3']],
+			['word1 author:"word2 word3"', ['word2 word3'], ['word1']],
+			["word1 author:'word2 word3'", ['word2 word3'], ['word1']],
+			['author:word1 author:word2', ['word1', 'word2'], null],
+			['author: word1 word2', null, ['word1', 'word2']],
+			['author:123', ['123'], null],
+			['author:"word1 word2" word3"', ['word1 word2'], ['word3"']],
+			["author:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
+			['author:"word1 word2\' word3"', ["word1 word2' word3"], null],
+			["author:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			["author:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['author:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -121,16 +121,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public function provideInurlSearch(): array {
-		return array(
-			array('inurl:word1', array('word1'), null),
-			array('inurl: word1', array(), array('word1')),
-			array('inurl:123', array('123'), null),
-			array('inurl:word1 word2', array('word1'), array('word2')),
-			array('inurl:"word1 word2"', array('"word1'), array('word2"')),
-			array('inurl:word1 word2 inurl:word3', array('word1', 'word3'), array('word2')),
-			array("inurl:word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
+		return [
+			['inurl:word1', ['word1'], null],
+			['inurl: word1', [], ['word1']],
+			['inurl:123', ['123'], null],
+			['inurl:word1 word2', ['word1'], ['word2']],
+			['inurl:"word1 word2"', ['"word1'], ['word2"']],
+			['inurl:word1 word2 inurl:word3', ['word1', 'word3'], ['word2']],
+			["inurl:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['inurl:word1+word2', ['word1+word2'], null],
-		);
+		];
 	}
 
 	/**
@@ -194,16 +194,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<string|array<string>|null>>
 	 */
 	public function provideTagsSearch(): array {
-		return array(
-			array('#word1', array('word1'), null),
-			array('# word1', null, array('#', 'word1')),
-			array('#123', array('123'), null),
-			array('#word1 word2', array('word1'), array('word2')),
-			array('#"word1 word2"', array('"word1'), array('word2"')),
-			array('#word1 #word2', array('word1', 'word2'), null),
-			array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
-			['#word1+word2', ['word1 word2'], null],
-		);
+		return [
+			['#word1', ['word1'], null],
+			['# word1', null, ['#', 'word1']],
+			['#123', ['123'], null],
+			['#word1 word2', ['word1'], ['word2']],
+			['#"word1 word2"', ['"word1'], ['word2"'],],
+			['#word1 #word2', ['word1', 'word2'], null],
+			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
+			['#word1+word2', ['word1 word2'], null]
+		];
 	}
 
 	/**
@@ -285,12 +285,59 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @dataProvider provideAddOrParentheses
+	 */
+	public function test__addOrParentheses(string $input, string $output): void {
+		self::assertEquals($output, FreshRSS_BooleanSearch::addOrParentheses($input));
+	}
+
+	/** @return array<array{string,string}> */
+	public function provideAddOrParentheses(): array {
+		return [
+			['ab', 'ab'],
+			['ab cd', 'ab cd'],
+			['!ab -cd', '!ab -cd'],
+			['ab OR cd', '(ab) OR (cd)'],
+			['!ab OR -cd', '(!ab) OR (-cd)'],
+			['ab cd OR ef OR "gh ij"', '(ab cd) OR (ef) OR ("gh ij")'],
+			['ab (!cd)', 'ab (!cd)'],
+		];
+	}
+
+	/**
+	 * @dataProvider provideconsistentOrParentheses
+	 */
+	public function test__consistentOrParentheses(string $input, string $output): void {
+		self::assertEquals($output, FreshRSS_BooleanSearch::consistentOrParentheses($input));
+	}
+
+	/** @return array<array{string,string}> */
+	public function provideconsistentOrParentheses(): array {
+		return [
+			['ab cd ef', 'ab cd ef'],
+			['(ab cd ef)', '(ab cd ef)'],
+			['("ab cd" ef)', '("ab cd" ef)'],
+			['"ab cd" (ef gh) "ij kl"', '"ab cd" (ef gh) "ij kl"'],
+			['ab (!cd)', 'ab (!cd)'],
+			['ab !(cd)', 'ab !(cd)'],
+			['(ab) -(cd)', '(ab) -(cd)'],
+			['ab cd OR ef OR "gh ij"', 'ab cd OR ef OR "gh ij"'],
+			['"plain or text" OR (cd)', '("plain or text") OR (cd)'],
+			['(ab) OR cd OR ef OR (gh)', '(ab) OR (cd) OR (ef) OR (gh)'],
+			['(ab (cd OR ef)) OR gh OR ij OR (kl)', '(ab (cd OR ef)) OR (gh) OR (ij) OR (kl)'],
+			['(ab (cd OR ef OR (gh))) OR ij', '(ab ((cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab (!cd OR ef OR (gh))) OR ij', '(ab ((!cd) OR (ef) OR (gh))) OR (ij)'],
+			['(ab !(cd OR ef OR !(gh))) OR ij', '(ab !((cd) OR (ef) OR !(gh))) OR (ij)'],
+		];
+	}
+
+	/**
 	 * @dataProvider provideParentheses
 	 * @param array<string> $values
 	 */
-	public function test__construct_parentheses(string $input, string $sql, array $values): void {
-		list($filterValues, $filterSearch) = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals($sql, $filterSearch);
+	public function test__parentheses(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertEquals(trim($sql), trim($filterSearch));
 		self::assertEquals($values, $filterValues);
 	}
 
@@ -331,6 +378,74 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intitle:"\\(test\\)"',
 				'(e.title LIKE ? )',
 				['%(test)%'],
+			],
+			[
+				'intitle:\'"hello world"\'',
+				'(e.title LIKE ? )',
+				['%"hello world"%'],
+			],
+			[
+				'(ab) OR (cd) OR (ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'("plain or text") OR (cd)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
+			],
+			[
+				'"plain or text" OR cd',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
+			],
+			[
+				'"plain OR text" OR cd',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) ',
+				['%plain OR text%', '%plain OR text%', '%cd%', '%cd%'],
+			],
+			[
+				'ab OR cd OR (ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab OR cd OR ef',
+				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'(ab) cd OR ef OR (gh)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
+			],
+			[
+				'(ab) OR cd OR ef OR (gh)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
+			],
+			[
+				'ab OR (!(cd OR ef))',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) AND NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'ab OR !(cd OR ef)',
+				'(((e.title LIKE ? OR e.content LIKE ?) )) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
+			],
+			[
+				'(ab (!cd OR ef OR (gh))) OR !(ij OR kl)',
+				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
+				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
 			],
 		];
 	}

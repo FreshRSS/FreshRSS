@@ -1,0 +1,8 @@
+{
+	"name": "ThreePanesView",
+	"author": "nicofrand",
+	"description": "Adds a third vertical pane along the articles list, to display the articles content.",
+	"version": 1.14,
+	"entrypoint": "ThreePanesView",
+	"type": "user"
+}

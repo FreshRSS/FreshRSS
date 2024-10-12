@@ -1,0 +1,40 @@
+<?php
+	declare(strict_types=1);
+	/** @var ImageProxyExtension $this */
+?>
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	<h3><?= _t('ext.imagecache.fetch_settings') ?></h3>
+	<div class="form-group">
+		<label class="group-name" for="image_cache_url"><?= _t('ext.imagecache.cache_url') ?></label>
+		<div class="group-controls">
+			<input type="url" name="image_cache_url" id="image_cache_url" value="<?= FreshRSS_Context::userConf()->image_cache_url ?>">
+		</div>
+	</div>
+	<h3><?= _t('ext.imagecache.proactive_cache') ?></h3>
+    <p><?= _t('ext.imagecache.proactive_cache_desc') ?></p>
+    <div class="form-group">
+		<label class="group-name" for="image_cache_post_enabled"><?= _t('ext.imagecache.proactive_cache_enabled') ?></label>
+		<div class="group-controls">
+			<input type="checkbox" name="image_cache_post_enabled" id="image_cache_post_enabled" value="1" <?= FreshRSS_Context::userConf()->image_cache_post_enabled ? 'checked' : '' ?>>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_cache_post_url"><?= _t('ext.imagecache.post_url') ?></label>
+		<div class="group-controls">
+			<input type="url" name="image_cache_post_url" id="image_cache_post_url" value="<?= FreshRSS_Context::userConf()->image_cache_post_url ?>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="group-name" for="image_cache_access_token"><?= _t('ext.imagecache.access_token'); ?></label>
+		<div class="group-controls">
+			<input type="text" name="image_cache_access_token" id="image_cache_access_token" value="<?= FreshRSS_Context::userConf()->image_cache_access_token ?>">
+		</div>
+	</div>
+	<div class="form-group form-actions">
+		<div class="group-controls">
+			<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+			<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+		</div>
+	</div>
+</form>

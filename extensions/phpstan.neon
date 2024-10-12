@@ -1,0 +1,41 @@
+parameters:
+	# TODO: Increase rule-level https://phpstan.org/user-guide/rule-levels
+	level: 1
+	phpVersion: 80399	# TODO: Remove line when moving composer.json to PHP 8+
+	treatPhpDocTypesAsCertain: false
+	fileExtensions:
+		- php
+		- phtml
+	paths:
+		- ../FreshRSS
+		- .
+	excludePaths:
+		analyse:
+			- ../FreshRSS
+			- vendor/
+		analyseAndScan:
+			- .git/
+			- node_modules/
+			- symbolic/
+			- third-party/
+			- tmp/
+	dynamicConstantNames:
+		- TYPE_GIT
+	checkMissingOverrideMethodAttribute: true
+	reportMaybesInPropertyPhpDocTypes: false
+	strictRules:
+		allRules: false
+		booleansInConditions: true
+		closureUsesThis: true
+		disallowedConstructs: false
+		disallowedLooseComparison: false
+		matchingInheritedMethodNames: true
+		noVariableVariables: true
+		numericOperandsInArithmeticOperators: true
+		overwriteVariablesWithLoop: true
+		requireParentConstructorCall: true
+		strictCalls: true
+		switchConditionsMatchingType: true
+		uselessCast: true
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
