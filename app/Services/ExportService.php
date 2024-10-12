@@ -23,6 +23,7 @@ class FreshRSS_Export_Service {
 	final public const TYPE_JSON_DOTPATH = 'JSON+DotPath';	// Legacy 1.24.0-dev
 	final public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
 	final public const TYPE_JSONFEED = 'JSONFeed';
+	final public const TYPE_HTML_JSON_DOTNOTATION = 'HTML+JSON+DotNotation';
 
 	/**
 	 * Initialize the service for the given user.

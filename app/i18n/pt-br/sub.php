@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'Um JSON na notação de ponto usa pontos entre os objetos e colchetes para arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'encontrando novidades <strong>itens</strong><br /><small>(mais importante)</small>',
-					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>newsItems</code>',
+					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor do item',
 				'item_categories' => 'tags dos itens',

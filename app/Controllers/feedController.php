@@ -260,7 +260,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				if (!empty($xPathSettings)) {
 					$attributes['xpath'] = $xPathSettings;
 				}
-			} elseif ($feed_kind === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
+			} elseif ($feed_kind === FreshRSS_Feed::KIND_JSON_DOTNOTATION || $feed_kind === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION) {
 				$jsonSettings = [];
 				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
 					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
@@ -297,6 +297,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 				if (!empty($jsonSettings)) {
 					$attributes['json_dotnotation'] = $jsonSettings;
+				}
+				if (Minz_Request::paramString('xpathToJson', plaintext: true) !== '') {
+					$attributes['xpathToJson'] = Minz_Request::paramString('xpathToJson', plaintext: true);
 				}
 			}
 
@@ -508,6 +511,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$simplePie = $feed->loadJson();
 					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('JSON Feed parsing failed for [' . $feed->url(false) . ']');
+					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION) {
+					$simplePie = $feed->loadJson();
+					if ($simplePie === null) {
+						throw new FreshRSS_Feed_Exception('HTML+JSON parsing failed for [' . $feed->url(false) . ']');
 					}
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);

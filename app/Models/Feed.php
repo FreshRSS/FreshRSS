@@ -32,6 +32,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public const KIND_JSONFEED = 25;
 	public const KIND_JSON_DOTNOTATION = 30;
+	/** JSON embedded in HTML */
+	public const KIND_HTML_JSON_DOTNOTATION = 35;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -639,6 +641,24 @@ class FreshRSS_Feed extends Minz_Model {
 		];
 	}
 
+	private function extractJsonFromHtml(string $html): ?string {
+		$xpathToJson = $this->attributeString('xpathToJson') ?? '';
+		if ($xpathToJson === '') {
+			return null;
+		}
+
+		$doc = new DOMDocument();
+		$doc->recover = true;
+		$doc->strictErrorChecking = false;
+		if (!$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+			return null;
+		}
+
+		$xpath = new DOMXPath($doc);
+		$json = @$xpath->evaluate('normalize-space(' . $xpathToJson . ')');
+		return is_string($json) ? $json : null;
+	}
+
 	public function loadJson(): ?\SimplePie\SimplePie {
 		if ($this->url == '') {
 			return null;
@@ -648,14 +668,21 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$httpAccept = 'json';
-		$json = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
-		if (strlen($json) <= 0) {
+		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION ? 'html' : 'json';
+		$content = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
+		if (strlen($content) <= 0) {
 			return null;
 		}
 
+		if ($this->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION) {
+			$content = $this->extractJsonFromHtml($content);
+			if ($content == null) {
+				return null;
+			}
+		}
+
 		//check if the content is actual JSON
-		$jf = json_decode($json, true);
+		$jf = json_decode($content, true);
 		if (json_last_error() !== JSON_ERROR_NONE || !is_array($jf)) {
 			return null;
 		}
