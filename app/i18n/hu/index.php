@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Jelenlegi lekérdezés könyvjelzőzése',
 		'favorites' => 'Kedvencek (%s)',
 		'global_view' => 'Globális nézet',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Fontos hírforrások',
 		'main_stream' => 'Minden cikk',
 		'mark_all_read' => 'Minden megjelölése olvasottként',

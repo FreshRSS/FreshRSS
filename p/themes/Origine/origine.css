@@ -851,7 +851,8 @@ a:hover .icon {
 	background-color: var(--background-color-hover);
 }
 
-.flux.not_read {
+.normal .flux.not_read,
+.global .flux.not_read {
 	border-left: 2px solid var(--unread-article-border-color);
 }
 
@@ -865,7 +866,8 @@ a:hover .icon {
 	background-color: var(--unread-article-background-color-hover);
 }
 
-.flux.favorite {
+.normal .flux.favorite,
+.global .flux.favorite {
 	border-left: 2px solid var(--favorite-article-border-color);
 }
 
@@ -1038,6 +1040,21 @@ a:hover .icon {
 	top: 5px; right: 10px;
 	font-weight: bold;
 	text-shadow: none;
+}
+
+/*=== GRID VIEW */
+/*================*/
+.grid .card {
+	border-radius: 5px;
+	box-shadow: 0 0 3px var(--box-shadow-color);
+}
+
+.grid .card:hover {
+	background-color: var(--background-color-hover);
+}
+
+.grid .card .date {
+	color: var(--font-color-grey);
 }
 
 /*=== DIVERS */

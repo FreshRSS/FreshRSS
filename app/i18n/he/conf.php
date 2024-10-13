@@ -259,6 +259,7 @@ return array(
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',
 			'global' => 'תצוגה גלובלית',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'תצוגה רגילה',
 			'reader' => 'תצוגת קריאה',
 		),

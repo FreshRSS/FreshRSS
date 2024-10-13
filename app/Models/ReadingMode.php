@@ -84,6 +84,12 @@ class FreshRSS_ReadingMode {
 				($isDefaultCtrl && $actualView === 'normal')
 			),
 			new FreshRSS_ReadingMode(
+				"view-grid",
+				_t('index.menu.grid_view'),
+				array_merge($urlOutput, ['c' => $defaultCtrl, 'a' => 'grid']),
+				($isDefaultCtrl && $actualView === 'grid')
+			),
+			new FreshRSS_ReadingMode(
 				"view-global",
 				_t('index.menu.global_view'),
 				array_merge($urlOutput, ['c' => $defaultCtrl, 'a' => 'global']),

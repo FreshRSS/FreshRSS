@@ -94,6 +94,15 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
+	 * This action displays the grid view of FreshRSS.
+	 *
+	 * @todo: change this view into specific CSS rules?
+	 */
+	public function gridAction(): void {
+		$this->normalAction();
+	}
+
+	/**
 	 * This action displays the reader view of FreshRSS.
 	 *
 	 * @todo: change this view into specific CSS rules?

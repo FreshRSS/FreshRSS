@@ -259,6 +259,7 @@ return array(
 		'view' => array(
 			'default' => ' نمای پیش فرض',
 			'global' => ' نمای جهانی',
+			'grid' => 'Grid view',	// TODO
 			'normal' => ' نمای عادی',
 			'reader' => ' مشاهده خواندن',
 		),
