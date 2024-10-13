@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
 			'_' => '피드 소스 유형',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (웹 스크래핑)',
 				'feed_title' => array(

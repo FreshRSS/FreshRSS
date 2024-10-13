@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
 			'_' => 'Tipo di sorgente del feed',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
-					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>newsItems</code>',
+					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>$</code> o <code>newsItems</code>',
 				),
 				'item_author' => 'autore elemento',
 				'item_categories' => 'tag elemento',

@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
 			'_' => 'Tipo de origen de la fuente',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'Un punto JSON anotado utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'buscando nuevos <strong>items</strong><br /><small>(más importante)</small>',
-					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>newsItems</code>',
+					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>$</code> o <code>newsItems</code>',
 				),
 				'item_author' => 'autor del item',
 				'item_categories' => 'etiquetas del item',

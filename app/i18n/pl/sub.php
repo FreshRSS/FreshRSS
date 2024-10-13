@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Minimalna liczba wiadomości do do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON oddzielający obiekty kropkami i używający nawiasów kwadratowych dla tablic (na przykład <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'odnajdywanie <strong>wiadomości</strong><br /><small>(najważniejsze)</small>',
-					'help' => 'Ścieżka w JSON-ie do tablicy zawierającej wiadomości, na przykład <code>newsItems</code>',
+					'help' => 'Ścieżka w JSON-ie do tablicy zawierającej wiadomości, na przykład <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor wiadomości',
 				'item_categories' => 'tagi wiadomości',

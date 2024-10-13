@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
 			'_' => 'フィードソースの種類',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (ウェブスクレイピング)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSONのドット記法は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
 				'item' => array(
 					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>(最重要)</small>',
-					'help' => '項目を含む配列へのJSONパス。 例: <code>newsItems</code>',
+					'help' => '項目を含む配列へのJSONパス。 例: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => '項目の著者',
 				'item_categories' => '項目のタグ',

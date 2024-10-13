@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (парсинг веб-страниц)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON с точечной нотацией использует точки между объектами и квадратные скобки для массивов (например: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'Найти новые <strong>элементы</strong><br /><small>(самое важное)</small>',
-					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>newsItems</code>',
+					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'автор элемента',
 				'item_categories' => 'теги элемента',
