@@ -168,6 +168,9 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
 					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
 					break;
+				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH_JSON_DOTNOTATION):
+					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION);
+					break;
 				default:
 					$feed->_kind(FreshRSS_Feed::KIND_RSS);
 					break;
@@ -257,6 +260,7 @@ class FreshRSS_Import_Service {
 			if (!empty($jsonSettings)) {
 				$feed->_attribute('json_dotnotation', $jsonSettings);
 			}
+			$feed->_attribute('xPathToJson', $feed_elt['frss:xPathToJson'] ?? null);
 
 			$curl_params = [];
 			if (isset($feed_elt['frss:CURLOPT_COOKIE'])) {

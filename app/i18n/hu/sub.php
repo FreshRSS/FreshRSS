@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
 			'_' => 'Hírforrás típusa',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'A JSON pontjelölés pontokat használ az objektumok között és zárójeleket a tömbökhöz (pl. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'hírek keresése <strong>elemek</strong><br /><small>(legfontosabb)</small>',
-					'help' => 'JSON útvonal az elemeket tartalmazó tömbhöz, pl. <code>newsItems</code>',
+					'help' => 'JSON útvonal az elemeket tartalmazó tömbhöz, pl. <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'elem szerző',
 				'item_categories' => 'elem címkék',

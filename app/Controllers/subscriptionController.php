@@ -244,7 +244,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$xPathSettings['itemUid'] = Minz_Request::paramString('xPathItemUid', true);
 				if (!empty($xPathSettings))
 					$feed->_attribute('xpath', $xPathSettings);
-			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION) {
+			} elseif ($feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION || $feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION) {
 				$jsonSettings = [];
 				if (Minz_Request::paramString('jsonFeedTitle') !== '') {
 					$jsonSettings['feedTitle'] = Minz_Request::paramString('jsonFeedTitle', true);
@@ -281,6 +281,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				}
 				if (!empty($jsonSettings)) {
 					$feed->_attribute('json_dotnotation', $jsonSettings);
+				}
+				if (Minz_Request::paramString('xPathToJson', plaintext: true) !== '') {
+					$feed->_attribute('xPathToJson', Minz_Request::paramString('xPathToJson', plaintext: true));
 				}
 			}
 

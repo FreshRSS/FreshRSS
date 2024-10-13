@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
 			'_' => 'Typ zdroja kanála',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON so zápisom s bodkou používa bodky na oddelenie objekov a zložené zátvorky pre polia (príklad: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'hľadajú sa <strong>položky</strong> noviniek<br /><small>(najdôležitejšie)</small>',
-					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>newsItems</code>',
+					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor položky',
 				'item_categories' => 'značky položky',
