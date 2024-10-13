@@ -418,7 +418,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSONFEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
 							data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
+						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
 							data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>

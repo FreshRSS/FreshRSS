@@ -168,8 +168,8 @@ class FreshRSS_Import_Service {
 				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
 					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_HTML_JSON_DOTNOTATION):
-					$feed->_kind(FreshRSS_Feed::KIND_HTML_JSON_DOTNOTATION);
+				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH_JSON_DOTNOTATION):
+					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION);
 					break;
 				default:
 					$feed->_kind(FreshRSS_Feed::KIND_RSS);
