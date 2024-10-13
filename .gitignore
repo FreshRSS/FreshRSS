@@ -5,6 +5,7 @@
 /extensions/node_modules/
 /extensions/vendor/
 /node_modules/
+/phpstan.neon
 /vendor/
 
 .vscode/
