@@ -69,16 +69,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.1.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
-                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -121,9 +121,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
-            "time": "2024-07-01T20:03:41+00:00"
+            "time": "2024-10-08T18:51:32+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -245,16 +245,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.5",
+            "version": "1.12.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17"
+                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17",
-                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc4d2f145a88ea7141ae698effd64d9df46527ae",
+                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +299,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-26T12:45:22+00:00"
+            "time": "2024-10-06T15:03:59+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -725,16 +725,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.34",
+            "version": "10.5.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3c69d315bdf79080c8e115b69d1961c6905b0e18"
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3c69d315bdf79080c8e115b69d1961c6905b0e18",
-                "reference": "3c69d315bdf79080c8e115b69d1961c6905b0e18",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
                 "shasum": ""
             },
             "require": {
@@ -806,7 +806,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.34"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.36"
             },
             "funding": [
                 {
@@ -822,7 +822,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-13T05:19:38+00:00"
+            "time": "2024-10-08T15:36:51+00:00"
         },
         {
             "name": "sebastian/cli-parser",
