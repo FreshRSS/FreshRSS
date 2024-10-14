@@ -12,6 +12,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New feed mode *HTML+XPath+JSON dot notation* (JSON in HTML) [#6888](https://github.com/FreshRSS/FreshRSS/pull/6888)
 	* Better HTTP compliance with support for HTTP response headers `Cache-Control: max-age` and `Expires` [#6812](https://github.com/FreshRSS/FreshRSS/pull/6812), [FreshRSS/simplepie#26](https://github.com/FreshRSS/simplepie/pull/26)
 	* Support custom HTTP request headers per feed (e.g. for `Authorization`) [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
+	* New unicity policies and heuristic for feeds with bad article IDs [#4487](https://github.com/FreshRSS/FreshRSS/pull/4487)
 	* Add ability to remove content from articles with CSS selectors, also when not using full content [#6786](https://github.com/FreshRSS/FreshRSS/pull/6786), [#6807](https://github.com/FreshRSS/FreshRSS/pull/6807)
 	* Update `phpgt/cssxpath` library with improved CSS selectors [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618)
 		* Support for `:last-child`, `:first-of-type`, `:last-of-type`, `^=`, `|=`
@@ -53,10 +54,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * I18n
 	* Improve German [#6847](https://github.com/FreshRSS/FreshRSS/pull/6847)
 	* Improve Italian [#6872](https://github.com/FreshRSS/FreshRSS/pull/6872)
+	* Improve Spanish [#6894](https://github.com/FreshRSS/FreshRSS/pull/6894)
 * Misc.
 	* Better cache name for JSON feeds [#6768](https://github.com/FreshRSS/FreshRSS/pull/6768)
 	* Fix inversed encoding logic in `Minz_Request::paramArray()` [#6800](https://github.com/FreshRSS/FreshRSS/pull/6800)
 	* Pass PHPStan `booleansInConditions` [#6793](https://github.com/FreshRSS/FreshRSS/pull/6793)
+	* Rename PHPStan configuration file to `phpstan.dist.neon` to allow custom configuration in `phpstan.neon` [#6892](https://github.com/FreshRSS/FreshRSS/pull/6892)
 	* Code improvements [#6800](https://github.com/FreshRSS/FreshRSS/pull/6800), [#6809](https://github.com/FreshRSS/FreshRSS/pull/6809)
 	* Update dev dependencies [#6780](https://github.com/FreshRSS/FreshRSS/pull/6780)
 
