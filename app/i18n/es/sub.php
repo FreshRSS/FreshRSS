@@ -70,24 +70,24 @@ return array(
 		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible y prueba de nuevo.',
 		'export-as-opml' => array(
 			'download' => 'Descargar',
-			'help' => 'archivo XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
 			'label' => 'Exportar como OPML',
 		),
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Los Headers son separados por un salto de linea, y el nombre y valor de un Header son separados con dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
 			'_' => 'Tipo de origen de la fuente',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON dot notation (JSON en HTML)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+					'_' => 'XPath para JSON en HTML',
+					'help' => 'Ejemplo: <code>//script[@type="application/json"]</code>',
 				),
 			),
 			'html_xpath' => array(
