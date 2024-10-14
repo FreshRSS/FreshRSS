@@ -13,11 +13,11 @@ parameters:
 			- lib/simplepie/*
 			- vendor/*
 		analyseAndScan:
-			- .git/*
-			- extensions/node_modules
-			- extensions/symbolic
-			- extensions/vendor
-			- node_modules/*
+			- .git/*?
+			- extensions/node_modules?
+			- extensions/symbolic?
+			- extensions/vendor?
+			- node_modules/*?
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
