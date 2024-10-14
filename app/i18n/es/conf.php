@@ -252,7 +252,7 @@ return array(
 			'older_first' => 'Antiguos primero',
 		),
 		'star' => array(
-			'when' => 'Marca un árticulo como favorito...',
+			'when' => 'Marca un árticulo como favorito…',
 		),
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',
