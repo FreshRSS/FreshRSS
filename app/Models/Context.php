@@ -543,7 +543,7 @@ final class FreshRSS_Context {
 					break;
 				case 't':
 					// We can't know what the next unread tag is because entries can be in multiple tags
-					// so marking all entries in a tag can indirectly mark all entires in multiple tags.
+					// so marking all entries in a tag can indirectly mark all entries in multiple tags.
 					// Default is to return to the current tag, so mark it as next_get = 'a' instead when
 					// userconf -> onread_jump_next so the readAction knows to jump to the next unread
 					// tag.
