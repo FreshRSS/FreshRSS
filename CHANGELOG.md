@@ -8,6 +8,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Add support for [regex search (regular expressions)](https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
 		* ⚠️ Advanced regex syntax for searches depends on the database used (SQLite, PostgreSQL, MariaDB, MySQL),
 		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://php.net/regexp.introduction).
+	* Allow dynamic search operator in user queries, like `search:UserQueryA date:P1d` [#6851](https://github.com/FreshRSS/FreshRSS/pull/6851)
+	* New feed mode *HTML+XPath+JSON dot notation* (JSON in HTML) [#6888](https://github.com/FreshRSS/FreshRSS/pull/6888)
 	* Better HTTP compliance with support for HTTP response headers `Cache-Control: max-age` and `Expires` [#6812](https://github.com/FreshRSS/FreshRSS/pull/6812), [FreshRSS/simplepie#26](https://github.com/FreshRSS/simplepie/pull/26)
 	* Support custom HTTP request headers per feed (e.g. for `Authorization`) [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
 	* Add ability to remove content from articles with CSS selectors, also when not using full content [#6786](https://github.com/FreshRSS/FreshRSS/pull/6786), [#6807](https://github.com/FreshRSS/FreshRSS/pull/6807)
@@ -38,12 +40,19 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Remove HTTP `Referer` [#6822](https://github.com/FreshRSS/FreshRSS/pull/6822), [FreshRSS/simplepie#27](https://github.com/FreshRSS/simplepie/pull/27)
 		* If some sites require it, add `Referer: https://example.net/` to the custom HTTP headers of the feed [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
 	* Upstream fixes [simplepie#878](https://github.com/simplepie/simplepie/pull/878), [simplepie#883](https://github.com/simplepie/simplepie/pull/883)
+	* Sync upstream [#6840](https://github.com/FreshRSS/FreshRSS/pull/6840)
 * Security
+	* Apache protect more non-public folders and files [#6881](https://github.com/FreshRSS/FreshRSS/pull/6881), [#6893](https://github.com/FreshRSS/FreshRSS/pull/6893)
 	* Fix login in unsafe mode when using a password with special XML characters [#6797](https://github.com/FreshRSS/FreshRSS/pull/6797)
 * UI
+	* Searchable *My Labels* field [#6753](https://github.com/FreshRSS/FreshRSS/pull/6753)
 	* Default styles for `<pre>` and `<code>` [#6770](https://github.com/FreshRSS/FreshRSS/pull/6770)
 	* Refactor the sharing menu to use a `<template>` instead of duplicated HTML code [#6751](https://github.com/FreshRSS/FreshRSS/pull/6751)
+	* Refactor the label menu to use a `<template>` [#6864](https://github.com/FreshRSS/FreshRSS/pull/6864)
 	* Improved subscription management page [#6816](https://github.com/FreshRSS/FreshRSS/pull/6816)
+* I18n
+	* Improve German [#6847](https://github.com/FreshRSS/FreshRSS/pull/6847)
+	* Improve Italian [#6872](https://github.com/FreshRSS/FreshRSS/pull/6872)
 * Misc.
 	* Better cache name for JSON feeds [#6768](https://github.com/FreshRSS/FreshRSS/pull/6768)
 	* Fix inversed encoding logic in `Minz_Request::paramArray()` [#6800](https://github.com/FreshRSS/FreshRSS/pull/6800)

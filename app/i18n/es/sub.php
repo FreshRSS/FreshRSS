@@ -70,19 +70,26 @@ return array(
 		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible y prueba de nuevo.',
 		'export-as-opml' => array(
 			'download' => 'Descargar',
-			'help' => 'archivo XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
 			'label' => 'Exportar como OPML',
 		),
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Los Headers son separados por un salto de linea, y el nombre y valor de un Header son separados con dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
 			'_' => 'Tipo de origen de la fuente',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON en HTML)',
+				'xpath' => array(
+					'_' => 'XPath para JSON en HTML',
+					'help' => 'Ejemplo: <code>//script[@type="application/json"]</code>',
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'Un punto JSON anotado utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'buscando nuevos <strong>items</strong><br /><small>(más importante)</small>',
-					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>newsItems</code>',
+					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>$</code> o <code>newsItems</code>',
 				),
 				'item_author' => 'autor del item',
 				'item_categories' => 'etiquetas del item',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
 		'useragent_help' => 'Ejemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '至少保存的文章數',
 		'kind' => array(
 			'_' => '訂閱源類型',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
 					'_' => '找尋新聞 <strong>項目</strong><br /><small>(最重要的)</small>',
-					'help' => 'JSON path to the array containing the items, e.g. <code>newsItems</code>',	// TODO
+					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',	// TODO
 				),
 				'item_author' => '項目作者',
 				'item_categories' => '項目標籤',
@@ -221,6 +228,16 @@ return array(
 		'title' => '標題',
 		'title_add' => '添加訂閱源',
 		'ttl' => '最小自動更新間隔',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => '源地址',
 		'useragent' => '設置用於獲取此源的 User Agent',
 		'useragent_help' => '例：<kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

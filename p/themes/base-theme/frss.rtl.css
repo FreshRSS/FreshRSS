@@ -242,6 +242,14 @@ label {
 	display: block;
 }
 
+label.inline {
+	display: inline-block;
+}
+
+label > span[title] {
+	text-decoration: underline dotted;
+}
+
 input:not(.w50,.w100) {
 	max-width: 90%;
 	width: 300px;

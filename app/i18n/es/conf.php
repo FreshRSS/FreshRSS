@@ -145,7 +145,7 @@ return array(
 		'search' => 'Buscar “%s”',
 		'share' => array(
 			'_' => 'Comparte esta consulta por enlace',
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'Enlace para compartir en GReader',
 			'help' => 'Dale este enlace si quieres compartir esta consulta con alguien',
 			'html' => 'Enlace para compartir a la página HTML',
 			'opml' => 'Enlace para compartir a la lista de fuentes de OPML',
@@ -252,7 +252,7 @@ return array(
 			'older_first' => 'Antiguos primero',
 		),
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => 'Marca un árticulo como favorito…',
 		),
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',
@@ -279,7 +279,7 @@ return array(
 		'share_url' => 'Compartir URL a usar',
 		'title' => 'Compartir',
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'wallabag',	// IGNORE
+		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',

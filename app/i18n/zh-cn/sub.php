@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON 点表达式（JSON 路径）在对象之间使用点，在数组中使用中括号 (例如 <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => '寻找新的 <strong>文章</strong><br /><small>(最重要的参数)</small>',
-					'help' => '包含文章数组的 JSON 路径， 例如 <code>newsItems</code>',
+					'help' => '包含文章数组的 JSON 路径， 例如 <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => '文章作者',
 				'item_categories' => '文章标签',
@@ -221,6 +228,16 @@ return array(
 		'title' => '标题',
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => '源地址',
 		'useragent' => '设置用于获取此源的 User Agent',
 		'useragent_help' => '例：<kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

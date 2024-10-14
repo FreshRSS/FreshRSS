@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
 			'_' => 'Type de source de flux',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON notation point (JSON dans HTML)',
+				'xpath' => array(
+					'_' => 'XPath pour JSON dans HTML',
+					'help' => 'Exemple : <code>//script[@type="application/json"]</code>',
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Moissonnage du Web)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'La notation point pour JSON utilise le point comme séparateur objet, et des crochets pour un tableau : (ex : <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'trouver les <strong>articles</strong><br /><small>(c’est le plus important)</small>',
-					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>newsItems</code>',
+					'help' => 'Chemin vers le tableau contenant les articles, par exemple <code>$</code> ou <code>newsItems</code>',
 				),
 				'item_author' => 'auteur de l’article',
 				'item_categories' => 'catégories (tags) de l’article',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Titre',
 		'title_add' => 'Ajouter un flux RSS',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
+		'unicityCriteria' => array(
+			'_' => 'Critère d’unicité des articles',
+			'forced' => '<span title="Bloque le critère d’unicité même en cas de doublons">forcé</span>',
+			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer le critère peut créer des doublons.',
+			'id' => 'ID standard (défaut)',
+			'link' => 'Lien',
+			'sha1:link_published' => 'Lien + Date',
+			'sha1:link_published_title' => 'Lien + Date + Titre',
+			'sha1:link_published_title_content' => 'Lien + Date + Titre + Contenu',
+		),
 		'url' => 'URL du flux',
 		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',
 		'useragent_help' => 'Exemple : <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

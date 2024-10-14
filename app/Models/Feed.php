@@ -32,6 +32,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public const KIND_JSONFEED = 25;
 	public const KIND_JSON_DOTNOTATION = 30;
+	/** JSON embedded in HTML */
+	public const KIND_HTML_XPATH_JSON_DOTNOTATION = 35;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -427,14 +429,61 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * Decide the GUID of an entry based on the feed’s policy.
+	 * @param \SimplePie\Item $item The item to decide the GUID for.
+	 * @param bool $fallback Whether to automatically switch to the next policy in case of blank GUID.
+	 * @return string The decided GUID for the entry.
+	 */
+	protected function decideEntryGuid(\SimplePie\Item $item, bool $fallback = false): string {
+		$unicityCriteria = $this->attributeString('unicityCriteria');
+		if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
+			$unicityCriteria = 'link';
+		}
+
+		$entryId = safe_ascii($item->get_id(false, false));
+
+		$guid = match ($unicityCriteria) {
+			null => $entryId,
+			'link' => $item->get_permalink() ?? '',
+			'sha1:link_published'               => sha1($item->get_permalink() . $item->get_date('U')),
+			'sha1:link_published_title'         => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title()),
+			'sha1:link_published_title_content' => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title() . $item->get_content()),
+			default => $entryId,
+		};
+
+		$blankHash = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';	// sha1('')
+		if ($guid === $blankHash) {
+			$guid = '';
+		}
+
+		if ($fallback && $guid === '') {
+			if ($entryId !== '') {
+				$guid = $entryId;
+			} elseif (($item->get_permalink() ?? '') !== '') {
+				$guid = sha1($item->get_permalink() . $item->get_date('U'));
+			} elseif (($item->get_title() ?? '') !== '') {
+				$guid = sha1($item->get_permalink() . $item->get_date('U') . $item->get_title());
+			} else {
+				$guid = sha1($item->get_permalink() . $item->get_date('U') . $item->get_title() . $item->get_content());
+			}
+			if ($guid === $blankHash) {
+				$guid = '';
+			}
+		}
+
+		return $guid;
+	}
+
+	/**
+	 * @param float $invalidGuidsTolerance (default 0.05) The maximum ratio (rounded) of invalid GUIDs to tolerate before degrading the unicity criteria.
+	 * Example for 0.05 (5% rounded): tolerate 0 invalid GUIDs for up to 9 articles, 1 for 10, 2 for 30, 3 for 50, 4 for 70, 5 for 90, 6 for 110, etc.
+	 * The default value of 5% rounded was chosen to allow 1 invalid GUID for feeds of 10 articles, which is a frequently observed amount of articles.
 	 * @return array<string>
 	 */
-	public function loadGuids(\SimplePie\SimplePie $simplePie): array {
-		$hasUniqueGuids = true;
+	public function loadGuids(\SimplePie\SimplePie $simplePie, float $invalidGuidsTolerance = 0.05): array {
+		$invalidGuids = 0;
 		$testGuids = [];
 		$guids = [];
-		$links = [];
-		$hadBadGuids = $this->attributeBoolean('hasBadGuids');
 
 		$items = $simplePie->get_items();
 		if (empty($items)) {
@@ -445,33 +494,46 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($item == null) {
 				continue;
 			}
-			$guid = safe_ascii($item->get_id(false, false));
-			$hasUniqueGuids &= empty($testGuids['_' . $guid]);
+			$guid = $this->decideEntryGuid($item, fallback: true);
+			if ($guid === '' || !empty($testGuids['_' . $guid])) {
+				$invalidGuids++;
+				Minz_Log::debug('Invalid GUID [' . $guid . '] for feed ' . $this->url);
+			}
 			$testGuids['_' . $guid] = true;
 			$guids[] = $guid;
-			$permalink = $item->get_permalink();
-			if ($permalink != null) {
-				$links[] = $permalink;
-			}
 		}
 
-		if ($hadBadGuids != !$hasUniqueGuids) {
-			if ($hadBadGuids) {
-				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
-			} else {
-				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+		if ($invalidGuids > 0) {
+			Minz_Log::warning("Feed has {$invalidGuids} invalid GUIDs: " . $this->url);
+			if (!$this->attributeBoolean('unicityCriteriaForced') && $invalidGuids > round($invalidGuidsTolerance * count($items))) {
+				$unicityCriteria = $this->attributeString('unicityCriteria');
+				if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
+					$unicityCriteria = 'link';
+				}
+
+				// Automatic fallback to next (degraded) unicity criteria
+				$newUnicityCriteria = match ($unicityCriteria) {
+					null => 'sha1:link_published',
+					'link' => 'sha1:link_published',
+					'sha1:link_published' => 'sha1:link_published_title',
+					default => $unicityCriteria,
+				};
+
+				if ($newUnicityCriteria !== $unicityCriteria) {
+					$this->_attribute('hasBadGuids', null);	// Remove legacy
+					$this->_attribute('unicityCriteria', $newUnicityCriteria);
+					Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' . $this->url);
+					return $this->loadGuids($simplePie, $invalidGuidsTolerance);
+				}
 			}
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', !$hasUniqueGuids);
+			$this->_error(true);
 		}
 
-		return $hasUniqueGuids ? $guids : $links;
+		return $guids;
 	}
 
 	/** @return Traversable<FreshRSS_Entry> */
 	public function loadEntries(\SimplePie\SimplePie $simplePie): Traversable {
-		$hasBadGuids = $this->attributeBoolean('hasBadGuids');
-
 		$items = $simplePie->get_items();
 		if (empty($items)) {
 			return;
@@ -485,7 +547,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$title = html_only_entity_decode(strip_tags($item->get_title() ?? ''));
 			$authors = $item->get_authors();
 			$link = $item->get_permalink();
-			$date = @strtotime((string)($item->get_date() ?? '')) ?: 0;
+			$date = $item->get_date('U');
 
 			//Tag processing (tag == category)
 			$categories = $item->get_categories();
@@ -569,7 +631,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
-			$guid = safe_ascii($item->get_id(false, false));
+			$guid = $this->decideEntryGuid($item, fallback: true);
 			unset($item);
 
 			$authorNames = '';
@@ -585,7 +647,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$hasBadGuids ? '' : $guid,
+				$guid,
 				$title == '' ? '' : $title,
 				$authorNames,
 				$content == '' ? '' : $content,
@@ -639,6 +701,24 @@ class FreshRSS_Feed extends Minz_Model {
 		];
 	}
 
+	private function extractJsonFromHtml(string $html): ?string {
+		$xPathToJson = $this->attributeString('xPathToJson') ?? '';
+		if ($xPathToJson === '') {
+			return null;
+		}
+
+		$doc = new DOMDocument();
+		$doc->recover = true;
+		$doc->strictErrorChecking = false;
+		if (!$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+			return null;
+		}
+
+		$xpath = new DOMXPath($doc);
+		$json = @$xpath->evaluate('normalize-space(' . $xPathToJson . ')');
+		return is_string($json) ? $json : null;
+	}
+
 	public function loadJson(): ?\SimplePie\SimplePie {
 		if ($this->url == '') {
 			return null;
@@ -648,14 +728,21 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$httpAccept = 'json';
-		$json = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
-		if (strlen($json) <= 0) {
+		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'html' : 'json';
+		$content = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions());
+		if (strlen($content) <= 0) {
 			return null;
 		}
 
+		if ($this->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION) {
+			$content = $this->extractJsonFromHtml($content);
+			if ($content == null) {
+				return null;
+			}
+		}
+
 		//check if the content is actual JSON
-		$jf = json_decode($json, true);
+		$jf = json_decode($content, true);
 		if (json_last_error() !== JSON_ERROR_NONE || !is_array($jf)) {
 			return null;
 		}
