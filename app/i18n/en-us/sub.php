@@ -228,6 +228,16 @@ return array(
 		'title' => 'Title',	// IGNORE
 		'title_add' => 'Add an RSS feed',	// IGNORE
 		'ttl' => 'Do not automatically refresh more often than',	// IGNORE
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// IGNORE
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// IGNORE
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// IGNORE
+			'id' => 'Standard ID (default)',	// IGNORE
+			'link' => 'Link',	// IGNORE
+			'sha1:link_published' => 'Link + Date',	// IGNORE
+			'sha1:link_published_title' => 'Link + Date + Title',	// IGNORE
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// IGNORE
+		),
 		'url' => 'Feed URL',	// IGNORE
 		'useragent' => 'Set the user agent for fetching this feed',	// IGNORE
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// IGNORE

@@ -228,6 +228,16 @@ return array(
 		'title' => 'Title',
 		'title_add' => 'Add an RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',
+			'link' => 'Link',
+			'sha1:link_published' => 'Link + Date',
+			'sha1:link_published_title' => 'Link + Date + Title',
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',
+		),
 		'url' => 'Feed URL',
 		'useragent' => 'Set the user agent for fetching this feed',
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
