@@ -103,12 +103,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					case 't':
 						$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						//marking all entries in a tag as read can result in other tags also having all entries marked as read,
-						//so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID. 
-						if ( ($next_get === 'a')  && ($is_read) ) {
+						//so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
+						if ($next_get === 'a' && $is_read) {
 							$tagDAO = FreshRSS_Factory::createTagDao();
 							$found_tag = 0;
 							foreach ($tagDAO->listTags() as $tag) {
-								if($found_tag) {
+								if ($found_tag) {
 									//found the tag matching our current ID already, now we're just looking for the first unread
 									if ($tag->nbUnread() > 0) {
 										$next_get = 't_' . $tag->id();
@@ -116,7 +116,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 									}
 								} else {
 									//still looking for the tag ID matching our $get that was just marked as read
-									if($tag->id() == $get) {
+									if ($tag->id() == $get) {
 										$found_tag = 1;
 									}
 								}
@@ -130,7 +130,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 										break;
 									}
 									// Give up if reached our first tag again
-									if($tag->id() == $get) {
+									if ($tag->id() == $get) {
 										break;
 									}
 								}
