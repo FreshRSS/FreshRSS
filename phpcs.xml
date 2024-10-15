@@ -88,12 +88,17 @@
 		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
 	<!-- <rule ref="Squiz.Commenting.ClassComment.Missing"/> --><!-- Consider adding -->
+
 	<rule ref="Squiz.ControlStructures.ControlSignature">
 		<include-pattern>*\.phtml$</include-pattern>
 		<properties>
 			<property name="requiredSpacesBeforeColon" value="0" />
 		</properties>
 	</rule>
+	<rule ref="Squiz.ControlStructures.ControlSignature">
+		<include-pattern>*\.php$</include-pattern>
+	</rule>
+
 	<rule ref="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace">
 		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
