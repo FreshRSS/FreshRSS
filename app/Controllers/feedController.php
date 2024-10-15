@@ -926,7 +926,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, ['name' => $feed_name]) === 1;
+		return $feedDAO->updateFeed($feed_id, ['name' => $feed_name]);
 	}
 
 	public static function moveFeed(int $feed_id, int $cat_id, string $new_cat_name = ''): bool {
@@ -949,7 +949,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		return $feedDAO->updateFeed($feed_id, ['category' => $cat_id]) === 1;
+		return $feedDAO->updateFeed($feed_id, ['category' => $cat_id]);
 	}
 
 	/**
