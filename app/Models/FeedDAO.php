@@ -140,7 +140,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	 * @param array{'url'?:string,'kind'?:int,'category'?:int,'name'?:string,'website'?:string,'description'?:string,'lastUpdate'?:int,'priority'?:int,
 	 * 	'pathEntries'?:string,'httpAuth'?:string,'error'?:int,'ttl'?:int,'attributes'?:string|array<string,mixed>} $valuesTmp $valuesTmp
 	 */
-	public function updateFeed(int $id, array $valuesTmp): int|false {
+	public function updateFeed(int $id, array $valuesTmp): bool {
 		$values = [];
 		$originalValues = $valuesTmp;
 		if (isset($valuesTmp['name'])) {
@@ -174,7 +174,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$values[] = $id;
 
 		if ($stm !== false && $stm->execute($values)) {
-			return $stm->rowCount();
+			return true;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
