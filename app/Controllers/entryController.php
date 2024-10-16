@@ -109,7 +109,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							$tagsList = $tagDAO->listTags() ?: [];
 							$found_tag = 0;
 							foreach ($tagsList as $tag) {
-								if($found_tag) {
+								if ($found_tag) {
 									//found the tag matching our current ID already, now we're just looking for the first unread
 									if ($tag->nbUnread() > 0) {
 										$next_get = 't_' . $tag->id();
@@ -137,7 +137,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 								}
 							}
 							// if we still haven't found any unread tags, fallback to the full tag list
-							$next_get = "T";
+							if ($next_get === 'a') {
+								$next_get = "T";
+							}
 						}
 						break;
 					case 'T':
