@@ -1779,7 +1779,7 @@ function refreshUnreads() {
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	// Update of current view?
 					(nbUnreads - feed_unreads > 0)) {
 				const newArticle = document.getElementById('new-article');
-				newArticle.setAttribute('aria-hidden', 'false');
+				newArticle.removeAttribute('hidden');
 				newArticle.style.display = 'block';
 				new_articles = true;
 			}
