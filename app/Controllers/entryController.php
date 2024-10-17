@@ -102,27 +102,27 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 						break;
 					case 't':
 						$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
-						//marking all entries in a tag as read can result in other tags also having all entries marked as read,
-						//so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
+						// Marking all entries in a tag as read can result in other tags also having all entries marked as read,
+						// so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
 						if ($next_get === 'a' && $is_read) {
 							$tagDAO = FreshRSS_Factory::createTagDao();
 							$tagsList = $tagDAO->listTags() ?: [];
-							$found_tag = 0;
+							$found_tag = false;
 							foreach ($tagsList as $tag) {
 								if ($found_tag) {
-									//found the tag matching our current ID already, now we're just looking for the first unread
+									// Found the tag matching our current ID already, so now we're just looking for the first unread
 									if ($tag->nbUnread() > 0) {
 										$next_get = 't_' . $tag->id();
 										break;
 									}
 								} else {
-									//still looking for the tag ID matching our $get that was just marked as read
-									if ($tag->id() == $get) {
-										$found_tag = 1;
+									// Still looking for the tag ID matching our $get that was just marked as read
+									if ($tag->id() === $get) {
+										$found_tag = true;
 									}
 								}
 							}
-							//didn't find any unread tags after the current one? Start over from the beginning.
+							// Didn't find any unread tags after the current one? Start over from the beginning.
 							if ($next_get === 'a') {
 								foreach ($tagsList as $tag) {
 									// check this first so we can return to the current tag if it's the only one that's unread
@@ -131,12 +131,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 										break;
 									}
 									// Give up if reached our first tag again
-									if ($tag->id() == $get) {
+									if ($tag->id() === $get) {
 										break;
 									}
 								}
 							}
-							// if we still haven't found any unread tags, fallback to the full tag list
+							// If we still haven't found any unread tags, fallback to the full tag list
 							if ($next_get === 'a') {
 								$next_get = 'T';
 							}
