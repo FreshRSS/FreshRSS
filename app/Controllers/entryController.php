@@ -138,7 +138,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							}
 							// if we still haven't found any unread tags, fallback to the full tag list
 							if ($next_get === 'a') {
-								$next_get = "T";
+								$next_get = 'T';
 							}
 						}
 						break;
