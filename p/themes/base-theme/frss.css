@@ -2489,6 +2489,18 @@ html.slider-active {
 		box-shadow: -3px 0 3px var(--frss-box-shadow-color-transparent);
 	}
 
+	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle .icon {
+		display: none;
+	}
+
+	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
+		content: '✓';
+	}
+
+	#nav_menu_read_all .read_all.btn {
+		display: none;
+	}
+
 	.configure .dropdown-target:target ~ .dropdown-toggle::after {
 		content: none;
 	}
