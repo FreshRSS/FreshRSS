@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
 		'img_with_lazyload' => 'Utiliser le mode <em>chargement différé</em> pour les images',
-		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
+		'jump_next' => 'sauter au prochain voisin non lu',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(

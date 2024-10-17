@@ -102,6 +102,45 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 						break;
 					case 't':
 						$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+						// Marking all entries in a tag as read can result in other tags also having all entries marked as read,
+						// so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
+						if ($next_get === 'a' && $is_read) {
+							$tagDAO = FreshRSS_Factory::createTagDao();
+							$tagsList = $tagDAO->listTags() ?: [];
+							$found_tag = false;
+							foreach ($tagsList as $tag) {
+								if ($found_tag) {
+									// Found the tag matching our current ID already, so now we're just looking for the first unread
+									if ($tag->nbUnread() > 0) {
+										$next_get = 't_' . $tag->id();
+										break;
+									}
+								} else {
+									// Still looking for the tag ID matching our $get that was just marked as read
+									if ($tag->id() === $get) {
+										$found_tag = true;
+									}
+								}
+							}
+							// Didn't find any unread tags after the current one? Start over from the beginning.
+							if ($next_get === 'a') {
+								foreach ($tagsList as $tag) {
+									// Check this first so we can return to the current tag if it's the only one that's unread
+									if ($tag->nbUnread() > 0) {
+										$next_get = 't_' . $tag->id();
+										break;
+									}
+									// Give up if reached our first tag again
+									if ($tag->id() === $get) {
+										break;
+									}
+								}
+							}
+							// If we still haven't found any unread tags, fallback to the full tag list
+							if ($next_get === 'a') {
+								$next_get = 'T';
+							}
+						}
 						break;
 					case 'T':
 						$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);

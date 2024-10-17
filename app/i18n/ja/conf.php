@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'カテゴリを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '<em>lazy load</em>を写真の読み込み時に使う',
-		'jump_next' => '次の未読の姉妹記事へ移る (フィードやカテゴリ)',
+		'jump_next' => '次の未読の姉妹記事へ移る',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
 		'number_divided_when_reader' => 'リーディングビューを2分割する',
 		'read' => array(
