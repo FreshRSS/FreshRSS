@@ -408,10 +408,6 @@ td.numeric {
 }
 
 /*=== COMPONENTS */
-/*===============*/
-[aria-hidden="true"] {
-	display: none !important;
-}
 
 /* prompt: login + register form + alert message banner */
 .prompt {
@@ -1279,10 +1275,6 @@ input[type="search"] {
 }
 
 /*=== New article notification */
-#new-article {
-	display: none;
-}
-
 #new-article > a {
 	padding: calc(0.25rem + var(--frss-padding-top-bottom)) 1rem;
 	display: block;
