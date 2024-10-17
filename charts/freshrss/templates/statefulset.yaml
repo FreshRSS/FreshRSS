@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "freshrss.fullname" . }}
+  namespace: {{ include "freshrss.namespace" . }}
+  labels:
+    {{- include "freshrss.labels" . | nindent 4 }}
+    app.kubernetes.io/component: app
+spec:
+  replicas: 1
+  serviceName: freshrss
+  selector:
+    matchLabels:
+        {{- include "freshrss.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "freshrss.selectorLabels" . | nindent 8 }}
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "freshrss.dataPVC" . }}
+      containers:
+        - name: freshrss
+          image: freshrss/freshrss:{{ .Values.image.tag }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "freshrss.fullname" . }}
+                optional: true
+            - secretRef:
+                name: {{ include "freshrss.fullname" . }}
+                optional: true
+          volumeMounts:
+            # Add other volume mounts / subpaths as needed.
+            - mountPath: "/var/www/FreshRSS/data"
+              name: data
+              subPath: www/freshrss/data
+          ports:
+          - containerPort: {{ .Values.freshrss.PORT }}
+            name: http
+          livenessProbe:
+            exec:
+              command:
+                - "/bin/sh"
+                - "-c"
+                - "curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1"
+            initialDelaySeconds: 8
+            periodSeconds: 67
+            timeoutSeconds: 5
+            failureThreshold: 3
