@@ -229,14 +229,14 @@ return array(
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'_' => 'Criterio de único artículo',
+			'forced' => '<span title="Bloquea el criterio de unicidad, aún cuando la fuente tiene artículos duplicados">forced</span>',
+			'help' => 'Relevante para fuentes inválidas.<br />⚠️ Cambiar la política creara duplicados.',
+			'id' => 'ID Estándar (por defecto)',
+			'link' => 'Link',	// IGNORE
+			'sha1:link_published' => 'Link + Fecha',
+			'sha1:link_published_title' => 'Link + Fecha + Título',
+			'sha1:link_published_title_content' => 'Link + Fecha + Título + Contenido',
 		),
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
