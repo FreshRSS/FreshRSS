@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle (“Tüm makaleleri göster” komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için “tembel modu” kullan',
-		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
+		'jump_next' => 'Bir sonraki benzer okunmamışa geç',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okundu olarak işaretle',
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
 		'read' => array(

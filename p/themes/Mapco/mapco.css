@@ -366,8 +366,6 @@ th {
 	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 	background: #eff0f2;
 	color: #303136;
 	border-radius: 2px 2px 0 0;
@@ -930,12 +928,8 @@ main.prompt {
 	box-shadow: 0 2px 5px #ccc;
 }
 .content pre, .content.thin pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background: #1d1e22;
 	color: #fff;
-	font-size: 0.9rem;
 	border-radius: 3px;
 }
 .content pre code, .content.thin pre code {
@@ -944,7 +938,6 @@ main.prompt {
 	border: none;
 }
 .content code, .content.thin code {
-	padding: 2px 5px;
 	background: #fde3e3;
 	color: #e41212;
 	font-size: 1rem;

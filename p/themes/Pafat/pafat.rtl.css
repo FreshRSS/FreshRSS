@@ -458,8 +458,6 @@ th {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 	background-color: var(--background-color-grey);
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	border-radius: 5px 5px 0 0;

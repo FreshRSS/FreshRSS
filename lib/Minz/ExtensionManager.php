@@ -26,6 +26,10 @@ final class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'entries_favorite' => [	// function(array $ids, bool $is_favorite): void
+			'list' => [],
+			'signature' => 'PassArguments',
+		],
 		'entry_auto_read' => array(	// function(FreshRSS_Entry $entry, string $why): void
 			'list' => array(),
 			'signature' => 'PassArguments',

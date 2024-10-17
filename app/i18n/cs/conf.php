@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Skrýt kategorie a kanály bez nepřečtených článků (nefunguje s nastavením „Zobrazit všechny články“)',
 		'img_with_lazyload' => 'Použít režim „líné načítání“ pro načítaní obrázků',
-		'jump_next' => 'skočit na další nepřečtenou položku na stejné úrovni (kanál nebo kategorie)',
+		'jump_next' => 'skočit na další nepřečtenou položku na stejné úrovni',
 		'mark_updated_article_unread' => 'Označit aktualizované články jako nepřečtené',
 		'number_divided_when_reader' => 'Děleno dvěma v zobrazení pro čtení.',
 		'read' => array(

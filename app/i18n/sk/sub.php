@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Prijať cookies',
 		'accept_cookies_help' => 'Povoliť serveru kanála nastaviť cookies (uložené v pamäti iba počas dopytu)',
-		'add' => 'Pridať RSS kanál',
+		'add' => 'Pridať kanál',
 		'advanced' => 'Pokročilé',
 		'archiving' => 'Archivovanie',
 		'auth' => array(
@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
 			'_' => 'Typ zdroja kanála',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON so zápisom s bodkou používa bodky na oddelenie objekov a zložené zátvorky pre polia (príklad: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'hľadajú sa <strong>položky</strong> noviniek<br /><small>(najdôležitejšie)</small>',
-					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>newsItems</code>',
+					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor položky',
 				'item_categories' => 'značky položky',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Nadpis',
 		'title_add' => 'Pridať kanál RSS',
 		'ttl' => 'Automaticky neaktualizovať častejšie ako',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'Odkaz kanála',
 		'useragent' => 'Nastaviť používateľského agenta na sťahovanie tohto kanála',
 		'useragent_help' => 'Príklad: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Aceitar cookies',
 		'accept_cookies_help' => 'Permitir que o servidor de Feed defina os cookies (sarmazenados na memória apenas durante a solicitação)',
-		'add' => 'Adicionar um RSS feed',
+		'add' => 'Adicionar um feed',
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
 		'auth' => array(
@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'Um JSON na notação de ponto usa pontos entre os objetos e colchetes para arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'encontrando novidades <strong>itens</strong><br /><small>(mais importante)</small>',
-					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>newsItems</code>',
+					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor do item',
 				'item_categories' => 'tags dos itens',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Título',
 		'title_add' => 'Adicionar o RSS feed',
 		'ttl' => 'Não atualize automaticamente mais que',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'URL do Feed',
 		'useragent' => 'Defina um usuário para buscar este feed',
 		'useragent_help' => 'Exemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

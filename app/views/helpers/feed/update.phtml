@@ -101,6 +101,30 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="unicityCriteria"><?= _t('sub.feed.unicityCriteria') ?></label>
+				<?php
+					$unicityCriteria = $this->feed->attributeString('unicityCriteria');
+					if ($this->feed->attributeBoolean('hasBadGuids')) {	// Legacy
+						$unicityCriteria = 'link';
+					}
+				?>
+				<div class="group-controls">
+					<select class="w50" name="unicityCriteria" id="unicityCriteria" required="required">
+						<option value="id" <?= $unicityCriteria == null ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.id') ?></option>
+						<option value="link" <?= $unicityCriteria === 'link' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.link') ?></option>
+						<option value="sha1:link_published" <?= $unicityCriteria === 'sha1:link_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published') ?></option>
+						<option value="sha1:link_published_title" <?= $unicityCriteria === 'sha1:link_published_title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title') ?></option>
+						<option value="sha1:link_published_title_content" <?= $unicityCriteria === 'sha1:link_published_title_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title_content') ?></option>
+					</select>
+					<label for="unicityCriteriaForced" class="inline">
+						<input type="checkbox" name="unicityCriteriaForced" id="unicityCriteriaForced" value="1"<?= $this->feed->attributeBoolean('unicityCriteriaForced') ? ' checked="checked"' : '' ?> />
+						<?= _t('sub.feed.unicityCriteria.forced') ?>
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.unicityCriteria.help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="ttl"><?= _t('sub.feed.ttl') ?></label>
 				<div class="group-controls">
 					<select class="w50" name="ttl" id="ttl" required="required"><?php
@@ -416,7 +440,10 @@
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSONFEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?> data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
+							data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
+							data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>
 			</div>
@@ -522,7 +549,16 @@
 			<?php
 				/** @var array<string,string> $jsonSettings */
 				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
+				$xPathToJson = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('xPathToJson'));
 			?>
+			<div class="form-group" id="xPathToJsonGroup">
+				<label class="group-name" for="xPathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
+				<div class="group-controls">
+					<textarea class="valid-xpath w100" name="xPathToJson" id="xPathToJson" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $xPathToJson ?>"><?= $xPathToJson ?? '' ?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_json.xpath.help') ?></p>
+				</div>
+			</div>
+
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.help') ?></p>
 			<div class="form-group">
 				<label class="group-name" for="jsonItem"><small><?= _t('sub.feed.kind.json_dotnotation.json') ?></small><br />

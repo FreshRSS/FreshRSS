@@ -145,7 +145,7 @@ return array(
 		'search' => 'Buscar “%s”',
 		'share' => array(
 			'_' => 'Comparte esta consulta por enlace',
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'Enlace para compartir en GReader',
 			'help' => 'Dale este enlace si quieres compartir esta consulta con alguien',
 			'html' => 'Enlace para compartir a la página HTML',
 			'opml' => 'Enlace para compartir a la lista de fuentes de OPML',
@@ -220,7 +220,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
 		'img_with_lazyload' => 'Usar el modo de “carga perezosa” para las imágenes',
-		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
+		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
 		'read' => array(
@@ -252,7 +252,7 @@ return array(
 			'older_first' => 'Antiguos primero',
 		),
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => 'Marca un árticulo como favorito…',
 		),
 		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
 		'title' => 'Lectura',
@@ -279,7 +279,7 @@ return array(
 		'share_url' => 'Compartir URL a usar',
 		'title' => 'Compartir',
 		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'wallabag',	// IGNORE
+		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',

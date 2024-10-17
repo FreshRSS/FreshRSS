@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => '쿠키 사용 동의',
 		'accept_cookies_help' => '피드 서버가 쿠키를 사용하도록 허용 (요청 지속 기간 동안에만 메모리에 저장)',
-		'add' => 'RSS 피드 추가',
+		'add' => '피드 추가',
 		'advanced' => '고급 설정',
 		'archiving' => '보관',
 		'auth' => array(
@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
 			'_' => '피드 소스 유형',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (웹 스크래핑)',
 				'feed_title' => array(
@@ -221,6 +228,16 @@ return array(
 		'title' => '제목',
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => '피드 URL',
 		'useragent' => '이 피드를 가져올 때 사용할 유저 에이전트 설정',
 		'useragent_help' => '예시: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

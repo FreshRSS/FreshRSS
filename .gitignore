@@ -1,10 +1,12 @@
+/.htaccess
 /bin/
+/constants.local.php
+/data.back/
 /extensions/node_modules/
 /extensions/vendor/
 /node_modules/
+/phpstan.neon
 /vendor/
-/data.back/
-/constants.local.php
 
 .vscode/
 

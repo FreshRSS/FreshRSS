@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Cookies zulassen',
 		'accept_cookies_help' => 'Erlaubt dem Feed-Server das Setzen von Cookies (wird nur für die Dauer der Anfrage im Speicher gehalten)',
-		'add' => 'Einen RSS-Feed hinzufügen',
+		'add' => 'Einen Feed hinzufügen',
 		'advanced' => 'Erweitert',
 		'archiving' => 'Archivierung',
 		'auth' => array(
@@ -77,12 +77,19 @@ return array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'information' => 'Information',	// IGNORE
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Webseite scannen)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
-					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>newsItems</code>',
+					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'Item Autor',
 				'item_categories' => 'Item Hashtags',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'Feed-URL',
 		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',
 		'useragent_help' => 'Beispiel: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

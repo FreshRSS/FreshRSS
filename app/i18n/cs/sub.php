@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Přijímat soubory cookie',
 		'accept_cookies_help' => 'Povolit serveru feedu nastavit soubory cookie (uložené v paměti pouze po dobu trvání požadavku).',
-		'add' => 'Přidat kanál RSS',
+		'add' => 'Přidat kanál',
 		'advanced' => 'Rozšířené',
 		'archiving' => 'Archivace',
 		'auth' => array(
@@ -83,6 +83,13 @@ return array(
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(
 			'_' => 'Typ zdroje feedu',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSON s tečkovým zápisem používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'vyhledávání nových <strong>položek</strong><br /><small>(nejdůležitější)</small>',
-					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>newsItems</code>',
+					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => 'autor položky',
 				'item_categories' => 'štítky položky',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'Název',
 		'title_add' => 'Přidat kanál RSS',
 		'ttl' => 'Neobnovovat automaticky častěji než',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'Adresa URL kanálu',
 		'useragent' => 'Nastavte uživatelský agent pro načítání tohoto kanálu',
 		'useragent_help' => 'Příklad: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

@@ -12,7 +12,7 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 ?>
 <main id="stream" class="reader">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
-	<div id="new-article">
+	<div id="new-article" hidden="hidden">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	$lastEntry = null;
@@ -43,7 +43,7 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
 <main id="stream" class="reader">
-	<div id="new-article">
+	<div id="new-article" hidden="hidden">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div>
 	<div class="prompt alert alert-warn">

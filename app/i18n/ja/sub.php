@@ -40,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'クッキーを受け入れる',
 		'accept_cookies_help' => 'クッキーをこのサーバーから受け入れます(このリクエストだけにメモリへ保存されます)',
-		'add' => 'RSSフィードに追加する',
+		'add' => 'フィードに追加する',
 		'advanced' => '高度な設定',
 		'archiving' => 'アーカイブ',
 		'auth' => array(
@@ -83,6 +83,13 @@ return array(
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
 			'_' => 'フィードソースの種類',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (ウェブスクレイピング)',
 				'feed_title' => array(
@@ -139,7 +146,7 @@ return array(
 				'help' => 'JSONのドット記法は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例: <code>data.items[0].title</code>',
 				'item' => array(
 					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>(最重要)</small>',
-					'help' => '項目を含む配列へのJSONパス。 例: <code>newsItems</code>',
+					'help' => '項目を含む配列へのJSONパス。 例: <code>$</code> or <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => '項目の著者',
 				'item_categories' => '項目のタグ',
@@ -221,6 +228,16 @@ return array(
 		'title' => 'タイトル',
 		'title_add' => 'RSS フィードを追加する',
 		'ttl' => '自動更新の頻度',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',
 		'useragent_help' => '例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',

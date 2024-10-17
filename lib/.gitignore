@@ -23,10 +23,8 @@ phpmailer/phpmailer/src/OAuth*
 phpmailer/phpmailer/src/POP3.php
 simplepie/simplepie/.*
 !simplepie/simplepie/.editorconfig
-!simplepie/simplepie/.github/
-!simplepie/simplepie/.gitignore
-simplepie/simplepie/.github/*
 !simplepie/simplepie/.github/README.md
+!simplepie/simplepie/.gitignore
 simplepie/simplepie/autoloader.php
 simplepie/simplepie/build/
 simplepie/simplepie/compatibility_test/

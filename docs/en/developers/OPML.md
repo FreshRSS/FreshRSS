@@ -67,6 +67,11 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 
 * `<outline type="JSONFeed" ...`: Uses `JSON+DotNotation` behind the scenes to parse a [JSON Feed](https://www.jsonfeed.org/).
 
+### HTML+XPath+JSON
+
+* `<outline type="HTML+XPath+JSON+DotNotation" frss:xPathToJson="..." ...`: Same as `JSON+DotNotation` but first extracting the JSON string from an HTML document thanks to an XPath expression.
+	* Example: `//script[@type='application/json']`
+
 ### cURL
 
 A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are supported:

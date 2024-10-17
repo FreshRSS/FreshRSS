@@ -2,23 +2,28 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2024-XX-XX FreshRSS 1.25.0-dev
+## 2024-1X-XX FreshRSS 1.25.0-dev
 
 * Features
 	* Add support for [regex search (regular expressions)](https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706)
 		* ⚠️ Advanced regex syntax for searches depends on the database used (SQLite, PostgreSQL, MariaDB, MySQL),
 		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://php.net/regexp.introduction).
+	* Allow dynamic search operator in user queries, like `search:UserQueryA date:P1d` [#6851](https://github.com/FreshRSS/FreshRSS/pull/6851)
+	* New feed mode *HTML+XPath+JSON dot notation* (JSON in HTML) [#6888](https://github.com/FreshRSS/FreshRSS/pull/6888)
 	* Better HTTP compliance with support for HTTP response headers `Cache-Control: max-age` and `Expires` [#6812](https://github.com/FreshRSS/FreshRSS/pull/6812), [FreshRSS/simplepie#26](https://github.com/FreshRSS/simplepie/pull/26)
 	* Support custom HTTP request headers per feed (e.g. for `Authorization`) [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
+	* New unicity policies and heuristic for feeds with bad article IDs [#4487](https://github.com/FreshRSS/FreshRSS/pull/4487)
 	* Add ability to remove content from articles with CSS selectors, also when not using full content [#6786](https://github.com/FreshRSS/FreshRSS/pull/6786), [#6807](https://github.com/FreshRSS/FreshRSS/pull/6807)
 	* Update `phpgt/cssxpath` library with improved CSS selectors [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618)
 		* Support for `:last-child`, `:first-of-type`, `:last-of-type`, `^=`, `|=`
 	* Better import of Inoreader user labels [#6791](https://github.com/FreshRSS/FreshRSS/pull/6791)
+	* New sharing with Telegram [#6838](https://github.com/FreshRSS/FreshRSS/pull/6838)
 * Bug fixing
 	* Fix searches with a parenthesis before an operator like `("a b")` or `(!c)` [#6818](https://github.com/FreshRSS/FreshRSS/pull/6818)
 	* Fix auto-read tags [#6790](https://github.com/FreshRSS/FreshRSS/pull/6790)
 	* Use cURL to fetch extensions list (allows e.g. IPv6) [#6767](https://github.com/FreshRSS/FreshRSS/pull/6767)
 	* Fix XML encoding in cURL options [#6821](https://github.com/FreshRSS/FreshRSS/pull/6821)
+	* Fix share menu shortcut [#6825](https://github.com/FreshRSS/FreshRSS/pull/6825)
 * Compatibility
 	* Require PHP 8.1+ (drop PHP 7.4) [#6711](https://github.com/FreshRSS/FreshRSS/pull/6711)
 	* Improved support of PHP 8.4+ [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618), [PhpGt/CssXPath#227](https://github.com/PhpGt/CssXPath/pull/227),
@@ -29,20 +34,32 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Deployment
 	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.16 with PHP 8.1.22 and Apache 2.4.59 [#6711](https://github.com/FreshRSS/FreshRSS/pull/6711)
 	* Update Dockerfiles to newer key-value format [#6819](https://github.com/FreshRSS/FreshRSS/pull/6819)
+	* Docker minor improvement of entrypoint [#6827](https://github.com/FreshRSS/FreshRSS/pull/6827)
 * SimplePie
 	* Refactor [our embedding](lib/README.md) of SimplePie [#4374](https://github.com/FreshRSS/FreshRSS/pull/4374)
 		* Our fork is maintained in its [own repository](https://github.com/FreshRSS/simplepie/tree/freshrss).
-	* Remove HTTP Referer [#6822](https://github.com/FreshRSS/FreshRSS/pull/6822), [FreshRSS/simplepie#27](https://github.com/FreshRSS/simplepie/pull/27)
+	* Remove HTTP `Referer` [#6822](https://github.com/FreshRSS/FreshRSS/pull/6822), [FreshRSS/simplepie#27](https://github.com/FreshRSS/simplepie/pull/27)
 		* If some sites require it, add `Referer: https://example.net/` to the custom HTTP headers of the feed [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
+	* Upstream fixes [simplepie#878](https://github.com/simplepie/simplepie/pull/878), [simplepie#883](https://github.com/simplepie/simplepie/pull/883)
+	* Sync upstream [#6840](https://github.com/FreshRSS/FreshRSS/pull/6840)
 * Security
+	* Apache protect more non-public folders and files [#6881](https://github.com/FreshRSS/FreshRSS/pull/6881), [#6893](https://github.com/FreshRSS/FreshRSS/pull/6893)
 	* Fix login in unsafe mode when using a password with special XML characters [#6797](https://github.com/FreshRSS/FreshRSS/pull/6797)
 * UI
+	* Searchable *My Labels* field [#6753](https://github.com/FreshRSS/FreshRSS/pull/6753)
 	* Default styles for `<pre>` and `<code>` [#6770](https://github.com/FreshRSS/FreshRSS/pull/6770)
 	* Refactor the sharing menu to use a `<template>` instead of duplicated HTML code [#6751](https://github.com/FreshRSS/FreshRSS/pull/6751)
+	* Refactor the label menu to use a `<template>` [#6864](https://github.com/FreshRSS/FreshRSS/pull/6864)
+	* Improved subscription management page [#6816](https://github.com/FreshRSS/FreshRSS/pull/6816)
+* I18n
+	* Improve German [#6847](https://github.com/FreshRSS/FreshRSS/pull/6847)
+	* Improve Italian [#6872](https://github.com/FreshRSS/FreshRSS/pull/6872)
+	* Improve Spanish [#6894](https://github.com/FreshRSS/FreshRSS/pull/6894)
 * Misc.
 	* Better cache name for JSON feeds [#6768](https://github.com/FreshRSS/FreshRSS/pull/6768)
 	* Fix inversed encoding logic in `Minz_Request::paramArray()` [#6800](https://github.com/FreshRSS/FreshRSS/pull/6800)
 	* Pass PHPStan `booleansInConditions` [#6793](https://github.com/FreshRSS/FreshRSS/pull/6793)
+	* Rename PHPStan configuration file to `phpstan.dist.neon` to allow custom configuration in `phpstan.neon` [#6892](https://github.com/FreshRSS/FreshRSS/pull/6892)
 	* Code improvements [#6800](https://github.com/FreshRSS/FreshRSS/pull/6800), [#6809](https://github.com/FreshRSS/FreshRSS/pull/6809)
 	* Update dev dependencies [#6780](https://github.com/FreshRSS/FreshRSS/pull/6780)
 
@@ -106,8 +123,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix SQLite on FreeBSD due to DQS [#6701](https://github.com/FreshRSS/FreshRSS/pull/6701), [#6702](https://github.com/FreshRSS/FreshRSS/pull/6702)
 * Deployment
 	* Docker default image (Debian 12 Bookworm) updated to PHP 8.2.20 and Apache 2.4.61
-	* Docker alternative image updated to Alpine 3.20 with PHP 8.3.10 and Apache 2.4.62 [#5383]([#5383](https://github.com/FreshRSS/FreshRSS/pull/5383))
-	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta3 and Apache 2.4.62 [#5764]([#5764](https://github.com/FreshRSS/FreshRSS/pull/5764))
+	* Docker alternative image updated to Alpine 3.20 with PHP 8.3.10 and Apache 2.4.62 [#5383](https://github.com/FreshRSS/FreshRSS/pull/5383)
+	* Docker: Alpine dev image `freshrss/freshrss:newest` updated to PHP 8.4.0beta3 and Apache 2.4.62 [#5764](https://github.com/FreshRSS/FreshRSS/pull/5764)
 * UI
 	* Default dark mode to auto [#5582](https://github.com/FreshRSS/FreshRSS/pull/5582)
 	* New option to control action icons position in reading view [#6297](https://github.com/FreshRSS/FreshRSS/pull/6297)
