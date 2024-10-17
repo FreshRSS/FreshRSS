@@ -277,7 +277,7 @@ function init_2stateButton() {
 
 function init_configuration_alert() {
 	window.onsubmit = function (e) {
-		window.hasSubmit = data_leave_validation(document.body, e.submitter ? e.submitter.form : null);
+		window.hasSubmit = data_leave_validation(document.body, e.target);
 	};
 	window.onbeforeunload = function (e) {
 		if (window.hasSubmit) {
