@@ -125,7 +125,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							// Didn't find any unread tags after the current one? Start over from the beginning.
 							if ($next_get === 'a') {
 								foreach ($tagsList as $tag) {
-									// check this first so we can return to the current tag if it's the only one that's unread
+									// Check this first so we can return to the current tag if it's the only one that's unread
 									if ($tag->nbUnread() > 0) {
 										$next_get = 't_' . $tag->id();
 										break;
