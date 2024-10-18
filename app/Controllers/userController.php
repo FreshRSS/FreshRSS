@@ -91,11 +91,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$email_not_verified = FreshRSS_Context::userConf()->email_validation_token != '';
 		$this->view->disable_aside = false;
 		if ($email_not_verified) {
-			$this->view->_layout('simple');
+			// $this->view->_layout('simple'); // it has no impact anymore
 			$this->view->disable_aside = true;
 		}
 
-		FreshRSS_View::prependTitle(_t('conf.profile.title') . ' · ');
+		FreshRSS_View::prependTitle('simple.phtml missed ??? (l98)' . _t('conf.profile.title') . ' · ');
 
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
@@ -424,8 +424,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		FreshRSS_View::prependTitle(_t('user.email.validation.title') . ' · ');
-		$this->view->_layout('simple');
+		FreshRSS_View::prependTitle('simple.phtml missed ??? (l427)' . _t('user.email.validation.title') . ' aaaa ');
+		//$this->view->_layout('simple'); //this is useless here
 
 		$username = Minz_Request::paramString('username');
 		$token = Minz_Request::paramString('token');
