@@ -57,7 +57,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		FreshRSS_View::prependTitle($title . ' · ');
@@ -125,7 +125,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		FreshRSS_View::prependTitle($title . ' · ');

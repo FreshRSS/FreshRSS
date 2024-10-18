@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// TODO
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'show_title_unread' => 'Εμφάνιση αριθμού μη αναγνωσμένων άρθρων στον τίτλο',
 		'theme' => array(
 			'_' => 'Theme',	// TODO
 			'deprecated' => array(

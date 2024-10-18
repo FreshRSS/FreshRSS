@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
+		'show_title_unread' => 'Показать количество непрочитанных статей в заголовке',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(

@@ -33,6 +33,7 @@ return array (
 	'default_view' => 'adaptive',
 	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
 	'show_fav_unread' => false,
+	'show_title_unread' => true,
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
