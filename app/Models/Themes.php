@@ -126,6 +126,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'starred' => '⭐',	//★
 			'stats' => '📈',	//%
 			'tag' => '🔖',	//⚐
+			'trash' => '🚮',
 			'up' => '🔼',	//△
 			'view-normal' => '📰',	//☰
 			'view-global' => '📖',	//☷
