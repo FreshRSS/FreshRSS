@@ -173,6 +173,7 @@ return array(
 		'_' => 'Lezen',
 		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Auteurs en datum',

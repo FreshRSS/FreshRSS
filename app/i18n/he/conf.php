@@ -173,6 +173,7 @@ return array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Authors and date',	// TODO

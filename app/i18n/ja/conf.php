@@ -173,6 +173,7 @@ return array(
 		'_' => 'リーディング',
 		'after_onread' => '“すべてに既読を付ける”を押した後,',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => '著者と日付',

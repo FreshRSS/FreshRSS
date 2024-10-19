@@ -173,6 +173,7 @@ return array(
 		'_' => 'Membaca',
 		'after_onread' => 'Setelah “tandai semua sebagai telah dibaca”',
 		'always_show_favorites' => 'Selalu tampilkan semua artikel favorit secara default',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Penulis dan tanggal',

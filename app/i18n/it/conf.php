@@ -173,6 +173,7 @@ return array(
 		'_' => 'Lettura',
 		'after_onread' => 'Dopo “segna tutto come letto”,',
 		'always_show_favorites' => 'Mostra tutti gli articoli nei preferiti di default',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autori e data',

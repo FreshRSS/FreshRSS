@@ -173,6 +173,7 @@ return array(
 		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Authors and date',

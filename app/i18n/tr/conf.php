@@ -173,6 +173,7 @@ return array(
 		'_' => 'Okuma',
 		'after_onread' => '“Hepsini okundu say” dedinten sonra,',
 		'always_show_favorites' => 'Öntanımlı olarak favori tüm makaleleri göster',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Yazarlar ve Tarih',

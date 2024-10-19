@@ -173,6 +173,7 @@ return array(
 		'_' => 'Olvasás',
 		'after_onread' => 'Utána „minden megjelölése olvasottként”,',
 		'always_show_favorites' => 'Minden cikk megjelenítése a kedvencekben alapértelmezetten',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Szerzők és dátum',

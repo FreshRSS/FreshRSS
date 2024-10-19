@@ -173,6 +173,7 @@ return array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po „označit vše jako přečtené“',
 		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autoři a datum',
