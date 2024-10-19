@@ -317,7 +317,6 @@
 						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
 							value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />
 					</label>
-					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.apply_to_individual_feed') ?></p>
 				</div>
 			</div>
 
@@ -379,7 +378,6 @@
 						<?php $keep_max_n_unread = empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::userConf()->mark_when['max_n_unread']; ?>
 						<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" data-leave-validation="<?= $keep_max_n_unread ?>" />
 					</label>
-					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.apply_to_individual_feed') ?></p>
 				</div>
 			</div>
 		</fieldset>
