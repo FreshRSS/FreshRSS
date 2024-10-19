@@ -173,6 +173,7 @@ return array(
 		'_' => 'Lecture',
 		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
+		'apply_to_individual_feed' => 'S’applique aux flux individuellement',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Auteurs et date',
