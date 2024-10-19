@@ -859,7 +859,7 @@ function loadJs(name) {
 }
 
 function init_column_categories() {
-	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
+	if (context.current_view !== 'normal' && context.current_view !== 'grid' && context.current_view !== 'reader') {
 		return;
 	}
 
