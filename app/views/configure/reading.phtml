@@ -309,7 +309,7 @@
 						<input type="checkbox" name="enable_read_when_same_title_in_feed" id="enable_read_when_same_title_in_feed" value="1"<?=
 							empty(FreshRSS_Context::userConf()->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?>
 							data-leave-validation="<?= empty(FreshRSS_Context::userConf()->mark_when['same_title_in_feed']) ? 0 : 1 ?>"/>
-						<?= _t('conf.reading.read.when_same_title') ?>
+						<?= _t('conf.reading.read.when_same_title_in_feed') ?>
 						<?php $read_when_same_title_in_feed = empty(FreshRSS_Context::userConf()->mark_when['same_title_in_feed']) ? 25 : FreshRSS_Context::userConf()->mark_when['same_title_in_feed']; ?>
 						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
 							value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />

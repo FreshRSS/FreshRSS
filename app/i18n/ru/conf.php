@@ -232,7 +232,8 @@ return array(
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
-			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',

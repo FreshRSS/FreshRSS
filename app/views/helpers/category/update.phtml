@@ -76,6 +76,22 @@
 
 		<fieldset>
 			<legend><?= _t('sub.feed.filteractions') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name" for="enable_read_when_same_title_in_category"><?= _t('conf.reading.read.when') ?></label>
+				<div class="group-controls">
+					<label class="checkbox" for="enable_read_when_same_title_in_category">
+						<input type="checkbox" name="enable_read_when_same_title_in_category" id="enable_read_when_same_title_in_category" value="1"<?=
+							$this->category->hasAttribute('read_when_same_title_in_category') ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= $this->category->hasAttribute('read_when_same_title_in_category') ? 1 : 0 ?>"/>
+						<?= _t('conf.reading.read.when_same_title_in_category') ?>
+						<?php $read_when_same_title_in_category = $this->category->hasAttribute('read_when_same_title_in_category') ? $this->category->attributeInt('read_when_same_title_in_category') : 25; ?>
+						<input type="number" id="read_when_same_title_in_category" name="read_when_same_title_in_category" min="0"
+							value="<?= $read_when_same_title_in_category ?>" data-leave-validation="<?= $read_when_same_title_in_category ?>" />
+					</label>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">

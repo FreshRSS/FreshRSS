@@ -409,6 +409,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$maxFeeds = PHP_INT_MAX;
 		}
 
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
@@ -425,7 +426,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			// Hydrate category for each feed to avoid that each feed has to make an SQL request
 			$categories = [];
-			$catDAO = FreshRSS_Factory::createCategoryDao();
 			foreach ($catDAO->listCategories(false, false) as $category) {
 				$categories[$category->id()] = $category;
 			}
@@ -444,6 +444,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$nbUpdatedFeeds = 0;
 		$nbNewArticles = 0;
 		$feedsCacheToRefresh = [];
+		/** @var array<int,array<string,true>> */
+		$categoriesEntriesTitle = [];
 
 		foreach ($feeds as $feed) {
 			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
@@ -563,6 +565,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$titlesAsRead = [];
 				}
 
+				$category = $feed->category();
+				if (!isset($categoriesEntriesTitle[$feed->categoryId()]) && $category !== null && $category->hasAttribute('read_when_same_title_in_category')) {
+					$categoriesEntriesTitle[$feed->categoryId()] = array_fill_keys(
+						$catDAO->listTitles($feed->categoryId(), $category->attributeInt('read_when_same_title_in_category') ?? 0),
+						true
+					);
+				}
+
 				$mark_updated_article_unread = $feed->attributeBoolean('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
 
 				// For this feed, check existing GUIDs already in database.
@@ -603,6 +613,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							if ($readWhenSameTitleInFeed > 0) {
 								$titlesAsRead[$entry->title()] = true;
 							}
+							if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
+								$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
+							}
 
 							if (!$entry->isRead()) {
 								$needFeedCacheRefresh = true;	//Maybe
@@ -625,9 +638,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							continue;
 						}
 
-						$entry->applyFilterActions($titlesAsRead);
+						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []));
 						if ($readWhenSameTitleInFeed > 0) {
 							$titlesAsRead[$entry->title()] = true;
+						}
+						if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
+							$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
 						}
 
 						$needFeedCacheRefresh = true;

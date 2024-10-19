@@ -232,7 +232,8 @@ return array(
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
-			'when_same_title' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Articoli da visualizzare',
