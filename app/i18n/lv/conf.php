@@ -173,6 +173,7 @@ return array(
 		'_' => 'Lasīšana',
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autori un datums',

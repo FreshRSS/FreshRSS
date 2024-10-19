@@ -244,17 +244,6 @@
 			</div>
 
 			<div class="form-group">
-				<div class="group-controls">
-					<label class="checkbox" for="mark_updated_article_unread">
-						<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?=
-							FreshRSS_Context::userConf()->mark_updated_article_unread ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= FreshRSS_Context::userConf()->mark_updated_article_unread ?>"/>
-						<?= _t('conf.reading.mark_updated_article_unread') ?>
-					</label>
-				</div>
-			</div>
-
-			<div class="form-group">
 				<label class="group-name" for="check_open_article"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<label class="checkbox" for="check_open_article">
@@ -301,6 +290,20 @@
 					</label>
 				</div>
 			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.feed.filteractions') ?></legend>
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="mark_updated_article_unread">
+						<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?=
+							FreshRSS_Context::userConf()->mark_updated_article_unread ? ' checked="checked"' : '' ?>
+							data-leave-validation="<?= FreshRSS_Context::userConf()->mark_updated_article_unread ?>"/>
+						<?= _t('conf.reading.mark_updated_article_unread') ?>
+					</label>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label class="group-name" for="enable_read_when_same_title_in_feed"><?= _t('conf.reading.read.when') ?></label>
@@ -314,6 +317,7 @@
 						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
 							value="<?= $read_when_same_title_in_feed ?>" data-leave-validation="<?= $read_when_same_title_in_feed ?>" />
 					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.apply_to_individual_feed') ?></p>
 				</div>
 			</div>
 
@@ -342,22 +346,6 @@
 			</div>
 
 			<div class="form-group">
-				<div class="group-controls">
-					<label class="checkbox" for="keep_max_n_unread">
-						<input type="checkbox" name="enable_keep_max_n_unread" id="enable_keep_max_n_unread" value="1"<?=
-							empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? '' : ' checked="checked"' ?>
-							data-leave-validation="<?= empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 0 : 1 ?>"/>
-						<?= _t('conf.reading.read.keep_max_n_unread') ?>
-						<?php $keep_max_n_unread = empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::userConf()->mark_when['max_n_unread']; ?>
-						<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" data-leave-validation="<?= $keep_max_n_unread ?>" />
-					</label>
-				</div>
-			</div>
-		</fieldset>
-
-		<fieldset>
-			<legend><?= _t('sub.feed.filteractions') ?></legend>
-			<div class="form-group">
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
@@ -378,6 +366,20 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="keep_max_n_unread">
+						<input type="checkbox" name="enable_keep_max_n_unread" id="enable_keep_max_n_unread" value="1"<?=
+							empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? '' : ' checked="checked"' ?>
+							data-leave-validation="<?= empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 0 : 1 ?>"/>
+						<?= _t('conf.reading.read.keep_max_n_unread') ?>
+						<?php $keep_max_n_unread = empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::userConf()->mark_when['max_n_unread']; ?>
+						<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" data-leave-validation="<?= $keep_max_n_unread ?>" />
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.apply_to_individual_feed') ?></p>
 				</div>
 			</div>
 		</fieldset>

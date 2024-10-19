@@ -173,6 +173,7 @@ return array(
 		'_' => '閱讀',
 		'after_onread' => '「全部標記為已讀」後',
 		'always_show_favorites' => '預設顯示收藏夾中所有的文章',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => '作者和日期',

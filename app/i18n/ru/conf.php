@@ -173,6 +173,7 @@ return array(
 		'_' => 'Чтение',
 		'after_onread' => 'После «отметить всё прочитанным»',
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Авторы и дата',
