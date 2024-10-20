@@ -99,6 +99,10 @@ return array(
 			'previous' => ' قبلی',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => ' مدیریت پروفایل',
 		'api' => ' مدیریت API',

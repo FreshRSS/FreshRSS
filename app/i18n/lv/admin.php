@@ -116,6 +116,7 @@ return array(
 		'description' => 'Apraksts',
 		'disabled' => 'Atspējots',
 		'empty_list' => 'Nav instalētu paplašinājumu',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ieslēgts',
 		'latest' => 'Instalēts',
 		'name' => 'Vārds',

@@ -116,6 +116,7 @@ return array(
 		'description' => ' توضیحات',
 		'disabled' => ' معلول',
 		'empty_list' => ' هیچ برنامه افزودنی نصب شده ای وجود ندارد',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => ' فعال است',
 		'latest' => ' نصب شده است',
 		'name' => ' نام',

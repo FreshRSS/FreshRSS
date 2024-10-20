@@ -183,6 +183,7 @@ return array(
 		'display' => 'نمایش',
 		'extensions' => ' برنامه های افزودنی',
 		'logs' => ' سیاهههای مربوط',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => ' پرس و جوهای کاربر',
 		'reading' => ' خواندن',
 		'search' => ' کلمات یا #برچسب ها را جستجو کنید',

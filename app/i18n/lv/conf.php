@@ -99,6 +99,10 @@ return array(
 			'previous' => 'Iepriekšējais',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Profila pārvalde',
 		'api' => 'API pārvalde',

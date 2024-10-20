@@ -183,6 +183,7 @@ return array(
 		'display' => 'Display',	// TODO
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Lietotāja pieprasījumi',
 		'reading' => 'Lasīšana',
 		'search' => 'Meklēt vārdus vai #birkas',
