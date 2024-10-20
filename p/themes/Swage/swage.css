@@ -17,6 +17,7 @@
 	--color-border-bad: #b0425b;
 	--color-background-light: #fcfcfc;
 	--color-background-light-darker: #e3e3e3;
+	--color-background-light-darker-transparent: rgba(217, 217, 217, 0.7333333333);
 	--color-background-dark: #181621;
 	--color-background-nav: #0062be;
 	--color-background-nav-darker: #00488b;
@@ -87,14 +88,6 @@ body {
 a {
 	color: var(--color-text-nav);
 	outline: none;
-}
-a.btn {
-	min-height: 25px;
-	line-height: 1.5;
-	text-decoration: none;
-}
-a.btn .icon {
-	filter: brightness(3);
 }
 a#btn-subscription {
 	width: 76%;
@@ -189,7 +182,7 @@ form th {
 .form-group.form-actions {
 	margin: 15px 0 25px;
 	padding: 5px 0;
-	background-color: var(--color-background-light-darker);
+	background-color: var(--color-background-light-darker-transparent);
 	border-top: 3px solid var(--color-border-light-darker);
 }
 .form-group.form-actions .btn {
@@ -214,15 +207,14 @@ form th {
 	margin: 0;
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
-	display: inline-block;
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
-	min-height: 35px;
+	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
+	line-height: 1.5;
+	text-decoration: none;
 }
 .btn.active, .btn:active, .btn:hover {
 	background-color: var(--color-background-nav-darker);
@@ -442,12 +434,8 @@ form th {
 	box-shadow: 0 2px 5px var(--color-box-shadow-light);
 }
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
 	background-color: var(--color-background-dark);
 	color: var(--color-text-light);
-	font-size: 0.9rem;
 }
 .content pre code {
 	background: transparent;
@@ -455,10 +443,9 @@ form th {
 	border: none;
 }
 .content code {
-	padding: 2px 5px;
 	background-color: var(--color-background-light);
 	color: var(--color-text-bad);
-	border: 1px solid var(--color-border-light);
+	border-color: var(--color-border-light);
 }
 .content blockquote {
 	margin: 0;
@@ -481,7 +468,6 @@ form th {
 }
 .box .box-title {
 	margin: 0;
-	padding: 7px 10px;
 	background-color: var(--color-background-aside);
 	color: var(--color-text-light);
 	border-bottom: 1px solid var(--color-border-light-darker);
@@ -496,7 +482,6 @@ form th {
 	filter: invert(56%) sepia(87%) saturate(1185%) hue-rotate(327deg) brightness(104%) contrast(96%);
 }
 .box .box-content {
-	padding-left: 30px;
 	max-height: 260px;
 }
 .box .box-content .item {
@@ -760,25 +745,25 @@ form th {
 .flux .current {
 	background-color: var(--color-background-hover);
 }
-.flux .flux_header:hover:not(.current):hover .item.title,
-.flux .current:not(.current):hover .item.title {
+.flux .flux_header:hover:not(.current):hover .item .title,
+.flux .current:not(.current):hover .item .title {
 	background-color: var(--color-background-hover);
 }
 .flux.favorite:not(.current) {
 	background-color: var(--color-background-stared);
 }
-.flux.favorite:not(.current):hover .item.title {
+.flux.favorite:not(.current):hover .item .title {
 	background-color: var(--color-background-stared);
 }
 .flux.not_read:not(.current) {
 	background-color: var(--color-background-unread);
 }
-.flux.not_read:not(.current):hover .item.title {
+.flux.not_read:not(.current):hover .item .title {
 	background-color: var(--color-background-unread);
 }
-.flux .item.date {
+.flux .flux_header .date,
+.flux .flux_content .bottom .date {
 	color: var(--color-text-light-darker);
-	font-size: 0.7rem;
 }
 .flux .bottom {
 	font-size: 0.8rem;
@@ -842,10 +827,6 @@ form th {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 	background-color: var(--color-background-aside);
 }
 
@@ -864,6 +845,9 @@ form th {
 
 #overlay {
 	z-index: 100;
+}
+#overlay .close .icon {
+	filter: brightness(3);
 }
 
 #panel {
@@ -915,7 +899,7 @@ a.signin {
 }
 
 @media (max-width: 840px) {
-	body:not(.formLogin, .register) .header .item.title {
+	body:not(.formLogin, .register) .header .item .title {
 		display: none;
 	}
 	.form-group .group-name {
@@ -954,7 +938,7 @@ a.signin {
 		width: 35px;
 		text-align: center;
 	}
-	.flux:not(.current):hover .item.title {
+	.flux:not(.current):hover .item .title {
 		top: auto !important;
 	}
 	.aside {
@@ -996,10 +980,12 @@ a.signin {
 	.nav_menu .btn {
 		margin: 0;
 	}
-	.nav_menu .stick {
+	.nav_menu .stick,
+.nav_menu .group {
 		margin: 0;
 	}
-	.nav_menu .stick .btn {
+	.nav_menu .stick .btn,
+.nav_menu .group .btn {
 		margin: 0;
 	}
 	.nav_menu .item.search {
@@ -1014,7 +1000,7 @@ a.signin {
 	.nav_menu .item.search input {
 		width: 100%;
 	}
-	#panel .close,
+	#overlay .close,
 .dropdown-menu .toggle_aside {
 		background-color: var(--color-background-aside);
 		display: block;
@@ -1023,7 +1009,7 @@ a.signin {
 		text-align: center;
 		padding-right: 10px;
 	}
-	#panel .close:hover,
+	#overlay .close:hover,
 .dropdown-menu .toggle_aside:hover {
 		background-color: var(--color-background-nav);
 	}
@@ -1158,9 +1144,7 @@ button.as-link {
 	border-color: var(--color-border-grey);
 }
 #stream.reader .flux .author {
-	margin: 0 0 10px;
 	color: var(--color-text-light-darker);
-	font-size: 90%;
 }
 
 #nav_menu_actions ul.dropdown-menu {

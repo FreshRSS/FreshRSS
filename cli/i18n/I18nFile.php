@@ -1,10 +1,14 @@
 <?php
+declare(strict_types=1);
 
 require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
-	public function load() {
-		$i18n = array();
+	/**
+	 * @return array<string,array<string,array<string,I18nValue>>>
+	 */
+	public function load(): array {
+		$i18n = [];
 		$dirs = new DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
@@ -23,7 +27,10 @@ class I18nFile {
 		return $i18n;
 	}
 
-	public function dump(array $i18n) {
+	/**
+	 * @param array<string,array<string,array<string,I18nValue>>> $i18n
+	 */
+	public function dump(array $i18n): void {
 		foreach ($i18n as $language => $file) {
 			$dir = I18N_PATH . DIRECTORY_SEPARATOR . $language;
 			if (!file_exists($dir)) {
@@ -38,13 +45,11 @@ class I18nFile {
 
 	/**
 	 * Process the content of an i18n file
-	 *
-	 * @param string $filename
-	 * @return array
+	 * @return array<string,array<string,I18nValue>>
 	 */
-	private function process(string $filename) {
-		$content = file_get_contents($filename);
-		$content = str_replace('<?php', '', $content);
+	private function process(string $filename): array {
+		$fileContent = file_get_contents($filename) ?: [];
+		$content = str_replace('<?php', '', $fileContent);
 
 		$content = preg_replace([
 			"#',\s*//\s*TODO.*#i",
@@ -61,7 +66,7 @@ class I18nFile {
 		} catch (ParseError $ex) {
 			if (defined('STDERR')) {
 				fwrite(STDERR, "Error while processing: $filename\n");
-				fwrite(STDERR, $ex);
+				fwrite(STDERR, $ex->getMessage());
 			}
 			die(1);
 		}
@@ -76,12 +81,11 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array $translation
-	 * @param string $prefix
-	 * @return array
+	 * @param array<string,I18nValue|array<string,I18nValue>> $translation
+	 * @return array<string,I18nValue>
 	 */
-	private function flatten(array $translation, string $prefix = '') {
-		$a = array();
+	private function flatten(array $translation, string $prefix = ''): array {
+		$a = [];
 
 		if ('' !== $prefix) {
 			$prefix .= '.';
@@ -104,17 +108,17 @@ class I18nFile {
 	 * The first key is dropped since it represents the filename and we have
 	 * no use of it.
 	 *
-	 * @param array $translation
-	 * @return array
+	 * @param array<string,I18nValue> $translation
+	 * @return array<string,array<string,I18nValue>>
 	 */
-	private function unflatten(array $translation) {
-		$a = array();
+	private function unflatten(array $translation): array {
+		$a = [];
 
 		ksort($translation, SORT_NATURAL);
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value, "'") . "';");
+			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value->__toString(), "'") . "';");
 		}
 
 		return $a;
@@ -127,12 +131,11 @@ class I18nFile {
 	 * translation file. The array is first converted to a string then some
 	 * formatting regexes are applied to match the original content.
 	 *
-	 * @param array $translation
-	 * @return string
+	 * @param array<string,I18nValue> $translation
 	 */
-	private function format(array $translation) {
+	private function format(array $translation): string {
 		$translation = var_export($this->unflatten($translation), true);
-		$patterns = array(
+		$patterns = [
 			'/ -> todo\',/',
 			'/ -> dirty\',/',
 			'/ -> ignore\',/',
@@ -140,8 +143,8 @@ class I18nFile {
 			'/=>\s*array/',
 			'/(\w) {2}/',
 			'/ {2}/',
-		);
-		$replacements = array(
+		];
+		$replacements = [
 			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
@@ -149,7 +152,7 @@ class I18nFile {
 			'=> array',
 			'$1 ',
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
-		);
+		];
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		return <<<OUTPUT

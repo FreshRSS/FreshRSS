@@ -29,6 +29,14 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'Manage',	// TODO
 		'mark_read' => 'Mark as read',	// TODO
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
@@ -134,18 +142,21 @@ return array(
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: new articles!',	// TODO
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO
 		'should_be_activated' => 'JavaScript must be enabled',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
 		'en-us' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
 		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
@@ -194,9 +205,9 @@ return array(
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
@@ -210,6 +221,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// TODO
 		'mastodon' => 'Mastodon',	// TODO
 		'movim' => 'Movim',	// TODO
+		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// TODO
 		'pinterest' => 'Pinterest',	// TODO
 		'pocket' => 'Pocket',	// TODO
@@ -217,6 +229,7 @@ return array(
 		'raindrop' => 'Raindrop.io',	// TODO
 		'reddit' => 'Reddit',	// TODO
 		'shaarli' => 'Shaarli',	// TODO
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => 'Twitter',	// TODO
 		'wallabag' => 'wallabag v1',	// TODO
 		'wallabagv2' => 'wallabag v2',	// TODO

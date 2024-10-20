@@ -1,37 +1,39 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/../../../cli/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
 
 class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
+	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
+	#[\Override]
 	public function setUp(): void {
 		$this->value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
-	public function testDisplayReport() {
+	public function testDisplayReport(): void {
 		$validator = new I18nCompletionValidator([], []);
 
-		$this->assertEquals("There is no data.\n", $validator->displayReport());
+		self::assertEquals("There is no data.\n", $validator->displayReport());
 
 		$reflectionTotalEntries = new ReflectionProperty(I18nCompletionValidator::class, 'totalEntries');
 		$reflectionTotalEntries->setAccessible(true);
 		$reflectionTotalEntries->setValue($validator, 100);
 
-		$this->assertEquals("Translation is   0.0% complete.\n", $validator->displayReport());
+		self::assertEquals("Translation is   0.0% complete.\n", $validator->displayReport());
 
 		$reflectionPassEntries = new ReflectionProperty(I18nCompletionValidator::class, 'passEntries');
 		$reflectionPassEntries->setAccessible(true);
 		$reflectionPassEntries->setValue($validator, 25);
 
-		$this->assertEquals("Translation is  25.0% complete.\n", $validator->displayReport());
+		self::assertEquals("Translation is  25.0% complete.\n", $validator->displayReport());
 
 		$reflectionPassEntries->setValue($validator, 100);
 
-		$this->assertEquals("Translation is 100.0% complete.\n", $validator->displayReport());
+		self::assertEquals("Translation is 100.0% complete.\n", $validator->displayReport());
 
 		$reflectionPassEntries->setValue($validator, 200);
 
@@ -40,13 +42,13 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		$validator->displayReport();
 	}
 
-	public function testValidateWhenNoData() {
+	public static function testValidateWhenNoData(): void {
 		$validator = new I18nCompletionValidator([], []);
-		$this->assertTrue($validator->validate());
-		$this->assertEquals('', $validator->displayResult());
+		self::assertTrue($validator->validate());
+		self::assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenKeyIsMissing() {
+	public function testValidateWhenKeyIsMissing(): void {
 		$validator = new I18nCompletionValidator([
 			'file1.php' => [
 				'file1.l1.l2.k1' => $this->value,
@@ -56,12 +58,12 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 			],
 		], []);
 
-		$this->assertFalse($validator->validate());
-		$this->assertEquals("Missing key file1.l1.l2.k1\nMissing key file2.l1.l2.k1\n", $validator->displayResult());
+		self::assertFalse($validator->validate());
+		self::assertEquals("Missing key file1.l1.l2.k1\nMissing key file2.l1.l2.k1\n", $validator->displayResult());
 	}
 
-	public function testValidateWhenKeyIsIgnored() {
-		$this->value->expects($this->exactly(2))
+	public function testValidateWhenKeyIsIgnored(): void {
+		$this->value->expects(self::exactly(2))
 			->method('isIgnore')
 			->willReturn(true);
 
@@ -81,15 +83,15 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 			],
 		]);
 
-		$this->assertTrue($validator->validate());
-		$this->assertEquals('', $validator->displayResult());
+		self::assertTrue($validator->validate());
+		self::assertEquals('', $validator->displayResult());
 	}
 
-	public function testValidateWhenValueIsEqual() {
-		$this->value->expects($this->exactly(2))
+	public function testValidateWhenValueIsEqual(): void {
+		$this->value->expects(self::exactly(2))
 			->method('isIgnore')
 			->willReturn(false);
-		$this->value->expects($this->exactly(2))
+		$this->value->expects(self::exactly(2))
 			->method('equal')
 			->willReturn(true);
 
@@ -109,15 +111,15 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 			],
 		]);
 
-		$this->assertFalse($validator->validate());
-		$this->assertEquals("Untranslated key file1.l1.l2.k1 - \nUntranslated key file2.l1.l2.k1 - \n", $validator->displayResult());
+		self::assertFalse($validator->validate());
+		self::assertEquals("Untranslated key file1.l1.l2.k1 - \nUntranslated key file2.l1.l2.k1 - \n", $validator->displayResult());
 	}
 
-	public function testValidateWhenValueIsDifferent() {
-		$this->value->expects($this->exactly(2))
+	public function testValidateWhenValueIsDifferent(): void {
+		$this->value->expects(self::exactly(2))
 			->method('isIgnore')
 			->willReturn(false);
-		$this->value->expects($this->exactly(2))
+		$this->value->expects(self::exactly(2))
 			->method('equal')
 			->willReturn(false);
 
@@ -137,7 +139,7 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 			],
 		]);
 
-		$this->assertTrue($validator->validate());
-		$this->assertEquals('', $validator->displayResult());
+		self::assertTrue($validator->validate());
+		self::assertEquals('', $validator->displayResult());
 	}
 }

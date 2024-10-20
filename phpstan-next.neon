@@ -1,0 +1,8 @@
+includes:
+	- phpstan.dist.neon
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+	excludePaths:
+		analyse:
+			# TODO: Update files below and remove them from this list

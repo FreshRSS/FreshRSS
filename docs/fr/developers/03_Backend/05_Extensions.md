@@ -4,7 +4,7 @@
 
 FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre
 2012. Le site officiel est situé à l’adresse
-[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par Github
+[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par GitHub
 : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## Problème à résoudre
@@ -81,8 +81,11 @@ class name `HelloWorldExtension`.
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
 need the structure:
 ```html
-class HelloWorldExtension extends Minz_Extension {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
 	public function init() {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -187,15 +190,28 @@ Your class will benefit from four methods to redefine:
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
 
-```html
-class HelloWorldExtension extends Minz_Extension
+```php
+final class HelloWorldExtension extends Minz_Extension
 {
-	public function init() {
-		$this->registerHook('entry_before_display', array($this, 'renderEntry'));
+	#[\Override]
+	public function init(): void {
+		parent::init();
+
+		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
 	}
-	public function renderEntry($entry) {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+
+	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
+		$message = $this->getUserConfigurationValue('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```
@@ -206,6 +222,10 @@ The following events are available:
 	every time a URL is added. The URL itself will be passed as
 	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
+* `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`):
+	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`):
+	Appelé lorsqu’une entrée est automatiquement marquée comme non-lue. Le paramètre *why* supporte les règles {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
 	executed every time an entry is rendered. The entry itself (instance of
 	FreshRSS\_Entry) will be passed as parameter.
@@ -213,6 +233,8 @@ The following events are available:
 	executed when a feed is refreshed and new entries will be imported into
 	the database. The new entry (instance of FreshRSS\_Entry) will be passed
 	as parameter.
+* `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
+	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
 	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
 	will be passed as parameter.

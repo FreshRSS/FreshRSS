@@ -4,7 +4,15 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
+	"containerEnv": {
+		"DATA_PATH": "/home/developer/freshrss-data"
+	},
 	"customizations": {
+		"codespaces": {
+			"openFiles": [
+				".devcontainer/README.md"
+			]
+		},
 		"vscode": {
 			"extensions": [
 				"bmewburn.vscode-intelephense-client",
@@ -13,6 +21,7 @@
 				"eamodio.gitlens",
 				"EditorConfig.EditorConfig",
 				"foxundermoon.shell-format",
+				"GitHub.vscode-pull-request-github",
 				"mrmlnc.vscode-apache",
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-yaml",

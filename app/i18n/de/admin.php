@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'token' => 'Authentifizierungs-Token',
-		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
+		'token' => 'Master-Authentifizierungs-Token',
+		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
 		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
@@ -160,6 +160,10 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-Update URL',
+		'base-url' => array(
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
@@ -184,20 +188,33 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'sensitive-parameter' => 'Sensitive Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
 			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
 		),
+		'websub' => array(
+			'help' => 'Über <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
+		'changelog' => 'Liste der Änderungen',
 		'check' => 'Auf neue Aktualisierungen prüfen',
-		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
-		'last' => 'Letzte Überprüfung: %s',
+		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
+		'current_version' => 'Aktuelle Version',
+		'last' => 'Letzte Überprüfung',
+		'loading' => 'Aktualisierung läuft…',
 		'none' => 'Keine ausstehende Aktualisierung',
+		'releaseChannel' => array(
+			'_' => 'Veröffentlichungskanal',
+			'edge' => 'Aktueller Entwicklungsstand (“edge”)',
+			'latest' => 'Stabile Version (“latest”)',
+		),
 		'title' => 'System aktualisieren',
+		'viaGit' => 'Update über git und GitHub.com gestartet',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE

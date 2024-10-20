@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 
@@ -6,7 +7,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$sql = $GLOBALS['SQL_CREATE_TABLES'] . $GLOBALS['SQL_CREATE_TABLE_ENTRYTMP'] . $GLOBALS['SQL_CREATE_TABLE_TAGS'];
+			$sql = $GLOBALS['SQL_CREATE_TABLES'];
 			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 		} catch (Exception $e) {
 			$ok = false;
@@ -31,6 +32,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		$ok = $this->pdo->exec($GLOBALS['SQL_DROP_TABLES']) !== false;
 
 		if ($ok) {
+			$this->close();
 			return true;
 		} else {
 			$info = $this->pdo->errorInfo();
@@ -43,14 +45,33 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		return is_dir(USERS_PATH . '/' . $username);
 	}
 
+	/** Update time of the last modification action by the user (e.g., mark an article as read) */
 	public static function touch(string $username = ''): bool {
-		if (!FreshRSS_user_Controller::checkUsername($username)) {
+		if ($username === '') {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
+		} elseif (!FreshRSS_user_Controller::checkUsername($username)) {
+			return false;
 		}
 		return touch(USERS_PATH . '/' . $username . '/config.php');
 	}
 
+	/** Time of the last modification action by the user (e.g., mark an article as read) */
 	public static function mtime(string $username): int {
-		return @(int)filemtime(USERS_PATH . '/' . $username . '/config.php');
+		return @filemtime(USERS_PATH . '/' . $username . '/config.php') ?: 0;
+	}
+
+	/** Update time of the last new content automatically received by the user (e.g., cron job, WebSub) */
+	public static function ctouch(string $username = ''): bool {
+		if ($username === '') {
+			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
+		} elseif (!FreshRSS_user_Controller::checkUsername($username)) {
+			return false;
+		}
+		return touch(USERS_PATH . '/' . $username . '/' . LOG_FILENAME);
+	}
+
+	/** Time of the last new content automatically received by the user (e.g., cron job, WebSub) */
+	public static function ctime(string $username): int {
+		return @filemtime(USERS_PATH . '/' . $username . '/' . LOG_FILENAME) ?: 0;
 	}
 }

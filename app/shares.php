@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This is a configuration file. You shouldn’t modify it unless you know what
@@ -35,19 +36,18 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
+	'archiveIS' => [
+		'url' => 'https://archive.is/submit/?url=~LINK~',
+		'transform' => [],
+		'help' => 'https://archive.is/',
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'archivePH' => [
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => [],
 		'help' => 'https://archive.ph/',
 		'form' => 'simple',
-		'method' => 'GET',
-	],
-	'blogotext' => [
-		'deprecated' => true,
-		'url' => '~URL~/admin/links.php?url=~LINK~',
-		'transform' => [],
-		'help' => 'http://lehollandaisvolant.net/blogotext/fr/',
-		'form' => 'advanced',
 		'method' => 'GET',
 	],
 	'buffer' => [
@@ -117,7 +117,7 @@ return [
 		'method' => 'GET',
 	],
 	'linkding' => [
-		'url' => '~URL~/bookmarks/new?url=~LINK~&auto_close',
+		'url' => '~URL~/bookmarks/new?url=~LINK~&title=~TITLE~&auto_close',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
 		'form' => 'advanced',
@@ -140,6 +140,13 @@ return [
 		'url' => '~URL~/?share/~LINK~',
 		'transform' => ['urlencode'],
 		'help' => 'https://movim.eu/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
+	'omnivore' => [
+		'url' => '~URL~/api/save?url=~LINK~',
+		'transform' => ['urlencode'],
+		'help' => 'https://omnivore.app/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -188,6 +195,12 @@ return [
 		'transform' => ['rawurlencode'],
 		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
+		'method' => 'GET',
+	],
+	'telegram' => [
+		'url' => 'https://t.me/share/url?url=~LINK~&text=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'form' => 'simple',
 		'method' => 'GET',
 	],
 	'twitter' => [

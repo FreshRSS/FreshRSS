@@ -22,12 +22,6 @@
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	min-height: 32px;
-	line-height: 1.4;
-}
-
-a.btn,
-.stick .btn {
 	min-height: 20px;
 	line-height: 1.4;
 }
@@ -136,6 +130,9 @@ a.btn,
 
 /*=== Content of feed articles */
 /*=== Notification and actualize notification */
+.notification {
+	padding: 0.5rem 0.5rem 0.5rem 3rem;
+}
 /*=== "Load more" part */
 #bigMarkAsRead {
 	font-size: 1.2em;

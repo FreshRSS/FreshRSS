@@ -7,7 +7,7 @@
 html, body {
 	height: 100%;
 	color: black;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -63,8 +63,8 @@ th, td {
 th {
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -126,18 +126,11 @@ form th {
 .btn {
 	margin: 0;
 	padding: 5px 10px;
-	display: inline-block;
-	min-height: 37px;
+	min-height: 25px;
 	min-width: 15px;
 	font-size: 0.9rem;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
-}
-
-a.btn {
-	min-height: 25px;
 }
 
 .btn:hover {
@@ -321,18 +314,12 @@ a.btn {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 }
 
 .box .box-content {
-	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
-	font-size: 0.9rem;
-	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -562,10 +549,6 @@ a.btn {
 	padding: 5px;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux:not(.current):hover .item.title {
 }
 
@@ -588,14 +571,9 @@ a.btn {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 }
 
 .content code {
-	padding: 2px 5px;
 }
 
 .content pre code {
@@ -641,10 +619,6 @@ a.btn {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -657,11 +631,6 @@ a.btn {
 #stream.reader .flux .content {
 	background-color: #fff;
 	border-color: #ddd;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */
@@ -732,7 +701,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside,
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
 		background: #fff;
@@ -740,7 +709,7 @@ a.btn {
 	}
 
 	.aside .toggle_aside:hover,
-	#panel .close:hover,
+	#overlay .close:hover,
 	.dropdown-menu .toggle_aside:hover,
 	#slider .toggle_aside:hover {
 		background-color: #ddd;

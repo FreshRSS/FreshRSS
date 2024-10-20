@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This controller manage API-related features.
@@ -8,22 +9,23 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	/**
 	 * Update the user API password.
 	 * Return an error message, or `false` if no error.
-	 * @return false|string
 	 */
-	public static function updatePassword(string $apiPasswordPlain) {
+	public static function updatePassword(string $apiPasswordPlain): string|false {
 		$username = Minz_User::name();
-		$userConfig = FreshRSS_Context::$user_conf;
-
-		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
-		$userConfig->apiPasswordHash = $apiPasswordHash;
-
-		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
-		if (!$feverKey) {
+		if ($username == null) {
 			return _t('feedback.api.password.failed');
 		}
 
-		$userConfig->feverKey = $feverKey;
-		if ($userConfig->save()) {
+		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
+		FreshRSS_Context::userConf()->apiPasswordHash = $apiPasswordHash;
+
+		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
+		if ($feverKey == false) {
+			return _t('feedback.api.password.failed');
+		}
+
+		FreshRSS_Context::userConf()->feverKey = $feverKey;
+		if (FreshRSS_Context::userConf()->save()) {
 			return false;
 		} else {
 			return _t('feedback.api.password.failed');
@@ -53,7 +55,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 		}
 
 		$error = self::updatePassword($apiPasswordPlain);
-		if ($error) {
+		if (is_string($error)) {
 			Minz_Request::bad($error, $return_url);
 		} else {
 			Minz_Request::good(_t('feedback.api.password.updated'), $return_url);

@@ -1,3 +1,10 @@
+<IfModule mod_authz_core.c>
+	# Deny files starting with a dot, or without extension (except some), or not in a whitelist of extensions
+	<FilesMatch "^\.|^(?!oidc)[^.]+$|\.(?!css|gif|html|ico|js|php|png|svg|txt|woff|woff2)[^.]*$">
+		Require all denied
+	</FilesMatch>
+</IfModule>
+
 <IfModule mod_dir.c>
 	DirectoryIndex	index.php index.html
 </IfModule>
@@ -34,4 +41,16 @@ AddDefaultCharset	UTF-8
 		Header	merge Cache-Control "public"
 	</FilesMatch>
 	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
+</IfModule>
+
+# Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteRule .* - [E=CONN_REMOTE_ADDR:%{CONN_REMOTE_ADDR}]
+</IfModule>
+<IfModule !mod_rewrite.c>
+	<IfModule mod_setenvif.c>
+		# If you run an old Apache 2.2-, disable mod_setenvif and enable mod_rewrite, or comment out next line
+		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
+	</IfModule>
 </IfModule>

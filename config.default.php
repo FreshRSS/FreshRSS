@@ -42,8 +42,6 @@ return array(
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
 	# feed if they didn’t access this URL.
-	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
-	# sent).
 	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
@@ -92,15 +90,23 @@ return array(
 	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
 	'allow_referrer' => false,
 
+	# Number of feeds to refresh in parallel from the Web user interface.
+	# Faster with higher values. Reduce for server with little memory or database issues.
+	'nb_parallel_refresh' => 10,
+
 	'limits' => array(
 
 		# Duration in seconds of the login cookie.
 		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
-		# Duration in seconds of the SimplePie cache,
-		#	during which a query to the RSS feed will return the local cached version.
+		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_min' => 60,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		'cache_duration_max' => 86400,
 
 		# SimplePie HTTP request timeout in seconds.
 		'timeout' => 20,
@@ -169,7 +175,7 @@ return array(
 
 	],
 
-	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# Configuration to send emails.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#
@@ -189,16 +195,19 @@ return array(
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
-		'Google-Groups' => true,
-		'Tumblr-GDPR' => true,
 	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,
 
-	# Trusted IPs that are allowed to send unsafe headers
-	# Please read the documentation, before configuring this
-	# https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	# Trusted IPs (e.g. of last proxy) that are allowed to send unsafe HTTP headers.
+	# The connection IP used during FreshRSS setup is automatically added to this list.
+	# Will be checked against CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip)
+	# or REMOTE_ADDR environment variable.
+	# This array can be overridden by the TRUSTED_PROXY environment variable.
+	# Read the documentation before configuring this https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',

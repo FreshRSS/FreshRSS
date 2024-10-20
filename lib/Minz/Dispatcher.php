@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -8,19 +10,16 @@
  * The Dispatcher is in charge of initialising the Controller and exectue the action as specified in the Request object.
  * It is a singleton.
  */
-class Minz_Dispatcher {
+final class Minz_Dispatcher {
 
 	/**
 	 * Singleton
-	 * @var Minz_Dispatcher|null
 	 */
-	private static $instance;
-	/** @var bool */
-	private static $needsReset;
+	private static ?Minz_Dispatcher $instance = null;
+	private static bool $needsReset;
 	/** @var array<string,string> */
-	private static $registrations = [];
-	/** @var Minz_ActionController */
-	private $controller;
+	private static array $registrations = [];
+	private Minz_ActionController $controller;
 
 	/**
 	 * Retrieves the Dispatcher instance
@@ -42,27 +41,27 @@ class Minz_Dispatcher {
 			self::$needsReset = false;
 
 			try {
-				$this->createController (Minz_Request::controllerName ());
-				$this->controller->init ();
-				$this->controller->firstAction ();
-				// @phpstan-ignore-next-line
+				$this->createController(Minz_Request::controllerName());
+				$this->controller->init();
+				$this->controller->firstAction();
+				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
-					$this->launchAction (
-						Minz_Request::actionName ()
+					$this->launchAction(
+						Minz_Request::actionName()
 						. 'Action'
 					);
 				}
-				$this->controller->lastAction ();
+				$this->controller->lastAction();
 
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
-					$this->controller->view ()->build ();
+					$this->controller->view()->build();
 				}
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
-			// @phpstan-ignore-next-line
+			// @phpstan-ignore doWhile.alwaysFalse
 		} while (self::$needsReset);
 	}
 
@@ -87,19 +86,21 @@ class Minz_Dispatcher {
 			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
 		}
 
-		if (!class_exists ($controller_name)) {
-			throw new Minz_ControllerNotExistException (
+		if (!class_exists($controller_name)) {
+			throw new Minz_ControllerNotExistException(
 				Minz_Exception::ERROR
 			);
 		}
-		$this->controller = new $controller_name ();
+		$controller = new $controller_name();
 
-		if (! ($this->controller instanceof Minz_ActionController)) {
-			throw new Minz_ControllerNotActionControllerException (
+		if (!($controller instanceof Minz_ActionController)) {
+			throw new Minz_ControllerNotActionControllerException(
 				$controller_name,
 				Minz_Exception::ERROR
 			);
 		}
+
+		$this->controller = $controller;
 	}
 
 	/**
@@ -108,20 +109,15 @@ class Minz_Dispatcher {
 	 * @throws Minz_ActionException if the action cannot be executed on the controller
 	 */
 	private function launchAction(string $action_name): void {
-		if (!is_callable (array (
-			$this->controller,
-			$action_name
-		))) {
-			throw new Minz_ActionException (
-				get_class ($this->controller),
+		$call = [$this->controller, $action_name];
+		if (!is_callable($call)) {
+			throw new Minz_ActionException(
+				get_class($this->controller),
 				$action_name,
 				Minz_Exception::ERROR
 			);
 		}
-		call_user_func (array (
-			$this->controller,
-			$action_name
-		));
+		call_user_func($call);
 	}
 
 	/**
@@ -140,9 +136,9 @@ class Minz_Dispatcher {
 	 * Return if a controller is registered.
 	 *
 	 * @param string $base_name the base name of the controller.
-	 * @return boolean true if the controller has been registered, false else.
+	 * @return bool true if the controller has been registered, false else.
 	 */
-	public static function isRegistered(string $base_name) {
+	public static function isRegistered(string $base_name): bool {
 		return isset(self::$registrations[$base_name]);
 	}
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_FormAuth {
 	public static function checkCredentials(string $username, string $hash, string $nonce, string $challenge): bool {
@@ -17,31 +18,30 @@ class FreshRSS_FormAuth {
 	public static function getCredentialsFromCookie(): array {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
 		if (!ctype_alnum($token)) {
-			return array();
+			return [];
 		}
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
-		$mtime = @filemtime($token_file);
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$mtime = @filemtime($token_file) ?: 0;
+		$limits = FreshRSS_Context::systemConf()->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? FreshRSS_Auth::DEFAULT_COOKIE_DURATION : $limits['cookie_duration'];
 		if ($mtime + $cookie_duration < time()) {
 			// Token has expired (> cookie_duration) or does not exist.
 			@unlink($token_file);
-			return array();
+			return [];
 		}
 
 		$credentials = @file_get_contents($token_file);
-		if ($credentials !== false && self::renewCookie($token)) {
+		if ($credentials !== false && self::renewCookie($token) != false) {
 			return explode("\t", $credentials, 2);
 		}
 		return [];
 	}
 
-	/** @return string|false */
-	private static function renewCookie(string $token) {
+	private static function renewCookie(string $token): string|false {
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		if (touch($token_file)) {
-			$limits = FreshRSS_Context::$system_conf->limits;
+			$limits = FreshRSS_Context::systemConf()->limits;
 			$cookie_duration = empty($limits['cookie_duration']) ? FreshRSS_Auth::DEFAULT_COOKIE_DURATION : $limits['cookie_duration'];
 			$expire = time() + $cookie_duration;
 			Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
@@ -50,10 +50,9 @@ class FreshRSS_FormAuth {
 		return false;
 	}
 
-	/** @return string|false */
-	public static function makeCookie(string $username, string $password_hash) {
+	public static function makeCookie(string $username, string $password_hash): string|false {
 		do {
-			$token = sha1(FreshRSS_Context::$system_conf->salt . $username . uniqid('' . mt_rand(), true));
+			$token = sha1(FreshRSS_Context::systemConf()->salt . $username . uniqid('' . mt_rand(), true));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
 
@@ -77,7 +76,7 @@ class FreshRSS_FormAuth {
 	}
 
 	public static function purgeTokens(): void {
-		$limits = FreshRSS_Context::$system_conf->limits;
+		$limits = FreshRSS_Context::systemConf()->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? FreshRSS_Auth::DEFAULT_COOKIE_DURATION : $limits['cookie_duration'];
 		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {

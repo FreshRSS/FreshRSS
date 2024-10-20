@@ -29,7 +29,9 @@ return array(
 			'help' => 'Fornisci l’URL ad un <a href="http://opml.org/" target="_blank">file OPML</a> per popolare dinamicamente questa categoria con i feed',
 		),
 		'empty' => 'Categoria vuota',
+		'expand' => 'Expand category',	// TODO
 		'information' => 'Informazioni',
+		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostra posizione',
 		'position_help' => 'Per controllare l’ordinamento della categoria',
@@ -38,12 +40,12 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accetta i cookie',
 		'accept_cookies_help' => 'Consenti al server dei feed di impostare dei cookie (salvati in memoria solo per la durata della richiesta)',
-		'add' => 'Aggiungi un Feed RSS',
+		'add' => 'Aggiungi un Feed',
 		'advanced' => 'Avanzate',
 		'archiving' => 'Archiviazione',
 		'auth' => array(
 			'configuration' => 'Autenticazione',
-			'help' => 'Accesso per feeds protetti',
+			'help' => 'Accesso per feed protetti',
 			'http' => 'Autenticazione HTTP',
 			'password' => 'Password HTTP',
 			'username' => 'Nome utente HTTP',
@@ -57,23 +59,37 @@ return array(
 		),
 		'css_cookie' => 'Usa i cookie quando viene recuperato il contenuto di un articolo',
 		'css_cookie_help' => 'Esempio: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => 'In caso di RSS feeds troncati (attenzione, richiede molto tempo!)',
+		'css_help' => 'In caso di feed RSS troncati (attenzione, richiede molto tempo!)',
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
 		'css_path_filter' => array(
 			'_' => 'Il selettore CSS degli elementi da rimuovere',
-			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside</kbd>',
+			'help' => 'Il selettore CSS potrebbe essere una lista, ad esempio: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
 		),
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
+		'export-as-opml' => array(
+			'download' => 'Scarica',
+			'help' => 'File XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'label' => 'Esporta come OPML',
+		),
 		'filteractions' => array(
 			'_' => 'Azioni di filtro',
-			'help' => 'Scrivi un filtro di ricerca per riga.',
+			'help' => 'Scrivi un filtro di ricerca per riga. Per li operatori <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">vedi la documentazione</a>.',
 		),
+		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
 			'_' => 'Tipo di sorgente del feed',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// TODO
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -121,8 +137,47 @@ return array(
 				'relative' => 'XPath (relativo all’oggetto) per:',
 				'xpath' => 'XPath per:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// TODO
+				'feed_title' => array(
+					'_' => 'titolo feed',
+					'help' => 'Esempio: <code>meta.title</code> o una stringa statica: <code>"Il mio feed personalizzato"</code>',
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'item' => array(
+					'_' => 'ricerca nuovi <strong>elementi</strong><br /><small>(più importante)</small>',
+					'help' => 'percorso JSON per l’array contenente gli elementi, es. <code>$</code> o <code>newsItems</code>',
+				),
+				'item_author' => 'autore elemento',
+				'item_categories' => 'tag elemento',
+				'item_content' => array(
+					'_' => 'contenuto elemento',
+					'help' => 'Chiave sotto la quale trovare il contenuto, es. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatura elemento',
+					'help' => 'Esempio: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Formato data/ora personalizzato',
+					'help' => 'Facoltativo. Un formato supportato da <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> come <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'data elemento',
+					'help' => 'Il risultato sarà interpretato da <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'titolo elemento',
+				'item_uid' => 'ID univoco elemento',
+				'item_uri' => array(
+					'_' => 'link elemento (URL)',
+					'help' => 'Esempio: <code>permalink</code>',
+				),
+				'json' => 'dot notation for:',	// TODO
+				'relative' => 'dot notated path (relative to item) for:',	// TODO
+			),
+			'jsonfeed' => 'Feed JSON',
 			'rss' => 'RSS / Atom (predefinito)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
@@ -133,18 +188,28 @@ return array(
 		),
 		'max_http_redir' => 'Numero massimo di redirect HTTP',
 		'max_http_redir_help' => 'Imposta a 0 o lascia in bianco per disabilitare, -1 per impostare un numero illimitato di redirect',
+		'method' => array(
+			'_' => 'Metodo HTTP',
+		),
+		'method_help' => 'Il payload POST ha il supporto automatico per <code>application/x-www-form-urlencoded</code> e <code>application/json</code>',
+		'method_postparams' => 'Payload per POST',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
-		'mute' => 'muta',
+		'mute' => array(
+			'_' => 'muta',
+			'state_is_muted' => 'This feed is muted',	// TODO
+		),
 		'no_selected' => 'Nessun feed selezionato.',
 		'number_entries' => '%d articoli',
+		'open_feed' => 'Open feed %s',	// TODO
 		'priority' => array(
 			'_' => 'Visibilità',
 			'archived' => 'Non mostrare (archiviato)',
+			'category' => 'Mostra nella sua categoria',
+			'important' => 'Mostra nei feed importanti',
 			'main_stream' => 'Mostra in homepage',
-			'normal' => 'Mostra nella sua categoria',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
-		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (e.g: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (es.: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'selector_preview' => array(
 			'show_raw' => 'Mostra codice sorgente',
 			'show_rendered' => 'Mostra contenuto',
@@ -163,6 +228,16 @@ return array(
 		'title' => 'Titolo',
 		'title_add' => 'Aggiungi RSS feed',
 		'ttl' => 'Non aggiornare automaticamente piu di',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'id' => 'Standard ID (default)',	// TODO
+			'link' => 'Link',	// TODO
+			'sha1:link_published' => 'Link + Date',	// TODO
+			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+		),
 		'url' => 'URL del feed',
 		'useragent' => 'Imposta lo user agent per recuperare questo feed',
 		'useragent_help' => 'Esempio: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
@@ -187,7 +262,7 @@ return array(
 		'import_export' => 'Importa / esporta',
 		'label_management' => 'Gestione etichette',
 		'stats' => array(
-			'idle' => 'Feeds non aggiornati',
+			'idle' => 'Feed non aggiornati',
 			'main' => 'Statistiche principali',
 			'repartition' => 'Ripartizione articoli',
 		),
@@ -195,6 +270,7 @@ return array(
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 	'tag' => array(
+		'auto_label' => 'Aggiungi questo tag ai nuovi articoli',
 		'name' => 'Nome',
 		'new_name' => 'Nuovo nome',
 		'old_name' => 'Vecchio nome',
@@ -207,7 +283,7 @@ return array(
 		'add_feed' => 'Aggiungi un feed',
 		'add_label' => 'Aggiungi un’etichetta',
 		'delete_label' => 'Cancella un’etichetta',
-		'feed_management' => 'Gestione RSS feeds',
+		'feed_management' => 'Gestione feed RSS',
 		'rename_label' => 'Rinomina un’etichetta',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),

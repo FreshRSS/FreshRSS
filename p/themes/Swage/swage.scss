@@ -11,6 +11,7 @@ $color_alert:	#fa8052;
 $color_good:	#5eaabf;
 $color_bad:		#b0425b;
 $color_grey:	#e3e3e3;
+$color_grey_transparent: #d9d9d9bb;
 $color_stared:	#fff6da;
 $color_unread:	#fff3ed;
 $color_hover:	#fff;
@@ -37,6 +38,7 @@ $color_hover:	#fff;
 
 	--color-background-light: #{$color_light};
 	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-background-light-darker-transparent: #{$color_grey_transparent};
 	--color-background-dark: #{$color_text};
 	--color-background-nav: #{$color_nav};
 	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
@@ -106,16 +108,6 @@ body {
 a {
 	color: var(--color-text-nav);
 	outline: none;
-
-	&.btn {
-		min-height: 25px;
-		line-height: 1.5;
-		text-decoration: none;
-
-		.icon {
-			filter: brightness(3);
-		}
-	}
 
 	&#btn-subscription {
 		width: 76%;
@@ -233,7 +225,7 @@ form {
 	&.form-actions {
 		margin: 15px 0 25px;
 		padding: 5px 0;
-		background-color: var(--color-background-light-darker);
+		background-color: var(--color-background-light-darker-transparent);
 		border-top: 3px solid var(--color-border-light-darker);
 
 		.btn {
@@ -276,15 +268,14 @@ form {
 	margin: 0;
 	padding: 5px 10px;
 	background-color: var(--color-background-nav);
-	display: inline-block;
 	color: var(--color-text-light);
 	font-size: 0.9rem;
 	border: none;
-	min-height: 35px;
+	min-height: 25px;
 	min-width: 15px;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
+	line-height: 1.5;
+	text-decoration: none;
 
 	&.active,
 	&:active,
@@ -568,12 +559,8 @@ form {
 	}
 
 	pre {
-		margin: 10px auto;
-		padding: 10px 20px;
-		overflow: auto;
 		background-color: var(--color-background-dark);
 		color: var(--color-text-light);
-		font-size: 0.9rem;
 
 		code {
 			background: transparent;
@@ -583,10 +570,9 @@ form {
 	}
 
 	code {
-		padding: 2px 5px;
 		background-color: var(--color-background-light);
 		color: var(--color-text-bad);
-		border: 1px solid var(--color-border-light);
+		border-color: var(--color-border-light);
 	}
 
 	blockquote {
@@ -613,7 +599,6 @@ form {
 
 	.box-title {
 		margin: 0;
-		padding: 7px 10px;
 		background-color: var(--color-background-aside);
 		color: var(--color-text-light);
 		border-bottom: 1px solid var(--color-border-light-darker);
@@ -634,7 +619,6 @@ form {
 	}
 
 	.box-content {
-		padding-left: 30px;
 		max-height: 260px;
 
 		.item {
@@ -980,7 +964,7 @@ form {
 	.current {
 		background-color: var(--color-background-hover);
 
-		&:not(.current):hover .item.title {
+		&:not(.current):hover .item .title {
 			background-color: var(--color-background-hover);
 		}
 	}
@@ -988,7 +972,7 @@ form {
 	&.favorite:not(.current) {
 		background-color: var(--color-background-stared);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-stared);
 		}
 	}
@@ -996,16 +980,14 @@ form {
 	&.not_read:not(.current) {
 		background-color: var(--color-background-unread);
 
-		&:hover .item.title {
+		&:hover .item .title {
 			background-color: var(--color-background-unread);
 		}
 	}
 
-	.item {
-		&.date {
-			color: var(--color-text-light-darker);
-			font-size: 0.7rem;
-		}
+	.flux_header .date,
+	.flux_content .bottom .date {
+		color: var(--color-text-light-darker);
 	}
 
 	.bottom {
@@ -1083,10 +1065,6 @@ form {
 }
 
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 
 	@extend %aside-width;
 	background-color: var(--color-background-aside);
@@ -1111,6 +1089,10 @@ form {
 
 #overlay {
 	z-index: 100;
+
+	.close .icon {
+		filter: brightness(3);
+	}
 }
 
 #panel {
@@ -1173,7 +1155,7 @@ a.signin {
 @media (max-width: 840px) {
 	body:not(.formLogin, .register) {
 		.header {
-			.item.title {
+			.item .title {
 				display: none;
 			}
 		}
@@ -1225,7 +1207,7 @@ a.signin {
 		text-align: center;
 	}
 
-	.flux:not(.current):hover .item.title {
+	.flux:not(.current):hover .item .title {
 		top: auto !important;
 	}
 
@@ -1280,7 +1262,8 @@ a.signin {
 			margin: 0;
 		}
 
-		.stick {
+		.stick,
+		.group {
 			margin: 0;
 
 			.btn {
@@ -1304,7 +1287,7 @@ a.signin {
 		}
 	}
 
-	#panel .close,
+	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--color-background-aside);
 		display: block;
@@ -1480,9 +1463,7 @@ button.as-link {
 	}
 
 	.author {
-		margin: 0 0 10px;
 		color: var(--color-text-light-darker);
-		font-size: 90%;
 	}
 }
 

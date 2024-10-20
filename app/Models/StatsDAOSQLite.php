@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
+	#[\Override]
 	protected function sqlFloor(string $s): string {
 		return "CAST(($s) AS INT)";
 	}
@@ -9,6 +11,7 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 	/**
 	 * @return array<int,int>
 	 */
+	#[\Override]
 	protected function calculateEntryRepartitionPerFeedPerPeriod(string $period, ?int $feed = null): array {
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
@@ -24,8 +27,10 @@ GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_NAMED);
+		$res = $this->fetchAssoc($sql);
+		if ($res == null) {
+			return [];
+		}
 
 		switch ($period) {
 			case '%H':
@@ -38,15 +43,14 @@ SQL;
 				$periodMax = 12;
 				break;
 			default:
-			$periodMax = 30;
+				$periodMax = 30;
 		}
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
-			$repartition[(int) $value['period']] = (int) $value['count'];
+			$repartition[(int)$value['period']] = (int)$value['count'];
 		}
 
 		return $repartition;
 	}
-
 }

@@ -13,7 +13,10 @@ fi
 
 # Based on group access
 chown -R :www-data .
+
 # Read files, and directory traversal
 chmod -R g+rX .
+
 # Write access
+mkdir -p ./data/users/_/
 chmod -R g+w ./data/

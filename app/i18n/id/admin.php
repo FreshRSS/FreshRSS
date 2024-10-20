@@ -17,17 +17,17 @@ return array(
 		'api_enabled' => 'Izinkan <abbr>API</abbr> akses <small>(Diperlukan untuk aplikasi seluler)</small>',	// DIRTY
 		'form' => 'Web form (traditional, membutuhkan JavaScript)',
 		'http' => 'HTTP (untuk pengguna tingkat lanjut HTTPS)',
-		'none' => 'None (dangerous)',	// TODO
-		'title' => 'Authentication',	// TODO
-		'token' => 'Authentication token',	// TODO
-		'token_help' => 'Memungkinkan akses ke output RSS dari pengguna default tanpa otentikasi:',
-		'type' => 'Authentication method',	// TODO
+		'none' => 'None (berbahaya)',
+		'title' => 'Autentikasi',
+		'token' => 'Token autentikasi master',
+		'token_help' => 'Mengizinkan akses ke semua keluaran output RSS pengguna serta menyegarkan feed tanpa autentikasi:',
+		'type' => 'Metode autentikasi',
 		'unsafe_autologin' => 'Izinkan login otomatis yang tidak aman menggunakan format: ',
 	),
 	'check_install' => array(
 		'cache' => array(
 			'nok' => 'Periksa izin <em>./data/cache</em> direktori. HTTP server harus memiliki izin menulis.',
-			'ok' => 'Izin pada direktori cache bagus.',	// DIRTY
+			'ok' => 'Izin direktori cache bagus',
 		),
 		'categories' => array(
 			'nok' => 'Tabel kategori dikonfigurasi secara tidak tepat.',
@@ -49,7 +49,7 @@ return array(
 			'nok' => 'Periksa izin <em>./data</em> direktori. HTTP server harus memiliki izin tulis.',
 			'ok' => 'Izin pada direktori data bagus.',
 		),
-		'database' => 'Database installation',	// TODO
+		'database' => 'Instalasi Database',
 		'dom' => array(
 			'nok' => 'Tidak dapat menemukan library yang diperlukan untuk menelusuri DOM (php-xml package).',
 			'ok' => 'Anda memiliki library yang diperlukan untuk menelusuri DOM.',
@@ -64,16 +64,16 @@ return array(
 		),
 		'feeds' => array(
 			'nok' => 'Tabel feed dikonfigurasi secara tidak benar.',
-			'ok' => 'Feed table is okay.',	// TODO
+			'ok' => 'Table feed bagus.',
 		),
 		'fileinfo' => array(
 			'nok' => 'Tidak dapat menemukan PHP fileinfo library (fileinfo package).',
-			'ok' => 'You have the fileinfo library.',	// TODO
+			'ok' => 'Kamu memiliki library fileinfo.',
 		),
-		'files' => 'File installation',	// TODO
+		'files' => 'Instalasi File',
 		'json' => array(
 			'nok' => 'Tidak dapat menemukan JSON (php-json package).',
-			'ok' => 'You have the JSON extension.',	// TODO
+			'ok' => 'Anda memiliki ekstensi JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Tidak dapat menemukan mbstring library untuk Unicode.',
@@ -88,15 +88,15 @@ return array(
 			'ok' => 'Anda memiliki PDO dan setidaknya salah satu drivers yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
+			'_' => 'instalasi PHP.',
+			'nok' => 'Versi php anda adalah %s tapi FreshRSS membutuhkan setidaknya versi %s.',
+			'ok' => 'Versi php anda (%s) kompatibel dengan FreshRSS.',
 		),
 		'tables' => array(
 			'nok' => 'Ada satu atau lebih tabel yang hilang dalam database.',
 			'ok' => 'Tabel yang sesuai ada dalam database.',
 		),
-		'title' => 'Installation check',	// TODO
+		'title' => 'Pengecekan Instalasi.',
 		'tokens' => array(
 			'nok' => 'Periksa izin pada <em>./data/tokens</em> direktori. HTTP server harus memiliki izin menulis',
 			'ok' => 'Izin pada direktori token bagus.',
@@ -114,21 +114,21 @@ return array(
 		'author' => 'Pengarang',
 		'community' => 'Ekstensi komunitas yang tersedia',
 		'description' => 'Keterangan',
-		'disabled' => 'Disabled',	// TODO
+		'disabled' => 'Dinonaktifkan',
 		'empty_list' => 'Tidak ada ekstensi terpasang',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
-		'enabled' => 'Enabled',	// TODO
-		'latest' => 'Installed',	// TODO
-		'name' => 'Name',	// TODO
+		'enabled' => 'Diaktifkan',
+		'latest' => 'Terinstal',
+		'name' => 'Nama',
 		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',
 		'system' => array(
-			'_' => 'System extensions',	// TODO
+			'_' => 'Ekstensi sistem',
 			'no_rights' => 'System extension (Anda tidak memiliki izin yang diperlukan)',
 		),
-		'title' => 'Extensions',	// TODO
+		'title' => 'Ekstensi',
 		'update' => 'Pembaruan tersedia',
-		'user' => 'User extensions',	// TODO
-		'version' => 'Version',	// TODO
+		'user' => 'Ekstensi User',
+		'version' => 'Versi',
 	),
 	'stats' => array(
 		'_' => 'Statistik',
@@ -151,15 +151,19 @@ return array(
 		'percent_of_total' => '% dari total',
 		'repartition' => 'Mengembalikan artikel',
 		'status_favorites' => 'Favorites',
-		'status_read' => 'Read',	// TODO
+		'status_read' => 'Terbaca',
 		'status_total' => 'Total',	// TODO
-		'status_unread' => 'Unread',	// TODO
+		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh feed teratas',
 	),
 	'system' => array(
 		'_' => 'Sistem konfigurasi',
-		'auto-update-url' => 'Auto-update server URL',	// TODO
+		'auto-update-url' => 'Otomatis perbarui URL Server',
+		'base-url' => array(
+			'_' => 'Base URL',	// TODO
+			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'dalam hitungan detik',
 			'number' => 'Durasi untuk terus masuk',
@@ -179,25 +183,38 @@ return array(
 				),
 			),
 			'status' => array(
-				'disabled' => 'Form disabled',	// TODO
-				'enabled' => 'Form enabled',	// TODO
+				'disabled' => 'Form dinonaktifkan',
+				'enabled' => 'Form diaktifkan',
 			),
 			'title' => 'Formulir Pendaftaran Pengguna',
 		),
+		'sensitive-parameter' => 'Parameter sensitif. Edit manual di <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'Tidak diberikan',
+			'enabled' => '<a href="./?a=tos">diaktifkan</a>',
+			'help' => 'Cara <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">mengaktifkan Ketentuan Layanan.</a>',
+		),
+		'websub' => array(
+			'help' => 'Tentang <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
-		'_' => 'Update system',	// TODO
-		'apply' => 'Apply',	// TODO
+		'_' => 'Perbarui sistem',
+		'apply' => 'Terapkan',
+		'changelog' => 'Log Perubahan',
 		'check' => 'Periksa pembaruan baru',
-		'current_version' => 'Versi FreshRSS saat ini adalah %s.',
-		'last' => 'Verifikasi terakhir: %s',
+		'copiedFromURL' => 'update.php disalin dari %s ke ./data',
+		'current_version' => 'Versi saat ini adalah',
+		'last' => 'Verifikasi terakhir',
+		'loading' => 'Memperbarui…',
 		'none' => 'Tidak ada pembaruan untuk diterapkan',
+		'releaseChannel' => array(
+			'_' => 'Release channel',	// TODO
+			'edge' => 'Rolling release (“edge”)',	// TODO
+			'latest' => 'Stable release (“latest”)',	// TODO
+		),
 		'title' => 'Perbarui Sistem',
+		'viaGit' => 'Pembaruan via Git dan Github.com dimulai',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// TODO
@@ -206,7 +223,7 @@ return array(
 		'create' => 'Buat pengguna baru',
 		'database_size' => 'Ukuran database',
 		'email' => 'Alamat email',
-		'enabled' => 'Enabled',	// TODO
+		'enabled' => 'Diaktifkan',
 		'feed_count' => 'Feeds',	// TODO
 		'is_admin' => 'Is admin',	// TODO
 		'language' => 'Bahasa',

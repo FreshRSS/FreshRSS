@@ -29,7 +29,9 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
 		),
 		'empty' => 'Empty category',	// IGNORE
+		'expand' => 'Expand category',	// IGNORE
 		'information' => 'Information',	// IGNORE
+		'open' => 'Open category',	// IGNORE
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',	// IGNORE
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// IGNORE
-		'add' => 'Add an RSS feed',	// IGNORE
+		'add' => 'Add a feed',	// IGNORE
 		'advanced' => 'Advanced',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
 		'auth' => array(
@@ -61,19 +63,33 @@ return array(
 		'css_path' => 'Article CSS selector on original website',	// IGNORE
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',	// IGNORE
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// IGNORE
+			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',	// IGNORE
 		),
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// IGNORE
+		'export-as-opml' => array(
+			'download' => 'Download',	// IGNORE
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// IGNORE
+			'label' => 'Export as OPML',	// IGNORE
+		),
 		'filteractions' => array(
 			'_' => 'Filter actions',	// IGNORE
-			'help' => 'Write one search filter per line.',	// IGNORE
+			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
 		),
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// IGNORE
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
 		'kind' => array(
 			'_' => 'Type of feed source',	// IGNORE
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// IGNORE
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',	// IGNORE
+					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// IGNORE
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
@@ -121,6 +137,45 @@ return array(
 				'relative' => 'XPath (relative to item) for:',	// IGNORE
 				'xpath' => 'XPath for:',	// IGNORE
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',	// IGNORE
+				'feed_title' => array(
+					'_' => 'feed title',	// IGNORE
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// IGNORE
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// IGNORE
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// IGNORE
+					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',	// IGNORE
+				),
+				'item_author' => 'item author',	// IGNORE
+				'item_categories' => 'item tags',	// IGNORE
+				'item_content' => array(
+					'_' => 'item content',	// IGNORE
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// IGNORE
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',	// IGNORE
+					'help' => 'Example: <code>image</code>',	// IGNORE
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',	// IGNORE
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
+				),
+				'item_title' => 'item title',	// IGNORE
+				'item_uid' => 'item unique ID',	// IGNORE
+				'item_uri' => array(
+					'_' => 'item link (URL)',	// IGNORE
+					'help' => 'Example: <code>permalink</code>',	// IGNORE
+				),
+				'json' => 'dot notation for:',	// IGNORE
+				'relative' => 'dot notated path (relative to item) for:',	// IGNORE
+			),
+			'jsonfeed' => 'JSON Feed',	// IGNORE
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
@@ -133,18 +188,28 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// IGNORE
+		'method' => array(
+			'_' => 'HTTP Method',	// IGNORE
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// IGNORE
+		'method_postparams' => 'Payload for POST',	// IGNORE
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// IGNORE
-		'mute' => 'mute',	// IGNORE
+		'mute' => array(
+			'_' => 'mute',	// IGNORE
+			'state_is_muted' => 'This feed is muted',	// IGNORE
+		),
 		'no_selected' => 'No feed selected.',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
+		'open_feed' => 'Open feed %s',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'archived' => 'Do not show (archived)',	// IGNORE
+			'category' => 'Show in its category',	// IGNORE
+			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
-			'normal' => 'Show in its category',	// IGNORE
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// IGNORE
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// IGNORE
 			'show_rendered' => 'Show content',	// IGNORE
@@ -163,12 +228,22 @@ return array(
 		'title' => 'Title',	// IGNORE
 		'title_add' => 'Add an RSS feed',	// IGNORE
 		'ttl' => 'Do not automatically refresh more often than',	// IGNORE
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',	// IGNORE
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// IGNORE
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// IGNORE
+			'id' => 'Standard ID (default)',	// IGNORE
+			'link' => 'Link',	// IGNORE
+			'sha1:link_published' => 'Link + Date',	// IGNORE
+			'sha1:link_published_title' => 'Link + Date + Title',	// IGNORE
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// IGNORE
+		),
 		'url' => 'Feed URL',	// IGNORE
 		'useragent' => 'Set the user agent for fetching this feed',	// IGNORE
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// IGNORE
 		'validator' => 'Check the validity of the feed',	// IGNORE
 		'website' => 'Website URL',	// IGNORE
-		'websub' => 'Instant notification with WebSub',	// IGNORE
+		'websub' => 'Instant notifications with WebSub',	// IGNORE
 	),
 	'import_export' => array(
 		'export' => 'Export',	// IGNORE
@@ -195,6 +270,7 @@ return array(
 		'subscription_tools' => 'Subscription tools',	// IGNORE
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'new_name' => 'New name',	// IGNORE
 		'old_name' => 'Old name',	// IGNORE

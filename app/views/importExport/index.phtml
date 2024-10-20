@@ -1,8 +1,8 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post ">
 	<div class="link-back-wrapper">
 		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
@@ -62,7 +62,7 @@
 				<?php
 					$select_args = '';
 					if (extension_loaded('zip')) {
-						$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
+						$select_args = ' size="' . min(10, count($this->feeds)) . '" multiple="multiple"';
 					}
 				?>
 				<select name="export_feeds[]"<?= $select_args ?> size="10">

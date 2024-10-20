@@ -1,11 +1,13 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_configure');
+	}
+	$isDefault = $this->details['is_default'];
+	$isAdmin = $this->details['is_admin'];
+	$enabled = $this->details['enabled'];
 ?>
-
-<?php $isDefault = $this->details['is_default']; ?>
-<?php $isAdmin = $this->details['is_admin']; ?>
-<?php $enabled = $this->details['enabled']; ?>
-
 <div class="post">
 	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
 	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">
@@ -28,14 +30,14 @@
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.feed_count') ?></label>
 			<div class="group-controls">
-				<?= format_number($this->details['feed_count']) ?>
+				<?= format_number($this->details['feed_count'] ?: 0) ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.article_count') ?></label>
 			<div class="group-controls">
-				<?= format_number($this->details['article_count']) ?>
+				<?= format_number($this->details['article_count'] ?: 0) ?>
 			</div>
 		</div>
 

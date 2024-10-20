@@ -1,13 +1,15 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 
 	/**
 	 * Calculates the number of article per hour of the day per feed
 	 *
-	 * @param integer $feed id
+	 * @param int $feed id
 	 * @return array<int,int>
 	 */
+	#[\Override]
 	public function calculateEntryRepartitionPerFeedPerHour(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('hour', $feed);
 	}
@@ -16,6 +18,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per day of week per feed
 	 * @return array<int,int>
 	 */
+	#[\Override]
 	public function calculateEntryRepartitionPerFeedPerDayOfWeek(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('day', $feed);
 	}
@@ -24,6 +27,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * Calculates the number of article per month per feed
 	 * @return array<int,int>
 	 */
+	#[\Override]
 	public function calculateEntryRepartitionPerFeedPerMonth(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('month', $feed);
 	}
@@ -33,6 +37,7 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 	 * @param string $period format string to use for grouping
 	 * @return array<int,int>
 	 */
+	#[\Override]
 	protected function calculateEntryRepartitionPerFeedPerPeriod(string $period, ?int $feed = null): array {
 		$restrict = '';
 		if ($feed) {
@@ -47,8 +52,10 @@ GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_NAMED);
+		$res = $this->fetchAssoc($sql);
+		if ($res == null) {
+			return [];
+		}
 
 		switch ($period) {
 			case 'hour':
@@ -61,15 +68,14 @@ SQL;
 				$periodMax = 12;
 				break;
 			default:
-			$periodMax = 30;
+				$periodMax = 30;
 		}
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
-			$repartition[(int) $value['period']] = (int) $value['count'];
+			$repartition[(int)$value['period']] = (int)$value['count'];
 		}
 
 		return $repartition;
 	}
-
 }

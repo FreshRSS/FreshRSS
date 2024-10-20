@@ -19,8 +19,8 @@ return array(
 		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
-		'token' => 'Clave de identificación',
-		'token_help' => 'Permite el acceso a la salida RSS del usuario por defecto sin necesidad de identificación:',
+		'token' => 'Token de autentificación Master',
+		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de fuentes sin autenticación:',
 		'type' => 'Método de identificación',
 		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
@@ -63,8 +63,8 @@ return array(
 			'ok' => 'Los permisos en el directorio favicons son correctos.',
 		),
 		'feeds' => array(
-			'nok' => 'La tabla Feed está configurada de forma incorrecta.',
-			'ok' => 'La tabla Feed está correcta.',
+			'nok' => 'La tabla Fuentes está configurada de forma incorrecta.',
+			'ok' => 'La tabla Fuentes está correcta.',
 		),
 		'fileinfo' => array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
@@ -111,7 +111,7 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Autor/Autora',
+		'author' => 'Autor',
 		'community' => 'Extensiones de comunidad disponibles',
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
@@ -137,7 +137,7 @@ return array(
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
-		'entry_per_day_of_week' => 'Por día de la semana (mnedia: %.2f mensajes)',
+		'entry_per_day_of_week' => 'Por día de la semana (media: %.2f mensajes)',
 		'entry_per_hour' => 'Por hora (media: %.2f mensajes)',
 		'entry_per_month' => 'Por mes (media: %.2f mensajes)',
 		'entry_repartition' => 'Reparto de entradas',
@@ -149,7 +149,7 @@ return array(
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'percent_of_total' => '% del total',
-		'repartition' => 'Reprto de artículos',
+		'repartition' => 'Reparto de artículos',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
 		'status_total' => 'Total',	// IGNORE
@@ -160,6 +160,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuración del sistema',
 		'auto-update-url' => 'URL de auto-actualización',
+		'base-url' => array(
+			'_' => 'URL Base',
+			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
+		),
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
@@ -184,30 +188,43 @@ return array(
 			),
 			'title' => 'Formulario de registro del usuario',
 		),
+		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'no se proporciona',
+			'enabled' => '<a href="./?a=tos">está activado</a>',
+			'help' => 'Cómo <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">activar las Condiciones de servicio</a>',
+		),
+		'websub' => array(
+			'help' => 'Acerca de <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
+		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Buscar actualizaciones',
-		'current_version' => 'Dispones de la versión %s de FreshRSS.',
-		'last' => 'Última comprobación: %s',
+		'copiedFromURL' => 'update.php copiado desde %s a ./data',
+		'current_version' => 'Dispones de la versión',
+		'last' => 'Última comprobación',
+		'loading' => 'Actualizando…',
 		'none' => 'No hay actualizaciones disponibles',
+		'releaseChannel' => array(
+			'_' => 'Canal de publicación',
+			'edge' => 'Publicación en marcha (“edge”)',
+			'latest' => 'Publicación estable (“latest”)',
+		),
 		'title' => 'Actualizar sistema',
+		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
 	),
 	'user' => array(
-		'admin' => 'Administrador/Administradora',
+		'admin' => 'Administrador',
 		'article_count' => 'Artículos',
 		'back_to_manage' => '← Volver a la lista de usuarios',
 		'create' => 'Crear nuevo usuario',
 		'database_size' => 'Tamaño de la base de datos',
 		'email' => 'Dirección de correo electrónico',
 		'enabled' => 'Permitido',
-		'feed_count' => 'Feeds',	// IGNORE
+		'feed_count' => 'Fuentes',
 		'is_admin' => 'Es admin',
 		'language' => 'Idioma',
 		'last_user_activity' => 'Última actividad del usuario',

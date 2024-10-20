@@ -1,5 +1,10 @@
 # Gestion de la traduction
 
+Grâce à nos contributeurs, FreshRSS est traduit dans [plus de 20 langues](./users/05_Configuration.md#language).
+Cette section expliquera les bases de l’internationalisation dans FreshRSS, de la traduction de l’application dans votre propre langue à la réalisation d’un changement spécifique.
+
+## Aperçu
+
 Il est fréquent (et c’est un euphémisme) de vouloir afficher des phrases à
 l’utilisateur. Dans l’exemple précédent par exemple, nous affichions un
 feedback à l’utilisateur en fonction du résultat d’une validation de
@@ -31,9 +36,8 @@ retourner un tableau PHP contenant les traductions. Extrait du fichier
 
 ```php
 <?php
-
 return array(
-	'action' => [
+	'action' => array(
 		'actualize' => 'Actualiser',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
@@ -44,9 +48,7 @@ return array(
 		'_' => 'FreshRSS',
 		'about' => 'À propos de FreshRSS',
 	),
-];
-
-?>
+);
 ```
 
 Pour accéder à ces traductions, `Minz_Translate` va nous aider à l’aide de

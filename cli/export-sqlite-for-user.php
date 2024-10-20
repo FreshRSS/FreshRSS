@@ -1,22 +1,27 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 require(__DIR__ . '/_cli.php');
 
-performRequirementCheck(FreshRSS_Context::$system_conf->db['type']);
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-$params = [
-	'user:',
-	'filename:',
-];
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
+	public string $filename;
 
-$options = getopt('', $params);
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		$this->addRequiredOption('filename', (new CliOption('filename')));
+		parent::__construct();
+	}
+};
 
-if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename'])) {
-	fail('Usage: ' . basename(__FILE__) . ' --user username --filename /path/to/db.sqlite');
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['user']);
-$filename = $options['filename'];
+$username = cliInitUser($cliOptions->user);
+$filename = $cliOptions->filename;
 
 if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 	fail('Only *.sqlite files are supported!');

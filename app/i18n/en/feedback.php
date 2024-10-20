@@ -57,11 +57,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
+		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',
+		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',
-		'zip_error' => 'An error occurred during ZIP import.',
+		'zip_error' => 'An error occurred during ZIP processing.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
@@ -116,15 +116,17 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Label “%s” has been created.',
+		'error' => 'Label could not be updated!',
 		'name_exists' => 'Label name already exists.',
 		'renamed' => 'Label “%s” has been renamed to “%s”.',
+		'updated' => 'Label has been updated.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
+		'can_apply' => 'An update of FreshRSS is available: <strong>Version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
+		'file_is_nok' => 'An update of FreshRSS is available (<strong>Version %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission',
 		'finished' => 'Update complete!',
-		'none' => 'No update to apply',
+		'none' => 'No update available',
 		'server_not_found' => 'Update server cannot be found. [%s]',
 	),
 	'user' => array(

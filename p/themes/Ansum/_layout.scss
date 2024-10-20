@@ -107,7 +107,7 @@ main.prompt {
 }
 
 #new-article > a {
-	line-height: 3em;
+	padding: calc(0.75rem + var(--frss-padding-top-bottom)) 1rem;
 	font-weight: bold;
 	color: variables.$white;
 }
@@ -172,7 +172,8 @@ main.prompt {
 		}
 	}
 
-	.stick {
+	.stick,
+	.group {
 		.btn {
 			border-left-width: 0;
 			padding: 0.5rem 1rem;
@@ -272,12 +273,8 @@ main.prompt {
 	}
 
 	pre {
-		margin: 10px auto;
-		padding: 10px 20px;
-		overflow: auto;
 		background: variables.$main-first-darker;
 		color: variables.$white;
-		font-size: 0.9rem;
 		border-radius: 3px;
 
 		code {
@@ -288,9 +285,8 @@ main.prompt {
 	}
 
 	code {
-		padding: 2px 5px;
 		background: variables.$grey-lighter;
-		border: 1px solid variables.$grey-light;
+		border-color: variables.$grey-light;
 		border-radius: 3px;
 	}
 
@@ -371,9 +367,5 @@ main.prompt {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3em;
-	table-layout: fixed;
 	background: variables.$sid-bg;
 }
