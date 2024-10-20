@@ -124,6 +124,7 @@ return array (
 	'show_nav_buttons' => true,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
+	'retrieve_extension_list' => true,
 	# Extensions configurations
 	'extensions' => [],
 );

@@ -99,6 +99,10 @@ return array(
 			'previous' => 'Sebelumnya',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Manajemen Profil',
 		'api' => 'Manajemen API',

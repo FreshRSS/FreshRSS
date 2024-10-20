@@ -503,4 +503,20 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'system' ]);
 		}
 	}
+
+	public function privacyAction(): void {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		if (Minz_Request::isPost()) {
+			FreshRSS_Context::userConf()->retrieve_extension_list = Minz_Request::paramBoolean('retrieve_extension_list');
+			FreshRSS_Context::userConf()->save();
+			invalidateHttpCache();
+
+			Minz_Request::good(_t('feedback.conf.updated'), array('c' => 'configure', 'a' => 'privacy'));
+		}
+
+		FreshRSS_View::prependTitle(_t('conf.privacy') . ' · ');
+	}
 }

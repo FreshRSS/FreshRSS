@@ -116,6 +116,7 @@ return array(
 		'description' => 'Description',	// IGNORE
 		'disabled' => 'Disabled',	// IGNORE
 		'empty_list' => 'There are no installed extensions',	// IGNORE
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Enabled',	// IGNORE
 		'latest' => 'Installed',	// IGNORE
 		'name' => 'Name',	// IGNORE

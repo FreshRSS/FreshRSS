@@ -183,6 +183,7 @@ return array(
 		'display' => 'Visualização',
 		'extensions' => 'Extensões',
 		'logs' => 'Logs',	// IGNORE
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Queries de usuário',
 		'reading' => 'Leitura',
 		'search' => 'Procurar por palavras ou #tags',

@@ -99,6 +99,10 @@ return array(
 			'previous' => '上一頁',
 		),
 	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => '個人資料管理',
 		'api' => 'API 管理',

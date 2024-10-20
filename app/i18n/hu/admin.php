@@ -116,6 +116,7 @@ return array(
 		'description' => 'Leírás',
 		'disabled' => 'Kikapcsolva',
 		'empty_list' => 'Nincsenek telepített kiegészítők',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Bekapcsolva',
 		'latest' => 'Telepítve',
 		'name' => 'Név',
