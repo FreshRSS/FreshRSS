@@ -1967,6 +1967,13 @@ html.slider-active {
 	background-position: center;
 }
 
+#slider-content .slider_menu {
+	padding: 1rem;
+	background-color: var(--background-color-light-shadowed-transparent);
+	display: flex;
+	justify-content: space-between;
+}
+
 /*=== Configuration pages */
 .post {
 	padding: 1rem 2rem;
