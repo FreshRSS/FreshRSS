@@ -94,6 +94,7 @@ class FreshRSS_Search {
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
 		$input = self::unescape($input);
+		$input = FreshRSS_BooleanSearch::unescapeRegexParentheses($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
