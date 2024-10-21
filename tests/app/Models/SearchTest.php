@@ -455,9 +455,9 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 			[
-				'/^(ab|cd) [(] (ef|gh)/',
+				'/^(ab|cd) [(] \\) (ef|gh)/',
 				'((e.title ~ ? OR e.content ~ ?) )',
-				['^(ab|cd) [(] (ef|gh)', '^(ab|cd) [(] (ef|gh)']
+				['^(ab|cd) [(] \\) (ef|gh)', '^(ab|cd) [(] \\) (ef|gh)']
 			],
 		];
 	}
