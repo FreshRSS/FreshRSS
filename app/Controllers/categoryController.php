@@ -100,6 +100,12 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($category->name() . ' · ' . _t('sub.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
+			if (Minz_Request::paramBoolean('enable_read_when_same_title_in_category')) {
+				$category->_attribute('read_when_same_title_in_category', Minz_Request::paramInt('read_when_same_title_in_category'));
+			} else {
+				$category->_attribute('read_when_same_title_in_category', null);
+			}
+
 			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {

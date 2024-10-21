@@ -388,6 +388,20 @@ SQL;
 		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
+	/** @return array<int,string> */
+	public function listTitles(int $id, int $limit = 0): array {
+		$sql = <<<'SQL'
+			SELECT e.title FROM `_entry` e
+			INNER JOIN `_feed` f ON e.id_feed=f.id
+			WHERE f.category=:id_category
+			ORDER BY e.id DESC
+		SQL;
+		$sql .= ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+		$res = $this->fetchColumn($sql, 0, [':id_category' => $id]) ?? [];
+		/** @var array<int,string> $res */
+		return $res;
+	}
+
 	/**
 	 * @param array<array{'c_name':string,'c_id':int,'c_kind':int,'c_last_update':int,'c_error':int|bool,'c_attributes'?:string,
 	 * 	'id'?:int,'name'?:string,'url'?:string,'kind'?:int,'website'?:string,'priority'?:int,

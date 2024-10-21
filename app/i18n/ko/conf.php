@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
-			'when_same_title' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => '글 표시 방식',

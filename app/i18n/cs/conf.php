@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
-			'when_same_title' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Počet zobrazených článků',

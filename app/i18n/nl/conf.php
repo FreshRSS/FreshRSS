@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
-			'when_same_title' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',

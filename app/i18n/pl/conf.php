@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'gdy nie jest już listowana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
-			'when_same_title' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',

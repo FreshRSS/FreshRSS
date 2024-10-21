@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'wenn der Artikel nicht mehr im Feed enthalten ist',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
-			'when_same_title' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist.',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'falls der identische Titel bereit in den <i>n</i> neusten Artikel vorhanden ist. (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',

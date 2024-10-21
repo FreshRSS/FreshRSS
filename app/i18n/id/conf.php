@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'saat tidak lagi ada di feed berita atas',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai telah dibaca…',
-			'when_same_title' => 'jika judul identik sudah ada di <i>n</i> artikel terbaru',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'jika judul identik sudah ada di <i>n</i> artikel terbaru (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Artikel untuk ditampilkan',

@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
-			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',

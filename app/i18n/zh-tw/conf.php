@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => '在被原訂閱源移除後',
 			'upon_reception' => '在接收文章後',
 			'when' => '何時將文章標記為已讀',
-			'when_same_title' => '已存在 n 條相同標題文章',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => '已存在 n 條相同標題文章 (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => '文章顯示',

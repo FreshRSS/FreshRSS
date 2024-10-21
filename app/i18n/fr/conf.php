@@ -237,7 +237,8 @@ return array(
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
-			'when_same_title' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents',
+			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
+			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),
 		'show' => array(
 			'_' => 'Articles à afficher',
