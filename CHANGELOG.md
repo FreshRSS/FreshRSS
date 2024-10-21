@@ -13,6 +13,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Better HTTP compliance with support for HTTP response headers `Cache-Control: max-age` and `Expires` [#6812](https://github.com/FreshRSS/FreshRSS/pull/6812), [FreshRSS/simplepie#26](https://github.com/FreshRSS/simplepie/pull/26)
 	* Support custom HTTP request headers per feed (e.g. for `Authorization`) [#6820](https://github.com/FreshRSS/FreshRSS/pull/6820)
 	* New unicity policies and heuristic for feeds with bad article IDs [#4487](https://github.com/FreshRSS/FreshRSS/pull/4487), [#6900](https://github.com/FreshRSS/FreshRSS/pull/6900)
+	* New option to automatically mark new articles as read if an identical title already exists in the same category [#6922](https://github.com/FreshRSS/FreshRSS/pull/6922)
 	* Add ability to remove content from articles with CSS selectors, also when not using full content [#6786](https://github.com/FreshRSS/FreshRSS/pull/6786), [#6807](https://github.com/FreshRSS/FreshRSS/pull/6807)
 	* Update `phpgt/cssxpath` library with improved CSS selectors [#6618](https://github.com/FreshRSS/FreshRSS/pull/6618)
 		* Support for `:last-child`, `:first-of-type`, `:last-of-type`, `^=`, `|=`
@@ -46,6 +47,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Security
 	* Apache protect more non-public folders and files [#6881](https://github.com/FreshRSS/FreshRSS/pull/6881), [#6893](https://github.com/FreshRSS/FreshRSS/pull/6893)
 	* Fix login in unsafe mode when using a password with special XML characters [#6797](https://github.com/FreshRSS/FreshRSS/pull/6797)
+	* Add privacy settings on extension list retrieval [#4603](https://github.com/FreshRSS/FreshRSS/pull/4603)
 * UI
 	* Searchable *My Labels* field [#6753](https://github.com/FreshRSS/FreshRSS/pull/6753)
 	* Move to next unread Label on mark as read [#6886](https://github.com/FreshRSS/FreshRSS/pull/6886)
@@ -55,6 +57,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Refactor the label menu to use a `<template>` [#6864](https://github.com/FreshRSS/FreshRSS/pull/6864)
 	* Improved subscription management page [#6816](https://github.com/FreshRSS/FreshRSS/pull/6816)
 	* Restore JavaScript form validation compatibility with Web browsers using older engines (SeaMonkey) [#6777](https://github.com/FreshRSS/FreshRSS/pull/6777)
+	* Reorganise some options [#6920](https://github.com/FreshRSS/FreshRSS/pull/6920)
 * I18n
 	* Improve German [#6847](https://github.com/FreshRSS/FreshRSS/pull/6847)
 	* Improve Italian [#6872](https://github.com/FreshRSS/FreshRSS/pull/6872)
