@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Öntanımlı görünüm',
 			'global' => 'Evrensel görünüm',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Normal görünüm',
 			'reader' => 'Okuma görünümü',
 		),

@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Сохранить текущий запрос',
 		'favorites' => 'Избранное (%s)',
 		'global_view' => 'Глобальный вид',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Важные ленты',
 		'main_stream' => 'Основной поток',
 		'mark_all_read' => 'Отметить всё прочитанным',

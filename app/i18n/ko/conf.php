@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => '기본 보기 모드',
 			'global' => '전체 모드',
+			'grid' => 'Grid view',	// TODO
 			'normal' => '일반 모드',
 			'reader' => '읽기 모드',
 		),

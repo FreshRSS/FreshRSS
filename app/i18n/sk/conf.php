@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',
 			'global' => 'Prehľadné zobrazenie',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Základné zobrazenie',
 			'reader' => 'Zobrazenie na čítanie',
 		),

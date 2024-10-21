@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Important feeds',	// TODO
 		'main_stream' => ' جریان اصلی',
 		'mark_all_read' => ' همه را به عنوان خوانده شده علامت گذاری کنید',

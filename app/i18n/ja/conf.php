@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'ノーマルビュー',
 			'reader' => 'リーディングビュー',
 		),

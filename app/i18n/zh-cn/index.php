@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => '收藏当前查询',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局视图',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => '重要的订阅',
 		'main_stream' => '首页',
 		'mark_all_read' => '全部设为已读',

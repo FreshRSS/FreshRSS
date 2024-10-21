@@ -129,6 +129,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'up' => '🔼',	//△
 			'view-normal' => '📰',	//☰
 			'view-global' => '📖',	//☷
+			'view-grid' => '🧇',
 			'view-reader' => '📜',
 			'warning' => '⚠️',	//△
 		];

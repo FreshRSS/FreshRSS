@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => '現在のブックマーククエリ',
 		'favorites' => 'お気に入り (%s)',
 		'global_view' => 'グローバルビュー',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => '重要なフィード',
 		'main_stream' => 'メイン',
 		'mark_all_read' => 'すべての記事を既読にする',

@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',
 			'global' => 'Globális nézet',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Normál nézet',
 			'reader' => 'Olvasó nézet',
 		),

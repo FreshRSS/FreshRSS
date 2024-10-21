@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Default view',	// IGNORE
 			'global' => 'Global view',	// IGNORE
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Normal view',	// IGNORE
 			'reader' => 'Reading view',	// IGNORE
 		),

@@ -19,6 +19,7 @@
 				<div class="group-controls">
 					<select name="view_mode" id="view_mode" data-leave-validation="<?= FreshRSS_Context::userConf()->view_mode ?>">
 						<option value="normal"<?= FreshRSS_Context::userConf()->view_mode === 'normal' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.normal') ?></option>
+						<option value="grid"<?= FreshRSS_Context::userConf()->view_mode === 'grid' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.grid') ?></option>
 						<option value="reader"<?= FreshRSS_Context::userConf()->view_mode === 'reader' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.reader') ?></option>
 						<option value="global"<?= FreshRSS_Context::userConf()->view_mode === 'global' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.global') ?></option>
 					</select>
