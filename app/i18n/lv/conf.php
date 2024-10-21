@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
 		),
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
+		'show_title_unread' => 'Rādīt nelasīto rakstu skaitu virsrakstā',
 		'theme' => array(
 			'_' => 'Tēma',
 			'deprecated' => array(

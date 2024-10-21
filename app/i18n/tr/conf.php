@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinti düğmelerini göster',
+		'show_title_unread' => 'Başlıkta okunmamış makale sayısını göster',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
