@@ -459,6 +459,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'((e.title ~ ? OR e.content ~ ?) )',
 				['^(ab|cd) [(] \\) (ef|gh)', '^(ab|cd) [(] \\) (ef|gh)']
 			],
+			[
+				'!/^(ab|cd)/',
+				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				['^(ab|cd)', '^(ab|cd)']
+			],
+			[
+				'intitle:/^(ab|cd)/',
+				'(e.title ~ ? )',
+				['^(ab|cd)']
+			],
 		];
 	}
 
