@@ -1,0 +1,51 @@
+# Configuration for the Docker image used in the deployment
+image:
+  tag: latest
+
+# FreshRSS specific configuration
+# See https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md
+freshrss:
+  CRON_MIN: "*/15"                      # Cron timer schedule for FreshRSS. See https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md#environment-variables -> CRON_MIN
+  FRESHRSS_ENV: "production"            # Set to "development" to increase logging verbosity.
+  PORT: 80                              # Port which freshrss will listen on. This also updates the ingress.
+
+# OpenID Connect (OIDC) configuration
+# See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
+oidc:
+  enabled: false                        # Enable or disable OIDC
+  providerMetadataUrl: ""               # URL to OIDC provider metadata
+  remoteUserClaim: preferred_username   # OIDC claim for remote user
+  clientId: ""                          # OIDC client ID This comes from your SSO/OIDC Provider)
+  scopes: "openid profile"              # OIDC scopes
+  xForwardedHeaders: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto" # Headers for OIDC
+  secrets:
+    clientSecret: ""                    # OIDC Secret. (This comes from your SSO/OIDC Provider)
+    clientCryptoKey: ""                 # Random value will be automatically generated, if not provided.
+
+# Ingress configuration
+ingress:
+  enabled: true                         # Enable or disable Ingress
+  host: "freshrss.yourdomain.com"       # Host for Ingress.
+  path: "/"                             # Path for Ingress
+  annotations: {}
+
+# Persistence configuration for storage
+persistence:
+  enabled: true                         # Enable or disable persistent storage
+  existingPVCName: ""                   # Name of an existing PVC to reuse (leave empty to create a new PVC)
+  # storageClassName: "-"               # Storage class name (uncomment to specify)
+  accessMode: ReadWriteOnce             # Access mode for storage
+  size: "5Gi"                           # Size of the persistent volume
+
+# Kubernetes Service Configuration
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  ## Service annotations. Can be templated.
+  annotations: {}
+  labels: {}
+  portName: service
+
+# Extra labels which will be applied to all created resources.
+extraLabels: {}
