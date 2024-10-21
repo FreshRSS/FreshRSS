@@ -37,6 +37,7 @@ class FreshRSS_BooleanSearch {
 		if ($level === 0) {
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
+			$input = self::escapeRegexParentheses($input);
 			$input = trim($input);
 		}
 
@@ -130,6 +131,20 @@ class FreshRSS_BooleanSearch {
 			$input = str_replace($fromS, $toS, $input);
 		}
 		return $input;
+	}
+
+	/**
+	 * Temporarily escape parentheses used in regex expressions.
+	 */
+	public static function escapeRegexParentheses(string $input): string {
+		return preg_replace_callback('#(?<=[\\s(:!-]|^)(?<![\\\\])/.*?(?<!\\\\)/[im]*#',
+			fn(array $matches): string => str_replace(['(', ')'], ['\\u0028', '\\u0029'], $matches[0]),
+			$input
+		) ?? '';
+	}
+
+	public static function unescapeRegexParentheses(string $input): string {
+		return str_replace(['\\u0028', '\\u0029'], ['(', ')'], $input);
 	}
 
 	/**
@@ -356,6 +371,7 @@ class FreshRSS_BooleanSearch {
 		if ($input === '') {
 			return;
 		}
+		$input = self::unescapeRegexParentheses($input);
 		$splits = preg_split('/\b(OR)\b/i', $input, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
 		$segment = '';
 		$ns = count($splits);
