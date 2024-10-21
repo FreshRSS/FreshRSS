@@ -56,6 +56,7 @@ register_shutdown_function(static function () use ($mutexFile) {
 // </Mutex>
 
 notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
+notice('FreshRSS PHP max_execution_time: ' . ini_get('max_execution_time'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 echo 'Failed requirements!', "\n";
