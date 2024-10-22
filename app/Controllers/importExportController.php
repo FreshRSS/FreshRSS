@@ -723,7 +723,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			return;
 		}
 		$path = USERS_PATH . '/' . Minz_User::name() . '/' . $sqlite;
-		if (!file_exists($path) || @filesize($path) == false) {
+		if (!file_exists($path) || @filesize($path) == false || @filemtime($path) == false) {
 			Minz_Error::error(404);
 			return;
 		}
