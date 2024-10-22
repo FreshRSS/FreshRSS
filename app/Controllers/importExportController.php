@@ -700,7 +700,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 	private function listSqliteArchives(): void {
 		$this->view->sqliteArchives = [];
-		$files = glob(USERS_PATH . '/' . Minz_User::name() . '/*.sqlite') ?: [];
+		$files = glob(USERS_PATH . '/' . Minz_User::name() . '/*.sqlite', GLOB_NOSORT) ?: [];
 		foreach ($files as $file) {
 			$archive = [
 				'name' => basename($file),
@@ -711,6 +711,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$this->view->sqliteArchives[] = $archive;
 			}
 		}
+		// Sort by time, newest first:
+		usort($this->view->sqliteArchives, static fn(array $a, array $b): int => $b['mtime'] <=> $a['mtime']);
 	}
 
 	public function sqliteAction(): void {
