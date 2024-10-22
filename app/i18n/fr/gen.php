@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Supprimer les flux désactivés',
 		'demote' => 'Rétrograder',
 		'disable' => 'Désactiver',
+		'download' => 'Télécharger',
 		'empty' => 'Vider',
 		'enable' => 'Activer',
 		'export' => 'Exporter',

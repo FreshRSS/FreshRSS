@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => ' فیدهای خاموش را حذف کنید',
 		'demote' => ' تنزل دادن',
 		'disable' => ' غیر فعال کردن',
+		'download' => 'Download',	// TODO
 		'empty' => ' خالی',
 		'enable' => ' فعال کنید',
 		'export' => ' صادرات',

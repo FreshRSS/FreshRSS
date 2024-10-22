@@ -246,7 +246,10 @@ return array(
 		'websub' => 'WebSub ile anlık bildirim',
 	),
 	'import_export' => array(
-		'export' => 'Dışa aktar',
+		'export' => array(
+			'_' => 'Dışa aktar',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Etiketli makaleleri dışarı aktar',
 		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
 		'export_starred' => 'Favorileri dışarı aktar',

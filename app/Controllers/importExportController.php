@@ -31,6 +31,22 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	public function indexAction(): void {
 		$this->view->feeds = $this->feedDAO->listFeeds();
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
+		$this->listSqliteArchives();
+	}
+
+	private function listSqliteArchives(): void {
+		$this->view->sqliteArchives = [];
+		$files = glob(USERS_PATH . '/' . Minz_User::name() . '/*.sqlite') ?: [];
+		foreach ($files as $file) {
+			$archive = [
+				'name' => basename($file),
+				'size' => filesize($file),
+				'mtime' => filemtime($file),
+			];
+			if ($archive['name'] != '' && $archive['size'] != false && $archive['mtime'] != false) {
+				$this->view->sqliteArchives[] = $archive;
+			}
+		}
 	}
 
 	private static function megabytes(string $size_str): float|int|string {

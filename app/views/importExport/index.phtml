@@ -81,4 +81,27 @@
 		</div>
 	</form>
 	<?php } ?>
+
+	<h2><?= _t('sub.import_export.export.sqlite') ?></h2>
+	<form method="post" action="<?= _url('importExport', 'sqlite') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<div class="group-controls">
+				<select name="sqlite" size="10">
+					<?php foreach ($this->sqliteArchives ?? [] as $sqliteArchive): ?>
+					<option value="<?= htmlspecialchars($sqliteArchive['name'], ENT_COMPAT, 'UTF-8') ?>">
+						<?= htmlspecialchars($sqliteArchive['name'], ENT_NOQUOTES, 'UTF-8') ?>
+						<small>(<?= format_bytes($sqliteArchive['size']) ?> · <?= date('c', $sqliteArchive['mtime']) ?>)</small>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.download') ?></button>
+			</div>
+		</div>
+	</form>
 </main>

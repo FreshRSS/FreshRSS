@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Usuń wyciszone kanały',
 		'demote' => 'Zdegraduj',
 		'disable' => 'Wyłącz',
+		'download' => 'Download',	// TODO
 		'empty' => 'Opróżnij',
 		'enable' => 'Włącz',
 		'export' => 'Eksportuj',

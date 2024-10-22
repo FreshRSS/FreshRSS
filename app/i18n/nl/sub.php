@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Directe notificaties met WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Exporteer',
+		'export' => array(
+			'_' => 'Exporteer',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Exporteer gelabelde artikels',
 		'export_opml' => 'Exporteer lijst van feeds (OPML)',
 		'export_starred' => 'Exporteer je favorieten',

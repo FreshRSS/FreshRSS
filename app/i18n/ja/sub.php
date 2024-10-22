@@ -246,7 +246,10 @@ return array(
 		'websub' => 'WebSubとの即時通知',
 	),
 	'import_export' => array(
-		'export' => 'エクスポート',
+		'export' => array(
+			'_' => 'エクスポート',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'ラベル付けされた記事をエクスポートする',
 		'export_opml' => 'フィードリストをエクスポートする (OPML)',
 		'export_starred' => 'お気に入りをエクスポートする',

@@ -246,7 +246,10 @@ return array(
 		'websub' => ' اطلاع رسانی فوری با WebSub',
 	),
 	'import_export' => array(
-		'export' => ' صادرات',
+		'export' => array(
+			'_' => ' صادرات',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => ' مقالات برچسب دار خود را صادر کنید',
 		'export_opml' => ' لیست صادرات فیدها (OPML)',
 		'export_starred' => ' موارد دلخواه خود را صادر کنید',

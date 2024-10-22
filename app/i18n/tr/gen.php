@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Sessize alınmış akışları sil',
 		'demote' => 'Yöneticilikten al',
 		'disable' => 'Pasif',
+		'download' => 'Download',	// TODO
 		'empty' => 'Boş',
 		'enable' => 'Aktif',
 		'export' => 'Dışa Aktar',

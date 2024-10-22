@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Némított hírforrások törlése',
 		'demote' => 'Lefokoz',
 		'disable' => 'Kikapcsol',
+		'download' => 'Download',	// TODO
 		'empty' => 'Üres',
 		'enable' => 'Bekapcsol',
 		'export' => 'Export',	// IGNORE
