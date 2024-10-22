@@ -84,6 +84,7 @@ class FreshRSS_View extends Minz_View {
 	public string $type;
 	/** @var null|array<array{name:string,size:int,mtime:int}> */
 	public ?array $sqliteArchives = null;
+	public string $sqlitePath;
 
 	// Form login
 	public int $cookie_days;

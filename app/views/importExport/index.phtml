@@ -65,7 +65,7 @@
 						$select_args = ' size="' . min(10, count($this->feeds)) . '" multiple="multiple"';
 					}
 				?>
-				<select name="export_feeds[]"<?= $select_args ?> size="10">
+				<select name="export_feeds[]"<?= $select_args ?>>
 					<?= extension_loaded('zip') ? '' : '<option></option>' ?>
 					<?php foreach ($this->feeds as $feed) { ?>
 					<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
@@ -87,7 +87,7 @@
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<div class="group-controls">
-				<select name="sqlite" size="10">
+				<select name="sqlite">
 					<?php foreach ($this->sqliteArchives ?? [] as $sqliteArchive): ?>
 					<option value="<?= htmlspecialchars($sqliteArchive['name'], ENT_COMPAT, 'UTF-8') ?>">
 						<?= htmlspecialchars($sqliteArchive['name'], ENT_NOQUOTES, 'UTF-8') ?>
