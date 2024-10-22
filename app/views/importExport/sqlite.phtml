@@ -4,5 +4,5 @@ declare(strict_types=1);
 header('Content-Type: application/vnd.sqlite3');
 header('Content-Disposition: attachment; filename="' . basename($this->sqlitePath) . '"');
 header('Cache-Control: private, no-store, max-age=0');
-header('Content-Length: ' . @filesize($this->sqlitePath) ?: 0);
+header('Content-Length: ' . (@filesize($this->sqlitePath) ?: 0));
 readfile($this->sqlitePath);
