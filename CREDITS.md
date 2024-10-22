@@ -155,6 +155,7 @@ People are sorted by name so please keep this order.
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy)
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy), [Web](https://blog.mossroy.fr/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
+* [mtalexan](https://github.com/mtalexan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mtalexan)
 * [Mubarak Harran Alketbi](https://github.com/MHketbi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MHketbi)
 * [Myuki](https://github.com/Myuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Myuki)
 * [NaeiKinDus](https://github.com/NaeiKinDus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NaeiKinDus)
