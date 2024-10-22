@@ -56,7 +56,7 @@
 	?></li><?php
 	endif; ?>
 	<li class="item titleAuthorSummaryDate">
-		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><?= $this->entry->title() ?><?php
+		<a rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?><span class="author"><?php
 			$authors = $this->entry->authors();
