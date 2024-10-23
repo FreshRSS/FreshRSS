@@ -35,9 +35,9 @@ class FreshRSS_BooleanSearch {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
+			$input = self::escapeRegexParentheses($input);
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
-			$input = self::escapeRegexParentheses($input);
 			$input = trim($input);
 		}
 
