@@ -246,7 +246,10 @@ return array(
 		'websub' => 'WebSub을 사용한 즉시 알림',
 	),
 	'import_export' => array(
-		'export' => '내보내기',
+		'export' => array(
+			'_' => '내보내기',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
 		'export_starred' => '즐겨찾기 내보내기',

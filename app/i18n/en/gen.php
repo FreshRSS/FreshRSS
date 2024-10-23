@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',
 		'disable' => 'Disable',
+		'download' => 'Download',
 		'empty' => 'Empty',
 		'enable' => 'Enable',
 		'export' => 'Export',
@@ -33,9 +34,9 @@ return array(
 			'open' => 'Open menu',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Next article',
+			'prev' => 'Previous article',
+			'up' => 'Go up',
 		),
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
@@ -183,7 +184,7 @@ return array(
 		'display' => 'Display',
 		'extensions' => 'Extensions',
 		'logs' => 'Logs',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'Privacy',
 		'queries' => 'User queries',
 		'reading' => 'Reading',
 		'search' => 'Search words or #tags',

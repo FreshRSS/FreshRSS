@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Okamžité oznámení s WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Exportovat',
+		'export' => array(
+			'_' => 'Exportovat',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Exportovat články s vašimi popisky',
 		'export_opml' => 'Exportovat seznam kanálů (OPML)',
 		'export_starred' => 'Exportovat vaše oblíbené',

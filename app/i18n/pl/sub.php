@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Natychmiastowe powiadomienia protokołu WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Eksport',
+		'export' => array(
+			'_' => 'Eksport',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Eksportuj wiadomości z etykietami',
 		'export_opml' => 'Eksportuj listę kanałów (format OPML)',
 		'export_starred' => 'Eksportuj ulubione wiadomości',

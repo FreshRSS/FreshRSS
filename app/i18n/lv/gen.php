@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Izdzēst izslēgtās barotnes',
 		'demote' => 'Pazemināt amatu',
 		'disable' => 'Izslēgt',
+		'download' => 'Download',	// TODO
 		'empty' => 'Iztukšot',
 		'enable' => 'Ieslēgt',
 		'export' => 'Eksportēt',

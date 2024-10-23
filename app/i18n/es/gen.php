@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Eliminar fuentes silenciadas',
 		'demote' => 'Degradar',
 		'disable' => 'Desactivar',
+		'download' => 'Download',	// TODO
 		'empty' => 'Vaciar',
 		'enable' => 'Activar',
 		'export' => 'Exportar',

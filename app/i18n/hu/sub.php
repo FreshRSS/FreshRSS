@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Azonnali értesítés WebSub-al',
 	),
 	'import_export' => array(
-		'export' => 'Exportálás',
+		'export' => array(
+			'_' => 'Exportálás',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Címkézett cikkek exportálása',
 		'export_opml' => 'Hírforrások listájának exportálása (OPML)',
 		'export_starred' => 'Kedvencek exportálása',

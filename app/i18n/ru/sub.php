@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Моментальные оповещения посредством WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Экспорт',
+		'export' => array(
+			'_' => 'Экспорт',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Экспортировать ваши помеченные статьи',
 		'export_opml' => 'Экспортировать список лент (OPML)',
 		'export_starred' => 'Экспортировать ваше избранное',

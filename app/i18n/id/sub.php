@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Instant notifications with WebSub',	// TODO
 	),
 	'import_export' => array(
-		'export' => 'Export',	// TODO
+		'export' => array(
+			'_' => 'Export',	// TODO
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Export your labeled articles',
 		'export_opml' => 'Export list of feeds (OPML)',	// TODO
 		'export_starred' => 'Export your favorites',

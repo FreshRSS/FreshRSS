@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Instant notifications with WebSub',	// TODO
 	),
 	'import_export' => array(
-		'export' => 'ייצוא',
+		'export' => array(
+			'_' => 'ייצוא',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Export your labelled articles',	// TODO
 		'export_opml' => 'ייצוא רשימת הזנות (OPML)',
 		'export_starred' => 'ייצוא מועדפים',

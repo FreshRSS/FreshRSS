@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Odstranění ztlumených zdrojů',
 		'demote' => 'Snížit úroveň',
 		'disable' => 'Zakázat',
+		'download' => 'Download',	// TODO
 		'empty' => 'Vyprázdnit',
 		'enable' => 'Povolit',
 		'export' => 'Exportovat',

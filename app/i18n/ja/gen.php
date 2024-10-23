@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '寄付',
 		'disable' => '無効',
+		'download' => 'Download',	// TODO
 		'empty' => '空',
 		'enable' => '有効',
 		'export' => 'エクスポート',

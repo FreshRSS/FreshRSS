@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Notifica istantanea con WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Esporta',
+		'export' => array(
+			'_' => 'Esporta',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Esporta gli articoli etichettati',
 		'export_opml' => 'Esporta tutta la lista dei feed (OPML)',
 		'export_starred' => 'Esporta i tuoi preferiti',

@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => 'Delete muted feeds',	// IGNORE
 		'demote' => 'Demote',	// IGNORE
 		'disable' => 'Disable',	// IGNORE
+		'download' => 'Download',	// IGNORE
 		'empty' => 'Empty',	// IGNORE
 		'enable' => 'Enable',	// IGNORE
 		'export' => 'Export',	// IGNORE

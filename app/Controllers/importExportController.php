@@ -31,6 +31,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	public function indexAction(): void {
 		$this->view->feeds = $this->feedDAO->listFeeds();
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
+		$this->listSqliteArchives();
 	}
 
 	private static function megabytes(string $size_str): float|int|string {
@@ -693,5 +694,42 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			default:
 				return 'application/octet-stream';
 		}
+	}
+
+	private const REGEX_SQLITE_FILENAME = '/^(?![.-])[0-9a-zA-Z_.@ #&()~\-]{1,128}\.sqlite$/';
+
+	private function listSqliteArchives(): void {
+		$this->view->sqliteArchives = [];
+		$files = glob(USERS_PATH . '/' . Minz_User::name() . '/*.sqlite', GLOB_NOSORT) ?: [];
+		foreach ($files as $file) {
+			$archive = [
+				'name' => basename($file),
+				'size' => @filesize($file),
+				'mtime' => @filemtime($file),
+			];
+			if ($archive['size'] != false && $archive['mtime'] != false && preg_match(self::REGEX_SQLITE_FILENAME, $archive['name'])) {
+				$this->view->sqliteArchives[] = $archive;
+			}
+		}
+		// Sort by time, newest first:
+		usort($this->view->sqliteArchives, static fn(array $a, array $b): int => $b['mtime'] <=> $a['mtime']);
+	}
+
+	public function sqliteAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+		}
+		$sqlite = Minz_Request::paramString('sqlite');
+		if (!preg_match(self::REGEX_SQLITE_FILENAME, $sqlite)) {
+			Minz_Error::error(404);
+			return;
+		}
+		$path = USERS_PATH . '/' . Minz_User::name() . '/' . $sqlite;
+		if (!file_exists($path) || @filesize($path) == false || @filemtime($path) == false) {
+			Minz_Error::error(404);
+			return;
+		}
+		$this->view->sqlitePath = $path;
+		$this->view->_layout(null);
 	}
 }

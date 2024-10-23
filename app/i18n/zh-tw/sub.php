@@ -246,7 +246,10 @@ return array(
 		'websub' => 'WebSub 即時通知',
 	),
 	'import_export' => array(
-		'export' => '導出',
+		'export' => array(
+			'_' => '導出',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => '導出有標籤的文章',
 		'export_opml' => '導出訂閱源列表（OPML）',
 		'export_starred' => '導出你的收藏',

@@ -21,6 +21,7 @@ return array(
 		'delete_muted_feeds' => '음소거된 피드 삭제',
 		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
+		'download' => 'Download',	// TODO
 		'empty' => '비우기',
 		'enable' => '활성화',
 		'export' => '내보내기',

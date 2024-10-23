@@ -65,7 +65,7 @@
 						$select_args = ' size="' . min(10, count($this->feeds)) . '" multiple="multiple"';
 					}
 				?>
-				<select name="export_feeds[]"<?= $select_args ?> size="10">
+				<select name="export_feeds[]"<?= $select_args ?>>
 					<?= extension_loaded('zip') ? '' : '<option></option>' ?>
 					<?php foreach ($this->feeds as $feed) { ?>
 					<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
@@ -81,4 +81,33 @@
 		</div>
 	</form>
 	<?php } ?>
+
+	<h2><?= _t('sub.import_export.export.sqlite') ?></h2>
+	<?php if (count($this->sqliteArchives ?? []) === 0): ?>
+	<p class="alert alert-warn">
+		<?= _t('gen.short.not_applicable') ?>
+	</p>
+	<?php else: ?>
+	<form method="post" action="<?= _url('importExport', 'sqlite') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<div class="group-controls">
+				<select name="sqlite">
+					<?php foreach ($this->sqliteArchives ?? [] as $sqliteArchive): ?>
+					<option value="<?= htmlspecialchars($sqliteArchive['name'], ENT_COMPAT, 'UTF-8') ?>">
+						<?= htmlspecialchars($sqliteArchive['name'], ENT_NOQUOTES, 'UTF-8') ?>
+						<small>(<?= format_bytes($sqliteArchive['size']) ?> · <?= date('c', $sqliteArchive['mtime']) ?>)</small>
+					</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.download') ?></button>
+			</div>
+		</div>
+	</form>
+	<?php endif; ?>
 </main>

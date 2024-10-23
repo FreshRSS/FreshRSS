@@ -246,7 +246,10 @@ return array(
 		'websub' => 'Tūlītēji paziņojumi ar WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Eksportēt',
+		'export' => array(
+			'_' => 'Eksportēt',
+			'sqlite' => 'Download user database as SQLite',	// TODO
+		),
 		'export_labelled' => 'Eksportēt ar birku marķētus rakstus',
 		'export_opml' => 'Eksportēt barotņu sarakstu (OPML)',
 		'export_starred' => 'Eksportēt mīļākos',
