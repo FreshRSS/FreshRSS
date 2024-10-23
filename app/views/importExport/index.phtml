@@ -83,6 +83,11 @@
 	<?php } ?>
 
 	<h2><?= _t('sub.import_export.export.sqlite') ?></h2>
+	<?php if (count($this->sqliteArchives ?? []) === 0): ?>
+	<p class="alert alert-warn">
+		<?= _t('gen.short.not_applicable') ?>
+	</p>
+	<?php else: ?>
 	<form method="post" action="<?= _url('importExport', 'sqlite') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
@@ -104,4 +109,5 @@
 			</div>
 		</div>
 	</form>
+	<?php endif; ?>
 </main>
