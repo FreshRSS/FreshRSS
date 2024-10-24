@@ -8,12 +8,6 @@
 <div class="post" id="feed_update">
 	<h1><?= $this->feed->name() ?></h1>
 
-	<div>
-		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
-		<?= _t('gen.short.or') ?>
-		<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
-	</div>
-
 	<?php $nbEntries = $this->feed->nbEntries(); ?>
 
 	<?php if ($this->feed->inError()) { ?>
@@ -35,8 +29,26 @@
 		}
 	}
 	?>
+
 	<form method="post" action="<?= $url ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="slider_menu">
+			<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="btn"><?= _i('look') ?> <?= _t('gen.action.filter') ?></a>
+			<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>" class="btn"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
+			<?php
+			if ($from === '') {
+				$url = _url('feed', 'delete', 'id', $this->feed->id());
+			} else {
+				$url = _url('feed', 'delete', 'id', $this->feed->id(), 'from', $from);
+			}
+			?>
+			<button type="submit" class="btn btn-attention confirm"
+				data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
+				formaction="<?= $url ?>"
+				formmethod="post"><?= _i('trash') ?> <?= _t('gen.action.remove') ?></button>
+		</div>
+
+
 		<fieldset>
 			<legend><?= _t('sub.feed.information') ?></legend>
 			<div class="form-group">
@@ -165,17 +177,6 @@
 				<div class="group-controls">
 					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
-					<?php
-					if ($from === '') {
-						$url = _url('feed', 'delete', 'id', $this->feed->id());
-					} else {
-						$url = _url('feed', 'delete', 'id', $this->feed->id(), 'from', $from);
-					}
-					?>
-					<button type="submit" class="btn btn-attention confirm"
-						data-str-confirm="<?= _t('gen.js.confirm_action_feed_cat') ?>"
-						formaction="<?= $url ?>"
-						formmethod="post"><?= _t('gen.action.remove') ?></button>
 				</div>
 			</div>
 		</fieldset>

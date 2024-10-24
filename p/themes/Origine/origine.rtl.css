@@ -356,6 +356,10 @@ a:hover .icon {
 	color: var(--font-color-light);
 }
 
+.btn-attention .icon {
+	filter: brightness(5);
+}
+
 .btn-attention:active {
 	background-color: var(--attention-background-color-active);
 	box-shadow: none;
