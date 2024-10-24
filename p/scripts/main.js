@@ -1264,6 +1264,7 @@ function init_stream(stream) {
 
 		let el = ev.target.closest('.item a.title');
 		if (el) {
+			el.removeAttribute('target');	// Browser extension compatibility #6934
 			if (ev.which == 1) {
 				if (ev.ctrlKey) {	// Control+click
 					if (context.auto_mark_site) {
