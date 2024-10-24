@@ -61,7 +61,8 @@
         "phpstan/phpstan-phpunit": "^1.4",
         "phpstan/phpstan-strict-rules": "^1.6",
         "phpunit/phpunit": "^10",
-        "squizlabs/php_codesniffer": "^3.9"
+        "squizlabs/php_codesniffer": "^3.9",
+        "rector/rector": "^1.2"
     },
     "scripts": {
         "php-lint": "find . -type d -name 'vendor' -prune -o -name '*.php' -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null",

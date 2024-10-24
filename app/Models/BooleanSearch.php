@@ -4,20 +4,17 @@ declare(strict_types=1);
 /**
  * Contains Boolean search from the search form.
  */
-class FreshRSS_BooleanSearch {
+class FreshRSS_BooleanSearch implements \Stringable {
 
 	private string $raw_input = '';
 	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private array $searches = [];
 
-	/**
-	 * @phpstan-var 'AND'|'OR'|'AND NOT'|'OR NOT'
-	 */
-	private string $operator;
-
 	/** @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator */
-	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
-		$this->operator = $operator;
+	public function __construct(string $input, int $level = 0, /**
+  * @phpstan-var 'AND'|'OR'|'AND NOT'|'OR NOT'
+  */
+	private readonly string $operator = 'AND', bool $allowUserQueries = true) {
 		$input = trim($input);
 		if ($input === '') {
 			return;

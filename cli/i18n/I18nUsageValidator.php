@@ -5,10 +5,6 @@ require_once __DIR__ . '/I18nValidatorInterface.php';
 
 class I18nUsageValidator implements I18nValidatorInterface {
 
-	/** @var array<string> */
-	private array $code;
-	/** @var array<string,array<string,I18nValue>> */
-	private array $reference;
 	private int $totalEntries = 0;
 	private int $failedEntries = 0;
 	private string $result = '';
@@ -17,9 +13,10 @@ class I18nUsageValidator implements I18nValidatorInterface {
 	 * @param array<string,array<string,I18nValue>> $reference
 	 * @param array<string> $code
 	 */
-	public function __construct(array $reference, array $code) {
-		$this->code = $code;
-		$this->reference = $reference;
+	public function __construct(
+		private readonly array $reference,
+		private readonly array $code,
+	) {
 	}
 
 	#[\Override]

@@ -5,7 +5,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 require_once(LIB_PATH . '/lib_date.php');
 
-class SearchTest extends PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
+
+class SearchTest extends TestCase {
 
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
@@ -145,14 +147,14 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public static function provideDateSearch(): array {
-		return array(
-			array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
-			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
-			array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800),
-			array('date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-			array('date:2007-03-01/', strtotime('2007-03-01'), null),
-			array('date:/2008-05-11', null, strtotime('2008-05-12') - 1),
-		);
+		return [
+			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
+			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
+			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
+			['date:2007-03-01/', strtotime('2007-03-01'), null],
+			['date:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
 	}
 
 	#[DataProvider('providePubdateSearch')]
@@ -166,14 +168,14 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 * @return array<array<mixed>>
 	 */
 	public static function providePubdateSearch(): array {
-		return array(
-			array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
-			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
-			array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800),
-			array('pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-			array('pubdate:2007-03-01/', strtotime('2007-03-01'), null),
-			array('pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1),
-		);
+		return [
+			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
+			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
+			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
+			['pubdate:2007-03-01/', strtotime('2007-03-01'), null],
+			['pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+			];
 	}
 
 	/**
@@ -229,56 +231,51 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 
 	/** @return array<array<mixed>> */
 	public static function provideMultipleSearch(): array {
-		return array(
-			array(
-				'author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
-				array('word1'),
+		return [
+			['author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				null,
-			),
-			array(
-				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 date:2007-03-01/2008-05-11',
-				array('word1'),
-				strtotime('2007-03-01'),
-				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
-				strtotime('2007-03-01'),
-				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word6'),
-			),
-			array(
+				['word4', 'word5'], null
+			],
+				[
+					'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 date:2007-03-01/2008-05-11',
+				['word1'],
+					strtotime('2007-03-01'),
+					strtotime('2008-05-12') - 1,
+					['word2'],
+					['word3'],
+					strtotime('2007-03-01'),
+					strtotime('2008-05-12') - 1,
+					['word4', 'word5'],
+					['word6']],
+			[
 				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 word7 date:2007-03-01/2008-05-11',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word6', 'word7'),
-			),
-			array(
+				['word4', 'word5'],
+				['word6', 'word7']],
+			[
 				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'], ['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word7 word8', 'word6'),
-			),
-		);
+				['word4', 'word5'],
+				['word7 word8', 'word6']
+			]
+		];
 	}
 
 	#[DataProvider('provideAddOrParentheses')]
@@ -332,7 +329,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideParentheses')]
 	public function test__parentheses(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
+		self::assertEquals(trim($sql), trim((string)$filterSearch));
 		self::assertEquals($values, $filterValues);
 	}
 

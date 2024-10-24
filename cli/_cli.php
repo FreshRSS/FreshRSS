@@ -52,7 +52,7 @@ function accessRights(): void {
 
 function done(bool $ok = true): never {
 	if (!$ok) {
-		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename($_SERVER['argv'][0])) . ' failed!' . "\n");
+		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename((string)$_SERVER['argv'][0])) . ' failed!' . "\n");
 	}
 	exit($ok ? 0 : 1);
 }

@@ -358,7 +358,7 @@ class FreshRSS_Feed extends Minz_Model {
 			} else {
 				$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
-				if (substr($url, -11) === '#force_feed') {
+				if (str_ends_with($url, '#force_feed')) {
 					$simplePie->force_feed(true);
 					$url = substr($url, 0, -11);
 				}
@@ -1070,7 +1070,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$hubFilename = $path . '/!hub.json';
 			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
-				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
+				if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string)$hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
@@ -1124,7 +1124,7 @@ class FreshRSS_Feed extends Minz_Model {
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
-			if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
+			if (!is_array($hubJson) || empty($hubJson['key']) || !ctype_xdigit((string)$hubJson['key']) || empty($hubJson['hub'])) {
 				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}
@@ -1160,7 +1160,7 @@ class FreshRSS_Feed extends Minz_Model {
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
-			if (substr('' . $info['http_code'], 0, 1) == '2') {
+			if (str_starts_with('' . $info['http_code'], '2')) {
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon
