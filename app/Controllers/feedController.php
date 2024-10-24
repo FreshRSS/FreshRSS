@@ -341,6 +341,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
 				// We try to get more information about the feed.
+				$this->view->feed->_attributes('clear_cache', true);
 				$this->view->feed->load(true);
 				$this->view->load_ok = true;
 			} catch (Exception $e) {
