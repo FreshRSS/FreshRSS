@@ -1,0 +1,4 @@
+apiVersion: v2
+name: freshrss
+description: A Helm chart for FreshRSS
+version: 0.1.0
