@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => '預設視圖',
 			'global' => '全屏視圖',
+			'grid' => 'Grid view',	// TODO
 			'normal' => '普通視圖',
 			'reader' => '閱讀視圖',
 		),

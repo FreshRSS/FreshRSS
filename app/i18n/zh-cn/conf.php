@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => '默认视图',
 			'global' => '全屏视图',
+			'grid' => 'Grid view',	// TODO
 			'normal' => '普通视图',
 			'reader' => '阅读视图',
 		),

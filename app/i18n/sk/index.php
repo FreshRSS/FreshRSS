@@ -45,6 +45,7 @@ return array(
 		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Dôležité kanály',
 		'main_stream' => 'Všetky kanály',
 		'mark_all_read' => 'Označiť všetko ako prečítané',

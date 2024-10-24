@@ -841,41 +841,49 @@ a:hover .icon {
 	border-right: 2px solid var(--contrast-border-color-active);
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+.flux .card:hover {
 	background-color: var(--background-color-hover);
 }
 
 .flux .flux_header:not(.current):hover .flux_header,
 .flux:not(.current):hover .flux_header .title,
-.flux.current .flux_header {
+.flux.current .flux_header,
+.flux.current .card {
 	background-color: var(--background-color-hover);
 }
 
-.flux.not_read {
+.normal .flux.not_read,
+.global .flux.not_read {
 	border-right: 2px solid var(--unread-article-border-color);
 }
 
-.flux.not_read .flux_header {
+.flux.not_read .flux_header,
+.flux.not_read .card {
 	background-color: var(--unread-article-background-color);
 }
 
 .flux.not_read:not(.current):hover .flux_header .title,
 .flux.not_read:not(.current):hover .flux_header,
-.flux.not_read.current .flux_header {
+.flux.not_read.current .flux_header,
+.flux.not_read:not(.current):hover .card {
 	background-color: var(--unread-article-background-color-hover);
 }
 
-.flux.favorite {
+.normal .flux.favorite,
+.global .flux.favorite {
 	border-right: 2px solid var(--favorite-article-border-color);
 }
 
-.flux.favorite:not(.current) .flux_header {
+.flux.favorite:not(.current) .flux_header,
+.flux.favorite:not(.current) .card {
 	background-color: var(--favorite-article-background-color);
 }
 
 .flux.favorite:not(.current):hover .flux_header .title,
 .flux.favorite:not(.current):hover .flux_header,
-.flux.favorite.current .flux_header {
+.flux.favorite.current .flux_header,
+.flux.favorite:not(.current):hover .card {
 	background-color: var(--favorite-article-background-color-hover);
 }
 
@@ -1038,6 +1046,21 @@ a:hover .icon {
 	top: 5px; left: 10px;
 	font-weight: bold;
 	text-shadow: none;
+}
+
+/*=== GRID VIEW */
+/*================*/
+.grid .card {
+	border-radius: 5px;
+	box-shadow: 0 0 3px var(--box-shadow-color);
+}
+
+.grid .card:hover {
+	background-color: var(--background-color-hover);
+}
+
+.grid .card .date {
+	color: var(--font-color-grey);
 }
 
 /*=== DIVERS */

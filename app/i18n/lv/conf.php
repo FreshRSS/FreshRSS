@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Noklusējuma skats',
 			'global' => 'Globālais skats',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Parastais skats',
 			'reader' => 'Lasīšanas skats',
 		),

@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',
 			'global' => 'Vista globale per categorie',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Vista elenco',
 			'reader' => 'Modalità di lettura',
 		),

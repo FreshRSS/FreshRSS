@@ -1,0 +1,208 @@
+<?php
+declare(strict_types=1);
+/** @var FreshRSS_View $this */
+if (!Minz_Request::paramBoolean('ajax')) {
+	$this->partial('aside_feed');
+	$this->partial('nav_menu');
+}
+
+call_user_func($this->callbackBeforeEntries, $this);
+
+$display_today = true;
+$display_yesterday = true;
+$display_others = true;
+$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
+
+$today = @strtotime('today');
+?>
+
+<template id="share_article_template">
+	<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>
+
+<main id="stream" class="grid<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
+	<h1 class="title_hidden"><?= _t('conf.reading.view.grid') ?></h1>
+	<div id="new-article">
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div><?php
+	$lastEntry = null;
+	$nbEntries = 0;
+	foreach ($this->entries as $item):
+		$lastEntry = $item;
+		$nbEntries++;
+		ob_flush();
+		/** @var FreshRSS_Entry */
+		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if ($item == null) {
+			continue;
+		}
+		$this->entry = $item;
+
+		// We most likely already have the feed object in cache, otherwise make a request
+		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
+			$this->entry->feed() ?? FreshRSS_Feed::default();
+
+		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
+			?><div class="day" id="day_today"><?php
+				echo _t('gen.date.today');
+				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+			?></div><?php
+			$display_today = false;
+		}
+		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
+			?><div class="day" id="day_yesterday"><?php
+				echo _t('gen.date.yesterday');
+				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+			?></div><?php
+			$display_yesterday = false;
+		}
+		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
+			?><div class="day" id="day_before_yesterday"><?php
+				echo _t('gen.date.before_yesterday');
+				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
+			?></div><?php
+			$display_others = false;
+		}
+	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
+		?><?= $this->entry->isFavorite() ? ' favorite' : ''
+		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
+		?>" id="flux_<?= $this->entry->id()
+		?>" data-feed="<?= $this->feed->id()
+		?>" data-priority="<?= $this->feed->priority()
+		?>"><?php
+			$this->renderHelper('index/grid/card');
+			if ($this->feed === null || $this->entry === null) {
+				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+			}
+		?><article class="flux_content" dir="auto">
+			<div class="content <?= FreshRSS_Context::userConf()->content_width ?>">
+				<header>
+					<?php if (FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
+						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+							endif; ?><span><?= $this->feed->name() ?></span></a>
+						</div>
+					<?php } ?>
+					<?php if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'b') {
+						$this->renderHelper('index/tags');
+						if ($this->feed === null || $this->entry === null) {
+							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+						}
+					} ?>
+					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
+					<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
+					<div class="subtitle">
+						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
+							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+								endif; ?><span><?= $this->feed->name() ?></span></a>
+							</div>
+							<?php
+						}
+
+						$authors = $this->entry->authors();
+						if (!empty($authors) && is_array($authors)) {
+						?>
+						<div class="author">
+							<?= _t('gen.short.by_author') ?>
+							<?php
+							foreach ($authors as $author) {
+								$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+							?>
+							<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+							<?php } ?>
+						</div>
+						<?php } ?>
+						<div class="date"><?= $this->entry->date() ?></div>
+					</div>
+					<?php } ?>
+				</header>
+				<div class="text"><?=
+					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ? lazyimg($this->entry->content(true)) : $this->entry->content(true)
+				?></div>
+				<?php
+				$display_authors_date = FreshRSS_Context::userConf()->show_author_date === 'f' || FreshRSS_Context::userConf()->show_author_date === 'b';
+				$display_tags = FreshRSS_Context::userConf()->show_tags === 'f' || FreshRSS_Context::userConf()->show_tags === 'b';
+
+				if ($display_authors_date || $display_tags) {
+					?>
+					<footer>
+						<?php
+						if ($display_authors_date) { ?>
+							<div class="subtitle">
+								<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
+									<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+										<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+										endif; ?><span><?= $this->feed->name() ?></span></a>
+									</div>
+									<?php
+								}
+								$authors = $this->entry->authors();
+								if (!empty($authors) && is_array($authors)) {
+								?>
+								<div class="author">
+									<?= _t('gen.short.by_author') ?>
+									<?php
+									foreach ($authors as $author) {
+										$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+									?>
+									<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
+									<?php } ?>
+								</div>
+								<?php } ?>
+								<div class="date"><?= $this->entry->date() ?></div>
+							</div>
+						<?php
+						}
+						if ($display_tags) {
+							$this->renderHelper('index/tags');
+						}
+						?>
+					</footer>
+					<?php
+				} ?>
+			</div><footer><?php
+				$this->renderHelper('index/normal/entry_bottom');
+			?>
+		</footer></article>
+	</div><?php
+	endforeach;
+
+	if ($nbEntries > 0):
+		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);
+		$this->renderHelper('stream-footer');
+?>
+</main><?php
+	else:
+		ob_end_clean();	//Discard the articles headers, as we have no articles
+?>
+<main id="stream" class="normal">
+	<div id="new-article">
+		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div>
+	<div class="prompt alert alert-warn">
+		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+	</div>
+</main>
+<?php endif; ?>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<div id="slider-content">
+		</div>
+</aside>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>
+
+<?php
+	if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) {
+		$this->partial('nav_entries');
+	}

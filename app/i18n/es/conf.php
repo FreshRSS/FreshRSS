@@ -265,6 +265,7 @@ return array(
 		'view' => array(
 			'default' => 'Vista por defecto',
 			'global' => 'Vista Global',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Vista Normal',
 			'reader' => 'Vista de Lectura',
 		),
