@@ -1935,6 +1935,10 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
+	if (context.show_unread_favicon === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;

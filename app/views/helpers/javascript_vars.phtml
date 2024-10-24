@@ -11,6 +11,7 @@ echo htmlspecialchars(json_encode(array(
 		'hide_posts' => !(FreshRSS_Context::userConf()->display_posts || Minz_Request::actionName() === 'reader'),
 		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::userConf()->sort_order,
 		'display_categories' => FreshRSS_Context::userConf()->display_categories,
+		'show_unread_favicon' => FreshRSS_Context::userConf()->show_title_unread,
 		'auto_mark_article' => !!$mark['article'],
 		'auto_mark_site' => !!$mark['site'],
 		'auto_mark_scroll' => !!$mark['scroll'],

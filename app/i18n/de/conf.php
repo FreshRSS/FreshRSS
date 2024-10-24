@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
+		'show_title_unread' => 'Zobrazit počet nepřečtených článků v názvu',
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(

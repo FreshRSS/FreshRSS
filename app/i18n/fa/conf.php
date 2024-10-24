@@ -54,6 +54,7 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
+		'show_title_unread' => 'نمایش تعداد مقالات خوانده نشده در عنوان',
 		'theme' => array(
 			'_' => ' موضوع',
 			'deprecated' => array(
