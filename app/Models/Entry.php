@@ -1241,11 +1241,13 @@ class FreshRSS_Entry extends Minz_Model {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
 			$item['summary'] = [
-				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+			'content' => mb_strcut(
+			lazyimg_greader($this->content(true)),
+			0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
 			];
 		} else {
 			$item['content'] = [
-				'content' => $this->content(false),
+				'content' => lazyimg_greader($this->content(false)),
 			];
 		}
 		if ($mode === 'freshrss') {

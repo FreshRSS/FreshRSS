@@ -292,6 +292,22 @@ function lazyimg(string $content): string {
 	) ?? '';
 }
 
+/**
+ * Move content from data-src to src for Google reader API
+ * @param string $content is the text we want to parse
+ */
+function lazyimg_greader(string $content): string {
+	return preg_replace([
+		'/<(img[^>]+?)data-src="(https?:[^"]+)"([^>]+?)src="[^"]+"([^>]*?)>/i',
+		"/<(img[^>]+?)data-src='(https?:[^']+)'([^>]+?)src='[^']+'([^>]*?)>/i",
+	], [
+	  '<$1src="$2"$3$4>',
+	  "<$1src='$2'$3$4>",
+	],
+	$content
+	) ?? '';
+}
+
 /** @return numeric-string */
 function uTimeString(): string {
 	$t = gettimeofday();
