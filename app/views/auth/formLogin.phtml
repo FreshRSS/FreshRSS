@@ -1,10 +1,10 @@
 <?php
-    declare(strict_types=1);
-    /** @var FreshRSS_View $this */
+declare(strict_types=1);
+/** @var FreshRSS_View $this */
 ?>
 <main class="login-container">
 
-    <!-- Levý panel -->
+    <!-- Left panel with welcome text -->
     <div class="login-left">
         <div class="inufeed-welcome">
             <h1>Welcome to Inufeed</h1>
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <!-- Pravý panel s loginem -->
+    <!-- Right panel with login form -->
     <div class="login-right">
         <div class="login-box">
             <h2><?= _t('gen.auth.login') ?></h2>
@@ -26,6 +26,7 @@
                 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
                 <input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest()) ?>" />
 
+                <!-- Username input -->
                 <div class="form-group">
                     <label for="username"><?= _t('gen.auth.username') ?></label>
                     <input type="text" id="username" name="username" autocomplete="username"
@@ -33,16 +34,24 @@
                         autofocus="autofocus" autocapitalize="off" />
                 </div>
 
+                <!-- Password input with eye icon -->
                 <div class="form-group">
                     <label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
-                    <div class="stick">
+                    <div class="login-password-wrapper">
                         <input type="password" id="passwordPlain" required="required" />
-                        <button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
+                        <button type="button" class="toggle-password" data-toggle="passwordPlain">
+                            <!-- Eye icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
                     </div>
                     <input type="hidden" id="challenge" name="challenge" />
                     <noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
                 </div>
 
+                <!-- Remember me checkbox -->
                 <div class="form-group">
                     <label class="checkbox" for="keep_logged_in">
                         <input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
@@ -50,6 +59,7 @@
                     </label>
                 </div>
 
+                <!-- Login and register buttons -->
                 <div class="form-group form-group-actions button-row">
                     <button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
                         <?= _t('gen.auth.login') ?>
@@ -62,6 +72,7 @@
                 </div>
             </form>
 
+            <!-- Footer links -->
             <div class="login-footer">
                 <a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
                 <?php if (file_exists(TOS_FILENAME)) { ?>
