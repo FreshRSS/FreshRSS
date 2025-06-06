@@ -197,6 +197,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$headers = array_filter(array_map('trim', $headers));
 			if (!empty($headers)) {
 				$opts[CURLOPT_HTTPHEADER] = array_merge($headers, $opts[CURLOPT_HTTPHEADER] ?? []);
+				$opts[CURLOPT_HTTPHEADER] = array_unique($opts[CURLOPT_HTTPHEADER]);
 			}
 
 			$feed->_attribute('curl_params', empty($opts) ? null : $opts);

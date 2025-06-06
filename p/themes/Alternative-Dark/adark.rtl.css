@@ -274,6 +274,18 @@ th {
 	box-shadow: none;
 }
 
+.spinner {
+	filter: invert(1);
+}
+
+a:hover > .spinner {
+	filter: invert(1) brightness(2);
+}
+
+.flux .item.manage .read:hover .icon.spinner {
+	filter: invert(1) grayscale(0.8) brightness(1.7);
+}
+
 /*=== switches */
 .switch.active {
 	background-color: var(--contrast-background-color);

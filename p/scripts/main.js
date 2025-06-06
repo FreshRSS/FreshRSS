@@ -224,6 +224,10 @@ function send_mark_read_queue(queue, asRead, callback) {
 	req.responseType = 'json';
 	req.onerror = function (e) {
 		for (let i = queue.length - 1; i >= 0; i--) {
+			const div = document.getElementById('flux_' + queue[i]);
+			div.querySelectorAll('a.read > .icon').forEach(icon => {
+				icon.outerHTML = div.classList.contains('not_read') ? context.icons.unread : context.icons.read;
+			});
 			delete pending_entries['flux_' + queue[i]];
 		}
 		badAjax(this.status == 403);
@@ -315,6 +319,12 @@ function mark_read(div, only_not_read, asBatch) {
 	}
 	pending_entries[div.id] = true;
 
+	div.querySelectorAll('a.read > .icon').forEach(icon => {
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
+
 	const asRead = div.classList.contains('not_read');
 	const entryId = div.id.replace(/^flux_/, '');
 	if (asRead && asBatch) {
@@ -351,10 +361,26 @@ function mark_favorite(div) {
 	}
 	pending_entries[div.id] = true;
 
+	let originalIcon;
+
+	div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+		originalIcon = {
+			src: icon.getAttribute('src'),
+			alt: icon.getAttribute('alt')
+		};
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
+
 	const req = new XMLHttpRequest();
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
+		div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+			icon.src = originalIcon.src;
+			icon.alt = originalIcon.alt;
+		});
 		delete pending_entries[div.id];
 		badAjax(this.status == 403);
 	};

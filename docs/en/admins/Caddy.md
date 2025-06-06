@@ -39,13 +39,13 @@ To set up FreshRSS behind a reverse proxy with Caddy and using a subfolder, foll
 
     Restart Caddy to apply the configuration changes:
 
-    ```bash
+    ```sh
     docker compose restart caddy
     ```
 
     Restart FreshRSS to ensure that it recognizes the new base URL:
 
-    ```bash
+    ```sh
     docker compose restart freshrss
     ```
 
@@ -69,7 +69,7 @@ To set up FreshRSS behind a reverse proxy with Caddy and using a subdomain, foll
 
     Replace `example.com` with your actual domain and `subdomain` with the subfolder where you want FreshRSS to be hosted.
 
-    > **_NOTE:_** Ensure that the Docker container name for FreshRSS (freshrss in this example) matches the name used in the Caddyfile configuration.  
+    > **_NOTE:_** Ensure that the Docker container name for FreshRSS (freshrss in this example) matches the name used in the Caddyfile configuration.
     > **_NOTE:_** Make sure to set the DNS Records for your configured subdomain.
 
 2. **Update FreshRSS Configuration:**
@@ -86,13 +86,13 @@ To set up FreshRSS behind a reverse proxy with Caddy and using a subdomain, foll
 
     Restart Caddy to apply the configuration changes:
 
-    ```bash
+    ```sh
     docker compose restart caddy
     ```
 
     Restart FreshRSS to ensure that it recognizes the new base URL:
 
-    ```bash
+    ```sh
     docker compose restart freshrss
     ```
 

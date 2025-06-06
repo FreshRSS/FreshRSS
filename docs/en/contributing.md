@@ -54,7 +54,7 @@ If you want to give some help, meet us in the main repositories [docs directory]
 
 FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
 
-Basic Information for creating a new theme are written [here](./developers/04_Frontend/02_Design.md).
+Check the [basic information for creating a new theme](./developers/04_Frontend/02_Design.md).
 
 This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
 

@@ -70,7 +70,7 @@ FreshRSS comes with absolutely no warranty.
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html)
 
-The latest stable release can be found [here](https://github.com/FreshRSS/FreshRSS/releases/latest). New versions are released every two to three months.
+The latest stable release can be found [on GitHub](https://github.com/FreshRSS/FreshRSS/releases/latest). New versions are released every two to three months.
 
 If you want a rolling release with the newest features, or want to help testing or developing the next stable version, you can use [the `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge/).
 
@@ -82,6 +82,7 @@ If you want a rolling release with the newest features, or want to help testing 
 * [![PikaPods](https://www.pikapods.com/static/run-button-34.svg)](https://www.pikapods.com/pods?run=freshrss)
 * [![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/freshrss)
 * [![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/MD4TRW)
+* [![Run on ClawCloud](https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg)](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss)
 
 ## Manual install
 

@@ -78,6 +78,7 @@ echo htmlspecialchars(json_encode([
 	'icons' => [
 		'read' => rawurlencode(_i('read')),
 		'unread' => rawurlencode(_i('unread')),
+		'spinner' => '../themes/icons/spinner.svg',
 	],
 	'extensions' => $extData,
 ], JSON_UNESCAPED_UNICODE) ?: '', ENT_NOQUOTES, 'UTF-8');

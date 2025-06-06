@@ -33,7 +33,7 @@ function init_crypto_form() {
 
 	forgetOpenCategories();
 
-	const submit_button = document.getElementById('loginButton');
+	const submit_button = crypto_form.querySelector('[type="submit"]');
 	if (submit_button) {
 		submit_button.disabled = false;
 	}
@@ -45,11 +45,6 @@ function init_crypto_form() {
 			return false;
 		}
 		submit_button.disabled = true;
-
-		if (document.getElementById('challenge').value)	{
-			// Already computed
-			return true;
-		}
 
 		const req = new XMLHttpRequest();
 		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, true);
@@ -83,6 +78,7 @@ function init_crypto_form() {
 			} else {
 				req.onerror();
 			}
+			submit_button.disabled = false;
 		};
 
 		req.send();

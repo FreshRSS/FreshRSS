@@ -34,15 +34,15 @@
     "fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
   },
   "devDependencies": {
-    "eslint": "^9.25.1",
+    "eslint": "^9.28.0",
     "@eslint/js": "^9.20.0",
-    "globals": "^16.0.0",
-    "markdownlint-cli": "^0.44.0",
+    "globals": "^16.2.0",
+    "markdownlint-cli": "^0.45.0",
     "neostandard": "^0.12.1",
     "rtlcss": "^4.3.0",
-    "sass": "^1.87.0",
-    "stylelint": "^16.19.1",
-    "stylelint-config-recommended-scss": "^14.1.0",
+    "sass": "^1.89.1",
+    "stylelint": "^16.20.0",
+    "stylelint-config-recommended-scss": "^15.0.1",
     "stylelint-order": "^7.0.0",
     "@stylistic/stylelint-plugin": "^3.1.2"
   },

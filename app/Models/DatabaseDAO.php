@@ -212,6 +212,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $version;
 	}
 
+	public function pdoClientVersion(): string {
+		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		return is_string($version) ? $version : '';
+	}
+
 	final public function isMariaDB(): bool {
 		// MariaDB includes its name in version, but not MySQL
 		return str_contains($this->version(), 'MariaDB');

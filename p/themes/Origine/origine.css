@@ -1323,4 +1323,8 @@ a:hover .icon {
 	:root.darkMode_auto .btn:active .icon {
 		filter: brightness(1.4);
 	}
+
+	:root.darkMode_auto .spinner {
+		filter: invert(1) brightness(2);
+	}
 }

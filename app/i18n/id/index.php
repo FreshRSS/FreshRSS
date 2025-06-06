@@ -12,91 +12,91 @@
 
 return array(
 	'about' => array(
-		'_' => 'About',	// TODO
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO
+		'_' => 'Tentang',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Informasi sistem',
+				'browser' => 'Peladen',
+				'database' => 'Basis data',
+				'server_software' => 'Aplikasi peladen',
+				'version_curl' => 'versi cURL',
+				'version_frss' => 'versi FreshRSS',
+				'version_php' => 'versi PHP',
 			),
 		),
-		'bugs_reports' => 'Bug reports',	// TODO
-		'documentation' => 'Documentation',	// TODO
-		'freshrss_description' => 'FreshRSS is a self-hostable RSS aggregator and reader. It allows you to read and follow several news websites at a glance without the need to browse from one website to another. FreshRSS is lightweight, configurable, and easy to use.',	// TODO
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on GitHub</a>',	// TODO
-		'license' => 'License',	// TODO
-		'project_website' => 'Project website',	// TODO
-		'title' => 'About',	// TODO
-		'version' => 'Version',	// TODO
+		'bugs_reports' => 'Laporan kutu',
+		'documentation' => 'Dokumentasi',
+		'freshrss_description' => 'FreshRSS adalah pembaca dan pengumpul RSS yang bisa dihos sendiri. Ini memungkinkan Anda untuk membaca dan mengikuti beberapa situs berita dengan sekilas tanpa menjelajahi dari satu situs ke situs lainnya. FreshRSS itu ringan, gampang dikonfigurasi, dan mudah untuk digunakan.',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">di GitHub</a>',
+		'license' => 'Lisensi',
+		'project_website' => 'Situs FreshRSS',
+		'title' => 'Tentang',
+		'version' => 'Versi',
 	),
 	'feed' => array(
-		'empty' => 'There are no articles to show.',	// TODO
+		'empty' => 'Tidak ada artikel untuk diperlihatkan.',
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'before_yesterday' => 'Diterima sebelum kemarin',
+			'today' => 'Diterima hari ini',
+			'yesterday' => 'Diterima kemarin',
 		),
-		'rss_of' => 'RSS feed of %s',	// TODO
-		'title' => 'Main stream',	// TODO
-		'title_fav' => 'Favorites',
-		'title_global' => 'Global view',	// TODO
+		'rss_of' => 'Umpan RSS untuk %s',
+		'title' => 'Bagian Utama',
+		'title_fav' => 'Favorit',
+		'title_global' => 'Tampilan Global',
 	),
 	'log' => array(
-		'_' => 'Logs',	// TODO
-		'clear' => 'Clear the logs',	// TODO
-		'empty' => 'Log file is empty',	// TODO
-		'title' => 'Logs',	// TODO
+		'_' => 'Log',
+		'clear' => 'Bersihkan log',
+		'empty' => 'Berkas log kosong',
+		'title' => 'Log',
 	),
 	'menu' => array(
-		'about' => 'About FreshRSS',	// TODO
-		'before_one_day' => 'Older than one day',	// TODO
-		'before_one_week' => 'Older than one week',	// TODO
-		'bookmark_query' => 'Bookmark current query',	// TODO
-		'favorites' => 'Favorites (%s)',
-		'global_view' => 'Global view',	// TODO
-		'important' => 'Important feeds',	// TODO
-		'main_stream' => 'Main stream',	// TODO
-		'mark_all_read' => 'Mark all as read',	// TODO
-		'mark_cat_read' => 'Mark category as read',	// TODO
-		'mark_feed_read' => 'Mark feed as read',	// TODO
-		'mark_selection_unread' => 'Mark selection as unread',	// TODO
-		'mylabels' => 'My labels',	// TODO
-		'newer_first' => 'Newer first',	// TODO
-		'non-starred' => 'Show non-favorites',
-		'normal_view' => 'Normal view',	// TODO
-		'older_first' => 'Oldest first',	// TODO
-		'queries' => 'User queries',	// TODO
-		'read' => 'Show read',	// TODO
-		'reader_view' => 'Reading view',	// TODO
-		'rss_view' => 'RSS feed',	// TODO
-		'search_short' => 'Search',	// TODO
+		'about' => 'Tentang FreshRSS',
+		'before_one_day' => 'Lebih lama dari satu hari',
+		'before_one_week' => 'Lebih lama dari satu minggu',
+		'bookmark_query' => 'Markah pencarian saat ini',
+		'favorites' => 'Favorit (%s)',
+		'global_view' => 'Tampilan Global',
+		'important' => 'Umpan penting',
+		'main_stream' => 'Bagian Utama',
+		'mark_all_read' => 'Tandai semua sebagai sudah dibaca',
+		'mark_cat_read' => 'Tandai kategori sebagai sudah dibaca',
+		'mark_feed_read' => 'Tandai umpan sebagai sudah dibaca',
+		'mark_selection_unread' => 'Tandai yang dipilih sebagai belum dibaca',
+		'mylabels' => 'Label Saya',
+		'newer_first' => 'Yang terbaru dulu',
+		'non-starred' => 'Tampilkan yang tidak difavoritkan',
+		'normal_view' => 'Tampilan Normal',
+		'older_first' => 'Yang terlama dulu',
+		'queries' => 'Pencarian pengguna',
+		'read' => 'Tampilkan yang sudah dibaca',
+		'reader_view' => 'Tampilan Membaca',
+		'rss_view' => 'Umpan RSS',
+		'search_short' => 'Cari',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'_' => 'Kriteria pengurutan',
+			'date_asc' => 'Tanggal publikasi 1→9',
+			'date_desc' => 'Tanggal publikasi 9→1',
+			'id_asc' => 'Yang baru diterima terakhir',
+			'id_desc' => 'Yang baru diterima paling awal',
+			'link_asc' => 'Tautan A→Z',
+			'link_desc' => 'Tautan Z→A',
+			'rand' => 'Acak',
+			'title_asc' => 'Judul A→Z',
+			'title_desc' => 'Judul Z→A',
 		),
-		'starred' => 'Show favorites',
-		'stats' => 'Statistics',	// TODO
-		'subscription' => 'Subscription management',	// TODO
-		'unread' => 'Show unread',	// TODO
+		'starred' => 'Tampilkan yang difavoritkan',
+		'stats' => 'Statistik',
+		'subscription' => 'Pengelolaan Langganan',
+		'unread' => 'Tampilkan yang belum dibaca',
 	),
-	'share' => 'Share',	// TODO
+	'share' => 'Bagikan',
 	'tag' => array(
-		'related' => 'Article tags',	// TODO
+		'related' => 'Tagar artikel',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO
+		'title' => 'Ketentuan Layanan',
 	),
 );

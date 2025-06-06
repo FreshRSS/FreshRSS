@@ -332,7 +332,6 @@ final class GReaderAPI {
 			self::internalServerError();
 		}
 		header('Content-Type: application/json; charset=UTF-8');
-		$salt = FreshRSS_Context::systemConf()->salt;
 		$faviconsUrl = Minz_Url::display('/f.php?', '', true);
 		$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 		$subscriptions = [];
@@ -353,7 +352,7 @@ final class GReaderAPI {
 					//'firstitemmsec' => 0,
 					'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 					'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
-					'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $feed->url()),
+					'iconUrl' => $faviconsUrl . $feed->hashFavicon(),
 				];
 			}
 		}
@@ -396,11 +395,15 @@ final class GReaderAPI {
 				}
 			}
 			$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
-			$cat = $categoryDAO->searchByName($c_name);
-			$addCatId = $cat === null ? 0 : $cat->id();
-			if ($addCatId === 0) {
-				$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			if (in_array($c_name, ['', 'Uncategorized', _t('gen.short.default_category')], true)) {
+				$addCatId = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			} else {
+				$categoryDAO = FreshRSS_Factory::createCategoryDao();
+				$cat = $categoryDAO->searchByName($c_name);
+				$addCatId = $cat === null ? 0 : $cat->id();
+				if ($addCatId === 0) {
+					$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+				}
 			}
 		} elseif (str_starts_with($remove, 'user/-/label/')) {
 			$addCatId = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;

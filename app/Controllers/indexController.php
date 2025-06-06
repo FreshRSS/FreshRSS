@@ -63,7 +63,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($title . ' · ');
 
 		if (FreshRSS_Context::$id_max === '0') {
-			FreshRSS_Context::$id_max = time() . '000000';
+			FreshRSS_Context::$id_max = uTimeString();
 		}
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {

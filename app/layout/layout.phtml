@@ -8,8 +8,9 @@
 		$dir = ' dir="rtl"';
 		$class = 'rtl ';
 	}
+	$class .= 'theme_' . FreshRSS_Context::userConf()->theme;
 	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
-		$class .= 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+		$class .= ' darkMode_' . FreshRSS_Context::userConf()->darkMode;
 	}
 ?>
 <!DOCTYPE html>

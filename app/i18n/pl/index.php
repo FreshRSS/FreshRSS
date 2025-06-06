@@ -81,8 +81,8 @@ return array(
 			'date_desc' => 'Data publikacji 9→1',
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
-			'link_asc' => 'Link A→Z',	// IGNORE
-			'link_desc' => 'Link Z→A',	// IGNORE
+			'link_asc' => 'Odnośnik A→Z',
+			'link_desc' => 'Odnośnik Z→A',
 			'rand' => 'Losowa kolejność',
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',

@@ -3,15 +3,21 @@
 	/** @var FreshRSS_View $this */
 	$actual_view = Minz_Request::actionName();
 	$class = '';
-		if (FreshRSS_Context::userConf()->hide_read_feeds &&
-			(FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ)) &&
-			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			$class = ' state_unread';
-		}
+	if (FreshRSS_Context::userConf()->hide_read_feeds &&
+		(FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ)) &&
+		!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+		$class = ' state_unread';
+	}
 
-	$state_filter_manual = Minz_Request::paramString('state');
-	if ($state_filter_manual !== '') {
-		$state_filter_manual = '&state=' . $state_filter_manual;
+	$state_filter_manual = '';
+	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
+		$state_filter_manual .= '&state=' . $s;
+	}
+	if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && ctype_alpha($s)) {
+		$state_filter_manual .= '&sort=' . $s;
+	}
+	if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
+		$state_filter_manual .= '&order=' . $s;
 	}
 ?>
 <nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">

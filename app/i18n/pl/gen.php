@@ -192,7 +192,7 @@ return array(
 		'queries' => 'Zapisane zapytania',
 		'reading' => 'Czytanie',
 		'search' => 'Wyszukaj wyrazy lub #tagi',
-		'search_help' => 'Zaawansowane <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parametry wyszukiwania</a> opisane są w dokumentacji',
+		'search_help' => 'Zaawansowane parametry wyszukiwania opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
 		'sharing' => 'Udostępnianie',
 		'shortcuts' => 'Skróty klawiszowe',
 		'stats' => 'Statystyki',

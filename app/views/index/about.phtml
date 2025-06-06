@@ -38,6 +38,9 @@
 				<dd><?= htmlspecialchars(FreshRSS_Context::systemConf()->db['type'], ENT_NOQUOTES, 'UTF-8') ?></dd>
 				<?php $databaseDAO = FreshRSS_Factory::createDatabaseDAO(); ?>
 				<dd><?= htmlspecialchars($databaseDAO->version(), ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php if ($databaseDAO->pdoClientVersion() !== $databaseDAO->version()): ?>
+					<dd><?= htmlspecialchars($databaseDAO->pdoClientVersion(), ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php endif; ?>
 				<dt><?= _t('index.about.bug_reports.environment_information.server_software') ?></dt>
 				<dd>
 					<?= is_string($_SERVER['SERVER_SOFTWARE'] ?? null) ? $_SERVER['SERVER_SOFTWARE'] : '' ?><br />
