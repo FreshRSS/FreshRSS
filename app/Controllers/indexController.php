@@ -173,6 +173,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	// Load layout as usual
 	FreshRSS_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
+	FreshRSS_View::appendScript(Minz_Url::display('/scripts/sortable.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/sortable.min.js')));
 
 	try {
 		FreshRSS_Context::updateUsingRequest(true);

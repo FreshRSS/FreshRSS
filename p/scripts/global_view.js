@@ -35,14 +35,20 @@
 		const feedId = box.dataset.feedId;
 		const url = buildBoxUrl(feedId);
 
+		console.log('🔄 Fetching feed', feedId, url);
+
 		fetch(url)
 			.then(res => {
-				if (!res.ok) throw new Error('HTTP error');
+				if (!res.ok) {
+					console.error('❌ Fetch failed', res.status, res.statusText);
+					throw new Error('HTTP error');
+				}
 				return res.text();
 			})
 			.then(html => {
 				const wrapper = document.createElement('div');
 				wrapper.innerHTML = html;
+
 				const newContent = wrapper.querySelector(SELECTORS.boxContent);
 				const currentContent = box.querySelector(SELECTORS.boxContent);
 
@@ -51,10 +57,14 @@
 					newContent.style.overflow = 'visible';
 					currentContent.replaceWith(newContent);
 					initEntryClickHandlers(newContent);
+					console.log('✅ Loaded content for feed', feedId);
+				} else {
+					console.warn('⚠️ Content not found in AJAX response for feed', feedId);
 				}
 			})
-			.catch(() => {
-				const content = box.querySelector(SELECTORS.boxContent);
+			.catch(err => {
+				console.error('⚠️ Error loading box for feed', feedId, err);
+				const content = box.querySelector('.box-content');
 				if (content) {
 					content.textContent = 'Error while loading.';
 				}
@@ -72,17 +82,17 @@
 			},
 			body: '_csrf=' + encodeURIComponent(context.csrf)
 		})
-		.then(res => {
-			if (!res.ok) throw new Error('Failed to update feed');
-			return res.text();
-		})
-		.then(() => {
-			loadBoxContent(box);
-		})
-		.catch(() => {
-			const content = box.querySelector('.box-content');
-			if (content) content.textContent = 'Refresh failed.';
-		});
+			.then(res => {
+				if (!res.ok) throw new Error('Failed to update feed');
+				return res.text();
+			})
+			.then(() => {
+				loadBoxContent(box);
+			})
+			.catch(() => {
+				const content = box.querySelector('.box-content');
+				if (content) content.textContent = 'Refresh failed.';
+			});
 	}
 
 	function initRefreshButtons() {
@@ -97,7 +107,6 @@
 					const content = box.querySelector('.box-content');
 					if (content) content.textContent = 'Refreshing…';
 
-					// spin animation
 					btn.classList.add('spin');
 					setTimeout(() => btn.classList.remove('spin'), 400);
 
@@ -132,9 +141,7 @@
 		const saved = localStorage.getItem('freshrssSelectedCategory');
 		if (saved) {
 			const savedBtn = document.querySelector(`.category-btn[data-category="${saved}"]`);
-			if (savedBtn) {
-				savedBtn.click();
-			}
+			if (savedBtn) savedBtn.click();
 		}
 	}
 
@@ -244,12 +251,45 @@
 		});
 	}
 
+	function initSortable() {
+		const stream = document.getElementById('stream');
+		if (!stream) return;
+
+		const savedOrder = JSON.parse(localStorage.getItem('freshrssFeedOrder') || '[]');
+
+		if (savedOrder.length) {
+			const boxes = [...stream.querySelectorAll('.box')];
+			savedOrder.forEach(id => {
+				const box = boxes.find(b => b.dataset.feedId === id);
+				if (box) stream.appendChild(box);
+			});
+		}
+
+		if (typeof Sortable !== 'undefined') {
+			Sortable.create(stream, {
+				animation: 150,
+				handle: '.box-title',
+				draggable: '.box',
+				onEnd: () => {
+					const ids = [...stream.querySelectorAll('.box')].map(b => b.dataset.feedId);
+					localStorage.setItem('freshrssFeedOrder', JSON.stringify(ids));
+					console.log('💾 Saved order to localStorage:', ids);
+				}
+			});
+			console.log('✅ Sortable initialized');
+		} else {
+			console.warn('⚠️ Sortable.js not loaded');
+		}
+	}
+
 	function initGlobalView() {
+		console.log('🚀 initGlobalView');
 		initBoxLinks();
 		initCategoryFilter();
 		loadAllBoxContents();
 		initEntryClickHandlers();
 		initRefreshButtons();
+		initSortable();
 	}
 
 	function initAll() {
@@ -258,8 +298,10 @@
 			setTimeout(initAll, 50);
 			return;
 		}
-		initGlobalView();
-		initOverlayClose();
+		setTimeout(() => {
+			initGlobalView();
+			initOverlayClose();
+		}, 0);
 	}
 
 	if (document.readyState && document.readyState !== 'loading') {
