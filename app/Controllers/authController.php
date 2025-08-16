@@ -152,7 +152,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			);
 			if ($ok) {
 				// Set session parameter to give access to the user.
-				Minz_Session::regenerateID();
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
@@ -204,7 +204,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$ok = password_verify($password, $s);
 			unset($password);
 			if ($ok) {
-				Minz_Session::regenerateID();
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => $s,
@@ -245,7 +245,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				)) {
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 			} else {
-				Minz_Session::regenerateID();
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_param('lastReauth', time());
 				Minz_Request::forward($redirect, true);
 				return;
@@ -262,7 +262,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
-			Minz_Session::regenerateID();
+			Minz_Session::regenerateID('FreshRSS');
 			Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
 		} else {
 			Minz_Error::error(403);

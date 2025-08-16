@@ -199,7 +199,13 @@ class Minz_Session {
 	/**
 	 * Regenerate a session id.
 	 */
-	public static function regenerateID(): void {
+	public static function regenerateID(string $name): void {
+		if (self::$volatile || self::$locked) {
+			return;
+		}
+		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
+		ini_set('session.use_cookies', '0');
+		session_name($name);
 		session_start();
 		session_regenerate_id(true);
 		session_write_close();
@@ -209,7 +215,7 @@ class Minz_Session {
 			return;
 		}
 		$lifetime = session_get_cookie_params()['lifetime'];
-		setcookie('FreshRSS', $newId, $lifetime, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+		setcookie($name, $newId, $lifetime, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {

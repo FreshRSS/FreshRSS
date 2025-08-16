@@ -149,7 +149,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				Minz_Session::regenerateID();
+				Minz_Session::regenerateID('FreshRSS');
 			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
