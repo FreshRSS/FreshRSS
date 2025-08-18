@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>mindestens 7 Zeichen</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Erneute Anmeldung erforderlich',
+			'tip' => 'Sie müssen sich für <u>%d Minuten</u> nicht erneut anmelden',
+			'title' => 'Erneute Anmeldung',
 		),
 		'registration' => array(
 			'_' => 'Neuer Account',
@@ -145,7 +145,7 @@ return array(
 		'category_empty' => 'Kategorie leeren',
 		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'Möchten Sie wirklich nicht gespeicherte Einstellungen verwerfen?',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
 			'body_unread_articles' => '(Ungelesen: %%d)',
@@ -155,7 +155,7 @@ return array(
 		'labels_empty' => 'Keine Labels',
 		'new_article' => 'Es gibt neue verfügbare Artikel. Klicken Sie, um die Seite zu aktualisieren.',
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'Der verwendete CSP-Header ist unsicher und FreshRSS könnte anfällig für XSS-Angriffe sein. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Siehe Dokumentation</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
