@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Anonymes Aktualisieren der Artikel erlauben',
 		'api_enabled' => '<abbr>API</abbr>-Zugriff erlauben <small>(für mobile Apps und Benutzerabfragen benötigt)</small>',
 		'form' => 'Webformular (traditionell, benötigt JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (fortgeschritten: vom Webserver verwaltet, OIDC, SSO…)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
 		'token' => 'Master-Authentifizierungs-Token',
