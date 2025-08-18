@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Passwörter stimmen nicht überein',
 		'updated' => 'Ihr Profil ist geändert worden',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'Das hochgeladene Symbol ist zu groß. Die maximale Dateigröße beträgt <em>%s</em>.',
+				'unsupported_format' => 'Nicht unterstütztes Bilddateiformat!',
 			),
 			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>. Mit <code>#force_feed</code> am Ende der Feed-URL kann das Hinzufügen erzwungen werden.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
