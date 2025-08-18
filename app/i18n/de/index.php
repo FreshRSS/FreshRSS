@@ -89,8 +89,8 @@ return array(
 			),
 			'id_asc' => 'Zuletzt empfangen',
 			'id_desc' => 'Zuerst empfangen',
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Zufällige Reihenfolge',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
