@@ -136,7 +136,6 @@ return array(
 		'yesterday' => ' دیروز',
 	),
 	'dir' => 'rtl',
-	'flag' => '🇮🇷',
 	'freshrss' => array(
 		'_' => ' FreshRSS',
 		'about' => 'درباره FreshRSS',
@@ -215,6 +214,11 @@ return array(
 		'months' => ' ماه',
 		'weeks' => ' هفته',
 		'years' => ' سال',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',

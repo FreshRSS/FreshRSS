@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Tegnap',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇭🇺',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
@@ -215,6 +214,11 @@ return array(
 		'months' => 'hónap',
 		'weeks' => 'hét',
 		'years' => 'év',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',

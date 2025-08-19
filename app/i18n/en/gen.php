@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Yesterday',
 	),
 	'dir' => 'ltr',
-	'flag' => '🇬🇧',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => 'About FreshRSS',
@@ -215,6 +214,11 @@ return array(
 		'months' => 'months',
 		'weeks' => 'weeks',
 		'years' => 'years',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',
+		'language' => 'Language',
+		'translated' => 'Translated (%)',
 	),
 	'share' => array(
 		'Known' => 'Known based sites',

@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Eilen',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇫🇮',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
@@ -215,6 +214,11 @@ return array(
 		'months' => 'kuukautta',
 		'weeks' => 'viikkoa',
 		'years' => 'vuotta',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known-sivustot',

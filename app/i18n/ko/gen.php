@@ -136,7 +136,6 @@ return array(
 		'yesterday' => '어제',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇰🇷',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
@@ -215,6 +214,11 @@ return array(
 		'months' => '월',
 		'weeks' => '주',
 		'years' => '년',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE

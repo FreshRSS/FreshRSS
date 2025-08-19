@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Yesterday',	// IGNORE
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇺🇸',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
@@ -215,6 +214,11 @@ return array(
 		'months' => 'months',	// IGNORE
 		'weeks' => 'weeks',	// IGNORE
 		'years' => 'years',	// IGNORE
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE

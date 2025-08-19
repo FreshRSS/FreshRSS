@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Gisteren',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇳🇱',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
@@ -215,6 +214,11 @@ return array(
 		'months' => 'maanden',
 		'weeks' => 'weken',
 		'years' => 'jaren',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',

@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Gestern',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇩🇪',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
@@ -215,6 +214,11 @@ return array(
 		'months' => 'Monate',
 		'weeks' => 'Wochen',
 		'years' => 'Jahre',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Translated (%)',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
