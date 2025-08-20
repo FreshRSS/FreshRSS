@@ -20,7 +20,7 @@ return array(
 				'browser' => 'Browser',	// IGNORE
 				'database' => 'Datenbank',
 				'server_software' => 'Serversoftware',
-				'version_curl' => 'cURL version',	// TODO
+				'version_curl' => 'cURL Version',
 				'version_frss' => 'FreshRSS-Version',
 				'version_php' => 'PHP-Version',
 			),
@@ -37,9 +37,9 @@ return array(
 	'feed' => array(
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'before_yesterday' => 'Vorgestern eingangen',
+			'today' => 'Heute eingegangen',
+			'yesterday' => 'Gestern eingegangen',
 		),
 		'rss_of' => 'RSS-Feed von %s',
 		'title' => 'Haupt-Feeds',
@@ -76,24 +76,24 @@ return array(
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'_' => 'Sortierkriterien',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategorie, Feed-Titel A→Z',
+				'name_desc' => 'Kategorie, Feed-Titel Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
+			'date_asc' => 'Veröffentlichungsdatum 1→9',
+			'date_desc' => 'Veröffentlichungsdatum 9→1'.
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Feed-Titel A→Z',
+				'name_desc' => 'Feed-Titel Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'id_asc' => 'Zuletzt eingegangen',
+			'id_desc' => 'Frisch ingegangen',
+			'link_asc' => 'Link A→Z',
+			'link_desc' => 'Link Z→A',
+			'rand' => 'Zufällige Reihenfolge',
+			'title_asc' => 'Titel A→Z',
+			'title_desc' => 'Titel Z→A',
 		),
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
