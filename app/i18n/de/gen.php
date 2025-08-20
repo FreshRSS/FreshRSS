@@ -62,8 +62,8 @@ return array(
 			'format' => '<small>mindestens 7 Zeichen</small>',
 		),
 		'reauth' => array(
-			'header' => 'Erneute Anmeldung erforderlich',
-			'tip' => 'Sie müssen sich für <u>%d Minuten</u> nicht erneut anmelden',
+			'header' => 'Eine erneute Anmeldung erforderlich',
+			'tip' => 'Sie müssen sich für die nächsten <u>%d Minuten</u> nicht erneut anmelden',
 			'title' => 'Erneute Anmeldung',
 		),
 		'registration' => array(
@@ -145,7 +145,7 @@ return array(
 		'category_empty' => 'Kategorie leeren',
 		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
-		'confirm_exit_slider' => 'Möchten Sie wirklich nicht gespeicherte Einstellungen verwerfen?',
+		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
 			'body_unread_articles' => '(Ungelesen: %%d)',
