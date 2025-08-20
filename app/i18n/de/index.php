@@ -82,7 +82,7 @@ return array(
 				'name_desc' => 'Kategorie, Feed-Titel Z→A',
 			),
 			'date_asc' => 'Veröffentlichungsdatum 1→9',
-			'date_desc' => 'Veröffentlichungsdatum 9→1'.
+			'date_desc' => 'Veröffentlichungsdatum 9→1',
 			'f' => array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',
