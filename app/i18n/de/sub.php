@@ -50,7 +50,7 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Favicon anpassen',	// TODO
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'content_action' => array(
 			'_' => 'Behandlung von Feed-Inhalt beim Herunterladen von Artikelinhalt',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Artikelinhalt vor Feed-Inhalt hinzufügen',
 			'replace' => 'Artikelinhalt ersetzt Feed-Inhalt (Standard)',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Inhalt abrufen',	// TODO
 		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
 		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
@@ -75,7 +75,7 @@ return array(
 			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
 			'label' => 'Export als OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
+		'ext_favicon' => 'Automatisch setzen',	// TODO
 		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
@@ -83,7 +83,7 @@ return array(
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Icon',	// IGNORE
 		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
@@ -206,7 +206,7 @@ return array(
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
 		'open_feed' => 'Feed %s öffnen',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => 'Bedingungen für den Abruf von Inhalten',	// TODO
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
 			'archived' => 'Nicht anzeigen (archiviert)',
@@ -216,7 +216,7 @@ return array(
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
 		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Favicon zurücksetzen',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Quellcode anzeigen',
 			'show_rendered' => 'Inhalt anzeigen',
