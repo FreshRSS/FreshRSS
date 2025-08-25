@@ -29,7 +29,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => '* data: blob:',
 		]);
 

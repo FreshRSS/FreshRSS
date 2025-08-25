@@ -178,12 +178,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
 } elseif (in_array($format, ['greader', 'json'], true)) {
 	header('Content-Type: application/json; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->type = 'query/' . $token;
 	$view->list_title = $query->getName();
@@ -195,11 +197,13 @@ if (in_array($format, ['rss', 'atom'], true)) {
 		die();
 	}
 	header('Content-Type: application/xml; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/opml.phtml');
 } else {
-	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; frame-ancestors 'none'; media-src *");
+	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout('layout');
 	$view->_path('index/html.phtml');
 }

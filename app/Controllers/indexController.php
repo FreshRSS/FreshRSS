@@ -58,7 +58,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'default-src' => "'self'",
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 
@@ -147,7 +147,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'default-src' => "'self'",
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 	}
