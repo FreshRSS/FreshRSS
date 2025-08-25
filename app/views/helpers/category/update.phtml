@@ -51,7 +51,7 @@
 					<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
 					<div class="group-controls">
 						<div class="stick">
-							<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributeString('opml_url') ?>" />
+							<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= htmlspecialchars($this->category->attributeString('opml_url') ?? '', ENT_COMPAT, 'UTF-8') ?>" />
 							<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
 								<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
 							</button>
