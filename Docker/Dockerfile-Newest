@@ -62,6 +62,6 @@ ENV TRUSTED_PROXY=''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
+
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')
+CMD sh -c '[ -z "$CRON_MIN" ] || crond -d 6; if [ "${OIDC_ENABLED:-0}" -ne 0 ]; then exec httpd -D FOREGROUND -D OIDC_ENABLED; else exec httpd -D FOREGROUND; fi'

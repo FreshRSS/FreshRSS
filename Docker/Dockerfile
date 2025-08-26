@@ -63,7 +63,6 @@ ENV TRUSTED_PROXY=''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
+
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || cron) && \
-	. /etc/apache2/envvars && \
-	exec apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')
+CMD sh -c '[ -z "$CRON_MIN" ] || cron; . /etc/apache2/envvars; if [ "${OIDC_ENABLED:-0}" -ne 0 ]; then exec apache2 -D FOREGROUND -D OIDC_ENABLED; else exec apache2 -D FOREGROUND; fi'
