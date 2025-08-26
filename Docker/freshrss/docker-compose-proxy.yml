@@ -33,7 +33,7 @@ services:
       - --certificatesResolvers.letsEncrypt.acme.storage=/etc/traefik/acme/acme.json
       - --certificatesResolvers.letsEncrypt.acme.email=${ADMIN_EMAIL}
       - --certificatesResolvers.letsEncrypt.acme.tlsChallenge=true
-      - --providers.file.filename=/etc/traefik/tls.yaml
+      - --providers.file.filename=/etc/traefik/tls.yml
     labels:
       - traefik.enable=false
 
