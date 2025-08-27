@@ -61,5 +61,5 @@ ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
-CMD [ -z "$CRON_MIN" ] || crond -d 6 && \
+CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND $([ "${OIDC_ENABLED:-0}" -ne 0 ] && echo "-D OIDC_ENABLED")
