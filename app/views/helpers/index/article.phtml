@@ -99,7 +99,9 @@
 		</header>
 
 		<div class="text">
-			<?= $entry->content(true) ?>
+			<?= FreshRSS_Context::userConf()->lazyload || Minz_Request::controllerName() === ''
+				? lazyimg($entry->content(true))
+				: $entry->content(true) ?>
 		</div>
 		<?php
 		$display_authors_date = in_array(FreshRSS_Context::userConf()->show_author_date, ['b', 'f'], true);

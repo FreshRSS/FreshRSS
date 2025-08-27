@@ -463,7 +463,8 @@ button.as-link[disabled] {
 	border-top: none;
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+:not(.hide_posts) > .flux .flux_header {
 	background-color: var(--background-color-flux-hover);
 }
 

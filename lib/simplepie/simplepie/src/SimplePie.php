@@ -650,11 +650,25 @@ class SimplePie
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
 
     /**
+     * @var array<string, array<string, string>> Similar to add_attributes but doesn't overwrite attributes
+     * @see SimplePie::default_attributes()
+     * @access private
+     */
+    public $default_attributes = [];
+
+    /**
      * @var array<string> Stores the default tags to be stripped by strip_htmltags().
      * @see SimplePie::strip_htmltags()
      * @access private
      */
     public $strip_htmltags = ['base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'];
+
+    /**
+     * @var array<tag:string,limit:int> Stores limit of tags
+     * @see SimplePie::limit_tags()
+     * @access private
+     */
+    public $limit_tags = [];
 
     /**
      * @var string[]|string Stores the default attributes to be renamed by rename_attributes().
@@ -1525,6 +1539,15 @@ class SimplePie
     }
 
     /**
+     * @param array<tag:string,limit:int> $limits Set limits for amount of tags
+     * @return void
+     */
+    public function limit_tags(array $limits = []) {
+        $this->limit_tags = $limits;
+        $this->sanitize->limit_tags($limits);
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $enable = true)
@@ -1566,6 +1589,18 @@ class SimplePie
             $attribs = $this->add_attributes;
         }
         $this->sanitize->add_attributes($attribs);
+    }
+
+    /**
+     * @param array<string, array<string, string>>|'' $attribs
+     * @return void
+     */
+    public function default_attributes($attribs = '')
+    {
+        if ($attribs === '') {
+            $attribs = $this->default_attributes;
+        }
+        $this->sanitize->default_attributes($attribs);
     }
 
     /**

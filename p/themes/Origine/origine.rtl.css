@@ -849,7 +849,8 @@ a:hover .icon {
 	border-right: 2px solid var(--contrast-border-color-active);
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+:not(.hide_posts) > .flux .flux_header {
 	background-color: var(--background-color-hover);
 }
 

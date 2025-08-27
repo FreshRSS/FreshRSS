@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, init_load_more, init_posts, init_stream */
+/* globals context, init_load_more, init_posts, init_stream, intersectionObserver, init_intersection_observer */
 
 let panel_loading = false;
 
@@ -30,6 +30,13 @@ function load_panel(link) {
 
 		init_load_more(panel);
 		init_posts();
+		if (!context.hide_posts && context.does_lazyload) {
+			if (intersectionObserver) {
+				intersectionObserver.disconnect();
+			}
+			// eslint-disable-next-line no-global-assign
+			intersectionObserver = init_intersection_observer(panel);
+		}
 
 		document.getElementById('overlay').classList.add('visible');
 		panel.classList.add('visible');
