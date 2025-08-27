@@ -937,49 +937,57 @@ SQL;
 			}
 
 			if ($filter->getLabelIds() !== null) {
-				if ($filter->getLabelIds() === '*') {
-					$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 			if ($filter->getNotLabelIds() !== null) {
-				if ($filter->getNotLabelIds() === '*') {
-					$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getNotLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getNotLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 
 			if ($filter->getLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 			if ($filter->getNotLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getNotLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getNotLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 
 			if ($filter->getAuthor() !== null) {

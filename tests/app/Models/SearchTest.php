@@ -505,6 +505,17 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.content ~ ? )',
 				['^(ab|cd)']
 			],
+			[
+				'L:1 L:2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )',
+				[1, 2]
+			],
+			[
+				'L:1,2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)) )',
+				[1, 2]
+			],
 		];
 	}
 
