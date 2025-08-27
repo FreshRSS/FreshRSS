@@ -65,4 +65,4 @@ ENTRYPOINT ["./Docker/entrypoint.sh"]
 EXPOSE 80
 
 # hadolint ignore=DL3025
-CMD sh -c '[ -z "$CRON_MIN" ] || cron; . /etc/apache2/envvars; if [ "${OIDC_ENABLED:-0}" -ne 0 ]; then exec apache2 -D FOREGROUND -D OIDC_ENABLED; else exec apache2 -D FOREGROUND; fi'
+CMD sh -c '([ -z "$CRON_MIN" ] || cron) && . /etc/apache2/envvars && if [ "${OIDC_ENABLED:-0}" -ne 0 ]; then exec apache2 -D FOREGROUND -D OIDC_ENABLED; else exec apache2 -D FOREGROUND; fi'
