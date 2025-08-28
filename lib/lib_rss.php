@@ -642,10 +642,11 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
+	$c_errno = curl_errno($ch);
 
 	$body = false;
 	$headers = [];
-	if ($c_error == '') {
+	if ($response !== false && $c_errno === 0) {
 		assert($c_redirect_count >= 0);
 		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
 		$parser = new \SimplePie\HTTP\Parser($response);
