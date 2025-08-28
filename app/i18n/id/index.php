@@ -78,8 +78,16 @@ return array(
 		'search_short' => 'Cari',
 		'sort' => array(
 			'_' => 'Kriteria pengurutan',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Tanggal publikasi 1→9',
 			'date_desc' => 'Tanggal publikasi 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Yang baru diterima terakhir',
 			'id_desc' => 'Yang baru diterima paling awal',
 			'link_asc' => 'Tautan A→Z',

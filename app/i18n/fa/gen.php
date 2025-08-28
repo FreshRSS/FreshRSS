@@ -16,14 +16,14 @@ return array(
 		'add' => ' اضافه کنید',
 		'back_to_rss_feeds' => '← به فیدهای RSS خود برگردید',
 		'cancel' => ' لغو',
-		'close' => 'Close',	// TODO
+		'close' => 'بستن',
 		'create' => ' ایجاد کنید',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => 'حذف تمام فیدها',
+		'delete_errored_feeds' => 'فیدهای دارای خطا را حذف کن',
 		'delete_muted_feeds' => ' فیدهای خاموش را حذف کنید',
 		'demote' => ' تنزل دادن',
 		'disable' => ' غیر فعال کردن',
-		'download' => 'Download',	// TODO
+		'download' => 'دانلود',
 		'empty' => ' خالی',
 		'enable' => ' فعال کنید',
 		'export' => ' صادرات',
@@ -33,12 +33,12 @@ return array(
 		'manage' => ' مدیریت',
 		'mark_read' => ' علامت گذاری به عنوان خوانده شده',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'باز کردن منو',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'مقاله بعدی',
+			'prev' => 'مقاله قبلی',
+			'up' => 'برو بالا',
 		),
 		'open_url' => ' URL را باز کنید',
 		'promote' => ' ترویج',
@@ -61,6 +61,11 @@ return array(
 			'_' => ' رمز عبور',
 			'format' => '<small>حداقل 7 نویسه</small>',
 		),
+		'reauth' => array(
+			'header' => 'احراز هویت مجدد لازم است',
+			'tip' => 'دیگر از شما خواسته نمی‌شود که دوباره وارد شوید <u>%d دقیقه</u>',
+			'title' => 'ورود مجدد',
+		),
 		'registration' => array(
 			'_' => ' حساب جدید',
 			'ask' => ' یک حساب کاربری ایجاد کنید؟',
@@ -72,18 +77,18 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
-		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO
-		'Jul' => '\\J\\u\\l\\y',	// TODO
-		'Jun' => '\\J\\u\\n\\e',	// TODO
-		'Mar' => '\\M\\a\\r\\c\\h',	// TODO
-		'May' => '\\M\\a\\y',	// TODO
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO
+		'Apr' => 'آ/و/ر/ی/ل//',
+		'Aug' => 'آ/گ/و/س/ت//',
+		'Dec' => 'د/س/ا/م/ب/ر//',
+		'Feb' => 'ف/و/ر/ی/ه//',
+		'Jan' => 'ژ/ا/ن/و/ی/ه//',
+		'Jul' => 'ژ/و/ئ/ی/ه//',
+		'Jun' => 'ژ/و/ئ/ن//',
+		'Mar' => 'م/ا/ر/س//',
+		'May' => 'م/ی//',
+		'Nov' => 'ن/و/ا/م/ب/ر//',
+		'Oct' => 'ا/ک/ت/ب/ر//',
+		'Sep' => 'س/پ/ت/ا/م/ب/ر//',
 		'apr' => ' آوریل',
 		'april' => ' آوریل',
 		'aug' => ' آگوست',
@@ -93,8 +98,8 @@ return array(
 		'december' => ' دسامبر',
 		'feb' => ' فوریه',
 		'february' => ' فوریه',
-		'format_date' => 'j %s Y',	// TODO
-		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// TODO
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// IGNORE
 		'fri' => ' جمعه',
 		'jan' => ' ژانویه',
 		'january' => ' ژانویه',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => ' دیروز',
 	),
 	'dir' => 'rtl',
+	'flag' => '🇮🇷',
 	'freshrss' => array(
 		'_' => ' FreshRSS',
 		'about' => 'درباره FreshRSS',
@@ -139,15 +145,17 @@ return array(
 		'category_empty' => ' دسته خالی',
 		'confirm_action' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ نمی توان آن را لغو کرد!',
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
 			'body_unread_articles' => ' (خوانده نشده: %%d)',
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'بدون برچسب',
 		'new_article' => 'مقالات جدیدی موجود است',
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -188,7 +196,7 @@ return array(
 		'display' => 'نمایش',
 		'extensions' => ' برنامه های افزودنی',
 		'logs' => ' سیاهههای مربوط',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'حریم خصوصی',
 		'queries' => ' پرس و جوهای کاربر',
 		'reading' => ' خواندن',
 		'search' => ' کلمات یا #برچسب ها را جستجو کنید',
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => ' بافر',
 		'clipboard' => ' کلیپ بورد',
 		'diaspora' => ' دیاسپورا*',

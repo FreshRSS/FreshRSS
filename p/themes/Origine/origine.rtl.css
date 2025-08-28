@@ -929,6 +929,12 @@ a:hover .icon {
 	border-radius: 3px;
 }
 
+.content pre code {
+	background: transparent;
+	color: var(--font-color);
+	border: none;
+}
+
 .content code {
 	background-color: var(--background-color-light-shadowed);
 	color: var(--error-feed-color);

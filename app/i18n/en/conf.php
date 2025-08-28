@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',
 		),
+		'change_password' => 'Change password',
+		'confirm_new_password' => 'Confirm new password',
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',
 		'delete' => array(
 			'_' => 'Account deletion',
 			'warn' => 'Your account and all related data will be deleted.',
 		),
 		'email' => 'Email address',
+		'new_password' => 'New password',
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Profile',
 	),
@@ -146,8 +149,8 @@ return array(
 			'tags' => 'Display by label',
 			'type' => 'Type',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Show all feeds, also those shown in their category',
+		'get_Z' => 'Show all feeds, also archived ones',
 		'get_all' => 'Display all articles',
 		'get_all_labels' => 'Display articles with any label',
 		'get_category' => 'Display “%s” category',

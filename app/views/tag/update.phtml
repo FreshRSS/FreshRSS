@@ -18,7 +18,7 @@
 		<a href="<?= _url('index', 'index', 'get', 't_' . $this->tag->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('tag', 'update', 'id', $this->tag->id(), '#', 'slider') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('tag', 'update', 'id', $this->tag->id(), '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<fieldset>

@@ -299,7 +299,7 @@ input.long {
 
 input, select, textarea {
 	display: inline-block;
-	max-width: 100%;
+	max-width: 85vw;
 	font-size: 0.8rem;
 	box-sizing: border-box;
 }
@@ -2559,6 +2559,23 @@ html.slider-active {
 		text-align: center;
 	}
 
+	.aside:not(.aside_feed) {
+		overflow-y: scroll;
+	}
+
+	nav.configure > .dropdown li.item.dropdown-section:last-child,
+	nav#aside_feed > ul li.item.nav-section:last-child {
+		margin-bottom: 6rem;
+	}
+
+	#dropdown-search-wrapper .dropdown-menu span {
+		text-wrap: wrap;
+	}
+
+	.form-advanced-title {
+		text-align: left;
+	}
+
 	.aside .feed .item-title {
 		padding-left: 0.75rem;
 		padding-right: 4rem;
@@ -2825,13 +2842,30 @@ html.slider-active {
 /*============*/
 
 @media print {
+	/* This hides the headers and footers in the printed document on Chrome */
+	/* Supported since Chrome 131: https://developer.chrome.com/release-notes/131#page_margin_boxes */
+
+	@page {
+		/* Firefox and Safari do not support those yet */
+		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+
+		@top-left { content: ''; }
+
+		@top-right { content: ''; }
+
+		@bottom-left { content: ''; }
+
+		@bottom-right { content: ''; }
+	}
+
 	.header, .aside,
 	.nav_menu, .day,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
 	#stream-footer,
-	#nav_entries {
+	#nav_entries,
+	.dropdown-toggle {
 		display: none;
 	}
 

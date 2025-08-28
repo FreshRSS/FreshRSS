@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Váš profil byl změněn',
 	),
 	'sub' => array(

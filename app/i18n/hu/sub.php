@@ -240,10 +240,16 @@ return array(
 			'forced' => '<span title="Blokkolja az egységességi feltételeket, még akkor is, ha a hírcsatorna ismétlődő cikkeket tartalmaz">kényszerít</span>',
 			'help' => 'Érvénytelen hírforrásokra vonatkozik.<br />⚠️ A házirend módosítása duplikációkat fog létrehozni.',
 			'id' => 'Standard ID (alapértelmezés)',
-			'link' => 'Link',	// TODO
+			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Tartalom',
+			'sha1:content_published' => 'Tartalom + Dátum',
 			'sha1:link_published' => 'Link + Dátum',
 			'sha1:link_published_title' => 'Link + Dátum + Cím',
 			'sha1:link_published_title_content' => 'Link + Dátum + Cím + Tartalom',
+			'sha1:published' => 'Dátum',
+			'sha1:title' => 'Cím',
+			'sha1:title_published' => 'Cím + Dátum',
+			'sha1:title_published_content' => 'Cím + Dátum + Tartalom',
 		),
 		'url' => 'Hírforrás URL',
 		'useragent' => 'Állíts be egy user agent-et ehhez a hírforráshoz',

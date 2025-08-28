@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Jūsu profilu nevar mainīt',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Jūsu profils tika mainīts',
 	),
 	'sub' => array(

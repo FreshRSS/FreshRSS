@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Profiilia ei voi muokata',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Profiilia on muokattu',
 	),
 	'sub' => array(

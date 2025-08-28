@@ -52,7 +52,7 @@ declare(strict_types=1);
  * @property bool $show_nav_buttons
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
- * @property 'id'|'date'|'link'|'title'|'rand' $sort
+ * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
  * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
@@ -104,40 +104,5 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 			$default_user_conf = FreshRSS_UserConfiguration::get($namespace);
 		}
 		return $default_user_conf;
-	}
-
-	/**
-	 * @param non-empty-string $key
-	 * @return array<int|string,mixed>|null
-	 */
-	public function attributeArray(string $key): ?array {
-		$a = parent::param($key, null);
-		return is_array($a) ? $a : null;
-	}
-
-	/** @param non-empty-string $key */
-	public function attributeBool(string $key): ?bool {
-		$a = parent::param($key, null);
-		return is_bool($a) ? $a : null;
-	}
-
-	/** @param non-empty-string $key */
-	public function attributeInt(string $key): ?int {
-		$a = parent::param($key, null);
-		return is_numeric($a) ? (int)$a : null;
-	}
-
-	/** @param non-empty-string $key */
-	public function attributeString(string $key): ?string {
-		$a = parent::param($key, null);
-		return is_string($a) ? $a : null;
-	}
-
-	/**
-	 * @param non-empty-string $key
-	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
-	 */
-	public function _attribute(string $key, $value = null): void {
-		parent::_param($key, $value);
 	}
 }

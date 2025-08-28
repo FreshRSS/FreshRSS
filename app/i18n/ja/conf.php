@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'アカウント消去',
 			'warn' => 'あなたのアカウントとそれに関連したデータが消去されます。',
 		),
 		'email' => 'Eメールアドレス',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'APIのパスワード<br /><small>(モバイルアプリなど)</small>',
-		'password_form' => 'パスワード<br /><small>(Web-formのログイン時に使われます)</small>',
 		'password_format' => '最低7文字必要です',
 		'title' => 'プロフィール',
 	),

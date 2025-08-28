@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
 			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Hapus akun',
 			'warn' => 'Akun Anda dan semua data terkait akan dihapus.',
 		),
 		'email' => 'Alamat surel',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Sandi API<br /><small>(contoh: untuk aplikasi ponsel)</small>',
-		'password_form' => 'Kata sandi<br /><small>(untuk metode masuk formulir web)</small>',
 		'password_format' => 'Minimal 7 karakter',
 		'title' => 'Profil',
 	),

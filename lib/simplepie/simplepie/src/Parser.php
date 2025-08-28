@@ -72,6 +72,7 @@ class Parser implements RegistryAware
             // and a list of entries without an h-feed wrapper are both valid.
             $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                 'contains(concat(" ", @class, " "), " h-entry ")]';
+            /** @var \DOMNodeList<\DOMElement> $result */
             $result = $xpath->query($query);
             if ($result->length !== 0) {
                 return $this->parse_microformats($data, $url);
@@ -146,12 +147,11 @@ class Parser implements RegistryAware
                 rewind($stream)) {
                 //Parse by chunks not to use too much memory
                 do {
-                    $stream_data = fread($stream, 1048576);
-                    // NB: At some point between PHP 7.3 and 7.4, the signature for `fread()` has changed
-                    // from returning `string` to returning `string|false`, hence the falsy check:
-                    if (!xml_parse($xml, $stream_data == false ? '' : $stream_data, feof($stream))) {
+                    $stream_data = (string) fread($stream, 1048576);
+
+                    if (!xml_parse($xml, $stream_data, feof($stream))) {
                         $this->error_code = xml_get_error_code($xml);
-                        $this->error_string = xml_error_string($this->error_code);
+                        $this->error_string = xml_error_string($this->error_code) ?: "Unknown";
                         $return = false;
                         break;
                     }
@@ -173,7 +173,7 @@ class Parser implements RegistryAware
         $xml->xml($data);
         while (@$xml->read()) {
             switch ($xml->nodeType) {
-                case constant('XMLReader::END_ELEMENT'):
+                case \XMLReader::END_ELEMENT:
                     if ($xml->namespaceURI !== '') {
                         $tagName = $xml->namespaceURI . $this->separator . $xml->localName;
                     } else {
@@ -181,7 +181,7 @@ class Parser implements RegistryAware
                     }
                     $this->tag_close(null, $tagName);
                     break;
-                case constant('XMLReader::ELEMENT'):
+                case \XMLReader::ELEMENT:
                     $empty = $xml->isEmptyElement;
                     if ($xml->namespaceURI !== '') {
                         $tagName = $xml->namespaceURI . $this->separator . $xml->localName;
@@ -202,9 +202,9 @@ class Parser implements RegistryAware
                         $this->tag_close(null, $tagName);
                     }
                     break;
-                case constant('XMLReader::TEXT'):
+                case \XMLReader::TEXT:
 
-                case constant('XMLReader::CDATA'):
+                case \XMLReader::CDATA:
                     $this->cdata(null, $xml->value);
                     break;
             }
@@ -290,14 +290,14 @@ class Parser implements RegistryAware
                 $this->xml_base_explicit[] = true;
             }
         } else {
-            $this->xml_base[] = end($this->xml_base);
+            $this->xml_base[] = end($this->xml_base) ?: '';
             $this->xml_base_explicit[] = end($this->xml_base_explicit);
         }
 
         if (isset($attribs[\SimplePie\SimplePie::NAMESPACE_XML]['lang'])) {
             $this->xml_lang[] = $attribs[\SimplePie\SimplePie::NAMESPACE_XML]['lang'];
         } else {
-            $this->xml_lang[] = end($this->xml_lang);
+            $this->xml_lang[] = end($this->xml_lang) ?: '';
         }
 
         if ($this->current_xhtml_construct >= 0) {
@@ -428,6 +428,9 @@ class Parser implements RegistryAware
      */
     private function parse_microformats(string &$data, string $url): bool
     {
+        // For PHPStan, we already check that in call site.
+        \assert(function_exists('Mf2\parse'));
+        \assert(function_exists('Mf2\fetch'));
         $feed_title = '';
         $feed_author = null;
         $author_cache = [];
@@ -513,23 +516,24 @@ class Parser implements RegistryAware
                         if (isset($author_cache[$author])) {
                             $author = $author_cache[$author];
                         } else {
-                            $mf = \Mf2\fetch($author);
-                            foreach ($mf['items'] as $hcard) {
-                                // Only interested in an h-card by itself in this case.
-                                if (!in_array('h-card', $hcard['type'])) {
-                                    continue;
+                            if ($mf = \Mf2\fetch($author)) {
+                                foreach ($mf['items'] as $hcard) {
+                                    // Only interested in an h-card by itself in this case.
+                                    if (!in_array('h-card', $hcard['type'])) {
+                                        continue;
+                                    }
+                                    // It must have a url property matching what we fetched.
+                                    if (!isset($hcard['properties']['url']) ||
+                                            !(in_array($author, $hcard['properties']['url']))) {
+                                        continue;
+                                    }
+                                    // Save parse_hcard the trouble of finding the correct url.
+                                    $hcard['properties']['url'][0] = $author;
+                                    // Cache this h-card for the next h-entry to check.
+                                    $author_cache[$author] = $this->parse_hcard($hcard);
+                                    $author = $author_cache[$author];
+                                    break;
                                 }
-                                // It must have a url property matching what we fetched.
-                                if (!isset($hcard['properties']['url']) ||
-                                        !(in_array($author, $hcard['properties']['url']))) {
-                                    continue;
-                                }
-                                // Save parse_hcard the trouble of finding the correct url.
-                                $hcard['properties']['url'][0] = $author;
-                                // Cache this h-card for the next h-entry to check.
-                                $author_cache[$author] = $this->parse_hcard($hcard);
-                                $author = $author_cache[$author];
-                                break;
                             }
                         }
                     }
@@ -650,7 +654,7 @@ class Parser implements RegistryAware
     private static function set_doctype(string $data): string
     {
         // Strip DOCTYPE except if containing an [internal subset]
-        $data = preg_replace('/^\\s*<!DOCTYPE\\s[^>\\[\\]]*>\s*/', '', $data);
+        $data = preg_replace('/^\\s*<!DOCTYPE\\s[^>\\[\\]]*>\s*/', '', $data) ?? $data;
         // Declare HTML entities only if no remaining DOCTYPE
         $doctype = preg_match('/^\\s*<!DOCTYPE\\s/', $data) ? '' : self::declare_html_entities();
         return $doctype . $data;

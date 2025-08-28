@@ -29,9 +29,9 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
-		'expand' => 'Expand category',	// TODO
+		'expand' => 'دسته‌بندی را گسترش دهید',
 		'information' => ' اطلاعات',
-		'open' => 'Open category',	// TODO
+		'open' => 'دسته‌بندی باز',
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
 		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
@@ -50,7 +50,7 @@ return array(
 			'password' => ' رمز عبور HTTP',
 			'username' => ' نام کاربری HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'تغییر…',
 		'clear_cache' => ' همیشه حافظه پنهان را پاک کنید',
 		'content_action' => array(
 			'_' => ' اقدام محتوا هنگام واکشی محتوای مقاله',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => ' قبل از محتوای موجود اضافه کنید',
 			'replace' => ' محتوای موجود را جایگزین کنید',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'بازیابی محتوا',
 		'css_cookie' => ' هنگام واکشی محتوای مقاله از کوکی ها استفاده کنید',
 		'css_cookie_help' => ' مثال: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => ' فیدهای RSS کوتاه شده را بازیابی می کند (احتیاط',
@@ -71,28 +71,28 @@ return array(
 		'empty' => ' این فید خالی است. لطفاً بررسی کنید که هنوز نگهداری می شود.',
 		'error' => ' این فید با مشکل مواجه شده است. لطفاً بررسی کنید که همیشه در دسترس است و سپس آن را به روز کنید.',	// DIRTY
 		'export-as-opml' => array(
-			'download' => 'Download',	// TODO
-			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
-			'label' => 'Export as OPML',	// TODO
+			'download' => 'دانلود',
+			'help' => 'فایل XML (زیرمجموعه داده‌ها. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">مستندات را ببینید</a>)',
+			'label' => 'خروجی به صورت OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'تنظیم خودکار',
+		'favicon_changed_by_ext' => 'این آیکون توسط افزونه‌ی <b>%s</b> تنظیم شده است.',
 		'filteractions' => array(
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'HTTP سربرگ‌ها',
+		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
+		'icon' => 'آیکون',
 		'information' => ' اطلاعات',
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(
 			'_' => ' نوع منبع خوراک',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// IGNORE
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => 'XPath برای JSON در HTML',
+					'help' => 'مثال: <code>normalize-space(//script[@type="application/json"])</code> (یک JSON)<br />یا: <code>//script[@type="application/ld+json"]</code> (یک شیء JSON برای هر مقاله)',
 				),
 			),
 			'html_xpath' => array(
@@ -143,44 +143,44 @@ return array(
 				'xpath' => ' XPath برای:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (نماد نقطه‌ای)',
 				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+					'_' => 'عنوان فید',
+					'help' => 'مثال: <code>meta.title</code> یا یک رشته استاتیک: <code>"My custom feed"</code>',
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'یک نماد نقطه‌ای در JSON از نقطه بین اشیاء و از براکت برای آرایه‌ها استفاده می‌کند (مثلاً <code>data.items[0].title</code>)',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',	// TODO
+					'_' => 'یافتن اخبار <strong>آیتم‌ها</strong><br /><small>(مهم‌ترین)</small>',
+					'help' => 'مسیر JSON به آرایه حاوی آیتم‌ها، مثلاً <code>$</code> یا <code>newsItems</code>',
 				),
-				'item_author' => 'item author',	// TODO
-				'item_categories' => 'item tags',	// TODO
+				'item_author' => 'نویسنده ',
+				'item_categories' => 'برچسب‌های آیتم',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Key under which the content is found, e.g. <code>content</code>',	// TODO
+					'_' => 'محتوای در مورد',
+					'help' => 'کلیدی که محتوا در آن یافت می‌شود، مثلاً <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>image</code>',	// TODO
+					'_' => 'تصویر مینیاتوری',
+					'help' => 'مثال: <code>تصویر</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'قالب تاریخ/زمان سفارشی',
+					'help' => 'اختیاری. فرمتی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'تاریخ کالا',
+					'help' => 'نتیجه توسط <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه و تحلیل خواهد شد.',
 				),
-				'item_title' => 'item title',	// TODO
-				'item_uid' => 'item unique ID',	// TODO
+				'item_title' => 'عنوان مورد',
+				'item_uid' => 'شناسه منحصر به فرد کالا',
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>permalink</code>',	// TODO
+					'_' => 'لینک مورد (URL)',
+					'help' => 'مثال: <code>پیوند یکتا</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => 'نمادگذاری نقطه‌ای برای:',
+				'relative' => 'مسیر با نقطه (نسبت به آیتم) برای:',
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'فید JSON',
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),
@@ -194,29 +194,29 @@ return array(
 		'max_http_redir' => ' حداکثر تغییر مسیر HTTP',
 		'max_http_redir_help' => ' روی 0 تنظیم کنید یا برای غیرفعال کردن آن را خالی بگذارید',
 		'method' => array(
-			'_' => 'HTTP Method',	// TODO
+			'_' => 'روش HTTP',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'بار داده‌ی POST به طور خودکار از <code>application/x-www-form-urlencoded</code> و <code>application/json</code> پشتیبانی می‌کند.',
+		'method_postparams' => 'بار مفید برای پست',
 		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
 		'mute' => array(
 			'_' => ' بی صدا',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => 'این فید بی‌صدا است',
 		),
 		'no_selected' => ' هیچ خوراکی انتخاب نشده است.',
 		'number_entries' => ' %d مقاله',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => 'باز کردن فید %s',
+		'path_entries_conditions' => 'شرایط بازیابی محتوا',
 		'priority' => array(
 			'_' => ' دید',
 			'archived' => ' نشان داده نشود (بایگانی شده)',
 			'category' => ' نمایش در دسته بندی خود',
-			'important' => 'Show in important feeds',	// TODO
+			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
 		),
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
-		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'reset_favicon' => 'Reset to default',	// TODO
+		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'تنظیم مجدد به حالت پیش‌فرض',
 		'selector_preview' => array(
 			'show_raw' => ' نمایش کد منبع',
 			'show_rendered' => 'نمایش محتوا',
@@ -236,14 +236,20 @@ return array(
 		'title_add' => ' یک فید RSS اضافه کنید',
 		'ttl' => ' به‌طور خودکار بیشتر از آن رفرش نکنید',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'_' => 'معیارهای وحدت مقاله',
+			'forced' => '<span title="مسدود کردن معیارهای تک‌شاخگی، حتی زمانی که فید دارای مقالات تکراری است">اجباری</span>',
+			'help' => 'مربوط به فیدهای نامعتبر.<br />⚠️ تغییر سیاست باعث ایجاد موارد تکراری می‌شود..',
+			'id' => 'شناسه استاندارد (پیش‌ فرض)',
+			'link' => 'لینک',
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
+			'sha1:link_published' => 'لینک + تاریخ',
+			'sha1:link_published_title' => 'لینک + تاریخ + عنوان',
+			'sha1:link_published_title_content' => 'لینک + تاریخ + عنوان + محتوا',
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => ' URL فید',
 		'useragent' => ' عامل کاربر را برای واکشی این فید تنظیم کنید',
@@ -255,7 +261,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => ' صادرات',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'دانلود پایگاه داده کاربر به عنوان SQLite',
 		),
 		'export_labelled' => ' مقالات برچسب دار خود را صادر کنید',
 		'export_opml' => ' لیست صادرات فیدها (OPML)',
@@ -280,7 +286,7 @@ return array(
 		'subscription_tools' => 'ابزارهای اشتراک',
 	),
 	'tag' => array(
-		'auto_label' => 'Add this label to new articles',	// TODO
+		'auto_label' => 'این برچسب را به مقالات جدید اضافه کنید',
 		'name' => ' نام',
 		'new_name' => ' نام جدید',
 		'old_name' => ' نام قدیمی',
@@ -292,7 +298,7 @@ return array(
 		'add_dynamic_opml' => ' OPML پویا را اضافه کنید',
 		'add_feed' => ' یک فید اضافه کنید',
 		'add_label' => ' یک برچسب اضافه کنید',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'نام دسته OPML',
 		'delete_label' => ' یک برچسب را حذف کنید',
 		'feed_management' => ' فیدهای RSS را مدیریت می کندment',
 		'rename_label' => ' نام یک برچسب را تغییر دهید',

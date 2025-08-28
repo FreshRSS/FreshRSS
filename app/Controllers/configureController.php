@@ -386,7 +386,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->tags = FreshRSS_Context::labels();
 
 		if (Minz_Request::isPost()) {
-			$params = array_filter(Minz_Request::paramArray('query'));
+			$params = Minz_Request::paramArray('query');
 			$queryParams = [];
 			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
 			if ('' === $name) {
@@ -503,7 +503,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::systemConf()->limits;
-			$limits['max_registrations'] = Minz_Request::paramInt('max-registrations') ?: 1;
+			$limits['max_registrations'] = Minz_Request::paramIntNull('max-registrations') ?? 1;
 			$limits['max_feeds'] = Minz_Request::paramInt('max-feeds') ?: 16384;
 			$limits['max_categories'] = Minz_Request::paramInt('max-categories') ?: 16384;
 			$limits['cookie_duration'] = Minz_Request::paramInt('cookie-duration') ?: FreshRSS_Auth::DEFAULT_COOKIE_DURATION;

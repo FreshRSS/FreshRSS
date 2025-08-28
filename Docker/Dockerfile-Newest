@@ -5,16 +5,16 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
 	tzdata \
-	apache2 php84-apache2 \
+	apache2 php85-apache2 \
 	apache-mod-auth-openidc \
-	php84 php84-curl php84-gmp php84-intl php84-mbstring php84-xml php84-zip \
-	php84-ctype php84-dom php84-fileinfo php84-iconv php84-json php84-opcache php84-openssl php84-phar php84-session php84-simplexml php84-xmlreader php84-xmlwriter php84-xml php84-tokenizer php84-zlib \
-	php84-pdo_sqlite php84-pdo_mysql php84-pdo_pgsql
+	php85 php85-curl php85-gmp php85-intl php85-mbstring php85-xml php85-zip \
+	php85-ctype php85-dom php85-fileinfo php85-iconv php85-json php85-openssl php85-phar php85-session php85-simplexml php85-xmlreader php85-xmlwriter php85-xml php85-tokenizer php85-zlib \
+	php85-pdo_sqlite php85-pdo_mysql php85-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY . /var/www/FreshRSS
+COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
@@ -41,8 +41,8 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
 	mv /etc/apache2/conf.d/mod-auth-openidc.conf /etc/apache2/conf.d/mod-auth-openidc.conf.bak && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php84 /usr/bin/php; else true; fi && \
-	echo 'memory_limit = 256M' > /etc/php84/conf.d/10_memory.ini && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php85 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php85/conf.d/10_memory.ini && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \

@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY . /var/www/FreshRSS
+COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
 ARG FRESHRSS_VERSION

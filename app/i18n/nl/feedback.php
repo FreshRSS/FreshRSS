@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Uw profiel is aangepast',
 	),
 	'sub' => array(

@@ -10,7 +10,7 @@
 ?>
 <div class="post">
 	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
-	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">
+	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
 
 		<div class="form-group">
@@ -60,7 +60,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
-						pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+						pattern=".{7,}" <?= cryptAvailable() && Minz_User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>/>
 					<button type="button" class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
@@ -69,14 +69,17 @@
 
 		<div class="form-group form-actions">
 			<noscript><b><?= _t('gen.js.should_be_activated'); ?></b></noscript>
+			<?php
+				$disabledIfAjax = Minz_Request::paramBoolean('ajax') ? ' disabled="disabled"' : '';
+			?>
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>
-				<button type="submit" class="btn btn-attention confirm" name="action" value="purge"><?= _t('gen.action.purge') ?></button>
-				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"><?= _t('gen.action.remove') ?></button>
+				<button type="submit" class="btn btn-attention confirm" name="action" value="purge"<?= $disabledIfAjax ?>><?= _t('gen.action.purge') ?></button>
+				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"<?= $disabledIfAjax ?>><?= _t('gen.action.remove') ?></button>
 				<?php if ($isAdmin && !$isDefault): ?>
-					<button type="submit" class="btn btn-attention confirm" name="action" value="demote"><?= _t('gen.action.demote') ?></button>
+					<button type="submit" class="btn btn-attention confirm" name="action" value="demote"<?= $disabledIfAjax ?>><?= _t('gen.action.demote') ?></button>
 				<?php elseif (!$isAdmin): ?>
-					<button type="submit" class="btn btn-attention confirm" name="action" value="promote"><?= _t('gen.action.promote') ?></button>
+					<button type="submit" class="btn btn-attention confirm" name="action" value="promote"<?= $disabledIfAjax ?>><?= _t('gen.action.promote') ?></button>
 				<?php endif; ?>
 				<?php if ($enabled && !$isDefault): ?>
 					<button type="submit" class="btn btn-attention" name="action" value="disable"><?= _t('gen.action.disable') ?></button>

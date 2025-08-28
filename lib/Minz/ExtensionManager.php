@@ -26,6 +26,10 @@ final class Minz_ExtensionManager {
 			'list' => [],
 			'signature' => 'NoneToNone',
 		],
+		'before_login_btn' => [ // function(): string
+			'list'  => [],
+			'signature' => 'NoneToString',
+		],
 		'check_url_before_add' => [	// function($url) -> Url | null
 			'list' => [],
 			'signature' => 'OneToOne',
@@ -155,7 +159,10 @@ final class Minz_ExtensionManager {
 		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
 		$system_conf = Minz_Configuration::get('system');
-		self::$ext_auto_enabled = $system_conf->extensions_enabled;
+		self::$ext_auto_enabled = array_filter(
+			$system_conf->attributeArray('extensions_enabled') ?? [],
+			fn($value, $key): bool => is_string($key) && is_bool($value),
+			ARRAY_FILTER_USE_BOTH);
 
 		foreach ($list_potential_extensions as $ext_pathname) {
 			if (!is_dir($ext_pathname)) {

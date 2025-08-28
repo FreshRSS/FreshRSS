@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Profiliniz değiştirilemedi',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Profiliniz değiştirildi',
 	),
 	'sub' => array(

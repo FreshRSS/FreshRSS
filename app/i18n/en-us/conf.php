@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 		),
+		'change_password' => 'Change password',	// IGNORE
+		'confirm_new_password' => 'Confirm new password',	// IGNORE
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'delete' => array(
 			'_' => 'Account deletion',	// IGNORE
 			'warn' => 'Your account and all related data will be deleted.',	// IGNORE
 		),
 		'email' => 'Email address',	// IGNORE
+		'new_password' => 'New password',	// IGNORE
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// IGNORE
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'password_format' => 'At least 7 characters',	// IGNORE
 		'title' => 'Profile',	// IGNORE
 	),

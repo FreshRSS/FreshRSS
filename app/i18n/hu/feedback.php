@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'A profilod nem módosítható',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'A profilod módosítása megtörtént',
 	),
 	'sub' => array(

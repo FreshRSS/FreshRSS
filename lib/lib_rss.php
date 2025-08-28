@@ -231,8 +231,8 @@ function format_bytes(int $bytes, int $precision = 2, string $system = 'IEC'): s
 		return format_number($bytes, $precision);
 	}
 	$bytes = max(intval($bytes), 0);
-	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
-	$pow = min($pow, count($units) - 1);
+	$pow = $bytes === 0 ? 0 : (int)floor(log($bytes) / log($base));
+	$pow = min(max(0, $pow), count($units) - 1);
 	$bytes /= pow($base, $pow);
 	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
@@ -348,7 +348,8 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'link', 'onblur', 'onchange', 'onclick', 'ondblclick', 'onfocus',
 		'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onmousedown', 'onmousemove',
 		'onmouseout', 'onmouseover', 'onmouseup', 'onselect', 'onunload',
-		'seamless', 'sizes', 'srcdoc', 'srcset', 'text', 'vlink',
+		'seamless', 'sizes', 'srcdoc', 'srcset', 'text', 'vlink', 'referrerpolicy', 'ping',
+		'target', 'rel', 'name', 'download', 'attributionsrc',
 	]));
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
@@ -431,13 +432,9 @@ function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): 
 
 function cleanCache(int $hours = 720): void {
 	// N.B.: GLOB_BRACE is not available on all platforms
-	$files = array_merge(
-		glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.json', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.xml', GLOB_NOSORT) ?: []);
+	$files = glob(CACHE_PATH . '/*.*', GLOB_NOSORT) ?: [];
 	foreach ($files as $file) {
-		if (substr($file, -10) === 'index.html') {
+		if (str_ends_with($file, 'index.html')) {
 			continue;
 		}
 		$cacheMtime = @filemtime($file);
@@ -535,14 +532,14 @@ function enforceHtmlBase(string $html, string $href): string {
 		if ($head instanceof DOMElement) {
 			$head->insertBefore($base, $head->firstChild);
 		} else {
-			$doc->insertBefore($base, $doc->documentElement->firstChild);
+			$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
 		}
 	}
 	return $doc->saveHTML() ?: $html;
 }
 
 /**
- * @param string $type {html,json,opml,xml}
+ * @param string $type {html,ico,json,opml,xml}
  * @param array<string,mixed> $attributes
  * @param array<int,mixed> $curl_options
  * @return array{body:string,effective_url:string,redirect_count:int,fail:bool}
@@ -560,15 +557,20 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		}
 	}
 
-	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+	if (rand(0, 30) === 1) {	// Remove old cache once in a while
 		cleanCache(CLEANCACHE_HOURS);
+	}
+
+	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url)) > 0) {
+		Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
+		return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 	}
 
 	if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 	}
 
-	$accept = '*/*;q=0.8';
+	$accept = '';
 	switch ($type) {
 		case 'json':
 			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
@@ -578,6 +580,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 			break;
 		case 'xml':
 			$accept = 'application/xml,application/xhtml+xml,text/xml;q=0.9,*/*;q=0.8';
+			break;
+		case 'ico':
+			$accept = 'image/x-icon,image/vnd.microsoft.icon,image/ico,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.1';
 			break;
 		case 'html':
 		default:
@@ -597,6 +602,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_HEADER => true,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_ENCODING => '',	//Enable all encodings
@@ -630,25 +636,48 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	curl_setopt_array($ch, $curl_options);
 
-	$body = curl_exec($ch);
+	$response = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 	$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
-	curl_close($ch);
+
+	$parser = new \SimplePie\HTTP\Parser(is_string($response) ? $response : '');
+	if ($parser->parse()) {
+		$headers = $parser->headers;
+		$body = $parser->body;
+	} else {
+		$headers = [];
+		$body = false;
+	}
 
 	$fail = $c_status != 200 || $c_error != '' || $body === false;
 	if ($fail) {
-		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		$body = '';
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		if (in_array($c_status, [429, 503], true)) {
+			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $headers['retry-after'] ?? '');
+			if ($c_status === 429) {
+				$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+			} elseif ($c_status === 503) {
+				$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+			}
+			if ($retryAfter > 0) {
+				$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+			}
+		}
 		// TODO: Implement HTTP 410 Gone
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
-		$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
-		if ($type !== 'json') {
+		if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
+			$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+		}
+		if (in_array($type, ['html', 'xml', 'opml'], true)) {
 			$body = enforceHttpEncoding($body, $c_content_type);
+		}
+		if (in_array($type, ['html'], true)) {
 			$body = enforceHtmlBase($body, $c_effective_url);
 		}
 	}

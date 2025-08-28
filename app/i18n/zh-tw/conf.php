@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => '帳號刪除',
 			'warn' => '你的帳號及所有相關資料將被刪除。',
 		),
 		'email' => '郵箱地址',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API 密碼<br /><small>（例如用於手機應用）</small>',
-		'password_form' => '密碼<br /><small>(用於 Web-form 登入方式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '個人資料',
 	),

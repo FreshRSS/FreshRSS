@@ -68,7 +68,7 @@ final class FileClient implements Client
             throw new ClientException($th->getMessage(), $th->getCode(), $th);
         }
 
-        if (!$file->success && $file->get_status_code() === 0) {
+        if ($file->error !== null && $file->get_status_code() === 0) {
             throw new ClientException($file->error);
         }
 

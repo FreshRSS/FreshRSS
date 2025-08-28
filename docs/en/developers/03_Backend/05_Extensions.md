@@ -166,6 +166,7 @@ The following events are available:
 
 * `api_misc` (`function(): void`): to allow extensions to have own API endpoint
 	on `/api/misc.php/Extension%20Name/` or `/api/misc.php?ext=Extension%20Name`.
+* `before_login_btn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
 * `custom_favicon_btn_url` (`function(FreshRSS_Feed $feed): string | null`): Allows extensions to implement a button for setting a custom favicon for individual feeds by providing an URL. The URL will be sent a POST request with the `extAction` field set to either `query_icon_info` or `update_icon`, along with an `id` field which describes the feed's ID.
 Example response for a `query_icon_info` request:

@@ -61,6 +61,11 @@ return array(
 			'_' => 'Mot de passe',
 			'format' => '<small>7 caractères minimum</small>',
 		),
+		'reauth' => array(
+			'header' => 'Une réauthentification est requise',
+			'tip' => 'La réauthentification sera valide pendant <u>%d minutes</u>',
+			'title' => 'Réauthentification',
+		),
 		'registration' => array(
 			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Hier',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇫🇷',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'À propos de FreshRSS',
@@ -139,15 +145,17 @@ return array(
 		'category_empty' => 'Catégorie vide',
 		'confirm_action' => 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
+		'confirm_exit_slider' => 'Êtes-vous sûr de vouloir abandonner les paramètres non enregistrés ?',
 		'feedback' => array(
 			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
 			'body_unread_articles' => '(non lus : %%d)',
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
-		'labels_empty' => 'Pas d’étiquettes',	// DIRTY
+		'labels_empty' => 'Pas d’étiquettes',
 		'new_article' => 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',
 		'should_be_activated' => 'Le JavaScript doit être activé.',
+		'unsafe_csp_header' => 'L’en-tête CSP utilisé n’est pas sécurisé et FreshRSS peut être vulnérable aux attaques XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Voir la documentation</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Presse-papier',
 		'diaspora' => 'Diaspora*',	// IGNORE

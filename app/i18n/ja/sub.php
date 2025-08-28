@@ -241,9 +241,15 @@ return array(
 			'help' => '不正なフィードに対処します。<br />⚠️ ポリシーを変更すると重複が発生します。',
 			'id' => '標準的なID (デフォルト)',
 			'link' => 'リンク',
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'リンク + 日付',
 			'sha1:link_published_title' => 'リンク + 日付 + タイトル',
 			'sha1:link_published_title_content' => 'リンク + 日付 + タイトル + コンテンツ',
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを取得するときのユーザーエージェント',

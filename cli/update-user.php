@@ -66,7 +66,7 @@ $values = [
 	'max_posts_per_rss' => $cliOptions->maxPostsPerRss ?? null,
 ];
 
-$values = array_filter($values);
+$values = array_filter($values, fn($value): bool => $value !== null && $value !== '');
 
 $ok = FreshRSS_user_Controller::updateUser(
 	$username,

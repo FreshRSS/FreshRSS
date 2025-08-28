@@ -85,7 +85,7 @@ class File implements Base
     public function load()
     {
         if (file_exists($this->name) && is_readable($this->name)) {
-            return unserialize(file_get_contents($this->name));
+            return unserialize((string) file_get_contents($this->name));
         }
         return false;
     }

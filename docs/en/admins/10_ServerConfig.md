@@ -112,3 +112,21 @@ server {
 	}
 }
 ```
+
+## Security
+
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."`
+This will likely make your FreshRSS instance vulnerable to event handler XSS attacks, since FreshRSS does not yet blacklist all event attributes.
+
+✅ Example of good CSP: `default-src 'self' frame-ancestors 'self'`
+❌ Bad CSP: `upgrade-insecure-requests`
+
+Debug CSP header:
+* With DevTools network tab: press F12
+* [CSP Evaluator](https://csp-evaluator.withgoogle.com/)
+
+If you're aware of the risks and want to ignore the warning shown to admin users, change the `suppress_csp_warning` setting to `true` in `./data/config.php`
+
+Note that FreshRSS already ships with a secure CSP configuration, therefore it's not necessary to make any adjustments to CSP unless you're writing an extension.
+
+For that, look into the [`Minz_ActionController::_csp`](https://github.com/FreshRSS/FreshRSS/blob/d9197d7e32a97f29829ffd4cf4371b1853e51fa2/lib/Minz/ActionController.php#L76-L96) function and use it in individual actions.

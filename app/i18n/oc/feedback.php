@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Impossible d’actualizar vòstre perfil',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Vòstre perfil es estat actualizat',
 	),
 	'sub' => array(

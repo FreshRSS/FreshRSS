@@ -78,8 +78,16 @@ return array(
 		'search_short' => 'Szukaj',
 		'sort' => array(
 			'_' => 'Kryteria sortowania',
+			'c' => array(
+				'name_asc' => 'Tytuł kategorii i kanału A→Z',
+				'name_desc' => 'Tytuł kategorii i kanału Z→A',
+			),
 			'date_asc' => 'Data publikacji 1→9',
 			'date_desc' => 'Data publikacji 9→1',
+			'f' => array(
+				'name_asc' => 'Tytuł kanału A→Z',
+				'name_desc' => 'Tytuł kanału Z→A',
+			),
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
 			'link_asc' => 'Odnośnik A→Z',

@@ -61,6 +61,11 @@ return array(
 			'_' => 'Hasło',
 			'format' => '<small>przynajmniej 7 znaków</small>',
 		),
+		'reauth' => array(
+			'header' => 'Wymagane ponowne logowanie',
+			'tip' => 'Nie będziesz proszony o ponowne logowanie przez <u>%d minut</u>',
+			'title' => 'Ponowne logowanie',
+		),
 		'registration' => array(
 			'_' => 'Tworzenie konta',
 			'ask' => 'Nie masz konta?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Wczorajsze',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇵🇱',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O oprogramowaniu FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Pusta kategoria',
 		'confirm_action' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Nie można cofnąć jej rezultatów!',
 		'confirm_action_feed_cat' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
+		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
 			'body_new_articles' => 'W FreshRSS znajduje się %%d wiadomości do przeczytania.',
 			'body_unread_articles' => '(Nieprzeczytane: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'Brak tagów',
 		'new_article' => 'Dostępne są nowe wiadomości. Kliknij, aby odświeżyć stronę.',
 		'should_be_activated' => 'JavaScript musi być włączony',
+		'unsafe_csp_header' => 'Używany nagłówek CSP jest niebezpieczny i FreshRSS może być podatny na ataki XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zobacz dokumentację</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE

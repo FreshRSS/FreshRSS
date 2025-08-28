@@ -61,6 +61,11 @@ return array(
 			'_' => 'Senhal',
 			'format' => '<small>Almens 7 caractèrs</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Compte nòu',
 			'ask' => 'Crear un compte?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Ièr',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🏴󠁦󠁲󠁯󠁣󠁣󠁿',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'A prepaus de FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Categoria voida',
 		'confirm_action' => 'Volètz vertadièrament contunhar ? Aquesta accion se pòt pas anullar !',
 		'confirm_action_feed_cat' => 'Volètz vertadièrament contunhar ? Perdretz los favorits e filtres ligats. Aquesta accion se pòt pas anullar !',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'I a %%d nòus articles per legir sus FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',	// TODO
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'I a d’articles nòus disponibles, clicatz per actualizar la pagina.',
 		'should_be_activated' => 'JavaScript deu èsser activat',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Quicha-papiers.',
 		'diaspora' => 'Diaspora*',	// IGNORE

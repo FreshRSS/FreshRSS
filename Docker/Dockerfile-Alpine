@@ -5,15 +5,15 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 RUN apk add --no-cache \
 	tzdata \
-	apache2 php-apache2 \
-	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
-	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
-	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql
+	apache2 php84-apache2 \
+	php84 php84-curl php84-gmp php84-intl php84-mbstring php84-xml php84-zip \
+	php84-ctype php84-dom php84-fileinfo php84-iconv php84-json php84-opcache php84-openssl php84-phar php84-session php84-simplexml php84-xmlreader php84-xmlwriter php84-xml php84-tokenizer php84-zlib \
+	php84-pdo_sqlite php84-pdo_mysql php84-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY . /var/www/FreshRSS
+COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
@@ -39,6 +39,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php84 /usr/bin/php; else true; fi && \
 	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
 	touch /var/www/FreshRSS/Docker/env.txt && \

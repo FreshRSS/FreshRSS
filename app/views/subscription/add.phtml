@@ -3,7 +3,7 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post drop-section">
+<main class="post drop-section" data-auto-leave-validation="1">
 	<h1><?= _t('sub.menu.add') ?></h1>
 	<h2><?= _t('sub.title.add_category') ?></h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">

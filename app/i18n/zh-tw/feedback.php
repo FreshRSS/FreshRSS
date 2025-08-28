@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '你的帳戶修改失敗',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => '你的帳戶已修改',
 	),
 	'sub' => array(

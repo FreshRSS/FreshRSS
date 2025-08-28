@@ -13,7 +13,7 @@
 	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
 		$state_filter_manual .= '&state=' . $s;
 	}
-	if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && ctype_alpha($s)) {
+	if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
 		$state_filter_manual .= '&sort=' . $s;
 	}
 	if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {

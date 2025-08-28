@@ -45,7 +45,7 @@ if [ -n "$CRON_MIN" ]; then
 		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi
 
-./cli/access-permissions.sh
+./cli/access-permissions.sh --only-userdirs
 
 php -f ./cli/prepare.php >/dev/null
 
@@ -82,6 +82,8 @@ if [ -n "$FRESHRSS_USER" ]; then
 	fi
 fi
 
-./cli/access-permissions.sh
+# Fix permissions of data added by prepare.php as well as a potential
+# installation/user setup
+./cli/access-permissions.sh --only-userdirs
 
 exec "$@"

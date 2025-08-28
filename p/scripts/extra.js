@@ -39,6 +39,19 @@ function init_crypto_form() {
 	}
 
 	crypto_form.onsubmit = function (e) {
+		let challenge = crypto_form.querySelector('#challenge');
+		if (!challenge) {
+			crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
+				if (el.value !== '' && !challenge) {
+					crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
+					challenge = crypto_form.querySelector('#challenge');
+				}
+			});
+			if (!challenge) {
+				return true;
+			}
+		}
+
 		e.preventDefault();
 
 		if (!submit_button) {
@@ -64,7 +77,7 @@ function init_crypto_form() {
 						const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
 						const s = bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1);
 						const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-						document.getElementById('challenge').value = c;
+						challenge.value = c;
 						if (!s || !c) {
 							openNotification('Crypto error!', 'bad');
 						} else {
@@ -314,11 +327,17 @@ function open_slider_listener(ev) {
 			req.open('GET', ahref, true);
 			req.responseType = 'document';
 			req.onload = function (e) {
+				if (this.status === 403) {
+					// Redirect to reauth page (or fail if session expired)
+					location.href = a.href;
+					return;
+				}
 				location.href = '#slider'; // close menu/dropdown
 				document.documentElement.classList.add('slider-active');
 				slider.classList.add('active');
 				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
+				data_auto_leave_validation(slider);
 				init_update_feed();
 				slider_content.querySelectorAll('form').forEach(function (f) {
 					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
@@ -345,7 +364,7 @@ function init_slider(slider) {
 
 function close_slider_listener(ev) {
 	const slider = document.getElementById('slider');
-	if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
+	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
 		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
 		document.documentElement.classList.remove('slider-active');
 		return;
@@ -419,6 +438,26 @@ function data_leave_validation(parent, excludeForm = null) {
 	return true;
 }
 
+/**
+ * Automatically sets the `data-leave-validation` attribute for input, textarea, select elements for a given parent, if it's not set already.
+ * Ignores elements with the `data-no-leave-validation` attribute set.
+ */
+function data_auto_leave_validation(parent) {
+	parent.querySelectorAll(`[data-auto-leave-validation] input,
+													[data-auto-leave-validation] textarea,
+													[data-auto-leave-validation] select`).forEach(el => {
+		if (el.dataset.leaveValidation || el.dataset.noLeaveValidation) {
+			return;
+		}
+
+		if (el.type === 'checkbox' || el.type === 'radio') {
+			el.dataset.leaveValidation = +el.checked;
+		} else if (el.type !== 'hidden') {
+			el.dataset.leaveValidation = el.value;
+		}
+	});
+}
+
 function init_2stateButton() {
 	const btns = document.getElementsByClassName('btn-state1');
 	Array.prototype.forEach.call(btns, function (el) {
@@ -459,6 +498,8 @@ function init_extra_afterDOM() {
 		init_configuration_alert();
 		init_2stateButton();
 		init_update_feed();
+
+		data_auto_leave_validation(document.body);
 
 		const slider = document.getElementById('slider');
 		if (slider) {

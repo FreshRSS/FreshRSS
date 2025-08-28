@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve ilgili tüm veriler silinecek.',
 		),
 		'email' => 'E-posta adresi',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API parolası<br /><small>(örneğin, mobil uygulamalar için)</small>',
-		'password_form' => 'Parola<br /><small>(Web formuyla giriş yöntemi için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Profil',
 	),

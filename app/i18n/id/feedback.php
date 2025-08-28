@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Profil Anda tidak dapat diubah',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Profil Anda telah diubah',
 	),
 	'sub' => array(

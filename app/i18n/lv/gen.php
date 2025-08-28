@@ -61,6 +61,11 @@ return array(
 			'_' => 'Parole',
 			'format' => '<small>Vismaz 7 rakstzīmes</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Jauns konts',
 			'ask' => 'Uztaisīt kontu?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Vakar',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇱🇻',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'Par FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Tukša kategorija',
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
 			'body_unread_articles' => '(neizlasīti: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Starpliktuve',
 		'diaspora' => 'Diaspora*',	// IGNORE

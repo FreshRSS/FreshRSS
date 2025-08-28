@@ -21,6 +21,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
@@ -219,6 +223,35 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function reauthAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+			return;
+		}
+		/** @var array{c?: string, a?: string, params?: array<string, mixed>} $redirect */
+		$redirect = Minz_Url::unserialize(Minz_Request::paramString('r'));
+		if (!FreshRSS_Auth::needsReauth()) {
+			Minz_Request::forward($redirect, true);
+			return;
+		}
+		if (Minz_Request::isPost()) {
+			$username = Minz_User::name() ?? '';
+			$nonce = Minz_Session::paramString('nonce');
+			$challenge = Minz_Request::paramString('challenge');
+			if (!FreshRSS_FormAuth::checkCredentials(
+				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
+				)) {
+				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
+			} else {
+				Minz_Session::_param('lastReauth', time());
+				Minz_Request::forward($redirect, true);
+				return;
+			}
+		}
+		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+	}
+
 	/**
 	 * This action removes all accesses of the current user.
 	 */
@@ -226,6 +259,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
+
+			ini_set('session.use_cookies', '1');
+			Minz_Session::lock();
+			Minz_Session::regenerateID();
+			Minz_Session::unlock();
+
 			Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
 		} else {
 			Minz_Error::error(403);

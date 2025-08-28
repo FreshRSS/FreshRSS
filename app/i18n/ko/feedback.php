@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '프로필을 변경할 수 없습니다',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => '프로필을 변경했습니다',
 	),
 	'sub' => array(

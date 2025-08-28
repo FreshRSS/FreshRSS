@@ -1,5 +1,7 @@
 <?php
 	declare(strict_types=1);
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+	header('X-Content-Type-Options: nosniff');
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">

@@ -7,6 +7,8 @@ $extData = Minz_ExtensionManager::callHook('js_vars', []);
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
+		'admin' => FreshRSS_Auth::hasAccess('admin'),
+		'suppress_csp_warning' => FreshRSS_Context::systemConf()->suppress_csp_warning,
 		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
 		'hide_posts' => !(FreshRSS_Context::userConf()->display_posts || Minz_Request::actionName() === 'reader'),
 		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::userConf()->sort_order,
@@ -68,6 +70,7 @@ echo json_encode([
 	],
 	'i18n' => [
 		'confirmation_default' => _t('gen.js.confirm_action'),
+		'confirm_exit_slider' => _t('gen.js.confirm_exit_slider'),
 		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
 		'notif_body_new_articles' => _t('gen.js.feedback.body_new_articles'),
 		'notif_body_unread_articles' => _t('gen.js.feedback.body_unread_articles'),
@@ -76,6 +79,7 @@ echo json_encode([
 		'labels_empty' => _t('gen.js.labels_empty'),
 		'favicon_size_exceeded' => _t('feedback.sub.feed.favicon.too_large', format_bytes(FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'])),
 		'language' => FreshRSS_Context::userConf()->language,
+		'unsafe_csp_header' => _t('gen.js.unsafe_csp_header'),
 	],
 	'icons' => [
 		'read' => rawurlencode(_i('read')),

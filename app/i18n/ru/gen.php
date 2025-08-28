@@ -61,6 +61,11 @@ return array(
 			'_' => 'Пароль',
 			'format' => '<small>Не менее 7 символов</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Новый аккаунт',
 			'ask' => 'Создать аккаунт?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Вчера',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇷🇺',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'О FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Пустая категория',
 		'confirm_action' => 'Вы уверены, что хотите выполнить это действие? Это нельзя отменить!',
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => '%%d новых статей в FreshRSS.',
 			'body_unread_articles' => '(Непрочитанные: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'Нет меток',
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE

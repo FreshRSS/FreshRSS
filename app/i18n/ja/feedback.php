@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'あなたのプロフィールを変更することはできません',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'あなたのプロフィールを変更されました',
 	),
 	'sub' => array(

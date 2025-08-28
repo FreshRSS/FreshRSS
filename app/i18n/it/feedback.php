@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Il tuo profilo è stato modificato',
 	),
 	'sub' => array(

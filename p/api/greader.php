@@ -28,6 +28,9 @@ Server-side API compatible with Google Reader API layer 2
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
+
 if (PHP_INT_SIZE < 8) {	//32-bit
 	/** @return numeric-string */
 	function hex2dec(string $hex): string {
@@ -332,8 +335,6 @@ final class GReaderAPI {
 			self::internalServerError();
 		}
 		header('Content-Type: application/json; charset=UTF-8');
-		$faviconsUrl = Minz_Url::display('/f.php?', '', true);
-		$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 		$subscriptions = [];
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
@@ -352,7 +353,9 @@ final class GReaderAPI {
 					//'firstitemmsec' => 0,
 					'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 					'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
-					'iconUrl' => $faviconsUrl . $feed->hashFavicon(),
+					'iconUrl' => str_replace(
+						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
+						$feed->favicon(absolute: true)),
 				];
 			}
 		}

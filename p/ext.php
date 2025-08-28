@@ -94,6 +94,8 @@ if (!is_valid_path($absolute_filename)) {
 $content_type = FreshRSS_extension_Controller::MIME_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 
 $mtime = @filemtime($absolute_filename);

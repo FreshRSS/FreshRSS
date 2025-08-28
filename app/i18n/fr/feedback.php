@@ -66,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
+		'passwords_dont_match' => 'Les mots de passe ne correspondent pas',
 		'updated' => 'Votre profil a été mis à jour',
 	),
 	'sub' => array(
