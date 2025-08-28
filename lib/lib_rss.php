@@ -539,20 +539,6 @@ function enforceHtmlBase(string $html, string $href): string {
 }
 
 /**
- * @param string $response Result from curl_exec() with CURLOPT_HEADER option enabled
- * @return ?\SimplePie\HTTP\Parser<false>
- */
-function parse_curl_response(string $response): ?\SimplePie\HTTP\Parser {
-	$parser = new \SimplePie\HTTP\Parser($response);
-	if (!$parser->parse()) return null;
-	while ($is_redirect = ($parser->status_code >= 300 && $parser->status_code <= 399)) {
-		$parser = new \SimplePie\HTTP\Parser($parser->body);
-		if (!$parser->parse()) return null;
-	}
-	return $parser;
-}
-
-/**
  * @param string $type {html,ico,json,opml,xml}
  * @param array<string,mixed> $attributes
  * @param array<int,mixed> $curl_options
@@ -657,13 +643,16 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
 
-	$parser = parse_curl_response(is_string($response) ? $response : '');
-	if ($parser !== null) {
-		$headers = $parser->headers;
-		$body = $parser->body;
-	} else {
-		$headers = [];
-		$body = false;
+	$body = false;
+	$headers = [];
+	if ($c_error == '') {
+		assert($c_redirect_count >= 0);
+		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
+		$parser = new \SimplePie\HTTP\Parser($response);
+		if ($parser->parse()) {
+			$headers = $parser->headers;
+			$body = $parser->body;
+		}
 	}
 
 	$fail = $c_status != 200 || $c_error != '' || $body === false;
