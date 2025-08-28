@@ -222,7 +222,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$result = curl_exec($curlResource);
 			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
 			$curlError = curl_error($curlResource);
-			curl_close($curlResource);
 
 			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(

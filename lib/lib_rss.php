@@ -557,7 +557,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		}
 	}
 
-	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+	if (rand(0, 30) === 1) {	// Remove old cache once in a while
 		cleanCache(CLEANCACHE_HOURS);
 	}
 
@@ -642,7 +642,6 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
-	curl_close($ch);
 
 	$parser = new \SimplePie\HTTP\Parser(is_string($response) ? $response : '');
 	if ($parser->parse()) {

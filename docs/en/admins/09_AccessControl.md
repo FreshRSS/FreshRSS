@@ -42,7 +42,7 @@ You may also choose to use HTTP Authentication provided by your web server.[^1]
 
 If you choose to use this option, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
-You can also use any authentication backend as long as your web server exposes the authenticated user through the `Remote-User` variable.
+You can also use any authentication backend as long as your web server exposes the authenticated user through the `REMOTE_USER` variable.
 
 By default, new users allowed by HTTP Basic Auth will automatically be created in FreshRSS the first time they log in.
 You can disable auto-registration of new users by setting `http_auth_auto_register` to `false` in the configuration file.
