@@ -1225,21 +1225,21 @@ main.prompt {
 		padding: 0.5rem 1rem;
 	}
 	.aside .toggle_aside,
-	#overlay .close,
-	.dropdown-menu .toggle_aside,
-	#slider .toggle_aside {
+#overlay .close,
+.dropdown-menu .toggle_aside,
+#slider .toggle_aside {
 		background-color: #36c;
 	}
 	.aside .toggle_aside:hover,
-	#overlay .close:hover,
-	.dropdown-menu .toggle_aside:hover,
-	#slider .toggle_aside:hover {
+#overlay .close:hover,
+.dropdown-menu .toggle_aside:hover,
+#slider .toggle_aside:hover {
 		background-color: #25c;
 	}
 	.aside .toggle_aside .icon,
-	#overlay .close .icon,
-	.dropdown-menu .toggle_aside .icon,
-	#slider .toggle_aside .icon {
+#overlay .close .icon,
+.dropdown-menu .toggle_aside .icon,
+#slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
 	}
 	.header .item.search {
@@ -1273,16 +1273,16 @@ main.prompt {
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .stick,
-	.nav_menu .group {
+.nav_menu .group {
 		margin: 0.5rem 0.5rem;
 	}
 	.nav_menu .stick .btn,
-	.nav_menu .group .btn {
+.nav_menu .group .btn {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .stick .btn.read_all,
-	.nav_menu .group .btn.read_all {
+.nav_menu .group .btn.read_all {
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .search .input {
@@ -1291,6 +1291,9 @@ main.prompt {
 	}
 	.nav_menu .search .input:focus {
 		width: 400px;
+	}
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
 	}
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
@@ -1353,5 +1356,3 @@ a, button.as-link {
 	outline: none;
 	color: #36c;
 }
-
-/*# sourceMappingURL=mapco.css.map */
