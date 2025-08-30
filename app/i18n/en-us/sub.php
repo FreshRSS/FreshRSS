@@ -299,7 +299,7 @@ return array(
 		'add_feed' => 'Add a feed',	// IGNORE
 		'add_label' => 'Add a label',	// IGNORE
 		'add_opml_category' => 'OPML category name',	// IGNORE
-		'delete_label' => 'Delete a label',	// IGNORE
+		'delete_label' => 'Delete this label',	// IGNORE
 		'feed_management' => 'RSS feeds management',	// IGNORE
 		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
