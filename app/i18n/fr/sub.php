@@ -299,9 +299,9 @@ return array(
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'add_opml_category' => 'Nom de la catégorie OPML',
-		'delete_label' => 'Supprimer une étiquette',
+		'delete_label' => 'Supprimer l’étiquette',
 		'feed_management' => 'Gestion des flux RSS',
-		'rename_label' => 'Renommer une étiquette',
+		'rename_label' => 'Renommer l’étiquette',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 );

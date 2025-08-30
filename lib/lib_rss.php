@@ -643,13 +643,16 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
 
-	$parser = new \SimplePie\HTTP\Parser(is_string($response) ? $response : '');
-	if ($parser->parse()) {
-		$headers = $parser->headers;
-		$body = $parser->body;
-	} else {
-		$headers = [];
-		$body = false;
+	$body = false;
+	$headers = [];
+	if ($response !== false) {
+		assert($c_redirect_count >= 0);
+		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
+		$parser = new \SimplePie\HTTP\Parser($response);
+		if ($parser->parse()) {
+			$headers = $parser->headers;
+			$body = $parser->body;
+		}
 	}
 
 	$fail = $c_status != 200 || $c_error != '' || $body === false;

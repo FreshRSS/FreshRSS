@@ -299,7 +299,7 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO
 		'add_label' => 'Add a label',	// TODO
 		'add_opml_category' => 'OPML category name',	// TODO
-		'delete_label' => 'Delete a label',	// TODO
+		'delete_label' => 'Delete this label',	// TODO
 		'feed_management' => 'ניהול הזנות RSS',
 		'rename_label' => 'Rename a label',	// TODO
 		'subscription_tools' => 'Subscription tools',	// TODO
