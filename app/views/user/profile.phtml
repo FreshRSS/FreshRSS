@@ -7,7 +7,7 @@
 ?>
 
 <main class="post">
-	<form id="crypto-form" method="post" action="<?= _url('user', 'profile') ?>" data-auto-leave-validation="1">
+	<form class="crypto-form" method="post" action="<?= _url('user', 'profile') ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<h1><?= _t('conf.profile') ?></h1>
 
@@ -58,12 +58,12 @@
 		<details class="form-advanced" data-challenge-if-not-empty="1"<?= $open ? ' open="open"' : ''?>>
 			<summary class="form-advanced-title"><?= _t('conf.profile.change_password') ?></summary>
 			<div class="form-group">
-				<label class="group-name" for="passwordPlain"><?= _t('conf.profile.current_password') ?></label>
+				<label class="group-name" for="currentPasswordPlain"><?= _t('conf.profile.current_password') ?></label>
 				<div class="group-controls">
 					<input type="hidden" id="username" value="<?= Minz_User::name() ?? '' ?>" />
 					<div class="stick">
-						<input type="password" id="passwordPlain" />
-						<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><img class="icon" src="../themes/icons/key.svg" loading="lazy" alt="🔑"></button>
+						<input type="password" id="currentPasswordPlain" class="passwordPlain" />
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 
 					<noscript>
@@ -77,10 +77,10 @@
 				<div class="group-controls">
 					<div class="stick">
 						<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" />
-						<button type="button" class="btn toggle-password" data-toggle="newPasswordPlain"><img class="icon" src="../themes/icons/key.svg" loading="lazy" alt="🔑"></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 					<p class="help">
-						<img class="icon" src="../themes/icons/help.svg" loading="lazy" alt="ℹ️"> <?= _t('conf.profile.password_format') ?>
+						<?= _i('help') ?> <?= _t('conf.profile.password_format') ?>
 					</p>
 				</div>
 			</div>
@@ -89,7 +89,7 @@
 				<div class="group-controls">
 					<div class="stick">
 						<input type="password" id="confirmPasswordPlain" name="confirmPasswordPlain" autocomplete="new-password" pattern=".{7,}" />
-						<button type="button" class="btn toggle-password" data-toggle="confirmPasswordPlain"><img class="icon" src="../themes/icons/key.svg" loading="lazy" alt="🔑"></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 				</div>
 			</div>
@@ -120,7 +120,7 @@
 								placeholder="<?= _t('conf.profile.api.api_not_set') ?>"
 							<?php } ?>
 							pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-						<button type="button" class="btn toggle-password" data-toggle="apiPasswordPlain"><?= _i('key') ?></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.check_link', Minz_Url::display('/api/', 'html', true)) ?></p>
 					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.documentation_link') ?></p>
@@ -146,7 +146,7 @@
 	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
 	<h2><?= _t('conf.profile.delete') ?></h2>
 
-	<form id="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
+	<form class="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('conf.profile.delete.warn') ?></p>
@@ -155,8 +155,8 @@
 			<label class="group-name" for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" required="required" />
-					<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
+					<input type="password" id="passwordPlain" class="passwordPlain" required="required" />
+					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 					<input type="hidden" id="challenge" name="challenge" /><br />
 					<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
@@ -165,13 +165,6 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<?php
-					$redirect_url = urlencode(Minz_Url::display(
-						['c' => 'user', 'a' => 'profile'],
-						'php', true
-					));
-				?>
-				<input type="hidden" name="r" value="<?= $redirect_url ?>" />
 				<input type="hidden" name="username" id="username" value="<?= Minz_User::name() ?>" />
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
 			</div>
