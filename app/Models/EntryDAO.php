@@ -145,18 +145,18 @@ SQL;
 	private PDOStatement|null|false $addEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
-	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>} $valuesTmp */
+	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>,'lastUserModified':int,} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
 			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. (static::isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes) '
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
 				. static::sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
+				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes,:lastUserModified)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared != false) {
@@ -180,6 +180,12 @@ SQL;
 				$valuesTmp['lastSeen'] = time();
 			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+
+			if (empty($valuesTmp['lastUserModified'])) {
+				$valuesTmp['lastUserModified'] = time();
+			}
+			$this->addEntryPrepared->bindParam(':lastUserModified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
@@ -206,7 +212,7 @@ SQL;
 		} else {
 			$info = $this->addEntryPrepared == false ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
 			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
-			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
+			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>,lastUserModified:int} $valuesTmp */
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
@@ -225,9 +231,9 @@ SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
 INSERT IGNORE INTO `_entry` (
 	id, guid, title, author, content_bin, link, date, `lastSeen`,
-	hash, is_read, is_favorite, id_feed, tags, attributes
+	hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
 )
-SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
 FROM `_entrytmp`
 ORDER BY date, id;
 
@@ -247,7 +253,7 @@ SQL;
 	private PDOStatement|null|false $updateEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
-	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>} $valuesTmp */
+	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes':array<string,mixed>,'lastUserModified':int} $valuesTmp */
 	public function updateEntry(array $valuesTmp): bool {
 		if (!isset($valuesTmp['is_read'])) {
 			$valuesTmp['is_read'] = null;
@@ -265,6 +271,7 @@ SQL;
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
 				. ', tags=:tags, attributes=:attributes '
+				. ', lastUserModified=COALESCE(:lastUserModified, lastUserModified)'
 				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
@@ -285,6 +292,7 @@ SQL;
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindParam(':lastUserModified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
 			if ($valuesTmp['is_read'] === null) {
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
 			} else {
@@ -318,7 +326,7 @@ SQL;
 		} else {
 			$info = $this->updateEntryPrepared == false ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
 			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
-			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes:array<string,mixed>} $valuesTmp */
+			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes:array<string,mixed>,lastUserModified:int} $valuesTmp */
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
@@ -366,9 +374,10 @@ SQL;
 			return $affected;
 		}
 		$sql = 'UPDATE `_entry` '
-			. 'SET is_favorite=? '
+			. 'SET is_favorite=?, lastUserModified=? '
 			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
 		$values = [$is_favorite ? 1 : 0];
+		$values[] = time();
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
@@ -447,9 +456,10 @@ SQL;
 
 			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` '
-				 . 'SET is_read=? '
+				 . 'SET is_read=?, lastUserModified=? '
 				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
 			$values = [$is_read ? 1 : 0];
+			$values[] = time();
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
@@ -465,10 +475,10 @@ SQL;
 		} else {
 			FreshRSS_UserDAO::touch();
 			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-				 . 'SET e.is_read=?,'
+				 . 'SET e.is_read=?,lastUserModified=?,'
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE e.id=? AND e.is_read=?';
-			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
+			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
 			if ($stm !== false && $stm->execute($values)) {
 				return $stm->rowCount();
@@ -501,8 +511,8 @@ SQL;
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
+		$sql = 'UPDATE `_entry` SET is_read = ?, lastUserModified=? WHERE is_read <> ? AND id <= ?';
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
 		}
@@ -554,11 +564,11 @@ SQL;
 
 		$sql = <<<'SQL'
 UPDATE `_entry`
-SET is_read = ?
+SET is_read = ?, lastUserModified = ?
 WHERE is_read <> ? AND id <= ?
 AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)
 SQL;
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -598,9 +608,9 @@ SQL;
 		}
 
 		$sql = 'UPDATE `_entry` '
-			 . 'SET is_read=? '
+			 . 'SET is_read=?, lastUserModified = ? '
 			 . 'WHERE id_feed=? AND is_read <> ? AND id <= ?';
-		$values = [$is_read ? 1 : 0, $id_feed, $is_read ? 1 : 0, $idMax];
+		$values = [$is_read ? 1 : 0, time(), $id_feed, $is_read ? 1 : 0, $idMax];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -649,11 +659,12 @@ SQL;
 		}
 
 		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id '
-			 . 'SET e.is_read = ? '
+			 . 'SET e.is_read = ?, lastUserModified = ? '
 			 . 'WHERE '
 			 . ($id == 0 ? '' : 'et.id_tag = ? AND ')
 			 . 'e.is_read <> ? AND e.id <= ?';
 		$values = [$is_read ? 1 : 0];
+		$values[] = time();
 		if ($id != 0) {
 			$values[] = $id;
 		}
@@ -740,12 +751,12 @@ SQL;
 	}
 
 	/** @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}> */
+	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string,lastUserModified:int}> */
 	public function selectAll(?int $limit = null): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
 FROM `_entry`
 SQL;
 		if (is_int($limit) && $limit >= 0) {
@@ -755,7 +766,7 @@ SQL;
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-				 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string} $row */
+				 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string,lastUserModified:int} $row */
 				yield $row;
 			}
 		} else {
@@ -773,7 +784,7 @@ SQL;
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, is_read, is_favorite, {$hash} AS hash, id_feed, tags, attributes, {$content}
+SELECT id, guid, title, author, link, date, is_read, is_favorite, {$hash} AS hash, id_feed, tags, attributes, {$content}, lastUserModified
 FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
@@ -786,7 +797,7 @@ SQL;
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, is_read, is_favorite, {$hash} AS hash, id_feed, tags, attributes, {$content}
+SELECT id, guid, title, author, link, date, is_read, is_favorite, {$hash} AS hash, id_feed, tags, attributes, {$content}, lastUserModified
 FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
@@ -1418,7 +1429,7 @@ SQL;
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
-SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link, e0.date, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
+SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link, e0.date, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes, e0.lastUserModified
 FROM `_entry` e0
 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
@@ -1502,7 +1513,7 @@ SQL;
 		$hash = static::sqlHexEncode('hash');
 		$repeats = str_repeat('?,', count($ids) - 1) . '?';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}
+SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, lastUserModified
 FROM `_entry`
 WHERE id IN ({$repeats})
 ORDER BY id {$order}

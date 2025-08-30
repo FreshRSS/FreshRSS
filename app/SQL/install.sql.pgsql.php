@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(2048),
 	"attributes" TEXT,	-- v1.20.0
+	"lastUserModified" BIGINT DEFAULT 0,
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
@@ -57,6 +58,7 @@ CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `_entry`(`lastUserModified`);	-- //v1.1.1
 
 INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
@@ -78,10 +80,12 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id_feed" INT,	-- 1.20.0
 	"tags" VARCHAR(2048),
 	"attributes" TEXT,	-- v1.20.0
+	"lastUserModified" BIGINT DEFAULT 0,
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
 CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
+CREATE INDEX IF NOT EXISTS _entrytmp_last_user_modified_index ON `_entrytmp`(`lastUserModified`);	-- //v1.1.1
 
 CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
@@ -140,6 +144,18 @@ BEGIN
 			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
 		ALTER TABLE `_tag`
 			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+	END IF;
+
+	IF NOT EXISTS (
+		SELECT 1 FROM information_schema.columns
+		WHERE table_schema = 'public'
+			AND table_name = REPLACE('`_entry`', '"', '')
+			AND column_name = 'lastUserModified'
+	) THEN
+		ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.20.0
+		ALTER TABLE `_entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.20.0
+		CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `_entry`(`lastUserModified`);	-- //v1.1.1
+		CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `_entrytmp`(`lastUserModified`);	-- //v1.1.1
 	END IF;
 END $$;
 SQL;
