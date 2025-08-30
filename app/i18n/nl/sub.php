@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML categorienaam',
 		'delete_label' => 'Label verwijderen',
 		'feed_management' => 'RSS-feedbeheer',
-		'rename_label' => 'Label hernoemen',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 );

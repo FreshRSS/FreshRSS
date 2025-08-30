@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPMLカテゴリ名',
 		'delete_label' => 'ラベルの削除',
 		'feed_management' => 'RSSフィードの管理',
-		'rename_label' => 'ラベルの名前変更',
 		'subscription_tools' => '購読ツール',
 	),
 );

@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Delete this label',	// TODO
 		'feed_management' => 'ניהול הזנות RSS',
-		'rename_label' => 'Rename a label',	// TODO
 		'subscription_tools' => 'Subscription tools',	// TODO
 	),
 );

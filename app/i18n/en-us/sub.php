@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// IGNORE
 		'delete_label' => 'Delete this label',	// IGNORE
 		'feed_management' => 'RSS feeds management',	// IGNORE
-		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
 	),
 );

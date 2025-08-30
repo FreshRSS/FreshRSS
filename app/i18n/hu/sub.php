@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML kategória név',
 		'delete_label' => 'Címke törlése',
 		'feed_management' => 'RSS hírforrások kezelése',
-		'rename_label' => 'Címke átnevezése',
 		'subscription_tools' => 'Feliratkozási eszközök',
 	),
 );
