@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
-	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.1.1
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.27.1
 	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.27.1
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
@@ -155,19 +156,6 @@ BEGIN
 		ALTER TABLE `_feed`
 			DROP INDEX IF EXISTS `url`, -- IF EXISTS works with MariaDB but not with MySQL, so needs PHP workaround
 			MODIFY COLUMN `url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
-	END IF;
-
-	DECLARE up_to_date_entry INT;
-	SELECT COUNT(*) INTO up_to_date_entry FROM information_schema.COLUMNS
-		WHERE TABLE_SCHEMA = DATABASE()
-		AND TABLE_NAME = REPLACE('`_entry`', '`', '')
-		AND COLUMN_NAME = 'lastUserModified';
-
-	IF up_to_date = 0 THEN
-		ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.20.0
-		ALTER TABLE `_entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.20.0
-		CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `_entry`(`lastUserModified`);	-- //v1.1.1
-		CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `_entrytmp`(`lastUserModified`);	-- //v1.1.1
 	END IF;
 END;
 CALL update_minor();

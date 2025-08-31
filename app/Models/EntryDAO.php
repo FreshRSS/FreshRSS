@@ -112,6 +112,16 @@ ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
 SQL;
 				return $this->pdo->exec($sql) !== false;
 			}
+			if ($name === 'lastUserModified') {	//v1.27.1
+				$prefix = $this->pdo->prefix();
+				$sql = <<<SQL
+ALTER TABLE `{$prefix}entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.27.1
+ALTER TABLE `{$prefix}entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.27.1
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `{$prefix}entry`(`lastUserModified`);	-- //v1.27.1
+CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `{$prefix}entrytmp`(`lastUserModified`);	-- //v1.27.1
+SQL;
+				return $this->pdo->exec($sql) !== false;
+			}
 		} catch (Exception $e) {
 			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
