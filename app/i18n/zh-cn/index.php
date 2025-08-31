@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Random order',	// TODO
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => '显示收藏',
 		'stats' => '统计',

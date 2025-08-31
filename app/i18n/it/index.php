@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Ordine casuale',
 			'title_asc' => 'Titolo A→Z',
 			'title_desc' => 'Titolo Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',

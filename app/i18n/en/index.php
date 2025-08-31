@@ -89,13 +89,13 @@ return array(
 			),
 			'id_asc' => 'Freshly received last',
 			'id_desc' => 'Freshly received first',
-			'user_modified_asc' => 'User modified 1→9',
-			'user_modified_desc' => 'User modified 9→1',
 			'link_asc' => 'Link A→Z',
 			'link_desc' => 'Link Z→A',
 			'rand' => 'Random order',
 			'title_asc' => 'Title A→Z',
 			'title_desc' => 'Title Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Show favourites',
 		'stats' => 'Statistics',
