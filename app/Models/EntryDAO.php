@@ -1271,7 +1271,7 @@ SQL;
 			$values[] = $id_min;
 		}
 
-		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title'], true)) {
+		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified'], true)) {
 			$sign = $order === 'ASC' ? '>' : '<';
 			$orderBy = match ($sort) {
 				'c.name' => 'c.name',
@@ -1372,7 +1372,7 @@ SQL;
 		}
 
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified'], true) ? $sort : 'id';
 		$orderBy = match ($sort) {
 			'c.name' => 'c.name',
 			'f.name' => 'f.name',
@@ -1415,7 +1415,7 @@ SQL;
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified'], true) ? $sort : 'id';
 
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);

@@ -237,7 +237,7 @@ final class FreshRSS_Context {
 		$order = Minz_Request::paramString('order', true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified'], true) ? $sort : 'id';
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(

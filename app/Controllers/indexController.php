@@ -285,7 +285,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$continuation_values = [];
 		if (FreshRSS_Context::$continuation_id !== '0') {
-			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title'], true)) {
+			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified'], true)) {
 				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
 
 				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
