@@ -302,6 +302,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'f.name' => $pagingEntry->feed()?->name() ?? '',
 					'link' => $pagingEntry->link(true),
 					'title' => $pagingEntry->title(),
+					'lastUserModified' => $pagingEntry->lastUserModified(),
 				};
 				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
 					// Secondary sort criterion
