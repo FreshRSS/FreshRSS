@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Article actions',
 		'auto_share' => 'Share',
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',
-		'close_dropdown' => 'Close menus',
+		'close_menus' => 'Close menus',
 		'collapse_article' => 'Collapse',
 		'first_article' => 'Open the first article',
 		'focus_search' => 'Access search box',

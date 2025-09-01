@@ -85,7 +85,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 
 		$last30DaysLabels = [];
-		for ($i = 0; $i < 30; $i++) {
+		for ($i = 0; $i < 31; $i++) {
 			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days') ?: null);
 		}
 

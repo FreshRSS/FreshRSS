@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Tindakan artikel',
 		'auto_share' => 'Berbagi',
 		'auto_share_help' => 'Jika hanya ada satu layanan berbagi, maka itu akan digunakan. Jika tidak, mode dapat diakses dengan nomornya.',
-		'close_dropdown' => 'Tutup menu',
+		'close_menus' => 'Tutup menu',
 		'collapse_article' => 'Tutup',
 		'first_article' => 'Buka artikel pertama',
 		'focus_search' => 'Akses kotak pencarian',

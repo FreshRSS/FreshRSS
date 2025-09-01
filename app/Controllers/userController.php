@@ -149,10 +149,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				ini_set('session.use_cookies', '1');
-				Minz_Session::lock();
-				Minz_Session::regenerateID();
-				Minz_Session::unlock();
+				Minz_Session::regenerateID('FreshRSS');
 			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {

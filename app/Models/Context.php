@@ -151,6 +151,15 @@ final class FreshRSS_Context {
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
+
+		// FreshRSS 1.27.1+
+		if (isset(FreshRSS_Context::$user_conf->shortcuts['close_dropdown'])) {
+			$shortcuts = FreshRSS_Context::$user_conf->shortcuts;
+			$shortcuts['close_menus'] = $shortcuts['close_dropdown'];
+			unset($shortcuts['close_dropdown']);
+			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
+			FreshRSS_Context::$user_conf->save();
+		}
 	}
 
 	/**

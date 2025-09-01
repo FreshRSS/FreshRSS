@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Noņemt birku',
 		'feed_management' => 'RSS barotņu pārvalde',
-		'rename_label' => 'Birkas vārda maiņa',
 		'subscription_tools' => 'Abonamentu rīki',
 	),
 );

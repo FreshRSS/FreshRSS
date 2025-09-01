@@ -321,7 +321,7 @@ return array(
 		'article_action' => '記事のアクション',
 		'auto_share' => '共有',
 		'auto_share_help' => '共有方法が一つしか設定されていないときにはそれが使われます。そうではなければ、番号によって共有方法にアクセスできます。',
-		'close_dropdown' => 'メニューを閉じる',
+		'close_menus' => 'メニューを閉じる',
 		'collapse_article' => '折りたたむ',
 		'first_article' => '初めの記事を開く',
 		'focus_search' => '検索ボックスにアクセスする',

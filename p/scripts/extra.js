@@ -179,6 +179,10 @@ function init_update_feed() {
 		if (resetField) {
 			resetField.remove();
 		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
 		if (faviconExtBtn) {
 			faviconExtBtn.disabled = false;
 			extension.innerText = extension.dataset.initialExt ?? extension.innerText;
@@ -214,6 +218,10 @@ function init_update_feed() {
 		if (resetField) {
 			resetField.remove();
 		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
 		resetFavicon.disabled = false;
 		favicon.src = URL.createObjectURL(faviconUpload.files[0]);
 	};
@@ -231,19 +239,16 @@ function init_update_feed() {
 		faviconExt.classList.add('hidden');
 		faviconError.innerHTML = '';
 		clearUploadedIcon();
-		resetFavicon.insertAdjacentHTML('afterend', '<input type="hidden" name="resetFavicon" value="1" />');
+		resetFavicon.insertAdjacentHTML('afterend', '<input type="hidden" name="resetFavicon" value="1" data-leave-validation="" />');
 		resetFavicon.disabled = true;
 
 		favicon.src = favicon.dataset.originalIcon;
 	};
 
-	// Discard the icon change when the "Cancel" button is clicked
-	feed_update.querySelectorAll('[type="reset"]').forEach(cancelBtn => {
-		cancelBtn.addEventListener('click', () => {
-			faviconExt.classList.remove('hidden');
-			faviconError.innerHTML = '';
-			discardIconChange();
-		});
+	feed_update.querySelector('form').addEventListener('reset', () => {
+		faviconExt.classList.remove('hidden');
+		faviconError.innerHTML = '';
+		discardIconChange();
 	});
 
 	if (faviconExtBtn) {
@@ -272,6 +277,7 @@ function init_update_feed() {
 				if (resetField) {
 					resetField.remove();
 				}
+				faviconExtBtn.insertAdjacentHTML('afterend', '<input type="hidden" id="extBtn" value="1" data-leave-validation="" />');
 				resetFavicon.disabled = false;
 				faviconError.innerHTML = '';
 				faviconExt.classList.remove('hidden');
@@ -367,9 +373,12 @@ function close_slider_listener(ev) {
 	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
 		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
 		document.documentElement.classList.remove('slider-active');
-		return;
+		return true;
 	}
-	ev.preventDefault();
+	if (ev) {
+		ev.preventDefault();
+	}
+	return false;
 }
 // </slider>
 

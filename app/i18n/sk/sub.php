@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Zmazať štítok',
 		'feed_management' => 'Správa RSS kanálov',
-		'rename_label' => 'Premenovať štítok',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 );

@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
-		'close_dropdown' => 'Menüs schließen',
+		'close_menus' => 'Menüs schließen',
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',

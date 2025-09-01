@@ -2643,9 +2643,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		left: 0 !important;
 		bottom: 0;
-		right: auto;
+		right: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;
