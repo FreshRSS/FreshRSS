@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Timeout in seconds',	// IGNORE
 		'title' => 'Title',	// IGNORE
 		'title_add' => 'Add an RSS feed',	// IGNORE
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Do not automatically refresh more often than',	// IGNORE
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// IGNORE

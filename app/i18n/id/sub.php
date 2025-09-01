@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Timeout dalam detik',
 		'title' => 'Judul',
 		'title_add' => 'Tambah umpan RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Jangan perbarui secara otomatis lebih banyak daripada',
 		'unicityCriteria' => array(
 			'_' => 'Kriteria keunikan artikel',

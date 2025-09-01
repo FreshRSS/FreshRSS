@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Aikakatkaisu sekunteina',
 		'title' => 'Otsikko',
 		'title_add' => 'Lisää RSS-syöte',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Älä päivitä automaattisesti useammin kuin',
 		'unicityCriteria' => array(
 			'_' => 'Artikkelin yksilöivät ehdot',

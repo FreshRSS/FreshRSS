@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
 		'title' => ' خواندن',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => ' نمای پیش فرض',
 			'global' => ' نمای جهانی',

@@ -588,6 +588,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 
 				$mark_updated_article_unread = $feed->attributeBoolean('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
+				$title_rewriting_handler = $feed->titleRewriteHandler();
 
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
@@ -602,6 +603,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 					$newGuids[$entry->guid()] = true;
 					$entry->_lastSeen($mtime);
+
+					if ($title_rewriting_handler instanceof FreshRSS_TitleRewriting_Handler) {
+						$entry->_title($title_rewriting_handler->rewrite($entry->title(), $feed->name()));
+					}
 
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];

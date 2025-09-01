@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Time-out in seconden',
 		'title' => 'Titel',
 		'title_add' => 'Voeg een RSS-feed toe',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Vernieuw automatisch niet vaker dan',
 		'unicityCriteria' => array(
 			'_' => 'Criteria voor uniciteit van artikel',

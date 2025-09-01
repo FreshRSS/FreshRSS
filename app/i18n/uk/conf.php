@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => 'Закріплювати статтю вгорі при відкритті',
 		'title' => 'Читання',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Типовий показ',
 			'global' => 'Глобальний показ',

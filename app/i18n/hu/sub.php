@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Időtúllépés ideje másodpercekben',
 		'title' => 'Cím',
 		'title_add' => 'RSS hírforrás hozzáadása',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Ne frissítsd automatikusan többször mint',
 		'unicityCriteria' => array(
 			'_' => 'Cikk egységességi feltételek',
