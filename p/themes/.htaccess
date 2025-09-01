@@ -26,6 +26,6 @@
 
 <IfModule mod_headers.c>
 	<FilesMatch "\.svg$">
-		Header	set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'"
+		Header	set Content-Security-Policy "default-src 'self'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'"
 	</FilesMatch>
 </IfModule>

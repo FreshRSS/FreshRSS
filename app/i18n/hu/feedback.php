@@ -50,6 +50,7 @@ return array(
 			'ko' => 'A(z) %s nem kapcsolható be. <a href="%s">nézd meg a FreshRSS log-okat</a> a részletekért.',
 			'ok' => 'A(z) %s bekapcsolása sikeres',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Nincs hozzáférésed ehhez: %s',
 		'not_enabled' => 'A(z) %s nincs bekapcsolva',
 		'not_found' => 'A(z) %s nem létezik',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'A profilod nem módosítható',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'A profilod módosítása megtörtént',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> gyorsítótára kiürítve',
 			'deleted' => 'Hírforrás törlése megtörtént',
 			'error' => 'Hírforrás frissítése nem lehetséges',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'A hírforrást nem sikerült hozzáadni. <a href="%s">Nézd meg a FreshRSS logokat</a> a részletekért. Megpróbálhatod mindenképp hozzáadni, ha az <code>#force_feed</code> szöveget az URL után írod.',
 			'invalid_url' => 'URL <em>%s</em> érvénytelen',
 			'n_actualized' => '%d hírforrások frissítése kész',

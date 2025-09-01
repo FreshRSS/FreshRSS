@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Flusso principale',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Panoramica',
 		'percent_of_total' => '% del totale',
 		'repartition' => 'Ripartizione articoli: %s',
 		'status_favorites' => 'Preferiti',

@@ -77,8 +77,16 @@ return array(
 		'search_short' => '検索',
 		'sort' => array(
 			'_' => '並べ替え',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => '公開日順 1→9',
 			'date_desc' => '公開日順 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => '新着を最後に並べる',
 			'id_desc' => '新着を最初に並べる',
 			'link_asc' => 'リンクURL順 A→Z',

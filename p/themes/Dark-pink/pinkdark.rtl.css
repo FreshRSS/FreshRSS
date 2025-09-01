@@ -23,7 +23,8 @@
 	background-color: #ffb6c1;
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: #ffb6c1;
 }
 

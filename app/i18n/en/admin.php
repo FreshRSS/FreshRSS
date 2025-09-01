@@ -116,7 +116,7 @@ return array(
 		'description' => 'Description',
 		'disabled' => 'Disabled',
 		'empty_list' => 'There are no installed extensions',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',
 		'enabled' => 'Enabled',
 		'latest' => 'Installed',
 		'name' => 'Name',
@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Main stream',
 		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Overview',
 		'percent_of_total' => '% of total',
 		'repartition' => 'Articles repartition: %s',
 		'status_favorites' => 'Favourites',

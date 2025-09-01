@@ -100,10 +100,10 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“segna tutto come letto” button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => 'pulsante “segna tutto come letto”',
+		'big' => 'Grande',
+		'none' => 'Nessuno',
+		'small' => 'Piccolo',
 	),
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentazione e l’elenco delle applicazioni</a>',
 			'help' => 'leggi la <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentazione</a>',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
 		'email' => 'Indirizzo email',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
-		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
 		'title' => 'Profilo',
 	),
@@ -318,7 +321,7 @@ return array(
 		'article_action' => 'Azioni sugli articoli',
 		'auto_share' => 'Condividi',
 		'auto_share_help' => 'Se è presente un solo servizio di condivisione verrà usato quello, altrimenti usare anche il numero associato.',
-		'close_dropdown' => 'Chiudi menù',
+		'close_menus' => 'Chiudi menù',
 		'collapse_article' => 'Collassa articoli',
 		'first_article' => 'Salta al primo articolo',
 		'focus_search' => 'Modulo di ricerca',

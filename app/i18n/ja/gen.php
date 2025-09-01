@@ -61,6 +61,11 @@ return array(
 			'_' => 'パスワード',
 			'format' => '<small>最低７文字必要です</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => '新規アカウント',
 			'ask' => 'アカウントを作りますか?',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => '昨日',
 	),
 	'dir' => 'ディレクトリ',
+	'flag' => '🇯🇵',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => '空白のカテゴリ',
 		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
 			'body_unread_articles' => '(未読: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'ラベルがありません',
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE

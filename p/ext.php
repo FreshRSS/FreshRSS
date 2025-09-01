@@ -11,6 +11,11 @@ function get_absolute_filename(string $file_name): string {
 
 	$third_party_extension = realpath(THIRDPARTY_EXTENSIONS_PATH . '/' . $file_name);
 	if (false !== $third_party_extension) {
+		$original_dir = THIRDPARTY_EXTENSIONS_PATH . '/' . explode('/', $file_name)[0];
+		if (is_link($original_dir)) {
+			return THIRDPARTY_EXTENSIONS_PATH . '/' . $file_name;
+		}
+
 		return $third_party_extension;
 	}
 
@@ -89,6 +94,8 @@ if (!is_valid_path($absolute_filename)) {
 $content_type = FreshRSS_extension_Controller::MIME_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 
 $mtime = @filemtime($absolute_filename);

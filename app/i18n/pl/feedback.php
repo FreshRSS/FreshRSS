@@ -50,6 +50,7 @@ return array(
 			'ko' => 'Rozszerzenie %s nie może zostać włączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
 			'ok' => 'Rozszerzenie %s zostało włączone',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Brak dostępu do %s',
 		'not_enabled' => 'Rozszerzenie %s nie jest włączone',
 		'not_found' => 'Rozszerzenie %s nie istnieje',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Nie można modyfikować profilu',
+		'passwords_dont_match' => 'Hasła się nie zgadzają',
 		'updated' => 'Profil został zmodyfikowany',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => 'Pamięć podręczna kanału <em>%s</em> została wyczyszczona',
 			'deleted' => 'Kanał został usunięty',
 			'error' => 'Nie udało się zaktualizować kanału',
+			'favicon' => array(
+				'too_large' => 'Przesłana ikona jest zbyt wielka. Maksymalny rozmiar pliku to <em>%s</em>.',
+				'unsupported_format' => 'Nieobsługiwany format pliku obrazka!',
+			),
 			'internal_problem' => 'Wystąpił błąd podczas dodawania kanału. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji. Można spróbować wymusić dodanie kanału przez dodanie <code>#force_feed</code> na końcu adresu URL.',
 			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
 			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',

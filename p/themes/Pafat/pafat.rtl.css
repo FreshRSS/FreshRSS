@@ -95,7 +95,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, .as-link, button.as-link {
 	color: var(--font-color-link-general);
 	outline: none;
 }
@@ -302,18 +302,21 @@ th {
 	line-height: 2.5;
 }
 
-.nav-list .item a:hover {
+.nav-list .item a:hover,
+.nav-list .item .as-link:hover {
 	color: var(--font-color-link-general-hover);
 	background-color: var(--background-color-grey-hover);
 }
 
 .nav-list .item.active,
-.nav-list .item.active a:hover {
+.nav-list .item.active a:hover,
+.nav-list .item.active .as-link:hover {
 	background-color: var(--background-color-navlist-active);
 	color: var(--font-color-white);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--font-color-white);
 }
 
@@ -322,7 +325,8 @@ th {
 	padding: 0 1rem;
 }
 
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list .as-link:hover {
 	text-decoration: none;
 }
 

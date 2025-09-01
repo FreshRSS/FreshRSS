@@ -42,7 +42,7 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'date'|'link'|'title'|'rand' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' */
 	public static string $sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
@@ -55,13 +55,13 @@ final class FreshRSS_Context {
 	public static bool $isCli = false;
 
 	/**
+	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::systemConf()` instead.
-	 * @internal
 	 */
 	public static ?FreshRSS_SystemConfiguration $system_conf = null;
 	/**
+	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::userConf()` instead.
-	 * @internal
 	 */
 	public static ?FreshRSS_UserConfiguration $user_conf = null;
 
@@ -130,10 +130,8 @@ final class FreshRSS_Context {
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
 
 		//Legacy
-		$oldEntries = FreshRSS_Context::$user_conf->param('old_entries', 0);
-		$oldEntries = is_numeric($oldEntries) ? (int)$oldEntries : 0;
-		$keepMin = FreshRSS_Context::$user_conf->param('keep_history_default', -5);
-		$keepMin = is_numeric($keepMin) ? (int)$keepMin : -5;
+		$oldEntries = FreshRSS_Context::$user_conf->attributeInt('old_entries') ?? 0;
+		$keepMin = FreshRSS_Context::$user_conf->attributeInt('keep_history_default') ?? -5;
 		if ($oldEntries > 0 || $keepMin > -5) {	//Freshrss < 1.15
 			$archiving = FreshRSS_Context::$user_conf->archiving;
 			$archiving['keep_max'] = false;
@@ -152,6 +150,15 @@ final class FreshRSS_Context {
 		//Legacy < 1.16.1
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
+		}
+
+		// FreshRSS 1.27.1+
+		if (isset(FreshRSS_Context::$user_conf->shortcuts['close_dropdown'])) {
+			$shortcuts = FreshRSS_Context::$user_conf->shortcuts;
+			$shortcuts['close_menus'] = $shortcuts['close_dropdown'];
+			unset($shortcuts['close_dropdown']);
+			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
+			FreshRSS_Context::$user_conf->save();
 		}
 	}
 
@@ -239,7 +246,7 @@ final class FreshRSS_Context {
 		$order = Minz_Request::paramString('order', true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'date', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(

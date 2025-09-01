@@ -274,6 +274,18 @@ th {
 	box-shadow: none;
 }
 
+.spinner {
+	filter: invert(1);
+}
+
+a:hover > .spinner {
+	filter: invert(1) brightness(2);
+}
+
+.flux .item.manage .read:hover .icon.spinner {
+	filter: invert(1) grayscale(0.8) brightness(1.7);
+}
+
 /*=== switches */
 .switch.active {
 	background-color: var(--contrast-background-color);
@@ -295,25 +307,30 @@ th {
 	line-height: 2.5;
 }
 
-.nav-list .item a {
+.nav-list .item a,
+.nav-list .item .as-link {
 	color: var(--font-color-middle);
 }
 
-.nav-list .item a:hover {
+.nav-list .item a:hover,
+.nav-list .item .as-link:hover {
 	background-color: var(--background-color-hover);
 	color: var(--font-color-light);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-light);
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 1rem;
 }
 
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list .as-link:hover {
 	text-decoration: none;
 }
 

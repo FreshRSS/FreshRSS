@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+
+header('X-Content-Type-Options: nosniff');
+
 require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
@@ -142,7 +145,7 @@ switch ($type) {
 			Minz_Error::error(404, "Feed {$id} not found!");
 			die();
 		}
-		$view->feeds = [ $feed ];
+		$view->feeds = [$id => $feed];
 		$view->categories = [];
 		break;
 	default:
@@ -175,10 +178,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
 } elseif (in_array($format, ['greader', 'json'], true)) {
 	header('Content-Type: application/json; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
 	$view->_layout(null);
 	$view->type = 'query/' . $token;
 	$view->list_title = $query->getName();
@@ -190,9 +195,11 @@ if (in_array($format, ['rss', 'atom'], true)) {
 		die();
 	}
 	header('Content-Type: application/xml; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
 	$view->_layout(null);
 	$view->_path('index/opml.phtml');
 } else {
+	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; frame-ancestors 'none'; media-src *");
 	$view->_layout('layout');
 	$view->_path('index/html.phtml');
 }

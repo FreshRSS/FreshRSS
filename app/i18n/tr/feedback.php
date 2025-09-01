@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s etkinleştirilemedi. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>.',
 			'ok' => '%s artık etkin',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => '%s üzerinde erişiminiz yok',
 		'not_enabled' => '%s etkin değil',
 		'not_found' => '%s mevcut değil',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Profiliniz değiştirilemedi',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Profiliniz değiştirildi',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> önbelleği temizlendi',
 			'deleted' => 'Besleme silindi',
 			'error' => 'Besleme güncellenemedi',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Haber akışı eklenemedi. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>. URL’ye <code>#force_feed</code> ekleyerek zorla eklemeyi deneyebilirsiniz.',
 			'invalid_url' => '<em>%s</em> URL’si geçersiz',
 			'n_actualized' => '%d besleme güncellendi',

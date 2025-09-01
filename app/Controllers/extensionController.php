@@ -48,7 +48,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$cacheFile = CACHE_PATH . '/extension_list.json';
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = httpGet($extensionListUrl, $cacheFile, 'json');
+				$json = httpGet($extensionListUrl, $cacheFile, 'json')['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}

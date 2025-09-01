@@ -71,14 +71,13 @@
         "phpstan": "phpstan analyse .",
         "phpstan-next": "phpstan analyse -c phpstan-next.neon .",
         "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-phpunit-deprecations ./tests",
-        "translations": "cli/manipulate.translation.php -a format",
+        "translations": "cli/manipulate.translation.php -a format && cli/check.translation.php -g",
         "test": [
             "@php-lint",
             "@phtml-lint",
             "@phpunit",
             "@phpcs",
-            "@phpstan",
-            "@phpstan-next"
+            "@phpstan"
         ],
         "fix": [
             "@translations",

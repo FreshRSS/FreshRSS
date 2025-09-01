@@ -212,9 +212,26 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $version;
 	}
 
+	public function pdoClientVersion(): string {
+		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		return is_string($version) ? $version : '';
+	}
+
 	final public function isMariaDB(): bool {
 		// MariaDB includes its name in version, but not MySQL
 		return str_contains($this->version(), 'MariaDB');
+	}
+
+	/**
+	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
+	 */
+	final public function testTyping(): bool {
+		$sql = 'SELECT 2 + 3';
+		if (($stm = $this->pdo->query($sql)) !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return ($res[0] ?? null) === 5;
+		}
+		return false;
 	}
 
 	public function size(bool $all = false): int {

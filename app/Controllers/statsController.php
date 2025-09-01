@@ -29,8 +29,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'img-src' => '* data:',
-			'style-src' => "'self' 'unsafe-inline'",
+			'frame-ancestors' => "'none'",
+			'img-src' => '* data: blob:',
 		]);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -53,7 +53,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
 
 		$this->view->repartitions = $statsDAO->calculateEntryRepartition();
 
@@ -216,7 +216,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
 		$feedDAO 		= FreshRSS_Factory::createFeedDao();
 
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
 
 		$id = Minz_Request::paramInt('id');
 		if ($id === 0) {

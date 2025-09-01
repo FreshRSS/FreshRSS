@@ -171,13 +171,15 @@ th {
 .nav-list .item:hover {
 }
 
-.nav-list .item:hover a {
+.nav-list .item:hover a,
+.nav-list .item:hover .as-link {
 }
 
 .nav-list .item.active {
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 }
 
 .nav-list .item > a,

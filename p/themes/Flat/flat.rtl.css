@@ -257,12 +257,14 @@ th {
 }
 
 .nav-list .item a:hover,
+.nav-list .item .as-link:hover,
 .nav-list .item.active {
 	background: #2980b9;
 	color: #fff;
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: #fff;
 }
 

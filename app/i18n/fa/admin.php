@@ -16,11 +16,11 @@ return array(
 		'allow_anonymous_refresh' => ' اجازه بازخوانی ناشناس مقالات را بدهید',
 		'api_enabled' => ' اجازه دسترسی به <abbr>API</abbr> <small>(الزامی برای برنامه های تلفن همراه and sharing user queries and sharing user queries)</small>',	// DIRTY
 		'form' => ' فرم وب (سنتی',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'یک پروتکل ارتباطی است که برای انتقال داده‌ها ',
 		'none' => ' هیچ (خطرناک)',
 		'title' => ' احراز هویت',
-		'token' => 'Master authentication token',	// TODO
-		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
+		'token' => 'به نوعی دارایی دیجیتال اشاره دارد که از ویژگی حفظ ارزش و انتقال به دیگران برخوردار است. توکن ابزار دیجیتالی است که بر روی بلاک چین رمزگذاری می‌شود. می‌توان گفت که توکن همان ارزدیجیتال با ویژگی‌های منحصر به فرد است.',
+		'token_help' => 'اجازه دسترسی به تمام خروجی های ار اس اس کاربر و همچنین به روزرسانی فید ها را بدون احراز هویت می دهد',
 		'type' => ' روش احراز هویت',
 		'unsafe_autologin' => ' اجازه ورود خودکار ناامن را با استفاده از قالب:',
 	),
@@ -116,7 +116,7 @@ return array(
 		'description' => ' توضیحات',
 		'disabled' => ' معلول',
 		'empty_list' => ' هیچ برنامه افزودنی نصب شده ای وجود ندارد',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'لاگ‌ها را بررسی کنید تا دلیل خالی بودن لیست افزونه‌ها مشخص شود',
 		'enabled' => ' فعال است',
 		'latest' => ' نصب شده است',
 		'name' => ' نام',
@@ -148,9 +148,9 @@ return array(
 		'main_stream' => ' جریان اصلی',
 		'no_idle' => ' هیچ فید بیکار وجود ندارد!',
 		'number_entries' => ' %d مقاله',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'بررسی اجمالی',
 		'percent_of_total' => ' درصد از کل',
-		'repartition' => ' تقسیم مجدد مقالات: %s',	// DIRTY
+		'repartition' => 'تقسیم‌بندی مجدد',
 		'status_favorites' => ' موارد دلخواه',
 		'status_read' => ' بخوانید',
 		'status_total' => ' مجموع',
@@ -162,8 +162,8 @@ return array(
 		'_' => ' پیکربندی سیستم',
 		'auto-update-url' => ' به روز رسانی خودکار URL سرور',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'آدرس پایه',
+			'recommendation' => 'توصیه: <kbd>%s</kbd>',
 		),
 		'cookie-duration' => array(
 			'help' => ' در ثانیه',
@@ -189,14 +189,14 @@ return array(
 			),
 			'title' => 'فرم ثبت نام کاربر',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'پارامتر حساس. Edit manually in <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => ' داده نشده است',
 			'enabled' => ' <a href="./?a=tos">فعال است</a>',
 			'help' => ' نحوه <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">فعال کردن شرایط خدمات </a>',
 		),
 		'websub' => array(
-			'help' => 'About <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',	// TODO
+			'help' => ' در مورد <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">وب سایت</a>',
 		),
 	),
 	'update' => array(

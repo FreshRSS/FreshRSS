@@ -66,6 +66,8 @@
 			</div>
 		<?php } ?>
 
+		<?= Minz_ExtensionManager::callHookString('before_login_btn') ?>
+
 		<div class="form-group form-group-actions">
 			<?php
 				$redirect_url = urlencode(Minz_Url::display(

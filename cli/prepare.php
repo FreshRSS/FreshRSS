@@ -12,6 +12,7 @@ $dirs = [
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
 	'/PubSubHubbub/keys',
+	'/Retry-After',
 	'/tokens',
 	'/users',
 	'/users/_',

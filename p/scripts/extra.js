@@ -33,23 +33,31 @@ function init_crypto_form() {
 
 	forgetOpenCategories();
 
-	const submit_button = document.getElementById('loginButton');
+	const submit_button = crypto_form.querySelector('[type="submit"]');
 	if (submit_button) {
 		submit_button.disabled = false;
 	}
 
 	crypto_form.onsubmit = function (e) {
+		let challenge = crypto_form.querySelector('#challenge');
+		if (!challenge) {
+			crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
+				if (el.value !== '' && !challenge) {
+					crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
+					challenge = crypto_form.querySelector('#challenge');
+				}
+			});
+			if (!challenge) {
+				return true;
+			}
+		}
+
 		e.preventDefault();
 
 		if (!submit_button) {
 			return false;
 		}
 		submit_button.disabled = true;
-
-		if (document.getElementById('challenge').value)	{
-			// Already computed
-			return true;
-		}
 
 		const req = new XMLHttpRequest();
 		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, true);
@@ -69,7 +77,7 @@ function init_crypto_form() {
 						const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
 						const s = bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1);
 						const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-						document.getElementById('challenge').value = c;
+						challenge.value = c;
 						if (!s || !c) {
 							openNotification('Crypto error!', 'bad');
 						} else {
@@ -83,6 +91,7 @@ function init_crypto_form() {
 			} else {
 				req.onerror();
 			}
+			submit_button.disabled = false;
 		};
 
 		req.send();
@@ -148,6 +157,162 @@ function init_archiving(parent) {
 	});
 }
 
+function init_update_feed() {
+	const feed_update = document.querySelector('div.post#feed_update');
+	if (!feed_update) {
+		return;
+	}
+
+	const faviconUpload = feed_update.querySelector('#favicon-upload');
+	const resetFavicon = feed_update.querySelector('#reset-favicon');
+	const faviconError = feed_update.querySelector('#favicon-error');
+	const faviconExt = feed_update.querySelector('#favicon-ext');
+	const extension = faviconExt.querySelector('b');
+	const faviconExtBtn = feed_update.querySelector('#favicon-ext-btn');
+	const favicon = feed_update.querySelector('.favicon');
+
+	function clearUploadedIcon() {
+		faviconUpload.value = '';
+	}
+	function discardIconChange() {
+		const resetField = feed_update.querySelector('input[name="resetFavicon"]');
+		if (resetField) {
+			resetField.remove();
+		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
+		if (faviconExtBtn) {
+			faviconExtBtn.disabled = false;
+			extension.innerText = extension.dataset.initialExt ?? extension.innerText;
+		}
+		if (extension.innerText == '') {
+			faviconExt.classList.add('hidden');
+		}
+		clearUploadedIcon();
+		favicon.src = favicon.dataset.initialSrc;
+
+		const isCustomFavicon = favicon.getAttribute('src') !== favicon.dataset.originalIcon;
+		resetFavicon.disabled = !isCustomFavicon;
+	}
+
+	faviconUpload.onchange = function () {
+		if (faviconUpload.files.length === 0) {
+			return;
+		}
+
+		faviconExt.classList.add('hidden');
+		if (faviconUpload.files[0].size > context.max_favicon_upload_size) {
+			faviconError.innerHTML = context.i18n.favicon_size_exceeded;
+			discardIconChange();
+			return;
+		}
+		if (faviconExtBtn) {
+			faviconExtBtn.disabled = false;
+			extension.innerText = extension.dataset.initialExt ?? extension.innerText;
+		}
+		faviconError.innerHTML = '';
+
+		const resetField = feed_update.querySelector('input[name="resetFavicon"]');
+		if (resetField) {
+			resetField.remove();
+		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
+		resetFavicon.disabled = false;
+		favicon.src = URL.createObjectURL(faviconUpload.files[0]);
+	};
+
+	resetFavicon.onclick = function (e) {
+		e.preventDefault();
+		if (resetFavicon.disabled) {
+			return;
+		}
+		if (faviconExtBtn) {
+			faviconExtBtn.disabled = false;
+			extension.innerText = extension.dataset.initialExt ?? extension.innerText;
+		}
+
+		faviconExt.classList.add('hidden');
+		faviconError.innerHTML = '';
+		clearUploadedIcon();
+		resetFavicon.insertAdjacentHTML('afterend', '<input type="hidden" name="resetFavicon" value="1" data-leave-validation="" />');
+		resetFavicon.disabled = true;
+
+		favicon.src = favicon.dataset.originalIcon;
+	};
+
+	feed_update.querySelector('form').addEventListener('reset', () => {
+		faviconExt.classList.remove('hidden');
+		faviconError.innerHTML = '';
+		discardIconChange();
+	});
+
+	if (faviconExtBtn) {
+		faviconExtBtn.onclick = function (e) {
+			e.preventDefault();
+			faviconExtBtn.disabled = true;
+			fetch(faviconExtBtn.dataset.extensionUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json; charset=utf-8'
+				},
+				body: JSON.stringify({
+					'_csrf': context.csrf,
+					'extAction': 'query_icon_info',
+					'id': +feed_update.dataset.feedId
+				}),
+			}).then(resp => {
+				if (!resp.ok) {
+					faviconExtBtn.disabled = false;
+					return Promise.reject(resp);
+				}
+				return resp.json();
+			}).then(json => {
+				clearUploadedIcon();
+				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
+				if (resetField) {
+					resetField.remove();
+				}
+				faviconExtBtn.insertAdjacentHTML('afterend', '<input type="hidden" id="extBtn" value="1" data-leave-validation="" />');
+				resetFavicon.disabled = false;
+				faviconError.innerHTML = '';
+				faviconExt.classList.remove('hidden');
+				extension.dataset.initialExt = extension.innerText;
+				extension.innerText = json.extName;
+				favicon.src = json.iconUrl;
+			});
+		};
+		faviconExtBtn.form.onsubmit = async function (e) {
+			const extChanged = faviconExtBtn.disabled;
+			const isSubmit = !e.submitter.hasAttribute('formaction');
+
+			if (extChanged && isSubmit) {
+				e.preventDefault();
+				faviconExtBtn.form.querySelectorAll('[type="submit"]').forEach(el => {
+					el.disabled = true;
+				});
+				await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json; charset=utf-8'
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'update_icon',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
+				faviconExtBtn.form.onsubmit = null;
+				faviconExtBtn.form.submit();
+			}
+		};
+	}
+}
+
 // <slider>
 const freshrssSliderLoadEvent = new Event('freshrss:slider-load');
 
@@ -168,11 +333,18 @@ function open_slider_listener(ev) {
 			req.open('GET', ahref, true);
 			req.responseType = 'document';
 			req.onload = function (e) {
+				if (this.status === 403) {
+					// Redirect to reauth page (or fail if session expired)
+					location.href = a.href;
+					return;
+				}
 				location.href = '#slider'; // close menu/dropdown
 				document.documentElement.classList.add('slider-active');
 				slider.classList.add('active');
 				slider.scrollTop = 0;
 				slider_content.innerHTML = this.response.body.innerHTML;
+				data_auto_leave_validation(slider);
+				init_update_feed();
 				slider_content.querySelectorAll('form').forEach(function (f) {
 					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
 				});
@@ -198,13 +370,15 @@ function init_slider(slider) {
 
 function close_slider_listener(ev) {
 	const slider = document.getElementById('slider');
-	if (data_leave_validation(slider) || confirm(context.i18n.confirmation_default)) {
+	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
 		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
 		document.documentElement.classList.remove('slider-active');
 		return true;
-	} else {
-		return false;
 	}
+	if (ev) {
+		ev.preventDefault();
+	}
+	return false;
 }
 // </slider>
 
@@ -273,6 +447,26 @@ function data_leave_validation(parent, excludeForm = null) {
 	return true;
 }
 
+/**
+ * Automatically sets the `data-leave-validation` attribute for input, textarea, select elements for a given parent, if it's not set already.
+ * Ignores elements with the `data-no-leave-validation` attribute set.
+ */
+function data_auto_leave_validation(parent) {
+	parent.querySelectorAll(`[data-auto-leave-validation] input,
+													[data-auto-leave-validation] textarea,
+													[data-auto-leave-validation] select`).forEach(el => {
+		if (el.dataset.leaveValidation || el.dataset.noLeaveValidation) {
+			return;
+		}
+
+		if (el.type === 'checkbox' || el.type === 'radio') {
+			el.dataset.leaveValidation = +el.checked;
+		} else if (el.type !== 'hidden') {
+			el.dataset.leaveValidation = el.value;
+		}
+	});
+}
+
 function init_2stateButton() {
 	const btns = document.getElementsByClassName('btn-state1');
 	Array.prototype.forEach.call(btns, function (el) {
@@ -312,6 +506,9 @@ function init_extra_afterDOM() {
 		init_select_observers();
 		init_configuration_alert();
 		init_2stateButton();
+		init_update_feed();
+
+		data_auto_leave_validation(document.body);
 
 		const slider = document.getElementById('slider');
 		if (slider) {

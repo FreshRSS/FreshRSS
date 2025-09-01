@@ -1,5 +1,7 @@
 <?php
 	declare(strict_types=1);
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+	header('X-Content-Type-Options: nosniff');
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
@@ -28,9 +30,7 @@ echo json_encode([
 <h2>Google Reader compatible API</h2>
 <dl>
 <dt>Your API address:</dt>
-<dd><?php
-echo Minz_Url::display('/api/greader.php', 'html', true);
-?></dd>
+<dd><?= Minz_Url::display('/api/greader.php', 'html', true) ?></dd>
 <dt>Google Reader API configuration test:</dt>
 <dd id="greaderOutput">?</dd>
 </dl>
@@ -38,11 +38,15 @@ echo Minz_Url::display('/api/greader.php', 'html', true);
 <h2>Fever compatible API</h2>
 <dl>
 <dt>Your API address:</dt>
-<dd><?php
-echo Minz_Url::display('/api/fever.php', 'html', true);
-?></dd>
+<dd><?= Minz_Url::display('/api/fever.php', 'html', true) ?></dd>
 <dt>Fever API configuration test:</dt>
 <dd id="feverOutput">?</dd>
+</dl>
+
+<h2>API for extensions</h2>
+<dl>
+<dt>Your API address:</dt>
+<dd><?= Minz_Url::display('/api/misc.php/Extension%20name/', 'html', true) ?></dd>
 </dl>
 
 </body>

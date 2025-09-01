@@ -61,6 +61,11 @@ return array(
 			'_' => '密碼',
 			'format' => '<small>至少 7 個字元</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => '新使用者',
 			'ask' => '創建新使用者？',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => '昨天',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇹🇼',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '關於 FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => '清空分類',
 		'confirm_action' => '你確定要執行此操作嗎？這將不可撤銷！',
 		'confirm_action_feed_cat' => '你確定要執行此操作嗎？你將丟失相關的收藏和自定義查詢。這將不可撤銷！',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待閱讀。',
 			'body_unread_articles' => '(未讀: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => '沒有標籤',
 		'new_article' => '發現新文章，點擊刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -213,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪貼板',
 		'diaspora' => 'Diaspora*',	// IGNORE

@@ -5,6 +5,9 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
+
 function show_default_favicon(int $cacheSeconds = 3600): void {
 	$default_mtime = @filemtime(DEFAULT_FAVICON) ?: 0;
 	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
@@ -14,7 +17,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 	}
 }
 
-$id = $_SERVER['QUERY_STRING'] ?? '0';
+$id = $_GET['h'] ?? '0';
 if (!is_string($id) || !ctype_xdigit($id)) {
 	$id = '0';
 }
@@ -25,7 +28,9 @@ $ico = FAVICONS_DIR . $id . '.ico';
 $ico_mtime = @filemtime($ico) ?: 0;
 $txt_mtime = @filemtime($txt) ?: 0;
 
-if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) {
+$is_custom_favicon = $ico_mtime != false && $txt_mtime == false;
+
+if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) && !$is_custom_favicon) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
 		exit();
@@ -36,6 +41,12 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 	if ($url === false) {
 		show_default_favicon(1800);
 		exit();
+	}
+
+	FreshRSS_Context::initSystem();
+	if (!FreshRSS_Context::hasSystemConf()) {
+		header('HTTP/1.1 500 Internal Server Error');
+		die('Invalid system init!');
 	}
 	if (!download_favicon($url, $ico)) {
 		// Download failed
@@ -48,10 +59,12 @@ if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt
 	}
 }
 
-header("Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'self';");
 if (!httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
 	$ico_content_type = contentType($ico);
 	header('Content-Type: ' . $ico_content_type);
 	header('Content-Disposition: inline; filename="' . $id . '.ico"');
+	if (isset($_GET['t'])) {
+		header('Cache-Control: immutable');
+	}
 	readfile($ico);
 }

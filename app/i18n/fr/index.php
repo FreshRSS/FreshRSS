@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Rechercher',
 		'sort' => array(
 			'_' => 'Critère de tri',
+			'c' => array(
+				'name_asc' => 'Catégorie, flux (titres) A→Z',
+				'name_desc' => 'Catégorie, flux (titres) Z→A',
+			),
 			'date_asc' => 'Date de publication 1→9',
 			'date_desc' => 'Date de publication 9→1',
+			'f' => array(
+				'name_asc' => 'Flux (titre) A→Z',
+				'name_desc' => 'Flux (titre) Z→A',
+			),
 			'id_asc' => 'Reçus récemment en dernier',
 			'id_desc' => 'Reçus récemment en premier',
 			'link_asc' => 'Lien A→Z',

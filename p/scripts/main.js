@@ -37,6 +37,7 @@ function xmlHttpRequestJson(req) {
 // <Global context>
 /* eslint-disable no-var */
 var context;
+var prevTitle;
 /* eslint-enable no-var */
 
 (function parseJsonVars() {
@@ -155,9 +156,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
-	let isCurrentView = false;
 	// Update unread: title
-	document.title = document.title.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
+	let isCurrentView = false;
+	const currentTitle = prevTitle || document.title;
+	const newTitle = currentTitle.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
 		const feed = document.getElementById(feed_id);
 		if (article || (feed && feed.closest('.active'))) {
 			isCurrentView = true;
@@ -169,6 +171,11 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
+	if (prevTitle) {
+		prevTitle = newTitle;
+	} else {
+		document.title = newTitle;
+	}
 	return isCurrentView;
 }
 
@@ -212,81 +219,88 @@ function removeArticle(div) {
 const pending_entries = {};
 let mark_read_queue = [];
 
-function send_mark_read_queue(queue, asRead, callback) {
+async function send_mark_read_queue(queue, asRead, callback) {
 	if (!queue || queue.length === 0) {
 		if (callback) {
 			callback();
 		}
 		return;
 	}
-	const req = new XMLHttpRequest();
-	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
-	req.responseType = 'json';
-	req.onerror = function (e) {
-		for (let i = queue.length - 1; i >= 0; i--) {
-			delete pending_entries['flux_' + queue[i]];
-		}
-		badAjax(this.status == 403);
-	};
-	req.onload = function (e) {
-		if (this.status != 200) {
-			return req.onerror(e);
-		}
-		const json = xmlHttpRequestJson(this);
-		if (!json) {
-			return req.onerror(e);
-		}
-		for (let i = queue.length - 1; i >= 0; i--) {
-			const div = document.getElementById('flux_' + queue[i]);
-			const myIcons = context.icons;
-			let inc = 0;
-			if (div.classList.contains('not_read')) {
-				div.classList.remove('not_read');
-				div.querySelectorAll('a.read').forEach(function (a) {
-					a.href = a.href.replace('&is_read=0', '') + '&is_read=1';
+	let json;
+	try {
+		const resp = await fetch('.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json; charset=UTF-8'
+			},
+			body: JSON.stringify({
+				ajax: true,
+				_csrf: context.csrf,
+				id: queue,
+			}),
+			keepalive: true
+		});
+		if (!resp.ok) {
+			for (let i = queue.length - 1; i >= 0; i--) {
+				const div = document.getElementById('flux_' + queue[i]);
+				div.querySelectorAll('a.read > .icon').forEach(icon => {
+					icon.outerHTML = div.classList.contains('not_read') ? context.icons.unread : context.icons.read;
 				});
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
-				inc--;
-				if (context.auto_remove_article) {
-					removeArticle(div);
-				}
-			} else {
-				div.classList.add('not_read');
-				div.classList.add('keep_unread');	// Split for IE11
-				div.querySelectorAll('a.read').forEach(function (a) {
-					a.href = a.href.replace('&is_read=1', '');
-				});
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
-				inc++;
+				delete pending_entries['flux_' + queue[i]];
 			}
-			const feed_link = div.querySelector('.website > a, a.website');
-			if (feed_link) {
-				const feed_url = feed_link.href;
-				const feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-				incUnreadsFeed(div, feed_id, inc);
+			badAjax(resp.status == 403);
+			return;
+		}
+		json = await resp.json();
+	} catch (e) {
+		console.error(e.message);
+		badAjax();
+		return;
+	}
+	for (let i = queue.length - 1; i >= 0; i--) {
+		const div = document.getElementById('flux_' + queue[i]);
+		const myIcons = context.icons;
+		let inc = 0;
+		if (div.classList.contains('not_read')) {
+			div.classList.remove('not_read');
+			div.querySelectorAll('a.read').forEach(function (a) {
+				a.href = a.href.replace('&is_read=0', '') + '&is_read=1';
+			});
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
+			inc--;
+			if (context.auto_remove_article) {
+				removeArticle(div);
 			}
-			delete pending_entries['flux_' + queue[i]];
+		} else {
+			div.classList.add('not_read');
+			div.classList.add('keep_unread');	// Split for IE11
+			div.querySelectorAll('a.read').forEach(function (a) {
+				a.href = a.href.replace('&is_read=1', '');
+			});
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
+			inc++;
 		}
-		faviconNbUnread();
-		if (json.tags) {
-			const tagIds = Object.keys(json.tags);
-			for (let i = tagIds.length - 1; i >= 0; i--) {
-				const tagId = tagIds[i];
-				incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
-			}
+		const feed_link = div.querySelector('.website > a, a.website');
+		if (feed_link) {
+			const feed_url = feed_link.href;
+			const feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+			incUnreadsFeed(div, feed_id, inc);
 		}
-		toggle_bigMarkAsRead_button();
-		onScroll();
-		if (callback) {
-			callback();
+		delete pending_entries['flux_' + queue[i]];
+	}
+	faviconNbUnread();
+	if (json.tags) {
+		const tagIds = Object.keys(json.tags);
+		for (let i = tagIds.length - 1; i >= 0; i--) {
+			const tagId = tagIds[i];
+			incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
 		}
-	};
-	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-	req.send(JSON.stringify({
-		ajax: true,
-		_csrf: context.csrf,
-		id: queue,
-	}));
+	}
+	toggle_bigMarkAsRead_button();
+	onScroll();
+	if (callback) {
+		callback();
+	}
 }
 
 let send_mark_read_queue_timeout = 0;
@@ -314,6 +328,12 @@ function mark_read(div, only_not_read, asBatch) {
 		return false;
 	}
 	pending_entries[div.id] = true;
+
+	div.querySelectorAll('a.read > .icon').forEach(icon => {
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
 
 	const asRead = div.classList.contains('not_read');
 	const entryId = div.id.replace(/^flux_/, '');
@@ -351,10 +371,26 @@ function mark_favorite(div) {
 	}
 	pending_entries[div.id] = true;
 
+	let originalIcon;
+
+	div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+		originalIcon = {
+			src: icon.getAttribute('src'),
+			alt: icon.getAttribute('alt')
+		};
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
+
 	const req = new XMLHttpRequest();
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
+		div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+			icon.src = originalIcon.src;
+			icon.alt = originalIcon.alt;
+		});
 		delete pending_entries[div.id];
 		badAjax(this.status == 403);
 	};
@@ -405,8 +441,12 @@ const freshrssOpenArticleEvent = document.createEvent('Event');
 freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
 
 function loadLazyImages(rootElement) {
-	rootElement.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
-		el.src = el.getAttribute('data-original');
+	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original]').forEach(function (el) {
+		if (el.tagName === 'VIDEO') {
+			el.poster = el.getAttribute('data-original');
+		} else {
+			el.src = el.getAttribute('data-original');
+		}
 		el.removeAttribute('data-original');
 	});
 }
@@ -1003,11 +1043,6 @@ function init_column_categories() {
 function init_shortcuts() {
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
-		if (context.shortcuts[k].indexOf('&') >= 0) {
-			// Decode potential HTML entities <'&">
-			const parser = new DOMParser();
-			context.shortcuts[k] = parser.parseFromString(context.shortcuts[k], 'text/html').documentElement.textContent;
-		}
 	});
 
 	document.addEventListener('keydown', ev => {
@@ -1126,7 +1161,7 @@ function init_shortcuts() {
 			return;
 		}
 		if (ev.key === '?') {
-			window.location.href = context.urls.shortcuts.replace(/&amp;/g, '&');
+			window.location.href = context.urls.shortcuts;
 			return;
 		}
 
@@ -1150,6 +1185,7 @@ function init_shortcuts() {
 			}
 			return;
 		}
+		const hash = location.hash.substr(1);
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
 		if (k === s.skip_prev_entry) { prev_entry(true); ev.preventDefault(); return; }
 		if (k === s.collapse_entry) { collapse_entry(); ev.preventDefault(); return; }
@@ -1157,7 +1193,11 @@ function init_shortcuts() {
 		if (k === s.auto_share) { auto_share(); ev.preventDefault(); return; }
 		if (k === s.user_filter) { user_filter(); ev.preventDefault(); return; }
 		if (k === s.load_more) { load_more_posts(); ev.preventDefault(); return; }
-		if (k === s.close_dropdown) { location.hash = null; ev.preventDefault(); return; }
+		/* globals close_slider_listener */
+		if (k === s.close_menus && (
+			(hash === 'slider' && close_slider_listener()) ||
+			hash.startsWith('dropdown')
+		)) { location.hash = ''; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
@@ -1207,24 +1247,79 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
-			const tmp_window = window.open();
-			for (let i = 0; i < document.styleSheets.length; i++) {
-				tmp_window.document.writeln('<link href="' + document.styleSheets[i].href + '" rel="stylesheet" type="text/css" />');
-			}
+			const html = document.documentElement;
+			const head = document.head.cloneNode(true);
+			head.querySelectorAll('script').forEach(js => js.remove());
+
 			const flux_content = el.closest('.flux_content');
 			let content_el = null;
 			if (flux_content) {
-				content_el = el.closest('.flux_content').querySelector('.content');
+				content_el = el.closest('.flux_content').querySelector('.content').cloneNode(true);
 			}
 			if (content_el === null) {
-				content_el = el.closest('.flux').querySelector('.flux_content .content');
+				content_el = el.closest('.flux').querySelector('.flux_content .content').cloneNode(true);
 			}
+
+			content_el.querySelectorAll('a').forEach(link => {
+				// Avoid leaking the instance URL in PDFs
+				if (link.href.startsWith(location.origin)) {
+					link.removeAttribute('href');
+				}
+			});
+
+			content_el.querySelectorAll('details').forEach(el => el.setAttribute('open', 'open'));
+
+			const articleTitle = content_el.querySelector('.title a').innerText;
+			prevTitle = document.title;
+
+			// Chrome uses the parent's title to get the PDF save filename
+			document.title = articleTitle;
+
+			// Firefox uses the iframe's title to get the PDF save filename
+			// Note: Firefox Mobile saves PDFs with a filename that looks like: `temp[19 random digits].PDF` regardless of title
+			head.querySelector('title').innerText = articleTitle;
+
 			loadLazyImages(content_el);
-			tmp_window.document.writeln(content_el.innerHTML);
-			tmp_window.document.close();
-			tmp_window.focus();
-			tmp_window.print();
-			tmp_window.close();
+
+			const print_frame = document.createElement('iframe');
+			print_frame.style.display = 'none';
+			print_frame.srcdoc = `
+			<!DOCTYPE html>
+			<html class="${html.getAttribute('class')}">
+			<head>
+				${head.innerHTML}
+			</head>
+			<body>
+				${content_el.outerHTML}
+			</body>
+			</html>
+			`;
+			document.body.prepend(print_frame);
+
+			function afterPrint() {
+				print_frame.remove();
+				document.title = prevTitle;
+				prevTitle = '';
+
+				window.removeEventListener('focus', afterPrint);
+			}
+
+			print_frame.onload = () => {
+				const tmp_window = print_frame.contentWindow;
+
+				// Needed for Chrome
+				tmp_window.matchMedia('print').onchange = (e) => {
+					// UA check is needed to not trigger on Chrome Mobile
+					if (!e.matches && !navigator.userAgent.includes('Mobi')) {
+						afterPrint();
+					}
+				};
+				tmp_window.print();
+			};
+
+			// Needed for Firefox and Chrome Mobile
+			window.addEventListener('focus', afterPrint);
+
 			return false;
 		}
 
@@ -2006,6 +2101,12 @@ function init_confirm_action() {
 			return confirm(str_confirmation);
 		}
 	};
+	const slider = document.getElementById('slider');
+	if (slider) {
+		slider.addEventListener('freshrss:slider-load', function (e) {
+			slider.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
+		});
+	}
 	document.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
 }
 
@@ -2071,15 +2172,38 @@ function init_normal() {
 	init_actualize();
 	faviconNbUnread();
 
-	window.onbeforeunload = function (e) {
-		const sidebar = document.getElementById('sidebar');
-		if (sidebar) {	// Save sidebar scroll position
-			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "hidden") {
+			const sidebar = document.getElementById('sidebar');
+			if (sidebar) {	// Save sidebar scroll position
+				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+			}
+			if (mark_read_queue && mark_read_queue.length > 0) {
+				clearTimeout(send_mark_read_queue_timeout);
+				send_mark_queue_tick(null);
+			}
 		}
-		if (mark_read_queue && mark_read_queue.length > 0) {
-			return false;
-		}
-	};
+	});
+}
+
+function init_csp_alert() {
+	if (!context.admin || context.suppress_csp_warning) {
+		return;
+	}
+
+	try {
+		// eslint-disable-next-line no-new-func
+		Function();
+	} catch (_) {
+		// Exit if 'script-src' is set and 'unsafe-eval' isn't set in CSP
+		return;
+	}
+
+	document.body.insertAdjacentHTML('afterbegin', `
+	<div class="alert alert-error">
+		<span>${context.i18n.unsafe_csp_header}</span>
+	</div>
+	`);
 }
 
 function init_main_beforeDOM() {
@@ -2094,6 +2218,7 @@ function init_main_beforeDOM() {
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
+	init_csp_alert();
 	init_confirm_action();
 	const stream = document.getElementById('stream');
 	if (stream) {

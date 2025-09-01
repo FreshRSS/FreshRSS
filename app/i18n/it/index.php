@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Cerca',
 		'sort' => array(
 			'_' => 'Ordina per',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Data di pubblicazione 1→9',
 			'date_desc' => 'Data di pubblicazione 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
 			'link_asc' => 'Link A→Z',	// IGNORE

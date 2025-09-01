@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Ara',
 		'sort' => array(
 			'_' => 'Sıralama kriteri',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Yayın tarihi 1→9',
 			'date_desc' => 'Yayın tarihi 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
 			'link_asc' => 'Bağlantı A→Z',

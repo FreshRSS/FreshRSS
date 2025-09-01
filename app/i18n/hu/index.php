@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Keresés',
 		'sort' => array(
 			'_' => 'Rendezési sorrend',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Kiadás dátuma 1→9',
 			'date_desc' => 'Kiadás dátuma 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Frissen fogadott utoljára',
 			'id_desc' => 'Frissen fogadott először',
 			'link_asc' => 'Link A→Z',	// TODO

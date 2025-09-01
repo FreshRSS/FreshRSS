@@ -269,7 +269,8 @@ form th {
 	background: var(--color-background-nav-darker);
 	color: var(--color-text-light);
 }
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--color-text-light);
 }
 .nav-list .item > a,
@@ -283,7 +284,8 @@ form th {
 	padding: 3px;
 	text-align: center;
 }
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list .as-link:hover {
 	text-decoration: none;
 }
 
@@ -300,12 +302,14 @@ form th {
 	font-weight: bold;
 	color: var(--color-text-light);
 }
-.dropdown-menu .dropdown-header a {
+.dropdown-menu .dropdown-header a,
+.dropdown-menu .dropdown-header .as-link {
 	padding: 0 5px;
 	position: absolute;
 	left: 5px;
 }
-.dropdown-menu .dropdown-header a:hover {
+.dropdown-menu .dropdown-header a:hover,
+.dropdown-menu .dropdown-header .as-link:hover {
 	background-color: var(--color-background-nav);
 }
 .dropdown-menu .dropdown-section .dropdown-section-title {
@@ -314,10 +318,12 @@ form th {
 	font-weight: bold;
 	color: var(--color-text-light);
 }
-.dropdown-menu .dropdown-section .item a {
+.dropdown-menu .dropdown-section .item a,
+.dropdown-menu .dropdown-section .item .as-link {
 	padding: 0 22px;
 }
-.dropdown-menu .dropdown-section .item a:hover {
+.dropdown-menu .dropdown-section .item a:hover,
+.dropdown-menu .dropdown-section .item .as-link:hover {
 	background-color: var(--color-background-nav);
 }
 .dropdown-menu > .item {
@@ -706,7 +712,8 @@ form th {
 	display: none;
 }
 
-.nav a {
+.nav a,
+.nav .as-link {
 	color: var(--color-text-light);
 }
 

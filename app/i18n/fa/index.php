@@ -16,13 +16,13 @@ return array(
 		'agpl3' => ' <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => ' اطلاعات سیستم',
+				'browser' => 'مرورگر',
+				'database' => 'پایگاه داده',
+				'server_software' => 'نرم‌افزار سرور',
+				'version_curl' => 'نسخه cURL',
+				'version_frss' => 'سخه FreshRSS',
+				'version_php' => 'نسخه PHP',
 			),
 		),
 		'bugs_reports' => ' گزارش اشکال',
@@ -37,9 +37,9 @@ return array(
 	'feed' => array(
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'before_yesterday' => 'پیش از دیروز دریافت شد',
+			'today' => 'امروز دریافت شد',
+			'yesterday' => 'دیروز دریافت شد',
 		),
 		'rss_of' => ' فید RSS %s',
 		'title' => ' جریان اصلی',
@@ -59,7 +59,7 @@ return array(
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
-		'important' => 'Important feeds',	// TODO
+		'important' => 'فیدهای مهم',
 		'main_stream' => ' جریان اصلی',
 		'mark_all_read' => ' همه را به عنوان خوانده شده علامت گذاری کنید',
 		'mark_cat_read' => ' دسته را به عنوان خوانده شده علامت گذاری کنید',
@@ -76,16 +76,24 @@ return array(
 		'rss_view' => ' خوراک RSS',
 		'search_short' => ' جستجو',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'_' => 'معیارهای مرتب‌سازی',
+			'c' => array(
+				'name_asc' => 'دسته بندی، عناوین فید A→Z',
+				'name_desc' => 'دسته بندی، عناوین فید Z→A',
+			),
+			'date_asc' => 'تاریخ انتشار ۱→۹',
+			'date_desc' => 'تاریخ انتشار ۹→۱',
+			'f' => array(
+				'name_asc' => 'عنوان فید A→Z',
+				'name_desc' => 'عنوان فید Z→A',
+			),
+			'id_asc' => 'آخرین مورد، به تازه گی دریافت شد',
+			'id_desc' => 'نخستین مورد دریافت‌شده به تازگی',
+			'link_asc' => 'لینک A→Z',
+			'link_desc' => 'لینک Z→A',
+			'rand' => 'ترتیب تصادفی',
+			'title_asc' => 'عنوانA→Z',
+			'title_desc' => 'عنوان Z→A',
 		),
 		'starred' => ' نمایش موارد دلخواه',
 		'stats' => ' آمار',

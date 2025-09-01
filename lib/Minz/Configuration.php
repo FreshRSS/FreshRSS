@@ -155,6 +155,8 @@ class Minz_Configuration {
 	 * @param string $key the name of the param.
 	 * @param mixed $default default value to return if key does not exist.
 	 * @return array|mixed value corresponding to the key.
+	 * @access private
+	 * @deprecated Use `attribute*()` methods instead.
 	 */
 	public function param(string $key, mixed $default = null): mixed {
 		if (isset($this->data[$key])) {
@@ -170,6 +172,8 @@ class Minz_Configuration {
 	/**
 	 * A wrapper for param().
 	 * @return array|mixed
+	 * @access private
+	 * @deprecated
 	 */
 	public function __get(string $key): mixed {
 		return $this->param($key);
@@ -180,6 +184,8 @@ class Minz_Configuration {
 	 *
 	 * @param string $key the param name to set.
 	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
+	 * @access private
+	 * @deprecated Use `_attribute()` instead.
 	 */
 	public function _param(string $key, mixed $value = null): void {
 		if ($this->configuration_setter !== null && $this->configuration_setter->support($key)) {
@@ -193,6 +199,8 @@ class Minz_Configuration {
 
 	/**
 	 * A wrapper for _param().
+	 * @access private
+	 * @deprecated
 	 */
 	public function __set(string $key, mixed $value): void {
 		$this->_param($key, $value);
@@ -216,5 +224,40 @@ class Minz_Configuration {
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @return array<int|string,mixed>|null
+	 */
+	public function attributeArray(string $key): ?array {
+		$a = $this->data[$key] ?? null;
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeBool(string $key): ?bool {
+		$a = $this->data[$key] ?? null;
+		return is_bool($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeInt(string $key): ?int {
+		$a = $this->data[$key] ?? null;
+		return is_numeric($a) ? (int)$a : null;
+	}
+
+	/** @param non-empty-string $key */
+	public function attributeString(string $key): ?string {
+		$a = $this->data[$key] ?? null;
+		return is_string($a) ? $a : null;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
+	 */
+	public function _attribute(string $key, $value = null): void {
+		self::_param($key, $value);
 	}
 }

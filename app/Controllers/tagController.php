@@ -89,6 +89,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	 * This action updates the given tag.
 	 */
 	public function updateAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (Minz_Request::paramBoolean('ajax')) {
 			$this->view->_layout(null);
 		}

@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s 啟用失敗。<a href="%s">檢查 FreshRSS 日誌</a> 查看詳情。',
 			'ok' => '%s 現已啟用',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => '你無權訪問 %s',
 		'not_enabled' => '%s 未啟用',
 		'not_found' => '%s 不存在',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '你的帳戶修改失敗',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => '你的帳戶已修改',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> 緩存已清理',
 			'deleted' => '已刪除訂閱源',
 			'error' => '訂閱源更新失敗',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => '訂閱源添加失敗。<a href="%s">檢查 FreshRSS 日誌</a> 查看詳情。你可以在地址連結後附加 <code>#force_feed</code> 從而嘗試強制添加。',
 			'invalid_url' => '地址鏈接 <em>%s</em> 無效',
 			'n_actualized' => '已更新 %d 個訂閱源',

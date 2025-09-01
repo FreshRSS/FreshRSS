@@ -2,10 +2,37 @@
 
 FreshRSS offers three methods of Access control: Form Authentication using JavaScript, HTTP based Authentication, or an uncontrolled state with no authentication required.
 
+## Server-side feed fetching & security considerations
+
+FreshRSS fetches RSS feeds using server-side HTTP requests (via the cURL library).
+This design allows users to subscribe to feeds hosted not just on the public internet, but also on internal or private networks.
+For example, many users connect FreshRSS to tools like RSS-Bridge, cron jobs, or local automation services such as Node-RED — all of which may run on `localhost` or internal IPs.
+
+In self-hosted, single-user setups, this behaviour is expected and usually safe.
+However, in **multi-user or public-facing instances**, this same functionality can introduce a potential security risk known as **Server-Side Request Forgery (SSRF)**.
+
+In an SSRF scenario, a malicious user could submit a feed URL that points to internal network services, such as:
+
+* `http://127.0.0.1` (loopback)
+* `http://169.254.169.254` (cloud metadata services)
+* Other services not meant to be exposed externally
+
+While FreshRSS does not treat these requests as unsafe by default — since many legitimate use cases depend on them — it’s important to understand the implications if your instance is shared, exposed on the internet, or co-hosted with other services.
+
+### Recommended mitigations for shared/public setups
+
+* Run FreshRSS behind a firewall or reverse proxy that blocks access to internal IP ranges
+* Use container isolation or a virtual network to prevent access to sensitive endpoints
+* Avoid exposing your FreshRSS instance directly to the internet unless you fully trust all users
+
+These steps are not necessary for trusted, single-user deployments, but are strongly advised in shared environments.
+
+> _Note: For Docker-based deployments, `localhost` refers to the container’s internal network._
+
+
 ## Form Authentication
 
-Form Authentication requires the use of JavaScript. It will work on any supported version of PHP,
-but version 5.5 or newer is recommended (see footnote 1 in [prerequisites](02_Prerequisites.md) for the reason why).
+Form Authentication requires the use of JavaScript. It will work on any supported version of PHP.
 
 This option requires nothing more than selecting Form Authentication during installation.
 
@@ -15,7 +42,7 @@ You may also choose to use HTTP Authentication provided by your web server.[^1]
 
 If you choose to use this option, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
-You can also use any authentication backend as long as your web server exposes the authenticated user through the `Remote-User` variable.
+You can also use any authentication backend as long as your web server exposes the authenticated user through the `REMOTE_USER` variable.
 
 By default, new users allowed by HTTP Basic Auth will automatically be created in FreshRSS the first time they log in.
 You can disable auto-registration of new users by setting `http_auth_auto_register` to `false` in the configuration file.
@@ -37,7 +64,7 @@ You may alternatively pass a `TRUSTED_PROXY` environment variable in a format co
 ### Authentik Proxy Provider
 
 If you wish to use external authentication with [Authentik](https://goauthentik.io/),
-you will need to configure a [Proxy Provider](https://goauthentik.io/docs/providers/proxy/) with a *Property Mapping* that tells Authentik to inject the `X-WebAuth-User` HTTP header.
+you will need to configure a [Proxy Provider](https://goauthentik.io/docs/providers/proxy/) with a _Property Mapping_ that tells Authentik to inject the `X-WebAuth-User` HTTP header.
 You can do so with the following expression:
 
 ```python

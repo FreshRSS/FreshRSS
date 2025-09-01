@@ -13,8 +13,8 @@
     "require": {
         "marienfressinaud/lib_opml": "0.5.1",
         "phpgt/cssxpath": "v1.3.0",
-        "phpmailer/phpmailer": "6.9.3",
-        "simplepie/simplepie": "dev-freshrss#2e668d7b1bc2787310b99d2fd59bfda96e31b6ae"
+        "phpmailer/phpmailer": "6.10.0",
+        "simplepie/simplepie": "dev-freshrss#24fc939c10b3b8d3d486a4f467bbb9d8c98a6878"
     },
     "config": {
         "sort-packages": true,

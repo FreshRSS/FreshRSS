@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'Lásd az <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ismert appok dokumentációját és listáját</a>',
 			'help' => 'Lásd a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Profil törlése',
 			'warn' => 'A profilod és minden hozzá tartozó adat törölve lesz.',
 		),
 		'email' => 'Email cím',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API jelszó<br /><small>(például mobil appoknak)</small>',
-		'password_form' => 'Jelszó<br /><small>(a Web-form belépési módhoz)</small>',
 		'password_format' => 'Legalább 7 karakter',
 		'title' => 'Profil',
 	),
@@ -318,7 +321,7 @@ return array(
 		'article_action' => 'Cikk műveletek',
 		'auto_share' => 'Megosztás',
 		'auto_share_help' => 'Ha csak egy megosztási mód van, az lesz használva. Egyébként, a megosztási módok a számukkal elérhetőek.',
-		'close_dropdown' => 'Menük bezárása',
+		'close_menus' => 'Menük bezárása',
 		'collapse_article' => 'Összecsuk',
 		'first_article' => 'Első cikk megnyitása',
 		'focus_search' => 'Ugrás a keresődobozra',

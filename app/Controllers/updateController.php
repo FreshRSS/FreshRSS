@@ -222,7 +222,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$result = curl_exec($curlResource);
 			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
 			$curlError = curl_error($curlResource);
-			curl_close($curlResource);
 
 			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(
@@ -268,6 +267,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	public function applyAction(): void {
 		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);
+		}
+
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
 		}
 
 		if (Minz_Request::paramBoolean('post_conf')) {

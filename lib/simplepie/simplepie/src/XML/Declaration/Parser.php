@@ -204,7 +204,8 @@ class Parser
 
     public function version_value(): void
     {
-        if ($this->version = $this->get_value()) {
+        if ($version = $this->get_value()) {
+            $this->version = $version;
             $this->skip_whitespace();
             if ($this->has_data()) {
                 $this->state = self::STATE_ENCODING_NAME;
@@ -240,7 +241,8 @@ class Parser
 
     public function encoding_value(): void
     {
-        if ($this->encoding = $this->get_value()) {
+        if ($encoding = $this->get_value()) {
+            $this->encoding = $encoding;
             $this->skip_whitespace();
             if ($this->has_data()) {
                 $this->state = self::STATE_STANDALONE_NAME;

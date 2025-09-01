@@ -614,7 +614,8 @@ th {
 	background: #ca7227;
 	color: #fff;
 }
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	background: #ca7227;
 	color: #fff;
 	text-decoration: none;
@@ -1273,6 +1274,9 @@ main.prompt {
 	}
 	.nav_menu .search .input:focus {
 		width: 400px;
+	}
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
 	}
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;

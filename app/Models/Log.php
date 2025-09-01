@@ -4,6 +4,7 @@ declare(strict_types=1);
 class FreshRSS_Log extends Minz_Model {
 
 	private string $date;
+	/** @property 'error'|'warning'|'notice'|'debug'|'info' $level */
 	private string $level;
 	private string $information;
 
@@ -20,6 +21,10 @@ class FreshRSS_Log extends Minz_Model {
 		$this->date = $date;
 	}
 	public function _level(string $level): void {
+		if (!in_array($level, ['error', 'warning', 'notice', 'debug', 'info'], true)) {
+			$this->level = 'info';
+			return;
+		}
 		$this->level = $level;
 	}
 	public function _info(string $information): void {

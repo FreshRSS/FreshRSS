@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Update repo description
-      uses: peter-evans/dockerhub-description@0505d8b04853a30189aee66f5bb7fd1511bbac71
+      uses: peter-evans/dockerhub-description@432a30c9e07499fd01da9f8a49f0faf9e0ca5b77
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}

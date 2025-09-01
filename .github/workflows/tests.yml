@@ -49,8 +49,8 @@ jobs:
     - name: PHPStan
       run: composer run-script phpstan
 
-    - name: PHPStan Next
-      run: composer run-script phpstan-next
+    # - name: PHPStan Next
+    #   run: composer run-script phpstan-next
 
     # NPM tests
 

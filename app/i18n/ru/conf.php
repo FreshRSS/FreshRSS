@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Удаление аккаунта',
 			'warn' => 'Ваш аккаунт и вся связанная с ним информация будут удалены.',
 		),
 		'email' => 'Адрес электронной почты',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Пароль API<br /><small>(например, для мобильных приложений)</small>',
-		'password_form' => 'Пароль<br /><small>(для входа через веб-форму)</small>',
 		'password_format' => 'Не менее 7 символов',
 		'title' => 'Профиль',
 	),
@@ -297,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Обмен',
 		'add' => 'Добавить способ обмена',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Этот сервис устарел и будет удалён из FreshRSS в <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Открыть документацию для большей информации" target="_blank">будущем релизе</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
@@ -318,7 +321,7 @@ return array(
 		'article_action' => 'Действия со статьями',
 		'auto_share' => 'Обмен',
 		'auto_share_help' => 'Если способ единственный, он будет вызван. Иначе способы доступны по их номеру.',
-		'close_dropdown' => 'Закрыть меню',
+		'close_menus' => 'Закрыть меню',
 		'collapse_article' => 'Схлопнуть',
 		'first_article' => 'Открыть первую статью',
 		'focus_search' => 'К строке поиска',

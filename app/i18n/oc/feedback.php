@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s pòt pas èsser activada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara activada',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Avètz pas accès sus %s',
 		'not_enabled' => '%s es pas encara activada',
 		'not_found' => '%s existís pas',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Impossible d’actualizar vòstre perfil',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Vòstre perfil es estat actualizat',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache escafat',
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L’URL <em>%s</em> es invalida',
 			'n_actualized' => '%s fluxes son estats actualizats',

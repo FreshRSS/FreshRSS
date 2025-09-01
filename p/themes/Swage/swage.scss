@@ -348,7 +348,8 @@ form {
 			background: var(--color-background-nav-darker);
 			color: var(--color-text-light);
 
-			a {
+			a,
+			.as-link {
 				color: var(--color-text-light);
 			}
 		}
@@ -368,7 +369,8 @@ form {
 		text-align: center;
 	}
 
-	a:hover {
+	a:hover,
+	.as-link:hover {
 		text-decoration: none;
 	}
 }
@@ -386,7 +388,8 @@ form {
 		font-weight: bold;
 		color: var(--color-text-light);
 
-		a {
+		a,
+		.as-link {
 			padding: 0 5px;
 			position: absolute;
 			right: 5px;
@@ -406,7 +409,8 @@ form {
 		}
 
 		.item {
-			a {
+			a,
+			.as-link {
 				padding: 0 22px;
 
 				&:hover {
@@ -915,7 +919,8 @@ form {
 }
 
 .nav {
-	a {
+	a,
+	.as-link {
 		color: var(--color-text-light);
 	}
 }

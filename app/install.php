@@ -4,7 +4,7 @@ declare(strict_types=1);
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
-header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
 
 require(LIB_PATH . '/lib_install.php');
@@ -234,6 +234,17 @@ function saveStep3(): bool {
 
 		$ok = false;
 		try {
+			Minz_ModelPdo::$usesSharedPdo = false;
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO(Minz_User::INTERNAL_USER);
+			if (!$databaseDAO->testTyping()) {
+				$message = 'Invalid PDO driver behaviour for selected database type!';
+				if (Minz_Session::paramString('bd_type') === 'mysql') {
+					$message .= ' MySQL requires mysqlnd.';
+				}
+				throw new Exception($message);
+			}
+			Minz_ModelPdo::$usesSharedPdo = true;
+
 			$ok = FreshRSS_user_Controller::createUser(
 				Minz_Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
@@ -249,6 +260,7 @@ function saveStep3(): bool {
 			$ok = false;
 		}
 		if (!$ok) {
+			checkStep();
 			return false;
 		}
 
@@ -526,7 +538,7 @@ function printStep2(): void {
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
-		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
+		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
 	<h2><?= _t('install.bdd.conf') ?></h2>

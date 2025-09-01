@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s non può essere abilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è ora abilitata',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Il tuo profilo è stato modificato',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => 'La cache di <em>%s</em> è stata svuotata',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
 			'n_actualized' => '%d feed aggiornati',

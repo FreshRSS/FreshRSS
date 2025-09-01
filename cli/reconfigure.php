@@ -113,7 +113,8 @@ foreach ($values as $name => $value) {
 	}
 }
 
-$db = array_merge(FreshRSS_Context::systemConf()->db, array_filter($dbValues));
+$db = array_merge(FreshRSS_Context::systemConf()->db,
+	array_filter($dbValues, fn(?string $v): bool => $v !== null && trim($v) !== ''));
 
 performRequirementCheck($db['type']);
 

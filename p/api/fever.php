@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
 
 /**
  * Fever API for FreshRSS
@@ -360,7 +362,7 @@ final class FeverAPI
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-			$id = hash('crc32b', $salt . $feed->url());
+			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
 				continue;

@@ -118,6 +118,18 @@ p.help .icon,
 	filter: brightness(.6) contrast(1.2);
 }
 
+.spinner {
+	filter: invert(1) brightness(.6) contrast(1.2);
+}
+
+.bookmark:hover > .spinner {
+	filter: invert(1) brightness(1.1);
+}
+
+a:hover .icon.spinner {
+	filter: invert(1) brightness(1.5);
+}
+
 /*=== Forms */
 legend {
 	border-bottom: 1px solid var(--dark-border-color);
@@ -259,12 +271,14 @@ button.as-link[disabled] {
 }
 
 .nav-list .nav-section .item.active:hover a,
+.nav-list .nav-section .item.active:hover .as-link,
 .nav-list .item.active {
 	color: var(--font-color-link-hover);
 	background-color: var(--background-color-hover);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--font-color-link-hover);
 }
 
@@ -491,7 +505,9 @@ button.as-link[disabled] {
 }
 
 .content pre code {
+	background: transparent;
 	color: var(--dark-font-colorA);
+	border: none;
 }
 
 .content blockquote {

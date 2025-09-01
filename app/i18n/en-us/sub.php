@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP password',	// IGNORE
 			'username' => 'HTTP username',	// IGNORE
 		),
+		'change_favicon' => 'Change…',	// IGNORE
 		'clear_cache' => 'Always clear cache',	// IGNORE
 		'content_action' => array(
 			'_' => 'Content action when fetching the article content',	// IGNORE
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// IGNORE
 			'label' => 'Export as OPML',	// IGNORE
 		),
+		'ext_favicon' => 'Set automatically',	// IGNORE
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// IGNORE
 		'filteractions' => array(
 			'_' => 'Filter actions',	// IGNORE
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// IGNORE
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// IGNORE
+		'icon' => 'Icon',	// IGNORE
 		'information' => 'Information',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
 		'kind' => array(
@@ -212,6 +216,7 @@ return array(
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
+		'reset_favicon' => 'Reset to default',	// IGNORE
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// IGNORE
 			'show_rendered' => 'Show content',	// IGNORE
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// IGNORE
 			'id' => 'Standard ID (default)',	// IGNORE
 			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Content',	// IGNORE
+			'sha1:content_published' => 'Content + Date',	// IGNORE
 			'sha1:link_published' => 'Link + Date',	// IGNORE
 			'sha1:link_published_title' => 'Link + Date + Title',	// IGNORE
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// IGNORE
+			'sha1:published' => 'Date',	// IGNORE
+			'sha1:title' => 'Title',	// IGNORE
+			'sha1:title_published' => 'Title + Date',	// IGNORE
+			'sha1:title_published_content' => 'Title + Date + Content',	// IGNORE
 		),
 		'url' => 'Feed URL',	// IGNORE
 		'useragent' => 'Set the user agent for fetching this feed',	// IGNORE
@@ -250,7 +261,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Export',	// IGNORE
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Download user database as SQLite',	// IGNORE
 		),
 		'export_labelled' => 'Export your labeled articles',
 		'export_opml' => 'Export list of feeds (OPML)',	// IGNORE
@@ -288,9 +299,8 @@ return array(
 		'add_feed' => 'Add a feed',	// IGNORE
 		'add_label' => 'Add a label',	// IGNORE
 		'add_opml_category' => 'OPML category name',	// IGNORE
-		'delete_label' => 'Delete a label',	// IGNORE
+		'delete_label' => 'Delete this label',	// IGNORE
 		'feed_management' => 'RSS feeds management',	// IGNORE
-		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
 	),
 );

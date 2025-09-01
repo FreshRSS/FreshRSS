@@ -44,7 +44,6 @@ final class Minz_Dispatcher {
 				$this->createController(Minz_Request::controllerName());
 				$this->controller->init();
 				$this->controller->firstAction();
-				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->launchAction(
 						Minz_Request::actionName()
@@ -53,7 +52,6 @@ final class Minz_Dispatcher {
 				}
 				$this->controller->lastAction();
 
-				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
 					$this->controller->view()->build();
@@ -61,7 +59,6 @@ final class Minz_Dispatcher {
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
-			// @phpstan-ignore doWhile.alwaysFalse
 		} while (self::$needsReset);
 	}
 

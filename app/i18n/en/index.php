@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
+				'_' => 'System information',
+				'browser' => 'Browser',
+				'database' => 'Database',
+				'server_software' => 'Server software',
 				'version_curl' => 'cURL version',
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'version_frss' => 'FreshRSS version',
+				'version_php' => 'PHP version',
 			),
 		),
 		'bugs_reports' => 'Bug reports',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Search',
 		'sort' => array(
 			'_' => 'Sorting criteria',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',
+				'name_desc' => 'Category, feed titles Z→A',
+			),
 			'date_asc' => 'Publication date 1→9',
 			'date_desc' => 'Publication date 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',
+				'name_desc' => 'Feed title Z→A',
+			),
 			'id_asc' => 'Freshly received last',
 			'id_desc' => 'Freshly received first',
 			'link_asc' => 'Link A→Z',

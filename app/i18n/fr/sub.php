@@ -50,6 +50,7 @@ return array(
 			'password' => 'Mot de passe HTTP',
 			'username' => 'Identifiant HTTP',
 		),
+		'change_favicon' => 'Changer…',
 		'clear_cache' => 'Toujours vider le cache',
 		'content_action' => array(
 			'_' => 'Action à effectuer pour la réception du contenu des articles',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'Fichier XML (données partielles. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Voir documentation</a>)',
 			'label' => 'Exporter en OPML',
 		),
+		'ext_favicon' => 'Définie automatiquement',
+		'favicon_changed_by_ext' => 'L’icône a été définie par l’extension <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 		),
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icône',
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
@@ -212,6 +216,7 @@ return array(
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
 		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Réinitialiser',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
 			'show_rendered' => 'Afficher le contenu',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer le critère peut créer des doublons.',
 			'id' => 'ID standard (défaut)',
 			'link' => 'Lien',
+			'sha1:content' => 'Contenu',
+			'sha1:content_published' => 'Contenu + Date',
 			'sha1:link_published' => 'Lien + Date',
 			'sha1:link_published_title' => 'Lien + Date + Titre',
 			'sha1:link_published_title_content' => 'Lien + Date + Titre + Contenu',
+			'sha1:published' => 'Date',	// IGNORE
+			'sha1:title' => 'Titre',
+			'sha1:title_published' => 'Titre + Date',
+			'sha1:title_published_content' => 'Titre + Date + Contenu',
 		),
 		'url' => 'URL du flux',
 		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',
@@ -288,9 +299,8 @@ return array(
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'add_opml_category' => 'Nom de la catégorie OPML',
-		'delete_label' => 'Supprimer une étiquette',
+		'delete_label' => 'Supprimer l’étiquette',
 		'feed_management' => 'Gestion des flux RSS',
-		'rename_label' => 'Renommer une étiquette',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 );

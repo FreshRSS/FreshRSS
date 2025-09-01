@@ -132,4 +132,8 @@ class FreshRSS_View extends Minz_View {
 	public string $errorMessage;
 	/** @var array<string,string> */
 	public array $message;
+
+	// View modes
+	/** @var array<FreshRSS_ViewMode> */
+	public array $viewModes;
 }

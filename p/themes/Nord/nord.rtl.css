@@ -86,11 +86,11 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, .as-link, button.as-link {
 	color: var(--accent);
 }
 
-a:hover {
+a:hover, .as-link:hover, button.as-link:hover {
 	color: var(--highlight);
 }
 
@@ -652,12 +652,14 @@ img.favicon {
 	text-align: center;
 }
 
-.aside.nav-list .nav-section .item.active a {
+.aside.nav-list .nav-section .item.active a,
+.aside.nav-list .nav-section .item.active .as-link {
 	color: var(--highlight);
 	font-weight: bold;
 }
 
-.aside.nav-list .nav-section .item a:hover {
+.aside.nav-list .nav-section .item a:hover,
+.aside.nav-list .nav-section .item .as-link:hover {
 	background-color: var(--main-background);
 	color: var(--text-default);
 	transition: .2s;
@@ -869,7 +871,10 @@ li.item.active {
 .content pre {
 	border: 1px solid var(--accent);
 	border-radius: 6px;
+}
 
+.content pre code {
+	border: none;
 }
 
 .content blockquote {

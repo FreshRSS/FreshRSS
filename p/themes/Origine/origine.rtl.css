@@ -201,7 +201,7 @@ th {
 	margin-bottom: 0.25rem;
 }
 
-.form-group .group-controls label {
+.form-group .group-controls label:not(.btn) {
 	padding: 0;
 }
 
@@ -373,18 +373,21 @@ a:hover .icon {
 	line-height: 2.5;
 }
 
-.nav-list .nav-section .item:hover a {
+.nav-list .nav-section .item:hover a,
+.nav-list .nav-section .item:hover .as-link {
 	background-color: var(--background-color-hover);
 	color: var(--font-color-link-hover);
 }
 
 .nav-list .nav-section .item.active:hover a,
+.nav-list .nav-section .item.active:hover .as-link,
 .nav-list .item.active {
 	background-color: var(--contrast-background-color-active);
 	color: var(--font-color-light);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--font-color-light);
 }
 
@@ -918,6 +921,12 @@ a:hover .icon {
 	border-radius: 3px;
 }
 
+.content pre code {
+	background: transparent;
+	color: var(--font-color);
+	border: none;
+}
+
 .content code {
 	background-color: var(--background-color-light-shadowed);
 	color: var(--error-feed-color);
@@ -1319,5 +1328,9 @@ a:hover .icon {
 	:root.darkMode_auto .btn.active .icon,
 	:root.darkMode_auto .btn:active .icon {
 		filter: brightness(1.4);
+	}
+
+	:root.darkMode_auto .spinner {
+		filter: invert(1) brightness(2);
 	}
 }

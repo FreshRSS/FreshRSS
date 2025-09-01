@@ -12,7 +12,6 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use SimplePie\Exception\HttpException;
 use Throwable;
 
 /**
@@ -71,7 +70,7 @@ final class Psr18Client implements Client
      * @param string $url
      * @param array<string,string|string[]> $headers
      *
-     * @throws HttpException if anything goes wrong requesting the data
+     * @throws ClientException if anything goes wrong requesting the data
      */
     public function request(string $method, string $url, array $headers = []): Response
     {
@@ -114,7 +113,7 @@ final class Psr18Client implements Client
             try {
                 $response = $this->httpClient->sendRequest($request);
             } catch (ClientExceptionInterface $th) {
-                throw new HttpException($th->getMessage(), $th->getCode(), $th);
+                throw new ClientException($th->getMessage(), $th->getCode(), $th);
             }
 
             $statusCode = $response->getStatusCode();
@@ -145,17 +144,17 @@ final class Psr18Client implements Client
     private function requestLocalFile(string $path): Response
     {
         if (!is_readable($path)) {
-            throw new HttpException(sprintf('file "%s" is not readable', $path));
+            throw new ClientException(sprintf('file "%s" is not readable', $path));
         }
 
         try {
             $raw = file_get_contents($path);
         } catch (Throwable $th) {
-            throw new HttpException($th->getMessage(), $th->getCode(), $th);
+            throw new ClientException($th->getMessage(), $th->getCode(), $th);
         }
 
         if ($raw === false) {
-            throw new HttpException('file_get_contents() could not read the file', 1);
+            throw new ClientException('file_get_contents() could not read the file', 1);
         }
 
         return new RawTextResponse($raw, $path);
