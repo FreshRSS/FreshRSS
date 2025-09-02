@@ -95,19 +95,6 @@ node_modules/.bin/rtlcss:
 	npm install
 
 ##@ I18n
-.PHONY: i18n-format
-i18n-format: ## Format I18N files
-	@$(PHP) ./cli/manipulate.translation.php --action format
-	@echo Files formatted.
-
-.PHONY: i18n-add-language
-i18n-add-language: ## Add a new supported language
-ifndef lang
-	$(error To add a new language, you need to provide one in the "lang" variable)
-endif
-	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
-	@echo Language added.
-
 .PHONY: i18n-add-key
 i18n-add-key: ## Add a translation key to all supported languages
 ifndef key
@@ -119,24 +106,18 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)"
 	@echo Key added.
 
-.PHONY: i18n-remove-key
-i18n-remove-key: ## Remove a translation key from all supported languages
-ifndef key
-	$(error To remove a key, you need to provide one in the "key" variable)
+.PHONY: i18n-add-language
+i18n-add-language: ## Add a new supported language
+ifndef lang
+	$(error To add a new language, you need to provide one in the "lang" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php --action delete --key $(key)
-	@echo Key removed.
+	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
+	@echo Language added.
 
-.PHONY: i18n-update-key
-i18n-update-key: ## Update a translation key in all supported languages
-ifndef key
-	$(error To update a key, you need to provide one in the "key" variable)
-endif
-ifndef value
-	$(error To update a key, you need to provide its value in the "value" variable)
-endif
-	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)" --language en
-	@echo Key updated.
+.PHONY: i18n-format
+i18n-format: ## Format I18N files
+	@$(PHP) ./cli/manipulate.translation.php --action format
+	@echo Files formatted.
 
 .PHONY: i18n-ignore-key
 i18n-ignore-key: ## Ignore a translation key for the selected language
@@ -163,6 +144,25 @@ ifndef key
 	$(error To check if a key exists, you need to provide one in the "key" variable)
 endif
 	@$(PHP) ./cli/manipulate.translation.php --action exist --key $(key)
+
+.PHONY: i18n-remove-key
+i18n-remove-key: ## Remove a translation key from all supported languages
+ifndef key
+	$(error To remove a key, you need to provide one in the "key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action delete --key $(key)
+	@echo Key removed.
+
+.PHONY: i18n-update-key
+i18n-update-key: ## Update a translation key in all supported languages
+ifndef key
+	$(error To update a key, you need to provide one in the "key" variable)
+endif
+ifndef value
+	$(error To update a key, you need to provide its value in the "value" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)" --language en
+	@echo Key updated.
 
 ##@ Tools
 .PHONY: pot
