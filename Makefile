@@ -165,17 +165,21 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
 
 ##@ Tools
-.PHONY: rtl
-rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
-	npm run-script rtlcss
-
 .PHONY: pot
 pot: ## Generate POT templates for docs
 	cd docs && ../cli/translation-update.sh
 
+.PHONY: readme
+readme: ## Generate translation progress in README file
+	@$(PHP) ./cli/check.translation.php --generate-readme
+
 .PHONY: refresh
 refresh: ## Refresh feeds by fetching new messages
 	@$(PHP) ./app/actualize_script.php
+
+.PHONY: rtl
+rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
+	npm run-script rtlcss
 
 ###############################
 ## New commands aligned on CI #
