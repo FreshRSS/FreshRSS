@@ -25,9 +25,7 @@ else
 	DOCKERFILE=Dockerfile
 endif
 
-############
-## Docker ##
-############
+##@ Docker
 .PHONY: build
 build: ## Build a Docker image
 	docker build \
@@ -55,9 +53,7 @@ stop: ## Stop FreshRSS container if any
 	docker stop freshrss-dev || true
 	docker network rm $(NETWORK) || true
 
-######################
-## Tests and linter ##
-######################
+##@ Tests and linter
 .PHONY: test
 test: bin/phpunit ## Run the test suite
 	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
@@ -98,9 +94,7 @@ node_modules/.bin/eslint:
 node_modules/.bin/rtlcss:
 	npm install
 
-##########
-## I18N ##
-##########
+##@ I18n
 .PHONY: i18n-format
 i18n-format: ## Format I18N files
 	@$(PHP) ./cli/manipulate.translation.php -a format
@@ -170,9 +164,7 @@ ifndef key
 endif
 	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
 
-###########
-## TOOLS ##
-###########
+##@ Tools
 .PHONY: rtl
 rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
 	npm run-script rtlcss
@@ -218,10 +210,7 @@ test-all: composer-test npm-test typos-test
 .PHONY: fix-all
 fix-all: composer-fix npm-fix
 
-
-##########
-## HELP ##
-##########
+##@ Help
 .PHONY: help
-help:
-	@grep --extended-regexp '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+help: ## Display this help
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
