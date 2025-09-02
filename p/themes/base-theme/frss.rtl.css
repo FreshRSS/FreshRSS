@@ -1601,7 +1601,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
