@@ -354,7 +354,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
