@@ -54,17 +54,17 @@ stop: ## Stop FreshRSS container if any
 	docker network rm $(NETWORK) || true
 
 ##@ Tests and linter
-.PHONY: test
-test: bin/phpunit ## Run the test suite
-	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
-
 .PHONY: lint
-lint: bin/phpcs ## Run the linter on the PHP files
+lint: bin/phpcs ## Run the linter on PHP files
 	$(PHP) bin/phpcs . -p -s
 
 .PHONY: lint-fix
 lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 	$(PHP) bin/phpcbf . -p -s
+
+.PHONY: test
+test: bin/phpunit ## Run the test suite
+	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 bin/composer:
 	mkdir -p bin/
