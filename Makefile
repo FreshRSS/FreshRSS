@@ -97,7 +97,7 @@ node_modules/.bin/rtlcss:
 ##@ I18n
 .PHONY: i18n-format
 i18n-format: ## Format I18N files
-	@$(PHP) ./cli/manipulate.translation.php -a format
+	@$(PHP) ./cli/manipulate.translation.php --action format
 	@echo Files formatted.
 
 .PHONY: i18n-add-language
@@ -105,7 +105,7 @@ i18n-add-language: ## Add a new supported language
 ifndef lang
 	$(error To add a new language, you need to provide one in the "lang" variable)
 endif
-	$(PHP) ./cli/manipulate.translation.php -a add -l $(lang) -o $(ref)
+	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
 	@echo Language added.
 
 .PHONY: i18n-add-key
@@ -116,7 +116,7 @@ endif
 ifndef value
 	$(error To add a key, you need to provide its value in the "value" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)"
 	@echo Key added.
 
 .PHONY: i18n-remove-key
@@ -124,7 +124,7 @@ i18n-remove-key: ## Remove a translation key from all supported languages
 ifndef key
 	$(error To remove a key, you need to provide one in the "key" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
+	@$(PHP) ./cli/manipulate.translation.php --action delete --key $(key)
 	@echo Key removed.
 
 .PHONY: i18n-update-key
@@ -135,7 +135,7 @@ endif
 ifndef value
 	$(error To update a key, you need to provide its value in the "value" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)" -l en
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)" --language en
 	@echo Key updated.
 
 .PHONY: i18n-ignore-key
@@ -146,7 +146,7 @@ endif
 ifndef key
 	$(error To ignore a key, you need to provide one in the "key" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
+	@$(PHP) ./cli/manipulate.translation.php --action ignore --key $(key) --language $(lang)
 	@echo Key ignored.
 
 .PHONY: i18n-ignore-unmodified-keys
@@ -154,7 +154,7 @@ i18n-ignore-unmodified-keys: ## Ignore all unmodified translation keys for the s
 ifndef lang
 	$(error To ignore unmodified keys, you need to provide a language in the "lang" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a ignore_unmodified -l $(lang)
+	@$(PHP) ./cli/manipulate.translation.php --action ignore_unmodified --language $(lang)
 	@echo Unmodified keys ignored.
 
 .PHONY: i18n-key-exists
@@ -162,7 +162,7 @@ i18n-key-exists: ## Check if a translation key exists
 ifndef key
 	$(error To check if a key exists, you need to provide one in the "key" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
+	@$(PHP) ./cli/manipulate.translation.php --action exist --key $(key)
 
 ##@ Tools
 .PHONY: pot

@@ -71,7 +71,7 @@
         "phpstan": "phpstan analyse .",
         "phpstan-next": "phpstan analyse -c phpstan-next.neon .",
         "phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-phpunit-deprecations ./tests",
-        "translations": "cli/manipulate.translation.php -a format && cli/check.translation.php -g",
+        "translations": "cli/manipulate.translation.php --action format && cli/check.translation.php --generate-readme",
         "test": [
             "@php-lint",
             "@phtml-lint",
