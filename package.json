@@ -41,8 +41,8 @@
     "neostandard": "^0.12.2",
     "rtlcss": "^4.3.0",
     "sass": "^1.91.0",
-    "stylelint": "^16.23.0",
-    "stylelint-config-recommended-scss": "^15.0.1",
+    "stylelint": "^16.23.1",
+    "stylelint-config-recommended-scss": "^16.0.0",
     "stylelint-order": "^7.0.0",
     "@stylistic/stylelint-plugin": "^4.0.0"
   },
