@@ -87,3 +87,5 @@ defined('TMP_PATH') or define('TMP_PATH', sys_get_temp_dir());
 
 //clean the cache after x hours (720 hours = 30 days)
 defined('CLEANCACHE_HOURS') or define('CLEANCACHE_HOURS', 720);
+
+defined('NO_CACHE') or define('NO_CACHE', file_exists(DATA_PATH . '/no-cache.txt'));

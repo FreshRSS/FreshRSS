@@ -80,7 +80,7 @@ $_sessionMode = false;
  * @return bool True if the connection can be closed (e.g.: the client has already the latest version), false if the new content has to be send to the client.
  */
 function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePrivacy = 0, bool $feedMode = false, bool $compression = false, bool $session = false): bool {
-	if (headers_sent()) return false;
+	if (headers_sent() || (defined('NO_CACHE') && constant('NO_CACHE') === true)) return false;
 
 	if (is_string($_SERVER['SCRIPT_FILENAME'] ?? null)) $scriptName = $_SERVER['SCRIPT_FILENAME'];
 	elseif (is_string($_SERVER['PATH_TRANSLATED'] ?? null)) $scriptName = $_SERVER['PATH_TRANSLATED'];

@@ -35,17 +35,15 @@ if (!file_exists($applied_migrations_path)) {
 	Minz_Session::init('FreshRSS');
 	Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 
-	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-		require(LIB_PATH . '/http-conditional.php');
-		$currentUser = Minz_User::name();
-		$dateLastModification = $currentUser === null ? time() : max(
-			FreshRSS_UserDAO::ctime($currentUser),
-			FreshRSS_UserDAO::mtime($currentUser),
-			@filemtime(DATA_PATH . '/config.php') ?: 0
-		);
-		if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
-			exit();	//No need to send anything
-		}
+	require(LIB_PATH . '/http-conditional.php');
+	$currentUser = Minz_User::name();
+	$dateLastModification = $currentUser === null ? time() : max(
+		FreshRSS_UserDAO::ctime($currentUser),
+		FreshRSS_UserDAO::mtime($currentUser),
+		@filemtime(DATA_PATH . '/config.php') ?: 0
+	);
+	if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
+		exit();	//No need to send anything
 	}
 
 	$error = false;
