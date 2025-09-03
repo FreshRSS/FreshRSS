@@ -105,6 +105,6 @@ if ($mtime === false) {
 
 require(LIB_PATH . '/http-conditional.php');
 
-if (!httpConditional($mtime, 604800, 2)) {
+if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, 604800, 2)) {
 	readfile($absolute_filename);
 }

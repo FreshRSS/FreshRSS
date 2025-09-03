@@ -42,7 +42,8 @@ if (!file_exists($applied_migrations_path)) {
 		FreshRSS_UserDAO::mtime($currentUser),
 		@filemtime(DATA_PATH . '/config.php') ?: 0
 	);
-	if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
+	if (!file_exists(DATA_PATH . '/no-cache.txt')
+		&& httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
 		exit();	//No need to send anything
 	}
 

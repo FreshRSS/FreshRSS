@@ -55,7 +55,7 @@ $dateLastModification = max(
 	@filemtime(DATA_PATH . '/config.php') ?: 0
 );
 // TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
-if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
+if (!file_exists(DATA_PATH . '/no-cache.txt') && httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
 	exit();	//No need to send anything
 }
 
