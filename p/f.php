@@ -13,7 +13,7 @@ $no_cache = file_exists(DATA_PATH . '/no-cache.txt');
 function show_default_favicon(int $cacheSeconds = 3600): void {
 	global $no_cache;
 	$default_mtime = @filemtime(DEFAULT_FAVICON) ?: 0;
-	if ($no_cache || httpConditional($default_mtime, $cacheSeconds, 2)) {
+	if ($no_cache || !httpConditional($default_mtime, $cacheSeconds, 2)) {
 		header('Content-Type: image/x-icon');
 		header('Content-Disposition: inline; filename="default_favicon.ico"');
 		readfile(DEFAULT_FAVICON);
