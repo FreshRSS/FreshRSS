@@ -1531,6 +1531,16 @@ function init_nav_entries() {
 			document.scrollingElement.scrollTop = windowTop > item_top ? item_top - nav_menu_height : 0 - nav_menu_height;
 			return false;
 		};
+		nav_entries.querySelector('.favourite').onclick = function (e) {
+			const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux'));
+			mark_favorite(active_item);
+			return false;
+		};
+		nav_entries.querySelector('.link').onclick = function (e) {
+			const active_item = (document.querySelector('.flux.current') || document.querySelector('.flux'));
+			window.open(active_item.dataset.link, '_blank');
+			return false;
+		};
 	}
 }
 
