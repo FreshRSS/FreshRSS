@@ -167,7 +167,7 @@ return array(
 		),
 		'cookie-duration' => array(
 			'help' => '秒',
-			'number' => 'ログを残す間隔',
+			'number' => 'ログイン状態維持時間',
 		),
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
