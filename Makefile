@@ -95,6 +95,14 @@ node_modules/.bin/rtlcss:
 	npm install
 
 ##@ I18n
+.PHONY: i18n-add-file
+i18n-add-file: ## Add a new translation file to all supported languages
+ifndef key
+	$(error To add a new file, you need to provide one in the "key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key)
+	@echo File added.
+
 .PHONY: i18n-add-key
 i18n-add-key: ## Add a translation key to all supported languages
 ifndef key

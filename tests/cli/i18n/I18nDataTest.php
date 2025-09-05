@@ -485,6 +485,30 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertSame($frValue, $enValue);
 	}
 
+	public function testAddFileWhenNotPhpFile(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file name is not supported.');
+
+		$data = new I18nData($this->referenceData);
+		$data->addFile('file2');
+	}
+
+	public function testAddFileWhenAlreadyExists(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file exists already.');
+
+		$data = new I18nData($this->referenceData);
+		self::assertTrue($data->exists('file2.php'));
+		$data->addFile('file2.php');
+	}
+
+	public function testAddFileWhenNotExists(): void {
+		$data = new I18nData($this->referenceData);
+		self::assertFalse($data->exists('newfile.php'));
+		$data->addFile('newfile.php');
+		self::assertTrue($data->exists('newfile.php'));
+	}
+
 	public function testAddValueWhenLanguageDoesNotExist(): void {
 		$this->expectException(\Exception::class);
 		$this->expectExceptionMessage('The selected language does not exist.');

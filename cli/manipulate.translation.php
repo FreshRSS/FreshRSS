@@ -43,6 +43,8 @@ switch ($cliOptions->action) {
 			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
 		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
 			$i18nData->addKey($cliOptions->key, $cliOptions->value);
+		} elseif (isset($cliOptions->key)) {
+			$i18nData->addFile($cliOptions->key);
 		} elseif (isset($cliOptions->language)) {
 			$reference = null;
 			if (isset($cliOptions->originLanguage)) {
@@ -172,6 +174,8 @@ Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from al
 Example 10:	check if a key exist.
 	php $file -a exist -k my_key
 
+Example 11:	add a new file to all languages
+	php $file -a add -k my_file.php
 HELP;
 	exit();
 }
