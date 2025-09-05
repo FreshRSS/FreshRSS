@@ -62,7 +62,7 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (m
 	}
 }
 
-if ($no_cache || httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
+if ($no_cache || !httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
 	$ico_content_type = contentType($ico);
 	header('Content-Type: ' . $ico_content_type);
 	header('Content-Disposition: inline; filename="' . $id . '.ico"');
