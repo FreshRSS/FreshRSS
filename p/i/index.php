@@ -22,20 +22,20 @@ declare(strict_types=1);
 #
 # ***** END LICENSE BLOCK *****
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 $migrations_path = APP_PATH . '/migrations';
 $applied_migrations_path = DATA_PATH . '/applied_migrations.txt';
 
 if (!file_exists($applied_migrations_path)) {
-	require(APP_PATH . '/install.php');
+	require APP_PATH . '/install.php';
 } else {
 	session_cache_limiter('');
 	Minz_Session::init('FreshRSS');
 	Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 
-	require(LIB_PATH . '/http-conditional.php');
+	require LIB_PATH . '/http-conditional.php';
 	$currentUser = Minz_User::name();
 	$dateLastModification = $currentUser === null ? time() : max(
 		FreshRSS_UserDAO::ctime($currentUser),

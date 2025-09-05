@@ -5,8 +5,8 @@ declare(strict_types=1);
  * `/api/misc.php/Extension%20name/` or `/api/misc.php?ext=Extension%20name`
  */
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 function badRequest(): never {
 	header('HTTP/1.1 400 Bad Request');

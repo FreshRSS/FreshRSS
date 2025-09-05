@@ -177,7 +177,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		$attributesOnly = $contents === null && $tmpPath === '';
 
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 		if (!$attributesOnly && !isImgMime(is_string($contents) ? $contents : '')) {
 			throw new FreshRSS_UnsupportedImageFormat_Exception();
 		}
@@ -401,7 +401,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function faviconPrepare(bool $force = false): void {
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
 			return;
 		}

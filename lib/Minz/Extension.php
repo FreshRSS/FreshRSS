@@ -116,7 +116,7 @@ abstract class Minz_Extension {
 		}
 
 		ob_start();
-		include($filename);
+		include $filename;
 		return ob_get_clean();
 	}
 

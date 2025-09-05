@@ -172,7 +172,7 @@ class Minz_Translate {
 		self::$translates[$key] = [];
 
 		foreach (self::$lang_files[$key] as $lang_pathname) {
-			$i18n_array = include($lang_pathname);
+			$i18n_array = include $lang_pathname;
 			if (!is_array($i18n_array)) {
 				Minz_Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
 				continue;

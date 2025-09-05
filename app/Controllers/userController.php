@@ -288,7 +288,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		$customUserConfigPath = join_path(DATA_PATH, 'config-user.custom.php');
 		if (file_exists($customUserConfigPath)) {
-			$customUserConfig = include($customUserConfigPath);
+			$customUserConfig = include $customUserConfigPath;
 			if (is_array($customUserConfig)) {
 				$userConfig = $customUserConfig;
 			}

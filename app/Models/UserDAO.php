@@ -4,7 +4,7 @@ declare(strict_types=1);
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 	public function createUser(): bool {
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 
 		try {
 			$sql = $GLOBALS['SQL_CREATE_TABLES'];
@@ -31,7 +31,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			fwrite(STDERR, 'Deleting SQL data for user “' . $this->current_user . "”…\n");
 		}
 
-		require(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$sql = $GLOBALS['SQL_DROP_TABLES'];
 		if (!is_string($sql)) {
 			throw new Exception('SQL_DROP_TABLES is not a string!');

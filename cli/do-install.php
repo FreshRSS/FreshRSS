@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
@@ -99,7 +99,7 @@ $config = [
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {
-	$customConfig = include($customConfigPath);
+	$customConfig = include $customConfigPath;
 	if (is_array($customConfig) && is_array_keys_string($customConfig)) {
 		$config = array_merge($customConfig, $config);
 	}
