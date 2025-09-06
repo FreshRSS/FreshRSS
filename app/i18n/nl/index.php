@@ -94,8 +94,8 @@ return array(
 			'rand' => 'Willekeurige volgorde',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
+			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',
