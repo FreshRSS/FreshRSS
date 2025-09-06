@@ -112,13 +112,13 @@ ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
 SQL;
 				return $this->pdo->exec($sql) !== false;
 			}
-			if ($name === 'lastUserModified') {	//v1.27.1
+			if ($name === 'lastUserModified') {	//v1.28.0
 				$prefix = $this->pdo->prefix();
 				$sql = <<<SQL
-ALTER TABLE `{$prefix}entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.27.1
-ALTER TABLE `{$prefix}entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.27.1
-CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `{$prefix}entry`(`lastUserModified`);	-- //v1.27.1
-CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `{$prefix}entrytmp`(`lastUserModified`);	-- //v1.27.1
+ALTER TABLE `{$prefix}entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+ALTER TABLE `{$prefix}entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `{$prefix}entry`(`lastUserModified`);	-- //v1.28.0
+CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `{$prefix}entrytmp`(`lastUserModified`);	-- //v1.28.0
 SQL;
 				return $this->pdo->exec($sql) !== false;
 			}
@@ -155,18 +155,18 @@ SQL;
 	private PDOStatement|null|false $addEntryPrepared = null;
 
 	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
-	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>,'lastUserModified':int,} $valuesTmp */
+	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
 			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. (static::isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified) '
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
 				. ', :link, :date, :last_seen, '
 				. static::sqlHexDecode(':hash')
-				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes,:lastUserModified)');
+				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared != false) {
@@ -190,12 +190,6 @@ SQL;
 				$valuesTmp['lastSeen'] = time();
 			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-
-			if (empty($valuesTmp['lastUserModified'])) {
-				$valuesTmp['lastUserModified'] = time();
-			}
-			$this->addEntryPrepared->bindParam(':lastUserModified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
-
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
@@ -222,7 +216,7 @@ SQL;
 		} else {
 			$info = $this->addEntryPrepared == false ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
 			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
-			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>,lastUserModified:int} $valuesTmp */
+			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
@@ -1439,23 +1433,9 @@ SQL;
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
-SELECT
-	e0.id,
-	e0.guid,
-	e0.title,
-	e0.author,
-	{$content},
-	e0.link,
-	e0.date,
-	{$hash} AS hash,
-	e0.is_read,
-	e0.is_favorite,
-	e0.id_feed,
-	e0.tags,
-	e0.attributes,
-	e0.lastUserModified
-FROM `_entry` e0
-INNER JOIN ({$sql}) e2 ON e2.id=e0.id
+SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link,
+	e0.date, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes,
+	e0.lastUserModified FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
 		if ($sort === 'f.name' || $sort === 'c.name') {
 			$sql .= ' INNER JOIN `_feed` f0 ON f0.id = e0.id_feed ';

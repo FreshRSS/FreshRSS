@@ -111,25 +111,11 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @param Traversable<array{
-	 * 'id'?:string,
-	 * 'id_feed'?:int,
-	 * 'guid'?:string,
-	 * 'title'?:string,
-	 * 'author'?:string,
-	 * 'content'?:string,
-	 * 'link'?:string,
-	 * 'date'?:int|string,
-	 * 'lastSeen'?:int,
-	 * 'hash'?:string,
-	 * 'is_read'?:bool|int,
-	 * 'is_favorite'?:bool|int,
-	 * 'tags'?:string|array<string>,
-	 * 'attributes'?:?string,
-	 * 'thumbnail'?:string,
-	 * 'timestamp'?:string,
-	 * 'lastUserModified'?:int
-	 * }> $daos
+	 * @param Traversable<array{ 'id'?:string, 'id_feed'?:int, 'guid'?:string,
+	 * 'title'?:string, 'author'?:string, 'content'?:string, 'link'?:string,
+	 * 'date'?:int|string, 'lastSeen'?:int, 'hash'?:string, 'is_read'?:bool|int,
+	 * 'is_favorite'?:bool|int, 'tags'?:string|array<string>, 'attributes'?:?string,
+	 * 'thumbnail'?:string, 'timestamp'?:string, 'lastUserModified'?:int }> $daos
 	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public static function fromTraversable(Traversable $daos): Traversable {
