@@ -419,7 +419,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'output' => [],
 		'p' => ['align'],
 		'picture' => [],
-		'plaintext' => [],
+		// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/plaintext
 		'pre' => ['width', 'wrap'],
 		'progress' => ['max', 'value'],
 		'q' => ['cite'],
