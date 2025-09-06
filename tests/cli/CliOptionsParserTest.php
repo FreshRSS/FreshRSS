@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-require_once __DIR__ . '/../../cli/CliOption.php';
-require_once __DIR__ . '/../../cli/CliOptionsParser.php';
+require_once dirname(__DIR__, 2) . '/cli/CliOption.php';
+require_once dirname(__DIR__, 2) . '/cli/CliOptionsParser.php';
 
 final class CliOptionsOptionalTest extends CliOptionsParser {
 	public string $string = '';

@@ -13,8 +13,8 @@
 <script src="../scripts/api.js" defer="defer"></script>
 <script id="jsonVars" type="application/json">
 <?php
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 FreshRSS_Context::initSystem();
 echo json_encode([
 	'greader' => Minz_Url::display('/api/greader.php', 'php', true),

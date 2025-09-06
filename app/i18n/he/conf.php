@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'פעולות על מאמרים',
 		'auto_share' => 'שיתוף',
 		'auto_share_help' => 'אם יש רק מצב שיתוף אחד, הוא מופעל. אחרת המצבים נבחרים על בסיס המספר שלהם.',
-		'close_dropdown' => 'Close menus',	// TODO
+		'close_menus' => 'Close menus',	// TODO
 		'collapse_article' => 'כיווץ',
 		'first_article' => 'דילוג למאמר הראשון',
 		'focus_search' => 'גישה לתיבת החיפוש',

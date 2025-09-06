@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Poista tunniste',
 		'feed_management' => 'RSS-syötteiden hallinta',
-		'rename_label' => 'Nimeä tunniste uudelleen',
 		'subscription_tools' => 'Tilaustyökalut',
 	),
 );

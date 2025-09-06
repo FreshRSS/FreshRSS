@@ -16,8 +16,8 @@ header('X-Content-Type-Options: nosniff');
 
 // ================================================================================================
 // BOOTSTRAP FreshRSS
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
@@ -355,7 +355,7 @@ final class FeverAPI
 			return [];
 		}
 
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 
 		$favicons = [];
 		$salt = FreshRSS_Context::systemConf()->salt;

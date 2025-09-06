@@ -52,7 +52,7 @@
 					$this->feed->resetFaviconHash();
 					$ext_url = Minz_ExtensionManager::callHook('custom_favicon_btn_url', $this->feed);
 				?>
-				<label class="group-name"><?= _t('sub.feed.icon') ?></label>
+				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
 				<div class="group-controls">
 					<img class="favicon upload" src="<?= $currentIconUrl ?>" data-initial-src="<?= $currentIconUrl ?>" data-original-icon="<?= $originalIconUrl ?>" alt="✇" loading="lazy" />
 					<div class="favicon-controls">
@@ -890,7 +890,7 @@
 
 	<h2><?= _t('sub.import_export.export') ?></h2>
 	<div class="form-group">
-		<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
+		<div class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></div>
 		<div class="group-controls">
 			<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'f_' . $this->feed->id()) ?>" download="f_<?= $this->feed->id() ?> <?= $this->feed->name(true) ?>.opml.xml">
 				<?= _t('sub.feed.export-as-opml.download') ?>

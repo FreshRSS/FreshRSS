@@ -84,8 +84,7 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	// TODO: should be based on generic classes
-	document.querySelectorAll('.box a').forEach(function (a) {
+	document.querySelectorAll('.open-panel').forEach(function (a) {
 		a.onclick = function (ev) {
 			load_panel(a.href);
 			return false;

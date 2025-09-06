@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Makale eylemleri',
 		'auto_share' => 'Paylaş',
 		'auto_share_help' => 'Eğer yalnızca bir paylaşım modu varsa, o kullanılır. Aksi takdirde, modlar numaralarıyla erişilebilir.',
-		'close_dropdown' => 'Menüleri kapat',
+		'close_menus' => 'Menüleri kapat',
 		'collapse_article' => 'Daralt',
 		'first_article' => 'İlk makaleyi aç',
 		'focus_search' => 'Arama kutusuna eriş',

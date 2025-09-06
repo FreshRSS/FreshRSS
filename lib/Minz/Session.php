@@ -198,10 +198,24 @@ class Minz_Session {
 
 	/**
 	 * Regenerate a session id.
-	 * Useful to call session_set_cookie_params after session_start()
 	 */
-	public static function regenerateID(): void {
+	public static function regenerateID(string $name): void {
+		if (self::$volatile || self::$locked) {
+			return;
+		}
+		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
+		ini_set('session.use_cookies', '0');
+		session_name($name);
+		session_start();
 		session_regenerate_id(true);
+		session_write_close();
+		$newId = session_id();
+		if ($newId === false) {
+			Minz_Error::error(500);
+			return;
+		}
+		$lifetime = session_get_cookie_params()['lifetime'];
+		setcookie($name, $newId, $lifetime, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {

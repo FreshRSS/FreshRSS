@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Acciones de artículo',
 		'auto_share' => 'Compartir',
 		'auto_share_help' => 'Si solo hay un modo para compartir, ese será el que se use. En caso contrario los modos quedarán accesibles por su numeración.',
-		'close_dropdown' => 'Cerrar menús',
+		'close_menus' => 'Cerrar menús',
 		'collapse_article' => 'Contraer',
 		'first_article' => 'Saltar al primer artículo',
 		'focus_search' => 'Acceso a la casilla de búsqueda',

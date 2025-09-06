@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Akcie článku',
 		'auto_share' => 'Zdieľať',
 		'auto_share_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
-		'close_dropdown' => 'Zavrie menu',
+		'close_menus' => 'Zavrie menu',
 		'collapse_article' => 'Zroluje článok',
 		'first_article' => 'Otvorí prvý článok',
 		'focus_search' => 'Vyhľadávanie',

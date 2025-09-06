@@ -4,6 +4,40 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2025-XX-XX FreshRSS 1.27.1-dev
 
+* Security
+	* Regenerate session ID on login [#7829](https://github.com/FreshRSS/FreshRSS/pull/7829)
+	* Disallow setting non-existent language [#7878](https://github.com/FreshRSS/FreshRSS/pull/7878)
+	* Fix log CR/LF injection [#7883](https://github.com/FreshRSS/FreshRSS/pull/7883)
+* Bug fixing
+	* Include port number for HTTP `Retry-After` [#7875](https://github.com/FreshRSS/FreshRSS/pull/7875)
+	* Fix logic for searching labels [#7863](https://github.com/FreshRSS/FreshRSS/pull/7863)
+	* Fix cURL response parsing for HTTP redirections [#7866](https://github.com/FreshRSS/FreshRSS/pull/7866)
+	* Fix fetching OPML URL with special characters [#7843](https://github.com/FreshRSS/FreshRSS/pull/7843)
+	* Fix validation when creating a new user label [#7890](https://github.com/FreshRSS/FreshRSS/pull/7890)
+	* Fix displaying of current date in main statistics [#7892](https://github.com/FreshRSS/FreshRSS/pull/7892)
+	* Fix default values on stat processing [#7891](https://github.com/FreshRSS/FreshRSS/pull/7891)
+	* Fixes for `no-cache.txt` [#7907](https://github.com/FreshRSS/FreshRSS/pull/7907)
+	* Fix Docker Traefik `.yml` and `SERVER_DNS` example [#7858](https://github.com/FreshRSS/FreshRSS/pull/7858)
+* Deployment
+	* Docker improve `CMD` compatibility [#7861](https://github.com/FreshRSS/FreshRSS/pull/7861)
+* UI
+	* Improve leave validation [#7830](https://github.com/FreshRSS/FreshRSS/pull/7830)
+	* Improve *Mapco* and *Ansum* themes: read all button in mobile view [#7873](https://github.com/FreshRSS/FreshRSS/pull/7873)
+	* Improve *Swage* theme [#7608](https://github.com/FreshRSS/FreshRSS/pull/7608)
+	* Use standard CSS `overflow-wrap` instead of `word-wrap` [#7898](https://github.com/FreshRSS/FreshRSS/pull/7898)
+	* Various UI and style improvements: [#7868](https://github.com/FreshRSS/FreshRSS/pull/7868), [#7872](https://github.com/FreshRSS/FreshRSS/pull/7872),
+		[#7882](https://github.com/FreshRSS/FreshRSS/pull/7882), [#7893](https://github.com/FreshRSS/FreshRSS/pull/7893), [#7904](https://github.com/FreshRSS/FreshRSS/pull/7904)
+* I18n
+	* Label config delete label [#7871](https://github.com/FreshRSS/FreshRSS/pull/7871)
+	* Improve Japanese [#7903](https://github.com/FreshRSS/FreshRSS/pull/7903)
+	* Minor improvements [#7881](https://github.com/FreshRSS/FreshRSS/pull/7881)
+	* Add `make` target to generate the translation progress [#7905](https://github.com/FreshRSS/FreshRSS/pull/7905)
+* Misc.
+	* Improve `make` [#7901](https://github.com/FreshRSS/FreshRSS/pull/7901)
+	* Improve PHP code [#7906](https://github.com/FreshRSS/FreshRSS/pull/7906)
+	* Update dev dependencies [#7902](https://github.com/FreshRSS/FreshRSS/pull/7902), [#7895](https://github.com/FreshRSS/FreshRSS/pull/7895), [#7896](https://github.com/FreshRSS/FreshRSS/pull/7896),
+		[#7899](https://github.com/FreshRSS/FreshRSS/pull/7899)
+
 
 ## 2025-08-18 FreshRSS 1.27.0
 

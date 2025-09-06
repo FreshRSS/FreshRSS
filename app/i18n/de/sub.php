@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML Kategoriename',
 		'delete_label' => 'Label löschen',
 		'feed_management' => 'RSS-Feeds verwalten',
-		'rename_label' => 'Label umbenennen',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

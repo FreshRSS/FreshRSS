@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Действия со статьями',
 		'auto_share' => 'Обмен',
 		'auto_share_help' => 'Если способ единственный, он будет вызван. Иначе способы доступны по их номеру.',
-		'close_dropdown' => 'Закрыть меню',
+		'close_menus' => 'Закрыть меню',
 		'collapse_article' => 'Схлопнуть',
 		'first_article' => 'Открыть первую статью',
 		'focus_search' => 'К строке поиска',

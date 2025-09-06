@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => '라벨 삭제',
 		'feed_management' => 'RSS 피드 관리',
-		'rename_label' => '라벨 이름 바꾸기',
 		'subscription_tools' => '구독 도구',
 	),
 );

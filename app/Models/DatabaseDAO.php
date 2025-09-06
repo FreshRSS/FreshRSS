@@ -21,7 +21,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
@@ -280,7 +280,7 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && is_string($GLOBALS['SQL_UPDATE_MINOR'])) {
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 			$isMariaDB = false;

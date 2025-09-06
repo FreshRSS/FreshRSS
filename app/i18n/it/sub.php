@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nome categoria OPML',
 		'delete_label' => 'Cancella un’etichetta',
 		'feed_management' => 'Gestione feed RSS',
-		'rename_label' => 'Rinomina un’etichetta',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 );

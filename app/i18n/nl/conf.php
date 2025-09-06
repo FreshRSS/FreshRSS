@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Artikelacties',
 		'auto_share' => 'Delen',
 		'auto_share_help' => 'Als er slechts één deelmethode is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
-		'close_dropdown' => 'Sluit menu',
+		'close_menus' => 'Sluit menu',
 		'collapse_article' => 'Inklappen',
 		'first_article' => 'Spring naar eerste artikel',
 		'focus_search' => 'Toegang zoek venster',

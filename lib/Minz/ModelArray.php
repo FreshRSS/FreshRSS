@@ -35,7 +35,7 @@ class Minz_ModelArray {
 		} elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
-			$data = include($this->filename);
+			$data = include $this->filename;
 			$this->releaseLock($handle);
 
 			if ($data === false) {

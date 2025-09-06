@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Akce článku',
 		'auto_share' => 'Sdílet',
 		'auto_share_help' => 'Pokud je pouze jeden režim sdílení, je použit. Jinak jsou režimy dostupné podle jejich čísla.',
-		'close_dropdown' => 'Zavřít nabídky',
+		'close_menus' => 'Zavřít nabídky',
 		'collapse_article' => 'Sbalit',
 		'first_article' => 'Otevřít první článek',
 		'focus_search' => 'Vstoupit do vyhledávacího pole',
