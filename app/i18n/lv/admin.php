@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
 		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY
 		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
-		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
 		'token' => 'Master authentication token',	// TODO
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'Galvenā plūsma',
 		'no_idle' => 'Nav neaktīvu barotņu!',
 		'number_entries' => '%d raksti',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% no kopsummas',
-		'repartition' => 'Rakstu pārdalīšana',
+		'repartition' => 'Rakstu pārdalīšana: %s',	// DIRTY
 		'status_favorites' => 'Mīļākie',
 		'status_read' => 'Izlasīti',
 		'status_total' => 'Kopā',

@@ -16,6 +16,7 @@ return array(
 		'add' => 'Lisää',
 		'back_to_rss_feeds' => '← Palaa RSS-syötteisiin',
 		'cancel' => 'Peruuta',
+		'close' => 'Close',	// TODO
 		'create' => 'Luo',
 		'delete_all_feeds' => 'Delete all feeds',	// TODO
 		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
@@ -60,6 +61,11 @@ return array(
 			'_' => 'Salasana',
 			'format' => '<small>Vähintään 7 merkkiä</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Uusi tili',
 			'ask' => 'Haluatko luoda tilin?',
@@ -93,7 +99,7 @@ return array(
 		'feb' => 'helmi',
 		'february' => 'helmikuu',
 		'format_date' => 'j\\. %s\\t\\a Y',
-		'format_date_hour' => 'j\\. %s\\t\\a Y klo H\\:i',
+		'format_date_hour' => 'j\\. %s\\t\\a Y \\k\\l\\o H\\:i',
 		'fri' => 'pe',
 		'jan' => 'tammi',
 		'january' => 'tammikuu',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Eilen',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇫🇮',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',
 		'confirm_action_feed_cat' => 'Haluatko varmasti toteuttaa toiminnon? Luokkaan kuuluvat suosikit ja kyselyt poistetaan. Tätä ei voi peruuttaa!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS-sovelluksessa on %%d uutta artikkelia luettavana.',
 			'body_unread_articles' => '(lukematta: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'Ei tunnisteita',
 		'new_article' => 'Uusia artikkeleita on saatavilla. Päivitä sivu napsauttamalla.',
 		'should_be_activated' => 'JavaScriptin on oltava käytössä',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE

@@ -65,7 +65,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		$dao['attributes'] = empty($dao['attributes']) ? [] : json_decode($dao['attributes'], true);
-		if (!is_array($dao['attributes'])) {
+		if (is_array($dao['attributes'])) {
+			$dao['attributes'] = array_filter($dao['attributes'], 'is_string', ARRAY_FILTER_USE_KEY);
+		} else {
 			$dao['attributes'] = [];
 		}
 
@@ -168,7 +170,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return preg_match('/(?P<delim>[\'"])' . preg_quote($link, '/') . '(?P=delim)/', $html) == 1;
 	}
 
-	/** @param array{'url'?:string,'length'?:int,'medium'?:string,'type'?:string} $enclosure */
+	/** @param array{url?:string,length?:int,medium?:string,type?:string} $enclosure */
 	private static function enclosureIsImage(array $enclosure): bool {
 		$elink = $enclosure['url'] ?? '';
 		$length = $enclosure['length'] ?? 0;
@@ -230,15 +232,15 @@ HTML;
 				continue;
 			}
 			$credits = $enclosure['credit'] ?? '';
-			$description = nl2br($enclosure['description'] ?? '', true);
-			$length = $enclosure['length'] ?? 0;
-			$medium = $enclosure['medium'] ?? '';
-			$mime = $enclosure['type'] ?? '';
+			$description = is_string($enclosure['description'] ?? null) ? nl2br($enclosure['description'], true) : '';
+			$length = is_numeric($enclosure['length'] ?? null) ? (int)$enclosure['length'] : 0;
+			$medium = is_string($enclosure['medium'] ?? null) ? $enclosure['medium'] : '';
+			$mime = is_string($enclosure['type'] ?? null) ? $enclosure['type'] : '';
 			$thumbnails = $enclosure['thumbnails'] ?? null;
 			if (!is_array($thumbnails)) {
 				$thumbnails = [];
 			}
-			$etitle = $enclosure['title'] ?? '';
+			$etitle = is_string($enclosure['title'] ?? null) ? $enclosure['title'] : '';
 
 			$content .= "\n";
 			$content .= '<figure class="enclosure">';
@@ -249,16 +251,16 @@ HTML;
 				}
 			}
 
-			if (self::enclosureIsImage($enclosure)) {
+			if (self::enclosureIsImage(['url' => $elink, 'length' => $length, 'medium' => $medium, 'type' => $mime])) {
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
 			} elseif ($medium === 'audio' || str_starts_with($mime, 'audio')) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . (int)$length)
+					. ($length == null ? '' : '" data-length="' . $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 			} elseif ($medium === 'video' || str_starts_with($mime, 'video')) {
 				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . (int)$length)
+					. ($length == null ? '' : '" data-length="' . $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 			} else {	//e.g. application, text, unknown
@@ -273,7 +275,9 @@ HTML;
 					$credits = [$credits];
 				}
 				foreach ($credits as $credit) {
-					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+					if (is_string($credit)) {
+						$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+					}
 				}
 			}
 			if ($description != '') {
@@ -477,8 +481,9 @@ HTML;
 
 	public function hash(): string {
 		if ($this->hash === '') {
+			$attributes = empty($this->attributeArray('enclosures')) ? '' : json_encode($this->attributes(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true) . $attributes);
 		}
 		return $this->hash;
 	}
@@ -542,7 +547,12 @@ HTML;
 		$this->date = $value > 1 ? $value : time();
 	}
 
-	public function _lastSeen(int $value): void {
+	/**
+	 * @param int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _lastSeen(int|string $value): void {
+		$value = (int)$value;
 		$this->lastSeen = $value > 0 ? $value : 0;
 	}
 
@@ -633,6 +643,12 @@ HTML;
 				if ($ok && $filter->getNotFeedIds() !== null) {
 					$ok &= !in_array($this->feedId, $filter->getNotFeedIds(), true);
 				}
+				if ($ok && $filter->getCategoryIds() !== null) {
+					$ok &= in_array($this->feed()?->categoryId(), $filter->getCategoryIds(), true);
+				}
+				if ($ok && $filter->getNotCategoryIds() !== null) {
+					$ok &= !in_array($this->feed()?->categoryId(), $filter->getNotCategoryIds(), true);
+				}
 				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
 						$ok &= stripos(implode(';', $this->authors), $author) !== false;
@@ -671,6 +687,26 @@ HTML;
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
 					foreach ($filter->getNotIntitleRegex() as $title) {
 						$ok &= preg_match($title, $this->title) === 0;
+					}
+				}
+				if ($ok && $filter->getIntext() !== null) {
+					foreach ($filter->getIntext() as $content) {
+						$ok &= stripos($this->content, $content) !== false;
+					}
+				}
+				if ($ok && $filter->getIntextRegex() !== null) {
+					foreach ($filter->getIntextRegex() as $content) {
+						$ok &= preg_match($content, $this->content) === 1;
+					}
+				}
+				if ($ok && $filter->getNotIntext() !== null) {
+					foreach ($filter->getNotIntext() as $content) {
+						$ok &= stripos($this->content, $content) === false;
+					}
+				}
+				if ($ok && $filter->getNotIntextRegex() !== null) {
+					foreach ($filter->getNotIntextRegex() as $content) {
+						$ok &= preg_match($content, $this->content) === 0;
 					}
 				}
 				if ($ok && $filter->getTags() !== null) {
@@ -816,7 +852,7 @@ HTML;
 	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception
 	 */
-	public function getContentByParsing(string $url = '', int $maxRedirs = 3): string {
+	public function getContentByParsing(string $url = '', int $maxRedirs = 4): string {
 		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
 		$feed = $this->feed();
 		if ($url === '' || $feed === null || $feed->pathEntries() === '') {
@@ -824,7 +860,7 @@ HTML;
 		}
 
 		$conditions = $feed->attributeArray('path_entries_conditions') ?? [];
-		$conditions = array_filter(array_map(fn($v) => is_string($v) ? trim($v) : '', $conditions));
+		$conditions = array_filter($conditions, fn($v): bool => (is_string($v) ? trim($v) : '') !== '');
 		if (count($conditions) > 0) {
 			$found = false;
 			foreach ($conditions as $condition) {
@@ -843,12 +879,16 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
-		if (strlen($html) > 0) {
+		$response = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$html = $response['body'];
+		if ($html !== '') {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
 
+			// Account for HTTP redirections
+			$url = $response['effective_url'] ?: $url;
+			$maxRedirs -= $response['redirect_count'];
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
 				$metas = $xpath->query('//meta[@content]') ?: [];

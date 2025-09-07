@@ -52,7 +52,9 @@
 		</li>
 	</ul>
 </nav>
-<a class="close-aside" href="#close">❌</a>
-<nav class="nav_menu nav_mobile">
-	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
-</nav>
+<?php if (Minz_Request::actionName() != 'repartition') { ?>
+	<a class="close-aside" href="#close">❌</a>
+	<nav class="nav_menu nav_mobile">
+		<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+	</nav>
+<?php } ?>

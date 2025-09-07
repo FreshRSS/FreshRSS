@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Ďalší krok',
 		'reinstall' => 'Preinštalovať FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Webový formulár (tradičný, vyžaduje JavaScript)',
-		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
-		'none' => 'Žiadny (nebezpečné)',
-		'password_form' => 'Heslo<br /><small>(pre prihlásenie cez webový formulár)</small>',
-		'password_format' => 'Najmenej 7 znakov',
-		'type' => 'Spôsob prihlásenia',
-	),
 	'bdd' => array(
 		'_' => 'Databáza',
 		'conf' => array(

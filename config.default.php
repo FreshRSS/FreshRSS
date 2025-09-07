@@ -59,6 +59,13 @@ return [
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
 
+	# Whether reauthentication is required for performing sensitive actions e.g. promoting a user or applying an update
+	'reauth_required' => true,
+
+	# Time before asking for reauth
+	#    Default: 1200s (20 min)
+	'reauth_time' => 1200,
+
 	# When using http_auth, automatically register any unknown user
 	'http_auth_auto_register' => true,
 
@@ -75,6 +82,11 @@ return [
 	#	by providing username and password in the login URL:
 	#	https://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
 	'unsafe_autologin_enabled' => false,
+
+	# By default, FreshRSS will display a warning to logged-in admin users if the CSP policy is insecure.
+	#	This setting can disable the warning.
+	#	For more information see: https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security
+	'suppress_csp_warning' => false,
 
 	# Enable or not the use of syslog to log the activity of
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
@@ -103,10 +115,14 @@ return [
 		# Especially important for multi-user setups.
 		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
-		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
 		'cache_duration_min' => 60,
-		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
 		'cache_duration_max' => 86400,
+		# Default rate limit duration (in seconds), when HTTP response header `Retry-After` is absent.
+		'retry_after_default' => 1500,
+		# Maximal rate limit duration (in seconds), overriding HTTP response header `Retry-After`.
+		'retry_after_max' => 172800,
 
 		# SimplePie HTTP request timeout in seconds.
 		'timeout' => 20,
@@ -125,6 +141,9 @@ return [
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,
+
+		# Max amount of bytes that are allowed for upload of custom favicon
+		'max_favicon_upload_size' => 1048576,	# 1 MiB
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.

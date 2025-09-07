@@ -33,6 +33,9 @@ class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
 		yield [$array, 'items[0].meta.title', 'first'];
 		yield [$array, 'items.1.meta.title', 'second'];
 		yield [$array, 'items[1].meta.title', 'second'];
+		yield [$array, '"Hello " & hello & \'!\'', 'Hello world!'];
+		yield [$array, '"Hello & goodbye " & hello & \'!\'', 'Hello & goodbye world!'];
+		yield [$array, '"Hello " & hello & deeper.hello & "!"', 'Hello worldagain!'];
 	}
 
 	/**

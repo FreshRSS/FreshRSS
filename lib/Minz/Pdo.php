@@ -51,7 +51,7 @@ abstract class Minz_Pdo extends PDO {
 	/**
 	 * @param array<int,string> $options
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
-	 * @phpstan-ignore method.childParameterType, throws.unusedType
+	 * @phpstan-ignore method.childParameterType
 	 */
 	#[\Override]
 	public function prepare(string $query, array $options = []): PDOStatement|false {
@@ -61,7 +61,6 @@ abstract class Minz_Pdo extends PDO {
 
 	/**
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
-	 * @phpstan-ignore throws.unusedType
 	 */
 	#[\Override]
 	public function exec(string $statement): int|false {
@@ -71,7 +70,6 @@ abstract class Minz_Pdo extends PDO {
 
 	/**
 	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
-	 * @phpstan-ignore throws.unusedType
 	 */
 	#[\Override]
 	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args): PDOStatement|false {

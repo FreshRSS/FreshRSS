@@ -34,7 +34,7 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'Práve ste sa zaregistrovali na %s, ale stále ešte musíte overiť Vašu e-mailovú adresu. Kliknite na odkaz::',
+			'body' => 'Práve ste sa zaregistrovali na %s, ale stále ešte musíte overiť Vašu e-mailovú adresu. Kliknite na odkaz:',
 			'title' => 'Overte si Vaše konto',
 			'welcome' => 'Vitajte %s,',
 		),

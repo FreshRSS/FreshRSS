@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Vá para o próximo passo',
 		'reinstall' => 'Reinstale o FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Formulário web(tradicional, necessita JavaScript)',
-		'http' => 'HTTP (Para usuários avançados com HTTPS)',
-		'none' => 'None (perigoso)',
-		'password_form' => 'Senha<br /><small>(Para o método do login pelo formulário)</small>',
-		'password_format' => 'Ao menos 7 caracteres',
-		'type' => 'Método de autenticação',
-	),
 	'bdd' => array(
 		'_' => 'Banco de dados',
 		'conf' => array(

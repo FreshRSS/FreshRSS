@@ -12,135 +12,141 @@
 
 return array(
 	'access' => array(
-		'denied' => 'You don’t have permission to access this page',	// TODO
-		'not_found' => 'You are looking for a page that doesn’t exist',	// TODO
+		'denied' => 'Anda tidak memiliki izin untuk mengakses halaman ini',
+		'not_found' => 'Halaman ini tidak ada',
 	),
 	'admin' => array(
-		'optimization_complete' => 'Optimization complete',	// TODO
+		'optimization_complete' => 'Optimalisasi selesai',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO
-			'updated' => 'Your password has been modified',	// TODO
+			'failed' => 'Kata sandi Anda tidak dapat diubah',
+			'updated' => 'Kata sandi Anda telah diubah',
 		),
 	),
 	'auth' => array(
 		'login' => array(
-			'invalid' => 'Login is invalid',	// TODO
-			'success' => 'You are connected',	// TODO
+			'invalid' => 'Tidak valid',
+			'success' => 'Sudah terhubung',
 		),
 		'logout' => array(
-			'success' => 'You are disconnected',	// TODO
+			'success' => 'Terputus',
 		),
 	),
 	'conf' => array(
-		'error' => 'An error occurred while saving configuration',	// TODO
-		'query_created' => 'Query “%s” has been created.',	// TODO
-		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO
-		'updated' => 'Configuration has been updated',	// TODO
+		'error' => 'Galat terjadi ketika menyimpan konfigurasi',
+		'query_created' => 'Kueri “%s” telah dibuat.',
+		'shortcuts_updated' => 'Pintasan telah diperbarui',
+		'updated' => 'Konfigurasi telah diperbarui',
 	),
 	'extensions' => array(
-		'already_enabled' => '%s is already enabled',	// TODO
-		'cannot_remove' => '%s cannot be removed',	// TODO
+		'already_enabled' => '%s telah diaktifkan',
+		'cannot_remove' => '%s tidak dapat dihapus',
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
-			'ok' => '%s is now disabled',	// TODO
+			'ko' => '%s tidak dapat dinonaktifkan. <a href="%s">Periksa log FreshRSS</a> untuk informasi lebih lanjut.',
+			'ok' => '%s telah dinonaktifkan',
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
-			'ok' => '%s is now enabled',	// TODO
+			'ko' => '%s tidak dapat diaktifkan. <a href="%s">Periksa log FreshRSS</a> untuk informasi lebih lanjut.',
+			'ok' => '%s telah diaktifkan',
 		),
-		'no_access' => 'You have no access on %s',	// TODO
-		'not_enabled' => '%s is not enabled',	// TODO
-		'not_found' => '%s does not exist',	// TODO
-		'removed' => '%s removed',	// TODO
+		'invalid_view_mode' => 'Mode tampilan tidak valid “%s”! Balik ke “Tampilan normal”.',
+		'no_access' => 'Anda tidak memiliki akses ke %s',
+		'not_enabled' => '%s tidak diaktifkan',
+		'not_found' => '%s tidak ada',
+		'removed' => '%s dihapus',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// TODO
-		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
-		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO
-		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// TODO
-		'zip_error' => 'An error occurred during ZIP processing.',	// TODO
+		'export_no_zip_extension' => 'Ekstensi ZIP tidak tersedia di peladen Anda. Coba untuk mengekspor berkasnya satu per satu.',
+		'feeds_imported' => 'Umpan Anda telah diimpor. Jika Anda sudah selesai mengimpor, Anda bisa mengklik tombol <i>Perbarui umpan</i>.',
+		'feeds_imported_with_errors' => 'Umpan Anda telah diimpor, tapi ada beberapa galat. Jika Anda sudah selesai mengimpor, Anda bisa mengklik tombol <i>Perbarui umpan</i>.',
+		'file_cannot_be_uploaded' => 'Berkas tidak dapt diunggah!',
+		'no_zip_extension' => 'Ekstensi ZIP tidak tersedia di peladen Anda.',
+		'zip_error' => 'Galat terjadi ketika pemrosesan ZIP.',
 	),
 	'profile' => array(
-		'error' => 'Your profile cannot be modified',	// TODO
-		'updated' => 'Your profile has been modified',	// TODO
+		'error' => 'Profil Anda tidak dapat diubah',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'updated' => 'Profil Anda telah diubah',
 	),
 	'sub' => array(
-		'actualize' => 'Updating',	// TODO
+		'actualize' => 'Memperbarui',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO
+			'marked_read' => 'Artikel yang dipilih telah ditandai sebagai sudah dibaca',
+			'marked_unread' => 'Artikel telah ditandai sebagai belum dibaca',
 		),
 		'category' => array(
-			'created' => 'Category %s has been created.',	// TODO
-			'deleted' => 'Category has been deleted.',	// TODO
-			'emptied' => 'Category has been emptied',	// TODO
-			'error' => 'Category cannot be updated',	// TODO
-			'name_exists' => 'Category name already exists.',	// TODO
+			'created' => 'Kategori %s telah dibuat.',
+			'deleted' => 'Kategori telah dihapus.',
+			'emptied' => 'Kategori telah dikosongkan',
+			'error' => 'Kategori tidak dapat diperbarui',
+			'name_exists' => 'Nama kategori sudah ada.',
 			'no_id' => 'You must specify the id of the category.',	// TODO
-			'no_name' => 'Category name cannot be empty.',	// TODO
-			'not_delete_default' => 'You cannot delete the default category!',	// TODO
-			'not_exist' => 'The category does not exist!',	// TODO
-			'over_max' => 'You have reached your limit of categories (%d)',	// TODO
-			'updated' => 'Category has been updated.',	// TODO
+			'no_name' => 'Nama kategori tidak boleh kosong.',
+			'not_delete_default' => 'Tidak dapat menghapus kategori baku!',
+			'not_exist' => 'Kategori ini tidak ada!',
+			'over_max' => 'Batas kategori Anda sudah tercapai (%d)',
+			'updated' => 'Kategori ini telah diperbarui.',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> has been updated',	// TODO
-			'actualizeds' => 'RSS feeds have been updated',	// TODO
-			'added' => 'RSS feed <em>%s</em> has been added',	// TODO
-			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	// TODO
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO
-			'deleted' => 'Feed has been deleted',	// TODO
-			'error' => 'Feed cannot be updated',	// TODO
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO
-			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO
-			'n_actualized' => '%d feeds have been updated',	// TODO
-			'n_entries_deleted' => '%d articles have been deleted',	// TODO
-			'no_refresh' => 'There are no feeds to refresh',	// TODO
-			'not_added' => '<em>%s</em> could not be added',	// TODO
-			'not_found' => 'Feed cannot be found',	// TODO
-			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO
-			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
-				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
+			'actualized' => '<em>%s</em> telah diperbarui',
+			'actualizeds' => 'Umpan RSS telah diperbarui',
+			'added' => 'Umpan RSS <em>%s</em> telah ditambahkan',
+			'already_subscribed' => 'Anda telah berlangganan ke <em>%s</em>',
+			'cache_cleared' => 'Tembolok <em>%s</em> telah dikosongkan',
+			'deleted' => 'Umpan telah dihapus',
+			'error' => 'Umpan tidak dapat diperbarui',
+			'favicon' => array(
+				'too_large' => 'Ikon yang diunggah terlalu besar. Ukuran maksimal berkas adalah <em>%s</em>.',
+				'unsupported_format' => 'Format gambar tidak didukung!',
 			),
-			'updated' => 'Feed has been updated',	// TODO
+			'internal_problem' => 'Umpan tidak dapat ditambahkan. <a href="%s">Periksa log FreshRSS</a> untuk informasi lebih lanjut. Anda bisa memaksa penambahan dengan menambahkan <code>#force_feed</code> ke URL.',
+			'invalid_url' => 'URL <em>%s</em> tidak valid',
+			'n_actualized' => '%d umpan telah diperbarui',
+			'n_entries_deleted' => '%d artikel telah dihapus',
+			'no_refresh' => 'Tidak ada umpan untuk disegarkan',
+			'not_added' => '<em>%s</em> tidak dapat ditambahkan',
+			'not_found' => 'Umpan tidak dapat ditemukan',
+			'over_max' => 'Anda telah mencapai batas umpan Anda (%d)',
+			'reloaded' => '<em>%s</em> telah dimuat ulang',
+			'selector_preview' => array(
+				'http_error' => 'Tidak dapat memuat konten situs.',
+				'no_entries' => 'Tidak ada artikel di umpan ini. Anda harus paling tidak memiliki satu artikel untuk membuat tinjauan.',
+				'no_feed' => 'Galat internal (umpan tidak dapat ditemukan).',
+				'no_result' => 'Pemilihan tidak cocok dengan apapun. Sebagai ganti, teks umpan aslinya akan ditampilkan di sini.',
+				'selector_empty' => 'Pemilihan kosong. Anda harus paling tidak memasukkan satu untuk membuat tinjauan.',
+			),
+			'updated' => 'Umpan telah diperbarui',
 		),
-		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO
+		'purge_completed' => 'Selesai penghapusan (%d artikel dihapus)',
 	),
 	'tag' => array(
-		'created' => 'Label “%s”has been created.',	// DIRTY
-		'error' => 'Label could not be updated!',	// TODO
-		'name_exists' => 'Label name already exists.',	// TODO
-		'renamed' => 'Label “%s”has been renamed to “%s”.',	// DIRTY
-		'updated' => 'Label has been updated.',	// TODO
+		'created' => 'Label “%s” telah dibuat.',
+		'error' => 'Label tidak dapat diperbarui!',
+		'name_exists' => 'Label telah ada.',
+		'renamed' => 'Label “%s” telah dinamai ulang ke “%s”.',
+		'updated' => 'Label telah diperbarui.',
 	),
 	'update' => array(
-		'can_apply' => 'An update of FreshRSS is available: <strong>Version %s</strong>.',	// TODO
-		'error' => 'The update process has encountered an error: %s',	// TODO
-		'file_is_nok' => 'An update of FreshRSS is available (<strong>Version %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// TODO
-		'finished' => 'Update complete!',	// TODO
-		'none' => 'No update available',	// TODO
-		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO
+		'can_apply' => 'Pembaruan FreshRSS tersedia: <strong>Versi %s</strong>.',
+		'error' => 'Galat terjadi dalam proses pembaruan: %s',
+		'file_is_nok' => 'Pembaruan FreshRSS tersedia (<strong>Versi %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission , dan periksa izin di direktori <em>%s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut',
+		'finished' => 'Pembaruan selesai!',
+		'none' => 'Tidak ada pembaruan yang tersedia',
+		'server_not_found' => 'Peladen pembaruan tidak dapat ditemukan. [%s]',
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',	// TODO
-			'error' => 'User %s cannot be created',	// TODO
+			'_' => 'Pengguna %s telah dibuat',
+			'error' => 'Pengguna %s tidak dapat dibuat',
 		),
 		'deleted' => array(
-			'_' => 'User %s has been deleted',	// TODO
-			'error' => 'User %s cannot be deleted',	// TODO
+			'_' => 'Pengguna %s telah dihapus',
+			'error' => 'Pengguna %s tidak dapat dihapus',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO
-			'error' => 'User %s has not been updated',	// TODO
+			'_' => 'Pengguna %s telah diperbarui',
+			'error' => 'Pengguna %s tidak dapat diperbarui',
 		),
 	),
 );

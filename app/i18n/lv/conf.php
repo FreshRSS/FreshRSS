@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Iepriekšējais',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Profila pārvalde',
 		'api' => array(
 			'_' => 'API pārvalde',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Konta dzēšana',
 			'warn' => 'Jūsu konts un visi saistītie dati tiks dzēsti..',
 		),
 		'email' => 'E-pasta adrese',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API parole<br /><small>(piem., priekš mobilajām lietotnēm)</small>',
-		'password_form' => 'Parole<br /><small>(Web-formas pieteikšanās metodei)</small>',
 		'password_format' => 'Vismaz 7 rakstzīmes',
 		'title' => 'Profils',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Dalīšanās',
 		'add' => 'Pievienojat dalīšanās metodi',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Šis pakalpojums ir novecojis un tiks noņemts no FreshRSS kādā <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Atvērt dokumentāciju, lai iegūtu vairāk informācijas" target="_blank">nākamajā versijā</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-pasts',
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Raksta darbības',
 		'auto_share' => 'Dalīties',
 		'auto_share_help' => 'Ja ir tikai viens dalīšanās režīms, tiek izmantots tas režīms. Pretējā gadījumā režīmi ir pieejami pēc to numura If there is only one sharing mode, it is used.',
-		'close_dropdown' => 'Aizvērt izvēlnes',
+		'close_menus' => 'Aizvērt izvēlnes',
 		'collapse_article' => 'Salocīt',
 		'first_article' => 'Atvērt pirmo rakstu',
 		'focus_search' => 'Piekļuve meklēšanas lodziņam',

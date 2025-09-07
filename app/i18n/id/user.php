@@ -13,30 +13,30 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'Alamat email ini tidak valid.',
-			'required' => 'Diperlukan alamat email.',
+			'invalid' => 'Alamat surel ini tidak valid.',
+			'required' => 'Alamat surel diperlukan.',
 		),
 		'validation' => array(
-			'change_email' => 'Anda dapat mengubah alamat email Anda <a href="%s">di halaman profil</a>.',
-			'email_sent_to' => 'Kami mengirimi Anda email di <strong>%s</strong>. Harap ikuti instruksinya untuk memvalidasi alamat Anda.',
+			'change_email' => 'Anda dapat mengubah alamat surel Anda <a href="%s">di halaman profil</a>.',
+			'email_sent_to' => 'Kami sudah mengirimkan Anda surel ke <strong>%s</strong>. Ikuti petunjuk di surel untuk memvalidasi alamat surel Anda.',
 			'feedback' => array(
-				'email_failed' => 'Kami tidak dapat mengirimi Anda email karena kesalahan konfigurasi server. ',
-				'email_sent' => 'Email telah dikirim ke alamat Anda.',
-				'error' => 'Validasi alamat email gagal.',
-				'ok' => 'Alamat email ini telah divalidasi.',
-				'unnecessary' => 'Alamat email ini sudah divalidasi.',
-				'wrong_token' => 'Alamat email ini gagal divalidasi karena token yang salah.',
+				'email_failed' => 'Kami tidak dapat mengirimi Anda surel dikarenakan kesalahan konfigurasi di peladen. ',
+				'email_sent' => 'Surel sudah dikirim ke surel Anda.',
+				'error' => 'Validasi alamat surel Anda gagal.',
+				'ok' => 'Alamat surel ini sudah divalidasi.',
+				'unnecessary' => 'Alamat surel ini sudah divalidasi.',
+				'wrong_token' => 'Alamat surel ini gagal divalidasi dikarenakan token yang salah.',
 			),
-			'need_to' => 'Anda perlu memvalidasi alamat email Anda sebelum dapat menggunakan %s.',
-			'resend_email' => 'Kirim ulang email',
-			'title' => 'Validasi Alamat Email',
+			'need_to' => 'Anda perlu memvalidasi alamat surel Anda sebelum dapat menggunakan %s.',
+			'resend_email' => 'Kirim ulang surel',
+			'title' => 'Validasi alamat surel',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'Anda baru saja mendaftar %s,Tetapi Anda masih perlu memvalidasi alamat email Anda.Untuk itu, ikuti saja tautannya:',
+			'body' => 'Anda baru saja mendaftar pada %s, tapi Anda masih perlu memvalidasi alamat surel Anda. Untuk itu, ikuti saja tautannya:',
 			'title' => 'Anda perlu memvalidasi akun Anda',
-			'welcome' => 'Welcome %s,',	// IGNORE
+			'welcome' => 'Selamat datang %s,',
 		),
 	),
 	'password' => array(
@@ -44,7 +44,7 @@ return array(
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Anda harus menerima ketentuan layanan untuk dapat mendaftar.',
+			'invalid' => 'Anda harus menyetujui Ketentuan Layanan untuk dapat mendaftar.',
 		),
 	),
 	'username' => array(

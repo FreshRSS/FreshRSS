@@ -50,15 +50,16 @@ return array(
 			'password' => 'HTTP パスワード',
 			'username' => 'HTTP ユーザー名',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => '常にキャッシュをクリアする',
 		'content_action' => array(
-			'_' => '記事のコンテンツを読み出したとき、コンテンツアクションを実行する',
+			'_' => '記事のコンテンツを取得するときの動作',
 			'append' => '既に存在するコンテンツの後に追加する',
 			'prepend' => '既に存在するコンテンツの前に追加する',
 			'replace' => '既に存在するコンテンツを置換する',
 		),
 		'content_retrieval' => 'コンテンツ取得',
-		'css_cookie' => '記事のコンテンツを読み出したとき、クッキーを使用する',
+		'css_cookie' => '記事のコンテンツを取得するとき、クッキーを使用する',
 		'css_cookie_help' => '例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '省略されたRSSフィードを復元します (ただし、時間がかかります)',
 		'css_path' => '元のWebサイトから記事を抽出するCSSセレクタ',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XMLファイル (データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。)',
 			'label' => 'OPMLとしてエクスポート',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
 		'http_headers' => 'HTTPヘッダ',
-		'http_headers_help' => 'ヘッダは開業で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// TODO
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
@@ -88,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSONドット記法 (HTML内のJSON)',
 				'xpath' => array(
 					'_' => 'HTML内のJSONを指すXPath',
-					'help' => '例: <code>//script[@type="application/json"]</code>',
+					'help' => '例: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
 				),
 			),
 			'html_xpath' => array(
@@ -210,8 +214,9 @@ return array(
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),
-		'proxy' => 'フィードを読み込み時にproxyを設定してください',
+		'proxy' => 'フィードを取得するときのプロキシ',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',
@@ -236,12 +241,18 @@ return array(
 			'help' => '不正なフィードに対処します。<br />⚠️ ポリシーを変更すると重複が発生します。',
 			'id' => '標準的なID (デフォルト)',
 			'link' => 'リンク',
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'リンク + 日付',
 			'sha1:link_published_title' => 'リンク + 日付 + タイトル',
 			'sha1:link_published_title_content' => 'リンク + 日付 + タイトル + コンテンツ',
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'フィードのURL',
-		'useragent' => 'フィードを読み込む際のユーザーエージェントを設定してください',
+		'useragent' => 'フィードを取得するときのユーザーエージェント',
 		'useragent_help' => '例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'フィードが有効であるかどうかを確認してください',
 		'website' => 'WebサイトのURL',
@@ -267,9 +278,9 @@ return array(
 		'import_export' => 'インポート / エクスポート',
 		'label_management' => 'ラベル管理',
 		'stats' => array(
-			'idle' => '未使用のフィード',
+			'idle' => '休止中のフィード',
 			'main' => '主な統計',
-			'repartition' => '記事の仕切り',
+			'repartition' => '記事の割合',
 		),
 		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPMLカテゴリ名',
 		'delete_label' => 'ラベルの削除',
 		'feed_management' => 'RSSフィードの管理',
-		'rename_label' => 'ラベルの名前変更',
 		'subscription_tools' => '購読ツール',
 	),
 );

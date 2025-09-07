@@ -18,14 +18,6 @@ return array(
 		'next_step' => '다음 단계',
 		'reinstall' => 'FreshRSS 다시 설치',
 	),
-	'auth' => array(
-		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
-		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
-		'none' => '사용하지 않음 (위험)',
-		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
-		'password_format' => '7 글자 이상이어야 합니다',
-		'type' => '인증 방식',
-	),
 	'bdd' => array(
 		'_' => '데이터베이스',
 		'conf' => array(

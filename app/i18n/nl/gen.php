@@ -16,6 +16,7 @@ return array(
 		'add' => 'Toevoegen',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
+		'close' => 'Sluiten',
 		'create' => 'Opslaan',
 		'delete_all_feeds' => 'Delete all feeds',	// TODO
 		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Wachtwoord',
 			'format' => '<small>Ten minste 7 tekens</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Nieuw account',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Gisteren',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇳🇱',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
+		'confirm_exit_slider' => 'Weet u zeker dat u de niet opgeslagen instellingen wilt negeren?',
 		'feedback' => array(
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
 			'body_unread_articles' => '(ongelezen: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'Geen labels',
 		'new_article' => 'Er zijn nieuwe artikelen beschikbaar. Klik om de pagina te vernieuwen.',
 		'should_be_activated' => 'JavaScript moet aanstaan',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Klembord',
 		'diaspora' => 'Diaspora*',	// IGNORE

@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Anar a l’estapa seguenta',
 		'reinstall' => 'Reïnstallar FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Formulari (tradicional, demanda JavaScript)',
-		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
-		'none' => 'Cap (perilhós)',
-		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
-		'password_format' => 'Almens 7 caractèrs',
-		'type' => 'Mòde d’autentification',
-	),
 	'bdd' => array(
 		'_' => 'Basa de donadas',
 		'conf' => array(

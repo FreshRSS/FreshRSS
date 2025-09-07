@@ -165,6 +165,7 @@ class FreshRSS_Auth {
 		self::$login_ok = false;
 		Minz_Session::_params([
 			'loginOk' => false,
+			'lastReauth' => false,
 			'csrf' => false,
 			'REMOTE_USER' => false,
 		]);
@@ -229,5 +230,55 @@ class FreshRSS_Auth {
 			$token = $_POST['_csrf'] ?? '';
 		}
 		return $token != '' && $token === $csrf;
+	}
+
+	public static function needsReauth(): bool {
+		$auth_type = FreshRSS_Context::systemConf()->auth_type;
+		$reauth_required = FreshRSS_Context::systemConf()->reauth_required;
+		$reauth_time = FreshRSS_Context::systemConf()->reauth_time;
+
+		if (!$reauth_required) {
+			return false;
+		}
+
+		$last_reauth = Minz_Session::paramInt('lastReauth');
+
+		if ($auth_type !== 'none' && time() - $last_reauth > $reauth_time) {
+			if ($auth_type === 'http_auth') {
+				// TODO: not implemented - just let the user through
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Return if user needs reauth and got redirected to login page.
+	 *
+	 * @param array{c?: string, a?: string, params?: array<string, mixed>}|null $redirect
+	 */
+	public static function requestReauth(?array $redirect = null): bool {
+		if (self::needsReauth()) {
+			if (Minz_Request::paramBoolean('ajax')) {
+				// Send 403 and exit instead of redirect with Minz_Error::error()
+				header('HTTP/1.1 403 Forbidden');
+				exit();
+			}
+
+			$redirect = Minz_Url::serialize($redirect ?? Minz_Request::currentRequest());
+
+			Minz_Request::forward([
+				'c' => 'auth',
+				'a' => 'reauth',
+				'params' => [
+					'r' => $redirect,
+				],
+			], true);
+
+			return true;
+		}
+
+		return false;
 	}
 }

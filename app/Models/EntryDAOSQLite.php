@@ -155,7 +155,7 @@ SQL;
 	public function markReadTag(int $id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
-			$idMax = time() . '000000';
+			$idMax = uTimeString();
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 

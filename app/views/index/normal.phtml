@@ -27,7 +27,7 @@ $today = @strtotime('today');
 	<div class="dropdown-menu">
 		<ul class="dropdown-menu-scrollable scrollbar-thin">
 			<li class="dropdown-header">
-				<?= _t('index.menu.tags') ?>
+				<?= _t('index.menu.mylabels') ?>
 				<?php if (FreshRSS_Auth::hasAccess()) { ?>
 					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
 				<?php } ?>

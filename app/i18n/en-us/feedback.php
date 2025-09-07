@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// IGNORE
 			'ok' => '%s is now enabled',	// IGNORE
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// IGNORE
 		'no_access' => 'You have no access on %s',	// IGNORE
 		'not_enabled' => '%s is not enabled',	// IGNORE
 		'not_found' => '%s does not exist',	// IGNORE
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// IGNORE
+		'passwords_dont_match' => 'Passwords don’t match',	// IGNORE
 		'updated' => 'Your profile has been modified',	// IGNORE
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache has been cleared',	// IGNORE
 			'deleted' => 'Feed has been deleted',	// IGNORE
 			'error' => 'Feed cannot be updated',	// IGNORE
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// IGNORE
+				'unsupported_format' => 'Unsupported image file format!',	// IGNORE
+			),
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// IGNORE
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// IGNORE
 			'n_actualized' => '%d feeds have been updated',	// IGNORE

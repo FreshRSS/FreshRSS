@@ -50,6 +50,8 @@ and the link would be `links[1]`.
 
 It is a similar syntax to the JavaScript way to access JSON: `object.object.array[2].property`.
 
+Support string concatenation with a syntax like: `meta.title & " some text"` using single-quotes or double-quotes.
+
 ## Tips & tricks
 
 - [Timezone of date](https://github.com/FreshRSS/FreshRSS/discussions/5483)

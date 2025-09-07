@@ -1,7 +1,7 @@
 parameters:
 	phpVersion:
 		min: 80100	# PHP 8.1
-		max: 80499	# PHP 8.4
+		max: 80599	# PHP 8.5
 	level: 10	# https://phpstan.org/user-guide/rule-levels
 	fileExtensions:
 		- php
@@ -14,13 +14,13 @@ parameters:
 			- lib/phpgt/*
 			- lib/phpmailer/*
 			- lib/simplepie/*
-			- vendor/*
 		analyseAndScan:
 			- .git/*?
 			- extensions/node_modules?
 			- extensions/symbolic?
 			- extensions/vendor?
 			- node_modules/*?
+			- vendor/*
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
@@ -36,20 +36,21 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
-	checkBenevolentUnionTypes: false	# TODO pass
-	checkImplicitMixed: false	# TODO pass
+	checkBenevolentUnionTypes: true
+	checkImplicitMixed: true
 	checkMissingOverrideMethodAttribute: true
 	checkTooWideReturnTypesInProtectedAndPublicMethods: true
 	reportAnyTypeWideningInVarTag: true
+	reportPossiblyNonexistentConstantArrayOffset: true
 	treatPhpDocTypesAsCertain: false
 	strictRules:
 		disallowedEmpty: false
 		disallowedLooseComparison: false
 		disallowedShortTernary: false
-		strictArrayFilter: false	# TODO pass
+		strictArrayFilter: true
 	exceptions:
 		check:
-			missingCheckedExceptionInThrows: false	# TODO pass
+			missingCheckedExceptionInThrows: false	# TODO pass maybe
 			tooWideThrowType: true
 		implicitThrows: false
 		checkedExceptionClasses:

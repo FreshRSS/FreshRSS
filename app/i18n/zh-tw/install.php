@@ -18,14 +18,6 @@ return array(
 		'next_step' => '下一步',
 		'reinstall' => '重新安裝 FreshRSS',
 	),
-	'auth' => array(
-		'form' => '網頁表單（傳統方式, 依賴 JavaScript）',
-		'http' => 'HTTP（對於啟用 HTTPS 的進階使用者）',
-		'none' => '無認證（危險）',
-		'password_form' => '密碼<br /><small>（用於網頁表單登入方式）</small>',
-		'password_format' => '至少 7 個字符',
-		'type' => '認證方式',
-	),
 	'bdd' => array(
 		'_' => '資料庫',
 		'conf' => array(

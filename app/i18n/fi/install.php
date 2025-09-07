@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Siirry seuraavaan vaiheeseen',
 		'reinstall' => 'Asenna FreshRSS uudelleen',
 	),
-	'auth' => array(
-		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
-		'http' => 'HTTP (tai HTTPS edistyneille käyttäjille)',
-		'none' => 'Ei mitään (vaarallinen)',
-		'password_form' => 'Salasana<br /><small>(Web-lomakkeella kirjautumista varten)</small>',
-		'password_format' => 'Vähintään 7 merkkiä',
-		'type' => 'Todentamismenetelmä',
-	),
 	'bdd' => array(
 		'_' => 'Tietokanta',
 		'conf' => array(

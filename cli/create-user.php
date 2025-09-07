@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -75,14 +75,14 @@ $values = [
 	'max_posts_per_rss' => $cliOptions->maxPostsPerRss ?? null,
 ];
 
-$values = array_filter($values);
+$values = array_filter($values, fn($v): bool => $v !== null && $v !== '');
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
 	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
 	$values,
-	!isset($cliOptions->noDefaultFeeds)
+	!$cliOptions->noDefaultFeeds
 );
 
 if (!$ok) {

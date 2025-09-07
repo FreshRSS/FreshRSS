@@ -91,6 +91,10 @@ abstract class Minz_Extension {
 		$this->is_enabled = true;
 	}
 
+	final public function disable(): void {
+		$this->is_enabled = false;
+	}
+
 	/**
 	 * Return if the extension is currently enabled.
 	 *
@@ -112,7 +116,7 @@ abstract class Minz_Extension {
 		}
 
 		ob_start();
-		include($filename);
+		include $filename;
 		return ob_get_clean();
 	}
 
@@ -174,12 +178,26 @@ abstract class Minz_Extension {
 	}
 
 	/** Return whether a user-specific, extension-specific, file exists */
-	final protected function hasFile(string $filename): bool {
+	final public function hasFile(string $filename): bool {
+		if ($filename === '' || str_contains($filename, '..')) {
+			return false;
+		}
 		return file_exists($this->getExtensionUserPath() . '/' . $filename);
 	}
 
-	/** Return the user-specific, extension-specific, file content, or null if it does not exist */
-	final protected function getFile(string $filename): ?string {
+	/** Return the motification time of the user-specific, extension-specific, file or null if it does not exist */
+	final public function mtimeFile(string $filename): ?int {
+		if (!$this->hasFile($filename)) {
+			return null;
+		}
+		return @filemtime($this->getExtensionUserPath() . '/' . $filename) ?: null;
+	}
+
+	/** Return the user-specific, extension-specific, file content or null if it does not exist */
+	final public function getFile(string $filename): ?string {
+		if (!$this->hasFile($filename)) {
+			return null;
+		}
 		$content = @file_get_contents($this->getExtensionUserPath() . '/' . $filename);
 		return is_string($content) ? $content : null;
 	}
@@ -188,26 +206,27 @@ abstract class Minz_Extension {
 	 * Return the url for a given file.
 	 *
 	 * @param string $filename name of the file to serve.
-	 * @param 'css'|'js'|'svg' $type the type (js or css or svg) of the file to serve.
+	 * @param '' $type MIME type of the file to serve. Deprecated: always use the file extension.
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
-	final public function getFileUrl(string $filename, string $type, bool $isStatic = true): string {
+	final public function getFileUrl(string $filename, string $type = '', bool $isStatic = true): string {
 		if ($isStatic) {
 			$dir = basename($this->path);
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
 			$mtime = @filemtime("{$this->path}/static/{$filename}");
+			return Minz_Url::display("/ext.php?f={$file_name_url}&amp;{$mtime}", 'php');
 		} else {
 			$username = Minz_User::name();
 			if ($username == null) {
 				return '';
 			}
-			$path = $this->getExtensionUserPath() . "/{$filename}";
-			$file_name_url = urlencode("{$username}/extensions/{$this->getEntrypoint()}/{$filename}");
-			$mtime = @filemtime($path);
+			return Minz_Url::display(['c' => 'extension', 'a' => 'serve', 'params' => [
+				'x' => $this->getName(),
+				'f' => $filename,
+				'm' => $this->mtimeFile($filename),	// cache-busting
+			]]);
 		}
-
-		return Minz_Url::display("/ext.php?f={$file_name_url}&amp;t={$type}&amp;{$mtime}", 'php');
 	}
 
 	/**
@@ -253,6 +272,8 @@ abstract class Minz_Extension {
 		switch ($type) {
 			case 'system': return FreshRSS_Context::hasSystemConf();
 			case 'user': return FreshRSS_Context::hasUserConf();
+			default:
+				return false;
 		}
 	}
 

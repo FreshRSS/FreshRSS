@@ -6,7 +6,7 @@
 <main class="post">
 	<h1><?= _t('gen.menu.user_management') ?></h1>
 	<h2><?= _t('admin.user.create') ?></h2>
-	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />

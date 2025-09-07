@@ -12,70 +12,29 @@ function isImgMime(string $content): bool {
 	if (!extension_loaded('fileinfo')) {
 		return true;
 	}
-	$isImage = true;
-	/** @var finfo $fInfo */
 	$fInfo = finfo_open(FILEINFO_MIME_TYPE);
-	/** @var string $content */
+	if ($fInfo === false) {
+		return true;
+	}
 	$content = finfo_buffer($fInfo, $content);
-	$isImage = strpos($content, 'image') !== false;
-	finfo_close($fInfo);
+	$isImage = str_contains($content ?: '', 'image');
 	return $isImage;
 }
 
-/** @param array<int,int|bool|string> $curlOptions */
-function downloadHttp(string &$url, array $curlOptions = []): string {
-	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
-	$url2 = checkUrl($url);
-	if ($url2 == false) {
-		return '';
-	}
-	$url = $url2;
-	/** @var CurlHandle $ch */
-	$ch = curl_init($url);
-	curl_setopt_array($ch, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
-			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
-		]);
-
-	FreshRSS_Context::initSystem();
-	if (FreshRSS_Context::hasSystemConf()) {
-		curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-	}
-
-	curl_setopt_array($ch, $curlOptions);
-
-	$response = curl_exec($ch);
-	if (!is_string($response)) {
-		$response = '';
-	}
-	$info = curl_getinfo($ch);
-	curl_close($ch);
-	if (!empty($info['url'])) {
-		$url2 = checkUrl($info['url']);
-		if ($url2 != false) {
-			$url = $url2;	//Possible redirect
-		}
-	}
-	return is_array($info) && $info['http_code'] == 200 ? $response : '';
+function faviconCachePath(string $url): string {
+	return CACHE_PATH . '/' . sha1($url) . '.ico';
 }
 
-function searchFavicon(string &$url): string {
+function searchFavicon(string $url): string {
 	$dom = new DOMDocument();
-	$html = downloadHttp($url);
-
-	if ($html == '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] = httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
+	if ($fail || $html === '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
 		return '';
 	}
 
 	$xpath = new DOMXPath($dom);
 	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
 		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
-
 	if (!($links instanceof DOMNodeList)) {
 		return '';
 	}
@@ -83,14 +42,14 @@ function searchFavicon(string &$url): string {
 	// Use the base element for relative paths, if there is one
 	$baseElements = $xpath->query('//base[@href]');
 	$baseElement = ($baseElements !== false && $baseElements->length > 0) ? $baseElements->item(0) : null;
-	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $url;
+	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $effective_url;
 
 	foreach ($links as $link) {
 		if (!$link instanceof DOMElement) {
 			continue;
 		}
 		$href = trim($link->getAttribute('href'));
-		$urlParts = parse_url($url);
+		$urlParts = parse_url($effective_url);
 
 		// Handle protocol-relative URLs by adding the current URL's scheme
 		if (substr($href, 0, 2) === '//') {
@@ -106,7 +65,9 @@ function searchFavicon(string &$url): string {
 		if ($iri == false) {
 			return '';
 		}
-		$favicon = downloadHttp($iri, [CURLOPT_REFERER => $url]);
+		$favicon = httpGet($iri, faviconCachePath($iri), 'ico', curl_options: [
+			CURLOPT_REFERER => $effective_url,
+		])['body'];
 		if (isImgMime($favicon)) {
 			return $favicon;
 		}
@@ -125,7 +86,9 @@ function download_favicon(string $url, string $dest): bool {
 		}
 		if ($favicon == '') {
 			$link = $rootUrl . 'favicon.ico';
-			$favicon = downloadHttp($link, [CURLOPT_REFERER => $url]);
+			$favicon = httpGet($link, faviconCachePath($link), 'ico', curl_options: [
+				CURLOPT_REFERER => $url,
+			])['body'];
 			if (!isImgMime($favicon)) {
 				$favicon = '';
 			}

@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Previous',	// IGNORE
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Mark all as read” button',	// IGNORE
+		'big' => 'Big',	// IGNORE
+		'none' => 'None',	// IGNORE
+		'small' => 'Small',	// IGNORE
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Retrieve extension list',	// IGNORE
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Profile management',	// IGNORE
 		'api' => array(
 			'_' => 'API management',	// IGNORE
+			'api_not_set' => 'API password not set',	// IGNORE
+			'api_set' => 'API password set',	// IGNORE
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// IGNORE
 			'disabled' => 'The API access is disabled.',	// IGNORE
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 		),
+		'change_password' => 'Change password',	// IGNORE
+		'confirm_new_password' => 'Confirm new password',	// IGNORE
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'delete' => array(
 			'_' => 'Account deletion',	// IGNORE
 			'warn' => 'Your account and all related data will be deleted.',	// IGNORE
 		),
 		'email' => 'Email address',	// IGNORE
+		'new_password' => 'New password',	// IGNORE
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// IGNORE
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'password_format' => 'At least 7 characters',	// IGNORE
 		'title' => 'Profile',	// IGNORE
 	),
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Article actions',	// IGNORE
 		'auto_share' => 'Share',	// IGNORE
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',	// IGNORE
-		'close_dropdown' => 'Close menus',	// IGNORE
+		'close_menus' => 'Close menus',	// IGNORE
 		'collapse_article' => 'Collapse',	// IGNORE
 		'first_article' => 'Open the first article',	// IGNORE
 		'focus_search' => 'Access search box',	// IGNORE

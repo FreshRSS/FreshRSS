@@ -50,6 +50,7 @@ return array(
 			'password' => 'Contraseña HTTP',
 			'username' => 'Nombre de usuario HTTP',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Borrar siempre la memoria caché',
 		'content_action' => array(
 			'_' => 'Acción de contenido al obtener el contenido del artículo',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
 			'label' => 'Exportar como OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Los Headers son separados por un salto de linea, y el nombre y valor de un Header son separados con dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// TODO
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
@@ -88,14 +92,14 @@ return array(
 				'_' => 'HTML + XPath + JSON dot notation (JSON en HTML)',
 				'xpath' => array(
 					'_' => 'XPath para JSON en HTML',
-					'help' => 'Ejemplo: <code>//script[@type="application/json"]</code>',
+					'help' => 'Ejemplo: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
 				),
 			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
 				'feed_title' => array(
 					'_' => 'Título de la fuente',
-					'help' => 'Ejemplo: <code>//título</code> o un texto estático: <code>"Mi fuente personalizada"</code>',
+					'help' => 'Ejemplo: <code>//title</code> o un texto estático: <code>"Mi fuente personalizada"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lenguaje de consulta estándar para usuarios avanzados, el cual FreshRSS soporta para habilitar Web scraping',
 				'item' => array(
@@ -113,7 +117,7 @@ return array(
 				),
 				'item_thumbnail' => array(
 					'_' => 'miniatura del elemento',
-					'help' => 'Ejemplo: <code>descendiente::img/@src</code>',
+					'help' => 'Ejemplo: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
 					'_' => 'Formato personalizado de fecha y hora',
@@ -125,15 +129,15 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'título del elemento',
-					'help' => 'Usar en particular el <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">eje XPath</a> <code>descendiente::</code> como <code>descendiente::h2</code>',
+					'help' => 'Usar en particular el <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'ID único del elemento',
-					'help' => 'Opcional. Ejemplo: <code>descendente::div/@data-uri</code>',
+					'help' => 'Opcional. Ejemplo: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
 					'_' => 'enlace del elemento (URL)',
-					'help' => 'Ejemplo: <code>descendente::a/@href</code>',
+					'help' => 'Ejemplo: <code>descendant::a/@href</code>',
 				),
 				'relative' => 'XPath (relativo al elemento) para:',
 				'xpath' => 'XPath para:',
@@ -212,6 +216,7 @@ return array(
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar código fuente',
 			'show_rendered' => 'Mostrar contenido',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevante para fuentes inválidas.<br />⚠️ Cambiar la política creara duplicados.',
 			'id' => 'ID Estándar (por defecto)',
 			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Contenido',
+			'sha1:content_published' => 'Contenido + Fecha',
 			'sha1:link_published' => 'Link + Fecha',
 			'sha1:link_published_title' => 'Link + Fecha + Título',
 			'sha1:link_published_title_content' => 'Link + Fecha + Título + Contenido',
+			'sha1:published' => 'Fecha',
+			'sha1:title' => 'Título',
+			'sha1:title_published' => 'Título + Fecha',
+			'sha1:title_published_content' => 'Título + Fecha + Contenido',
 		),
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',
-		'rename_label' => 'Cambiar el nombre de una etiqueta',
 		'subscription_tools' => 'Herramientas de suscripción',
 	),
 );

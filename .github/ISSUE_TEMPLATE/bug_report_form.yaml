@@ -1,5 +1,6 @@
 name: Bug Report
 description: Create a report to help us improve
+type: Bug
 title: "[Bug] "
 labels: ["Bug (unconfirmed)"]
 body:
@@ -43,7 +44,7 @@ body:
     attributes:
       label: System information
       description: Please complete the following information
-      value: "- Database version: [e.g. Mysql 5.7, SQLite]\n- PHP version: [e.g. PHP 8.1]\n- Installation type: [e.g. Docker, Docker image source, git, Yunohost]\n-Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 22.04, Win10, MacOS14]\n- Browser: [e.g. Firefox 124]"
+      value: "- Database version: [e.g. SQLite, PostgreSQL 17]\n- PHP version: [e.g. PHP 8.2]\n- Installation type: [e.g. Docker, Docker image source, git, Yunohost]\n- Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 24.04, Win11, MacOS14]\n- Browser: [e.g. Firefox 134]"
     validations:
       required: true
   - type: textarea

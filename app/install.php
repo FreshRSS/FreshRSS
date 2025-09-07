@@ -4,9 +4,10 @@ declare(strict_types=1);
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
-header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+header('Referrer-Policy: same-origin');
 
-require(LIB_PATH . '/lib_install.php');
+require LIB_PATH . '/lib_install.php';
 
 Minz_Session::init('FreshRSS');
 
@@ -143,7 +144,7 @@ function saveStep2(): void {
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
-			$customConfig = include($customConfigPath);
+			$customConfig = include $customConfigPath;
 			if (is_array($customConfig)) {
 				$config_array = array_merge($customConfig, $config_array);
 				if (!is_string($config_array['default_user'] ?? null)) {
@@ -233,6 +234,17 @@ function saveStep3(): bool {
 
 		$ok = false;
 		try {
+			Minz_ModelPdo::$usesSharedPdo = false;
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO(Minz_User::INTERNAL_USER);
+			if (!$databaseDAO->testTyping()) {
+				$message = 'Invalid PDO driver behaviour for selected database type!';
+				if (Minz_Session::paramString('bd_type') === 'mysql') {
+					$message .= ' MySQL requires mysqlnd.';
+				}
+				throw new Exception($message);
+			}
+			Minz_ModelPdo::$usesSharedPdo = true;
+
 			$ok = FreshRSS_user_Controller::createUser(
 				Minz_Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
@@ -248,6 +260,7 @@ function saveStep3(): bool {
 			$ok = false;
 		}
 		if (!$ok) {
+			checkStep();
 			return false;
 		}
 
@@ -462,7 +475,7 @@ function printStep1(): void {
 	printStep1Template('pdo', $res['pdo']);
 	$curlVersion = function_exists('curl_version') ? curl_version() : [];
 	$curlVersion = is_string($curlVersion['version'] ?? null) ? $curlVersion['version'] : '';
-	printStep1Template('curl', $res['curl'], [$curlVersion]);
+	printStep1Template('curl', $res['curl'], [$curlVersion]);	// TODO: We actually require cURL >= 7.52 for CURLPROXY_HTTPS
 	printStep1Template('json', $res['json']);
 	printStep1Template('pcre', $res['pcre']);
 	printStep1Template('ctype', $res['ctype']);
@@ -525,7 +538,7 @@ function printStep2(): void {
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
-		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
+		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
 	<h2><?= _t('install.bdd.conf') ?></h2>
@@ -649,29 +662,29 @@ function printStep3(): void {
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auth_type"><?= _t('install.auth.type') ?></label>
+			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="2">
 					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
-						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('install.auth.form') ?></option>
+						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
 						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
-							<?= _t('install.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
+							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
 					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
-						?>><?= _t('install.auth.none') ?></option>
+						?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="passwordPlain"><?= _t('install.auth.password_form') ?></label>
+			<label class="group-name" for="passwordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
 						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
 					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
-				<p class="help"><?= _i('help') ?> <?= _t('install.auth.password_format') ?></p>
+				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>

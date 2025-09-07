@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Tu perfil no puede ser modificado',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Tu perfil ha sido modificado',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> se ha borrado la caché',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. Puedes probar de forzarlo añadiendo la etiqueta <code>#force_feed</code> a la URL.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'n_actualized' => 'Se han actualizado %d fuentes',

@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
 		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
-		'http' => 'HTTP (для опытных пользователей с HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
 		'token' => 'Главный токен аутентификации',
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'Основной поток',
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% от всего',
-		'repartition' => 'Распределение статей',
+		'repartition' => 'Распределение статей: %s',
 		'status_favorites' => 'В избранном',
 		'status_read' => 'Прочитано',
 		'status_total' => 'Всего',

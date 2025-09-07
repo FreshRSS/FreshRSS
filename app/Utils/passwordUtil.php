@@ -15,13 +15,6 @@ class FreshRSS_password_Util {
 			PASSWORD_BCRYPT,
 			['cost' => self::BCRYPT_COST]
 		);
-
-		// Compatibility with bcrypt.js
-		$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);
-
-		if ($passwordHash === '' || $passwordHash === null) {
-			return '';
-		}
 		return $passwordHash;
 	}
 

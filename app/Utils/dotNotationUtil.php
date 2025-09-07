@@ -18,8 +18,38 @@ final class FreshRSS_dotNotation_Util
 			return static::value($default);
 		}
 		/** @var \ArrayAccess<string,mixed>|array<string,mixed> $array */
-		if (in_array($key, [null, '', '.', '$'], true)) {
+		if ($key === null) {
 			return $array;
+		}
+		$key = trim($key);
+
+		if (in_array($key, ['', '.', '$'], true)) {
+			return $array;
+		}
+
+		// If the key is a simple string, return the text
+		if (preg_match('/^(?P<delim>[\'"])(?P<text>[^&]*)(?P=delim)$/', $key, $matches)) {
+			$text = $matches['text'];
+			$text = str_replace('＆', '&', $text);	// Unescape `&`
+			return $text;
+		}
+
+		// Escape `&` operator
+		$key = preg_replace_callback('/(?P<delim>[\'"])(?P<text>.*?)(?P=delim)/',
+			fn(array $matches): string => str_replace('&', '＆', $matches[0]),
+			$key) ?? $key;
+
+		// If the key contains string concatenations with `&`, process them
+		$concats = explode('&', $key);
+		if (count($concats) > 1) {
+			$text = '';
+			foreach ($concats as $concat) {
+				$result = static::get($array, $concat, $default);
+				if (is_scalar($result)) {
+					$text .= (string)$result;
+				}
+			}
+			return $text;
 		}
 
 		// Compatibility with brackets path such as `items[0].value`

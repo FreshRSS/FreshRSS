@@ -55,7 +55,7 @@ class Minz_Paginator {
 		$view = APP_PATH . '/views/helpers/' . $view;
 
 		if (file_exists($view)) {
-			include($view);
+			include $view;
 		}
 	}
 

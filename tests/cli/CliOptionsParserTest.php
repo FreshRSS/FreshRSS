@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-require_once __DIR__ . '/../../cli/CliOption.php';
-require_once __DIR__ . '/../../cli/CliOptionsParser.php';
+require_once dirname(__DIR__, 2) . '/cli/CliOption.php';
+require_once dirname(__DIR__, 2) . '/cli/CliOptionsParser.php';
 
 final class CliOptionsOptionalTest extends CliOptionsParser {
 	public string $string = '';
@@ -15,6 +15,7 @@ final class CliOptionsOptionalTest extends CliOptionsParser {
 	public string $optionalValue = '';
 	public bool $optionalValueWithDefault = false;
 	public string $defaultInputAndOptionalValueWithDefault = '';
+	public bool $flag = false;
 
 	public function __construct() {
 		$this->addOption('string', (new CliOption('string', 's'))->deprecatedAs('deprecated-string'));
@@ -38,7 +39,7 @@ final class CliOptionsOptionalAndRequiredTest extends CliOptionsParser {
 	public string $string = '';
 	public int $int = 0;
 	public bool $bool = false;
-	public string $flag = '';
+	public bool $flag = false;
 
 	public function __construct() {
 		$this->addRequiredOption('required', new CliOption('required'));
@@ -158,6 +159,16 @@ class CliOptionsParserTest extends TestCase {
 	public static function testOptionWithOptionalValueDefaultAndDefaultInputSetWithoutValueReturnsOptionalValueDefault(): void {
 		$result = self::runOptionalOptions('--default-input-and-optional-value-with-default');
 		self::assertSame('optional', $result->defaultInputAndOptionalValueWithDefault);
+	}
+
+	public static function testOptionWithFlag(): void {
+		$result = self::runOptionalOptions('--flag');
+		self::assertTrue($result->flag);
+	}
+
+	public static function testOptionWithNoFlag(): void {
+		$result = self::runOptionalOptions('');
+		self::assertFalse($result->flag);
 	}
 
 	public static function testRequiredOptionNotSetReturnsError(): void {

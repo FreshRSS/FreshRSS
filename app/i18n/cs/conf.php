@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Předchozí',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '„označit vše jako přečtené“ button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Správa profilu',
 		'api' => array(
 			'_' => 'Správa API',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Odstranění účtu',
 			'warn' => 'Váš účet bude odstraněn spolu se všemi souvisejícími daty.',
 		),
 		'email' => 'E-mailová adresa',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Heslo API<br /><small>(např. pro mobilní aplikace)</small>',
-		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
 		'title' => 'Profil',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Sdílení',
 		'add' => 'Přidat metodu sdílení',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Tato služba je zastaralá a bude ze služby FreshRSS odstraněna v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Otevřete dokumentaci pro další informace" target="_blank">budoucím vydání</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Akce článku',
 		'auto_share' => 'Sdílet',
 		'auto_share_help' => 'Pokud je pouze jeden režim sdílení, je použit. Jinak jsou režimy dostupné podle jejich čísla.',
-		'close_dropdown' => 'Zavřít nabídky',
+		'close_menus' => 'Zavřít nabídky',
 		'collapse_article' => 'Sbalit',
 		'first_article' => 'Otevřít první článek',
 		'focus_search' => 'Vstoupit do vyhledávacího pole',

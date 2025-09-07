@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => 'דיווח באגים',
-		'credits' => 'קרדיטים',
-		'credits_content' => 'מאפייני עיצוב מסויימים הגיעו מ <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> אף על פי ש FreshRSS אינו משתמש בתשתית הזו. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">סמלילים</a> הגיעו מ <a href="https://www.gnome.org/"> פרוייקט GNOME </a>. <em>Open Sans</em> הגופן police נוצר על ידי <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons נאספים בעזרת <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS מבוסס על <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, תשתית PHP.',
 		'documentation' => 'Documentation',	// TODO
 		'freshrss_description' => 'FreshRSS הוא קורא RSS לאחסון עצמי .אינו צורך משאבים רבים, וקל לתפעול אך בו בזמן חזק וניתן להתאמה.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">בגיטהאב</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'סימון קטגוריה כנקראה',
 		'mark_feed_read' => 'סימון הזנה כנקראה',
 		'mark_selection_unread' => 'Mark selection as unread',	// TODO
+		'mylabels' => 'My labels',	// TODO
 		'newer_first' => 'חדשים בראש',
 		'non-starred' => 'הצגת הכל פרט למועדפים',
 		'normal_view' => 'תצוגה רגילה',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'חיפוש',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'הצגת מועדפים בלבד',
 		'stats' => 'סטטיסטיקות',
 		'subscription' => 'ניהול הרשמות',
-		'tags' => 'My labels',	// TODO
 		'unread' => 'הצגת מאמרים שלא נקראו בלבד',
 	),
 	'share' => 'שיתוף',

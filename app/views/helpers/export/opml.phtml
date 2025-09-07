@@ -107,6 +107,9 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:CURLOPT_POSTFIELDS'] = $curl_params[CURLOPT_POSTFIELDS] ?? null;
 			$outline['frss:CURLOPT_PROXY'] = $curl_params[CURLOPT_PROXY] ?? null;
 			$outline['frss:CURLOPT_PROXYTYPE'] = $curl_params[CURLOPT_PROXYTYPE] ?? null;
+			if ($outline['frss:CURLOPT_PROXYTYPE'] === 3) {	// Legacy for NONE
+				$outline['frss:CURLOPT_PROXYTYPE'] = -1;
+			}
 			$outline['frss:CURLOPT_USERAGENT'] = $curl_params[CURLOPT_USERAGENT] ?? null;
 
 			if (!empty($curl_params[CURLOPT_HTTPHEADER]) && is_array($curl_params[CURLOPT_HTTPHEADER])) {

@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s sa nepodarilo povoliť. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz povolený',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Váš profil nie je možné upraviť',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Váš profil bol upravený',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> vyrovnávacia pamäť bola vymazaná',
 			'deleted' => 'Kanál bol vymazaný',
 			'error' => 'Kanál sa nepodarilo aktualizovať',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',

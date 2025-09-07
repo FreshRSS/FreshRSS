@@ -16,6 +16,7 @@ return array(
 		'add' => 'Add',	// IGNORE
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// IGNORE
 		'cancel' => 'Cancel',	// IGNORE
+		'close' => 'Close',	// IGNORE
 		'create' => 'Create',	// IGNORE
 		'delete_all_feeds' => 'Delete all feeds',	// IGNORE
 		'delete_errored_feeds' => 'Delete feeds with errors',	// IGNORE
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>At least 7 characters</small>',	// IGNORE
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// IGNORE
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// IGNORE
+			'title' => 'Reauthentication',	// IGNORE
 		),
 		'registration' => array(
 			'_' => 'New account',	// IGNORE
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Yesterday',	// IGNORE
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇺🇸',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Empty category',	// IGNORE
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// IGNORE
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// IGNORE
 			'body_unread_articles' => '(unread: %%d)',	// IGNORE
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',	// IGNORE
 		'new_article' => 'There are new articles available, click to refresh the page.',	// IGNORE
 		'should_be_activated' => 'JavaScript must be enabled',	// IGNORE
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// IGNORE
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE

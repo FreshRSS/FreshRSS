@@ -63,7 +63,7 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
-	 * @return array<string|int,string|array<string,string|int|bool>>
+	 * @return array<string|int,string|array<int|string,string|int|bool>>
 	 */
 	public static function paramArray(string $key, bool $plaintext = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
@@ -76,7 +76,7 @@ class Minz_Request {
 			} elseif (is_array($v)) {
 				$vs = [];
 				foreach ($v as $k2 => $v2) {
-					if (is_string($k2) && (is_string($v2) || is_int($v2) || is_bool($v2))) {
+					if (is_string($v2) || is_int($v2) || is_bool($v2)) {
 						$vs[$k2] = $v2;
 					}
 				}
@@ -118,6 +118,10 @@ class Minz_Request {
 			return false;
 		}
 		return $value;
+	}
+
+	public static function paramIntNull(string $key): ?int {
+		return is_numeric(self::$params[$key] ?? null) ? (int)self::$params[$key] : null;
 	}
 
 	public static function paramInt(string $key): int {
@@ -381,33 +385,33 @@ class Minz_Request {
 		return $_GET['rid'];
 	}
 
-	private static function setNotification(string $type, string $content): void {
+	private static function setNotification(string $type, string $content, string $notificationName = ''): void {
 		Minz_Session::lock();
 		$requests = Minz_Session::paramArray('requests');
 		$requests[self::requestId()] = [
 				'time' => time(),
-				'notification' => [ 'type' => $type, 'content' => $content ],
+				'notification' => [ 'type' => $type, 'content' => $content, 'notificationName' => $notificationName ],
 			];
 		Minz_Session::_param('requests', $requests);
 		Minz_Session::unlock();
 	}
 
-	public static function setGoodNotification(string $content): void {
-		self::setNotification('good', $content);
+	public static function setGoodNotification(string $content, string $notificationName = ''): void {
+		self::setNotification('good', $content, $notificationName);
 	}
 
-	public static function setBadNotification(string $content): void {
-		self::setNotification('bad', $content);
+	public static function setBadNotification(string $content, string $notificationName = ''): void {
+		self::setNotification('bad', $content, $notificationName);
 	}
 
 	/**
 	 * @param $pop true (default) to remove the notification, false to keep it.
-	 * @return array{type:string,content:string}|null
+	 * @return array{type:string,content:string,notificationName:string}|null
 	 */
 	public static function getNotification(bool $pop = true): ?array {
 		$notif = null;
 		Minz_Session::lock();
-		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
+		/** @var array<string,array{time:int,notification:array{type:string,content:string,notificationName:string}}> */
 		$requests = Minz_Session::paramArray('requests');
 		if (!empty($requests)) {
 			//Delete abandoned notifications
@@ -457,8 +461,8 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function good(string $msg, array $url = []): void {
-		Minz_Request::setGoodNotification($msg);
+	public static function good(string $msg, array $url = [], string $notificationName = ''): void {
+		Minz_Request::setGoodNotification($msg, $notificationName);
 		Minz_Request::forward($url, true);
 	}
 
@@ -467,8 +471,8 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function bad(string $msg, array $url = []): void {
-		Minz_Request::setBadNotification($msg);
+	public static function bad(string $msg, array $url = [], string $notificationName = ''): void {
+		Minz_Request::setBadNotification($msg, $notificationName);
 		Minz_Request::forward($url, true);
 	}
 

@@ -16,6 +16,7 @@ return array(
 		'add' => 'Hinzufügen',
 		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds gehen',
 		'cancel' => 'Abbrechen',
+		'close' => 'Schließen',
 		'create' => 'Erstellen',
 		'delete_all_feeds' => 'Alle Feeds löschen',
 		'delete_errored_feeds' => 'Feeds mit Fehlern löschen',
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Passwort',
 			'format' => '<small>mindestens 7 Zeichen</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Neuer Account',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Gestern',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇩🇪',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Kategorie leeren',
 		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
 			'body_unread_articles' => '(Ungelesen: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'Keine Labels',
 		'new_article' => 'Es gibt neue verfügbare Artikel. Klicken Sie, um die Seite zu aktualisieren.',
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -176,7 +186,7 @@ return array(
 		'zh-tw' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'Über',
+		'about' => 'Info',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
 		'archiving' => 'Archivierung',
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Zwischenablage',
 		'diaspora' => 'Diaspora*',	// IGNORE

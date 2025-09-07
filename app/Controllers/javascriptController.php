@@ -19,6 +19,14 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function actualizeAction(): void {
+		if (!FreshRSS_Auth::hasAccess() && !(
+			FreshRSS_Context::systemConf()->allow_anonymous
+			&& FreshRSS_Context::systemConf()->allow_anonymous_refresh
+			)) {
+			Minz_Error::error(403);
+			return;
+		}
+
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
 
@@ -34,6 +42,11 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function nbUnreadsPerFeedAction(): void {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
+			Minz_Error::error(403);
+			return;
+		}
+
 		header('Content-Type: application/json; charset=UTF-8');
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategories(prePopulateFeeds: true, details: false);

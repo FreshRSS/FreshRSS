@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => 'Ziņojumi par kļūdām',
-		'credits' => 'Kredīti',
-		'credits_content' => 'Daži dizaina elementi nāk no <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, lai gan FreshRSS neizmanto šo ietvaru. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikonas</a> ir no <a href="https://www.gnome.org/">GNOME projekta</a>. <em>Open Sans</em> fontu policiju ir izveidojis <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS pamatā ir PHP ietvarstruktūra <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
 		'documentation' => 'Dokumentācija',
 		'freshrss_description' => 'FreshRSS ir paš-hostējams RSS agregators un lasītājs. Tas ļauj jums lasīt un sekot līdzi vairākām ziņu vietnēm vienā mirklī, bez nepieciešamības pārvietoties no vienas vietnes uz citu. FreshRSS ir viegls, konfigurējams un viegli lietojams.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHubā</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Atzīmēt kategoriju kā izlasītu',
 		'mark_feed_read' => 'Atzīmēt barotni kā izlasītu',
 		'mark_selection_unread' => 'Atzīmēt izvēlni kā izlasītu',
+		'mylabels' => 'Manas birkas',
 		'newer_first' => 'Sākumā jaunākos',
 		'non-starred' => 'Rādīt neiecienītākos',
 		'normal_view' => 'Parastais skats',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Meklēt',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Rādīt mīļākos',
 		'stats' => 'Statistika',
 		'subscription' => 'Abonementa pārvalde',
-		'tags' => 'Manas birkas',
 		'unread' => 'Rādīt neizlasītos',
 	),
 	'share' => 'Dalīties',

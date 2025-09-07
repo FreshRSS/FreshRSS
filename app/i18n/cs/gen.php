@@ -16,6 +16,7 @@ return array(
 		'add' => 'Přidat',
 		'back_to_rss_feeds' => '← Jít zpět na vaše kanály RSS',
 		'cancel' => 'Zrušit',
+		'close' => 'Close',	// TODO
 		'create' => 'Vytvořit',
 		'delete_all_feeds' => 'Delete all feeds',	// TODO
 		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Heslo',
 			'format' => '<small>Alespoň 7 znaků</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Nový účet',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Včera',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇨🇿',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Prázdná kategorie',
 		'confirm_action' => 'Opravdu chcete provést tuto akci? Toto nelze zrušit!',
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
 			'body_unread_articles' => '(nepřečtené: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'Žádné štítky',
 		'new_article' => 'Jsou dostupné nové články, klikněte pro obnovení stránky.',
 		'should_be_activated' => 'JavaScript musí být povolen',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Schránka',
 		'diaspora' => 'Diaspora*',	// IGNORE

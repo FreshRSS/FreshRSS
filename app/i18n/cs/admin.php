@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Povolit anonymní obnovení článků',
 		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
-		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
 		'token' => 'Hlavní ověřovací token',
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'Všechny kanály',
 		'no_idle' => 'Nejsou žádné nečinné kanály!',
 		'number_entries' => '%d článků',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% ze všech',
-		'repartition' => 'Přerozdělení článků',
+		'repartition' => 'Přerozdělení článků: %s',
 		'status_favorites' => 'Oblíbené',
 		'status_read' => 'Přečtené',
 		'status_total' => 'Celkem',

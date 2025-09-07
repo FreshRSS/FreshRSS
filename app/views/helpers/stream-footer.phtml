@@ -35,19 +35,32 @@
 	<?php if (FreshRSS_Context::$continuation_id !== '0') { ?>
 		<button id="load_more" type="submit" class="btn" formaction="<?= Minz_Url::display($url_next) ?>"><?= _t('gen.stream.load_more') ?></button>
 	<?php } elseif ($hasAccess) { ?>
-		<?= _t('gen.stream.nothing_to_load') ?><br />
-		<button id="bigMarkAsRead"
-			class="as-link <?= FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
-			form="stream-footer"
-			formaction="<?= Minz_Url::display($url_mark_read) ?>"
-			type="submit">
-			<span class="bigTick">✓</span><br />
-			<span class="markAllRead"><?= _t('gen.stream.mark_all_read') ?></span><br />
-			<?php if (FreshRSS_Context::userConf()->onread_jump_next) { ?>
-				<span class="jumpNext"><?= _t('conf.reading.jump_next') ?></span>
-			<?php } ?>
-		</button>
-	<?php } else { ?>
+		<?= _t('gen.stream.nothing_to_load') ?>
+		<?php if (FreshRSS_Context::userConf()->mark_read_button !== 'none') {
+			$css = '';
+			switch (FreshRSS_Context::userConf()->mark_read_button) {
+				case 'big':
+					$css = 'as-link big';
+					break;
+				case 'small':
+					$css = 'btn small';
+					break;
+			}
+			?>
+			<br />
+			<button id="bigMarkAsRead"
+				class="<?= $css ?> <?= FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
+				form="stream-footer"
+				formaction="<?= Minz_Url::display($url_mark_read) ?>"
+				type="submit">
+				<span class="bigTick">✓</span><br />
+				<span class="markAllRead"><?= _t('gen.stream.mark_all_read') ?></span><br />
+				<?php if (FreshRSS_Context::userConf()->onread_jump_next) { ?>
+					<span class="jumpNext"><?= _t('conf.reading.jump_next') ?></span>
+				<?php } ?>
+			</button>
+		<?php
+		} } else { ?>
 		<?= _t('gen.stream.nothing_to_load') ?><br />
 	<?php } ?>
 	</div>

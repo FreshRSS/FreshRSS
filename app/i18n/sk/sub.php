@@ -50,6 +50,7 @@ return array(
 			'password' => 'Heslo pre HTTP',
 			'username' => 'Používateľské meno pre HTTP',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Vždy vymazať vyrovnávaciu pamäť',
 		'content_action' => array(
 			'_' => 'Akcia obsahu pri sťahovaní obsahu článku',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML súbor (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportovať ako OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtrovať akcie',
 			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => 'Informácia',
 		'keep_min' => 'Minimálny počet článkov na uchovanie',
 		'kind' => array(
@@ -88,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
 				'xpath' => array(
 					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
 				),
 			),
 			'html_xpath' => array(
@@ -212,6 +216,7 @@ return array(
 		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
 		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Zobraziť zdrojový kód',
 			'show_rendered' => 'Zobraziť obsah',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'Odkaz kanála',
 		'useragent' => 'Nastaviť používateľského agenta na sťahovanie tohto kanála',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Zmazať štítok',
 		'feed_management' => 'Správa RSS kanálov',
-		'rename_label' => 'Premenovať štítok',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
 	),
 );

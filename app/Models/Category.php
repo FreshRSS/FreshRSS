@@ -58,9 +58,15 @@ class FreshRSS_Category extends Minz_Model {
 	public function lastUpdate(): int {
 		return $this->lastUpdate;
 	}
-	public function _lastUpdate(int $value): void {
-		$this->lastUpdate = $value;
+
+	/**
+	 * @param int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _lastUpdate(int|string $value): void {
+		$this->lastUpdate = (int)$value;
 	}
+
 	public function inError(): bool {
 		return $this->error;
 	}
@@ -156,11 +162,14 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			$this->feeds = [];
 		}
-		if ($feed->id() !== 0) {
-			$feed->_category($this);
+		$feed->_category($this);
+		if ($feed->id() === 0) {
+			// Feeds created on a dry run do not have an ID
+			$this->feeds[] = $feed;
+		} else {
 			$this->feeds[$feed->id()] = $feed;
-			$this->sortFeeds();
 		}
+		$this->sortFeeds();
 	}
 
 	/**
@@ -179,7 +188,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 		$ok = true;
 		$cachePath = $this->cacheFilename($url);
-		$opml = httpGet($url, $cachePath, 'opml', $this->attributes(), $this->curlOptions());
+		$opml = httpGet($url, $cachePath, 'opml', $this->attributes(), $this->curlOptions())['body'];
 		if ($opml == '') {
 			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
 				\SimplePie\Misc::url_remove_credentials($url));

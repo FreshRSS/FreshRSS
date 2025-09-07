@@ -3,7 +3,7 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post drop-section">
+<main class="post drop-section" data-auto-leave-validation="1">
 	<h1><?= _t('sub.menu.add') ?></h1>
 	<h2><?= _t('sub.title.add_category') ?></h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
@@ -306,7 +306,7 @@
 			<div class="form-group">
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
-					<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
 			</div>
@@ -315,12 +315,15 @@
 				<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 				<div class="group-controls">
 					<select class="number" name="proxy_type" id="proxy_type"><?php
-						foreach (['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
+						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
+							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
+							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
 							echo '<option value="' . $k . '">' . $v . '</option>';
 						}
 					?>
 					</select>
-					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
 			</div>

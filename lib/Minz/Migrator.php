@@ -33,7 +33,7 @@ class Minz_Migrator
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";
 		}
-		$applied_migrations = array_filter(explode("\n", $applied_migrations));
+		$applied_migrations = array_filter(explode("\n", $applied_migrations), fn(string $migration): bool => trim($migration) !== '');
 
 		$migration_files = scandir($migrations_path) ?: [];
 		$migration_files = array_filter($migration_files, static function (string $filename) {
@@ -138,7 +138,7 @@ class Minz_Migrator
 			$migration_class = APP_NAME . "_Migration_" . $migration_version;
 			$migration_callback = $migration_class . '::migrate';
 
-			$include_result = @include_once($filepath);
+			$include_result = @include_once $filepath;
 			if (!$include_result) {
 				Minz_Log::error(
 					"{$filepath} migration file cannot be loaded.",

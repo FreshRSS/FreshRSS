@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => 'Virheraportit',
-		'credits' => 'Tekijät',
-		'credits_content' => 'Jotkin suunnitteluelementit perustuvat <a href="http://twitter.github.io/bootstrap/">Bootstrapiin</a>, mutta FreshRSS ei käytä tätä kehystä. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Kuvakkeet</a> tulevat <a href="https://www.gnome.org/">GNOME-projektista</a>. <em>Open Sans</em> -fontin on luonut <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS perustuu PHP-kehykseen <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
 		'documentation' => 'Ohjeet',
 		'freshrss_description' => 'FreshRSS on itse asennettava RSS-syötteiden luku- ja hallintaohjelma. Sen avulla voit helposti lukea ja seurata useita uutissivustoja yhdessä näkymässä, eikä sinun tarvitse siirtyä sivustolta toiselle. FreshRSS on kevyt, muokattavissa ja helppokäyttöinen.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHubissa</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Merkitse luokka luetuksi',
 		'mark_feed_read' => 'Merkitse syöte luetuksi',
 		'mark_selection_unread' => 'Merkitse valitut lukemattomiksi',
+		'mylabels' => 'Omat tunnisteet',
 		'newer_first' => 'Uusin ensin',
 		'non-starred' => 'Näytä muut kuin suosikit',
 		'normal_view' => 'Tavallinen näkymä',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Haku',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Näytä suosikit',
 		'stats' => 'Tilastot',
 		'subscription' => 'Tilausten hallinta',
-		'tags' => 'Omat tunnisteet',
 		'unread' => 'Näytä lukemattomat',
 	),
 	'share' => 'Jaa',

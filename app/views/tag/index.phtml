@@ -7,7 +7,7 @@
 	<h1><?= _t('sub.menu.label_management') ?></h1>
 
 	<h2><?= _t('sub.title.add_label') ?></h2>
-	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off">
+	<form id="add_tag" method="post" action="<?= _url('tag', 'add') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="new_label_name"><?= _t('sub.tag.name') ?></label>

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $dirs = [
 	'/',
@@ -12,6 +12,7 @@ $dirs = [
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
 	'/PubSubHubbub/keys',
+	'/Retry-After',
 	'/tokens',
 	'/users',
 	'/users/_',

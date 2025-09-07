@@ -59,7 +59,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
+			$opml_url = checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attribute('opml_url', $opml_url);
@@ -113,7 +113,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			} else {
 				if (!Minz_Request::paramBoolean('enable_keep_max')) {
 					$keepMax = false;
-				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) !== 0) {
+				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) === 0) {
 					$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 				}
 				if (Minz_Request::paramBoolean('enable_keep_period')) {
@@ -137,7 +137,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$position = Minz_Request::paramInt('position') ?: null;
 			$category->_attribute('position', $position);
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
+			$opml_url = checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);

@@ -1,7 +1,6 @@
 *sandbox*
 demo/cache/*
 SimplePie.compiled.php
-bin/
 vendor/
 composer.lock
 phpstan.neon

@@ -1,10 +1,7 @@
-version: "2.4"
-
 volumes:
   db:
 
 services:
-
   freshrss-db:
     image: postgres:17
     container_name: freshrss-db

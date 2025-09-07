@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Passer à l’étape suivante',
 		'reinstall' => 'Réinstaller FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
-		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
-		'none' => 'Aucune (dangereux)',
-		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
-		'password_format' => '7 caractères minimum',
-		'type' => 'Méthode d’authentification',
-	),
 	'bdd' => array(
 		'_' => 'Base de données',
 		'conf' => array(

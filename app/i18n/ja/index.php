@@ -16,17 +16,16 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'システム情報',
+				'browser' => 'ブラウザ',
+				'database' => 'データベース',
+				'server_software' => 'サーバーソフトウェア',
+				'version_curl' => 'cURL version',	// TODO
+				'version_frss' => 'FreshRSSバージョン',
+				'version_php' => 'PHPバージョン',
 			),
 		),
 		'bugs_reports' => 'バグレポート',
-		'credits' => 'クレジット',
-		'credits_content' => 'いくつかのデザイン要素は<a href="http://twitter.github.io/bootstrap/">Bootstrap</a>に由来しますが、FreshRSSはこのフレームワークを使用していません。<a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">アイコン</a>は<a href="https://www.gnome.org/">GNOMEプロジェクト</a>に由来します。<em>Open Sans</em>フォントは<a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>によって作成されました。FreshRSSはPHPフレームワークの<a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>を採用しています。',
 		'documentation' => 'ドキュメント',
 		'freshrss_description' => 'FreshRSSはセルフホストできるRSSフィード収集ツールです。強力なツールで、軽量で簡単に使え、豊富な設定が特徴です。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Githubへお願いします</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'カテゴリを既読にする',
 		'mark_feed_read' => 'フィードを既読にする',
 		'mark_selection_unread' => '選択した記事を未読にする',
+		'mylabels' => 'ラベル',
 		'newer_first' => '最新の記事を先頭にする',
 		'non-starred' => 'お気に入りに登録されてない記事を表示する',
 		'normal_view' => 'ノーマルビュー',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => '検索',
 		'sort' => array(
 			'_' => '並べ替え',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => '公開日順 1→9',
 			'date_desc' => '公開日順 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => '新着を最後に並べる',
 			'id_desc' => '新着を最初に並べる',
 			'link_asc' => 'リンクURL順 A→Z',
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'お気に入りを表示する',
 		'stats' => '統計',
 		'subscription' => '購読フィードの管理',
-		'tags' => 'ラベル',
 		'unread' => '未読の記事を表示する',
 	),
 	'share' => '共有',
