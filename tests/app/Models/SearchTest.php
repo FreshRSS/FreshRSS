@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
 class SearchTest extends PHPUnit\Framework\TestCase {
 
@@ -67,6 +67,27 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
 			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
+		];
+	}
+
+	/**
+	 * @param array<string>|null $intext_value
+	 * @param array<string>|null $search_value
+	 */
+	#[DataProvider('provideIntextSearch')]
+	public static function test__construct_whenInputContainsIntext(string $input, ?array $intext_value, ?array $search_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($intext_value, $search->getIntext());
+		self::assertSame($search_value, $search->getSearch());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideIntextSearch(): array {
+		return [
+			['intext:word1', ['word1'], null],
+			['intext:"word1 word2"', ['word1 word2'], null],
 		];
 	}
 
@@ -346,6 +367,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				[1, 2, 3, 4, 5, 6, 7]
 			],
 			[
+				'c:1 OR c:2,3',
+				' (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?)) ) OR (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?)) ) ',
+				[1, 2, 3]
+			],
+			[
 				'#tag Hello OR (author:Alice inurl:example) OR (f:3 intitle:World) OR L:12',
 				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR" .
 					' ((e.id_feed IN (?) AND e.title LIKE ? )) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )) ',
@@ -377,6 +403,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'intitle:\'"hello world"\'',
 				'(e.title LIKE ? )',
+				['%"hello world"%'],
+			],
+			[
+				'intext:\'"hello world"\'',
+				'(e.content LIKE ? )',
 				['%"hello world"%'],
 			],
 			[
@@ -469,6 +500,22 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.title ~ ? )',
 				['^(ab|cd)']
 			],
+			[
+				'intext:/^(ab|cd)/',
+				'(e.content ~ ? )',
+				['^(ab|cd)']
+			],
+			[
+				'L:1 L:2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )',
+				[1, 2]
+			],
+			[
+				'L:1,2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)) )',
+				[1, 2]
+			],
 		];
 	}
 
@@ -503,6 +550,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'intitle:/^ab\\M/',
 				'(e.title ~ ? )',
+				['^ab\\M']
+			],
+			[
+				'intext:/^ab\\M/',
+				'(e.content ~ ? )',
 				['^ab\\M']
 			],
 			[
@@ -573,6 +625,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				"(e.title REGEXP ? )",
 				['(?-i)(?m)^ab$']
 			],
+			[
+				'intext:/^ab$/m',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?) )',
+				['(?-i)(?m)^ab$']
+			],
 		];
 	}
 
@@ -604,6 +661,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'intitle:/^ab$/m',
 				"(REGEXP_LIKE(e.title,?,'mc') )",
+				['^ab$']
+			],
+			[
+				'intext:/^ab$/m',
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')) )",
 				['^ab$']
 			],
 		];
@@ -640,6 +702,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'intitle:/^ab\\b/',
 				'(e.title REGEXP ? )',
+				['/^ab\\b/']
+			],
+			[
+				'intext:/^ab\\b/',
+				'(e.content REGEXP ? )',
 				['/^ab\\b/']
 			],
 		];

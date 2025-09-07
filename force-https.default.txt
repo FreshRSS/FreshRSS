@@ -1,3 +1,7 @@
+# Do not modify this file, which defines default values,
+# but specify your own values in ./data/force-https.txt
+# Examples of values, one per line: com, example.org, www.example.net
+
 blogger.com
 creativecommons.org
 dailymotion.com

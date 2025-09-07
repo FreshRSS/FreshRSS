@@ -1,7 +1,9 @@
 
-# Display
+# Configuration
 
-## Language
+## Display
+
+### Language
 
 FreshRSS is currently available in 22 languages. After confirming your choice, the interface will be displayed in your preferred language.
 Depending on the language chosen, parts of the interface may not be not translated yet. If you’re willing to help translate
@@ -37,7 +39,7 @@ Available languages are:
 | Chinese (Simplified, People’s Republic of China) | 简体中文      | zh-cn                 |
 | Chinese (Traditional, Taiwan) | 正體中文          | zh-tw                                |
 
-## Theme
+### Theme
 
 There’s no accounting for tastes, which is why FreshRSS offers 13 official themes:
 
@@ -61,7 +63,7 @@ To select a theme, simply scroll through the themes and select one that strikes 
 
 If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.
 
-## Content width
+### Content width
 
 Some people prefer short lines of text, while others prefer to maximize the available screen space. To satisfy the maximum number of people, it’s possible to customize the width of the displayed content. There are four settings available:
 
@@ -70,7 +72,7 @@ Some people prefer short lines of text, while others prefer to maximize the avai
 * **Large** displays content up to a maximum width of 1000 pixels
 * **No limit** displays the content on 100% of the available space
 
-## Article icons
+### Article icons
 
 Please note that this section only affects normal view.
 
@@ -83,13 +85,13 @@ If you disable every item in the top line, you’ll still be able to see it sinc
 it contains the feed name and the article title. But if you do the same thing for
 the bottom line, it will be empty.
 
-## HTML5 notification timeout
+### HTML5 notification timeout
 
 After automatically updating the feeds, FreshRSS can pop up a notification using the HTML5 notification API.
 
 The duration of this notification can be set. By default, the value is 0.
 
-## Show the navigation button
+### Show the navigation button
 
 By default, FreshRSS displays buttons to ease the article navigation when browsing on mobile. The drawback is that they eat up some precious space.
 
@@ -97,31 +99,31 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 If you don’t use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
-# Reading
+## Reading
 
-## Number of articles per page
+### Number of articles per page
 
 This setting defines the number of articles to display at once before needing to load more. In normal and reading view, more articles are loaded automatically. In global view, a button will appear at the bottom of the list.
 
-## Articles to display
+### Articles to display
 
 The status of articles to display when loading FreshRSS. "Adjust showing" will display only unread articles by default, but will display all articles when there are no unread articles to show.
 
-## Use “lazy load” mode to load images
+### Use “lazy load” mode to load images
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
-# Archival
+## Archival
 
-## Archiving
+### Archiving
 
 These are the global options for fetching and retaining articles from feeds. They can be overridden by individual feed’s settings.
 
-## Maintenance
+### Maintenance
 
 This allows for purging/optimizing the current user’s articles in the database.
 
-# Sharing
+## Sharing
 
 To make your life easier, you can share articles straight from FreshRSS.
 
@@ -133,17 +135,17 @@ By default, the sharing list is empty.
 To add a new item to the list, please follow the following simple steps:
 
 1. Select the desired sharing method in the drop-down list.
-1. Press the ```✚``` button to add it to the list.
-1. Configure the method in the list. All  names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
-1. Submit your changes.
+2. Press the ```✚``` button to add it to the list.
+3. Configure the method in the list. All  names can be modified in the display. Some methods need the sharing URL to be able to work properly (ex: Shaarli).
+4. Submit your changes.
 
 To remove an item from the list, follow those simple steps:
 
 1. Press the ```❌``` button next to the share method you want to remove.
-1. Submit your changes.
+2. Submit your changes.
 
 
-# Shortcuts
+## Shortcuts
 
 To ease the use of the application, FreshRSS comes with a lot of predefined keyboard shortcuts.
 They allow actions to improve the user experience with a keyboard.
@@ -153,9 +155,9 @@ Of course, if you’re not satisfied with the key mapping, you can change you co
 There are 4 types of shortcuts:
 
 1. Views: they allow switching views with ease.
-1. Navigation: they allow navigation through articles, feeds, and categories.
-1. Article actions: they allow interactions with an article, like sharing or opening it on the original web-site.
-1. Other actions: they allow other interactions with the application, like opening the user queries menu or accessing the documentation.
+2. Navigation: they allow navigation through articles, feeds, and categories.
+3. Article actions: they allow interactions with an article, like sharing or opening it on the original web-site.
+4. Other actions: they allow other interactions with the application, like opening the user queries menu or accessing the documentation.
 
 It’s worth noting that the share article action has two levels. Once you press the shortcut, a menu containing all the share options opens.
 To choose one share option, you need to select it by its number. When there is only one option, it’s selected automatically though.
@@ -165,25 +167,25 @@ The same process applies to the user queries.
 Be aware that there is no validation on the selected shortcuts.
 This means that if you assign a shortcut to more than one action, you’ll end up with some unexpected behavior.
 
-# User queries
+## User queries
 
 You can configure your [user queries](./user_queries.md) in that section.
 
-# Profile
+## Profile
 
 You can change your email address or password here. The authentication token is required for accessing the aggregated RSS feed for a user. A blank token will disable accessing the RSS feed without being logged in.
 
-# Extensions
+## Extensions
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
 
 Some extensions have configurations and these can be changed in the manage page, which opens with the button near the name of the extension.
 
-## User CSS
+### User CSS
 
 It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
 
-### Example: Getting rid of Top Menu Items
+#### Example: Getting rid of Top Menu Items
 
 The Top Menu within the mobile view might look a little bit cluttered, depending on the theme. The following CSS rules allow to hide unnecessary top menu buttons or input boxes.
 
@@ -212,17 +214,17 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
 }
 ```
 
-## User JS
+### User JS
 
 It gives ability to create user-specific JS.
 
-# Users
+## Users
 
 > **TODO**
 
-## Authentication methods
+### Authentication methods
 
-### HTTP Authentication (Apache)
+#### HTTP Authentication (Apache)
 
 1. User control is based on the `.htaccess` file.
 2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.

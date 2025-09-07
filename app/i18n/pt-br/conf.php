@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Anterior',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“marcar todos como lido” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Gerenciamento de perfil',
 		'api' => array(
 			'_' => 'Administração da API',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Remover conta',
 			'warn' => 'Sua conta e todos os dados relacionados serão removidos.',
 		),
 		'email' => 'Endereço de e-mail',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Senha da API<br /><small>(p.s., para aplicativos móveis)</small>',
-		'password_form' => 'Senha<br /><small>(para o método de formulário web)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
 		'title' => 'Perfil',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Compartilhando',
 		'add' => 'Adicionar um método de compartilhamento',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Este serviço está obceloeto e será removido do FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abra este documento para mais informações" target="_blank">em versões futuras</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Ações no artigo',
 		'auto_share' => 'Compartilhar',
 		'auto_share_help' => 'Se há apenas um modo de compartilhamento, ele é usado. Caso contrário, serão acessíveis pelo seu número.',
-		'close_dropdown' => 'Fechar menus',
+		'close_menus' => 'Fechar menus',
 		'collapse_article' => 'Fechar',
 		'first_article' => 'Ir para o primeiro artigo',
 		'focus_search' => 'Acessar a caixa de busca',

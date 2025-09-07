@@ -11,7 +11,7 @@ final class UserCSSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
-			Minz_View::appendStyle($this->getFileUrl(self::FILENAME, 'css', false));
+			Minz_View::appendStyle($this->getFileUrl(self::FILENAME, isStatic: false));
 		}
 	}
 

@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => 'Hlášení chyb',
-		'credits' => 'Poděkování',
-		'credits_content' => 'Některé designové prvky pocházejí z <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, FreshRSS ale tuto platformu nevyužívá. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ikony</a> pocházejí z <a href="https://www.gnome.org/">projektu GNOME</a>. Písmo <em>Open Sans</em> vytvořil <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS je založeno na PHP framework <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>.',
 		'documentation' => 'Dokumentace',
 		'freshrss_description' => 'FreshRSS je čtečka kanálů RSS určená k provozu na vlastním serveru. Je to nenáročný a jednoduchý, zároveň ale mocný a konfigurovatelný nástroj.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">na GitHub</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Označit kategorii jako přečtenou',
 		'mark_feed_read' => 'Označit kanál jako přečtený',
 		'mark_selection_unread' => 'Označit výběr jako nepřečtený',
+		'mylabels' => 'Mé popisky',
 		'newer_first' => 'Nejdříve novější',
 		'non-starred' => 'Zobrazit neoblíbené',
 		'normal_view' => 'Normální zobrazení',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Hledat',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Zobrazit oblíbené',
 		'stats' => 'Statistika',
 		'subscription' => 'Správa odběrů',
-		'tags' => 'Mé popisky',
 		'unread' => 'Zobrazit nepřečtené',
 	),
 	'share' => 'Sdílet',

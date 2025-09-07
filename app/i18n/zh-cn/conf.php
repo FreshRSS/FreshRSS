@@ -99,6 +99,12 @@ return array(
 			'previous' => '上一页',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“全部标记为已读” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -107,18 +113,23 @@ return array(
 		'_' => '账户管理',
 		'api' => array(
 			'_' => 'API 管理',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => '账户删除',
 			'warn' => '你的帐户以及所有相关数据将被删除。',
 		),
 		'email' => '邮箱地址',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API 密码<br /><small>（例如用于手机应用）</small>',
-		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
 		'title' => '账户',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => '分享',
 		'add' => '添加分享方式',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => '此功能已被废弃并会在未来的 FreshRSS 版本中移除，详情见 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="打开文档获更多信息" target="_blank">说明文档</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
@@ -310,7 +321,7 @@ return array(
 		'article_action' => '文章操作',
 		'auto_share' => '分享',
 		'auto_share_help' => '如果有多种分享方式，则会按照它们的序号依次访问。',
-		'close_dropdown' => '关闭菜单',
+		'close_menus' => '关闭菜单',
 		'collapse_article' => '折叠文章',
 		'first_article' => '打开第一篇文章',
 		'focus_search' => '访问搜索框',

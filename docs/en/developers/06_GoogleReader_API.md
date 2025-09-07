@@ -35,7 +35,7 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |[lire](https://lireapp.com/)                                                        |iOS, macOS           |Closed Source                                             |
 |[Newsboat 2.24+](https://newsboat.org/)                           |Linux                |[MIT](https://github.com/newsboat/newsboat/blob/master/LICENSE)                                              |
 |[Vienna RSS](http://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
-|[Reeder](https://www.reederapp.com/)                           |macOS, iOS                |Closed Source                                              |
+|[Reeder Classic](https://www.reederapp.com/classic/)           |macOS, iOS                |Closed Source                                              |
 |[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/)                           |Firefox                |Open Source                                              |
 
 > ℹ️ See a [better table of compatible clients in our main Readme](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md#apis--native-apps).
@@ -98,4 +98,5 @@ curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60
 as many clients start by having a very inneficient synchronisation strategy.
 
 * [*Synchronisation recommendation* by Alkarex](https://github.com/FreshRSS/FreshRSS/issues/2566#issuecomment-541317776)
+* [*Additional synchronisation tips* by Alkarex](https://github.com/jocmp/capyreader/discussions/533#discussioncomment-11341808)
 * [*The Right Way to Sync* by BazQux](https://github.com/bazqux/bazqux-api#user-content-the-right-way-to-sync)

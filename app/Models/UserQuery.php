@@ -124,7 +124,7 @@ class FreshRSS_UserQuery {
 			'shareOpml' => $this->shareOpml,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
-		]);
+		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
 	}
 
 	/**

@@ -13,7 +13,7 @@ RUN apk add --no-cache \
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY . /var/www/FreshRSS
+COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
@@ -35,7 +35,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
 	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
@@ -62,4 +62,4 @@ ENTRYPOINT ["./Docker/entrypoint.sh"]
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")

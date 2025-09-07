@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP heslo',
 			'username' => 'HTTP uživatelské jméno',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Vždy vymazat mezipaměť',
 		'content_action' => array(
 			'_' => 'Akce obsahu při načítání obsahu článku',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Exportovat jako OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Akce filtrování',
 			'help' => 'Zapište jeden filtr hledání na řádek. Operátoři <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">viz dokumentace</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => 'Informace',
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(
@@ -88,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
 				'xpath' => array(
 					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
 				),
 			),
 			'html_xpath' => array(
@@ -212,6 +216,7 @@ return array(
 		),
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
 		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> nebo <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Zobrazit zdrojový kód',
 			'show_rendered' => 'Zobrazit obsah',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'Adresa URL kanálu',
 		'useragent' => 'Nastavte uživatelský agent pro načítání tohoto kanálu',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Odstranit popisek',
 		'feed_management' => 'Správa kanálů RSS',
-		'rename_label' => 'Přejmenovat popisek',
 		'subscription_tools' => 'Nástroje odběrů',
 	),
 );

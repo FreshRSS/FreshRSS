@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Vorige',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '„markeer alles als gelezen” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Profielbeheer',
 		'api' => array(
 			'_' => 'API-beheer',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
 		),
 		'email' => 'Email adres',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
 		'title' => 'Profiel',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Delen',
 		'add' => 'Deelmethode toevoegen',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Deze dienst is afgeschreven en zal uit FreshRSS worden verwijderd in een <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentatie voor meer informatie" target="_blank">toekomstige versie</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Email',	// IGNORE
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Artikelacties',
 		'auto_share' => 'Delen',
 		'auto_share_help' => 'Als er slechts één deelmethode is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
-		'close_dropdown' => 'Sluit menu',
+		'close_menus' => 'Sluit menu',
 		'collapse_article' => 'Inklappen',
 		'first_article' => 'Spring naar eerste artikel',
 		'focus_search' => 'Toegang zoek venster',

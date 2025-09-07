@@ -1,10 +1,6 @@
 <?php
 declare(strict_types=1);
 
-if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
-	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
-}
-
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -47,17 +43,17 @@ function classAutoloader(string $class): void {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
+				include APP_PATH . '/' . $components[0] . '.php';
 				return;
 			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				include APP_PATH . '/Models/' . $components[1] . '.php';
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'SimplePie\\')) {
 		$prefix = 'SimplePie\\';
 		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
@@ -235,8 +231,8 @@ function format_bytes(int $bytes, int $precision = 2, string $system = 'IEC'): s
 		return format_number($bytes, $precision);
 	}
 	$bytes = max(intval($bytes), 0);
-	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
-	$pow = min($pow, count($units) - 1);
+	$pow = $bytes === 0 ? 0 : (int)floor(log($bytes) / log($base));
+	$pow = min(max(0, $pow), count($units) - 1);
 	$bytes /= pow($base, $pow);
 	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
@@ -329,6 +325,13 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 			}
 		}
 	}
+	if (!empty($curl_options[CURLOPT_PROXYTYPE]) && ($curl_options[CURLOPT_PROXYTYPE] < 0 || $curl_options[CURLOPT_PROXYTYPE] === 3)) {
+		// 3 is legacy for NONE
+		unset($curl_options[CURLOPT_PROXYTYPE]);
+		if (isset($curl_options[CURLOPT_PROXY])) {
+			unset($curl_options[CURLOPT_PROXY]);
+		}
+	}
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
@@ -341,9 +344,13 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 	]);
 	$simplePie->rename_attributes(['id', 'class']);
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
-		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
-		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset']));
+		'alink', 'autoplay', 'background', 'bgcolor', 'class', 'form', 'formaction',
+		'link', 'onblur', 'onchange', 'onclick', 'ondblclick', 'onfocus',
+		'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onmousedown', 'onmousemove',
+		'onmouseout', 'onmouseover', 'onmouseup', 'onselect', 'onunload',
+		'seamless', 'sizes', 'srcdoc', 'srcset', 'text', 'vlink', 'referrerpolicy', 'ping',
+		'target', 'rel', 'name', 'download', 'attributionsrc',
+	]));
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
 		'iframe' => [
@@ -362,7 +369,11 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'iframe' => 'src',
 		'img' => [
 			'longdesc',
-			'src'
+			'src',
+		],
+		'image' => [
+			'longdesc',
+			'src',
 		],
 		'input' => 'src',
 		'ins' => 'cite',
@@ -383,6 +394,11 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);
 	}
+
+	// Remove whitespace and comments starting with # / ;
+	$https_domains = preg_replace('%\\s+|[\/#;].*$%', '', $https_domains) ?? $https_domains;
+	$https_domains = array_filter($https_domains, fn(string $v) => $v !== '');
+
 	$simplePie->set_https_domains($https_domains);
 	return $simplePie;
 }
@@ -416,13 +432,9 @@ function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): 
 
 function cleanCache(int $hours = 720): void {
 	// N.B.: GLOB_BRACE is not available on all platforms
-	$files = array_merge(
-		glob(CACHE_PATH . '/*.html', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.json', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.spc', GLOB_NOSORT) ?: [],
-		glob(CACHE_PATH . '/*.xml', GLOB_NOSORT) ?: []);
+	$files = glob(CACHE_PATH . '/*.*', GLOB_NOSORT) ?: [];
 	foreach ($files as $file) {
-		if (substr($file, -10) === 'index.html') {
+		if (str_ends_with($file, 'index.html')) {
 			continue;
 		}
 		$cacheMtime = @filemtime($file);
@@ -493,11 +505,46 @@ function enforceHttpEncoding(string $html, string $contentType = ''): string {
 }
 
 /**
- * @param string $type {html,json,opml,xml}
+ * Set an HTML base URL to the HTML content if there is none.
+ * @param string $html the raw downloaded HTML content
+ * @param string $href the HTML base URL
+ * @return string an HTML string
+ */
+function enforceHtmlBase(string $html, string $href): string {
+	$doc = new DOMDocument();
+	$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+	if ($doc->documentElement === null) {
+		return '';
+	}
+	$xpath = new DOMXPath($doc);
+	$bases = $xpath->evaluate('//base');
+	if (!($bases instanceof DOMNodeList) || $bases->length === 0) {
+		$base = $doc->createElement('base');
+		if ($base === false) {
+			return $html;
+		}
+		$base->setAttribute('href', $href);
+		$head = null;
+		$heads = $xpath->evaluate('//head');
+		if ($heads instanceof DOMNodeList && $heads->length > 0) {
+			$head = $heads->item(0);
+		}
+		if ($head instanceof DOMElement) {
+			$head->insertBefore($base, $head->firstChild);
+		} else {
+			$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
+		}
+	}
+	return $doc->saveHTML() ?: $html;
+}
+
+/**
+ * @param string $type {html,ico,json,opml,xml}
  * @param array<string,mixed> $attributes
  * @param array<int,mixed> $curl_options
+ * @return array{body:string,effective_url:string,redirect_count:int,fail:bool}
  */
-function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): string {
+function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): array {
 	$limits = FreshRSS_Context::systemConf()->limits;
 	$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -506,19 +553,24 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		$body = @file_get_contents($cachePath);
 		if ($body != false) {
 			syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
-			return $body;
+			return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false];
 		}
 	}
 
-	if (mt_rand(0, 30) === 1) {	// Remove old entries once in a while
+	if (rand(0, 30) === 1) {	// Remove old cache once in a while
 		cleanCache(CLEANCACHE_HOURS);
+	}
+
+	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url)) > 0) {
+		Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
+		return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 	}
 
 	if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 	}
 
-	$accept = '*/*;q=0.8';
+	$accept = '';
 	switch ($type) {
 		case 'json':
 			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
@@ -529,6 +581,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		case 'xml':
 			$accept = 'application/xml,application/xhtml+xml,text/xml;q=0.9,*/*;q=0.8';
 			break;
+		case 'ico':
+			$accept = 'image/x-icon,image/vnd.microsoft.icon,image/ico,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.1';
+			break;
 		case 'html':
 		default:
 			$accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
@@ -538,7 +593,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 	$ch = curl_init();
 	if ($ch === false) {
-		return '';
+		return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true];
 	}
 	curl_setopt_array($ch, [
 		CURLOPT_URL => $url,
@@ -547,6 +602,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_HEADER => true,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_ENCODING => '',	//Enable all encodings
@@ -555,7 +611,18 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
-	if (isset($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+	if (is_array($attributes['curl_params'] ?? null)) {
+		$options = $attributes['curl_params'];
+		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+			// Remove headers problematic for security
+			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
+				fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
+			// Add Accept header if it is not set
+			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
+				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
+			}
+			$attributes['curl_params'] = $options;
+		}
 		curl_setopt_array($ch, $attributes['curl_params']);
 	}
 
@@ -569,22 +636,52 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	curl_setopt_array($ch, $curl_options);
 
-	$body = curl_exec($ch);
+	$response = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+	$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
-	curl_close($ch);
 
-	if ($c_status != 200 || $c_error != '' || $body === false) {
-		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+	$body = false;
+	$headers = [];
+	if ($response !== false) {
+		assert($c_redirect_count >= 0);
+		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
+		$parser = new \SimplePie\HTTP\Parser($response);
+		if ($parser->parse()) {
+			$headers = $parser->headers;
+			$body = $parser->body;
+		}
+	}
+
+	$fail = $c_status != 200 || $c_error != '' || $body === false;
+	if ($fail) {
 		$body = '';
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		if (in_array($c_status, [429, 503], true)) {
+			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $headers['retry-after'] ?? '');
+			if ($c_status === 429) {
+				$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+			} elseif ($c_status === 503) {
+				$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+			}
+			if ($retryAfter > 0) {
+				$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+			}
+		}
 		// TODO: Implement HTTP 410 Gone
 	} elseif (!is_string($body) || strlen($body) === 0) {
 		$body = '';
 	} else {
-		$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
-		if ($type !== 'json') {
+		if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
+			$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+		}
+		if (in_array($type, ['html', 'xml', 'opml'], true)) {
 			$body = enforceHttpEncoding($body, $c_content_type);
+		}
+		if (in_array($type, ['html'], true)) {
+			$body = enforceHtmlBase($body, $c_effective_url);
 		}
 	}
 
@@ -592,7 +689,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		Minz_Log::warning("Error saving cache $cachePath for $url");
 	}
 
-	return $body;
+	return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $c_redirect_count, 'fail' => $fail];
 }
 
 /**
@@ -610,16 +707,20 @@ function validateEmailAddress(string $email): bool {
 
 /**
  * Add support of image lazy loading
- * Move content from src attribute to data-original
+ * Move content from src/poster attribute to data-original
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
 	return preg_replace([
-			'/<((?:img|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:img|image|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
+			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
 			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
 		],
 		$content
 	) ?? '';
@@ -627,11 +728,9 @@ function lazyimg(string $content): string {
 
 /** @return numeric-string */
 function uTimeString(): string {
-	$t = @gettimeofday();
-	$sec = is_numeric($t['sec']) ? (int)$t['sec'] : 0;
-	$usec = is_numeric($t['usec']) ? (int)$t['usec'] : 0;
-	$result = ((string)$sec) . str_pad((string)$usec, 6, '0', STR_PAD_LEFT);
-	return ctype_digit($result) ? $result : '0';
+	$t = gettimeofday();
+	// @phpstan-ignore return.type
+	return ((string)$t['sec']) . str_pad((string)$t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
 function invalidateHttpCache(string $username = ''): bool {
@@ -789,6 +888,12 @@ function checkTrustedIP(): bool {
 }
 
 function httpAuthUser(bool $onlyTrusted = true): string {
+	$auths = array_unique(array_intersect_key($_SERVER, ['REMOTE_USER' => '', 'REDIRECT_REMOTE_USER' => '', 'HTTP_REMOTE_USER' => '', 'HTTP_X_WEBAUTH_USER' => '']));
+	if (count($auths) > 1) {
+		Minz_Log::warning('Multiple HTTP authentication headers!');
+		return '';
+	}
+
 	if (!empty($_SERVER['REMOTE_USER']) && is_string($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
 	}
@@ -892,6 +997,14 @@ function recursive_unlink(string $dir): bool {
 		return true;
 	}
 
+	if (is_link($dir)) {
+		if (PHP_OS_FAMILY === "Windows") {
+			return rmdir($dir);
+		}
+
+		return unlink($dir);
+	}
+
 	$files = array_diff(scandir($dir) ?: [], ['.', '..']);
 	foreach ($files as $filename) {
 		$filename = $dir . '/' . $filename;
@@ -968,7 +1081,8 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 		$details = "<pre>{$details}</pre>";
 	}
 
-	header("Content-Security-Policy: default-src 'self'");
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+	header('Referrer-Policy: same-origin');
 
 	return <<<MSG
 	<!DOCTYPE html><html><header><title>HTTP 500: {$errorTitle}</title></header><body>

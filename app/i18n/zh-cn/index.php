@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => '报告错误',
-		'credits' => '致谢',
-		'credits_content' => '某些设计元素来自于 <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> ，尽管 FreshRSS 并没有使用此框架。<a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">图标</a> 来自于 <a href="https://www.gnome.org/">GNOME 项目</a>。<em>Open Sans</em> 字体出自 <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> 之手。FreshRSS 基于 PHP 框架 <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>。',
 		'documentation' => '文档',
 		'freshrss_description' => 'FreshRSS 是一个自托管的 RSS 聚合服务。 它不仅轻快易用，并且强大又易于配置。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub Issues</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => '此分类设为已读',
 		'mark_feed_read' => '此订阅源设为已读',
 		'mark_selection_unread' => '选中设为已读',
+		'mylabels' => '我的标签',
 		'newer_first' => '由新至旧',
 		'non-starred' => '显示未收藏',
 		'normal_view' => '普通视图',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => '搜索',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => '显示收藏',
 		'stats' => '统计',
 		'subscription' => '订阅管理',
-		'tags' => '我的标签',
 		'unread' => '显示未读',
 	),
 	'share' => '分享',

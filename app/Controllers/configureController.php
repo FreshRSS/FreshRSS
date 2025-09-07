@@ -45,9 +45,15 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function displayAction(): void {
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::userConf()->language = Minz_Request::paramString('language') ?: 'en';
+			$language = Minz_Request::paramString('language') ?: 'en';
+			if (Minz_Translate::exists($language)) {
+				FreshRSS_Context::userConf()->language = $language;
+			}
 			FreshRSS_Context::userConf()->timezone = Minz_Request::paramString('timezone');
-			FreshRSS_Context::userConf()->theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
+			$theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
+			if (FreshRSS_Themes::exists($theme)) {
+				FreshRSS_Context::userConf()->theme = $theme;
+			}
 			FreshRSS_Context::userConf()->darkMode = Minz_Request::paramString('darkMode') ?: 'auto';
 			FreshRSS_Context::userConf()->content_width = Minz_Request::paramString('content_width') ?: 'thin';
 			FreshRSS_Context::userConf()->topline_read = Minz_Request::paramBoolean('topline_read');
@@ -75,7 +81,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			Minz_Translate::reset(FreshRSS_Context::userConf()->language);
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'display' ]);
+			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'display' ], 'displayAction');
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
@@ -131,6 +137,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
 			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
 			FreshRSS_Context::userConf()->sticky_post = Minz_Request::paramBoolean('sticky_post');
+			$markReadButton = Minz_Request::paramStringNull('mark_read_button', plaintext: true);
+			FreshRSS_Context::userConf()->mark_read_button = in_array($markReadButton, ['big', 'small', 'none'], true) ? $markReadButton : 'big';
 			FreshRSS_Context::userConf()->reading_confirm = Minz_Request::paramBoolean('reading_confirm');
 			FreshRSS_Context::userConf()->auto_remove_article = Minz_Request::paramBoolean('auto_remove_article');
 			FreshRSS_Context::userConf()->mark_updated_article_unread = Minz_Request::paramBoolean('mark_updated_article_unread');
@@ -158,6 +166,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'reading' ]);
 		}
 
+		$this->view->viewModes = FreshRSS_ViewMode::getAllModes();
 		FreshRSS_View::prependTitle(_t('conf.reading.title') . ' · ');
 	}
 
@@ -176,7 +185,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			$share = $_POST['share'] ?? null;
+			$share = $_POST['share'] ?? [];
 			if (is_array($share)) {
 				$share = array_filter($share, fn($value, $key): bool =>
 					is_int($key) && is_array($value) &&
@@ -380,7 +389,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->tags = FreshRSS_Context::labels();
 
 		if (Minz_Request::isPost()) {
-			$params = array_filter(Minz_Request::paramArray('query'));
+			$params = Minz_Request::paramArray('query');
 			$queryParams = [];
 			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
 			if ('' === $name) {
@@ -497,13 +506,12 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::systemConf()->limits;
-			$limits['max_registrations'] = Minz_Request::paramInt('max-registrations') ?: 1;
+			$limits['max_registrations'] = Minz_Request::paramIntNull('max-registrations') ?? 1;
 			$limits['max_feeds'] = Minz_Request::paramInt('max-feeds') ?: 16384;
 			$limits['max_categories'] = Minz_Request::paramInt('max-categories') ?: 16384;
 			$limits['cookie_duration'] = Minz_Request::paramInt('cookie-duration') ?: FreshRSS_Auth::DEFAULT_COOKIE_DURATION;
 			FreshRSS_Context::systemConf()->limits = $limits;
 			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
-			FreshRSS_Context::systemConf()->auto_update_url = Minz_Request::paramString('auto-update-url');
 			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
 			FreshRSS_Context::systemConf()->save();
 

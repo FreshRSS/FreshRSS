@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Ugrás a következő lépésre',
 		'reinstall' => 'FreshRSS újratelepítése',
 	),
-	'auth' => array(
-		'form' => 'Webes űrlap (hagyományos, JavaScript-et igényel)',
-		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
-		'none' => 'Egyik sem (veszélyes)',
-		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
-		'password_format' => 'Legalább 7 karakter',
-		'type' => 'Hitelesítési mód',
-	),
 	'bdd' => array(
 		'_' => 'Adatbázis',
 		'conf' => array(

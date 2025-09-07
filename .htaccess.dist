@@ -7,6 +7,6 @@
 </FilesMatch>
 
 # Deny some sub-folders, which may not be excluded by their own .htaccess
-<If "%{REQUEST_URI} =~ m#/(bin|data|node_modules|vendor|\..+)(/|$)#">
+<If "%{REQUEST_URI} =~ m#(?<!/p/scripts)/(bin|data|extensions|node_modules|vendor|\..+)(/|$)#">
 	Require all denied
 </If>

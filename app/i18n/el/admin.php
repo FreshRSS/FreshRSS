@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',	// TODO
 		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
-		'http' => 'HTTP (για έμπειρους χρήστες με )',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Καμία (ριψοκίνδυνο)',
 		'title' => 'Πιστοποίηση',
 		'token' => 'Master authentication token',	// TODO
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'Κύρια ροή',
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% εκ του συνόλου',
-		'repartition' => 'Articles repartition',	// TODO
+		'repartition' => 'Articles repartition: %s',	// TODO
 		'status_favorites' => 'Αγαπημένα',
 		'status_read' => 'Ανάγνωση',
 		'status_total' => 'Σύνολο',

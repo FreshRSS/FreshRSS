@@ -21,6 +21,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
@@ -105,7 +109,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		invalidateHttpCache();
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
 
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
@@ -148,6 +152,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			);
 			if ($ok) {
 				// Set session parameter to give access to the user.
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
@@ -163,6 +168,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				}
 
 				Minz_Translate::init(FreshRSS_Context::userConf()->language);
+
+				FreshRSS_UserDAO::touch();
 
 				// All is good, go back to the original request or the index.
 				$url = Minz_Url::unserialize(Minz_Request::paramString('original_request'));
@@ -197,6 +204,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$ok = password_verify($password, $s);
 			unset($password);
 			if ($ok) {
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => $s,
@@ -217,13 +225,48 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function reauthAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+			return;
+		}
+		/** @var array{c?: string, a?: string, params?: array<string, mixed>} $redirect */
+		$redirect = Minz_Url::unserialize(Minz_Request::paramString('r'));
+		if (!FreshRSS_Auth::needsReauth()) {
+			Minz_Request::forward($redirect, true);
+			return;
+		}
+		if (Minz_Request::isPost()) {
+			$username = Minz_User::name() ?? '';
+			$nonce = Minz_Session::paramString('nonce');
+			$challenge = Minz_Request::paramString('challenge');
+			if (!FreshRSS_FormAuth::checkCredentials(
+				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
+				)) {
+				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
+			} else {
+				Minz_Session::regenerateID('FreshRSS');
+				Minz_Session::_param('lastReauth', time());
+				Minz_Request::forward($redirect, true);
+				return;
+			}
+		}
+		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+	}
+
 	/**
 	 * This action removes all accesses of the current user.
 	 */
 	public function logoutAction(): void {
-		invalidateHttpCache();
-		FreshRSS_Auth::removeAccess();
-		Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+			FreshRSS_Auth::removeAccess();
+			Minz_Session::regenerateID('FreshRSS');
+			Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
+		} else {
+			Minz_Error::error(403);
+		}
 	}
 
 	/**

@@ -16,6 +16,7 @@ return array(
 		'add' => 'Adicionar',
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
+		'close' => 'Close',	// TODO
 		'create' => 'Criar',
 		'delete_all_feeds' => 'Delete all feeds',	// TODO
 		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Senha',
 			'format' => '<small>Ao menos 7 caracteres</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Nova conta',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Ontem',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇧🇷',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Sobre FreshRSS',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Categoria vazia',
 		'confirm_action' => 'Você tem certeza que deseja efetuar esta ação? Ela não poderá ser cancelada!',
 		'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
 			'body_unread_articles' => '(não lido: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'Há novos artigos disponíveis, clique para atualizar a página.',
 		'should_be_activated' => 'O JavaScript precisa estar ativo',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',	// IGNORE

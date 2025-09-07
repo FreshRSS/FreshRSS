@@ -48,7 +48,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$cacheFile = CACHE_PATH . '/extension_list.json';
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = httpGet($extensionListUrl, $cacheFile, 'json');
+				$json = httpGet($extensionListUrl, $cacheFile, 'json')['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}
@@ -90,7 +90,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 					continue 2;
 				}
 			}
-			if (!in_array($extension['type'], ['system', 'user'], true)) {
+			if (!in_array($extension['type'], ['system', 'user'], true) || trim($extension['name']) === '') {
 				continue;
 			}
 			/** @var array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string} $extension */
@@ -131,7 +131,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::prependTitle($ext->getName() . ' · ' . _t('admin.extensions.title') . ' · ');
 		$this->view->extension = $ext;
-		$this->view->extension->handleConfigureAction();
+		try {
+			$this->view->extension->handleConfigureAction();
+		} catch (Minz_Exception $e) {	// @phpstan-ignore catch.neverThrown (Thrown by extensions)
+			Minz_Log::error('Error while configuring extension ' . $ext->getName() . ': ' . $e->getMessage());
+			Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), ['c' => 'extension', 'a' => 'index']);
+		}
 	}
 
 	/**
@@ -292,5 +297,41 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		}
 
 		Minz_Request::forward($url_redirect, true);
+	}
+
+	// Supported types with their associated content type
+	public const MIME_TYPES = [
+		'css' => 'text/css; charset=UTF-8',
+		'gif' => 'image/gif',
+		'jpeg' => 'image/jpeg',
+		'jpg' => 'image/jpeg',
+		'js' => 'application/javascript; charset=UTF-8',
+		'png' => 'image/png',
+		'svg' => 'image/svg+xml',
+	];
+
+	public function serveAction(): void {
+		$extensionName = Minz_Request::paramString('x');
+		$filename = Minz_Request::paramString('f');
+		$mimeType = pathinfo($filename, PATHINFO_EXTENSION);
+		if ($extensionName === '' || $filename === '' || $mimeType === '' || empty(self::MIME_TYPES[$mimeType])) {
+			header('HTTP/1.1 400 Bad Request');
+			die('Bad Request!');
+		}
+		$extension = Minz_ExtensionManager::findExtension($extensionName);
+		if ($extension === null || !$extension->isEnabled() || ($mtime = $extension->mtimeFile($filename)) === null) {
+			header('HTTP/1.1 404 Not Found');
+			die('Not Found!');
+		}
+
+		$this->view->_layout(null);
+
+		$content_type = self::MIME_TYPES[$mimeType];
+		header("Content-Type: {$content_type}");
+		header("Content-Disposition: inline; filename='{$filename}'");
+		header('Referrer-Policy: same-origin');
+		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
+			echo $extension->getFile($filename);
+		}
 	}
 }

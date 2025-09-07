@@ -12,7 +12,7 @@
 
 return array(
 	'about' => array(
-		'_' => 'Über',
+		'_' => 'Info',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
@@ -20,19 +20,18 @@ return array(
 				'browser' => 'Browser',	// IGNORE
 				'database' => 'Datenbank',
 				'server_software' => 'Serversoftware',
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS-Version',
 				'version_php' => 'PHP-Version',
 			),
 		),
 		'bugs_reports' => 'Fehlerberichte',
-		'credits' => 'Mitwirkende',
-		'credits_content' => 'Einige Designelemente stammen von <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, obwohl FreshRSS dieses Framework nicht nutzt. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Icons</a> stammen vom <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> Font wurde von <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> erstellt. FreshRSS basiert auf <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, einem PHP-Framework.',
 		'documentation' => 'Handbuch',
 		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf GitHub</a>',
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
-		'title' => 'Über',
+		'title' => 'Info',
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Kategorie als gelesen markieren',
 		'mark_feed_read' => 'Feed als gelesen markieren',
 		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
+		'mylabels' => 'Meine Labels',
 		'newer_first' => 'Neuere zuerst',
 		'non-starred' => 'Alle außer Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Suchen',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'tags' => 'Meine Labels',
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',

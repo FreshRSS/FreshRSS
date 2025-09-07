@@ -3,15 +3,21 @@
 	/** @var FreshRSS_View $this */
 	$actual_view = Minz_Request::actionName();
 	$class = '';
-		if (FreshRSS_Context::userConf()->hide_read_feeds &&
-			(FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ)) &&
-			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
-			$class = ' state_unread';
-		}
+	if (FreshRSS_Context::userConf()->hide_read_feeds &&
+		(FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ)) &&
+		!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+		$class = ' state_unread';
+	}
 
-	$state_filter_manual = Minz_Request::paramString('state');
-	if ($state_filter_manual !== '') {
-		$state_filter_manual = '&state=' . $state_filter_manual;
+	$state_filter_manual = '';
+	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
+		$state_filter_manual .= '&state=' . $s;
+	}
+	if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
+		$state_filter_manual .= '&sort=' . $s;
+	}
+	if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
+		$state_filter_manual .= '&order=' . $s;
 	}
 ?>
 <nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
@@ -53,7 +59,7 @@
 		?>
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>">
 			<a href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>" class="tree-folder-title">
-				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($t_show ? 'up' : 'down') ?></button><span class="title" title="<?= _t('sub.category.open') ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"><?= _t('index.menu.tags') ?></span>
+				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($t_show ? 'up' : 'down') ?></button><span class="title" title="<?= _t('sub.category.open') ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"><?= _t('index.menu.mylabels') ?></span>
 			</a>
 			<ul class="tree-folder-items<?= $t_show ? ' active' : '' ?>">
 				<?php

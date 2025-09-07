@@ -13,30 +13,30 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'Bu email adresi geçersiz.',
-			'required' => 'Bir email adresi gerekmektedir.',
+			'invalid' => 'Bu e-posta adresi geçersiz.',
+			'required' => 'Bir e-posta adresi gerekli.',
 		),
 		'validation' => array(
-			'change_email' => '<a href="%s">Profil sayfasından</a> email adresinizi değiştirebilirsiniz.',
-			'email_sent_to' => '<strong>%s</strong> adresine doğrulama postası gönderdik. Lütfen yönergelere uyarak email adresinizi doğrulayın.',
+			'change_email' => 'E-posta adresinizi <a href="%s">profil sayfasından</a> değiştirebilirsiniz.',
+			'email_sent_to' => 'Size <strong>%s</strong> adresine bir e-posta gönderdik. Lütfen adresinizi doğrulamak için talimatları takip edin.',
 			'feedback' => array(
-				'email_failed' => 'Sunucu hatasından dolayı email adresinize posta gönderilemedi.',
-				'email_sent' => 'Email adresinize posta gönderildi.',
-				'error' => 'Email adresi doğrulaması başarısız.',
-				'ok' => 'Bu email adresi doğrulandı.',
-				'unnecessary' => 'Bu email adresi zaten doğrulandı.',
-				'wrong_token' => 'Email doğrulaması yanlış anahtar sebebi ile başarısız oldu.',
+				'email_failed' => 'Sunucu yapılandırma hatası nedeniyle size e-posta gönderemedik.',
+				'email_sent' => 'E-posta adresinize bir mesaj gönderildi.',
+				'error' => 'E-posta adresi doğrulama başarısız oldu.',
+				'ok' => 'Bu e-posta adresi doğrulandı.',
+				'unnecessary' => 'Bu e-posta adresi zaten doğrulanmıştı.',
+				'wrong_token' => 'Yanlış bir token nedeniyle bu e-posta adresi doğrulanamadı.',
 			),
-			'need_to' => '%s kullanımından önce email doğrulaması yapmalısınız.',
-			'resend_email' => 'Emaili yeniden gönder',
-			'title' => 'Email adres doğrulaması',
+			'need_to' => '%s kullanabilmek için önce e-posta adresinizi doğrulamanız gerekiyor.',
+			'resend_email' => 'E-postayı yeniden gönder',
+			'title' => 'E-posta adresi doğrulama',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => '%s kaydınız yapıldı, fakat email dğrulaması yapmanız gerekmektedir. Aşağıdaki bağlantıyı takip edin:',
-			'title' => 'Hesabınızı doğrulamanız gerekmektedir',
-			'welcome' => 'Hoşgeldin %s,',
+			'body' => '%s sitesine yeni kaydoldunuz, ancak e-posta adresinizi hâlâ doğrulamanız gerekiyor. Bunun için şu bağlantıyı takip etmeniz yeterli:',
+			'title' => 'Hesabınızı doğrulamanız gerekiyor',
+			'welcome' => 'Hoş geldiniz %s,',
 		),
 	),
 	'password' => array(
@@ -44,11 +44,11 @@ return array(
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Kayıt için Hizmet Kullanım Koşullarını kabul etmek durumundasınız.',
+			'invalid' => 'Kayıt olabilmek için Hizmet Şartları’nı kabul etmeniz gerekiyor.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'Kullanıcı adı geçersiz.',
-		'taken' => 'Kullanıcı adı %s alınmış.',
+		'invalid' => 'Bu kullanıcı adı geçersiz.',
+		'taken' => 'Bu kullanıcı adı, %s, zaten alınmış.',
 	),
 );

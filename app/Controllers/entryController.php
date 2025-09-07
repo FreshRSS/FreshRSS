@@ -189,7 +189,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					'c' => 'index',
 					'a' => 'index',
 					'params' => $params,
-				]
+				],
+				'readAction'
 			);
 		}
 	}

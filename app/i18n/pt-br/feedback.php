@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s não pode ser habilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está habilitado',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Seu perfil não pode ser editado',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Seu perfil foi editado com sucesso',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => 'O cache do feed <em>%s</em> foi limpo',
 			'deleted' => 'o feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'URL <em>%s</em> é inválida',
 			'n_actualized' => '%d feeds foram atualizados',

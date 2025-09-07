@@ -342,15 +342,17 @@ main.prompt {
 		color: variables.$white;
 	}
 
-	a.close {
-		border-radius: 0 3px 3px 0;
+	.close {
+		.icon {
+			filter: brightness(3);
+		}
 	}
 
-	&.good a.close:hover {
+	&.good .close:hover {
 		background: variables.$success-text;
 	}
 
-	&.bad a.close:hover {
+	&.bad .close:hover {
 		background: variables.$alert-text;
 	}
 

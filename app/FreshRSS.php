@@ -34,6 +34,7 @@ class FreshRSS extends Minz_FrontController {
 			// Relax Content Security Policy to allow external images if a custom logo HTML is used
 			Minz_ActionController::_defaultCsp([
 				'default-src' => "'self'",
+				'frame-ancestors' => "'none'",
 				'img-src' => '* data:',
 			]);
 		}
@@ -148,7 +149,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout(): void {
-		header("X-Content-Type-Options: nosniff");
+		header('X-Content-Type-Options: nosniff');
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();

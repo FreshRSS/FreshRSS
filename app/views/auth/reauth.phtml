@@ -1,0 +1,32 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+
+<main class="prompt">
+	<h1><?= _t('gen.auth.reauth.header') ?></h1>
+
+	<form id="crypto-form" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
+		<div class="form-group">
+			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
+			<div class="stick">
+				<input type="password" id="passwordPlain" required="required" />
+				<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
+			</div>
+			<input type="hidden" id="challenge" name="challenge" />
+			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+		</div>
+		<?php
+			$reauth_time = FreshRSS_Context::systemConf()->reauth_time;
+		?>
+		<p class="help"><?= _i('help') ?> <?= _t('gen.auth.reauth.tip', intval($reauth_time / 60)) ?></p>
+		<div class="form-group form-group-actions">
+			<button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
+				<?= _t('gen.auth.login') ?>
+			</button>
+		</div>
+	</form>
+</main>
+

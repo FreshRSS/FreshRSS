@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
-require_once __DIR__ . '/../constants.php';
+require_once dirname(__DIR__) . '/constants.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $action;
@@ -12,8 +12,8 @@ $cliOptions = new class extends CliOptionsParser {
 	public string $value;
 	public string $language;
 	public string $originLanguage;
-	public string $revert;
-	public string $help;
+	public bool $revert;
+	public bool $help;
 
 	public function __construct() {
 		$this->addRequiredOption('action', (new CliOption('action', 'a')));
@@ -30,7 +30,7 @@ $cliOptions = new class extends CliOptionsParser {
 if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-if (isset($cliOptions->help)) {
+if ($cliOptions->help) {
 	manipulateHelp();
 }
 
@@ -43,6 +43,8 @@ switch ($cliOptions->action) {
 			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
 		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
 			$i18nData->addKey($cliOptions->key, $cliOptions->value);
+		} elseif (isset($cliOptions->key)) {
+			$i18nData->addFile($cliOptions->key);
 		} elseif (isset($cliOptions->language)) {
 			$reference = null;
 			if (isset($cliOptions->originLanguage)) {
@@ -79,7 +81,7 @@ switch ($cliOptions->action) {
 		break;
 	case 'ignore':
 		if (isset($cliOptions->language) && isset($cliOptions->key)) {
-			$i18nData->ignore($cliOptions->key, $cliOptions->language, isset($cliOptions->revert));
+			$i18nData->ignore($cliOptions->key, $cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -87,7 +89,7 @@ switch ($cliOptions->action) {
 		break;
 	case 'ignore_unmodified':
 		if (isset($cliOptions->language)) {
-			$i18nData->ignore_unmodified($cliOptions->language, isset($cliOptions->revert));
+			$i18nData->ignore_unmodified($cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
@@ -172,6 +174,8 @@ Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from al
 Example 10:	check if a key exist.
 	php $file -a exist -k my_key
 
+Example 11:	add a new file to all languages
+	php $file -a add -k my_file.php
 HELP;
 	exit();
 }

@@ -18,14 +18,6 @@ return array(
 		'next_step' => '下一步',
 		'reinstall' => '重新安装 FreshRSS',
 	),
-	'auth' => array(
-		'form' => '网页表单（传统方式, 依赖 JavaScript）',
-		'http' => 'HTTP（面向启用 HTTPS 的高级用户）',
-		'none' => '无（危险）',
-		'password_form' => '密码<br /><small>（用于网页表单登录方式）</small>',
-		'password_format' => '至少 7 个字符',
-		'type' => '认证方式',
-	),
 	'bdd' => array(
 		'_' => '数据库',
 		'conf' => array(

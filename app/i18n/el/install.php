@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Μεταβείτε στο επόμενο βήμα',
 		'reinstall' => 'Επανεγκατάσταση του FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
-		'http' => 'HTTP (για έμπειρους χρήστες με HTTPS)',
-		'none' => 'Καμία (ριψοκίνδυνο)',
-		'password_form' => 'Κωδικός Πρόσβασης<br /><small>(για την μέθοδο σύνδεσης με Web-form)</small>',
-		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
-		'type' => 'Μέθοδος Πιστοποίησης',
-	),
 	'bdd' => array(
 		'_' => 'Βάση Δεδομένων',
 		'conf' => array(

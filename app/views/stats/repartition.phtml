@@ -2,9 +2,11 @@
 	declare(strict_types=1);
 	/** @var FreshRSS_ViewStats $this */
 	$this->partial('aside_subscription');
+	$feedname = _t('admin.stats.all_feeds');
 ?>
-<main class="post ">
-	<h1><?= _t('admin.stats.repartition') ?></h1>
+
+<nav class="nav_menu">
+	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
 
 	<select id="feed_select" class="select-change">
 		<option data-url="<?= _url('stats', 'repartition') ?>"><?= _t('admin.stats.all_feeds') ?></option>
@@ -16,6 +18,7 @@
 				if ($this->feed !== null && $feed->id() == $this->feed->id()) {
 					echo '<option value="', $feed->id(), '" selected="selected" data-url="',
 						_url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					$feedname = $feed->name();
 				} else {
 					echo '<option value="', $feed->id(), '" data-url="',
 						_url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
@@ -31,74 +34,91 @@
 			<?= _i('configure') ?> <?= _t('gen.action.manage') ?>
 		</a>
 	<?php }?>
+</nav>
 
-	<div class="stat-grid">
-		<div class="stat table-wrapper scrollbar-thin">
+<main class="post">
+	<h1><?= _t('admin.stats.repartition', $feedname) ?></h1>
+
+	<div class="box double-width">
+		<div class="box-title"><h2><?= _t('admin.stats.overview') ?></h2></div>
+		<div class="box-content scrollbar-thin">
 			<table>
 			<tr>
 				<th><?= _t('admin.stats.status_total') ?></th>
-				<th><?= _t('admin.stats.status_read') ?></th>
-				<th><?= _t('admin.stats.status_unread') ?></th>
-				<th><?= _t('admin.stats.status_favorites') ?></th>
+				<th><?= _i('read') ?> <?= _t('admin.stats.status_read') ?></th>
+				<th><?= _i('unread') ?> <?= _t('admin.stats.status_unread') ?></th>
+				<th><?= _i('starred') ?> <?= _t('admin.stats.status_favorites') ?></th>
 			</tr>
 			<tr>
-				<td class="numeric"><?= $this->repartition['total'] ?? -1 ?></td>
-				<td class="numeric"><?= $this->repartition['count_reads'] ?? -1 ?></td>
-				<td class="numeric"><?= $this->repartition['count_unreads'] ?? -1 ?></td>
-				<td class="numeric"><?= $this->repartition['count_favorites'] ?? -1 ?></td>
+				<?php
+				$feedID = $this->feed !== null ? $this->feed->id() : 0;
+				if ($feedID === 0) { ?>
+					<td class="numeric"><?= $this->repartition['total'] ?? -1 ?></td>
+					<td class="numeric"><?= $this->repartition['count_reads'] ?? -1 ?></td>
+					<td class="numeric"><?= $this->repartition['count_unreads'] ?? -1 ?></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 's') ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_favorites'] ?? -1 ?></a></td>
+				<?php
+				} else {
+				?>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_ALL) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['total'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_reads'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_NOT_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_unreads'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_FAVORITE) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_favorites'] ?? -1 ?></a></td>
+				<?php } ?>
 			</tr>
 			</table>
 		</div>
+	</div>
 
-		<div class="stat">
-			<h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2>
-			<div>
-				<canvas id="statsEntriesPerHour"></canvas>
-				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode([
-					'canvasID' 		=> 'statsEntriesPerHour',
-					'charttype' 	=> 'bar',
-					'data' 			=> $this->repartitionHour,
-					'label' 		=> _t('admin.stats.entry_count'),
-					'xAxisLabels' 	=> $this->hours24Labels
-				], JSON_UNESCAPED_UNICODE);
-				?></script>
-			</div>
+	<div class="box double-width double-height">
+		<div class="box-title"><h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2></div>
+		<div class="box-content scrollbar-thin">
+			<canvas id="statsEntriesPerHour"></canvas>
+			<script class="jsonData-stats" type="application/json">
+			<?php
+			echo json_encode([
+				'canvasID' 		=> 'statsEntriesPerHour',
+				'charttype' 	=> 'bar',
+				'data' 			=> $this->repartitionHour,
+				'label' 		=> _t('admin.stats.entry_count'),
+				'xAxisLabels' 	=> $this->hours24Labels
+			], JSON_UNESCAPED_UNICODE);
+			?></script>
 		</div>
+	</div>
 
-		<div class="stat half">
-			<h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2>
-			<div>
-				<canvas id="statsEntriesPerDayOfWeek"></canvas>
-				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode([
-					'canvasID' 		=> 'statsEntriesPerDayOfWeek',
-					'charttype' 	=> 'bar',
-					'data' 			=> $this->repartitionDayOfWeek,
-					'label' 		=> _t('admin.stats.entry_count'),
-					'xAxisLabels' 	=> $this->days,
-				], JSON_UNESCAPED_UNICODE);
-				?></script>
-			</div>
+	<br />
+	<div class="box">
+		<div class="box-title"><h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2></div>
+		<div class="box-content scrollbar-thin">
+			<canvas id="statsEntriesPerDayOfWeek"></canvas>
+			<script class="jsonData-stats" type="application/json">
+			<?php
+			echo json_encode([
+				'canvasID' 		=> 'statsEntriesPerDayOfWeek',
+				'charttype' 	=> 'bar',
+				'data' 			=> $this->repartitionDayOfWeek,
+				'label' 		=> _t('admin.stats.entry_count'),
+				'xAxisLabels' 	=> $this->days,
+			], JSON_UNESCAPED_UNICODE);
+			?></script>
 		</div>
+	</div>
 
-		<div class="stat half">
-			<h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2>
-			<div>
-				<canvas id="statsEntriesPerMonth"></canvas>
-				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode([
-					'canvasID' 		=> 'statsEntriesPerMonth',
-					'charttype' 	=> 'bar',
-					'data' 			=> $this->repartitionMonth,
-					'label' 		=> _t('admin.stats.entry_count'),
-					'xAxisLabels' 	=> $this->months,
-				], JSON_UNESCAPED_UNICODE);
-				?></script>
-			</div>
+	<div class="box">
+		<div class="box-title"><h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2></div>
+		<div class="box-content scrollbar-thin">
+			<canvas id="statsEntriesPerMonth"></canvas>
+			<script class="jsonData-stats" type="application/json">
+			<?php
+			echo json_encode([
+				'canvasID' 		=> 'statsEntriesPerMonth',
+				'charttype' 	=> 'bar',
+				'data' 			=> $this->repartitionMonth,
+				'label' 		=> _t('admin.stats.entry_count'),
+				'xAxisLabels' 	=> $this->months,
+			], JSON_UNESCAPED_UNICODE);
+			?></script>
 		</div>
 	</div>
 </main>

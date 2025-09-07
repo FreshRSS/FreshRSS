@@ -1,13 +1,13 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 $ok = true;
 
 $cliOptions = new class extends CliOptionsParser {
-	public string $quiet;
+	public bool $quiet;
 
 	public function __construct() {
 		$this->addOption('quiet', (new CliOption('quiet', 'q'))->withValueNone());
@@ -23,7 +23,7 @@ foreach (listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . '/users/' . $username . '/backup.sqlite';
 	@unlink($filename);
-	$verbose = !isset($cliOptions->quiet);
+	$verbose = !$cliOptions->quiet;
 
 	if ($verbose) {
 		echo 'FreshRSS backup database to SQLite for user “', $username, "”…\n";

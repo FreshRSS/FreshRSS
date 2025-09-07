@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Go to the next step',	// IGNORE
 		'reinstall' => 'Reinstall FreshRSS',	// IGNORE
 	),
-	'auth' => array(
-		'form' => 'Web form (traditional, requires JavaScript)',	// IGNORE
-		'http' => 'HTTP (for advanced users with HTTPS)',	// IGNORE
-		'none' => 'None (dangerous)',	// IGNORE
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// IGNORE
-		'password_format' => 'At least 7 characters',	// IGNORE
-		'type' => 'Authentication method',	// IGNORE
-	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE
 		'conf' => array(

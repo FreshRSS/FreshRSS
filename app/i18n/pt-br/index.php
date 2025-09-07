@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// TODO
 				'database' => 'Database',	// TODO
 				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
 				'version_frss' => 'FreshRSS version',	// TODO
 				'version_php' => 'PHP version',	// TODO
 			),
 		),
 		'bugs_reports' => 'Reportar Bugs',
-		'credits' => 'Créditos',
-		'credits_content' => 'Alguns elementos de design vieram do <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> Embora FreshRRS não utiliza este framework. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Ícones</a> vieram do <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police foi criada por <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS é baseado no <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, um framework PHP.',
 		'documentation' => 'Documentação',
 		'freshrss_description' => 'FreshRSS é um RSS feeds aggregator para um host próprio. É leve e fácil de utilizar enquanto é uma ferramenta poderosa e configurável. ',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">no GitHub</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Marcar categoria como lida',
 		'mark_feed_read' => 'Marcar feed com lido',
 		'mark_selection_unread' => 'Marcar seleção como não lida',
+		'mylabels' => 'Minhas etiquetas',
 		'newer_first' => 'Novos primeiro',
 		'non-starred' => 'Mostrar todos, exceto favoritos',
 		'normal_view' => 'visualização normal',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Buscar',
 		'sort' => array(
 			'_' => 'Sorting criteria',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Mostrar apenas os favoritos',
 		'stats' => 'Estatísticas',
 		'subscription' => 'Gerenciamento de inscrições',
-		'tags' => 'Minhas etiquetas',
 		'unread' => 'Mostrar apenas os não lidos',
 	),
 	'share' => 'Compartilhar',

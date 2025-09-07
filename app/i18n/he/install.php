@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'לשלב הבא',
 		'reinstall' => 'Reinstall FreshRSS',	// TODO
 	),
-	'auth' => array(
-		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
-		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
-		'none' => 'ללא (מסוכן)',
-		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
-		'password_format' => 'At least 7 characters',	// TODO
-		'type' => 'שיטת אימות',
-	),
 	'bdd' => array(
 		'_' => 'בסיס נתונים',
 		'conf' => array(

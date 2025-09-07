@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
 
 /**
  * Fever API for FreshRSS
@@ -14,8 +16,8 @@ declare(strict_types=1);
 
 // ================================================================================================
 // BOOTSTRAP FreshRSS
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
@@ -353,14 +355,14 @@ final class FeverAPI
 			return [];
 		}
 
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 
 		$favicons = [];
 		$salt = FreshRSS_Context::systemConf()->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-			$id = hash('crc32b', $salt . $feed->url());
+			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
 				continue;

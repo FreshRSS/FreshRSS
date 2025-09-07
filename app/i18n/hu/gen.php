@@ -16,28 +16,29 @@ return array(
 		'add' => 'Hozzáad',
 		'back_to_rss_feeds' => '← Vissza az RSS hírforrásokhoz',
 		'cancel' => 'Mégsem',
+		'close' => 'Bezár',
 		'create' => 'Létrehoz',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => 'Minden hírforrás törlése',
+		'delete_errored_feeds' => 'Hibákkal rendelkező hírforrások törlése',
 		'delete_muted_feeds' => 'Némított hírforrások törlése',
 		'demote' => 'Lefokoz',
 		'disable' => 'Kikapcsol',
-		'download' => 'Download',	// TODO
+		'download' => 'Letöltés',
 		'empty' => 'Üres',
 		'enable' => 'Bekapcsol',
-		'export' => 'Export',	// IGNORE
+		'export' => 'Exportálás',
 		'filter' => 'Szűrő',
-		'import' => 'Import',	// IGNORE
+		'import' => 'Importálás',
 		'load_default_shortcuts' => 'Alapértelmezett gyorsgombok visszaállítása',
 		'manage' => 'Kezelés',
 		'mark_read' => 'Megjelölés olvasottként',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Menü megnyitása',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Következő cikk',
+			'prev' => 'Előző cikk',
+			'up' => 'Ugrás fel',
 		),
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
@@ -59,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Jelszó',
 			'format' => '<small>Legalább 7 karakter hosszú</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Új fiók',
@@ -130,6 +136,7 @@ return array(
 		'yesterday' => 'Tegnap',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇭🇺',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
@@ -138,6 +145,7 @@ return array(
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => '%%d db új cikk olvasható a FreshRSS-ben.',
 			'body_unread_articles' => '(olvasatlan: %%d)',
@@ -147,6 +155,7 @@ return array(
 		'labels_empty' => 'Nincsenek címkék',
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -169,6 +178,7 @@ return array(
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
 		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-pt' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
@@ -186,7 +196,7 @@ return array(
 		'display' => 'Megjelenítés',
 		'extensions' => 'Kiegészítők',
 		'logs' => 'Log-ok',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'Adatvédelem',
 		'queries' => 'Felhasználói lekérdezések',
 		'reading' => 'Olvasás',
 		'search' => 'Szavak vagy #címkék keresése',
@@ -211,7 +221,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE

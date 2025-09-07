@@ -21,7 +21,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
@@ -212,9 +212,26 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $version;
 	}
 
+	public function pdoClientVersion(): string {
+		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		return is_string($version) ? $version : '';
+	}
+
 	final public function isMariaDB(): bool {
 		// MariaDB includes its name in version, but not MySQL
 		return str_contains($this->version(), 'MariaDB');
+	}
+
+	/**
+	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
+	 */
+	final public function testTyping(): bool {
+		$sql = 'SELECT 2 + 3';
+		if (($stm = $this->pdo->query($sql)) !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return ($res[0] ?? null) === 5;
+		}
+		return false;
 	}
 
 	public function size(bool $all = false): int {
@@ -263,7 +280,7 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && is_string($GLOBALS['SQL_UPDATE_MINOR'])) {
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 			$isMariaDB = false;

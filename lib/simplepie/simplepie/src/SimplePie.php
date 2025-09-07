@@ -20,8 +20,8 @@ use SimplePie\Cache\NameFilter;
 use SimplePie\Cache\Psr16;
 use SimplePie\Content\Type\Sniffer;
 use SimplePie\Exception as SimplePieException;
-use SimplePie\Exception\HttpException;
 use SimplePie\HTTP\Client;
+use SimplePie\HTTP\ClientException;
 use SimplePie\HTTP\FileClient;
 use SimplePie\HTTP\Psr18Client;
 use SimplePie\HTTP\Response;
@@ -546,7 +546,7 @@ class SimplePie
     public $cache_location = './cache';
 
     /**
-     * @var string Function that creates the cache filename
+     * @var string&(callable(string): string) Function that creates the cache filename
      * @see SimplePie::set_cache_name_function()
      * @access private
      */
@@ -1451,10 +1451,10 @@ class SimplePie
      *
      * @deprecated since SimplePie 1.8.0, use {@see set_cache_namefilter()} instead
      *
-     * @param ?callable(string): string $function Callback function
+     * @param (string&(callable(string): string))|null $function Callback function
      * @return void
      */
-    public function set_cache_name_function(?callable $function = null)
+    public function set_cache_name_function(?string $function = null)
     {
         // trigger_error(sprintf('"%s()" is deprecated since SimplePie 1.8.0, please use "SimplePie\SimplePie::set_cache_namefilter()" instead.', __METHOD__), \E_USER_DEPRECATED);
 
@@ -1510,7 +1510,7 @@ class SimplePie
     }
 
     /**
-     * @param string[]|string|false $tags Set a list of tags to strip, or set empty string to use default tags or false, to strip nothing.
+     * @param string[]|string|false $tags Set a list of tags to strip, or set empty string to use default tags, or false to strip nothing.
      * @return void
      */
     public function strip_htmltags($tags = '', ?bool $encode = null)
@@ -1695,11 +1695,11 @@ class SimplePie
                         [
                             '#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
                             '#<(media:starRating|media:statistics) [^/<>]+/>#',
-                            '#<!--.+?-->#s',
+                            '#<!--.{,8192}?(-->|(?=]]>))#s', // XML comments up to a max length and stops at apparent end of CDATA section
                         ],
                         '',
                         $stream_data
-                    )
+                    ) ?? ''
                 );
             }
             fclose($stream);
@@ -1749,11 +1749,13 @@ class SimplePie
 
         // Pass whatever was set with config options over to the sanitizer.
         // Pass the classes in for legacy support; new classes should use the registry instead
+        $cache = $this->registry->get_class(Cache::class);
+        \assert($cache !== null, 'Cache must be defined');
         $this->sanitize->pass_cache_data(
             $this->enable_cache,
             $this->cache_location,
             $this->cache_namefilter,
-            $this->registry->get_class(Cache::class),
+            $cache,
             $this->cache
         );
 
@@ -1925,7 +1927,7 @@ class SimplePie
      * If the data is already cached, attempt to fetch it from there instead
      *
      * @param Base|DataCache|false $cache Cache handler, or false to not load from the cache
-     * @return array{array<string, string>, string}|array{}|bool Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
+     * @return array{array<string, string>, string}|bool Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
      */
     protected function fetch_data(&$cache)
     {
@@ -1997,7 +1999,7 @@ class SimplePie
                         try {
                             $file = $this->get_http_client()->request(Client::METHOD_GET, $this->feed_url, $headers);
                             $this->status_code = $file->get_status_code();
-                        } catch (HttpException $th) {
+                        } catch (ClientException $th) {
                             $this->check_modified = false;
                             $this->status_code = 0;
 
@@ -2090,7 +2092,7 @@ class SimplePie
                 ];
                 try {
                     $file = $this->get_http_client()->request(Client::METHOD_GET, $this->feed_url, $headers);
-                } catch (HttpException $th) {
+                } catch (ClientException $th) {
                     // If the file connection has an error, set SimplePie::error to that and quit
                     $this->error = $th->getMessage();
 
@@ -2140,6 +2142,8 @@ class SimplePie
                         // and a list of entries without an h-feed wrapper are both valid.
                         $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                             'contains(concat(" ", @class, " "), " h-entry ")]';
+
+                        /** @var \DOMNodeList<\DOMElement> $result */
                         $result = $xpath->query($query);
                         $microformats = $result->length !== 0;
                     }
@@ -2150,11 +2154,10 @@ class SimplePie
                         $this->all_discovered_feeds
                     );
                     if ($microformats) {
-                        if ($hub = $locate->get_rel_link('hub')) {
-                            $self = $locate->get_rel_link('self');
-                            if ($file instanceof File) {
-                                $this->store_links($file, $hub, $self);
-                            }
+                        $hub = $locate->get_rel_link('hub');
+                        $self = $locate->get_rel_link('self');
+                        if ($hub || $self) {
+                            $file = $this->store_links($file, $hub, $self);
                         }
                         // Push the current file onto all_discovered feeds so the user can
                         // be shown this as one of the options.
@@ -2604,10 +2607,10 @@ class SimplePie
         if (!empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
             return $element['xml_base'];
         }
-        if (($link = $this->get_link(0, 'self')) !== null) {
+        if (($link = $this->get_link(0, 'alternate')) !== null) {
             return $link;
         }
-        if (($link = $this->get_link(0, 'alternate')) !== null) {
+        if (($link = $this->get_link(0, 'self')) !== null) {
             return $link;
         }
 
@@ -2620,13 +2623,14 @@ class SimplePie
      * @access private
      * @see Sanitize::sanitize()
      * @param string $data Data to sanitize
-     * @param self::CONSTRUCT_* $type One of the self::CONSTRUCT_* constants
+     * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @param string $base Base URL to resolve URLs against
      * @return string Sanitized data
      */
     public function sanitize(string $data, int $type, string $base = '')
     {
         try {
+            // This really returns string|false but changing encoding is uncommon and we are going to deprecate it, so let’s just lie to PHPStan in the interest of cleaner annotations.
             return $this->sanitize->sanitize($data, $type, $base);
         } catch (SimplePieException $e) {
             if (!$this->enable_exceptions) {
@@ -3317,7 +3321,7 @@ class SimplePie
      * @since Beta 2
      * @param int $start Index to start at
      * @param int $end Number of items to return. 0 for all items after `$start`
-     * @return Item[]|null List of {@see Item} objects
+     * @return Item[] List of {@see Item} objects
      */
     public function get_items(int $start = 0, int $end = 0)
     {
@@ -3433,8 +3437,8 @@ class SimplePie
 
         $class = get_class($this);
         $trace = debug_backtrace();
-        $file = $trace[0]['file'];
-        $line = $trace[0]['line'];
+        $file = $trace[0]['file'] ?? '';
+        $line = $trace[0]['line'] ?? '';
         throw new SimplePieException("Call to undefined method $class::$method() in $file on line $line");
     }
 
@@ -3521,28 +3525,25 @@ class SimplePie
      *
      * There is no way to find PuSH links in the body of a microformats feed,
      * so they are added to the headers when found, to be used later by get_links.
-     * @param string $hub
-     * @param string $self
      */
-    private function store_links(File &$file, string $hub, string $self): void
+    private function store_links(Response $file, ?string $hub, ?string $self): Response
     {
-        if (isset($file->headers['link']) && preg_match('/rel=hub/', $file->headers['link'])) {
-            return;
+        $linkHeaderLine = $file->get_header_line('link');
+        $linkHeader = $file->get_header('link');
+
+        if ($hub && !preg_match('/rel=hub/', $linkHeaderLine)) {
+            $linkHeader[] = '<'.$hub.'>; rel=hub';
         }
 
-        if ($hub) {
-            if (isset($file->headers['link'])) {
-                if ($file->headers['link'] !== '') {
-                    $file->headers['link'] = ', ';
-                }
-            } else {
-                $file->headers['link'] = '';
-            }
-            $file->headers['link'] .= '<'.$hub.'>; rel=hub';
-            if ($self) {
-                $file->headers['link'] .= ', <'.$self.'>; rel=self';
-            }
+        if ($self && !preg_match('/rel=self/', $linkHeaderLine)) {
+            $linkHeader[] = '<'.$self.'>; rel=self';
         }
+
+        if (count($linkHeader) > 0) {
+            $file = $file->with_header('link', $linkHeader);
+        }
+
+        return $file;
     }
 
     /**

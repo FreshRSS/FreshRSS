@@ -23,7 +23,8 @@
 	background-color: #ffb6c1;
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: #ffb6c1;
 }
 
@@ -72,7 +73,7 @@
 	box-shadow: 0 2px 5px #ffb6c1;
 }
 
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	color: #787394;
 }
 
@@ -87,6 +88,30 @@ input:focus {
 
 .notification.good {
 	border-color: #ffb6c1;
+}
+
+.notification.bad {
+	border-color: #ff449a;
+}
+
+.notification.good .close:hover {
+	background: #ffb6c1;
+}
+
+.notification.bad .close:hover {
+	background: #ff449a;
+}
+
+.notification.good .close:hover .icon {
+	filter: brightness(0.3);
+}
+
+.notification.bad .close .icon {
+	filter: brightness(0.3);
+}
+
+.notification.bad .close:hover .icon {
+	filter: brightness(3);
 }
 
 .stick .btn-important:first-child {

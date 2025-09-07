@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'הרשאה לאנונימיים לרענן את רשימת המאמרים',
 		'api_enabled' => 'הרשאת גישה ל <abbr>API</abbr> <small>(נדרש ליישומים סלולריים and sharing user queries)</small>',	// DIRTY
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
-		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
 		'token' => 'Master authentication token',	// TODO
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'הזנה ראשית',
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% מסך הכל',
-		'repartition' => 'חלוקת המאמרים',
+		'repartition' => 'חלוקת המאמרים: %s',	// DIRTY
 		'status_favorites' => 'מועדפים',
 		'status_read' => 'נקרא',
 		'status_total' => 'סך הכל',

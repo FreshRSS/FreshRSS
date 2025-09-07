@@ -20,13 +20,12 @@ return array(
 				'browser' => 'Browser',	// IGNORE
 				'database' => 'Database',	// IGNORE
 				'server_software' => 'Software server',
+				'version_curl' => 'Versione cURL',
 				'version_frss' => 'Versione FreshRSS',
 				'version_php' => 'Versione PHP',
 			),
 		),
 		'bugs_reports' => 'Bugs',
-		'credits' => 'Crediti',
-		'credits_content' => 'Alcuni elementi di design provengono da <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> sebbene FreshRSS non usi questo framework. Le <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">icone</a> provengono dal progetto <a href="https://www.gnome.org/">GNOME</a>. Il carattere <em>Open Sans</em> è stato creato da <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS è basato su <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
 		'documentation' => 'Documentazione',
 		'freshrss_description' => 'FreshRSS è un aggregatore di feeds RSS da installare sul proprio host. Leggero e facile da mantenere pur essendo molto configurabile e potente.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">su GitHub</a>',
@@ -66,6 +65,7 @@ return array(
 		'mark_cat_read' => 'Segna la categoria come letta',
 		'mark_feed_read' => 'Segna il feed come letto',
 		'mark_selection_unread' => 'Segna i selezionati come non letti',
+		'mylabels' => 'Le mie etichette',
 		'newer_first' => 'Mostra prima i recenti',
 		'non-starred' => 'Escludi preferiti',
 		'normal_view' => 'Vista elenco',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Cerca',
 		'sort' => array(
 			'_' => 'Ordina per',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Data di pubblicazione 1→9',
 			'date_desc' => 'Data di pubblicazione 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
 			'link_asc' => 'Link A→Z',	// IGNORE
@@ -90,7 +98,6 @@ return array(
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',
 		'subscription' => 'Gestione sottoscrizioni',
-		'tags' => 'Le mie etichette',
 		'unread' => 'Mostra solo non letti',
 	),
 	'share' => 'Condividi',

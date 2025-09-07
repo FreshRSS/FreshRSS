@@ -5,6 +5,7 @@ final class CliOption {
 	public const VALUE_NONE = 'none';
 	public const VALUE_REQUIRED = 'required';
 	public const VALUE_OPTIONAL = 'optional';
+	/** @var 'none'|'required'|'optional' $valueTaken */
 	private string $valueTaken = self::VALUE_REQUIRED;
 	/** @var array{type:string,isArray:bool} $types */
 	private array $types = ['type' => 'string', 'isArray' => false];
@@ -61,6 +62,7 @@ final class CliOption {
 		return $this;
 	}
 
+	/** @return 'none'|'required'|'optional' */
 	public function getValueTaken(): string {
 		return $this->valueTaken;
 	}
@@ -94,6 +96,6 @@ final class CliOption {
 			$this->deprecatedAlias,
 		];
 
-		return array_filter($aliases);
+		return array_filter($aliases, fn(?string $alias): bool => $alias !== null && trim($alias) !== '');
 	}
 }

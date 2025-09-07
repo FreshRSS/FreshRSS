@@ -116,7 +116,9 @@ The `Minz_Extension` abstract class defines a set of methods that can be overrid
 
 The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
 * the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
-* the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
+* `getFileUrl(string $filename, bool $isStatic = true): string` will return the URL to a file in the `static` directory.
+	The first parameter is the name of the file (without `static/`).
+	Set `$isStatic` to true for user-independent files, and to `false` for files saved in a user’s own directory.
 * the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `\<name\>Controller.php`, and its class name must be `FreshExtension_\<name\>_Controller`.
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
@@ -162,7 +164,16 @@ final class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
+* `api_misc` (`function(): void`): to allow extensions to have own API endpoint
+	on `/api/misc.php/Extension%20Name/` or `/api/misc.php?ext=Extension%20Name`.
+* `before_login_btn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
+* `custom_favicon_btn_url` (`function(FreshRSS_Feed $feed): string | null`): Allows extensions to implement a button for setting a custom favicon for individual feeds by providing an URL. The URL will be sent a POST request with the `extAction` field set to either `query_icon_info` or `update_icon`, along with an `id` field which describes the feed's ID.
+Example response for a `query_icon_info` request:
+```json
+{"extName":"YouTube Video Feed","iconUrl":"..\/f.php?h=40838a43"}
+```
+* `custom_favicon_hash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
 * `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
 * `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
@@ -180,8 +191,27 @@ The following events are available:
 * `post_update` (`function(none) -> none`): **TODO** add documentation.
 * `simplepie_after_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
 * `simplepie_before_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `view_modes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): Allow extensions to register additional view modes than *normal*, *reader*, *global*.
 
 > ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
+
+### JavaScript events
+
+```javascript
+function use_context() {
+	// Something that refers to the window.context
+}
+
+if (document.readyState && document.readyState !== 'loading' && typeof window.context !== 'undefined' && typeof window.context.extensions !== 'undefined') {
+	use_context();
+} else {
+	document.addEventListener('freshrss:globalContextLoaded', use_context, false);
+}
+```
+
+The following events are available:
+
+* `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `js_vars` hook.
 
 ### Injecting CDN content
 

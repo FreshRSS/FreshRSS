@@ -6,15 +6,15 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 
 | Logiciel         | Recommandé         | Fonctionne aussi avec          |
 | --------         | -----------        | ---------------------          |
-| Serveur web      | **Apache 2.4+**    | nginx, lighttpd<br />Compatibilité minimale avec Apache 2.2 |
+| Serveur web      | **Apache 2.4+**    | nginx, lighttpd |
 | PHP              | **PHP 8.1+**       | FreshRSS 1.24.3 : PHP 7.4+<br />FreshRSS 1.22.1 : PHP 7.2+ |
-| Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L7-L9)* |                                |
+| Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L9-L11)* |                                |
 | Base de données  | **PostgreSQL 10+** | SQLite, MariaDB 10.0.5+, MySQL 8.0+ |
 | Navigateur       | **Firefox**        | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
 
-FreshRSS possède trois versions différentes (nous parlons de branches) qui sortent à des fréquences plus ou moins rapides. Aussi prenez le temps de comprendre à quoi correspond chacune de ces versions.
+FreshRSS possède deux versions différentes (nous parlons de branches) qui sortent à des fréquences plus ou moins rapides. Aussi prenez le temps de comprendre à quoi correspond chacune de ces versions.
 
 ### La version stable
 
@@ -118,7 +118,7 @@ server {
 		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
-		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
+		# mais les APIs FreshRSS greader.php et misc.php en ont besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
 		# REMARQUE : l’utilisation de la variable $path_info est requis. Pour plus de détails, voir :
 		# https://trac.nginx.org/nginx/ticket/321
 		set $path_info $fastcgi_path_info;

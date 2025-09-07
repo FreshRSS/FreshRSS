@@ -125,7 +125,7 @@ th {
 
 .btn {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 0.25rem 0.5rem;
 	min-height: 25px;
 	min-width: 15px;
 	font-size: 0.9rem;
@@ -171,16 +171,19 @@ th {
 .nav-list .item:hover {
 }
 
-.nav-list .item:hover a {
+.nav-list .item:hover a,
+.nav-list .item:hover .as-link {
 }
 
 .nav-list .item.active {
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 10px;
 }
 
@@ -463,7 +466,6 @@ th {
 }
 
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
 }
 
@@ -599,14 +601,14 @@ th {
 .notification.bad {
 }
 
-.notification.good a.close:hover {
+.notification.good .close:hover {
 }
 
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 }
 
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	text-align: center;
 	text-decoration: none;
 }
@@ -753,16 +755,16 @@ th {
 		margin: 0 0 3.5em;
 	}
 
-	.notification a.close {
+	.notification .close {
 		display: block;
 		left: 0;
 	}
 
-	.notification a.close:hover {
+	.notification .close:hover {
 		opacity: 0.5;
 	}
 
-	.notification a.close .icon {
+	.notification .close .icon {
 		display: none;
 	}
 }

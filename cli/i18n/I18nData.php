@@ -110,8 +110,15 @@ class I18nData {
 	 * Check if the key is known.
 	 */
 	public function isKnown(string $key): bool {
-		return array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
+		return $this->exists($key) &&
 			array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)]);
+	}
+
+	/**
+	 * Check if the file exists
+	 */
+	public function exists(string $file): bool {
+		return array_key_exists($this->getFilenamePrefix($file), $this->data[static::REFERENCE_LANGUAGE]);
 	}
 
 	/**
@@ -184,6 +191,24 @@ class I18nData {
 		}));
 
 		return count($children) !== 0;
+	}
+
+	/**
+	 * Add a new translation file to all languages
+	 * @throws Exception
+	 */
+	public function addFile(string $file): void {
+		$file = strtolower($file);
+		if (!str_ends_with($file, '.php')) {
+			throw new Exception('The selected file name is not supported.');
+		}
+		if ($this->exists($file)) {
+			throw new Exception('The selected file exists already.');
+		}
+
+		foreach ($this->getAvailableLanguages() as $language) {
+			$this->data[$language][$this->getFilenamePrefix($file)] = [];
+		}
 	}
 
 	/**

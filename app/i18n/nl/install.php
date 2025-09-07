@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Ga naar de volgende stap',
 		'reinstall' => 'Installeer FreshRSS opnieuw',
 	),
-	'auth' => array(
-		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
-		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
-		'none' => 'Geen (gevaarlijk)',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
-		'password_format' => 'Tenminste 7 tekens',
-		'type' => 'Authenticatiemethode',
-	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE
 		'conf' => array(

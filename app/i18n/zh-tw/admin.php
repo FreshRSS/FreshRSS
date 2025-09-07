@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => '允許匿名刷新文章',
 		'api_enabled' => '允許 <abbr>API</abbr> 訪問 <small>（用於手機應用 and sharing user queries）</small>',	// DIRTY
 		'form' => '網頁表單（傳統方式, 需要 JavaScript)',
-		'http' => 'HTTP (對於HTTPS的進階使用者)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => '無認證（危險）',
 		'title' => '認證',
 		'token' => '主要驗證權杖',
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => '首頁',
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '%',
-		'repartition' => '文章分布',
+		'repartition' => '文章分布: %s',	// DIRTY
 		'status_favorites' => '收藏',
 		'status_read' => '已讀',
 		'status_total' => '總計',

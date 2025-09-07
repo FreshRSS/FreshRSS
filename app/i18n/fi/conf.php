@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Edellinen',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“merkitse kaikki luetuiksi” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Profiilien hallinta',
 		'api' => array(
 			'_' => 'API-hallinta',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Tilin poisto',
 			'warn' => 'Tilisi ja kaikki siihen kuuluvat tiedot poistetaan.',
 		),
 		'email' => 'Sähköpostiosoite',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API-salasana<br /><small>(esimerkiksi kännykkäsovelluksille)</small>',
-		'password_form' => 'Salasana<br /><small>(Web-lomakkeella kirjautumista varten)</small>',
 		'password_format' => 'Vähintään 7 merkkiä',
 		'title' => 'Profiili',
 	),
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Jakaminen',
 		'add' => 'Lisää jakamistapa',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Tämä palvelu on vanhentunut, ja se poistetaan FreshRSS-sovelluksen <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Lisätietoja ohjeissa" target="_blank">tulevasta versiosta</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Sähköposti',
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Artikkelitoiminnot',
 		'auto_share' => 'Jaa',
 		'auto_share_help' => 'Jos jakamistapoja on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa jakamistavan voi valita numerolla.',
-		'close_dropdown' => 'Sulje valikot',
+		'close_menus' => 'Sulje valikot',
 		'collapse_article' => 'Sulje',
 		'first_article' => 'Avaa ensimmäinen artikkeli',
 		'focus_search' => 'Siirry hakukenttään',

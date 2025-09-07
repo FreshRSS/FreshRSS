@@ -15,7 +15,7 @@ return array(
 		'_' => 'Archivierung',
 		'exception' => 'Archivierungsausnahmen',
 		'help' => 'Weitere Optionen sind in den Einstellungen der individuellen Feeds verfügbar.',
-		'keep_favourites' => 'Lieblingsartikel behalten',
+		'keep_favourites' => 'Favoritenartikel behalten',
 		'keep_labels' => 'Artikel mit Label behalten',
 		'keep_max' => 'Maximale Anzahl an Artikeln, die pro Feed behalten werden',
 		'keep_min_by_feed' => 'Minimale Anzahl an Artikeln, die pro Feed behalten werden',
@@ -99,6 +99,12 @@ return array(
 			'previous' => 'Vorherige',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '„Alle als gelesen markieren“ Button',
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
 	'privacy' => array(
 		'_' => 'Privatsphäre',
 		'retrieve_extension_list' => 'Erweiterungsliste abrufen',
@@ -107,18 +113,23 @@ return array(
 		'_' => 'Profil-Verwaltung',
 		'api' => array(
 			'_' => 'API-Verwaltung',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
 			'check_link' => 'API-Status prüfen: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Der API-Zugriff ist deaktiviert.',
 			'documentation_link' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Dokumentation und die Liste der bekannten Apps</a>',
 			'help' => 'Siehe <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>Dokumentation</a>',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API-Passwort<br /><small>(z.B. für mobile Anwendungen)</small>',
-		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Profil',
 	),
@@ -175,14 +186,14 @@ return array(
 		'state_1' => 'Gelesene Artikel anzeigen',
 		'state_2' => 'Ungelesene Artikel anzeigen',
 		'state_3' => 'Alle Artikel anzeigen',
-		'state_4' => 'Lieblingsartikel anzeigen',
-		'state_5' => 'Gelesene Lieblingsartikel anzeigen',
-		'state_6' => 'Ungelesene Lieblingsartikel anzeigen',
-		'state_7' => 'Lieblingsartikel anzeigen',
-		'state_8' => 'Keine Lieblingsartikel anzeigen',
-		'state_9' => 'Gelesene ohne Lieblingsartikel anzeigen',
-		'state_10' => 'Ungelesene ohne Lieblingsartikel anzeigen',
-		'state_11' => 'Keine Lieblingsartikel anzeigen',
+		'state_4' => 'Favoritenartikel anzeigen',
+		'state_5' => 'Gelesene Favoritenartikel anzeigen',
+		'state_6' => 'Ungelesene Favoritenartikel anzeigen',
+		'state_7' => 'Favoritenartikel anzeigen',
+		'state_8' => 'Keine Favoritenartikel anzeigen',
+		'state_9' => 'Gelesene ohne Favoritenartikel anzeigen',
+		'state_10' => 'Ungelesene ohne Favoritenartikel anzeigen',
+		'state_11' => 'Keine Favoritenartikel anzeigen',
 		'state_12' => 'Alle Artikel anzeigen',
 		'state_13' => 'Gelesene Artikel anzeigen',
 		'state_14' => 'Ungelesene Artikel anzeigen',
@@ -289,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Teilen',
 		'add' => 'Füge eine Teilen-Dienst hinzu',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Dieser Dienst ist veraltet und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">zukünftigen FreshRSS-Version</a> entfernt.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-Mail',
@@ -310,7 +321,7 @@ return array(
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
-		'close_dropdown' => 'Menüs schließen',
+		'close_menus' => 'Menüs schließen',
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',

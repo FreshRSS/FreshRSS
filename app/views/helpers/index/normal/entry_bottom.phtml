@@ -39,7 +39,7 @@
 		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
-				<?= _i('label') ?><span class="dropdown-label"><?= _t('index.menu.tags') ?></span>
+				<?= _i('label') ?><span class="dropdown-label"><?= _t('index.menu.mylabels') ?></span>
 			</a>
 		</div>
 	</li><?php
@@ -56,7 +56,8 @@
 				<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 				<?php
 				foreach ($tags as $tag) {
-					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>"><?= $tag ?></a></li><?php
+					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' .
+						FreshRSS_tag_Controller::escapeForSearch($tag)) ?>"><?= $tag ?></a></li><?php
 				} ?>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>

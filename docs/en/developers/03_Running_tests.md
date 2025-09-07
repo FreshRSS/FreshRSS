@@ -42,7 +42,7 @@ If you are interested, you can take a look at [the configuration file](https://g
 ## Using feed snapshots
 
 As feed data is volatile, it’s better to work with snapshots when debugging some issues.
-You can find the description to retrieve a snapshot [here](06_Reporting_Bugs.md#how-to-provide-feed-data).
+Check the [description to retrieve a snapshot](06_Reporting_Bugs.md#how-to-provide-feed-data).
 
 To serve those snapshots, you can use a mock server.
 Here we will demonstrate how to work with [WireMock](https://wiremock.org/) but other solutions exist.
@@ -70,7 +70,7 @@ If you do not have one, you need to create one.
 	}
 	```
 1. Launch the containerized server with the following command:
-	```bash
+	```sh
 	# <PORT> is the port used on the host to communicate with the server
 	# <NETWORK> is the name of the docker network used (by default, it’s freshrss-network)
 	docker run -it --rm -p <PORT>:8080 --name wiremock --network <NETWORK> -v $PWD:/home/wiremock wiremock/wiremock:latest-alpine --local-response-templating

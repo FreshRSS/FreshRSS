@@ -24,6 +24,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+- The following `SimplePie\Misc` methods are deprecated without replacement:
+  - `SimplePie\Misc::element_implode()`
+  - `SimplePie\Misc::parse_str()`
+  - `SimplePie\Misc::percent_encoding_normalization()`
+  - `SimplePie\Misc::strip_comments()`
+  - `SimplePie\Misc::uncomment_rfc822()`
+
+  If you need any of them, consider copying the function to your codebase. (by @jtojnar in [#899](https://github.com/simplepie/simplepie/pull/899))
 - The method `SimplePie\SimplePie::set_file()` is deprecated, use `SimplePie\SimplePie::set_http_client()` or `SimplePie\SimplePie::set_raw_data()` instead
 - The method `SimplePie\Sanitize::pass_file_data()` is deprecated, use `SimplePie\Sanitize::set_http_client()` instead
 - Passing multiple URLs to `SimplePie\SimplePie::set_feed_url()` is deprecated. You can create separate `SimplePie` instance per feed and then use `SimplePie::merge_items()` to get a single list of items. ([#795](https://github.com/simplepie/simplepie/pull/795))

@@ -15,24 +15,32 @@ class FreshRSS_Themes extends Minz_Model {
 		));
 	}
 
+	public static function exists(string $theme_id): bool {
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
+		return str_replace(['..', '/', DIRECTORY_SEPARATOR], '', $theme_id) === $theme_id
+			&& file_exists($theme_dir . '/metadata.json');
+	}
+
 	/** @return array<string,array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}> */
 	public static function get(): array {
 		$themes_list = self::getList();
 		$list = [];
 		foreach ($themes_list as $theme_dir) {
-			$theme = self::get_infos($theme_dir);
-			if (is_array($theme)) {
-				$list[$theme_dir] = $theme;
+			$theme_id = rawurlencode($theme_dir);
+			$theme = self::get_infos($theme_id);
+			if (is_array($theme) && trim($theme['name']) !== '') {
+				$list[$theme_id] = $theme;
 			}
 		}
 		return $list;
 	}
 
 	/**
+	 * @param string $theme_id is the rawurlencode'd theme directory name
 	 * @return false|array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}
 	 */
 	public static function get_infos(string $theme_id): array|false {
-		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . rawurldecode($theme_id);
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
 			if (file_exists($json_filename)) {
@@ -55,6 +63,7 @@ class FreshRSS_Themes extends Minz_Model {
 							'default' => is_string($res['theme-color']['default'] ?? null) ? $res['theme-color']['default'] : '',
 						];
 					}
+					$result = Minz_Helper::htmlspecialchars_utf8($result);
 					return $result;
 				}
 			}
@@ -92,14 +101,14 @@ class FreshRSS_Themes extends Minz_Model {
 	}
 
 	public static function title(string $name): string {
-		static $titles = [
+		$titles = [
 			'opml-dyn' => 'sub.category.dynamic_opml',
 		];
 		return $titles[$name] ?? '';
 	}
 
 	public static function alt(string $name): string {
-		static $alts = [
+		$alts = [
 			'add' => '➕',	//✚
 			'all' => '☰',
 			'bookmark-add' => '➕',	//✚

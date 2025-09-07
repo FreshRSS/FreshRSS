@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s ne peut pas être activée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais activée',
 		),
+		'invalid_view_mode' => 'Mode de vue “%s” invalide ! Passage en “Vue normale”.',
 		'no_access' => 'Vous n’avez aucun accès sur %s',
 		'not_enabled' => '%s n’est pas encore activée',
 		'not_found' => '%s n’existe pas',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
+		'passwords_dont_match' => 'Les mots de passe ne correspondent pas',
 		'updated' => 'Votre profil a été mis à jour',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => 'Le cache de <em>%s</em> a été vidée.',
 			'deleted' => 'Le flux a été supprimé.',
 			'error' => 'Une erreur est survenue',
+			'favicon' => array(
+				'too_large' => 'L’icône téléversée est trop grosse ! La taille maximale du fichier est de <em>%s</em>.',
+				'unsupported_format' => 'Format d’image non pris en charge !',
+			),
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
 			'n_actualized' => '%d flux ont été mis à jour.',

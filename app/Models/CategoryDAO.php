@@ -89,9 +89,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['kind', 'lastUpdate', 'error', 'attributes'] as $column) {
-					if (stripos($errorLines[0], $column) !== false) {
+					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}
 				}
@@ -226,7 +226,7 @@ SQL;
 		$sql = 'SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`';
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{id:int,name:string,kind:int,lastUpdate:int,error:int,attributes?:array<string,mixed>} $row */
 				yield $row;
 			}
@@ -244,16 +244,16 @@ SQL;
 	public function searchById(int $id): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$res = $this->fetchAssoc($sql, ['id' => $id]) ?? [];
-		/** @var array<array{name:string,id:int,kind:int,lastUpdate?:int,error:int|bool,attributes?:string}> $res */
-		$categories = self::daoToCategories($res);	// @phpstan-ignore varTag.type
+		/** @var list<array{name:string,id:int,kind:int,lastUpdate?:int,error:int,attributes?:string}> $res */
+		$categories = self::daoToCategories($res);
 		return reset($categories) ?: null;
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE name=:name';
 		$res = $this->fetchAssoc($sql, ['name' => $name]) ?? [];
-		/** @var array<array{name:string,id:int,kind:int,lastUpdate:int,error:int|bool,attributes:string}> $res */
-		$categories = self::daoToCategories($res);	// @phpstan-ignore varTag.type
+		/** @var list<array{name:string,id:int,kind:int,lastUpdate:int,error:int,attributes:string}> $res */
+		$categories = self::daoToCategories($res);
 		return reset($categories) ?: null;
 	}
 
@@ -265,7 +265,7 @@ SQL;
 			$aPosition = $a->attributeInt('position');
 			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
-				return ($a->name() < $b->name()) ? -1 : 1;
+				return strnatcasecmp($a->name(), $b->name());
 			} elseif (null === $aPosition) {
 				return 1;
 			} elseif (null === $bPosition) {
@@ -290,8 +290,8 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			$values = [ ':priority' => FreshRSS_Feed::PRIORITY_CATEGORY ];
 			if ($stm !== false && $stm->execute($values) && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
-				/** @var list<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int|bool,c_attributes?:string,
-				 * 	id?:int,name?:string,url?:string,kind?:int,category?:int,website?:string,priority?:int,error?:int|bool,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $res */
+				/** @var list<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int,c_attributes?:string,
+				 * 	id?:int,name?:string,url?:string,kind?:int,category?:int,website?:string,priority?:int,error?:int,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $res */
 				return self::daoToCategoriesPrepopulated($res);
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -304,8 +304,8 @@ SQL;
 			}
 		} else {
 			$res = $this->fetchAssoc('SELECT * FROM `_category` ORDER BY name') ?? [];
-			/** @var list<array{name:string,id:int,kind:int,lastUpdate?:int,error?:int|bool,attributes?:string}> $res */
-			return empty($res) ? [] : self::daoToCategories($res);	// @phpstan-ignore varTag.type
+			/** @var list<array{name:string,id:int,kind:int,lastUpdate?:int,error?:int,attributes?:string}> $res */
+			return empty($res) ? [] : self::daoToCategories($res);
 		}
 	}
 
@@ -319,7 +319,7 @@ SQL;
 			$stm->bindValue(':lu', time() - $defaultCacheDuration, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-			/** @var list<array{name:string,id:int,kind:int,lastUpdate:int,error?:int|bool,attributes?:string}> $res */
+			/** @var list<array{name:string,id:int,kind:int,lastUpdate:int,error?:int,attributes?:string}> $res */
 			return self::daoToCategories($res);
 		} else {
 			$info = $stm !== false ? $stm->errorInfo() : $this->pdo->errorInfo();
@@ -335,8 +335,8 @@ SQL;
 	public function getDefault(): ?FreshRSS_Category {
 		$sql = 'SELECT * FROM `_category` WHERE id=:id';
 		$res = $this->fetchAssoc($sql, [':id' => self::DEFAULTCATEGORYID]) ?? [];
-		/** @var array<array{name:string,id:int,kind:int,lastUpdate?:int,error?:int|bool,attributes?:string}> $res */
-		$categories = self::daoToCategories($res);	// @phpstan-ignore varTag.type
+		/** @var list<array{name:string,id:int,kind:int,lastUpdate?:int,error?:int,attributes?:string}> $res */
+		$categories = self::daoToCategories($res);
 		if (isset($categories[self::DEFAULTCATEGORYID])) {
 			return $categories[self::DEFAULTCATEGORYID];
 		} else {

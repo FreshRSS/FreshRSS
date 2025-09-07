@@ -15,7 +15,7 @@
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.category.information') ?></legend>
@@ -51,7 +51,7 @@
 					<label class="group-name" for="opml_url"><?= _t('sub.category.opml_url') ?></label>
 					<div class="group-controls">
 						<div class="stick">
-							<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= $this->category->attributeString('opml_url') ?>" />
+							<input id="opml_url" name="opml_url" type="url" autocomplete="off" class="long" data-disable-update="refreshOpml" value="<?= htmlspecialchars($this->category->attributeString('opml_url') ?? '', ENT_COMPAT, 'UTF-8') ?>" />
 							<button type="submit" class="btn" id="refreshOpml" formmethod="post" formaction="<?= _url('category', 'refreshOpml', 'id', $this->category->id()) ?>">
 								<?= _i('refresh') ?> <?= _t('gen.action.refresh_opml') ?>
 							</button>
@@ -82,12 +82,11 @@
 				<div class="group-controls">
 					<label class="checkbox" for="enable_read_when_same_title_in_category">
 						<input type="checkbox" name="enable_read_when_same_title_in_category" id="enable_read_when_same_title_in_category" value="1"<?=
-							$this->category->hasAttribute('read_when_same_title_in_category') ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $this->category->hasAttribute('read_when_same_title_in_category') ? 1 : 0 ?>"/>
+							$this->category->hasAttribute('read_when_same_title_in_category') ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.when_same_title_in_category') ?>
 						<?php $read_when_same_title_in_category = $this->category->hasAttribute('read_when_same_title_in_category') ? $this->category->attributeInt('read_when_same_title_in_category') : 25; ?>
 						<input type="number" id="read_when_same_title_in_category" name="read_when_same_title_in_category" min="0"
-							value="<?= $read_when_same_title_in_category ?>" data-leave-validation="<?= $read_when_same_title_in_category ?>" />
+							value="<?= $read_when_same_title_in_category ?>" />
 					</label>
 				</div>
 			</div>
@@ -161,8 +160,7 @@
 				<label class="group-name" for="use_default_purge_options"><?= _t('conf.archiving.policy') ?></label>
 				<div class="group-controls">
 					<label class="checkbox">
-						<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
+						<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?> />
 						<?= _t('gen.short.by_default') ?>
 					</label>
 				</div>
@@ -170,23 +168,19 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="enable_keep_max">
-						<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?>
-							data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+						<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> />
 						<?= _t('conf.archiving.keep_max') ?>
-						<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"
-							data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
+						<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>" />
 					</label>
 				</div>
 			</div>
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="enable_keep_period">
-						<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_period') ?>
-						<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>"
-							data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
-						<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
+						<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>" />
+						<select class="number" name="keep_period_unit" id="keep_period_unit">
 							<option></option>
 							<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
 							<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
@@ -201,8 +195,7 @@
 				<div class="group-name"><?= _t('conf.archiving.exception') ?></div>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_favourites">
-						<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_favourites') ?>
 					</label>
 				</div>
@@ -210,8 +203,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_labels">
-						<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_labels') ?>
 					</label>
 				</div>
@@ -219,8 +211,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_unreads">
-						<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_unreads'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_unreads') ?>
 					</label>
 				</div>
@@ -228,8 +219,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
-						<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>"
-							data-leave-validation="<?= $archiving['keep_min'] ?>">
+						<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" />
 					</label>
 				</div>
 			</div>

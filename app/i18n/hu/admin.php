@@ -13,10 +13,10 @@
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
-		'allow_anonymous_refresh' => 'Névtelen felhasználok frissíthetik a cikkeket',
-		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz szükséges and sharing user queries)</small>',	// DIRTY
+		'allow_anonymous_refresh' => 'Névtelen felhasználók frissíthetik a cikkeket',
+		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz és felhasználói lekérdezés megosztásához szükséges )</small>',
 		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
-		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
+		'http' => 'HTTP (haladó: Web szerver kezeli, OIDC, SSO…)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',
 		'token' => 'Fő hitelesítési token',
@@ -116,7 +116,7 @@ return array(
 		'description' => 'Leírás',
 		'disabled' => 'Kikapcsolva',
 		'empty_list' => 'Nincsenek telepített kiegészítők',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Ellenőrizd a naplókat, hogy megállapítsd az üres bővítménylista mögött meghúzódó okot.',
 		'enabled' => 'Bekapcsolva',
 		'latest' => 'Telepítve',
 		'name' => 'Név',
@@ -148,8 +148,9 @@ return array(
 		'main_stream' => 'Minden cikk',
 		'no_idle' => 'Nincsenek tétlen hírforrások!',
 		'number_entries' => '%d cikk',
+		'overview' => 'Áttekintés',
 		'percent_of_total' => '% az összesből',
-		'repartition' => 'Cikkek eloszlása',
+		'repartition' => 'Cikkek eloszlása: %s',
 		'status_favorites' => 'Kedvencek',
 		'status_read' => 'Olvasott',
 		'status_total' => 'Összes',

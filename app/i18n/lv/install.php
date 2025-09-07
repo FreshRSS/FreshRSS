@@ -18,14 +18,6 @@ return array(
 		'next_step' => 'Iet uz nākamo soli',
 		'reinstall' => 'Pārinstalēt FreshRSS',
 	),
-	'auth' => array(
-		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
-		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
-		'none' => 'Bez (bīstami)',
-		'password_form' => 'Parole<br /><small>(Web-formas pieteikšanās metodei)</small>',
-		'password_format' => 'Vismaz 7 rakstzīmes',
-		'type' => 'Autentifikācijas metode',
-	),
 	'bdd' => array(
 		'_' => 'Datubāze',
 		'conf' => array(
