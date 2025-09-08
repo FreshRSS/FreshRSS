@@ -490,6 +490,10 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'munderover' => ['accent', 'accentunder'],
 		// TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	]);
+	$simplePie->strip_attributes([
+		'data-auto-leave-validation', 'data-leave-validation', 'data-original',
+		'data-type', 'data-no-leave-validation', 'data-form', 'data-help', 'data-method', 'data-field', 'data-unread', 'data-url', 'data-input',
+	]);
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
 		'iframe' => [

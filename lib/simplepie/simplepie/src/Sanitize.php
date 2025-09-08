@@ -484,6 +484,16 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                if ($this->rename_attributes) {
+                    foreach ($this->rename_attributes as $attrib) {
+                        $this->rename_attr($attrib, $xpath);
+                    }
+                }
+
+                if ($this->whitelist_tags) {
+                    $this->enforce_whitelist($xpath, $document);
+                }
+
                 // Strip out HTML tags and attributes that might cause various security problems.
                 // Based on recommendations by Mark Pilgrim at:
                 // https://web.archive.org/web/20110902041826/http://diveintomark.org:80/archives/2003/06/12/how_to_consume_rss_safely
@@ -493,20 +503,10 @@ class Sanitize implements RegistryAware
                     }
                 }
 
-                if ($this->rename_attributes) {
-                    foreach ($this->rename_attributes as $attrib) {
-                        $this->rename_attr($attrib, $xpath);
-                    }
-                }
-
                 if ($this->strip_attributes) {
                     foreach ($this->strip_attributes as $attrib) {
                         $this->strip_attr($attrib, $xpath);
                     }
-                }
-
-                if ($this->whitelist_tags) {
-                    $this->enforce_whitelist($xpath, $document);
                 }
 
                 if ($this->add_attributes) {
@@ -680,8 +680,7 @@ class Sanitize implements RegistryAware
                 $this->strip_tag($tag, $document, $xpath, SimplePie::CONSTRUCT_HTML);
                 continue;
             }
-            $added_attrs = array_keys($this->add_attributes[$tag] ?? []);
-            $allowed_attrs = array_merge($this->whitelist_tags[$tag] ?? [], $this->default_attr_whitelist, $added_attrs);
+            $allowed_attrs = array_merge($this->whitelist_tags[$tag] ?? [], $this->default_attr_whitelist);
             $attrs = $element->attributes;
             $remove = [];
             for ($i = 0; $i < $attrs->count(); $i++) {

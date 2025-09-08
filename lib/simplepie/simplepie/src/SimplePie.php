@@ -664,7 +664,7 @@ class SimplePie
     public $rename_attributes = [];
 
     /**
-     * @var array<string,array> Stores allowed tags and attributes. Should not be used together with $strip_htmltags and $strip_attributes.
+     * @var array<string,array> Stores allowed tags and attributes. Preferred over $strip_htmltags and $strip_attributes.
      * @see SimplePie::whitelist_tags()
      * @access private
      */
