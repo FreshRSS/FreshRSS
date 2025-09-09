@@ -35,7 +35,7 @@ function initTranslate(): void {
 	}
 
 	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', 'en');
+		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
 	}
 
 	Minz_Translate::reset(Minz_Session::paramString('language'));
