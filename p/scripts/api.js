@@ -19,23 +19,23 @@ const check = function (url, next) {
 		}
 	};
 	req.send();
-}
+};
 
 const pass = function (output) {
 	output.innerHTML = output.dataset.i18nPass;
-}
+};
 
 const encodingSupport = function (output) {
 	output.innerHTML = output.dataset.i18nEncodingSupport;
-}
+};
 
 const invalidConfiguration = function (output) {
 	output.innerHTML = output.dataset.i18nInvalidConfiguration;
-}
+};
 
 const unknownError = function (output, message) {
 	output.innerHTML = output.dataset.i18nUnknownError + message;
-}
+};
 
 const checkGReaderAPI = function () {
 	const output = document.getElementById('greaderOutput');
