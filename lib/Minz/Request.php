@@ -515,6 +515,6 @@ class Minz_Request {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $acceptLanguage, $matches) > 0) {
 			return $matches['lang'];
 		}
-		return ['en'];
+		return [Minz_Translate::DEFAULT_LANGUAGE];
 	}
 }
