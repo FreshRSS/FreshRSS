@@ -25,7 +25,7 @@
 <dl>
 <dt><?= _t('api.information.address') ?>
 </dt>
-<dd><?= Minz_Url::display('/api/greader.php', 'html', true) ?></dd>
+<dd><kbd><?= Minz_Url::display('/api/greader.php', 'html', true) ?></kbd></dd>
 <dt><?= _t('api.information.test.greader') ?></dt>
 <dd id="greaderOutput"
 	data-api-url="<?= Minz_Url::display('/api/greader.php', 'php', true) ?>"
@@ -39,7 +39,7 @@
 <h2><?= _t('api.information.title.fever') ?></h2>
 <dl>
 <dt><?= _t('api.information.address') ?></dt>
-<dd><?= Minz_Url::display('/api/fever.php', 'html', true) ?></dd>
+<dd><kbd><?= Minz_Url::display('/api/fever.php', 'html', true) ?></kbd></dd>
 <dt><?= _t('api.information.test.fever') ?></dt>
 <dd id="feverOutput"
 	data-api-url="<?= Minz_Url::display('/api/fever.php', 'php', true) ?>"
@@ -52,7 +52,7 @@
 <h2><?= _t('api.information.title.extension') ?></h2>
 <dl>
 <dt><?= _t('api.information.address') ?></dt>
-<dd><?= Minz_Url::display('/api/misc.php/Extension%20name/', 'html', true) ?></dd>
+<dd><kbd><?= Minz_Url::display('/api/misc.php/Extension%20name/', 'html', true) ?></kbd></dd>
 </dl>
 
 </body>
