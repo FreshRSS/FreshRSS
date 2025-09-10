@@ -34,6 +34,11 @@ echo json_encode([
 		],
 		'max_favicon_upload_size' => FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'],
 		'version' => FRESHRSS_VERSION,
+		'closeNotification' => [
+			'good' => 0,
+			'bad' => 8000,
+			'mouseLeave' => 3000,
+		],
 	],
 	'shortcuts' => [
 		'actualize' => $s['actualize'] ?? '',
