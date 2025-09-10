@@ -101,9 +101,9 @@ return array(
 	),
 	'mark_read_button' => array(
 		'_' => '“全部标记为已读”按钮',	// DIRTY
-		'big' => '大',	// TODO
-		'none' => '无',	// TODO
-		'small' => '小',	// TODO
+		'big' => '大',
+		'none' => '无',
+		'small' => '小',
 	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
