@@ -106,7 +106,7 @@ return array(
 		'small' => 'Klein',
 	),
 	'privacy' => array(
-		'_' => 'Privacy',
+		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Extensielijst ophalen',
 	),
 	'profile' => array(

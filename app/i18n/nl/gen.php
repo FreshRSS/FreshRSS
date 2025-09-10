@@ -196,7 +196,7 @@ return array(
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
 		'logs' => 'Log boeken',
-		'privacy' => 'Privacy',
+		'privacy' => 'Privacy',	// IGNORE
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',
 		'search' => 'Zoek woorden of #labels',

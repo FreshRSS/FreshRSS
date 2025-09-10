@@ -240,7 +240,7 @@ return array(
 			'forced' => '<span title="Blokkeer de uniciteitscriteria, zelfs wanneer de feed dubbele artikelen bevat">geforceerd</span>',
 			'help' => 'Relevant voor ongeldige feeds.<br />⚠️ Het beleid wijzigen creëert duplicaten.',
 			'id' => 'Standaard-ID (default)',
-			'link' => 'Link',
+			'link' => 'Link',	// IGNORE
 			'sha1:content' => 'Inhoud',
 			'sha1:content_published' => 'Inhoud + Datum',
 			'sha1:link_published' => 'Link + Datum',

@@ -17,8 +17,8 @@ return array(
 		'bug_reports' => array(
 			'environment_information' => array(
 				'_' => 'Systeeminformatie',
-				'browser' => 'Browser',
-				'database' => 'Database',
+				'browser' => 'Browser',	// IGNORE
+				'database' => 'Database',	// IGNORE
 				'server_software' => 'Serversoftware',
 				'version_curl' => 'cURL-versie',
 				'version_frss' => 'FreshRSS-versie',
