@@ -107,7 +107,7 @@ return array(
 	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => '获取扩展列表',	// TODO
+		'retrieve_extension_list' => '获取扩展列表',
 	),
 	'profile' => array(
 		'_' => '账户管理',
