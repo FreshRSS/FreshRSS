@@ -153,7 +153,7 @@ return array(
 		'get_Z' => 'Tous les flux, y compris les archivés',
 		'get_all' => 'Afficher tous les articles',
 		'get_all_labels' => 'Afficher les articles avec une étiquette',
-		'get_category' => 'Afficher la catégorie <em>%s<em>',
+		'get_category' => 'Afficher la catégorie <em>{0}<em>',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux <em>%s</em>',
 		'get_important' => 'Afficher les articles des flux importants',
@@ -182,22 +182,24 @@ return array(
 			'opml' => 'Lien partageable de la liste des flux au format OPML',
 			'rss' => 'Lien partageable du flux RSS',
 		),
-		'state_0' => 'Afficher tous les articles',
-		'state_1' => 'Afficher les articles lus',
-		'state_2' => 'Afficher les articles non lus',
-		'state_3' => 'Afficher tous les articles',
-		'state_4' => 'Afficher les articles favoris',
-		'state_5' => 'Afficher les articles lus et favoris',
-		'state_6' => 'Afficher les articles non lus et favoris',
-		'state_7' => 'Afficher les articles favoris',
-		'state_8' => 'Afficher les articles non favoris',
-		'state_9' => 'Afficher les articles lus et non favoris',
-		'state_10' => 'Afficher les articles non lus et non favoris',
-		'state_11' => 'Afficher les articles non favoris',
-		'state_12' => 'Afficher tous les articles',
-		'state_13' => 'Afficher les articles lus',
-		'state_14' => 'Afficher les articles non lus',
-		'state_15' => 'Afficher tous les articles',
+		'state' => 'Afficher {0, plural,
+			=0{tous les articles}
+			=1{les articles lus}
+			=2{les articles non lus}
+			=3{tous les articles}
+			=4{les articles favoris}
+			=5{les articles lus et favoris}
+			=6{les articles non lus et favoris}
+			=7{les articles favoris}
+			=8{les articles non favoris}
+			=9{les articles lus et non favoris}
+			=10{les articles non lus et non favoris}
+			=11{les articles non favoris}
+			=12{tous les articles}
+			=13{les articles lus}
+			=14{les articles non lus}
+			=15{tous les articles}
+			other{}}',
 		'title' => 'Filtres utilisateurs',
 	),
 	'reading' => array(

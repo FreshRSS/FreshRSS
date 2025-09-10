@@ -48,7 +48,7 @@
 							<?php } ?>
 
 							<?php if ($query->getState()) { ?>
-							<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
+							<li class="item"><?= _t('conf.query.state', $query->getState()) ?></li>
 							<?php } ?>
 
 							<?php if ($query->getOrder() !== '') { ?>

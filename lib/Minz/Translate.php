@@ -249,8 +249,7 @@ class Minz_Translate {
 			}
 		}
 
-		// Get the facultative arguments to replace i18n variables.
-		return empty($args) ? $translation_value : vsprintf($translation_value, $args);
+		return msgfmt_format_message(self::language(), $translation_value, $args);
 	}
 
 	/**
