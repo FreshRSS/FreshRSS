@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s kan niet worden ingeschakeld. <a href="%s">Controleer FreshRSS log bestanden</a> voor details.',
 			'ok' => '%s is nn ingeschakeld',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Ongeldige weergavemodus “%s”! Er wordt teruggevallen op “Normale weergave”.',
 		'no_access' => 'U hebt geen toegang voor %s',
 		'not_enabled' => '%s is nog niet ingeschakeld',
 		'not_found' => '%s bestaat niet',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Wachtwoorden komen niet overeen',
 		'updated' => 'Uw profiel is aangepast',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Feed verwijderd',
 			'error' => 'Feed kan niet worden vernieuwd',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'Geüpload pictogram is te groot. De maximale bestandsgrootte is <em>%s</em>.',
+				'unsupported_format' => 'Niet-ondersteund afbeeldingsbestandsformaat!',
 			),
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
