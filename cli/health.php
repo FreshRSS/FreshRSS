@@ -26,6 +26,6 @@ curl_setopt_array($ch, [
 $content = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-if ($httpCode !== 200 || !is_string($content) || !str_contains($content, 'jsonVars')) {
+if ($httpCode !== 200 || !is_string($content) || !str_contains($content, 'jsonVars') || !str_contains($content, '</html>')) {
 	die(1);
 }
