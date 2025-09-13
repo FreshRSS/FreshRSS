@@ -22,7 +22,6 @@ return array(
 		'token' => 'Todentamisen päätunnisteväline',
 		'token_help' => 'Sallii käyttäjän kaikkien RSS-tulosteiden käyttämisen sekä syötteiden päivityksen ilman todennusta:',
 		'type' => 'Todentamismenetelmä',
-		'unsafe_autologin' => 'Salli suojaamaton automaattinen sisäänkirjaus: ',
 	),
 	'check_install' => array(
 		'cache' => array(

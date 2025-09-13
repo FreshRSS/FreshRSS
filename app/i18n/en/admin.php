@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master authentication token',
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',
 		'type' => 'Authentication method',
-		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
 	'check_install' => array(
 		'cache' => array(

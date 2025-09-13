@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master-Authentifizierungs-Token',
 		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
-		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
 	'check_install' => array(
 		'cache' => array(

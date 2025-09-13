@@ -22,7 +22,6 @@ return array(
 		'token' => 'Hlavný prihlasovací token',
 		'token_help' => 'Povoľuje prístup k všetkým RSS výstupom, a tiež k obnove kanálov bez prihlásenia:',
 		'type' => 'Spôsob prihlásenia',
-		'unsafe_autologin' => 'Povoliť nebezpečné automatické prihlásenie pomocou webového formulára: ',
 	),
 	'check_install' => array(
 		'cache' => array(

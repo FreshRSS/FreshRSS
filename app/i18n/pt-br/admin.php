@@ -22,7 +22,6 @@ return array(
 		'token' => 'Token de autenticação principal',
 		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
-		'unsafe_autologin' => 'Permitir login automático inseguro usando o seguinte formato: ',
 	),
 	'check_install' => array(
 		'cache' => array(

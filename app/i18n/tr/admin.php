@@ -22,7 +22,6 @@ return array(
 		'token' => 'Ana kimlik doğrulama belirteci',
 		'token_help' => 'Kullanıcının tüm RSS çıktılarına ve beslemeleri kimlik doğrulaması olmadan yenilemeye erişim sağlar:',
 		'type' => 'Kimlik doğrulama yöntemi',
-		'unsafe_autologin' => 'Güvenli olmayan otomatik girişe izin ver; şu formatı kullan: ',
 	),
 	'check_install' => array(
 		'cache' => array(

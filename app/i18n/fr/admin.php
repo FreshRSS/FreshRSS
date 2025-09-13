@@ -22,7 +22,6 @@ return array(
 		'token' => 'Jeton d’identification maître',
 		'token_help' => 'Permet d’accéder à toutes les sorties RSS de l’utilisateur et au rafraîchissement des flux sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
-		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
 	'check_install' => array(
 		'cache' => array(

@@ -22,7 +22,6 @@ return array(
 		'token' => 'Główny token uwierzytelniania',
 		'token_help' => 'Umożliwia dostęp do wszystkich kanałów RSS użytkownika, jak również odświeżanie kanałów bez uwierzytelnienia:',
 		'type' => 'Metoda uwierzytelniania',
-		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem: ',
 	),
 	'check_install' => array(
 		'cache' => array(
