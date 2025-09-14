@@ -315,6 +315,10 @@ a:hover .icon {
 	filter: brightness(1.1);
 }
 
+.btn.active, .btn:active {
+	filter: brightness(0.95);
+}
+
 .btn.active .icon,
 .btn:active .icon {
 	filter: brightness(1.1);

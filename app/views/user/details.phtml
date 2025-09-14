@@ -9,7 +9,7 @@
 	$enabled = $this->details['enabled'];
 ?>
 <div class="post">
-	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
+	<h2><?= $this->username ?><?= $isAdmin ? ' ― ' . _t('admin.user.admin') : '' ?></h2>
 	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
 

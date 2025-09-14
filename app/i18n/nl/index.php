@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Systeeminformatie',
+				'browser' => 'Browser',	// IGNORE
+				'database' => 'Database',	// IGNORE
+				'server_software' => 'Serversoftware',
+				'version_curl' => 'cURL-versie',
+				'version_frss' => 'FreshRSS-versie',
+				'version_php' => 'PHP-versie',
 			),
 		),
 		'bugs_reports' => 'Rapporteer fouten',
@@ -37,9 +37,9 @@ return array(
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'before_yesterday' => 'Ontvangen vóór gisteren',
+			'today' => 'Vandaag ontvangen',
+			'yesterday' => 'Gisteren ontvangen',
 		),
 		'rss_of' => 'RSS-feed van %s',
 		'title' => 'Overzicht',
