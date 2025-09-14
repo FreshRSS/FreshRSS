@@ -410,9 +410,9 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'meter' => ['value', 'min', 'max', 'low', 'high', 'optimum'],
 		'nav' => [],
 		'nobr' => [],
-		'noembed' => [],
+		// 'noembed' => [], // <embed> is not allowed, so we want to display the contents of <noembed>
 		'noframes' => [],
-		'noscript' => [],
+		// 'noscript' => [], // From the perspective of the feed content, JS isn't allowed so we want to display the contents of <noscript>
 		'ol' => ['reversed', 'start', 'type'],
 		'optgroup' => ['disabled', 'label'],
 		'option' => ['disabled', 'label', 'selected', 'value'],
