@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use PHPMailer\PHPMailer\PHPMailer;
+
 final class PHPMailerTest extends \PHPUnit\Framework\TestCase
 {
 	public static function testPHPMailerClassExists(): void {
