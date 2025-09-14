@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Atļaut barotnes serverim iestatīt sīkfailus (atmiņā tiek saglabāti tikai uz pieprasījuma laiku).',
 		'add' => 'Pievienot barotni',
 		'advanced' => 'Advancēts',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Arhivēšana',
 		'auth' => array(
 			'configuration' => 'Pieteikšanās',

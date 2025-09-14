@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'Add a feed',	// TODO
 		'advanced' => 'Advanced',	// TODO
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archiving',	// TODO
 		'auth' => array(
 			'configuration' => 'Login',	// TODO

@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'De feed-server toestaan cookies te plaatsen (die alleen voor de duur van de aanvraag in het geheugen worden opgeslagen)',
 		'add' => 'Voeg een feed toe',
 		'advanced' => 'Geavanceerd',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archiveren',
 		'auth' => array(
 			'configuration' => 'Log in',

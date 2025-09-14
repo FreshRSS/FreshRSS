@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Permitir que o servidor de Feed defina os cookies (sarmazenados na memória apenas durante a solicitação)',
 		'add' => 'Adicionar um feed',
 		'advanced' => 'Avançado',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Arquivar',
 		'auth' => array(
 			'configuration' => 'Entrar',

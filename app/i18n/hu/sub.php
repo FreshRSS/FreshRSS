@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Engedélyezze hogy a hírforrás szerver beállíthasson sütiket (memóriában lesznek tárolva a kapcsolat idejére)',
 		'add' => 'hírforrás hozzáadása',
 		'advanced' => 'Haladó',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archiválás',
 		'auth' => array(
 			'configuration' => 'Bejelentkezés',

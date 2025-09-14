@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Povolit serveru feedu nastavit soubory cookie (uložené v paměti pouze po dobu trvání požadavku).',
 		'add' => 'Přidat kanál',
 		'advanced' => 'Rozšířené',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archivace',
 		'auth' => array(
 			'configuration' => 'Přihlášení',

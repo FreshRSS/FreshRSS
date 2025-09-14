@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => '允許提要伺服器設置 Cookies（僅在請求期間存儲在內存中）',
 		'add' => '添加訂閱源',
 		'advanced' => '高級',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => '歸檔',
 		'auth' => array(
 			'configuration' => '認證',

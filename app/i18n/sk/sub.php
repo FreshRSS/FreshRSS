@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Povoliť serveru kanála nastaviť cookies (uložené v pamäti iba počas dopytu)',
 		'add' => 'Pridať kanál',
 		'advanced' => 'Pokročilé',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archivovanie',
 		'auth' => array(
 			'configuration' => 'Prihlásenie',

@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Besleme sunucusunun çerez ayarlamasına izin ver (yalnızca istek süresince bellekte saklanır).',
 		'add' => 'Besleme ekle',
 		'advanced' => 'Gelişmiş',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Arşivleme',
 		'auth' => array(
 			'configuration' => 'Giriş',

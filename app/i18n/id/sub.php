@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Perbolehkan peladen umpan untuk mengirimkan kuki (hanya disimpan di memori selama durasi permintaan)',
 		'add' => 'Tambah umpan',
 		'advanced' => 'Lebih lanjut',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Pengarsipan',
 		'auth' => array(
 			'configuration' => 'Masuk',

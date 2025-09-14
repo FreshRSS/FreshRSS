@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Permetre al servidor del flux de definir de cookies (gardatz en memòria pendent la durada de la requèsta sonque)',
 		'add' => 'Ajustar un flux',
 		'advanced' => 'Avançat',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archivar',
 		'auth' => array(
 			'configuration' => 'Identificacion',

@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => '피드 서버가 쿠키를 사용하도록 허용 (요청 지속 기간 동안에만 메모리에 저장)',
 		'add' => '피드 추가',
 		'advanced' => '고급 설정',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => '보관',
 		'auth' => array(
 			'configuration' => '로그인',

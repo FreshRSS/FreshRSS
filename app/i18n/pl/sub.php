@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Pozwól serwerowi kanału na użycie ciasteczek (będą przechowywane w pamięci tylko na czas zapytania)',
 		'add' => 'Dodaj kanał',
 		'advanced' => 'Zaawansowane',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archiwizacja',
 		'auth' => array(
 			'configuration' => 'Uwierzytelnianie',

@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Salli syötepalvelimen määrittää evästeitä (tallennetaan vain pyynnön käsittelyn ajaksi)',
 		'add' => 'Lisää syöte',
 		'advanced' => 'Lisäasetukset',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Arkistointi',
 		'auth' => array(
 			'configuration' => 'Sisäänkirjaus',

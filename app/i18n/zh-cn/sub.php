@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => '允许订阅源服务器设置 Cookies（仅在请求期间存储在内存中）',
 		'add' => '添加订阅源',
 		'advanced' => '高级',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => '归档',
 		'auth' => array(
 			'configuration' => '认证',

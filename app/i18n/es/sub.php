@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Permitir que el servidor de fuentes configure las cookies (guardadas en memoria únicamente para el tiempo de vida de la solicitud)',
 		'add' => 'Añadir fuente',
 		'advanced' => 'Avanzado',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Archivo',
 		'auth' => array(
 			'configuration' => 'Identificación',

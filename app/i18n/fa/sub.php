@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => ' به سرور فید اجازه دهید تا کوکی ها را تنظیم کند (فقط برای مدت زمان درخواست در حافظه ذخیره می شود)',
 		'add' => ' یک فید اضافه کنید',
 		'advanced' => ' پیشرفته',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => ' بایگانی',
 		'auth' => array(
 			'configuration' => ' ورود',

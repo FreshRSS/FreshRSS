@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Дозволити серверу стрічки призначати кукі (зберігаються в памʼяті лише на час запиту)',
 		'add' => 'Додати стрічку',
 		'advanced' => 'Особливості',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Архівування',
 		'auth' => array(
 			'configuration' => 'Авторизація',

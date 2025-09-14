@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
 		'add' => 'הוספת הזנה',
 		'advanced' => 'מתקדם',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'ארכוב',
 		'auth' => array(
 			'configuration' => 'כניסה לחשבון',

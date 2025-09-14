@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
 		'add' => 'Добавить ленту',
 		'advanced' => 'Дополнительно',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Архивирование',
 		'auth' => array(
 			'configuration' => 'Логин',

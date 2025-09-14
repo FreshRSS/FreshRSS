@@ -42,6 +42,7 @@ return array(
 		'accept_cookies_help' => 'クッキーをこのサーバーから受け入れます(このリクエストだけにメモリへ保存されます)',
 		'add' => 'フィードに追加する',
 		'advanced' => '高度な設定',
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'アーカイブ',
 		'auth' => array(
 			'configuration' => 'ログイン',
