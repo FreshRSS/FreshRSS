@@ -410,6 +410,9 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'meter' => ['value', 'min', 'max', 'low', 'high', 'optimum'],
 		'nav' => [],
 		'nobr' => [],
+		'noembed' => [],
+		'noframes' => [],
+		'noscript' => [],
 		'ol' => ['reversed', 'start', 'type'],
 		'optgroup' => ['disabled', 'label'],
 		'option' => ['disabled', 'label', 'selected', 'value'],
@@ -454,6 +457,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'var' => [],
 		'video' => ['src', 'poster', 'controlslist', 'height', 'loop', 'muted', 'playsinline', 'width'],
 		'wbr' => [],
+		'xmp' => [],
 		'blink' => [],
 		// MathML
 		'math' => ['display'],
