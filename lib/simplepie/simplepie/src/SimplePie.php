@@ -664,14 +664,14 @@ class SimplePie
     public $rename_attributes = [];
 
     /**
-     * @var array<string,array> Stores allowed tags and attributes. Preferred over $strip_htmltags and $strip_attributes.
+     * @var array<string,string[]> Stores allowed tags and attributes. Preferred over $strip_htmltags and $strip_attributes.
      * @see SimplePie::whitelist_tags()
      * @access private
      */
     public $whitelist_tags = [];
 
     /**
-     * @var array<string,array> Stores array of default allowed attributes.
+     * @var string[] Stores array of default allowed attributes.
      * @see SimplePie::default_attr_whitelist()
      * @access private
      */
@@ -1539,7 +1539,7 @@ class SimplePie
     }
 
     /**
-     * @param array<string,array> $tags Set array of allowed tags and attributes.
+     * @param array<string,string[]> $tags Set array of allowed tags and attributes.
      * @return void
      */
     public function whitelist_tags(array $tags = [])
@@ -1548,7 +1548,7 @@ class SimplePie
     }
 
     /**
-     * @param array<string,array> $tags Set default array of allowed attributes.
+     * @param string[] $attrs Set default array of allowed attributes.
      * @return void
      */
     public function default_attr_whitelist(array $attrs = [])

@@ -50,7 +50,7 @@ class Sanitize implements RegistryAware
     public $strip_attributes = ['bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'];
     /** @var string[] */
     public $rename_attributes = [];
-    /** @var array<string, array> */
+    /** @var array<string, string[]> */
     public $whitelist_tags = [];
     /** @var string[] */
     public $default_attr_whitelist = [];
@@ -241,7 +241,7 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param array<string,array> $tags Set array of allowed tags and attributes.
+     * @param array<string,string[]> $tags Set array of allowed tags and attributes.
      * @return void
      */
     public function whitelist_tags(array $tags = [])
@@ -252,7 +252,7 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param array<string,array> $tags Set default array of allowed attributes.
+     * @param string[] $attrs Set default array of allowed attributes.
      * @return void
      */
     public function default_attr_whitelist(array $attrs = [])
@@ -670,8 +670,16 @@ class Sanitize implements RegistryAware
     /**
      * @return void
      */
-    protected function enforce_whitelist(DOMXPath $xpath, DOMDocument $document) {
+    protected function enforce_whitelist(DOMXPath $xpath, DOMDocument $document)
+    {
         $elements = $xpath->query('body//*');
+        if ($elements === false) {
+            throw new \SimplePie\Exception(sprintf(
+                '%s(): Possibly malformed expression',
+                __METHOD__
+            ), 1);
+        }
+        /** @var \DOMElement $element */
         foreach ($elements as $element) {
             $tag = $element->tagName;
             $is_custom_element = str_contains($tag, '-');
