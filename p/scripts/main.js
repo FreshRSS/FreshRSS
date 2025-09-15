@@ -1814,14 +1814,20 @@ function openNotification(msg, status) {
 	}
 	notification_working = true;
 	notification.querySelector('.msg').innerHTML = msg;
-	notification.className = 'notification';
-	notification.classList.add(status);
+
+
 	if (status == 'good') {
-		notification_interval = setTimeout(closeNotification, context.closeNotification.good);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
+		}
 	} else {
 		// no status or f.e. status = 'bad', give some more time to read
-		notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
+		}
 	}
+	notification.className = 'notification';
+	notification.classList.add(status);
 }
 
 function closeNotification() {
