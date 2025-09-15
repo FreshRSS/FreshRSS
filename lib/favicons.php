@@ -18,7 +18,6 @@ function isImgMime(string $content): bool {
 	}
 	$content = finfo_buffer($fInfo, $content);
 	$isImage = str_contains($content ?: '', 'image');
-	finfo_close($fInfo);
 	return $isImage;
 }
 

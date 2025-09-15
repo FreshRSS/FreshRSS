@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML kategori adı',
 		'delete_label' => 'Etiketi sil',
 		'feed_management' => 'RSS besleme yönetimi',
-		'rename_label' => 'Etiketi yeniden adlandır',
 		'subscription_tools' => 'Abonelik araçları',
 	),
 );

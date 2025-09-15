@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Artikkelitoiminnot',
 		'auto_share' => 'Jaa',
 		'auto_share_help' => 'Jos jakamistapoja on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa jakamistavan voi valita numerolla.',
-		'close_dropdown' => 'Sulje valikot',
+		'close_menus' => 'Sulje valikot',
 		'collapse_article' => 'Sulje',
 		'first_article' => 'Avaa ensimmäinen artikkeli',
 		'focus_search' => 'Siirry hakukenttään',

@@ -242,7 +242,7 @@ class Parser
     public function encoding_value(): void
     {
         if ($encoding = $this->get_value()) {
-            $this->encoding = $encoding;
+            $this->encoding = strtoupper($encoding);
             $this->skip_whitespace();
             if ($this->has_data()) {
                 $this->state = self::STATE_STANDALONE_NAME;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 final class FreshRSS_SimplePieResponse extends \SimplePie\File
 {
 	#[\Override]
-	protected function on_http_response(string|false $response = ''): void {
+	protected function on_http_response($response): void {
 		syslog(LOG_INFO, 'FreshRSS SimplePie GET ' . $this->get_status_code() . ' ' . \SimplePie\Misc::url_remove_credentials($this->get_final_requested_uri()));
 
 		if (in_array($this->get_status_code(), [429, 503], true)) {
@@ -19,6 +19,9 @@ final class FreshRSS_SimplePieResponse extends \SimplePie\File
 			if ($retryAfter > 0) {
 				$domain = parse_url($this->get_final_requested_uri(), PHP_URL_HOST);
 				if (is_string($domain) && $domain !== '') {
+					if (is_int($port = parse_url($this->get_final_requested_uri(), PHP_URL_PORT))) {
+						$domain .= ':' . $port;
+					}
 					$errorMessage = 'Will retry after ' . date('c', $retryAfter) . ' for domain `' . $domain . '`';
 					Minz_Log::notice($errorMessage);
 				}

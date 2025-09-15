@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 function get_absolute_filename(string $file_name): string {
 	$core_extension = realpath(CORE_EXTENSIONS_PATH . '/' . $file_name);
@@ -94,6 +94,8 @@ if (!is_valid_path($absolute_filename)) {
 $content_type = FreshRSS_extension_Controller::MIME_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 
 $mtime = @filemtime($absolute_filename);
@@ -101,8 +103,8 @@ if ($mtime === false) {
 	sendNotFoundResponse();
 }
 
-require(LIB_PATH . '/http-conditional.php');
+require LIB_PATH . '/http-conditional.php';
 
-if (!httpConditional($mtime, 604800, 2)) {
+if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, 604800, 2)) {
 	readfile($absolute_filename);
 }

@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 const MAX_PAYLOAD = 3_145_728;
 
 header('Content-Type: text/plain; charset=UTF-8');
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
 header('X-Content-Type-Options: nosniff');
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, MAX_PAYLOAD) ?: '';

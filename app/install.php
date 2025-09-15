@@ -7,7 +7,7 @@ if (function_exists('opcache_reset')) {
 header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
 
-require(LIB_PATH . '/lib_install.php');
+require LIB_PATH . '/lib_install.php';
 
 Minz_Session::init('FreshRSS');
 
@@ -35,7 +35,7 @@ function initTranslate(): void {
 	}
 
 	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', 'en');
+		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
 	}
 
 	Minz_Translate::reset(Minz_Session::paramString('language'));
@@ -144,7 +144,7 @@ function saveStep2(): void {
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
-			$customConfig = include($customConfigPath);
+			$customConfig = include $customConfigPath;
 			if (is_array($customConfig)) {
 				$config_array = array_merge($customConfig, $config_array);
 				if (!is_string($config_array['default_user'] ?? null)) {

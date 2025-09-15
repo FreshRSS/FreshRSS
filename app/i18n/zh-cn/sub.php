@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => '删除标签',
 		'feed_management' => '订阅源管理',
-		'rename_label' => '重命名标签',
 		'subscription_tools' => '订阅工具',
 	),
 );

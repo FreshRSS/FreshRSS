@@ -321,7 +321,7 @@ return array(
 		'article_action' => '글 관련 동작',
 		'auto_share' => '공유',
 		'auto_share_help' => '공유 옵션이 하나만 설정되어 있다면 해당 공유 옵션을 사용하고, 그렇지 않다면 공유 옵션을 번호로 선택할 수 있습니다.',
-		'close_dropdown' => '메뉴 닫기',
+		'close_menus' => '메뉴 닫기',
 		'collapse_article' => '접기',
 		'first_article' => '첫 글 보기',
 		'focus_search' => '검색창 사용하기',

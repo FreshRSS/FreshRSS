@@ -813,7 +813,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$applyLabels = [];
-		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll($nbNewEntries)) as $entry) {
+		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll(order: 'DESC', limit: $nbNewEntries)) as $entry) {
 			foreach ($labels as $label) {
 				$label->applyFilterActions($entry, $applyLabel);
 				if ($applyLabel) {
@@ -861,6 +861,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 		if ($entryDAO->inTransaction()) {
 			$entryDAO->commit();
+		}
+		if (rand(0, 30) === 1) {	// Remove old cache once in a while
+			cleanCache(CLEANCACHE_HOURS);
 		}
 		return [$nbUpdatedFeeds, $feed, $nbNewArticles, $feedsCacheToRefresh];
 	}

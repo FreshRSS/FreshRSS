@@ -50,7 +50,7 @@ return array(
 			'ko' => 'Rozszerzenie %s nie może zostać włączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
 			'ok' => 'Rozszerzenie %s zostało włączone',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Nieprawidłowy tryb widoku “%s”! Powrót do widoku normalnego.',
 		'no_access' => 'Brak dostępu do %s',
 		'not_enabled' => 'Rozszerzenie %s nie jest włączone',
 		'not_found' => 'Rozszerzenie %s nie istnieje',

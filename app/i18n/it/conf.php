@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Azioni sugli articoli',
 		'auto_share' => 'Condividi',
 		'auto_share_help' => 'Se è presente un solo servizio di condivisione verrà usato quello, altrimenti usare anche il numero associato.',
-		'close_dropdown' => 'Chiudi menù',
+		'close_menus' => 'Chiudi menù',
 		'collapse_article' => 'Collassa articoli',
 		'first_article' => 'Salta al primo articolo',
 		'focus_search' => 'Modulo di ricerca',

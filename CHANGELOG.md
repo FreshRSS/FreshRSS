@@ -2,7 +2,61 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2025-0X-XX FreshRSS 1.26.4-dev
+## 2025-XX-XX FreshRSS 1.27.1-dev
+
+* Features
+	* Automatic database recovery: skip broken entries during CLI export/import [#7949](https://github.com/FreshRSS/FreshRSS/pull/7949)
+* Security
+	* Regenerate session ID on login [#7829](https://github.com/FreshRSS/FreshRSS/pull/7829)
+	* Disallow setting non-existent language [#7878](https://github.com/FreshRSS/FreshRSS/pull/7878), [#7934](https://github.com/FreshRSS/FreshRSS/pull/7934)
+	* Fix log CR/LF injection [#7883](https://github.com/FreshRSS/FreshRSS/pull/7883)
+* Bug fixing
+	* Include port number for HTTP `Retry-After` [#7875](https://github.com/FreshRSS/FreshRSS/pull/7875)
+	* Fix logic for searching labels [#7863](https://github.com/FreshRSS/FreshRSS/pull/7863)
+	* Fix cURL response parsing for HTTP redirections [#7866](https://github.com/FreshRSS/FreshRSS/pull/7866)
+	* Fix fetching OPML URL with special characters [#7843](https://github.com/FreshRSS/FreshRSS/pull/7843)
+	* Fix validation when creating a new user label [#7890](https://github.com/FreshRSS/FreshRSS/pull/7890)
+	* Fix displaying of current date in main statistics [#7892](https://github.com/FreshRSS/FreshRSS/pull/7892)
+	* Fix default values on stat processing [#7891](https://github.com/FreshRSS/FreshRSS/pull/7891)
+	* Fix UI JavaScript error when navigating to last article with keyboard [#7957](https://github.com/FreshRSS/FreshRSS/pull/7957)
+	* Fixes for `no-cache.txt` [#7907](https://github.com/FreshRSS/FreshRSS/pull/7907)
+	* Fix Docker Traefik `.yml` and `SERVER_DNS` example [#7858](https://github.com/FreshRSS/FreshRSS/pull/7858)
+* SimplePie
+	* Upstream contribution: Normalize encoding uppercase [simplepie#936](https://github.com/simplepie/simplepie/pull/936), [#7967](https://github.com/FreshRSS/FreshRSS/pull/7967)
+	* Sync upstream, including bump to 1.9.0 with better PHP 8.5+ support [#7955](https://github.com/FreshRSS/FreshRSS/pull/7955)
+* Deployment
+	* Docker improve `CMD` compatibility [#7861](https://github.com/FreshRSS/FreshRSS/pull/7861)
+	* Add possibility of Docker healthcheck [#7945](https://github.com/FreshRSS/FreshRSS/pull/7945)
+* UI
+	* Improve leave validation [#7830](https://github.com/FreshRSS/FreshRSS/pull/7830)
+	* Improve *Origine* theme visibility of toggle buttons [#7956](https://github.com/FreshRSS/FreshRSS/pull/7956)
+	* Improve *Mapco* and *Ansum* themes: read all button in mobile view [#7873](https://github.com/FreshRSS/FreshRSS/pull/7873)
+	* Improve *Swage* theme [#7608](https://github.com/FreshRSS/FreshRSS/pull/7608)
+	* Use standard CSS `overflow-wrap` instead of `word-wrap` [#7898](https://github.com/FreshRSS/FreshRSS/pull/7898)
+	* Various UI and style improvements: [#7868](https://github.com/FreshRSS/FreshRSS/pull/7868), [#7872](https://github.com/FreshRSS/FreshRSS/pull/7872),
+		[#7882](https://github.com/FreshRSS/FreshRSS/pull/7882), [#7893](https://github.com/FreshRSS/FreshRSS/pull/7893), [#7904](https://github.com/FreshRSS/FreshRSS/pull/7904),
+		[#7952](https://github.com/FreshRSS/FreshRSS/pull/7952)
+* I18n
+	* Translate the API information page [#7922](https://github.com/FreshRSS/FreshRSS/pull/7922)
+	* Add a default language constant [#7933](https://github.com/FreshRSS/FreshRSS/pull/7933)
+	* Label config delete label [#7871](https://github.com/FreshRSS/FreshRSS/pull/7871)
+	* Add Ukrainian [#7961](https://github.com/FreshRSS/FreshRSS/pull/7961)
+	* Improve Dutch [#7940](https://github.com/FreshRSS/FreshRSS/pull/7940)
+	* Improve Japanese [#7903](https://github.com/FreshRSS/FreshRSS/pull/7903), [#7918](https://github.com/FreshRSS/FreshRSS/pull/7918)
+	* Improve Polish [#7963](https://github.com/FreshRSS/FreshRSS/pull/7963)
+	* Improve Simplified Chinese [#7943](https://github.com/FreshRSS/FreshRSS/pull/7943)
+	* Minor improvements [#7881](https://github.com/FreshRSS/FreshRSS/pull/7881)
+	* Add CLI command to add i18n file [#7917](https://github.com/FreshRSS/FreshRSS/pull/7917)
+	* Add `make` target to generate the translation progress [#7905](https://github.com/FreshRSS/FreshRSS/pull/7905)
+* Misc.
+	* Improve `make` [#7901](https://github.com/FreshRSS/FreshRSS/pull/7901)
+	* Improve PHP code [#7906](https://github.com/FreshRSS/FreshRSS/pull/7906), [#7916](https://github.com/FreshRSS/FreshRSS/pull/7916), [#7939](https://github.com/FreshRSS/FreshRSS/pull/7939),
+		[#7941](https://github.com/FreshRSS/FreshRSS/pull/7941), [#7960](https://github.com/FreshRSS/FreshRSS/pull/7960)
+	* Update dev dependencies [#7902](https://github.com/FreshRSS/FreshRSS/pull/7902), [#7895](https://github.com/FreshRSS/FreshRSS/pull/7895), [#7896](https://github.com/FreshRSS/FreshRSS/pull/7896),
+		[#7899](https://github.com/FreshRSS/FreshRSS/pull/7899), [#7966](https://github.com/FreshRSS/FreshRSS/pull/7966)
+
+
+## 2025-08-18 FreshRSS 1.27.0
 
 * Features
 	* Implement support for HTTP `429 Too Many Requests` and `503 Service Unavailable`, obey `Retry-After` [#7760](https://github.com/FreshRSS/FreshRSS/pull/7760)
@@ -16,9 +70,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* API add support for states in `s` parameter of `streamId` [#7695](https://github.com/FreshRSS/FreshRSS/pull/7695)
 	* Improve sharing via Print [#7728](https://github.com/FreshRSS/FreshRSS/pull/7728)
 	* Redirect to the login page from bookmarklet instead of 403 [#7782](https://github.com/FreshRSS/FreshRSS/pull/7782)
+	* Clean local cache more often, when refreshing feeds [#7827](https://github.com/FreshRSS/FreshRSS/pull/7827)
 * Security
 	* Implement reauthentication (*sudo* mode) [#7753](https://github.com/FreshRSS/FreshRSS/pull/7753)
 	* Add `Content-Security-Policy: frame-ancestors` [#7677](https://github.com/FreshRSS/FreshRSS/pull/7677)
+	* Ensure CSP everywhere [#7810](https://github.com/FreshRSS/FreshRSS/pull/7810)
+	* Show warning when unsafe CSP policy is in use [#7804](https://github.com/FreshRSS/FreshRSS/pull/7804)
 	* Fix access rights when creating a new user [#7783](https://github.com/FreshRSS/FreshRSS/pull/7783)
 	* Improve security of form for user details [#7771](https://github.com/FreshRSS/FreshRSS/pull/7771), [#7786](https://github.com/FreshRSS/FreshRSS/pull/7786)
 	* Disallow setting non-existent theme [#7722](https://github.com/FreshRSS/FreshRSS/pull/7722)
@@ -37,18 +94,21 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix cancellation of slider exit UI [#7705](https://github.com/FreshRSS/FreshRSS/pull/7705)
 	* Honor *disable update* on update page [#7733](https://github.com/FreshRSS/FreshRSS/pull/7733)
 	* Fix no registration limit setting [#7751](https://github.com/FreshRSS/FreshRSS/pull/7751)
+	* Fix XML encoding of sharing functions [#7822](https://github.com/FreshRSS/FreshRSS/pull/7822)
 * SimplePie
 	* Fix propagation of HTTP error codes [#7670](https://github.com/FreshRSS/FreshRSS/pull/7670)
 	* Fix support for XML feeds with HTML entities [#7689](https://github.com/FreshRSS/FreshRSS/pull/7689), [simplepie#915](https://github.com/simplepie/simplepie/pull/915)
 	* Fix feeds encoded in UTF-16LE [#7691](https://github.com/FreshRSS/FreshRSS/pull/7691), [simplepie#916](https://github.com/simplepie/simplepie/pull/916)
 	* Various upstream contributions [simplepie#917](https://github.com/simplepie/simplepie/pull/917), [simplepie#924](https://github.com/simplepie/simplepie/pull/924),
 		[simplepie#926](https://github.com/simplepie/simplepie/pull/926), [simplepie#932](https://github.com/simplepie/simplepie/pull/932), [simplepie#933](https://github.com/simplepie/simplepie/pull/933)
-	* Sync upstream [#7706](https://github.com/FreshRSS/FreshRSS/pull/7706), [#7775](https://github.com/FreshRSS/FreshRSS/pull/7775)
+	* Sync upstream [#7706](https://github.com/FreshRSS/FreshRSS/pull/7706), [FreshRSS/simplepie#45](https://github.com/FreshRSS/simplepie/pull/45), [#7775](https://github.com/FreshRSS/FreshRSS/pull/7775),
+		[FreshRSS/simplepie#50](https://github.com/FreshRSS/simplepie/pull/50), [#7824](https://github.com/FreshRSS/FreshRSS/pull/7824), [#7825](https://github.com/FreshRSS/FreshRSS/pull/7825),
+	* Fix regex *Backtrack limit was exhausted* in `clean_hash()` [#7813](https://github.com/FreshRSS/FreshRSS/pull/7813), [FreshRSS/simplepie#48](https://github.com/FreshRSS/simplepie/pull/48)
 * Deployment
 	* Docker default image (Debian 12 Bookworm) updated to PHP 8.2.29 [#7805](https://github.com/FreshRSS/FreshRSS/pull/7805)
 	* Docker alternative image updated to Alpine 3.22 with PHP 8.4.11 and Apache 2.4.65 [#7740](https://github.com/FreshRSS/FreshRSS/pull/7740), [#7740](https://github.com/FreshRSS/FreshRSS/pull/7740),
 		[#7803](https://github.com/FreshRSS/FreshRSS/pull/7803)
-	* Start supporting PHP 8.5+ [#7787](https://github.com/FreshRSS/FreshRSS/pull/7787)
+	* Start supporting PHP 8.5+ [#7787](https://github.com/FreshRSS/FreshRSS/pull/7787), [#7826](https://github.com/FreshRSS/FreshRSS/pull/7826)
 		* Docker Alpine dev image `:newest` updated to PHP 8.5-alpha and Apache 2.4.65 [#7773](https://github.com/FreshRSS/FreshRSS/pull/7773)
 	* Docker: interpolate `FRESHRSS_INSTALL` and `FRESHRSS_USER` variables [#7725](https://github.com/FreshRSS/FreshRSS/pull/7725)
 	* Docker: Reduce how much data needs to be chown/chmod’ed on container startup [#7793](https://github.com/FreshRSS/FreshRSS/pull/7793)
@@ -62,8 +122,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix lazy-loading for `<video poster="...">` and `<image>` [#7636](https://github.com/FreshRSS/FreshRSS/pull/7636)
 	* Avoid styling `<code>` inside of `<pre>` [#7797](https://github.com/FreshRSS/FreshRSS/pull/7797)
 	* Improve confirmation logic with `data-auto-leave-validation` [#7785](https://github.com/FreshRSS/FreshRSS/pull/7785)
-	* Update `chart.js` to 4.5.0 [#7752](https://github.com/FreshRSS/FreshRSS/pull/7752)
-	* Various UI and style improvements: [#7616](https://github.com/FreshRSS/FreshRSS/pull/7616)
+	* Update `chart.js` to 4.5.0 [#7752](https://github.com/FreshRSS/FreshRSS/pull/7752), [#7816](https://github.com/FreshRSS/FreshRSS/pull/7816)
+	* Various UI and style improvements: [#7616](https://github.com/FreshRSS/FreshRSS/pull/7616), [#7811](https://github.com/FreshRSS/FreshRSS/pull/7811)
 * I18n
 	* Show translation status in README [#7715](https://github.com/FreshRSS/FreshRSS/pull/7715)
 	* Improve Indonesian [#7654](https://github.com/FreshRSS/FreshRSS/pull/7654), [#7721](https://github.com/FreshRSS/FreshRSS/pull/7721)

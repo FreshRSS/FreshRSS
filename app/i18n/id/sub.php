@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nama kategori OPML',
 		'delete_label' => 'Hapus label',
 		'feed_management' => 'Pengelolaan umpan RSS',
-		'rename_label' => 'Ubah nama label',
 		'subscription_tools' => 'Alat langganan',
 	),
 );

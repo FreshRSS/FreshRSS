@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Raksta darbības',
 		'auto_share' => 'Dalīties',
 		'auto_share_help' => 'Ja ir tikai viens dalīšanās režīms, tiek izmantots tas režīms. Pretējā gadījumā režīmi ir pieejami pēc to numura If there is only one sharing mode, it is used.',
-		'close_dropdown' => 'Aizvērt izvēlnes',
+		'close_menus' => 'Aizvērt izvēlnes',
 		'collapse_article' => 'Salocīt',
 		'first_article' => 'Atvērt pirmo rakstu',
 		'focus_search' => 'Piekļuve meklēšanas lodziņam',

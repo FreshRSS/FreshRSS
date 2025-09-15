@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Accions ligadas a l’article',
 		'auto_share' => 'Partejar',
 		'auto_share_help' => 'S’i a pas qu’un mòde de partatge, aquel serà utilizat. Autrament los mòdes son accessibles per lor numèro.',
-		'close_dropdown' => 'Tampar los menús',
+		'close_menus' => 'Tampar los menús',
 		'collapse_article' => 'Replegar',
 		'first_article' => 'Passar al primièr article',
 		'focus_search' => 'Accedir a la recèrca',

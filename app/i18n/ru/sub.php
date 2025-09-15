@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Удалить метку',
 		'feed_management' => 'Управление RSS-лентами',
-		'rename_label' => 'Переименовать метку',
 		'subscription_tools' => 'Инструменты подписки',
 	),
 );

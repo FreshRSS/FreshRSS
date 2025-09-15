@@ -39,7 +39,7 @@ class SimplePie
     /**
      * SimplePie Version
      */
-    public const VERSION = '1.8.0';
+    public const VERSION = '1.9.0';
 
     /**
      * SimplePie cache version.
@@ -1695,7 +1695,7 @@ class SimplePie
                         [
                             '#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
                             '#<(media:starRating|media:statistics) [^/<>]+/>#',
-                            '#<!--.+?-->#s',
+                            '#<!--.{,8192}?(-->|(?=]]>))#s', // XML comments up to a max length and stops at apparent end of CDATA section
                         ],
                         '',
                         $stream_data
@@ -1730,7 +1730,9 @@ class SimplePie
             if ($xml_is_sane === null) {
                 $parser_check = xml_parser_create();
                 xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
-                xml_parser_free($parser_check);
+                if (\PHP_VERSION_ID < 80000) {
+                    xml_parser_free($parser_check);
+                }
                 $xml_is_sane = isset($values[0]['value']);
             }
             if (!$xml_is_sane) {

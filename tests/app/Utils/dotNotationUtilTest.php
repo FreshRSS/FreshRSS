@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
+final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @return Traversable<array{array<string,mixed>,string,string}>

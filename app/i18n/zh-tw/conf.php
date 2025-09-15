@@ -321,7 +321,7 @@ return array(
 		'article_action' => '文章操作',
 		'auto_share' => '分享',
 		'auto_share_help' => '如果有多種分享方式，則會按照它們的序號依次訪問。',
-		'close_dropdown' => '關閉菜單',
+		'close_menus' => '關閉菜單',
 		'collapse_article' => '收起文章',
 		'first_article' => '打開第一篇文章',
 		'focus_search' => '聚焦到搜尋框',

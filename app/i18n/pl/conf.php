@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Akcje wiadomości',
 		'auto_share' => 'Udostępnij',
 		'auto_share_help' => 'Gdy jest dostępna tylko jedna metoda udostępniania jest ona od razu wykorzystywana. W pozostałych przypadkach poszczególne metody są dostępne przez wybranie ich numeru.',
-		'close_dropdown' => 'Zamknięcie menu',
+		'close_menus' => 'Zamknięcie menu',
 		'collapse_article' => 'Zwinięcie',
 		'first_article' => 'Otworzenie pierwszej wiadomości',
 		'focus_search' => 'Przejdź do pola wyszukiwania',

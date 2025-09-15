@@ -354,7 +354,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -1608,7 +1607,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
@@ -2650,9 +2649,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		left: 0 !important;
 		bottom: 0;
-		right: auto;
+		right: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;
