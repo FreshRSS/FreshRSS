@@ -405,6 +405,7 @@ final class FreshRSS_Context {
 		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
+			// TODO: Check whether this section is used
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$details = $type === 'f'; 	// Load additional feed details in the case of feed view
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true, details: $details);
