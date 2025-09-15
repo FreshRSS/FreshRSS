@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'category' => 'Kategorisinde göster',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Gösterilmesin',
 			'important' => 'Önemli beslemelerde göster',
 			'main_stream' => 'Ana akışta göster',

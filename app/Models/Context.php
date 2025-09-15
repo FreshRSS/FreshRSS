@@ -400,7 +400,7 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get(string $get): void {
+	private static function _get(string $get): void {
 		$type = $get[0];
 		$id = (int)substr($get, 2);
 

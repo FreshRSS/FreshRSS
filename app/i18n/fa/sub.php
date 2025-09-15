@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => ' دید',
 			'category' => ' نمایش در دسته بندی خود',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',

@@ -121,6 +121,8 @@
 							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
 							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
+							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
 							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>

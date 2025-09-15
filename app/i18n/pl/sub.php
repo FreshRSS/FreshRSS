@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Widoczność',
 			'category' => 'Pokaż w kategorii kanału',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',

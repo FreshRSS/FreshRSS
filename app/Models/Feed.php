@@ -38,6 +38,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
 	public const PRIORITY_CATEGORY = 0;
+	public const PRIORITY_FEED = -5;
 	public const PRIORITY_HIDDEN = -10;
 	/** @deprecated use PRIORITY_HIDDEN instead */
 	public const PRIORITY_ARCHIVED = -10;

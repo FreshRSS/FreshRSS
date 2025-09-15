@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
+			'feed' => 'Show in its feed',	// IGNORE
 			'hidden' => 'Do not show',	// IGNORE
 			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE

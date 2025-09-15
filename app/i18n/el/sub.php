@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Show in main stream',	// TODO

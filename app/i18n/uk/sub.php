@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Не показувати',
 			'important' => 'Показати у важливих стрічках',
 			'main_stream' => 'Показати в головному потоці',
