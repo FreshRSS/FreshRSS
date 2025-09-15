@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'コンテンツを取得する条件',
 		'priority' => array(
 			'_' => '表示する場所',
-			'archived' => '非表示にする(アーカイブ)',
 			'category' => 'カテゴリで表示する',
+			'hidden' => '非表示にする',
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),

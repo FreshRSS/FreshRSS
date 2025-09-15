@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
 		'priority' => array(
 			'_' => 'Ketampakan',
-			'archived' => 'Jangan tampilkan (diarsipkan)',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
 		),

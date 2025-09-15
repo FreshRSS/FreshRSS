@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibilitat',
-			'archived' => 'Mostrar pas (archivat)',
 			'category' => 'Mostar dins sa categoria',
+			'hidden' => 'Mostrar pas',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostar al flux màger',
 		),

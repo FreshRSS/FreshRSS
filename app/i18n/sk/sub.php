@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Viditeľnosť',
-			'archived' => 'Nezobrazovať (archivované)',
 			'category' => 'Zobraziť vo svojej kategórii',
+			'hidden' => 'Nezobrazovať',
 			'important' => 'Zobraziť v dôležitých kanáloch',
 			'main_stream' => 'Zobraziť v prehľade kanálov',
 		),

@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Prioritāte',
-			'archived' => 'Nerādīt (arhivēts)',
 			'category' => 'Rādīt kategorijā',
+			'hidden' => 'Nerādīt',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',
 		),
