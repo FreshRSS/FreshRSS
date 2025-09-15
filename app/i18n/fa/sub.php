@@ -234,6 +234,9 @@ return array(
 		'timeout' => ' تایم اوت در ثانیه',
 		'title' => ' عنوان',
 		'title_add' => ' یک فید RSS اضافه کنید',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => ' به‌طور خودکار بیشتر از آن رفرش نکنید',
 		'unicityCriteria' => array(
 			'_' => 'معیارهای وحدت مقاله',

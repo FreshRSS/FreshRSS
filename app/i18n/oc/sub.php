@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Temps d’espèra en segondas',
 		'title' => 'Títol',
 		'title_add' => 'Ajustar un flux RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO

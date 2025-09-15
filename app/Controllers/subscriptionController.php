@@ -321,6 +321,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$conditions = array_filter($conditions, fn(string $condition): bool => trim($condition) !== '');
 			$feed->_attribute('path_entries_conditions', empty($conditions) ? null : $conditions);
 			$feed->_attribute('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
+			$feed->_attribute('title_rewriting', Minz_Request::paramString('title_rewriting'));
 
 			// @phpstan-ignore offsetAccess.nonOffsetAccessible
 			$favicon_path = isset($_FILES['newFavicon']) ? $_FILES['newFavicon']['tmp_name'] : '';

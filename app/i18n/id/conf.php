@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => 'Sematkan artikel ke bagian atas saat dibuka',
 		'title' => 'Membaca',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Tampilan baku',
 			'global' => 'Tampilan global',

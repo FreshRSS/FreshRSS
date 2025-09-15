@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Zaman aşımı (saniye cinsinden)',
 		'title' => 'Başlık',
 		'title_add' => 'RSS beslemesi ekle',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Otomatik yenileme sıklığını şundan fazla yapma',
 		'unicityCriteria' => array(
 			'_' => 'Makale benzersizlik kriteri',

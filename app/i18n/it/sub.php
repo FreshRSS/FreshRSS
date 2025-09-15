@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Timeout in secondi',
 		'title' => 'Titolo',
 		'title_add' => 'Aggiungi RSS feed',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Non aggiornare automaticamente piu di',
 		'unicityCriteria' => array(
 			'_' => 'Criteri di unicità dell’articolo',

@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
 		'title' => 'Olvasás',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',
 			'global' => 'Globális nézet',

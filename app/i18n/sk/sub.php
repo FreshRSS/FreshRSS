@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Doba platnosti dá v sekundách',
 		'title' => 'Nadpis',
 		'title_add' => 'Pridať kanál RSS',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Automaticky neaktualizovať častejšie ako',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO

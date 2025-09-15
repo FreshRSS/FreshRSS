@@ -234,6 +234,9 @@ return array(
 		'timeout' => '超時時間（秒）',
 		'title' => '標題',
 		'title_add' => '添加訂閱源',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => '最小自動更新間隔',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO

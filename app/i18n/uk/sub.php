@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Тайм-аут у секундах',
 		'title' => 'Заголовок',
 		'title_add' => 'Додати RSS-стрічку',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Частота автоматичного оновлення',
 		'unicityCriteria' => array(
 			'_' => 'Критерій унікальності статей',

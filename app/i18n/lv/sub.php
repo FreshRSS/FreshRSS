@@ -234,6 +234,9 @@ return array(
 		'timeout' => 'Laika limits sekundēs',
 		'title' => 'Tituls',
 		'title_add' => 'Pievienot RSS barotni',
+		'title_rewriting' => array(
+			'help' => 'Check online documentation for title rewriting information',	// TODO
+		),
 		'ttl' => 'Automātiski neatjaunināt biežāk par',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO

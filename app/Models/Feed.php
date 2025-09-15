@@ -379,6 +379,16 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->ttl;
 	}
 
+	/**
+	 * @return void|FreshRSS_TitleRewriting_Handler
+	 */
+	public function titleRewriteHandler() {
+		$titleRewritingRule = $this->attributeString('title_rewriting');
+		if ($titleRewritingRule !== '' && $titleRewritingRule !== null) {
+			return new FreshRSS_TitleRewriting_Handler(html_entity_decode($titleRewritingRule));
+		}
+	}
+
 	public function mute(): bool {
 		return $this->mute;
 	}

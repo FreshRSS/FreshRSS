@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => 'Kiinnitä artikkeli ylimmäksi avattaessa',
 		'title' => 'Lukeminen',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Oletusnäkymä',
 			'global' => 'Yleinen näkymä',

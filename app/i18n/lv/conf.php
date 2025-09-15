@@ -290,6 +290,7 @@ return array(
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',
+		'title_rewriting' => 'Title rewriting rule',	// TODO
 		'view' => array(
 			'default' => 'Noklusējuma skats',
 			'global' => 'Globālais skats',
