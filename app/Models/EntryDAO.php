@@ -27,6 +27,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	protected static function sqlLimitAll(): string {
+		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
+	}
+
+	public static function sqlLimit(int $limit = -1, int $offset = 0): string {
+		if ($limit < 0 && $offset <= 0) {
+			return '';
+		}
+		if ($limit < 1) {
+			$limit = static::sqlLimitAll();
+		}
+		return "LIMIT {$limit} OFFSET {$offset}";
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -739,18 +754,21 @@ SQL;
 		}
 	}
 
-	/** @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}> */
-	public function selectAll(?int $limit = null): Traversable {
+	/**
+	 * @param 'ASC'|'DESC' $order
+	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
+	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
+	 */
+	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
+		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
+		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
+ORDER BY id {$order} {$sqlLimit}
 SQL;
-		if (is_int($limit) && $limit >= 0) {
-			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
-		}
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -762,7 +780,7 @@ SQL;
 			$info = $this->pdo->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
-				yield from $this->selectAll();
+				yield from $this->selectAll($order, $limit, $offset);
 			} else {
 				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}

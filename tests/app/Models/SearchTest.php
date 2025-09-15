@@ -5,7 +5,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 require_once LIB_PATH . '/lib_date.php';
 
-class SearchTest extends PHPUnit\Framework\TestCase {
+final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
