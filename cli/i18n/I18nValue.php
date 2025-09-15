@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Cli\I18n;
+
 class I18nValue implements \Stringable {
 	private const STATE_DIRTY = 'dirty';
 	public const STATE_IGNORE = 'ignore';

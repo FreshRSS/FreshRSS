@@ -6,6 +6,9 @@ require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
 require_once dirname(__DIR__) . '/constants.php';
 
+use Cli\I18n\I18nData;
+use Cli\I18n\I18nFile;
+
 $cliOptions = new class extends CliOptionsParser {
 	public string $action;
 	public string $key;

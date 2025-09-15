@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace Cli\I18n;
+
 require_once __DIR__ . '/I18nValidatorInterface.php';
+
+use Cli\I18n\I18nValue;
 
 class I18nUsageValidator implements I18nValidatorInterface {
 

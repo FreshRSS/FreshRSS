@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace Cli\I18n;
+
+use Cli\I18n\I18nValue;
+
 class I18nData {
 
 	/** @var string */
@@ -94,11 +98,11 @@ class I18nData {
 
 	/**
 	 * Add a new language. It’s a copy of the reference language.
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function addLanguage(string $language, ?string $reference = null): void {
 		if (array_key_exists($language, $this->data)) {
-			throw new Exception('The selected language already exist.');
+			throw new \Exception('The selected language already exist.');
 		}
 		if (!is_string($reference) || !array_key_exists($reference, $this->data)) {
 			$reference = static::REFERENCE_LANGUAGE;
@@ -195,15 +199,15 @@ class I18nData {
 
 	/**
 	 * Add a new translation file to all languages
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function addFile(string $file): void {
 		$file = strtolower($file);
 		if (!str_ends_with($file, '.php')) {
-			throw new Exception('The selected file name is not supported.');
+			throw new \Exception('The selected file name is not supported.');
 		}
 		if ($this->exists($file)) {
-			throw new Exception('The selected file exists already.');
+			throw new \Exception('The selected file exists already.');
 		}
 
 		foreach ($this->getAvailableLanguages() as $language) {
@@ -213,7 +217,7 @@ class I18nData {
 
 	/**
 	 * Add a new key to all languages.
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function addKey(string $key, string $value): void {
 		if ($this->isParent($key)) {
@@ -221,7 +225,7 @@ class I18nData {
 		}
 
 		if ($this->isKnown($key)) {
-			throw new Exception('The selected key already exist.');
+			throw new \Exception('The selected key already exist.');
 		}
 
 		$parentKey = $this->getParentKey($key);
@@ -251,15 +255,15 @@ class I18nData {
 	/**
 	 * Add a value for a key for the selected language.
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function addValue(string $key, string $value, string $language): void {
 		if (!in_array($language, $this->getAvailableLanguages(), true)) {
-			throw new Exception('The selected language does not exist.');
+			throw new \Exception('The selected language does not exist.');
 		}
 		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
 			!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
-			throw new Exception('The selected key does not exist for the selected language.');
+			throw new \Exception('The selected key does not exist for the selected language.');
 		}
 
 		$value = new I18nValue($value);
@@ -281,7 +285,7 @@ class I18nData {
 	 */
 	public function removeKey(string $key): void {
 		if (!$this->isKnown($key) && !$this->isKnown($this->getEmptySibling($key))) {
-			throw new Exception('The selected key does not exist.');
+			throw new \Exception('The selected key does not exist.');
 		}
 		if (!$this->isKnown($key)) {
 			// The key has children, it needs to be appended with an empty section.

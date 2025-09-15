@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
+
+namespace Tests\Cli\I18n;
+
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nFile.php';
+
+use Cli\I18n\I18nFile;
 
 final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 	public function test(): void {
@@ -19,12 +24,12 @@ final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 	private function computeFilesHash(): array {
 		$hashes = [];
 
-		$dirs = new DirectoryIterator(I18N_PATH);
+		$dirs = new \DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
 				continue;
 			}
-			$files = new DirectoryIterator($dir->getPathname());
+			$files = new \DirectoryIterator($dir->getPathname());
 			foreach ($files as $file) {
 				if (!$file->isFile()) {
 					continue;
