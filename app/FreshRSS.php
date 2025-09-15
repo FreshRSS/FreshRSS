@@ -19,7 +19,6 @@ class FreshRSS extends Minz_FrontController {
 	 * - Enable user extensions (need all the other initializations)
 	 */
 	public function init(): void {
-		define('FRESHRSS_INIT', true);
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-if (defined('FRESHRSS_INIT') || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
+if (isset($_SESSION) || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
 	header('HTTP/1.1 403 Forbidden');
 	exit('Forbidden');
 }
