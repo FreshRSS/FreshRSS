@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibilidad',
-			'archived' => 'No mostrar (archivado)',
 			'category' => 'Mostrar en su categoría',
+			'hidden' => 'No mostrar',
 			'important' => 'Mostrar en fuentes importantes',
 			'main_stream' => 'Mostrar en salida principal',
 		),

@@ -101,7 +101,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'Z':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_ARCHIVED, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Feed::PRIORITY_IMPORTANT,
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'i':

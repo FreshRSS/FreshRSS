@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => '自动黑暗模式',
 			'auto' => '启动',
-			'help' => 'For compatible themes only',	// TODO
+			'help' => '仅适用于兼容性主题',
 			'no' => '关闭',
 		),
 		'icon' => array(
@@ -100,35 +100,35 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“全部标记为已读” button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => '“全部标记为已读”按钮',
+		'big' => '大',
+		'none' => '无',
+		'small' => '小',
 	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'retrieve_extension_list' => '获取扩展列表',
 	),
 	'profile' => array(
 		'_' => '账户管理',
 		'api' => array(
 			'_' => 'API 管理',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
+			'api_not_set' => 'API密码未设置',
+			'api_set' => 'API密码已设置',
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
+		'change_password' => '修改密码',
+		'confirm_new_password' => '确认新密码',
 		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => '账户删除',
 			'warn' => '你的帐户以及所有相关数据将被删除。',
 		),
 		'email' => '邮箱地址',
-		'new_password' => 'New password',	// TODO
+		'new_password' => '新密码',
 		'password_api' => 'API 密码<br /><small>（例如用于手机应用）</small>',
 		'password_format' => '至少 7 个字符',
 		'title' => '账户',
@@ -173,8 +173,8 @@ return array(
 		'share' => array(
 			'_' => '分享您的自定义查询',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => '已禁用',
+				'title' => '分享',
 			),
 			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => '获取此自定义查询的分享链接',
@@ -220,9 +220,9 @@ return array(
 			),
 			'feed_title' => '订阅源标题',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => '文章图标位置<br /><small>（仅阅读视图）</small>',
+				'above_title' => '标题之上',
+				'with_authors' => '与作者和日期在同一行',
 			),
 			'tags' => array(
 				'_' => '文章标签',
@@ -270,13 +270,13 @@ return array(
 		'show' => array(
 			'_' => '文章显示',
 			'active_category' => '活跃的分类',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => '若有未读项就显示未读，否则显示所有文章',
 			'all_articles' => '显示所有',
 			'all_categories' => '所有分类',
 			'no_category' => '无分类',
 			'remember_categories' => '记住打开的分类',
 			'unread' => '只显示未读',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => '显示未读及收藏',
 		),
 		'show_fav_unread_help' => '同样适用于标签',
 		'sides_close_article' => '点击文章文本区域外关闭文章',

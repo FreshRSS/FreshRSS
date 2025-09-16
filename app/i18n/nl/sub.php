@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Voorwaarden voor inhoudsophaling',
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
-			'archived' => 'Niet weergeven (gearchiveerd)',
 			'category' => 'Toon in categorie',
+			'hidden' => 'Niet weergeven',
 			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
 		),

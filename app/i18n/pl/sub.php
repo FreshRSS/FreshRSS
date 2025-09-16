@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
 		'priority' => array(
 			'_' => 'Widoczność',
-			'archived' => 'Nie pokazuj (zarchiwizowany)',
 			'category' => 'Pokaż w kategorii kanału',
+			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
