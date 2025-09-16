@@ -183,6 +183,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
+			if (Minz_Request::hasParam('order')) {
+				$params['order'] = Minz_Request::paramString('order', plaintext: true);
+			}
+			if (Minz_Request::hasParam('sort')) {
+				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
