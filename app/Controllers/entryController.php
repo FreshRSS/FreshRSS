@@ -190,7 +190,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					'a' => 'index',
 					'params' => $params,
 				],
-				'readAction'
+				'readAction ',
+				(bool) FreshRSS_Context::userConf()->good_notification_timeout,
 			);
 		}
 	}
