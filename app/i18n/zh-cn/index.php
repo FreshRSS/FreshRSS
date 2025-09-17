@@ -64,7 +64,7 @@ return array(
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',
 		'mark_feed_read' => '此订阅源设为已读',
-		'mark_selection_unread' => '选中设为已读',
+		'mark_selection_unread' => '将筛选结果标记为未读',
 		'mylabels' => '我的标签',
 		'newer_first' => '由新至旧',
 		'non-starred' => '显示未收藏',

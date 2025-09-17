@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Tartalom beszerzési feltételek',
 		'priority' => array(
 			'_' => 'Láthatóság',
-			'archived' => 'Ne jelenjen meg (archivált)',
 			'category' => 'Jelenjen meg a saját kategóriájában',
+			'hidden' => 'Ne jelenjen meg',
 			'important' => 'Megjelenítés a fontos hírforrásokban',
 			'main_stream' => 'Megjelenítés a Minden cikk között',
 		),

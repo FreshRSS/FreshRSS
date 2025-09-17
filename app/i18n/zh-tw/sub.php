@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '可見性',
-			'archived' => '不顯示（歸檔）',
 			'category' => '在分類中顯示',
+			'hidden' => '不顯示',
 			'important' => '顯示在重要的源',
 			'main_stream' => '在首頁中顯示',
 		),

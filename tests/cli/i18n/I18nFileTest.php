@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nFile.php';
 
-class I18nFileTest extends PHPUnit\Framework\TestCase {
+final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 	public function test(): void {
 		$before = $this->computeFilesHash();
 

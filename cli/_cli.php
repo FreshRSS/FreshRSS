@@ -16,7 +16,7 @@ require_once __DIR__ . '/CliOptionsParser.php';
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
 Minz_ExtensionManager::init();
-Minz_Translate::init('en');
+Minz_Translate::init(Minz_Translate::DEFAULT_LANGUAGE);
 
 FreshRSS_Context::$isCli = true;
 

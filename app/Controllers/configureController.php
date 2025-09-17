@@ -45,7 +45,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function displayAction(): void {
 		if (Minz_Request::isPost()) {
-			$language = Minz_Request::paramString('language') ?: 'en';
+			$language = Minz_Request::paramString('language') ?: Minz_Translate::DEFAULT_LANGUAGE;
 			if (Minz_Translate::exists($language)) {
 				FreshRSS_Context::userConf()->language = $language;
 			}

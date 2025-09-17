@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+if (isset($_SESSION) || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
+	header('HTTP/1.1 403 Forbidden');
+	exit('Forbidden');
+}
+
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
@@ -35,7 +40,7 @@ function initTranslate(): void {
 	}
 
 	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', 'en');
+		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
 	}
 
 	Minz_Translate::reset(Minz_Session::paramString('language'));

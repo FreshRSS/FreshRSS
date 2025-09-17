@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
-			'archived' => 'Do not show (archived)',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
+			'hidden' => 'Do not show',	// IGNORE
 			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
 		),

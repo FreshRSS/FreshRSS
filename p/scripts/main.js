@@ -592,7 +592,7 @@ function prev_feed() {
 			adjacent = feed;
 		}
 	}
-	if (found) {
+	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
 		last_feed();
@@ -622,7 +622,7 @@ function next_feed() {
 			adjacent = feed;
 		}
 	}
-	if (found) {
+	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
 		first_feed();

@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'İçerik alma koşulları',
 		'priority' => array(
 			'_' => 'Görünürlük',
-			'archived' => 'Gösterilmesin (arşivlenmiş)',
 			'category' => 'Kategorisinde göster',
+			'hidden' => 'Gösterilmesin',
 			'important' => 'Önemli beslemelerde göster',
 			'main_stream' => 'Ana akışta göster',
 		),
