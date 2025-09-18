@@ -157,7 +157,6 @@ class File implements Response
                     $responseBody = curl_exec($fp);
                     $responseHeaders .= "\r\n";
                 }
-
                 $this->status_code = curl_getinfo($fp, CURLINFO_HTTP_CODE);
                 if (curl_errno($fp)) {
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp);
