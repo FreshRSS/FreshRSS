@@ -319,8 +319,27 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		}
 	}
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		$safe_params = [
+			CURLOPT_COOKIE,
+			CURLOPT_COOKIEFILE,
+			CURLOPT_FOLLOWLOCATION,
+			CURLOPT_HTTPHEADER,
+			CURLOPT_MAXREDIRS,
+			CURLOPT_POST,
+			CURLOPT_POSTFIELDS,
+			CURLOPT_PROXY,
+			CURLOPT_PROXYTYPE,
+			CURLOPT_USERAGENT,
+		];
 		foreach ($attributes['curl_params'] as $co => $v) {
 			if (is_int($co)) {
+				if (!in_array($co, $safe_params, true)) {
+					continue;
+				}
+				if ($co === CURLOPT_COOKIEFILE) {
+					// Allow only an empty value just to enable the libcurl cookie engine
+					$v = '';
+				}
 				$curl_options[$co] = $v;
 			}
 		}
