@@ -125,7 +125,6 @@ class File implements Response
                     curl_setopt($fp, CURLOPT_ENCODING, '');
                 }
                 curl_setopt($fp, CURLOPT_URL, $url);
-                curl_setopt($fp, CURLOPT_HEADER, false);
                 curl_setopt($fp, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($fp, CURLOPT_FAILONERROR, 1);
                 curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
