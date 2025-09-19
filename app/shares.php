@@ -125,7 +125,7 @@ return [
 	'linkding' => [
 		'url' => '~URL~/bookmarks/new?url=~LINK~&amp;title=~TITLE~&amp;auto_close',
 		'transform' => ['rawurlencode'],
-		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
+		'help' => 'https://linkding.link/how-to/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
