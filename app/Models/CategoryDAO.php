@@ -101,14 +101,14 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	}
 
 	/**
-	 * @param array{name:string,id?:int,kind?:int,lastUpdate?:int,error?:int|bool,attributes?:string|array<string,mixed>} $valuesTmp
+	 * @param array{id?:int,name:string,kind?:int,lastUpdate?:int,error?:int|bool,attributes?:string|array<string,mixed>} $valuesTmp
 	 */
 	public function addCategory(array $valuesTmp): int|false {
 		// TRIM() to provide a type hint as text
 		// No tag of the same name
 		$sql = <<<'SQL'
-INSERT INTO `_category`(kind, name, attributes)
-SELECT * FROM (SELECT ABS(?) AS kind, TRIM(?) AS name, TRIM(?) AS attributes) c2
+INSERT INTO `_category`(id, name, kind, attributes)
+SELECT * FROM (SELECT ? AS id, TRIM(?) AS name, ABS(?) AS kind, TRIM(?) AS attributes) c2
 WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -118,15 +118,20 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		$values = [
-			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
+			empty($valuesTmp['id']) ? null : $valuesTmp['id'],
 			$valuesTmp['name'],
+			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
 		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
-			$catId = $this->pdo->lastInsertId('`_category_id_seq`');
-			return $catId === false ? false : (int)$catId;
+			if (empty($valuesTmp['id'])) {
+				// Auto-generated ID
+				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
+				return $catId === false ? false : (int)$catId;
+			}
+			return $valuesTmp['id'];
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */

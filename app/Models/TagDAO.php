@@ -8,14 +8,14 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 	}
 
 	/**
-	 * @param array{'id'?:int,'name':string,'attributes'?:array<string,mixed>} $valuesTmp
+	 * @param array{id?:int,name:string,attributes?:array<string,mixed>} $valuesTmp
 	 */
 	public function addTag(array $valuesTmp): int|false {
 		// TRIM() gives a text type hint to PostgreSQL
 		// No category of the same name
 		$sql = <<<'SQL'
-INSERT INTO `_tag`(name, attributes)
-SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2
+INSERT INTO `_tag`(id, name, attributes)
+SELECT * FROM (SELECT ? AS id, TRIM(?) AS name, TRIM(?) AS attributes) t2
 WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
 SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -25,14 +25,19 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		$values = [
+			empty($valuesTmp['id']) ? null : $valuesTmp['id'],
 			$valuesTmp['name'],
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
 			$valuesTmp['name'],
 		];
 
 		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
-			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
-			return $tagId === false ? false : (int)$tagId;
+			if (empty($valuesTmp['id'])) {
+				// Auto-generated ID
+				$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
+				return $tagId === false ? false : (int)$tagId;
+			}
+			return $valuesTmp['id'];
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
