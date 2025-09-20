@@ -62,6 +62,14 @@ final class Minz_ExtensionManager {
 			'list' => [],
 			'signature' => 'OneToOne',
 		],
+		'entry_before_add' => [	// function($entry) -> Entry | null
+			'list' => [],
+			'signature' => 'OneToOne',
+		],
+		'entry_before_update' => [	// function($entry) -> Entry | null
+			'list' => [],
+			'signature' => 'OneToOne',
+		],
 		'feed_before_actualize' => [	// function($feed) -> Feed | null
 			'list' => [],
 			'signature' => 'OneToOne',

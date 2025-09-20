@@ -639,6 +639,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
 							$entry->loadCompleteContent(true);
 
+							$entry = Minz_ExtensionManager::callHook('entry_before_update', $entry);
+							if (!($entry instanceof FreshRSS_Entry)) {
+								// An extension has returned a null value, there is nothing to insert.
+								continue;
+							}
+
 							$entryDAO->updateEntry($entry->toArray());
 						}
 					} else {
@@ -670,6 +676,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							Minz_Log::warning($text);
 							$pubSubHubbubEnabled = false;
 							$feed->pubSubHubbubError(true);
+						}
+
+						$entry = Minz_ExtensionManager::callHook('entry_before_add', $entry);
+						if (!($entry instanceof FreshRSS_Entry)) {
+							// An extension has returned a null value, there is nothing to insert.
+							continue;
 						}
 
 						if ($entryDAO->addEntry($entry->toArray(), true)) {
