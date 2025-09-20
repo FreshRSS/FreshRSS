@@ -133,7 +133,7 @@ class File implements Response
                 curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
                 curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
                 $responseHeaders = '';
-                curl_setopt($fp, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
+                curl_setopt($fp, CURLOPT_HEADERFUNCTION, function ($ch, string $header) use (&$responseHeaders) {
                     if (trim($header) !== '') { // Skip e.g. separation with trailer headers
                         $responseHeaders .= $header;
                     }
@@ -176,7 +176,7 @@ class File implements Response
                     $parser = new \SimplePie\HTTP\Parser($responseHeaders, true);
                     if ($parser->parse()) {
                         $this->set_headers($parser->headers);
-                        $this->body = $responseBody;
+                        $this->body = $responseBody === false ? null : $responseBody;
                         if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && $this->redirects < $redirects) {
                             $this->redirects++;
                             $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
