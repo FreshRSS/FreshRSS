@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
-			'archived' => 'Nicht anzeigen (archiviert)',
 			'category' => 'Zeige in eigener Kategorie',
+			'hidden' => 'Nicht anzeigen',
 			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML Kategoriename',
 		'delete_label' => 'Label löschen',
 		'feed_management' => 'RSS-Feeds verwalten',
-		'rename_label' => 'Label umbenennen',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

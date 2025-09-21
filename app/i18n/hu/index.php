@@ -20,7 +20,7 @@ return array(
 				'browser' => 'Böngésző',
 				'database' => 'Adatbázis',
 				'server_software' => 'Szerver szoftver',
-				'version_curl' => 'cURL version',	// TODO
+				'version_curl' => 'cURL verzió',
 				'version_frss' => 'FreshRSS verzió',
 				'version_php' => 'PHP verzió',
 			),
@@ -78,19 +78,19 @@ return array(
 		'sort' => array(
 			'_' => 'Rendezési sorrend',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategória, feed címek A→Z',
+				'name_desc' => 'Kategória, feed címek Z→A',
 			),
 			'date_asc' => 'Kiadás dátuma 1→9',
 			'date_desc' => 'Kiadás dátuma 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Feed cím A→Z',
+				'name_desc' => 'Feed cím Z→A',
 			),
 			'id_asc' => 'Frissen fogadott utoljára',
 			'id_desc' => 'Frissen fogadott először',
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Véletlen sorrend',
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',

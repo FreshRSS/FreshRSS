@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Näkyvyys',
-			'archived' => 'Älä näytä (arkistoitu)',
 			'category' => 'Näytä luokassaan',
+			'hidden' => 'Älä näytä',
 			'important' => 'Näytä tärkeissä syötteissä',
 			'main_stream' => 'Näytä pääsyötevirrassa',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Poista tunniste',
 		'feed_management' => 'RSS-syötteiden hallinta',
-		'rename_label' => 'Nimeä tunniste uudelleen',
 		'subscription_tools' => 'Tilaustyökalut',
 	),
 );

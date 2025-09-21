@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
 		'priority' => array(
 			'_' => ' دید',
-			'archived' => ' نشان داده نشود (بایگانی شده)',
 			'category' => ' نمایش در دسته بندی خود',
+			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'نام دسته OPML',
 		'delete_label' => ' یک برچسب را حذف کنید',
 		'feed_management' => ' فیدهای RSS را مدیریت می کندment',
-		'rename_label' => ' نام یک برچسب را تغییر دهید',
 		'subscription_tools' => 'ابزارهای اشتراک',
 	),
 );

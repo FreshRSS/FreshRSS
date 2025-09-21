@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Viditelnost',
-			'archived' => 'Nezobrazovat (archivováno)',
 			'category' => 'Zobrazit v jeho kategorii',
+			'hidden' => 'Nezobrazovat',
 			'important' => 'Zobrazit v důležitých kanálech',
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Odstranit popisek',
 		'feed_management' => 'Správa kanálů RSS',
-		'rename_label' => 'Přejmenovat popisek',
 		'subscription_tools' => 'Nástroje odběrů',
 	),
 );

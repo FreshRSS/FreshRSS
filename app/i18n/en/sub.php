@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',
 		'priority' => array(
 			'_' => 'Visibility',
-			'archived' => 'Do not show (archived)',
 			'category' => 'Show in its category',
+			'hidden' => 'Do not show',
 			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
 		),
@@ -299,9 +299,8 @@ return array(
 		'add_feed' => 'Add a feed',
 		'add_label' => 'Add a label',
 		'add_opml_category' => 'OPML category name',
-		'delete_label' => 'Delete a label',
+		'delete_label' => 'Delete this label',
 		'feed_management' => 'RSS feeds management',
-		'rename_label' => 'Rename a label',
 		'subscription_tools' => 'Subscription tools',
 	),
 );

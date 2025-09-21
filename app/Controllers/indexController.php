@@ -222,8 +222,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
-			case 'A':	// All except PRIORITY_ARCHIVED
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
+			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
 			case 'c':

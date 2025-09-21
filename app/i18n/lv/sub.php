@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Prioritāte',
-			'archived' => 'Nerādīt (arhivēts)',
 			'category' => 'Rādīt kategorijā',
+			'hidden' => 'Nerādīt',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Noņemt birku',
 		'feed_management' => 'RSS barotņu pārvalde',
-		'rename_label' => 'Birkas vārda maiņa',
 		'subscription_tools' => 'Abonamentu rīki',
 	),
 );

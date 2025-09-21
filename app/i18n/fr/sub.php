@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions pour la récupération de contenu',
 		'priority' => array(
 			'_' => 'Visibilité',
-			'archived' => 'Ne pas afficher (archivé)',
 			'category' => 'Afficher dans sa catégorie',
+			'hidden' => 'Ne pas afficher',
 			'important' => 'Afficher dans les flux importants',
 			'main_stream' => 'Afficher dans les flux principaux',
 		),
@@ -299,9 +299,8 @@ return array(
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'add_opml_category' => 'Nom de la catégorie OPML',
-		'delete_label' => 'Supprimer une étiquette',
+		'delete_label' => 'Supprimer l’étiquette',
 		'feed_management' => 'Gestion des flux RSS',
-		'rename_label' => 'Renommer une étiquette',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 );

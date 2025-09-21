@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Видимость',
-			'archived' => 'Не показывать (архивировано)',
 			'category' => 'Показывать в категории ленты',
+			'hidden' => 'Не показывать',
 			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Удалить метку',
 		'feed_management' => 'Управление RSS-лентами',
-		'rename_label' => 'Переименовать метку',
 		'subscription_tools' => 'Инструменты подписки',
 	),
 );

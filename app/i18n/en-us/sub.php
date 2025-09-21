@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
-			'archived' => 'Do not show (archived)',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
+			'hidden' => 'Do not show',	// IGNORE
 			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
 		),
@@ -299,9 +299,8 @@ return array(
 		'add_feed' => 'Add a feed',	// IGNORE
 		'add_label' => 'Add a label',	// IGNORE
 		'add_opml_category' => 'OPML category name',	// IGNORE
-		'delete_label' => 'Delete a label',	// IGNORE
+		'delete_label' => 'Delete this label',	// IGNORE
 		'feed_management' => 'RSS feeds management',	// IGNORE
-		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
 	),
 );

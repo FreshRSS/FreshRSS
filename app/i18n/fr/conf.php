@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Actions associées à l’article courant',
 		'auto_share' => 'Partager',
 		'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
-		'close_dropdown' => 'Fermer les menus',
+		'close_menus' => 'Fermer les menus',
 		'collapse_article' => 'Refermer',
 		'first_article' => 'Passer au premier article',
 		'focus_search' => 'Accéder à la recherche',

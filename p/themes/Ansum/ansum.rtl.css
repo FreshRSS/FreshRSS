@@ -1275,6 +1275,9 @@ main.prompt {
 	.nav_menu .search .input:focus {
 		width: 400px;
 	}
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
+	}
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
 	}

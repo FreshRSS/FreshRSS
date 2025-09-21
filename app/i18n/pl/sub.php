@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
 		'priority' => array(
 			'_' => 'Widoczność',
-			'archived' => 'Nie pokazuj (zarchiwizowany)',
 			'category' => 'Pokaż w kategorii kanału',
+			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nazwa kategorii OPML',
 		'delete_label' => 'Usuń etykietę',
 		'feed_management' => 'Zarządzanie kanałami RSS',
-		'rename_label' => 'Zmień nazwę etykiety',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),
 );

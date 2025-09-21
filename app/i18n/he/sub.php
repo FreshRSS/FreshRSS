@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
-			'archived' => 'Do not show (archived)',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'הצגה בזרם המרכזי',
 		),
@@ -299,9 +299,8 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO
 		'add_label' => 'Add a label',	// TODO
 		'add_opml_category' => 'OPML category name',	// TODO
-		'delete_label' => 'Delete a label',	// TODO
+		'delete_label' => 'Delete this label',	// TODO
 		'feed_management' => 'ניהול הזנות RSS',
-		'rename_label' => 'Rename a label',	// TODO
 		'subscription_tools' => 'Subscription tools',	// TODO
 	),
 );

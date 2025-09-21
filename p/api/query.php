@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 header('X-Content-Type-Options: nosniff');
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 Minz_Request::init();
 
@@ -48,17 +48,15 @@ if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) 
 	usleep(rand(20, 200));
 }
 
-if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-	require(LIB_PATH . '/http-conditional.php');
-	$dateLastModification = max(
-		FreshRSS_UserDAO::ctime($user),
-		FreshRSS_UserDAO::mtime($user),
-		@filemtime(DATA_PATH . '/config.php') ?: 0
-	);
-	// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
-	if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
-		exit();	//No need to send anything
-	}
+require LIB_PATH . '/http-conditional.php';
+$dateLastModification = max(
+	FreshRSS_UserDAO::ctime($user),
+	FreshRSS_UserDAO::mtime($user),
+	@filemtime(DATA_PATH . '/config.php') ?: 0
+);
+// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
+if (!file_exists(DATA_PATH . '/no-cache.txt') && httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
+	exit();	//No need to send anything
 }
 
 Minz_Translate::init(FreshRSS_Context::userConf()->language);

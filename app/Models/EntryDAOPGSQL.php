@@ -24,6 +24,12 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	protected static function sqlLimitAll(): string {
+		// https://www.postgresql.org/docs/current/queries-limit.html
+		return 'ALL';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}

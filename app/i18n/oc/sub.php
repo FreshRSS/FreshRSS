@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibilitat',
-			'archived' => 'Mostrar pas (archivat)',
 			'category' => 'Mostar dins sa categoria',
+			'hidden' => 'Mostrar pas',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostar al flux màger',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Suprimir una etiqueta',
 		'feed_management' => 'Gestion dels fluxes RSS',
-		'rename_label' => 'Renomenar una etiqueta',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 );

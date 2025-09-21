@@ -56,7 +56,7 @@ class Minz_Log {
 					$level_label = 'info';
 			}
 
-			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . $information . "\n";
+			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . str_replace(["\r", "\n"], ' ', $information) . "\n";
 
 			if (defined('COPY_LOG_TO_SYSLOG') && COPY_LOG_TO_SYSLOG) {
 				syslog($level, '[' . $username . '] ' . trim($log));

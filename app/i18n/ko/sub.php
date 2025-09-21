@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '표시',
-			'archived' => '표시하지 않음 (보관됨)',
 			'category' => '피드가 속한 카테고리에만 표시하기',
+			'hidden' => '표시하지 않음',
 			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => '라벨 삭제',
 		'feed_management' => 'RSS 피드 관리',
-		'rename_label' => '라벨 이름 바꾸기',
 		'subscription_tools' => '구독 도구',
 	),
 );

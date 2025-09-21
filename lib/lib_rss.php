@@ -43,17 +43,17 @@ function classAutoloader(string $class): void {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
+				include APP_PATH . '/' . $components[0] . '.php';
 				return;
 			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				include APP_PATH . '/Models/' . $components[1] . '.php';
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'SimplePie\\')) {
 		$prefix = 'SimplePie\\';
 		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
@@ -319,8 +319,27 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		}
 	}
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		$safe_params = [
+			CURLOPT_COOKIE,
+			CURLOPT_COOKIEFILE,
+			CURLOPT_FOLLOWLOCATION,
+			CURLOPT_HTTPHEADER,
+			CURLOPT_MAXREDIRS,
+			CURLOPT_POST,
+			CURLOPT_POSTFIELDS,
+			CURLOPT_PROXY,
+			CURLOPT_PROXYTYPE,
+			CURLOPT_USERAGENT,
+		];
 		foreach ($attributes['curl_params'] as $co => $v) {
 			if (is_int($co)) {
+				if (!in_array($co, $safe_params, true)) {
+					continue;
+				}
+				if ($co === CURLOPT_COOKIEFILE) {
+					// Allow only an empty value just to enable the libcurl cookie engine
+					$v = '';
+				}
 				$curl_options[$co] = $v;
 			}
 		}
@@ -643,13 +662,16 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
 
-	$parser = new \SimplePie\HTTP\Parser(is_string($response) ? $response : '');
-	if ($parser->parse()) {
-		$headers = $parser->headers;
-		$body = $parser->body;
-	} else {
-		$headers = [];
-		$body = false;
+	$body = false;
+	$headers = [];
+	if ($response !== false) {
+		assert($c_redirect_count >= 0);
+		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
+		$parser = new \SimplePie\HTTP\Parser($response);
+		if ($parser->parse()) {
+			$headers = $parser->headers;
+			$body = $parser->body;
+		}
 	}
 
 	$fail = $c_status != 200 || $c_error != '' || $body === false;

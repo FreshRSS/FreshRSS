@@ -321,7 +321,7 @@ return array(
 		'article_action' => ' اقدامات ماده',
 		'auto_share' => ' اشتراک گذاری',
 		'auto_share_help' => ' اگر فقط یک حالت اشتراک گذاری وجود داشته باشد',
-		'close_dropdown' => ' منوها را ببندید',
+		'close_menus' => ' منوها را ببندید',
 		'collapse_article' => ' فروپاشی',
 		'first_article' => ' اولین مقاله را باز کنید',
 		'focus_search' => ' به کادر جستجو دسترسی پیدا کنید',
