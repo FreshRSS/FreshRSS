@@ -4,7 +4,7 @@ require dirname(__DIR__, 2) . '/constants.php';
 require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 FreshRSS_Context::initSystem();
-if (FreshRSS_Context::hasSystemConf()) {
+if (!FreshRSS_Context::hasSystemConf()) {
 	header('HTTP/1.1 500 Internal Server Error');
 	die('Invalid system init!');
 }
