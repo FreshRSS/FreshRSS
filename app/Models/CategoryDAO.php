@@ -5,6 +5,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	public const DEFAULTCATEGORYID = 1;
 
+	protected function sqlResetSequence(): bool {
+		return true;	// Nothing to do for MySQL
+	}
+
 	public function resetDefaultCategoryName(): bool {
 		//FreshRSS 1.15.1
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
@@ -104,12 +108,20 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	 * @param array{id?:int,name:string,kind?:int,lastUpdate?:int,error?:int|bool,attributes?:string|array<string,mixed>} $valuesTmp
 	 */
 	public function addCategory(array $valuesTmp): int|false {
-		// TRIM() to provide a type hint as text
-		// No tag of the same name
-		$sql = <<<'SQL'
+		if (empty($valuesTmp['id'])) {	// Auto-generated ID
+			$sql = <<<'SQL'
+INSERT INTO `_category`(name, kind, attributes)
+SELECT * FROM (SELECT :name1 AS name, 1*:kind AS kind, :attributes AS attributes) c2
+SQL;
+		} else {
+			$sql = <<<'SQL'
 INSERT INTO `_category`(id, name, kind, attributes)
-SELECT * FROM (SELECT ? AS id, TRIM(?) AS name, ABS(?) AS kind, TRIM(?) AS attributes) c2
-WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = TRIM(?))
+SELECT * FROM (SELECT 1*:id AS id, :name1 AS name, 1*:kind AS kind, :attributes AS attributes) c2
+SQL;
+		}
+		// No tag of the same name
+		$sql .= "\n" . <<<'SQL'
+WHERE NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = :name2)
 SQL;
 		$stm = $this->pdo->prepare($sql);
 
@@ -117,20 +129,24 @@ SQL;
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = [
-			empty($valuesTmp['id']) ? null : $valuesTmp['id'],
-			$valuesTmp['name'],
-			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-			$valuesTmp['name'],
-		];
-
-		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
+		if ($stm !== false) {
+			if (!empty($valuesTmp['id'])) {
+				$stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT);
+			}
+			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR);
+			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT);
+			$attributes = is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+			$stm->bindValue(':attributes', $attributes, PDO::PARAM_STR);
+			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR);
+		}
+		if ($stm !== false && $stm->execute() && $stm->rowCount() > 0) {
 			if (empty($valuesTmp['id'])) {
 				// Auto-generated ID
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
 				return $catId === false ? false : (int)$catId;
 			}
+			$this->sqlResetSequence();
 			return $valuesTmp['id'];
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -360,10 +376,6 @@ SQL;
 			$cat = new FreshRSS_Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
 
 			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
-			if ($this->pdo->dbType() === 'pgsql') {
-				//Force call to nextval()
-				$sql .= " RETURNING nextval('`_category_id_seq`');";
-			}
 			$stm = $this->pdo->prepare($sql);
 
 			$values = [
@@ -373,6 +385,7 @@ SQL;
 
 			if ($stm !== false && $stm->execute($values)) {
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
+				$this->sqlResetSequence();
 				return $catId === false ? false : (int)$catId;
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
