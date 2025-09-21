@@ -39,7 +39,7 @@ function join_path(...$path_parts): string {
 
 //<Auto-loading>
 function classAutoloader(string $class): void {
-	if (strpos($class, 'FreshRSS') === 0) {
+	if (str_starts_with($class, 'FreshRSS')) {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
@@ -52,7 +52,7 @@ function classAutoloader(string $class): void {
 				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
-	} elseif (strpos($class, 'Minz') === 0) {
+	} elseif (str_starts_with($class, 'Minz')) {
 		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'SimplePie\\')) {
 		$prefix = 'SimplePie\\';
