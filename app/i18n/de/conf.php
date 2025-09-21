@@ -41,7 +41,7 @@ return array(
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
-			'entry' => 'Artikel-Symbole',
+			'entry' => 'Artikel-Icon',
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Hashtags',
 			'sharing' => 'Teilen',

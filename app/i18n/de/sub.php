@@ -76,14 +76,14 @@ return array(
 			'label' => 'Export als OPML',
 		),
 		'ext_favicon' => 'Automatisch festlegen',
-		'favicon_changed_by_ext' => 'Das Symbol wurde von der Erweiterung <b>%s</b> festgelegt.',
+		'favicon_changed_by_ext' => 'Das Icon wurde von der Erweiterung <b>%s</b> festgelegt.',
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Symbol',
+		'icon' => 'Icon',
 		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
