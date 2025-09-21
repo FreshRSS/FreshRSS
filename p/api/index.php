@@ -9,7 +9,7 @@ if (!FreshRSS_Context::hasSystemConf()) {
 	die('Invalid system init!');
 }
 $frameAncestors = FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'";
-header("Content-Security-Policy: default-src 'self'; frame-ancestors $frameAncestors; sandbox");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors $frameAncestors");
 header('X-Content-Type-Options: nosniff');
 
 Minz_Translate::init(Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), null));
