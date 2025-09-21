@@ -87,8 +87,8 @@ return array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',
 			),
-			'id_asc' => 'Zuletzt empfangen',
-			'id_desc' => 'Zuerst empfangen',
+			'id_asc' => 'Älteste zuerst',
+			'id_desc' => 'Neueste zuerst',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Zufällige Reihenfolge',
