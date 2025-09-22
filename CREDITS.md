@@ -234,6 +234,7 @@ People are sorted by name so please keep this order.
 * [Rosemary Le Faive](https://github.com/rosiel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rosiel)
 * [Rufubi](https://github.com/Rufubi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Rufubi)
 * [Rui Melo](https://github.com/ViPeR5000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ViPeR5000)
+* [Rune Klein](https://github.com/rnkln): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rnkln)
 * [ryoku-cha](https://github.com/ryoku-cha): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ryoku-cha)
 * [Sadetdin EYILI](https://github.com/sad270): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sad270)
 * [Sam Cohen](https://github.com/samc1213): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:samc1213)
