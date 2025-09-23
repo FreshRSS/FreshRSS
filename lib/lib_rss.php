@@ -731,8 +731,8 @@ function validateEmailAddress(string $email): bool {
  */
 function lazyimg(string $content): string {
 	return preg_replace([
-			'/<((?:img|image|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
 			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
 			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
