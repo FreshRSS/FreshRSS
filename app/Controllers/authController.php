@@ -70,7 +70,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * the user is already connected.
 	 */
 	public function loginAction(): void {
-		if (FreshRSS_Auth::hasAccess() && Minz_Request::paramString('u') === '') {
+		if (FreshRSS_Auth::hasAccess() && !(FreshRSS_Context::systemConf()->unsafe_autologin_enabled && Minz_Request::paramString('u') !== '')) {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
