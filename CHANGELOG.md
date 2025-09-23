@@ -2,10 +2,11 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2025-XX-XX FreshRSS 1.27.1-dev
+## 2025-09-XX FreshRSS 1.27.1-dev
 
 * Features
 	* Automatic database recovery: skip broken entries during CLI export/import [#7949](https://github.com/FreshRSS/FreshRSS/pull/7949)
+	* Add security option for CSP `frame-ancestors` [#7857](https://github.com/FreshRSS/FreshRSS/pull/7857)
 * Security
 	* Regenerate session ID on login [#7829](https://github.com/FreshRSS/FreshRSS/pull/7829)
 	* Disallow setting non-existent language [#7878](https://github.com/FreshRSS/FreshRSS/pull/7878), [#7934](https://github.com/FreshRSS/FreshRSS/pull/7934)
@@ -48,6 +49,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Label config delete label [#7871](https://github.com/FreshRSS/FreshRSS/pull/7871)
 	* Add Ukrainian [#7961](https://github.com/FreshRSS/FreshRSS/pull/7961)
 	* Improve Dutch [#7940](https://github.com/FreshRSS/FreshRSS/pull/7940)
+	* Improve German [#7833](https://github.com/FreshRSS/FreshRSS/pull/7833)
 	* Improve Hungarian [#7986](https://github.com/FreshRSS/FreshRSS/pull/7986)
 	* Improve Japanese [#7903](https://github.com/FreshRSS/FreshRSS/pull/7903), [#7918](https://github.com/FreshRSS/FreshRSS/pull/7918)
 	* Improve Polish [#7963](https://github.com/FreshRSS/FreshRSS/pull/7963)
@@ -60,7 +62,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Misc.
 	* Improve `make` [#7901](https://github.com/FreshRSS/FreshRSS/pull/7901)
 	* Improve PHP code [#7906](https://github.com/FreshRSS/FreshRSS/pull/7906), [#7916](https://github.com/FreshRSS/FreshRSS/pull/7916), [#7939](https://github.com/FreshRSS/FreshRSS/pull/7939),
-		[#7941](https://github.com/FreshRSS/FreshRSS/pull/7941), [#7960](https://github.com/FreshRSS/FreshRSS/pull/7960)
+		[#7941](https://github.com/FreshRSS/FreshRSS/pull/7941), [#7960](https://github.com/FreshRSS/FreshRSS/pull/7960), [#7991](https://github.com/FreshRSS/FreshRSS/pull/7991)
+	* Upgrade to PHP_CodeSniffer 4 [#7993](https://github.com/FreshRSS/FreshRSS/pull/7993)
 	* Update dev dependencies [#7902](https://github.com/FreshRSS/FreshRSS/pull/7902), [#7895](https://github.com/FreshRSS/FreshRSS/pull/7895), [#7896](https://github.com/FreshRSS/FreshRSS/pull/7896),
 		[#7899](https://github.com/FreshRSS/FreshRSS/pull/7899), [#7966](https://github.com/FreshRSS/FreshRSS/pull/7966), [#7969](https://github.com/FreshRSS/FreshRSS/pull/7969)
 
