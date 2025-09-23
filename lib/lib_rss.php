@@ -360,6 +360,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
+		'track',
 	]);
 	$simplePie->rename_attributes(['id', 'class']);
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
@@ -398,7 +399,6 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'ins' => 'cite',
 		'q' => 'cite',
 		'source' => 'src',
-		'track' => 'src',
 		'video' => [
 			'poster',
 			'src',
