@@ -190,8 +190,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					'a' => 'index',
 					'params' => $params,
 				],
-				'readAction ',
-				(bool) FreshRSS_Context::userConf()->good_notification_timeout,
+				notificationName: 'readAction ',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		}
 	}
@@ -249,7 +249,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
+		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 	}
 
 	/**
@@ -282,7 +282,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
+		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0), [
 			'c' => 'configure',
 			'a' => 'archiving',
 		]);
