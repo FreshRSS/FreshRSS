@@ -90,6 +90,7 @@ If you want a rolling release with the newest features, or want to help testing 
 * [![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/freshrss)
 * [![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/MD4TRW)
 * [![Run on ClawCloud](https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg)](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss)
+* [![Deploy on Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostinger.com/vps/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml)
 
 ## Manual install
 
