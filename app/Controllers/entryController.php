@@ -260,10 +260,13 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action purges old entries from feeds.
 	 *
-	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}

@@ -96,7 +96,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
