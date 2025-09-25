@@ -1172,8 +1172,8 @@ HTML;
 				if ($feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) {
 					$item['categories'][] = 'user/-/state/org.freshrss/important';
 				}
-			} elseif ($feed->priority() <= FreshRSS_Feed::PRIORITY_ARCHIVED) {
-				$item['categories'][] = 'user/-/state/org.freshrss/archived';
+			} elseif ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				$item['categories'][] = 'user/-/state/org.freshrss/hidden';
 			}
 		}
 		foreach ($this->enclosures() as $enclosure) {
