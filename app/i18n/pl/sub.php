@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
 		'priority' => array(
 			'_' => 'Widoczność',
-			'archived' => 'Nie pokazuj (zarchiwizowany)',
 			'category' => 'Pokaż w kategorii kanału',
+			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nazwa kategorii OPML',
 		'delete_label' => 'Usuń etykietę',
 		'feed_management' => 'Zarządzanie kanałami RSS',
-		'rename_label' => 'Zmień nazwę etykiety',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),
 );

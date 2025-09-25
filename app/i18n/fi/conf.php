@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Artikkelitoiminnot',
 		'auto_share' => 'Jaa',
 		'auto_share_help' => 'Jos jakamistapoja on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa jakamistavan voi valita numerolla.',
-		'close_dropdown' => 'Sulje valikot',
+		'close_menus' => 'Sulje valikot',
 		'collapse_article' => 'Sulje',
 		'first_article' => 'Avaa ensimmäinen artikkeli',
 		'focus_search' => 'Siirry hakukenttään',

@@ -2,8 +2,8 @@
 <?php
 declare(strict_types=1);
 
-require(__DIR__ . '/../../vendor/autoload.php');
-require(__DIR__ . '/CliOptionsParserTest.php');
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
+require __DIR__ . '/CliOptionsParserTest.php';
 
 $optionsClass = getenv('CLI_PARSER_TEST_OPTIONS_CLASS');
 if (!is_string($optionsClass) || !class_exists($optionsClass)) {

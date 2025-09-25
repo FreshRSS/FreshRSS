@@ -160,7 +160,9 @@ class File implements Response
                     }
                     // For PHPStan: We already checked that error did not occur.
                     assert(is_array($info) && $info['redirect_count'] >= 0);
-                    curl_close($fp);
+                    if (\PHP_VERSION_ID < 80000) {
+                        curl_close($fp);
+                    }
                     $responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders((string) $responseHeaders, $info['redirect_count'] + 1);
                     $parser = new \SimplePie\HTTP\Parser($responseHeaders, true);
                     if ($parser->parse()) {

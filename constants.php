@@ -41,7 +41,7 @@ if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
 
 if (file_exists(__DIR__ . '/constants.local.php')) {
 	//Include custom / local settings:
-	include(__DIR__ . '/constants.local.php');
+	include __DIR__ . '/constants.local.php';
 }
 
 defined('FRESHRSS_USERAGENT') or define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');

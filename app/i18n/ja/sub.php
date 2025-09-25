@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -82,7 +82,7 @@ return array(
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
 		'http_headers' => 'HTTPヘッダ',
-		'http_headers_help' => 'ヘッダは開業で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// TODO
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'コンテンツを取得する条件',
 		'priority' => array(
 			'_' => '表示する場所',
-			'archived' => '非表示にする(アーカイブ)',
 			'category' => 'カテゴリで表示する',
+			'hidden' => '非表示にする',
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPMLカテゴリ名',
 		'delete_label' => 'ラベルの削除',
 		'feed_management' => 'RSSフィードの管理',
-		'rename_label' => 'ラベルの名前変更',
 		'subscription_tools' => '購読ツール',
 	),
 );

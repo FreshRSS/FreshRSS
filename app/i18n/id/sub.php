@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
 		'priority' => array(
 			'_' => 'Ketampakan',
-			'archived' => 'Jangan tampilkan (diarsipkan)',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nama kategori OPML',
 		'delete_label' => 'Hapus label',
 		'feed_management' => 'Pengelolaan umpan RSS',
-		'rename_label' => 'Ubah nama label',
 		'subscription_tools' => 'Alat langganan',
 	),
 );

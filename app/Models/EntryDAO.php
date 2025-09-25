@@ -27,6 +27,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	protected static function sqlLimitAll(): string {
+		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
+	}
+
+	public static function sqlLimit(int $limit = -1, int $offset = 0): string {
+		if ($limit < 0 && $offset <= 0) {
+			return '';
+		}
+		if ($limit < 1) {
+			$limit = static::sqlLimitAll();
+		}
+		return "LIMIT {$limit} OFFSET {$offset}";
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -739,18 +754,21 @@ SQL;
 		}
 	}
 
-	/** @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}> */
-	public function selectAll(?int $limit = null): Traversable {
+	/**
+	 * @param 'ASC'|'DESC' $order
+	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
+	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
+	 */
+	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
+		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
+		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
+ORDER BY id {$order} {$sqlLimit}
 SQL;
-		if (is_int($limit) && $limit >= 0) {
-			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
-		}
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -762,7 +780,7 @@ SQL;
 			$info = $this->pdo->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
-				yield from $this->selectAll();
+				yield from $this->selectAll($order, $limit, $offset);
 			} else {
 				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}
@@ -937,49 +955,57 @@ SQL;
 			}
 
 			if ($filter->getLabelIds() !== null) {
-				if ($filter->getLabelIds() === '*') {
-					$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 			if ($filter->getNotLabelIds() !== null) {
-				if ($filter->getNotLabelIds() === '*') {
-					$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getNotLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getNotLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 
 			if ($filter->getLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 			if ($filter->getNotLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getNotLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getNotLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 
 			if ($filter->getAuthor() !== null) {
@@ -1313,17 +1339,17 @@ SQL;
 			case 'a':	// All PRIORITY_MAIN_STREAM
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+			case 'Z':	// All including PRIORITY_HIDDEN
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				break;
 			case 'i':	// Priority important feeds
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
 				break;
 			case 's':	//Starred. Deprecated: use $state instead
-				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
 			case 'S':	//Starred

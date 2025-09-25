@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class passwordUtilTest extends PHPUnit\Framework\TestCase {
+final class passwordUtilTest extends \PHPUnit\Framework\TestCase {
 	public function testCheck(): void {
 		$password = '1234567';
 

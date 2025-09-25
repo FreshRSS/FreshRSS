@@ -21,7 +21,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
@@ -280,7 +280,7 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && is_string($GLOBALS['SQL_UPDATE_MINOR'])) {
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 			$isMariaDB = false;
@@ -435,22 +435,30 @@ SQL;
 
 		$nbEntries = $entryFrom->count();
 		$n = 0;
+		$brokenEntries = 0;
 		$entryTo->beginTransaction();
-		foreach ($entryFrom->selectAll() as $entry) {
-			$n++;
-			if (!empty($idMaps['f' . $entry['id_feed']])) {
-				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
-				if (!$entryTo->addEntry($entry, false)) {
-					$error = 'Error during SQLite copy of entries!';
-					return self::stdError($error);
+		while ($n < $nbEntries) {
+			foreach ($entryFrom->selectAll(offset: $n) as $entry) {
+				$n++;
+				if (!empty($idMaps['f' . $entry['id_feed']])) {
+					$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
+					if (!$entryTo->addEntry($entry, false)) {
+						$error = 'Error during SQLite copy of entries!';
+						return self::stdError($error);
+					}
+				}
+				if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
+					fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : ''));
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
-				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
+			if ($n < $nbEntries) {
+				$brokenEntries++;
+				// Attempt to skip broken records in the case of corrupted database
+				$n++;
 			}
-		}
-		if (defined('STDERR') && $verbose) {
-			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
+			if (defined('STDERR') && $verbose) {
+				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : '') . PHP_EOL);
+			}
 		}
 		$entryTo->commit();
 		$feedTo->updateCachedValues();

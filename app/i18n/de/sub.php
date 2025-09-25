@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,7 +50,7 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Ändern…',
 		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'content_action' => array(
 			'_' => 'Behandlung von Feed-Inhalt beim Herunterladen von Artikelinhalt',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Artikelinhalt vor Feed-Inhalt hinzufügen',
 			'replace' => 'Artikelinhalt ersetzt Feed-Inhalt (Standard)',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Inhaltsabruf',
 		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
 		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
@@ -69,21 +69,21 @@ return array(
 		),
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
-		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist.',	// DIRTY
+		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
 			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
 			'label' => 'Export als OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Automatisch festlegen',
+		'favicon_changed_by_ext' => 'Das Icon wurde von der Erweiterung <b>%s</b> festgelegt.',
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Icon',	// IGNORE
 		'information' => 'Informationen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
@@ -92,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSON Punkt-Notation (JSON in HTML)',
 				'xpath' => array(
 					'_' => 'XPath für JSON in HTML',
-					'help' => 'Beispiel: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)</code>',	// DIRTY
+					'help' => 'Beispiel: <code>normalize-space(//script[@type="application/json"])</code> (einzelnes JSON)<br />oder: <code>//script[@type="application/ld+json"]</code> (ein JSON-Objekt pro Artikel)</code>',
 				),
 			),
 			'html_xpath' => array(
@@ -151,7 +151,7 @@ return array(
 				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
-					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => 'JSON-Pfad zum Array, das die Einträge enthält, z. B. <code>$</code> oder <code>newsItems</code>',
 				),
 				'item_author' => 'Item Autor',
 				'item_categories' => 'Item Hashtags',
@@ -206,17 +206,17 @@ return array(
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
 		'open_feed' => 'Feed %s öffnen',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => 'Bedingungen für den Inhaltsabruf',
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
-			'archived' => 'Nicht anzeigen (archiviert)',
 			'category' => 'Zeige in eigener Kategorie',
+			'hidden' => 'Nicht anzeigen',
 			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
-		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'reset_favicon' => 'Reset to default',	// TODO
+		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> oder <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Auf Standard zurücksetzen',
 		'selector_preview' => array(
 			'show_raw' => 'Quellcode anzeigen',
 			'show_rendered' => 'Inhalt anzeigen',
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML Kategoriename',
 		'delete_label' => 'Label löschen',
 		'feed_management' => 'RSS-Feeds verwalten',
-		'rename_label' => 'Label umbenennen',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

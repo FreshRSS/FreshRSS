@@ -62,6 +62,14 @@ final class Minz_ExtensionManager {
 			'list' => [],
 			'signature' => 'OneToOne',
 		],
+		'entry_before_add' => [	// function($entry) -> Entry | null
+			'list' => [],
+			'signature' => 'OneToOne',
+		],
+		'entry_before_update' => [	// function($entry) -> Entry | null
+			'list' => [],
+			'signature' => 'OneToOne',
+		],
 		'feed_before_actualize' => [	// function($feed) -> Feed | null
 			'list' => [],
 			'signature' => 'OneToOne',
@@ -224,7 +232,7 @@ final class Minz_ExtensionManager {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
 		$ext_class_name = $info['entrypoint'] . 'Extension';
 
-		include_once($entry_point_filename);
+		include_once $entry_point_filename;
 
 		// Test if the given extension class exists.
 		if (!class_exists($ext_class_name)) {

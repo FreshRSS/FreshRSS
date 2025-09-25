@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
-			'archived' => 'Do not show (archived)',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
+			'hidden' => 'Do not show',	// IGNORE
 			'important' => 'Show in important feeds',	// IGNORE
 			'main_stream' => 'Show in main stream',	// IGNORE
 		),
@@ -299,9 +299,8 @@ return array(
 		'add_feed' => 'Add a feed',	// IGNORE
 		'add_label' => 'Add a label',	// IGNORE
 		'add_opml_category' => 'OPML category name',	// IGNORE
-		'delete_label' => 'Delete a label',	// IGNORE
+		'delete_label' => 'Delete this label',	// IGNORE
 		'feed_management' => 'RSS feeds management',	// IGNORE
-		'rename_label' => 'Rename a label',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
 	),
 );
