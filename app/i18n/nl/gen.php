@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -18,12 +18,12 @@ return array(
 		'cancel' => 'Annuleren',
 		'close' => 'Sluiten',
 		'create' => 'Opslaan',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => 'Alle feeds verwijderen',
+		'delete_errored_feeds' => 'Feeds met fouten verwijderen',
 		'delete_muted_feeds' => 'Gedempte feeds verwijderen',
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
-		'download' => 'Download',	// TODO
+		'download' => 'Downloaden',
 		'empty' => 'Leeg',
 		'enable' => 'Aanzetten',
 		'export' => 'Exporteren',
@@ -33,12 +33,12 @@ return array(
 		'manage' => 'Beheren',
 		'mark_read' => 'Markeer als gelezen',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Menu openen',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Volgend artikel',
+			'prev' => 'Vorig artikel',
+			'up' => 'Omhoog',
 		),
 		'open_url' => 'URL openen',
 		'promote' => 'Bevorderen',
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>Ten minste 7 tekens</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Opnieuw aanmelden vereist',
+			'tip' => 'Er zal de komende <u>%d minuten</u> niet opnieuw worden gevraagd om in te loggen',
+			'title' => 'Opnieuw aanmelden',
 		),
 		'registration' => array(
 			'_' => 'Nieuw account',
@@ -155,7 +155,7 @@ return array(
 		'labels_empty' => 'Geen labels',
 		'new_article' => 'Er zijn nieuwe artikelen beschikbaar. Klik om de pagina te vernieuwen.',
 		'should_be_activated' => 'JavaScript moet aanstaan',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'De gebruikte CSP-header is onveilig en FreshRSS kan kwetsbaar zijn voor XSS-aanvallen. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zie documentatie</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -182,6 +182,7 @@ return array(
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
 	),
@@ -196,7 +197,7 @@ return array(
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
 		'logs' => 'Log boeken',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'Privacy',	// IGNORE
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',
 		'search' => 'Zoek woorden of #labels',

@@ -23,3 +23,11 @@ services:
       TZ: Europe/Paris
       CRON_MIN: '3,33'
       TRUSTED_PROXY: 172.16.0.1/12 192.168.0.1/16
+    # # Optional healthcheck section:
+    # healthcheck:
+    #   test: ["CMD", "cli/health.php"]
+    #   timeout: 10s
+    #   start_period: 60s
+    #   start_interval: 11s
+    #   interval: 75s
+    #   retries: 3

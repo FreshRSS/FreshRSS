@@ -39,7 +39,7 @@ function join_path(...$path_parts): string {
 
 //<Auto-loading>
 function classAutoloader(string $class): void {
-	if (strpos($class, 'FreshRSS') === 0) {
+	if (str_starts_with($class, 'FreshRSS')) {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
@@ -52,7 +52,7 @@ function classAutoloader(string $class): void {
 				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
-	} elseif (strpos($class, 'Minz') === 0) {
+	} elseif (str_starts_with($class, 'Minz')) {
 		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'SimplePie\\')) {
 		$prefix = 'SimplePie\\';
@@ -319,8 +319,27 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		}
 	}
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
+		$safe_params = [
+			CURLOPT_COOKIE,
+			CURLOPT_COOKIEFILE,
+			CURLOPT_FOLLOWLOCATION,
+			CURLOPT_HTTPHEADER,
+			CURLOPT_MAXREDIRS,
+			CURLOPT_POST,
+			CURLOPT_POSTFIELDS,
+			CURLOPT_PROXY,
+			CURLOPT_PROXYTYPE,
+			CURLOPT_USERAGENT,
+		];
 		foreach ($attributes['curl_params'] as $co => $v) {
 			if (is_int($co)) {
+				if (!in_array($co, $safe_params, true)) {
+					continue;
+				}
+				if ($co === CURLOPT_COOKIEFILE) {
+					// Allow only an empty value just to enable the libcurl cookie engine
+					$v = '';
+				}
 				$curl_options[$co] = $v;
 			}
 		}
@@ -712,8 +731,8 @@ function validateEmailAddress(string $email): bool {
  */
 function lazyimg(string $content): string {
 	return preg_replace([
-			'/<((?:img|image|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
 			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
 			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
@@ -1081,7 +1100,8 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 		$details = "<pre>{$details}</pre>";
 	}
 
-	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	header('Referrer-Policy: same-origin');
 
 	return <<<MSG

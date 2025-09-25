@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nCompletionValidator.php';
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
+final class I18nCompletionValidatorTest extends \PHPUnit\Framework\TestCase {
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 

@@ -68,7 +68,7 @@ test: bin/phpunit ## Run the test suite
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/9e43d8a9b16fffa4dc9b090b9104dab7d815424a/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
 # building any of these builds them all
 vendor/bin/phpunit vendor/bin/phpcs vendor/bin/phpcbf vendor/bin/phpstan &: bin/composer

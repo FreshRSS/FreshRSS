@@ -416,12 +416,12 @@ final class FreshRSS_Context {
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
 				self::$current_get['A'] = true;
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'Z':	// All including PRIORITY_HIDDEN
 				self::$current_get['Z'] = true;
 				self::$name = _t('index.feed.title');
 				self::$description = FreshRSS_Context::systemConf()->meta_description;

@@ -16,114 +16,107 @@ function forgetOpenCategories() {
 	localStorage.removeItem('FreshRSS_open_categories');
 }
 
-function init_crypto_form() {
-	/* globals bcrypt */
-	const crypto_form = document.getElementById('crypto-form');
-	if (!crypto_form) {
-		return;
-	}
-
+function init_crypto_forms() {
 	if (!(window.bcrypt)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
 		}
-		setTimeout(init_crypto_form, 100);
+		setTimeout(init_crypto_forms, 100);
 		return;
 	}
 
-	forgetOpenCategories();
+	/* globals bcrypt */
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	crypto_forms.forEach(crypto_form => {
+		const submit_button = crypto_form.querySelector('[type="submit"]');
+		if (submit_button) {
+			submit_button.disabled = false;
+		}
 
-	const submit_button = crypto_form.querySelector('[type="submit"]');
-	if (submit_button) {
-		submit_button.disabled = false;
-	}
-
-	crypto_form.onsubmit = function (e) {
-		let challenge = crypto_form.querySelector('#challenge');
-		if (!challenge) {
-			crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
-				if (el.value !== '' && !challenge) {
-					crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
-					challenge = crypto_form.querySelector('#challenge');
-				}
-			});
+		crypto_form.onsubmit = function (e) {
+			let challenge = crypto_form.querySelector('#challenge');
 			if (!challenge) {
-				return true;
-			}
-		}
-
-		e.preventDefault();
-
-		if (!submit_button) {
-			return false;
-		}
-		submit_button.disabled = true;
-
-		const req = new XMLHttpRequest();
-		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, true);
-
-		req.onerror = function () {
-			openNotification('Communication error!', 'bad');
-			submit_button.disabled = false;
-		};
-
-		req.onload = function () {
-			if (req.status == 200) {
-				const json = xmlHttpRequestJson(req);
-				if (!json.salt1 || !json.nonce) {
-					openNotification('Invalid user!', 'bad');
-				} else {
-					try {
-						const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
-						const s = bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1);
-						const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-						challenge.value = c;
-						if (!s || !c) {
-							openNotification('Crypto error!', 'bad');
-						} else {
-							crypto_form.removeEventListener('submit', crypto_form.onsubmit);
-							crypto_form.submit();
-						}
-					} catch (ex) {
-						openNotification('Crypto exception! ' + ex, 'bad');
+				crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
+					if (el.value !== '' && !challenge) {
+						crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
+						challenge = crypto_form.querySelector('#challenge');
 					}
+				});
+				if (!challenge) {
+					return true;
 				}
-			} else {
-				req.onerror();
 			}
-			submit_button.disabled = false;
-		};
 
-		req.send();
-	};
+			e.preventDefault();
+
+			if (!submit_button) {
+				return false;
+			}
+			submit_button.disabled = true;
+
+			const req = new XMLHttpRequest();
+			req.open('GET', './?c=javascript&a=nonce&user=' + crypto_form.querySelector('#username').value, true);
+
+			req.onerror = function () {
+				openNotification('Communication error!', 'bad');
+				submit_button.disabled = false;
+			};
+
+			req.onload = function () {
+				if (req.status == 200) {
+					const json = xmlHttpRequestJson(req);
+					if (!json.salt1 || !json.nonce) {
+						openNotification('Invalid user!', 'bad');
+					} else {
+						try {
+							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
+							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
+							const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
+							challenge.value = c;
+							if (!s || !c) {
+								openNotification('Crypto error!', 'bad');
+							} else {
+								crypto_form.removeEventListener('submit', crypto_form.onsubmit);
+								crypto_form.submit();
+							}
+						} catch (ex) {
+							openNotification('Crypto exception! ' + ex, 'bad');
+						}
+					}
+				} else {
+					req.onerror();
+				}
+				submit_button.disabled = false;
+			};
+
+			req.send();
+		};
+	});
 }
 // </crypto form (Web login)>
 
 // <show password>
-let timeoutHide;
-
-function showPW_this() {
-	const id_passwordField = this.getAttribute('data-toggle');
-	if (this.classList.contains('active')) {
-		hidePW(id_passwordField);
+function togglePW(btn) {
+	if (btn.classList.contains('active')) {
+		hidePW(btn);
 	} else {
-		showPW(id_passwordField);
+		showPW(btn);
 	}
 	return false;
 }
 
-function showPW(id_passwordField) {
-	const passwordField = document.getElementById(id_passwordField);
+function showPW(btn) {
+	const passwordField = btn.previousElementSibling;
 	passwordField.setAttribute('type', 'text');
-	passwordField.nextElementSibling.classList.add('active');
-	clearTimeout(timeoutHide);
-	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
+	btn.classList.add('active');
+	clearTimeout(btn.timeoutHide);
+	btn.timeoutHide = setTimeout(function () { hidePW(btn); }, 5000);
 	return false;
 }
 
-function hidePW(id_passwordField) {
-	clearTimeout(timeoutHide);
-	const passwordField = document.getElementById(id_passwordField);
+function hidePW(btn) {
+	clearTimeout(btn.timeoutHide);
+	const passwordField = btn.previousElementSibling;
 	passwordField.setAttribute('type', 'password');
 	passwordField.nextElementSibling.classList.remove('active');
 	return false;
@@ -131,7 +124,7 @@ function hidePW(id_passwordField) {
 
 function init_password_observers(parent) {
 	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
-		btn.addEventListener('click', showPW_this);
+		btn.onclick = () => togglePW(btn);
 	});
 }
 // </show password>
@@ -500,8 +493,12 @@ function init_extra_afterDOM() {
 		setTimeout(init_extra_afterDOM, 50);
 		return;
 	}
+	const loginButton = document.querySelector('#loginButton');
+	if (loginButton) {
+		loginButton.addEventListener('click', forgetOpenCategories);
+	}
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_crypto_form();
+		init_crypto_forms();
 		init_password_observers(document.body);
 		init_select_observers();
 		init_configuration_alert();
