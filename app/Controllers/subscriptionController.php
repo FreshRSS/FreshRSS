@@ -46,6 +46,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title') . ' · ');
 
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
+			'img-src' => "'self' blob:",
+		]);
+
 		$this->view->onlyFeedsWithError = Minz_Request::paramBoolean('error');
 
 		$id = Minz_Request::paramInt('id');
@@ -80,6 +86,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	 *   - feed URL
 	 *   - category id (default: default category id)
 	 *   - CSS path to article on website
+	 *   - favicon
 	 *   - display in main stream (default: 0)
 	 *   - HTTP authentication
 	 *   - number of article to retain (default: -2)
@@ -108,6 +115,12 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$this->view->feed = $feed;
 
 		FreshRSS_View::prependTitle($feed->name() . ' · ' . _t('sub.title.feed_management') . ' · ');
+
+		$this->_csp([
+			'default-src' => "'self'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
+			'img-src' => "'self' blob:",
+		]);
 
 		if (Minz_Request::isPost()) {
 			$unicityCriteria = Minz_Request::paramString('unicityCriteria');
@@ -194,7 +207,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			$headers = array_filter(array_map('trim', $headers));
+			$headers = array_filter($headers, fn(string $header): bool => trim($header) !== '');
 			if (!empty($headers)) {
 				$opts[CURLOPT_HTTPHEADER] = array_merge($headers, $opts[CURLOPT_HTTPHEADER] ?? []);
 				$opts[CURLOPT_HTTPHEADER] = array_unique($opts[CURLOPT_HTTPHEADER]);
@@ -305,9 +318,21 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			$conditions = Minz_Request::paramTextToArray('path_entries_conditions', plaintext: true);
-			$conditions = array_filter(array_map('trim', $conditions));
+			$conditions = array_filter($conditions, fn(string $condition): bool => trim($condition) !== '');
 			$feed->_attribute('path_entries_conditions', empty($conditions) ? null : $conditions);
 			$feed->_attribute('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
+
+			// @phpstan-ignore offsetAccess.nonOffsetAccessible
+			$favicon_path = isset($_FILES['newFavicon']) ? $_FILES['newFavicon']['tmp_name'] : '';
+			// @phpstan-ignore offsetAccess.nonOffsetAccessible
+			$favicon_size = isset($_FILES['newFavicon']) ? $_FILES['newFavicon']['size'] : 0;
+
+			$favicon_uploaded = $favicon_path !== '';
+
+			$resetFavicon = Minz_Request::paramBoolean('resetFavicon');
+			if ($resetFavicon) {
+				$feed->resetCustomFavicon();
+			}
 
 			$values = [
 				'name' => Minz_Request::paramString('name'),
@@ -343,7 +368,23 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id]];
 			}
 
-			if ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
+			if ($favicon_uploaded && !$resetFavicon) {
+				$max_size = FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'];
+				if ($favicon_size > $max_size) {
+					Minz_Request::bad(_t('feedback.sub.feed.favicon.too_large', format_bytes($max_size)), $url_redirect);
+					return;
+				}
+				try {
+					$feed->setCustomFavicon(tmpPath: is_string($favicon_path) ? $favicon_path : '', values: $values);
+				} catch (FreshRSS_UnsupportedImageFormat_Exception $_) {
+					Minz_Request::bad(_t('feedback.sub.feed.favicon.unsupported_format'), $url_redirect);
+					return;
+				} catch (FreshRSS_Feed_Exception $_) {
+					Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
+					return;
+				}
+				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
+			} elseif ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_categoryId($values['category']);
 				// update url and website values for faviconPrepare
 				$feed->_url($values['url'], false);

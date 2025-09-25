@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt aktiviert',
 		),
+		'invalid_view_mode' => 'Ungültige Standard-Ansicht %s gefunden. Setze Standard-Ansicht auf Normale Ansicht zurück.',
 		'no_access' => 'Sie haben keinen Zugang zu %s',
 		'not_enabled' => '%s ist noch nicht aktiviert',
 		'not_found' => '%s existiert nicht',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',
+		'passwords_dont_match' => 'Passwörter stimmen nicht überein',
 		'updated' => 'Ihr Profil ist geändert worden',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> Zwischenspeicher wurde geleert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
+			'favicon' => array(
+				'too_large' => 'Das hochgeladene Icon ist zu groß. Die maximale Dateigröße beträgt <em>%s</em>.',
+				'unsupported_format' => 'Das Bilddateiformat wird nicht unterstützt!',
+			),
 			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>. Mit <code>#force_feed</code> am Ende der Feed-URL kann das Hinzufügen erzwungen werden.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',

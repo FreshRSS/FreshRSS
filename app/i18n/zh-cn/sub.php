@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP 密码',
 			'username' => 'HTTP 用户名',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => '总是清除缓存',
 		'content_action' => array(
 			'_' => '获取原文后的操作',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML 文件 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => '导出为 OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => '过滤动作',
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '可见性',
-			'archived' => '不显示（归档）',
 			'category' => '在分类中显示',
+			'hidden' => '不显示',
 			'important' => '在“重要的订阅”中显示',
 			'main_stream' => '在首页中显示',
 		),
 		'proxy' => '获取订阅源时的代理',
 		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> 或者 <kbd>username:password@127.0.0.1:1080</kbd>）',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
 			'show_rendered' => '显示内容',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => '源地址',
 		'useragent' => '设置用于获取此源的 User Agent',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => '删除标签',
 		'feed_management' => '订阅源管理',
-		'rename_label' => '重命名标签',
 		'subscription_tools' => '订阅工具',
 	),
 );

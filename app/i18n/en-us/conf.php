@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 		),
+		'change_password' => 'Change password',	// IGNORE
+		'confirm_new_password' => 'Confirm new password',	// IGNORE
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'delete' => array(
 			'_' => 'Account deletion',	// IGNORE
 			'warn' => 'Your account and all related data will be deleted.',	// IGNORE
 		),
 		'email' => 'Email address',	// IGNORE
+		'new_password' => 'New password',	// IGNORE
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// IGNORE
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// IGNORE
 		'password_format' => 'At least 7 characters',	// IGNORE
 		'title' => 'Profile',	// IGNORE
 	),
@@ -318,7 +321,7 @@ return array(
 		'article_action' => 'Article actions',	// IGNORE
 		'auto_share' => 'Share',	// IGNORE
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',	// IGNORE
-		'close_dropdown' => 'Close menus',	// IGNORE
+		'close_menus' => 'Close menus',	// IGNORE
 		'collapse_article' => 'Collapse',	// IGNORE
 		'first_article' => 'Open the first article',	// IGNORE
 		'focus_search' => 'Access search box',	// IGNORE

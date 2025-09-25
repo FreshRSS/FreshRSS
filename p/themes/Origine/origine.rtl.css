@@ -201,7 +201,7 @@ th {
 	margin-bottom: 0.25rem;
 }
 
-.form-group .group-controls label {
+.form-group .group-controls label:not(.btn) {
 	padding: 0;
 }
 
@@ -313,6 +313,10 @@ a:hover .icon {
 
 .dropdown-target:target ~ .btn.dropdown-toggle .icon {
 	filter: brightness(1.1);
+}
+
+.btn.active, .btn:active {
+	filter: brightness(0.95);
 }
 
 .btn.active .icon,
@@ -921,6 +925,12 @@ a:hover .icon {
 	border-radius: 3px;
 }
 
+.content pre code {
+	background: transparent;
+	color: var(--font-color);
+	border: none;
+}
+
 .content code {
 	background-color: var(--background-color-light-shadowed);
 	color: var(--error-feed-color);
@@ -1166,6 +1176,10 @@ a:hover .icon {
 
 	.dropdown-menu .dropdown-section:last-child {
 		margin-bottom: 3rem;
+	}
+
+	.item.configure .dropdown .dropdown-menu {
+		border-radius: 0;
 	}
 
 	#nav_menu_read_all .btn {

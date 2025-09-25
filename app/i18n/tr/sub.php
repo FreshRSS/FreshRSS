@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP parolası',
 			'username' => 'HTTP kullanıcı adı',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Önbelleği her zaman temizle',
 		'content_action' => array(
 			'_' => 'Makale içeriği getirilirken içerik eylemi',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Belgelere bakın</a>)',
 			'label' => 'OPML olarak dışa aktar',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtre eylemleri',
 			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
 		),
 		'http_headers' => 'HTTP Başlıkları',
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// TODO
 		'information' => 'Bilgi',
 		'keep_min' => 'Saklanacak minimum makale sayısı',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'İçerik alma koşulları',
 		'priority' => array(
 			'_' => 'Görünürlük',
-			'archived' => 'Gösterilmesin (arşivlenmiş)',
 			'category' => 'Kategorisinde göster',
+			'hidden' => 'Gösterilmesin',
 			'important' => 'Önemli beslemelerde göster',
 			'main_stream' => 'Ana akışta göster',
 		),
 		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
 		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Kaynak kodu göster',
 			'show_rendered' => 'İçeriği göster',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Geçersiz beslemeler için geçerlidir.<br />⚠️ Politikayı değiştirmek kopyalar oluşturur.',
 			'id' => 'Standart Kimlik (varsayılan)',
 			'link' => 'Bağlantı',
+			'sha1:content' => 'İçerik',
+			'sha1:content_published' => 'İçerik + Tarih',
 			'sha1:link_published' => 'Bağlantı + Tarih',
 			'sha1:link_published_title' => 'Bağlantı + Tarih + Başlık',
 			'sha1:link_published_title_content' => 'Bağlantı + Tarih + Başlık + İçerik',
+			'sha1:published' => 'Tarih',
+			'sha1:title' => 'Başlık',
+			'sha1:title_published' => 'Başlık + Tarih',
+			'sha1:title_published_content' => 'Başlık + Tarih + İçerik',
 		),
 		'url' => 'Besleme URL’si',
 		'useragent' => 'Bu beslemeyi almak için kullanıcı aracısını ayarlayın',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML kategori adı',
 		'delete_label' => 'Etiketi sil',
 		'feed_management' => 'RSS besleme yönetimi',
-		'rename_label' => 'Etiketi yeniden adlandır',
 		'subscription_tools' => 'Abonelik araçları',
 	),
 );

@@ -205,6 +205,7 @@ the search field.
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats :
 
 * par ID de flux : `f:123` ou plusieurs flux (*ou*) : `f:123,234,345`
+* by ID de catégorie : `c:23` ou plusieurs catégories (*ou*): `c:23,34,45`
 * par auteur : `author:nom` ou `author:'nom composé'`
 * par titre : `intitle:mot` ou `intitle:'mot composé'`
 * par texte (contenu) : `intext:mot` ou `intext:'mot composé'`

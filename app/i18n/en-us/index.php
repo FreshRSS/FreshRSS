@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Search',	// IGNORE
 		'sort' => array(
 			'_' => 'Sorting criteria',	// IGNORE
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// IGNORE
+				'name_desc' => 'Category, feed titles Z→A',	// IGNORE
+			),
 			'date_asc' => 'Publication date 1→9',	// IGNORE
 			'date_desc' => 'Publication date 9→1',	// IGNORE
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// IGNORE
+				'name_desc' => 'Feed title Z→A',	// IGNORE
+			),
 			'id_asc' => 'Freshly received last',	// IGNORE
 			'id_desc' => 'Freshly received first',	// IGNORE
 			'link_asc' => 'Link A→Z',	// IGNORE

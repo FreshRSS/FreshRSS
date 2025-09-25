@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -60,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>almeno 7 caratteri</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Nuovo profilo',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Ieri',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇮🇹',
 	'freshrss' => array(
 		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Categoria vuota',
 		'confirm_action' => 'Sei sicuro di voler continuare?',
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
 			'body_unread_articles' => '(non letti: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'Nessun tag',
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -174,6 +182,7 @@ return array(
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
 	),

@@ -46,6 +46,7 @@ It is possible to filter articles by their content by inputting a string in the 
 You can use the search field to further refine results:
 
 * by feed ID: `f:123` or multiple feed IDs (*or*): `f:123,234,345`
+* by category ID: `c:23` or multiple category IDs (*or*): `c:23,34,45`
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
 * by text (content): `intext:keyword` or `intext:'composed keyword'`

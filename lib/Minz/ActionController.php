@@ -14,6 +14,7 @@ abstract class Minz_ActionController {
 	/** @var array<string,string> */
 	private static array $csp_default = [
 		'default-src' => "'self'",
+		'frame-ancestors' => "'none'",
 	];
 
 	/** @var array<string,string> */
@@ -66,7 +67,7 @@ abstract class Minz_ActionController {
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
 	public static function _defaultCsp(array $policies): void {
-		if (!isset($policies['default-src'])) {
+		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			Minz_Log::warning('Default CSP policy is not declared', ADMIN_LOG);
 		}
 		self::$csp_default = $policies;
@@ -75,16 +76,17 @@ abstract class Minz_ActionController {
 	/**
 	 * Set CSP policies.
 	 *
-	 * A default-src directive should always be given.
+	 * default-src and frame-ancestors directives should always be given.
 	 *
 	 * References:
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
+	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
 	 *
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
 	protected function _csp(array $policies): void {
-		if (!isset($policies['default-src'])) {
+		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
 			Minz_Log::warning(
 				"Default CSP policy is not declared for action {$action}.",

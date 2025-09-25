@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -60,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Salasana',
 			'format' => '<small>Vähintään 7 merkkiä</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Uusi tili',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Eilen',
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇫🇮',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',
 		'confirm_action_feed_cat' => 'Haluatko varmasti toteuttaa toiminnon? Luokkaan kuuluvat suosikit ja kyselyt poistetaan. Tätä ei voi peruuttaa!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS-sovelluksessa on %%d uutta artikkelia luettavana.',
 			'body_unread_articles' => '(lukematta: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'Ei tunnisteita',
 		'new_article' => 'Uusia artikkeleita on saatavilla. Päivitä sivu napsauttamalla.',
 		'should_be_activated' => 'JavaScriptin on oltava käytössä',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -174,6 +182,7 @@ return array(
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
 	),
@@ -213,7 +222,7 @@ return array(
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE

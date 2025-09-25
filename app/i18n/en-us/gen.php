@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -60,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>At least 7 characters</small>',	// IGNORE
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// IGNORE
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// IGNORE
+			'title' => 'Reauthentication',	// IGNORE
 		),
 		'registration' => array(
 			'_' => 'New account',	// IGNORE
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Yesterday',	// IGNORE
 	),
 	'dir' => 'ltr',	// IGNORE
+	'flag' => '🇺🇸',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Empty category',	// IGNORE
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// IGNORE
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// IGNORE
 			'body_unread_articles' => '(unread: %%d)',	// IGNORE
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',	// IGNORE
 		'new_article' => 'There are new articles available, click to refresh the page.',	// IGNORE
 		'should_be_activated' => 'JavaScript must be enabled',	// IGNORE
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// IGNORE
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -174,6 +182,7 @@ return array(
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
 		'zh-cn' => '简体中文',	// IGNORE
 		'zh-tw' => '正體中文',	// IGNORE
 	),

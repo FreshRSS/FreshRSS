@@ -24,6 +24,12 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	protected static function sqlLimitAll(): string {
+		// https://www.postgresql.org/docs/current/queries-limit.html
+		return 'ALL';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -59,9 +65,9 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['attributes'] as $column) {
-					if (stripos($errorLines[0], $column) !== false) {
+					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}
 				}

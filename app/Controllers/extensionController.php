@@ -48,7 +48,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$cacheFile = CACHE_PATH . '/extension_list.json';
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = httpGet($extensionListUrl, $cacheFile, 'json');
+				$json = httpGet($extensionListUrl, $cacheFile, 'json')['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}
@@ -330,7 +330,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		header("Content-Type: {$content_type}");
 		header("Content-Disposition: inline; filename='{$filename}'");
 		header('Referrer-Policy: same-origin');
-		if (!httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
+		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
 			echo $extension->getFile($filename);
 		}
 	}

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'Contraseña HTTP',
 			'username' => 'Nombre de usuario HTTP',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Borrar siempre la memoria caché',
 		'content_action' => array(
 			'_' => 'Acción de contenido al obtener el contenido del artículo',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
 			'label' => 'Exportar como OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Los Headers son separados por un salto de linea, y el nombre y valor de un Header son separados con dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// TODO
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibilidad',
-			'archived' => 'No mostrar (archivado)',
 			'category' => 'Mostrar en su categoría',
+			'hidden' => 'No mostrar',
 			'important' => 'Mostrar en fuentes importantes',
 			'main_stream' => 'Mostrar en salida principal',
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar código fuente',
 			'show_rendered' => 'Mostrar contenido',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevante para fuentes inválidas.<br />⚠️ Cambiar la política creara duplicados.',
 			'id' => 'ID Estándar (por defecto)',
 			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Contenido',
+			'sha1:content_published' => 'Contenido + Fecha',
 			'sha1:link_published' => 'Link + Fecha',
 			'sha1:link_published_title' => 'Link + Fecha + Título',
 			'sha1:link_published_title_content' => 'Link + Fecha + Título + Contenido',
+			'sha1:published' => 'Fecha',
+			'sha1:title' => 'Título',
+			'sha1:title_published' => 'Título + Fecha',
+			'sha1:title_published_content' => 'Título + Fecha + Contenido',
 		),
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',
-		'rename_label' => 'Cambiar el nombre de una etiqueta',
 		'subscription_tools' => 'Herramientas de suscripción',
 	),
 );

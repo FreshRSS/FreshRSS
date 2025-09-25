@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Szukaj',
 		'sort' => array(
 			'_' => 'Kryteria sortowania',
+			'c' => array(
+				'name_asc' => 'Tytuł kategorii i kanału A→Z',
+				'name_desc' => 'Tytuł kategorii i kanału Z→A',
+			),
 			'date_asc' => 'Data publikacji 1→9',
 			'date_desc' => 'Data publikacji 9→1',
+			'f' => array(
+				'name_asc' => 'Tytuł kanału A→Z',
+				'name_desc' => 'Tytuł kanału Z→A',
+			),
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
 			'link_asc' => 'Odnośnik A→Z',

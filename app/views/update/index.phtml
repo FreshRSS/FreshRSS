@@ -48,6 +48,7 @@
 		</div>
 	</div>
 
+	<?php if (!FreshRSS_Context::systemConf()->disable_update): ?>
 	<div class="form-group">
 		<label class="group-name"><?= _t('admin.update.last') ?></label>
 		<div class="group-controls">
@@ -73,4 +74,5 @@
 		</div>
 	</div>
 	<?php } ?>
+	<?php endif; ?>
 </main>

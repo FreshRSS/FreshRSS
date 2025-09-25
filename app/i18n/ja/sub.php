@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP パスワード',
 			'username' => 'HTTP ユーザー名',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => '常にキャッシュをクリアする',
 		'content_action' => array(
 			'_' => '記事のコンテンツを取得するときの動作',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XMLファイル (データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。)',
 			'label' => 'OPMLとしてエクスポート',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 		),
 		'http_headers' => 'HTTPヘッダ',
-		'http_headers_help' => 'ヘッダは開業で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// TODO
 		'information' => 'インフォメーション',
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'コンテンツを取得する条件',
 		'priority' => array(
 			'_' => '表示する場所',
-			'archived' => '非表示にする(アーカイブ)',
 			'category' => 'カテゴリで表示する',
+			'hidden' => '非表示にする',
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを取得するときのプロキシ',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',
@@ -236,9 +241,15 @@ return array(
 			'help' => '不正なフィードに対処します。<br />⚠️ ポリシーを変更すると重複が発生します。',
 			'id' => '標準的なID (デフォルト)',
 			'link' => 'リンク',
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'リンク + 日付',
 			'sha1:link_published_title' => 'リンク + 日付 + タイトル',
 			'sha1:link_published_title_content' => 'リンク + 日付 + タイトル + コンテンツ',
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを取得するときのユーザーエージェント',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPMLカテゴリ名',
 		'delete_label' => 'ラベルの削除',
 		'feed_management' => 'RSSフィードの管理',
-		'rename_label' => 'ラベルの名前変更',
 		'subscription_tools' => '購読ツール',
 	),
 );

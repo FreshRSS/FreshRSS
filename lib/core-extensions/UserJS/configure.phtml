@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 	/** @var UserJSExtension $this */
 ?>
-<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post">
+<form action="<?= _url('extension', 'configure', 'e', urlencode($this->getName())) ?>" method="post" data-auto-leave-validation="1">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<div class="form-group">
 		<label class="group-name" for="js-rules"><?= _t('ext.user_js.write_js') ?></label>

@@ -234,6 +234,36 @@ class Parser
         $this->state = self::STATE_NEW_LINE;
     }
 
+    private function add_header(string $name, string $value): void
+    {
+        if ($this->psr7Compatible) {
+            // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
+            /** @var array<string, non-empty-array<string>> */
+            $headers = &$this->headers;
+            $headers[$name][] = $value;
+        } else {
+            // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
+            /** @var array<string, string>) */
+            $headers = &$this->headers;
+            $headers[$name] .= ', ' . $value;
+        }
+    }
+
+    private function replace_header(string $name, string $value): void
+    {
+        if ($this->psr7Compatible) {
+            // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
+            /** @var array<string, non-empty-array<string>> */
+            $headers = &$this->headers;
+            $headers[$name] = [$value];
+        } else {
+            // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
+            /** @var array<string, string>) */
+            $headers = &$this->headers;
+            $headers[$name] = $value;
+        }
+    }
+
     /**
      * Deal with a new line, shifting data around as needed
      * @return void
@@ -245,17 +275,9 @@ class Parser
             $this->name = strtolower($this->name);
             // We should only use the last Content-Type header. c.f. issue #1
             if (isset($this->headers[$this->name]) && $this->name !== 'content-type') {
-                if ($this->psr7Compatible) {
-                    $this->headers[$this->name][] = $this->value;
-                } else {
-                    $this->headers[$this->name] .= ', ' . $this->value;
-                }
+                $this->add_header($this->name, $this->value);
             } else {
-                if ($this->psr7Compatible) {
-                    $this->headers[$this->name] = [$this->value];
-                } else {
-                    $this->headers[$this->name] = $this->value;
-                }
+                $this->replace_header($this->name, $this->value);
             }
         }
         $this->name = '';
@@ -449,6 +471,9 @@ class Parser
             }
 
             $length = hexdec(trim($matches[1]));
+            // For PHPStan: this will only be float when larger than PHP_INT_MAX.
+            // But even on 32-bit systems, it would mean 2GiB chunk, which sounds unlikely.
+            \assert(\is_int($length), "Length needs to be shorter than PHP_INT_MAX");
             if ($length === 0) {
                 // Ignore trailer headers
                 $this->state = self::STATE_EMIT;
@@ -475,7 +500,7 @@ class Parser
      * Prepare headers (take care of proxies headers)
      *
      * @param string  $headers Raw headers
-     * @param int $count   Redirection count. Default to 1.
+     * @param non-negative-int $count Redirection count. Default to 1.
      *
      * @return string
      */

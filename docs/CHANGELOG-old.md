@@ -1,6 +1,6 @@
 # Journal des modifications de FreshRSS
 
-[Voir les changements plus récents (en anglais)](./CHANGELOG.md)
+[Voir les changements plus récents (en anglais)](./CHANGELOG-old2.md)
 
 ## 2014-02-19 FreshRSS 0.7.1
 

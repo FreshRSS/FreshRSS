@@ -11,12 +11,22 @@ if [ "$(id -u)" -ne 0 ]; then
 	exit 3
 fi
 
+# Always fix permissions on the data and extensions directories
+# If specified, only fix the data and extensions directories
+data_path="${DATA_PATH:-./data}"
+if [ "${1:-}" = "--only-userdirs" ]; then
+	to_update="./extensions"
+else
+	to_update="."
+fi
+
+mkdir -p "${data_path}/users/_/"
+
 # Based on group access
-chown -R :www-data .
+chown -R :www-data "$data_path" "$to_update"
 
 # Read files, and directory traversal
-chmod -R g+rX .
+chmod -R g+rX "$data_path" "$to_update"
 
-# Write access
-mkdir -p ./data/users/_/
-chmod -R g+w ./data/
+# Write access to data
+chmod -R g+w "$data_path"

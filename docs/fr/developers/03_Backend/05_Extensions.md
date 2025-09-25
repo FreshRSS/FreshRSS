@@ -218,6 +218,8 @@ final class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
+* `api_misc` (`function(): void`) : permet aux extensions d’avoir leur propre point d’accès API
+	sur `/api/misc.php/Nom%20Extension/` ou `/api/misc.php?ext=Nom%20Extension`.
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed
 	every time a URL is added. The URL itself will be passed as
 	parameter. This way a website known to have feeds which doesn’t advertise
@@ -233,6 +235,14 @@ The following events are available:
 	executed when a feed is refreshed and new entries will be imported into
 	the database. The new entry (instance of FreshRSS\_Entry) will be passed
 	as parameter.
+* `entry_before_add` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is added to the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `entry_before_update` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is updated in the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
@@ -259,6 +269,7 @@ The following events are available:
 * `post_update` (`function(none) -> none`): **TODO** add documentation
 * `simplepie_after_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
 * `simplepie_before_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `view_modes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): permet aux extensions de déclarer d’autres modes de vue que *normale*, *lecture*, *globale*.
 
 > ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
 

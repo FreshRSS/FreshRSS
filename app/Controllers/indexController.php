@@ -16,9 +16,17 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		$preferred_output = FreshRSS_Context::userConf()->view_mode;
+		$viewMode = FreshRSS_ViewMode::getAllModes()[$preferred_output] ?? null;
+
+		// Fallback to 'normal' if the preferred mode was not found
+		if ($viewMode === null) {
+			Minz_Request::setBadNotification(_t('feedback.extensions.invalid_view_mode', $preferred_output));
+			$viewMode = FreshRSS_ViewMode::getAllModes()['normal'];
+		}
+
 		Minz_Request::forward([
-			'c' => 'index',
-			'a' => $preferred_output,
+			'c' => $viewMode->controller(),
+			'a' => $viewMode->action(),
 		]);
 	}
 
@@ -49,7 +57,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-src' => '*',
-			'img-src' => '* data:',
+			'img-src' => '* data: blob:',
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 
@@ -137,7 +146,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-src' => '*',
-			'img-src' => '* data:',
+			'img-src' => '* data: blob:',
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 	}
@@ -212,8 +222,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
-			case 'A':	// All except PRIORITY_ARCHIVED
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
+			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
 			case 'c':
@@ -273,15 +283,30 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$id_min = (time() - (FreshRSS_Context::$sinceHours * 3600)) . '000000';
 		}
 
-		$continuation_value = 0;
+		$continuation_values = [];
 		if (FreshRSS_Context::$continuation_id !== '0') {
-			if (in_array(FreshRSS_Context::$sort, ['date', 'link', 'title'], true)) {
+			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title'], true)) {
 				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
-				$continuation_value = $pagingEntry === null ? 0 : match (FreshRSS_Context::$sort) {
+
+				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+					// We most likely already have the feed object in cache
+					$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $pagingEntry->feedId());
+					if ($feed !== null) {
+						$pagingEntry->_feed($feed);
+					}
+				}
+
+				$continuation_values[] = $pagingEntry === null ? 0 : match (FreshRSS_Context::$sort) {
+					'c.name' => $pagingEntry->feed()?->category()?->name() ?? '',
 					'date' => $pagingEntry->date(true),
+					'f.name' => $pagingEntry->feed()?->name() ?? '',
 					'link' => $pagingEntry->link(true),
 					'title' => $pagingEntry->title(),
 				};
+				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
+					// Secondary sort criterion
+					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
+				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
 			}
@@ -290,7 +315,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					continuation_id: FreshRSS_Context::$continuation_id, continuation_value: $continuation_value,
+					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
 					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
 			yield $entry;
 		}

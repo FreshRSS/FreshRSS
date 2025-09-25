@@ -128,7 +128,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		include_once(LIB_PATH . '/lib_install.php');
+		if (!(Minz_Request::actionName() === 'apply' && Minz_Request::paramBoolean('post_conf')) &&
+			FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
+		include_once LIB_PATH . '/lib_install.php';
 
 		invalidateHttpCache();
 
@@ -222,7 +227,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			$result = curl_exec($curlResource);
 			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
 			$curlError = curl_error($curlResource);
-			curl_close($curlResource);
 
 			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(
@@ -274,7 +278,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
-				require(UPDATE_FILENAME);
+				require UPDATE_FILENAME;
 				// @phpstan-ignore function.notFound
 				$res = do_post_update();
 			}
@@ -296,7 +300,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
-				require(UPDATE_FILENAME);
+				require UPDATE_FILENAME;
 				if (Minz_Request::isPost()) {
 					// @phpstan-ignore function.notFound
 					save_info_update();

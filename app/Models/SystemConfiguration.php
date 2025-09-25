@@ -9,6 +9,8 @@ declare(strict_types=1);
  * @property bool $api_enabled
  * @property string $archiving
  * @property 'form'|'http_auth'|'none' $auth_type
+ * @property-read bool $reauth_required
+ * @property-read int $reauth_time
  * @property-read string $auto_update_url
  * @property-read array<int,mixed> $curl_options
  * @property string $default_user
@@ -25,6 +27,7 @@ declare(strict_types=1);
  * @property-read string $salt
  * @property-read bool $simplepie_syslog_enabled
  * @property bool $unsafe_autologin_enabled
+ * @property-read bool $suppress_csp_warning
  * @property array<string> $trusted_sources
  * @property array<string,array<string,mixed>> $extensions
  */

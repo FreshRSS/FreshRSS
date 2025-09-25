@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP jelszó',
 			'username' => 'HTTP felhasználónév',
 		),
+		'change_favicon' => 'Módosítás…',
 		'clear_cache' => 'Mindig törölje a cache-t',
 		'content_action' => array(
 			'_' => 'Tartalom művelet, amikor cikk tartalma beszerzésre kerül',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML fájl (adat részhalmaz. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lásd dokumentáció</a>)',
 			'label' => 'Exportálás OPML formátumban',
 		),
+		'ext_favicon' => 'Beállítás automatikusan',
+		'favicon_changed_by_ext' => 'Az icon a <b>%s</b> bővítmény által lett beállítva.',
 		'filteractions' => array(
 			'_' => 'Szűrő műveletek',
 			'help' => 'Írj egy szűrőt soronként. Műveletek <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">a dokumentációban</a>.',
 		),
 		'http_headers' => 'HTTP Fejlécek',
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// IGNORE
 		'information' => 'Információ',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
@@ -88,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSON pont jelölés (JSON a HTML-ben)',
 				'xpath' => array(
 					'_' => 'XPath JSON-hoz HTML-ben',
-					'help' => 'Példa: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
+					'help' => 'Példa: <code>normalize-space(//script[@type="application/json"])</code> (egyedülálló JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (egy JSON objektum cikkenként)',
 				),
 			),
 			'html_xpath' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Tartalom beszerzési feltételek',
 		'priority' => array(
 			'_' => 'Láthatóság',
-			'archived' => 'Ne jelenjen meg (archivált)',
 			'category' => 'Jelenjen meg a saját kategóriájában',
+			'hidden' => 'Ne jelenjen meg',
 			'important' => 'Megjelenítés a fontos hírforrásokban',
 			'main_stream' => 'Megjelenítés a Minden cikk között',
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
 		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Visszaállítás alapértelmezettre',
 		'selector_preview' => array(
 			'show_raw' => 'Forráskód mutatása',
 			'show_rendered' => 'Tartalom mutatása',
@@ -235,10 +240,16 @@ return array(
 			'forced' => '<span title="Blokkolja az egységességi feltételeket, még akkor is, ha a hírcsatorna ismétlődő cikkeket tartalmaz">kényszerít</span>',
 			'help' => 'Érvénytelen hírforrásokra vonatkozik.<br />⚠️ A házirend módosítása duplikációkat fog létrehozni.',
 			'id' => 'Standard ID (alapértelmezés)',
-			'link' => 'Link',	// TODO
+			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Tartalom',
+			'sha1:content_published' => 'Tartalom + Dátum',
 			'sha1:link_published' => 'Link + Dátum',
 			'sha1:link_published_title' => 'Link + Dátum + Cím',
 			'sha1:link_published_title_content' => 'Link + Dátum + Cím + Tartalom',
+			'sha1:published' => 'Dátum',
+			'sha1:title' => 'Cím',
+			'sha1:title_published' => 'Cím + Dátum',
+			'sha1:title_published_content' => 'Cím + Dátum + Tartalom',
 		),
 		'url' => 'Hírforrás URL',
 		'useragent' => 'Állíts be egy user agent-et ehhez a hírforráshoz',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML kategória név',
 		'delete_label' => 'Címke törlése',
 		'feed_management' => 'RSS hírforrások kezelése',
-		'rename_label' => 'Címke átnevezése',
 		'subscription_tools' => 'Feliratkozási eszközök',
 	),
 );

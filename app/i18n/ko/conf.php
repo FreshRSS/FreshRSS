@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => '계정 삭제',
 			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
 		),
 		'email' => '메일 주소',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
-		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
 		'title' => '프로필',
 	),
@@ -297,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => '공유',
 		'add' => '공유 방법 추가',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => '이 서비스는 더 이상 사용되지 않으며 <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="상세 정보 문서 열기" target="_blank">추후 릴리즈</a> FreshRSS에서 삭제 될 것 입니다.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
@@ -318,7 +321,7 @@ return array(
 		'article_action' => '글 관련 동작',
 		'auto_share' => '공유',
 		'auto_share_help' => '공유 옵션이 하나만 설정되어 있다면 해당 공유 옵션을 사용하고, 그렇지 않다면 공유 옵션을 번호로 선택할 수 있습니다.',
-		'close_dropdown' => '메뉴 닫기',
+		'close_menus' => '메뉴 닫기',
 		'collapse_article' => '접기',
 		'first_article' => '첫 글 보기',
 		'focus_search' => '검색창 사용하기',

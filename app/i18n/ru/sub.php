@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'Пароль HTTP',
 			'username' => 'Имя пользователя HTTP',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Всегда очищать кэш',
 		'content_action' => array(
 			'_' => 'Действие с содержимым, когда извлекается содержимое статьи',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML файл (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'Экспортировать как OPML',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
 			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Видимость',
-			'archived' => 'Не показывать (архивировано)',
 			'category' => 'Показывать в категории ленты',
+			'hidden' => 'Не показывать',
 			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
 		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',
 			'show_rendered' => 'Показать содержимое',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'URL ленты',
 		'useragent' => 'Указать юзерагент для извлечения лент',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Удалить метку',
 		'feed_management' => 'Управление RSS-лентами',
-		'rename_label' => 'Переименовать метку',
 		'subscription_tools' => 'Инструменты подписки',
 	),
 );

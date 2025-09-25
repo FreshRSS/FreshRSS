@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Rechercher',
 		'sort' => array(
 			'_' => 'Critère de tri',
+			'c' => array(
+				'name_asc' => 'Catégorie, flux (titres) A→Z',
+				'name_desc' => 'Catégorie, flux (titres) Z→A',
+			),
 			'date_asc' => 'Date de publication 1→9',
 			'date_desc' => 'Date de publication 9→1',
+			'f' => array(
+				'name_asc' => 'Flux (titre) A→Z',
+				'name_desc' => 'Flux (titre) Z→A',
+			),
 			'id_asc' => 'Reçus récemment en dernier',
 			'id_desc' => 'Reçus récemment en premier',
 			'link_asc' => 'Lien A→Z',

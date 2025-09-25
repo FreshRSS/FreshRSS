@@ -216,8 +216,8 @@ abstract class CliOptionsParser {
 		}
 
 		return [
-			'long' => array_filter($long),
-			'short' => $short
+			'long' => array_filter($long, fn(string $v): bool => trim($v) !== ''),
+			'short' => $short,
 		];
 	}
 

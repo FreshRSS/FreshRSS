@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP 암호',
 			'username' => 'HTTP 사용자 이름',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => '항상 캐시 지우기',
 		'content_action' => array(
 			'_' => '글 콘텐츠를 가져올 때의 동작',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
 			'label' => 'OPML로 내보내기',
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => '필터 동작',
 			'help' => '한 줄에 한 검색 필터를 작성해 주세요. 실행시 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">문서 참고</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => '정보',
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '표시',
-			'archived' => '표시하지 않음 (보관됨)',
 			'category' => '피드가 속한 카테고리에만 표시하기',
+			'hidden' => '표시하지 않음',
 			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',
 		),
 		'proxy' => '이 피드를 가져올 때 사용할 프록시 설정',
 		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> 혹은 <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => '소스코드 표시',
 			'show_rendered' => '콘텐츠 표시',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => '피드 URL',
 		'useragent' => '이 피드를 가져올 때 사용할 유저 에이전트 설정',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => '라벨 삭제',
 		'feed_management' => 'RSS 피드 관리',
-		'rename_label' => '라벨 이름 바꾸기',
 		'subscription_tools' => '구독 도구',
 	),
 );

@@ -16,7 +16,7 @@
 	</div>
 
 	<h2><?= _t('sub.import_export.import') ?></h2>
-	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data">
+	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="file">
@@ -36,7 +36,7 @@
 
 	<h2><?= _t('sub.import_export.export') ?></h2>
 	<?php if (count($this->feeds) > 0) { ?>
-	<form method="post" action="<?= _url('importExport', 'export') ?>">
+	<form method="post" action="<?= _url('importExport', 'export') ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<div class="group-controls">

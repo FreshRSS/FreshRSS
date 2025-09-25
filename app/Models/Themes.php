@@ -15,6 +15,12 @@ class FreshRSS_Themes extends Minz_Model {
 		));
 	}
 
+	public static function exists(string $theme_id): bool {
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
+		return str_replace(['..', '/', DIRECTORY_SEPARATOR], '', $theme_id) === $theme_id
+			&& file_exists($theme_dir . '/metadata.json');
+	}
+
 	/** @return array<string,array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}> */
 	public static function get(): array {
 		$themes_list = self::getList();

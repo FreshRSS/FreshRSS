@@ -1,13 +1,18 @@
 <?php
 declare(strict_types=1);
 
+if (isset($_SESSION) || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
+	header('HTTP/1.1 403 Forbidden');
+	exit('Forbidden');
+}
+
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
-header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
 
-require(LIB_PATH . '/lib_install.php');
+require LIB_PATH . '/lib_install.php';
 
 Minz_Session::init('FreshRSS');
 
@@ -35,7 +40,7 @@ function initTranslate(): void {
 	}
 
 	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', 'en');
+		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
 	}
 
 	Minz_Translate::reset(Minz_Session::paramString('language'));
@@ -144,7 +149,7 @@ function saveStep2(): void {
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
-			$customConfig = include($customConfigPath);
+			$customConfig = include $customConfigPath;
 			if (is_array($customConfig)) {
 				$config_array = array_merge($customConfig, $config_array);
 				if (!is_string($config_array['default_user'] ?? null)) {
@@ -234,6 +239,17 @@ function saveStep3(): bool {
 
 		$ok = false;
 		try {
+			Minz_ModelPdo::$usesSharedPdo = false;
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO(Minz_User::INTERNAL_USER);
+			if (!$databaseDAO->testTyping()) {
+				$message = 'Invalid PDO driver behaviour for selected database type!';
+				if (Minz_Session::paramString('bd_type') === 'mysql') {
+					$message .= ' MySQL requires mysqlnd.';
+				}
+				throw new Exception($message);
+			}
+			Minz_ModelPdo::$usesSharedPdo = true;
+
 			$ok = FreshRSS_user_Controller::createUser(
 				Minz_Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
@@ -249,6 +265,7 @@ function saveStep3(): bool {
 			$ok = false;
 		}
 		if (!$ok) {
+			checkStep();
 			return false;
 		}
 
@@ -526,7 +543,7 @@ function printStep2(): void {
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
-		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']) ?></p>
+		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' ' . $_SESSION['bd_error']) ?></p>
 	<?php } ?>
 
 	<h2><?= _t('install.bdd.conf') ?></h2>

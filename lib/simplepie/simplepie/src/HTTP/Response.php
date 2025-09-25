@@ -95,7 +95,7 @@ interface Response
      *         }
      *     }
      *
-     * @return string[][] Returns an associative array of the message's headers.
+     * @return array<non-empty-array<string>> Returns an associative array of the message's headers.
      *     Each key MUST be a header name, and each value MUST be an array of
      *     strings for that header.
      */
@@ -126,6 +126,20 @@ interface Response
      *    return an empty array.
      */
     public function get_header(string $name): array;
+
+    /**
+     * Return an instance with the provided value replacing the specified header.
+     *
+     * This method MUST be implemented in such a way as to retain the
+     * immutability of the message, and MUST return an instance that has the
+     * new and/or updated header and value.
+     *
+     * @param string $name Case-insensitive header field name.
+     * @param string|non-empty-array<string> $value Header value(s).
+     * @return static
+     * @throws \InvalidArgumentException for invalid header names or values.
+     */
+    public function with_header(string $name, $value);
 
     /**
      * Retrieves a comma-separated string of the values for a single header.

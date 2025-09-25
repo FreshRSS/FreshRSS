@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'Hasło HTTP',
 			'username' => 'Użytkownik HTTP',
 		),
+		'change_favicon' => 'Zmień…',
 		'clear_cache' => 'Zawsze czyść pamięć podręczną',
 		'content_action' => array(
 			'_' => 'Sposób zachowania zawartości pobranej z pierwotnej strony',
@@ -74,12 +75,15 @@ return array(
 			'help' => 'Plik XML (podzbiór danych. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Zobacz dokumentację</a>)',
 			'label' => 'Eksportuj OPML',
 		),
+		'ext_favicon' => 'Ustaw automatycznie',
+		'favicon_changed_by_ext' => 'Ikona została ustawiona przez rozszerzenie <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
 			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
 		),
 		'http_headers' => 'Nagłówki HTTP',
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
+		'icon' => 'Ikona',
 		'information' => 'Informacja',
 		'keep_min' => 'Minimalna liczba wiadomości do przechowywania',
 		'kind' => array(
@@ -205,13 +209,14 @@ return array(
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
 		'priority' => array(
 			'_' => 'Widoczność',
-			'archived' => 'Nie pokazuj (zarchiwizowany)',
 			'category' => 'Pokaż w kategorii kanału',
+			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
 		'proxy' => 'Serwer proxy używany podczas pobierania kanału',
 		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> lub <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Przywróć domyślną',
 		'selector_preview' => array(
 			'show_raw' => 'Pokaż źródło',
 			'show_rendered' => 'Pokaż zawartość',
@@ -236,9 +241,15 @@ return array(
 			'help' => 'Istotne dla niezgodnych kanałów.<br />⚠️ Wprowadzenie zmian w polityce utworzy duplikaty.',
 			'id' => 'standardowe ID (domyślne)',
 			'link' => 'odnośnik',
+			'sha1:content' => 'zawartość',
+			'sha1:content_published' => 'zawartość + data',
 			'sha1:link_published' => 'odnośnik + data',
 			'sha1:link_published_title' => 'odnośnik + data + tytuł',
 			'sha1:link_published_title_content' => 'odnośnik + data + tytuł + zawartość',
+			'sha1:published' => 'data',
+			'sha1:title' => 'tytuł',
+			'sha1:title_published' => 'tytuł + data',
+			'sha1:title_published_content' => 'tytuł + data + zawartość',
 		),
 		'url' => 'Adres kanału',
 		'useragent' => 'Ciąg user agent używany podczas pobierania kanału',
@@ -290,7 +301,6 @@ return array(
 		'add_opml_category' => 'Nazwa kategorii OPML',
 		'delete_label' => 'Usuń etykietę',
 		'feed_management' => 'Zarządzanie kanałami RSS',
-		'rename_label' => 'Zmień nazwę etykiety',
 		'subscription_tools' => 'Narzędzia subskrypcji',
 	),
 );

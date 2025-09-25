@@ -21,6 +21,10 @@ final class UserJSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		if (Minz_Request::isPost()) {
 			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $js_rules);

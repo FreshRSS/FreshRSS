@@ -481,8 +481,9 @@ HTML;
 
 	public function hash(): string {
 		if ($this->hash === '') {
+			$attributes = empty($this->attributeArray('enclosures')) ? '' : json_encode($this->attributes(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true) . $attributes);
 		}
 		return $this->hash;
 	}
@@ -641,6 +642,12 @@ HTML;
 				}
 				if ($ok && $filter->getNotFeedIds() !== null) {
 					$ok &= !in_array($this->feedId, $filter->getNotFeedIds(), true);
+				}
+				if ($ok && $filter->getCategoryIds() !== null) {
+					$ok &= in_array($this->feed()?->categoryId(), $filter->getCategoryIds(), true);
+				}
+				if ($ok && $filter->getNotCategoryIds() !== null) {
+					$ok &= !in_array($this->feed()?->categoryId(), $filter->getNotCategoryIds(), true);
 				}
 				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
@@ -845,7 +852,7 @@ HTML;
 	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception
 	 */
-	public function getContentByParsing(string $url = '', int $maxRedirs = 3): string {
+	public function getContentByParsing(string $url = '', int $maxRedirs = 4): string {
 		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
 		$feed = $this->feed();
 		if ($url === '' || $feed === null || $feed->pathEntries() === '') {
@@ -853,7 +860,7 @@ HTML;
 		}
 
 		$conditions = $feed->attributeArray('path_entries_conditions') ?? [];
-		$conditions = array_filter(array_map(fn($v) => is_string($v) ? trim($v) : '', $conditions));
+		$conditions = array_filter($conditions, fn($v): bool => (is_string($v) ? trim($v) : '') !== '');
 		if (count($conditions) > 0) {
 			$found = false;
 			foreach ($conditions as $condition) {
@@ -872,12 +879,16 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
-		if (strlen($html) > 0) {
+		$response = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$html = $response['body'];
+		if ($html !== '') {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
 
+			// Account for HTTP redirections
+			$url = $response['effective_url'] ?: $url;
+			$maxRedirs -= $response['redirect_count'];
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
 				$metas = $xpath->query('//meta[@content]') ?: [];
