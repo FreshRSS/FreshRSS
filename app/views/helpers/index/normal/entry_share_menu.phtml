@@ -3,7 +3,12 @@
 	/** @var FreshRSS_View $this */
 ?>
 <ul class="dropdown-menu">
-	<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
+	<li class="dropdown-header">
+		<?= _t('index.share') ?>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+			<a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a>
+		<?php } ?>
+	</li><?php
 		$id = '--entryId--';
 		$link = '--link--';
 		$title = '--titleText----websiteName----articleAuthors--';
