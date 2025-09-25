@@ -1,12 +1,18 @@
 <?php
-	declare(strict_types=1);
-	require dirname(__DIR__, 2) . '/constants.php';
-	require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
-	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
-	header('X-Content-Type-Options: nosniff');
+declare(strict_types=1);
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
-	FreshRSS_Context::initSystem();
-	Minz_Translate::init(Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), null));
+FreshRSS_Context::initSystem();
+if (!FreshRSS_Context::hasSystemConf()) {
+	header('HTTP/1.1 500 Internal Server Error');
+	die('Invalid system init!');
+}
+$frameAncestors = FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'";
+header("Content-Security-Policy: default-src 'self'; frame-ancestors $frameAncestors");
+header('X-Content-Type-Options: nosniff');
+
+Minz_Translate::init(Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), null));
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
