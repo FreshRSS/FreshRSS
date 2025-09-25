@@ -219,7 +219,7 @@ return array(
 	'readme' => array(
 		'contribute' => 'contribute',
 		'language' => 'Language',
-		'translated' => 'Translated (%)',
+		'translated' => 'Progress',
 	),
 	'share' => array(
 		'Known' => 'Known based sites',

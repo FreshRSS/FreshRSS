@@ -219,7 +219,7 @@ return array(
 	'readme' => array(
 		'contribute' => 'contribute',	// IGNORE
 		'language' => 'Language',	// IGNORE
-		'translated' => 'Translated (%)',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Situs berbasis Known',
