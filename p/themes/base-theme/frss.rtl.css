@@ -1367,6 +1367,11 @@ input[type="search"] {
 	opacity: 1;
 }
 
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
@@ -2471,7 +2476,8 @@ html.slider-active {
 	.flux_header .item.website span,
 	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 
