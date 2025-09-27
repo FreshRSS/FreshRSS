@@ -7,7 +7,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return 'IGNORE';
 	}
 
-	protected function sqlResetSequence(): bool {
+	public function sqlResetSequence(): bool {
 		return true;	// Nothing to do for MySQL
 	}
 

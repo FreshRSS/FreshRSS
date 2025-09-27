@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
-	protected function sqlResetSequence(): bool {
+	public function sqlResetSequence(): bool {
 		return true;	// Nothing to do for MySQL
 	}
 

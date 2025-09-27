@@ -5,7 +5,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	public const DEFAULTCATEGORYID = 1;
 
-	protected function sqlResetSequence(): bool {
+	public function sqlResetSequence(): bool {
 		return true;	// Nothing to do for MySQL
 	}
 
@@ -228,9 +228,6 @@ SQL;
 	}
 
 	public function deleteCategory(int $id): int|false {
-		if ($id <= self::DEFAULTCATEGORYID) {
-			return false;
-		}
 		$sql = 'DELETE FROM `_category` WHERE id=:id';
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->bindParam(':id', $id, PDO::PARAM_INT) && $stm->execute()) {

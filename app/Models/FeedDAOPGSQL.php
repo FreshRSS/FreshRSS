@@ -4,7 +4,7 @@ declare(strict_types=1);
 class FreshRSS_FeedDAOPGSQL extends FreshRSS_FeedDAO {
 
 	#[\Override]
-	protected function sqlResetSequence(): bool {
+	public function sqlResetSequence(): bool {
 		$sql = <<<'SQL'
 SELECT setval('`_feed_id_seq`', COALESCE(MAX(id), 0) + 1, false) FROM `_feed`
 SQL;
