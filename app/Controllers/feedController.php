@@ -344,7 +344,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// Entries are in DB, we redirect to feed configuration page.
 			$url_redirect['a'] = 'feed';
 			$url_redirect['params']['id'] = '' . $feed->id();
-			Minz_Request::good(_t('feedback.sub.feed.added', $feed->name()), $url_redirect, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+			Minz_Request::good(
+				_t('feedback.sub.feed.added', $feed->name()),
+				$url_redirect,
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			// GET request: we must ask confirmation to user before adding feed.
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
@@ -365,7 +369,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				// Already subscribe so we redirect to the feed configuration page.
 				$url_redirect['a'] = 'feed';
 				$url_redirect['params']['id'] = $feed->id();
-				Minz_Request::good(_t('feedback.sub.feed.already_subscribed', $feed->name()), $url_redirect, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+				Minz_Request::good(
+					_t('feedback.sub.feed.already_subscribed', $feed->name()),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			}
 		}
 	}
@@ -397,7 +405,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($n === false) {
 			Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 		} else {
-			Minz_Request::good(_t('feedback.sub.feed.n_entries_deleted', $n), $url_redirect, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+			Minz_Request::good(
+				_t('feedback.sub.feed.n_entries_deleted', $n),
+				$url_redirect,
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 	}
 
@@ -937,13 +949,25 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$this->view->_layout(null);
 		} elseif ($feed instanceof FreshRSS_Feed && $id > 0) {
 			// Redirect to the main page with correct notification.
-			Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name(), showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0), [
-				'params' => ['get' => 'f_' . $id]
-			], 'actualizeAction');
+			Minz_Request::good(
+				_t('feedback.sub.feed.actualized', $feed->name()),
+				[
+					'params' => ['get' => 'f_' . $id]
+				],
+				notificationName: 'actualizeAction',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		} elseif ($nbUpdatedFeeds >= 1) {
-			Minz_Request::good(_t('feedback.sub.feed.n_actualized', $nbUpdatedFeeds), [], showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+			Minz_Request::good(
+				_t('feedback.sub.feed.n_actualized', $nbUpdatedFeeds),
+				[],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
-			Minz_Request::good(_t('feedback.sub.feed.no_refresh'), [], showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+			Minz_Request::good(
+				_t('feedback.sub.feed.no_refresh'),
+				[],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 		return $nbUpdatedFeeds;
 	}
@@ -1070,7 +1094,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		if (self::deleteFeed($id)) {
-			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
+			Minz_Request::good(
+				_t('feedback.sub.feed.deleted'),
+				$redirect_url,
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			Minz_Request::bad(_t('feedback.sub.feed.error'), $redirect_url);
 		}
@@ -1096,9 +1124,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$feed->clearCache();
 
-		Minz_Request::good(_t('feedback.sub.feed.cache_cleared', $feed->name(), showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0), [
-			'params' => ['get' => 'f_' . $feed->id()],
-		]);
+		Minz_Request::good(
+			_t('feedback.sub.feed.cache_cleared', $feed->name()),
+			[
+				'params' => ['get' => 'f_' . $feed->id()],
+			],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -1153,9 +1185,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		Minz_ModelPdo::$usesSharedPdo = true;
 
 		//Give feedback to user.
-		Minz_Request::good(_t('feedback.sub.feed.reloaded', $feed->name(), showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0), [
-			'params' => ['get' => 'f_' . $feed->id()]
-		]);
+		Minz_Request::good(
+			_t('feedback.sub.feed.reloaded', $feed->name()),
+			[
+				'params' => [
+					'get' => 'f_' . $feed->id()
+					]
+			],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
