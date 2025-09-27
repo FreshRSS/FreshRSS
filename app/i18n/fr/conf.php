@@ -105,6 +105,16 @@ return array(
 		'none' => 'Aucun',
 		'small' => 'Petit',
 	),
+	'notification_timout' => array(
+		'bad' => array(
+			'label' => 'Timeout warning in-app notification',	// TODO
+			'seconds' => 'seconds (minimum 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Timeout confirmation in-app notification',	// TODO
+			'seconds' => 'seconds (0 means disabled notifications)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',

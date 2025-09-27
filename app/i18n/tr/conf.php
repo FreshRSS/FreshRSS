@@ -105,6 +105,16 @@ return array(
 		'none' => 'Yok',
 		'small' => 'Küçük',
 	),
+	'notification_timout' => array(
+		'bad' => array(
+			'label' => 'Timeout warning in-app notification',	// TODO
+			'seconds' => 'seconds (minimum 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Timeout confirmation in-app notification',	// TODO
+			'seconds' => 'seconds (0 means disabled notifications)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Gizlilik',
 		'retrieve_extension_list' => 'Eklenti listesini al',

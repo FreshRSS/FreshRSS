@@ -248,18 +248,18 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="good_notification_timeout">Timeout confirmation in-app notification</label>
+			<label class="group-name" for="good_notification_timeout"><?= _t('conf.notification_timout.good.label') ?></label>
 			<div class="group-controls">
 				<input type="number" min="0" max="60" id="good_notification_timeout" name="good_notification_timeout" value="<?=
-					FreshRSS_Context::userConf()->good_notification_timeout ?>" /> seconds (0 disable)
+					FreshRSS_Context::userConf()->good_notification_timeout ?>" /> <?= _t('conf.notification_timout.good.seconds') ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="bad_notification_timeout">Timeout warning in-app notification</label>
+			<label class="group-name" for="bad_notification_timeout"><?= _t('conf.notification_timout.bad.label') ?></label>
 			<div class="group-controls">
 				<input type="number" min="1" max="60" id="bad_notification_timeout" name="bad_notification_timeout" value="<?=
-					FreshRSS_Context::userConf()->bad_notification_timeout ?>" /> seconds (min. 1)
+					FreshRSS_Context::userConf()->bad_notification_timeout ?>" />  <?= _t('conf.notification_timout.bad.seconds') ?>
 			</div>
 		</div>
 
