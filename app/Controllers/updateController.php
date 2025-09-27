@@ -128,6 +128,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
+		if (!(Minz_Request::actionName() === 'apply' && Minz_Request::paramBoolean('post_conf')) &&
+			FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		include_once LIB_PATH . '/lib_install.php';
 
 		invalidateHttpCache();
@@ -267,10 +272,6 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	public function applyAction(): void {
 		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);
-		}
-
-		if (FreshRSS_Auth::requestReauth()) {
-			return;
 		}
 
 		if (Minz_Request::paramBoolean('post_conf')) {

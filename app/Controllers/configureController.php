@@ -475,6 +475,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * Handles query deletion
 	 */
 	public function deleteQueryAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		$id = Minz_Request::paramInt('id');
 		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
 			Minz_Error::error(404);
@@ -501,6 +505,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * lean data.
 	 */
 	public function bookmarkQueryAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		$queries = [];
 		foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
 			$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();

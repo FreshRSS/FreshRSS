@@ -11,7 +11,7 @@
 		</div>
 	<?php } ?>
 
-	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
+	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
 
@@ -24,8 +24,8 @@
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
-				<input type="password" id="passwordPlain" required="required" />
-				<button type="button" class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></button>
+				<input type="password" id="passwordPlain" class="passwordPlain" required="required" />
+				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>
 			<input type="hidden" id="challenge" name="challenge" />
 			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>

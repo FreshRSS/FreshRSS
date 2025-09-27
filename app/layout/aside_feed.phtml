@@ -66,11 +66,15 @@
 					foreach ($this->tags as $tag):
 				?>
 				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : '' ?>" data-unread="<?= $tag->nbUnread() ?>">
-					<div class="dropdown no-mobile">
-						<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
-						<?php /* tag_config_template */ ?>
-					</div>
+					<?php if (FreshRSS_Auth::hasAccess()) { ?>
+						<div class="dropdown no-mobile">
+							<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
+							<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
+							<?php /* tag_config_template */ ?>
+						</div>
+					<?php } else { ?>
+						<div class="no-dropdown-toggle"></div>
+					<?php } ?>
 					<a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
 						_url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter_manual ?>"><?= _i('label') ?> <?= $tag->name() ?></a>
 				</li>
@@ -92,13 +96,12 @@
 					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
 						|| FreshRSS_Context::userConf()->display_categories === 'all';
 		?>
-		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
+		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
-				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><span title="<?= _t('sub.category.open') ?>" class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?=
-					format_number($cat->nbNotRead()) ?>" ><?=
-						$cat->name()
-					?><?php if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?></span>
+				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
+				?><span title="<?= _t('sub.category.open') ?>" class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>" ><?=
+					$cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : ''
+				?></span>
 			</a>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">

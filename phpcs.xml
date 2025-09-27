@@ -2,24 +2,23 @@
 <ruleset name="FreshRSS">
 	<arg name="extensions" value="php,phtml"/>
 	<arg name="tab-width" value="4"/>
-	<exclude-pattern>./.git/</exclude-pattern>
-	<exclude-pattern>./data/config.php</exclude-pattern>
-	<exclude-pattern>./data/update.php</exclude-pattern>
-	<exclude-pattern>./data/users/*/config.php</exclude-pattern>
-	<exclude-pattern>./extensions/</exclude-pattern>
-	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
-	<exclude-pattern>./lib/marienfressinaud/</exclude-pattern>
-	<exclude-pattern>./lib/phpgt/</exclude-pattern>
-	<exclude-pattern>./lib/phpmailer/</exclude-pattern>
-	<exclude-pattern>./lib/simplepie/</exclude-pattern>
-	<exclude-pattern>./node_modules/</exclude-pattern>
-	<exclude-pattern>./p/scripts/vendor/</exclude-pattern>
-	<exclude-pattern>./vendor/</exclude-pattern>
+	<exclude-pattern>/\.git/*</exclude-pattern>
+	<exclude-pattern>/data/config.php</exclude-pattern>
+	<exclude-pattern>/data/update.php</exclude-pattern>
+	<exclude-pattern>/data/users/*/config.php</exclude-pattern>
+	<exclude-pattern>/(?-i:extensions)/*</exclude-pattern><!-- Case sensitive to allow our Extensions repo -->
+	<exclude-pattern>/lib/http-conditional.php</exclude-pattern>
+	<exclude-pattern>/lib/marienfressinaud/</exclude-pattern>
+	<exclude-pattern>/lib/phpgt/*</exclude-pattern>
+	<exclude-pattern>/lib/phpmailer/*</exclude-pattern>
+	<exclude-pattern>/lib/simplepie/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/p/scripts/vendor/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
 	<!-- Additional exclusions for Extensions: -->
-	<exclude-pattern>./symbolic/</exclude-pattern>
-	<exclude-pattern>./third-party/</exclude-pattern>
-	<exclude-pattern>./tmp/</exclude-pattern>
-	<exclude-pattern>./xExtension-TTRSS_API</exclude-pattern>
+	<exclude-pattern>/symbolic/*</exclude-pattern>
+	<exclude-pattern>/third-party/*</exclude-pattern>
+	<exclude-pattern>/tmp/*</exclude-pattern>
 	<rule ref="PSR12">
 		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed"/>
 		<exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine"/>
@@ -34,7 +33,8 @@
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Files.FileHeader.IncorrectOrder"/><!-- Consider using PSR12 defaults instead -->
-		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterDeclareBlock"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterTagBlock"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport"/>
 		<exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/><!-- Consider using PSR12 defaults instead -->
@@ -46,7 +46,7 @@
 		<exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
 		<exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+		<exclude name="Squiz.Classes.ValidClassName.NotPascalCase"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.CloseBracketLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.ContentAfterBrace"/>
@@ -65,7 +65,7 @@
 			<property name="lineLimit" value="165"/>
 			<property name="absoluteLineLimit" value="190"/>
 		</properties>
-		<exclude-pattern>/app/i18n/*\.php$</exclude-pattern>
+		<exclude-pattern>/i18n/*\.php$</exclude-pattern>
 		<exclude-pattern>*\.phtml$</exclude-pattern>
 	</rule>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/><!-- Consider using PSR12 defaults instead -->

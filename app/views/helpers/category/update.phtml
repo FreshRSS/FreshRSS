@@ -8,7 +8,7 @@
 <div class="post">
 	<h2>
 		<?= $this->category->name() ?>
-		<?php if ($this->category->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
+		<?= $this->category->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : '' ?>
 	</h2>
 
 	<div>
