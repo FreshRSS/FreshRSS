@@ -1815,10 +1815,12 @@ function openNotification(msg, status) {
 	notification_working = true;
 	notification.querySelector('.msg').innerHTML = msg;
 
-
 	if (status == 'good') {
 		if (context.closeNotification.good > 0) {
 			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
+		} else {
+			notification.classList.add('closed');
+			notification_working = false;
 		}
 	} else {
 		// no status or f.e. status = 'bad', give some more time to read
