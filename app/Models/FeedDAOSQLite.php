@@ -5,10 +5,7 @@ class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAO {
 
 	#[\Override]
 	public function sqlResetSequence(): bool {
-		$sql = <<<'SQL'
-UPDATE sqlite_sequence SET seq = (SELECT COALESCE(MAX(id), 0) FROM `_feed`) WHERE name = '_feed'
-SQL;
-		return $this->pdo->exec($sql) !== false;
+		return true;	// Nothing to do for SQLite
 	}
 
 	/** @param array{0:string,1:int,2:string} $errorInfo */
