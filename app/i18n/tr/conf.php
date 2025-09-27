@@ -105,7 +105,7 @@ return array(
 		'none' => 'Yok',
 		'small' => 'Küçük',
 	),
-	'notification_timout' => array(
+	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Timeout warning in-app notification',	// TODO
 			'seconds' => 'seconds (minimum 1)',	// TODO

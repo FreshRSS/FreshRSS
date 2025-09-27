@@ -105,7 +105,7 @@ return array(
 		'none' => 'Tidak ditampilkan',
 		'small' => 'Kecil',
 	),
-	'notification_timout' => array(
+	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Timeout warning in-app notification',	// TODO
 			'seconds' => 'seconds (minimum 1)',	// TODO
