@@ -74,8 +74,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
 			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
-			FreshRSS_Context::userConf()->html5_notif_timeout = Minz_Request::paramInt('html5_notif_timeout');
-			FreshRSS_Context::userConf()->good_notification_timeout = Minz_Request::paramInt('good_notification_timeout');
+			FreshRSS_Context::userConf()->html5_notif_timeout =
+				Minz_Request::paramInt('html5_notif_timeout') < 0 ? 0 : Minz_Request::paramInt('html5_notif_timeout') ;
+			FreshRSS_Context::userConf()->good_notification_timeout =
+				Minz_Request::paramInt('good_notification_timeout') < 0 ? 0 : Minz_Request::paramInt('good_notification_timeout') ;
 			FreshRSS_Context::userConf()->bad_notification_timeout =
 				Minz_Request::paramInt('bad_notification_timeout') > 1 ? Minz_Request::paramInt('bad_notification_timeout') : 1;
 			FreshRSS_Context::userConf()->save();
