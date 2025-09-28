@@ -27,6 +27,11 @@ class File implements Response
     public $url;
 
     /**
+     * @var array<mixed> Array of curl options in use
+     */
+    public $curl_options; // FreshRSS
+
+    /**
      * @var ?string User agent to use in requests
      * @deprecated Set the user agent in constructor.
      */
@@ -99,6 +104,7 @@ class File implements Response
         if ($this->permanentUrlMutable) {
             $this->permanent_url = $url;
         }
+        $this->curl_options = $curl_options; // FreshRSS
         $this->useragent = $useragent;
         if (preg_match('/^http(s)?:\/\//i', $url)) {
             if ($useragent === null) {
@@ -337,6 +343,10 @@ class File implements Response
     public function get_permanent_uri(): string
     {
         return (string) $this->permanent_url;
+    }
+
+    public function get_curl_options(): array {
+        return $this->curl_options; // FreshRSS
     }
 
     public function get_final_requested_uri(): string

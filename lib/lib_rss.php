@@ -592,7 +592,24 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		cleanCache(CLEANCACHE_HOURS);
 	}
 
-	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url)) > 0) {
+	$options = [];
+	$accept = '';
+	$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY]) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+	if (is_array($attributes['curl_params'] ?? null)) {
+		$options = sanitizeCurlParams($attributes['curl_params']);
+		$proxy = is_string($options[CURLOPT_PROXY]) ? $options[CURLOPT_PROXY] : '';
+		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+			// Remove headers problematic for security
+			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
+				fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
+			// Add Accept header if it is not set
+			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
+				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
+			}
+		}
+	}
+
+	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 		Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
 		return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 	}
@@ -601,7 +618,6 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 	}
 
-	$accept = '';
 	switch ($type) {
 		case 'json':
 			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
@@ -640,21 +656,8 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 	]);
 
+	curl_setopt_array($ch, $options);
 	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-
-	if (is_array($attributes['curl_params'] ?? null)) {
-		$options = sanitizeCurlParams($attributes['curl_params']);
-		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
-			// Remove headers problematic for security
-			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
-				fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
-			// Add Accept header if it is not set
-			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
-				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
-			}
-		}
-		curl_setopt_array($ch, $options);
-	}
 
 	if (isset($attributes['ssl_verify'])) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
@@ -690,7 +693,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		$body = '';
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		if (in_array($c_status, [429, 503], true)) {
-			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $headers['retry-after'] ?? '');
+			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
 			if ($c_status === 429) {
 				$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
 			} elseif ($c_status === 503) {

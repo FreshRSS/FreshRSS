@@ -15,7 +15,8 @@ final class FreshRSS_SimplePieResponse extends \SimplePie\File
 				$headers = [];
 			}
 
-			$retryAfter = FreshRSS_http_Util::setRetryAfter($this->get_final_requested_uri(), $headers['retry-after'] ?? '');
+			$proxy = is_string($this->get_curl_options()[CURLOPT_PROXY]) ? $this->get_curl_options()[CURLOPT_PROXY] : '';
+			$retryAfter = FreshRSS_http_Util::setRetryAfter($this->get_final_requested_uri(), $proxy, $headers['retry-after'] ?? '');
 			if ($retryAfter > 0) {
 				$domain = parse_url($this->get_final_requested_uri(), PHP_URL_HOST);
 				if (is_string($domain) && $domain !== '') {
