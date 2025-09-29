@@ -101,7 +101,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'Z':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_ARCHIVED, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Feed::PRIORITY_IMPORTANT,
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'i':
@@ -183,6 +183,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
+			if (Minz_Request::hasParam('order')) {
+				$params['order'] = Minz_Request::paramString('order', plaintext: true);
+			}
+			if (Minz_Request::hasParam('sort')) {
+				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
@@ -254,10 +260,13 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action purges old entries from feeds.
 	 *
-	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}

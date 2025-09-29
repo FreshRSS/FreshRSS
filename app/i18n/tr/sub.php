@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,8 @@ return array(
 		'path_entries_conditions' => 'İçerik alma koşulları',
 		'priority' => array(
 			'_' => 'Görünürlük',
-			'archived' => 'Gösterilmesin (arşivlenmiş)',
 			'category' => 'Kategorisinde göster',
+			'hidden' => 'Gösterilmesin',
 			'important' => 'Önemli beslemelerde göster',
 			'main_stream' => 'Ana akışta göster',
 		),
@@ -301,7 +301,6 @@ return array(
 		'add_opml_category' => 'OPML kategori adı',
 		'delete_label' => 'Etiketi sil',
 		'feed_management' => 'RSS besleme yönetimi',
-		'rename_label' => 'Etiketi yeniden adlandır',
 		'subscription_tools' => 'Abonelik araçları',
 	),
 );

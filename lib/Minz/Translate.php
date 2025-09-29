@@ -11,6 +11,8 @@ declare(strict_types=1);
  * It uses files in `./app/i18n/`
  */
 class Minz_Translate {
+	public const DEFAULT_LANGUAGE = 'en';
+
 	/**
 	 * $path_list is the list of registered base path to search translations.
 	 * @var array<string>
@@ -84,6 +86,10 @@ class Minz_Translate {
 		return array_values(array_unique($list_langs));
 	}
 
+	public static function exists(string $lang): bool {
+		return in_array($lang, Minz_Translate::availableLanguages(), true);
+	}
+
 	/**
 	 * Return the language to use in the application.
 	 * It returns the connected language if it exists then returns the first match from the
@@ -95,6 +101,7 @@ class Minz_Translate {
 	 */
 	public static function getLanguage(?string $user, array $preferred, ?string $default): string {
 		if (null !== $user) {
+			if (!self::exists($user)) return self::DEFAULT_LANGUAGE;
 			return $user;
 		}
 
@@ -106,7 +113,7 @@ class Minz_Translate {
 			}
 		}
 
-		return $default == null ? 'en' : $default;
+		return $default ?: self::DEFAULT_LANGUAGE;
 	}
 
 	/**
@@ -167,7 +174,7 @@ class Minz_Translate {
 		self::$translates[$key] = [];
 
 		foreach (self::$lang_files[$key] as $lang_pathname) {
-			$i18n_array = include($lang_pathname);
+			$i18n_array = include $lang_pathname;
 			if (!is_array($i18n_array)) {
 				Minz_Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
 				continue;

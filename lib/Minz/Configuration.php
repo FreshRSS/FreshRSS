@@ -44,7 +44,7 @@ class Minz_Configuration {
 	 * @throws Minz_FileNotExistException if the file does not exist or is invalid.
 	 */
 	public static function load(string $filename): array {
-		$data = @include($filename);
+		$data = @include $filename;
 		if (is_array($data) && is_array_keys_string($data)) {
 			return $data;
 		} else {

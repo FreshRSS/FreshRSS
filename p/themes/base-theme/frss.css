@@ -354,7 +354,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -1368,6 +1367,11 @@ input[type="search"] {
 	opacity: 1;
 }
 
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
@@ -1601,7 +1605,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
@@ -2472,7 +2476,8 @@ html.slider-active {
 	.flux_header .item.website span,
 	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 
@@ -2643,9 +2648,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		right: 0;
+		right: 0 !important;
 		bottom: 0;
-		left: auto;
+		left: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;

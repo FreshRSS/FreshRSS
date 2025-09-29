@@ -90,7 +90,7 @@ return array (
 		'focus_search' => 'a',
 		'user_filter' => 'u',
 		'help' => 'f1',
-		'close_dropdown' => 'escape',
+		'close_menus' => 'escape',
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',

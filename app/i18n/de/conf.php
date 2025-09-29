@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -41,7 +41,7 @@ return array(
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
-			'entry' => 'Artikel-Symbole',
+			'entry' => 'Artikel-Icon',
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Hashtags',
 			'sharing' => 'Teilen',
@@ -101,9 +101,9 @@ return array(
 	),
 	'mark_read_button' => array(
 		'_' => '„Alle als gelesen markieren“ Button',
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'big' => 'Groß',
+		'none' => 'Keine',
+		'small' => 'Klein',
 	),
 	'privacy' => array(
 		'_' => 'Privatsphäre',
@@ -113,22 +113,22 @@ return array(
 		'_' => 'Profil-Verwaltung',
 		'api' => array(
 			'_' => 'API-Verwaltung',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
+			'api_not_set' => 'API-Passwort ist nicht gesetzt',
+			'api_set' => 'API-Passwort ist gesetzt',
 			'check_link' => 'API-Status prüfen: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Der API-Zugriff ist deaktiviert.',
 			'documentation_link' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Dokumentation und die Liste der bekannten Apps</a>',
 			'help' => 'Siehe <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>Dokumentation</a>',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Passwort ändern',
+		'confirm_new_password' => 'Neues Passwort bestätigen',
+		'current_password' => 'Aktuelles Passwort<br /><small>(für die Web-Formular-Anmeldemethode)</small>',
 		'delete' => array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Neues Passwort',
 		'password_api' => 'API-Passwort<br /><small>(z.B. für mobile Anwendungen)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Profil',
@@ -149,8 +149,8 @@ return array(
 			'tags' => 'Nach Labels filtern',
 			'type' => 'Filter-Typ',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Alle Feeds anzeigen, auch die in ihrer Kategorie angezeigten',
+		'get_Z' => 'Alle Feeds anzeigen, auch archivierte',
 		'get_all' => 'Alle Artikel anzeigen',
 		'get_all_labels' => 'Alle Artikle mit beliebigem Label anzeigen',
 		'get_category' => 'Kategorie „%s“ anzeigen',
@@ -270,13 +270,13 @@ return array(
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',
 			'active_category' => 'Aktive Kategorie',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => 'Ungelesene Artikel anzeigen, falls vorhanden, sonst alle Artikel',
 			'all_articles' => 'Alle Artikel zeigen',
 			'all_categories' => 'Alle Kategorien',
 			'no_category' => 'Keine Kategorie',
 			'remember_categories' => 'Geöffnete Kategorien merken',
 			'unread' => 'Nur ungelesene zeigen',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => 'Ungelesene Artikel und Favoriten anzeigen',
 		),
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Artikel',
 		'auto_share' => 'Teilen',
 		'auto_share_help' => 'Wenn es nur eine Option zum Teilen gibt, wird diese verwendet. Ansonsten sind die Optionen über ihre Nummer erreichbar.',
-		'close_dropdown' => 'Menüs schließen',
+		'close_menus' => 'Menüs schließen',
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',

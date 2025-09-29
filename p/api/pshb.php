@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 const MAX_PAYLOAD = 3_145_728;
 
