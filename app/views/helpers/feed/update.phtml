@@ -870,9 +870,9 @@
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
+			<button class="btn btn-important" form="post-csrf" formaction="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
-			</a>
+			</button>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">

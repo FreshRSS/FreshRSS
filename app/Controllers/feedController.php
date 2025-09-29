@@ -379,6 +379,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 */
 	public function truncateAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		$id = Minz_Request::paramInt('id');
 		$url_redirect = [
 			'c' => 'subscription',
@@ -1059,6 +1062,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 */
 	public function deleteAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		$from = Minz_Request::paramString('from');
 		$id = Minz_Request::paramInt('id');
 
@@ -1096,6 +1102,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 */
 	public function clearCacheAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		//Get Feed.
 		$id = Minz_Request::paramInt('id');
 
@@ -1122,6 +1131,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public function reloadAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
