@@ -91,10 +91,17 @@ if (!is_valid_path($absolute_filename)) {
 	sendBadRequestResponse('File is not supported.');
 }
 
+FreshRSS_Context::initSystem();
+if (!FreshRSS_Context::hasSystemConf()) {
+	header('HTTP/1.1 500 Internal Server Error');
+	die('Invalid system init!');
+}
+
 $content_type = FreshRSS_extension_Controller::MIME_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
-header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
+	(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 

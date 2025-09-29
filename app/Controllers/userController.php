@@ -635,13 +635,16 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					$username, FreshRSS_Context::userConf()->passwordHash,
 					$nonce, $challenge
 				);
+				if (!$ok) {
+					Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'user', 'a' => 'profile']);
+					return;
+				}
 			} elseif (self::reauthRedirect()) {
 				return;
 			}
 
-			if ($ok) {
-				$ok &= self::deleteUser($username);
-			}
+			$ok &= self::deleteUser($username);
+
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
 				$redirect_url = ['c' => 'index', 'a' => 'index'];

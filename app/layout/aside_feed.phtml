@@ -66,11 +66,15 @@
 					foreach ($this->tags as $tag):
 				?>
 				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : '' ?>" data-unread="<?= $tag->nbUnread() ?>">
-					<div class="dropdown no-mobile">
-						<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
-						<?php /* tag_config_template */ ?>
-					</div>
+					<?php if (FreshRSS_Auth::hasAccess()) { ?>
+						<div class="dropdown no-mobile">
+							<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
+							<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
+							<?php /* tag_config_template */ ?>
+						</div>
+					<?php } else { ?>
+						<div class="no-dropdown-toggle"></div>
+					<?php } ?>
 					<a class="item-title" data-unread="<?= format_number($tag->nbUnread()) ?>" href="<?=
 						_url('index', $actual_view, 'get', 't_' . $tag->id()) . $state_filter_manual ?>"><?= _i('label') ?> <?= $tag->name() ?></a>
 				</li>

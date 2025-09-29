@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
+	public function sqlResetSequence(): bool {
+		return true;	// Nothing to do for MySQL
+	}
+
 	protected function addColumn(string $name): bool {
 		if ($this->pdo->inTransaction()) {
 			$this->pdo->commit();
@@ -34,12 +38,21 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	/**
-	 * @param array{url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
+	 * @param array{id?:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
 	 * 	pathEntries?:string,httpAuth:string,error:int|bool,ttl?:int,attributes?:string|array<string|mixed>} $valuesTmp
 	 */
 	public function addFeed(array $valuesTmp): int|false {
-		$sql = 'INSERT INTO `_feed` (url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `httpAuth`, error, ttl, attributes)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		if (empty($valuesTmp['id'])) {	// Auto-generated ID
+			$sql = <<<'SQL'
+INSERT INTO `_feed` (url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `httpAuth`, error, ttl, attributes)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+SQL;
+		} else {
+			$sql = <<<'SQL'
+INSERT INTO `_feed` (id, url, kind, category, name, website, description, `lastUpdate`, priority, `pathEntries`, `httpAuth`, error, ttl, attributes)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+SQL;
+		}
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
@@ -51,7 +64,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$valuesTmp['attributes'] = [];
 		}
 
-		$values = [
+		$values = empty($valuesTmp['id']) ? [] : [$valuesTmp['id']];
+		$values = array_merge($values, [
 			$valuesTmp['url'],
 			$valuesTmp['kind'] ?? FreshRSS_Feed::KIND_RSS,
 			$valuesTmp['category'],
@@ -65,11 +79,16 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0,
 			isset($valuesTmp['ttl']) ? (int)$valuesTmp['ttl'] : FreshRSS_Feed::TTL_DEFAULT,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-		];
+		]);
 
 		if ($stm !== false && $stm->execute($values)) {
-			$feedId = $this->pdo->lastInsertId('`_feed_id_seq`');
-			return $feedId === false ? false : (int)$feedId;
+			if (empty($valuesTmp['id'])) {
+				// Auto-generated ID
+				$feedId = $this->pdo->lastInsertId('`_feed_id_seq`');
+				return $feedId === false ? false : (int)$feedId;
+			}
+			$this->sqlResetSequence();
+			return $valuesTmp['id'];
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */

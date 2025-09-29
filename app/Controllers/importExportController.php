@@ -485,9 +485,22 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			if (isset($existingHashForGuids['f_' . $feed_id][$entry->guid()])) {
+				$entry = Minz_ExtensionManager::callHook('entry_before_update', $entry);
+				if (!($entry instanceof FreshRSS_Entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$ok = $this->entryDAO->updateEntry($entry->toArray());
 			} else {
 				$entry->_lastSeen(time());
+
+				$entry = Minz_ExtensionManager::callHook('entry_before_add', $entry);
+				if (!($entry instanceof FreshRSS_Entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$ok = $this->entryDAO->addEntry($entry->toArray());
 			}
 
