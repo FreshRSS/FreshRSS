@@ -66,16 +66,16 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		header('Pragma: no-cache');
 
-		$user = $_GET['user'] ?? '';
-		if (!is_string($user) || $user === '') {
+		$user = Minz_Request::paramString('user');
+		if ($user === '') {
 			Minz_Error::error(400);
 			return;
 		}
-		FreshRSS_Context::initUser($user);
-		if (FreshRSS_Context::hasUserConf()) {
+		$user_conf = get_user_configuration($user);
+		if ($user_conf !== null) {
 			try {
 				$salt = FreshRSS_Context::systemConf()->salt;
-				$s = FreshRSS_Context::userConf()->passwordHash;
+				$s = $user_conf->passwordHash;
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);

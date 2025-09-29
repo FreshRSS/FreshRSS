@@ -275,7 +275,8 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_COOKIE] = $feed_elt['frss:CURLOPT_COOKIE'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_COOKIEFILE'])) {
-				$curl_params[CURLOPT_COOKIEFILE] = $feed_elt['frss:CURLOPT_COOKIEFILE'];
+				// Allow only an empty value just to enable the libcurl cookie engine
+				$curl_params[CURLOPT_COOKIEFILE] = '';
 			}
 			if (isset($feed_elt['frss:CURLOPT_FOLLOWLOCATION'])) {
 				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];

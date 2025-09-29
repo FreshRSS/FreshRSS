@@ -5,7 +5,13 @@ require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 require LIB_PATH . '/favicons.php';
 require LIB_PATH . '/http-conditional.php';
 
-header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+FreshRSS_Context::initSystem();
+if (!FreshRSS_Context::hasSystemConf()) {
+	header('HTTP/1.1 500 Internal Server Error');
+	die('Invalid system init!');
+}
+$frameAncestors = FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'";
+header("Content-Security-Policy: default-src 'none'; frame-ancestors $frameAncestors; sandbox");
 header('X-Content-Type-Options: nosniff');
 
 $no_cache = file_exists(DATA_PATH . '/no-cache.txt');
@@ -46,11 +52,6 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (m
 		exit();
 	}
 
-	FreshRSS_Context::initSystem();
-	if (!FreshRSS_Context::hasSystemConf()) {
-		header('HTTP/1.1 500 Internal Server Error');
-		die('Invalid system init!');
-	}
 	if (!download_favicon($url, $ico)) {
 		// Download failed
 		if ($ico_mtime == false) {
