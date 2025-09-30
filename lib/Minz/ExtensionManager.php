@@ -19,114 +19,9 @@ final class Minz_ExtensionManager {
 
 	/**
 	 * List of available hooks. Please keep this list sorted.
-	 * @var array<string,array{'list':array<callable>,'signature':'NoneToNone'|'NoneToString'|'OneToOne'|'PassArguments'}>
+	 * @var array<value-of<Minz_HookType>,array{'list':list<callable>,'signature':Minz_HookSignature}>
 	 */
-	private static array $hook_list = [
-		'api_misc' => [	// function(): void
-			'list' => [],
-			'signature' => 'NoneToNone',
-		],
-		'before_login_btn' => [ // function(): string
-			'list'  => [],
-			'signature' => 'NoneToString',
-		],
-		'check_url_before_add' => [	// function($url) -> Url | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'custom_favicon_btn_url' => [ // function(FreshRSS_Feed $feed): string | null
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'custom_favicon_hash' => [ // function(FreshRSS_Feed $feed): string | null
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'entries_favorite' => [	// function(array $ids, bool $is_favorite): void
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'entry_auto_read' => [	// function(FreshRSS_Entry $entry, string $why): void
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'entry_auto_unread' => [	// function(FreshRSS_Entry $entry, string $why): void
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'entry_before_display' => [	// function($entry) -> Entry | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'entry_before_insert' => [	// function($entry) -> Entry | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'entry_before_add' => [	// function($entry) -> Entry | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'entry_before_update' => [	// function($entry) -> Entry | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'feed_before_actualize' => [	// function($feed) -> Feed | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'feed_before_insert' => [	// function($feed) -> Feed | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'freshrss_init' => [	// function() -> none
-			'list' => [],
-			'signature' => 'NoneToNone',
-		],
-		'freshrss_user_maintenance' => [	// function() -> none
-			'list' => [],
-			'signature' => 'NoneToNone',
-		],
-		'js_vars' => [	// function($vars = array) -> array | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'menu_admin_entry' => [	// function() -> string
-			'list' => [],
-			'signature' => 'NoneToString',
-		],
-		'menu_configuration_entry' => [	// function() -> string
-			'list' => [],
-			'signature' => 'NoneToString',
-		],
-		'menu_other_entry' => [	// function() -> string
-			'list' => [],
-			'signature' => 'NoneToString',
-		],
-		'nav_menu' => [	// function() -> string
-			'list' => [],
-			'signature' => 'NoneToString',
-		],
-		'nav_reading_modes' => [	// function($readingModes = array) -> array | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-		'post_update' => [	// function(none) -> none
-			'list' => [],
-			'signature' => 'NoneToNone',
-		],
-		'simplepie_after_init' => [	// function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'simplepie_before_init' => [	// function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void
-			'list' => [],
-			'signature' => 'PassArguments',
-		],
-		'view_modes' => [	// function($viewModes = array) -> array | null
-			'list' => [],
-			'signature' => 'OneToOne',
-		],
-	];
+	private static array $hook_list = [];
 
 	/** Remove extensions and hooks from a previous initialisation */
 	private static function reset(): void {
@@ -134,10 +29,12 @@ final class Minz_ExtensionManager {
 		self::$ext_list = [];
 		self::$ext_list_enabled = [];
 		self::$ext_auto_enabled = [];
-		foreach (self::$hook_list as $hook_type => $hook_data) {
-			$hadAny |= !empty($hook_data['list']);
-			$hook_data['list'] = [];
-			self::$hook_list[$hook_type] = $hook_data;
+		foreach (Minz_HookType::cases() as $hook_type) {
+			$hadAny |= !empty(self::$hook_list[$hook_type->value]['list']);
+			self::$hook_list[$hook_type->value] = [
+				'list' => [],
+				'signature' => $hook_type->signature(),
+			];
 		}
 		if ($hadAny) {
 			gc_collect_cycles();
@@ -357,46 +254,62 @@ final class Minz_ExtensionManager {
 	/**
 	 * Add a hook function to a given hook.
 	 *
-	 * The hook name must be a valid one. For the valid list, see self::$hook_list
-	 * array keys.
+	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
 	 *
-	 * @param string $hook_name the hook name (must exist).
+	 * @param string|Minz_HookType $hook the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
 	 */
-	public static function addHook(string $hook_name, $hook_function): void {
-		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
+	public static function addHook(string|Minz_HookType $hook, $hook_function): void {
+		if (null === $hook = self::extractHook($hook)) {
+			return;
+		}
+		$hook_name = $hook->value;
+
+		if (is_callable($hook_function)) {
 			self::$hook_list[$hook_name]['list'][] = $hook_function;
 		}
 	}
 
 	/**
-	 * Call functions related to a given hook.
-	 *
-	 * The hook name must be a valid one. For the valid list, see self::$hook_list
-	 * array keys.
-	 *
-	 * @param string $hook_name the hook to call.
-	 * @param mixed ...$args additional parameters (for signature, please see self::$hook_list).
-	 * @return mixed|void|null final result of the called hook.
+	 * @param string|Minz_HookType $hook the hook or its name
+	 * @return Minz_HookType|null
 	 */
-	public static function callHook(string $hook_name, ...$args) {
-		if (!isset(self::$hook_list[$hook_name])) {
-			return;
+	private static function extractHook(string|Minz_HookType $hook) {
+		if ($hook instanceof Minz_HookType) {
+			return $hook;
 		}
 
+		return Minz_HookType::tryFrom($hook);
+	}
+
+	/**
+	 * Call functions related to a given hook.
+	 *
+	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
+	 *
+	 * @param string|Minz_HookType $hook the hook to call.
+	 * @param mixed ...$args additional parameters (for signature, please see Minz_HookType enum).
+	 * @return mixed|void|null final result of the called hook.
+	 */
+	public static function callHook(string|Minz_HookType $hook, ...$args) {
+		if (null === $hook = self::extractHook($hook)) {
+			return;
+		}
+		$hook_name = $hook->value;
+
 		$signature = self::$hook_list[$hook_name]['signature'];
-		if ($signature === 'OneToOne') {
+		if ($signature === Minz_HookSignature::OneToOne) {
 			return self::callOneToOne($hook_name, $args[0] ?? null);
-		} elseif ($signature === 'PassArguments') {
+		} elseif ($signature === Minz_HookSignature::PassArguments) {
 			foreach (self::$hook_list[$hook_name]['list'] as $function) {
 				$result = call_user_func($function, ...$args);
 				if ($result !== null) {
 					return $result;
 				}
 			}
-		} elseif ($signature === 'NoneToString') {
+		} elseif ($signature === Minz_HookSignature::NoneToString) {
 			return self::callHookString($hook_name);
-		} elseif ($signature === 'NoneToNone') {
+		} elseif ($signature === Minz_HookSignature::NoneToNone) {
 			self::callHookVoid($hook_name);
 		}
 		return;
@@ -411,12 +324,17 @@ final class Minz_ExtensionManager {
 	 *
 	 * If a hook return a null value, the method is stopped and return null.
 	 *
-	 * @param string $hook_name is the hook to call.
+	 * @param string|Minz_HookType $hook is the hook to call.
 	 * @param mixed $arg is the argument to pass to the first extension hook.
 	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
-	private static function callOneToOne(string $hook_name, mixed $arg): mixed {
+	private static function callOneToOne(string|Minz_HookType $hook, mixed $arg): mixed {
+		if (null === $hook = self::extractHook($hook)) {
+			return $arg;
+		}
+		$hook_name = $hook->value;
+
 		$result = $arg;
 		foreach (self::$hook_list[$hook_name]['list'] as $function) {
 			$result = call_user_func($function, $arg);
@@ -436,10 +354,15 @@ final class Minz_ExtensionManager {
 	 * The result is concatenated between each hook and the final string is
 	 * returned.
 	 *
-	 * @param string $hook_name is the hook to call.
+	 * @param string|Minz_HookType $hook is the hook to call.
 	 * @return string concatenated result of the call to all the hooks.
 	 */
-	public static function callHookString(string $hook_name): string {
+	public static function callHookString(string|Minz_HookType $hook): string {
+		if (null === $hook = self::extractHook($hook)) {
+			return '';
+		}
+		$hook_name = $hook->value;
+
 		$result = '';
 		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
 			$return = call_user_func($function);
@@ -456,9 +379,14 @@ final class Minz_ExtensionManager {
 	 * This case is simpler than callOneToOne because hooks are called one by
 	 * one, without any consideration of argument nor result.
 	 *
-	 * @param string $hook_name is the hook to call.
+	 * @param string|Minz_HookType $hook is the hook to call.
 	 */
-	public static function callHookVoid(string $hook_name): void {
+	public static function callHookVoid(string|Minz_HookType $hook): void {
+		if (null === $hook = self::extractHook($hook)) {
+			return;
+		}
+		$hook_name = $hook->value;
+
 		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
 			call_user_func($function);
 		}
@@ -468,9 +396,14 @@ final class Minz_ExtensionManager {
 	 * Call a hook which takes no argument and returns nothing.
 	 * Same as callHookVoid but only calls the first extension.
 	 *
-	 * @param string $hook_name is the hook to call.
+	 * @param string|Minz_HookType $hook is the hook to call.
 	 */
-	public static function callHookUnique(string $hook_name): bool {
+	public static function callHookUnique(string|Minz_HookType $hook): bool {
+		if (null === $hook = self::extractHook($hook)) {
+			throw new \RuntimeException("The “{$hook}” does not exist!");
+		}
+		$hook_name = $hook->value;
+
 		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
 			call_user_func($function);
 			return true;

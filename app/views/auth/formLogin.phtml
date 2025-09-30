@@ -38,7 +38,7 @@
 			</label>
 		</div>
 
-		<?= Minz_ExtensionManager::callHookString('before_login_btn') ?>
+		<?= Minz_ExtensionManager::callHookString(Minz_HookType::BeforeLoginBtn) ?>
 
 		<div class="form-group form-group-actions">
 			<button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
