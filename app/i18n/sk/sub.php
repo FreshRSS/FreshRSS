@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'category' => 'Zobraziť vo svojej kategórii',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nezobrazovať',
 			'important' => 'Zobraziť v dôležitých kanáloch',
 			'main_stream' => 'Zobraziť v prehľade kanálov',

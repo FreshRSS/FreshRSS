@@ -530,6 +530,13 @@ input#favicon-upload {
 	display: inline;
 }
 
+input.ignore-auto-complete {
+	position: absolute;
+	right: -9999px;
+	pointer-events: none;
+	user-select: none;
+}
+
 /*=== Buttons */
 button[disabled] {
 	opacity: 0.5;

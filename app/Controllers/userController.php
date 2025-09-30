@@ -198,7 +198,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 						],
 						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 					);
-				} elseif ($newPasswordPlain == '') {
+				} else {
 					Minz_Request::good(
 						_t('feedback.profile.updated'),
 						[
@@ -207,14 +207,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 						],
 						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 					);
-				} else {
-					Minz_Request::good(
-						_t('feedback.profile.updated'),
-						[
-							'c' => 'index',
-							'a' => 'index'
-						],
-						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 				}
 			} else {
 				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);

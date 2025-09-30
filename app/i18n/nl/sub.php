@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'category' => 'Toon in categorie',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Niet weergeven',
 			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',

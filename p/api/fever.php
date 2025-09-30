@@ -317,6 +317,9 @@ final class FeverAPI
 
 		/** @var FreshRSS_Feed $feed */
 		foreach ($myFeeds as $feed) {
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
 			$feeds[] = [
 				'id' => $feed->id(),
 				'favicon_id' => $feed->id(),
@@ -362,6 +365,9 @@ final class FeverAPI
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
 			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
@@ -390,6 +396,9 @@ final class FeverAPI
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
 			$ids[$feed->categoryId()][] = $feed->id();
 		}
 
@@ -471,10 +480,13 @@ final class FeverAPI
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
-				if ($category == null) {
+				if ($category === null) {
 					continue;
 				}
 				foreach ($category->feeds() as $feed) {
+					if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+						continue;
+					}
 					$feeds[] = $feed->id();
 				}
 			}

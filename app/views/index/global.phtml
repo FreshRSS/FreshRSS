@@ -64,6 +64,9 @@
 		<ul class="box-content scrollbar-thin">
 			<?php
 				foreach ($feeds as $feed) {
+					if ($feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
+						continue;
+					}
 					$nb_not_read = $feed->nbNotRead();
 
 					$error_class = '';
