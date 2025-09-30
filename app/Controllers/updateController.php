@@ -283,7 +283,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$res = do_post_update();
 			}
 
-			Minz_ExtensionManager::callHookVoid('post_update');
+			Minz_ExtensionManager::callHookVoid(Minz_HookType::PostUpdate);
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);

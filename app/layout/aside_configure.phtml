@@ -60,7 +60,7 @@
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuConfigurationEntry) ?>
 			</ul>
 		</li>
 
@@ -88,7 +88,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuAdminEntry) ?>
 			</ul>
 		</li>
 		<?php } ?>
