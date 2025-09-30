@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => '可见性',
 			'category' => '在分类中显示',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => '不显示',
 			'important' => '在“重要的订阅”中显示',
 			'main_stream' => '在首页中显示',

@@ -180,10 +180,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok) {
 				if (FreshRSS_Context::systemConf()->force_email_validation && $email !== $old_email) {
 					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'validateEmail']);
-				} elseif ($newPasswordPlain == '') {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
 				}
 			} else {
 				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);

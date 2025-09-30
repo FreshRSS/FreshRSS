@@ -571,9 +571,9 @@ SQL;
 UPDATE `_entry`
 SET is_read = ?
 WHERE is_read <> ? AND id <= ?
-AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)
+AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ?)
 SQL;
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id, FreshRSS_Feed::PRIORITY_CATEGORY];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -1340,7 +1340,7 @@ SQL;
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
 				break;
 			case 'A':	// All except PRIORITY_HIDDEN
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_FEED . ' ';
 				break;
 			case 'Z':	// All including PRIORITY_HIDDEN
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';

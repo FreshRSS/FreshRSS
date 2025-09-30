@@ -409,19 +409,17 @@ SQL;
 		$userTo->createUser();
 
 		$catTo->beginTransaction();
+		$catTo->deleteCategory(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		$catTo->sqlResetSequence();
 		foreach ($catFrom->selectAll() as $category) {
-			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
-			if ($cat != null) {
-				$catId = $cat->id();
-			} else {
-				$catId = $catTo->addCategory($category);
-				if ($catId == false) {
-					$error = 'Error during SQLite copy of categories!';
-					return self::stdError($error);
-				}
+			$catId = $catTo->addCategory($category);
+			if ($catId === false) {
+				$error = 'Error during SQLite copy of categories!';
+				return self::stdError($error);
 			}
 			$idMaps['c' . $category['id']] = $catId;
 		}
+		$catTo->sqlResetSequence();
 		foreach ($feedFrom->selectAll() as $feed) {
 			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
@@ -431,6 +429,7 @@ SQL;
 			}
 			$idMaps['f' . $feed['id']] = $feedId;
 		}
+		$feedTo->sqlResetSequence();
 		$catTo->commit();
 
 		$nbEntries = $entryFrom->count();
@@ -483,6 +482,7 @@ SQL;
 				}
 			}
 		}
+		$tagTo->sqlResetSequence();
 		$tagTo->commit();
 
 		return true;
