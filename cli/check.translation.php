@@ -120,7 +120,7 @@ if ($cliOptions->generateReadme) {
 		$percentageInt = intval(rtrim($value, '%'));
 		$completed = intval($percentageInt / 10);
 		$uncompleted = intval(ceil((100 - $percentageInt) / 10));
-		$progressBar = '❰' . str_repeat('￭', $completed) . str_repeat('･', $uncompleted) . '❱';
+		$progressBar = str_repeat('￭', $completed) . str_repeat('･', $uncompleted);
 
 		$ghSearchUrl = 'https://github.com/search?q=' . urlencode("repo:FreshRSS/FreshRSS path:app/i18n/$lang /(TODO|DIRTY)$/");
 
