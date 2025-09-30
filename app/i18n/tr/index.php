@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Rastgele sıralama',
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',

@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
+	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
@@ -59,6 +60,7 @@ CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);
 CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);
 CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.1.1
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry`(`lastUserModified`);	-- //v1.28.0
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, 'Uncategorized');
 
@@ -82,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	UNIQUE (`id_feed`,`guid`)
 );
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
+CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `entrytmp`(`lastUserModified`);	-- //v1.28.0
 
 CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

@@ -55,12 +55,14 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
+	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.28.0
 	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
@@ -82,9 +84,11 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
+	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.28.0
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;

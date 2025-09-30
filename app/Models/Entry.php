@@ -24,6 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $link;
 	private int $date;
 	private int $lastSeen = 0;
+	private int $lastUserModified = 0;
 	/** In microseconds */
 	private string $date_added = '0';
 	private string $hash = '';
@@ -54,7 +55,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,date?:int|string,lastSeen?:int,
-	 *		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string} $dao */
+	 *		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string,lastUserModified?:int} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content']) || !is_string($dao['content'])) {
 			$dao['content'] = '';
@@ -97,6 +98,9 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['lastSeen'])) {
 			$entry->_lastSeen($dao['lastSeen']);
 		}
+		if (isset($dao['lastUserModified'])) {
+			$entry->_lastUserModified($dao['lastUserModified']);
+		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes($dao['attributes']);
 		}
@@ -107,8 +111,11 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @param Traversable<array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *	'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:?string,'thumbnail'?:string,'timestamp'?:string}> $daos
+	 * @param Traversable<array{ 'id'?:string, 'id_feed'?:int, 'guid'?:string,
+	 * 'title'?:string, 'author'?:string, 'content'?:string, 'link'?:string,
+	 * 'date'?:int|string, 'lastSeen'?:int, 'hash'?:string, 'is_read'?:bool|int,
+	 * 'is_favorite'?:bool|int, 'tags'?:string|array<string>, 'attributes'?:?string,
+	 * 'thumbnail'?:string, 'timestamp'?:string, 'lastUserModified'?:int }> $daos
 	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public static function fromTraversable(Traversable $daos): Traversable {
@@ -421,6 +428,10 @@ HTML;
 		return $this->lastSeen;
 	}
 
+	public function lastUserModified(): int {
+		return $this->lastUserModified;
+	}
+
 	/**
 	 * @phpstan-return ($raw is false ? string : ($microsecond is true ? string : int))
 	 */
@@ -554,6 +565,11 @@ HTML;
 	public function _lastSeen(int|string $value): void {
 		$value = (int)$value;
 		$this->lastSeen = $value > 0 ? $value : 0;
+	}
+
+	public function _lastUserModified(int|string $value): void {
+		$value = (int)$value;
+		$this->lastUserModified = $value > 0 ? $value : 0;
 	}
 
 	/** @param int|numeric-string $value */
@@ -1047,7 +1063,7 @@ HTML;
 
 	/**
 	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
-	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
+	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>,'lastUserModified': int}
 	 */
 	public function toArray(): array {
 		return [
@@ -1059,6 +1075,7 @@ HTML;
 			'link' => $this->link(raw: true),
 			'date' => $this->date(true),
 			'lastSeen' => $this->lastSeen(),
+			'lastUserModified' => $this->lastUserModified(),
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),
