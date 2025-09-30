@@ -400,7 +400,7 @@ final class Minz_ExtensionManager {
 	 */
 	public static function callHookUnique(string|Minz_HookType $hook): bool {
 		if (null === $hook = self::extractHook($hook)) {
-			throw new \RuntimeException("The \"{$hook}\" does not exist!");
+			throw new \RuntimeException("The “{$hook}” does not exist!");
 		}
 		$hook_name = $hook->value;
 

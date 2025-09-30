@@ -4,18 +4,18 @@ declare(strict_types=1);
 enum Minz_HookType: string {
 	case ApiMisc = 'api_misc';	// function(): void
 	case BeforeLoginBtn = 'before_login_btn';	// function(): string
-	case CheckUrlBeforeAdd = 'check_url_before_add';	// function($url) -> Url | null
+	case CheckUrlBeforeAdd = 'check_url_before_add';	// function(string $url) -> string | null
 	case CustomFaviconBtnUrl = 'custom_favicon_btn_url';	// function(FreshRSS_Feed $feed): string | null
 	case CustomFaviconHash = 'custom_favicon_hash';	// function(FreshRSS_Feed $feed): string | null
 	case EntriesFavorite = 'entries_favorite';	// function(array $ids, bool $is_favorite): void
 	case EntryAutoRead = 'entry_auto_read';	// function(FreshRSS_Entry $entry, string $why): void
 	case EntryAutoUnread = 'entry_auto_unread';	// function(FreshRSS_Entry $entry, string $why): void
-	case EntryBeforeDisplay = 'entry_before_display';	// function($entry) -> Entry | null
-	case EntryBeforeInsert = 'entry_before_insert';	// function($entry) -> Entry | null
-	case EntryBeforeAdd = 'entry_before_add';	// function($entry) -> Entry | null
-	case EntryBeforeUpdate = 'entry_before_update';	// function($entry) -> Entry | null
-	case FeedBeforeActualize = 'feed_before_actualize';	// function($feed) -> Feed | null
-	case FeedBeforeInsert = 'feed_before_insert';	// function($feed) -> Feed | null
+	case EntryBeforeDisplay = 'entry_before_display';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
+	case EntryBeforeInsert = 'entry_before_insert';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
+	case EntryBeforeAdd = 'entry_before_add';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
+	case EntryBeforeUpdate = 'entry_before_update';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
+	case FeedBeforeActualize = 'feed_before_actualize';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
+	case FeedBeforeInsert = 'feed_before_insert';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
 	case FreshrssInit = 'freshrss_init';	// function() -> none
 	case FreshrssUserMaintenance = 'freshrss_user_maintenance';	// function() -> none
 	case JsVars = 'js_vars';	// function($vars = array) -> array | null
@@ -61,6 +61,8 @@ enum Minz_HookType: string {
 			case Minz_HookType::SimplepieAfterInit:
 			case Minz_HookType::SimplepieBeforeInit:
 				return Minz_HookSignature::PassArguments;
+			default:
+				throw new \RuntimeException('The hook is not configured!');
 		}
 	}
 }
