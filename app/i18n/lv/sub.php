@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'category' => 'Rādīt kategorijā',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nerādīt',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',

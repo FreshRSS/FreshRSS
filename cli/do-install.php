@@ -101,7 +101,7 @@ $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {
 	$customConfig = include $customConfigPath;
 	if (is_array($customConfig) && is_array_keys_string($customConfig)) {
-		$config = array_merge($customConfig, $config);
+		$config = array_merge($config, $customConfig);
 	}
 }
 
