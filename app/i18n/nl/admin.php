@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -116,7 +116,7 @@ return array(
 		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Controleer de logbestanden om de reden voor de lege extensielijst te achterhalen.',
 		'enabled' => 'Ingeschakeld',
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Overzicht',
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Overzicht',
 		'percent_of_total' => '% van totaal',
 		'repartition' => 'Artikelverdeling: %s',
 		'status_favorites' => 'Favorieten',

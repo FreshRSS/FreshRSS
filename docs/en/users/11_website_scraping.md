@@ -59,3 +59,4 @@ Support string concatenation with a syntax like: `meta.title & " some text"` usi
 ## Recommended external manuals
 
 - [XPath Scraping with FreshRSS, by Dan Q](https://danq.me/2022/09/27/freshrss-xpath/) (September 2022)
+- A [crowdsourced collection of XPath/scraping settings](https://codeberg.org/gedankenstuecke/freshrss-xpath-scraping-settings-examples) for various websites (incl. News pages). Also has OPML files to easily import settings. (August 2025)

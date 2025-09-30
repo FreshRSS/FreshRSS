@@ -180,10 +180,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok) {
 				if (FreshRSS_Context::systemConf()->force_email_validation && $email !== $old_email) {
 					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'validateEmail']);
-				} elseif ($newPasswordPlain == '') {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
+					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
 				}
 			} else {
 				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);
@@ -288,7 +286,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		$customUserConfigPath = join_path(DATA_PATH, 'config-user.custom.php');
 		if (file_exists($customUserConfigPath)) {
-			$customUserConfig = include($customUserConfigPath);
+			$customUserConfig = include $customUserConfigPath;
 			if (is_array($customUserConfig)) {
 				$userConfig = $customUserConfig;
 			}
@@ -305,9 +303,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$configPath = '';
 
 		if ($ok) {
-			$languages = Minz_Translate::availableLanguages();
-			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages, true)) {
-				$userConfig['language'] = 'en';
+			if (!Minz_Translate::exists(is_string($userConfig['language']) ? $userConfig['language'] : '')) {
+				$userConfig['language'] = Minz_Translate::DEFAULT_LANGUAGE;
 			}
 
 			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()), true);	//Not an existing user, case-insensitive
@@ -636,13 +633,16 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					$username, FreshRSS_Context::userConf()->passwordHash,
 					$nonce, $challenge
 				);
+				if (!$ok) {
+					Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'user', 'a' => 'profile']);
+					return;
+				}
 			} elseif (self::reauthRedirect()) {
 				return;
 			}
 
-			if ($ok) {
-				$ok &= self::deleteUser($username);
-			}
+			$ok &= self::deleteUser($username);
+
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
 				$redirect_url = ['c' => 'index', 'a' => 'index'];

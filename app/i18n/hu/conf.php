@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -100,10 +100,10 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“Mark all as read” button',	// TODO
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => '“Összes megjelölése olvasottként” gomb',
+		'big' => 'Nagy',
+		'none' => 'Egyik sem',
+		'small' => 'Kicsi',
 	),
 	'privacy' => array(
 		'_' => 'Adatvédelem',
@@ -113,22 +113,22 @@ return array(
 		'_' => 'Profil kezelés',
 		'api' => array(
 			'_' => 'API menedzsment',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
+			'api_not_set' => 'API jelszó nincs beállítva',
+			'api_set' => 'API jelszó beállítva',
 			'check_link' => 'API státusz ellenőrzése: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Az API hozzáférés ki van kapcsolva.',
 			'documentation_link' => 'Lásd az <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ismert appok dokumentációját és listáját</a>',
 			'help' => 'Lásd a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Jelszó megváltoztatása',
+		'confirm_new_password' => 'Új jelszó megerősítése',
+		'current_password' => 'Aktuális jelszó<br /><small>(A Webes űrlap bejelentkezéshez használt)</small>',
 		'delete' => array(
 			'_' => 'Profil törlése',
 			'warn' => 'A profilod és minden hozzá tartozó adat törölve lesz.',
 		),
 		'email' => 'Email cím',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Új jelszó',
 		'password_api' => 'API jelszó<br /><small>(például mobil appoknak)</small>',
 		'password_format' => 'Legalább 7 karakter',
 		'title' => 'Profil',
@@ -321,7 +321,7 @@ return array(
 		'article_action' => 'Cikk műveletek',
 		'auto_share' => 'Megosztás',
 		'auto_share_help' => 'Ha csak egy megosztási mód van, az lesz használva. Egyébként, a megosztási módok a számukkal elérhetőek.',
-		'close_dropdown' => 'Menük bezárása',
+		'close_menus' => 'Menük bezárása',
 		'collapse_article' => 'Összecsuk',
 		'first_article' => 'Első cikk megnyitása',
 		'focus_search' => 'Ugrás a keresődobozra',

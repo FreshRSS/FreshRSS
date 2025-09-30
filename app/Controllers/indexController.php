@@ -58,7 +58,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'default-src' => "'self'",
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 
@@ -147,7 +147,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'default-src' => "'self'",
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 	}
@@ -222,8 +222,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
-			case 'A':	// All except PRIORITY_ARCHIVED
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
+			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
 			case 'c':

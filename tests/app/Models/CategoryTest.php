@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-class CategoryTest extends PHPUnit\Framework\TestCase {
+final class CategoryTest extends \PHPUnit\Framework\TestCase {
 
 	public static function test__construct_whenNoParameters_createsObjectWithDefaultValues(): void {
 		$category = new FreshRSS_Category();

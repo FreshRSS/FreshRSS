@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
 /**
  * Contains a search from the search form.

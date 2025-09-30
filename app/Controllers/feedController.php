@@ -379,6 +379,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 */
 	public function truncateAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		$id = Minz_Request::paramInt('id');
 		$url_redirect = [
 			'c' => 'subscription',
@@ -639,6 +642,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
 							$entry->loadCompleteContent(true);
 
+							$entry = Minz_ExtensionManager::callHook('entry_before_update', $entry);
+							if (!($entry instanceof FreshRSS_Entry)) {
+								// An extension has returned a null value, there is nothing to insert.
+								continue;
+							}
+
 							$entryDAO->updateEntry($entry->toArray());
 						}
 					} else {
@@ -670,6 +679,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							Minz_Log::warning($text);
 							$pubSubHubbubEnabled = false;
 							$feed->pubSubHubbubError(true);
+						}
+
+						$entry = Minz_ExtensionManager::callHook('entry_before_add', $entry);
+						if (!($entry instanceof FreshRSS_Entry)) {
+							// An extension has returned a null value, there is nothing to insert.
+							continue;
 						}
 
 						if ($entryDAO->addEntry($entry->toArray(), true)) {
@@ -813,7 +828,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$applyLabels = [];
-		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll($nbNewEntries)) as $entry) {
+		foreach (FreshRSS_Entry::fromTraversable($entryDAO->selectAll(order: 'DESC', limit: $nbNewEntries)) as $entry) {
 			foreach ($labels as $label) {
 				$label->applyFilterActions($entry, $applyLabel);
 				if ($applyLabel) {
@@ -1047,6 +1062,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 */
 	public function deleteAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		$from = Minz_Request::paramString('from');
 		$id = Minz_Request::paramInt('id');
 
@@ -1084,6 +1102,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 *
 	 */
 	public function clearCacheAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		//Get Feed.
 		$id = Minz_Request::paramInt('id');
 
@@ -1110,6 +1131,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public function reloadAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}

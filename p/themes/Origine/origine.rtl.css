@@ -315,6 +315,10 @@ a:hover .icon {
 	filter: brightness(1.1);
 }
 
+.btn.active, .btn:active {
+	filter: brightness(0.95);
+}
+
 .btn.active .icon,
 .btn:active .icon {
 	filter: brightness(1.1);
@@ -1172,6 +1176,10 @@ a:hover .icon {
 
 	.dropdown-menu .dropdown-section:last-child {
 		margin-bottom: 3rem;
+	}
+
+	.item.configure .dropdown .dropdown-menu {
+		border-radius: 0;
 	}
 
 	#nav_menu_read_all .btn {

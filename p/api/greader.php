@@ -25,8 +25,8 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/bazqux/bazqux-api
 */
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
 header('X-Content-Type-Options: nosniff');
@@ -340,6 +340,9 @@ final class GReaderAPI {
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		foreach ($categoryDAO->listCategories(prePopulateFeeds: true, details: true) as $cat) {
 			foreach ($cat->feeds() as $feed) {
+				if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+					continue;
+				}
 				$subscriptions[] = [
 					'id' => 'feed/' . $feed->id(),
 					'title' => escapeToUnicodeAlternative($feed->name(), true),
@@ -502,6 +505,9 @@ final class GReaderAPI {
 		foreach ($categoryDAO->listCategories(prePopulateFeeds: true, details: true) as $cat) {
 			$catLastUpdate = 0;
 			foreach ($cat->feeds() as $feed) {
+				if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+					continue;
+				}
 				$lastUpdate = $feedsNewestItemUsec['f_' . $feed->id()] ?? 0;
 				$unreadcounts[] = [
 					'id' => 'feed/' . $feed->id(),
@@ -662,7 +668,7 @@ final class GReaderAPI {
 			'starred' => 's',
 			'feed' => 'f',
 			'label' => 'c',
-			'reading-list' => 'A',
+			'reading-list' => 'A',	// All except PRIORITY_HIDDEN
 			default => 'A',
 		};
 
@@ -933,7 +939,7 @@ final class GReaderAPI {
 			if ($cat != null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feedDAO->changeCategory($cat->id(), 0);
-				if ($cat->id() > 1) {
+				if ($cat->id() > FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
 					$categoryDAO->deleteCategory($cat->id());
 				}
 				exit('OK');

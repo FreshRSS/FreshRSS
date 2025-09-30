@@ -96,7 +96,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -121,6 +121,8 @@
 				'idMax' => FreshRSS_Context::$id_max,
 				'search' => htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES),
 				'state' => FreshRSS_Context::$state,
+				'sort' => FreshRSS_Context::$sort,
+				'order' => FreshRSS_Context::$order,
 			],
 		];
 
@@ -196,7 +198,7 @@
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
+			<a class="<?= $mode->getId() ?> btn <?= $mode->isActive() ? 'active' : '' ?>" title="<?=
 				$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
 				<?= $mode->getName() ?>
 			</a>

@@ -3,11 +3,16 @@
 	/** @var FreshRSS_View $this */
 ?>
 <ul class="dropdown-menu">
-	<li class="dropdown-header"><?= _t('index.share') ?> <a href="<?= _url('configure', 'integration') ?>"><?= _i('configure') ?></a></li><?php
+	<li class="dropdown-header"><?= _t('index.share') ?> <?php
+		if (FreshRSS_Auth::hasAccess()):
+			?><a href="<?= _url('configure', 'integration') ?>"><?php
+			?><?= _i('configure') ?></a><?php
+		endif;
+	?></li><?php
 		$id = '--entryId--';
 		$link = '--link--';
 		$title = '--titleText----websiteName----articleAuthors--';
-		foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
+		foreach (FreshRSS_Context::userConf()->sharing as $share_options):
 			$share = FreshRSS_Share::get($share_options['type']);
 			if ($share === null) {
 				continue;
@@ -17,20 +22,19 @@
 			$share_options['link'] = $link;
 			$share_options['title'] = $title;
 			$share->update($share_options);
-			?><li class="item share<?= $cssClass ?>">
-				<?php if ('GET' === $share->method()) {
-					if ($share->HTMLtag() !== 'button') {?>
-						<a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a>
-					<?php } else { ?>
-						<button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button>
-					<?php
+			?><li class="item share<?= $cssClass ?>"><?php
+				if ('GET' === $share->method()):
+					if ($share->HTMLtag() !== 'button') {
+						?><a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a><?php
+					} else {
+						?><button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-title="<?= htmlspecialchars($title) ?>"><?= $share->name() ?></button><?php
 					}
-				} else {?>
-					<a href="POST"><?= $share->name() ?></a>
+				else:
+					?><a href="POST"><?= $share->name() ?></a>
 					<form method="POST" action="<?= $share->url() ?>" disabled="disabled">
 						<input type="hidden" value="<?= $link ?>" name="<?= $share->field() ?>"/>
-					</form>
-				<?php } ?>
+					</form><?php
+				endif; ?>
 			</li><?php
-		}
+		endforeach;
 ?></ul>
