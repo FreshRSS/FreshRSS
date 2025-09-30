@@ -55,7 +55,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$url = trim($url);
 
 		/** @var string|null $urlHooked */
-		$urlHooked = Minz_ExtensionManager::callHook('check_url_before_add', $url);
+		$urlHooked = Minz_ExtensionManager::callHook(Minz_HookType::CheckUrlBeforeAdd, $url);
 		if ($urlHooked === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
@@ -106,7 +106,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		/** @var FreshRSS_Feed|null $feed */
-		$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+		$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
 		if ($feed === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url);
 		}
@@ -465,7 +465,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$categoriesEntriesTitle = [];
 
 		foreach ($feeds as $feed) {
-			$feed = Minz_ExtensionManager::callHook('feed_before_actualize', $feed);
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeActualize, $feed);
 			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
 			}
@@ -616,10 +616,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$entry->_isFavorite(null);	// Do not change favourite state
 							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if ($mark_updated_article_unread) {
-								Minz_ExtensionManager::callHook('entry_auto_unread', $entry, 'updated_article');
+								Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoUnread, $entry, 'updated_article');
 							}
 
-							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+							$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeInsert, $entry);
 							if (!($entry instanceof FreshRSS_Entry)) {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
@@ -642,7 +642,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							// If the entry has changed, there is a good chance for the full content to have changed as well.
 							$entry->loadCompleteContent(true);
 
-							$entry = Minz_ExtensionManager::callHook('entry_before_update', $entry);
+							$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeUpdate, $entry);
 							if (!($entry instanceof FreshRSS_Entry)) {
 								// An extension has returned a null value, there is nothing to insert.
 								continue;
@@ -655,7 +655,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						$id = uTimeString();
 						$entry->_id($id);
 
-						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+						$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeInsert, $entry);
 						if (!($entry instanceof FreshRSS_Entry)) {
 							// An extension has returned a null value, there is nothing to insert.
 							continue;
@@ -681,7 +681,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							$feed->pubSubHubbubError(true);
 						}
 
-						$entry = Minz_ExtensionManager::callHook('entry_before_add', $entry);
+						$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeAdd, $entry);
 						if (!($entry instanceof FreshRSS_Entry)) {
 							// An extension has returned a null value, there is nothing to insert.
 							continue;
@@ -911,7 +911,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				// Case of a batch refresh (e.g. cron)
 				$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 				$databaseDAO->minorDbMaintenance();
-				Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+				Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 				FreshRSS_feed_Controller::commitNewEntries();
 				$feedDAO = FreshRSS_Factory::createFeedDao();

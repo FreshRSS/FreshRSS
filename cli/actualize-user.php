@@ -20,13 +20,13 @@ if (!empty($cliOptions->errors)) {
 
 $username = cliInitUser($cliOptions->user);
 
-Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
 $databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 $databaseDAO->minorDbMaintenance();
-Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 FreshRSS_feed_Controller::commitNewEntries();
 $feedDAO = FreshRSS_Factory::createFeedDao();

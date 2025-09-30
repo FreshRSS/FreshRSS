@@ -478,14 +478,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 			$newGuids[$entry->guid()] = true;
 
-			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeInsert, $entry);
 			if (!($entry instanceof FreshRSS_Entry)) {
 				// An extension has returned a null value, there is nothing to insert.
 				continue;
 			}
 
 			if (isset($existingHashForGuids['f_' . $feed_id][$entry->guid()])) {
-				$entry = Minz_ExtensionManager::callHook('entry_before_update', $entry);
+				$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeUpdate, $entry);
 				if (!($entry instanceof FreshRSS_Entry)) {
 					// An extension has returned a null value, there is nothing to insert.
 					continue;
@@ -495,7 +495,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$entry->_lastSeen(time());
 
-				$entry = Minz_ExtensionManager::callHook('entry_before_add', $entry);
+				$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeAdd, $entry);
 				if (!($entry instanceof FreshRSS_Entry)) {
 					// An extension has returned a null value, there is nothing to insert.
 					continue;
@@ -581,7 +581,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			// Call the extension hook
-			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
 			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.

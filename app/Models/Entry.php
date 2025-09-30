@@ -818,12 +818,12 @@ HTML;
 		if (!$this->isRead()) {
 			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'upon_reception');
 			}
 			if (!empty($titlesAsRead[$this->title()])) {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);

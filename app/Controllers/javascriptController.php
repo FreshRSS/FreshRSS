@@ -32,7 +32,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();
-		Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);

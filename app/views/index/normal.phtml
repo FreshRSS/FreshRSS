@@ -47,7 +47,7 @@ $today = @strtotime('today');
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
 		/** @var FreshRSS_Entry|null $item */
-		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
 			continue;
 		}

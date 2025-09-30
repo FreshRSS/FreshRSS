@@ -3,7 +3,7 @@ declare(strict_types=1);
 /** @var FreshRSS_View $this */
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
-$extData = Minz_ExtensionManager::callHook('js_vars', []);
+$extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
