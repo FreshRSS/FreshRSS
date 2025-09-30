@@ -29,6 +29,12 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	#[\Override]
+	protected static function sqlLimitAll(): string {
+		// https://sqlite.org/lang_select.html#the_limit_clause
+		return '-1';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}

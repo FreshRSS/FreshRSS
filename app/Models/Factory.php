@@ -16,6 +16,7 @@ class FreshRSS_Factory {
 	public static function createCategoryDao(?string $username = null): FreshRSS_CategoryDAO {
 		return match (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			'sqlite' => new FreshRSS_CategoryDAOSQLite($username),
+			'pgsql' => new FreshRSS_CategoryDAOPGSQL($username),
 			default => new FreshRSS_CategoryDAO($username),
 		};
 	}
@@ -26,6 +27,7 @@ class FreshRSS_Factory {
 	public static function createFeedDao(?string $username = null): FreshRSS_FeedDAO {
 		return match (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			'sqlite' => new FreshRSS_FeedDAOSQLite($username),
+			'pgsql' => new FreshRSS_FeedDAOPGSQL($username),
 			default => new FreshRSS_FeedDAO($username),
 		};
 	}

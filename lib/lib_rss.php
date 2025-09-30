@@ -39,7 +39,7 @@ function join_path(...$path_parts): string {
 
 //<Auto-loading>
 function classAutoloader(string $class): void {
-	if (strpos($class, 'FreshRSS') === 0) {
+	if (str_starts_with($class, 'FreshRSS')) {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
@@ -52,7 +52,7 @@ function classAutoloader(string $class): void {
 				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
-	} elseif (strpos($class, 'Minz') === 0) {
+	} elseif (str_starts_with($class, 'Minz')) {
 		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
 	} elseif (str_starts_with($class, 'SimplePie\\')) {
 		$prefix = 'SimplePie\\';
@@ -291,6 +291,36 @@ function sensitive_log(array|string $log): array|string {
 }
 
 /**
+ * @param array<mixed> $curl_params
+ * @return array<mixed>
+ */
+function sanitizeCurlParams(array $curl_params): array {
+	$safe_params = [
+		CURLOPT_COOKIE,
+		CURLOPT_COOKIEFILE,
+		CURLOPT_FOLLOWLOCATION,
+		CURLOPT_HTTPHEADER,
+		CURLOPT_MAXREDIRS,
+		CURLOPT_POST,
+		CURLOPT_POSTFIELDS,
+		CURLOPT_PROXY,
+		CURLOPT_PROXYTYPE,
+		CURLOPT_USERAGENT,
+	];
+	foreach ($curl_params as $k => $_) {
+		if (!in_array($k, $safe_params, true)) {
+			unset($curl_params[$k]);
+			continue;
+		}
+		// Allow only an empty value just to enable the libcurl cookie engine
+		if ($k === CURLOPT_COOKIEFILE) {
+			$curl_params[$k] = '';
+		}
+	}
+	return $curl_params;
+}
+
+/**
  * @param array<string,mixed> $attributes
  * @param array<int,mixed> $curl_options
  * @throws FreshRSS_Context_Exception
@@ -318,6 +348,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 		}
 	}
+	$attributes['curl_params'] = sanitizeCurlParams(is_array($attributes['curl_params'] ?? null) ? $attributes['curl_params'] : []);
 	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 		foreach ($attributes['curl_params'] as $co => $v) {
 			if (is_int($co)) {
@@ -755,7 +786,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
 	if (is_array($attributes['curl_params'] ?? null)) {
-		$options = $attributes['curl_params'];
+		$options = sanitizeCurlParams($attributes['curl_params']);
 		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 			// Remove headers problematic for security
 			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
@@ -764,9 +795,8 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
 				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
 			}
-			$attributes['curl_params'] = $options;
 		}
-		curl_setopt_array($ch, $attributes['curl_params']);
+		curl_setopt_array($ch, $options);
 	}
 
 	if (isset($attributes['ssl_verify'])) {
@@ -855,8 +885,8 @@ function validateEmailAddress(string $email): bool {
  */
 function lazyimg(string $content): string {
 	return preg_replace([
-			'/<((?:img|image|iframe)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
 			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
 			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
@@ -1224,7 +1254,8 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 		$details = "<pre>{$details}</pre>";
 	}
 
-	header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	header('Referrer-Policy: same-origin');
 
 	return <<<MSG
