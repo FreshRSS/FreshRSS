@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Довільний порядок',
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Показати вподобані',
 		'stats' => 'Статистика',
