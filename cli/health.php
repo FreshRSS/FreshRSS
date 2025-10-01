@@ -8,7 +8,7 @@ if (php_sapi_name() !== 'cli') {
 }
 
 $options = getopt('', ['url::', 'connect_timeout::', 'timeout::']);
-$address = is_string($options['url'] ?? null) ? $options['url'] : 'http://localhost/i/';
+$address = is_string($options['url'] ?? null) ? $options['url'] : 'http://localhost/api/';
 $ch = curl_init($address);
 if ($ch === false) {
 	fwrite(STDERR, 'Error: Failed to initialize cURL!' . PHP_EOL);
@@ -26,6 +26,6 @@ curl_setopt_array($ch, [
 $content = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-if ($httpCode !== 200 || !is_string($content) || !str_contains($content, 'jsonVars') || !str_contains($content, '</html>')) {
+if ($httpCode !== 200 || !is_string($content) || !str_contains($content, 'FreshRSS API endpoints') || !str_contains($content, '</html>')) {
 	die(1);
 }
