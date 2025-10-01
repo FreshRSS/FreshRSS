@@ -213,10 +213,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 		Minz_Request::good(
 			_t('feedback.tag.renamed', $sourceName, $targetName),
-			[
-				'c' => 'tag',
-				'a' => 'index'
-			],
+			['c' => 'tag', 'a' => 'index'],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 	}
 

@@ -297,10 +297,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		invalidateHttpCache();
 		Minz_Request::good(
 			_t('feedback.sub.purge_completed', $nb_total),
-			[
-				'c' => 'configure',
-				'a' => 'archiving',
-			],
+			['c' => 'configure', 'a' => 'archiving'],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 		);
 	}

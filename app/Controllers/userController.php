@@ -94,10 +94,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				} else {
 					Minz_Request::good(
 						_t('feedback.profile.updated'),
-						[
-							'c' => 'index',
-							'a' => 'index'
-						],
+						['c' => 'index', 'a' => 'index'],
 						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 					);
 				}
@@ -192,19 +189,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				if (FreshRSS_Context::systemConf()->force_email_validation && $email !== $old_email) {
 					Minz_Request::good(
 						_t('feedback.profile.updated'),
-						[
-							'c' => 'user',
-							'a' => 'validateEmail'
-						],
+						['c' => 'user', 'a' => 'validateEmail'],
 						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 					);
 				} else {
 					Minz_Request::good(
 						_t('feedback.profile.updated'),
-						[
-							'c' => 'user',
-							'a' => 'profile'
-						],
+						['c' => 'user', 'a' => 'profile'],
 						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 					);
 				}
@@ -739,10 +730,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($ok) {
 			Minz_Request::good(
 				_t('feedback.user.updated', $username),
-				[
-					'c' => 'user',
-					'a' => 'manage'
-				],
+				['c' => 'user', 'a' => 'manage'],
 				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		} else {
