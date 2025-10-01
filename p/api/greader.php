@@ -49,7 +49,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-const JSON_OPTIONS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -728,7 +728,7 @@ TXT;
 	, "continuation": "$lastEntryId"
 TXT;
 		}
-		echo <<<TXT
+		echo <<<'TXT'
 ]
 TXT;
 		exit();
@@ -849,7 +849,7 @@ TXT;
 			echo json_encode($item, JSON_OPTIONS);
 			$nbItems++;
 		}
-		echo <<<TXT
+		echo <<<'TXT'
 	]
 ]
 TXT;
