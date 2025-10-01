@@ -726,10 +726,12 @@ TXT;
 TXT;
 		if ($nbItems >= $count && $lastEntryId > 0) {
 			echo <<<TXT
-	, "continuation": "$lastEntryId"
+,
+	"continuation": "$lastEntryId"
 TXT;
 		}
 		echo <<<'TXT'
+
 }
 TXT;
 		exit();
@@ -851,6 +853,7 @@ TXT;
 			$nbItems++;
 		}
 		echo <<<'TXT'
+
 	]
 }
 TXT;
