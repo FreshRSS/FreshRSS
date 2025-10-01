@@ -733,6 +733,7 @@ TXT;
 		echo <<<'TXT'
 
 }
+
 TXT;
 		exit();
 	}
@@ -856,6 +857,7 @@ TXT;
 
 	]
 }
+
 TXT;
 		exit();
 	}
