@@ -505,7 +505,9 @@ button.as-link[disabled] {
 }
 
 .content pre code {
+	background: transparent;
 	color: var(--dark-font-colorA);
+	border: none;
 }
 
 .content blockquote {

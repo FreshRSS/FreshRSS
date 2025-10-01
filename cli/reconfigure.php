@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $defaultUser;
@@ -113,7 +113,8 @@ foreach ($values as $name => $value) {
 	}
 }
 
-$db = array_merge(FreshRSS_Context::systemConf()->db, array_filter($dbValues));
+$db = array_merge(FreshRSS_Context::systemConf()->db,
+	array_filter($dbValues, fn(?string $v): bool => $v !== null && trim($v) !== ''));
 
 performRequirementCheck($db['type']);
 

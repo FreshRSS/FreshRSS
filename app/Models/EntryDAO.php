@@ -27,6 +27,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	protected static function sqlLimitAll(): string {
+		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
+	}
+
+	public static function sqlLimit(int $limit = -1, int $offset = 0): string {
+		if ($limit < 0 && $offset <= 0) {
+			return '';
+		}
+		if ($limit < 1) {
+			$limit = static::sqlLimitAll();
+		}
+		return "LIMIT {$limit} OFFSET {$offset}";
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -372,7 +387,7 @@ SQL;
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
-			Minz_ExtensionManager::callHook('entries_favorite', $ids, $is_favorite);
+			Minz_ExtensionManager::callHook(Minz_HookType::EntriesFavorite, $ids, $is_favorite);
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -556,9 +571,9 @@ SQL;
 UPDATE `_entry`
 SET is_read = ?
 WHERE is_read <> ? AND id <= ?
-AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)
+AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ?)
 SQL;
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id, FreshRSS_Feed::PRIORITY_CATEGORY];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -739,18 +754,21 @@ SQL;
 		}
 	}
 
-	/** @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}> */
-	public function selectAll(?int $limit = null): Traversable {
+	/**
+	 * @param 'ASC'|'DESC' $order
+	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
+	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
+	 */
+	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
+		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
+		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
+ORDER BY id {$order} {$sqlLimit}
 SQL;
-		if (is_int($limit) && $limit >= 0) {
-			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
-		}
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -762,7 +780,7 @@ SQL;
 			$info = $this->pdo->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
-				yield from $this->selectAll();
+				yield from $this->selectAll($order, $limit, $offset);
 			} else {
 				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}
@@ -937,49 +955,57 @@ SQL;
 			}
 
 			if ($filter->getLabelIds() !== null) {
-				if ($filter->getLabelIds() === '*') {
-					$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 			if ($filter->getNotLabelIds() !== null) {
-				if ($filter->getNotLabelIds() === '*') {
-					$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
-				} else {
-					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
-					foreach ($filter->getNotLabelIds() as $label_id) {
-						$sub_search .= '?,';
-						$values[] = $label_id;
+				foreach ($filter->getNotLabelIds() as $label_ids) {
+					if ($label_ids === '*') {
+						$sub_search .= 'AND NOT EXISTS (SELECT et.id_tag FROM `_entrytag` et WHERE et.id_entry = ' . $alias . 'id) ';
+					} else {
+						$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (';
+						foreach ($label_ids as $label_id) {
+							$sub_search .= '?,';
+							$values[] = $label_id;
+						}
+						$sub_search = rtrim($sub_search, ',');
+						$sub_search .= ')) ';
 					}
-					$sub_search = rtrim($sub_search, ',');
-					$sub_search .= ')) ';
 				}
 			}
 
 			if ($filter->getLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 			if ($filter->getNotLabelNames() !== null) {
-				$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
-				foreach ($filter->getNotLabelNames() as $label_name) {
-					$sub_search .= '?,';
-					$values[] = $label_name;
+				foreach ($filter->getNotLabelNames() as $label_names) {
+					$sub_search .= 'AND ' . $alias . 'id NOT IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (';
+					foreach ($label_names as $label_name) {
+						$sub_search .= '?,';
+						$values[] = $label_name;
+					}
+					$sub_search = rtrim($sub_search, ',');
+					$sub_search .= ')) ';
 				}
-				$sub_search = rtrim($sub_search, ',');
-				$sub_search .= ')) ';
 			}
 
 			if ($filter->getAuthor() !== null) {
@@ -1184,13 +1210,15 @@ SQL;
 	/**
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'date'|'link'|'title'|'rand' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
 	 * @param 'ASC'|'DESC' $order
+	 * @param numeric-string $continuation_id
+	 * @param list<string|int> $continuation_values
 	 * @return array{0:list<int|string>,1:string}
 	 */
 	protected function sqlListEntriesWhere(string $alias = '', int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', string|int $continuation_value = 0): array {
+		string $continuation_id = '0', array $continuation_values = []): array {
 		$search = ' ';
 		$values = [];
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
@@ -1250,13 +1278,29 @@ SQL;
 			$values[] = $id_min;
 		}
 
-		if ($continuation_id !== '0' && in_array($sort, ['date', 'link', 'title'], true)) {
+		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title'], true)) {
 			$sign = $order === 'ASC' ? '>' : '<';
+			$orderBy = match ($sort) {
+				'c.name' => 'c.name',
+				'f.name' => 'f.name',
+				default => $alias . $sort,
+			};
 			// Keyset pagination (Compatibility syntax due to poor performance of tuple syntax in MySQL https://bugs.mysql.com/bug.php?id=104128)
-			$search .= "AND ({$alias}{$sort} {$sign} ? OR ({$alias}{$sort} = ? AND {$alias}id {$sign}= ?)) ";
-			$values[] = $continuation_value;
-			$values[] = $continuation_value;
-			$values[] = $continuation_id;
+			if ($sort === 'c.name') {
+				// Includes a secondary sort by feed name
+				$search .= "AND ((c.name {$sign} ?) OR (c.name = ? AND f.name {$sign} ?) OR (c.name = ? AND f.name = ? AND {$alias}id {$sign}= ?)) ";
+				$values[] = $continuation_values[0];
+				$values[] = $continuation_values[0];
+				$values[] = $continuation_values[1];
+				$values[] = $continuation_values[0];
+				$values[] = $continuation_values[1];
+				$values[] = $continuation_id;
+			} else {
+				$search .= "AND ({$orderBy} {$sign} ? OR ({$orderBy} = ? AND {$alias}id {$sign}= ?)) ";
+				$values[] = $continuation_values[0];
+				$values[] = $continuation_values[0];
+				$values[] = $continuation_id;
+			}
 		}
 
 		if ($filters !== null && count($filters->searches()) > 0) {
@@ -1276,15 +1320,16 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'date'|'link'|'title'|'rand' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
+	 * @param list<string|int> $continuation_values
 	 * @return array{0:list<int|string>,1:string}
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', string|int $continuation_value = 0, int $limit = 1, int $offset = 0): array {
+			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -1294,17 +1339,17 @@ SQL;
 			case 'a':	// All PRIORITY_MAIN_STREAM
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
+			case 'A':	// All except PRIORITY_HIDDEN
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_FEED . ' ';
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+			case 'Z':	// All including PRIORITY_HIDDEN
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				break;
 			case 'i':	// Priority important feeds
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
 				break;
 			case 's':	//Starred. Deprecated: use $state instead
-				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
 			case 'S':	//Starred
@@ -1334,21 +1379,28 @@ SQL;
 		}
 
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'date', 'link', 'title', 'rand'], true) ? $sort : 'id';
-		$orderBy = ($sort === 'rand' ? static::sqlRandom() : 'e.' . $sort);
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		$orderBy = match ($sort) {
+			'c.name' => 'c.name',
+			'f.name' => 'f.name',
+			'rand' => static::sqlRandom(),
+			default => 'e.' . $sort,
+		};
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
-			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_value: $continuation_value);
+			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
 
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
-			. ($type === 'T' && $orderBy !== 'e.id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
+			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ' FROM `_entry` e '
-			. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
+			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
+			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY ' . $orderBy . ' ' . $order
+			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
 			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 			. ($offset > 0 ? ' OFFSET ' . $offset : '')
@@ -1360,29 +1412,44 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'date'|'link'|'title'|'rand' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
+	 * @param list<string|int> $continuation_values
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', string|int $continuation_value = 0, int $limit = 1, int $offset = 0): PDOStatement|false {
+		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'date', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
 
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-			continuation_id: $continuation_id, continuation_value: $continuation_value, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 
-		$orderBy = ($sort === 'rand' ? static::sqlRandom() : 'e0.' . $sort);
+		$orderBy = match ($sort) {
+			'c.name' => 'c0.name',
+			'f.name' => 'f0.name',
+			'rand' => static::sqlRandom(),
+			default => 'e0.' . $sort,
+		};
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link, e0.date, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
 FROM `_entry` e0
 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
-ORDER BY {$orderBy} {$order}
 SQL;
+		if ($sort === 'f.name' || $sort === 'c.name') {
+			$sql .= ' INNER JOIN `_feed` f0 ON f0.id = e0.id_feed ';
+		}
+		if ($sort === 'c.name') {
+			$sql .= ' INNER JOIN `_category` c0 ON c0.id = f0.category ';
+		}
+		$sql .= ' ORDER BY ' . $orderBy . ' ' . $order;
+		if ($sort === 'c.name') {
+			$sql .= ', f0.name ' . $order;	// Secondary sort
+		}
 		if ($sort !== 'id') {
 			// For keyset pagination
 			$sql .= ', e0.id ' . $order;
@@ -1395,7 +1462,7 @@ SQL;
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
 				return $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-					continuation_id: $continuation_id, continuation_value: $continuation_value, limit: $limit, offset: $offset);
+					continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 			}
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
@@ -1407,17 +1474,18 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'date'|'link'|'title'|'rand' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
+	 * @param list<string|int> $continuation_values
 	 * @return Traversable<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', string|int $continuation_value = 0, int $limit = 1, int $offset = 0): Traversable {
+			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): Traversable {
 		$stm = $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-			continuation_id: $continuation_id, continuation_value: $continuation_value, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
@@ -1473,16 +1541,17 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param numeric-string $continuation_id
 	 * @param 'ASC'|'DESC' $order
+	 * @param numeric-string $continuation_id
+	 * @param list<string|int> $continuation_values
 	 * @return list<numeric-string>|null
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $order = 'DESC',
-		string $continuation_id = '0', string|int $continuation_value = 0, int $limit = 1, int $offset = 0): ?array {
+		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): ?array {
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, order: $order,
-			continuation_id: $continuation_id, continuation_value: $continuation_value, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<int|numeric-string> $res */

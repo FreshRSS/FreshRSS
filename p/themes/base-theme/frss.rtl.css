@@ -299,7 +299,7 @@ input.long {
 
 input, select, textarea {
 	display: inline-block;
-	max-width: 100%;
+	max-width: 85vw;
 	font-size: 0.8rem;
 	box-sizing: border-box;
 }
@@ -354,7 +354,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -529,6 +528,13 @@ input#favicon-upload {
 
 .favicon-controls {
 	display: inline;
+}
+
+input.ignore-auto-complete {
+	position: absolute;
+	right: -9999px;
+	pointer-events: none;
+	user-select: none;
 }
 
 /*=== Buttons */
@@ -1368,6 +1374,11 @@ input[type="search"] {
 	opacity: 1;
 }
 
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
@@ -1601,7 +1612,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
@@ -2472,7 +2483,8 @@ html.slider-active {
 	.flux_header .item.website span,
 	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 
@@ -2511,6 +2523,23 @@ html.slider-active {
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
 		text-align: center;
+	}
+
+	.aside:not(.aside_feed) {
+		overflow-y: scroll;
+	}
+
+	nav.configure > .dropdown li.item.dropdown-section:last-child,
+	nav#aside_feed > ul li.item.nav-section:last-child {
+		margin-bottom: 6rem;
+	}
+
+	#dropdown-search-wrapper .dropdown-menu span {
+		text-wrap: wrap;
+	}
+
+	.form-advanced-title {
+		text-align: right;
 	}
 
 	.aside .feed .item-title {
@@ -2626,9 +2655,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		left: 0 !important;
 		bottom: 0;
-		right: auto;
+		right: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;
@@ -2779,13 +2808,30 @@ html.slider-active {
 /*============*/
 
 @media print {
+	/* This hides the headers and footers in the printed document on Chrome */
+	/* Supported since Chrome 131: https://developer.chrome.com/release-notes/131#page_margin_boxes */
+
+	@page {
+		/* Firefox and Safari do not support those yet */
+		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+
+		@top-left { content: ''; }
+
+		@top-right { content: ''; }
+
+		@bottom-left { content: ''; }
+
+		@bottom-right { content: ''; }
+	}
+
 	.header, .aside,
 	.nav_menu, .day,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
 	#stream-footer,
-	#nav_entries {
+	#nav_entries,
+	.dropdown-toggle {
 		display: none;
 	}
 

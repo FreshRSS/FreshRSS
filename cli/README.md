@@ -149,12 +149,13 @@ cd /usr/share/FreshRSS
 # -r, --revert revert the action (only used with ignore action).
 # -o, --origin-language selects the origin language (only used with add language action).
 
-./cli/check-translation.php [ ---display-result --help --language fr --display-report ]
+./cli/check-translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.
 # -d, --display-result display results of check.
 # -h, --help display help text and exit.
 # -l, --language set the language check.
 # -r, --display-report display completion report.
+# -g, --generate-readme generate readme for translation status.
 ```
 
 ## Note about cron

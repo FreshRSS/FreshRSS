@@ -275,7 +275,8 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_COOKIE] = $feed_elt['frss:CURLOPT_COOKIE'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_COOKIEFILE'])) {
-				$curl_params[CURLOPT_COOKIEFILE] = $feed_elt['frss:CURLOPT_COOKIEFILE'];
+				// Allow only an empty value just to enable the libcurl cookie engine
+				$curl_params[CURLOPT_COOKIEFILE] = '';
 			}
 			if (isset($feed_elt['frss:CURLOPT_FOLLOWLOCATION'])) {
 				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];
@@ -310,7 +311,7 @@ class FreshRSS_Import_Service {
 
 			// Call the extension hook
 			/** @var FreshRSS_Feed|null */
-			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
 
 			if ($dry_run) {
 				if ($feed !== null) {

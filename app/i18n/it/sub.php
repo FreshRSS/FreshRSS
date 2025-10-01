@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,9 @@ return array(
 		'path_entries_conditions' => 'Condizioni per il recupero dei contenuti',
 		'priority' => array(
 			'_' => 'Visibilità',
-			'archived' => 'Non mostrare (archiviato)',
 			'category' => 'Mostra nella sua categoria',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Non mostrare',
 			'important' => 'Mostra nei feed importanti',
 			'main_stream' => 'Mostra in homepage',
 		),
@@ -241,9 +242,15 @@ return array(
 			'help' => 'Rilevante per i feed non validi.<br />⚠️ La modifica del criterio creerà dei duplicati.',
 			'id' => 'Standard ID (default)',	// IGNORE
 			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Contenuto',
+			'sha1:content_published' => 'Contenuto + Data',
 			'sha1:link_published' => 'Link + Data',
 			'sha1:link_published_title' => 'Link + Data + Titolo',
 			'sha1:link_published_title_content' => 'Link + Data + Titolo + Contenuto',
+			'sha1:published' => 'Data',
+			'sha1:title' => 'Titolo',
+			'sha1:title_published' => 'Titolo + Data',
+			'sha1:title_published_content' => 'Titolo + Data + Contenuto',
 		),
 		'url' => 'URL del feed',
 		'useragent' => 'Imposta lo user agent per recuperare questo feed',
@@ -295,7 +302,6 @@ return array(
 		'add_opml_category' => 'Nome categoria OPML',
 		'delete_label' => 'Cancella un’etichetta',
 		'feed_management' => 'Gestione feed RSS',
-		'rename_label' => 'Rinomina un’etichetta',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
 	),
 );

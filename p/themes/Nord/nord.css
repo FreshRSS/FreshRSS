@@ -871,7 +871,10 @@ li.item.active {
 .content pre {
 	border: 1px solid var(--accent);
 	border-radius: 6px;
+}
 
+.content pre code {
+	border: none;
 }
 
 .content blockquote {

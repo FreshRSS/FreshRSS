@@ -25,8 +25,11 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/bazqux/bazqux-api
 */
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
+
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
 
 if (PHP_INT_SIZE < 8) {	//32-bit
 	/** @return numeric-string */
@@ -332,13 +335,14 @@ final class GReaderAPI {
 			self::internalServerError();
 		}
 		header('Content-Type: application/json; charset=UTF-8');
-		$faviconsUrl = Minz_Url::display('/f.php?', '', true);
-		$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 		$subscriptions = [];
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		foreach ($categoryDAO->listCategories(prePopulateFeeds: true, details: true) as $cat) {
 			foreach ($cat->feeds() as $feed) {
+				if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+					continue;
+				}
 				$subscriptions[] = [
 					'id' => 'feed/' . $feed->id(),
 					'title' => escapeToUnicodeAlternative($feed->name(), true),
@@ -352,7 +356,9 @@ final class GReaderAPI {
 					//'firstitemmsec' => 0,
 					'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 					'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
-					'iconUrl' => $faviconsUrl . $feed->hashFavicon(),
+					'iconUrl' => str_replace(
+						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
+						$feed->favicon(absolute: true)),
 				];
 			}
 		}
@@ -499,6 +505,9 @@ final class GReaderAPI {
 		foreach ($categoryDAO->listCategories(prePopulateFeeds: true, details: true) as $cat) {
 			$catLastUpdate = 0;
 			foreach ($cat->feeds() as $feed) {
+				if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+					continue;
+				}
 				$lastUpdate = $feedsNewestItemUsec['f_' . $feed->id()] ?? 0;
 				$unreadcounts[] = [
 					'id' => 'feed/' . $feed->id(),
@@ -561,7 +570,7 @@ final class GReaderAPI {
 		$items = [];
 		foreach ($entries as $item) {
 			/** @var FreshRSS_Entry|null $entry */
-			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+			$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
 			if ($entry === null) {
 				continue;
 			}
@@ -659,7 +668,7 @@ final class GReaderAPI {
 			'starred' => 's',
 			'feed' => 'f',
 			'label' => 'c',
-			'reading-list' => 'A',
+			'reading-list' => 'A',	// All except PRIORITY_HIDDEN
 			default => 'A',
 		};
 
@@ -930,7 +939,7 @@ final class GReaderAPI {
 			if ($cat != null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feedDAO->changeCategory($cat->id(), 0);
-				if ($cat->id() > 1) {
+				if ($cat->id() > FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
 					$categoryDAO->deleteCategory($cat->id());
 				}
 				exit('OK');

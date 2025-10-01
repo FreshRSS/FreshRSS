@@ -1,5 +1,5 @@
 parameters:
-    level: 6
+    level: 8
 
     paths:
         - library/
@@ -55,13 +55,11 @@ parameters:
             # Only occurs on PHP ≤ 7.4
             reportUnmatched: false
 
-        -
-            message: '(^Unable to resolve the template type T in call to method SimplePie\\Registry::get_class\(\)$)'
-            count: 2
-            path: tests/Unit/RegistryTest.php
-
         # PHPStan stubs bug https://github.com/phpstan/phpstan/issues/8629
         -
             message: '(^Access to an undefined property XMLReader::\$\w+\.$)'
             # Only occurs on PHP ≥ 8.2
             reportUnmatched: false
+
+includes:
+    - utils/PHPStan/extension.neon

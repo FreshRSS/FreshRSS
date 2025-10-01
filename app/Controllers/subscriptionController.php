@@ -48,7 +48,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => "'self' blob:",
 		]);
 
@@ -118,7 +118,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => "'self' blob:",
 		]);
 
@@ -207,7 +207,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			$headers = array_filter(array_map('trim', $headers));
+			$headers = array_filter($headers, fn(string $header): bool => trim($header) !== '');
 			if (!empty($headers)) {
 				$opts[CURLOPT_HTTPHEADER] = array_merge($headers, $opts[CURLOPT_HTTPHEADER] ?? []);
 				$opts[CURLOPT_HTTPHEADER] = array_unique($opts[CURLOPT_HTTPHEADER]);
@@ -318,7 +318,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			$conditions = Minz_Request::paramTextToArray('path_entries_conditions', plaintext: true);
-			$conditions = array_filter(array_map('trim', $conditions));
+			$conditions = array_filter($conditions, fn(string $condition): bool => trim($condition) !== '');
 			$feed->_attribute('path_entries_conditions', empty($conditions) ? null : $conditions);
 			$feed->_attribute('path_entries_filter', Minz_Request::paramString('path_entries_filter', true));
 
@@ -369,7 +369,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($favicon_uploaded && !$resetFavicon) {
-				require_once(LIB_PATH . '/favicons.php');
 				$max_size = FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'];
 				if ($favicon_size > $max_size) {
 					Minz_Request::bad(_t('feedback.sub.feed.favicon.too_large', format_bytes($max_size)), $url_redirect);

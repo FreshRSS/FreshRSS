@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAO {
 
+	#[\Override]
+	public function sqlResetSequence(): bool {
+		return true;	// Nothing to do for SQLite
+	}
+
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {

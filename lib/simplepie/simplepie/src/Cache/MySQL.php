@@ -271,7 +271,7 @@ class MySQL extends DB
                     $query->bindValue(':feed', $this->id);
                     if ($query->execute()) {
                         while ($row = $query->fetchColumn()) {
-                            $feed['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['entry'][] = unserialize($row);
+                            $feed['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['entry'][] = unserialize((string) $row);
                         }
                     } else {
                         return false;
@@ -297,7 +297,7 @@ class MySQL extends DB
         $query = $this->mysql->prepare('SELECT `mtime` FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :id');
         $query->bindValue(':id', $this->id);
         if ($query->execute() && ($time = $query->fetchColumn())) {
-            return $time;
+            return (int) $time;
         }
 
         return false;

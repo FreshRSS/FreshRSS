@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -59,7 +59,7 @@ return array(
 		'bookmark_query' => 'Markah pencarian saat ini',
 		'favorites' => 'Favorit (%s)',
 		'global_view' => 'Tampilan Global',
-		'important' => 'Umpan penting',
+		'important' => 'Umpan Penting',
 		'main_stream' => 'Bagian Utama',
 		'mark_all_read' => 'Tandai semua sebagai sudah dibaca',
 		'mark_cat_read' => 'Tandai kategori sebagai sudah dibaca',
@@ -77,8 +77,16 @@ return array(
 		'search_short' => 'Cari',
 		'sort' => array(
 			'_' => 'Kriteria pengurutan',
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
 			'date_asc' => 'Tanggal publikasi 1→9',
 			'date_desc' => 'Tanggal publikasi 9→1',
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
 			'id_asc' => 'Yang baru diterima terakhir',
 			'id_desc' => 'Yang baru diterima paling awal',
 			'link_asc' => 'Tautan A→Z',

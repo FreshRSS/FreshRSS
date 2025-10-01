@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,7 +50,7 @@ return array(
 			'password' => 'Kata sandi HTTP',
 			'username' => 'Nama pengguna HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Ubah…',
 		'clear_cache' => 'Selalu bersihkan tembolok',
 		'content_action' => array(
 			'_' => 'Yang dilakukan ketika mengambil konten artikel',
@@ -62,10 +62,10 @@ return array(
 		'css_cookie' => 'Gunakan kuki ketika mengambil konten artikel',
 		'css_cookie_help' => 'Contoh: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Mengambil bagian artikel sesuai CSS yang dimasukkan (awas, memerlukan lebih banyak waktu!)',
-		'css_path' => 'Selektor CSS artikel di situs aslinya',
+		'css_path' => 'Pemilihan CSS artikel di situs aslinya',
 		'css_path_filter' => array(
-			'_' => 'Selektor CSS artikel untuk konten yang akan dihapus',
-			'help' => 'Selektor CSS bisa juga berupa daftar seperti: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
+			'_' => 'Pemilihan CSS artikel untuk konten yang akan dihapus',
+			'help' => 'Pemilihan CSS bisa juga berupa daftar seperti: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Deskripsi',
 		'empty' => 'Umpan ini kosong. Periksa apakah umpan ini masih ada',
@@ -75,15 +75,15 @@ return array(
 			'help' => 'Berkas XML (subset data. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lihat dokumentasi</a>)',
 			'label' => 'Unduh dalam bentuk OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Atur secara otomatis',
+		'favicon_changed_by_ext' => 'Ikon telah diatur oleh ekstensi <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Tindakan penyaringan',
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
 		),
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Ikon',
 		'information' => 'Informasi',
 		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(
@@ -96,12 +96,12 @@ return array(
 				),
 			),
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'_' => 'HTML + XPath (Pengorekan web)',
 				'feed_title' => array(
 					'_' => 'judul umpan',
 					'help' => 'Contoh: <code>//title</code> atau kata statis: <code>"Umpan Saya"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> adalah bahasa kueri standar untuk pengguna tingkat lanjut dan yang mana FreshRSS dukung untuk web scraping.',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> adalah bahasa kueri standar untuk pengguna tingkat lanjut dan yang mana FreshRSS dukung untuk dikorek.',
 				'item' => array(
 					'_' => 'mencari <strong>item</strong> artikel<br /><small>(paling penting)</small>',
 					'help' => 'Contoh: <code>//div[@class="news-item"]</code>',
@@ -148,7 +148,7 @@ return array(
 					'_' => 'judul umpan',
 					'help' => 'Contoh: <code>meta.title</code> atau kata statis: <code>"Umpan Saya"</code>',
 				),
-				'help' => 'Notasi dot JSON menggunakan dot (titik) antara objek dan kurung untuk array, contoh <code>data.items[0].title</code>',
+				'help' => 'Notasi dot JSON menggunakan dot (titik) antara objek dan kurung untuk array. Contoh <code>data.items[0].title</code>',
 				'item' => array(
 					'_' => 'mencari <strong>item</strong> artikel<br /><small>(paling penting)</small>',
 					'help' => 'Jalur JSON ke array yang mengandung item tersebut, contoh: <code>$</code> atau <code>newsItems</code>',
@@ -188,7 +188,7 @@ return array(
 			'clear_cache' => 'Bersihkan tembolok',
 			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',
 			'reload_articles' => 'Muat ulang artikel',
-			'reload_articles_help' => 'Muat ulang artikel sesuai angka yang dimasukkan dan ambil konten lengkap jika selektor diberikan.',
+			'reload_articles_help' => 'Muat ulang artikel sesuai angka yang dimasukkan dan ambil konten lengkap jika pemilihan diberikan.',
 			'title' => 'Pemeliharaan',
 		),
 		'max_http_redir' => 'Maksimum pengalihan HTTP',
@@ -209,14 +209,15 @@ return array(
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
 		'priority' => array(
 			'_' => 'Ketampakan',
-			'archived' => 'Jangan tampilkan (diarsipkan)',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
 		),
 		'proxy' => 'Atur proksi untuk mengambil umpan ini',
 		'proxy_help' => 'Pilih protokol (contoh: SOCKS5) dan masukkan alamat proksi (contoh: <kbd>127.0.0.1:1080</kbd> atau <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Atur ulang ke yang baku',
 		'selector_preview' => array(
 			'show_raw' => 'Tampilkan kode sumber',
 			'show_rendered' => 'Tampilkan konten',
@@ -236,14 +237,20 @@ return array(
 		'title_add' => 'Tambah umpan RSS',
 		'ttl' => 'Jangan perbarui secara otomatis lebih banyak daripada',
 		'unicityCriteria' => array(
-			'_' => 'Kriteria Keunikan Artikel',
+			'_' => 'Kriteria keunikan artikel',
 			'forced' => '<span title="Blokir kriteria keunikan meski umpan memiliki artikel duplikat">paksa</span>',
 			'help' => 'Relevan untuk umpan yang tidak valid.<br />⚠️ Mengubah ini akan membuat artikel duplikat.',
 			'id' => 'ID standar (baku)',
 			'link' => 'Tautan',
+			'sha1:content' => 'Konten',
+			'sha1:content_published' => 'Konten + Tanggal',
 			'sha1:link_published' => 'Tautan + Tanggal',
 			'sha1:link_published_title' => 'Tautan + Tanggal + Judul',
 			'sha1:link_published_title_content' => 'Tautan + Tanggal + Judul + Konten',
+			'sha1:published' => 'Tanggal',
+			'sha1:title' => 'Judul',
+			'sha1:title_published' => 'Judul + Tanggal',
+			'sha1:title_published_content' => 'Judul + Tanggal + Konten',
 		),
 		'url' => 'URL umpan',
 		'useragent' => 'Atur UA (user agent) untuk mengambil umpan ini',
@@ -295,7 +302,6 @@ return array(
 		'add_opml_category' => 'Nama kategori OPML',
 		'delete_label' => 'Hapus label',
 		'feed_management' => 'Pengelolaan umpan RSS',
-		'rename_label' => 'Ubah nama label',
 		'subscription_tools' => 'Alat langganan',
 	),
 );

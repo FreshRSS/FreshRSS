@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -120,13 +120,16 @@ return array(
 			'documentation_link' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target="_blank">la documentation et une liste d’applications compatibles</a>',
 			'help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target=_blank>la documentation</a>',
 		),
+		'change_password' => 'Changer le mot de passe',
+		'confirm_new_password' => 'Confirmer le mot de passe',
+		'current_password' => 'Mot de passe actuel<br /><small>(pour connexion par formulaire)</small>',
 		'delete' => array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
 		'email' => 'Adresse électronique',
+		'new_password' => 'Nouveau mot de passe',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
-		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
 		'title' => 'Profil',
 	),
@@ -297,7 +300,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Partage',
 		'add' => 'Ajouter une méthode de partage',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Ce service est obsolète et sera supprimé dans une <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Voir la documentation" target="_blank">prochaine version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Courriel',
@@ -318,7 +321,7 @@ return array(
 		'article_action' => 'Actions associées à l’article courant',
 		'auto_share' => 'Partager',
 		'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
-		'close_dropdown' => 'Fermer les menus',
+		'close_menus' => 'Fermer les menus',
 		'collapse_article' => 'Refermer',
 		'first_article' => 'Passer au premier article',
 		'focus_search' => 'Accéder à la recherche',

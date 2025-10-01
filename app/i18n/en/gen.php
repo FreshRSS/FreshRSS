@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -16,7 +16,7 @@ return array(
 		'add' => 'Add',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
-		'close' => 'Close',	// TODO
+		'close' => 'Close',
 		'create' => 'Create',
 		'delete_all_feeds' => 'Delete all feeds',
 		'delete_errored_feeds' => 'Delete feeds with errors',
@@ -60,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',
 			'format' => '<small>At least 7 characters</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',
+			'title' => 'Reauthentication',
 		),
 		'registration' => array(
 			'_' => 'New account',
@@ -131,6 +136,7 @@ return array(
 		'yesterday' => 'Yesterday',
 	),
 	'dir' => 'ltr',
+	'flag' => '🇬🇧',
 	'freshrss' => array(
 		'_' => 'FreshRSS',
 		'about' => 'About FreshRSS',
@@ -139,6 +145,7 @@ return array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',
@@ -148,6 +155,7 @@ return array(
 		'labels_empty' => 'No labels',
 		'new_article' => 'There are new articles available, click to refresh the page.',
 		'should_be_activated' => 'JavaScript must be enabled',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',
@@ -174,6 +182,7 @@ return array(
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
+		'uk' => 'Українська',
 		'zh-cn' => '简体中文',
 		'zh-tw' => '正體中文',
 	),

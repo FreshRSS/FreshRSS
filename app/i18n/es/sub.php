@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,9 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibilidad',
-			'archived' => 'No mostrar (archivado)',
 			'category' => 'Mostrar en su categoría',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'No mostrar',
 			'important' => 'Mostrar en fuentes importantes',
 			'main_stream' => 'Mostrar en salida principal',
 		),
@@ -241,9 +242,15 @@ return array(
 			'help' => 'Relevante para fuentes inválidas.<br />⚠️ Cambiar la política creara duplicados.',
 			'id' => 'ID Estándar (por defecto)',
 			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Contenido',
+			'sha1:content_published' => 'Contenido + Fecha',
 			'sha1:link_published' => 'Link + Fecha',
 			'sha1:link_published_title' => 'Link + Fecha + Título',
 			'sha1:link_published_title_content' => 'Link + Fecha + Título + Contenido',
+			'sha1:published' => 'Fecha',
+			'sha1:title' => 'Título',
+			'sha1:title_published' => 'Título + Fecha',
+			'sha1:title_published_content' => 'Título + Fecha + Contenido',
 		),
 		'url' => 'URL de la fuente',
 		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
@@ -295,7 +302,6 @@ return array(
 		'add_opml_category' => 'OPML category name',	// TODO
 		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',
-		'rename_label' => 'Cambiar el nombre de una etiqueta',
 		'subscription_tools' => 'Herramientas de suscripción',
 	),
 );

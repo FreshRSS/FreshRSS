@@ -197,8 +197,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
-		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry']);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl']);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
@@ -235,6 +235,14 @@ The following events are available:
 	executed when a feed is refreshed and new entries will be imported into
 	the database. The new entry (instance of FreshRSS\_Entry) will be passed
 	as parameter.
+* `entry_before_add` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is added to the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `entry_before_update` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is updated in the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
