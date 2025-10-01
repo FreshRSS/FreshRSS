@@ -1814,14 +1814,22 @@ function openNotification(msg, status) {
 	}
 	notification_working = true;
 	notification.querySelector('.msg').innerHTML = msg;
-	notification.className = 'notification';
-	notification.classList.add(status);
+
 	if (status == 'good') {
-		notification_interval = setTimeout(closeNotification, 4000);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
+		} else {
+			notification.classList.add('closed');
+			notification_working = false;
+		}
 	} else {
 		// no status or f.e. status = 'bad', give some more time to read
-		notification_interval = setTimeout(closeNotification, 8000);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
+		}
 	}
+	notification.className = 'notification';
+	notification.classList.add(status);
 }
 
 function closeNotification() {
@@ -1844,16 +1852,16 @@ function init_notifications() {
 	});
 
 	notification.addEventListener('mouseleave', function () {
-		notification_interval = setTimeout(closeNotification, 3000);
+		notification_interval = setTimeout(closeNotification, context.closeNotification.mouseLeave);
 	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
 		if (notification.classList.contains('good')) {
-			notification_interval = setTimeout(closeNotification, 4000);
+			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
 		} else {
 			// no status or f.e. status = 'bad', give some more time to read
-			notification_interval = setTimeout(closeNotification, 8000);
+			notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
 		}
 	}
 }

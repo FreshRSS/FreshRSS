@@ -530,6 +530,13 @@ input#favicon-upload {
 	display: inline;
 }
 
+input.ignore-auto-complete {
+	position: absolute;
+	left: -9999px;
+	pointer-events: none;
+	user-select: none;
+}
+
 /*=== Buttons */
 button[disabled] {
 	opacity: 0.5;
@@ -1365,6 +1372,11 @@ input[type="search"] {
 
 .aside_feed .tree-folder-items .item .dropdown-toggle:hover {
 	opacity: 1;
+}
+
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
 }
 
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
@@ -2471,7 +2483,8 @@ html.slider-active {
 	.flux_header .item.website span,
 	.item .date, .day .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 

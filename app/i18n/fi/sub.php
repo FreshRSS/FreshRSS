@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Näkyvyys',
 			'category' => 'Näytä luokassaan',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Älä näytä',
 			'important' => 'Näytä tärkeissä syötteissä',
 			'main_stream' => 'Näytä pääsyötevirrassa',

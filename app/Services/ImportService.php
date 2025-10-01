@@ -311,7 +311,7 @@ class FreshRSS_Import_Service {
 
 			// Call the extension hook
 			/** @var FreshRSS_Feed|null */
-			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
 
 			if ($dry_run) {
 				if ($feed !== null) {

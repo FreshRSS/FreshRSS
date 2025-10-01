@@ -461,8 +461,10 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function good(string $msg, array $url = [], string $notificationName = ''): void {
-		Minz_Request::setGoodNotification($msg, $notificationName);
+	public static function good(string $msg, array $url = [], string $notificationName = '', bool $showNotification = true): void {
+		if ($showNotification) {
+			Minz_Request::setGoodNotification($msg);
+		}
 		Minz_Request::forward($url, true);
 	}
 

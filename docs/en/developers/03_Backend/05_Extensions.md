@@ -135,6 +135,9 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 ### The "hooks" system
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
+The last parameter is the priority of the hook when triggered.
+The hook with the lowest priority value are triggered first.
+The default priority is 0.
 
 ```php
 final class HelloWorldExtension extends Minz_Extension
@@ -143,8 +146,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
-		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
@@ -164,7 +167,7 @@ final class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
-* `api_misc` (`function(): void`): to allow extensions to have own API endpoint
+* `api_misc` (`function(): void`): to allow extensions to have their own API endpoint
 	on `/api/misc.php/Extension%20Name/` or `/api/misc.php?ext=Extension%20Name`.
 * `before_login_btn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
