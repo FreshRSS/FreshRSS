@@ -702,7 +702,7 @@ final class GReaderAPI {
 
 		// Note: This section must be streamed to avoid memory issues with large responses
 		echo <<<TXT
-[
+{
 	"id": "user/-/state/com.google/reading-list",
 	"updated": $time,
 	"items": [
@@ -721,6 +721,7 @@ TXT;
 			$nbItems++;
 		}
 		echo <<<'TXT'
+
 	]
 TXT;
 		if ($nbItems >= $count && $lastEntryId > 0) {
@@ -729,7 +730,7 @@ TXT;
 TXT;
 		}
 		echo <<<'TXT'
-]
+}
 TXT;
 		exit();
 	}
@@ -832,7 +833,7 @@ TXT;
 
 		// Note: This section must be streamed to avoid memory issues with large responses
 		echo <<<TXT
-[
+{
 	"id": "user/-/state/com.google/reading-list",
 	"updated": $time,
 	"items": [
@@ -851,7 +852,7 @@ TXT;
 		}
 		echo <<<'TXT'
 	]
-]
+}
 TXT;
 		exit();
 	}
