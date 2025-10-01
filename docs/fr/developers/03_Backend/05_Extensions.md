@@ -189,6 +189,9 @@ Your class will benefit from four methods to redefine:
 
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
+Le dernier paramètre représente la priorité du *hook* quand celui-ci est déclenché.
+Le *hook* avec la priorité la plus basse sera déclenché en premier.
+La priorité par défaut est 0.
 
 ```php
 final class HelloWorldExtension extends Minz_Extension
@@ -197,8 +200,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry']);
-		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {

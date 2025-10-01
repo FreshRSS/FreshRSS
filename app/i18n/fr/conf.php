@@ -105,6 +105,16 @@ return array(
 		'none' => 'Aucun',
 		'small' => 'Petit',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Afficher la bannière d’avertissement',
+			'seconds' => 'secondes (au moins 1)',
+		),
+		'good' => array(
+			'label' => 'Afficher la bannière de confirmation',
+			'seconds' => 'secondes (0 pour désactiver)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',

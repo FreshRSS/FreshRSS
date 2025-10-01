@@ -191,7 +191,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.enable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -253,7 +257,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.disable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -290,7 +298,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
-				Minz_Request::good(_t('feedback.extensions.removed', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.removed', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name), $url_redirect);
 			}

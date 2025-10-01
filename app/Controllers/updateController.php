@@ -289,7 +289,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
 				Minz_Log::notice(_t('feedback.update.finished'));
-				Minz_Request::good(_t('feedback.update.finished'));
+				Minz_Request::good(
+					_t('feedback.update.finished'),
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::error(_t('feedback.update.error', is_string($res) ? $res : 'unknown'));
 				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);

@@ -105,6 +105,16 @@ return array(
 		'none' => 'None',	// IGNORE
 		'small' => 'Small',	// IGNORE
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// IGNORE
+			'seconds' => 'seconds (at least 1)',	// IGNORE
+		),
+		'good' => array(
+			'label' => 'Show acknowledgment banner',
+			'seconds' => 'seconds (0 means not shown)',	// IGNORE
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Retrieve extension list',	// IGNORE

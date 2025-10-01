@@ -200,7 +200,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
-		Minz_Request::good($content_notif);
+		Minz_Request::good(
+			$content_notif,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**

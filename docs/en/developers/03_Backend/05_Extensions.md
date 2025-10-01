@@ -135,6 +135,9 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 ### The "hooks" system
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
+The last parameter is the priority of the hook when triggered.
+The hook with the lowest priority value are triggered first.
+The default priority is 0.
 
 ```php
 final class HelloWorldExtension extends Minz_Extension
@@ -143,8 +146,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry']);
-		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {

@@ -105,6 +105,16 @@ return array(
 		'none' => '无',
 		'small' => '小',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => '获取扩展列表',

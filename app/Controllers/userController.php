@@ -86,9 +86,17 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok) {
 				$isSelfUpdate = Minz_User::name() === $username;
 				if ($newPasswordPlain == '' || !$isSelfUpdate) {
-					Minz_Request::good(_t('feedback.user.updated', $username), ['c' => 'user', 'a' => 'manage']);
+					Minz_Request::good(
+						_t('feedback.user.updated', $username),
+						['c' => 'user', 'a' => 'manage'],
+						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+					);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'index', 'a' => 'index']);
+					Minz_Request::good(
+						_t('feedback.profile.updated'),
+						['c' => 'index', 'a' => 'index'],
+						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+					);
 				}
 			} else {
 				Minz_Request::bad(_t('feedback.user.updated.error', $username), ['c' => 'user', 'a' => 'manage']);
@@ -179,9 +187,17 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			if ($ok) {
 				if (FreshRSS_Context::systemConf()->force_email_validation && $email !== $old_email) {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'validateEmail']);
+					Minz_Request::good(
+						_t('feedback.profile.updated'),
+						['c' => 'user', 'a' => 'validateEmail'],
+						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+					);
 				} else {
-					Minz_Request::good(_t('feedback.profile.updated'), ['c' => 'user', 'a' => 'profile']);
+					Minz_Request::good(
+						_t('feedback.profile.updated'),
+						['c' => 'user', 'a' => 'profile'],
+						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+					);
 				}
 			} else {
 				Minz_Request::bad(_t('feedback.profile.error'), ['c' => 'user', 'a' => 'profile']);
@@ -532,7 +548,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($user_config->email_validation_token === '') {
 			Minz_Request::good(
 				_t('user.email.validation.feedback.unnecessary'),
-				['c' => 'index', 'a' => 'index']
+				['c' => 'index', 'a' => 'index'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		}
 
@@ -548,7 +565,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($user_config->save()) {
 				Minz_Request::good(
 					_t('user.email.validation.feedback.ok'),
-					['c' => 'index', 'a' => 'index']
+					['c' => 'index', 'a' => 'index'],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
 				Minz_Request::bad(
@@ -594,7 +612,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($ok) {
 			Minz_Request::good(
 				_t('user.email.validation.feedback.email_sent'),
-				$redirect_url
+				$redirect_url,
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		} else {
 			Minz_Request::bad(
@@ -709,7 +728,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		FreshRSS_UserDAO::touch($username);
 
 		if ($ok) {
-			Minz_Request::good(_t('feedback.user.updated', $username), ['c' => 'user', 'a' => 'manage']);
+			Minz_Request::good(
+				_t('feedback.user.updated', $username),
+				['c' => 'user', 'a' => 'manage'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			Minz_Request::bad(
 				_t('feedback.user.updated.error', $username),

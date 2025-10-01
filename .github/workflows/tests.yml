@@ -55,7 +55,7 @@ jobs:
     # NPM tests
 
     - name: Uses Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         # https://nodejs.org/en/about/previous-releases
         node-version: lts/*

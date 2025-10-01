@@ -49,7 +49,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-const JSON_OPTIONS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -554,20 +554,24 @@ final class GReaderAPI {
 	}
 
 	/**
-	 * @param list<FreshRSS_Entry> $entries
-	 * @return list<array<string,mixed>>
+	 * @param iterable<FreshRSS_Entry> $entries
+	 * @param list<numeric-string>|null $e_ids List of entry IDs if known, for performance
+	 * @return Generator<int,array<string,mixed>>
 	 */
-	private static function entriesToArray(array $entries): array {
-		if (empty($entries)) {
-			return [];
-		}
+	private static function entriesToArray(iterable $entries, ?array $e_ids = null): Generator {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $catDAO->listCategories(prePopulateFeeds: true);
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+		if (is_array($e_ids)) {
+			$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($e_ids);
+		} else {
+			// If we do not have the list of entry IDs, we first need to iterate through all entries
+			//TODO: Improve: avoid iterator_to_array. Type test only for PHP < 8.2
+			$entries = array_values(is_array($entries) ? $entries : iterator_to_array($entries));
+			$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+		}
 
-		$items = [];
 		foreach ($entries as $item) {
 			/** @var FreshRSS_Entry|null $entry */
 			$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
@@ -581,9 +585,8 @@ final class GReaderAPI {
 			}
 			$entry->_feed($feed);
 
-			$items[] = $entry->toGReader('compat', $entryIdsTagNames['e_' . $entry->id()] ?? []);
+			yield $entry->toGReader('compat', $entryIdsTagNames['e_' . $entry->id()] ?? []);
 		}
-		return $items;
 	}
 
 	/**
@@ -684,29 +687,54 @@ final class GReaderAPI {
 			order: $order === 'o' ? 'ASC' : 'DESC',
 			continuation_id: $continuation,
 			limit: $count);
-		$entries = array_values(iterator_to_array($entries));	//TODO: Improve
 
 		$items = self::entriesToArray($entries);
 
 		if ($continuation !== '0') {
-			array_shift($items);	//Discard first element that was already sent in the previous response
+			//Discard first element that was already sent in the previous response
+			$items = new LimitIterator($items, offset: 1);
 			$count--;
 		}
 
-		$response = [
-			'id' => 'user/-/state/com.google/reading-list',
-			'updated' => time(),
-			'items' => $items,
-		];
-		if (count($entries) >= $count) {
-			$entry = end($entries);
-			if ($entry != false) {
-				$response['continuation'] = '' . $entry->id();
+		$time = time();
+		$nbItems = 0;
+		$lastEntryId = 0;
+
+		// Note: This section must be streamed to avoid memory issues with large responses
+		echo <<<TXT
+{
+	"id": "user/-/state/com.google/reading-list",
+	"updated": $time,
+	"items": [
+
+TXT;
+		foreach ($items as $item) {
+			if (!is_array($item) || empty($item)) {
+				continue;
 			}
+			if ($nbItems > 0) {
+				echo ",\n";
+			}
+			$lastEntryId = is_numeric($item['frss:id'] ?? null) ? (int)$item['frss:id'] : 0;
+			unset($item['frss:id']);
+			echo json_encode($item, JSON_OPTIONS);
+			$nbItems++;
 		}
-		unset($entries, $entryDAO, $items);
-		gc_collect_cycles();
-		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
+		echo <<<'TXT'
+
+	]
+TXT;
+		if ($nbItems >= $count && $lastEntryId > 0) {
+			echo <<<TXT
+,
+	"continuation": "$lastEntryId"
+TXT;
+		}
+		echo <<<'TXT'
+
+}
+
+TXT;
 		exit();
 	}
 
@@ -801,18 +829,36 @@ final class GReaderAPI {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listByIds($e_ids, order: $order === 'o' ? 'ASC' : 'DESC');
-		$entries = array_values(iterator_to_array($entries));	//TODO: Improve
 
-		$items = self::entriesToArray($entries);
+		$items = self::entriesToArray($entries, $e_ids);
+		$time = time();
+		$nbItems = 0;
 
-		$response = [
-			'id' => 'user/-/state/com.google/reading-list',
-			'updated' => time(),
-			'items' => $items,
-		];
-		unset($entries, $entryDAO, $items);
-		gc_collect_cycles();
-		echoJson($response, 2);	// $optimisationDepth=2 as we are interested in being memory efficient for {"items":[...]}
+		// Note: This section must be streamed to avoid memory issues with large responses
+		echo <<<TXT
+{
+	"id": "user/-/state/com.google/reading-list",
+	"updated": $time,
+	"items": [
+
+TXT;
+		foreach ($items as $item) {
+			if (!is_array($item) || empty($item)) {
+				continue;
+			}
+			if ($nbItems > 0) {
+				echo ",\n";
+			}
+			unset($item['frss:id']);
+			echo json_encode($item, JSON_OPTIONS);
+			$nbItems++;
+		}
+		echo <<<'TXT'
+
+	]
+}
+
+TXT;
 		exit();
 	}
 
