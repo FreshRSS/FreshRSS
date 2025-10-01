@@ -2365,7 +2365,7 @@ class Item implements RegistryAware
         $this->sanitize = $sanitize;
     }
 
-    protected function get_sanitize(): Sanitize
+    public function get_sanitize(): Sanitize
     {
         if ($this->sanitize === null) {
             $this->sanitize = new Sanitize();

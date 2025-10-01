@@ -134,16 +134,13 @@ class File implements Response
                 curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
                 $responseHeaders = '';
                 curl_setopt($fp, CURLOPT_HEADERFUNCTION, function ($ch, string $header) use (&$responseHeaders) {
-                    if (trim($header) !== '') { // Skip e.g. separation with trailer headers
-                        $responseHeaders .= $header;
-                    }
+                    $responseHeaders .= $header;
                     return strlen($header);
                 });
                 foreach ($curl_options as $curl_param => $curl_value) {
                     curl_setopt($fp, $curl_param, $curl_value);
                 }
 
-                /** @var string|false $responseBody */
                 $responseBody = curl_exec($fp);
                 $responseHeaders .= "\r\n";
                 if (curl_errno($fp) === CURLE_WRITE_ERROR || curl_errno($fp) === CURLE_BAD_CONTENT_ENCODING) {
@@ -152,31 +149,29 @@ class File implements Response
                     $this->error = null; // FreshRSS
                     curl_setopt($fp, CURLOPT_ENCODING, 'none');
                     $responseHeaders = '';
-                    /** @var string|false $responseBody */
                     $responseBody = curl_exec($fp);
                     $responseHeaders .= "\r\n";
                 }
                 $this->status_code = curl_getinfo($fp, CURLINFO_HTTP_CODE);
-                if (curl_errno($fp)) {
+                if (curl_errno($fp) !== CURLE_OK) {
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp);
                     $this->success = false;
                     $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody);
                 } else {
-                    $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody);
-                    // Use the updated url provided by curl_getinfo after any redirects.
-                    if ($info = curl_getinfo($fp)) {
-                        $this->url = $info['url'];
+                    // For PHPStan: `curl_exec` returns `false` only on error so the `is_string` check will always pass.
+                    \assert(is_string($responseBody));
+                    if (curl_getinfo($fp, CURLINFO_HTTP_CONNECTCODE) !== 0) {
+                        // TODO: Replace with `CURLOPT_SUPPRESS_CONNECT_HEADERS` once PHP 7.2 support is dropped.
+                        $responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
                     }
-                    // For PHPStan: We already checked that error did not occur.
-                    assert(is_array($info) && $info['redirect_count'] >= 0);
+                    $this->on_http_response($responseHeaders . $responseBody);
                     if (\PHP_VERSION_ID < 80000) {
                         curl_close($fp);
                     }
-                    $responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders((string) $responseHeaders, $info['redirect_count'] + 1);
                     $parser = new \SimplePie\HTTP\Parser($responseHeaders, true);
                     if ($parser->parse()) {
                         $this->set_headers($parser->headers);
-                        $this->body = $responseBody === false ? null : $responseBody;
+                        $this->body = $responseBody;
                         if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && $this->redirects < $redirects) {
                             $this->redirects++;
                             $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
