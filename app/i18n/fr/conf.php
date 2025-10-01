@@ -107,12 +107,12 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Afficher la bannière d’avertissement',
+			'seconds' => 'secondes (au moins 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Afficher la bannière de confirmation',
+			'seconds' => 'secondes (0 pour désactiver)',
 		),
 	),
 	'privacy' => array(
