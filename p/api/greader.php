@@ -720,7 +720,7 @@ TXT;
 			echo json_encode($item, JSON_OPTIONS);
 			$nbItems++;
 		}
-		echo <<<TXT
+		echo <<<'TXT'
 	]
 TXT;
 		if ($nbItems >= $count && $lastEntryId > 0) {
