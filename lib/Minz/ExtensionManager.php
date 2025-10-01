@@ -19,7 +19,7 @@ final class Minz_ExtensionManager {
 
 	/**
 	 * List of available hooks. Please keep this list sorted.
-	 * @var array<value-of<Minz_HookType>,array{'list':list<callable>,'signature':Minz_HookSignature}>
+	 * @var array<value-of<Minz_HookType>,array{'list':list<Minz_Hook>,'signature':Minz_HookSignature}>
 	 */
 	private static array $hook_list = [];
 
@@ -256,30 +256,42 @@ final class Minz_ExtensionManager {
 	 *
 	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
 	 *
-	 * @param string|Minz_HookType $hook the hook name (must exist).
+	 * @param string|Minz_HookType $hook_type the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
+	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	public static function addHook(string|Minz_HookType $hook, $hook_function): void {
-		if (null === $hook = self::extractHook($hook)) {
+	public static function addHook(string|Minz_HookType $hook_type, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
+		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
-		$hook_name = $hook->value;
+		$hook_type_name = $hook_type->value;
 
 		if (is_callable($hook_function)) {
-			self::$hook_list[$hook_name]['list'][] = $hook_function;
+			self::$hook_list[$hook_type_name]['list'][] = new Minz_Hook(\Closure::fromCallable($hook_function), $priority);
 		}
 	}
 
 	/**
-	 * @param string|Minz_HookType $hook the hook or its name
+	 * @param string|Minz_HookType $hook_type the hook type or its name
 	 * @return Minz_HookType|null
 	 */
-	private static function extractHook(string|Minz_HookType $hook) {
-		if ($hook instanceof Minz_HookType) {
-			return $hook;
+	private static function extractHookType(string|Minz_HookType $hook_type) {
+		if ($hook_type instanceof Minz_HookType) {
+			return $hook_type;
 		}
 
-		return Minz_HookType::tryFrom($hook);
+		return Minz_HookType::tryFrom($hook_type);
+	}
+
+	/**
+	 * @param Minz_HookType $hook_type the hook type or its name
+	 * @return list<Minz_Hook>
+	 */
+	private static function retrieveHookList(Minz_HookType $hook_type): array {
+		$list = self::$hook_list[$hook_type->value]['list'] ?? [];
+		usort($list, static fn (Minz_Hook $a, Minz_Hook $b): int => $a->getPriority() <=> $b->getPriority());
+
+		return $list;
 	}
 
 	/**
@@ -287,30 +299,29 @@ final class Minz_ExtensionManager {
 	 *
 	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
 	 *
-	 * @param string|Minz_HookType $hook the hook to call.
+	 * @param string|Minz_HookType $hook_type the hook to call.
 	 * @param mixed ...$args additional parameters (for signature, please see Minz_HookType enum).
 	 * @return mixed|void|null final result of the called hook.
 	 */
-	public static function callHook(string|Minz_HookType $hook, ...$args) {
-		if (null === $hook = self::extractHook($hook)) {
+	public static function callHook(string|Minz_HookType $hook_type, ...$args) {
+		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
-		$hook_name = $hook->value;
 
-		$signature = self::$hook_list[$hook_name]['signature'];
+		$signature = $hook_type->signature();
 		if ($signature === Minz_HookSignature::OneToOne) {
-			return self::callOneToOne($hook_name, $args[0] ?? null);
+			return self::callOneToOne($hook_type, $args[0] ?? null);
 		} elseif ($signature === Minz_HookSignature::PassArguments) {
-			foreach (self::$hook_list[$hook_name]['list'] as $function) {
-				$result = call_user_func($function, ...$args);
+			foreach (self::retrieveHookList($hook_type) as $hook) {
+				$result = call_user_func($hook->getFunction(), ...$args);
 				if ($result !== null) {
 					return $result;
 				}
 			}
 		} elseif ($signature === Minz_HookSignature::NoneToString) {
-			return self::callHookString($hook_name);
+			return self::callHookString($hook_type);
 		} elseif ($signature === Minz_HookSignature::NoneToNone) {
-			self::callHookVoid($hook_name);
+			self::callHookVoid($hook_type);
 		}
 		return;
 	}
@@ -324,20 +335,15 @@ final class Minz_ExtensionManager {
 	 *
 	 * If a hook return a null value, the method is stopped and return null.
 	 *
-	 * @param string|Minz_HookType $hook is the hook to call.
+	 * @param Minz_HookType $hook_type is the hook type to call.
 	 * @param mixed $arg is the argument to pass to the first extension hook.
 	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
-	private static function callOneToOne(string|Minz_HookType $hook, mixed $arg): mixed {
-		if (null === $hook = self::extractHook($hook)) {
-			return $arg;
-		}
-		$hook_name = $hook->value;
-
+	private static function callOneToOne(Minz_HookType $hook_type, mixed $arg): mixed {
 		$result = $arg;
-		foreach (self::$hook_list[$hook_name]['list'] as $function) {
-			$result = call_user_func($function, $arg);
+		foreach (self::retrieveHookList($hook_type) as $hook) {
+			$result = call_user_func($hook->getFunction(), $arg);
 
 			if ($result === null) {
 				break;
@@ -354,18 +360,17 @@ final class Minz_ExtensionManager {
 	 * The result is concatenated between each hook and the final string is
 	 * returned.
 	 *
-	 * @param string|Minz_HookType $hook is the hook to call.
+	 * @param string|Minz_HookType $hook_type is the hook to call.
 	 * @return string concatenated result of the call to all the hooks.
 	 */
-	public static function callHookString(string|Minz_HookType $hook): string {
-		if (null === $hook = self::extractHook($hook)) {
+	public static function callHookString(string|Minz_HookType $hook_type): string {
+		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return '';
 		}
-		$hook_name = $hook->value;
 
 		$result = '';
-		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
-			$return = call_user_func($function);
+		foreach (self::retrieveHookList($hook_type) as $hook) {
+			$return = call_user_func($hook->getFunction());
 			if (is_scalar($return)) {
 				$result .= $return;
 			}
@@ -379,16 +384,15 @@ final class Minz_ExtensionManager {
 	 * This case is simpler than callOneToOne because hooks are called one by
 	 * one, without any consideration of argument nor result.
 	 *
-	 * @param string|Minz_HookType $hook is the hook to call.
+	 * @param string|Minz_HookType $hook_type is the hook to call.
 	 */
-	public static function callHookVoid(string|Minz_HookType $hook): void {
-		if (null === $hook = self::extractHook($hook)) {
+	public static function callHookVoid(string|Minz_HookType $hook_type): void {
+		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
-		$hook_name = $hook->value;
 
-		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
-			call_user_func($function);
+		foreach (self::retrieveHookList($hook_type) as $hook) {
+			call_user_func($hook->getFunction());
 		}
 	}
 
@@ -396,16 +400,15 @@ final class Minz_ExtensionManager {
 	 * Call a hook which takes no argument and returns nothing.
 	 * Same as callHookVoid but only calls the first extension.
 	 *
-	 * @param string|Minz_HookType $hook is the hook to call.
+	 * @param string|Minz_HookType $hook_type is the hook to call.
 	 */
-	public static function callHookUnique(string|Minz_HookType $hook): bool {
-		if (null === $hook = self::extractHook($hook)) {
-			throw new \RuntimeException("The “{$hook}” does not exist!");
+	public static function callHookUnique(string|Minz_HookType $hook_type): bool {
+		if (null === $hook_type = self::extractHookType($hook_type)) {
+			throw new \RuntimeException("The “{$hook_type}” does not exist!");
 		}
-		$hook_name = $hook->value;
 
-		foreach (self::$hook_list[$hook_name]['list'] ?? [] as $function) {
-			call_user_func($function);
+		foreach (self::retrieveHookList($hook_type) as $hook) {
+			call_user_func($hook->getFunction());
 			return true;
 		}
 		return false;
