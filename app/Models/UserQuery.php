@@ -140,10 +140,10 @@ class FreshRSS_UserQuery {
 				case 'a':	// All PRIORITY_MAIN_STREAM
 					$this->get_type = 'all';
 					break;
-				case 'A':	// All except PRIORITY_ARCHIVED
+				case 'A':	// All except PRIORITY_HIDDEN
 					$this->get_type = 'A';
 					break;
-				case 'Z':	// All including PRIORITY_ARCHIVED
+				case 'Z':	// All including PRIORITY_HIDDEN
 					$this->get_type = 'Z';
 					break;
 				case 'c':

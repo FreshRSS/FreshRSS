@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 header('X-Content-Type-Options: nosniff');
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 Minz_Request::init();
 
@@ -48,17 +48,15 @@ if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) 
 	usleep(rand(20, 200));
 }
 
-if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-	require(LIB_PATH . '/http-conditional.php');
-	$dateLastModification = max(
-		FreshRSS_UserDAO::ctime($user),
-		FreshRSS_UserDAO::mtime($user),
-		@filemtime(DATA_PATH . '/config.php') ?: 0
-	);
-	// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
-	if (httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
-		exit();	//No need to send anything
-	}
+require LIB_PATH . '/http-conditional.php';
+$dateLastModification = max(
+	FreshRSS_UserDAO::ctime($user),
+	FreshRSS_UserDAO::mtime($user),
+	@filemtime(DATA_PATH . '/config.php') ?: 0
+);
+// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
+if (!file_exists(DATA_PATH . '/no-cache.txt') && httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
+	exit();	//No need to send anything
 }
 
 Minz_Translate::init(FreshRSS_Context::userConf()->language);
@@ -178,12 +176,14 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
 } elseif (in_array($format, ['greader', 'json'], true)) {
 	header('Content-Type: application/json; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->type = 'query/' . $token;
 	$view->list_title = $query->getName();
@@ -195,11 +195,13 @@ if (in_array($format, ['rss', 'atom'], true)) {
 		die();
 	}
 	header('Content-Type: application/xml; charset=utf-8');
-	header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/opml.phtml');
 } else {
-	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; frame-ancestors 'none'; media-src *");
+	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout('layout');
 	$view->_path('index/html.phtml');
 }

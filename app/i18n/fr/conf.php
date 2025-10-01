@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -104,6 +104,16 @@ return array(
 		'big' => 'Gros',
 		'none' => 'Aucun',
 		'small' => 'Petit',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Afficher la bannière d’avertissement',
+			'seconds' => 'secondes (au moins 1)',
+		),
+		'good' => array(
+			'label' => 'Afficher la bannière de confirmation',
+			'seconds' => 'secondes (0 pour désactiver)',
+		),
 	),
 	'privacy' => array(
 		'_' => 'Vie privée',

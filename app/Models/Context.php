@@ -400,11 +400,12 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get(string $get): void {
+	private static function _get(string $get): void {
 		$type = $get[0];
 		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
+			// TODO: Check whether this section is used
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$details = $type === 'f'; 	// Load additional feed details in the case of feed view
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true, details: $details);
@@ -416,12 +417,12 @@ final class FreshRSS_Context {
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
 				self::$current_get['A'] = true;
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'Z':	// All including PRIORITY_HIDDEN
 				self::$current_get['Z'] = true;
 				self::$name = _t('index.feed.title');
 				self::$description = FreshRSS_Context::systemConf()->meta_description;

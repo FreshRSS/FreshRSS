@@ -50,7 +50,7 @@
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
 					$this->feed->resetFaviconHash();
-					$ext_url = Minz_ExtensionManager::callHook('custom_favicon_btn_url', $this->feed);
+					$ext_url = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconBtnUrl, $this->feed);
 				?>
 				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
 				<div class="group-controls">
@@ -115,14 +115,16 @@
 				<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 				<div class="group-controls">
 					<select name="priority" id="priority" class="w50">
-						<option value='<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.important') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.category') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
+							FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?=
+							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
+							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
+							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
+							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
 					<?= _i('important') ?>
 				</div>
@@ -231,7 +233,7 @@
 					<div class="stick w50">
 						<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
 							$auth['password'] ?>" autocomplete="new-password" />
-						<button type="button" class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 				</div>
 			</div>
@@ -870,9 +872,9 @@
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
+			<button class="btn btn-important" form="post-csrf" formaction="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
-			</a>
+			</button>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">

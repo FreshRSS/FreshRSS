@@ -74,15 +74,14 @@
 		<div class="box-title"><h2><?= _t('admin.stats.entry_per_hour', $this->averageHour) ?></h2></div>
 		<div class="box-content scrollbar-thin">
 			<canvas id="statsEntriesPerHour"></canvas>
-			<script class="jsonData-stats" type="application/json">
-			<?php
-			echo json_encode([
+			<script class="jsonData-stats" type="application/json"><?=
+			json_encode([
 				'canvasID' 		=> 'statsEntriesPerHour',
 				'charttype' 	=> 'bar',
 				'data' 			=> $this->repartitionHour,
 				'label' 		=> _t('admin.stats.entry_count'),
 				'xAxisLabels' 	=> $this->hours24Labels
-			], JSON_UNESCAPED_UNICODE);
+			], JSON_UNESCAPED_UNICODE)
 			?></script>
 		</div>
 	</div>
@@ -92,15 +91,14 @@
 		<div class="box-title"><h2><?= _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek) ?></h2></div>
 		<div class="box-content scrollbar-thin">
 			<canvas id="statsEntriesPerDayOfWeek"></canvas>
-			<script class="jsonData-stats" type="application/json">
-			<?php
-			echo json_encode([
+			<script class="jsonData-stats" type="application/json"><?=
+			json_encode([
 				'canvasID' 		=> 'statsEntriesPerDayOfWeek',
 				'charttype' 	=> 'bar',
 				'data' 			=> $this->repartitionDayOfWeek,
 				'label' 		=> _t('admin.stats.entry_count'),
 				'xAxisLabels' 	=> $this->days,
-			], JSON_UNESCAPED_UNICODE);
+			], JSON_UNESCAPED_UNICODE)
 			?></script>
 		</div>
 	</div>
@@ -109,15 +107,14 @@
 		<div class="box-title"><h2><?= _t('admin.stats.entry_per_month', $this->averageMonth) ?></h2></div>
 		<div class="box-content scrollbar-thin">
 			<canvas id="statsEntriesPerMonth"></canvas>
-			<script class="jsonData-stats" type="application/json">
-			<?php
-			echo json_encode([
+			<script class="jsonData-stats" type="application/json"><?=
+			json_encode([
 				'canvasID' 		=> 'statsEntriesPerMonth',
 				'charttype' 	=> 'bar',
 				'data' 			=> $this->repartitionMonth,
 				'label' 		=> _t('admin.stats.entry_count'),
 				'xAxisLabels' 	=> $this->months,
-			], JSON_UNESCAPED_UNICODE);
+			], JSON_UNESCAPED_UNICODE)
 			?></script>
 		</div>
 	</div>

@@ -40,7 +40,7 @@ class FreshRSS_Share {
 	 * @param string $filename the name of the file to load.
 	 */
 	public static function load(string $filename): void {
-		$shares_from_file = @include($filename);
+		$shares_from_file = @include $filename;
 		if (!is_array($shares_from_file)) {
 			$shares_from_file = [];
 		}

@@ -27,6 +27,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
+	protected static function sqlLimitAll(): string {
+		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
+	}
+
+	public static function sqlLimit(int $limit = -1, int $offset = 0): string {
+		if ($limit < 0 && $offset <= 0) {
+			return '';
+		}
+		if ($limit < 1) {
+			$limit = static::sqlLimitAll();
+		}
+		return "LIMIT {$limit} OFFSET {$offset}";
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -372,7 +387,7 @@ SQL;
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
-			Minz_ExtensionManager::callHook('entries_favorite', $ids, $is_favorite);
+			Minz_ExtensionManager::callHook(Minz_HookType::EntriesFavorite, $ids, $is_favorite);
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -556,9 +571,9 @@ SQL;
 UPDATE `_entry`
 SET is_read = ?
 WHERE is_read <> ? AND id <= ?
-AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=?)
+AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ?)
 SQL;
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id];
+		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id, FreshRSS_Feed::PRIORITY_CATEGORY];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -739,18 +754,21 @@ SQL;
 		}
 	}
 
-	/** @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
-	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}> */
-	public function selectAll(?int $limit = null): Traversable {
+	/**
+	 * @param 'ASC'|'DESC' $order
+	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,
+	 *		hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
+	 */
+	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
+		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
+		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
+ORDER BY id {$order} {$sqlLimit}
 SQL;
-		if (is_int($limit) && $limit >= 0) {
-			$sql .= ' ORDER BY id DESC LIMIT ' . $limit;
-		}
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -762,7 +780,7 @@ SQL;
 			$info = $this->pdo->errorInfo();
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
-				yield from $this->selectAll();
+				yield from $this->selectAll($order, $limit, $offset);
 			} else {
 				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}
@@ -1321,17 +1339,17 @@ SQL;
 			case 'a':	// All PRIORITY_MAIN_STREAM
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
+			case 'A':	// All except PRIORITY_HIDDEN
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_FEED . ' ';
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+			case 'Z':	// All including PRIORITY_HIDDEN
+				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				break;
 			case 'i':	// Priority important feeds
 				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
 				break;
 			case 's':	//Starred. Deprecated: use $state instead
-				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_ARCHIVED . ' ';
+				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
 			case 'S':	//Starred

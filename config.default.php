@@ -88,6 +88,9 @@ return [
 	#	For more information see: https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security
 	'suppress_csp_warning' => false,
 
+	# Content-Security-Policy frame-ancestors
+	'csp.frame-ancestors' => "'none'",
+
 	# Enable or not the use of syslog to log the activity of
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
 	'simplepie_syslog_enabled' => true,
