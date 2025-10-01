@@ -1120,6 +1120,7 @@ HTML;
 		$category = $feed == null ? null : $feed->category();
 
 		$item = [
+			'frss:id' => $this->id(),
 			'id' => 'tag:google.com,2005:reader/item/' . self::dec2hex($this->id()),
 			'crawlTimeMsec' => substr($this->dateAdded(true, true), 0, -3),
 			'timestampUsec' => '' . $this->dateAdded(true, true), //EasyRSS & Reeder

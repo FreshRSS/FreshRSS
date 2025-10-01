@@ -46,7 +46,7 @@ foreach ($this->entries as $item) {
 					}
 				}
 
-				$enclosures = iterator_to_array($item->enclosures(false));
+				$enclosures = iterator_to_array($item->enclosures(false));	// TODO: Optimise: avoid iterator_to_array if possible
 				$thumbnail = $item->thumbnail(false);
 				if (!empty($thumbnail['url'])) {
 					// https://www.rssboard.org/media-rss#media-thumbnails

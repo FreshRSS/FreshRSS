@@ -199,7 +199,7 @@ function findUsedTranslations(): array {
 	$iterator = new RecursiveIteratorIterator($directory);
 	$regex = new RegexIterator($iterator, '/^.+\.(php|phtml)$/i', RecursiveRegexIterator::GET_MATCH);
 	$usedI18n = [];
-	foreach (array_keys(iterator_to_array($regex)) as $file) {
+	foreach ($regex as $file => $value) {
 		if (!is_string($file) || $file === '') {
 			continue;
 		}
