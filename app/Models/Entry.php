@@ -1017,7 +1017,7 @@ HTML;
 				return false;
 			}
 			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
+			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
 				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
 					continue;
