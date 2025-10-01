@@ -633,12 +633,19 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_MAXREDIRS => 4,
-		CURLOPT_HEADER => true,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_FOLLOWLOCATION => true,
 		CURLOPT_ENCODING => '',	//Enable all encodings
 		//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 	]);
+
+	$responseHeaders = '';
+	curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
+		if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
+			$responseHeaders .= $header;
+		}
+		return strlen($header);
+	});
 
 	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
@@ -666,22 +673,20 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	curl_setopt_array($ch, $curl_options);
 
-	$response = curl_exec($ch);
+	$body = curl_exec($ch);
 	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 	$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 	$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
 	$c_error = curl_error($ch);
 
-	$body = false;
 	$headers = [];
-	if ($response !== false) {
+	if ($body !== false) {
 		assert($c_redirect_count >= 0);
-		$response = \SimplePie\HTTP\Parser::prepareHeaders(is_string($response) ? $response : '', $c_redirect_count + 1);
-		$parser = new \SimplePie\HTTP\Parser($response);
+		$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders, $c_redirect_count + 1);
+		$parser = new \SimplePie\HTTP\Parser($responseHeaders);
 		if ($parser->parse()) {
 			$headers = $parser->headers;
-			$body = $parser->body;
 		}
 	}
 
