@@ -87,6 +87,7 @@ $today = @strtotime('today');
 		?>" data-entry="<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
+		?>" data-link="<?= $this->entry->link()
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 			if ($this->feed === null || $this->entry === null) {
