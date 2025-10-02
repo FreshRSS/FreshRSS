@@ -22,6 +22,7 @@ enum Minz_HookType: string {
 	case MenuAdminEntry = 'menu_admin_entry';	// function() -> string
 	case MenuConfigurationEntry = 'menu_configuration_entry';	// function() -> string
 	case MenuOtherEntry = 'menu_other_entry';	// function() -> string
+	case NavEntries = 'nav_entries'; // function() -> string
 	case NavMenu = 'nav_menu';	// function() -> string
 	case NavReadingModes = 'nav_reading_modes';	// function($readingModes = array) -> array | null
 	case PostUpdate = 'post_update';	// function(none) -> none
@@ -31,35 +32,36 @@ enum Minz_HookType: string {
 
 	public function signature(): Minz_HookSignature {
 		switch ($this) {
-			case Minz_HookType::ApiMisc:
-			case Minz_HookType::FreshrssInit:
-			case Minz_HookType::FreshrssUserMaintenance:
-			case Minz_HookType::PostUpdate:
+			case self::ApiMisc:
+			case self::FreshrssInit:
+			case self::FreshrssUserMaintenance:
+			case self::PostUpdate:
 				return Minz_HookSignature::NoneToNone;
-			case Minz_HookType::BeforeLoginBtn:
-			case Minz_HookType::MenuAdminEntry:
-			case Minz_HookType::MenuConfigurationEntry:
-			case Minz_HookType::MenuOtherEntry:
-			case Minz_HookType::NavMenu:
+			case self::BeforeLoginBtn:
+			case self::MenuAdminEntry:
+			case self::MenuConfigurationEntry:
+			case self::MenuOtherEntry:
+			case self::NavEntries:
+			case self::NavMenu:
 				return Minz_HookSignature::NoneToString;
-			case Minz_HookType::CheckUrlBeforeAdd:
-			case Minz_HookType::EntryBeforeDisplay:
-			case Minz_HookType::EntryBeforeInsert:
-			case Minz_HookType::EntryBeforeAdd:
-			case Minz_HookType::EntryBeforeUpdate:
-			case Minz_HookType::FeedBeforeActualize:
-			case Minz_HookType::FeedBeforeInsert:
-			case Minz_HookType::JsVars:
-			case Minz_HookType::NavReadingModes:
-			case Minz_HookType::ViewModes:
+			case self::CheckUrlBeforeAdd:
+			case self::EntryBeforeDisplay:
+			case self::EntryBeforeInsert:
+			case self::EntryBeforeAdd:
+			case self::EntryBeforeUpdate:
+			case self::FeedBeforeActualize:
+			case self::FeedBeforeInsert:
+			case self::JsVars:
+			case self::NavReadingModes:
+			case self::ViewModes:
 				return Minz_HookSignature::OneToOne;
-			case Minz_HookType::CustomFaviconBtnUrl:
-			case Minz_HookType::CustomFaviconHash:
-			case Minz_HookType::EntriesFavorite:
-			case Minz_HookType::EntryAutoRead:
-			case Minz_HookType::EntryAutoUnread:
-			case Minz_HookType::SimplepieAfterInit:
-			case Minz_HookType::SimplepieBeforeInit:
+			case self::CustomFaviconBtnUrl:
+			case self::CustomFaviconHash:
+			case self::EntriesFavorite:
+			case self::EntryAutoRead:
+			case self::EntryAutoUnread:
+			case self::SimplepieAfterInit:
+			case self::SimplepieBeforeInit:
 				return Minz_HookSignature::PassArguments;
 			default:
 				throw new \RuntimeException('The hook is not configured!');

@@ -267,6 +267,8 @@ The following events are available:
 	the header dropdown menu (i.e. after the "About" entry), the returned
 	string must be valid HTML (e.g. `<li class="item active"><a href="url">New
 	entry</a></li>`)
+* `nav_entries` (`function() -> string`): ajoute des éléments DOM avant les boutons de navigation.
+* `nav_menu` (`function() -> string`): sera exécuté si la navigation est générée.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
 	add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
