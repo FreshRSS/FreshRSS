@@ -201,18 +201,23 @@ class Item implements RegistryAware
     public function get_id(bool $hash = false, $fn = 'md5')
     {
         if (!$hash) {
+            $guid = '';
             if ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_ATOM_10, 'id')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_ATOM_03, 'id')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_RSS_20, 'guid')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_DC_11, 'identifier')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_DC_10, 'identifier')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif (isset($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'])) {
-                return $this->sanitize($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+            }
+            if ($guid !== '') {
+                // If the ID looks like a URL, apply HTTPS policy to it.
+                return $this->get_sanitize()->https_url($guid);
             }
         }
         if ($fn === false) {
@@ -876,6 +881,13 @@ class Item implements RegistryAware
                     $this->data['links'][substr((string) $key, 41)] = &$this->data['links'][$key];
                 }
                 $this->data['links'][$key] = array_unique($this->data['links'][$key]);
+            }
+
+            // Apply HTTPS policy to all links
+            foreach ($this->data['links'] as &$links) {
+                foreach ($links as &$link) {
+                    $link = $this->get_sanitize()->https_url($link);
+                }
             }
         }
         if (isset($this->data['links'][$rel])) {
@@ -2353,7 +2365,7 @@ class Item implements RegistryAware
         $this->sanitize = $sanitize;
     }
 
-    protected function get_sanitize(): Sanitize
+    public function get_sanitize(): Sanitize
     {
         if ($this->sanitize === null) {
             $this->sanitize = new Sanitize();

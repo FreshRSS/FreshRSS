@@ -50,7 +50,7 @@
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
 					$this->feed->resetFaviconHash();
-					$ext_url = Minz_ExtensionManager::callHook('custom_favicon_btn_url', $this->feed);
+					$ext_url = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconBtnUrl, $this->feed);
 				?>
 				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
 				<div class="group-controls">
