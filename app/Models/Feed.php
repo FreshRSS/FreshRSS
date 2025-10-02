@@ -290,15 +290,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category?->id() ?: $this->categoryId;
 	}
 
-	/**
-	 * @return list<FreshRSS_Entry>|null
-	 * @deprecated
-	 */
-	public function entries(): ?array {
-		Minz_Log::warning(__METHOD__ . ' is deprecated since FreshRSS 1.16.1!');
-		$simplePie = $this->load(false, true);
-		return $simplePie == null ? [] : array_values(iterator_to_array($this->loadEntries($simplePie)));
-	}
 	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
