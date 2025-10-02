@@ -7,7 +7,7 @@
 
 FreshRSS is a self-hosted RSS feed aggregator.
 
-It is lightweight, easy to work with, powerful, customizable, and has been [translated](./#internationalization-20-languages-translation-progress) into many languages.
+It is lightweight, easy to work with, powerful, customizable, and has been [translated](#internationalization-20-languages-translation-progress) into many languages.
 
 It is a multi-user application with an anonymous reading mode. It supports custom tags.
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).

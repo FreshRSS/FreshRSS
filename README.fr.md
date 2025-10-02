@@ -7,7 +7,7 @@
 
 FreshRSS est un agrégateur de flux RSS à auto-héberger.
 
-Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable, et [traduit](./#internationalisation--20-langues-statut-des-traductions) en nombreuses langues.
+Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable, et [traduit](#internationalisation--20-langues-statut-des-traductions) en nombreuses langues.
 
 Il permet de gérer plusieurs utilisateurs, dispose d’un mode de lecture anonyme, et supporte les étiquettes personnalisées.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
