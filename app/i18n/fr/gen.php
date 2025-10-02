@@ -217,9 +217,9 @@ return array(
 		'years' => 'années',
 	),
 	'readme' => array(
-		'contribute' => 'contribute',	// TODO
-		'language' => 'Language',	// TODO
-		'translated' => 'Progress',	// TODO
+		'contribute' => 'contribuer',
+		'language' => 'Langage',
+		'translated' => 'Progression',
 	),
 	'share' => array(
 		'Known' => 'Sites basés sur Known',
