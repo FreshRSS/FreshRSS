@@ -136,7 +136,6 @@ return array(
 		'yesterday' => '昨日',
 	),
 	'dir' => 'ディレクトリ',
-	'flag' => '🇯🇵',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'ヶ月',
 		'weeks' => '週間',
 		'years' => '年間',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',

@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Kemarin',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇮🇩',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tentang FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'bulan',
 		'weeks' => 'minggu',
 		'years' => 'tahun',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Situs berbasis Known',

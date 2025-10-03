@@ -258,9 +258,10 @@ abstract class Minz_Extension {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
+	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	final protected function registerHook(string $hook_name, $hook_function): void {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function);
+	final protected function registerHook(string $hook_name, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
+		Minz_ExtensionManager::addHook($hook_name, $hook_function, $priority);
 	}
 
 	/** @param 'system'|'user' $type */

@@ -126,7 +126,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 			$url_redirect = ['c' => 'tag', 'a' => 'update', 'params' => ['id' => $id]];
 			if ($ok) {
-				Minz_Request::good(_t('feedback.tag.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.tag.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.tag.error'), $url_redirect);
 			}
@@ -167,7 +171,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 
 		$tagDAO->addTag(['name' => $name]);
-		Minz_Request::good(_t('feedback.tag.created', $name), $url_redirect);
+		Minz_Request::good(
+			_t('feedback.tag.created', $name),
+			$url_redirect,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -203,7 +211,10 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			$tagDAO->deleteTag($sourceId);
 		}
 
-		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index']);
+		Minz_Request::good(
+			_t('feedback.tag.renamed', $sourceName, $targetName),
+			['c' => 'tag', 'a' => 'index'],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 	}
 
 	public function indexAction(): void {

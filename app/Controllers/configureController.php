@@ -74,14 +74,20 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
 			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
-			FreshRSS_Context::userConf()->html5_notif_timeout = Minz_Request::paramInt('html5_notif_timeout');
+			FreshRSS_Context::userConf()->html5_notif_timeout = max(0, Minz_Request::paramInt('html5_notif_timeout'));
+			FreshRSS_Context::userConf()->good_notification_timeout = max(0, Minz_Request::paramInt('good_notification_timeout'));
+			FreshRSS_Context::userConf()->bad_notification_timeout = max(1, Minz_Request::paramInt('bad_notification_timeout'));
 			FreshRSS_Context::userConf()->save();
 
 			Minz_Session::_param('language', FreshRSS_Context::userConf()->language);
 			Minz_Translate::reset(FreshRSS_Context::userConf()->language);
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'display' ], 'displayAction');
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'display' ],
+				notificationName: 'displayAction',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
@@ -163,7 +169,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'reading' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'reading' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		$this->view->viewModes = FreshRSS_ViewMode::getAllModes();
@@ -197,7 +207,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				invalidateHttpCache();
 			}
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'integration' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'integration' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.sharing.title') . ' · ');
@@ -229,7 +243,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), ['c' => 'configure', 'a' => 'shortcut']);
+			Minz_Request::good(
+				_t('feedback.conf.shortcuts_updated'),
+				['c' => 'configure', 'a' => 'shortcut'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.shortcut.title') . ' · ');
@@ -277,7 +295,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'archiving' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'archiving' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		$volatile = [
@@ -341,7 +363,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'queries' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			$this->view->queries = [];
 			foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
@@ -433,7 +459,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 
 		FreshRSS_View::prependTitle($query->getName() . ' · ' . _t('conf.query.title') . ' · ');
@@ -458,7 +487,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::userConf()->queries = $queries;
 		FreshRSS_Context::userConf()->save();
 
-		Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
+		Minz_Request::good(
+			_t('feedback.conf.updated'),
+			[ 'c' => 'configure', 'a' => 'queries' ],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -488,7 +521,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::userConf()->queries = $queries;
 		FreshRSS_Context::userConf()->save();
 
-		Minz_Request::good(_t('feedback.conf.query_created', $params['name']), [ 'c' => 'configure', 'a' => 'queries' ]);
+		Minz_Request::good(
+			_t('feedback.conf.query_created', $params['name']),
+			[ 'c' => 'configure', 'a' => 'queries' ],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -525,7 +562,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'system' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'system' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 	}
 
@@ -535,7 +576,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), ['c' => 'configure', 'a' => 'privacy']);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				['c' => 'configure', 'a' => 'privacy'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.privacy') . ' · ');

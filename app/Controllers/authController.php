@@ -56,7 +56,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'auth', 'a' => 'index' ]);
+				Minz_Request::good(
+					_t('feedback.conf.updated'),
+					[ 'c' => 'auth', 'a' => 'index' ],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.conf.error'), [ 'c' => 'auth', 'a' => 'index' ]);
 			}
@@ -176,7 +180,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				if (empty($url)) {
 					$url = [ 'c' => 'index', 'a' => 'index' ];
 				}
-				Minz_Request::good(_t('feedback.auth.login.success'), $url);
+				Minz_Request::good(
+					_t('feedback.auth.login.success'),
+					$url,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 				header('HTTP/1.1 403 Forbidden');
@@ -214,7 +222,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::userConf()->language);
 
-				Minz_Request::good(_t('feedback.auth.login.success'), ['c' => 'index', 'a' => 'index']);
+				Minz_Request::good(
+					_t('feedback.auth.login.success'),
+					['c' => 'index', 'a' => 'index'],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				Minz_Request::bad(
@@ -263,7 +275,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
 			Minz_Session::regenerateID('FreshRSS');
-			Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
+			Minz_Request::good(
+				_t('feedback.auth.logout.success'),
+				[ 'c' => 'index', 'a' => 'index' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			Minz_Error::error(403);
 		}

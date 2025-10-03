@@ -14,10 +14,10 @@ return array(
 	'information' => array(
 		'address' => 'Your API address:',	// IGNORE
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// IGNORE
+			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// IGNORE
+			'pass' => '✔️ PASS',	// IGNORE
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
 			'fever' => 'Fever API configuration test:',	// IGNORE

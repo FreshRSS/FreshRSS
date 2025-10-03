@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Dün',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇹🇷',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS Hakkında',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'ay',
 		'weeks' => 'hafta',
 		'years' => 'yıl',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Bilinen tabanlı siteler',

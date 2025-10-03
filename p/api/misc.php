@@ -63,6 +63,6 @@ Minz_ExtensionManager::init();
 
 Minz_Translate::init();
 
-if (!Minz_ExtensionManager::callHookUnique('api_misc')) {
+if (!Minz_ExtensionManager::callHookUnique(Minz_HookType::ApiMisc)) {
 	serviceUnavailable();
 }

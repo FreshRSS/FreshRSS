@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Ieri',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇮🇹',
 	'freshrss' => array(
 		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'mesi',
 		'weeks' => 'settimane',
 		'years' => 'anni',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',
