@@ -133,7 +133,6 @@ SQL;
 ALTER TABLE `{$prefix}entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
 ALTER TABLE `{$prefix}entrytmp` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `{$prefix}entry`(`lastUserModified`);	-- //v1.28.0
-CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `{$prefix}entrytmp`(`lastUserModified`);	-- //v1.28.0
 SQL;
 				return $this->pdo->exec($sql) !== false;
 			}
