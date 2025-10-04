@@ -41,8 +41,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$userConfig->mail_login = $email;
 
 			if (FreshRSS_Context::systemConf()->force_email_validation) {
-				$salt = FreshRSS_Context::systemConf()->salt;
-				$userConfig->email_validation_token = sha1($salt . uniqid('' . mt_rand(), true));
+				$userConfig->email_validation_token = hash('sha256', FreshRSS_Context::systemConf()->salt . $email . random_bytes(32));
 				$mailer = new FreshRSS_User_Mailer();
 				$mailer->send_email_need_validation($user, $userConfig);
 			}
