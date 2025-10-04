@@ -54,8 +54,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,date?:int|string,lastSeen?:int,
-	 *		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string,lastUserModified?:int} $dao */
+	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,
+	 * 		date?:int|string,lastSeen?:int,lastUserModified?:int,
+	 *		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content']) || !is_string($dao['content'])) {
 			$dao['content'] = '';
@@ -111,11 +112,11 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @param Traversable<array{ 'id'?:string, 'id_feed'?:int, 'guid'?:string,
-	 * 'title'?:string, 'author'?:string, 'content'?:string, 'link'?:string,
-	 * 'date'?:int|string, 'lastSeen'?:int, 'hash'?:string, 'is_read'?:bool|int,
-	 * 'is_favorite'?:bool|int, 'tags'?:string|array<string>, 'attributes'?:?string,
-	 * 'thumbnail'?:string, 'timestamp'?:string, 'lastUserModified'?:int }> $daos
+	 * @param Traversable<array{id?:string,id_feed?:int,guid?:string,
+	 * title?:string,author?:string,content?:string,link?:string,
+	 * date?:int|string,lastSeen?:int,lastUserModified?:int,hash?:string,is_read?:bool|int,
+	 * is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,
+	 * thumbnail?:string,timestamp?:string}> $daos
 	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public static function fromTraversable(Traversable $daos): Traversable {
@@ -1062,8 +1063,9 @@ HTML;
 	}
 
 	/**
-	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
-	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>,'lastUserModified': int}
+	 * @return array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+	 * 	lastSeen:int,lastUserModified:int,
+	 * 	hash:string,is_read:?bool,is_favorite:?bool,id_feed:int,tags:string,attributes:array<string,mixed>}
 	 */
 	public function toArray(): array {
 		return [

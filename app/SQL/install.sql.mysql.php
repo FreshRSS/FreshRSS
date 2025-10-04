@@ -49,13 +49,13 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
+	`lastUserModified` BIGINT DEFAULT 0,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
-	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
@@ -84,11 +84,9 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id_feed` INT,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
-	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
-	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.28.0
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;

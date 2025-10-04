@@ -78,13 +78,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$sql = <<<'SQL'
 DROP TABLE IF EXISTS `tmp`;
 CREATE TEMP TABLE `tmp` AS
-	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
+	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 	FROM `_entrytmp`
 	ORDER BY date, id;
 INSERT OR IGNORE INTO `_entry`
-	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified)
+	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
+	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 	FROM `tmp`
 	ORDER BY date, id;
 DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
@@ -124,7 +124,7 @@ SQL;
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
-			$sql = 'UPDATE `_entry` SET is_read=?, lastUserModified = ? WHERE id=? AND is_read=?';
+			$sql = 'UPDATE `_entry` SET is_read=?, `lastUserModified` = ? WHERE id=? AND is_read=?';
 			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
@@ -165,7 +165,7 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ?, lastUserModified = ? WHERE is_read <> ? AND id <= ? AND '
+		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';

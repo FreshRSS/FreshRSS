@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`link` VARCHAR(16383) NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
+	`lastUserModified` BIGINT DEFAULT 0,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` INTEGER,	-- 1.20.0
 	`tags` VARCHAR(2048),
 	`attributes` TEXT,	-- v1.20.0
-	`lastUserModified` BIGINT DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE (`id_feed`,`guid`)
@@ -84,7 +84,6 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	UNIQUE (`id_feed`,`guid`)
 );
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
-CREATE INDEX IF NOT EXISTS entrytmp_last_user_modified_index ON `entrytmp`(`lastUserModified`);	-- //v1.28.0
 
 CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

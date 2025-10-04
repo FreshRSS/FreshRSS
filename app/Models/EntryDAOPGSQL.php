@@ -85,9 +85,9 @@ maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
 rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
 BEGIN
 	INSERT INTO `_entry`
-		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified)
+		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 		(SELECT rank + row_number() OVER(ORDER BY date, id) AS id, guid, title, author, content,
-			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes, lastUserModified
+			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 			FROM `_entrytmp` AS etmp
 			WHERE NOT EXISTS (
 				SELECT 1 FROM `_entry` AS ereal
