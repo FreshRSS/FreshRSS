@@ -1304,6 +1304,7 @@ SQL;
 			$orderBy = match ($sort) {
 				'c.name' => 'c.name',
 				'f.name' => 'f.name',
+				'lastUserModified' => $alias . '`lastUserModified`',
 				default => $alias . $sort,
 			};
 			// Keyset pagination (Compatibility syntax due to poor performance of tuple syntax in MySQL https://bugs.mysql.com/bug.php?id=104128)
@@ -1404,6 +1405,7 @@ SQL;
 		$orderBy = match ($sort) {
 			'c.name' => 'c.name',
 			'f.name' => 'f.name',
+			'lastUserModified' => 'e.`lastUserModified`',
 			'rand' => static::sqlRandom(),
 			default => 'e.' . $sort,
 		};
@@ -1451,6 +1453,7 @@ SQL;
 		$orderBy = match ($sort) {
 			'c.name' => 'c0.name',
 			'f.name' => 'f0.name',
+			'lastUserModified' => 'e0.`lastUserModified`',
 			'rand' => static::sqlRandom(),
 			default => 'e0.' . $sort,
 		};
