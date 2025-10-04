@@ -656,8 +656,8 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 	]);
 
 	curl_setopt_array($ch, $options);
-  curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-  
+	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
+
 	$responseHeaders = '';
 	curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
 		if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
