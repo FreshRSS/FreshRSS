@@ -111,6 +111,11 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
 ENGINE = INNODB;
 SQL;
 
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS `entry_last_user_modified_index` ON `_entry` (`lastUserModified`);	-- //v1.28.0
+SQL;
+
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;

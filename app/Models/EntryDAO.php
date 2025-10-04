@@ -119,6 +119,7 @@ SQL;
 			$this->pdo->commit();
 		}
 		Minz_Log::warning(__METHOD__ . ': ' . $name);
+		require APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		try {
 			if ($name === 'attributes') {	//v1.20.0
 				$sql = <<<'SQL'
@@ -128,11 +129,10 @@ SQL;
 				return $this->pdo->exec($sql) !== false;
 			}
 			if ($name === 'lastUserModified') {	//v1.28.0
-				$prefix = $this->pdo->prefix();
-				$sql = <<<SQL
-ALTER TABLE `{$prefix}entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
-CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `{$prefix}entry`(`lastUserModified`);	-- //v1.28.0
-SQL;
+				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'];
+				if (!is_string($sql)) {
+					throw new Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
+				}
 				return $this->pdo->exec($sql) !== false;
 			}
 		} catch (Exception $e) {
