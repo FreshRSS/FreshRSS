@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'category' => 'Mostrar en su categoría',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'No mostrar',
 			'important' => 'Mostrar en fuentes importantes',
 			'main_stream' => 'Mostrar en salida principal',

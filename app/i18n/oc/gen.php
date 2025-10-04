@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Ièr',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🏴󠁦󠁲󠁯󠁣󠁣󠁿',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'A prepaus de FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'meses',
 		'weeks' => 'setmanas',
 		'years' => 'ans',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Sites basats sus Known',

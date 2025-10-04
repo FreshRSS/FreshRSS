@@ -242,8 +242,24 @@
 		<div class="form-group">
 			<label class="group-name" for="html5_notif_timeout"><?= _t('conf.display.notif_html5.timeout') ?></label>
 			<div class="group-controls">
-				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?=
+				<input type="number" min="0" max="60" id="html5_notif_timeout" name="html5_notif_timeout" value="<?=
 					FreshRSS_Context::userConf()->html5_notif_timeout ?>" /> <?= _t('conf.display.notif_html5.seconds') ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="good_notification_timeout"><?= _t('conf.notification_timeout.good.label') ?></label>
+			<div class="group-controls">
+				<input type="number" min="0" max="60" id="good_notification_timeout" name="good_notification_timeout" value="<?=
+					FreshRSS_Context::userConf()->good_notification_timeout ?>" /> <?= _t('conf.notification_timeout.good.seconds') ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="bad_notification_timeout"><?= _t('conf.notification_timeout.bad.label') ?></label>
+			<div class="group-controls">
+				<input type="number" min="1" max="60" id="bad_notification_timeout" name="bad_notification_timeout" value="<?=
+					FreshRSS_Context::userConf()->bad_notification_timeout ?>" />  <?= _t('conf.notification_timeout.bad.seconds') ?>
 			</div>
 		</div>
 

@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Wczorajsze',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇵🇱',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O oprogramowaniu FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'miesiące',
 		'weeks' => 'tygodnie',
 		'years' => 'lata',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',

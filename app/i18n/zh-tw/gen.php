@@ -136,7 +136,6 @@ return array(
 		'yesterday' => '昨天',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇹🇼',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '關於 FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => '月',
 		'weeks' => '週',
 		'years' => '年',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => '基於 Known 的站點',

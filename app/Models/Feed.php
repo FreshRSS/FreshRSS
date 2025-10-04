@@ -38,6 +38,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
 	public const PRIORITY_CATEGORY = 0;
+	public const PRIORITY_FEED = -5;
 	public const PRIORITY_HIDDEN = -10;
 	/** @deprecated use PRIORITY_HIDDEN instead */
 	public const PRIORITY_ARCHIVED = -10;
@@ -254,7 +255,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$params = '';
 			if ($this->customFavicon()) {
 				$current = $this->id . Minz_User::name();
-				$hookParams = Minz_ExtensionManager::callHook('custom_favicon_hash', $this);
+				$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
 				$params = $hookParams !== null ? $hookParams : $current;
 			} else {
 				$params = $this->website(fallback: true) . $this->proxyParam();
@@ -289,15 +290,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category?->id() ?: $this->categoryId;
 	}
 
-	/**
-	 * @return list<FreshRSS_Entry>|null
-	 * @deprecated
-	 */
-	public function entries(): ?array {
-		Minz_Log::warning(__METHOD__ . ' is deprecated since FreshRSS 1.16.1!');
-		$simplePie = $this->load(false, true);
-		return $simplePie == null ? [] : array_values(iterator_to_array($this->loadEntries($simplePie)));
-	}
 	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
@@ -578,9 +570,9 @@ class FreshRSS_Feed extends Minz_Model {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
-				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieBeforeInit, $simplePie, $this);
 				$simplePieResult = $simplePie->init();
-				Minz_ExtensionManager::callHook('simplepie_after_init', $simplePie, $this, $simplePieResult);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieAfterInit, $simplePie, $this, $simplePieResult);
 
 				if ($simplePieResult === false || $simplePie->get_hash() === '' || !empty($simplePie->error())) {
 					if ($simplePie->status_code() === 429) {

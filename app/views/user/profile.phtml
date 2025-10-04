@@ -32,7 +32,9 @@
 		<div class="form-group">
 			<label class="group-name" for="email"><?= _t('conf.profile.email') ?></label>
 			<div class="group-controls">
-				<input id="email" name="email" type="email" autocomplete="new-password" value="<?= FreshRSS_Context::userConf()->mail_login ?>" />
+				<!-- Workaround for Chrome, related to change password section -->
+				<input id="ignore" class="ignore-auto-complete" type="text" tabindex="-1" aria-hidden="true" data-no-leave-validation="1" />
+				<input id="email" name="email" type="email" value="<?= FreshRSS_Context::userConf()->mail_login ?>" autocomplete="new-password" />
 			</div>
 		</div>
 
@@ -41,7 +43,7 @@
 			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
 			<?php $token = FreshRSS_Context::userConf()->token; ?>
 			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+				<input id="token" name="token" type="text" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" autocomplete="new-password" />
 				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
 				<kbd><?= Minz_Url::display(['a' => 'rss', 'params' => ['user' => Minz_User::name() ?? '',
 					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss]], 'html', true) ?></kbd>
@@ -55,14 +57,14 @@
 			Minz_Session::_param('open', false);
 		?>
 
-		<details class="form-advanced" data-challenge-if-not-empty="1"<?= $open ? ' open="open"' : ''?>>
+		<details class="form-advanced" data-challenge-if-open="1"<?= $open ? ' open="open"' : ''?>>
 			<summary class="form-advanced-title"><?= _t('conf.profile.change_password') ?></summary>
 			<div class="form-group">
 				<label class="group-name" for="currentPasswordPlain"><?= _t('conf.profile.current_password') ?></label>
 				<div class="group-controls">
 					<input type="hidden" id="username" value="<?= Minz_User::name() ?? '' ?>" />
 					<div class="stick">
-						<input type="password" id="currentPasswordPlain" class="passwordPlain" />
+						<input type="password" id="currentPasswordPlain" class="passwordPlain" data-required-if-open="1" data-no-leave-validation="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 
@@ -76,7 +78,7 @@
 				<label class="group-name" for="newPasswordPlain"><?= _t('conf.profile.new_password') ?></label>
 				<div class="group-controls">
 					<div class="stick">
-						<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" />
+						<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" data-required-if-open="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 					<p class="help">
@@ -88,7 +90,7 @@
 				<label class="group-name" for="confirmPasswordPlain"><?= _t('conf.profile.confirm_new_password') ?></label>
 				<div class="group-controls">
 					<div class="stick">
-						<input type="password" id="confirmPasswordPlain" name="confirmPasswordPlain" autocomplete="new-password" pattern=".{7,}" />
+						<input type="password" id="confirmPasswordPlain" name="confirmPasswordPlain" autocomplete="new-password" pattern=".{7,}" data-required-if-open="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 				</div>

@@ -37,7 +37,7 @@ return array(
 	'feed' => array(
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'received' => array(
-			'before_yesterday' => 'Vorgestern empfangen',
+			'before_yesterday' => 'Vor gestern empfangen',
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),

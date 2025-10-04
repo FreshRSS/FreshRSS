@@ -818,12 +818,12 @@ HTML;
 		if (!$this->isRead()) {
 			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'upon_reception');
 			}
 			if (!empty($titlesAsRead[$this->title()])) {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);
@@ -1017,7 +1017,7 @@ HTML;
 				return false;
 			}
 			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
+			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
 				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
 					continue;
@@ -1120,6 +1120,7 @@ HTML;
 		$category = $feed == null ? null : $feed->category();
 
 		$item = [
+			'frss:id' => $this->id(),
 			'id' => 'tag:google.com,2005:reader/item/' . self::dec2hex($this->id()),
 			'crawlTimeMsec' => substr($this->dateAdded(true, true), 0, -3),
 			'timestampUsec' => '' . $this->dateAdded(true, true), //EasyRSS & Reeder

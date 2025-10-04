@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Vakar',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇱🇻',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'Par FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'mēneši',
 		'weeks' => 'nedēļas',
 		'years' => 'gadi',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Zināmas vietnes',

@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Včera',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇸🇰',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'mesiace',
 		'weeks' => 'týždne',
 		'years' => 'roky',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',

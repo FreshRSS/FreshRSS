@@ -66,7 +66,7 @@ class FreshRSS extends Minz_FrontController {
 			self::checkEmailValidated();
 		}
 
-		Minz_ExtensionManager::callHookVoid('freshrss_init');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssInit);
 	}
 
 	private static function initAuth(): void {

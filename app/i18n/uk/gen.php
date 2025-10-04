@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Вчора',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇺🇦',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Про FreshRSS',
@@ -216,6 +215,11 @@ return array(
 		'months' => 'міс.',
 		'weeks' => 'тижд',
 		'years' => 'р.',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// TODO
+		'language' => 'Language',	// TODO
+		'translated' => 'Progress',	// TODO
 	),
 	'share' => array(
 		'Known' => 'Сайти на Known',
