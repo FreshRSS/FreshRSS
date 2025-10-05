@@ -114,7 +114,7 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 		}
 
 		return preg_replace_callback(
-			'/(-\w{2})$/',
+			'/(-\\w{2})$/',
 			static fn (array $matches): string => strtoupper($matches[0]),
 			$this->attributeString($key) ?? Minz_Translate::DEFAULT_LANGUAGE
 		);
