@@ -107,16 +107,4 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 		}
 		return $default_user_conf;
 	}
-
-	public function __get(string $key): mixed {
-		if ($key !== 'language') {
-			return $this->param($key);
-		}
-
-		return preg_replace_callback(
-			'/(-\\w{2})$/',
-			static fn (array $matches): string => strtoupper($matches[0]),
-			$this->attributeString($key) ?? Minz_Translate::DEFAULT_LANGUAGE
-		);
-	}
 }
