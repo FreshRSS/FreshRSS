@@ -49,7 +49,7 @@ Les langues disponibles sont:
 | Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-CN               |
 | Chinois (traditionnel, Taïwan) | 正體中文          | zh-TW                               |
 
-**Note** pour les langues régionales, nous suivont les recommandations de _ISO-639-1_ et _ISO-3166-1 alpha-2_.
+**Note** pour les langues régionales, nous suivons les recommandations de _ISO-639-1_ et _ISO-3166-1 alpha-2_.
 
 ### Thème
 
