@@ -74,7 +74,7 @@ return array(
 		'website' => array(
 			'full' => 'Kuvake ja nimi',
 			'icon' => 'Vain kuvake',
-			'label' => 'Siuvsto',
+			'label' => 'Sivusto',
 			'name' => 'Vain nimi',
 			'none' => 'Ei mitään',
 		),
@@ -100,19 +100,19 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“merkitse kaikki luetuiksi” button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => '“Merkitse kaikki luetuiksi” -painike',	// DIRTY
+		'big' => 'Iso',	// TODO
+		'none' => 'Ei mitään',	// TODO
+		'small' => 'Pieni',	// TODO
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Näytä varoituspalkki',	// TODO
+			'seconds' => 'sekuntia (vähintään 1)',	// TODO
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Näytä hyväksyntäpalkki',	// TODO
+			'seconds' => 'sekuntia (0 - ei näytetä)',	// TODO
 		),
 	),
 	'privacy' => array(
@@ -123,22 +123,22 @@ return array(
 		'_' => 'Profiilien hallinta',
 		'api' => array(
 			'_' => 'API-hallinta',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'api_not_set' => 'API-salasanaa ei ole määritetty',	// TODO
+			'api_set' => 'API-salasana on määritetty',	// TODO
+			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'API on poistettu käytöstä.',	// TODO
+			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',	// TODO
+			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',	// TODO
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Vaihda salasana',	// TODO
+		'confirm_new_password' => 'Vahvista uusi salasana',	// TODO
+		'current_password' => 'Nykyinen salasana<br /><small>(web-lomakekirjautumista varten)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Tilin poisto',
 			'warn' => 'Tilisi ja kaikki siihen kuuluvat tiedot poistetaan.',
 		),
 		'email' => 'Sähköpostiosoite',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Uusi salasana',	// TODO
 		'password_api' => 'API-salasana<br /><small>(esimerkiksi kännykkäsovelluksille)</small>',
 		'password_format' => 'Vähintään 7 merkkiä',
 		'title' => 'Profiili',
@@ -159,8 +159,8 @@ return array(
 			'tags' => 'Näytä merkinnän mukaan',
 			'type' => 'Laji',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Näytä kaikki syötteet, myös ne, jotka näkyvät omassa luokassaan',	// TODO
+		'get_Z' => 'Näytä kaikki syötteet, myös arkistoidut',	// TODO
 		'get_all' => 'Näytä kaikki artikkelit',
 		'get_all_labels' => 'Näytä artikkelit, joissa on mikä tahansa merkintä',
 		'get_category' => 'Näytä luokka “%s”',
@@ -173,8 +173,8 @@ return array(
 		'name' => 'Nimi',
 		'no_filter' => 'Ei suodatinta',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => 'Käyttäjän kyselyitä ei ole vielä tallennettu.',	// TODO
+			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ohje</a>',	// TODO
 		),
 		'number' => 'Kysely %d',
 		'order_asc' => 'Näytä vanhimmat artikkelit ensin',
@@ -183,11 +183,11 @@ return array(
 		'share' => array(
 			'_' => 'Jaa kysely linkin avulla',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => 'poistettu käytöstä',	// TODO
+				'title' => 'Jakaminen',	// TODO
 			),
 			'greader' => 'Linkki GReader JSON -muotoon jaettavaksi',
-			'help' => 'Voit jakaa kyselyn muiden kanssa antamalle heille tämän linkin',
+			'help' => 'Voit jakaa kyselyn muiden kanssa antamalla heille tämän linkin',
 			'html' => 'Jaettava linkki HTML-sivuun',
 			'opml' => 'Jaettava linkki syötteiden OPML-luetteloon',
 			'rss' => 'Jaettava linkki RSS-syötteeseen',
@@ -280,13 +280,13 @@ return array(
 		'show' => array(
 			'_' => 'Näytettävät artikkelit',
 			'active_category' => 'Käytössä oleva luokka',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => 'Näytä lukemattomat (jos on, muutoin kaikki artikkelit)',	// TODO
 			'all_articles' => 'Näytä kaikki artikkelit',
 			'all_categories' => 'Kaikki luokat',
 			'no_category' => 'Ei luokkaa',
 			'remember_categories' => 'Muista avoinna olevat luokat',
 			'unread' => 'Näytä vain lukemattomat',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => 'Näytä lukemattomat ja suosikit',	// TODO
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',

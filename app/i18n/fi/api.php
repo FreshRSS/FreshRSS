@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'API-osoitteesi:',	// TODO
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
+			'encoding-support' => '⚠️ VAROITUS: <code>%2F</code>-tukea ei ole. Jotkin sovellukset eivät ehkä toimi.',	// TODO
+			'invalid-configuration' => '⚠️ VAROITUS: Virheellinen URL-pääosoite määritetty tiedostossa ./data/config.php',	// TODO
+			'pass' => '✔️ EI VIRHEITÄ',	// TODO
 			'unknown-error' => '❌ ',	// TODO
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Fever API:n määritystesti:',	// TODO
+			'greader' => 'Google Reader API:n määritystesti:',	// TODO
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'FreshRSS API -päätepisteet',	// TODO
+			'extension' => 'Laajennusten API',	// TODO
+			'fever' => 'Fever-yhteensopiva API',	// TODO
+			'greader' => 'Google Reader -yhteensopiva API',	// TODO
 		),
 	),
 );
