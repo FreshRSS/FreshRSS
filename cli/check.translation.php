@@ -124,16 +124,8 @@ if ($cliOptions->generateReadme) {
 
 		$ghSearchUrl = 'https://github.com/search?q=' . urlencode("repo:FreshRSS/FreshRSS path:app/i18n/$lang /(TODO|DIRTY)$/");
 
-		// BCP 47 / ISO 3166: Uppercase the last (region) subtag if any (e.g. pt-pt -> pt-PT)
-		$bcp47 = $lang;
-		if (str_contains($bcp47, '-')) {
-			$parts = explode('-', $bcp47);
-			$parts[count($parts) - 1] = strtoupper($parts[count($parts) - 1]);
-			$bcp47 = implode('-', $parts);
-		}
-
 		$markdownTable .= '| ' . implode(' | ', [
-			_t('gen.lang.' . $lang) . " ($bcp47)",
+			_t('gen.lang.' . $lang) . " ($lang)",
 			$progressBar . ' ' . $percentageInt . '%',
 			"[__contribute__]($ghSearchUrl)",
 		]) . " |\n";
