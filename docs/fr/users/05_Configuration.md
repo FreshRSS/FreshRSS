@@ -24,8 +24,8 @@ Les langues disponibles sont:
 | Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
-| Anglais (États-Unis)    | English (United States) | en-US                               |
 | Anglais                 | English                | en                                   |
+| Anglais (États-Unis)    | English (United States) | en-US                               |
 | Espagnol                | Español                | es                                   |
 | Farsi                   | فارسی                  | fa                                   |
 | Finnois                 | Suomi                  | fi                                   |

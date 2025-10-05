@@ -18,8 +18,8 @@ Available languages are:
 | Czech                   | Čeština                | cs                                   |
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |
-| English (United States) | English (United States) | en-US                               |
 | English                 | English                | en                                   |
+| English (United States) | English (United States) | en-US                               |
 | Spanish                 | Español                | es                                   |
 | Farsi                   | فارسی                  | fa                                   |
 | Finnish                 | Suomi                  | fi                                   |
