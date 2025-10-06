@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'API-osoitteesi:',	// DIRTY
+		'address' => 'API-osoitteesi:',
 		'output' => array(
-			'encoding-support' => '⚠️ VAROITUS: <code>%2F</code>-tukea ei ole. Jotkin sovellukset eivät ehkä toimi.',	// DIRTY
-			'invalid-configuration' => '⚠️ VAROITUS: Virheellinen URL-pääosoite määritetty tiedostossa ./data/config.php',	// DIRTY
-			'pass' => '✔️ EI VIRHEITÄ',	// DIRTY
+			'encoding-support' => '⚠️ VAROITUS: <code>%2F</code>-tukea ei ole. Jotkin sovellukset eivät ehkä toimi.',
+			'invalid-configuration' => '⚠️ VAROITUS: Virheellinen URL-pääosoite määritetty tiedostossa ./data/config.php',
+			'pass' => '✔️ EI VIRHEITÄ',
 			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
-			'fever' => 'Fever API:n määritystesti:',	// DIRTY
-			'greader' => 'Google Reader API:n määritystesti:',	// DIRTY
+			'fever' => 'Fever API:n määritystesti:',
+			'greader' => 'Google Reader API:n määritystesti:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API -päätepisteet',	// DIRTY
-			'extension' => 'Laajennusten API',	// DIRTY
-			'fever' => 'Fever-yhteensopiva API',	// DIRTY
-			'greader' => 'Google Reader -yhteensopiva API',	// DIRTY
+			'_' => 'FreshRSS API -päätepisteet',
+			'extension' => 'Laajennusten API',
+			'fever' => 'Fever-yhteensopiva API',
+			'greader' => 'Google Reader -yhteensopiva API',
 		),
 	),
 );

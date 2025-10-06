@@ -100,19 +100,19 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“Merkitse kaikki luetuiksi” -painike',	// DIRTY
-		'big' => 'Iso',	// DIRTY
-		'none' => 'Ei mitään',	// DIRTY
-		'small' => 'Pieni',	// DIRTY
+		'_' => '“Merkitse kaikki luetuiksi” -painike',
+		'big' => 'Iso',
+		'none' => 'Ei mitään',
+		'small' => 'Pieni',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Näytä varoituspalkki',	// DIRTY
-			'seconds' => 'sekuntia (vähintään 1)',	// DIRTY
+			'label' => 'Näytä varoituspalkki',
+			'seconds' => 'sekuntia (vähintään 1)',
 		),
 		'good' => array(
-			'label' => 'Näytä hyväksyntäpalkki',	// DIRTY
-			'seconds' => 'sekuntia (0 - ei näytetä)',	// DIRTY
+			'label' => 'Näytä hyväksyntäpalkki',
+			'seconds' => 'sekuntia (0 - ei näytetä)',
 		),
 	),
 	'privacy' => array(
@@ -123,22 +123,22 @@ return array(
 		'_' => 'Profiilien hallinta',
 		'api' => array(
 			'_' => 'API-hallinta',
-			'api_not_set' => 'API-salasanaa ei ole määritetty',	// DIRTY
-			'api_set' => 'API-salasana on määritetty',	// DIRTY
-			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// DIRTY
-			'disabled' => 'API on poistettu käytöstä.',	// DIRTY
-			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',	// DIRTY
-			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',	// DIRTY
+			'api_not_set' => 'API-salasanaa ei ole määritetty',
+			'api_set' => 'API-salasana on määritetty',
+			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'API on poistettu käytöstä.',
+			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
+			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
 		),
-		'change_password' => 'Vaihda salasana',	// DIRTY
-		'confirm_new_password' => 'Vahvista uusi salasana',	// DIRTY
-		'current_password' => 'Nykyinen salasana<br /><small>(web-lomakekirjautumista varten)</small>',	// DIRTY
+		'change_password' => 'Vaihda salasana',
+		'confirm_new_password' => 'Vahvista uusi salasana',
+		'current_password' => 'Nykyinen salasana<br /><small>(web-lomakekirjautumista varten)</small>',
 		'delete' => array(
 			'_' => 'Tilin poisto',
 			'warn' => 'Tilisi ja kaikki siihen kuuluvat tiedot poistetaan.',
 		),
 		'email' => 'Sähköpostiosoite',
-		'new_password' => 'Uusi salasana',	// DIRTY
+		'new_password' => 'Uusi salasana',
 		'password_api' => 'API-salasana<br /><small>(esimerkiksi kännykkäsovelluksille)</small>',
 		'password_format' => 'Vähintään 7 merkkiä',
 		'title' => 'Profiili',
@@ -159,8 +159,8 @@ return array(
 			'tags' => 'Näytä merkinnän mukaan',
 			'type' => 'Laji',
 		),
-		'get_A' => 'Näytä kaikki syötteet, myös ne, jotka näkyvät omassa luokassaan',	// DIRTY
-		'get_Z' => 'Näytä kaikki syötteet, myös arkistoidut',	// DIRTY
+		'get_A' => 'Näytä kaikki syötteet, myös ne, jotka näkyvät omassa luokassaan',
+		'get_Z' => 'Näytä kaikki syötteet, myös arkistoidut',
 		'get_all' => 'Näytä kaikki artikkelit',
 		'get_all_labels' => 'Näytä artikkelit, joissa on mikä tahansa merkintä',
 		'get_category' => 'Näytä luokka “%s”',
@@ -173,8 +173,8 @@ return array(
 		'name' => 'Nimi',
 		'no_filter' => 'Ei suodatinta',
 		'no_queries' => array(
-			'_' => 'Käyttäjän kyselyitä ei ole vielä tallennettu.',	// DIRTY
-			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ohje</a>',	// DIRTY
+			'_' => 'Käyttäjän kyselyitä ei ole vielä tallennettu.',
+			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ohje</a>',
 		),
 		'number' => 'Kysely %d',
 		'order_asc' => 'Näytä vanhimmat artikkelit ensin',
@@ -183,8 +183,8 @@ return array(
 		'share' => array(
 			'_' => 'Jaa kysely linkin avulla',
 			'disabled' => array(
-				'_' => 'poistettu käytöstä',	// DIRTY
-				'title' => 'Jakaminen',	// DIRTY
+				'_' => 'poistettu käytöstä',
+				'title' => 'Jakaminen',
 			),
 			'greader' => 'Linkki GReader JSON -muotoon jaettavaksi',
 			'help' => 'Voit jakaa kyselyn muiden kanssa antamalla heille tämän linkin',
@@ -280,13 +280,13 @@ return array(
 		'show' => array(
 			'_' => 'Näytettävät artikkelit',
 			'active_category' => 'Käytössä oleva luokka',
-			'adaptive' => 'Näytä lukemattomat (jos on, muutoin kaikki artikkelit)',	// DIRTY
+			'adaptive' => 'Näytä lukemattomat (jos on, muutoin kaikki artikkelit)',
 			'all_articles' => 'Näytä kaikki artikkelit',
 			'all_categories' => 'Kaikki luokat',
 			'no_category' => 'Ei luokkaa',
 			'remember_categories' => 'Muista avoinna olevat luokat',
 			'unread' => 'Näytä vain lukemattomat',
-			'unread_or_favorite' => 'Näytä lukemattomat ja suosikit',	// DIRTY
+			'unread_or_favorite' => 'Näytä lukemattomat ja suosikit',
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',

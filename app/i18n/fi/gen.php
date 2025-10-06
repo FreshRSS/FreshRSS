@@ -16,10 +16,10 @@ return array(
 		'add' => 'Lisää',
 		'back_to_rss_feeds' => '← Palaa RSS-syötteisiin',
 		'cancel' => 'Peruuta',
-		'close' => 'Sulje',	// DIRTY
+		'close' => 'Sulje',
 		'create' => 'Luo',
-		'delete_all_feeds' => 'Poista kaikki syötteet',	// DIRTY
-		'delete_errored_feeds' => 'Poista virheelliset syötteet',	// DIRTY
+		'delete_all_feeds' => 'Poista kaikki syötteet',
+		'delete_errored_feeds' => 'Poista virheelliset syötteet',
 		'delete_muted_feeds' => 'Poista vaimennetut syötteet',
 		'demote' => 'Laske tärkeyttä',
 		'disable' => 'Poista käytöstä',
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>Vähintään 7 merkkiä</small>',
 		),
 		'reauth' => array(
-			'header' => 'Uudelleentodentaminen tarvitaan',	// DIRTY
-			'tip' => 'Sinun ei tarvitse kirjautua uudelleen sisään <u>%d minuuttiin</u>',	// DIRTY
-			'title' => 'Uudelleentodentaminen',	// DIRTY
+			'header' => 'Uudelleentodentaminen tarvitaan',
+			'tip' => 'Sinun ei tarvitse kirjautua uudelleen sisään <u>%d minuuttiin</u>',
+			'title' => 'Uudelleentodentaminen',
 		),
 		'registration' => array(
 			'_' => 'Uusi tili',
@@ -144,7 +144,7 @@ return array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',
 		'confirm_action_feed_cat' => 'Haluatko varmasti toteuttaa toiminnon? Luokkaan kuuluvat suosikit ja kyselyt poistetaan. Tätä ei voi peruuttaa!',
-		'confirm_exit_slider' => 'Haluatko varmasti hylätä muutetut asetukset?',	// DIRTY
+		'confirm_exit_slider' => 'Haluatko varmasti hylätä muutetut asetukset?',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS-sovelluksessa on %%d uutta artikkelia luettavana.',
 			'body_unread_articles' => '(lukematta: %%d)',
@@ -154,7 +154,7 @@ return array(
 		'labels_empty' => 'Ei tunnisteita',
 		'new_article' => 'Uusia artikkeleita on saatavilla. Päivitä sivu napsauttamalla.',
 		'should_be_activated' => 'JavaScriptin on oltava käytössä',
-		'unsafe_csp_header' => 'Käytössä oleva CSP-otsikko on turvaton, ja FreshRSS saattaa olla altis XSS-hyökkäyksille. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lisätietoja ohjeessa</a>',	// DIRTY
+		'unsafe_csp_header' => 'Käytössä oleva CSP-otsikko on turvaton, ja FreshRSS saattaa olla altis XSS-hyökkäyksille. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lisätietoja ohjeessa</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
