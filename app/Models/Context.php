@@ -160,6 +160,12 @@ final class FreshRSS_Context {
 			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
 			FreshRSS_Context::$user_conf->save();
 		}
+
+		FreshRSS_Context::$user_conf->language = preg_replace_callback(
+			'/-(\\w{2})$/',
+			static fn (array $matches): string => strtoupper($matches[0]),
+			FreshRSS_Context::$user_conf->language ?? Minz_Translate::DEFAULT_LANGUAGE
+		) ?? Minz_Translate::DEFAULT_LANGUAGE;
 	}
 
 	/**
