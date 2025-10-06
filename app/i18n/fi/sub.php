@@ -50,7 +50,7 @@ return array(
 			'password' => 'HTTP-salasana',
 			'username' => 'HTTP-käyttäjätunnus',
 		),
-		'change_favicon' => 'Muuta…',	// TODO
+		'change_favicon' => 'Muuta…',	// DIRTY
 		'clear_cache' => 'Tyhjennä välimuisti aina',
 		'content_action' => array(
 			'_' => 'Toiminto noudettaessa artikkelin sisältö',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Lisää ennen aiempaa sisältöä',
 			'replace' => 'Korvaa aiempi sisältö',
 		),
-		'content_retrieval' => 'Sisällön noutaminen',	// TODO
+		'content_retrieval' => 'Sisällön noutaminen',	// DIRTY
 		'css_cookie' => 'Käytä evästeitä noudettaessa artikkelin sisältö',
 		'css_cookie_help' => 'Esimerkki: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Noutaa lyhennetyt RSS-syötteet (huomautus: kestää pidempään!)',
@@ -75,15 +75,15 @@ return array(
 			'help' => 'XML-tiedosto (osa tiedoista. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Katso ohje</a>)',
 			'label' => 'Vie OPML-tiedostoksi',
 		),
-		'ext_favicon' => 'Määritä automaattisesti',	// TODO
-		'favicon_changed_by_ext' => 'Laajennus <b>%s</b> on määrittänyt kuvakkeen.',	// TODO
+		'ext_favicon' => 'Määritä automaattisesti',	// DIRTY
+		'favicon_changed_by_ext' => 'Laajennus <b>%s</b> on määrittänyt kuvakkeen.',	// DIRTY
 		'filteractions' => array(
 			'_' => 'Suodatustoiminnot',
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
 		),
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Kuvake',	// TODO
+		'icon' => 'Kuvake',	// DIRTY
 		'information' => 'Tiedot',
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
@@ -206,18 +206,18 @@ return array(
 		'no_selected' => 'Syötettä ei ole valittu.',
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
-		'path_entries_conditions' => 'Sisällön noutamisen ehdot',	// TODO
+		'path_entries_conditions' => 'Sisällön noutamisen ehdot',	// DIRTY
 		'priority' => array(
 			'_' => 'Näkyvyys',
 			'category' => 'Näytä luokassaan',
-			'feed' => 'Näytä syötteessään',	// TODO
+			'feed' => 'Näytä syötteessään',	// DIRTY
 			'hidden' => 'Älä näytä',
 			'important' => 'Näytä tärkeissä syötteissä',
 			'main_stream' => 'Näytä pääsyötevirrassa',
 		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Palauta oletuskuvakkeeksi',	// TODO
+		'reset_favicon' => 'Palauta oletuskuvakkeeksi',	// DIRTY
 		'selector_preview' => array(
 			'show_raw' => 'Näytä lähdekoodi',
 			'show_rendered' => 'Näytä sisältö',
@@ -299,7 +299,7 @@ return array(
 		'add_dynamic_opml' => 'Lisää dynaaminen OPML',
 		'add_feed' => 'Lisää syöte',
 		'add_label' => 'Lisää tunniste',
-		'add_opml_category' => 'OPML-luokan nimi',	// TODO
+		'add_opml_category' => 'OPML-luokan nimi',	// DIRTY
 		'delete_label' => 'Poista tunniste',
 		'feed_management' => 'RSS-syötteiden hallinta',
 		'subscription_tools' => 'Tilaustyökalut',

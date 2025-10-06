@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Salli kirjautumattomien käyttäjien päivittää artikkelit',
 		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille ja käyttäjän kyselyjen jakamiselle)</small>',	// DIRTY
 		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
-		'http' => 'HTTP (lisäasetukset: web-palvelin, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (lisäasetukset: web-palvelin, OIDC, SSO…)',	// DIRTY
 		'none' => 'Ei mitään (vaarallinen)',
 		'title' => 'Todentaminen',
 		'token' => 'Todentamisen päätunnisteväline',
@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Pääsyötevirta',
 		'no_idle' => 'Hiljentyneitä syötteitä ei ole.',
 		'number_entries' => '%d artikkelia',
-		'overview' => 'Katsaus',	// TODO
+		'overview' => 'Katsaus',	// DIRTY
 		'percent_of_total' => '% kaikista',
 		'repartition' => 'Artikkelien uudelleenjaottelu: %s',
 		'status_favorites' => 'Suosikit',
