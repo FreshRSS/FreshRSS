@@ -82,6 +82,7 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 * [![PikaPods](https://www.pikapods.com/static/run-button-34.svg)](https://www.pikapods.com/pods?run=freshrss)
 * [![Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/freshrss)
 * [![Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/MD4TRW)
+* [![Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostinger.com/vps/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml)
 
 ## Installation manuelle
 
