@@ -196,7 +196,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					'a' => 'index',
 					'params' => $params,
 				],
-				'readAction'
+				notificationName: 'readAction ',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		}
 	}
@@ -254,16 +255,23 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
+		Minz_Request::good(
+			_t('feedback.admin.optimization_complete'),
+			$url_redirect,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
 	 * This action purges old entries from feeds.
 	 *
-	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -287,9 +295,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
-			'c' => 'configure',
-			'a' => 'archiving',
-		]);
+		Minz_Request::good(
+			_t('feedback.sub.purge_completed', $nb_total),
+			['c' => 'configure', 'a' => 'archiving'],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 }

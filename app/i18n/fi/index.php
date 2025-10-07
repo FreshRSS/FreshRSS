@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Järjestelmän tiedot',
+				'browser' => 'Selain',
+				'database' => 'Tietokanta',
+				'server_software' => 'Palvelinohjelmisto',
+				'version_curl' => 'cURL-versio',
+				'version_frss' => 'FreshRSS-versio',
+				'version_php' => 'PHP-versio',
 			),
 		),
 		'bugs_reports' => 'Virheraportit',
@@ -37,9 +37,9 @@ return array(
 	'feed' => array(
 		'empty' => 'Näytettäviä artikkeleita ei ole.',
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'before_yesterday' => 'Saapuneet aikaisemmin kuin eilen',
+			'today' => 'Saapuneet tänään',
+			'yesterday' => 'Saapuneet eilen',
 		),
 		'rss_of' => 'Sivuston %s RSS-syöte',
 		'title' => 'Pääsyötevirta',
@@ -76,24 +76,24 @@ return array(
 		'rss_view' => 'RSS-syöte',
 		'search_short' => 'Haku',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'_' => 'Lajitteluehdot',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Luokka, syötteiden otsikot A→Ö',
+				'name_desc' => 'Luokka, syötteiden otsikot Ö→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
+			'date_asc' => 'Julkaisupäivä 1→9',
+			'date_desc' => 'Julkaisupäivä 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Syötteen otsikko A→Ö',
+				'name_desc' => 'Syötteen otsikko Ö→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'id_asc' => 'Uusimmat viimeisenä',
+			'id_desc' => 'Uusimmat ensimmäisenä',
+			'link_asc' => 'Linkki A→Ö',
+			'link_desc' => 'Linkki Ö→A',
+			'rand' => 'Satunnainen järjestys',
+			'title_asc' => 'Otsikko A→Ö',
+			'title_desc' => 'Otsikko Ö→A',
 		),
 		'starred' => 'Näytä suosikit',
 		'stats' => 'Tilastot',

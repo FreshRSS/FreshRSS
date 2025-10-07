@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => '표시',
 			'category' => '피드가 속한 카테고리에만 표시하기',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => '표시하지 않음',
 			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',

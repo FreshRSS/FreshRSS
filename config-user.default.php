@@ -125,6 +125,8 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	'good_notification_timeout' => 3,
+	'bad_notification_timeout' => 8,
 	'show_nav_buttons' => true,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],

@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
 			'category' => 'Zeige in eigener Kategorie',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nicht anzeigen',
 			'important' => 'Zeige in "Wichtige Feeds"',
 			'main_stream' => 'In Haupt-Feeds zeigen',
@@ -237,7 +238,7 @@ return array(
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 		'unicityCriteria' => array(
 			'_' => 'Einzigartigkeit eines Artikels',
-			'forced' => '<span title="Einzigartikkeit-Einstellungen blockieren, selbst wenn der Feed Duplikat-Artikel hat">Erzwingen</span>',
+			'forced' => '<span title="Einzigartigkeit-Einstellungen blockieren, selbst wenn der Feed Duplikat-Artikel hat">Erzwingen</span>',
 			'help' => 'Relevant für defekte Feeds.<br />⚠️ Änderungen werden Duplikate erzeugen.',
 			'id' => 'Standard ID (Standardeinstellung)',
 			'link' => 'Link',	// IGNORE

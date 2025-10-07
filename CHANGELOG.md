@@ -2,18 +2,23 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2025-09-XX FreshRSS 1.27.1-dev
+## 2025-1X-XX FreshRSS 1.27.2-dev
+
+
+## 2025-09-27 FreshRSS 1.27.1
 
 * Features
 	* Automatic database recovery: skip broken entries during CLI export/import [#7949](https://github.com/FreshRSS/FreshRSS/pull/7949)
-	* Add security option for CSP `frame-ancestors` [#7857](https://github.com/FreshRSS/FreshRSS/pull/7857)
+	* Add security option for CSP `frame-ancestors` [#7857](https://github.com/FreshRSS/FreshRSS/pull/7857), [#8021](https://github.com/FreshRSS/FreshRSS/pull/8021)
+	* Lazy-load `<track src>` [#7997](https://github.com/FreshRSS/FreshRSS/pull/7997)
 * Security
 	* Regenerate session ID on login [#7829](https://github.com/FreshRSS/FreshRSS/pull/7829)
 	* Disallow setting non-existent language [#7878](https://github.com/FreshRSS/FreshRSS/pull/7878), [#7934](https://github.com/FreshRSS/FreshRSS/pull/7934)
 	* Safer calling of `install.php` [#7971](https://github.com/FreshRSS/FreshRSS/pull/7971)
 	* Prevent log CR/LF injection [#7883](https://github.com/FreshRSS/FreshRSS/pull/7883)
-	* Restrict allowed cURL parameters [#7979](https://github.com/FreshRSS/FreshRSS/pull/7979)
+	* Restrict allowed cURL parameters [#7979](https://github.com/FreshRSS/FreshRSS/pull/7979), [#8009](https://github.com/FreshRSS/FreshRSS/pull/8009)
 	* Fix reauthentication while updating [#7989](https://github.com/FreshRSS/FreshRSS/pull/7989)
+	* Fix some CSRFs [#8000](https://github.com/FreshRSS/FreshRSS/pull/8000)
 * Bug fixing
 	* Include port number for HTTP `Retry-After` [#7875](https://github.com/FreshRSS/FreshRSS/pull/7875)
 	* Fix logic for searching labels [#7863](https://github.com/FreshRSS/FreshRSS/pull/7863)
@@ -24,6 +29,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix displaying of current date in main statistics [#7892](https://github.com/FreshRSS/FreshRSS/pull/7892)
 	* Fix default values on stat processing [#7891](https://github.com/FreshRSS/FreshRSS/pull/7891)
 	* Fix UI JavaScript error when navigating to last article with keyboard [#7957](https://github.com/FreshRSS/FreshRSS/pull/7957)
+	* Fix some links in anonymous mode [#8011](https://github.com/FreshRSS/FreshRSS/pull/8011), [#8012](https://github.com/FreshRSS/FreshRSS/pull/8012)
 	* Fixes for `no-cache.txt` [#7907](https://github.com/FreshRSS/FreshRSS/pull/7907)
 	* Fix Docker Traefik `.yml` and `SERVER_DNS` example [#7858](https://github.com/FreshRSS/FreshRSS/pull/7858)
 * SimplePie
@@ -36,6 +42,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Keep sort and order after marking as read [#7974](https://github.com/FreshRSS/FreshRSS/pull/7974)
 	* Improve leave validation [#7830](https://github.com/FreshRSS/FreshRSS/pull/7830)
 	* Improve *Origine* theme visibility of toggle buttons [#7956](https://github.com/FreshRSS/FreshRSS/pull/7956)
+	* Improve *Dark pink* theme [#8020](https://github.com/FreshRSS/FreshRSS/pull/8020)
 	* Improve *Mapco* and *Ansum* themes: read all button in mobile view [#7873](https://github.com/FreshRSS/FreshRSS/pull/7873)
 	* Improve *Swage* theme [#7608](https://github.com/FreshRSS/FreshRSS/pull/7608)
 	* Use standard CSS `overflow-wrap` instead of `word-wrap` [#7898](https://github.com/FreshRSS/FreshRSS/pull/7898)

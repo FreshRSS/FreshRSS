@@ -20,7 +20,7 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 	$nbEntries = 0;
 	foreach ($this->entries as $entry):
 		/** @var FreshRSS_Entry|null $entry */
-		$entry = Minz_ExtensionManager::callHook('entry_before_display', $entry);
+		$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $entry);
 		if ($entry === null) {
 			continue;
 		}

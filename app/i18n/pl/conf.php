@@ -105,6 +105,16 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Pokaż baner ostrzeżenia',
+			'seconds' => 'sekundy (przynajmniej 1)',
+		),
+		'good' => array(
+			'label' => 'Pokaż baner potwierdzający',
+			'seconds' => 'sekundy (0 oznacza nie pokazuj)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',

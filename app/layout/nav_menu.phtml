@@ -96,7 +96,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -190,7 +190,7 @@
 	<div id="nav_menu_views" class="group">
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		$readingModes = Minz_ExtensionManager::callHook(Minz_HookType::NavReadingModes, $readingModes);
 		if (!is_iterable($readingModes)) {
 			$readingModes = FreshRSS_ReadingMode::getReadingModes();
 		}
@@ -207,7 +207,7 @@
 		?>
 	</div>
 
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString(Minz_HookType::NavMenu); ?>
 	<?php if ($nav_menu_hooks != '') { ?>
 	<div id="nav_menu_hooks" class="group">
 		<?= $nav_menu_hooks ?>

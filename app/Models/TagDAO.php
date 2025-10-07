@@ -7,16 +7,28 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		return 'IGNORE';
 	}
 
+	public function sqlResetSequence(): bool {
+		return true;	// Nothing to do for MySQL
+	}
+
 	/**
-	 * @param array{'id'?:int,'name':string,'attributes'?:array<string,mixed>} $valuesTmp
+	 * @param array{id?:int,name:string,attributes?:array<string,mixed>} $valuesTmp
 	 */
 	public function addTag(array $valuesTmp): int|false {
-		// TRIM() gives a text type hint to PostgreSQL
-		// No category of the same name
-		$sql = <<<'SQL'
+		if (empty($valuesTmp['id'])) {	// Auto-generated ID
+			$sql = <<<'SQL'
 INSERT INTO `_tag`(name, attributes)
-SELECT * FROM (SELECT TRIM(?) as name, TRIM(?) as attributes) t2
-WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = TRIM(?))
+SELECT * FROM (SELECT :name1 AS name, :attributes AS attributes) t2
+SQL;
+		} else {
+			$sql = <<<'SQL'
+INSERT INTO `_tag`(id, name, attributes)
+SELECT * FROM (SELECT 1*:id AS id, :name1 AS name, :attributes AS attributes) t2
+SQL;
+		}
+		// No category of the same name
+		$sql .= "\n" . <<<'SQL'
+WHERE NOT EXISTS (SELECT 1 FROM `_category` WHERE name = :name2)
 SQL;
 		$stm = $this->pdo->prepare($sql);
 
@@ -24,15 +36,21 @@ SQL;
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = [
-			$valuesTmp['name'],
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-			$valuesTmp['name'],
-		];
-
-		if ($stm !== false && $stm->execute($values) && $stm->rowCount() > 0) {
-			$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
-			return $tagId === false ? false : (int)$tagId;
+		if ($stm !== false) {
+			$stm->bindValue(':id', empty($valuesTmp['id']) ? null : $valuesTmp['id'], PDO::PARAM_INT);
+			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR);
+			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR);
+			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR);
+		}
+		if ($stm !== false && $stm->execute() && $stm->rowCount() > 0) {
+			if (empty($valuesTmp['id'])) {
+				// Auto-generated ID
+				$tagId = $this->pdo->lastInsertId('`_tag_id_seq`');
+				return $tagId === false ? false : (int)$tagId;
+			}
+			$this->sqlResetSequence();
+			return $valuesTmp['id'];
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));

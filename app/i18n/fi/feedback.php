@@ -50,7 +50,7 @@ return array(
 			'ko' => 'Laajennusta %s ei voi ottaa käyttöön. Lisätietoja on <a href="%s">FreshRSS-lokeissa</a>.',
 			'ok' => '%s on nyt otettu käyttöön',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Virheellinen näkymä %s! Palataan käyttämään tavallista näkymää.',
 		'no_access' => 'Sinulla ei ole laajennuksen %s käyttöoikeutta',
 		'not_enabled' => 'Laajennus %s ei ole käytössä',
 		'not_found' => 'Laajennusta %s ei ole',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Profiilia ei voi muokata',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Salasanat eivät täsmää',
 		'updated' => 'Profiilia on muokattu',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Syöte on poistettu',
 			'error' => 'Syötteen päivitys ei onnistu',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'Palvelimeen siirretty kuvake on liian suuri. Tiedoston enimmäiskoko on <em>%s</em>.',
+				'unsupported_format' => 'Kuvan tiedostomuotoa ei tueta.',
 			),
 			'internal_problem' => 'Uutissyötettä ei voinut lisätä. Lisätietoja on <a href="%s">FreshRSS-lokeissa</a>. Voit yrittää pakottaa lisäämisen liittämällä tekstin <code>#force_feed</code> URL-osoitteen loppuun.',
 			'invalid_url' => 'URL-osoite <em>%s</em> on virheellinen',

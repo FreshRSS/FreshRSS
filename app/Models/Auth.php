@@ -217,8 +217,7 @@ class FreshRSS_Auth {
 	public static function csrfToken(): string {
 		$csrf = Minz_Session::paramString('csrf');
 		if ($csrf == '') {
-			$salt = FreshRSS_Context::systemConf()->salt;
-			$csrf = sha1($salt . uniqid('' . random_int(0, mt_getrandmax()), true));
+			$csrf = hash('sha256', FreshRSS_Context::systemConf()->salt . random_bytes(32));
 			Minz_Session::_param('csrf', $csrf);
 		}
 		return $csrf;
