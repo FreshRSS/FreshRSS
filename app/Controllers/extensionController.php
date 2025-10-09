@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /**
  * The controller to manage extensions.
+ *
+ * @phpstan ExtensionFullMetadata array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string}
  */
 class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
@@ -40,7 +42,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Fetch extension list from GitHub
-	 * @return list<array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string}>
+	 * @return list<ExtensionFullMetadata>
 	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
@@ -93,7 +95,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			if (!in_array($extension['type'], ['system', 'user'], true) || trim($extension['name']) === '') {
 				continue;
 			}
-			/** @var array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string} $extension */
+			/** @var ExtensionFullMetadata $extension */
 			$extensions[] = $extension;
 		}
 		return $extensions;
