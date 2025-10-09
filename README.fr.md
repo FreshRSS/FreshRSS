@@ -2,6 +2,7 @@
 
 * Lire ce document sur [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md) pour avoir les images et liens corrects.
 * [English version](README.md)
+* [简体中文版](README.zh-CN.md)
 
 # FreshRSS
 
