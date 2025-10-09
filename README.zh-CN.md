@@ -211,8 +211,8 @@ FreshRSS 支持通过两种不同的 API 供 Linux、Android、iOS、Windows 和
 
 # 可替代方案
 
-如果由于某些原因 FreshRSS 不适合你，可以考虑以下替代方案：
+如果由于某些原因 FreshRSS 不适合您，可以考虑以下替代方案：
 
 * [Kriss Feed](https://tontof.net/kriss/feed/)
 * [Leed](https://github.com/LeedRSS/Leed)
-* [以及更多……](https://alternativeto.net/software/freshrss/)（不过如果你喜欢 FreshRSS，别忘了给我们投票！）
+* [以及更多……](https://alternativeto.net/software/freshrss/)（不过如果您喜欢 FreshRSS，别忘了给我们投票！）
