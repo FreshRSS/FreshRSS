@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Acak',
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Tampilkan yang difavoritkan',
 		'stats' => 'Statistik',

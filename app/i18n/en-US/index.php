@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Random order',	// IGNORE
 			'title_asc' => 'Title A→Z',	// IGNORE
 			'title_desc' => 'Title Z→A',	// IGNORE
+			'user_modified_asc' => 'User modified 1→9',	// IGNORE
+			'user_modified_desc' => 'User modified 9→1',	// IGNORE
 		),
 		'starred' => 'Show favorites',
 		'stats' => 'Statistics',	// IGNORE

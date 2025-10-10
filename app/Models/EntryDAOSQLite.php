@@ -64,7 +64,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false && ($columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1)) !== false) {
-			foreach (['attributes'] as $column) {
+			foreach (['attributes', 'lastUserModified'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}
@@ -124,8 +124,8 @@ SQL;
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
-			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
-			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
+			$sql = 'UPDATE `_entry` SET is_read=?, `lastUserModified` = ? WHERE id=? AND is_read=?';
+			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -165,11 +165,11 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ? AND '
+		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($id != 0) {
 			$values[] = $id;
 		}

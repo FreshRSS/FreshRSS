@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Satunnainen järjestys',
 			'title_asc' => 'Otsikko A→Ö',
 			'title_desc' => 'Otsikko Ö→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Näytä suosikit',
 		'stats' => 'Tilastot',
