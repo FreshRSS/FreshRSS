@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * The controller to manage extensions.
  *
- * @phpstan ExtensionFullMetadata array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string,compatibility:string}
+ * @phpstan-import-type ExtensionFullMetadata from FreshRSS_View
  */
 class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
