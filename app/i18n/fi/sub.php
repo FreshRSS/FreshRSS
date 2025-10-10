@@ -50,7 +50,7 @@ return array(
 			'password' => 'HTTP-salasana',
 			'username' => 'HTTP-käyttäjätunnus',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Muuta…',
 		'clear_cache' => 'Tyhjennä välimuisti aina',
 		'content_action' => array(
 			'_' => 'Toiminto noudettaessa artikkelin sisältö',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Lisää ennen aiempaa sisältöä',
 			'replace' => 'Korvaa aiempi sisältö',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Sisällön noutaminen',
 		'css_cookie' => 'Käytä evästeitä noudettaessa artikkelin sisältö',
 		'css_cookie_help' => 'Esimerkki: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Noutaa lyhennetyt RSS-syötteet (huomautus: kestää pidempään!)',
@@ -69,21 +69,21 @@ return array(
 		),
 		'description' => 'Kuvaus',
 		'empty' => 'Syöte on tyhjä. Varmista, että sitä ylläpidetään edelleen.',
-		'error' => 'Syötteessä on ilmennyt ongelma. Varmista, että se on aina tavoitettavissa.',	// DIRTY
+		'error' => 'Syötteessä on ilmennyt ongelma. Jos tilanne jatkuu, varmista, että syöte on edelleen käytettävissä.',
 		'export-as-opml' => array(
 			'download' => 'Lataa',
 			'help' => 'XML-tiedosto (osa tiedoista. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Katso ohje</a>)',
 			'label' => 'Vie OPML-tiedostoksi',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Määritä automaattisesti',
+		'favicon_changed_by_ext' => 'Laajennus <b>%s</b> on määrittänyt kuvakkeen.',
 		'filteractions' => array(
 			'_' => 'Suodatustoiminnot',
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
 		),
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Kuvake',
 		'information' => 'Tiedot',
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
@@ -92,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + JSON-pistemerkintä (JSON HTML:ssä)',
 				'xpath' => array(
 					'_' => 'XPath (JSON HTML:ssä)',
-					'help' => 'Esimerkki: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
+					'help' => 'Esimerkki: <code>normalize-space(//script[@type="application/json"])</code> (yksittäinen JSON)<br />tai: <code>//script[@type="application/ld+json"]</code> (yksi JSON-objekti artikkelia kohti)',
 				),
 			),
 			'html_xpath' => array(
@@ -206,18 +206,18 @@ return array(
 		'no_selected' => 'Syötettä ei ole valittu.',
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => 'Sisällön noutamisen ehdot',
 		'priority' => array(
 			'_' => 'Näkyvyys',
 			'category' => 'Näytä luokassaan',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Näytä syötteessään',
 			'hidden' => 'Älä näytä',
 			'important' => 'Näytä tärkeissä syötteissä',
 			'main_stream' => 'Näytä pääsyötevirrassa',
 		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Palauta oletuskuvakkeeksi',
 		'selector_preview' => array(
 			'show_raw' => 'Näytä lähdekoodi',
 			'show_rendered' => 'Näytä sisältö',
@@ -299,7 +299,7 @@ return array(
 		'add_dynamic_opml' => 'Lisää dynaaminen OPML',
 		'add_feed' => 'Lisää syöte',
 		'add_label' => 'Lisää tunniste',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'OPML-luokan nimi',
 		'delete_label' => 'Poista tunniste',
 		'feed_management' => 'RSS-syötteiden hallinta',
 		'subscription_tools' => 'Tilaustyökalut',

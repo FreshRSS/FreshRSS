@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Salli kirjautumattomien käyttäjien lukea oletuskäyttäjän artikkeleita (%s)',
 		'allow_anonymous_refresh' => 'Salli kirjautumattomien käyttäjien päivittää artikkelit',
-		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille ja käyttäjän kyselyjen jakamiselle)</small>',
 		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (lisäasetukset: web-palvelin, OIDC, SSO…)',
 		'none' => 'Ei mitään (vaarallinen)',
 		'title' => 'Todentaminen',
 		'token' => 'Todentamisen päätunnisteväline',
@@ -148,7 +148,7 @@ return array(
 		'main_stream' => 'Pääsyötevirta',
 		'no_idle' => 'Hiljentyneitä syötteitä ei ole.',
 		'number_entries' => '%d artikkelia',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Katsaus',
 		'percent_of_total' => '% kaikista',
 		'repartition' => 'Artikkelien uudelleenjaottelu: %s',
 		'status_favorites' => 'Suosikit',
