@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Нет установленных расширений',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Включены',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Установлено',
 		'name' => 'Название',
 		'no_configure_view' => 'Это расширение не требует настройки.',

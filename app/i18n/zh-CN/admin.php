@@ -118,6 +118,7 @@ return array(
 		'empty_list' => '没有已安装的扩展',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '已启用',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => '已安装',
 		'name' => '名称',
 		'no_configure_view' => '此扩展无法配置。',
