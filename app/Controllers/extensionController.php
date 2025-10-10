@@ -42,7 +42,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Fetch extension list from GitHub
-	 * @return list<ExtensionFullMetadata>
+	 * @phpstan-return list<ExtensionFullMetadata>
 	 */
 	protected function getAvailableExtensionList(): array {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
