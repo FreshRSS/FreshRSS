@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistics',	// IGNORE
 		'all_feeds' => 'All feeds',	// IGNORE
 		'category' => 'Category',	// IGNORE
+		'date' => 'Date',	// IGNORE
 		'entry_count' => 'Entry count',	// IGNORE
 		'entry_per_category' => 'Entries per category',	// IGNORE
 		'entry_per_day' => 'Entries per day (last 30 days)',	// IGNORE
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Idle feeds',	// IGNORE
 		'main' => 'Main statistics',	// IGNORE
 		'main_stream' => 'Main stream',	// IGNORE
+		'nb_unreads' => 'Number of unread articles',	// IGNORE
 		'no_idle' => 'There are no idle feeds!',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Overview',	// IGNORE

@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
+		'date' => 'Date',	// IGNORE
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles par catégorie',
 		'entry_per_day' => 'Nombre d’articles par jour (30 derniers jours)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Flux inactifs',
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
+		'nb_unreads' => 'Nombre d’articles non lus',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Vue d’ensemble',

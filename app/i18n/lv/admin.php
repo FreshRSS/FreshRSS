@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Visas barotnes',
 		'category' => 'Kategorija',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Ierakstu skaits',
 		'entry_per_category' => 'Ieraksti katrā kategorijā',
 		'entry_per_day' => 'Ieraksti dienā (pēdējās 30 dienas)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Neaktīvās barotnes',
 		'main' => 'Galvenās statistikas',
 		'main_stream' => 'Galvenā plūsma',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Nav neaktīvu barotņu!',
 		'number_entries' => '%d raksti',
 		'overview' => 'Overview',	// TODO

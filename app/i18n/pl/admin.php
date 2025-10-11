@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Liczba wiadomości',
 		'entry_per_category' => 'Wiadomości w podziale na kategorie',
 		'entry_per_day' => 'Wiadomości na dzień (przez ostatnie 30 dni)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'overview' => 'Podsumowanie',

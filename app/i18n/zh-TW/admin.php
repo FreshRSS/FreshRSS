@@ -134,6 +134,7 @@ return array(
 		'_' => '統計',
 		'all_feeds' => '所有訂閱源',
 		'category' => '分類',
+		'date' => 'Date',	// TODO
 		'entry_count' => '文章數',
 		'entry_per_category' => '各分類文章數',
 		'entry_per_day' => '近三十日每日文章數',
@@ -146,6 +147,7 @@ return array(
 		'idle' => '長期無更新訂閱源',
 		'main' => '主要統計',
 		'main_stream' => '首頁',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
 		'overview' => 'Overview',	// TODO

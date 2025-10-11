@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Articoli',
 		'entry_per_category' => 'Articoli per categoria',
 		'entry_per_day' => 'Articoli per giorno (ultimi 30 giorni)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
 		'main_stream' => 'Flusso principale',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
 		'overview' => 'Panoramica',

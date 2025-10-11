@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua umpan',
 		'category' => 'Kategori',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Jumlah entri',
 		'entry_per_category' => 'Entri per kategori',
 		'entry_per_day' => 'Entri per hari (30 hari terakhir)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Umpan Tak Terbarukan',
 		'main' => 'Statistik utama',
 		'main_stream' => 'Bagian utama',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Tidak ada umpan tak terbarukan!',
 		'number_entries' => '%d artikel',
 		'overview' => 'Ringkasan',

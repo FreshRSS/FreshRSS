@@ -134,6 +134,7 @@ return array(
 		'_' => 'סטטיסטיקות',
 		'all_feeds' => 'כל ההזנות',
 		'category' => 'קטגוריה',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'סכום המאמרים',
 		'entry_per_category' => 'מאמרים על פי קטגוריה',
 		'entry_per_day' => 'מספר מאמרים ליום (30 ימים אחרונים)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'הזנות שלא עודכנו',
 		'main' => 'סטטיסטיקות ראשיות',
 		'main_stream' => 'הזנה ראשית',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
 		'overview' => 'Overview',	// TODO

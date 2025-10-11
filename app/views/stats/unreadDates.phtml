@@ -5,4 +5,33 @@
 ?>
 <main class="post">
 	<h1><?= _t('admin.stats.unread_dates') ?></h1>
+	<form>
+		<input type="hidden" name="c" value="stats" />
+		<input type="hidden" name="a" value="unreadDates" />
+		<input type="number" name="max" id="max" value="<?= htmlspecialchars((string)(Minz_Request::paramInt('max') ?: 100), ENT_NOQUOTES, 'UTF-8') ?>" min="1" />
+		<select name="granularity" id="granularity">
+			<option value="day" <?= Minz_Request::paramString('granularity') === 'day' ? 'selected' : '' ?>><?= _t('gen.period.days') ?></option>
+			<option value="month" <?= Minz_Request::paramString('granularity') === 'month' ? 'selected' : '' ?>><?= _t('gen.period.months') ?></option>
+			<option value="year" <?= Minz_Request::paramString('granularity') === 'year' ? 'selected' : '' ?>><?= _t('gen.period.years') ?></option>
+		</select>
+		<input type="submit" />
+	</form>
+	<table>
+		<thead>
+			<tr>
+				<th><?= _t('admin.stats.date') ?></th>
+				<th><?= _t('admin.stats.nb_unreads') ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->unreadDates as $row): ?>
+				<tr>
+					<td><a href="<?= _url('index', 'index', 'search', 'date:' . urlencode($row['granularity'])) ?>">
+						<?= htmlspecialchars($row['granularity'], ENT_NOQUOTES, 'UTF-8') ?>
+					</a></td>
+					<td><?= htmlspecialchars((string)$row['unread_count'], ENT_NOQUOTES, 'UTF-8') ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
 </main>

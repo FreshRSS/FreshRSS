@@ -134,6 +134,7 @@ return array(
 		'_' => 'Estadísticas',
 		'all_feeds' => 'Todas las fuentes',
 		'category' => 'Categoría',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
 		'main_stream' => 'Salida principal',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'overview' => 'Overview',	// TODO

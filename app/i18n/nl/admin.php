@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Invoer aantallen',
 		'entry_per_category' => 'Aantallen per categorie',
 		'entry_per_day' => 'Aantallen per dag (laatste 30 dagen)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
 		'main_stream' => 'Overzicht',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
 		'overview' => 'Overzicht',

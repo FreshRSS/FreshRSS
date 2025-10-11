@@ -134,6 +134,7 @@ return array(
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
 		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => '休止中のフィード',
 		'main' => '主な統計',
 		'main_stream' => '主なストリーム',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '休止中のフィードはありません!',
 		'number_entries' => '%d 記事',
 		'overview' => '概要',

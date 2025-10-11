@@ -134,6 +134,7 @@ return array(
 		'_' => 'Štatistiky',
 		'all_feeds' => 'Všetky kanály',
 		'category' => 'Kategória',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Počet položiek',
 		'entry_per_category' => 'Položiek v kategórii',
 		'entry_per_day' => 'Položiek za deň (posledných 30 dní)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Neaktívne kanály',
 		'main' => 'Hlavné štatistiky',
 		'main_stream' => 'Všetky kanály',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Žiadne neaktívne kanály!',
 		'number_entries' => 'Počet článkov: %d',
 		'overview' => 'Overview',	// TODO

@@ -134,6 +134,7 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Количество статей',
 		'entry_per_category' => 'Статей в категории',
 		'entry_per_day' => 'Статей за день (за последние 30 дней)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Неактивные ленты',
 		'main' => 'Основная статистика',
 		'main_stream' => 'Основной поток',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
 		'overview' => 'Overview',	// TODO

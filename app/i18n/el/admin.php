@@ -134,6 +134,7 @@ return array(
 		'_' => 'Στατιστικά',
 		'all_feeds' => 'Όλες οι τροφοδοσίες',
 		'category' => 'Κατηγορία',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Αριθμός καταχωρίσεων',
 		'entry_per_category' => 'Καταχωρίσεις ανά κατηγορία',
 		'entry_per_day' => 'Καταχωρίσεις ανά ημέρα (τελευταίες 30 ημέρες)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Αδρανείς τροφοδοσίες',
 		'main' => 'Κύρια στατισικά',
 		'main_stream' => 'Κύρια ροή',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
 		'overview' => 'Overview',	// TODO

@@ -134,6 +134,7 @@ return array(
 		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles per categoria',
 		'entry_per_day' => 'Nombre d’articles per jorn (darrièrs 30 jorns)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Fluxes inactius',
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'I a pas cap d’article inactiu !',
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Overview',	// TODO

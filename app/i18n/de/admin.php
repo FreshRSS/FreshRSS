@@ -134,6 +134,7 @@ return array(
 		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
+		'date' => 'Date',	// TODO
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
 		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
@@ -146,6 +147,7 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'overview' => 'Übersicht',
