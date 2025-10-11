@@ -14,7 +14,7 @@
 			<option value="month" <?= Minz_Request::paramString('granularity') === 'month' ? 'selected' : '' ?>><?= _t('gen.period.months') ?></option>
 			<option value="year" <?= Minz_Request::paramString('granularity') === 'year' ? 'selected' : '' ?>><?= _t('gen.period.years') ?></option>
 		</select>
-		<input type="submit" />
+		<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 	</form>
 	<table>
 		<thead>
