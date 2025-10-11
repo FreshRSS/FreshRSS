@@ -26,7 +26,7 @@
 		<tbody>
 			<?php foreach ($this->unreadDates as $row): ?>
 				<tr>
-					<td><a href="<?= _url('index', 'index', 'search', 'date:' . urlencode($row['granularity'])) ?>">
+					<td><a href="<?= _url('index', 'index', 'search', 'date:' . $row['granularity']) ?>">
 						<?= htmlspecialchars($row['granularity'], ENT_NOQUOTES, 'UTF-8') ?>
 					</a></td>
 					<td><?= htmlspecialchars((string)$row['unread_count'], ENT_NOQUOTES, 'UTF-8') ?></td>
