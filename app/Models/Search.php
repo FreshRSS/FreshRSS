@@ -43,6 +43,10 @@ class FreshRSS_Search implements \Stringable {
 	private $min_pubdate = null;
 	/** @var int|false|null */
 	private $max_pubdate = null;
+	/** @var int|false|null */
+	private $min_userdate = null;
+	/** @var int|false|null */
+	private $max_userdate = null;
 	/** @var list<string>|null */
 	private ?array $inurl = null;
 	/** @var list<string>|null */
@@ -86,6 +90,10 @@ class FreshRSS_Search implements \Stringable {
 	private $not_min_pubdate = null;
 	/** @var int|false|null */
 	private $not_max_pubdate = null;
+	/** @var int|false|null */
+	private $not_min_userdate = null;
+	/** @var int|false|null */
+	private $not_max_userdate = null;
 	/** @var list<string>|null */
 	private ?array $not_inurl = null;
 	/** @var list<string>|null */
@@ -115,6 +123,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
 
+		$input = $this->parseNotUserdateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
@@ -130,6 +139,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
 
+		$input = $this->parseUserdateSearch($input);
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 
@@ -263,6 +273,20 @@ class FreshRSS_Search implements \Stringable {
 	}
 	public function getNotMaxPubdate(): ?int {
 		return $this->not_max_pubdate ?: null;
+	}
+
+	public function getMinUserdate(): ?int {
+		return $this->min_userdate ?: null;
+	}
+	public function getNotMinUserdate(): ?int {
+		return $this->not_min_userdate ?: null;
+	}
+
+	public function getMaxUserdate(): ?int {
+		return $this->max_userdate ?: null;
+	}
+	public function getNotMaxUserdate(): ?int {
+		return $this->not_max_userdate ?: null;
 	}
 
 	/** @return list<string>|null */
@@ -793,6 +817,32 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find userdate keyword and the search related to it.
+	 * The search is the first word following the keyword.
+	 */
+	private function parseUserdateSearch(string $input): string {
+		if (preg_match_all('/\\buserdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->min_userdate, $this->max_userdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotUserdateSearch(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]userdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->not_min_userdate, $this->not_max_userdate] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

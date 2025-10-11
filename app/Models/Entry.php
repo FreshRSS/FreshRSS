@@ -654,6 +654,18 @@ HTML;
 				if ($ok && $filter->getNotMaxPubdate() !== null) {
 					$ok &= $this->date > $filter->getNotMaxPubdate();
 				}
+				if ($ok && $filter->getMinUserdate() !== null) {
+					$ok &= $this->lastUserModified >= $filter->getMinUserdate();
+				}
+				if ($ok && $filter->getNotMinUserdate() !== null) {
+					$ok &= $this->lastUserModified < $filter->getNotMinUserdate();
+				}
+				if ($ok && $filter->getMaxUserdate() !== null) {
+					$ok &= $this->lastUserModified <= $filter->getMaxUserdate();
+				}
+				if ($ok && $filter->getNotMaxUserdate() !== null) {
+					$ok &= $this->lastUserModified > $filter->getNotMaxUserdate();
+				}
 				if ($ok && $filter->getFeedIds() !== null) {
 					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
 				}

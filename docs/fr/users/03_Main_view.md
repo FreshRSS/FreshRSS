@@ -250,6 +250,7 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 	* Les contraintes de date peuvent être combinées :
 		* `date:P1Y !date:P1M` (depuis un an avant maintenant jusqu’à un mois avant maintenant)
 * par date de publication, avec la même syntaxe : `pubdate:<date-interval>`
+* par date de modification par l’utilisateur, avec la même syntaxe : `userdate:<date-interval>`
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmi une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`

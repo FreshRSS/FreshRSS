@@ -91,6 +91,7 @@ You can use the search field to further refine results:
 	* Date constraints may be combined:
 		* `date:P1Y !date:P1M` (from one year before now until one month before now)
 * by date of publication, using the same format: `pubdate:<date-interval>`
+* by date of user modification, using the same format: `userdate:<date-interval>`
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`

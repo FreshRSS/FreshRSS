@@ -902,6 +902,14 @@ SQL;
 				$sub_search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
+			if ($filter->getMinUserdate() !== null) {
+				$sub_search .= 'AND ' . $alias . '`lastUserModified` >= ? ';
+				$values[] = $filter->getMinUserdate();
+			}
+			if ($filter->getMaxUserdate() !== null) {
+				$sub_search .= 'AND ' . $alias . '`lastUserModified` <= ? ';
+				$values[] = $filter->getMaxUserdate();
+			}
 
 			//Negation of date intervals must be combined by OR
 			if ($filter->getNotMinDate() !== null || $filter->getNotMaxDate() !== null) {
@@ -931,6 +939,21 @@ SQL;
 				if ($filter->getNotMaxPubdate() !== null) {
 					$sub_search .= $alias . 'date > ?';
 					$values[] = $filter->getNotMaxPubdate();
+				}
+				$sub_search .= ') ';
+			}
+			if ($filter->getNotMinUserdate() !== null || $filter->getNotMaxUserdate() !== null) {
+				$sub_search .= 'AND (';
+				if ($filter->getNotMinUserdate() !== null) {
+					$sub_search .= $alias . '`lastUserModified` < ?';
+					$values[] = $filter->getNotMinUserdate();
+					if ($filter->getNotMaxUserdate()) {
+						$sub_search .= ' OR ';
+					}
+				}
+				if ($filter->getNotMaxUserdate() !== null) {
+					$sub_search .= $alias . '`lastUserModified` > ?';
+					$values[] = $filter->getNotMaxUserdate();
 				}
 				$sub_search .= ') ';
 			}
