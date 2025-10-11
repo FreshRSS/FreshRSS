@@ -67,7 +67,7 @@ function _dateCeiling(string $isoDate): string {
 
 /** @phpstan-return ($isoDate is null ? null : ($isoDate is '' ? null : string)) */
 function _noDelimit(?string $isoDate): ?string {
-	return $isoDate === null || $isoDate === '' ? null : str_replace(['-', ':', ' '], '', $isoDate);	//FIXME: Bug with negative time zone
+	return $isoDate === null || $isoDate === '' ? null : str_replace(['-', ':'], '', $isoDate);	//FIXME: Bug with negative time zone
 }
 
 function _dateRelative(?string $d1, ?string $d2): ?string {
@@ -91,7 +91,7 @@ function _dateRelative(?string $d1, ?string $d2): ?string {
  */
 function parseDateInterval(string $dateInterval): array {
 	$dateInterval = trim($dateInterval);
-	$dateInterval = str_replace('--', '/', $dateInterval);
+	$dateInterval = str_replace(['--', ' '], ['/', 'T'], $dateInterval);
 	$dateInterval = strtoupper($dateInterval);
 	$min = null;
 	$max = null;

@@ -167,9 +167,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideDateSearch(): array {
 		return [
-			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
-			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
-			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
 			['date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
 			['date:2007-03-01/', strtotime('2007-03-01'), null],
 			['date:/2008-05-11', null, strtotime('2008-05-12') - 1],
@@ -188,9 +188,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function providePubdateSearch(): array {
 		return [
-			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
-			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
-			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
 			['pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
 			['pubdate:2007-03-01/', strtotime('2007-03-01'), null],
 			['pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
@@ -209,7 +209,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideUserdateSearch(): array {
 		return [
-			['userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
+			['userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			['userdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
 		];
 	}
@@ -553,98 +553,98 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			[
 				'date:2007-03-01/2008-05-11',
 				'(e.id >= ? AND e.id <= ? )',
-				['1172707200000000', '1210550399000000']
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			[
 				'date:2007-03-01/',
 				'(e.id >= ? )',
-				['1172707200000000']
+				[strtotime('2007-03-01T00:00:00Z') . '000000'],
 			],
 			[
 				'date:/2008-05-11',
 				'(e.id <= ? )',
-				['1210550399000000']
+				[strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			// Basic pubdate operator tests
 			[
 				'pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
 				'(e.date >= ? AND e.date <= ? )',
-				[1172754000, 1210519800]
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'pubdate:2007-03-01/',
 				'(e.date >= ? )',
-				[1172707200]
+				[strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'pubdate:/2008-05-11',
 				'(e.date <= ? )',
-				[1210550399]
+				[strtotime('2008-05-11T23:59:59Z')],
 			],
 			// Basic userdate operator tests
 			[
 				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
 				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? )',
-				[1172754000, 1210519800]
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'userdate:2007-03-01/',
 				'(e.`lastUserModified` >= ? )',
-				[1172707200]
+				[strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'userdate:/2008-05-11',
 				'(e.`lastUserModified` <= ? )',
-				[1210550399]
+				[strtotime('2008-05-11T23:59:59Z')],
 			],
 			// Negative date operator tests
 			[
 				'-date:2007-03-01/2008-05-11',
 				'((e.id < ? OR e.id > ?) )',
-				['1172707200000000', '1210550399000000']
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			[
 				'!pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
 				'((e.date < ? OR e.date > ?) )',
-				[1172754000, 1210519800]
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
 				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
-				[1172754000, 1210519800]
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			// Combined date operators
 			[
 				'date:2007-03-01/ pubdate:/2008-05-11',
 				'(e.id >= ? AND e.date <= ? )',
-				['1172707200000000', 1210550399]
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z')],
 			],
 			[
 				'pubdate:2007-03-01/ userdate:/2008-05-11',
 				'(e.date >= ? AND e.`lastUserModified` <= ? )',
-				[1172707200, 1210550399]
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
 			],
 			[
 				'date:2007-03-01/ userdate:2007-06-01/',
 				'(e.id >= ? AND e.`lastUserModified` >= ? )',
-				['1172707200000000', 1180656000]
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2007-06-01T00:00:00Z')],
 			],
 			// Complex combinations with other operators
 			[
 				'intitle:test date:2007-03-01/ pubdate:/2008-05-11',
 				'(e.id >= ? AND e.date <= ? AND e.title LIKE ? )',
-				['1172707200000000', 1210550399, '%test%']
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z'), '%test%'],
 			],
 			[
 				'author:john userdate:2007-03-01/2008-05-11',
 				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? AND e.author LIKE ? )',
-				[1172707200, 1210550399, '%john%']
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z'), '%john%'],
 			],
 			// Mixed positive and negative date operators
 			[
 				'date:2007-03-01/ !pubdate:2008-01-01/2008-05-11',
 				'(e.id >= ? AND (e.date < ? OR e.date > ?) )',
-				['1172707200000000', 1199145600, 1210550399]
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-01-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
 			],
 		];
 	}
