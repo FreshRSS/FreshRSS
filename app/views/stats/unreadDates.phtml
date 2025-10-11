@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>
 			<?php foreach ($this->unreadDates as $row): ?>
-				<tr>
+				<tr><?php /* TODO: Make that URL show all articles, including those with PRIORITY_ARCHIVED */ ?>
 					<td><a href="<?= _url('index', 'index', 'search', 'date:' . $row['granularity']) ?>">
 						<?= htmlspecialchars($row['granularity'], ENT_NOQUOTES, 'UTF-8') ?>
 					</a></td>
