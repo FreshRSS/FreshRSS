@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Μη αναγνωσμένα',
 		'title' => 'Στατιστικά',
 		'top_feed' => 'Κορυφαίες δέκα τροφοδοσίες',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Ρυθμίσεις συστήματος',

@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Okunmadı',
 		'title' => 'İstatistikler',
 		'top_feed' => 'En iyi on besleme',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',

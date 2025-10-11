@@ -246,4 +246,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->view->hours24Labels = $hours24Labels;
 	}
+
+	public function unreadDatesAction(): void {
+
+	}
 }

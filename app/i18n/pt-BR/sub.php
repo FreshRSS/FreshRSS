@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Feeds inativos',
 			'main' => 'Estatísticas principais',
 			'repartition' => 'Repartição de artigos',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',

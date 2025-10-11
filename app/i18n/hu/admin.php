@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Olvasatlan',
 		'title' => 'Statisztika',
 		'top_feed' => 'Top 10 hírforrás',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',

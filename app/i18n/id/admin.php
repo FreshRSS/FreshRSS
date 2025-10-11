@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh umpan teratas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Konfigurasi Sistem',

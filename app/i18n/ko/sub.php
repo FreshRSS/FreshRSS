@@ -282,6 +282,7 @@ return array(
 			'idle' => '유휴 피드',
 			'main' => '주요 통계',
 			'repartition' => '글 분류',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',

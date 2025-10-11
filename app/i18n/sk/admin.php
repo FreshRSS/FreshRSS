@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Neprečítané',
 		'title' => 'Štatistiky',
 		'top_feed' => 'Top 10 kanálov',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Nastavenia systému',

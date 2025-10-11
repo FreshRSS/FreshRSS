@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Umpan tak terbarukan',
 			'main' => 'Statistik utama',
 			'repartition' => 'Pengkategorian artikel',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',

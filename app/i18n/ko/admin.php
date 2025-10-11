@@ -157,6 +157,7 @@ return array(
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '시스템 설정',

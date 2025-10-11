@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Configuracion sistèma',

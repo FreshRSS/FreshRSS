@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Lukemattomat',
 		'title' => 'Tilastot',
 		'top_feed' => '10 parasta syötettä',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Järjestelmän määritys',

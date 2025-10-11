@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
+		'unread_dates' => 'Dates with most unread articles',
 	),
 	'system' => array(
 		'_' => 'System configuration',

@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Systeem configuratie',

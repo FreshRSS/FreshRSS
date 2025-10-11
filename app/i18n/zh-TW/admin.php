@@ -157,6 +157,7 @@ return array(
 		'status_unread' => '未讀',
 		'title' => '統計',
 		'top_feed' => '前十訂閱源',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '系統配置',

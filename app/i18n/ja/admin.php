@@ -157,6 +157,7 @@ return array(
 		'status_unread' => '未読',
 		'title' => '統計',
 		'top_feed' => '上位10位のフィード',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'システム設定',

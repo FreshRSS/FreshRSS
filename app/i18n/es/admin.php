@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Configuración del sistema',

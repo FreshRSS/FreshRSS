@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Konfiguracja serwera',

@@ -157,6 +157,7 @@ return array(
 		'status_unread' => ' خوانده نشده',
 		'title' => 'آمار',
 		'top_feed' => ' ده فید برتر',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => ' پیکربندی سیستم',

@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'non lus',
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
+		'unread_dates' => 'Dates avec le plus d’articles non lus',
 	),
 	'system' => array(
 		'_' => 'Configuration du système',

@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'לא נקרא',
 		'title' => 'סטטיסטיקות',
 		'top_feed' => 'עשרת ההזנות המובילות',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'System configuration',	// TODO

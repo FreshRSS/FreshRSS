@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших лент',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Системные настройки',

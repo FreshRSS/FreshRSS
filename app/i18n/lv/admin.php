@@ -157,6 +157,7 @@ return array(
 		'status_unread' => 'Neizlasīti',
 		'title' => 'Statistika',
 		'top_feed' => 'Top 10 barotnes',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
