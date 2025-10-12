@@ -6,7 +6,8 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
+  issues: write
 
 jobs:
   fix-all:
@@ -21,9 +22,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get PR branch
+      - name: Post acknowledgment comment
         uses: actions/github-script@v8
-        id: pr-branch
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '🤖 Command `/fix-all` received. Running…'
+            });
+
+      - name: Get PR details
+        uses: actions/github-script@v8
+        id: pr
         with:
           script: |
             const pr = await github.rest.pulls.get({
@@ -31,28 +43,111 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             });
-            return pr.data.head.ref;
-          result-encoding: string
+
+            if (pr.data.state !== 'open') {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '⚠️ Command `/fix-all` can only be run on open pull requests.'
+              });
+              core.setFailed('PR is not open');
+              return;
+            }
+
+            return pr.data.head;
 
       - name: Checkout PR branch
         uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: ${{ steps.pr-branch.outputs.result }}
+          repository: ${{ fromJSON(steps.pr.outputs.result).repo.full_name }}
+          ref: ${{ fromJSON(steps.pr.outputs.result).ref }}
 
       - name: Run make fix-all
+        id: fix
         run: |
           set -e
-          make fix-all
+          make fix-all || {
+            echo "make_failed=true" >> $GITHUB_OUTPUT
+            exit 1
+          }
+          echo "make_failed=false" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
+        id: commit
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
+            echo "no_changes=true" >> $GITHUB_OUTPUT
             echo "No changes to commit."
           else
+            echo "no_changes=false" >> $GITHUB_OUTPUT
+
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            # Get PR info
+            PR_JSON=$(gh pr view ${{ github.event.issue.number }} --json headRepository,headRefName,maintainerCanModify)
+            HEAD_REPO=$(echo "$PR_JSON" | jq -r '.headRepository.nameWithOwner')
+            HEAD_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName')
+            CAN_MODIFY=$(echo "$PR_JSON" | jq -r '.maintainerCanModify')
+
+            echo "Head repo: $HEAD_REPO"
+            echo "Head branch: $HEAD_BRANCH"
+            echo "Maintainer can modify: $CAN_MODIFY"
+
+            # Create commit
             git commit -m "chore: make fix-all"
-            git push
+            COMMIT_SHA=$(git rev-parse HEAD)
+            echo "commit_sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
+
+            # Try to push
+            if git push https://x-access-token:${GH_TOKEN}@github.com/${HEAD_REPO}.git HEAD:${HEAD_BRANCH}; then
+              echo "pushed=true" >> $GITHUB_OUTPUT
+              echo "Successfully pushed to $HEAD_REPO"
+            else
+              echo "pushed=false" >> $GITHUB_OUTPUT
+              echo "Failed to push!"
+              exit 1
+            fi
           fi
+
+      - name: Post completion comment
+        uses: actions/github-script@v8
+        if: always()
+        with:
+          script: |
+            const makeFailed = '${{ steps.fix.outputs.make_failed }}' === 'true';
+            const noChanges = '${{ steps.commit.outputs.no_changes || 'false' }}' === 'true';
+            const pushed = '${{ steps.commit.outputs.pushed || 'false' }}' === 'true';
+            const commitSha = '${{ steps.commit.outputs.commit_sha }}';
+            const jobStatus = '${{ job.status }}';
+
+            let message;
+            if (jobStatus === 'success') {
+              if (noChanges) {
+                message = '✅ Command `/fix-all` completed with no change.';
+              } else if (pushed) {
+                message = `🔧 Command \`/fix-all\` made some fixes and committed as ${commitSha}`;
+              } else {
+                // Should not happen
+                message = 'ℹ️ Command `/fix-all` completed, but strangely.';
+              }
+            } else if (makeFailed) {
+              message = `❌ Command \`/fix-all\` failed. Check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.`;
+            } else {
+              message = `⚠️ Command \`/fix-all\` ran successfully, but changes could not be pushed.\n\n`;
+              message += `* Please check that your PR settings “Allow edits from maintainers” is enabled.\n`;
+              message += `* Or run \`make fix-all\` locally and push to your branch.`;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
