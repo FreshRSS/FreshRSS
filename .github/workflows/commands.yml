@@ -100,6 +100,8 @@ jobs:
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REPO: ${{ fromJSON(steps.pr.outputs.result).repo.full_name }}
+          HEAD_BRANCH: ${{ fromJSON(steps.pr.outputs.result).ref }}
         run: |
           git add -A
           if git diff --cached --quiet; then
@@ -111,15 +113,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            # Get PR info from the base repository
-            PR_JSON=$(gh pr view ${{ github.event.issue.number }} --repo ${{ github.repository }} --json headRepository,headRefName,maintainerCanModify)
-            HEAD_REPO=$(echo "$PR_JSON" | jq -r '.headRepository.nameWithOwner')
-            HEAD_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName')
-            CAN_MODIFY=$(echo "$PR_JSON" | jq -r '.maintainerCanModify')
-
             echo "Head repo: $HEAD_REPO"
             echo "Head branch: $HEAD_BRANCH"
-            echo "Maintainer can modify: $CAN_MODIFY"
 
             # Create commit
             git commit -m "chore: make fix-all"
