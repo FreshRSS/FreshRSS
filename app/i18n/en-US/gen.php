@@ -189,6 +189,7 @@ return array(
 		'about' => 'About',	// IGNORE
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
+		'advanced_search' => 'Advanced Search',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
 		'authentication' => 'Authentication',	// IGNORE
 		'check_install' => 'Installation check',	// IGNORE
@@ -220,6 +221,32 @@ return array(
 		'contribute' => 'contribute',	// IGNORE
 		'language' => 'Language',	// IGNORE
 		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// IGNORE
+		'authors' => 'Authors',	// IGNORE
+		'categories' => 'Categories',	// IGNORE
+		'content' => 'Content',	// IGNORE
+		'date_from' => 'From',	// IGNORE
+		'date_past' => 'In the past',	// IGNORE
+		'date_published' => 'Publication Date',	// IGNORE
+		'date_range' => 'Date Range',	// IGNORE
+		'date_received' => 'Received Date',	// IGNORE
+		'date_to' => 'To',	// IGNORE
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Free Text',	// IGNORE
+		'free_text_help' => 'Search both in title and content',	// IGNORE
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// IGNORE
+		'labels' => 'My Labels',	// IGNORE
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// IGNORE
+		'sources' => 'Sources',	// IGNORE
+		'tags' => 'Article Tags',	// IGNORE
+		'text' => 'Text Search',	// IGNORE
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// IGNORE
+		'text_placeholder' => 'Keyword',	// IGNORE
+		'title' => 'Title',	// IGNORE
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'User Queries',	// IGNORE
 	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE

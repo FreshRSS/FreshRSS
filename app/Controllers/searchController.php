@@ -6,11 +6,6 @@ declare(strict_types=1);
  */
 class FreshRSS_search_Controller extends FreshRSS_ActionController {
 
-	/**
-	 * This action is called before every other action in that class. It is
-	 * the common boilerplate for every action. It is triggered by the
-	 * underlying framework.
-	 */
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
@@ -36,7 +31,38 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 		$this->view->labels = $tagDAO->listTags(true);
 
 		// Get user queries
-		$this->view->userQueries = FreshRSS_Context::userConf()->queries;
+		$this->view->queries = [];
+		foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
+			$this->view->queries[intval($key)] = new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
+		}
+	}
+
+	/**
+	 * Build an OR-separated clause from newline delimited values.
+	 */
+	private static function buildOrClause(string $rawValue, string $prefix = ''): string {
+		$lines = preg_split('/[\r\n]+/', $rawValue);
+		if ($lines === false) {
+			$lines = [$rawValue];
+		}
+
+		$terms = [];
+		foreach ($lines as $line) {
+			$line = trim($line, " \n\r\t\v\0\"'");	// Also trim existing quotes
+			if ($line === '') {
+				continue;
+			}
+			$quoted = preg_match('/\s/', $line) === 1 ? "'$line'" : $line;
+			$terms[] = $prefix . $quoted;
+		}
+
+		if (empty($terms)) {
+			return '';
+		}
+		if (count($terms) === 1) {
+			return $terms[0];
+		}
+		return '(' . implode(' OR ', $terms) . ')';
 	}
 
 	/**
@@ -51,87 +77,37 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 		// Build the search query from form parameters
 		$searchTerms = [];
 
-		// Free text search
-		$freeText = trim(Minz_Request::paramString('free_text'));
-		if ($freeText !== '') {
-			$searchTerms[] = $freeText;
+		$freeTextClause = self::buildOrClause(Minz_Request::paramString('free_text'));
+		if ($freeTextClause !== '') {
+			$searchTerms[] = $freeTextClause;
 		}
 
-		// Feed IDs
-		$feedIds = Minz_Request::paramArray('feed_ids');
-		if (!empty($feedIds)) {
-			$searchTerms[] = 'f:' . implode(',', $feedIds);
+		$titleClause = self::buildOrClause(Minz_Request::paramString('title'), 'intitle:');
+		if ($titleClause !== '') {
+			$searchTerms[] = $titleClause;
 		}
 
-		// Category IDs
-		$categoryIds = Minz_Request::paramArray('category_ids');
-		if (!empty($categoryIds)) {
-			$searchTerms[] = 'c:' . implode(',', $categoryIds);
+		$contentClause = self::buildOrClause(Minz_Request::paramString('content'), 'intext:');
+		if ($contentClause !== '') {
+			$searchTerms[] = $contentClause;
 		}
 
-		// Author
-		$author = trim(Minz_Request::paramString('author'));
-		if ($author !== '') {
-			if (strpos($author, ' ') !== false) {
-				$searchTerms[] = "author:'$author'";
-			} else {
-				$searchTerms[] = "author:$author";
-			}
+		$urlClause = self::buildOrClause(Minz_Request::paramString('url'), 'inurl:');
+		if ($urlClause !== '') {
+			$searchTerms[] = $urlClause;
 		}
 
-		// Title
-		$title = trim(Minz_Request::paramString('title'));
-		if ($title !== '') {
-			if (strpos($title, ' ') !== false) {
-				$searchTerms[] = "intitle:'$title'";
-			} else {
-				$searchTerms[] = "intitle:$title";
-			}
+		$authorClause = self::buildOrClause(Minz_Request::paramString('authors'), 'author:');
+		if ($authorClause !== '') {
+			$searchTerms[] = $authorClause;
 		}
 
-		// Content
-		$content = trim(Minz_Request::paramString('content'));
-		if ($content !== '') {
-			if (strpos($content, ' ') !== false) {
-				$searchTerms[] = "intext:'$content'";
-			} else {
-				$searchTerms[] = "intext:$content";
-			}
+		$tagsClause = self::buildOrClause(Minz_Request::paramString('tags'), '#');
+		if ($tagsClause !== '') {
+			$searchTerms[] = $tagsClause;
 		}
 
-		// URL
-		$url = trim(Minz_Request::paramString('url'));
-		if ($url !== '') {
-			if (strpos($url, ' ') !== false) {
-				$searchTerms[] = "inurl:'$url'";
-			} else {
-				$searchTerms[] = "inurl:$url";
-			}
-		}
-
-		// Tags
-		$tags = trim(Minz_Request::paramString('tags'));
-		if ($tags !== '') {
-			$tagList = explode(',', $tags);
-			foreach ($tagList as $tag) {
-				$tag = trim($tag);
-				if ($tag !== '') {
-					if (strpos($tag, ' ') !== false) {
-						$searchTerms[] = "#'$tag'";
-					} else {
-						$searchTerms[] = "#$tag";
-					}
-				}
-			}
-		}
-
-		// Label IDs
-		$labelIds = Minz_Request::paramArray('label_ids');
-		if (!empty($labelIds)) {
-			$searchTerms[] = 'L:' . implode(',', $labelIds);
-		}
-
-		// Date range
+		// Received date
 		$dateFrom = trim(Minz_Request::paramString('date_from'));
 		$dateTo = trim(Minz_Request::paramString('date_to'));
 		$dateNumber = Minz_Request::paramInt('date_number');
@@ -152,7 +128,7 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		// Publication date range
+		// Publication date
 		$pubDateFrom = trim(Minz_Request::paramString('pubdate_from'));
 		$pubDateTo = trim(Minz_Request::paramString('pubdate_to'));
 		$pubDateNumber = Minz_Request::paramInt('pubdate_number');
@@ -173,25 +149,27 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		// Entry IDs
-		$entryIds = Minz_Request::paramString('entry_ids');
-		if ($entryIds !== '') {
-			$searchTerms[] = 'e:' . $entryIds;
+		$feedIds = Minz_Request::paramArrayString('feed_ids');
+		if (!empty($feedIds)) {
+			$searchTerms[] = 'f:' . implode(',', $feedIds);
+		}
+
+		$categoryIds = Minz_Request::paramArrayString('category_ids');
+		if (!empty($categoryIds)) {
+			$searchTerms[] = 'c:' . implode(',', $categoryIds);
+		}
+
+		$labelIds = Minz_Request::paramArrayString('label_ids');
+		if (!empty($labelIds)) {
+			$searchTerms[] = 'L:' . implode(',', $labelIds);
 		}
 
 		// User query
-		$userQuery = trim(Minz_Request::paramString('user_query'));
-		if ($userQuery !== '') {
-			if (ctype_digit($userQuery)) {
-				$searchTerms[] = "S:$userQuery";
-			} else {
-				if (strpos($userQuery, ' ') !== false) {
-					$searchTerms[] = "search:\"$userQuery\"";
-				} else {
-					$searchTerms[] = "search:$userQuery";
-				}
-			}
+		$userQueryClause = self::buildOrClause(implode("\n", Minz_Request::paramArrayString('user_query_names')), 'search:');
+		if ($userQueryClause !== '') {
+			$searchTerms[] = $userQueryClause;
 		}
+
 
 		// Combine all search terms
 		$searchQuery = implode(' ', $searchTerms);
@@ -203,6 +181,6 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			'params' => [
 				'search' => $searchQuery,
 			],
-		], true);
+		], redirect: true);
 	}
 }
