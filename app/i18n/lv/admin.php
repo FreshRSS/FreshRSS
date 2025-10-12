@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Visas barotnes',
 		'category' => 'Kategorija',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Ierakstu skaits',
 		'entry_per_category' => 'Ieraksti katrā kategorijā',
 		'entry_per_day' => 'Ieraksti dienā (pēdējās 30 dienas)',

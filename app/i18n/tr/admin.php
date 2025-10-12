@@ -134,7 +134,8 @@ return array(
 		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm beslemeler',
 		'category' => 'Kategori',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Giriş sayısı',
 		'entry_per_category' => 'Kategorilere göre girişler',
 		'entry_per_day' => 'Günlük girişler (son 30 gün)',

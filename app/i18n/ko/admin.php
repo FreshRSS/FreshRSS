@@ -134,7 +134,8 @@ return array(
 		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '글 개수',
 		'entry_per_category' => '카테고리별 글 개수',
 		'entry_per_day' => '일일 글 개수 (최근 30 일)',

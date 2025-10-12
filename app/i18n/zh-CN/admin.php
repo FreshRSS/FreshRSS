@@ -134,7 +134,8 @@ return array(
 		'_' => '统计数据',
 		'all_feeds' => '所有订阅源',
 		'category' => '分类',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '文章数',
 		'entry_per_category' => '各分类文章数',
 		'entry_per_day' => '每日文章数（近三十日）',

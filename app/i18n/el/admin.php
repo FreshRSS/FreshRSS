@@ -134,7 +134,8 @@ return array(
 		'_' => 'Στατιστικά',
 		'all_feeds' => 'Όλες οι τροφοδοσίες',
 		'category' => 'Κατηγορία',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Αριθμός καταχωρίσεων',
 		'entry_per_category' => 'Καταχωρίσεις ανά κατηγορία',
 		'entry_per_day' => 'Καταχωρίσεις ανά ημέρα (τελευταίες 30 ημέρες)',

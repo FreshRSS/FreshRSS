@@ -134,7 +134,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Всі стрічки',
 		'category' => 'Категорія',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Кількість статей',
 		'entry_per_category' => 'Статей у категорії',
 		'entry_per_day' => 'Статей за день (минулі 30 днів)',

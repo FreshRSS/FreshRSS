@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Bejegyzések száma',
 		'entry_per_category' => 'Bejegyzések kategóriánként',
 		'entry_per_day' => 'Bejegyzések naponta (utolsó 30 nap)',

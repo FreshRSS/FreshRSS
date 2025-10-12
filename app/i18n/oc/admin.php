@@ -134,7 +134,8 @@ return array(
 		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles per categoria',
 		'entry_per_day' => 'Nombre d’articles per jorn (darrièrs 30 jorns)',

@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
-		'date' => 'Date',	// IGNORE
+		'date_published' => 'Date de publication',
+		'date_received' => 'Date de réception',
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles par catégorie',
 		'entry_per_day' => 'Nombre d’articles par jour (30 derniers jours)',

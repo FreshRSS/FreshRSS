@@ -134,7 +134,8 @@ return array(
 		'_' => 'آمار',
 		'all_feeds' => ' همه فیدها',
 		'category' => ' دسته',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => ' تعداد ورودی',
 		'entry_per_category' => ' ورودی در هر دسته',
 		'entry_per_day' => ' ورودی در روز (30 روز گذشته)',

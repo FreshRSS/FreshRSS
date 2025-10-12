@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistics',	// IGNORE
 		'all_feeds' => 'All feeds',	// IGNORE
 		'category' => 'Category',	// IGNORE
-		'date' => 'Date',	// IGNORE
+		'date_published' => 'Publication date',	// IGNORE
+		'date_received' => 'Received date',	// IGNORE
 		'entry_count' => 'Entry count',	// IGNORE
 		'entry_per_category' => 'Entries per category',	// IGNORE
 		'entry_per_day' => 'Entries per day (last 30 days)',	// IGNORE

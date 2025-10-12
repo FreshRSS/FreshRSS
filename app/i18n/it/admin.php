@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Articoli',
 		'entry_per_category' => 'Articoli per categoria',
 		'entry_per_day' => 'Articoli per giorno (ultimi 30 giorni)',

@@ -134,7 +134,8 @@ return array(
 		'_' => 'Tilastot',
 		'all_feeds' => 'Kaikki syötteet',
 		'category' => 'Luokka',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Artikkelien määrä',
 		'entry_per_category' => 'Artikkelit luokan mukaan',
 		'entry_per_day' => 'Artikkelit päivän mukaan (edelliset 30 päivää)',

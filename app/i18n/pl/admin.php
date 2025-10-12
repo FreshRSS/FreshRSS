@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Liczba wiadomości',
 		'entry_per_category' => 'Wiadomości w podziale na kategorie',
 		'entry_per_day' => 'Wiadomości na dzień (przez ostatnie 30 dni)',

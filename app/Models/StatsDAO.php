@@ -12,16 +12,20 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	}
 
 	/**
+	 * @param string $field to use for the date
 	 * @param int $precision to apply to the timestamp (1 for seconds, 1000 for milliseconds, 1000000 for microseconds)
 	 * @param 'day'|'month'|'year' $granularity of the date intervals
 	 */
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
 		$offset = $this->getTimezoneOffset();
 		return match ($granularity) {
 			'day' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m-%d')",
 			'month' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m')",
 			'year' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y')",
-			default => throw new InvalidArgumentException('Invalid date granularity'),
+			default => throw new InvalidArgumentException('Invalid date granularity!'),
 		};
 	}
 
@@ -380,13 +384,14 @@ SQL;
 
 	/**
 	 * Gets the date intervals with the largest number of unread articles.
+	 * @param 'id'|'date' $field to use for the date
 	 * @param 'day'|'month'|'year' $granularity of the date intervals
 	 * @return list<array{'granularity':string,'unread_count':int}>
 	 */
-	public function getMaxUnreadDates(string $granularity, int $max = 100): array {
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100): array {
 		$sql = <<<SQL
 SELECT
-	{$this->sqlDateToIsoGranularity('id', precision: 1000000, granularity: $granularity)} AS granularity,
+	{$this->sqlDateToIsoGranularity($field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
 	COUNT(*) AS unread_count
 FROM `_entry`
 WHERE is_read = 0

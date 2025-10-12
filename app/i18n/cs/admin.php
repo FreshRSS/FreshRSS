@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Všechny kanály',
 		'category' => 'Kategorie',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Počet položek',
 		'entry_per_category' => 'Položek na kategorii',
 		'entry_per_day' => 'Položek za den (posledních 30 dní)',

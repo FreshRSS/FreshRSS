@@ -134,7 +134,8 @@ return array(
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
 		'entry_per_day' => '日にちごとのエントリ (直近30日間)',

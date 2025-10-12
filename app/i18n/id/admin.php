@@ -134,7 +134,8 @@ return array(
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua umpan',
 		'category' => 'Kategori',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Jumlah entri',
 		'entry_per_category' => 'Entri per kategori',
 		'entry_per_day' => 'Entri per hari (30 hari terakhir)',

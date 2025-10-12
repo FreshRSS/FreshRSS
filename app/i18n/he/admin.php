@@ -134,7 +134,8 @@ return array(
 		'_' => 'סטטיסטיקות',
 		'all_feeds' => 'כל ההזנות',
 		'category' => 'קטגוריה',
-		'date' => 'Date',	// TODO
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'סכום המאמרים',
 		'entry_per_category' => 'מאמרים על פי קטגוריה',
 		'entry_per_day' => 'מספר מאמרים ליום (30 ימים אחרונים)',
