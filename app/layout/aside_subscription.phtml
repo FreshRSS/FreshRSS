@@ -9,6 +9,9 @@
 				<li class="item">
 					<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 				</li>
+				<li class="item<?= Minz_Request::controllerName() === 'search' ? ' active' : '' ?>">
+					<a href="<?= _url('search', 'index') ?>"><?= _t('gen.menu.advanced_search') ?></a>
+				</li>
 			</ul>
 		</li>
 		<li class="item nav-section">

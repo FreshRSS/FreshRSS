@@ -30,6 +30,12 @@ class FreshRSS_View extends Minz_View {
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
 
+	// Search
+	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	public array $labels;
+	/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string}> */
+	public array $userQueries;
+
 	// Subscriptions
 	public bool $displaySlider = false;
 	public bool $load_ok;
