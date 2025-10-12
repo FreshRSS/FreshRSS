@@ -111,8 +111,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            # Get PR info
-            PR_JSON=$(gh pr view ${{ github.event.issue.number }} --json headRepository,headRefName,maintainerCanModify)
+            # Get PR info from the base repository
+            PR_JSON=$(gh pr view ${{ github.event.issue.number }} --repo ${{ github.repository }} --json headRepository,headRefName,maintainerCanModify)
             HEAD_REPO=$(echo "$PR_JSON" | jq -r '.headRepository.nameWithOwner')
             HEAD_BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName')
             CAN_MODIFY=$(echo "$PR_JSON" | jq -r '.maintainerCanModify')
