@@ -217,9 +217,9 @@ return array(
 		'years' => '年',
 	),
 	'readme' => array(
-		'contribute' => '贡献翻译',	// IGNORE
-		'language' => '语言',	// IGNORE
-		'translated' => '进度',	// IGNORE
+		'contribute' => '贡献翻译',
+		'language' => '语言',
+		'translated' => '进度',
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',
