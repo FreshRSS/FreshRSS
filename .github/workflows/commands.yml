@@ -1,0 +1,58 @@
+name: Trigger actions on PR comments
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  fix-all:
+    if: |
+      github.event.issue.pull_request != null &&
+      github.event.comment.body == '/fix-all' &&
+      (
+        github.event.comment.author_association == 'OWNER' ||
+        github.event.comment.author_association == 'MEMBER' ||
+        (github.event.comment.user != null && github.event.comment.user.login == github.event.issue.user.login)
+      )
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get PR branch
+        uses: actions/github-script@v8
+        id: pr-branch
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            return pr.data.head.ref;
+          result-encoding: string
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ steps.pr-branch.outputs.result }}
+
+      - name: Run make fix-all
+        run: |
+          set -e
+          make fix-all
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: make fix-all"
+            git push
+          fi
