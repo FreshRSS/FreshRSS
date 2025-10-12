@@ -64,6 +64,27 @@ jobs:
           repository: ${{ fromJSON(steps.pr.outputs.result).repo.full_name }}
           ref: ${{ fromJSON(steps.pr.outputs.result).ref }}
 
+      - name: Use Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Run Composer install
+        run: composer install --prefer-dist --no-progress
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+
+      - name: Uses Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - run: npm ci
+
       - name: Run make fix-all
         id: fix
         run: |
