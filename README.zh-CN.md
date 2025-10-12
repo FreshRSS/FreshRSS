@@ -1,8 +1,7 @@
 [![Liberapay donations](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 * 请在 [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/edge/README.zh-CN.md) 阅读此文档以加载正确的链接与图片
-* [English version](README.md)
-* [Version française](README.fr.md)
+* [English version](README.md) • [Version française](README.fr.md)
 
 # FreshRSS
 
