@@ -94,6 +94,8 @@ return array(
 			'rand' => 'ترتیب تصادفی',
 			'title_asc' => 'عنوانA→Z',
 			'title_desc' => 'عنوان Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => ' نمایش موارد دلخواه',
 		'stats' => ' آمار',

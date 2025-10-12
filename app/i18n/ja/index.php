@@ -94,6 +94,8 @@ return array(
 			'rand' => 'ランダムに並べる',
 			'title_asc' => 'タイトル順 A→Z',
 			'title_desc' => 'タイトル順 Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'お気に入りを表示する',
 		'stats' => '統計',
