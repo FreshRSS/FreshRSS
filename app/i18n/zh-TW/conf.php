@@ -152,6 +152,7 @@ return array(
 			'categories' => '按分類顯示',
 			'feeds' => '按訂閱源顯示',
 			'order' => '按日期排序',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '表達式',
 			'shareOpml' => '啟用透過對應類別和源的OPML分享',
 			'shareRss' => '啟用透過HTML分享 &amp; RSS',

@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
+			'publish_labels_instead_of_tags' => 'Remplacer les <i>tags des flux</i> par les <i>étiquettes d’utilisateur</i> dans le RSS partagé',
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
 			'shareRss' => 'Active le partage par HTML &amp; RSS',

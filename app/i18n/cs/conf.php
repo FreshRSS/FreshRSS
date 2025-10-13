@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Zobrazit podle kategorie',
 			'feeds' => 'Zobrazit podle kanálu',
 			'order' => 'Seřadit podle data',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
 			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',

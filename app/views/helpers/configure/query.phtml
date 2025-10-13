@@ -46,9 +46,13 @@
 						<?php if ($this->query->sharedUrlRss() !== ''): ?>
 						<ul>
 							<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
-							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
 							<li><a href="<?= $this->query->sharedUrlGreader() ?>"><?= _i('link') ?> <?= _t('conf.query.share.greader') ?></a></li>
+							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
 						</ul>
+						<label class="checkbox" for="publishLabelsInsteadOfTags">
+							<input type="checkbox" name="query[publishLabelsInsteadOfTags]" id="publishLabelsInsteadOfTags" value="1" <?= $this->query->publishLabelsInsteadOfTags() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.publish_labels_instead_of_tags') ?>
+						</label>
 						<?php endif; ?>
 					</div>
 					<div class="group-controls">

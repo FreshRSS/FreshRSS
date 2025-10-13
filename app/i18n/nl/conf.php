@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
 			'order' => 'Sorteren op datum',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
 			'shareRss' => 'Via HTML &amp; RSS delen aanzetten',
