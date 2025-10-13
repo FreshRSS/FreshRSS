@@ -4,7 +4,7 @@ volumes:
 
 services:
   freshrss:
-    image: freshrss/freshrss:edge
+    image: freshrss/freshrss:latest
     # # Optional build section if you want to build the image locally:
     # build:
     #   # Pick #latest (slow releases) or #edge (rolling release) or a specific release like #1.27.1
