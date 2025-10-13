@@ -165,7 +165,7 @@ $view->entryIdsTagNames = [];
 if ($view->publishLabelsInsteadOfTags && in_array($format, ['rss', 'atom'], true)) {
 	$entries = iterator_to_array($view->entries, preserve_keys: false);
 	$view->entries = $entries;
-	if ($entries !== []) {
+	if (!empty($entries)) {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
 	}
