@@ -5,8 +5,8 @@ on:
     types: [created]
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
   issues: write
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
               body: '🤖 Command `/fix-all` received. Running…'
             });
 
-      - name: Get PR details
+      - name: Get PR details and security
         uses: actions/github-script@v8
         id: pr
         with:
@@ -55,14 +55,64 @@ jobs:
               return;
             }
 
-            return pr.data.head;
+            // Security: Only allow pushing to PRs targeting this repository
+            const baseRepo = pr.data.base.repo.full_name;
+            const headRepo = pr.data.head.repo.full_name;
+            const headRef = pr.data.head.ref;
+            const expectedRepo = context.repo.owner + '/' + context.repo.repo;
+
+            // Ensure the PR targets the correct base repository
+            if (baseRepo !== expectedRepo) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '⚠️ Security: PR must target this repository.'
+              });
+              core.setFailed('PR targets wrong repository');
+              return;
+            }
+
+            // Security: Ensure we only push to allowed repositories
+            // - Same repository: when PR is from a branch (not a fork)
+            // - Fork repository: when PR is from a fork with "Allow edits by maintainers" enabled
+            // We should NEVER push to unrelated third-party repositories
+
+            // Additional validation: maintainer_can_modify must be true for forks
+            if (headRepo !== expectedRepo && !pr.data.maintainer_can_modify) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '⚠️ Cannot push changes: PR settings must have "Allow edits and access to secrets by maintainers" enabled.'
+              });
+              core.setFailed('Maintainer edits not allowed');
+              return;
+            }
+
+            // Security: Validate branch name to prevent injection
+            if (!/^[a-zA-Z0-9/_.-]+$/.test(headRef)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '⚠️ Security: Invalid branch name.'
+              });
+              core.setFailed('Invalid branch name');
+              return;
+            }
+
+            return {
+              headRepo: headRepo,
+              headRef: headRef
+            };
 
       - name: Checkout PR branch
         uses: actions/checkout@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ fromJSON(steps.pr.outputs.result).repo.full_name }}
-          ref: ${{ fromJSON(steps.pr.outputs.result).ref }}
+          repository: ${{ fromJSON(steps.pr.outputs.result).headRepo }}
+          ref: ${{ fromJSON(steps.pr.outputs.result).headRef }}
+          persist-credentials: false
 
       - name: Use Composer cache
         id: composer-cache
@@ -89,19 +139,15 @@ jobs:
         id: fix
         run: |
           set -e
-          make fix-all || {
+          if ! make fix-all; then
             echo "make_failed=true" >> $GITHUB_OUTPUT
             exit 1
-          }
+          fi
           echo "make_failed=false" >> $GITHUB_OUTPUT
 
-      - name: Commit and push changes
+      - name: Check for changes and create commit
         id: commit
         if: success()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HEAD_REPO: ${{ fromJSON(steps.pr.outputs.result).repo.full_name }}
-          HEAD_BRANCH: ${{ fromJSON(steps.pr.outputs.result).ref }}
         run: |
           git add -A
           if git diff --cached --quiet; then
@@ -113,34 +159,58 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            echo "Head repo: $HEAD_REPO"
-            echo "Head branch: $HEAD_BRANCH"
-
             # Create commit
             git commit -m "chore: make fix-all"
             COMMIT_SHA=$(git rev-parse HEAD)
             echo "commit_sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
-
-            # Try to push
-            if git push https://x-access-token:${GH_TOKEN}@github.com/${HEAD_REPO}.git HEAD:${HEAD_BRANCH}; then
-              echo "pushed=true" >> $GITHUB_OUTPUT
-              echo "Successfully pushed to $HEAD_REPO"
-            else
-              echo "pushed=false" >> $GITHUB_OUTPUT
-              echo "Failed to push!"
-              exit 1
-            fi
           fi
+
+      - name: Push changes
+        if: success() && steps.commit.outputs.no_changes != 'true'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const headRepo = ${{ steps.pr.outputs.result }}.headRepo;
+            const headRef = ${{ steps.pr.outputs.result }}.headRef;
+            const commitSha = '${{ steps.commit.outputs.commit_sha }}';
+
+            // Security: Verify we're only pushing to the expected branch
+            const currentBranch = require('child_process')
+              .execSync('git rev-parse --abbrev-ref HEAD')
+              .toString()
+              .trim();
+
+            if (currentBranch !== headRef) {
+              core.setFailed(`Branch mismatch: expected ${headRef}, got ${currentBranch}`);
+              return;
+            }
+
+            try {
+              // Use secure GitHub API to push instead of git push with token
+              await github.rest.git.updateRef({
+                owner: headRepo.split('/')[0],
+                repo: headRepo.split('/')[1],
+                ref: `heads/${headRef}`,
+                sha: commitSha,
+                force: false
+              });
+
+              core.setOutput('pushed', 'true');
+              console.log(`Successfully pushed to ${headRepo}:${headRef}`);
+            } catch (error) {
+              core.setOutput('pushed', 'false');
+              core.setFailed(`Failed to push: ${error.message}`);
+            }
 
       - name: Post completion comment
         uses: actions/github-script@v8
         if: always()
         with:
           script: |
-            const makeFailed = '${{ steps.fix.outputs.make_failed }}' === 'true';
-            const noChanges = '${{ steps.commit.outputs.no_changes || 'false' }}' === 'true';
-            const pushed = '${{ steps.commit.outputs.pushed || 'false' }}' === 'true';
-            const commitSha = '${{ steps.commit.outputs.commit_sha }}';
+            const makeFailed = ${{ steps.fix.outputs.make_failed == 'true' }};
+            const noChanges = ${{ steps.commit.outputs.no_changes == 'true' }};
+            const pushed = ${{ steps.commit.outputs.pushed == 'true' }};
+            const commitSha = ${{ toJSON(steps.commit.outputs.commit_sha) }};
             const jobStatus = '${{ job.status }}';
 
             let message;
