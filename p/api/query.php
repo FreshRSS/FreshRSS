@@ -163,7 +163,7 @@ $view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->
 $view->publishLabelsInsteadOfTags = $query->publishLabelsInsteadOfTags();
 $view->entryIdsTagNames = [];
 if ($view->publishLabelsInsteadOfTags && in_array($format, ['rss', 'atom'], true)) {
-	$entries = iterator_to_array($view->entries, preserve_keys: false);
+	$entries = iterator_to_array($view->entries, preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
 	$view->entries = $entries;
 	if (!empty($entries)) {
 		$tagDAO = FreshRSS_Factory::createTagDao();
