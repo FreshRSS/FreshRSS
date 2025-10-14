@@ -16,13 +16,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 	 */
 	public function addTag(array $valuesTmp): int|false {
 		if (empty($valuesTmp['id'])) {	// Auto-generated ID
-			syslog(LOG_DEBUG, __METHOD__ . ' Inserting tag with auto-generated ID');
 			$sql = <<<'SQL'
 INSERT INTO `_tag`(name, attributes)
 SELECT * FROM (SELECT :name1 AS name, :attributes AS attributes) t2
 SQL;
 		} else {
-			syslog(LOG_DEBUG, __METHOD__ . ' Inserting tag with ID ' . $valuesTmp['id']);
 			$sql = <<<'SQL'
 INSERT INTO `_tag`(id, name, attributes)
 SELECT * FROM (SELECT 1*:id AS id, :name1 AS name, :attributes AS attributes) t2
