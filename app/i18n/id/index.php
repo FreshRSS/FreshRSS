@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Yang baru diterima terakhir',
 			'id_desc' => 'Yang baru diterima paling awal',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
 			'rand' => 'Acak',

@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Reçus récemment en dernier',
 			'id_desc' => 'Reçus récemment en premier',
+			'length_asc' => 'Longueur du contenu 1→9',
+			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
 			'rand' => 'Ordre aléatoire',

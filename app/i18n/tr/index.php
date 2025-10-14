@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
 			'rand' => 'Rastgele sıralama',
