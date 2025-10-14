@@ -42,6 +42,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return "LIMIT {$limit} OFFSET {$offset}";
 	}
 
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -290,7 +294,7 @@ SQL;
 				. 'SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', `lastUserModified`=GREATEST(:last_user_modified, `lastUserModified`)'
+				. ', `lastUserModified`=' . static::sqlGreatest(':last_user_modified', '`lastUserModified`')
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
