@@ -17,14 +17,14 @@ return array(
 			'encoding-support' => '⚠️ ATTENZIONE: nessun supporto per <code>%2F</code>, alcuni client potrebbero non funzionare!',
 			'invalid-configuration' => '⚠️ ATTENZIONE: Probabile invalida configurazione "base URL" in ./data/config.php',
 			'pass' => '✔️ SUPERATO',
-			'unknown-error' => '❌ ',
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
 			'fever' => 'Test di configurazione per Fever API:',
 			'greader' => 'Test di configurazione per Google Reader API',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',
+			'_' => 'FreshRSS API endpoints',	// IGNORE
 			'extension' => 'API per le estensioni',
 			'fever' => 'API compatibile con Fever',
 			'greader' => 'API compatibile con Google Reader',
