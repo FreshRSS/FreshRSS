@@ -134,6 +134,8 @@ return array(
 		'_' => '统计数据',
 		'all_feeds' => '所有订阅源',
 		'category' => '分类',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '文章数',
 		'entry_per_category' => '各分类文章数',
 		'entry_per_day' => '每日文章数（近三十日）',
@@ -146,6 +148,7 @@ return array(
 		'idle' => '长期无更新订阅源',
 		'main' => '主要统计数据',
 		'main_stream' => '首页',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '订阅源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => '未读',
 		'title' => '统计',
 		'top_feed' => '前十订阅源',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '系统配置',

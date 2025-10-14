@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Bejegyzések száma',
 		'entry_per_category' => 'Bejegyzések kategóriánként',
 		'entry_per_day' => 'Bejegyzések naponta (utolsó 30 nap)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Tétlen hírforrások',
 		'main' => 'Fő statisztika',
 		'main_stream' => 'Minden cikk',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Nincsenek tétlen hírforrások!',
 		'number_entries' => '%d cikk',
 		'overview' => 'Áttekintés',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Olvasatlan',
 		'title' => 'Statisztika',
 		'top_feed' => 'Top 10 hírforrás',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',

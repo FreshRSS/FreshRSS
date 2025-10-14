@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Nečinné kanály',
 			'main' => 'Hlavní statistika',
 			'repartition' => 'Přerozdělení článků',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Správa odběrů',
 		'subscription_tools' => 'Nástroje odběrů',

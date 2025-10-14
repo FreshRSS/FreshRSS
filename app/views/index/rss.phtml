@@ -39,14 +39,24 @@ foreach ($this->entries as $item) {
 						echo "\t\t\t", '<dc:creator>', $author, '</dc:creator>', "\n";
 					}
 				}
-				$categories = $item->tags();
-				if (is_array($categories)) {
-					foreach ($categories as $category) {
-						echo "\t\t\t", '<category>', $category, '</category>', "\n";
+
+				if ($this->publishLabelsInsteadOfTags) {
+					$categories = $this->entryIdsTagNames['e_' . $item->id()] ?? [];
+					if (is_array($categories)) {
+						foreach ($categories as $category) {
+							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+						}
+					}
+				} else {
+					$categories = $item->tags();
+					if (is_array($categories)) {
+						foreach ($categories as $category) {
+							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+						}
 					}
 				}
 
-				$enclosures = iterator_to_array($item->enclosures(false));	// TODO: Optimise: avoid iterator_to_array if possible
+				$enclosures = iterator_to_array($item->enclosures(false), preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
 				$thumbnail = $item->thumbnail(false);
 				if (!empty($thumbnail['url'])) {
 					// https://www.rssboard.org/media-rss#media-thumbnails

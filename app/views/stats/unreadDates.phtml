@@ -1,0 +1,48 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_ViewStats $this */
+	$this->partial('aside_subscription');
+?>
+<main class="post">
+	<h1><?= _t('admin.stats.unread_dates') ?></h1>
+	<form>
+		<input type="hidden" name="c" value="stats" />
+		<input type="hidden" name="a" value="unreadDates" />
+		<select name="field" id="field">
+			<option value="id" <?= Minz_Request::paramString('field') === 'id' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_received') ?></option>
+			<option value="date" <?= Minz_Request::paramString('field') === 'date' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_published') ?></option>
+		</select>
+		<input type="number" name="max" id="max" value="<?= Minz_Request::paramInt('max') ?: 100 ?>" min="1" />
+		<select name="granularity" id="granularity">
+			<option value="day" <?= Minz_Request::paramString('granularity') === 'day' ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+			<option value="month" <?= Minz_Request::paramString('granularity') === 'month' ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+			<option value="year" <?= Minz_Request::paramString('granularity') === 'year' ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+		</select>
+		<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+	</form>
+	<table>
+		<thead>
+			<tr>
+				<th>
+					<?php if (Minz_Request::paramString('field') === 'date'): ?>
+						<?= _t('admin.stats.date_published') ?>
+					<?php else: ?>
+						<?= _t('admin.stats.date_received') ?>
+					<?php endif; ?>
+				</th>
+				<th><?= _t('admin.stats.nb_unreads') ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->unreadDates as $row): ?>
+				<tr><?php /* TODO: Make that URL show all articles, including those with PRIORITY_ARCHIVED */ ?>
+					<td><a href="<?= _url('index', 'index', 'search',
+						(Minz_Request::paramString('field') === 'date' ? 'pubdate:' : 'date:') . $row['granularity']) ?>">
+						<?= htmlspecialchars($row['granularity'], ENT_NOQUOTES, 'UTF-8') ?>
+					</a></td>
+					<td><?= format_number($row['unread_count']) ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</main>

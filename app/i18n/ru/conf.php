@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Отображение по категории',
 			'feeds' => 'Отображение по ленте',
 			'order' => 'Сортировать по дате',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Выражение',
 			'shareOpml' => 'Включить общий доступ с помощью OPML к соответствующим категориям и лентам',
 			'shareRss' => 'Включить общий доступ с помощью HTML &amp; RSS',

@@ -242,6 +242,70 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @param list<array{search:string}> $queries
+	 * @param array{0:string,1:list<string|int>} $expectedResult
+	 */
+	#[DataProvider('provideSavedQueryIdExpansion')]
+	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::$user_conf = $newUserConf;
+
+		try {
+			$search = new FreshRSS_BooleanSearch($input);
+			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
+			self::assertSame($expectedResult[0], trim($actualSql));
+			self::assertSame($expectedResult[1], $actualValues);
+		} finally {
+			FreshRSS_Context::$user_conf = $previousUserConf;
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 */
+	public static function provideSavedQueryIdExpansion(): array {
+		return [
+			'expanded single group' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:0,1',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
+					['%Alice%', '%World%'],
+				],
+			],
+			'separate groups with OR' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 OR S:2,3',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+			],
+			'mixed with other clauses' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'intitle:Hello S:0,1 date:2025-10',
+				[
+					'((e.title LIKE ? )) AND ((e.author LIKE ? )) OR ((e.title LIKE ? )) AND ((e.id >= ? AND e.id <= ? ))',
+					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+				],
+			],
+		];
+	}
+
+	/**
 	 * @param array<string>|null $author_value
 	 * @param array<string> $intitle_value
 	 * @param array<string>|null $inurl_value

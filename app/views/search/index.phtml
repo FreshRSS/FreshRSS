@@ -1,0 +1,200 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_subscription');
+?>
+<main class="post">
+	<h1><?= _t('gen.menu.advanced_search') ?></h1>
+	<p class="help"><?= _i('help') ?> <?= _t('gen.search.advanced_search_help') ?></p>
+	<p><?= _t('gen.search.full_documentation') ?></p>
+
+	<form method="post" action="<?= _url('search', 'submit') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<fieldset>
+			<legend><?= _t('gen.search.text') ?></legend>
+			<p class="help"><?= _i('help') ?> <?= _t('gen.search.text_help') ?></p>
+
+			<div class="form-group">
+				<label class="group-name" for="free_text"><?= _t('gen.search.free_text') ?></label>
+				<div class="group-controls">
+					<textarea id="free_text" name="free_text" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.search.free_text_help') ?></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="title"><?= _t('gen.search.title') ?></label>
+				<div class="group-controls">
+					<textarea id="title" name="title" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="content"><?= _t('gen.search.content') ?></label>
+				<div class="group-controls">
+					<textarea id="content" name="content" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="url"><?= _t('gen.search.url') ?></label>
+				<div class="group-controls">
+					<textarea id="url" name="url" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="authors"><?= _t('gen.search.authors') ?></label>
+				<div class="group-controls">
+					<textarea id="authors" name="authors" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="tags"><?= _t('gen.search.tags') ?></label>
+				<div class="group-controls">
+					<textarea id="tags" name="tags" rows="2" placeholder="<?= _t('gen.search.text_placeholder') ?>"></textarea>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('gen.search.date_past') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_received') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="date_number"><?= _t('gen.search.date_past') ?>
+							<input id="date_number" name="date_number" type="number" min="1" placeholder="1" />
+							<select id="date_unit" name="date_unit">
+								<option value="H"><?= _t('gen.period.hours') ?></option>
+								<option value="D"><?= _t('gen.period.days') ?></option>
+								<option value="W"><?= _t('gen.period.weeks') ?></option>
+								<option value="M"><?= _t('gen.period.months') ?></option>
+								<option value="Y"><?= _t('gen.period.years') ?></option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_published') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="pubdate_number"><?= _t('gen.search.date_past') ?>
+							<input id="pubdate_number" name="pubdate_number" type="number" min="1" placeholder="1" />
+							<select id="pubdate_unit" name="pubdate_unit">
+								<option value="H"><?= _t('gen.period.hours') ?></option>
+								<option value="D"><?= _t('gen.period.days') ?></option>
+								<option value="W"><?= _t('gen.period.weeks') ?></option>
+								<option value="M"><?= _t('gen.period.months') ?></option>
+								<option value="Y"><?= _t('gen.period.years') ?></option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('gen.search.date_range') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_received') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="date_from"><?= _t('gen.search.date_from') ?>
+							<input id="date_from" name="date_from" type="date" />
+						</label>
+						<label for="date_to"><?= _t('gen.search.date_to') ?>
+							<input id="date_to" name="date_to" type="date" />
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_published') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="pubdate_from"><?= _t('gen.search.date_from') ?>
+							<input id="pubdate_from" name="pubdate_from" type="date" />
+						</label>
+						<label for="pubdate_to"><?= _t('gen.search.date_to') ?>
+							<input id="pubdate_to" name="pubdate_to" type="date" />
+						</label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('gen.search.sources') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name" for="feed_ids"><?= _t('gen.search.feeds') ?></label>
+				<div class="group-controls">
+					<select name="feed_ids[]" id="feed_ids" size="<?= min(8, count($this->feeds) + 1) ?>" multiple="multiple">
+						<?php foreach ($this->feeds as $feed): ?>
+						<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="category_ids"><?= _t('gen.search.categories') ?></label>
+				<div class="group-controls">
+					<select name="category_ids[]" id="category_ids" size="<?= min(8, count($this->categories) + 1) ?>" multiple="multiple">
+						<?php foreach ($this->categories as $category): ?>
+						<option value="<?= $category->id() ?>"><?= $category->name() ?></option>
+						<?php endforeach; ?>
+					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.search.multiple_help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('gen.search.labels') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name" for="label_ids"><?= _t('gen.search.labels') ?></label>
+				<div class="group-controls">
+					<select name="label_ids[]" id="label_ids" size="<?= min(8, count($this->labels) + 1) ?>" multiple="multiple">
+						<?php foreach ($this->labels as $label): ?>
+						<option value="<?= $label->id() ?>"><?= $label->name() ?></option>
+						<?php endforeach; ?>
+					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.search.multiple_help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('gen.search.user_queries') ?></legend>
+
+			<div class="form-group">
+				<label class="group-name" for="user_query_ids"><?= _t('gen.search.user_queries') ?></label>
+				<div class="group-controls">
+					<select name="user_query_ids[]" id="user_query_ids" size="<?= min(8, count($this->queries) + 1) ?>" multiple="multiple">
+						<?php foreach ($this->queries as $key => $query): ?>
+						<option value="<?= $key ?>"><?= $query->getName() ?></option>
+						<?php endforeach; ?>
+					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.search.multiple_help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+	</form>
+</main>

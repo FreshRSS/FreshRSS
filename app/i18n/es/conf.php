@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Mostrar por categoría',
 			'feeds' => 'Mostrar por fuente',
 			'order' => 'Ordenar por fecha',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expresión',
 			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',
 			'shareRss' => 'Permite compartir por HTML &amp; RSS',

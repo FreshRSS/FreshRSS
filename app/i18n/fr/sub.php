@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Flux inactifs',
 			'main' => 'Statistiques principales',
 			'repartition' => 'Répartition des articles',
+			'unread_dates' => 'Dates non lues',
 		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',

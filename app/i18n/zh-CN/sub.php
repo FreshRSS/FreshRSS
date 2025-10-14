@@ -282,6 +282,7 @@ return array(
 			'idle' => '长期无更新订阅源',
 			'main' => '主要统计',
 			'repartition' => '文章分布',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',

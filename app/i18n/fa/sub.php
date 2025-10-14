@@ -282,6 +282,7 @@ return array(
 			'idle' => ' تغذیه بیکار',
 			'main' => ' آمار اصلی',
 			'repartition' => ' تقسیم مجدد مقالات',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',

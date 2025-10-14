@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Tétlen hírforrások',
 			'main' => 'Fő statisztika',
 			'repartition' => 'Cikkek eloszlása',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Hírforrások kezelése',
 		'subscription_tools' => 'Hírforrás eszközök',

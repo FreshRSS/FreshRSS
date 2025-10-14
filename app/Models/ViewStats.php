@@ -44,4 +44,7 @@ final class FreshRSS_ViewStats extends FreshRSS_View {
 	public array $repartitionMonth;
 	/** @var list<array{id:int,name:string,category:string,count:int}> */
 	public array $topFeed;
+
+	/** @var list<array{granularity:string,unread_count:int}> */
+	public array $unreadDates;
 }

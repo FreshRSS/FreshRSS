@@ -569,7 +569,7 @@ function next_unread_entry(skipping) {
 	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_feed() {
+function prev_feed(jump_to_unread) {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -585,7 +585,7 @@ function prev_feed() {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (feed.dataset.unread != 0) {
+		if (jump_to_unread && feed.dataset.unread != 0) {
 			delayedClick(feed.querySelector('a.item-title'));
 			return;
 		} else if (adjacent === null) {
@@ -599,7 +599,7 @@ function prev_feed() {
 	}
 }
 
-function next_feed() {
+function next_feed(jump_to_unread) {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -615,7 +615,7 @@ function next_feed() {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (feed.dataset.unread != 0) {
+		if (jump_to_unread && feed.dataset.unread != 0) {
 			delayedClick(feed.querySelector('a.item-title'));
 			return;
 		} else if (adjacent === null) {
@@ -1090,7 +1090,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				next_category();
 			} else if (ev.shiftKey) {
-				next_feed();
+				next_feed(false);
 			} else {
 				next_entry(false);
 			}
@@ -1101,7 +1101,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				next_unread_category();
 			} else if (ev.shiftKey) {
-				next_feed();
+				next_feed(true);
 			} else {
 				next_unread_entry(false);
 			}
@@ -1112,7 +1112,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				prev_category();
 			} else if (ev.shiftKey) {
-				prev_feed();
+				prev_feed(false);
 			} else {
 				prev_entry(false);
 			}

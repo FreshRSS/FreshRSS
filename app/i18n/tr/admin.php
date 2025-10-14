@@ -134,6 +134,8 @@ return array(
 		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm beslemeler',
 		'category' => 'Kategori',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Giriş sayısı',
 		'entry_per_category' => 'Kategorilere göre girişler',
 		'entry_per_day' => 'Günlük girişler (son 30 gün)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Boşta beslemeler',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Boşta besleme yok!',
 		'number_entries' => '%d makale',
 		'overview' => 'Genel Bakış',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Okunmadı',
 		'title' => 'İstatistikler',
 		'top_feed' => 'En iyi on besleme',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',

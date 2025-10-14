@@ -134,6 +134,8 @@ return array(
 		'_' => 'Tilastot',
 		'all_feeds' => 'Kaikki syötteet',
 		'category' => 'Luokka',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Artikkelien määrä',
 		'entry_per_category' => 'Artikkelit luokan mukaan',
 		'entry_per_day' => 'Artikkelit päivän mukaan (edelliset 30 päivää)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Hiljentyneet syötteet',
 		'main' => 'Päätilastot',
 		'main_stream' => 'Pääsyötevirta',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Hiljentyneitä syötteitä ei ole.',
 		'number_entries' => '%d artikkelia',
 		'overview' => 'Katsaus',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Lukemattomat',
 		'title' => 'Tilastot',
 		'top_feed' => '10 parasta syötettä',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Järjestelmän määritys',

@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Bezczynne kanały',
 			'main' => 'Główne statystyki',
 			'repartition' => 'Podział wiadomości',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',
