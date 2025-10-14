@@ -134,8 +134,8 @@ return array(
 		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Data di pubblicazione',
+		'date_received' => 'Data di ricezione',
 		'entry_count' => 'Articoli',
 		'entry_per_category' => 'Articoli per categoria',
 		'entry_per_day' => 'Articoli per giorno (ultimi 30 giorni)',
@@ -148,7 +148,7 @@ return array(
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
 		'main_stream' => 'Flusso principale',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Numero di articoli non letti',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
 		'overview' => 'Panoramica',
@@ -160,7 +160,7 @@ return array(
 		'status_unread' => 'Non letti',
 		'title' => 'Statistiche',
 		'top_feed' => 'I migliori 10 feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Date con il maggior numero di articoli non letti',
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',

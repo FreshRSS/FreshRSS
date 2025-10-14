@@ -107,12 +107,12 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Mostra banner con le segnalazioni',
+			'seconds' => 'secondi (almeno 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Mostra banner di accettazione',
+			'seconds' => 'secondi (0 significa nascosto)',
 		),
 	),
 	'privacy' => array(
@@ -130,15 +130,15 @@ return array(
 			'documentation_link' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentazione e l’elenco delle applicazioni</a>',
 			'help' => 'leggi la <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentazione</a>',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Modifica password',
+		'confirm_new_password' => 'Conferma nuova password',
+		'current_password' => 'Password corrente<br /><small>(per il metodo di login tramite Web-form)</small>',
 		'delete' => array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
 		'email' => 'Indirizzo email',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Nuova password',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_format' => 'Almeno 7 caratteri',
 		'title' => 'Profilo',

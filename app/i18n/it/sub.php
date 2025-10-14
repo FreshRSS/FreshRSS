@@ -50,7 +50,7 @@ return array(
 			'password' => 'Password HTTP',
 			'username' => 'Nome utente HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Modifica…',
 		'clear_cache' => 'Cancella sempre la cache',
 		'content_action' => array(
 			'_' => 'Azione da effettuare quando viene recuperato il contenuto di un articolo',
@@ -75,15 +75,15 @@ return array(
 			'help' => 'File XML (sottoinsieme di dati. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Leggi la documentazione</a>)',
 			'label' => 'Esporta come OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Impostata automaticamente',
+		'favicon_changed_by_ext' => 'L\'icona è stata impostata dall\'estensione <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Azioni di filtro',
 			'help' => 'Scrivi un filtro di ricerca per riga. Per li operatori <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">vedi la documentazione</a>.',
 		),
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Le intestazioni sono separate da una linea e il nome e il valore di un’intestazione sono separati da due punti (p.es: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Icona',
 		'information' => 'Informazioni',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
@@ -92,7 +92,7 @@ return array(
 				'_' => 'HTML + XPath + notazione a punti JSON (JSON in HTML)',
 				'xpath' => array(
 					'_' => 'XPath per JSON in HTML',
-					'help' => 'Esempio: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
+					'help' => 'Esempio: <code>normalize-space(//script[@type="application/json"])</code> (singolo JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (un oggetto JSON per articolo)',
 				),
 			),
 			'html_xpath' => array(
@@ -210,14 +210,14 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilità',
 			'category' => 'Mostra nella sua categoria',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Mostra nel suo feed',
 			'hidden' => 'Non mostrare',
 			'important' => 'Mostra nei feed importanti',
 			'main_stream' => 'Mostra in homepage',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
 		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (es.: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Reimposta al default',
 		'selector_preview' => array(
 			'show_raw' => 'Mostra codice sorgente',
 			'show_rendered' => 'Mostra contenuto',
@@ -282,7 +282,7 @@ return array(
 			'idle' => 'Feed non aggiornati',
 			'main' => 'Statistiche principali',
 			'repartition' => 'Ripartizione articoli',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Date senza lettura',
 		),
 		'subscription_management' => 'Gestione sottoscrizioni',
 		'subscription_tools' => 'Strumenti di sottoscrizione',
