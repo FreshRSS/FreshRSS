@@ -178,11 +178,11 @@
 			<legend><?= _t('gen.search.user_queries') ?></legend>
 
 			<div class="form-group">
-				<label class="group-name" for="user_query"><?= _t('gen.search.user_queries') ?></label>
+				<label class="group-name" for="user_query_ids"><?= _t('gen.search.user_queries') ?></label>
 				<div class="group-controls">
-					<select name="user_query_names[]" id="user_query_names" size="<?= min(8, count($this->queries) + 1) ?>" multiple="multiple">
+					<select name="user_query_ids[]" id="user_query_ids" size="<?= min(8, count($this->queries) + 1) ?>" multiple="multiple">
 						<?php foreach ($this->queries as $key => $query): ?>
-						<option value="<?= $query->getName() ?>"><?= $query->getName() ?></option>
+						<option value="<?= $key ?>"><?= $query->getName() ?></option>
 						<?php endforeach; ?>
 					</select>
 					<p class="help"><?= _i('help') ?> <?= _t('gen.search.multiple_help') ?></p>

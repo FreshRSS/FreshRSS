@@ -149,27 +149,25 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		$feedIds = Minz_Request::paramArrayString('feed_ids');
+		$feedIds = Minz_Request::paramArrayInt('feed_ids');
 		if (!empty($feedIds)) {
 			$searchTerms[] = 'f:' . implode(',', $feedIds);
 		}
 
-		$categoryIds = Minz_Request::paramArrayString('category_ids');
+		$categoryIds = Minz_Request::paramArrayInt('category_ids');
 		if (!empty($categoryIds)) {
 			$searchTerms[] = 'c:' . implode(',', $categoryIds);
 		}
 
-		$labelIds = Minz_Request::paramArrayString('label_ids');
+		$labelIds = Minz_Request::paramArrayInt('label_ids');
 		if (!empty($labelIds)) {
 			$searchTerms[] = 'L:' . implode(',', $labelIds);
 		}
 
-		// User query
-		$userQueryClause = self::buildOrClause(implode("\n", Minz_Request::paramArrayString('user_query_names')), 'search:');
-		if ($userQueryClause !== '') {
-			$searchTerms[] = $userQueryClause;
+		$userQueryIds = Minz_Request::paramArrayInt('user_query_ids');
+		if (!empty($userQueryIds)) {
+			$searchTerms[] = 'S:' . implode(',', $userQueryIds);
 		}
-
 
 		// Combine all search terms
 		$searchQuery = implode(' ', $searchTerms);

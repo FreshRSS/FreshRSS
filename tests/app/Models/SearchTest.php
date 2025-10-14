@@ -224,6 +224,58 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	#[DataProvider('provideSavedQueryIdExpansion')]
+	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedRawChildren): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::$user_conf = $newUserConf;
+
+		try {
+			$search = new FreshRSS_BooleanSearch($input);
+			$children = $search->searches();
+			self::assertContainsOnlyInstancesOf(FreshRSS_BooleanSearch::class, $children);
+			$rawInputs = array_map(static fn(FreshRSS_BooleanSearch $child): string => $child->getRawInput(), $children);
+			self::assertSame($expectedRawChildren, $rawInputs);
+		} finally {
+			FreshRSS_Context::$user_conf = $previousUserConf;
+		}
+	}
+
+	/**
+	 * @return list<array{list<array<string,string>>,string,list<string>>>
+	 */
+	public static function provideSavedQueryIdExpansion(): array {
+		return [
+			'expanded single group' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:1,2',
+				['author:Alice', 'intitle:World'],
+			],
+			'separate groups with OR' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:1,2 OR S:3,4',
+				['author:Alice', 'intitle:World', 'inurl:Example', 'author:Bob'],
+			],
+			'mixed with other clauses' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'intitle:Hello S:1,2 date:2025-10',
+				['intitle:Hello', 'author:Alice', 'intitle:World', 'date:2025-10'],
+			],
+		];
+	}
+
 	/**
 	 * @param array<string>|null $author_value
 	 * @param array<string> $intitle_value
