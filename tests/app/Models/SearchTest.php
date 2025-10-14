@@ -224,6 +224,10 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	/**
+	 * @param list<array{search:string}> $queries
+	 * @param list<string> $expectedRawChildren
+	 */
 	#[DataProvider('provideSavedQueryIdExpansion')]
 	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedRawChildren): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
@@ -243,7 +247,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @return list<array{list<array<string,string>>,string,list<string>>>
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:list<string>}>
 	 */
 	public static function provideSavedQueryIdExpansion(): array {
 		return [
