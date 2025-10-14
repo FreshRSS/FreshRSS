@@ -30,6 +30,11 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}

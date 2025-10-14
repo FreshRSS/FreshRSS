@@ -35,6 +35,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'MAX(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
