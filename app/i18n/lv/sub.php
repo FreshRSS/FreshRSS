@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Neaktīvās barotnes',
 			'main' => 'Galvenās statistikas',
 			'repartition' => 'Rakstu pārdalīšana',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonementu pārvalde',
 		'subscription_tools' => 'Abonamentu rīki',

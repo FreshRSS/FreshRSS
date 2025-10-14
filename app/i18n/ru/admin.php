@@ -134,6 +134,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Количество статей',
 		'entry_per_category' => 'Статей в категории',
 		'entry_per_day' => 'Статей за день (за последние 30 дней)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Неактивные ленты',
 		'main' => 'Основная статистика',
 		'main_stream' => 'Основной поток',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших лент',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Системные настройки',

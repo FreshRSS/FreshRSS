@@ -44,7 +44,8 @@ declare(strict_types=1);
  * @property bool $onread_jump_next
  * @property string $passwordHash
  * @property int $posts_per_page
- * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string}> $queries
+ * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+ * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries
  * @property bool $reading_confirm
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread

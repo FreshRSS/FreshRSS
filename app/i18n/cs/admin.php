@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Všechny kanály',
 		'category' => 'Kategorie',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Počet položek',
 		'entry_per_category' => 'Položek na kategorii',
 		'entry_per_day' => 'Položek za den (posledních 30 dní)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Nečinné kanály',
 		'main' => 'Hlavní statistika',
 		'main_stream' => 'Všechny kanály',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Nejsou žádné nečinné kanály!',
 		'number_entries' => '%d článků',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Nepřečtené',
 		'title' => 'Statistika',
 		'top_feed' => 'Top 10 kanálů',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Nastavení systému',

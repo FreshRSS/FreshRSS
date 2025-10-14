@@ -39,20 +39,23 @@
 		<li class="item nav-section">
 			<div class="nav-header"><?= _t('admin.stats') ?></div>
 			<ul>
-				<li class="item<?= Minz_Request::controllerName() == 'stats' && Minz_Request::actionName() == 'index' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::controllerName() === 'stats' && Minz_Request::actionName() === 'index' ? ' active' : '' ?>">
 					<a href="<?= _url('stats', 'index') ?>"><?= _t('sub.menu.stats.main') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::actionName() == 'idle' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::actionName() === 'idle' ? ' active' : '' ?>">
 					<a href="<?= _url('stats', 'idle') ?>"><?= _t('sub.menu.stats.idle') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::actionName() == 'repartition' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::actionName() === 'repartition' ? ' active' : '' ?>">
 					<a href="<?= _url('stats', 'repartition') ?>"><?= _t('sub.menu.stats.repartition') ?></a>
+				</li>
+				<li class="item<?= Minz_Request::actionName() === 'unreadDates' ? ' active' : '' ?>">
+					<a href="<?= _url('stats', 'unreadDates') ?>"><?= _t('sub.menu.stats.unread_dates') ?></a>
 				</li>
 			</ul>
 		</li>
 	</ul>
 </nav>
-<?php if (Minz_Request::actionName() != 'repartition') { ?>
+<?php if (Minz_Request::actionName() !== 'repartition') { ?>
 	<a class="close-aside" href="#close">❌</a>
 	<nav class="nav_menu nav_mobile">
 		<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>

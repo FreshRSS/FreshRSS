@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Неактивні стрічки',
 			'main' => 'Основна статистика',
 			'repartition' => 'Перерозподіл статей',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',

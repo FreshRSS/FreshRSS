@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Hiljentyneet syötteet',
 			'main' => 'Tilastot',
 			'repartition' => 'Artikkelien uudelleenjaottelu',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Tilausten hallinta',
 		'subscription_tools' => 'Tilaustyökalut',

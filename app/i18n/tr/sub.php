@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Boşta olan beslemeler',
 			'main' => 'Ana istatistikler',
 			'repartition' => 'Makale dağılımı',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',
