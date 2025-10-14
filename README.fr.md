@@ -227,7 +227,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 | Langage | Progression | |
 | - | - | - |
 | Čeština (cs) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fcs+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Deutsch (de) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fde+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Deutsch (de) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fde+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Ελληνικά (el) | ￭￭････････ 22% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fel+%2F%28TODO%7CDIRTY%29%24%2F) |
 | English (en) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fen+%2F%28TODO%7CDIRTY%29%24%2F) |
 | English (United States) (en-US) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fen-US+%2F%28TODO%7CDIRTY%29%24%2F) |
@@ -236,22 +236,22 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 | Suomi (fi) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffi+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Français (fr) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%24%2F) |
 | עברית (he) | ￭￭￭￭･･････ 44% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭￭･ 94% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Italiano (it) | ￭￭￭￭￭￭￭￭￭･ 94% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fit+%2F%28TODO%7CDIRTY%29%24%2F) |
-| 日本語 (ja) | ￭￭￭￭￭￭￭￭￭･ 93% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Italiano (it) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fit+%2F%28TODO%7CDIRTY%29%24%2F) |
+| 日本語 (ja) | ￭￭￭￭￭￭￭￭￭･ 92% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 한국어 (ko) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fko+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Latviešu (lv) | ￭￭￭￭￭￭￭￭･･ 80% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Flv+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Nederlands (nl) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Occitan (oc) | ￭￭￭￭￭￭￭･･･ 79% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Foc+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Nederlands (nl) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Occitan (oc) | ￭￭￭￭￭￭￭･･･ 78% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Foc+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Polski (pl) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpl+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Português (Portugal) (pt-PT) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-PT+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭･･ 85% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Português (Portugal) (pt-PT) | ￭￭￭￭￭￭￭￭･･ 85% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-PT+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Русский (ru) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Slovenčina (sk) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fsk+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Türkçe (tr) | ￭￭￭￭￭￭￭￭￭･ 94% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ftr+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Türkçe (tr) | ￭￭￭￭￭￭￭￭￭･ 93% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ftr+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%24%2F) |
-| 简体中文 (zh-CN) | ￭￭￭￭￭￭￭￭･･ 88% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-CN+%2F%28TODO%7CDIRTY%29%24%2F) |
+| 简体中文 (zh-CN) | ￭￭￭￭￭￭￭￭･･ 87% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-CN+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭･･ 86% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%24%2F) |
 
 </translations>

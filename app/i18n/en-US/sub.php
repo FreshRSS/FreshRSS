@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Idle feeds',	// IGNORE
 			'main' => 'Main statistics',	// IGNORE
 			'repartition' => 'Articles repartition',	// IGNORE
+			'unread_dates' => 'Unread dates',	// IGNORE
 		),
 		'subscription_management' => 'Subscription management',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE

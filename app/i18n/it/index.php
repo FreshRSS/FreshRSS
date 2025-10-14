@@ -78,14 +78,14 @@ return array(
 		'sort' => array(
 			'_' => 'Ordina per',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Categoria, titolo del feed A→Z',
+				'name_desc' => 'Categoria, titolo del feed Z→A',
 			),
 			'date_asc' => 'Data di pubblicazione 1→9',
 			'date_desc' => 'Data di pubblicazione 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Titolo del feed A→Z',
+				'name_desc' => 'Titolo del feed Z→A',
 			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
@@ -94,8 +94,8 @@ return array(
 			'rand' => 'Ordine casuale',
 			'title_asc' => 'Titolo A→Z',
 			'title_desc' => 'Titolo Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Modificato dall\'utente 1→9',
+			'user_modified_desc' => 'Modificato dall\'utente 9→1',
 		),
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',

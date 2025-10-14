@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Показати категорію',
 			'feeds' => 'Показати стрічку',
 			'order' => 'Впорядкувати за датою',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Вираз',
 			'shareOpml' => 'Увімкнути OPML-поширення відповідних категорій і стрічок',
 			'shareRss' => 'Увімкнути поширення в форматі HTML і RSS',

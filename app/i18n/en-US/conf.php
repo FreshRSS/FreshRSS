@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Display by category',	// IGNORE
 			'feeds' => 'Display by feed',	// IGNORE
 			'order' => 'Sort by date',	// IGNORE
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// IGNORE
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE

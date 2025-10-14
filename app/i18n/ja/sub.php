@@ -282,6 +282,7 @@ return array(
 			'idle' => '休止中のフィード',
 			'main' => '主な統計',
 			'repartition' => '記事の割合',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',
