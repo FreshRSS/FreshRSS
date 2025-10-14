@@ -226,10 +226,10 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @param list<array{search:string}> $queries
-	 * @param list<string> $expectedRawChildren
+	 * @param array{0:string,1:list<string|int>} $expectedResult
 	 */
 	#[DataProvider('provideSavedQueryIdExpansion')]
-	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedRawChildren): void {
+	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
@@ -237,17 +237,16 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 		try {
 			$search = new FreshRSS_BooleanSearch($input);
-			$children = $search->searches();
-			self::assertContainsOnlyInstancesOf(FreshRSS_BooleanSearch::class, $children);
-			$rawInputs = array_map(static fn(FreshRSS_BooleanSearch $child): string => $child->getRawInput(), $children);
-			self::assertSame($expectedRawChildren, $rawInputs);
+			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
+			self::assertSame($expectedResult[0], trim($actualSql));
+			self::assertSame($expectedResult[1], $actualValues);
 		} finally {
 			FreshRSS_Context::$user_conf = $previousUserConf;
 		}
 	}
 
 	/**
-	 * @return array<string,array{0:list<array{search:string}>,1:string,2:list<string>}>
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
 	 */
 	public static function provideSavedQueryIdExpansion(): array {
 		return [
@@ -256,8 +255,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'S:1,2',
-				['author:Alice', 'intitle:World'],
+				'S:0,1',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
+					['%Alice%', '%World%'],
+				],
 			],
 			'separate groups with OR' => [
 				[
@@ -266,16 +268,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					['search' => 'inurl:Example'],
 					['search' => 'author:Bob'],
 				],
-				'S:1,2 OR S:3,4',
-				['author:Alice', 'intitle:World', 'inurl:Example', 'author:Bob'],
+				'S:0,1 OR S:2,3',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
 			],
 			'mixed with other clauses' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'intitle:Hello S:1,2 date:2025-10',
-				['intitle:Hello', 'author:Alice', 'intitle:World', 'date:2025-10'],
+				'intitle:Hello S:0,1 date:2025-10',
+				[
+					'((e.title LIKE ? )) AND ((e.author LIKE ? )) OR ((e.title LIKE ? )) AND ((e.id >= ? AND e.id <= ? ))',
+					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+				],
 			],
 		];
 	}

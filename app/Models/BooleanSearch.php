@@ -124,10 +124,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 					$matchedQueries = [];
 					foreach ($ids as $id) {
-						// Query IDs are 1-based
-						$queryIndex = $id - 1;
-						if (!empty($queries[$queryIndex])) {
-							$matchedQueries[] = $queries[$queryIndex];
+						if (!empty($queries[$id])) {
+							$matchedQueries[] = $queries[$id];
 						}
 					}
 					if (empty($matchedQueries)) {
