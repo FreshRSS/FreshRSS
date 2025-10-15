@@ -233,6 +233,7 @@ return array(
 		'date_range' => 'Date Range',
 		'date_received' => 'Received Date',
 		'date_to' => 'To',
+		'date_user' => 'User Modification Date',
 		'feeds' => 'Feeds',
 		'free_text' => 'Free Text',
 		'free_text_help' => 'Search both in title and content',
