@@ -812,27 +812,31 @@ SQL;
 
 	public function searchByGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+	{$contentLength}
 FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
 		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
-		 *		is_read:int,is_favorite:int,tags:string,attributes:?string}> $res */
+		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchById(string $id): ?FreshRSS_Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+	{$contentLength}
 FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
-		/** @var list<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes':?string}> $res */
+		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
+		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 

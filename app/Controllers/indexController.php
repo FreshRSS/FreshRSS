@@ -303,8 +303,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'link' => $pagingEntry->link(true),
 					'title' => $pagingEntry->title(),
 					'lastUserModified' => $pagingEntry->lastUserModified(),
-					// TODO: Find better approach for `length`. This is not robust enough. It must be the value computed by the database.
-					'length' => strlen($pagingEntry->content(withEnclosures: false)),
+					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
 				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
 					// Secondary sort criterion
