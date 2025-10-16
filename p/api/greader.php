@@ -285,7 +285,7 @@ final class GReaderAPI {
 			['id' => 'user/-/state/com.google/reading-list'],
 			['id' => 'user/-/state/org.freshrss/main'],
 			['id' => 'user/-/state/org.freshrss/important'],
-			// ['id' => 'user/-/state/org.freshrss/archived'],
+			// ['id' => 'user/-/state/org.freshrss/hidden'],
 		];
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(prePopulateFeeds: false, details: false);
