@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'הצגה בזרם המרכזי',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'הזנות שלא עודכנו',
 			'main' => 'סטטיסטיקות ראשיות',
 			'repartition' => 'חלוקת המאמרים',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO

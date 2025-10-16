@@ -19,8 +19,10 @@ Available languages are:
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |
 | English                 | English                | en                                   |
-| English (United States) | English (United States) | en-us                               |
+| English (United States) | English (United States) | en-US                               |
 | Spanish                 | Español                | es                                   |
+| Farsi                   | فارسی                  | fa                                   |
+| Finnish                 | Suomi                  | fi                                   |
 | French                  | Français               | fr                                   |
 | Hebrew                  | עברית                  | he                                   |
 | Hungarian               | Magyar                 | hu                                   |
@@ -32,12 +34,16 @@ Available languages are:
 | Dutch                   | Nederlands             | nl                                   |
 | Occitan                 | Occitan                | oc                                   |
 | Polish                  | Polski                 | pl                                   |
-| Brazilian Portuguese    | Português (Brasil)     | pt-br                                |
+| Brazilian Portuguese    | Português (Brasil)     | pt-BR                                |
+| Portuguese              | Português (Portugal)   | pt-PT                                |
 | Russian                 | Русский                | ru                                   |
 | Slovak                  | Slovenčina             | sk                                   |
 | Turkish                 | Türkçe                 | tr                                   |
-| Chinese (Simplified, People’s Republic of China) | 简体中文      | zh-cn                 |
-| Chinese (Traditional, Taiwan) | 正體中文          | zh-tw                                |
+| Ukrainian               | Українська             | uk                                   |
+| Chinese (Simplified, People’s Republic of China) | 简体中文      | zh-CN                 |
+| Chinese (Traditional, Taiwan) | 正體中文          | zh-TW                                |
+
+**Note** for regional languages, we are following the recommendations of _ISO-639-1_ and _ISO-3166-1 alpha-2_.
 
 ### Theme
 

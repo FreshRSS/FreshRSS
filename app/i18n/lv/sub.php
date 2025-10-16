@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'category' => 'Rādīt kategorijā',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nerādīt',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Rādīt galvenajā plūsmā',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Neaktīvās barotnes',
 			'main' => 'Galvenās statistikas',
 			'repartition' => 'Rakstu pārdalīšana',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonementu pārvalde',
 		'subscription_tools' => 'Abonamentu rīki',

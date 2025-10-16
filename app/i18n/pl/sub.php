@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Widoczność',
 			'category' => 'Pokaż w kategorii kanału',
+			'feed' => 'Pokaż w kanale',
 			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Bezczynne kanały',
 			'main' => 'Główne statystyki',
 			'repartition' => 'Podział wiadomości',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',

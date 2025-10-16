@@ -173,7 +173,7 @@ $url_array = [
 $feedback_good = 'All went well!';
 $feedback_bad = 'Oops, something went wrong.';
 
-Minz_Request::good($feedback_good, $url_array);
+Minz_Request::good($feedback_good, $url_array, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 
 // or
 

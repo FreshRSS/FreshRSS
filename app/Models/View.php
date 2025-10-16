@@ -30,6 +30,10 @@ class FreshRSS_View extends Minz_View {
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
 
+	// Search
+	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	public array $labels;
+
 	// Subscriptions
 	public bool $displaySlider = false;
 	public bool $load_ok;
@@ -78,7 +82,7 @@ class FreshRSS_View extends Minz_View {
 	// Export / Import
 	public string $content;
 	/** @var array<string,array<string>> */
-	public array $entryIdsTagNames;
+	public array $entryIdsTagNames = [];
 	public string $list_title;
 	public int $queryId;
 	public string $type;
@@ -111,6 +115,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $internal_rendering = false;
 	public string $description = '';
 	public string $image_url = '';
+	public bool $publishLabelsInsteadOfTags = false;
 
 	// Content preview
 	public string $fatalError;

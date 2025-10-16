@@ -37,7 +37,7 @@ return array(
 	'feed' => array(
 		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'received' => array(
-			'before_yesterday' => 'Vorgestern empfangen',
+			'before_yesterday' => 'Vor gestern empfangen',
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Zufällige Reihenfolge',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',

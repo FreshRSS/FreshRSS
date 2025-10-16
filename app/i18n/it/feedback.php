@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s non può essere abilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è ora abilitata',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Modalità di visualizzazione “%s” non valida! Verrà utilizzata la “vista normale”.',
 		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Le password non corrispondono',
 		'updated' => 'Il tuo profilo è stato modificato',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'L\'icona caricata è troppo grande. La dimensione massima del file è <em>%s</em>.',
+				'unsupported_format' => 'Formato file immagine non supportato!',
 			),
 			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',

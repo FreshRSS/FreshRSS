@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Ketampakan',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Umpan tak terbarukan',
 			'main' => 'Statistik utama',
 			'repartition' => 'Pengkategorian artikel',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',

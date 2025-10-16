@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
+		'date_published' => 'Date de publication',
+		'date_received' => 'Date de réception',
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles par catégorie',
 		'entry_per_day' => 'Nombre d’articles par jour (30 derniers jours)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Flux inactifs',
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
+		'nb_unreads' => 'Nombre d’articles non lus',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Vue d’ensemble',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'non lus',
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
+		'unread_dates' => 'Dates avec le plus d’articles non lus',
 	),
 	'system' => array(
 		'_' => 'Configuration du système',

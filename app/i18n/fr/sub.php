@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilité',
 			'category' => 'Afficher dans sa catégorie',
+			'feed' => 'Afficher dans son flux',
 			'hidden' => 'Ne pas afficher',
 			'important' => 'Afficher dans les flux importants',
 			'main_stream' => 'Afficher dans les flux principaux',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Flux inactifs',
 			'main' => 'Statistiques principales',
 			'repartition' => 'Répartition des articles',
+			'unread_dates' => 'Dates non lues',
 		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',

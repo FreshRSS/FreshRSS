@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Hier',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇫🇷',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'À propos de FreshRSS',
@@ -162,7 +161,7 @@ return array(
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
 		'fi' => 'Suomi',	// IGNORE
@@ -177,19 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
-		'pt-pt' => 'Português (Portugal)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'uk' => 'Українська',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'À propos',
 		'account' => 'Compte',
 		'admin' => 'Administration',	// IGNORE
+		'advanced_search' => 'Recherche avancée',
 		'archiving' => 'Archivage',
 		'authentication' => 'Authentification',
 		'check_install' => 'Vérification de l’installation',
@@ -216,6 +216,37 @@ return array(
 		'months' => 'mois',
 		'weeks' => 'semaines',
 		'years' => 'années',
+	),
+	'readme' => array(
+		'contribute' => 'contribuer',
+		'language' => 'Langage',
+		'translated' => 'Progression',
+	),
+	'search' => array(
+		'advanced_search_help' => 'Ce formulaire aide à construire des requêtes de recherche, mais les requêtes manuelles sont encore plus puissantes.',
+		'authors' => 'Auteurs',
+		'categories' => 'Catégories',
+		'content' => 'Contenu',
+		'date_from' => 'Depuis',
+		'date_past' => 'Dans le passé',
+		'date_published' => 'Date de publication',
+		'date_range' => 'Plage de dates',
+		'date_received' => 'Date de réception',
+		'date_to' => 'À',
+		'feeds' => 'Flux',
+		'free_text' => 'Texte libre',
+		'free_text_help' => 'Rechercher dans le titre et le contenu',
+		'full_documentation' => 'Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation complète de recherche</a>',
+		'labels' => 'Mes étiquettes',
+		'multiple_help' => 'Sélectionnez un ou plusieurs (maintenez <kbd>Ctrl</kbd> ou <kbd>Cmd</kbd>)',
+		'sources' => 'Sources',	// IGNORE
+		'tags' => 'Tags d’articles',
+		'text' => 'Recherche de texte',
+		'text_help' => 'Les lignes multiples sont combinées par un <i>ou</i> logique. Supporte aussi les <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#regex" target="_blank">expressions régulières</a>.',
+		'text_placeholder' => 'Mot-clef',
+		'title' => 'Titre',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Requêtes utilisateur',
 	),
 	'share' => array(
 		'Known' => 'Sites basés sur Known',

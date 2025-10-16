@@ -102,7 +102,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	private function parseUserQueryIds(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 
-		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bS:(?P<search>[0-9,]+)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
@@ -119,15 +119,25 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					continue;
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
-					// Index starting from 1
-					$id = (int)(trim($matches['search'][$i])) - 1;
-					if (!empty($queries[$id])) {
-						$fromS[] = $matches[0][$i];
-						if ($allowUserQueries) {
-							$toS[] = '(' . self::escapeLiteralParentheses($queries[$id]) . ')';
-						} else {
-							$toS[] = '';
+					$ids = explode(',', $matches['search'][$i]);
+					$ids = array_map('intval', $ids);
+
+					$matchedQueries = [];
+					foreach ($ids as $id) {
+						if (!empty($queries[$id])) {
+							$matchedQueries[] = $queries[$id];
 						}
+					}
+					if (empty($matchedQueries)) {
+						continue;
+					}
+
+					$fromS[] = $matches[0][$i];
+					if ($allowUserQueries) {
+						$escapedQueries = array_map(fn(string $query): string => self::escapeLiteralParentheses($query), $matchedQueries);
+						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
+					} else {
+						$toS[] = '';
 					}
 				}
 			}

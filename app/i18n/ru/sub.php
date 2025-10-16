@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Видимость',
 			'category' => 'Показывать в категории ленты',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Не показывать',
 			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Неактивные ленты',
 			'main' => 'Основная статистика',
 			'repartition' => 'Расределение статей',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',

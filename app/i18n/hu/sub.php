@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'category' => 'Jelenjen meg a saját kategóriájában',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Ne jelenjen meg',
 			'important' => 'Megjelenítés a fontos hírforrásokban',
 			'main_stream' => 'Megjelenítés a Minden cikk között',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Tétlen hírforrások',
 			'main' => 'Fő statisztika',
 			'repartition' => 'Cikkek eloszlása',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Hírforrások kezelése',
 		'subscription_tools' => 'Hírforrás eszközök',

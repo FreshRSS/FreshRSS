@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Losowa kolejność',
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',
+			'user_modified_asc' => 'Zmodyfikowane przez użytkownika 1→9',
+			'user_modified_desc' => 'Zmodyfikowane przez użytkownika 9→1',
 		),
 		'starred' => 'Pokaż ulubione',
 		'stats' => 'Statystyki',

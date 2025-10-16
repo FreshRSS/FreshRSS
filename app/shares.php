@@ -152,7 +152,7 @@ return [
 	'omnivore' => [
 		'url' => '~URL~/api/save?url=~LINK~',
 		'transform' => ['urlencode'],
-		'help' => 'https://omnivore.app/',
+		'help' => 'https://github.com/omnivore-app/omnivore',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],

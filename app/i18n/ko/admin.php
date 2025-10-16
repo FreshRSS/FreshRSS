@@ -134,6 +134,8 @@ return array(
 		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '글 개수',
 		'entry_per_category' => '카테고리별 글 개수',
 		'entry_per_day' => '일일 글 개수 (최근 30 일)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => '유휴 피드',
 		'main' => '주요 통계',
 		'main_stream' => '메인 스트림',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '시스템 설정',

@@ -160,6 +160,16 @@ $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
 $view->image_url = $query->getImageUrl();
 $view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
+$view->publishLabelsInsteadOfTags = $query->publishLabelsInsteadOfTags();
+$view->entryIdsTagNames = [];
+if ($view->publishLabelsInsteadOfTags && in_array($format, ['rss', 'atom'], true)) {
+	$entries = iterator_to_array($view->entries, preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
+	$view->entries = $entries;
+	if (!empty($entries)) {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+	}
+}
 if ($query->getName() != '') {
 	FreshRSS_View::_title($query->getName());
 }

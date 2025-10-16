@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Show in main stream',	// TODO
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Idle feeds',	// TODO
 			'main' => 'Main statistics',	// TODO
 			'repartition' => 'Articles repartition',	// TODO
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Subscription management',	// TODO
 		'subscription_tools' => 'Subscription tools',	// TODO

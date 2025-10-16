@@ -134,6 +134,8 @@ return array(
 		'_' => 'סטטיסטיקות',
 		'all_feeds' => 'כל ההזנות',
 		'category' => 'קטגוריה',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'סכום המאמרים',
 		'entry_per_category' => 'מאמרים על פי קטגוריה',
 		'entry_per_day' => 'מספר מאמרים ליום (30 ימים אחרונים)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'הזנות שלא עודכנו',
 		'main' => 'סטטיסטיקות ראשיות',
 		'main_stream' => 'הזנה ראשית',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'אין הזנות מובטלות!',
 		'number_entries' => '%d מאמרים',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'לא נקרא',
 		'title' => 'סטטיסטיקות',
 		'top_feed' => 'עשרת ההזנות המובילות',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'System configuration',	// TODO

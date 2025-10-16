@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',
 			'category' => 'Show in its category',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Do not show',
 			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Idle feeds',
 			'main' => 'Main statistics',
 			'repartition' => 'Articles repartition',
+			'unread_dates' => 'Unread dates',
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',

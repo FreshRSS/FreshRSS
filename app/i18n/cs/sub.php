@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Viditelnost',
 			'category' => 'Zobrazit v jeho kategorii',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Nezobrazovat',
 			'important' => 'Zobrazit v důležitých kanálech',
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Nečinné kanály',
 			'main' => 'Hlavní statistika',
 			'repartition' => 'Přerozdělení článků',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Správa odběrů',
 		'subscription_tools' => 'Nástroje odběrů',

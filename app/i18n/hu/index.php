@@ -94,6 +94,8 @@ return array(
 			'rand' => 'Véletlen sorrend',
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Kedvencek megjelenítése',
 		'stats' => 'Statisztika',

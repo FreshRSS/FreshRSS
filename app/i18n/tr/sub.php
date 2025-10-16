@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'category' => 'Kategorisinde göster',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Gösterilmesin',
 			'important' => 'Önemli beslemelerde göster',
 			'main_stream' => 'Ana akışta göster',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Boşta olan beslemeler',
 			'main' => 'Ana istatistikler',
 			'repartition' => 'Makale dağılımı',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',

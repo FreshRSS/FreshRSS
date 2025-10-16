@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilitat',
 			'category' => 'Mostar dins sa categoria',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Mostrar pas',
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'Mostar al flux màger',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Fluxes inactius',
 			'main' => 'Estatisticas principalas',
 			'repartition' => 'Reparticion dels articles',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',

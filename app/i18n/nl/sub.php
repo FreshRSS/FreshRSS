@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'category' => 'Toon in categorie',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Niet weergeven',
 			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Gepauzeerde feeds',
 			'main' => 'Hoofd statistieken',
 			'repartition' => 'Artikelen verdeling',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',

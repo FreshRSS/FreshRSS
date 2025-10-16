@@ -210,6 +210,7 @@ return array(
 		'priority' => array(
 			'_' => '表示する場所',
 			'category' => 'カテゴリで表示する',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => '非表示にする',
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
@@ -281,6 +282,7 @@ return array(
 			'idle' => '休止中のフィード',
 			'main' => '主な統計',
 			'repartition' => '記事の割合',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',

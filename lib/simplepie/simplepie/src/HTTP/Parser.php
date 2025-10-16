@@ -42,7 +42,7 @@ class Parser
     /**
      * Key/value pairs of the headers
      *
-     * @var (Psr7Compatible is true ? array<string, non-empty-array<string>> : array<string, string>)
+     * @phpstan-var (Psr7Compatible is true ? array<string, non-empty-array<string>> : array<string, string>)
      */
     public $headers = [];
 
