@@ -170,12 +170,6 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
-	'pocket' => [
-		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
-		'transform' => ['rawurlencode'],
-		'form' => 'simple',
-		'method' => 'GET',
-	],
 	'print' => [
 		'HTMLtag' => 'button',
 		'url' => '#',
