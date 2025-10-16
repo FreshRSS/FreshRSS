@@ -368,7 +368,7 @@ final class GReaderAPI {
 						FreshRSS_Feed::PRIORITY_MAIN_STREAM => 'main',
 						FreshRSS_Feed::PRIORITY_IMPORTANT => 'important',
 						FreshRSS_Feed::PRIORITY_CATEGORY => 'category',
-						FreshRSS_Feed::PRIORITY_HIDDEN => 'hidden',	// Not returned by the API, so should never happen
+						// FreshRSS_Feed::PRIORITY_HIDDEN => 'hidden',	// Not returned by the API
 						default => 'main',
 					},
 				];
