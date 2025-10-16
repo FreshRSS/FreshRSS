@@ -271,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
-		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
 		'reddit' => 'Reddit',

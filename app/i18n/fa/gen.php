@@ -271,7 +271,6 @@ return array(
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',
-		'pocket' => ' جیبی',
 		'print' => ' چاپ',
 		'raindrop' => ' Raindrop.io',
 		'reddit' => ' Reddit',
