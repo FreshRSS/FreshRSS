@@ -233,6 +233,7 @@ return array(
 		'date_range' => 'Date Range',	// IGNORE
 		'date_received' => 'Received Date',	// IGNORE
 		'date_to' => 'To',	// IGNORE
+		'date_user' => 'User Modification Date',	// IGNORE
 		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Free Text',	// IGNORE
 		'free_text_help' => 'Search both in title and content',	// IGNORE

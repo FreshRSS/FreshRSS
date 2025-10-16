@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Спершу найдавніше отримані',
 			'id_desc' => 'Спершу щойно отримані',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Посилання А→Я',
 			'link_desc' => 'Посилання Я→А',
 			'rand' => 'Довільний порядок',

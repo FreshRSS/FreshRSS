@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => '新着を最後に並べる',
 			'id_desc' => '新着を最初に並べる',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'リンクURL順 A→Z',
 			'link_desc' => 'リンクURL順 Z→A',
 			'rand' => 'ランダムに並べる',

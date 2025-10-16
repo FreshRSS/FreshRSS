@@ -233,6 +233,7 @@ return array(
 		'date_range' => 'Date Range',	// TODO
 		'date_received' => 'Received Date',	// TODO
 		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
 		'feeds' => 'Feeds',	// TODO
 		'free_text' => 'Free Text',	// TODO
 		'free_text_help' => 'Search both in title and content',	// TODO
