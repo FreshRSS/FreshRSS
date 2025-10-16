@@ -170,6 +170,7 @@
 				<label class="group-name" for="feed_ids"><?= _t('gen.search.feeds') ?></label>
 				<div class="group-controls">
 					<select name="feed_ids[]" id="feed_ids" size="<?= min(8, count($this->feeds) + 1) ?>" multiple="multiple">
+						<option value=""></option>
 						<?php foreach ($this->feeds as $feed): ?>
 						<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
 						<?php endforeach; ?>
@@ -181,6 +182,7 @@
 				<label class="group-name" for="category_ids"><?= _t('gen.search.categories') ?></label>
 				<div class="group-controls">
 					<select name="category_ids[]" id="category_ids" size="<?= min(8, count($this->categories) + 1) ?>" multiple="multiple">
+						<option value=""></option>
 						<?php foreach ($this->categories as $category): ?>
 						<option value="<?= $category->id() ?>"><?= $category->name() ?></option>
 						<?php endforeach; ?>
@@ -197,6 +199,7 @@
 				<label class="group-name" for="label_ids"><?= _t('gen.search.labels') ?></label>
 				<div class="group-controls">
 					<select name="label_ids[]" id="label_ids" size="<?= min(8, count($this->labels) + 1) ?>" multiple="multiple">
+						<option value=""></option>
 						<?php foreach ($this->labels as $label): ?>
 						<option value="<?= $label->id() ?>"><?= $label->name() ?></option>
 						<?php endforeach; ?>
@@ -213,6 +216,7 @@
 				<label class="group-name" for="user_query_ids"><?= _t('gen.search.user_queries') ?></label>
 				<div class="group-controls">
 					<select name="user_query_ids[]" id="user_query_ids" size="<?= min(8, count($this->queries) + 1) ?>" multiple="multiple">
+						<option value=""></option>
 						<?php foreach ($this->queries as $key => $query): ?>
 						<option value="<?= $key ?>"><?= $query->getName() ?></option>
 						<?php endforeach; ?>
