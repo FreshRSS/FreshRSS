@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Freshly received last',	// IGNORE
 			'id_desc' => 'Freshly received first',	// IGNORE
+			'length_asc' => 'Content length 1→9',	// IGNORE
+			'length_desc' => 'Content length 9→1',	// IGNORE
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Random order',	// IGNORE

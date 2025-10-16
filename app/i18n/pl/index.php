@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Odnośnik A→Z',
 			'link_desc' => 'Odnośnik Z→A',
 			'rand' => 'Losowa kolejność',
