@@ -983,6 +983,9 @@ HTML;
 			if ($nodes != false) {
 				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
+					if (!($node instanceof DOMElement)) {
+						continue;
+					}
 					if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
 						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
 						foreach ($filterednodes as $filterednode) {
@@ -994,6 +997,9 @@ HTML;
 							}
 							$filterednode->parentNode->removeChild($filterednode);
 						}
+					}
+					if ($node->parentNode === null) {
+						continue;
 					}
 					$html .= $doc->saveHTML($node) . "\n";
 				}
