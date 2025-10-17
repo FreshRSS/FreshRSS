@@ -1576,13 +1576,15 @@ SQL;
 		$hash = static::sqlHexEncode('hash');
 		$repeats = str_repeat('?,', count($ids) - 1) . '?';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, lastUserModified
+SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, `lastUserModified`
 FROM `_entry`
 WHERE id IN ({$repeats})
 ORDER BY id {$order}
 SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm === false || !$stm->execute($ids)) {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return;
 		}
 		while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
