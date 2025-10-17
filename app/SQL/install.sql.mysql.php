@@ -115,14 +115,17 @@ ENGINE = INNODB;
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
-CREATE INDEX IF NOT EXISTS `entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
+ALTER TABLE `_entry`
+	ADD `lastUserModified` BIGINT DEFAULT 0,	-- 1.28.0
+	ADD INDEX `entry_last_user_modified_index` (`lastUserModified`);
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
-CREATE INDEX IF NOT EXISTS `entry_last_modified_index` ON `_entry` (`lastModified`);
+ALTER TABLE `_entry`
+	ADD `lastModified` BIGINT DEFAULT 0,	-- 1.28.0
+	ADD INDEX `entry_last_modified_index` (`lastModified`);
 ALTER TABLE `_entrytmp` ADD `lastModified` BIGINT DEFAULT 0;
+UPDATE `_entry` SET `lastModified` = FLOOR(`id` / 1000000);
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'

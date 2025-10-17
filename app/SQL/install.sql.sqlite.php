@@ -113,6 +113,7 @@ $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
 ALTER TABLE `entry` ADD `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS entry_last_modified_index ON `entry` (`lastModified`);
 ALTER TABLE `entrytmp` ADD `lastModified` BIGINT DEFAULT 0;
+UPDATE `entry` SET `lastModified` = FLOOR(`id` / 1000000);
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'

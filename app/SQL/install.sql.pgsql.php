@@ -104,14 +104,15 @@ CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry"
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+ALTER TABLE `_entry` ADD COLUMN `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
+ALTER TABLE `_entry` ADD COLUMN `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
-ALTER TABLE `_entrytmp` ADD `lastModified` BIGINT DEFAULT 0;
+ALTER TABLE `_entrytmp` ADD COLUMN `lastModified` BIGINT DEFAULT 0;
+UPDATE `_entry` SET `lastModified` = FLOOR(`id` / 1000000);
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
