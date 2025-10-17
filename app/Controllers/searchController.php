@@ -147,7 +147,7 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		// Entry modification date
+		// Server modification date
 		$mDateFrom = trim(Minz_Request::paramString('mdate_from'));
 		$mDateTo = trim(Minz_Request::paramString('mdate_to'));
 		$mDateNumber = Minz_Request::paramInt('mdate_number');
