@@ -47,6 +47,10 @@ class FreshRSS_Search implements \Stringable {
 	private $min_userdate = null;
 	/** @var int|false|null */
 	private $max_userdate = null;
+	/** @var int|false|null */
+	private $min_modified_date = null;
+	/** @var int|false|null */
+	private $max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $inurl = null;
 	/** @var list<string>|null */
@@ -94,6 +98,10 @@ class FreshRSS_Search implements \Stringable {
 	private $not_min_userdate = null;
 	/** @var int|false|null */
 	private $not_max_userdate = null;
+	/** @var int|false|null */
+	private $not_min_modified_date = null;
+	/** @var int|false|null */
+	private $not_max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $not_inurl = null;
 	/** @var list<string>|null */
@@ -124,6 +132,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseNotLabelNames($input);
 
 		$input = $this->parseNotUserdateSearch($input);
+		$input = $this->parseNotModifiedDateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
@@ -140,6 +149,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseLabelNames($input);
 
 		$input = $this->parseUserdateSearch($input);
+		$input = $this->parseModifiedDateSearch($input);
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 
@@ -287,6 +297,24 @@ class FreshRSS_Search implements \Stringable {
 	}
 	public function getNotMaxUserdate(): ?int {
 		return $this->not_max_userdate ?: null;
+	}
+	public function getMinModifiedDate(): ?int {
+		return $this->min_modified_date ?: null;
+	}
+	public function getNotMinModifiedDate(): ?int {
+		return $this->not_min_modified_date ?: null;
+	}
+	public function setMinModifiedDate(int $value): void {
+		$this->min_modified_date = $value;
+	}
+	public function getMaxModifiedDate(): ?int {
+		return $this->max_modified_date ?: null;
+	}
+	public function getNotMaxModifiedDate(): ?int {
+		return $this->not_max_modified_date ?: null;
+	}
+	public function setMaxModifiedDate(int $value): void {
+		$this->max_modified_date = $value;
 	}
 
 	/** @return list<string>|null */
@@ -817,6 +845,28 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseModifiedDateSearch(string $input): string {
+		if (preg_match_all('/\bmdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->min_modified_date, $this->max_modified_date] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotModifiedDateSearch(string $input): string {
+		if (preg_match_all('/(?<=[\s(]|^)[!-]mdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->not_min_modified_date, $this->not_max_modified_date] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

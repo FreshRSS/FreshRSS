@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"link" VARCHAR(16383) NOT NULL,
 	"date" BIGINT,
 	"lastSeen" BIGINT DEFAULT 0,
+	"lastModified" BIGINT DEFAULT 0,
 	"lastUserModified" BIGINT DEFAULT 0,
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
@@ -57,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` ("lastModified");
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");	-- v1.28.0
 
@@ -74,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"link" VARCHAR(16383) NOT NULL,
 	"date" BIGINT,
 	"lastSeen" BIGINT DEFAULT 0,
+	"lastModified" BIGINT DEFAULT 0,
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
@@ -103,6 +106,12 @@ SQL;
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
 ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
+SQL;
+
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
+ALTER TABLE `_entrytmp` ADD `lastModified` BIGINT DEFAULT 0;
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'

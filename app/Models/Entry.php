@@ -24,6 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $link;
 	private int $date;
 	private int $lastSeen = 0;
+	private int $lastModified = 0;
 	private int $lastUserModified = 0;
 	/** In microseconds */
 	private string $date_added = '0';
@@ -55,9 +56,11 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,
-	 * 		date?:int|string,lastSeen?:int,lastUserModified?:int,
-	 * 		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string,
+	/** @param array{id?:string,guid?:string,title?:string,author?:string,content?:string,link?:string,
+	 * 		date?:int|string,lastSeen?:int,lastModified?:int,lastUserModified?:int,
+	 * 		hash?:string,is_read?:bool|int,is_favorite?:bool|int,id_feed?:int,
+	 * 		tags?:string|array<string>,attributes?:?string,
+	 * 		thumbnail?:string,timestamp?:string,
 	 * 		content_length?:int} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content']) || !is_string($dao['content'])) {
@@ -101,6 +104,9 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['lastSeen'])) {
 			$entry->_lastSeen($dao['lastSeen']);
 		}
+		if (isset($dao['lastModified'])) {
+			$entry->_lastModified($dao['lastModified']);
+		}
 		if (isset($dao['lastUserModified'])) {
 			$entry->_lastUserModified($dao['lastUserModified']);
 		}
@@ -117,11 +123,10 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @param Traversable<array{id?:string,id_feed?:int,guid?:string,
-	 * title?:string,author?:string,content?:string,link?:string,
-	 * date?:int|string,lastSeen?:int,lastUserModified?:int,hash?:string,is_read?:bool|int,
-	 * is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,
-	 * thumbnail?:string,timestamp?:string}> $daos
+	 * @param Traversable<array{id?:string,guid?:string,title?:string,author?:string,content?:string,link?:string,
+	 * 	date?:int|string,lastSeen?:int,lastModified?:int,lastUserModified?:int,hash?:string,is_read?:bool|int,
+	 * 	is_favorite?:bool|int,id_feed?:int,tags?:string|array<string>,attributes?:?string,
+	 * 	thumbnail?:string,timestamp?:string}> $daos
 	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public static function fromTraversable(Traversable $daos): Traversable {
@@ -581,6 +586,11 @@ HTML;
 		$this->lastSeen = $value > 0 ? $value : 0;
 	}
 
+	public function _lastModified(int|string $value): void {
+		$value = (int)$value;
+		$this->lastModified = $value > 0 ? $value : 0;
+	}
+
 	public function _lastUserModified(int|string $value): void {
 		$value = (int)$value;
 		$this->lastUserModified = $value > 0 ? $value : 0;
@@ -666,6 +676,18 @@ HTML;
 				}
 				if ($ok && $filter->getNotMaxPubdate() !== null) {
 					$ok &= $this->date > $filter->getNotMaxPubdate();
+				}
+				if ($ok && $filter->getMinModifiedDate() !== null) {
+					$ok &= $this->lastModified >= $filter->getMinModifiedDate();
+				}
+				if ($ok && $filter->getNotMinModifiedDate() !== null) {
+					$ok &= $this->lastModified < $filter->getNotMinModifiedDate();
+				}
+				if ($ok && $filter->getMaxModifiedDate() !== null) {
+					$ok &= $this->lastModified <= $filter->getMaxModifiedDate();
+				}
+				if ($ok && $filter->getNotMaxModifiedDate() !== null) {
+					$ok &= $this->lastModified > $filter->getNotMaxModifiedDate();
 				}
 				if ($ok && $filter->getMinUserdate() !== null) {
 					$ok &= $this->lastUserModified >= $filter->getMinUserdate();

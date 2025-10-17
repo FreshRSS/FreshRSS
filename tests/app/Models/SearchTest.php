@@ -197,6 +197,25 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+
+
+	#[DataProvider('provideModifiedDateSearch')]
+	public static function test__construct_whenInputContainsModifiedDate(string $input, ?int $min_modified_value, ?int $max_modified_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_modified_value, $search->getMinModifiedDate());
+		self::assertSame($max_modified_value, $search->getMaxModifiedDate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideModifiedDateSearch(): array {
+		return [
+			['mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['mdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
 	#[DataProvider('provideUserdateSearch')]
 	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
 		$search = new FreshRSS_Search($input);
@@ -645,6 +664,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'(e.date <= ? )',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
+			// Basic modified date operator tests
+			[
+				'mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastModified` >= ? AND e.`lastModified` <= ? )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'mdate:2007-03-01/',
+				'(e.`lastModified` >= ? )',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'mdate:/2008-05-11',
+				'(e.`lastModified` <= ? )',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
 			// Basic userdate operator tests
 			[
 				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
@@ -673,6 +708,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
+				'!mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((e.`lastModified` < ? OR e.`lastModified` > ?) )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
 				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
@@ -687,6 +727,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'pubdate:2007-03-01/ userdate:/2008-05-11',
 				'(e.date >= ? AND e.`lastUserModified` <= ? )',
 				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'userdate:2007-03-01/ mdate:/2008-05-11',
+				'(e.`lastModified` <= ? AND e.`lastUserModified` >= ? )',
+				[strtotime('2008-05-11T23:59:59Z'), strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'date:2007-03-01/ userdate:2007-06-01/',
