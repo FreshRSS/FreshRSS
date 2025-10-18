@@ -134,8 +134,8 @@ return array(
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Data publikacji',
+		'date_received' => 'Data otrzymania',
 		'entry_count' => 'Liczba wiadomości',
 		'entry_per_category' => 'Wiadomości w podziale na kategorie',
 		'entry_per_day' => 'Wiadomości na dzień (przez ostatnie 30 dni)',
@@ -148,7 +148,7 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Ilość nieprzeczytanych artykułów',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'overview' => 'Podsumowanie',
@@ -160,7 +160,7 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Daty z największą ilością nieprzeczytanych artykułów',
 	),
 	'system' => array(
 		'_' => 'Konfiguracja serwera',
