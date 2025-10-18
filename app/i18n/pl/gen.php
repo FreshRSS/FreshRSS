@@ -223,7 +223,7 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, aczkolwiek ręczne zapytania są jeszcze bardziej potęźne.',
+		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, aczkolwiek ręczne zapytania są jeszcze bardziej potężne.',
 		'authors' => 'Autorzy',
 		'categories' => 'Kategorie',
 		'content' => 'Zawartość',
