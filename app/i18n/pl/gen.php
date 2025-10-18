@@ -189,7 +189,7 @@ return array(
 		'about' => 'O serwisie',
 		'account' => 'Konto',
 		'admin' => 'Administracja',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Zaawansowane wyszukiwanie',
 		'archiving' => 'Archiwizacja',
 		'authentication' => 'Uwierzytelnianie',
 		'check_install' => 'Sprawdzenie instalacji',
@@ -223,31 +223,31 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, aczkolwiek ręczne zapytania są jeszcze bardziej potęźne.',
+		'authors' => 'Autorzy',
+		'categories' => 'Kategorie',
+		'content' => 'Zawartość',
+		'date_from' => 'Od',
+		'date_past' => 'W przeszłych',
+		'date_published' => 'Data publikacji',
+		'date_range' => 'Zasięg dat',
+		'date_received' => 'Data otrzymania',
+		'date_to' => 'Do',
+		'date_user' => 'Data modyfikacji przez użytkownika',
+		'feeds' => 'Kanały',
+		'free_text' => 'Dowolny tekst',
+		'free_text_help' => 'Szukaj zarówno w tytule jak i zawartości',
+		'full_documentation' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">pełną dokumentację o wyszukiwaniu</a>',
+		'labels' => 'Własne etykiety',
+		'multiple_help' => 'Zaznacz jedną lub więcej opcji (przytrzymaj <kbd>Ctrl</kbd> lub <kbd>Cmd</kbd>)',
+		'sources' => 'Źródła',
+		'tags' => 'Tagi artykułów',
+		'text' => 'Szukanie w tekście',
+		'text_help' => 'Wiele linii są łączone poprzez logiczne <i>or</i>. Wspierane są również <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">wyrażenia regularne</a>.',
+		'text_placeholder' => 'Słowo kluczowe',
+		'title' => 'Tytuł',
+		'url' => 'Adres URL',
+		'user_queries' => 'Zapisane zapytania',
 	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
