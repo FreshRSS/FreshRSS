@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"link" VARCHAR(16383) NOT NULL,
 	"date" BIGINT,
 	"lastSeen" BIGINT DEFAULT 0,
-	"lastModified" BIGINT DEFAULT 0,
-	"lastUserModified" BIGINT DEFAULT 0,
+	"lastModified" BIGINT DEFAULT 0,	-- v1.28.0
+	"lastUserModified" BIGINT DEFAULT 0,	-- v1.28.0
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
@@ -59,8 +59,8 @@ CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` ("lastModified");
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
-CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");	-- v1.28.0
 
 INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
@@ -104,15 +104,16 @@ CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry"
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD COLUMN `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD COLUMN `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
-ALTER TABLE `_entrytmp` ADD COLUMN `lastModified` BIGINT DEFAULT 0;
-UPDATE `_entry` SET `lastModified` = FLOOR(`id` / 1000000);
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.28.0
+UPDATE `_entry` SET `lastModified` = `id` / 1000000 WHERE `lastModified` IS NULL;
+ALTER TABLE `_entry` ALTER COLUMN `lastModified` SET DEFAULT 0;
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
+ALTER TABLE `_entrytmp` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT DEFAULT 0;
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
