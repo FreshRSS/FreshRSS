@@ -110,8 +110,8 @@ CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry` (`lastUserM
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
-ALTER TABLE `entry` ADD COLUMN `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
 ALTER TABLE `entrytmp` ADD COLUMN `lastModified` BIGINT DEFAULT 0;
+ALTER TABLE `entry` ADD COLUMN `lastModified` BIGINT DEFAULT 0;	-- 1.28.0
 CREATE INDEX IF NOT EXISTS entry_last_modified_index ON `entry` (`lastModified`);
 UPDATE `entry` SET `lastModified` = `id` / 1000000 WHERE `lastModified` = 0;
 SQL;
