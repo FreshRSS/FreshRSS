@@ -48,7 +48,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => "'self' blob:",
 		]);
 
@@ -118,7 +118,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => "'self' blob:",
 		]);
 
@@ -392,7 +392,11 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$this->applyFiltersRetroactively($feed);
 				}
 
-				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.feed.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} elseif ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_categoryId($values['category']);
 				// update url and website values for faviconPrepare
@@ -405,7 +409,11 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					$this->applyFiltersRetroactively($feed);
 				}
 
-				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.feed.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				if ($values['url'] == '') {
 					Minz_Log::warning('Invalid feed URL!');

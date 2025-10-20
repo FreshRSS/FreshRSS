@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -134,6 +134,8 @@ return array(
 		'_' => 'Estatisticas',
 		'all_feeds' => 'Totes los fluxes',
 		'category' => 'Categoria',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles per categoria',
 		'entry_per_day' => 'Nombre d’articles per jorn (darrièrs 30 jorns)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Fluxes inactius',
 		'main' => 'Estatisticas principalas',
 		'main_stream' => 'Flux màger',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'I a pas cap d’article inactiu !',
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Pas legits',
 		'title' => 'Estatisticas',
 		'top_feed' => 'Los dètz fluxes mai gròsses',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Configuracion sistèma',

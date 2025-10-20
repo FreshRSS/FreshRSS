@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,7 +50,7 @@ return array(
 			'ko' => 'A(z) %s nem kapcsolható be. <a href="%s">nézd meg a FreshRSS log-okat</a> a részletekért.',
 			'ok' => 'A(z) %s bekapcsolása sikeres',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Érvénytelen nézet: “%s”! Visszatérés a “Normális nézet”-hez.',
 		'no_access' => 'Nincs hozzáférésed ehhez: %s',
 		'not_enabled' => 'A(z) %s nincs bekapcsolva',
 		'not_found' => 'A(z) %s nem létezik',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'A profilod nem módosítható',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'A jelszavak nem egyeznek meg',
 		'updated' => 'A profilod módosítása megtörtént',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Hírforrás törlése megtörtént',
 			'error' => 'Hírforrás frissítése nem lehetséges',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'A feltöltött icon túl nagy. A maximum fájl méret <em>%s</em>.',
+				'unsupported_format' => 'Nem támogatott képformátum!',
 			),
 			'internal_problem' => 'A hírforrást nem sikerült hozzáadni. <a href="%s">Nézd meg a FreshRSS logokat</a> a részletekért. Megpróbálhatod mindenképp hozzáadni, ha az <code>#force_feed</code> szöveget az URL után írod.',
 			'invalid_url' => 'URL <em>%s</em> érvénytelen',

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -210,8 +210,9 @@ return array(
 		'path_entries_conditions' => 'Умови завантаження тексту',
 		'priority' => array(
 			'_' => 'Видимість',
-			'archived' => 'Не показувати (архівовано)',
 			'category' => 'Показати в категорії',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Не показувати',
 			'important' => 'Показати у важливих стрічках',
 			'main_stream' => 'Показати в головному потоці',
 		),
@@ -282,6 +283,7 @@ return array(
 			'idle' => 'Неактивні стрічки',
 			'main' => 'Основна статистика',
 			'repartition' => 'Перерозподіл статей',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',
