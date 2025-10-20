@@ -134,6 +134,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Всі стрічки',
 		'category' => 'Категорія',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Кількість статей',
 		'entry_per_category' => 'Статей у категорії',
 		'entry_per_day' => 'Статей за день (минулі 30 днів)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Неактивні стрічки',
 		'main' => 'Основна статистика',
 		'main_stream' => 'Головний потік',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Неактивних стрічок нема!',
 		'number_entries' => 'Статей: %d',
 		'overview' => 'Огляд',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Непрочитано',
 		'title' => 'Статистика',
 		'top_feed' => 'Десять найактивніших стрічок',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Налаштування системи',

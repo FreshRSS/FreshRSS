@@ -346,7 +346,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string}> $params */
+			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+			 * 		shareRss?:bool|numeric-string,shareOpml?:bool|numeric-string,description?:string,imageUrl?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
 			$queries = [];
@@ -358,6 +359,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				if (!empty($query['search'])) {
 					$query['search'] = urldecode($query['search']);
 				}
+				$shareRss = $query['shareRss'] ?? null;
+				$query['shareRss'] = (is_string($shareRss) && ctype_digit($shareRss)) ? (bool)$shareRss : false;
+				$shareOpml = $query['shareOpml'] ?? null;
+				$query['shareOpml'] = (is_string($shareOpml) && ctype_digit($shareOpml)) ? (bool)$shareOpml : false;
 				$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
 			}
 			FreshRSS_Context::userConf()->queries = $queries;
@@ -453,6 +458,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
 				$queryParams['shareRss'] = (bool)$params['shareRss'];
 			}
+			if (!empty($params['publishLabelsInsteadOfTags']) && ctype_digit($params['publishLabelsInsteadOfTags'])) {
+				$queryParams['publishLabelsInsteadOfTags'] = (bool)$params['publishLabelsInsteadOfTags'];
+			}
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
@@ -513,7 +521,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 		unset($params['name']);
 		unset($params['rid']);
-		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
+		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $params */
 		$params['url'] = Minz_Url::display(['params' => $params]);
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
 		$queries[] = (new FreshRSS_UserQuery($params, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();

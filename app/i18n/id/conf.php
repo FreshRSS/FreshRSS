@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
 			'order' => 'Urutkan berdasarkan tanggal',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',

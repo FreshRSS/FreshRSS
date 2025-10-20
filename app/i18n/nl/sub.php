@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Gepauzeerde feeds',
 			'main' => 'Hoofd statistieken',
 			'repartition' => 'Artikelen verdeling',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',

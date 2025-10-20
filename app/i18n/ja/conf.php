@@ -152,6 +152,7 @@ return array(
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',

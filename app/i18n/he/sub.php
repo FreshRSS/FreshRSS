@@ -282,6 +282,7 @@ return array(
 			'idle' => 'הזנות שלא עודכנו',
 			'main' => 'סטטיסטיקות ראשיות',
 			'repartition' => 'חלוקת המאמרים',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO

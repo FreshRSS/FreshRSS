@@ -246,4 +246,18 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->view->hours24Labels = $hours24Labels;
 	}
+
+	public function unreadDatesAction(): void {
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
+		$field = Minz_Request::paramString('field', plaintext: true);
+		if (!in_array($field, ['id', 'date'], true)) {
+			$field = 'id';
+		}
+		$granularity = Minz_Request::paramString('granularity', plaintext: true);
+		if (!in_array($granularity, ['day', 'month', 'year'], true)) {
+			$granularity = 'day';
+		}
+		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Minz_Request::paramInt('max') ?: 100);
+		$this->view->unreadDates = $dates;
+	}
 }

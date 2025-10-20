@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Display by category',
 			'feeds' => 'Display by feed',
 			'order' => 'Sort by date',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',
 			'search' => 'Expression',
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',

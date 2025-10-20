@@ -5,6 +5,7 @@ declare(strict_types=1);
 == Description ==
 Server-side API compatible with Google Reader API layer 2
 	for the FreshRSS project https://freshrss.org
+FreshRSS-specific information is prefixed with 'frss:'
 
 == Credits ==
 * 2014-03: Released by Alexandre Alapetite https://alexandre.alapetite.fr
@@ -281,6 +282,10 @@ final class GReaderAPI {
 		$tags = [
 			['id' => 'user/-/state/com.google/starred'],
 			// ['id' => 'user/-/state/com.google/broadcast', 'sortid' => '2']
+			['id' => 'user/-/state/com.google/reading-list'],
+			['id' => 'user/-/state/org.freshrss/main'],
+			['id' => 'user/-/state/org.freshrss/important'],
+			// ['id' => 'user/-/state/org.freshrss/hidden'],
 		];
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(prePopulateFeeds: false, details: false);
@@ -359,6 +364,14 @@ final class GReaderAPI {
 					'iconUrl' => str_replace(
 						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
 						$feed->favicon(absolute: true)),
+					'frss:priority' => match ($feed->priority()) {
+						FreshRSS_Feed::PRIORITY_IMPORTANT => 'important',
+						FreshRSS_Feed::PRIORITY_MAIN_STREAM => 'main',
+						FreshRSS_Feed::PRIORITY_CATEGORY => 'category',
+						FreshRSS_Feed::PRIORITY_FEED => 'feed',
+						// FreshRSS_Feed::PRIORITY_HIDDEN => 'hidden',	// Not returned by the API
+						default => 'main',
+					},
 				];
 			}
 		}
@@ -590,8 +603,8 @@ final class GReaderAPI {
 	}
 
 	/**
-	 * @param 'A'|'c'|'f'|'s' $type
-	 * @return array{'A'|'c'|'f'|'s'|'t',int,int,FreshRSS_BooleanSearch}
+	 * @param 'A'|'a'|'c'|'f'|'i'|'s' $type
+	 * @return array{'A'|'a'|'c'|'f'|'i'|'s'|'t',int,int,FreshRSS_BooleanSearch}
 	 */
 	private static function streamContentsFilters(string $type, int|string $streamId,
 		string $filter_target, string $exclude_target, int $start_time, int $stop_time): array {
@@ -672,6 +685,8 @@ final class GReaderAPI {
 			'feed' => 'f',
 			'label' => 'c',
 			'reading-list' => 'A',	// All except PRIORITY_HIDDEN
+			'main' => 'a',
+			'important' => 'i',
 			default => 'A',
 		};
 
@@ -752,6 +767,12 @@ TXT;
 			$streamId = '';
 		} elseif ($streamId === 'user/-/state/com.google/starred') {
 			$type = 's';
+			$streamId = '';
+		} elseif ($streamId === 'user/-/state/org.freshrss/main') {
+			$type = 'a';
+			$streamId = '';
+		} elseif ($streamId === 'user/-/state/org.freshrss/important') {
+			$type = 'i';
 			$streamId = '';
 		} elseif ($streamId === 'user/-/state/com.google/read') {
 			$filter_target = $streamId;
@@ -1030,13 +1051,17 @@ TXT;
 				}
 			}
 		} elseif ($streamId === 'user/-/state/com.google/reading-list') {
-			$entryDAO->markReadEntries($olderThanId, onlyFavorites: false);
+			$entryDAO->markReadEntries($olderThanId, priorityMin: FreshRSS_Feed::PRIORITY_HIDDEN + 1);
 		} elseif ($streamId === 'user/-/state/com.google/starred') {
-			$entryDAO->markReadEntries($olderThanId, onlyFavorites: true);
+			$entryDAO->markReadEntries($olderThanId, onlyFavorites: true, priorityMin: FreshRSS_Feed::PRIORITY_HIDDEN + 1);
+		} elseif ($streamId === 'user/-/state/org.freshrss/main') {
+			$entryDAO->markReadEntries($olderThanId, priorityMin: FreshRSS_Feed::PRIORITY_MAIN_STREAM);
+		} elseif ($streamId === 'user/-/state/org.freshrss/important') {
+			$entryDAO->markReadEntries($olderThanId, priorityMin: FreshRSS_Feed::PRIORITY_IMPORTANT);
 		} elseif ($streamId === 'user/-/state/com.google/read') {
 			$entryDAO->markReadEntries($olderThanId, state: FreshRSS_Entry::STATE_READ);
 		} elseif ($streamId === 'user/-/state/com.google/unread') {
-			$entryDAO->markReadEntries($olderThanId, state: FreshRSS_Entry::STATE_NOT_READ);
+			$entryDAO->markReadEntries($olderThanId, state: FreshRSS_Entry::STATE_NOT_READ, priorityMin: FreshRSS_Feed::PRIORITY_HIDDEN + 1);
 		} else {
 			self::badRequest();
 		}
@@ -1161,8 +1186,8 @@ TXT;
 									$count, $order, $filter_target, $exclude_target, $continuation);
 							} elseif (isset($pathInfos[8], $pathInfos[9]) && $pathInfos[6] === 'user') {
 								if ($pathInfos[8] === 'state') {
-									if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
-										if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
+									if (in_array($pathInfos[9], ['com.google', 'org.freshrss'], true) && isset($pathInfos[10])) {
+										if (in_array($pathInfos[10], ['reading-list', 'starred', 'main', 'important'], true)) {
 											$include_target = '';
 											self::streamContents($pathInfos[10], $include_target, $start_time, $stop_time, $count, $order,
 												$filter_target, $exclude_target, $continuation);

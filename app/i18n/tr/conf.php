@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
 			'order' => 'Tarihe göre sırala',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',

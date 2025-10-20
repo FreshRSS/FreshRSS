@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Idle feeds',
 			'main' => 'Main statistics',
 			'repartition' => 'Articles repartition',
+			'unread_dates' => 'Unread dates',
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',

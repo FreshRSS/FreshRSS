@@ -282,6 +282,7 @@ return array(
 			'idle' => 'Fluxes inactius',
 			'main' => 'Estatisticas principalas',
 			'repartition' => 'Reparticion dels articles',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',

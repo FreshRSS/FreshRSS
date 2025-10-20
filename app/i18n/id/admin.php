@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua umpan',
 		'category' => 'Kategori',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Jumlah entri',
 		'entry_per_category' => 'Entri per kategori',
 		'entry_per_day' => 'Entri per hari (30 hari terakhir)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Umpan Tak Terbarukan',
 		'main' => 'Statistik utama',
 		'main_stream' => 'Bagian utama',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Tidak ada umpan tak terbarukan!',
 		'number_entries' => '%d artikel',
 		'overview' => 'Ringkasan',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh umpan teratas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Konfigurasi Sistem',
