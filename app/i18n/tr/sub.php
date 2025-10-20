@@ -42,7 +42,6 @@ return array(
 		'accept_cookies_help' => 'Besleme sunucusunun çerez ayarlamasına izin ver (yalnızca istek süresince bellekte saklanır).',
 		'add' => 'Besleme ekle',
 		'advanced' => 'Gelişmiş',
-		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Arşivleme',
 		'auth' => array(
 			'configuration' => 'Giriş',
@@ -81,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filtre eylemleri',
 			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP Başlıkları',
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',

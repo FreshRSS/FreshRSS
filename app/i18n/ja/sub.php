@@ -42,7 +42,6 @@ return array(
 		'accept_cookies_help' => 'クッキーをこのサーバーから受け入れます(このリクエストだけにメモリへ保存されます)',
 		'add' => 'フィードに追加する',
 		'advanced' => '高度な設定',
-		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'アーカイブ',
 		'auth' => array(
 			'configuration' => 'ログイン',
@@ -81,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTPヘッダ',
 		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',

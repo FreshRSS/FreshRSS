@@ -42,7 +42,6 @@ return array(
 		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux',
 		'advanced' => 'Avancé',
-		'apply_filters_retroactively' => 'Appliquer également les filtres aux articles existants',
 		'archiving' => 'Archivage',
 		'auth' => array(
 			'configuration' => 'Identification',
@@ -81,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
+			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',

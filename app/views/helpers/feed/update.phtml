@@ -308,15 +308,11 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="group-controls">
-					<label for="apply_filters_retroactively">
-						<input type="checkbox" name="apply_filters_retroactively" id="apply_filters_retroactively" value="1" />
-						<?= _t('sub.feed.apply_filters_retroactively') ?>
-					</label>
+					<p>
+						<button class="btn" formaction="<?= _url('subscription', 'viewFilter', 'id', $this->feed->id()); ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 

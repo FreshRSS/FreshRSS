@@ -42,7 +42,6 @@ return array(
 		'accept_cookies_help' => 'Perbolehkan peladen umpan untuk mengirimkan kuki (hanya disimpan di memori selama durasi permintaan)',
 		'add' => 'Tambah umpan',
 		'advanced' => 'Lebih lanjut',
-		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
 		'archiving' => 'Pengarsipan',
 		'auth' => array(
 			'configuration' => 'Masuk',
@@ -81,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Tindakan penyaringan',
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',

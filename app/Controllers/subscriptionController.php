@@ -249,9 +249,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 
 			$feed->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
 
-			// Check if we should also apply filters retroactively
-			$shouldApplyRetroactively = Minz_Request::paramBoolean('apply_filters_retroactively');
-
 			$feed->_kind(Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS);
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 				$xPathSettings = [];
@@ -386,12 +383,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 					return;
 				}
-
-				// Apply filters retroactively if requested
-				if ($shouldApplyRetroactively) {
-					$this->applyFiltersRetroactively($feed);
-				}
-
 				Minz_Request::good(
 					_t('feedback.sub.feed.updated'),
 					$url_redirect,
@@ -403,11 +394,6 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->_url($values['url'], false);
 				$feed->_website($values['website'], false);
 				$feed->faviconPrepare();
-
-				// Apply filters retroactively if requested
-				if ($shouldApplyRetroactively) {
-					$this->applyFiltersRetroactively($feed);
-				}
 
 				Minz_Request::good(
 					_t('feedback.sub.feed.updated'),
@@ -423,6 +409,30 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "f:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
+	}
+
 	/**
 	 * This action displays the bookmarklet page.
 	 */
@@ -436,38 +446,5 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 	public function addAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
 		FreshRSS_View::prependTitle(_t('sub.title.add') . ' . ');
-	}
-
-	/**
-	 * Apply filter actions retroactively to existing articles in a feed.
-	 */
-	private function applyFiltersRetroactively(FreshRSS_Feed $feed): void {
-		// Get unread entries for this feed
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$unreadCount = $feed->nbNotRead();
-		$entries = $entryDAO->listWhere('f', $feed->id(), FreshRSS_Entry::STATE_NOT_READ, null, '0', '0', 'id', 'DESC', '0', [], $unreadCount);
-
-		$appliedCount = 0;
-		$idsToMarkRead = [];
-
-		foreach ($entries as $entry) {
-			// Apply filter actions to this entry
-			$feed->applyFilterActions($entry);
-
-			// If entry was marked as read by filters, collect its ID
-			if ($entry->isRead()) {
-				$appliedCount++;
-				$idsToMarkRead[] = $entry->id();
-			}
-		}
-
-		// Mark all filtered entries as read in the database
-		if (!empty($idsToMarkRead)) {
-			$entryDAO->markRead($idsToMarkRead, true);
-		}
-
-		// Update feed cache counters
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$feedDAO->updateCachedValues($feed->id());
 	}
 }
