@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,9 @@ return array(
 		'path_entries_conditions' => 'Voorwaarden voor inhoudsophaling',
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
-			'archived' => 'Niet weergeven (gearchiveerd)',
 			'category' => 'Toon in categorie',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Niet weergeven',
 			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
 		),
@@ -281,6 +282,7 @@ return array(
 			'idle' => 'Gepauzeerde feeds',
 			'main' => 'Hoofd statistieken',
 			'repartition' => 'Artikelen verdeling',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',

@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
 	`link` VARCHAR(16383) NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
+	`lastUserModified` BIGINT DEFAULT 0,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -59,6 +60,7 @@ CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);
 CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);
 CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.1.1
 CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry` (`lastUserModified`);	-- //v1.28.0
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, 'Uncategorized');
 
@@ -97,6 +99,11 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
+SQL;
+
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry` (`lastUserModified`);
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'

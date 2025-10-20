@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,9 @@ return array(
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
 		'priority' => array(
 			'_' => ' دید',
-			'archived' => ' نشان داده نشود (بایگانی شده)',
 			'category' => ' نمایش در دسته بندی خود',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
 		),
@@ -281,6 +282,7 @@ return array(
 			'idle' => ' تغذیه بیکار',
 			'main' => ' آمار اصلی',
 			'repartition' => ' تقسیم مجدد مقالات',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',

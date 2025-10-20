@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -209,8 +209,9 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '표시',
-			'archived' => '표시하지 않음 (보관됨)',
 			'category' => '피드가 속한 카테고리에만 표시하기',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => '표시하지 않음',
 			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',
 		),
@@ -281,6 +282,7 @@ return array(
 			'idle' => '유휴 피드',
 			'main' => '주요 통계',
 			'repartition' => '글 분류',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',

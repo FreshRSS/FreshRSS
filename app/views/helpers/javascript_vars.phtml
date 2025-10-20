@@ -3,7 +3,7 @@ declare(strict_types=1);
 /** @var FreshRSS_View $this */
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
-$extData = Minz_ExtensionManager::callHook('js_vars', []);
+$extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
@@ -25,6 +25,11 @@ echo json_encode([
 		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
 		'html5_notif_timeout' => FreshRSS_Context::userConf()->html5_notif_timeout,
+		'closeNotification' => [
+			'good' => FreshRSS_Context::userConf()->good_notification_timeout * 1000,
+			'bad' => FreshRSS_Context::userConf()->bad_notification_timeout * 1000,
+			'mouseLeave' => 3000,
+		],
 		'auth_type' => FreshRSS_Context::systemConf()->auth_type,
 		'current_view' => Minz_Request::actionName(),
 		'csrf' => FreshRSS_Auth::csrfToken(),

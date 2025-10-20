@@ -57,7 +57,7 @@
 									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
 									placeholder="<?= _t('gen.menu.search') ?>" title="<?= _t('gen.menu.search') ?>" /><button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
 							</div>
-							<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
+							<p class="help"><?= _i('help') ?> <a href="<?= _url('search', 'index') ?>"><?= _t('gen.menu.advanced_search') ?></a></p>
 						</form>
 					</span>
 				</li>
@@ -96,7 +96,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -121,6 +121,8 @@
 				'idMax' => FreshRSS_Context::$id_max,
 				'search' => htmlspecialchars_decode(FreshRSS_Context::$search->getRawInput(), ENT_QUOTES),
 				'state' => FreshRSS_Context::$state,
+				'sort' => FreshRSS_Context::$sort,
+				'order' => FreshRSS_Context::$order,
 			],
 		];
 
@@ -188,7 +190,7 @@
 	<div id="nav_menu_views" class="group">
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		$readingModes = Minz_ExtensionManager::callHook(Minz_HookType::NavReadingModes, $readingModes);
 		if (!is_iterable($readingModes)) {
 			$readingModes = FreshRSS_ReadingMode::getReadingModes();
 		}
@@ -205,7 +207,7 @@
 		?>
 	</div>
 
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString('nav_menu'); ?>
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString(Minz_HookType::NavMenu); ?>
 	<?php if ($nav_menu_hooks != '') { ?>
 	<div id="nav_menu_hooks" class="group">
 		<?= $nav_menu_hooks ?>
@@ -231,6 +233,10 @@
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.id_desc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.date_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.user_modified_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.length_desc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.link_desc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
@@ -245,6 +251,10 @@
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.id_asc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.date_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.user_modified_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.length_asc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.link_asc') ?></a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">

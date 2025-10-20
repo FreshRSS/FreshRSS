@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -134,6 +134,8 @@ return array(
 		'_' => 'آمار',
 		'all_feeds' => ' همه فیدها',
 		'category' => ' دسته',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => ' تعداد ورودی',
 		'entry_per_category' => ' ورودی در هر دسته',
 		'entry_per_day' => ' ورودی در روز (30 روز گذشته)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => ' تغذیه بیکار',
 		'main' => ' آمار اصلی',
 		'main_stream' => ' جریان اصلی',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => ' هیچ فید بیکار وجود ندارد!',
 		'number_entries' => ' %d مقاله',
 		'overview' => 'بررسی اجمالی',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => ' خوانده نشده',
 		'title' => 'آمار',
 		'top_feed' => ' ده فید برتر',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => ' پیکربندی سیستم',

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'Reçus récemment en dernier',
 			'id_desc' => 'Reçus récemment en premier',
+			'length_asc' => 'Longueur du contenu 1→9',
+			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
 			'rand' => 'Ordre aléatoire',
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
+			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',
+			'user_modified_desc' => 'Modifié par l’utilisateur 9→1',
 		),
 		'starred' => 'Afficher les favoris',
 		'stats' => 'Statistiques',

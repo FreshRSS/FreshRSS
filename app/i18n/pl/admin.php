@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
+		'date_published' => 'Data publikacji',
+		'date_received' => 'Data otrzymania',
 		'entry_count' => 'Liczba wiadomości',
 		'entry_per_category' => 'Wiadomości w podziale na kategorie',
 		'entry_per_day' => 'Wiadomości na dzień (przez ostatnie 30 dni)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
+		'nb_unreads' => 'Ilość nieprzeczytanych artykułów',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'overview' => 'Podsumowanie',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
+		'unread_dates' => 'Daty z największą ilością nieprzeczytanych artykułów',
 	),
 	'system' => array(
 		'_' => 'Konfiguracja serwera',
