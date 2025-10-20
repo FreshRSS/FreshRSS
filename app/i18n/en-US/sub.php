@@ -42,7 +42,7 @@ return array(
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// IGNORE
 		'add' => 'Add a feed',	// IGNORE
 		'advanced' => 'Advanced',	// IGNORE
-		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
+		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// IGNORE
 		'archiving' => 'Archiving',	// IGNORE
 		'auth' => array(
 			'configuration' => 'Login',	// IGNORE

@@ -42,7 +42,7 @@ return array(
 		'accept_cookies_help' => 'Accepte les cookies du flux (stocké en mémoire seulement le temps de la requête)',
 		'add' => 'Ajouter un flux',
 		'advanced' => 'Avancé',
-		'apply_filters_retroactively' => 'Also apply filters to existing articles',	// TODO
+		'apply_filters_retroactively' => 'Appliquer également les filtres aux articles existants',
 		'archiving' => 'Archivage',
 		'auth' => array(
 			'configuration' => 'Identification',
