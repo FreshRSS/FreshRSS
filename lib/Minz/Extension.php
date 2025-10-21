@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * The extension base class.
  *
- * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,path:string,author?:string,description?:string,version?:string,type?:'system'|'user'}
+ * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
 abstract class Minz_Extension {
 	private string $name;

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * @phpstan-type ExtensionFullMetadata array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string,compatibility:string}
+ * @phpstan-import-type ExtensionFullMetadata from FreshRSS_extension_Controller
  */
 class FreshRSS_View extends Minz_View {
 
