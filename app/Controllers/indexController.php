@@ -285,7 +285,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$continuation_values = [];
 		if (FreshRSS_Context::$continuation_id !== '0') {
-			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified'], true)) {
+			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
 				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
 
 				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
@@ -303,6 +303,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'link' => $pagingEntry->link(true),
 					'title' => $pagingEntry->title(),
 					'lastUserModified' => $pagingEntry->lastUserModified(),
+					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
 				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
 					// Secondary sort criterion

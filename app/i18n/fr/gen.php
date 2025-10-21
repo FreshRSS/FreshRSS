@@ -233,6 +233,7 @@ return array(
 		'date_range' => 'Plage de dates',
 		'date_received' => 'Date de réception',
 		'date_to' => 'À',
+		'date_user' => 'Date de modification par l’utilisateur',
 		'feeds' => 'Flux',
 		'free_text' => 'Texte libre',
 		'free_text_help' => 'Rechercher dans le titre et le contenu',
@@ -270,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Imprimer',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

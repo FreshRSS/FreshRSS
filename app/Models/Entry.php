@@ -28,6 +28,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/** In microseconds */
 	private string $date_added = '0';
 	private string $hash = '';
+	private ?int $sqlContentLength = null;
 	private ?bool $is_read;
 	private ?bool $is_favorite;
 	private bool $is_updated = false;
@@ -56,7 +57,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,
 	 * 		date?:int|string,lastSeen?:int,lastUserModified?:int,
-	 *		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string} $dao */
+	 * 		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string,
+	 * 		content_length?:int} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
 		if (empty($dao['content']) || !is_string($dao['content'])) {
 			$dao['content'] = '';
@@ -107,6 +109,9 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		if (!empty($dao['hash'])) {
 			$entry->_hash($dao['hash']);
+		}
+		if (isset($dao['content_length']) && is_numeric($dao['content_length'])) {
+			$entry->_sqlContentLength((int)$dao['content_length']);
 		}
 		return $entry;
 	}
@@ -500,12 +505,20 @@ HTML;
 		return $this->hash;
 	}
 
+	public function sqlContentLength(): ?int {
+		return $this->sqlContentLength;
+	}
+
 	public function _hash(string $value): string {
 		$value = trim($value);
 		if (ctype_xdigit($value)) {
 			$this->hash = substr($value, 0, 32);
 		}
 		return $this->hash;
+	}
+
+	public function _sqlContentLength(int $value): void {
+		$this->sqlContentLength = $value > 0 ? $value : null;
 	}
 
 	/** @param int|numeric-string $value String is for compatibility with 32-bit platforms */
@@ -948,6 +961,9 @@ HTML;
 			if ($nodes != false) {
 				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
+					if (!($node instanceof DOMElement)) {
+						continue;
+					}
 					if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
 						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
 						foreach ($filterednodes as $filterednode) {
@@ -959,6 +975,9 @@ HTML;
 							}
 							$filterednode->parentNode->removeChild($filterednode);
 						}
+					}
+					if ($node->parentNode === null) {
+						continue;
 					}
 					$html .= $doc->saveHTML($node) . "\n";
 				}
@@ -1198,6 +1217,14 @@ HTML;
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
 				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+			}
+			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
+				$item['categories'][] = 'user/-/state/org.freshrss/main';
+				if ($feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) {
+					$item['categories'][] = 'user/-/state/org.freshrss/important';
+				}
+			} elseif ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				$item['categories'][] = 'user/-/state/org.freshrss/hidden';
 			}
 		}
 		foreach ($this->enclosures() as $enclosure) {

@@ -149,6 +149,27 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
+		// User modification date
+		$userDateFrom = trim(Minz_Request::paramString('userdate_from'));
+		$userDateTo = trim(Minz_Request::paramString('userdate_to'));
+		$userDateNumber = Minz_Request::paramInt('userdate_number');
+		$userDateUnit = trim(Minz_Request::paramString('userdate_unit'));
+
+		if ($userDateNumber > 0 && $userDateUnit !== '') {
+			// Convert to ISO 8601 duration format: P1D, P1W, P1M, PT1H, etc.
+			// Time units (H, M, S) require a T separator
+			$prefix = ($userDateUnit === 'H' || $userDateUnit === 'M' || $userDateUnit === 'S') ? 'PT' : 'P';
+			$searchTerms[] = "userdate:{$prefix}{$userDateNumber}{$userDateUnit}";
+		} elseif ($userDateFrom !== '' || $userDateTo !== '') {
+			if ($userDateFrom !== '' && $userDateTo !== '') {
+				$searchTerms[] = "userdate:$userDateFrom/$userDateTo";
+			} elseif ($userDateFrom !== '') {
+				$searchTerms[] = "userdate:$userDateFrom/";
+			} elseif ($userDateTo !== '') {
+				$searchTerms[] = "userdate:/$userDateTo";
+			}
+		}
+
 		$feedIds = Minz_Request::paramArrayInt('feed_ids');
 		if (!empty($feedIds)) {
 			$searchTerms[] = 'f:' . implode(',', $feedIds);

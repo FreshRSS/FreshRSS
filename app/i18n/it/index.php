@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Ordine casuale',

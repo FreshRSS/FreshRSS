@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'Freshly received last',
 			'id_desc' => 'Freshly received first',
+			'length_asc' => 'Content length 1→9',
+			'length_desc' => 'Content length 9→1',
 			'link_asc' => 'Link A→Z',
 			'link_desc' => 'Link Z→A',
 			'rand' => 'Random order',
