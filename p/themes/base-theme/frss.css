@@ -2143,7 +2143,7 @@ html.slider-active {
 	text-align: center;
 	line-height: 2;
 	background-color: var(--frss-background-color-transparent);
-	text-shadow: 0px 0px 15px rgb(119, 119, 119);
+	text-shadow: 0px 0px 15px #000;
 }
 
 .theme-preview-list .properties {
@@ -2165,7 +2165,7 @@ html.slider-active {
 }
 
 .theme-preview-list .preview + .nav label {
-	opacity: 0.5;
+	opacity: 0.8;
 }
 
 .theme-preview-list .nav label:hover {
