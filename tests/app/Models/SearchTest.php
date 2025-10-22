@@ -752,6 +752,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				['^ab\\M']
 			],
 			[
+				'intitle:/\\b\\d+/',
+				'(e.title ~ ? )',
+				['\\y\\d+']
+			],
+			[
 				'author:/^ab$/',
 				"(REPLACE(e.author, ';', '\n') ~ ? )",
 				['^ab$']
@@ -818,6 +823,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'intitle:/^ab$/m',
 				"(e.title REGEXP ? )",
 				['(?-i)(?m)^ab$']
+			],
+			[
+				'intitle:/\\b\\d+/',
+				"(e.title REGEXP ? )",
+				['(?-i)\\b\\d+']
 			],
 			[
 				'intext:/^ab$/m',

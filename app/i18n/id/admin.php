@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Tidak ada ekstensi yang terpasang',
 		'empty_list_help' => 'Periksa log untuk menemukan alasan daftar ekstensi yang kosong.',
 		'enabled' => 'Diaktifkan',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Terpasang',
 		'name' => 'Nama',
 		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',

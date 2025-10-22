@@ -118,6 +118,7 @@ return array(
 		'empty_list' => ' هیچ برنامه افزودنی نصب شده ای وجود ندارد',
 		'empty_list_help' => 'لاگ‌ها را بررسی کنید تا دلیل خالی بودن لیست افزونه‌ها مشخص شود',
 		'enabled' => ' فعال است',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => ' نصب شده است',
 		'name' => ' نام',
 		'no_configure_view' => ' این برنامه افزودنی قابل پیکربندی نیست.',

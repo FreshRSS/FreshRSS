@@ -433,6 +433,10 @@ button.as-link[disabled] {
 	overflow-x: auto;
 }
 
+.table-wrapper th {
+	white-space: nowrap;
+}
+
 table {
 	margin: 0.5rem 0;
 	max-width: 100%;
