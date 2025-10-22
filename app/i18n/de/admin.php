@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'empty_list_help' => 'Siehe Protokolle für weitere Infos, warum die Erweiterungsliste leer ist.',
 		'enabled' => 'Aktiviert',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Installiert',
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',

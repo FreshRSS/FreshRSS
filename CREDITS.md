@@ -225,6 +225,7 @@ People are sorted by name so please keep this order.
 * [Raineer](https://github.com/Raineer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Raineer)
 * [Ramazan Sancar](https://github.com/ramazansancar): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ramazansancar), [Web](https://ramazansancar.com.tr/)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
+* [raspo](https://github.com/raspo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:raspo), [Web](https://raspo.dev/)
 * [rdmitr](https://github.com/rdmitr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rdmitr)
 * [Rebecca Scott](https://github.com/becdetat): [contirbutions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:becdetat), [Web](https://becdetat.com)
 * [Rezad](https://github.com/rezad1393): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rezad1393)

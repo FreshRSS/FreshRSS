@@ -308,6 +308,11 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+					<p>
+						<button class="btn" formaction="<?= _url('subscription', 'viewFilter', 'id', $this->feed->id()); ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 

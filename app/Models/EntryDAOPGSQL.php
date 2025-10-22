@@ -43,6 +43,12 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
 		if (isset($matches['pattern'])) {
+			$replacements = [	// Convert some of the PCRE regex syntax to PostgreSQL
+				'\\b' => '\\y', // matches only at the beginning or end of a word (was: backspace)
+				'\\B' => '\\Y', // matches only at a point that is not the beginning or end of a word (was: backslash)
+			];
+			$matches['pattern'] = str_replace(array_keys($replacements), array_values($replacements), $matches['pattern']);
+
 			$matchType = $matches['matchType'] ?? '';
 			if (str_contains($matchType, 'm')) {
 				// newline-sensitive matching
