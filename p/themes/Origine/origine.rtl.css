@@ -290,7 +290,9 @@ th {
 	text-decoration: none;
 }
 
-a:hover .icon {
+a:hover .icon,
+button:hover .icon,
+.btn:hover .icon {
 	filter: brightness(1.5);
 	transition: 0.1s linear;
 }
