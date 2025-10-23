@@ -2093,6 +2093,7 @@ html.slider-active {
 /*=== SLIDESHOW Theme Preview */
 /*==============*/
 .theme-preview-list {
+	margin: 0.5rem 1rem 2rem 1rem;
 	padding: 0;
 	display: block;
 	max-width: 640px;
@@ -2100,7 +2101,6 @@ html.slider-active {
 	border: 1px solid var(--frss-border-color);
 	position: relative;
 	min-width: 260px;
-	margin-bottom: 30px;
 }
 
 .theme-preview-list input {
@@ -2118,8 +2118,6 @@ html.slider-active {
 	top: 0;
 	opacity: 0;
 	position: absolute;
-	transform: scale(0);
-	transition: all .7s ease-in-out;
 }
 
 .theme-preview-list .preview img {
@@ -2130,21 +2128,15 @@ html.slider-active {
 .theme-preview-list .nav label {
 	padding: 0;
 	display: none;
-	width: 65px;
-	height: 100%;
-	color: var(--frss-font-color-light);
-	font-family: "Varela Round", sans-serif;
-	font-size: 9rem;
+	min-width: 50px;
+	min-height: 5rem;
 	position: absolute;
-	opacity: 0;
+	top: 34%;
 	z-index: 9;
-	cursor: pointer;
-	transition: opacity .2s;
 	text-align: center;
-	line-height: 2;
-	background-color: var(--frss-background-color-transparent);
-	text-shadow: 0px 0px 15px #000;
+	line-height: 5;
 }
+
 
 .theme-preview-list .properties {
 	padding: 5px;
@@ -2158,35 +2150,32 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.theme-preview-list .properties .page-number {
-	right: 5px;
-	top: 0;
+.theme-preview-list .page-number {
+	bottom: -1.5rem;
 	position: absolute;
-}
-
-.theme-preview-list .preview + .nav label {
-	opacity: 0.8;
-}
-
-.theme-preview-list .nav label:hover {
-	opacity: 1;
-}
-
-.theme-preview-list .nav .next {
+	display: none;
+	left: 0;
 	right: 0;
+	text-align: center;
+}
+
+.theme-preview-list .nav label.prev {
+	left: -1rem;
+}
+
+.theme-preview-list .nav label.next {
+	right: -1rem;
 }
 
 .theme-preview-list input:checked + .preview-container .preview {
 	opacity: 1;
 	transform: scale(1);
-	transition: opacity 1s ease-in-out;
+	transition: opacity .5s ease-in-out;
 }
 
-.theme-preview-list input:checked + .preview-container .nav label {
-	display: block;
-}
-
-.theme-preview-list input:checked + .preview-container .properties {
+.theme-preview-list input:checked + .preview-container .nav label,
+.theme-preview-list input:checked + .preview-container .properties,
+.theme-preview-list input:checked + .preview-container .page-number {
 	display: block;
 }
 
