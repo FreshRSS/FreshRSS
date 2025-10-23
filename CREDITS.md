@@ -164,6 +164,7 @@ People are sorted by name so please keep this order.
 * [Matt Sephton](https://github.com/gingerbeardman): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gingerbeardman)
 * [Maurice Schleußinger](https://github.com/maurice-schleussinger): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:maurice-schleussinger)
 * [May Meow](https://github.com/MayMeow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MayMeow), [Web](https://maymeow.com)
+* [McFev](https://github.com/McFev): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:McFev)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](http://x2a.yt/)
 * [Miguel Sánchez](https://github.com/msdlr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:msdlr)
