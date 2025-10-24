@@ -22,16 +22,16 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Категория',
-		'add' => 'Добавить категория',
+		'add' => 'Добавить категорию',
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
 			'_' => 'Динамичный OPML',
 			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
-		'expand' => 'Expand category',	// TODO
+		'expand' => 'Развернуть категорию',
 		'information' => 'Информация',
-		'open' => 'Open category',	// TODO
+		'open' => 'Открыть категорию',
 		'opml_url' => 'OPML ссылка',
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
@@ -50,7 +50,7 @@ return array(
 			'password' => 'Пароль HTTP',
 			'username' => 'Имя пользователя HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Изменить…',
 		'clear_cache' => 'Всегда очищать кэш',
 		'content_action' => array(
 			'_' => 'Действие с содержимым, когда извлекается содержимое статьи',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Добавить перед существующим содержимым',
 			'replace' => 'Заменить существующее содержимое',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Получение содержимого',
 		'css_cookie' => 'Использовать куки при извлечении содержимого статьи',
 		'css_cookie_help' => 'Пример: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
@@ -69,31 +69,31 @@ return array(
 		),
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
-		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема.',	// DIRTY
+		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она доступна.',
 		'export-as-opml' => array(
 			'download' => 'Скачать',
-			'help' => 'XML файл (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML файл (подмножество данных. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">См. документацию</a>)',
 			'label' => 'Экспортировать как OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Установить автоматически',
+		'favicon_changed_by_ext' => 'Иконка была установлена расширением <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
 			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Предпросмотр фильтров на существующих статьях (новое окно)',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'HTTP-заголовки',
+		'http_headers_help' => 'Заголовки разделяются новой строкой, имя и значение заголовка разделяются двоеточием (например: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Иконка',
 		'information' => 'Информация',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON точечная нотация (JSON в HTML)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => 'XPath для JSON в HTML',
+					'help' => 'Пример: <code>normalize-space(//script[@type="application/json"])</code> (один JSON)<br />или: <code>//script[@type="application/ld+json"]</code> (один JSON-объект на статью)',
 				),
 			),
 			'html_xpath' => array(
@@ -152,7 +152,7 @@ return array(
 				'help' => 'JSON с точечной нотацией использует точки между объектами и квадратные скобки для массивов (например: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'Найти новые <strong>элементы</strong><br /><small>(самое важное)</small>',
-					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>$</code> или <code>newsItems</code>',
 				),
 				'item_author' => 'автор элемента',
 				'item_categories' => 'теги элемента',
@@ -202,23 +202,23 @@ return array(
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
 		'mute' => array(
 			'_' => 'заглушить',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => 'Эта лента заглушена',
 		),
 		'no_selected' => 'Ленты не выбраны.',
 		'number_entries' => '%d статей',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => 'Открыть ленту %s',
+		'path_entries_conditions' => 'Условия для получения содержимого',
 		'priority' => array(
 			'_' => 'Видимость',
 			'category' => 'Показывать в категории ленты',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Показывать в своей ленте',
 			'hidden' => 'Не показывать',
 			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
-		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
-		'reset_favicon' => 'Reset to default',	// TODO
+		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Сбросить на значение по умолчанию',
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',
 			'show_rendered' => 'Показать содержимое',
@@ -238,20 +238,20 @@ return array(
 		'title_add' => 'Добавить RSS-ленту',
 		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'_' => 'Критерии уникальности статьи',
+			'forced' => '<span title="Блокировать критерии уникальности, даже когда в ленте есть дубликаты статей">принудительно</span>',
+			'help' => 'Актуально для некорректных лент.<br />⚠️ Изменение политики создаст дубликаты.',
+			'id' => 'Стандартный ID (по умолчанию)',
+			'link' => 'Ссылка',
+			'sha1:content' => 'Содержимое',
+			'sha1:content_published' => 'Содержимое + Дата',
+			'sha1:link_published' => 'Ссылка + Дата',
+			'sha1:link_published_title' => 'Ссылка + Дата + Заголовок',
+			'sha1:link_published_title_content' => 'Ссылка + Дата + Заголовок + Содержимое',
+			'sha1:published' => 'Дата',
+			'sha1:title' => 'Заголовок',
+			'sha1:title_published' => 'Заголовок + Дата',
+			'sha1:title_published_content' => 'Заголовок + Дата + Содержимое',
 		),
 		'url' => 'URL ленты',
 		'useragent' => 'Указать юзерагент для извлечения лент',
@@ -263,7 +263,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Экспорт',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Скачать базу данных пользователя в формате SQLite',
 		),
 		'export_labelled' => 'Экспортировать ваши помеченные статьи',
 		'export_opml' => 'Экспортировать список лент (OPML)',
@@ -283,7 +283,7 @@ return array(
 			'idle' => 'Неактивные ленты',
 			'main' => 'Основная статистика',
 			'repartition' => 'Расределение статей',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Даты непрочтённых',
 		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',
@@ -301,7 +301,7 @@ return array(
 		'add_dynamic_opml' => 'Добавить динамичный OPML',
 		'add_feed' => 'Добавить ленту',
 		'add_label' => 'Добавить метку',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'Название категории OPML',
 		'delete_label' => 'Удалить метку',
 		'feed_management' => 'Управление RSS-лентами',
 		'subscription_tools' => 'Инструменты подписки',
