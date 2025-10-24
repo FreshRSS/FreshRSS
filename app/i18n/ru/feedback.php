@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s не может быть включено. <a href="%s">Проверьте логи FreshRSS</a> для подробностей.',
 			'ok' => '%s теперь включено',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Недопустимый режим просмотра “%s”! Возвращение к “Обычному виду”.',
 		'no_access' => 'У вас нет доступа к %s',
 		'not_enabled' => '%s не включено',
 		'not_found' => '%s не существует',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Ваш профиль не может быть изменён',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Пароли не совпадают',
 		'updated' => 'Ваш профиль изменён',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Лента удалена',
 			'error' => 'Лента не может быть изменена',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'Загруженный значок слишком большой. Максимальный размер файла: <em>%s</em>.',
+				'unsupported_format' => 'Формат файла изображения не поддерживается!',
 			),
 			'internal_problem' => 'Новостная лента не может быть добавлена. <a href="%s">Проверьте логи FreshRSS</a> для подробностей. Вы можете попробовать принудительно добавить ленту, добавив <code>#force_feed</code> к URL.',
 			'invalid_url' => 'URL <em>%s</em> неверный',
