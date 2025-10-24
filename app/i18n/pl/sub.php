@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
 			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'Nagłówki HTTP',
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',

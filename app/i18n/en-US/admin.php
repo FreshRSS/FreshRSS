@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'There are no installed extensions',	// IGNORE
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// IGNORE
 		'enabled' => 'Enabled',	// IGNORE
+		'is_compatible' => 'Is compatible',	// IGNORE
 		'latest' => 'Installed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'This extension cannot be configured.',	// IGNORE

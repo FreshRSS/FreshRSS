@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filtra darbības',
 			'help' => 'Uzrakstiet vienu meklēšanas filtru katrā rindā. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO

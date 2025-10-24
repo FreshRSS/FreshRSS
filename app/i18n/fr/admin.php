@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Aucune extension installée',
 		'empty_list_help' => 'Vérifiez les logs pour déterminer pourquoi la liste des extensions est vide.',
 		'enabled' => 'Activée',
+		'is_compatible' => 'Est compatible',
 		'latest' => 'Installée',
 		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',

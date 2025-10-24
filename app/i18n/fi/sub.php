@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Suodatustoiminnot',
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',

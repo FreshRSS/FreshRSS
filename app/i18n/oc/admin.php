@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Cap d’extensions pas installadas',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Activada',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Installada',
 		'name' => 'Nom',
 		'no_configure_view' => 'Aquesta extension se pòt pas configurar.',
