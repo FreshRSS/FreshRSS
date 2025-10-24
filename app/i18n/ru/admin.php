@@ -118,7 +118,7 @@ return array(
 		'empty_list' => 'Нет установленных расширений',
 		'empty_list_help' => 'Проверьте логи, чтобы определить причину пустого списка расширений.',
 		'enabled' => 'Включены',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Совместимо',
 		'latest' => 'Установлено',
 		'name' => 'Название',
 		'no_configure_view' => 'Это расширение не требует настройки.',
