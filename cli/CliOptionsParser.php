@@ -122,6 +122,7 @@ abstract class CliOptionsParser {
 			foreach ($this->options as $name => $data) {
 				if (in_array($alias, $data->getAliases(), true)) {
 					$this->inputs[$name]['aliasUsed'] = $alias;
+					// @phpstan-ignore assign.propertyType (PHPStan error?)
 					$this->inputs[$name]['values'] = $value === false
 						? [$data->getOptionalValueDefault()]
 						: (is_array($value)

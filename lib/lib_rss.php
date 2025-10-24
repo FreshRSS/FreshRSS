@@ -570,6 +570,7 @@ function enforceHtmlBase(string $html, string $href): string {
 }
 
 /**
+ * @param non-empty-string $url
  * @param string $type {html,ico,json,opml,xml}
  * @param array<string,mixed> $attributes
  * @param array<int,mixed> $curl_options
