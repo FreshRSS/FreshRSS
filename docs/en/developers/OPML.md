@@ -89,6 +89,7 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 
 ### Miscellaneous
 
+* `frss:priority`: Used for priority / visibility of the articles of that feed. Can be: `important`, `main` (default), `category`, `feed`, `hidden`.
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
 	* Example: `div.main, .summary`
 * `frss:cssContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the article content or from the full content retrieved by `frss:cssFullContent`.
@@ -115,6 +116,7 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 			xmlUrl="https://www.example.net/page.html"
 			htmlUrl="https://www.example.net/page.html"
 			description="Example of Web scraping"
+			frss:priority="main"
 			frss:xPathItem="//a[contains(@href, '/interesting/')]/ancestor::article"
 			frss:xPathItemTitle="descendant::h2"
 			frss:xPathItemContent="."
