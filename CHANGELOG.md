@@ -15,7 +15,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
 		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
 		* Especially useful for optimising the API synchronisation.
-		* ⚠️ Automatically add and populate an SQL column, which may take a few minutes.
+		* ⚠️ Automatically add and populate an SQL column, which may take a few minutes per user.
 	* New sorting by article length [#8119](https://github.com/FreshRSS/FreshRSS/pull/8119)
 	* New advanced search form [#8103](https://github.com/FreshRSS/FreshRSS/pull/8103), [#8122](https://github.com/FreshRSS/FreshRSS/pull/8122)
 	* Add compatibility with PCRE word boundary `\b` and `\B` for regex search using PostgreSQL [#8141](https://github.com/FreshRSS/FreshRSS/pull/8141)
