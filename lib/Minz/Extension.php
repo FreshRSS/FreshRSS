@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /**
  * The extension base class.
+ *
+ * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
 abstract class Minz_Extension {
 	private string $name;
@@ -41,7 +43,7 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta_info
+	 * @param ExtensionMetadata $meta_info
 	 * contains information about the extension.
 	 */
 	final public function __construct(array $meta_info) {
@@ -258,9 +260,10 @@ abstract class Minz_Extension {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
+	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	final protected function registerHook(string $hook_name, $hook_function): void {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function);
+	final protected function registerHook(string $hook_name, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
+		Minz_ExtensionManager::addHook($hook_name, $hook_function, $priority);
 	}
 
 	/** @param 'system'|'user' $type */

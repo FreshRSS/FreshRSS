@@ -105,6 +105,16 @@ return array(
 		'none' => 'Egyik sem',
 		'small' => 'Kicsi',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Adatvédelem',
 		'retrieve_extension_list' => 'Kiterjesztés lista beszerzése',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Rendezés kategória szerint',
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Kifejezés',
 			'shareOpml' => 'Engedélyezze a megfelelő kategóriák és hírcsatornák OPML-alapú megosztását',
 			'shareRss' => 'Engedélyezze a HTML &amp; RSS megosztást',

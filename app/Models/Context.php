@@ -42,7 +42,7 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
 	public static string $sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
@@ -160,6 +160,12 @@ final class FreshRSS_Context {
 			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
 			FreshRSS_Context::$user_conf->save();
 		}
+
+		FreshRSS_Context::$user_conf->language = preg_replace_callback(
+			'/-(\\w{2})$/',
+			static fn (array $matches): string => strtoupper($matches[0]),
+			FreshRSS_Context::$user_conf->language ?? Minz_Translate::DEFAULT_LANGUAGE
+		) ?? Minz_Translate::DEFAULT_LANGUAGE;
 	}
 
 	/**
@@ -246,7 +252,7 @@ final class FreshRSS_Context {
 		$order = Minz_Request::paramString('order', true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
@@ -400,11 +406,12 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get(string $get): void {
+	private static function _get(string $get): void {
 		$type = $get[0];
 		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
+			// TODO: Check whether this section is used
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$details = $type === 'f'; 	// Load additional feed details in the case of feed view
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true, details: $details);

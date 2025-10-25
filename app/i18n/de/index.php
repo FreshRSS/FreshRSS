@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'Älteste zuerst',
 			'id_desc' => 'Neueste zuerst',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Zufällige Reihenfolge',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',

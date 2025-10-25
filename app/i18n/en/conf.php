@@ -105,6 +105,16 @@ return array(
 		'none' => 'None',
 		'small' => 'Small',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privacy',
 		'retrieve_extension_list' => 'Retrieve extension list',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Display by category',
 			'feeds' => 'Display by feed',
 			'order' => 'Sort by date',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',
 			'search' => 'Expression',
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',

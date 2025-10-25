@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'הצגה בזרם המרכזי',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'הזנות שלא עודכנו',
 			'main' => 'סטטיסטיקות ראשיות',
 			'repartition' => 'חלוקת המאמרים',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO

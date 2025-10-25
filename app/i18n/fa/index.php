@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'آخرین مورد، به تازه گی دریافت شد',
 			'id_desc' => 'نخستین مورد دریافت‌شده به تازگی',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
 			'rand' => 'ترتیب تصادفی',
 			'title_asc' => 'عنوانA→Z',
 			'title_desc' => 'عنوان Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => ' نمایش موارد دلخواه',
 		'stats' => ' آمار',

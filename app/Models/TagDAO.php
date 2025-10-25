@@ -37,7 +37,9 @@ SQL;
 			$valuesTmp['attributes'] = [];
 		}
 		if ($stm !== false) {
-			$stm->bindValue(':id', empty($valuesTmp['id']) ? null : $valuesTmp['id'], PDO::PARAM_INT);
+			if (!empty($valuesTmp['id'])) {
+				$stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT);
+			}
 			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR);
 			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR);
 			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :

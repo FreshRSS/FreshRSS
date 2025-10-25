@@ -39,7 +39,7 @@ $txt_mtime = @filemtime($txt) ?: 0;
 
 $is_custom_favicon = $ico_mtime != false && $txt_mtime == false;
 
-if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (mt_rand(15, 20) * 86400))) && !$is_custom_favicon) {
+if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) && !$is_custom_favicon) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
 		exit();
@@ -63,7 +63,7 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (m
 	}
 }
 
-if ($no_cache || !httpConditional($ico_mtime, mt_rand(14, 21) * 86400, 2)) {
+if ($no_cache || !httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
 	$ico_content_type = contentType($ico);
 	header('Content-Type: ' . $ico_content_type);
 	header('Content-Disposition: inline; filename="' . $id . '.ico"');

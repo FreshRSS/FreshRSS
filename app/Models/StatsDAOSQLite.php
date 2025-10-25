@@ -4,6 +4,17 @@ declare(strict_types=1);
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
 	#[\Override]
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "strftime('%Y-%m-%d', ($field / $precision) + $offset, 'unixepoch')",
+			'month' => "strftime('%Y-%m', ($field / $precision) + $offset, 'unixepoch')",
+			'year' => "strftime('%Y', ($field / $precision) + $offset, 'unixepoch')",
+			default => throw new InvalidArgumentException('Invalid date granularity'),
+		};
+	}
+
+	#[\Override]
 	protected function sqlFloor(string $s): string {
 		return "CAST(($s) AS INT)";
 	}
@@ -18,8 +29,9 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 		} else {
 			$restrict = '';
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT strftime('{$period}', e.date, 'unixepoch') AS period
+SELECT strftime('{$period}', e.date + {$offset}, 'unixepoch') AS period
 , COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}

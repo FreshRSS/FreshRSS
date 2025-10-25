@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filteracties',
 			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP-headers',
 		'http_headers_help' => 'Headers worden gescheiden door een regeleinde, en de naam en waarde van een header worden gescheiden door een dubbele punt (bijv.: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer een-token</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'category' => 'Toon in categorie',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Niet weergeven',
 			'important' => 'In belangrijke feeds tonen',
 			'main_stream' => 'Zichtbaar in het overzicht',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Gepauzeerde feeds',
 			'main' => 'Hoofd statistieken',
 			'repartition' => 'Artikelen verdeling',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',

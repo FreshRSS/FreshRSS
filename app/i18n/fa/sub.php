@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP سربرگ‌ها',
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => ' دید',
 			'category' => ' نمایش در دسته بندی خود',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
@@ -281,6 +283,7 @@ return array(
 			'idle' => ' تغذیه بیکار',
 			'main' => ' آمار اصلی',
 			'repartition' => ' تقسیم مجدد مقالات',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',

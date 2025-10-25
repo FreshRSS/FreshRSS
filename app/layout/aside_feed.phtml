@@ -111,6 +111,9 @@
 
 	foreach ($feeds as $feed):
 		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
+		if (!$f_active && $feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
+			continue;
+		}
 		$f_active_class = $f_active ? ' active' : '';
 
 		$error_class = '';

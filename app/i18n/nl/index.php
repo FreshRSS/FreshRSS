@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'Nieuw ontvangen laatst',
 			'id_desc' => 'Nieuw ontvangen eerst',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
+			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
+			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',

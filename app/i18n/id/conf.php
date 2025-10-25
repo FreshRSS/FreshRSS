@@ -105,6 +105,16 @@ return array(
 		'none' => 'Tidak ditampilkan',
 		'small' => 'Kecil',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
 			'order' => 'Urutkan berdasarkan tanggal',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',

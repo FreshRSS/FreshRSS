@@ -50,7 +50,7 @@
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
 					$this->feed->resetFaviconHash();
-					$ext_url = Minz_ExtensionManager::callHook('custom_favicon_btn_url', $this->feed);
+					$ext_url = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconBtnUrl, $this->feed);
 				?>
 				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
 				<div class="group-controls">
@@ -121,6 +121,8 @@
 							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
 							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
+							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
 							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
@@ -306,6 +308,11 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+					<p>
+						<button class="btn" formaction="<?= _url('subscription', 'viewFilter', 'id', $this->feed->id()); ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 
