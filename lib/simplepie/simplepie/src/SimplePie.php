@@ -665,17 +665,30 @@ class SimplePie
 
     /**
      * @var array<string,string[]> Stores allowed tags and attributes. Preferred over $strip_htmltags and $strip_attributes.
-     * @see SimplePie::whitelist_tags()
+     * @see SimplePie::allowed_html_elements_with_attributes()
      * @access private
      */
-    public $whitelist_tags = [];
+    public $allowed_html_elements_with_attributes = [];
 
     /**
      * @var string[] Stores array of default allowed attributes.
-     * @see SimplePie::default_attr_whitelist()
+     * @see SimplePie::allowed_html_attributes()
      * @access private
      */
-    public $default_attr_whitelist = [];
+    public $allowed_html_attributes = [];
+
+    /**
+     * @var bool Whether data-* should be allowed or not
+     * @see SimplePie::allow_data_attr()
+     * @access private
+     */
+    public $allow_data_attr = true;
+    /**
+     * @var bool Whether aria-* should be allowed or not
+     * @see SimplePie::allow_aria_attr()
+     * @access private
+     */
+    public $allow_aria_attr = true;
 
     /**
      * @var bool Should we throw exceptions, or use the old-style error property?
@@ -1542,18 +1555,36 @@ class SimplePie
      * @param array<string,string[]> $tags Set array of allowed tags and attributes.
      * @return void
      */
-    public function whitelist_tags(array $tags = [])
+    public function allowed_html_elements_with_attributes(array $tags = [])
     {
-        $this->sanitize->whitelist_tags($tags);
+        $this->sanitize->allowed_html_elements_with_attributes($tags);
     }
 
     /**
      * @param string[] $attrs Set default array of allowed attributes.
      * @return void
      */
-    public function default_attr_whitelist(array $attrs = [])
+    public function allowed_html_attributes(array $attrs = [])
     {
-        $this->sanitize->default_attr_whitelist($attrs);
+        $this->sanitize->allowed_html_attributes($attrs);
+    }
+
+    /**
+     * @param bool $allow Whether data-* should be allowed or not
+     * @return void
+     */
+    public function allow_data_attr(bool $allow = true)
+    {
+        $this->sanitize->allow_data_attr($allow);
+    }
+
+    /**
+     * @param bool $allow Whether aria-* should be allowed or not
+     * @return void
+     */
+    public function allow_aria_attr(bool $allow = true)
+    {
+        $this->sanitize->allow_aria_attr($allow);
     }
 
     /**

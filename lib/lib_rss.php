@@ -369,13 +369,13 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 	$simplePie->rename_attributes(['id', 'class']);
 
 	// Includes data-* and aria-*
-	$simplePie->default_attr_whitelist([
+	$simplePie->allowed_html_attributes([
 		// HTML
 		'title', 'lang', 'role', 'draggable', 'hidden', 'dir',
 		// MathML
 		'displaystyle', 'scriptlevel', 'mathsize',
 	]);
-	$simplePie->whitelist_tags([
+	$simplePie->allowed_html_elements_with_attributes([
 		// HTML
 		'a' => ['href', 'hreflang', 'type'],
 		'abbr' => [],

@@ -51,9 +51,13 @@ class Sanitize implements RegistryAware
     /** @var string[] */
     public $rename_attributes = [];
     /** @var array<string, string[]> */
-    public $whitelist_tags = [];
+    public $allowed_html_elements_with_attributes = [];
     /** @var string[] */
-    public $default_attr_whitelist = [];
+    public $allowed_html_attributes = [];
+    /** @var bool */
+    public $allow_data_attr = true;
+    /** @var bool */
+    public $allow_aria_attr = true;
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -241,23 +245,41 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param array<string,string[]> $tags Set array of allowed tags and attributes.
+     * @param array<string,string[]> $tags Set array of allowed HTML elements with their allowed attributes.
      * @return void
      */
-    public function whitelist_tags(array $tags = [])
+    public function allowed_html_elements_with_attributes(array $tags = [])
     {
         $this->strip_htmltags = [];
         $this->strip_attributes = [];
-        $this->whitelist_tags = $tags;
+        $this->allowed_html_elements_with_attributes = $tags;
     }
 
     /**
-     * @param string[] $attrs Set default array of allowed attributes.
+     * @param string[] $attrs Set default array of allowed HTML attributes.
      * @return void
      */
-    public function default_attr_whitelist(array $attrs = [])
+    public function allowed_html_attributes(array $attrs = [])
     {
-        $this->default_attr_whitelist = $attrs;
+        $this->allowed_html_attributes = $attrs;
+    }
+
+    /**
+     * @param bool $allow Whether data-* should be allowed or not
+     * @return void
+     */
+    public function allow_data_attr(bool $allow = true)
+    {
+        $this->allow_data_attr = $allow;
+    }
+
+    /**
+     * @param bool $allow Whether aria-* should be allowed or not
+     * @return void
+     */
+    public function allow_aria_attr(bool $allow = true)
+    {
+        $this->allow_aria_attr = $allow;
     }
 
     /**
@@ -484,14 +506,14 @@ class Sanitize implements RegistryAware
                     }
                 }
 
-                if ($this->rename_attributes) {
+                if (!empty($this->rename_attributes)) {
                     foreach ($this->rename_attributes as $attrib) {
                         $this->rename_attr($attrib, $xpath);
                     }
                 }
 
-                if ($this->whitelist_tags) {
-                    $this->enforce_whitelist($xpath, $document);
+                if (!empty($this->allowed_html_elements_with_attributes)) {
+                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
 
                 // Strip out HTML tags and attributes that might cause various security problems.
@@ -668,41 +690,67 @@ class Sanitize implements RegistryAware
     }
 
     /**
+     * Keep only allowed HTML elements (tags) and their allowed attributes.
      * @return void
      */
-    protected function enforce_whitelist(DOMXPath $xpath, DOMDocument $document)
+    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true)
     {
-        $elements = $xpath->query('body//*');
-        if ($elements === false) {
-            throw new \SimplePie\Exception(sprintf(
-                '%s(): Possibly malformed expression',
-                __METHOD__
-            ), 1);
-        }
-        /** @var \DOMElement $element */
-        foreach ($elements as $element) {
+        if ($element instanceof \DOMElement) {
             $tag = $element->tagName;
-            $is_custom_element = str_contains($tag, '-');
-            if (!$is_custom_element && !isset($this->whitelist_tags[$tag])) {
-                // TODO: allow specifying only certain custom elements
-                $this->strip_tag($tag, $document, $xpath, SimplePie::CONSTRUCT_HTML);
-                continue;
+            $div = null;
+            $doc = $element->ownerDocument;
+            if ($doc !== null) {
+                $div = $doc->getElementsByTagName('body')->item(0);
+                if ($div !== null) {
+                    $div = $div->firstChild;
+                    if ($div !== null && $div->nodeName !== 'div') {
+                        $div = null;
+                    }
+                }
             }
-            $allowed_attrs = array_merge($this->whitelist_tags[$tag] ?? [], $this->default_attr_whitelist);
-            $attrs = $element->attributes;
-            $remove = [];
-            for ($i = 0; $i < $attrs->count(); $i++) {
-                $attr = $attrs[$i]->nodeName;
-                if (str_starts_with($attr, 'data-') || str_starts_with($attr, 'aria-')) {
-                    // TODO: make this configurable
+            if ($element !== $div
+                && !in_array($tag, ['html', 'head', 'body'])
+                && !isset($this->allowed_html_elements_with_attributes[$tag])) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math'])) {
+                    // Preserve children inside the disallowed element
+                    for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                        $child = $element->childNodes->item($i);
+                        if ($child === null) {
+                            continue;
+                        }
+                        if ($child instanceof \DOMText) {
+                            $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
+                        }
+                        $element->before($child);
+                        $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                    }
+                }
+                $parent = $element->parentNode;
+                if ($parent !== null) {
+                    $parent->removeChild($element);
+                    return;
+                }
+            }
+            $allowed_attrs = array_merge($this->allowed_html_elements_with_attributes[$tag] ?? [], $this->allowed_html_attributes);
+            for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
+                $attr = $element->attributes[$i]->nodeName;
+                // Skip data-*, aria-* if allowed
+                if (($allow_data_attr && str_starts_with($attr, 'data-'))
+                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
                     continue;
                 }
+
                 if (!in_array($attr, $allowed_attrs, true)) {
-                    $remove[] = $attr;
+                    $element->removeAttributeNS(null, $attr);
                 }
             }
-            foreach ($remove as $attr) {
-                $element->removeAttribute($attr);
+        }
+        if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
+            for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                $child = $element->childNodes->item($i);
+                if ($child !== null) {
+                    $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                }
             }
         }
     }
