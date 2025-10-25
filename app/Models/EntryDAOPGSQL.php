@@ -30,6 +30,11 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -38,6 +43,12 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
 		if (isset($matches['pattern'])) {
+			$replacements = [	// Convert some of the PCRE regex syntax to PostgreSQL
+				'\\b' => '\\y', // matches only at the beginning or end of a word (was: backspace)
+				'\\B' => '\\Y', // matches only at a point that is not the beginning or end of a word (was: backslash)
+			];
+			$matches['pattern'] = str_replace(array_keys($replacements), array_values($replacements), $matches['pattern']);
+
 			$matchType = $matches['matchType'] ?? '';
 			if (str_contains($matchType, 'm')) {
 				// newline-sensitive matching
@@ -66,7 +77,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
-				foreach (['attributes'] as $column) {
+				foreach (['attributes', 'lastUserModified'] as $column) {
 					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}

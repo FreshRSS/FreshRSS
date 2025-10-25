@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'Yang baru diterima terakhir',
 			'id_desc' => 'Yang baru diterima paling awal',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
 			'rand' => 'Acak',
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Tampilkan yang difavoritkan',
 		'stats' => 'Statistik',

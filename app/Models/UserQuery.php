@@ -21,6 +21,7 @@ class FreshRSS_UserQuery {
 	private string $token = '';
 	private bool $shareRss = false;
 	private bool $shareOpml = false;
+	private bool $publishLabelsInsteadOfTags = false;
 	/** @var array<int,FreshRSS_Category> $categories where the key is the category ID */
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels where the key is the label ID */
@@ -43,7 +44,7 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $query
+	 * 	shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
 	 * @param array<FreshRSS_Category> $categories
 	 * @param array<FreshRSS_Tag> $labels
 	 */
@@ -75,6 +76,7 @@ class FreshRSS_UserQuery {
 				unset($link['name']);
 				unset($link['shareOpml']);
 				unset($link['shareRss']);
+				unset($link['publishLabelsInsteadOfTags']);
 				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
@@ -91,6 +93,9 @@ class FreshRSS_UserQuery {
 		}
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
+		}
+		if (isset($query['publishLabelsInsteadOfTags'])) {
+			$this->publishLabelsInsteadOfTags = (bool)$query['publishLabelsInsteadOfTags'];
 		}
 		if (isset($query['description'])) {
 			$this->description = $query['description'];
@@ -109,7 +114,9 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}
+	 * @return array{get?:string,name?:string,order?:string,search?:string,
+	 * 	state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,
+	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
@@ -122,6 +129,7 @@ class FreshRSS_UserQuery {
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
+			'publishLabelsInsteadOfTags' => $this->publishLabelsInsteadOfTags,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
 		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
@@ -277,6 +285,14 @@ class FreshRSS_UserQuery {
 
 	public function shareOpml(): bool {
 		return $this->shareOpml;
+	}
+
+	public function setPublishLabelsInsteadOfTags(bool $publishLabelsInsteadOfTags): void {
+		$this->publishLabelsInsteadOfTags = $publishLabelsInsteadOfTags;
+	}
+
+	public function publishLabelsInsteadOfTags(): bool {
+		return $this->publishLabelsInsteadOfTags;
 	}
 
 	protected function sharedUrl(bool $xmlEscaped = true): string {

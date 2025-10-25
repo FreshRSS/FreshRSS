@@ -135,6 +135,9 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 ### The "hooks" system
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
+The last parameter is the priority of the hook when triggered.
+The hook with the lowest priority value are triggered first.
+The default priority is 0.
 
 ```php
 final class HelloWorldExtension extends Minz_Extension
@@ -143,8 +146,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry']);
-		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
@@ -188,6 +191,7 @@ Example response for a `query_icon_info` request:
 * `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
 * `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
 * `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `nav_entries` (`function() -> string`): will add DOM elements before the navigation buttons.
 * `nav_menu` (`function() -> string`): will be executed if the navigation was built.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
 * `post_update` (`function(none) -> none`): **TODO** add documentation.

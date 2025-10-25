@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',
 		),
 		'http_headers' => 'HTTP Headers',
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
@@ -282,6 +283,7 @@ return array(
 			'idle' => 'Idle feeds',
 			'main' => 'Main statistics',
 			'repartition' => 'Articles repartition',
+			'unread_dates' => 'Unread dates',
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',

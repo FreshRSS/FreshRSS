@@ -99,6 +99,18 @@ class Minz_Request {
 		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 	}
 
+	/**
+	 * @return list<int>
+	 */
+	public static function paramArrayInt(string $key): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_numeric');
+		$result = array_map('intval', $result);
+		return array_values($result);
+	}
+
 	public static function paramTernary(string $key): ?bool {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];

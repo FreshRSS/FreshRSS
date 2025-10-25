@@ -16,14 +16,14 @@ return array(
 		'add' => 'Добавить',
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
-		'close' => 'Close',	// TODO
+		'close' => 'Закрыть',
 		'create' => 'Создать',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => 'Удалить все ленты',
+		'delete_errored_feeds' => 'Удалить ленты с ошибками',
 		'delete_muted_feeds' => 'Удалить заглушенные ленты',
 		'demote' => 'Понизить',
 		'disable' => 'Отключить',
-		'download' => 'Download',	// TODO
+		'download' => 'Скачать',
 		'empty' => 'Опустошить',
 		'enable' => 'Включить',
 		'export' => 'Экспортировать',
@@ -33,12 +33,12 @@ return array(
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Открыть меню',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Следующая статья',
+			'prev' => 'Предыдущая статья',
+			'up' => 'Вверх',
 		),
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>Не менее 7 символов</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Требуется повторная аутентификация',
+			'tip' => 'Вам не придется снова входить в течение <u>%d минут</u>',
+			'title' => 'Повторная аутентификация',
 		),
 		'registration' => array(
 			'_' => 'Новый аккаунт',
@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Вчера',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇷🇺',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'О FreshRSS',
@@ -145,7 +144,7 @@ return array(
 		'category_empty' => 'Пустая категория',
 		'confirm_action' => 'Вы уверены, что хотите выполнить это действие? Это нельзя отменить!',
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
 			'body_new_articles' => '%%d новых статей в FreshRSS.',
 			'body_unread_articles' => '(Непрочитанные: %%d)',
@@ -155,14 +154,14 @@ return array(
 		'labels_empty' => 'Нет меток',
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'Используемый заголовок CSP небезопасен, и FreshRSS может быть уязвим для XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">См. документацию</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
 		'fi' => 'Suomi',	// IGNORE
@@ -177,19 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
-		'pt-pt' => 'Português (Portugal)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'uk' => 'Українська',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'О проекте',
 		'account' => 'Аккаунт',
 		'admin' => 'Администрирование',
+		'advanced_search' => 'Расширенный поиск',
 		'archiving' => 'Архивирование',
 		'authentication' => 'Аутентификация',
 		'check_install' => 'Проверка установки',
@@ -197,7 +197,7 @@ return array(
 		'display' => 'Отображение',
 		'extensions' => 'Расширения',
 		'logs' => 'Журнал',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'Конфиденциальность',
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',
 		'search' => 'Искать слова или #теги',
@@ -216,6 +216,38 @@ return array(
 		'months' => 'месяцев',
 		'weeks' => 'недель',
 		'years' => 'лет',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Эта форма помогает создавать поисковые запросы, но ручные запросы ещё мощнее.',
+		'authors' => 'Авторы',
+		'categories' => 'Категории',
+		'content' => 'Содержимое',
+		'date_from' => 'С',
+		'date_past' => 'За прошедший период',
+		'date_published' => 'Дата публикации',
+		'date_range' => 'Диапазон дат',
+		'date_received' => 'Дата получения',
+		'date_to' => 'По',
+		'date_user' => 'Дата изменения пользователем',
+		'feeds' => 'Ленты',
+		'free_text' => 'Свободный текст',
+		'free_text_help' => 'Поиск по заголовку и содержимому',
+		'full_documentation' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">полную документацию по поиску</a>',
+		'labels' => 'Мои метки',
+		'multiple_help' => 'Выберите один или несколько элементов (удерживайте <kbd>Ctrl</kbd> или <kbd>Cmd</kbd>)',
+		'sources' => 'Источники',
+		'tags' => 'Теги статьи',
+		'text' => 'Текстовый поиск',
+		'text_help' => 'Несколько строк объединяются логическим <i>или</i>. Также поддерживаются <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">регулярные выражения</a>.',
+		'text_placeholder' => 'Ключевое слово',
+		'title' => 'Заголовок',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Пользовательские запросы',
 	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
@@ -239,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

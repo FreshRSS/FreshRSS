@@ -89,11 +89,15 @@ return array(
 			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
 			'rand' => 'Rastgele sıralama',
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',

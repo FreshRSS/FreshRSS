@@ -48,6 +48,7 @@
 					<th><?= _t('admin.extensions.version') ?></th>
 					<th><?= _t('admin.extensions.author') ?></th>
 					<th><?= _t('admin.extensions.description') ?></th>
+					<th><?= _t('admin.extensions.is_compatible') ?></th>
 				</tr>
 				<?php foreach ($this->available_extensions as $ext) { ?>
 					<tr>
@@ -68,6 +69,7 @@
 								<?php } ?>
 							<?php } ?>
 						</td>
+						<td><?= $ext['compatibility'] ?></td>
 					</tr>
 				<?php } ?>
 			</table>

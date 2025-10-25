@@ -118,6 +118,7 @@ return array(
 		'empty_list' => ' هیچ برنامه افزودنی نصب شده ای وجود ندارد',
 		'empty_list_help' => 'لاگ‌ها را بررسی کنید تا دلیل خالی بودن لیست افزونه‌ها مشخص شود',
 		'enabled' => ' فعال است',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => ' نصب شده است',
 		'name' => ' نام',
 		'no_configure_view' => ' این برنامه افزودنی قابل پیکربندی نیست.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'آمار',
 		'all_feeds' => ' همه فیدها',
 		'category' => ' دسته',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => ' تعداد ورودی',
 		'entry_per_category' => ' ورودی در هر دسته',
 		'entry_per_day' => ' ورودی در روز (30 روز گذشته)',
@@ -146,6 +149,7 @@ return array(
 		'idle' => ' تغذیه بیکار',
 		'main' => ' آمار اصلی',
 		'main_stream' => ' جریان اصلی',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => ' هیچ فید بیکار وجود ندارد!',
 		'number_entries' => ' %d مقاله',
 		'overview' => 'بررسی اجمالی',
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => ' خوانده نشده',
 		'title' => 'آمار',
 		'top_feed' => ' ده فید برتر',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => ' پیکربندی سیستم',
