@@ -943,6 +943,9 @@ class FreshRSS_Feed extends Minz_Model {
 			// If the result is a list, then aggregate as a JSON array
 			$result = [];
 			foreach ($jsonFragments as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$json = json_decode($node->textContent, true);
 				if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
 					$result[] = $json;
@@ -1067,6 +1070,9 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			foreach ($nodes as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpathEvaluateString($xPathItemTitle, $node);
 
@@ -1077,7 +1083,9 @@ class FreshRSS_Feed extends Minz_Model {
 						// List of nodes, save as HTML
 						$content = '';
 						foreach ($result as $child) {
-							$content .= $doc->saveHTML($child) . "\n";
+							if ($child instanceof DOMNode) {
+								$content .= $doc->saveHTML($child) . "\n";
+							}
 						}
 						$item['content'] = $content;
 					} elseif (is_string($result) || is_int($result) || is_bool($result)) {
@@ -1103,7 +1111,9 @@ class FreshRSS_Feed extends Minz_Model {
 					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
 						foreach ($itemCategories as $itemCategory) {
-							$item['tags'][] = $itemCategory->textContent;
+							if ($itemCategory instanceof DOMNode) {
+								$item['tags'][] = $itemCategory->textContent;
+							}
 						}
 					}
 				}

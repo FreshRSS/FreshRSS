@@ -23,7 +23,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	/** @param array{0:string,1:int,2:string} $errorInfo */
-	protected function autoUpdateDb(array $errorInfo): bool {
+	public function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
