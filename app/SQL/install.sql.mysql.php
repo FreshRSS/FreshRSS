@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
-	`lastModified` BIGINT DEFAULT 0,	-- v1.28.0
+	`lastModified` BIGINT,	-- v1.28.0
 	`lastUserModified` BIGINT DEFAULT 0,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
@@ -123,7 +123,6 @@ SQL;
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
 ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.28.0
 UPDATE `_entry` SET `lastModified` = `id` DIV 1000000 WHERE `lastModified` IS NULL;
-ALTER TABLE `_entry` ALTER COLUMN `lastModified` SET DEFAULT 0;
 ALTER TABLE `_entrytmp` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT DEFAULT 0;
 ALTER TABLE `_entry` ADD INDEX `entry_last_modified_index` (`lastModified`);	-- IF NOT EXISTS works with MariaDB but not with MySQL
 SQL;
