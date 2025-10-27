@@ -991,25 +991,37 @@ HTML;
 			if ($nodes != false) {
 				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
-					if (!($node instanceof DOMElement)) {
-						continue;
-					}
-					if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
-						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
-						foreach ($filterednodes as $filterednode) {
-							if ($filterednode === $node) {
-								continue 2;
+					try {
+						if (!($node instanceof DOMElement)) {
+							continue;
+						}
+						if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
+							// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
+							foreach ($filterednodes as $filterednode) {
+								try {
+									if ($filterednode === $node) {
+										continue 2;
+									}
+									if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+										continue;
+									}
+									$filterednode->remove();
+								} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+									if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+										throw $e;
+									}
+								}
 							}
-							if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
-								continue;
-							}
-							$filterednode->parentNode->removeChild($filterednode);
+						}
+						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
+							continue;
+						}
+						$html .= $doc->saveHTML($node) . "\n";
+					} catch (Error $e) {
+						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+							throw $e;
 						}
 					}
-					if ($node->parentNode === null) {
-						continue;
-					}
-					$html .= $doc->saveHTML($node) . "\n";
 				}
 			}
 
@@ -1025,11 +1037,17 @@ HTML;
 				$xpath = new DOMXPath($doc);
 				$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
 				foreach ($filterednodes as $filterednode) {
-					if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
-						continue;
+					try {
+						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+							continue;
+						}
+						$filterednode->remove();
+						$modified = true;
+					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+							throw $e;
+						}
 					}
-					$filterednode->parentNode->removeChild($filterednode);
-					$modified = true;
 				}
 				if ($modified) {
 					$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild) ?: $html;
@@ -1097,10 +1115,16 @@ HTML;
 			$xpath = new DOMXPath($doc);
 			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
-				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
-					continue;
+				try {
+					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+						continue;
+					}
+					$filterednode->remove();
+				} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+						throw $e;
+					}
 				}
-				$filterednode->parentNode->removeChild($filterednode);
 			}
 			$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild);
 			if (!is_string($html)) {

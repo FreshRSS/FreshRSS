@@ -38,6 +38,15 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 				break;
 		}
 
+		$outline['frss:priority'] = match ($feed->priority()) {
+			FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+			FreshRSS_Feed::PRIORITY_MAIN_STREAM => null,	// Default
+			FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+			FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+			FreshRSS_Feed::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,
+			default => null,
+		};
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributeArray('xpath') ?? [];

@@ -365,12 +365,12 @@ final class GReaderAPI {
 						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
 						$feed->favicon(absolute: true)),
 					'frss:priority' => match ($feed->priority()) {
-						FreshRSS_Feed::PRIORITY_IMPORTANT => 'important',
-						FreshRSS_Feed::PRIORITY_MAIN_STREAM => 'main',
-						FreshRSS_Feed::PRIORITY_CATEGORY => 'category',
-						FreshRSS_Feed::PRIORITY_FEED => 'feed',
-						// FreshRSS_Feed::PRIORITY_HIDDEN => 'hidden',	// Not returned by the API
-						default => 'main',
+						FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+						FreshRSS_Feed::PRIORITY_MAIN_STREAM => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
+						FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+						FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+						// FreshRSS_Feed::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,	// Not returned by the API
+						default => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
 					},
 				];
 			}
