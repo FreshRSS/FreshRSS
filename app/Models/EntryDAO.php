@@ -178,17 +178,17 @@ SQL;
 
 	private PDOStatement|null|false $addEntryPrepared = null;
 
-	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified?:int,hash:string,
+	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified?:int,lastUserModified?:int,hash:string,
 	 *		is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
 			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. (static::isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, `lastModified`, hash, is_read, is_favorite, id_feed, tags, attributes) '
+				. ', link, date, `lastSeen`, `lastModified`, `lastUserModified`, hash, is_read, is_favorite, id_feed, tags, attributes) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
-				. ', :link, :date, :last_seen, :last_modified, '
+				. ', :link, :date, :last_seen, :last_modified, :last_user_modified, '
 				. static::sqlHexDecode(':hash')
 				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
@@ -214,10 +214,14 @@ SQL;
 				$valuesTmp['lastSeen'] = time();
 			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-			if (empty($valuesTmp['lastModified'])) {
-				$valuesTmp['lastModified'] = time();
+			if (empty($valuesTmp['lastModified']) && is_string($valuesTmp['id'])) {
+				$valuesTmp['lastModified'] = substr($valuesTmp['id'], 0, -6);	// Microseconds to seconds
 			}
 			$this->addEntryPrepared->bindParam(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
+			if (empty($valuesTmp['lastUserModified'])) {
+				$valuesTmp['lastUserModified'] = 0;
+			}
+			$this->addEntryPrepared->bindParam(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;

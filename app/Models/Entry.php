@@ -101,10 +101,18 @@ class FreshRSS_Entry extends Minz_Model {
 		if (!empty($dao['timestamp'])) {
 			$entry->_date(strtotime($dao['timestamp']) ?: 0);
 		}
-		if (isset($dao['lastSeen'])) {
+		if (empty($dao['lastSeen'])) {
+			$entry->_lastSeen($entry->id() == '0' ?
+				0 :
+				(int)substr($entry->id(), 0, -6));	// Microseconds to seconds
+		} else {
 			$entry->_lastSeen($dao['lastSeen']);
 		}
-		if (isset($dao['lastModified'])) {
+		if (empty($dao['lastModified'])) {
+			$entry->_lastModified($entry->id() == '0' ?
+				min($entry->date(raw: true), time()) : // Fall back to publication date
+				(int)substr($entry->id(), 0, -6));	// Microseconds to seconds
+		} else {
 			$entry->_lastModified($dao['lastModified']);
 		}
 		if (isset($dao['lastUserModified'])) {
