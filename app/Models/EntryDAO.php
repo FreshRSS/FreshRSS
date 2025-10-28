@@ -42,6 +42,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return "LIMIT {$limit} OFFSET {$offset}";
 	}
 
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -290,7 +294,7 @@ SQL;
 				. 'SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', `lastUserModified`=GREATEST(:last_user_modified, `lastUserModified`)'
+				. ', `lastUserModified`=' . static::sqlGreatest(':last_user_modified', '`lastUserModified`')
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
@@ -808,27 +812,31 @@ SQL;
 
 	public function searchByGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+	{$contentLength}
 FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
 		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
-		 *		is_read:int,is_favorite:int,tags:string,attributes:?string}> $res */
+		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchById(string $id): ?FreshRSS_Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+	{$contentLength}
 FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
-		/** @var list<array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-		 *		'is_read':int,'is_favorite':int,'tags':string,'attributes':?string}> $res */
+		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
+		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -902,6 +910,14 @@ SQL;
 				$sub_search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
+			if ($filter->getMinUserdate() !== null) {
+				$sub_search .= 'AND ' . $alias . '`lastUserModified` >= ? ';
+				$values[] = $filter->getMinUserdate();
+			}
+			if ($filter->getMaxUserdate() !== null) {
+				$sub_search .= 'AND ' . $alias . '`lastUserModified` <= ? ';
+				$values[] = $filter->getMaxUserdate();
+			}
 
 			//Negation of date intervals must be combined by OR
 			if ($filter->getNotMinDate() !== null || $filter->getNotMaxDate() !== null) {
@@ -931,6 +947,21 @@ SQL;
 				if ($filter->getNotMaxPubdate() !== null) {
 					$sub_search .= $alias . 'date > ?';
 					$values[] = $filter->getNotMaxPubdate();
+				}
+				$sub_search .= ') ';
+			}
+			if ($filter->getNotMinUserdate() !== null || $filter->getNotMaxUserdate() !== null) {
+				$sub_search .= 'AND (';
+				if ($filter->getNotMinUserdate() !== null) {
+					$sub_search .= $alias . '`lastUserModified` < ?';
+					$values[] = $filter->getNotMinUserdate();
+					if ($filter->getNotMaxUserdate()) {
+						$sub_search .= ' OR ';
+					}
+				}
+				if ($filter->getNotMaxUserdate() !== null) {
+					$sub_search .= $alias . '`lastUserModified` > ?';
+					$values[] = $filter->getNotMaxUserdate();
 				}
 				$sub_search .= ') ';
 			}
@@ -1229,7 +1260,7 @@ SQL;
 	/**
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1297,12 +1328,13 @@ SQL;
 			$values[] = $id_min;
 		}
 
-		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified'], true)) {
+		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
 			$sign = $order === 'ASC' ? '>' : '<';
 			$orderBy = match ($sort) {
 				'c.name' => 'c.name',
 				'f.name' => 'f.name',
 				'lastUserModified' => $alias . '`lastUserModified`',
+				'length' => 'LENGTH(' . $alias . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 				default => $alias . $sort,
 			};
 			// Keyset pagination (Compatibility syntax due to poor performance of tuple syntax in MySQL https://bugs.mysql.com/bug.php?id=104128)
@@ -1336,11 +1368,11 @@ SQL;
 	}
 
 	/**
-	 * @param 'a'|'A'|'i'|'s'|'S'|'c'|'f'|'t'|'T'|'ST'|'Z' $type
+	 * @param 'a'|'A'|'c'|'f'|'i'|'s'|'S'|'ST'|'t'|'T'|'Z' $type
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1399,11 +1431,12 @@ SQL;
 		}
 
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified'], true) ? $sort : 'id';
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		$orderBy = match ($sort) {
 			'c.name' => 'c.name',
 			'f.name' => 'f.name',
 			'lastUserModified' => 'e.`lastUserModified`',
+			'length' => 'LENGTH(e.' . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 			'rand' => static::sqlRandom(),
 			default => 'e.' . $sort,
 		};
@@ -1429,11 +1462,11 @@ SQL;
 	}
 
 	/**
-	 * @param 'a'|'A'|'s'|'S'|'i'|'c'|'f'|'t'|'T'|'ST'|'Z' $type
+	 * @param 'a'|'A'|'c'|'f'|'i'|'s'|'S'|'ST'|'t'|'T'|'Z' $type
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1443,7 +1476,7 @@ SQL;
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified'], true) ? $sort : 'id';
+		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
@@ -1452,6 +1485,7 @@ SQL;
 			'c.name' => 'c0.name',
 			'f.name' => 'f0.name',
 			'lastUserModified' => 'e0.`lastUserModified`',
+			'length' => 'LENGTH(e0.' . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 			'rand' => static::sqlRandom(),
 			default => 'e0.' . $sort,
 		};
@@ -1492,11 +1526,11 @@ SQL;
 	}
 
 	/**
-	 * @param 'a'|'A'|'s'|'S'|'i'|'c'|'f'|'t'|'T'|'ST'|'Z' $type
+	 * @param 'a'|'A'|'c'|'f'|'i'|'s'|'S'|'ST'|'t'|'T'|'Z' $type
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1542,13 +1576,15 @@ SQL;
 		$hash = static::sqlHexEncode('hash');
 		$repeats = str_repeat('?,', count($ids) - 1) . '?';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, lastUserModified
+SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, `lastUserModified`
 FROM `_entry`
 WHERE id IN ({$repeats})
 ORDER BY id {$order}
 SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm === false || !$stm->execute($ids)) {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return;
 		}
 		while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -1559,7 +1595,7 @@ SQL;
 	}
 
 	/**
-	 * @param 'a'|'A'|'s'|'S'|'c'|'f'|'t'|'T'|'ST'|'Z' $type
+	 * @param 'a'|'A'|'c'|'f'|'i'|'s'|'S'|'ST'|'t'|'T'|'Z' $type
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max

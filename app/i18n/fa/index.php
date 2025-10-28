@@ -89,6 +89,8 @@ return array(
 			),
 			'id_asc' => 'آخرین مورد، به تازه گی دریافت شد',
 			'id_desc' => 'نخستین مورد دریافت‌شده به تازگی',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
 			'rand' => 'ترتیب تصادفی',

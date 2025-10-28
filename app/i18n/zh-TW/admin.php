@@ -118,6 +118,7 @@ return array(
 		'empty_list' => '沒有已安裝的擴充功能',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '已啟用',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => '已安裝',
 		'name' => '名稱',
 		'no_configure_view' => '此擴充功能不能配置。',
@@ -134,6 +135,8 @@ return array(
 		'_' => '統計',
 		'all_feeds' => '所有訂閱源',
 		'category' => '分類',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '文章數',
 		'entry_per_category' => '各分類文章數',
 		'entry_per_day' => '近三十日每日文章數',
@@ -146,6 +149,7 @@ return array(
 		'idle' => '長期無更新訂閱源',
 		'main' => '主要統計',
 		'main_stream' => '首頁',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '訂閱源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => '未讀',
 		'title' => '統計',
 		'top_feed' => '前十訂閱源',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '系統配置',

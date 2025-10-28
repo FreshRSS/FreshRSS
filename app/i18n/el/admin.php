@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Δεν υπάρχουν εγκατεστημένες επεκτάσεις',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ενεργοποιημένες',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Εγκατεστημένες',
 		'name' => 'Όνομα',
 		'no_configure_view' => 'Αυτή η επέκταση δεν μπορεί να ρυθμιστεί.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Στατιστικά',
 		'all_feeds' => 'Όλες οι τροφοδοσίες',
 		'category' => 'Κατηγορία',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Αριθμός καταχωρίσεων',
 		'entry_per_category' => 'Καταχωρίσεις ανά κατηγορία',
 		'entry_per_day' => 'Καταχωρίσεις ανά ημέρα (τελευταίες 30 ημέρες)',
@@ -146,6 +149,7 @@ return array(
 		'idle' => 'Αδρανείς τροφοδοσίες',
 		'main' => 'Κύρια στατισικά',
 		'main_stream' => 'Κύρια ροή',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
 		'number_entries' => '%d άρθρα',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'Μη αναγνωσμένα',
 		'title' => 'Στατιστικά',
 		'top_feed' => 'Κορυφαίες δέκα τροφοδοσίες',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Ρυθμίσεις συστήματος',

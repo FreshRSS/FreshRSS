@@ -189,6 +189,7 @@ return array(
 		'about' => 'O serwisie',
 		'account' => 'Konto',
 		'admin' => 'Administracja',
+		'advanced_search' => 'Zaawansowane wyszukiwanie',
 		'archiving' => 'Archiwizacja',
 		'authentication' => 'Uwierzytelnianie',
 		'check_install' => 'Sprawdzenie instalacji',
@@ -221,6 +222,33 @@ return array(
 		'language' => 'Language',	// IGNORE
 		'translated' => 'Progress',	// IGNORE
 	),
+	'search' => array(
+		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, ale ręczne zapytania są jeszcze potężniejsze.',
+		'authors' => 'Autorzy',
+		'categories' => 'Kategorie',
+		'content' => 'Zawartość',
+		'date_from' => 'Od',
+		'date_past' => 'W przeszłych',
+		'date_published' => 'Data publikacji',
+		'date_range' => 'Zasięg dat',
+		'date_received' => 'Data otrzymania',
+		'date_to' => 'Do',
+		'date_user' => 'Data modyfikacji przez użytkownika',
+		'feeds' => 'Kanały',
+		'free_text' => 'Dowolny tekst',
+		'free_text_help' => 'Szukaj zarówno w tytule jak i zawartości',
+		'full_documentation' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">pełną dokumentację o wyszukiwaniu</a>',
+		'labels' => 'Własne etykiety',
+		'multiple_help' => 'Zaznacz jedną lub więcej opcji (przytrzymaj <kbd>Ctrl</kbd> lub <kbd>Cmd</kbd>)',
+		'sources' => 'Źródła',
+		'tags' => 'Tagi artykułów',
+		'text' => 'Szukanie w tekście',
+		'text_help' => 'Wiele linii są łączone poprzez logiczne <i>or</i>. Wspierane są również <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">wyrażenia regularne</a>.',
+		'text_placeholder' => 'Słowo kluczowe',
+		'title' => 'Tytuł',
+		'url' => 'Adres URL',
+		'user_queries' => 'Zapisane zapytania',
+	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
 		'archiveIS' => 'archive.is',	// IGNORE
@@ -243,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Wydruk',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

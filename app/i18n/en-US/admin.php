@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'There are no installed extensions',	// IGNORE
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// IGNORE
 		'enabled' => 'Enabled',	// IGNORE
+		'is_compatible' => 'Is compatible',	// IGNORE
 		'latest' => 'Installed',	// IGNORE
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'This extension cannot be configured.',	// IGNORE
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistics',	// IGNORE
 		'all_feeds' => 'All feeds',	// IGNORE
 		'category' => 'Category',	// IGNORE
+		'date_published' => 'Publication date',	// IGNORE
+		'date_received' => 'Received date',	// IGNORE
 		'entry_count' => 'Entry count',	// IGNORE
 		'entry_per_category' => 'Entries per category',	// IGNORE
 		'entry_per_day' => 'Entries per day (last 30 days)',	// IGNORE
@@ -146,6 +149,7 @@ return array(
 		'idle' => 'Idle feeds',	// IGNORE
 		'main' => 'Main statistics',	// IGNORE
 		'main_stream' => 'Main stream',	// IGNORE
+		'nb_unreads' => 'Number of unread articles',	// IGNORE
 		'no_idle' => 'There are no idle feeds!',	// IGNORE
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Overview',	// IGNORE
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'Unread',	// IGNORE
 		'title' => 'Statistics',	// IGNORE
 		'top_feed' => 'Top ten feeds',	// IGNORE
+		'unread_dates' => 'Dates with most unread articles',	// IGNORE
 	),
 	'system' => array(
 		'_' => 'System configuration',	// IGNORE

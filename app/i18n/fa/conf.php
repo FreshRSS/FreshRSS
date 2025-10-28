@@ -152,6 +152,7 @@ return array(
 			'categories' => ' نمایش بر اساس دسته بندی',
 			'feeds' => ' نمایش با فید',
 			'order' => ' مرتب سازی بر اساس تاریخ',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => ' بیان',
 			'shareOpml' => 'فعال‌سازی اشتراک‌گذاری دسته‌ها و فیدهای مربوطه با OPML',
 			'shareRss' => 'اشتراک‌گذاری RSS',
